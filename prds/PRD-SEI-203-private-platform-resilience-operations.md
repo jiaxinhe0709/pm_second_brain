@@ -17,10 +17,11 @@ related:
   - PRD-SEI-207
   - PRD-SEI-208
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
-  page_id: ""
+  parent_page_id: "837588799"
+  page_id: "837611183"
+  title: Private platform resilience in Spain
 ---
 
 # Spain Private Platform Resilience and Operations

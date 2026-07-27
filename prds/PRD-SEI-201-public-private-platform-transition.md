@@ -19,10 +19,11 @@ related:
   - https://confluence.sage.com/spaces/DNBU/pages/855183578/Platform+Transition+Management
   - https://confluence.sage.com/spaces/DNBU/pages/837610648/Public+Platform+Onboard
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: ""
-  page_id: ""
+  page_id: "837588799"
+  title: Phase 2 - Private platform connections
 ---
 
 # Spain Public and Private Platform Transition

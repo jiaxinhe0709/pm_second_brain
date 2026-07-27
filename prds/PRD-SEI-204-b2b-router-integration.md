@@ -14,10 +14,11 @@ related:
   - PRD-SEI-203
   - research/provider-apis/b2b-router/README.md
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
-  page_id: ""
+  parent_page_id: "837588799"
+  page_id: "855180241"
+  title: B2B Router integration
 ---
 
 # Spain B2B Router Integration

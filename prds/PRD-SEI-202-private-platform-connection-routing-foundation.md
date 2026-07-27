@@ -12,10 +12,11 @@ related:
   - PRD-SEI-201
   - PRD-SEI-203
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "837588799"
   page_id: ""
+  title: Private platform connection and routing foundation
 ---
 
 # Spain Private Platform Connection and Routing Foundation

@@ -14,10 +14,11 @@ related:
   - PRD-SEI-203
   - research/provider-apis/seres-docaposte/README.md
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
-  page_id: ""
+  parent_page_id: "837588799"
+  page_id: "855180245"
+  title: SERES (Docapost) integration
 ---
 
 # Spain SERES Docaposte Integration
