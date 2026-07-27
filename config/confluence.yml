@@ -1,0 +1,8 @@
+# Non-secret defaults only. Keep credentials in GitHub Actions secrets.
+publication:
+  enabled: false
+  generated_label: generated-from-github
+  include_source_revision: true
+  include_source_link: true
+  preserve_manual_discussion_section: true
+

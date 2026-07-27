@@ -1,0 +1,14 @@
+name: Publish to Confluence
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publishing disabled
+        run: echo "Configure the Confluence target and secrets before enabling publication."
+

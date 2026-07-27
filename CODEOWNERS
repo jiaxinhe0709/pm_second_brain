@@ -1,0 +1,7 @@
+# Replace these placeholders with real GitHub teams after the repository is created.
+/prds/ @product-owners @engineering-owners
+/feature-proposals/ @product-owners @engineering-owners
+/decisions/ @engineering-owners
+/.github/workflows/ @platform-owners
+/tools/ @platform-owners
+

@@ -1,0 +1,20 @@
+name: Validate documents
+
+on:
+  pull_request:
+    paths:
+      - "prds/**"
+      - "feature-proposals/**"
+      - "decisions/**"
+      - "schema/**"
+      - "config/**"
+      - "tools/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validation placeholder
+        run: echo "Add the document validator before enabling required checks."
+

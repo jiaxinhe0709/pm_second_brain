@@ -1,0 +1,14 @@
+document_types:
+  prd:
+    id_prefix: PRD
+    template: templates/prd.md
+    allowed_statuses: [idea, discovery, draft, in-review, approved, implemented, superseded]
+  feature-proposal:
+    id_prefix: FP
+    template: templates/feature-proposal.md
+    allowed_statuses: [idea, discovery, draft, in-review, approved, implemented, superseded]
+  decision:
+    id_prefix: ADR
+    template: templates/decision-record.md
+    allowed_statuses: [proposed, accepted, superseded]
+
