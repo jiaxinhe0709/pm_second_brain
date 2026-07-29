@@ -27,24 +27,61 @@ confluence:
 
 Connect eligible Spanish e-invoicing customers to EDICOM through the shared private-platform connection, routing, and resilience foundation.
 
+This Phase 2 PRD defines the evidence contract and observable behaviour required before an EDICOM adapter can be designed. It deliberately avoids choosing REST, SOAP, AS2, SFTP, Web Services, a managed connector, or another protocol without contracted provider evidence.
+
+> **Product principle:** An EDICOM product claim can justify discovery; only the contracted Spain integration pack and tested environment can justify an implementation contract.
+
 ## Problem
 
 Sage requires a shared EDICOM adapter rather than separate ERP implementations. The exact Spain capabilities, onboarding process, protocols, and operational constraints must be confirmed during discovery.
 
 No authoritative public endpoint-level EDICOM documentation has been located. The integration might use REST, SOAP, AS2, SFTP, a managed connector, or another contracted protocol. The PRD therefore defines the required product behaviour and evidence gates without presenting an unverified protocol as fact.
 
-## Evidence and confidence
+## Evidence and research findings
 
-Evidence source: `research/provider-apis/edicom/README.md`
+This section is self-contained for Confluence readers. Official public material was rechecked on 2026-07-29. It confirms EDICOM's platform positioning and broad capability, not Sage's Spain endpoint contract.
 
-| Area | Current confidence |
+### Evidence register
+
+| Ref | Official source | Confirmed finding | Confidence and limitation | PRD impact |
+|---|---|---|---|---|
+| E1 | [Global electronic invoicing platform](https://edicomgroup.com/electronic-invoicing) | EDICOM publicly describes a SaaS platform integrated with ERPs for issuance, receipt, validation and electronic archiving across many jurisdictions, including Spain. | **Confirmed product claim.** No Sage contract, endpoint, schema or Spain private-platform sequence. | Justifies discovery; G1/G3 remain blocking |
+| E2 | [EDICOM Spain](https://edicomgroup.com/es/) | EDICOM publicly describes EDI/e-invoicing, multi-standard/multi-protocol interoperability, Peppol Access Point capability, SaaS infrastructure and managed services. | **Confirmed broad platform claim.** Does not select protocol/product for Sage. | FR11–FR14; protocol-neutral adapter requirement |
+| E3 | [SAP Ariba connector example](https://edicomgroup.com/connectors/ariba-network) | EDICOM describes API-based validation/integration for a named connector and multi-stage invoice processing. | **Confirmed capability in another product context only.** Must not be reused as Spain endpoint evidence. | Supports need to distinguish stages; no endpoint mapping |
+
+### Capability matrix
+
+| Capability | Public evidence | Phase 2 treatment | Required provider evidence |
+|---|---|---|---|
+| ERP integration and SaaS platform | Confirmed product claim | Discovery basis | Contracted architecture/service name |
+| Issuance, receipt, validation, archive | Confirmed broad claim | Candidate capabilities | Spain direction/document/lifecycle matrix |
+| Multi-standard/multi-protocol | Confirmed broad claim | Keep design protocol-neutral | Selected protocol, schemas, versions |
+| Peppol Access Point | Confirmed broad claim | Do not assume selected Spain route | Contract and Spain applicability |
+| Managed service/support | Confirmed broad claim | Candidate operating model | Sage/customer responsibilities, SLA/escalation |
+| Tenant/legal-entity registration | Unknown | Production blocker | Resource/provisioning model |
+| Authentication/certificates/network | Unknown | Production blocker | Credential, signing, VPN/allow-list details |
+| Endpoint/message contract | Unknown | Engineering blocker | API/WSDL/schema/file specification |
+| Acknowledgement/status/error model | Unknown | Engineering blocker | Code catalogue and provenance |
+| Idempotency/reconciliation/limits | Unknown | Production blocker | Per-operation safety contract |
+| Deregistration/historical access | Unknown | Production blocker | Exit and archive procedure |
+
+### What public evidence does not prove
+
+- which EDICOM product, tenant, access point or managed service Sage will use;
+- whether the exchange is API, Web Service, EDI transport, file transfer or managed connector;
+- which party owns certificates, signing, network configuration or provider registration;
+- that Peppol is the intended Spain private-platform path;
+- which acknowledgement proves technical receipt, validation, routing, delivery or business acceptance;
+- that public claims about other countries/connectors apply to Spain;
+- any endpoint, payload, idempotency, limit, SLA, retention or exit behaviour.
+
+| Evidence class | Assessment |
 |---|---|
-| EDICOM is in the intended Phase 2 provider portfolio | Confirmed internally |
-| Exact EDICOM product and Spain service | Unconfirmed |
-| API or transport protocol | Unconfirmed |
-| Authentication, certificates, and network setup | Unconfirmed |
-| Invoice directions, formats, and status model | Unconfirmed |
-| Sandbox, idempotency, reconciliation, limits, and SLA | Unconfirmed |
+| Provider/platform existence and broad capability | High |
+| Spain contracted product and private-platform role | Low |
+| Protocol, schema, identity and onboarding | Low |
+| Lifecycle, reconciliation, service and exit | Low |
+| Overall readiness | **Provider-consultation ready; blocked for solution design** |
 
 ## Goals
 
@@ -63,10 +100,32 @@ Evidence source: `research/provider-apis/edicom/README.md`
 
 ## Users and use cases
 
-- ERP teams use common APIs to configure EDICOM.
-- Customers or accountants complete required onboarding.
-- Invoice services exchange supported documents.
-- Operations diagnose and reconcile failures.
+- **Customer/accountant administrator:** completes contracted legal-entity provisioning and any certificate/network actions.
+- **Sage ERP/API consumer:** uses shared Sage APIs without needing the selected EDICOM protocol.
+- **Sage adapter/invoice services:** transform, exchange and retain provider/interchange evidence.
+- **Operations/support:** see manual/provider/Sage steps, acknowledgements and reconciliation without secrets.
+- **Security/network/compliance:** approve certificate/key custody, endpoints, allow-lists, data flows and retention.
+- **EDICOM technical/support owner:** supplies authoritative artefacts and resolves ambiguous provider state.
+
+## Business scenarios and rules
+
+| Scenario | Expected outcome | Evidence dependency |
+|---|---|---|
+| Contract discovery | One named EDICOM product/protocol/version and owner | Contracted technical pack |
+| Manual provisioning | Pending/action-required states remain visible and auditable | Onboarding/certification guide |
+| Outbound exchange | Submission, technical ACK, validation, delivery and business state remain distinct | Status/ack catalogue |
+| Inbound exchange | Trusted, incremental, deduplicated receipt with original document | Delivery/query specification |
+| Ambiguous submission | Reconcile via authoritative query/receipt/support path before repeat | Idempotency/reconciliation procedure |
+| Route moves away | Historical provider/interchange context remains usable | Archive/credential/exit procedure |
+
+| ID | Business rule | Status/evidence |
+|---|---|---|
+| BR1 | EDICOM provisioning/readiness must not activate a Sage route. | Confirmed Phase 2 rule |
+| BR2 | No protocol or endpoint may be treated as confirmed until linked to the contracted Spain product/version. | Confirmed evidence rule |
+| BR3 | Technical receipt, schema/business validation, network delivery and recipient lifecycle must not be collapsed. | Product requirement; provider mapping open |
+| BR4 | Manual provisioning/certification is a tracked workflow state, not an undocumented project activity. | Proposed pending provider process |
+| BR5 | Unknown post-transmission outcome must reconcile before repeat unless operation-specific idempotency is proven. | PRD-SEI-203 |
+| BR6 | Route deactivation, provider deregistration, certificate revocation and archive termination are separate actions. | Confirmed Phase 2 rule |
 
 ## Requirements
 
@@ -152,6 +211,38 @@ Evidence source: `research/provider-apis/edicom/README.md`
 4. Store original context and canonical mapping.
 5. Acknowledge according to the provider protocol.
 
+### Correct, reconcile and preserve history
+
+1. Schema/business rejection returns an actionable correction without repeating the unchanged document.
+2. Timeout after possible transmission enters an unknown-outcome state with durable Sage correlation.
+3. Adapter uses the contracted query, acknowledgement or support reconciliation path before retry.
+4. Duplicate/later acknowledgements do not duplicate or regress lifecycle.
+5. After route deactivation, older EDICOM documents retain provider IDs, protocol/schema version and required archive/status access.
+
+## Proposed integration contract — protocol neutral
+
+Until G1/G2 pass, architecture may rely only on these conceptual fields, not an EDICOM payload:
+
+| Context | Required fields |
+|---|---|
+| Connection | EDICOM product/service, environment, legal entity/tenant/mailbox, protocol profile, credential/certificate references, enabled directions/formats |
+| Outbound operation | Sage correlation, document fingerprint, schema/version, transmission reference, submission time, acknowledgement references |
+| Inbound operation | Provider document/interchange ID, source/legal entity, original format/version, received time, integrity evidence |
+| Lifecycle event | Provider code, stage category, provenance, provider timestamp, observed time, related document/transmission |
+| Reconciliation | Intended Sage state, last observed EDICOM state, evidence source/freshness, permitted recovery action |
+
+No sample EDICOM API payload is included because no authoritative endpoint/schema has been obtained. The first approved samples must be synthetic fixtures from the contracted sandbox and stored under `assets/provider-apis/edicom/{CONTRACT_VERSION}/`.
+
+### Operation-safety classification
+
+| Operation | Default treatment before evidence |
+|---|---|
+| Connectivity/status read | Bounded retry if read-only is proven |
+| Registration/configuration mutation | Reconcile intended/observed state; no blind repeat |
+| Invoice submission | Outcome unknown after possible transmission; reconcile first |
+| Inbound ACK | Deduplicate and prove provider retry semantics |
+| Deregistration/certificate revocation | Explicit authorisation, historical dependency check and post-action verification |
+
 ## Required provider artefacts
 
 - product architecture and Spain scope;
@@ -168,16 +259,18 @@ Evidence source: `research/provider-apis/edicom/README.md`
 
 ## Acceptance criteria
 
-1. All provider claims used in implementation are traceable to a versioned EDICOM source.
-2. The connection can be validated in sandbox without changing an active route.
-3. Required manual provisioning is visible and auditable.
-4. Representative outbound and inbound invoices complete with retained provider references.
-5. Technical acknowledgements and business lifecycle statuses map without loss of meaning.
-6. Duplicate inbound and acknowledgement tests remain idempotent.
-7. Ambiguous outbound outcomes have a documented reconciliation procedure.
-8. Certificate expiry or connectivity loss creates an actionable connection state.
-9. Existing EDICOM invoices retain their original connection after route change.
-10. Production cannot be enabled until security, resilience, support, and deregistration gates pass.
+| ID | Demonstrable criterion |
+|---|---|
+| AC1 | Every implementation claim links to the contracted EDICOM product, protocol and versioned source. |
+| AC2 | Sandbox connection/capability validation completes without changing an active route. |
+| AC3 | Manual provisioning/certification steps expose owner, evidence, status and next action. |
+| AC4 | Representative outbound and inbound invoices retain EDICOM document/interchange IDs, original format and protocol/schema version. |
+| AC5 | Technical receipt, validation, delivery and business states remain distinguishable and preserve raw EDICOM codes/provenance. |
+| AC6 | Duplicate inbound documents/ACKs process once; out-of-order ACKs do not regress state. |
+| AC7 | A post-transmission timeout reconciles before resubmission and cannot create an uncontrolled duplicate. |
+| AC8 | Certificate expiry, network failure or allow-list mismatch creates an actionable, redacted connection state. |
+| AC9 | Existing EDICOM invoices retain historical retrieval/lifecycle after route change. |
+| AC10 | Production activation is impossible until G1–G6 pass. |
 
 ## User experience
 
@@ -202,11 +295,14 @@ Provider-specific onboarding data must be collected within the shared experience
 
 ### Provider readiness gate
 
-- Named EDICOM technical owner and product confirmed.
-- Contracted integration protocol and version confirmed.
-- Technical pack and storage permission received.
-- Sandbox, credentials, schemas, acknowledgements, and error catalogue available.
-- Idempotency/reconciliation, limits, security, retention, SLA, and support approved.
+| Gate | Required evidence | Blocks |
+|---|---|---|
+| G1 — Product/owner | Named EDICOM service, Spain scope, commercial/technical owner | Solution design |
+| G2 — Contract/protocol | Protocol/profile/version, API/WSDL/schema/file pack and storage permission | Engineering |
+| G3 — Identity/onboarding | Tenant/legal entity, credentials/certificates/network, manual provisioning/certification | Connection build |
+| G4 — Capability/lifecycle | Directions, formats, ACK/status/error catalogue, correction/cancellation and registration | Delivery scope |
+| G5 — Safety/service | Idempotency, query/reconciliation, limits, security, residency/retention, SLA/support | Production |
+| G6 — Fixtures/exit | Synthetic happy/failure/timeout/duplicate tests plus deregistration/historical access | Pilot |
 
 ## Risks
 
@@ -217,13 +313,15 @@ Provider-specific onboarding data must be collected within the shared experience
 
 ## Open questions
 
-1. Which EDICOM service, API, and protocol are in scope?
-2. Which Spain formats and directions are supported?
-3. What provisioning, certificate, and authentication processes apply?
-4. What acknowledgement and lifecycle events are authoritative?
-5. What idempotency, webhook, polling, and reconciliation facilities exist?
-6. What commercial, rate, payload, and SLA limits apply?
-7. Is EDICOM a candidate for the reference integration?
+| ID | Decision required | Owner | Blocks | Current hypothesis |
+|---|---|---|---|---|
+| OQ1 | Named EDICOM Spain service and protocol/version? | Vendor/commercial + architecture | G1/G2 | No protocol assumed |
+| OQ2 | Legal-entity/tenant/mailbox and onboarding/certification model? | Provider/security | G3 | Manual steps likely; unconfirmed |
+| OQ3 | Supported directions, formats and registration/coexistence? | Provider/local team | G4 | Prove inbound/outbound separately |
+| OQ4 | Authoritative ACK/status/error stages and provenance? | Provider/product | G4 | Multi-stage model required |
+| OQ5 | Idempotency and ambiguous-outcome reconciliation? | Provider/resilience owner | G5 | Reconcile before retry |
+| OQ6 | Limits, security, retention, archive, SLA/support and exit? | Provider/operations/legal | G5/G6 | Open |
+| OQ7 | Is EDICOM a reference adapter/pilot? | Product/engineering | Pilot | Not decidable before G2 |
 
 ## Decisions
 
@@ -236,3 +334,4 @@ Provider-specific onboarding data must be collected within the shared experience
 | Date | Change | Pull request |
 |---|---|---|
 | 2026-07-27 | Initial discovery draft | |
+| 2026-07-29 | Embedded public evidence/limitations, business rules, protocol-neutral contract, safety analysis, testable acceptance and provider gates | |

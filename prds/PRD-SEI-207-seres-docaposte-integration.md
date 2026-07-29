@@ -27,25 +27,62 @@ confluence:
 
 Connect eligible Spanish e-invoicing customers to SERES (Docaposte) through the shared private-platform connection, routing, and resilience foundation.
 
+This Phase 2 PRD converts SERES's public Spain product claims into an explicit provider-discovery and delivery contract. Shared routing, transitions and resilience remain owned by PRD-SEI-201–203.
+
+> **Product principle:** SERES may support many formats, networks and workflows; Sage must activate only the contracted, evidenced capability for the intended legal entity and route.
+
 ## Problem
 
 Sage requires a consistent SERES integration for its ERPs, but the exact service boundary, onboarding model, supported document journeys, and operating constraints require provider discovery.
 
 SERES publicly describes sending and receiving electronic invoices, API synchronisation with ERPs, public/private platform connectivity, multiple structured formats, invoice status exchange, multi-company operation, and document access/archiving. These are credible product capabilities but not an endpoint contract. Technical implementation must wait for the provider API pack.
 
-## Evidence and confidence
+## Evidence and research findings
 
-Evidence source: `research/provider-apis/seres-docaposte/README.md`
+This section is self-contained for Confluence readers. The official SERES Spain product page was rechecked on 2026-07-29. It provides unusually relevant Spain capability claims, but no endpoint-level contract.
 
-| Area | Current confidence |
+### Evidence register
+
+| Ref | Official source | Confirmed finding | Confidence/limitation | PRD impact |
+|---|---|---|---|---|
+| E1 | [SERES e-Factura](https://www.groupseres.com/e-factura) | SERES publicly claims sending/receiving, Spain B2B connectivity, CEFACT/UBL/EDIFACT/Facturae, public/private platform connectivity and ERP synchronisation by API. | **Confirmed product claims.** Contracted formats/endpoints/protocols unknown. | FR1–FR20; G1–G4 |
+| E2 | [SERES e-Factura](https://www.groupseres.com/e-factura) | Product page distinguishes acceptance/rejection and payment statuses, notifications, discrepancies and invoice-state management. | **Confirmed product scope.** Mandatory network vs optional workflow provenance unknown. | BR5, FR19–FR22 |
+| E3 | [SERES e-Factura](https://www.groupseres.com/e-factura) | Multi-company operation, API/ERP integration, interaction auditability, online archive/access and format conversion are claimed. | **Confirmed product claims.** Tenant model, audit fields, archive terms and transformation fidelity unknown. | FR11–FR18, FR23, FR29 |
+| E4 | [SERES e-Factura](https://www.groupseres.com/e-factura) | SERES describes specialised connection with Spanish tax/public capabilities and also separate value-added services. | **Confirmed broad scope.** Private provider, public repository/tax, archive, finance and workflow boundaries must be contracted separately. | Scope separation and G3 |
+
+### Capability matrix
+
+| Capability | Public evidence | Phase 2 treatment | Evidence required |
+|---|---|---|---|
+| Send/receive e-invoices | Confirmed claim | Candidate core | Endpoint/protocol and direction matrix |
+| CEFACT, UBL, EDIFACT, Facturae | Confirmed claim | Candidate formats only | Contracted subset, versions, lossless tests |
+| API/ERP synchronisation | Confirmed claim | Integration basis | API pack, auth, environments |
+| Public/private connectivity | Confirmed claim | Do not infer active route | Spain registration/route authority |
+| Acceptance/rejection/payment | Confirmed claim | Map provenance and mandatory subset | Status/event catalogue |
+| Multi-company | Confirmed claim | Candidate delegated model | Organisation/legal-entity segregation |
+| Archive/customer access | Confirmed claim | Candidate continuity support | Retention, trusted copy, access after deactivation |
+| Format conversion | Confirmed claim | Candidate provider responsibility | Fidelity/data-loss policy |
+| Notifications/audit | Confirmed claim | Candidate operations inputs | Event security, identity, retry/replay and audit schema |
+| Endpoint/idempotency/limits/SLA | Not public | Production blockers | Provider technical/contract pack |
+
+### What public evidence does not prove
+
+- that every named format is available through Sage's contracted API;
+- the SERES organisation/mailbox/legal-entity cardinality;
+- whether API, file, callback or another protocol is used;
+- whether directory/public/private capability is Spain's authoritative route;
+- which statuses are provider-network evidence versus manual/workflow actions;
+- that transformation is lossless for Sage's canonical model;
+- archive duration, trusted-copy status or access after deregistration;
+- idempotency, reconciliation, limits, security, SLA or support.
+
+| Evidence class | Assessment |
 |---|---|
-| Sending and receiving e-invoices | Confirmed public product claim |
-| ERP integration and synchronisation by API | Confirmed public product claim |
-| CEFACT, UBL, EDIFACT, and Facturae support | Confirmed public product claim |
-| Acceptance/rejection and payment-state management | Confirmed public product claim |
-| Public and private platform connectivity | Confirmed public product claim |
-| Exact API, authentication, endpoints, and schemas | Unconfirmed |
-| Spain registration, reconciliation, limits, and SLA | Unconfirmed |
+| Spain product/capability relevance | High |
+| Format/network/workflow claims | High as product claims; medium/low as contract |
+| Endpoint, security and tenant model | Low |
+| Resilience, archive terms and service model | Low |
+| Overall readiness | **Provider-consultation ready; blocked for engineering** |
 
 ## Goals
 
@@ -64,10 +101,33 @@ Evidence source: `research/provider-apis/seres-docaposte/README.md`
 
 ## Users and use cases
 
-- ERP products configure SERES through shared APIs.
-- Customers or accountants complete required provider onboarding.
-- Invoice services exchange supported documents.
-- Operations inspect and recover failed work.
+- **Customer/accountant administrator:** selects the intended SERES company/mailbox and completes provider onboarding.
+- **Sage ERP/API consumer:** exchanges invoices through stable Sage APIs independent of SERES protocol.
+- **Sage adapter/invoice services:** transform, submit/retrieve and preserve provider evidence.
+- **Operations/support:** inspect provider, transformation, event and archive state without secrets.
+- **Security/compliance:** approve identity, certificates, signing, network, archive and data controls.
+- **SERES technical/support owner:** supplies the contracted API pack and authoritative reconciliation.
+
+## Business scenarios and rules
+
+| Scenario | Expected outcome | Provider-specific exception |
+|---|---|---|
+| Multi-company onboarding | One Sage legal entity binds to an explicitly authorised SERES scope | Account exposes unrelated companies |
+| Outbound format selection | Only contracted format/version becomes route-capable | Product supports format generally but not through selected API |
+| Send invoice | Technical acceptance, transformation, route/delivery and business status remain distinct | Provider converts or rejects format |
+| Receive invoice | Secure incremental ingestion preserves original document | Notification missed or duplicate |
+| Exchange acceptance/rejection/payment | Provenance determines Sage meaning | Status may be manual/value-added rather than network-required |
+| Route moves away | Archive and lifecycle remain available for existing invoices | Deregistration/credential removal threatens history |
+
+| ID | Business rule | Status/evidence |
+|---|---|---|
+| BR1 | SERES provisioning/readiness does not activate a Sage route. | Confirmed Phase 2 rule |
+| BR2 | Public support for a format/network does not prove contracted availability. | E1; evidence rule |
+| BR3 | Original and transformed artefacts, format versions and provider references must remain traceable. | E1/E3; product requirement |
+| BR4 | Provider conversion cannot silently discard canonical invoice meaning. | E3; proposed pending mapping |
+| BR5 | Acceptance/rejection/payment states require actor/provenance before Sage assigns business meaning. | E2; open mapping |
+| BR6 | Archive access, route deactivation, deregistration and credential revocation are separate lifecycles. | E3; Phase 2 continuity |
+| BR7 | Unknown mutation outcome reconciles before repeat unless idempotency is proven. | PRD-SEI-203 |
 
 ## Requirements
 
@@ -153,6 +213,38 @@ Evidence source: `research/provider-apis/seres-docaposte/README.md`
 4. Retain original format and map canonical invoice.
 5. Apply acceptance/rejection/payment lifecycle events according to confirmed responsibility.
 
+### Correct, reconcile and preserve history
+
+1. Transformation/validation rejection returns field/rule/responsible-actor evidence and does not repeat unchanged data.
+2. Timeout after possible submission creates an unknown outcome with Sage correlation and document fingerprint.
+3. Adapter uses the contracted authoritative query/receipt/reconciliation path before retry.
+4. Missed/duplicate/reordered provider observations reconcile without duplication or regression.
+5. Route change preserves SERES document/transmission IDs, original/transformed artefacts, status provenance and archive access.
+
+## Proposed integration contract — endpoint pending
+
+| Sage context | Required SERES evidence/context |
+|---|---|
+| Connection | Contracted product, environment, organisation/company/mailbox, credentials/certificates, enabled directions/formats/networks |
+| Outbound | Sage correlation, original canonical version, selected target format/version, transformation evidence, provider document/transmission IDs |
+| Inbound | Provider ID, original format/version/document, sender/receiver scope, received timestamp/integrity evidence |
+| Lifecycle | Raw code, category, actor/provenance, provider and observed timestamps, supporting reference |
+| Archive | Trusted-copy status, retention/access policy, download evidence and dependency on active credential/registration |
+| Reconciliation | Intended state, observed provider state, evidence freshness and safe recovery action |
+
+No SERES API payload is included because no authoritative endpoint/schema is public. Approved synthetic request, response, status, event, transformation and archive fixtures must come from the contracted sandbox and be stored under `assets/provider-apis/seres-docaposte/{CONTRACT_VERSION}/`.
+
+### Operation-safety classification
+
+| Operation | Default treatment |
+|---|---|
+| Directory/capability/status read | Bounded retry only when read-only semantics are confirmed |
+| Organisation/registration/configuration | Compare intended/observed state before repeat |
+| Transform/submit invoice | Validation failure corrects; timeout after transmission reconciles before retry |
+| Event/callback processing | Authenticate, deduplicate, preserve provenance and reconcile independently |
+| Archive retrieval | Read-only with access/freshness audit; never treat archive availability as active route |
+| Deregistration/revocation | Authorised dependency check, post-action verification and historical continuity |
+
 ## Required provider artefacts
 
 - SERES/Docaposte product and API scope;
@@ -168,16 +260,18 @@ Evidence source: `research/provider-apis/seres-docaposte/README.md`
 
 ## Acceptance criteria
 
-1. Public product claims are not treated as endpoint commitments without provider evidence.
-2. Multi-company setup preserves legal-entity isolation.
-3. Direction and format capabilities are visible before route activation.
-4. Representative outbound and inbound invoices retain SERES references and original formats.
-5. Acceptance, rejection, and payment states map without lifecycle regression.
-6. Duplicate events/documents are processed once.
-7. Ambiguous submissions are reconciled before retry.
-8. Archive access is tested after route deactivation.
-9. Credential/certificate failures are actionable and do not leak secrets.
-10. Production remains gated on the complete technical and operational pack.
+| ID | Demonstrable criterion |
+|---|---|
+| AC1 | Every endpoint/schema behaviour used in implementation links to the contracted SERES version, not only a product claim. |
+| AC2 | Multi-company discovery exposes only authorised legal entities and binds one explicit SERES scope to the connection. |
+| AC3 | Direction, format/version, network and archive capabilities are visible before route activation. |
+| AC4 | Representative outbound/inbound invoices retain original/transformed artefacts, SERES IDs and actual format/version. |
+| AC5 | Transformation loss or incompatible format stops progression with actionable evidence. |
+| AC6 | Acceptance/rejection/payment states preserve actor/provenance and do not regress lifecycle. |
+| AC7 | Duplicate/out-of-order documents/events process once; missing observations reconcile. |
+| AC8 | Ambiguous submission reconciles before retry. |
+| AC9 | Archive/historical access works after route deactivation without silently maintaining a route. |
+| AC10 | Credential/certificate failures are actionable/redacted; production is blocked until G1–G6 pass. |
 
 ## User experience
 
@@ -202,10 +296,14 @@ The shared onboarding flow must collect SERES-specific configuration, validate r
 
 ### Provider readiness gate
 
-- Named SERES technical owner and contracted product confirmed.
-- API pack, schemas, sandbox, and storage permission obtained.
-- Direction/format/status matrix and registration flow approved.
-- Security, idempotency, reconciliation, limits, archive, SLA, and support approved.
+| Gate | Required evidence | Blocks |
+|---|---|---|
+| G1 — Product/owner | Contracted SERES/Docaposte service and owners | Solution design |
+| G2 — API/security | Endpoint/protocol/version, schemas, auth/certificates/network and storage permission | Engineering |
+| G3 — Scope/registration | Legal-entity model, directions, formats, networks, Spain registration/coexistence | Delivery scope |
+| G4 — Lifecycle/safety | Status/error/provenance, events, idempotency and reconciliation | Async production |
+| G5 — Archive/service | Transformation fidelity, archive/retention/history, limits, SLA/support/exit | Production |
+| G6 — Fixtures/pilot | Synthetic happy/failure/timeout/duplicate/transformation/archive tests and stop criteria | Pilot |
 
 ## Risks
 
@@ -216,13 +314,16 @@ The shared onboarding flow must collect SERES-specific configuration, validate r
 
 ## Open questions
 
-1. Which SERES/Docaposte service and API are in scope?
-2. Which formats, directions, and lifecycle operations are supported in Spain?
-3. What tenant, authentication, certificate, and registration processes apply?
-4. What webhook, polling, idempotency, and reconciliation facilities are available?
-5. What limits and service levels apply?
-6. How is historical lifecycle access retained?
-7. Is SERES a candidate for the reference integration?
+| ID | Decision required | Owner | Blocks | Current hypothesis |
+|---|---|---|---|---|
+| OQ1 | Contracted SERES/Docaposte service, API/protocol/version? | Vendor/commercial + architecture | G1/G2 | Product page is discovery evidence |
+| OQ2 | Organisation/company/mailbox cardinality and delegated access? | Provider/security | G3 | Explicit legal-entity binding required |
+| OQ3 | Contracted directions, networks, formats/versions and Spain registration? | Provider/local team | G3 | Prove each capability separately |
+| OQ4 | Transformation owner, fidelity and canonical/trusted-copy rules? | Product/architecture/legal | G5 | Preserve original and actual transformed artefact |
+| OQ5 | Status provenance and mandatory acceptance/rejection/payment subset? | Product/local team/provider | G4 | Do not equate manual and network states |
+| OQ6 | Event security, idempotency and authoritative reconciliation? | Provider/security/operations | G4 | Reconcile independently |
+| OQ7 | Limits, archive/retention/history, SLA/support and exit? | Provider/operations/legal | G5 | Open |
+| OQ8 | Is SERES a reference adapter/pilot? | Product/engineering | Pilot | Candidate only after G2 |
 
 ## Decisions
 
@@ -235,3 +336,4 @@ The shared onboarding flow must collect SERES-specific configuration, validate r
 | Date | Change | Pull request |
 |---|---|---|
 | 2026-07-27 | Initial discovery draft | |
+| 2026-07-29 | Embedded Spain product evidence/limitations, business rules, endpoint-pending contract, transformation/lifecycle safety, acceptance and gates | |

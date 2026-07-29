@@ -27,24 +27,60 @@ confluence:
 
 Connect eligible Spanish e-invoicing customers to ZeroComa through the shared private-platform connection, routing, and resilience foundation.
 
+This Phase 2 PRD first requires confirmation that the intended ZeroComa service is a private-platform integration product rather than a desktop invoicing, FACeB2B, VeriFactu, reporting, archive, or other adjacent product.
+
+> **Product principle:** Do not design an adapter around a vendor name. Design it around one contracted ZeroComa service, protocol, capability set and lifecycle.
+
 ## Problem
 
 Sage requires a reusable ZeroComa integration for its ERPs. ZeroComa's exact Spain capabilities, onboarding process, API model, and operational constraints must be verified during discovery.
 
 ZeroComa publicly describes B2B invoice issuance and receipt, ERP integration, traceability, conservation, VeriFactu, reporting, and AEAT connectivity. The public material does not expose an endpoint contract or prove which capabilities form the Phase 2 private-platform service. The PRD therefore separates confirmed product claims from technical requirements requiring vendor evidence.
 
-## Evidence and confidence
+## Evidence and research findings
 
-Evidence source: `research/provider-apis/zerocoma/README.md`
+This section is self-contained for Confluence readers. Official public material was rechecked on 2026-07-29. The evidence is narrower than for B2B Router or Banqup and exposes a material product-boundary risk.
 
-| Area | Current confidence |
+### Evidence register
+
+| Ref | Official source | Confirmed finding | Confidence/limitation | PRD impact |
+|---|---|---|---|---|
+| E1 | [ZeroComa EdasInvoiZE product sheet](https://www.zerocoma.com/wp-content/uploads/2023/12/HOJA-DE-PRODUCTO-EDASINVOIZE.pdf) | EdasInvoiZE is described as a desktop solution for automated electronic-invoice issue/receipt using signed PDF and Facturae 3.2, with FACeB2B integration. | **Confirmed product claim.** Does not prove Phase 2 private-platform API/service. | Product identity gate G1/G3 |
+| E2 | [ZeroComa EdasInvoiZE product sheet](https://www.zerocoma.com/wp-content/uploads/2023/12/HOJA-DE-PRODUCTO-EDASINVOIZE.pdf) | The product sheet states integration through APIs or Web Services and manual data loading. | **Confirmed generic integration claim.** No endpoint, protocol, schema, environment or auth detail. | G2; no payload may be assumed |
+| E3 | [ZeroComa EdasInvoiZE product sheet](https://www.zerocoma.com/wp-content/uploads/2023/12/HOJA-DE-PRODUCTO-EDASINVOIZE.pdf) | Product claims include certified digitisation, document management, backups, proof of sending and integration with public bodies/companies. | **Confirmed broad product claim.** Archive/legal status, private routing and contracted scope unknown. | Scope separation, archive/exit gates |
+
+### Capability matrix
+
+| Capability | Public evidence | Phase 2 treatment | Evidence required |
+|---|---|---|---|
+| Signed PDF and Facturae 3.2 issue/receipt | Confirmed EdasInvoiZE claim | Adjacent/candidate only | Contracted private-platform formats and directions |
+| FACeB2B integration | Confirmed claim | Do not equate with Phase 2 private route | Intended Spain network/service |
+| APIs or Web Services | Confirmed generic claim | Discovery basis | Technical pack, protocol/version, endpoints |
+| Desktop deployment | Confirmed for EdasInvoiZE | Potential architecture mismatch | Whether Sage integrates to desktop, hosted service or another product |
+| Manual loading | Confirmed option | Not a platform integration | Automated contract required |
+| Document management/backups | Confirmed claim | Candidate archive capability | Retention, trusted copy, access/exit |
+| Private-platform registration/routing | Unconfirmed | Production blocker | Provider/local-team confirmation |
+| Tenant/legal-entity and credentials | Unconfirmed | Engineering blocker | Identity/onboarding model |
+| Status/events/reconciliation | Unconfirmed | Engineering blocker | Lifecycle and safety contract |
+| Limits/SLA/support/security | Unconfirmed | Production blocker | Contract pack |
+
+### Product-boundary concern
+
+The named Phase 2 provider is “ZeroComa,” but the concrete public artefact found is for “EdasInvoiZE,” a desktop-oriented product. Before solution design, the vendor must confirm:
+
+- the exact legal/product/service name Sage will contract;
+- whether EdasInvoiZE is the integration target or only adjacent evidence;
+- whether the target is hosted, tenant-based, customer-installed or managed;
+- how it participates in Spain private B2B routing rather than only FACeB2B/public-sector or desktop invoicing;
+- which API/Web Service specification applies to that target.
+
+| Evidence class | Assessment |
 |---|---|
-| B2B invoice issuance and receipt | Confirmed public product claim |
-| ERP integration, traceability, and conservation | Confirmed public product claim |
-| VeriFactu/reporting and AEAT connectivity | Confirmed public product claim; separate scope |
-| Private-platform API role | Unconfirmed |
-| API/protocol, authentication, endpoints, and schemas | Unconfirmed |
-| Registration, lifecycle, reconciliation, limits, and SLA | Unconfirmed |
+| EdasInvoiZE product existence/features | High |
+| ZeroComa private-platform product identity | Low |
+| API/protocol/onboarding/lifecycle | Low |
+| Resilience, service and exit | Low |
+| Overall readiness | **Product consultation ready; blocked for solution design** |
 
 ## Goals
 
@@ -63,10 +99,32 @@ Evidence source: `research/provider-apis/zerocoma/README.md`
 
 ## Users and use cases
 
-- ERP products configure ZeroComa through common APIs.
-- Customers or accountants provide required provider setup.
-- Invoice services exchange supported documents.
-- Operations diagnose and reconcile failures.
+- **Customer/accountant administrator:** completes the contracted product onboarding and legal-entity actions.
+- **Sage ERP/API consumer:** uses shared Sage APIs rather than desktop/vendor-specific operations.
+- **Sage adapter/invoice services:** invoke the verified automated contract and preserve provider evidence.
+- **Operations/support:** distinguish customer-installed, Sage and provider-hosted failures.
+- **Security/compliance:** approve deployment boundary, credentials/certificates, data flows, archive and support access.
+- **ZeroComa technical owner:** confirms the target service and supplies authoritative sandbox/contract evidence.
+
+## Business scenarios and rules
+
+| Scenario | Expected outcome | Evidence dependency |
+|---|---|---|
+| Product selection | One contracted private-platform service and deployment boundary | Vendor architecture/product confirmation |
+| Prepare connection | Automated connectivity and direction capability validate; route unchanged | API/Web Service and onboarding pack |
+| Send/receive | Supported structured document exchanged with stable provider references | Format/lifecycle contract |
+| Customer-installed component fails | Sage shows ownership/action without unsafe retry | Deployment/support model |
+| Ambiguous submission | Authoritative provider query/reconciliation before repeat | Idempotency/reconciliation |
+| Route moves away | Historical status/document/archive remains accessible | Exit/retention model |
+
+| ID | Business rule | Status/evidence |
+|---|---|---|
+| BR1 | ZeroComa/EdasInvoiZE product identity must be confirmed before architecture or estimation. | E1; confirmed discovery gate |
+| BR2 | Desktop/manual loading is not sufficient evidence of an automated Sage platform contract. | E1/E2 |
+| BR3 | FACeB2B, private B2B, signed PDF, Facturae, VeriFactu/reporting and archive are separate capabilities. | E1/E3; product rule |
+| BR4 | Provider readiness does not activate a Sage route. | Confirmed Phase 2 rule |
+| BR5 | Unknown mutation outcome reconciles before repeat unless idempotency is proven. | PRD-SEI-203 |
+| BR6 | Route deactivation, software/connection disablement, deregistration, credential revocation and archive termination are separate. | Phase 2 continuity |
 
 ## Requirements
 
@@ -151,6 +209,38 @@ Evidence source: `research/provider-apis/zerocoma/README.md`
 4. Map canonical invoice and lifecycle.
 5. Preserve ZeroComa context through future route changes.
 
+### Correct, reconcile and preserve history
+
+1. Provider/schema validation failure returns an actionable correction and does not repeat unchanged content.
+2. Timeout after possible submission enters an unknown-outcome state with durable correlation/fingerprint.
+3. Adapter uses the contracted query, receipt or support reconciliation path before retry.
+4. Duplicate/missed/out-of-order documents or events process once and reconcile.
+5. Route change preserves ZeroComa service, document/transmission IDs, actual format/version and required archive/lifecycle access.
+
+## Proposed integration contract — product and endpoint pending
+
+| Context | Required evidence/data |
+|---|---|
+| Product/deployment | Contracted service name/version, hosted vs customer-installed boundary, environment and support owner |
+| Connection | Tenant/legal entity/mailbox, endpoint/protocol, credential/certificate references, enabled capabilities |
+| Outbound | Correlation, original/target format/version, provider document/transmission IDs and acknowledgement evidence |
+| Inbound | Provider ID, source/legal-entity scope, original artefact/integrity and received time |
+| Lifecycle | Raw provider code, stage, provenance, timestamps and supporting reference |
+| Archive/exit | Trusted-copy status, retention/access, credential/software dependency and termination sequence |
+
+No ZeroComa API payload is included because “APIs or Web Services” is the only verified public technical statement. Approved synthetic samples must come from the contracted target and be stored under `assets/provider-apis/zerocoma/{CONTRACT_VERSION}/`; desktop screenshots or marketing examples are not API fixtures.
+
+### Operation-safety classification
+
+| Operation | Default treatment before evidence |
+|---|---|
+| Connectivity/read | Retry only if read-only and remote/local ownership are proven |
+| Provision/configure | Track manual and automated intended/observed state; no blind repeat |
+| Submit invoice | Unknown after possible transmission; reconcile first |
+| Receive/acknowledge | Authenticate, deduplicate and prove retry semantics |
+| Backup/archive retrieval | Separate from active route; audit access and integrity |
+| Deregister/revoke/uninstall | Explicit dependency check, authorisation and post-action verification |
+
 ## Required provider artefacts
 
 - product architecture separating private B2B, VeriFactu, reporting, AEAT, and archive;
@@ -166,16 +256,18 @@ Evidence source: `research/provider-apis/zerocoma/README.md`
 
 ## Acceptance criteria
 
-1. Private B2B capability is identified independently from VeriFactu and tax reporting.
-2. All implementation behaviour is traceable to provider evidence.
-3. Connection readiness is independently represented by direction and capability.
-4. Representative inbound and outbound flows pass in sandbox.
-5. Duplicate documents/events do not create duplicate invoices or states.
-6. Ambiguous mutations are reconciled before retry.
-7. Provider errors map to actionable Sage categories.
-8. Archive access and historical lifecycle are verified after route deactivation.
-9. Test and production credentials and data remain isolated.
-10. Production remains gated until technical, security, operational, and commercial evidence is complete.
+| ID | Demonstrable criterion |
+|---|---|
+| AC1 | The contracted target/deployment is named and private B2B is separated from EdasInvoiZE desktop, FACeB2B, VeriFactu/reporting and archive capabilities. |
+| AC2 | Every implementation behaviour links to a provider versioned technical source and synthetic sandbox evidence. |
+| AC3 | Connection readiness is independently represented by legal entity, direction, format and capability without activating a route. |
+| AC4 | Representative automated inbound/outbound flows pass in the contracted sandbox and retain provider/original-format context. |
+| AC5 | Customer-installed/hosted ownership failures show the correct responsible actor and recovery action. |
+| AC6 | Duplicate/out-of-order documents/events process once; missing observations reconcile. |
+| AC7 | Ambiguous mutation reconciles before retry. |
+| AC8 | Provider validation/status/error evidence maps actionably without discarding raw code/provenance. |
+| AC9 | Archive/historical lifecycle remains available after route deactivation according to the approved exit model. |
+| AC10 | Test/production resources remain isolated and production cannot activate until G1–G6 pass. |
 
 ## User experience
 
@@ -200,10 +292,14 @@ The common onboarding flow must incorporate ZeroComa-specific configuration and 
 
 ### Provider readiness gate
 
-- ZeroComa private B2B product and commercial entitlement confirmed.
-- Technical owner, API pack, schemas, sandbox, and storage permission obtained.
-- Capability separation and direction/status matrix approved.
-- Security, idempotency, reconciliation, limits, retention, deregistration, SLA, and support approved.
+| Gate | Required evidence | Blocks |
+|---|---|---|
+| G1 — Product/deployment | Contracted ZeroComa service, relationship to EdasInvoiZE, hosted/desktop boundary and owners | Solution design |
+| G2 — Technical contract | API/Web Service/protocol/version, schemas, environments and storage permission | Engineering |
+| G3 — Spain capability | Private B2B role, legal entity/registration, directions, formats and capability separation | Delivery scope |
+| G4 — Lifecycle/safety | Status/error/event, idempotency and authoritative reconciliation | Async production |
+| G5 — Security/service/exit | Credentials/certificates/network, limits, retention/archive, SLA/support, deregistration/uninstall | Production |
+| G6 — Fixtures/pilot | Synthetic happy/failure/timeout/duplicate/deployment/archive tests and pilot stop criteria | Pilot |
 
 ## Risks
 
@@ -214,13 +310,16 @@ The common onboarding flow must incorporate ZeroComa-specific configuration and 
 
 ## Open questions
 
-1. Which ZeroComa product and API are authoritative for this integration?
-2. Which Spanish formats, directions, and lifecycle operations are supported?
-3. What authentication, certificate, and registration model applies?
-4. What webhook, polling, idempotency, and reconciliation facilities exist?
-5. What rate, payload, commercial, and SLA limits apply?
-6. How is historical invoice access maintained after route changes?
-7. Is ZeroComa a candidate for the reference integration?
+| ID | Decision required | Owner | Blocks | Current hypothesis |
+|---|---|---|---|---|
+| OQ1 | Is EdasInvoiZE the target, and is it hosted, desktop or managed? | Vendor/commercial + architecture | G1 | Current public artefact may be adjacent |
+| OQ2 | Which API/Web Service/protocol/version and environments? | Provider/architecture | G2 | No endpoint assumed |
+| OQ3 | How does target participate in Spain private B2B vs FACeB2B/public/tax services? | Provider/local team | G3 | Capabilities must remain separate |
+| OQ4 | Legal-entity, credential/certificate, onboarding and registration model? | Provider/security | G3/G5 | Open |
+| OQ5 | Formats, directions, lifecycle/status and archive semantics? | Provider/product | G3/G4/G5 | Facturae 3.2 claim is not enough |
+| OQ6 | Events/polling, idempotency and reconciliation? | Provider/resilience owner | G4 | Reconcile before retry |
+| OQ7 | Limits, data/retention, SLA/support and exit/uninstall? | Provider/operations/legal | G5 | Open |
+| OQ8 | Is ZeroComa a reference adapter/pilot? | Product/engineering | Pilot | Not decidable before G2 |
 
 ## Decisions
 
@@ -233,3 +332,4 @@ The common onboarding flow must incorporate ZeroComa-specific configuration and 
 | Date | Change | Pull request |
 |---|---|---|
 | 2026-07-27 | Initial discovery draft | |
+| 2026-07-29 | Embedded product evidence and mismatch risk, business rules, endpoint-pending contract, safety/continuity, acceptance and gates | |
