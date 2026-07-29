@@ -7,7 +7,8 @@ owner: TBD
 product: spain-e-invoicing
 created: 2026-07-27
 updated: 2026-07-29
-reviewers: []
+reviewers:
+  - dianna.hindle@sage.com
 related:
   - PRD-SEI-201
   - PRD-SEI-202
