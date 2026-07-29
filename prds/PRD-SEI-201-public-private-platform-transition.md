@@ -132,7 +132,9 @@ This visual shows the product boundary and common integration model. It is a por
       <rect x="662" y="346" width="132" height="42" rx="6" class="p2pl-layer"></rect>
       <text x="728" y="371" text-anchor="middle" class="p2pl-copy">Provider limitations</text>
 
-      <path d="M816 268 H842 V82 H866" class="p2pl-path-provider"></path>
+      <path d="M816 268 H842" class="p2pl-path-provider"></path>
+      <path d="M842 82 V410" class="p2pl-path-provider"></path>
+      <path d="M842 82 H866" class="p2pl-path-provider"></path>
       <path d="M856 76 L866 82 L856 88" class="p2pl-arrow-provider"></path>
       <path d="M842 164 H866" class="p2pl-path-provider"></path>
       <path d="M856 158 L866 164 L856 170" class="p2pl-arrow-provider"></path>
