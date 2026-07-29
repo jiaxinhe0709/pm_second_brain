@@ -35,6 +35,161 @@ Enable a Spanish e-invoicing customer to establish supported private-platform co
 
 This is the umbrella Phase 2 PRD. Shared routing, resilience, and provider-specific requirements are defined in the related PRDs.
 
+## Phase 2 provider landscape
+
+This visual shows the product boundary and common integration model. It is a portfolio view, not a commitment that every provider supports identical capabilities. Provider readiness, authentication, registration, document exchange, status behaviour, and limitations remain governed by the relevant provider PRD and evidence gate.
+
+<!-- confluence-html-macro:start -->
+<div class="p2pl-visual" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; padding:26px; background:#ffffff; border:1px solid #dfe1e6; border-radius:8px; box-sizing:border-box; max-width:1160px; margin:0 auto; overflow-x:auto;">
+  <style>
+    .p2pl-visual { --text:#172b4d; --muted:#6b778c; --border:#dfe1e6; --sage:#006644; --sage-bg:#e3fcef; --private:#6554c0; --private-bg:#eae6ff; --route:#42526e; --route-bg:#f4f5f7; --public:#0052cc; --public-bg:#deebff; --warning:#974f0c; --warning-bg:#fff7d6; }
+    .p2pl-visual * { box-sizing:border-box; }
+    .p2pl-visual h2 { margin:0; color:var(--text); font-size:18px; font-weight:600; }
+    .p2pl-visual .p2pl-subtitle { margin:6px 0 16px; color:var(--muted); font-size:12px; line-height:1.45; }
+    .p2pl-visual .p2pl-canvas { min-width:1080px; border:1px solid var(--border); border-radius:8px; background:#fcfcfd; }
+    .p2pl-visual svg { display:block; width:1080px; height:580px; }
+    .p2pl-visual .p2pl-title { fill:var(--text); font-size:14px; font-weight:700; }
+    .p2pl-visual .p2pl-label { fill:var(--muted); font-size:9px; font-weight:700; letter-spacing:.08em; }
+    .p2pl-visual .p2pl-copy { fill:#42526e; font-size:10px; }
+    .p2pl-visual .p2pl-small { fill:var(--muted); font-size:9px; }
+    .p2pl-visual .p2pl-sage-card { fill:var(--sage-bg); stroke:#abf5d1; stroke-width:1.5; }
+    .p2pl-visual .p2pl-platform-card { fill:#ffffff; stroke:#79f2c0; stroke-width:2; }
+    .p2pl-visual .p2pl-layer { fill:#f4f5f7; stroke:#dfe1e6; stroke-width:1; }
+    .p2pl-visual .p2pl-route-layer { fill:var(--warning-bg); stroke:#ffe380; stroke-width:1; }
+    .p2pl-visual .p2pl-adapter-card { fill:#ffffff; stroke:#c0b6f2; stroke-width:1.5; stroke-dasharray:5 4; }
+    .p2pl-visual .p2pl-provider-card { fill:var(--private-bg); stroke:#c0b6f2; stroke-width:1.25; }
+    .p2pl-visual .p2pl-public-card { fill:var(--public-bg); stroke:#b3d4ff; stroke-width:1.25; stroke-dasharray:5 4; }
+    .p2pl-visual .p2pl-path-main { fill:none; stroke:var(--sage); stroke-width:2.2; }
+    .p2pl-visual .p2pl-path-provider { fill:none; stroke:#7a869a; stroke-width:1.5; stroke-dasharray:5 4; }
+    .p2pl-visual .p2pl-path-public { fill:none; stroke:var(--public); stroke-width:1.5; stroke-dasharray:5 4; }
+    .p2pl-visual .p2pl-arrow-main { fill:none; stroke:var(--sage); stroke-width:2.2; }
+    .p2pl-visual .p2pl-arrow-provider { fill:none; stroke:#7a869a; stroke-width:1.5; }
+    .p2pl-visual .p2pl-arrow-public { fill:none; stroke:var(--public); stroke-width:1.5; }
+    .p2pl-visual .p2pl-provider-title { fill:var(--private); font-size:11px; font-weight:700; }
+    .p2pl-visual .p2pl-public-title { fill:var(--public); font-size:11px; font-weight:700; }
+    .p2pl-visual .p2pl-sage-title { fill:var(--sage); font-size:13px; font-weight:700; }
+    .p2pl-visual .p2pl-route-title { fill:var(--warning); font-size:10px; font-weight:700; }
+    .p2pl-visual .p2pl-notes { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; min-width:1080px; margin-top:14px; }
+    .p2pl-visual .p2pl-note { padding:11px 12px; border:1px solid var(--border); border-radius:7px; color:#42526e; background:#fff; font-size:10px; line-height:1.45; }
+    .p2pl-visual .p2pl-note strong { display:block; margin-bottom:3px; color:var(--text); font-size:11px; }
+    .p2pl-visual .p2pl-legend { display:flex; flex-wrap:wrap; gap:14px; min-width:1080px; margin-top:12px; color:var(--muted); font-size:10px; }
+    .p2pl-visual .p2pl-key { display:inline-flex; align-items:center; gap:5px; }
+    .p2pl-visual .p2pl-swatch { width:10px; height:10px; border-radius:2px; }
+    .p2pl-visual .p2pl-swatch-sage { background:var(--sage); }
+    .p2pl-visual .p2pl-swatch-private { background:var(--private); }
+    .p2pl-visual .p2pl-swatch-public { background:var(--public); }
+    .p2pl-visual .p2pl-line { width:20px; border-top:1.5px dashed #7a869a; }
+  </style>
+
+  <h2>Sage and the Phase 2 Private Provider Landscape</h2>
+  <p class="p2pl-subtitle">One shared Sage platform provides connection, routing and resilience controls while provider-specific adapters preserve each network's contract and limitations.</p>
+
+  <div class="p2pl-canvas">
+    <svg viewBox="0 0 1080 580" role="img" aria-label="Sage ERP products connect to the Sage e-Invoicing platform, which selects an eligible provider adapter for B2B Router, Banqup, EDICOM, SERES or ZeroComa while retaining an optional coexisting public-platform route.">
+      <text x="42" y="44" class="p2pl-label">SAGE PRODUCTS</text>
+      <text x="292" y="44" class="p2pl-label">SHARED PLATFORM CAPABILITY</text>
+      <text x="650" y="44" class="p2pl-label">PROVIDER BOUNDARY</text>
+      <text x="872" y="44" class="p2pl-label">PRIVATE PROVIDERS</text>
+
+      <rect x="36" y="210" width="190" height="116" rx="10" class="p2pl-sage-card"></rect>
+      <text x="131" y="244" text-anchor="middle" class="p2pl-sage-title">Sage ERPs</text>
+      <text x="131" y="266" text-anchor="middle" class="p2pl-copy">Authorised customer action</text>
+      <text x="131" y="284" text-anchor="middle" class="p2pl-copy">Invoice and status exchange</text>
+      <text x="131" y="306" text-anchor="middle" class="p2pl-small">One consistent product experience</text>
+
+      <path d="M226 268 H278" class="p2pl-path-main"></path>
+      <path d="M268 261 L278 268 L268 275" class="p2pl-arrow-main"></path>
+
+      <rect x="280" y="118" width="310" height="300" rx="12" class="p2pl-platform-card"></rect>
+      <text x="435" y="148" text-anchor="middle" class="p2pl-sage-title">Sage e-Invoicing</text>
+      <text x="435" y="166" text-anchor="middle" class="p2pl-small">Shared Phase 2 product and operating model</text>
+
+      <rect x="306" y="186" width="258" height="54" rx="7" class="p2pl-layer"></rect>
+      <text x="435" y="208" text-anchor="middle" class="p2pl-title">Connection and registration</text>
+      <text x="435" y="226" text-anchor="middle" class="p2pl-small">Establish capability without activating a route</text>
+
+      <rect x="306" y="252" width="258" height="68" rx="7" class="p2pl-route-layer"></rect>
+      <text x="435" y="275" text-anchor="middle" class="p2pl-route-title">Routing and transition control</text>
+      <text x="435" y="293" text-anchor="middle" class="p2pl-small">Legal entity • direction • environment • effective time</text>
+      <text x="435" y="307" text-anchor="middle" class="p2pl-small">Persist the selected route on every invoice</text>
+
+      <rect x="306" y="332" width="258" height="60" rx="7" class="p2pl-layer"></rect>
+      <text x="435" y="355" text-anchor="middle" class="p2pl-title">Resilience and operations</text>
+      <text x="435" y="373" text-anchor="middle" class="p2pl-small">Observe • retry safely • reconcile • recover</text>
+
+      <path d="M590 268 H638" class="p2pl-path-main"></path>
+      <path d="M628 261 L638 268 L628 275" class="p2pl-arrow-main"></path>
+
+      <rect x="640" y="118" width="176" height="300" rx="12" class="p2pl-adapter-card"></rect>
+      <text x="728" y="150" text-anchor="middle" class="p2pl-title">Provider adapter layer</text>
+      <text x="728" y="171" text-anchor="middle" class="p2pl-small">Common interface</text>
+      <rect x="662" y="190" width="132" height="42" rx="6" class="p2pl-layer"></rect>
+      <text x="728" y="215" text-anchor="middle" class="p2pl-copy">Authentication</text>
+      <rect x="662" y="242" width="132" height="42" rx="6" class="p2pl-layer"></rect>
+      <text x="728" y="267" text-anchor="middle" class="p2pl-copy">Format mapping</text>
+      <rect x="662" y="294" width="132" height="42" rx="6" class="p2pl-layer"></rect>
+      <text x="728" y="319" text-anchor="middle" class="p2pl-copy">Status mapping</text>
+      <rect x="662" y="346" width="132" height="42" rx="6" class="p2pl-layer"></rect>
+      <text x="728" y="371" text-anchor="middle" class="p2pl-copy">Provider limitations</text>
+
+      <path d="M816 268 H842 V82 H866" class="p2pl-path-provider"></path>
+      <path d="M856 76 L866 82 L856 88" class="p2pl-arrow-provider"></path>
+      <path d="M842 164 H866" class="p2pl-path-provider"></path>
+      <path d="M856 158 L866 164 L856 170" class="p2pl-arrow-provider"></path>
+      <path d="M842 246 H866" class="p2pl-path-provider"></path>
+      <path d="M856 240 L866 246 L856 252" class="p2pl-arrow-provider"></path>
+      <path d="M842 328 H866" class="p2pl-path-provider"></path>
+      <path d="M856 322 L866 328 L856 334" class="p2pl-arrow-provider"></path>
+      <path d="M842 410 H866" class="p2pl-path-provider"></path>
+      <path d="M856 404 L866 410 L856 416" class="p2pl-arrow-provider"></path>
+
+      <rect x="868" y="52" width="176" height="60" rx="8" class="p2pl-provider-card"></rect>
+      <text x="956" y="78" text-anchor="middle" class="p2pl-provider-title">B2B Router</text>
+      <text x="956" y="96" text-anchor="middle" class="p2pl-small">Provider-specific contract</text>
+
+      <rect x="868" y="134" width="176" height="60" rx="8" class="p2pl-provider-card"></rect>
+      <text x="956" y="160" text-anchor="middle" class="p2pl-provider-title">Banqup (Unifiedpost)</text>
+      <text x="956" y="178" text-anchor="middle" class="p2pl-small">Provider-specific contract</text>
+
+      <rect x="868" y="216" width="176" height="60" rx="8" class="p2pl-provider-card"></rect>
+      <text x="956" y="242" text-anchor="middle" class="p2pl-provider-title">EDICOM</text>
+      <text x="956" y="260" text-anchor="middle" class="p2pl-small">Provider-specific contract</text>
+
+      <rect x="868" y="298" width="176" height="60" rx="8" class="p2pl-provider-card"></rect>
+      <text x="956" y="324" text-anchor="middle" class="p2pl-provider-title">SERES (Docaposte)</text>
+      <text x="956" y="342" text-anchor="middle" class="p2pl-small">Provider-specific contract</text>
+
+      <rect x="868" y="380" width="176" height="60" rx="8" class="p2pl-provider-card"></rect>
+      <text x="956" y="406" text-anchor="middle" class="p2pl-provider-title">ZeroComa</text>
+      <text x="956" y="424" text-anchor="middle" class="p2pl-small">Provider-specific contract</text>
+
+      <path d="M435 418 V470" class="p2pl-path-public"></path>
+      <path d="M428 460 L435 470 L442 460" class="p2pl-arrow-public"></path>
+      <rect x="306" y="472" width="258" height="70" rx="8" class="p2pl-public-card"></rect>
+      <text x="435" y="500" text-anchor="middle" class="p2pl-public-title">Spanish Public Platform</text>
+      <text x="435" y="520" text-anchor="middle" class="p2pl-copy">May coexist with private connections</text>
+      <text x="435" y="535" text-anchor="middle" class="p2pl-small">Inbound and outbound routes remain independently controlled</text>
+
+      <text x="682" y="455" class="p2pl-small">Dashed routes are selectable capabilities,</text>
+      <text x="682" y="471" class="p2pl-small">not automatic activation or failover.</text>
+    </svg>
+  </div>
+
+  <div class="p2pl-notes">
+    <div class="p2pl-note"><strong>Shared Sage foundation</strong>Connections, scoped routing, invoice context, resilience and operational controls are defined once for all providers.</div>
+    <div class="p2pl-note"><strong>Independent provider contracts</strong>Each adapter owns its provider authentication, endpoints, mappings, status semantics, evidence and constraints.</div>
+    <div class="p2pl-note"><strong>Explicit route activation</strong>A ready provider connection becomes active only through an authorised routing decision; coexistence does not imply duplicate delivery.</div>
+  </div>
+
+  <div class="p2pl-legend" aria-label="Diagram legend">
+    <span class="p2pl-key"><i class="p2pl-swatch p2pl-swatch-sage"></i>Sage-managed capability</span>
+    <span class="p2pl-key"><i class="p2pl-swatch p2pl-swatch-private"></i>Private provider</span>
+    <span class="p2pl-key"><i class="p2pl-swatch p2pl-swatch-public"></i>Public platform</span>
+    <span class="p2pl-key"><i class="p2pl-line"></i>Selectable route or provider boundary</span>
+  </div>
+</div>
+<!-- confluence-html-macro:end -->
+
 ## Phase 2 PRD set
 
 | ID | Document | Purpose |
