@@ -14,6 +14,13 @@ Dry-run is the default. A live update requires both ``--live`` and
 A document with an empty ``page_id`` can be created only when it has a numeric
 ``parent_page_id`` and the caller supplies ``--create-missing``. Existing pages
 are always updated by ID.
+
+HTML that must be rendered through Confluence's HTML macro must be explicitly
+delimited in Markdown:
+
+    <!-- confluence-html-macro:start -->
+    <div>...</div>
+    <!-- confluence-html-macro:end -->
 """
 
 from __future__ import annotations
@@ -39,6 +46,12 @@ from env_utils import load_workspace_env
 
 
 LIVE_CONFIRMATION = "UPDATE-CONFLUENCE"
+HTML_MACRO_START = "<!-- confluence-html-macro:start -->"
+HTML_MACRO_END = "<!-- confluence-html-macro:end -->"
+HTML_MACRO_PATTERN = re.compile(
+    rf"{re.escape(HTML_MACRO_START)}\s*(.*?)\s*{re.escape(HTML_MACRO_END)}",
+    re.DOTALL,
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -192,11 +205,48 @@ def markdown_to_storage(
         f"<strong>Last updated:</strong> {html.escape(str(metadata['updated']))}</p>"
         "</div>"
     )
+    start_count = body.count(HTML_MACRO_START)
+    end_count = body.count(HTML_MACRO_END)
+    if start_count != end_count:
+        raise ValueError(
+            "Unmatched Confluence HTML macro marker: each start marker must have "
+            "one end marker."
+        )
+
+    html_macros: list[tuple[str, str]] = []
+
+    def preserve_html_macro(match: re.Match[str]) -> str:
+        fragment = match.group(1).strip()
+        if not fragment:
+            raise ValueError("Confluence HTML macro blocks cannot be empty.")
+        if "]]>" in fragment:
+            raise ValueError(
+                "Confluence HTML macro content cannot contain the CDATA terminator ]]>"
+            )
+        token = f"CONFLUENCE_HTML_MACRO_{len(html_macros)}"
+        html_macros.append((token, fragment))
+        return f"\n\n{token}\n\n"
+
+    markdown_body = HTML_MACRO_PATTERN.sub(preserve_html_macro, body)
     rendered = markdown.markdown(
-        body,
+        markdown_body,
         extensions=["tables", "fenced_code", "sane_lists"],
         output_format="xhtml",
     )
+    for token, fragment in html_macros:
+        macro = (
+            '<ac:structured-macro ac:name="html">'
+            "<ac:plain-text-body><![CDATA["
+            f"{fragment}"
+            "]]></ac:plain-text-body>"
+            "</ac:structured-macro>"
+        )
+        paragraph_token = f"<p>{token}</p>"
+        if paragraph_token not in rendered:
+            raise ValueError(
+                f"Could not restore preserved Confluence HTML macro token {token}."
+            )
+        rendered = rendered.replace(paragraph_token, macro, 1)
     return banner + rendered
 
 
