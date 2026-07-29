@@ -1,12 +1,12 @@
 ---
 id: PRD-SEI-207
-title: Spain SERES Docaposte Integration
+title: Provider Integration — SERES (Docaposte)
 type: prd
 status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-07-27
-updated: 2026-07-27
+updated: 2026-07-29
 reviewers: []
 related:
   - PRD-SEI-201
@@ -18,10 +18,10 @@ confluence:
   space_key: DNBU
   parent_page_id: "837588799"
   page_id: "855180245"
-  title: SERES (Docapost) integration
+  title: Provider Integration — SERES (Docaposte)
 ---
 
-# Spain SERES Docaposte Integration
+# Provider Integration — SERES (Docaposte)
 
 ## Summary
 

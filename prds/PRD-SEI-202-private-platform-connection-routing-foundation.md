@@ -1,12 +1,12 @@
 ---
 id: PRD-SEI-202
-title: Spain Private Platform Connection and Routing Foundation
+title: Foundation — Connections, Registration and Routing
 type: prd
 status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-07-27
-updated: 2026-07-28
+updated: 2026-07-29
 reviewers: []
 related:
   - PRD-SEI-201
@@ -23,10 +23,10 @@ confluence:
   space_key: DNBU
   parent_page_id: "837588799"
   page_id: "866126304"
-  title: Private platform connection and routing foundation
+  title: Foundation — Connections, Registration and Routing
 ---
 
-# Spain Private Platform Connection and Routing Foundation
+# Foundation — Connections, Registration and Routing
 
 ## Overview
 

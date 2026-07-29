@@ -1,12 +1,12 @@
 ---
 id: PRD-SEI-203
-title: Spain Private Platform Resilience and Operations
+title: Operations — Resilience, Recovery and Reconciliation
 type: prd
 status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-07-27
-updated: 2026-07-28
+updated: 2026-07-29
 reviewers: []
 related:
   - PRD-SEI-201
@@ -22,10 +22,10 @@ confluence:
   space_key: DNBU
   parent_page_id: "837588799"
   page_id: "837611183"
-  title: Private platform resilience in Spain
+  title: Operations — Resilience, Recovery and Reconciliation
 ---
 
-# Spain Private Platform Resilience and Operations
+# Operations — Resilience, Recovery and Reconciliation
 
 ## Overview
 

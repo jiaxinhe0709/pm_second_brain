@@ -323,33 +323,33 @@ def update_document(
 
     actual_title = str(page["title"])
     expected_title = target["title"]
-    if actual_title != expected_title:
-        raise ValueError(
-            f"Title mismatch for {metadata['id']}: "
-            f"Confluence has {actual_title!r}, document has {expected_title!r}."
-        )
+    title_changed = actual_title != expected_title
 
     current_body = page["body"]["storage"]["value"]
     current_version = int(page["version"]["number"])
-    if normalize_storage(current_body) == normalize_storage(new_body):
+    body_changed = normalize_storage(current_body) != normalize_storage(new_body)
+    if not title_changed and not body_changed:
         return f"UNCHANGED {metadata['id']} page={page_id} v{current_version}"
 
+    rename_summary = (
+        f" title={actual_title!r} -> {expected_title!r}" if title_changed else ""
+    )
     if not live:
         return (
             f"DRY-RUN {metadata['id']} page={page_id} "
-            f"v{current_version} -> v{current_version + 1}"
+            f"v{current_version} -> v{current_version + 1}{rename_summary}"
         )
 
     client.update_page(
         page_id=page_id,
-        title=actual_title,
+        title=expected_title,
         body=new_body,
         type="page",
         representation="storage",
     )
     return (
         f"UPDATED {metadata['id']} page={page_id} "
-        f"v{current_version} -> v{current_version + 1}"
+        f"v{current_version} -> v{current_version + 1}{rename_summary}"
     )
 
 

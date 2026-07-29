@@ -1,12 +1,12 @@
 ---
 id: PRD-SEI-208
-title: Spain ZeroComa Integration
+title: Provider Integration — ZeroComa
 type: prd
 status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-07-27
-updated: 2026-07-27
+updated: 2026-07-29
 reviewers: []
 related:
   - PRD-SEI-201
@@ -18,10 +18,10 @@ confluence:
   space_key: DNBU
   parent_page_id: "837588799"
   page_id: "855180249"
-  title: ZeroComa integration
+  title: Provider Integration — ZeroComa
 ---
 
-# Spain ZeroComa Integration
+# Provider Integration — ZeroComa
 
 ## Summary
 

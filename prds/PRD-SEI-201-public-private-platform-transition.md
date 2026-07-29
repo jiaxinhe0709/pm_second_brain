@@ -1,6 +1,6 @@
 ---
 id: PRD-SEI-201
-title: Spain Public and Private Platform Transition
+title: Phase 2 — Private Platform Connectivity
 type: prd
 status: discovery
 owner: TBD
@@ -24,10 +24,10 @@ confluence:
   space_key: DNBU
   parent_page_id: ""
   page_id: "837588799"
-  title: Phase 2 - Private platform connections
+  title: Phase 2 — Private Platform Connectivity
 ---
 
-# Spain Public and Private Platform Transition
+# Phase 2 — Private Platform Connectivity
 
 ## Summary
 

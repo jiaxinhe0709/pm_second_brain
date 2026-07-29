@@ -1,12 +1,12 @@
 ---
 id: PRD-SEI-205
-title: Spain Banqup Unifiedpost Integration
+title: Provider Integration — Banqup (Unifiedpost)
 type: prd
 status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-07-27
-updated: 2026-07-27
+updated: 2026-07-29
 reviewers: []
 related:
   - PRD-SEI-201
@@ -18,10 +18,10 @@ confluence:
   space_key: DNBU
   parent_page_id: "837588799"
   page_id: "855180247"
-  title: Banqup (Unifiedpost) integration
+  title: Provider Integration — Banqup (Unifiedpost)
 ---
 
-# Spain Banqup Unifiedpost Integration
+# Provider Integration — Banqup (Unifiedpost)
 
 ## Summary
 
