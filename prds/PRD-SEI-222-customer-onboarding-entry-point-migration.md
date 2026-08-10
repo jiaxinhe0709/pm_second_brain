@@ -20,7 +20,7 @@ related:
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: "837588803"
+  parent_page_id: "876576919"
   page_id: "866148655"
   title: Customer — Onboarding, Entry Point and Migration
   layout: two_left_sidebar

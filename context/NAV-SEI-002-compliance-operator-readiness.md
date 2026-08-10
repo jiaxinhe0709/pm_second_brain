@@ -10,7 +10,7 @@ confluence:
   publish: true
   space_key: DNBU
   parent_page_id: "837588803"
-  page_id: ""
+  page_id: "876576917"
   title: Compliance and Operator Readiness
   layout: two_left_sidebar
   toc: true
@@ -46,4 +46,3 @@ The detailed PRDs and decision records remain authoritative. This page provides 
 - The documents define evidence and decision gates; they do not claim legal certification or provide legal advice.
 - ISO/IEC 27001 or an accepted equivalent, operator governance and audit evidence are readiness requirements—not separate customer-feature PRDs.
 - VeriFactu, TicketBAI, SII, Navarra and other tax-reporting propositions require an explicit roadmap decision before they enter the Phase 3 delivery baseline.
-

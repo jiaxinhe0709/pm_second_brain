@@ -21,7 +21,7 @@ related:
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: "837588803"
+  parent_page_id: "876576916"
   page_id: "866148656"
   title: Exchange — Interoperability, Routing and Transformation
   layout: two_left_sidebar

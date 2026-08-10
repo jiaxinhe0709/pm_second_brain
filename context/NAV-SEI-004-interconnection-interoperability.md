@@ -10,7 +10,7 @@ confluence:
   publish: true
   space_key: DNBU
   parent_page_id: "837588803"
-  page_id: ""
+  page_id: "876576919"
   title: Interconnection and Interoperability
   layout: two_left_sidebar
   toc: true
@@ -47,4 +47,3 @@ The customer and exchange PRDs remain authoritative. This page provides a naviga
 - A document can support multiple categories but has one authoritative Confluence location. Cross-links expose shared coverage without duplicating requirements.
 - Peppol compatibility is not currently evidenced as a Spanish private-platform operator requirement.
 - A third-party integration/developer-experience PRD should be created only if Sage commits to an externally consumable API, sandbox, documentation and conformance service.
-

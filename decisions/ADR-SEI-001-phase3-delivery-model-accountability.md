@@ -13,7 +13,7 @@ related:
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: "837588803"
+  parent_page_id: "876576917"
   page_id: "866148652"
   title: Decision — Delivery Model and Accountability
   layout: two_left_sidebar

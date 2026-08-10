@@ -20,7 +20,7 @@ related:
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: "837588803"
+  parent_page_id: "876576917"
   page_id: "866148654"
   title: Foundation — Operator Readiness and Regulatory Governance
   layout: two_left_sidebar

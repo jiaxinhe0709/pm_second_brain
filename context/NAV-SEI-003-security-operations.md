@@ -10,7 +10,7 @@ confluence:
   publish: true
   space_key: DNBU
   parent_page_id: "837588803"
-  page_id: ""
+  page_id: "876576918"
   title: Security and Operations
   layout: two_left_sidebar
   toc: true
@@ -47,4 +47,3 @@ The detailed PRDs remain authoritative. This page is a navigation and operationa
 - Availability, recovery and support targets must be approved from evidence rather than assumed from the source capability list.
 - Security certification, business continuity evidence and data governance are cross-cutting production gates.
 - Customer-facing dashboards should receive their own PRD only if the experience, users and independently deliverable outcomes extend beyond the existing onboarding, lifecycle and incident views.
-

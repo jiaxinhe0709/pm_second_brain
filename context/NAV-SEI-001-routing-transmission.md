@@ -10,7 +10,7 @@ confluence:
   publish: true
   space_key: DNBU
   parent_page_id: "837588803"
-  page_id: ""
+  page_id: "876576916"
   title: Routing and Transmission
   layout: two_left_sidebar
   toc: true
@@ -45,4 +45,3 @@ The detailed PRDs remain authoritative. This page is a navigation and scope view
 - Routing, transformation, signature or seal, delivery, public-copy submission and status reporting are related but separately auditable actions.
 - A route change must apply prospectively and must not rewrite the original route or lifecycle evidence of existing invoices.
 - Invoice creation, pretty-PDF presentation and attachment management should become a separate product outcome only if they are accepted into Phase 3 scope.
-
