@@ -1,6 +1,6 @@
 ---
 id: PRD-SEI-210
-title: Phase 3 — Sage Private Platform Reuse and Operator Expansion for Spain
+title: Phase 3 — Sage as a Private Platform (Spain)
 type: prd
 status: draft
 owner: TBD
@@ -28,27 +28,31 @@ related:
   - PRD-SEI-206
   - PRD-SEI-207
   - PRD-SEI-208
+  - NAV-SEI-001
+  - NAV-SEI-002
+  - NAV-SEI-003
+  - NAV-SEI-004
 confluence:
   publish: true
   space_key: DNBU
   parent_page_id: ""
   page_id: "837588803"
-  title: Phase 3 - Platform expansion
+  title: Phase 3 - Sage as a Private Platform (Spain)
   layout: two_left_sidebar
   toc: true
 ---
 
-# Phase 3 — Sage Private Platform Reuse and Operator Expansion for Spain
+# Phase 3 — Sage as a Private Platform (Spain)
 
 ## Revision overview
 
 | Area | Summary |
 |---|---|
 | Predecessor | Based on PRD-SEI-209, which remains the unchanged predecessor document. |
-| Reason for this successor | Preserve the original Phase 3 draft while evaluating Phase 1 and Phase 2 component reuse as a formal Phase 3 design constraint. |
-| Material changes | Adds the shared-platform/operator-edge architecture, the reuse/extend/new capability classification, an evidence-gated reuse decision flow, and explicit links to the Phase 1 submission and consultation PRDs. |
+| Reason for this successor | Preserve the original Phase 3 draft while evaluating Phase 1 and Phase 2 component reuse as a formal Phase 3 design constraint, then consolidate the legacy *Sage as a Private Platform (Spain)* and *Private platform building blocks* Confluence pages into one authoritative Phase 3 product story. |
+| Material changes | Adds the shared-platform/operator-edge architecture, the reuse/extend/new capability classification, an evidence-gated reuse decision flow, a labelled strategic-hypothesis register, the four-category Confluence structure, and explicit links to the Phase 1 submission and consultation PRDs. |
 | Unchanged areas | Retains the strategic rationale, customer proposition, operating-model options, regulatory analysis, scenarios, requirements, risks, dependencies, and open questions from PRD-SEI-209. |
-| Decisions still open | Actual component maturity; service ownership; reuse fitness; operator accountability; build/partner route; and approval to publish this successor. |
+| Decisions still open | Actual component maturity; service ownership; reuse fitness; operator accountability; build/partner route; customer and commercial evidence; and the Phase 3 delivery investment decision. |
 
 ## Decision summary
 
@@ -60,28 +64,40 @@ The strategic direction is **proposed, not approved**. This document does not se
 
 ## Phase 3 document map
 
-This umbrella PRD explains the complete proposition. The child documents separate the decision, foundation and delivery surfaces so each can be reviewed by the appropriate business, legal, engineering, security and operational owners. Confluence may display child pages alphabetically; this table is the intended reading order.
+This umbrella PRD explains the complete proposition. Four category pages organise the child documents so each decision, foundation and delivery surface can be reviewed by the appropriate business, legal, engineering, security and operational owners. A detailed document can support more than one category, but it has one authoritative Confluence location and is cross-linked elsewhere rather than duplicated.
 
-| Order | Document | Purpose | Current readiness |
-|---:|---|---|---|
-| 1 | ADR-SEI-001 — Decision: Delivery Model and Accountability | Select build, white-label, alliance, acquisition or hybrid and name every accountable party | Proposed decision framework |
-| 2 | FP-SEI-001 — Foundation: Existing Capability Reuse and Gap Assessment | Prove what Phase 1/2 implementation can be reused, extended, wrapped or sourced | Discovery assessment |
-| 3 | PRD-SEI-221 — Foundation: Operator Readiness and Regulatory Governance | Govern regulatory, external-validation and production-readiness evidence | Discovery PRD |
-| 4 | PRD-SEI-222 — Customer: Onboarding, Entry Point and Migration | Configure, prove and activate customer routes without losing continuity | Discovery PRD |
-| 5 | PRD-SEI-223 — Exchange: Interoperability, Routing and Transformation | Plan and execute direct/private/public exchange, transformation, signing and faithful-copy legs | Discovery PRD |
-| 6 | PRD-SEI-224 — Lifecycle: Status, Rejection and Payment Reporting | Preserve source-aware technical, commercial and payment events and obligations | Discovery PRD |
-| 7 | PRD-SEI-225 — Operations: Resilience, Support and Reconciliation | Detect, contain, reconcile and recover customer outcomes across all boundaries | Discovery PRD |
-| 8 | PRD-SEI-226 — Security: Trust, Identity, Data and Audit | Establish authority, platform trust, data governance, evidence and partner security controls | Discovery PRD |
-| 9 | Commercial — Proposition, Packaging and Economics | Validate customer segments, packaging, pricing, costs and investment case | Planned discovery |
-| 10 | Roadmap — Value-Added and International Expansion | Sequence optional services and future country/platform expansion | Planned discovery |
+| Category | Authoritative detailed documents | Capability boundary |
+|---|---|---|
+| [Routing and Transmission](https://confluence.sage.com/pages/viewpage.action?pageId=876576916) | PRD-SEI-223 Exchange; PRD-SEI-224 Lifecycle | Public/private exchange, routing, transformation, faithful copy, status, rejection and payment reporting |
+| [Compliance and Operator Readiness](https://confluence.sage.com/pages/viewpage.action?pageId=876576917) | ADR-SEI-001 Delivery Model; FP-SEI-001 Reuse Assessment; PRD-SEI-221 Operator Readiness | Accountable operator, reuse evidence, regulatory governance, external validation and production gates |
+| [Security and Operations](https://confluence.sage.com/pages/viewpage.action?pageId=876576918) | PRD-SEI-225 Operations; PRD-SEI-226 Security | Trust, identity, certificates, data, audit, resilience, support and reconciliation |
+| [Interconnection and Interoperability](https://confluence.sage.com/pages/viewpage.action?pageId=876576919) | PRD-SEI-222 Customer; cross-links to PRD-SEI-223 and PRD-SEI-225 | Entry-point onboarding, migration, public/private connectivity, platform interconnection and ecosystem recovery |
+| Commercial and roadmap discovery | Planned proposals | Customer value, packaging, economics, optional services and international expansion |
 
-Documents 1–8 form the recommended technical, regulatory and operational consultation package. Commercial and roadmap discovery can progress without delaying review of the operator foundation.
+The detailed decision, foundation and delivery documents form the recommended technical, regulatory and operational consultation package. Commercial and roadmap discovery can progress without delaying review of the operator foundation.
 
 ## Why Phase 3 exists
 
 Phase 1 provides the public compliance route. Phase 2 lets customers connect existing private providers while Sage retains an integrated ERP experience. Phase 3 adds a Sage private-platform proposition for customers who need more than the public route but do not want to source and integrate a separate provider themselves.
 
 The July 2026 strategy paper argues that stopping at connectivity exposes Sage to disintermediation: a third-party platform may own onboarding, routing, status visibility, compliance perception, support, and future invoice-to-cash or procure-to-pay services while Sage remains only the accounting system of record. It also reports that a 2023 survey found existing private-platform usage among approximately 26% of Sage 50 users and 40% of Sage 200 users. Those figures are useful directional evidence but require validation against the current installed base before investment approval.
+
+### Strategic rationale and hypotheses
+
+The legacy *Sage as a Private Platform (Spain)* page described Phase 3 as primarily strategic rather than a baseline-compliance or immediate-revenue requirement. That distinction remains important: Phase 1 provides the public compliance route, while Phase 3 tests whether a Sage private-platform proposition is necessary to protect relevance, customer relationships and future service opportunities.
+
+| Legacy rationale | Treatment in this PRD | Evidence status and next gate |
+|---|---|---|
+| Public-platform connectivity keeps customers compliant | Retain the public route as the baseline customer option across all phases | Confirmed product principle; applicable regulatory behaviour remains governed by Phase 1 evidence |
+| A Sage private-platform option protects brand and compliance credibility | Treat credibility and customer ownership as strategic outcomes, not proof of customer demand | Proposed; validate with customer, market and Spain leadership research |
+| Sage should maintain the strategic position it has built in Spain | Test retention, disintermediation and product-relevance exposure by customer segment | Proposed; baseline current platform usage, churn/retention risk and affected revenue |
+| Owning more capability could reduce dependency on third parties | Compare build, white-label, alliance, acquisition and hybrid routes rather than assuming ownership is best | Open; ADR-SEI-001 and the reuse assessment are decision gates |
+| Phase 3 may protect revenue and enable future paid services | Separate regulated core, credible Sage proposition and optional value-added services | Proposed; approve willingness-to-pay, cost-to-serve, pricing and unit economics |
+| Third-party platform connectivity may create referral or partner revenue | Evaluate as one commercial model without biasing customer route guidance | Proposed; validate partner terms, demand, margin, conflicts and exit risk |
+| E-invoicing could complete a wider Spanish compliance-services proposition | Treat cross-service packaging as roadmap discovery, not a Phase 3 launch requirement | Open; define customer outcome and ownership before creating further PRDs |
+| Sage's existing market and authority relationships strengthen credibility | Use only as supporting context; do not treat relationships as regulatory approval or operator readiness | Evidence required; confirm claim owner, permitted use and measurable relevance |
+
+These hypotheses explain why Phase 3 merits discovery. They do not approve a delivery route, investment, launch date or revenue forecast.
 
 ## Delivery phases and capability boundary
 
@@ -731,10 +747,11 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 
 ## Readiness
 
-**Discovery-ready.** The PRD is suitable for strategic, regulatory, customer, commercial and architecture discovery. It is **not** investment-approved, delivery-ready, or eligible for Confluence publication. G1–G5 are blockers to a production pilot; unresolved Tier 2 choices do not block core discovery.
+**Discovery and consultation-ready.** This PRD is the authoritative Confluence umbrella for strategic, regulatory, customer, commercial and architecture discovery. Publication communicates the proposal and open decisions; it does **not** mean the investment, operating model, delivery scope or production launch is approved. G1–G5 are blockers to a production pilot; unresolved Tier 2 choices do not block core discovery.
 
 ## Change log
 
 | Date | Change | Evidence/decision source |
 |---|---|---|
 | 2026-08-05 | Initial Phase 3 discovery PRD created | July 2026 strategy paper; Ley 18/2022; RD 238/2026; official Ministry and EU sources |
+| 2026-08-10 | Consolidated the legacy strategic rationale and building-block navigation into the authoritative Phase 3 umbrella; renamed the Confluence topic and aligned it to four capability categories | User-approved Phase 3 information architecture; legacy Confluence pages 837588801 and 855180225 |
