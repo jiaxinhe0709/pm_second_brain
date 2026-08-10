@@ -1,6 +1,6 @@
 ---
 id: NAV-SEI-006
-title: Private Platform Building Blocks — Consolidation Notice
+title: Reference — Original Private Platform Building Blocks
 type: navigation
 status: superseded
 owner: TBD
@@ -9,14 +9,14 @@ updated: 2026-08-10
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "837588801"
   page_id: "855180225"
-  title: Private platform building blocks
+  title: Reference — Original Private Platform Building Blocks
   layout: two_left_sidebar
   toc: true
 ---
 
-# Private Platform Building Blocks
+# Reference — Original Private Platform Building Blocks
 
 ## This page has been consolidated
 
@@ -41,4 +41,3 @@ The capability inventory previously held on this page is now organised beneath t
 - The original inventory remains available in this page's Confluence version history.
 
 This page is retained to preserve existing links and history. It is no longer the active requirements source.
-

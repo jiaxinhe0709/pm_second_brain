@@ -32,6 +32,8 @@ related:
   - NAV-SEI-002
   - NAV-SEI-003
   - NAV-SEI-004
+  - NAV-SEI-005
+  - NAV-SEI-006
 confluence:
   publish: true
   space_key: DNBU
