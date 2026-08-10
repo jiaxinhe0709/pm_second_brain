@@ -10,6 +10,14 @@ updated: 2026-08-10
 reviewers: []
 related:
   - PRD-SEI-209
+  - ADR-SEI-001
+  - FP-SEI-001
+  - PRD-SEI-221
+  - PRD-SEI-222
+  - PRD-SEI-223
+  - PRD-SEI-224
+  - PRD-SEI-225
+  - PRD-SEI-226
   - PRD-SEI-102
   - PRD-SEI-103
   - PRD-SEI-201
@@ -49,6 +57,25 @@ This PRD defines the discovery and decision boundary for Sage to offer a Sage-br
 The strategic direction is **proposed, not approved**. This document does not select build, white-label, alliance, or acquisition. It defines the minimum product and regulated operator outcomes that any route must satisfy and the evidence gates required before Sage accepts operator accountability.
 
 > **Product principle:** A Sage-branded experience must have explicit operational and regulatory accountability. Branding a partner service as Sage must not hide who operates the platform, controls data, resolves failures, maintains interconnections, or remains responsible when the partnership changes.
+
+## Phase 3 document map
+
+This umbrella PRD explains the complete proposition. The child documents separate the decision, foundation and delivery surfaces so each can be reviewed by the appropriate business, legal, engineering, security and operational owners. Confluence may display child pages alphabetically; this table is the intended reading order.
+
+| Order | Document | Purpose | Current readiness |
+|---:|---|---|---|
+| 1 | ADR-SEI-001 — Decision: Delivery Model and Accountability | Select build, white-label, alliance, acquisition or hybrid and name every accountable party | Proposed decision framework |
+| 2 | FP-SEI-001 — Foundation: Existing Capability Reuse and Gap Assessment | Prove what Phase 1/2 implementation can be reused, extended, wrapped or sourced | Discovery assessment |
+| 3 | PRD-SEI-221 — Foundation: Operator Readiness and Regulatory Governance | Govern regulatory, external-validation and production-readiness evidence | Discovery PRD |
+| 4 | PRD-SEI-222 — Customer: Onboarding, Entry Point and Migration | Configure, prove and activate customer routes without losing continuity | Discovery PRD |
+| 5 | PRD-SEI-223 — Exchange: Interoperability, Routing and Transformation | Plan and execute direct/private/public exchange, transformation, signing and faithful-copy legs | Discovery PRD |
+| 6 | PRD-SEI-224 — Lifecycle: Status, Rejection and Payment Reporting | Preserve source-aware technical, commercial and payment events and obligations | Discovery PRD |
+| 7 | PRD-SEI-225 — Operations: Resilience, Support and Reconciliation | Detect, contain, reconcile and recover customer outcomes across all boundaries | Discovery PRD |
+| 8 | PRD-SEI-226 — Security: Trust, Identity, Data and Audit | Establish authority, platform trust, data governance, evidence and partner security controls | Discovery PRD |
+| 9 | Commercial — Proposition, Packaging and Economics | Validate customer segments, packaging, pricing, costs and investment case | Planned discovery |
+| 10 | Roadmap — Value-Added and International Expansion | Sequence optional services and future country/platform expansion | Planned discovery |
+
+Documents 1–8 form the recommended technical, regulatory and operational consultation package. Commercial and roadmap discovery can progress without delaying review of the operator foundation.
 
 ## Why Phase 3 exists
 
