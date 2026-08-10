@@ -389,7 +389,7 @@ def update_document(
         )
 
     page_id = target["page_id"]
-    page = client.get_page_by_id(page_id, expand="version,body.storage")
+    page = client.get_page_by_id(page_id, expand="version,body.storage,ancestors")
     if not page:
         raise ValueError(f"Confluence page not found: {page_id}")
 
@@ -397,31 +397,44 @@ def update_document(
     expected_title = target["title"]
     title_changed = actual_title != expected_title
 
+    ancestors = page.get("ancestors", [])
+    actual_parent_id = str(ancestors[-1].get("id", "")) if ancestors else ""
+    expected_parent_id = target["parent_page_id"]
+    parent_changed = bool(expected_parent_id) and actual_parent_id != expected_parent_id
+
     current_body = page["body"]["storage"]["value"]
     current_version = int(page["version"]["number"])
     body_changed = normalize_storage(current_body) != normalize_storage(new_body)
-    if not title_changed and not body_changed:
+    if not title_changed and not body_changed and not parent_changed:
         return f"UNCHANGED {metadata['id']} page={page_id} v{current_version}"
 
     rename_summary = (
         f" title={actual_title!r} -> {expected_title!r}" if title_changed else ""
     )
+    parent_summary = (
+        f" parent={actual_parent_id or '<root>'} -> {expected_parent_id}"
+        if parent_changed
+        else ""
+    )
     if not live:
         return (
             f"DRY-RUN {metadata['id']} page={page_id} "
-            f"v{current_version} -> v{current_version + 1}{rename_summary}"
+            f"v{current_version} -> v{current_version + 1}"
+            f"{rename_summary}{parent_summary}"
         )
 
     client.update_page(
         page_id=page_id,
         title=expected_title,
         body=new_body,
+        parent_id=expected_parent_id or None,
         type="page",
         representation="storage",
     )
     return (
         f"UPDATED {metadata['id']} page={page_id} "
-        f"v{current_version} -> v{current_version + 1}{rename_summary}"
+        f"v{current_version} -> v{current_version + 1}"
+        f"{rename_summary}{parent_summary}"
     )
 
 
