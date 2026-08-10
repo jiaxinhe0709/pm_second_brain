@@ -36,7 +36,12 @@ ADR-001-retry-policy.md
 
 Do not put versions or statuses in filenames. Git records detailed versions; front matter records lifecycle status.
 
+If an individually readable version is needed, ask for a separate successor PRD.
+The existing file stays unchanged, while the successor receives a new permanent ID,
+links back to its predecessor, and starts as an unpublished draft. A non-technical
+contributor can use the copy-ready instructions in
+`prompts/CREATE_SUCCESSOR_PRD.md`.
+
 ## Confluence
 
 Only documents with `confluence.publish: true` are eligible for publication. Keep credentials in GitHub Actions secrets, never in this repository.
-

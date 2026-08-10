@@ -1,0 +1,1 @@
+$create-platform-prd deepen PRD-SEI-201 to the business-analysis, research and solution standard, using the original Platform Transition Management document as the benchmark.
