@@ -30,7 +30,7 @@ Confirm that a managed Markdown document can generate a native Confluence two-co
 
 ### Expected sidebar behaviour
 
-The left column should display an **On this page** label followed by Confluence's native Table of Contents macro. The contents should include heading levels 2 and 3 from this document.
+The left column should contain only Confluence's native Table of Contents macro. The contents should include heading levels 2 and 3 from this document.
 
 ### Expected content behaviour
 

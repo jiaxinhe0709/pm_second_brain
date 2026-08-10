@@ -281,7 +281,6 @@ def markdown_to_storage(
         )
 
     toc = (
-        "<p><strong>On this page</strong></p>"
         '<ac:structured-macro ac:name="toc">'
         '<ac:parameter ac:name="minLevel">2</ac:parameter>'
         '<ac:parameter ac:name="maxLevel">3</ac:parameter>'
