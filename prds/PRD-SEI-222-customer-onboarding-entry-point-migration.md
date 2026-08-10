@@ -18,7 +18,7 @@ related:
   - PRD-SEI-223
   - PRD-SEI-224
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "837588803"
   page_id: ""

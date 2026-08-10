@@ -18,7 +18,7 @@ related:
   - FP-SEI-001
   - ADR-SEI-001
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "837588803"
   page_id: ""
