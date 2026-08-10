@@ -18,7 +18,7 @@ related:
   - PRD-SEI-201
   - research/PRD-SEI-201-spain-use-case-evidence.md
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "837610656"
   page_id: ""
@@ -971,4 +971,3 @@ Production approval requires a model showing that live traffic, outcome reconcil
 | Date | Version/revision | Change | Evidence/decision source | Pull request |
 |---|---|---|---|---|
 | 2026-07-29 | Version 1 (Draft) | Initial evidence-led Phase 1 submission PRD with UBL-version correction, attachment rule, detailed journeys, requirements, visual, acceptance and production gates | Confluence revision 3, RD 238/2026, EU Decision 2017/1870, April 2026 draft order, OASIS UBL 2.5 | |
-

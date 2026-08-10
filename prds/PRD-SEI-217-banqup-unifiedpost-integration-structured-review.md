@@ -16,7 +16,7 @@ related:
   - PRD-SEI-203
   - research/provider-apis/banqup-unifiedpost/README.md
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "855180247"
   page_id: ""
@@ -422,4 +422,3 @@ The shared onboarding flow must display Banqup-specific requirements without exp
 |---|---|---|
 | 2026-07-27 | Initial discovery draft | |
 | 2026-07-29 | Embedded official evidence, business rules, API example, lifecycle/safety analysis, testable acceptance and production gates | |
-

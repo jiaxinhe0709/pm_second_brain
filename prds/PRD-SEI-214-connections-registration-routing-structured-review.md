@@ -20,7 +20,7 @@ related:
   - https://confluence.sage.com/spaces/DNBU/pages/855183578/Platform+Transition+Management
   - https://confluence.sage.com/spaces/DNBU/pages/837610648/Public+Platform+Onboard
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "866126304"
   page_id: ""
@@ -657,4 +657,3 @@ Operations must be able to answer:
 | 2026-07-27 | `phase2-prds-v0.1` | Initial discovery draft | |
 | 2026-07-27 | `phase2-prds-v0.2` | Confluence publication baseline | |
 | 2026-07-28 | Draft | Deepened business analysis, research, solution, visual, traceability and readiness gates | |
-

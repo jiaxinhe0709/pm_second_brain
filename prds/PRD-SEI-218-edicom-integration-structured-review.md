@@ -16,7 +16,7 @@ related:
   - PRD-SEI-203
   - research/provider-apis/edicom/README.md
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "855180243"
   page_id: ""
@@ -349,4 +349,3 @@ Provider-specific onboarding data must be collected within the shared experience
 |---|---|---|
 | 2026-07-27 | Initial discovery draft | |
 | 2026-07-29 | Embedded public evidence/limitations, business rules, protocol-neutral contract, safety analysis, testable acceptance and provider gates | |
-

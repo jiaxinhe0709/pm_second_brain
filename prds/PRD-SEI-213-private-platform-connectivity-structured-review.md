@@ -21,7 +21,7 @@ related:
   - https://confluence.sage.com/spaces/DNBU/pages/837610648/Public+Platform+Onboard
   - research/PRD-SEI-201-spain-use-case-evidence.md
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "837588799"
   page_id: ""
@@ -773,4 +773,3 @@ The experience must distinguish `connection ready` from `route active`.
 | 2026-07-27 | `phase2-prds-v0.1` | Initial discovery draft | |
 | 2026-07-27 | `phase2-prds-v0.2` | Confluence publication baseline | |
 | 2026-07-29 | Draft | Added Phase 2 HTML journey visual, PowerPoint evidence coverage, business rules and structured scope decisions | |
-

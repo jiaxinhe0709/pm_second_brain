@@ -16,7 +16,7 @@ related:
   - PRD-SEI-203
   - research/provider-apis/seres-docaposte/README.md
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "855180245"
   page_id: ""
@@ -351,4 +351,3 @@ The shared onboarding flow must collect SERES-specific configuration, validate r
 |---|---|---|
 | 2026-07-27 | Initial discovery draft | |
 | 2026-07-29 | Embedded Spain product evidence/limitations, business rules, endpoint-pending contract, transformation/lifecycle safety, acceptance and gates | |
-

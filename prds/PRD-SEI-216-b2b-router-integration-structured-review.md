@@ -16,7 +16,7 @@ related:
   - PRD-SEI-203
   - research/provider-apis/b2b-router/README.md
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "855180241"
   page_id: ""
@@ -641,4 +641,3 @@ Targets must not be fabricated before a pilot baseline and contracted service co
 |---|---|---|
 | 2026-07-27 | Initial discovery draft | |
 | 2026-07-29 | Embedded official evidence, capability confidence, business rules, API interactions, operation safety, failure/continuity journeys, testable acceptance criteria and production gates for standalone Confluence use | |
-

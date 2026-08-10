@@ -19,7 +19,7 @@ related:
   - PRD-SEI-208
   - research/provider-apis/README.md
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "837611183"
   page_id: ""
@@ -601,4 +601,3 @@ Operations must see:
 | 2026-07-27 | `phase2-prds-v0.1` | Initial discovery draft | |
 | 2026-07-27 | `phase2-prds-v0.2` | Confluence publication baseline | |
 | 2026-07-28 | Draft | Deepened business analysis, research, solution model, recovery visual and operational gates | |
-

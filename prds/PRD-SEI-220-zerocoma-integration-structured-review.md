@@ -16,7 +16,7 @@ related:
   - PRD-SEI-203
   - research/provider-apis/zerocoma/README.md
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "855180249"
   page_id: ""
@@ -347,4 +347,3 @@ The common onboarding flow must incorporate ZeroComa-specific configuration and 
 |---|---|---|
 | 2026-07-27 | Initial discovery draft | |
 | 2026-07-29 | Embedded product evidence and mismatch risk, business rules, endpoint-pending contract, safety/continuity, acceptance and gates | |
-

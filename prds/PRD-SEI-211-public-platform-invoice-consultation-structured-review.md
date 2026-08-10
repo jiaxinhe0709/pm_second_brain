@@ -17,7 +17,7 @@ related:
   - PRD-SEI-201
   - research/PRD-SEI-201-spain-use-case-evidence.md
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "837610662"
   page_id: ""
@@ -881,4 +881,3 @@ At minimum measure:
 | Date | Version/revision | Change | Pull request |
 |---|---|---|---|
 | 2026-07-29 | Version 1 (Draft) | Initial evidence-led Phase 1 PRD with consultation options, recommended solution, detailed journeys, requirements, visual, acceptance criteria and production gates | |
-
