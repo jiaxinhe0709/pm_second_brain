@@ -21,10 +21,10 @@ related:
   - PRD-SEI-207
   - PRD-SEI-208
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: ""
-  page_id: ""
+  page_id: "837588803"
   title: Phase 3 - Platform expansion
 ---
 
@@ -709,4 +709,3 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 | Date | Change | Evidence/decision source |
 |---|---|---|
 | 2026-08-05 | Initial Phase 3 discovery PRD created | July 2026 strategy paper; Ley 18/2022; RD 238/2026; official Ministry and EU sources |
-
