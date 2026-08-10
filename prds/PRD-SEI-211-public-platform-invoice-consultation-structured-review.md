@@ -19,9 +19,9 @@ related:
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: "837610662"
-  page_id: "866148394"
-  title: Public Platform — Invoice Consultation and Retrieval — Structured Review
+  parent_page_id: ""
+  page_id: "837610662"
+  title: Public Platform - Invoice Consultation and Retrieval
   layout: two_left_sidebar
   toc: true
 ---

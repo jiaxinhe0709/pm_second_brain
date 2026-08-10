@@ -20,9 +20,15 @@ The agent will:
    - what stayed unchanged; and
    - open decisions.
 7. Report the old and new filenames and confirm that nothing was published.
+8. If publication is later approved, update the existing stable Confluence page
+   from the successor; do not create a second Confluence page for the new Git
+   version.
 
 You do not need to select a new ID, rename files, use Git, or understand Confluence
 settings. If you want particular changes, add them after the two-sentence prompt.
+
+Git keeps the readable predecessor and successor files. Confluence shows only the
+latest explicitly selected source on the existing topic page.
 
 Example:
 

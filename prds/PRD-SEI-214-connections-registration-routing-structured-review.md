@@ -22,9 +22,9 @@ related:
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: "866126304"
-  page_id: "866148397"
-  title: Foundation — Connections, Registration and Routing — Structured Review
+  parent_page_id: "837588799"
+  page_id: "866126304"
+  title: Foundation — Connections, Registration and Routing
   layout: two_left_sidebar
   toc: true
 ---

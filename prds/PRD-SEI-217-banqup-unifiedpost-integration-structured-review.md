@@ -18,9 +18,9 @@ related:
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: "855180247"
-  page_id: "866148400"
-  title: Provider Integration — Banqup (Unifiedpost) — Structured Review
+  parent_page_id: "837588799"
+  page_id: "855180247"
+  title: Provider Integration — Banqup (Unifiedpost)
   layout: two_left_sidebar
   toc: true
 ---

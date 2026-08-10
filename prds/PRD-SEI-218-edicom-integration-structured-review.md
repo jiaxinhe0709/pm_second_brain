@@ -18,9 +18,9 @@ related:
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: "855180243"
-  page_id: "866148401"
-  title: Provider Integration — EDICOM — Structured Review
+  parent_page_id: "837588799"
+  page_id: "855180243"
+  title: Provider Integration — EDICOM
   layout: two_left_sidebar
   toc: true
 ---

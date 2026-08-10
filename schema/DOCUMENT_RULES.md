@@ -27,6 +27,13 @@ document instead of editing the predecessor.
   approved.
 - Create the successor with `status: draft`, `confluence.publish: false`, and an
   empty `confluence.page_id`.
+- Keep one stable Confluence page per product topic. A successor does not create a
+  new Confluence page merely because it is a separate Git document.
+- After explicit publication approval, map the successor to the topic's stable
+  Confluence page ID and select it in `config/confluence.yml` under
+  `publication.current_sources`.
+- The publisher must refuse an older document when another document is selected as
+  the current source for that page ID.
 - Include the predecessor ID in `related`.
 - Put a `Revision overview` near the start of the successor stating what it is based
   on, why it exists, what changed, what did not change, and which decisions remain
@@ -34,8 +41,9 @@ document instead of editing the predecessor.
 - A successor is not automatically approved, publishable, or a reason to mark its
   predecessor as superseded.
 
-This is a new related document, not a duplicate identity: permanent IDs must never
-be reused across separate files.
+This is a new related Git document, not a duplicate identity: permanent IDs must
+never be reused across separate files. Confluence remains a latest-version
+publication layer rather than a version archive.
 
 ## Required metadata
 

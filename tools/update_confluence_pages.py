@@ -62,6 +62,7 @@ HTML_MACRO_PATTERN = re.compile(
     re.DOTALL,
 )
 LEFT_TOC_LAYOUT = "two_left_sidebar"
+CONFLUENCE_CONFIG = ROOT_DIR / "config" / "confluence.yml"
 
 
 def parse_args() -> argparse.Namespace:
@@ -117,6 +118,23 @@ def load_document(path: Path) -> tuple[dict[str, Any], str]:
     return metadata, match.group(2)
 
 
+def current_page_sources() -> dict[str, str]:
+    if not CONFLUENCE_CONFIG.exists():
+        return {}
+    config = yaml.safe_load(CONFLUENCE_CONFIG.read_text(encoding="utf-8")) or {}
+    if not isinstance(config, dict):
+        raise ValueError(f"Invalid Confluence configuration: {CONFLUENCE_CONFIG}")
+    publication = config.get("publication", {})
+    if not isinstance(publication, dict):
+        raise ValueError(f"Invalid publication configuration: {CONFLUENCE_CONFIG}")
+    selected = publication.get("current_sources", {})
+    if not isinstance(selected, dict):
+        raise ValueError(
+            f"publication.current_sources must be a mapping: {CONFLUENCE_CONFIG}"
+        )
+    return {str(page_id): str(document_id) for page_id, document_id in selected.items()}
+
+
 def validate_publication(
     metadata: dict[str, Any], path: Path, create_missing: bool
 ) -> dict[str, str]:
@@ -140,6 +158,12 @@ def validate_publication(
         if not page_id.isdigit():
             raise ValueError(
                 f"Numeric confluence.page_id required for {metadata.get('id')}"
+            )
+        selected_source = current_page_sources().get(page_id)
+        if selected_source and selected_source != str(metadata.get("id")):
+            raise ValueError(
+                f"Refusing to publish {metadata.get('id')} to page {page_id}: "
+                f"current source is {selected_source} in config/confluence.yml"
             )
         return {
             "mode": "update",

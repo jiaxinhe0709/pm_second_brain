@@ -18,9 +18,9 @@ related:
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: "855180241"
-  page_id: "866148399"
-  title: Provider Integration — B2B Router — Structured Review
+  parent_page_id: "837588799"
+  page_id: "855180241"
+  title: Provider Integration — B2B Router
   layout: two_left_sidebar
   toc: true
 ---

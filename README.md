@@ -44,4 +44,9 @@ contributor can use the copy-ready instructions in
 
 ## Confluence
 
-Only documents with `confluence.publish: true` are eligible for publication. Keep credentials in GitHub Actions secrets, never in this repository.
+Only documents with `confluence.publish: true` are eligible for publication. Git
+may contain multiple readable successor documents, while Confluence keeps one
+stable page per topic and displays the latest selected source. The selected source
+for each stable page is recorded under `publication.current_sources` in
+`config/confluence.yml`. Keep credentials in GitHub Actions secrets, never in this
+repository.

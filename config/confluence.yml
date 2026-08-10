@@ -5,4 +5,16 @@ publication:
   include_source_revision: true
   include_source_link: true
   preserve_manual_discussion_section: true
-
+  current_sources:
+    "837610662": PRD-SEI-211
+    "837610656": PRD-SEI-212
+    "837588799": PRD-SEI-213
+    "866126304": PRD-SEI-214
+    "837611183": PRD-SEI-215
+    "855180241": PRD-SEI-216
+    "855180247": PRD-SEI-217
+    "855180243": PRD-SEI-218
+    "855180245": PRD-SEI-219
+    "855180249": PRD-SEI-220
+    "837588803": PRD-SEI-210
+    "876576843": TEST-CONFLUENCE-001

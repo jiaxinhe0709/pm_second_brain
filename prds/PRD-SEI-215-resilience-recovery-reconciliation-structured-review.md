@@ -21,9 +21,9 @@ related:
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: "837611183"
-  page_id: "866148398"
-  title: Operations — Resilience, Recovery and Reconciliation — Structured Review
+  parent_page_id: "837588799"
+  page_id: "837611183"
+  title: Operations — Resilience, Recovery and Reconciliation
   layout: two_left_sidebar
   toc: true
 ---
