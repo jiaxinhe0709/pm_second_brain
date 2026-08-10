@@ -14,6 +14,8 @@ confluence:
   space_key: ""
   parent_page_id: ""
   page_id: ""
+  layout: two_left_sidebar
+  toc: true
 ---
 
 # Replace with PRD title
@@ -47,4 +49,3 @@ confluence:
 | Date | Change | Pull request |
 |---|---|---|
 | 2026-07-27 | Initial draft | |
-

@@ -21,6 +21,15 @@ delimited in Markdown:
     <!-- confluence-html-macro:start -->
     <div>...</div>
     <!-- confluence-html-macro:end -->
+
+An optional PM-friendly page layout can be requested in front matter:
+
+    confluence:
+      layout: two_left_sidebar
+      toc: true
+
+This places Confluence's native Table of Contents macro in the narrow left
+column and the generated document in the wide right column.
 """
 
 from __future__ import annotations
@@ -52,6 +61,7 @@ HTML_MACRO_PATTERN = re.compile(
     rf"{re.escape(HTML_MACRO_START)}\s*(.*?)\s*{re.escape(HTML_MACRO_END)}",
     re.DOTALL,
 )
+LEFT_TOC_LAYOUT = "two_left_sidebar"
 
 
 def parse_args() -> argparse.Namespace:
@@ -247,7 +257,46 @@ def markdown_to_storage(
                 f"Could not restore preserved Confluence HTML macro token {token}."
             )
         rendered = rendered.replace(paragraph_token, macro, 1)
-    return banner + rendered
+    content = banner + rendered
+    confluence = metadata.get("confluence", {})
+    if not isinstance(confluence, dict):
+        raise ValueError("Invalid confluence metadata")
+
+    layout = str(confluence.get("layout", "")).strip()
+    toc_enabled = confluence.get("toc", False)
+    if not layout:
+        if toc_enabled:
+            raise ValueError(
+                "confluence.toc requires confluence.layout: two_left_sidebar"
+            )
+        return content
+    if layout != LEFT_TOC_LAYOUT:
+        raise ValueError(
+            f"Unsupported confluence.layout {layout!r}; "
+            f"supported value is {LEFT_TOC_LAYOUT!r}"
+        )
+    if toc_enabled is not True:
+        raise ValueError(
+            "confluence.layout: two_left_sidebar requires confluence.toc: true"
+        )
+
+    toc = (
+        "<p><strong>On this page</strong></p>"
+        '<ac:structured-macro ac:name="toc">'
+        '<ac:parameter ac:name="minLevel">2</ac:parameter>'
+        '<ac:parameter ac:name="maxLevel">3</ac:parameter>'
+        '<ac:parameter ac:name="style">none</ac:parameter>'
+        '<ac:parameter ac:name="printable">true</ac:parameter>'
+        "</ac:structured-macro>"
+    )
+    return (
+        "<ac:layout>"
+        f'<ac:layout-section ac:type="{LEFT_TOC_LAYOUT}">'
+        f"<ac:layout-cell>{toc}</ac:layout-cell>"
+        f"<ac:layout-cell>{content}</ac:layout-cell>"
+        "</ac:layout-section>"
+        "</ac:layout>"
+    )
 
 
 def confluence_client() -> Confluence:

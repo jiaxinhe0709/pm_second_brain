@@ -26,6 +26,8 @@ confluence:
   parent_page_id: ""
   page_id: "837588803"
   title: Phase 3 - Platform expansion
+  layout: two_left_sidebar
+  toc: true
 ---
 
 # Phase 3 — Sage Private Platform Reuse and Operator Expansion for Spain
