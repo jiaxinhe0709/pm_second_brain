@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-11
 reviewers: []
 related:
   - PRD-SEI-227
@@ -51,14 +51,13 @@ Germany is a critical neutrality test. The shared platform must support XRechnun
 | After applicable transition | In-scope domestic B2B issuance uses structured e-invoices, subject to exemptions/rules | Outbound compliance becomes the target capability |
 | Future | German e-invoicing prepares for a later reporting system; current rules do not yet define that shared reporting obligation here | Do not invent current authority reporting; keep reporting adapter capability inactive and versionable |
 
-## German exchange visual
+## Structured invoice, counterparty-agreed delivery
 
 <!-- confluence-html-macro:start -->
 <div class="de-pack" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:24px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1140px;margin:0 auto;overflow-x:auto;">
   <style>
     .de-pack *{box-sizing:border-box}.de-pack h2{margin:0;color:#172b4d;font-size:18px}.de-pack .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.de-pack svg{display:block;width:1060px;height:520px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.de-pack .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.6}.de-pack .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.8}.de-pack .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.de-pack .bad{fill:#ffebe6;stroke:#de350b;stroke-width:1.6}.de-pack .warn{fill:#fff7d6;stroke:#ffab00;stroke-width:1.6}.de-pack .title{fill:#172b4d;font-size:11px;font-weight:700}.de-pack .copy{fill:#42526e;font-size:9px}.de-pack .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.de-pack .path{fill:none;stroke:#00875a;stroke-width:2}.de-pack .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.de-pack .path-alert{fill:none;stroke:#de350b;stroke-width:1.8;stroke-dasharray:6 4}.de-pack .path-warn{fill:none;stroke:#ff8b00;stroke-width:1.8;stroke-dasharray:6 4}.de-pack .arrow{fill:#00875a}.de-pack .arrow-g{fill:#6b778c}.de-pack .arrow-r{fill:#de350b}.de-pack .arrow-a{fill:#ff8b00}.de-pack .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1060px;margin-top:12px}.de-pack .note{padding:10px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px;line-height:1.4}.de-pack .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>Structured invoice, counterparty-agreed delivery</h2>
   <p class="sub">The German pack validates and renders the invoice; an approved product configuration selects an eligible exchange channel. Government reporting is a future optional branch, not a current implied step.</p>
   <svg viewBox="0 0 1060 520" role="img" aria-label="A German seller's Sage product submits an invoice to the shared service. The Germany pack checks scope, validates the structured representation and produces XRechnung, eligible ZUGFeRD or another approved interoperable format. An agreed channel such as email, API, portal or approved EDI delivers it to the buyer. Validation failures loop to correction. Ambiguous channel outcomes reconcile before retry. A future reporting adapter is shown as inactive and optional.">
     <text x="34" y="32" class="label">SELLER</text><text x="258" y="32" class="label">SHARED SERVICE + GERMANY PACK</text><text x="820" y="32" class="label">BUYER / FUTURE</text>
@@ -300,3 +299,4 @@ Rollout gates:
 | 2026-08-10 | Initial discovery child PRD with Confluence-safe German exchange visual | User request, BMF and EU official sources | |
 | 2026-08-10 | Linked the consolidated parent visual atlas and compressed journey prose for research-stage readability | User direction | |
 | 2026-08-10 | Approved for publication to existing page `771498625`; existing hierarchy preserved | User approval | |
+| 2026-08-11 | Removed the embedded HTML heading and promoted the diagram title to a native Confluence heading | Confluence rendering feedback | |

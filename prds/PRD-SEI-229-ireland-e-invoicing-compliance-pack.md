@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-11
 reviewers: []
 related:
   - PRD-SEI-227
@@ -49,14 +49,13 @@ The product must model invoice delivery and Revenue reporting as separate correl
 | Phase Two — 2029-11 | Revenue's implementation publication says domestic obligation extends to all VAT-registered businesses engaged in intra-EU trade | Broader domestic issue/report readiness | Precise legal scope, detailed definition and technical standards require updated official confirmation |
 | Phase Three — 2030-07-01 | EU ViDA cross-border B2B DRR based on mandatory e-invoicing | Intra-EU e-invoice/reporting compatibility | Final EU/national implementation artefacts and transition behaviour |
 
-## Ireland phased-flow visual
+## Phase One separates recipient delivery from Revenue reporting
 
 <!-- confluence-html-macro:start -->
 <div class="ie-pack" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:24px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1160px;margin:0 auto;overflow-x:auto;">
   <style>
     .ie-pack *{box-sizing:border-box}.ie-pack h2{margin:0;color:#172b4d;font-size:18px}.ie-pack .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.ie-pack svg{display:block;width:1080px;height:560px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.ie-pack .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.6}.ie-pack .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.8}.ie-pack .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.ie-pack .bad{fill:#ffebe6;stroke:#de350b;stroke-width:1.6}.ie-pack .warn{fill:#fff7d6;stroke:#ffab00;stroke-width:1.6}.ie-pack .title{fill:#172b4d;font-size:11px;font-weight:700}.ie-pack .copy{fill:#42526e;font-size:9px}.ie-pack .phase{fill:#172b4d;font-size:10px;font-weight:700;letter-spacing:.05em}.ie-pack .path{fill:none;stroke:#00875a;stroke-width:2}.ie-pack .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.ie-pack .path-alert{fill:none;stroke:#de350b;stroke-width:1.8;stroke-dasharray:6 4}.ie-pack .path-warn{fill:none;stroke:#ff8b00;stroke-width:1.8;stroke-dasharray:6 4}.ie-pack .arrow{fill:#00875a}.ie-pack .arrow-g{fill:#6b778c}.ie-pack .arrow-r{fill:#de350b}.ie-pack .arrow-a{fill:#ff8b00}.ie-pack .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1080px;margin-top:12px}.ie-pack .note{padding:10px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px;line-height:1.4}.ie-pack .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>Phase One separates recipient delivery from Revenue reporting</h2>
   <p class="sub">Both obligations use one invoice context but have independent validation, correlation, acknowledgement and recovery. Later phases widen policy; they do not rewrite earlier evidence.</p>
   <svg viewBox="0 0 1080 560" role="img" aria-label="In Ireland Phase One, a large corporate Sage product submits domestic B2B invoice intent. The Ireland pack checks cohort and scope, validates an EN 16931 representation, then creates separate buyer-delivery and Revenue-reporting legs. Each leg records an independent outcome. Validation failure loops to the product. A timeout after a possible external mutation reconciles only the affected leg. A lower phased timeline shows November 2028 Phase One, November 2029 Phase Two and July 2030 ViDA Phase Three.">
     <text x="32" y="32" class="phase">PHASE ONE JOURNEY — 1 NOVEMBER 2028</text>
@@ -302,3 +301,4 @@ Rollout gates:
 | 2026-08-10 | Initial discovery child PRD with Confluence-safe phased dual-leg visual | User request, Revenue and EU official sources | |
 | 2026-08-10 | Linked the consolidated parent visual atlas and compressed journey prose for research-stage readability | User direction | |
 | 2026-08-10 | Approved for publication to existing page `866140021`; existing hierarchy preserved | User approval | |
+| 2026-08-11 | Removed the embedded HTML heading and promoted the diagram title to a native Confluence heading | Confluence rendering feedback | |

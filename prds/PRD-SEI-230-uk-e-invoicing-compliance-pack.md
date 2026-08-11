@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-11
 reviewers: []
 related:
   - PRD-SEI-227
@@ -50,14 +50,13 @@ The pack may prepare shared Peppol, invoice-semantic, onboarding, validation, ex
 | April 2029 | VAT e-invoicing mandate planned for B2B/B2G transactions/all VAT invoices as defined by final regime | Activate only for confirmed scope/cohorts and approved transition rules |
 | Future/unknown | Any HMRC transaction-reporting, status, payment or additional tax-data obligation | No reporting leg unless official evidence later defines it |
 
-## UK direction-and-gates visual
+## Confirmed Peppol direction with policy-controlled activation
 
 <!-- confluence-html-macro:start -->
 <div class="uk-pack" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:24px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1160px;margin:0 auto;overflow-x:auto;">
   <style>
     .uk-pack *{box-sizing:border-box}.uk-pack h2{margin:0;color:#172b4d;font-size:18px}.uk-pack .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.uk-pack svg{display:block;width:1080px;height:570px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.uk-pack .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.6}.uk-pack .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.8}.uk-pack .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.uk-pack .bad{fill:#ffebe6;stroke:#de350b;stroke-width:1.6}.uk-pack .warn{fill:#fff7d6;stroke:#ffab00;stroke-width:1.6}.uk-pack .title{fill:#172b4d;font-size:11px;font-weight:700}.uk-pack .copy{fill:#42526e;font-size:9px}.uk-pack .phase{fill:#172b4d;font-size:10px;font-weight:700;letter-spacing:.05em}.uk-pack .path{fill:none;stroke:#00875a;stroke-width:2}.uk-pack .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.uk-pack .path-alert{fill:none;stroke:#de350b;stroke-width:1.8;stroke-dasharray:6 4}.uk-pack .path-warn{fill:none;stroke:#ff8b00;stroke-width:1.8;stroke-dasharray:6 4}.uk-pack .arrow{fill:#00875a}.uk-pack .arrow-g{fill:#6b778c}.uk-pack .arrow-r{fill:#de350b}.uk-pack .arrow-a{fill:#ff8b00}.uk-pack .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1080px;margin-top:12px}.uk-pack .note{padding:10px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px;line-height:1.4}.uk-pack .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>Confirmed Peppol direction with policy-controlled activation</h2>
   <p class="sub">The target exchange spine is visible, but each amber gate requires official UK evidence and approval before a live mandate claim or mutation.</p>
   <svg viewBox="0 0 1080 570" role="img" aria-label="A UK seller product submits VAT invoice intent to the shared service. Before April 2029 activation, the UK pack must pass scope and legislation, UK invoice profile, participant identity and discovery, and access-point trust gates. The confirmed direction routes through a Peppol core network to the buyer. Correctable validation failures return to the seller. Ambiguous delivery outcomes reconcile before retry. HMRC reporting and legacy-system routes are dashed optional branches that remain inactive until official policy defines them. A timeline shows 2026 co-creation, standards and legislation by end 2027 to 2028, and April 2029 mandate.">
     <text x="30" y="30" class="phase">TARGET EXCHANGE — LIVE ONLY AFTER OFFICIAL GATES</text>
@@ -315,3 +314,4 @@ Rollout gates:
 | 2026-08-10 | Initial discovery child PRD; updated older topology-TBD research with 2026 Peppol announcement; added Confluence-safe gated roadmap visual | User request and official HMRC/DBT sources | |
 | 2026-08-10 | Linked the consolidated parent visual atlas and compressed journey prose for research-stage readability | User direction | |
 | 2026-08-10 | Approved for publication to existing page `866140019`; existing hierarchy preserved | User approval | |
+| 2026-08-11 | Removed the embedded HTML heading and promoted the diagram title to a native Confluence heading | Confluence rendering feedback | |

@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-11
 reviewers: []
 related:
   - PRD-SEI-223
@@ -67,14 +67,13 @@ All four documents use existing stable Confluence pages; publication creates no 
 | 3 — Reporting and scale | Government-reporting orchestration, pack versioning, operational controls and country onboarding governance | Effective-dated reporting rules, authority adapters, exception handling and local assurance | Proposed; jurisdiction dates vary |
 | Later | Reusable onboarding kit, compatibility policy and retirement controls | Additional jurisdictions and revised policy versions | Direction only |
 
-## Strategic service visual
+## One compliance journey, policy and adapters by country
 
 <!-- confluence-html-macro:start -->
 <div class="eias-core" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:24px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1180px;margin:0 auto;overflow-x:auto;">
   <style>
     .eias-core *{box-sizing:border-box}.eias-core h2{margin:0;color:#172b4d;font-size:18px}.eias-core .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-core svg{display:block;width:1100px;height:560px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-core .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.6}.eias-core .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.8}.eias-core .pack{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-core .bad{fill:#ffebe6;stroke:#de350b;stroke-width:1.6}.eias-core .warn{fill:#fff7d6;stroke:#ffab00;stroke-width:1.6}.eias-core .title{fill:#172b4d;font-size:11px;font-weight:700}.eias-core .copy{fill:#42526e;font-size:9px}.eias-core .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.eias-core .path{fill:none;stroke:#00875a;stroke-width:2}.eias-core .path-alert{fill:none;stroke:#de350b;stroke-width:1.8;stroke-dasharray:6 4}.eias-core .path-warn{fill:none;stroke:#ff8b00;stroke-width:1.8;stroke-dasharray:6 4}.eias-core .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-core .arrow{fill:#00875a}.eias-core .arrow-r{fill:#de350b}.eias-core .arrow-a{fill:#ff8b00}.eias-core .arrow-g{fill:#6b778c}.eias-core .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1100px;margin-top:12px}.eias-core .note{padding:10px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px;line-height:1.4}.eias-core .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>One compliance journey, policy and adapters by country</h2>
   <p class="sub">The static happy path remains common. Country packs decide applicability and supply rules or adapters; correction and unknown-outcome recovery stay explicit.</p>
   <svg viewBox="0 0 1100 560" role="img" aria-label="A Sage product submits invoice intent to the shared platform. The platform normalises the canonical invoice, determines scope, uses an effective country pack to validate, transform, resolve, transmit and report, then records lifecycle evidence and returns outcomes. Correctable validation failures loop to the product. Timeouts after transmission enter reconciliation before retry. Country packs are optional side modules, not separate products.">
     <text x="35" y="32" class="label">PRODUCT INTENT</text><text x="300" y="32" class="label">SHARED E-INVOICING PLATFORM</text><text x="878" y="32" class="label">EXTERNAL ECOSYSTEM</text>
@@ -150,14 +149,13 @@ The opportunity is not a promised percentage of code reuse. It is a reusable cap
 | External status | Provider/network/authority vocabulary | Canonical lifecycle event |
 | Current route | Configuration used for a new eligible exchange | The immutable route/context of an existing invoice |
 
-## Compliance-domain visual
+## Document, delivery and reporting compliance
 
 <!-- confluence-html-macro:start -->
 <div class="eias-domains" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1040px;margin:0 auto;overflow-x:auto;">
   <style>
     .eias-domains *{box-sizing:border-box}.eias-domains h2{margin:0;color:#172b4d;font-size:18px}.eias-domains .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-domains svg{display:block;width:960px;height:360px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-domains .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.7}.eias-domains .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-domains .title{fill:#172b4d;font-size:12px;font-weight:700}.eias-domains .copy{fill:#42526e;font-size:9px}.eias-domains .path{fill:none;stroke:#00875a;stroke-width:2}.eias-domains .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-domains .arrow{fill:#00875a}.eias-domains .arrow-g{fill:#6b778c}.eias-domains .legend{display:flex;gap:18px;min-width:960px;margin-top:10px;color:#42526e;font-size:10px}.eias-domains .key{display:flex;gap:6px;align-items:center}.eias-domains .sw{width:18px;height:10px;border-radius:4px;background:#e3fcef;border:1px solid #36b37e}.eias-domains .sw.opt{background:#f4f5f7;border-color:#6b778c;border-style:dashed}
   </style>
-  <h2>Three related but independently evidenced obligations</h2>
   <p class="sub">Country policy activates only the applicable branches; no branch inherits success from another.</p>
   <svg viewBox="0 0 960 360" role="img" aria-label="Invoice intent is evaluated by country policy and then branches into document compliance, delivery compliance and reporting compliance. Each branch produces an independent outcome and evidence record. Reporting can be inactive when the country has no current obligation.">
     <rect x="40" y="135" width="170" height="76" rx="10" class="main"/><text x="62" y="164" class="title">Invoice intent</text><text x="62" y="184" class="copy">Business facts and requested action</text>
@@ -180,14 +178,13 @@ The opportunity is not a promised percentage of code reuse. It is a reusable cap
 
 The strategic and compliance visuals above plus the atlas below consolidate every distinct diagrammatic idea from the research. Repeated country variants share one comparison visual; code-like snippets remain text where visual treatment adds noise.
 
-### Canonical invoice and country representations
+### One semantic invoice, many compliant boundary forms
 
 <!-- confluence-html-macro:start -->
 <div class="eias-canonical" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1180px;margin:0 auto;overflow-x:auto;">
   <style>
     .eias-canonical *{box-sizing:border-box}.eias-canonical h2{margin:0;color:#172b4d;font-size:18px}.eias-canonical .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-canonical svg{display:block;width:1100px;height:610px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-canonical .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.6}.eias-canonical .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.8}.eias-canonical .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-canonical .bad{fill:#ffebe6;stroke:#de350b;stroke-width:1.6}.eias-canonical .title{fill:#172b4d;font-size:11px;font-weight:700}.eias-canonical .copy{fill:#42526e;font-size:9px}.eias-canonical .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.eias-canonical .path{fill:none;stroke:#00875a;stroke-width:2}.eias-canonical .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-canonical .path-alert{fill:none;stroke:#de350b;stroke-width:1.8;stroke-dasharray:6 4}.eias-canonical .arrow{fill:#00875a}.eias-canonical .arrow-g{fill:#6b778c}.eias-canonical .arrow-r{fill:#de350b}.eias-canonical .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1100px;margin-top:10px}.eias-canonical .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px}.eias-canonical .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>One semantic invoice, many compliant boundary forms</h2>
   <p class="sub">The core stores business meaning and provenance once; country-specific names, formats and fields remain at governed boundaries.</p>
   <svg viewBox="0 0 1100 610" role="img" aria-label="A red country-fork anti-pattern with FrenchInvoice, SpanishInvoice and GermanInvoice is replaced by one canonical invoice. The canonical invoice contains identity, supplier, buyer, lines, tax, totals, payment, references and governed country extensions. Versioned country mappers produce French, Spanish, German, Irish and future UK compliant representations, while provenance remains attached.">
     <text x="34" y="30" class="label">AVOID COUNTRY DOMAIN FORKS</text><text x="332" y="30" class="label">SHARED SEMANTICS</text><text x="820" y="30" class="label">BOUNDARY REPRESENTATIONS</text>
@@ -219,14 +216,13 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 </div>
 <!-- confluence-html-macro:end -->
 
-### Country delivery and reporting topologies
+### Same primitives, different government-facing topology
 
 <!-- confluence-html-macro:start -->
 <div class="eias-topologies" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1180px;margin:0 auto;overflow-x:auto;">
   <style>
     .eias-topologies *{box-sizing:border-box}.eias-topologies h2{margin:0;color:#172b4d;font-size:18px}.eias-topologies .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-topologies svg{display:block;width:1100px;height:650px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-topologies .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.5}.eias-topologies .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.7}.eias-topologies .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-topologies .title{fill:#172b4d;font-size:10px;font-weight:700}.eias-topologies .copy{fill:#42526e;font-size:8.5px}.eias-topologies .country{fill:#172b4d;font-size:11px;font-weight:700}.eias-topologies .path{fill:none;stroke:#00875a;stroke-width:2}.eias-topologies .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-topologies .arrow{fill:#00875a}.eias-topologies .arrow-g{fill:#6b778c}.eias-topologies .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1100px;margin-top:10px}.eias-topologies .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px}.eias-topologies .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>Same primitives, different government-facing topology</h2>
   <p class="sub">Delivery and reporting are shown separately. Dashed routes are optional, future or policy-dependent.</p>
   <svg viewBox="0 0 1100 650" role="img" aria-label="Five country lanes compare e-invoicing topologies. France sends from seller through approved platforms to buyer and separately reports invoice, transaction and payment data to DGFiP. Spain sends through private platforms, provides a faithful UBL copy to the public solution, and can alternatively use the public solution. Germany delivers a structured invoice through a counterparty-agreed channel. Ireland delivers to the buyer and separately reports a subset to Revenue. The UK Peppol route is a newer confirmed direction with reporting still inactive.">
     <text x="34" y="30" class="country">FRANCE</text>
@@ -255,14 +251,13 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 </div>
 <!-- confluence-html-macro:end -->
 
-### Invoice lifecycle and event normalisation
+### Events preserve country language; canonical meaning powers products
 
 <!-- confluence-html-macro:start -->
 <div class="eias-lifecycle" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1180px;margin:0 auto;overflow-x:auto;">
   <style>
     .eias-lifecycle *{box-sizing:border-box}.eias-lifecycle h2{margin:0;color:#172b4d;font-size:18px}.eias-lifecycle .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-lifecycle svg{display:block;width:1100px;height:570px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-lifecycle .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.5}.eias-lifecycle .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.7}.eias-lifecycle .bad{fill:#ffebe6;stroke:#de350b;stroke-width:1.6}.eias-lifecycle .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-lifecycle .title{fill:#172b4d;font-size:10px;font-weight:700}.eias-lifecycle .copy{fill:#42526e;font-size:8.5px}.eias-lifecycle .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.eias-lifecycle .path{fill:none;stroke:#00875a;stroke-width:2}.eias-lifecycle .path-alert{fill:none;stroke:#de350b;stroke-width:1.8;stroke-dasharray:6 4}.eias-lifecycle .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-lifecycle .arrow{fill:#00875a}.eias-lifecycle .arrow-r{fill:#de350b}.eias-lifecycle .arrow-g{fill:#6b778c}.eias-lifecycle .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1100px;margin-top:10px}.eias-lifecycle .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px}.eias-lifecycle .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>Events preserve country language; canonical meaning powers products</h2>
   <p class="sub">The lifecycle is an event vocabulary, not a promise that every country uses every state or follows one linear path.</p>
   <svg viewBox="0 0 1100 570" role="img" aria-label="A proposed canonical invoice lifecycle flows from Created to Validated to Sent to Received to Accepted and Paid, with a red rejected branch from Received. A side mapping converts French and Spanish external statuses to canonical events while preserving the original value. An InvoiceEvent record stores invoice ID, event and effective timestamps, actor, country, raw and canonical status, reason, amount and metadata.">
     <text x="34" y="30" class="label">PROPOSED CANONICAL EVENT SPINE</text><text x="770" y="30" class="label">RAW-TO-CANONICAL MAPPING</text>
@@ -285,14 +280,13 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 </div>
 <!-- confluence-html-macro:end -->
 
-### Recipient resolution and format boundaries
+### Resolve destinations and transform formats through shared interfaces
 
 <!-- confluence-html-macro:start -->
 <div class="eias-boundaries" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1180px;margin:0 auto;overflow-x:auto;">
   <style>
     .eias-boundaries *{box-sizing:border-box}.eias-boundaries h2{margin:0;color:#172b4d;font-size:18px}.eias-boundaries .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-boundaries svg{display:block;width:1100px;height:650px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-boundaries .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.5}.eias-boundaries .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.7}.eias-boundaries .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-boundaries .title{fill:#172b4d;font-size:10px;font-weight:700}.eias-boundaries .copy{fill:#42526e;font-size:8.5px}.eias-boundaries .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.eias-boundaries .path{fill:none;stroke:#00875a;stroke-width:2}.eias-boundaries .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-boundaries .arrow{fill:#00875a}.eias-boundaries .arrow-g{fill:#6b778c}.eias-boundaries .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1100px;margin-top:10px}.eias-boundaries .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px}.eias-boundaries .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>Resolve destinations and transform formats through shared interfaces</h2>
   <p class="sub">Country adapters answer different routing questions; parsing and mapping occur only at system boundaries.</p>
   <svg viewBox="0 0 1100 650" role="img" aria-label="A recipient, country and document type enter a shared recipient resolver. France resolves through a SIREN directory to an approved platform, Spain resolves a tax ID to a private or public endpoint, and Germany uses customer configuration. The resolver returns scheme, identifier, network, endpoint, transport and credential reference. A shared format service parses inbound XML to the canonical invoice and maps outbound canonical invoices to UBL, CII, Factur-X, XRechnung or Facturae.">
     <text x="34" y="30" class="label">RECIPIENT RESOLUTION</text>
@@ -318,14 +312,13 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 </div>
 <!-- confluence-html-macro:end -->
 
-### Shared core, country packs and reuse boundary
+### Build capabilities once; plug in country policy and edges
 
 <!-- confluence-html-macro:start -->
 <div class="eias-packs" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1180px;margin:0 auto;overflow-x:auto;">
   <style>
     .eias-packs *{box-sizing:border-box}.eias-packs h2{margin:0;color:#172b4d;font-size:18px}.eias-packs .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-packs svg{display:block;width:1100px;height:650px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-packs .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.5}.eias-packs .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.7}.eias-packs .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-packs .title{fill:#172b4d;font-size:10px;font-weight:700}.eias-packs .copy{fill:#42526e;font-size:8.5px}.eias-packs .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.eias-packs .path{fill:none;stroke:#00875a;stroke-width:2}.eias-packs .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-packs .arrow{fill:#00875a}.eias-packs .arrow-g{fill:#6b778c}.eias-packs .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1100px;margin-top:10px}.eias-packs .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px}.eias-packs .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>Build capabilities once; plug in country policy and edges</h2>
   <p class="sub">Reuse is measured by proven capability fitness—not by a promised percentage of existing France code.</p>
   <svg viewBox="0 0 1100 650" role="img" aria-label="The shared e-invoicing core contains invoice API, canonical semantics, validation, transformation, routing, workflow, reporting, identity, resilience, errors, audit, storage, observability and security. Country packs provide scope and effective dates, required data and validation, syntax profiles, topology and recipient discovery, trust, authority reporting, lifecycle mappings, retention and exceptions. France, Spain, Germany, Ireland and UK packs connect through one governed pack contract. Most reusable capability belongs in the core while deltas remain in packs.">
     <text x="34" y="30" class="label">SHARED PLATFORM CAPABILITY</text><text x="758" y="30" class="label">COUNTRY DELTA</text>
@@ -353,14 +346,13 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 </div>
 <!-- confluence-html-macro:end -->
 
-### Scope decision and effective-dated policy
+### Applicability is a reusable, explainable decision
 
 <!-- confluence-html-macro:start -->
 <div class="eias-scope" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1180px;margin:0 auto;overflow-x:auto;">
   <style>
     .eias-scope *{box-sizing:border-box}.eias-scope h2{margin:0;color:#172b4d;font-size:18px}.eias-scope .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-scope svg{display:block;width:1100px;height:630px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-scope .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.5}.eias-scope .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.7}.eias-scope .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-scope .bad{fill:#ffebe6;stroke:#de350b;stroke-width:1.6}.eias-scope .title{fill:#172b4d;font-size:10px;font-weight:700}.eias-scope .copy{fill:#42526e;font-size:8.5px}.eias-scope .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.eias-scope .path{fill:none;stroke:#00875a;stroke-width:2}.eias-scope .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-scope .path-alert{fill:none;stroke:#de350b;stroke-width:1.8;stroke-dasharray:6 4}.eias-scope .arrow{fill:#00875a}.eias-scope .arrow-g{fill:#6b778c}.eias-scope .arrow-r{fill:#de350b}.eias-scope .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1100px;margin-top:10px}.eias-scope .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px}.eias-scope .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>Applicability is a reusable, explainable decision</h2>
   <p class="sub">Effective-dated policy replaces scattered country and company-size conditionals.</p>
   <svg viewBox="0 0 1100 630" role="img" aria-label="A transaction enters a scope decision engine with seller, buyer and transaction attributes. Seller and buyer inputs include country, VAT status and establishment; transaction inputs include B2B, B2C or B2G, domestic or cross-border, document type and date. The engine selects an effective-dated country policy version and returns whether e-invoicing and reporting are required, the format profile, route, effective date and exemptions. A red hard-coded country conditional is rejected in favour of versioned CountryPolicy rules. Example routes include French domestic, French to German, Spanish B2C and B2B, Irish to French, B2G, credit note, self-billing and reverse charge.">
     <text x="34" y="30" class="label">DECISION INPUTS</text><text x="440" y="30" class="label">POLICY EVALUATION</text><text x="806" y="30" class="label">EXPLAINABLE RESULT</text>
@@ -381,14 +373,13 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 </div>
 <!-- confluence-html-macro:end -->
 
-### Spain domain boundary
+### Spain: share invoice data, keep regulatory domains separate
 
 <!-- confluence-html-macro:start -->
 <div class="eias-spain-boundary" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1100px;margin:0 auto;overflow-x:auto;">
   <style>
     .eias-spain-boundary *{box-sizing:border-box}.eias-spain-boundary h2{margin:0;color:#172b4d;font-size:18px}.eias-spain-boundary .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-spain-boundary svg{display:block;width:1020px;height:370px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-spain-boundary .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.5}.eias-spain-boundary .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-spain-boundary .title{fill:#172b4d;font-size:11px;font-weight:700}.eias-spain-boundary .copy{fill:#42526e;font-size:9px}.eias-spain-boundary .path{fill:none;stroke:#00875a;stroke-width:2}.eias-spain-boundary .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-spain-boundary .arrow{fill:#00875a}.eias-spain-boundary .arrow-g{fill:#6b778c}.eias-spain-boundary .notes{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;min-width:1020px;margin-top:10px}.eias-spain-boundary .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px}.eias-spain-boundary .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>Spain: share invoice data, keep regulatory domains separate</h2>
   <p class="sub">B2B exchange and fiscal-record/VERI*FACTU obligations interact but do not become one Spanish service.</p>
   <svg viewBox="0 0 1020 370" role="img" aria-label="The shared invoice domain branches into an e-invoice compliance service and a fiscal-record compliance service. The Spain B2B pack uses the e-invoice service for structured document, validation, routing, intermediary, transformation, status events and government copy or reporting. A separate Spain VeriFactu pack uses the fiscal-record service for billing-system and anti-fraud traceability obligations. Both can reuse source invoice facts without merging responsibility.">
     <rect x="365" y="34" width="290" height="70" rx="10" class="main"/><text x="427" y="63" class="title">Shared invoice facts</text><text x="398" y="84" class="copy">identity • parties • lines • tax • totals • provenance</text>
@@ -400,14 +391,13 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 </div>
 <!-- confluence-html-macro:end -->
 
-### Simple product contract
+### Products express intent; the service owns jurisdiction complexity
 
 <!-- confluence-html-macro:start -->
 <div class="eias-contract" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1100px;margin:0 auto;overflow-x:auto;">
   <style>
     .eias-contract *{box-sizing:border-box}.eias-contract h2{margin:0;color:#172b4d;font-size:18px}.eias-contract .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-contract svg{display:block;width:1020px;height:400px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-contract .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.5}.eias-contract .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.7}.eias-contract .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-contract .title{fill:#172b4d;font-size:11px;font-weight:700}.eias-contract .copy{fill:#42526e;font-size:9px}.eias-contract .path{fill:none;stroke:#00875a;stroke-width:2}.eias-contract .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-contract .arrow{fill:#00875a}.eias-contract .arrow-g{fill:#6b778c}.eias-contract .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1020px;margin-top:10px}.eias-contract .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px}.eias-contract .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>Products express intent; the service owns jurisdiction complexity</h2>
   <p class="sub">The endpoint shape is illustrative, not an approved API contract.</p>
   <svg viewBox="0 0 1020 400" role="img" aria-label="Sage Accounting, ERP and Cloud products submit a simple common invoice request such as POST invoices. The E-Invoicing as a Service boundary determines jurisdiction, policy, format, route, reporting and lifecycle. It returns invoice ID plus separate compliance, delivery, reporting and business status. France approved platforms, Spain public and private platforms, Germany agreed transports, Ireland Revenue and UK Peppol remain hidden behind the country-pack boundary.">
     <rect x="34" y="70" width="210" height="124" rx="10" class="main"/><text x="54" y="100" class="title">Sage products</text><text x="54" y="124" class="copy">Accounting • ERP • Cloud</text><text x="54" y="146" class="copy">Provide business invoice intent</text><rect x="58" y="162" width="162" height="24" rx="6" class="finish"/><text x="92" y="179" class="title">POST /invoices</text>
@@ -421,14 +411,13 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 </div>
 <!-- confluence-html-macro:end -->
 
-### Regulatory convergence direction
+### Different national paths, increasing EU semantic convergence
 
 <!-- confluence-html-macro:start -->
 <div class="eias-convergence" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1100px;margin:0 auto;overflow-x:auto;">
   <style>
     .eias-convergence *{box-sizing:border-box}.eias-convergence h2{margin:0;color:#172b4d;font-size:18px}.eias-convergence .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-convergence svg{display:block;width:1020px;height:430px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-convergence .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.5}.eias-convergence .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.7}.eias-convergence .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-convergence .title{fill:#172b4d;font-size:11px;font-weight:700}.eias-convergence .copy{fill:#42526e;font-size:9px}.eias-convergence .path{fill:none;stroke:#00875a;stroke-width:2}.eias-convergence .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-convergence .arrow{fill:#00875a}.eias-convergence .arrow-g{fill:#6b778c}.eias-convergence .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1020px;margin-top:10px}.eias-convergence .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px}.eias-convergence .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>Different national paths, increasing EU semantic convergence</h2>
   <p class="sub">ViDA strengthens the case for shared semantics and reporting frameworks without erasing national implementation differences.</p>
   <svg viewBox="0 0 1020 430" role="img" aria-label="In 2025 and 2026 France, Spain, Germany, Ireland and other EU countries follow different national e-invoicing paths. These converge toward EN 16931 and ViDA digital reporting from 1 July 2030 for cross-border B2B transactions. By 1 January 2035 domestic real-time reporting systems must align with the EU framework, producing greater interoperability while country rules and routes remain distinct.">
     <text x="50" y="40" class="title">2025–2029 • national paths</text><text x="442" y="40" class="title">2030 • ViDA cross-border DRR</text><text x="805" y="40" class="title">2035 • aligned domestic systems</text>
@@ -446,14 +435,13 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 </div>
 <!-- confluence-html-macro:end -->
 
-### Discovery capability map and country matrix
+### Ask the same ten questions for every country
 
 <!-- confluence-html-macro:start -->
 <div class="eias-capabilities" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1180px;margin:0 auto;overflow-x:auto;">
   <style>
     .eias-capabilities *{box-sizing:border-box}.eias-capabilities h2{margin:0;color:#172b4d;font-size:18px}.eias-capabilities .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-capabilities svg{display:block;width:1100px;height:710px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-capabilities .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.4}.eias-capabilities .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.6}.eias-capabilities .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.4;stroke-dasharray:7 5}.eias-capabilities .title{fill:#172b4d;font-size:10px;font-weight:700}.eias-capabilities .copy{fill:#42526e;font-size:8.5px}.eias-capabilities .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.eias-capabilities .path{fill:none;stroke:#00875a;stroke-width:1.8}.eias-capabilities .arrow{fill:#00875a}.eias-capabilities .grid{stroke:#dfe1e6;stroke-width:1}.eias-capabilities .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1100px;margin-top:10px}.eias-capabilities .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px}.eias-capabilities .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>Ask the same ten questions for every country</h2>
   <p class="sub">✓ means shared framework; Δ means country policy/adapter; ? means regulation or design remains open.</p>
   <svg viewBox="0 0 1100 710" role="img" aria-label="A ten-capability research map covers determine applicability, enrich, validate, transform, resolve recipient, authenticate or sign, transmit, report, track lifecycle and provide evidence. A country matrix then compares France, Spain, Germany, Ireland and UK, showing common shared frameworks for the canonical model, transformation, transport, status, reporting, audit and resilience, country deltas for policy, formats, routing, statuses and reporting rules, and unknowns for still-developing Ireland and UK details.">
     <text x="34" y="30" class="label">TEN-CAPABILITY WORKSHOP MAP</text>
@@ -742,3 +730,4 @@ Dependencies include country legal/compliance owners, Sage product teams, existi
 | 2026-08-10 | Initial discovery PRD; converted research text diagrams into Confluence-safe service and compliance-domain visuals; added Germany/Ireland/UK child structure | User request, supplied research and official sources | |
 | 2026-08-10 | Added a consolidated 12-visual research atlas covering all source diagram themes and retained only code-like snippets as text | User direction | |
 | 2026-08-10 | Approved for publication to existing page `866150169`; existing page hierarchy preserved | User approval | |
+| 2026-08-11 | Removed embedded HTML headings from all diagrams and promoted their titles to native Confluence headings | Confluence rendering feedback | |
