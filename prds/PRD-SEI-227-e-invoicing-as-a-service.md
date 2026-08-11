@@ -143,11 +143,54 @@ The opportunity is not a promised percentage of code reuse. It is a reusable cap
 | Canonical invoice semantics | Jurisdiction-neutral business meaning with extension/provenance support | One mandatory physical payload or lossless replacement for source evidence |
 | Country policy version | Effective-dated applicability, validation and obligation decisions | Application release version |
 | Country pack | Governed rules, mappings, adapters, status translation and evidence | A separate country product or code fork |
+| Network or channel | Interoperability ecosystem or delivery mechanism selected by evidence-backed policy, such as Peppol, a national platform, private interoperability or an agreed direct channel | The organisation providing Sage's connection |
+| Service provider | Contracted organisation performing one or more network, platform, reporting, directory or compliance roles | The network, regulation or Sage adapter |
+| Peppol Access Point | Peppol-certified service-provider role connecting a participant to the Peppol Network; sender and recipient may choose different providers | Peppol itself or a universal provider selection |
+| SMP / capability lookup | Service that publishes or discovers participant addressing and supported document capabilities; it may be supplied with or separately from Access Point service | The sending Access Point or the invoice profile |
+| Technical adapter | Sage-controlled connector and configuration for a provider, platform, authority or direct channel | Country regulation or the external service itself |
 | Document compliance | Whether the structured invoice representation satisfies applicable semantic/business rules | Delivery or authority reporting success |
 | Delivery compliance | Whether the invoice reached the required recipient through an eligible route | Government reporting |
 | Reporting compliance | Whether required transaction/invoice/payment data reached the authority | Buyer delivery |
 | External status | Provider/network/authority vocabulary | Canonical lifecycle event |
 | Current route | Configuration used for a new eligible exchange | The immutable route/context of an existing invoice |
+
+## Separate regulation, network, provider and adapter
+
+<!-- confluence-html-macro:start -->
+<div class="eias-route-model" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1180px;margin:0 auto;overflow-x:auto;">
+  <style>
+    .eias-route-model *{box-sizing:border-box}.eias-route-model .sub{margin:0 0 16px;color:#6b778c;font-size:12px}.eias-route-model svg{display:block;width:1100px;height:500px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-route-model .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.6}.eias-route-model .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.8}.eias-route-model .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-route-model .title{fill:#172b4d;font-size:10px;font-weight:700}.eias-route-model .copy{fill:#42526e;font-size:8.5px}.eias-route-model .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.eias-route-model .path{fill:none;stroke:#00875a;stroke-width:2}.eias-route-model .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-route-model .arrow{fill:#00875a}.eias-route-model .arrow-g{fill:#6b778c}.eias-route-model .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1100px;margin-top:10px}.eias-route-model .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px;line-height:1.4}.eias-route-model .note strong{display:block;color:#172b4d;margin-bottom:2px}
+  </style>
+  <p class="sub">Policy selects an eligible route; execution binds a separate provider role and Sage adapter. Provider examples remain research candidates, not approved architecture or procurement choices.</p>
+  <svg viewBox="0 0 1100 500" role="img" aria-label="A decision chain separates country or jurisdiction, regulatory model, eligible network or channel, provider service role and Sage technical adapter. A Peppol execution example then shows a Sage product using a Sage adapter, a selected sending Access Point provider, the Peppol Network, a recipient Access Point that may be a different provider, and the buyer. Peppol is explicitly the network, not the provider, and no vendor is selected.">
+    <text x="30" y="30" class="label">ROUTE DECISION — CONCEPTS REMAIN DISTINCT</text>
+    <rect x="30" y="58" width="178" height="82" rx="10" class="main"/><text x="50" y="88" class="title">Country / jurisdiction</text><text x="50" y="109" class="copy">Legal and operating context</text><text x="50" y="126" class="copy">UK • Germany • Ireland • etc.</text>
+    <path d="M208 99 H236" class="path"/><polygon points="236,99 226,93 226,105" class="arrow"/>
+    <rect x="238" y="58" width="178" height="82" rx="10" class="main"/><text x="258" y="88" class="title">Regulatory model</text><text x="258" y="109" class="copy">Scope • duties • effective policy</text><text x="258" y="126" class="copy">document • delivery • reporting</text>
+    <path d="M416 99 H444" class="path"/><polygon points="444,99 434,93 434,105" class="arrow"/>
+    <rect x="446" y="58" width="178" height="82" rx="10" class="main"/><text x="466" y="88" class="title">Network / channel</text><text x="466" y="109" class="copy">Peppol • national platform</text><text x="466" y="126" class="copy">private or agreed direct route</text>
+    <path d="M624 99 H652" class="path-opt"/><polygon points="652,99 642,93 642,105" class="arrow-g"/>
+    <rect x="654" y="58" width="178" height="82" rx="10" class="optional"/><text x="674" y="88" class="title">Provider service / role</text><text x="674" y="109" class="copy">Contracting entity • authority</text><text x="674" y="126" class="copy">AP • SMP • platform • reporting</text>
+    <path d="M832 99 H860" class="path-opt"/><polygon points="860,99 850,93 850,105" class="arrow-g"/>
+    <rect x="862" y="58" width="208" height="82" rx="10" class="optional"/><text x="882" y="88" class="title">Sage adapter / configuration</text><text x="882" y="109" class="copy">API or transport connector</text><text x="882" y="126" class="copy">credentials • version • environment</text>
+    <line x1="30" y1="184" x2="1070" y2="184" stroke="#dfe1e6"/>
+    <text x="30" y="218" class="label">PEPPOL FOUR-CORNER EXECUTION EXAMPLE — NO VENDOR SELECTED</text>
+    <rect x="30" y="254" width="146" height="76" rx="10" class="main"/><text x="50" y="283" class="title">Sage product</text><text x="50" y="304" class="copy">Invoice intent</text>
+    <path d="M176 292 H202" class="path"/><polygon points="202,292 192,286 192,298" class="arrow"/>
+    <rect x="204" y="254" width="146" height="76" rx="10" class="main"/><text x="224" y="283" class="title">Sage adapter</text><text x="224" y="304" class="copy">Provider-specific boundary</text>
+    <path d="M350 292 H376" class="path"/><polygon points="376,292 366,286 366,298" class="arrow"/>
+    <rect x="378" y="246" width="172" height="92" rx="10" class="main"/><text x="398" y="276" class="title">Sending Access Point</text><text x="398" y="297" class="copy">Selected certified provider role</text><text x="398" y="316" class="copy">Sage-side contract and trust</text>
+    <path d="M550 292 H576" class="path"/><polygon points="576,292 566,286 566,298" class="arrow"/>
+    <rect x="578" y="246" width="154" height="92" rx="10" class="main"/><text x="598" y="276" class="title">Peppol Network</text><text x="598" y="297" class="copy">Shared rules • discovery</text><text x="598" y="316" class="copy">trust and interoperability</text>
+    <path d="M732 292 H758" class="path"/><polygon points="758,292 748,286 748,298" class="arrow"/>
+    <rect x="760" y="246" width="184" height="92" rx="10" class="main"/><text x="780" y="276" class="title">Receiving Access Point</text><text x="780" y="297" class="copy">Buyer's chosen provider</text><text x="780" y="316" class="copy">may differ from Sage's provider</text>
+    <path d="M944 292 H970" class="path"/><polygon points="970,292 960,286 960,298" class="arrow"/>
+    <rect x="972" y="254" width="98" height="76" rx="38" class="finish"/><text x="995" y="284" class="title">Buyer</text><text x="991" y="305" class="copy">Receives</text>
+    <rect x="250" y="388" width="600" height="52" rx="26" class="finish"/><text x="335" y="410" class="title">ExecutionRoute = policy + channel + provider role + adapter + recipient</text><text x="382" y="429" class="copy">Each element is evidenced, versioned and retained with invoice history</text>
+  </svg>
+  <div class="notes"><div class="note"><strong>Peppol is not the provider</strong>It supplies shared specifications, discovery, trust and network interoperability.</div><div class="note"><strong>Independent choice</strong>Sender and recipient can use different certified Access Point providers.</div><div class="note"><strong>No vendor decision</strong>Certification, jurisdiction, role, contract, coverage and operations still require evidence and approval.</div></div>
+</div>
+<!-- confluence-html-macro:end -->
 
 ## Document, delivery and reporting compliance
 
@@ -176,7 +219,7 @@ The opportunity is not a promised percentage of code reuse. It is a reusable cap
 
 ## Visual research atlas
 
-The strategic and compliance visuals above plus the atlas below consolidate every distinct diagrammatic idea from the research. Repeated country variants share one comparison visual; code-like snippets remain text where visual treatment adds noise.
+The strategic, route-model and compliance visuals above plus the atlas below consolidate every distinct diagrammatic idea from the research. Repeated country variants share one comparison visual; code-like snippets remain text where visual treatment adds noise.
 
 ### One semantic invoice, many compliant boundary forms
 
@@ -271,7 +314,7 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
     <text x="34" y="370" class="label">DURABLE EVENT EVIDENCE</text>
     <rect x="34" y="394" width="1032" height="132" rx="10" class="main"/><text x="56" y="422" class="title">InvoiceEvent</text>
     <rect x="56" y="440" width="180" height="58" rx="8" class="finish"/><text x="74" y="464" class="title">Identity and time</text><text x="74" y="483" class="copy">invoiceId • event/effective timestamp</text>
-    <rect x="256" y="440" width="180" height="58" rx="8" class="finish"/><text x="274" y="464" class="title">Source context</text><text x="274" y="483" class="copy">actor • country • provider/network</text>
+    <rect x="256" y="440" width="180" height="58" rx="8" class="finish"/><text x="274" y="464" class="title">Source context</text><text x="274" y="483" class="copy">actor • country • network • provider</text>
     <rect x="456" y="440" width="180" height="58" rx="8" class="finish"/><text x="474" y="464" class="title">Status evidence</text><text x="474" y="483" class="copy">externalStatus • canonicalStatus</text>
     <rect x="656" y="440" width="180" height="58" rx="8" class="finish"/><text x="674" y="464" class="title">Business detail</text><text x="674" y="483" class="copy">reasonCode • amount • document leg</text>
     <rect x="856" y="440" width="180" height="58" rx="8" class="finish"/><text x="874" y="464" class="title">Provenance</text><text x="874" y="483" class="copy">mapping version • metadata • evidence</text>
@@ -287,8 +330,8 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
   <style>
     .eias-boundaries *{box-sizing:border-box}.eias-boundaries h2{margin:0;color:#172b4d;font-size:18px}.eias-boundaries .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.eias-boundaries svg{display:block;width:1100px;height:650px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eias-boundaries .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.5}.eias-boundaries .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.7}.eias-boundaries .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eias-boundaries .title{fill:#172b4d;font-size:10px;font-weight:700}.eias-boundaries .copy{fill:#42526e;font-size:8.5px}.eias-boundaries .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.eias-boundaries .path{fill:none;stroke:#00875a;stroke-width:2}.eias-boundaries .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eias-boundaries .arrow{fill:#00875a}.eias-boundaries .arrow-g{fill:#6b778c}.eias-boundaries .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1100px;margin-top:10px}.eias-boundaries .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px}.eias-boundaries .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <p class="sub">Country adapters answer different routing questions; parsing and mapping occur only at system boundaries.</p>
-  <svg viewBox="0 0 1100 650" role="img" aria-label="A recipient, country and document type enter a shared recipient resolver. France resolves through a SIREN directory to an approved platform, Spain resolves a tax ID to a private or public endpoint, and Germany uses customer configuration. The resolver returns scheme, identifier, network, endpoint, transport and credential reference. A shared format service parses inbound XML to the canonical invoice and maps outbound canonical invoices to UBL, CII, Factur-X, XRechnung or Facturae.">
+  <p class="sub">Country adapters answer different destination questions; route planning later binds the selected provider role and Sage adapter. Parsing and mapping occur only at system boundaries.</p>
+  <svg viewBox="0 0 1100 650" role="img" aria-label="A recipient, country and document type enter a shared recipient resolver. France resolves through a SIREN directory to an approved platform, Spain resolves a tax ID to a private or public endpoint, and Germany uses customer configuration. The resolver returns recipient scheme, identifier, supported network or channel, capability or endpoint and evidence time without treating the network as Sage's provider. A separate route plan binds the provider and adapter. A shared format service parses inbound XML to the canonical invoice and maps outbound canonical invoices to UBL, CII, Factur-X, XRechnung or Facturae.">
     <text x="34" y="30" class="label">RECIPIENT RESOLUTION</text>
     <rect x="34" y="66" width="190" height="88" rx="9" class="main"/><text x="54" y="94" class="title">resolve(recipient, country, documentType)</text><text x="54" y="116" class="copy">Tax/legal ID • address scheme</text><text x="54" y="134" class="copy">direction • policy/effective context</text><path d="M224 110 H286" class="path"/><polygon points="286,110 276,104 276,116" class="arrow"/>
     <rect x="288" y="66" width="200" height="88" rx="9" class="main"/><text x="308" y="94" class="title">RecipientResolutionService</text><text x="308" y="116" class="copy">Select country resolver</text><text x="308" y="134" class="copy">preserve source and evidence time</text>
@@ -297,7 +340,7 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
     <rect x="596" y="84" width="208" height="52" rx="8" class="main"/><text x="616" y="107" class="title">SpainResolver</text><text x="616" y="123" class="copy">Tax ID → private or public endpoint</text>
     <rect x="596" y="132" width="208" height="52" rx="8" class="optional"/><text x="616" y="155" class="title">GermanyResolver</text><text x="616" y="171" class="copy">Counterparty/customer configuration</text>
     <path d="M804 62 H842 V112 H870" class="path"/><path d="M804 110 H870" class="path"/><path d="M804 158 H842 V112 H870" class="path-opt"/><polygon points="870,112 860,106 860,118" class="arrow"/>
-    <rect x="872" y="48" width="194" height="128" rx="9" class="finish"/><text x="892" y="76" class="title">RoutingDestination</text><text x="892" y="98" class="copy">scheme • identifier • network</text><text x="892" y="117" class="copy">endpoint • transport</text><text x="892" y="136" class="copy">credentialsReference</text><text x="892" y="155" class="copy">source • observed/effective time</text>
+    <rect x="872" y="48" width="194" height="128" rx="9" class="finish"/><text x="892" y="76" class="title">RecipientDestination</text><text x="892" y="98" class="copy">scheme • participant identifier</text><text x="892" y="117" class="copy">network/channel • capability</text><text x="892" y="136" class="copy">endpoint/discovery evidence</text><text x="892" y="155" class="copy">source • observed/effective time</text>
     <line x1="34" y1="222" x2="1066" y2="222" stroke="#dfe1e6"/>
     <text x="34" y="252" class="label">FORMAT SERVICE — INBOUND AND OUTBOUND</text>
     <rect x="34" y="286" width="150" height="62" rx="8" class="optional"/><text x="70" y="313" class="title">Inbound XML</text><text x="54" y="331" class="copy">UBL • CII • country syntax</text><path d="M184 317 H236" class="path"/><polygon points="236,317 226,311 226,323" class="arrow"/>
@@ -308,7 +351,7 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
     <rect x="186" y="506" width="120" height="52" rx="8" class="main"/><text x="234" y="538" class="title">UBL</text><rect x="300" y="540" width="120" height="52" rx="8" class="main"/><text x="349" y="572" class="title">CII</text><rect x="490" y="540" width="120" height="52" rx="8" class="main"/><text x="516" y="572" class="title">Factur-X</text><rect x="680" y="540" width="120" height="52" rx="8" class="main"/><text x="704" y="572" class="title">XRechnung</text><rect x="794" y="506" width="120" height="52" rx="8" class="optional"/><text x="826" y="538" class="title">Facturae</text>
     <rect x="238" y="610" width="624" height="28" rx="14" class="finish"/><text x="377" y="629" class="title">Formats exist at boundaries; shared orchestration uses canonical semantics</text>
   </svg>
-  <div class="notes"><div class="note"><strong>Resolver is an interface</strong>Country evidence decides directory, endpoint or configuration authority.</div><div class="note"><strong>Representations are reversible where required</strong>Inbound original and mapping provenance remain durable.</div><div class="note"><strong>Credentials stay referenced</strong>Routing output never embeds reusable secret material.</div></div>
+  <div class="notes"><div class="note"><strong>Resolver is an interface</strong>Country evidence decides directory, endpoint or configuration authority.</div><div class="note"><strong>Provider is bound separately</strong>The execution route combines the destination with provider role, adapter/configuration and credential reference.</div><div class="note"><strong>Representations preserve evidence</strong>Inbound original and mapping provenance remain durable.</div></div>
 </div>
 <!-- confluence-html-macro:end -->
 
@@ -490,6 +533,7 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 | 37–38 | Simple product-contract visual; endpoint remains explicitly illustrative |
 | 40 | Regulatory-convergence visual |
 | 41–42 | Ten-capability map and country matrix visual |
+| Additional Peppol/provider context | Route-model and four-corner visual; vendor names remain research examples rather than selections |
 
 ## Actors and business scenarios
 
@@ -519,6 +563,7 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 | BR8 | A route changes | New eligible work may use the new route; historical work retains invoice-origin context and supported follow-up access | Existing continuity principle; related PRD-SEI-223/224 |
 | BR9 | Spain capability is considered | B2B e-invoice exchange and fiscal-record/VERI*FACTU compliance remain separate bounded contexts | Confirmed research distinction; country confirmation required |
 | BR10 | Reuse is assessed | Measure capability fitness and avoided duplication; do not treat a percentage of France code as a product commitment | Confirmed product direction |
+| BR11 | A delivery route is planned | Record regulation, network/channel, provider service role and Sage adapter as separate dimensions; never represent Peppol or another interoperability network as the provider | Confirmed Peppol distinction; proposed cross-network rule |
 
 ## Scope
 
@@ -536,7 +581,7 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 ### Deferred until evidence/approval
 
 - physical canonical schema and public API;
-- provider/network selection and endpoint mappings;
+- network/channel and provider-role selection, contracts and endpoint mappings;
 - performance, availability, capacity and retention targets;
 - first production country/cohort;
 - migration/cutover from existing implementations;
@@ -551,6 +596,7 @@ The strategic and compliance visuals above plus the atlas below consolidate ever
 | [German Federal Ministry of Finance FAQ](https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html), updated 2026-03 | German B2B structured invoice requirements, transition, formats and flexible transmission | Official tax guidance; B2G and detailed technical implementation differ | Germany pack must not impose a universal network |
 | [Irish Revenue Phase One](https://www.revenue.ie/en/vat/vida-vat-modernisation/large-corporates-vat-modernisation.aspx), accessed 2026-08-10 | 2028-11-01 large-corporate domestic B2B issuance/reporting; all businesses receive; EN 16931 | Official; later transport/reporting specifications remain open | Ireland pack gates and inbound/outbound asymmetry |
 | [UK 2026 tax update](https://www.gov.uk/government/publications/summary-of-tax-update-2026-simplification-modernisation-and-fairness/tax-update-2026-simplification-modernisation-and-fairness-summary), 2026 | Peppol announced as core interoperability network | Official direction; detailed standards/legislation and legacy treatment remain in development | UK pack can prepare Peppol capability but must keep policy gates open |
+| [OpenPeppol interoperability framework](https://peppol.org/learn-more/peppol-interoperability-framework/) and [certified-provider register](https://peppol.org/members/peppol-certified-service-providers/), accessed 2026-08-11 | Peppol uses interoperating Access Point providers plus participant capability lookup; sender and recipient can use different providers | Official network/governance evidence; provider register states legal residence rather than operating coverage and is not a Sage shortlist | Separate network, provider role, adapter and recipient destination; verify exact legal entity, authority, service role and coverage before selection |
 | Existing PRD-SEI-223–226 | Spain routing, lifecycle, resilience, operations, security and audit requirements | Canonical internal product context; capability fitness not proven for multi-country use | Reuse assessment input; do not duplicate implementation assumptions |
 
 ## Proposed conceptual model
@@ -561,7 +607,7 @@ The atlas is a **proposed model**, not approved architecture. Its minimum durabl
 |---|---|---|
 | Intent and semantics | Invoice intent, canonical meaning, extensions and source provenance | Corrections retain lineage; source evidence is not discarded |
 | Policy and plan | Scope result, country-policy version, obligations and dependencies | Original inputs, reasons and effective policy remain immutable |
-| Boundary execution | Representations plus independent recipient/authority exchange legs | Each leg retains profile, route, correlation and recovery evidence |
+| Boundary execution | Representations plus independent recipient/authority exchange legs; each route binds network/channel, provider role, technical adapter and recipient destination separately | Each leg retains profile, provider/adapter versions, route, correlation and recovery evidence |
 | Lifecycle and governance | Raw/canonical events, pack owner/version, approval and rollback | Events append; later policy/configuration does not rewrite history |
 
 Every country-pack capability is explicitly `confirmed`, `proposed`, `unsupported`, `not applicable` or `unknown`; the capability-map visual is the discovery checklist.
@@ -608,9 +654,9 @@ Proposed canonical events describe business meaning, not a universal linear stat
 
 | ID | Requirement |
 |---|---|
-| FR9 | Recipient resolution must be pluggable by country and return scheme, identifier, route/network, destination, source/evidence time and confidence/authority. |
+| FR9 | Recipient resolution must be pluggable by country and return the recipient scheme/identifier, supported network or channel, destination/capability, source/evidence time and confidence/authority without silently selecting Sage's provider connection. |
 | FR10 | The service must create independent exchange legs for recipient delivery and each required authority report, with separate correlation, idempotency, status and recovery. |
-| FR11 | A country pack must be able to select an approved platform/network, direct counterparty-agreed route, public solution or other evidence-backed channel without changing the product contract. |
+| FR11 | A country pack must be able to select an approved network/channel without changing the product contract; before execution, the route plan must separately bind the provider legal entity and role, applicable certification/authority evidence, technical adapter/configuration, credential reference and recipient destination. Four-corner routes must allow sender and recipient providers to differ. |
 | FR12 | Inbound invoice handling must verify tenant/recipient, deduplicate, preserve the original representation and provenance, map to canonical semantics and expose validation/trust failures without silently delivering unsafe content. |
 
 ### Lifecycle, continuity and operations
@@ -633,7 +679,7 @@ Proposed canonical events describe business meaning, not a universal linear stat
 | NFR3 | Every compliance decision and external mutation must have immutable actor/source/time, policy, representation, route, correlation and result evidence. |
 | NFR4 | Data must be minimised and classified; retention/deletion/legal-hold periods require country, legal, privacy and security approval rather than a universal invented period. |
 | NFR5 | Availability, latency, throughput, payload and backlog targets must be baselined per product/country and approved before delivery commitment. |
-| NFR6 | Observability must distinguish customer-data, Sage-policy/platform, country-pack, provider/network and authority failures without exposing confidential invoice content. |
+| NFR6 | Observability must distinguish customer-data, Sage-policy/platform, country-pack, service-provider, network/channel and authority failures without exposing confidential invoice content. |
 | NFR7 | APIs/events must have explicit versioning, compatibility and deprecation policy; country-pack change must not force unrelated product contract changes. |
 | NFR8 | Customer-facing validation and recovery information must be accessible, localisable and safe to disclose. |
 
@@ -650,6 +696,7 @@ Proposed canonical events describe business meaning, not a universal linear stat
 | AC7 | Given an inbound external event is duplicated or arrives out of order, when processed, then one durable source event identity is retained, history remains explainable and the current view is deterministic. |
 | AC8 | Given an unapproved/expired country pack is selected, when an invoice is submitted, then the service blocks external mutation and identifies the owning decision gate. |
 | AC9 | Given the Germany, Ireland and UK pack definitions, when reviewed against the pack contract, then every capability has an explicit evidence state rather than an implicit assumption. |
+| AC10 | Given Sage uses one certified Access Point and a buyer uses another, when a Peppol route is planned, then both provider roles and the shared network are recorded separately and the invoice can route without requiring a common provider. |
 
 ## Goal traceability
 
@@ -657,9 +704,9 @@ Proposed canonical events describe business meaning, not a universal linear stat
 |---|---|---|
 | G1 — Stable product contract | FR1, FR4, FR5, FR13; NFR7 | AC1, AC7, AC9 |
 | G2 — Governed country policy | FR2, FR3, FR17; NFR3, NFR4 | AC2, AC6, AC8 |
-| G3 — Reusable capability frameworks | FR5–FR12, FR18; NFR1, NFR2, NFR6 | AC1, AC3, AC9 |
+| G3 — Reusable capability frameworks | FR5–FR12, FR18; NFR1, NFR2, NFR6 | AC1, AC3, AC9, AC10 |
 | G4 — Independent obligation outcomes | FR10, FR15, FR16 | AC4, AC5 |
-| G5 — Add countries without forks/history loss | FR3, FR7, FR9, FR13, FR17; NFR7 | AC1, AC6, AC9 |
+| G5 — Add countries without forks/history loss | FR3, FR7, FR9, FR11, FR13, FR17; NFR7 | AC1, AC6, AC9, AC10 |
 
 ## Metrics and measurement plan
 
@@ -684,7 +731,7 @@ Proposed canonical events describe business meaning, not a universal linear stat
 7. Complete legal, regulatory, security, privacy, operations and support readiness for the reference pack.
 8. Pilot with kill criteria and reconciled evidence; expand only after success measures and incident review.
 
-Dependencies include country legal/compliance owners, Sage product teams, existing France/Spain capability evidence, architecture, platform engineering, security/privacy, identity/trust, operations/support, provider/network contracts, official technical specifications and sandbox access.
+Dependencies include country legal/compliance owners, Sage product teams, existing France/Spain capability evidence, architecture, platform engineering, security/privacy, identity/trust, operations/support, network governance plus provider contracts, official technical specifications and sandbox access.
 
 ## Risks and mitigations
 
@@ -722,6 +769,7 @@ Dependencies include country legal/compliance owners, Sage product teams, existi
 | Separate document, delivery and reporting compliance | Proposed product principle | TBD |
 | Treat lifecycle as preserved events plus derived views | Proposed solution; architecture approval required | TBD |
 | Do not promise 70–80% reuse | Confirmed drafting constraint; evidence required for any target | 2026-08-10 |
+| Keep network/channel, provider service role and Sage adapter as separate route concepts; no vendor is selected by this PRD | Confirmed by user-supplied Peppol context and official OpenPeppol model | 2026-08-11 |
 
 ## Revision history
 
@@ -731,3 +779,4 @@ Dependencies include country legal/compliance owners, Sage product teams, existi
 | 2026-08-10 | Added a consolidated 12-visual research atlas covering all source diagram themes and retained only code-like snippets as text | User direction | |
 | 2026-08-10 | Approved for publication to existing page `866150169`; existing page hierarchy preserved | User approval | |
 | 2026-08-11 | Removed embedded HTML headings from all diagrams and promoted their titles to native Confluence headings | Confluence rendering feedback | |
+| 2026-08-11 | Added a diagram-led route model separating regulation, network, provider and adapter; strengthened Peppol four-corner evidence, requirements and acceptance | User context and official OpenPeppol sources | |

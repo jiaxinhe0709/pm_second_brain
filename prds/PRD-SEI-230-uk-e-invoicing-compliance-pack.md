@@ -55,10 +55,10 @@ The pack may prepare shared Peppol, invoice-semantic, onboarding, validation, ex
 <!-- confluence-html-macro:start -->
 <div class="uk-pack" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:24px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1160px;margin:0 auto;overflow-x:auto;">
   <style>
-    .uk-pack *{box-sizing:border-box}.uk-pack h2{margin:0;color:#172b4d;font-size:18px}.uk-pack .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.uk-pack svg{display:block;width:1080px;height:570px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.uk-pack .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.6}.uk-pack .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.8}.uk-pack .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.uk-pack .bad{fill:#ffebe6;stroke:#de350b;stroke-width:1.6}.uk-pack .warn{fill:#fff7d6;stroke:#ffab00;stroke-width:1.6}.uk-pack .title{fill:#172b4d;font-size:11px;font-weight:700}.uk-pack .copy{fill:#42526e;font-size:9px}.uk-pack .phase{fill:#172b4d;font-size:10px;font-weight:700;letter-spacing:.05em}.uk-pack .path{fill:none;stroke:#00875a;stroke-width:2}.uk-pack .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.uk-pack .path-alert{fill:none;stroke:#de350b;stroke-width:1.8;stroke-dasharray:6 4}.uk-pack .path-warn{fill:none;stroke:#ff8b00;stroke-width:1.8;stroke-dasharray:6 4}.uk-pack .arrow{fill:#00875a}.uk-pack .arrow-g{fill:#6b778c}.uk-pack .arrow-r{fill:#de350b}.uk-pack .arrow-a{fill:#ff8b00}.uk-pack .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1080px;margin-top:12px}.uk-pack .note{padding:10px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px;line-height:1.4}.uk-pack .note strong{display:block;color:#172b4d;margin-bottom:2px}
+    .uk-pack *{box-sizing:border-box}.uk-pack .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.uk-pack svg{display:block;width:1080px;height:700px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.uk-pack .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.6}.uk-pack .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.8}.uk-pack .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.uk-pack .bad{fill:#ffebe6;stroke:#de350b;stroke-width:1.6}.uk-pack .warn{fill:#fff7d6;stroke:#ffab00;stroke-width:1.6}.uk-pack .title{fill:#172b4d;font-size:11px;font-weight:700}.uk-pack .copy{fill:#42526e;font-size:9px}.uk-pack .phase{fill:#172b4d;font-size:10px;font-weight:700;letter-spacing:.05em}.uk-pack .path{fill:none;stroke:#00875a;stroke-width:2}.uk-pack .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.uk-pack .path-alert{fill:none;stroke:#de350b;stroke-width:1.8;stroke-dasharray:6 4}.uk-pack .path-warn{fill:none;stroke:#ff8b00;stroke-width:1.8;stroke-dasharray:6 4}.uk-pack .arrow{fill:#00875a}.uk-pack .arrow-g{fill:#6b778c}.uk-pack .arrow-r{fill:#de350b}.uk-pack .arrow-a{fill:#ff8b00}.uk-pack .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1080px;margin-top:12px}.uk-pack .note{padding:10px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px;line-height:1.4}.uk-pack .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
   <p class="sub">The target exchange spine is visible, but each amber gate requires official UK evidence and approval before a live mandate claim or mutation.</p>
-  <svg viewBox="0 0 1080 570" role="img" aria-label="A UK seller product submits VAT invoice intent to the shared service. Before April 2029 activation, the UK pack must pass scope and legislation, UK invoice profile, participant identity and discovery, and access-point trust gates. The confirmed direction routes through a Peppol core network to the buyer. Correctable validation failures return to the seller. Ambiguous delivery outcomes reconcile before retry. HMRC reporting and legacy-system routes are dashed optional branches that remain inactive until official policy defines them. A timeline shows 2026 co-creation, standards and legislation by end 2027 to 2028, and April 2029 mandate.">
+  <svg viewBox="0 0 1080 700" role="img" aria-label="A UK seller product submits VAT invoice intent through scope, profile, participant identity and Access Point readiness gates. The approved route then uses Sage's selected certified sending Access Point, the Peppol Network, the buyer's receiving Access Point, which may be a different provider, and the buyer. Peppol is the network rather than the provider. Correctable validation failures return to the seller. Ambiguous delivery outcomes reconcile before retry. HMRC reporting and legacy-system routes remain inactive unless policy defines them. A roadmap shows 2026 co-creation, standards and legislation by end 2027 to 2028, and April 2029 mandate.">
     <text x="30" y="30" class="phase">TARGET EXCHANGE — LIVE ONLY AFTER OFFICIAL GATES</text>
     <rect x="30" y="78" width="170" height="82" rx="10" class="main"/><text x="50" y="108" class="title">UK seller product</text><text x="50" y="129" class="copy">VAT invoice intent</text><text x="50" y="146" class="copy">verified legal entity and buyer</text>
     <path d="M200 119 H250" class="path"/><polygon points="250,119 240,113 240,125" class="arrow"/>
@@ -70,29 +70,33 @@ The pack may prepare shared Peppol, invoice-semantic, onboarding, validation, ex
     <path d="M662 124 H712" class="path-warn"/><polygon points="712,124 702,118 702,130" class="arrow-a"/>
     <polygon points="762,70 800,86 816,124 800,162 762,178 724,162 708,124 724,86" class="warn"/><text x="729" y="113" class="title">Access gate</text><text x="728" y="130" class="copy">AP contract/SLA</text><text x="729" y="146" class="copy">test/operations</text>
     <path d="M816 124 H856" class="path"/><polygon points="856,124 846,118 846,130" class="arrow"/>
-    <rect x="858" y="78" width="190" height="82" rx="10" class="main"/><text x="878" y="108" class="title">Peppol core network</text><text x="878" y="129" class="copy">Confirmed UK direction</text><text x="878" y="146" class="copy">final implementation detail gated</text>
-    <path d="M953 160 V244" class="path"/><polygon points="953,244 947,234 959,234" class="arrow"/>
-    <rect x="858" y="246" width="190" height="78" rx="39" class="finish"/><text x="886" y="276" class="title">UK buyer receives</text><text x="884" y="297" class="copy">structured interoperable invoice</text>
-    <path d="M858 285 H780" class="path"/><polygon points="780,285 790,279 790,291" class="arrow"/>
-    <rect x="568" y="246" width="210" height="78" rx="10" class="main"/><text x="588" y="275" class="title">Evidence and product outcome</text><text x="588" y="296" class="copy">validation • route • delivery • audit</text>
+    <rect x="858" y="70" width="190" height="92" rx="10" class="main"/><text x="878" y="99" class="title">Sage sending Access Point</text><text x="878" y="120" class="copy">Selected certified provider role</text><text x="878" y="139" class="copy">contract • authority • trust • adapter</text>
+    <path d="M953 162 V202" class="path"/><polygon points="953,202 947,192 959,192" class="arrow"/>
+    <rect x="858" y="204" width="190" height="76" rx="10" class="main"/><text x="878" y="232" class="title">Peppol Network</text><text x="878" y="253" class="copy">Shared rules • discovery • interoperability</text><text x="878" y="270" class="copy">Network, not Sage's provider</text>
+    <path d="M953 280 V316" class="path"/><polygon points="953,316 947,306 959,306" class="arrow"/>
+    <rect x="858" y="318" width="190" height="82" rx="10" class="main"/><text x="878" y="347" class="title">Receiving Access Point</text><text x="878" y="368" class="copy">Buyer's chosen certified provider</text><text x="878" y="386" class="copy">may differ from Sage's provider</text>
+    <path d="M953 400 V432" class="path"/><polygon points="953,432 947,422 959,422" class="arrow"/>
+    <rect x="858" y="434" width="190" height="78" rx="39" class="finish"/><text x="886" y="464" class="title">UK buyer receives</text><text x="884" y="485" class="copy">structured interoperable invoice</text>
+    <path d="M858 473 H780" class="path"/><polygon points="780,473 790,467 790,479" class="arrow"/>
+    <rect x="568" y="434" width="210" height="78" rx="10" class="main"/><text x="588" y="463" class="title">Evidence and product outcome</text><text x="588" y="484" class="copy">policy • both AP roles • network • audit</text>
     <polygon points="454,218 492,256 454,294 416,256" class="bad"/><text x="426" y="252" class="title">Invalid</text><text x="424" y="268" class="copy">correct data</text>
     <path d="M454 218 V178" class="path-alert"/><polygon points="454,178 448,188 460,188" class="arrow-r"/>
     <path d="M416 256 H200 V160" class="path-alert"/><polygon points="200,160 194,170 206,170" class="arrow-r"/>
-    <polygon points="762,345 800,361 816,399 800,437 762,453 724,437 708,399 724,361" class="warn"/><text x="733" y="394" class="title">Unknown</text><text x="729" y="410" class="copy">reconcile delivery</text>
-    <path d="M762 324 V345" class="path-warn"/><polygon points="762,345 756,335 768,335" class="arrow-a"/>
-    <path d="M708 399 H673 V324" class="path-warn"/><polygon points="673,324 667,334 679,334" class="arrow-a"/>
-    <rect x="36" y="346" width="230" height="82" rx="10" class="optional"/><text x="56" y="375" class="title">Legacy-system route</text><text x="56" y="396" class="copy">Role remains under stakeholder engagement</text><text x="56" y="413" class="copy">No permanent exception assumed</text>
-    <path d="M266 387 H338 V324 H568" class="path-opt"/><polygon points="568,324 558,318 558,330" class="arrow-g"/>
-    <rect x="318" y="346" width="230" height="82" rx="10" class="optional"/><text x="338" y="375" class="title">HMRC reporting leg</text><text x="338" y="396" class="copy">Inactive: no obligation inferred from</text><text x="338" y="413" class="copy">the e-invoice mandate announcement</text>
-    <path d="M548 387 H568 V324" class="path-opt"/><polygon points="568,324 562,334 574,334" class="arrow-g"/>
-    <text x="30" y="486" class="phase">ROADMAP</text>
-    <rect x="86" y="500" width="230" height="52" rx="10" class="main"/><text x="106" y="522" class="title">2026 • co-create + roadmap</text><text x="106" y="540" class="copy">Peppol core announced</text>
-    <path d="M316 526 H424" class="path"/><polygon points="424,526 414,520 414,532" class="arrow"/>
-    <rect x="426" y="500" width="230" height="52" rx="10" class="optional"/><text x="446" y="522" class="title">By end 2027–28</text><text x="446" y="540" class="copy">guidance • standards • specs • law</text>
-    <path d="M656 526 H764" class="path-opt"/><polygon points="764,526 754,520 754,532" class="arrow-g"/>
-    <rect x="766" y="500" width="230" height="52" rx="26" class="finish"/><text x="786" y="522" class="title">April 2029 • mandate</text><text x="786" y="540" class="copy">activate approved UK policy</text>
+    <polygon points="762,520 800,536 816,574 800,612 762,628 724,612 708,574 724,536" class="warn"/><text x="733" y="569" class="title">Unknown</text><text x="729" y="585" class="copy">reconcile delivery</text>
+    <path d="M858 359 H820 V520 H762" class="path-warn"/><polygon points="762,520 772,514 772,526" class="arrow-a"/>
+    <path d="M708 574 H673 V512" class="path-warn"/><polygon points="673,512 667,522 679,522" class="arrow-a"/>
+    <rect x="36" y="434" width="230" height="82" rx="10" class="optional"/><text x="56" y="463" class="title">Legacy-system route</text><text x="56" y="484" class="copy">Role remains under stakeholder engagement</text><text x="56" y="501" class="copy">No permanent exception assumed</text>
+    <path d="M266 475 H318" class="path-opt"/><polygon points="318,475 308,469 308,481" class="arrow-g"/>
+    <rect x="320" y="434" width="228" height="82" rx="10" class="optional"/><text x="340" y="463" class="title">HMRC reporting leg</text><text x="340" y="484" class="copy">Inactive: no obligation inferred from</text><text x="340" y="501" class="copy">the e-invoice mandate announcement</text>
+    <path d="M548 475 H568" class="path-opt"/><polygon points="568,475 558,469 558,481" class="arrow-g"/>
+    <text x="30" y="642" class="phase">ROADMAP</text>
+    <rect x="86" y="654" width="230" height="36" rx="10" class="main"/><text x="106" y="669" class="title">2026 • co-create + roadmap</text><text x="106" y="684" class="copy">Peppol core announced</text>
+    <path d="M316 672 H424" class="path"/><polygon points="424,672 414,666 414,678" class="arrow"/>
+    <rect x="426" y="654" width="230" height="36" rx="10" class="optional"/><text x="446" y="669" class="title">By end 2027–28</text><text x="446" y="684" class="copy">guidance • standards • specs • law</text>
+    <path d="M656 672 H764" class="path-opt"/><polygon points="764,672 754,666 754,678" class="arrow-g"/>
+    <rect x="766" y="654" width="230" height="36" rx="18" class="finish"/><text x="786" y="669" class="title">April 2029 • mandate</text><text x="786" y="684" class="copy">activate approved UK policy</text>
   </svg>
-  <div class="notes"><div class="note"><strong>Research updated</strong>Peppol is now confirmed direction, replacing the earlier topology-TBD position.</div><div class="note"><strong>Direction is not specification</strong>UK profile, participant and access-point operating rules still require official artefacts.</div><div class="note"><strong>No assumed tax report</strong>An e-invoice mandate does not by itself define a separate HMRC transaction-reporting leg.</div></div>
+  <div class="notes"><div class="note"><strong>Peppol is the network</strong>Sage still needs a separately selected and approved sending Access Point provider.</div><div class="note"><strong>Independent providers</strong>The buyer's receiving Access Point can be operated by a different certified provider.</div><div class="note"><strong>Direction is not specification</strong>UK profile, participant, provider model and any HMRC reporting still require official artefacts.</div></div>
 </div>
 <!-- confluence-html-macro:end -->
 
@@ -127,13 +131,14 @@ Sage needs two speeds: begin shared data/Peppol/product-readiness discovery now,
 |---|---|
 | UK VAT e-invoice | Future legally defined structured VAT invoice; PDFs/images/word/HTML/OCR alone were excluded from the government's consultation definition |
 | Peppol core interoperability network | Confirmed UK network direction; detailed UK implementation and governance remain open |
-| Access point | Service boundary connecting participants to Peppol; operating/contract model is not approved here |
-| Participant identity/discovery | Scheme and service metadata used to find an eligible recipient |
+| Peppol Access Point | Peppol-certified service-provider role connecting a participant to the network; Sage's sending provider and the buyer's receiving provider may differ |
+| Participant identity and capability lookup | Scheme plus SML/SMP or approved capability metadata used to discover the recipient's eligible receiving service |
 | Customer/accountant | Maintains legal entity, VAT/business facts, authority and invoice corrections |
 | Sage product | Captures intent/inbound invoices and displays compliance/delivery outcomes |
 | UK pack owner | Owns official evidence, scope/profile versions, consultation and activation |
 | HMRC/DBT | Policy/legislation/implementation owners |
-| Access-point/network operator | Future contracted exchange/trust/availability boundary |
+| Selected sending Access Point provider | Future Sage-contracted legal entity and certified role providing network access, trust and delivery operations; no vendor is selected here |
+| Receiving Access Point provider | Buyer's independently chosen certified provider; it need not be Sage's provider |
 | Operations/support | Monitors onboarding, directory, access-point, delivery and reconciliation outcomes |
 
 ## Business scenarios
@@ -141,7 +146,7 @@ Sage needs two speeds: begin shared data/Peppol/product-readiness discovery now,
 | ID | Scenario | Expected outcome | Exception/continuity |
 |---|---|---|---|
 | UK-S1 | Product performs readiness assessment before final specification | Data and Peppol capability gaps are visible; live mandate compliance remains disabled | No invented default profile/network mutation |
-| UK-S2 | In-scope seller submits valid VAT invoice after activation | UK policy validates, recipient resolves and approved access point delivers once | No eligible recipient/route blocks with guidance |
+| UK-S2 | In-scope seller submits valid VAT invoice after activation | UK policy validates, recipient resolves and Sage's approved sending Access Point interoperates with the buyer's receiving Access Point | No eligible recipient/provider route blocks with guidance |
 | UK-S3 | Buyer receives structured invoice | Original retained, tenant/recipient/trust/profile validated and imported once | Unsafe/unsupported invoice is quarantined |
 | UK-S4 | Recipient is not discoverable | Product receives a distinct route/readiness outcome | No email/PDF fallback is inferred as compliant |
 | UK-S5 | Access point times out after possible send | Delivery becomes outcome-unknown and reconciles before resend | No duplicate legal invoice |
@@ -154,7 +159,7 @@ Sage needs two speeds: begin shared data/Peppol/product-readiness discovery now,
 |---|---|---|---|
 | UK-BR1 | April 2029 mandate is evaluated | Apply only the final legally confirmed scope, effective date, exemptions and transitions | Mandate date/direction confirmed; detailed law open |
 | UK-BR2 | Invoice is represented as compliant e-invoice | It must be structured as required by the final UK standard; PDF/Word/images/HTML/OCR alone are not sufficient under consultation definition | Confirmed consultation direction; final legal definition open |
-| UK-BR3 | Network route is selected | Peppol is the core interoperability network; use only approved UK participant/profile/access-point configuration | Core network confirmed; detailed model open |
+| UK-BR3 | Network route is selected | Peppol is the core interoperability network, not the provider; bind Sage's approved sending Access Point separately and allow the buyer's receiving Access Point provider to differ | Four-corner distinction confirmed by OpenPeppol; detailed UK model open |
 | UK-BR4 | Legacy system cannot interoperate | Apply no exception/fallback unless final policy explicitly permits it | Official engagement ongoing |
 | UK-BR5 | Reporting is considered | Create no HMRC report leg without a separate official obligation/specification | Confirmed evidence boundary |
 | UK-BR6 | Draft/final policy changes | Use approved effective-dated pack versions and preserve original invoice/route evidence | Proposed shared continuity rule |
@@ -182,6 +187,7 @@ Sage needs two speeds: begin shared data/Peppol/product-readiness discovery now,
 | [HMRC Transformation Roadmap update 2026](https://www.gov.uk/government/publications/hmrc-transformation-roadmap-progress-update-2026/annex-summary-of-hmrcs-planned-activities-listed-in-this-transformation-roadmap-progress-update) | April 2029 B2B/B2G VAT e-invoicing; roadmap/co-creation in 2026; full guidance, standards, technical specification and legislation by end 2027–28 | Primary official current roadmap; detail future | Phase/gates and no premature delivery claim |
 | [UK tax update 2026](https://www.gov.uk/government/publications/summary-of-tax-update-2026-simplification-modernisation-and-fairness/tax-update-2026-simplification-modernisation-and-fairness-summary) | Peppol announced as core interoperability network; legacy-system role still under engagement | Primary official direction; implementation details absent | Peppol preparation and legacy gate |
 | [Government e-invoicing consultation response](https://www.gov.uk/government/consultations/promoting-electronic-invoicing-across-uk-businesses-and-the-public-sector/outcome/promoting-electronic-invoicing-across-uk-businesses-and-the-public-sector-consultation-response), 2025 | 2029 mandate, structured system-to-system concept, unstructured exclusions, interoperability/network effects and small-business concerns | Primary policy response; predates 2026 Peppol announcement and final law | Problem, outcomes and open policy |
+| [OpenPeppol interoperability framework](https://peppol.org/learn-more/peppol-interoperability-framework/) and [certified-provider register](https://peppol.org/members/peppol-certified-service-providers/), accessed 2026-08-11 | Peppol uses interoperating certified Access Points and capability lookup; sender and recipient select providers independently | Official network/governance evidence; register states legal residence rather than coverage and is not a Sage shortlist | Separate network from both provider roles; verify exact legal entity, authority, certification/service domain and operating coverage before selection |
 | Supplied research | UK architecture/details were TBD and a neutral core was recommended | Secondary synthesis; topology conclusion superseded in part by 2026 Peppol announcement | Evidence-change record and shared boundary |
 
 ## Proposed journeys
@@ -189,7 +195,7 @@ Sage needs two speeds: begin shared data/Peppol/product-readiness discovery now,
 | Journey | Spine | Required exception/continuity |
 |---|---|---|
 | Prepare | Map VAT data → assess Peppol/onboarding gaps → store inactive hypotheses and gates | No mandate claim or live mutation before approved official artefacts |
-| Target after activation | Submit → evaluate final policy → validate UK profile → discover participant → deliver by approved access point → import once | Missing route blocks; raw acknowledgements remain preserved |
+| Target after activation | Submit → evaluate final policy → validate UK profile → discover recipient capability → bind Sage's sending Access Point → exchange through Peppol to the buyer's Access Point → import once | Missing route/provider blocks; both provider roles and raw acknowledgements remain preserved |
 | Correct/recover/change | Correct before send; timeout after possible send → outcome unknown → reconcile before retry | New pack versions apply prospectively; historical context is never rewritten |
 
 ## Requirements
@@ -208,10 +214,10 @@ Sage needs two speeds: begin shared data/Peppol/product-readiness discovery now,
 | ID | Requirement |
 |---|---|
 | UK-FR5 | Outbound must validate against the approved UK syntax/profile/business rules before network submission and return stable correction guidance. |
-| UK-FR6 | The Peppol adapter must use approved UK participant identifier schemes, discovery/service metadata, document/process identifiers, transport/security profile and access-point contract versions. |
-| UK-FR7 | Recipient resolution must record query identity, source, evidence time, selected service/route and failure reason; missing eligibility must block dispatch. |
+| UK-FR6 | The Peppol route must use approved UK participant identifier schemes, discovery/service metadata, document/process identifiers and transport/security profile; Sage's provider connection must separately identify the contracted legal entity, Access Point role, applicable authority/certification evidence, adapter/configuration and credential version. |
+| UK-FR7 | Recipient resolution must record query identity, source, evidence time, recipient service/capability and receiving Access Point evidence without treating Peppol or the receiving provider as Sage's selected provider; missing eligibility must block dispatch. |
 | UK-FR8 | Inbound must verify intended tenant/recipient, source/trust, supported UK profile and duplication, retain the original representation and expose safe validation/import outcome. |
-| UK-FR9 | Every delivery must record representation/profile, participant/service, access point, message/correlation identity, acknowledgements and observed outcome. |
+| UK-FR9 | Every delivery must record representation/profile, participant/service, Peppol as network, the selected sending Access Point provider and observed receiving Access Point provider, adapter/configuration version, message/correlation identity, acknowledgements and outcome. |
 | UK-FR10 | Unstructured-only PDF/Word/image/HTML/OCR content must not be represented as compliant unless final law explicitly defines an eligible structured wrapper/profile. |
 | UK-FR11 | A legacy-system route or exception must remain disabled unless final policy explicitly permits it, and must be effective-dated and auditable. |
 | UK-FR12 | The pack must create no HMRC reporting/payment-status leg without a separate approved official obligation. |
@@ -235,7 +241,7 @@ Sage needs two speeds: begin shared data/Peppol/product-readiness discovery now,
 | UK-NFR3 | Original invoices, transformations and network evidence must use approved integrity, retention, deletion and legal-hold rules; final periods are open. |
 | UK-NFR4 | UK policy/profile/identifier/network changes require official provenance, regression fixtures, owner approval, effective date, compatibility analysis and rollback. |
 | UK-NFR5 | Availability, throughput, delivery latency, directory freshness, payload and backlog targets require official network/access-point evidence plus product baselines. |
-| UK-NFR6 | Observability must distinguish product data, UK policy, Sage platform, participant discovery, access point/network and recipient faults without exposing unnecessary invoice data. |
+| UK-NFR6 | Observability must distinguish product data, UK policy, Sage platform, participant discovery, sending-provider, Peppol-network, receiving-provider and recipient faults without exposing unnecessary invoice data. |
 | UK-NFR7 | Onboarding and correction experiences must be accessible, localisable and usable by SMEs/accountants; success criteria require user research. |
 
 ## Acceptance criteria
@@ -244,7 +250,7 @@ Sage needs two speeds: begin shared data/Peppol/product-readiness discovery now,
 |---|---|
 | UK-AC1 | Given final UK legal/technical artefacts are not approved, when live mandate activation is attempted, then the pack blocks external mutation and lists the missing gates. |
 | UK-AC2 | Given readiness assessment runs before activation, when a product lacks required semantic/participant data, then gaps are reported without claiming non-compliance or sending data. |
-| UK-AC3 | Given an in-scope valid invoice after activation, when recipient discovery succeeds, then the approved UK profile is delivered once through the approved Peppol route with durable evidence. |
+| UK-AC3 | Given Sage's approved sending Access Point and a buyer using another eligible receiving Access Point, when recipient discovery succeeds, then the approved UK profile is delivered once through Peppol and both provider roles are preserved separately from the network. |
 | UK-AC4 | Given a PDF-only invoice, when classified under current policy direction, then it is not labelled a compliant structured UK e-invoice. |
 | UK-AC5 | Given recipient discovery returns no eligible UK service, when dispatch is requested, then no network mutation occurs and actionable readiness evidence is returned. |
 | UK-AC6 | Given the access point times out after possible send, when recovery runs, then the outcome reconciles before retry and no preventable duplicate is produced. |
@@ -279,7 +285,7 @@ Rollout gates:
 3. Select candidate Sage products/cohorts and assess semantic, inbound, identity and onboarding readiness.
 4. Approve final legislation, guidance, scope/exemptions/transition and enforcement interpretation.
 5. Obtain UK invoice profile/schemas/code lists/validators, Peppol participant/discovery/process/transport rules and test environment.
-6. Select/contract/approve access-point operating model, SLA, security, privacy, retention, support and exit.
+6. Select and approve the exact sending Access Point legal entity and role, authority/certification scope, operating coverage, adapter and credential model, participant/SMP registration ownership, SLA, security, privacy, retention, support, switching, exit and historical access.
 7. Demonstrate onboarding, inbound/outbound, validation correction, recipient missing, duplicate, unknown outcome, adapter switch and historical continuity.
 8. Pilot with explicit voluntary/statutory messaging, kill/rollback criteria and small-business support before April 2029 expansion.
 
@@ -290,7 +296,7 @@ Rollout gates:
 | What is final legal scope, including B2B/B2G, exemptions and transition? | Determines applicability and cohort | HMRC/UK compliance | Blocks live policy |
 | What UK semantic/syntax profile and validation artefacts apply? | Determines data and representation | HMRC/standards owner | Blocks implementation |
 | What participant identifier, discovery and process rules apply? | Determines onboarding/routing | UK Peppol governance | Blocks adapter |
-| Must every business use an access point, and who contracts/pays? | Commercial/customer/operational model | Product/legal/procurement | Blocks proposition |
+| Who contracts and pays for sending/receiving Access Point service, and who owns participant/capability registration and migration? | Commercial, onboarding, switching and continuity model | Product/legal/procurement | Blocks proposition |
 | What role is allowed for legacy systems? | Migration and exclusions | HMRC/DBT | Blocks transition design |
 | Is any HMRC reporting required beyond the invoice exchange? | Prevents missing or invented tax flow | HMRC | Blocks reporting only; current hypothesis is no leg |
 | What lifecycle/acknowledgement/correction/cancellation semantics are mandated? | Product status and recovery | HMRC/Peppol governance | Blocks lifecycle mapping |
@@ -306,6 +312,7 @@ Rollout gates:
 | Update research conclusion: Peppol is the confirmed core-network direction | Confirmed 2026 official source | 2026-08-10 |
 | Keep detailed UK policy/profile/reporting/lifecycle as gates | Confirmed evidence boundary | 2026-08-10 |
 | Prepare reusable Peppol capability without claiming final UK compliance | Proposed product approach | TBD |
+| Treat Peppol, the selected sending Access Point provider, the receiving Access Point provider and Sage adapter as separate route concepts; select no vendor in this PRD | Confirmed by user context and official OpenPeppol model | 2026-08-11 |
 
 ## Revision history
 
@@ -315,3 +322,4 @@ Rollout gates:
 | 2026-08-10 | Linked the consolidated parent visual atlas and compressed journey prose for research-stage readability | User direction | |
 | 2026-08-10 | Approved for publication to existing page `866140019`; existing hierarchy preserved | User approval | |
 | 2026-08-11 | Removed the embedded HTML heading and promoted the diagram title to a native Confluence heading | Confluence rendering feedback | |
+| 2026-08-11 | Reworked the Peppol flow into a four-corner route and separated network, sending/receiving providers and Sage adapter across definitions, evidence, requirements and acceptance | User context and official OpenPeppol sources | |
