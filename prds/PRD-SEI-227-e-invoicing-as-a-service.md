@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-10
-updated: 2026-08-11
+updated: 2026-08-12
 reviewers: []
 related:
   - PRD-SEI-223
@@ -16,6 +16,10 @@ related:
   - PRD-SEI-228
   - PRD-SEI-229
   - PRD-SEI-230
+  - PRD-SEI-231
+  - PRD-SEI-232
+  - PRD-SEI-233
+  - PRD-SEI-234
 confluence:
   publish: true
   space_key: DNBU
@@ -54,8 +58,12 @@ This PRD is the parent product decision surface. Germany, Ireland and the UK are
 | Related page | PRD-SEI-228 — Germany | Existing page `771498625`; preserve current Confluence hierarchy |
 | Related page | PRD-SEI-229 — Ireland | Existing page `866140021`; preserve current Confluence hierarchy |
 | Related page | PRD-SEI-230 — UK | Existing page `866140019`; preserve current Confluence hierarchy |
+| Child analysis | PRD-SEI-231 — Identifiers, tenancy and delegated accountants | New child under page `866150169` |
+| Child analysis | PRD-SEI-232 — Country lifecycle status mapping | New child under page `866150169` |
+| Child analysis | PRD-SEI-233 — Peppol multi-address and endpoint routing | New child under page `866150169` |
+| Child analysis | PRD-SEI-234 — Cross-border applicability and reusable capabilities | New child under page `866150169` |
 
-All four documents use existing stable Confluence pages; publication creates no additional pages.
+The original commonality and country documents use existing stable Confluence pages. The four focused research analyses are canonical Git documents published as new children of the commonality page.
 
 ## Phased capability model
 
@@ -576,6 +584,7 @@ The strategic, route-model and compliance visuals above plus the atlas below con
 - country-policy lifecycle and governance;
 - API/client, operations, security and audit expectations;
 - Germany, Ireland and UK child discovery boundaries;
+- identifier/tenancy/delegation, lifecycle mapping, Peppol multi-address routing and cross-border reuse child analyses;
 - fit assessment against relevant existing France/Spain capabilities.
 
 ### Deferred until evidence/approval
@@ -770,6 +779,7 @@ Dependencies include country legal/compliance owners, Sage product teams, existi
 | Treat lifecycle as preserved events plus derived views | Proposed solution; architecture approval required | TBD |
 | Do not promise 70–80% reuse | Confirmed drafting constraint; evidence required for any target | 2026-08-10 |
 | Keep network/channel, provider service role and Sage adapter as separate route concepts; no vendor is selected by this PRD | Confirmed by user-supplied Peppol context and official OpenPeppol model | 2026-08-11 |
+| Create four focused child analyses under the commonality page for identifiers/delegation, lifecycle mapping, Peppol multi-address routing and cross-border reuse | Confirmed by user feedback | 2026-08-12 |
 
 ## Revision history
 
@@ -780,3 +790,4 @@ Dependencies include country legal/compliance owners, Sage product teams, existi
 | 2026-08-10 | Approved for publication to existing page `866150169`; existing page hierarchy preserved | User approval | |
 | 2026-08-11 | Removed embedded HTML headings from all diagrams and promoted their titles to native Confluence headings | Confluence rendering feedback | |
 | 2026-08-11 | Added a diagram-led route model separating regulation, network, provider and adapter; strengthened Peppol four-corner evidence, requirements and acceptance | User context and official OpenPeppol sources | |
+| 2026-08-12 | Added four child research PRDs covering country identifiers and accountants, lifecycle mappings, Peppol multi-address routing, and cross-border reusable capability boundaries | User feedback and supplied accountant research | |
