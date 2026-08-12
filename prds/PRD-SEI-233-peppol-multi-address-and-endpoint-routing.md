@@ -16,7 +16,7 @@ confluence:
   publish: true
   space_key: DNBU
   parent_page_id: "866150169"
-  page_id: ""
+  page_id: "866152236"
   title: E-Invoicing — Peppol Multi-Address and Endpoint Routing
   layout: two_left_sidebar
   toc: true
@@ -106,3 +106,4 @@ Open gates: approved participant-identifier schemes per country; whether one leg
 | Date | Change | Evidence/decision |
 |---|---|---|
 | 2026-08-12 | Initial child discovery PRD; clarified “Access Point address” as Peppol participant and service-endpoint concerns | User clarification and official Peppol specifications |
+| 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |

@@ -16,7 +16,7 @@ confluence:
   publish: true
   space_key: DNBU
   parent_page_id: "866150169"
-  page_id: ""
+  page_id: "866152235"
   title: E-Invoicing — Country Lifecycle Status Mapping
   layout: two_left_sidebar
   toc: true
@@ -99,3 +99,4 @@ Open gates: approve the shared dimensions; name country owners; obtain authorita
 | Date | Change | Evidence/decision |
 |---|---|---|
 | 2026-08-12 | Initial child discovery PRD for preserved country status and shared lifecycle dimensions | User feedback and PRD-SEI-224/225 analysis |
+| 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |

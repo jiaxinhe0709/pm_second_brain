@@ -58,10 +58,10 @@ This PRD is the parent product decision surface. Germany, Ireland and the UK are
 | Related page | PRD-SEI-228 — Germany | Existing page `771498625`; preserve current Confluence hierarchy |
 | Related page | PRD-SEI-229 — Ireland | Existing page `866140021`; preserve current Confluence hierarchy |
 | Related page | PRD-SEI-230 — UK | Existing page `866140019`; preserve current Confluence hierarchy |
-| Child analysis | PRD-SEI-231 — Identifiers, tenancy and delegated accountants | New child under page `866150169` |
-| Child analysis | PRD-SEI-232 — Country lifecycle status mapping | New child under page `866150169` |
-| Child analysis | PRD-SEI-233 — Peppol multi-address and endpoint routing | New child under page `866150169` |
-| Child analysis | PRD-SEI-234 — Cross-border applicability and reusable capabilities | New child under page `866150169` |
+| Child analysis | PRD-SEI-231 — Identifiers, tenancy and delegated accountants | Page `866152234`, child of `866150169` |
+| Child analysis | PRD-SEI-232 — Country lifecycle status mapping | Page `866152235`, child of `866150169` |
+| Child analysis | PRD-SEI-233 — Peppol multi-address and endpoint routing | Page `866152236`, child of `866150169` |
+| Child analysis | PRD-SEI-234 — Cross-border applicability and reusable capabilities | Page `866152237`, child of `866150169` |
 
 The original commonality and country documents use existing stable Confluence pages. The four focused research analyses are canonical Git documents published as new children of the commonality page.
 
@@ -791,3 +791,4 @@ Dependencies include country legal/compliance owners, Sage product teams, existi
 | 2026-08-11 | Removed embedded HTML headings from all diagrams and promoted their titles to native Confluence headings | Confluence rendering feedback | |
 | 2026-08-11 | Added a diagram-led route model separating regulation, network, provider and adapter; strengthened Peppol four-corner evidence, requirements and acceptance | User context and official OpenPeppol sources | |
 | 2026-08-12 | Added four child research PRDs covering country identifiers and accountants, lifecycle mappings, Peppol multi-address routing, and cross-border reusable capability boundaries | User feedback and supplied accountant research | |
+| 2026-08-12 | Published the four focused analyses as children of commonality page `866150169` | User publication approval | |

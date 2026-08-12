@@ -17,7 +17,7 @@ confluence:
   publish: true
   space_key: DNBU
   parent_page_id: "866150169"
-  page_id: ""
+  page_id: "866152237"
   title: E-Invoicing — Cross-Border Applicability and Reusable Country Capabilities
   layout: two_left_sidebar
   toc: true
@@ -108,3 +108,4 @@ Open gates: full Spain cross-border decision table (sales, purchases, intra-EU, 
 | Date | Change | Evidence/decision |
 |---|---|---|
 | 2026-08-12 | Initial child discovery PRD for cross-border applicability and safe country-capability reuse | User feedback and official Spanish, French and EU sources |
+| 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |

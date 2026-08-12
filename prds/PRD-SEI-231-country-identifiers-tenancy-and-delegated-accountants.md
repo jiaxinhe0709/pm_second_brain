@@ -16,7 +16,7 @@ confluence:
   publish: true
   space_key: DNBU
   parent_page_id: "866150169"
-  page_id: ""
+  page_id: "866152234"
   title: E-Invoicing — Country Identifiers, Tenancy and Delegated Accountants
   layout: two_left_sidebar
   toc: true
@@ -119,3 +119,4 @@ Open gates: define the product meaning/cardinality of `datasetId`; approve the l
 | Date | Change | Evidence/decision |
 |---|---|---|
 | 2026-08-12 | Initial child discovery PRD; corrected SIREN/SIRET cardinality and combined identity, tenancy, Peppol address and accountant-delegation analysis | User feedback, supplied research and official French/Spanish sources |
+| 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |
