@@ -6,9 +6,11 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-05
-updated: 2026-08-05
+updated: 2026-08-10
 reviewers: []
 related:
+  - PRD-SEI-102
+  - PRD-SEI-103
   - PRD-SEI-201
   - PRD-SEI-202
   - PRD-SEI-203
@@ -62,6 +64,109 @@ The July 2026 strategy paper argues that stopping at connectivity exposes Sage t
 | Format transformation across admitted syntaxes | Public contract | Provider-dependent | Required operator outcome |
 | Platform-wide operational accountability | Public authority | External provider | Sage or named prime contractor |
 | Paid value-added services | No commitment | Provider-specific | Phased commercial proposition |
+
+## Phase 1 and Phase 2 reuse assessment
+
+Phase 3 must extend the platform capabilities established in Phases 1 and 2 rather than create a separate invoice platform. The following visuals express the intended design constraint, the preliminary reuse boundary, and the evidence-based decision process for each candidate component.
+
+> **Evidence caveat:** This is a PRD-level reuse hypothesis. A capability described in an approved or draft PRD is not automatically a built, deployed, scalable or production-proven component. Implementation evidence is required before a reuse decision is approved.
+
+### One shared platform with a new operator edge
+
+<!-- confluence-html-macro:start -->
+<div class="p3reuse-suite" style="display:grid;gap:24px;box-sizing:border-box;max-width:1160px;margin:0 auto;overflow-x:auto;">
+<div class="p3ra-visual" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:24px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1160px;margin:0 auto;overflow-x:auto;">
+  <style>
+    .p3ra-visual{--text:#172b4d;--muted:#6b778c;--border:#dfe1e6;--sage:#006644;--sage-bg:#e3fcef;--public:#0052cc;--public-bg:#deebff;--private:#6554c0;--private-bg:#eae6ff;--neutral:#42526e;--neutral-bg:#f4f5f7}.p3ra-visual *{box-sizing:border-box}.p3ra-visual h2{margin:0;color:var(--text);font-size:18px}.p3ra-visual .p3ra-subtitle{margin:6px 0 16px;color:var(--muted);font-size:12px;line-height:1.45}.p3ra-visual .p3ra-canvas{min-width:1080px;border:1px solid var(--border);border-radius:8px;background:#fcfcfd}.p3ra-visual svg{display:block;width:1080px;height:570px}.p3ra-visual .p3ra-label{fill:var(--muted);font-size:9px;font-weight:700;letter-spacing:.08em}.p3ra-visual .p3ra-title{fill:var(--text);font-size:13px;font-weight:700}.p3ra-visual .p3ra-copy{fill:#42526e;font-size:10px}.p3ra-visual .p3ra-small{fill:var(--muted);font-size:9px}.p3ra-visual .p3ra-product{fill:var(--sage-bg);stroke:#abf5d1;stroke-width:1.5}.p3ra-visual .p3ra-foundation{fill:#fff;stroke:#79f2c0;stroke-width:2}.p3ra-visual .p3ra-p1{fill:var(--public-bg);stroke:#b3d4ff;stroke-width:1.25}.p3ra-visual .p3ra-p2{fill:var(--private-bg);stroke:#c0b6f2;stroke-width:1.25}.p3ra-visual .p3ra-shared{fill:var(--sage-bg);stroke:#abf5d1;stroke-width:1.25}.p3ra-visual .p3ra-public{fill:var(--public-bg);stroke:#b3d4ff;stroke-width:1.5}.p3ra-visual .p3ra-provider{fill:#fff;stroke:#7a869a;stroke-width:1.5;stroke-dasharray:6 4}.p3ra-visual .p3ra-operator{fill:var(--private-bg);stroke:var(--private);stroke-width:2.5}.p3ra-visual .p3ra-new{fill:#fff;stroke:var(--private);stroke-width:1.25;stroke-dasharray:5 3}.p3ra-visual .p3ra-path{fill:none;stroke:var(--sage);stroke-width:2.2}.p3ra-visual .p3ra-path-public{fill:none;stroke:var(--public);stroke-width:1.6}.p3ra-visual .p3ra-path-optional{fill:none;stroke:#7a869a;stroke-width:1.5;stroke-dasharray:6 4}.p3ra-visual .p3ra-arrow{fill:none;stroke:var(--sage);stroke-width:2.2}.p3ra-visual .p3ra-arrow-public{fill:none;stroke:var(--public);stroke-width:1.6}.p3ra-visual .p3ra-arrow-optional{fill:none;stroke:#7a869a;stroke-width:1.5}.p3ra-visual .p3ra-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1080px;margin-top:12px}.p3ra-visual .p3ra-note{padding:10px 12px;border:1px solid var(--border);border-radius:7px;color:#42526e;background:#fff;font-size:10px;line-height:1.45}.p3ra-visual .p3ra-note strong{display:block;margin-bottom:3px;color:var(--text);font-size:11px}.p3ra-visual .p3ra-legend{display:flex;flex-wrap:wrap;gap:14px;min-width:1080px;margin-top:11px;color:var(--muted);font-size:10px}.p3ra-visual .p3ra-key{display:inline-flex;align-items:center;gap:5px}.p3ra-visual .p3ra-swatch{width:10px;height:10px;border-radius:2px}.p3ra-visual .p3ra-swatch-p1{background:var(--public)}.p3ra-visual .p3ra-swatch-p2{background:var(--private)}.p3ra-visual .p3ra-swatch-shared{background:var(--sage)}.p3ra-visual .p3ra-outline{width:14px;height:10px;border:2px solid var(--private);border-radius:2px;background:#fff}
+  </style>
+  <h2>Phase 3 adds an operator edge—not a second invoice platform</h2>
+  <p class="p3ra-subtitle">Customer products continue through the common Sage foundation. Public, external-provider and Sage-operated routes share invoice context, lifecycle, resilience and audit controls.</p>
+  <div class="p3ra-canvas">
+    <svg viewBox="0 0 1080 570" role="img" aria-label="Sage products use a shared Phase 1 and Phase 2 e-invoicing foundation. The foundation supports the public platform, existing private providers and a new Sage private-platform operator edge, which connects to other private platforms and sends required copies to the public solution.">
+      <text x="34" y="38" class="p3ra-label">SAGE PRODUCTS</text><text x="255" y="38" class="p3ra-label">SHARED PHASE 1 + 2 FOUNDATION</text><text x="805" y="38" class="p3ra-label">NETWORK AND OPERATOR EDGES</text>
+
+      <rect x="34" y="210" width="178" height="112" rx="10" class="p3ra-product"></rect>
+      <text x="123" y="243" text-anchor="middle" class="p3ra-title">Sage ERP / API</text><text x="123" y="266" text-anchor="middle" class="p3ra-copy">Configure • send • receive</text><text x="123" y="284" text-anchor="middle" class="p3ra-copy">track • resolve</text><text x="123" y="306" text-anchor="middle" class="p3ra-small">One product-neutral contract</text>
+
+      <path d="M212 266 H244" class="p3ra-path"></path><path d="M234 259 L244 266 L234 273" class="p3ra-arrow"></path>
+
+      <rect x="246" y="64" width="510" height="452" rx="12" class="p3ra-foundation"></rect>
+      <text x="501" y="94" text-anchor="middle" class="p3ra-title">Sage e-Invoicing shared platform</text><text x="501" y="114" text-anchor="middle" class="p3ra-small">Build once • apply consistently • retain network history</text>
+
+      <rect x="270" y="138" width="222" height="78" rx="8" class="p3ra-p1"></rect><text x="287" y="162" class="p3ra-title">Identity and authorisation</text><text x="287" y="181" class="p3ra-copy">Legal entity • tenant • consent</text><text x="287" y="198" class="p3ra-small">Phase 1 foundation</text>
+      <rect x="510" y="138" width="222" height="78" rx="8" class="p3ra-p1"></rect><text x="527" y="162" class="p3ra-title">Invoice and validation</text><text x="527" y="181" class="p3ra-copy">Canonical model • validation packs</text><text x="527" y="198" class="p3ra-small">Phase 1 foundation</text>
+
+      <rect x="270" y="232" width="222" height="78" rx="8" class="p3ra-p2"></rect><text x="287" y="256" class="p3ra-title">Connection and readiness</text><text x="287" y="275" class="p3ra-copy">Registration • capability • health</text><text x="287" y="292" class="p3ra-small">Phase 2 foundation</text>
+      <rect x="510" y="232" width="222" height="78" rx="8" class="p3ra-p2"></rect><text x="527" y="256" class="p3ra-title">Routing and transition</text><text x="527" y="275" class="p3ra-copy">Route policy • cutover • coexistence</text><text x="527" y="292" class="p3ra-small">Phase 2 foundation</text>
+
+      <rect x="270" y="326" width="222" height="78" rx="8" class="p3ra-shared"></rect><text x="287" y="350" class="p3ra-title">Invoice network context</text><text x="287" y="369" class="p3ra-copy">Immutable route snapshot • IDs</text><text x="287" y="386" class="p3ra-small">Shared lifecycle truth</text>
+      <rect x="510" y="326" width="222" height="78" rx="8" class="p3ra-shared"></rect><text x="527" y="350" class="p3ra-title">Resilience and operations</text><text x="527" y="369" class="p3ra-copy">Idempotency • reconcile • audit</text><text x="527" y="386" class="p3ra-small">Shared operational control</text>
+
+      <rect x="270" y="420" width="462" height="70" rx="8" class="p3ra-shared"></rect><text x="501" y="447" text-anchor="middle" class="p3ra-title">Lifecycle and status orchestration</text><text x="501" y="468" text-anchor="middle" class="p3ra-copy">Preserve original network context while current customer routes evolve</text>
+
+      <path d="M756 178 H792" class="p3ra-path-public"></path><path d="M782 171 L792 178 L782 185" class="p3ra-arrow-public"></path>
+      <rect x="794" y="136" width="252" height="84" rx="9" class="p3ra-public"></rect><text x="812" y="162" class="p3ra-title">Public platform adapter</text><text x="812" y="182" class="p3ra-copy">Phase 1 submission and consultation</text><text x="812" y="200" class="p3ra-small">Retained as a valid route</text>
+
+      <path d="M756 286 H792" class="p3ra-path-optional"></path><path d="M782 279 L792 286 L782 293" class="p3ra-arrow-optional"></path>
+      <rect x="794" y="244" width="252" height="84" rx="9" class="p3ra-provider"></rect><text x="812" y="270" class="p3ra-title">External provider adapters</text><text x="812" y="290" class="p3ra-copy">Phase 2 provider-specific contracts</text><text x="812" y="308" class="p3ra-small">Retained for customer choice</text>
+
+      <path d="M756 416 H792" class="p3ra-path"></path><path d="M782 409 L792 416 L782 423" class="p3ra-arrow"></path>
+      <rect x="794" y="354" width="252" height="176" rx="10" class="p3ra-operator"></rect><text x="812" y="381" class="p3ra-title">Sage private-platform operator edge</text><text x="812" y="401" class="p3ra-copy">New external and regulated boundary</text>
+      <rect x="812" y="418" width="216" height="30" rx="6" class="p3ra-new"></rect><text x="920" y="438" text-anchor="middle" class="p3ra-copy">External platform ingress / APIs</text>
+      <rect x="812" y="457" width="216" height="30" rx="6" class="p3ra-new"></rect><text x="920" y="477" text-anchor="middle" class="p3ra-copy">Entry point and interconnection</text>
+      <rect x="812" y="496" width="216" height="22" rx="6" class="p3ra-new"></rect><text x="920" y="511" text-anchor="middle" class="p3ra-small">Faithful copy • operator evidence</text>
+    </svg>
+  </div>
+  <div class="p3ra-notes"><div class="p3ra-note"><strong>Reuse the platform core</strong>Identity, invoice processing, routing, historical context, resilience and audit remain shared services.</div><div class="p3ra-note"><strong>Extend before duplicating</strong>Validation, lifecycle, credentials and operations gain operator behaviour without creating parallel records.</div><div class="p3ra-note"><strong>Add one explicit boundary</strong>The new operator edge exposes regulated external capabilities while protecting internal adapter contracts.</div></div>
+  <div class="p3ra-legend" aria-label="Diagram legend"><span class="p3ra-key"><i class="p3ra-swatch p3ra-swatch-p1"></i>Phase 1 capability</span><span class="p3ra-key"><i class="p3ra-swatch p3ra-swatch-p2"></i>Phase 2 capability</span><span class="p3ra-key"><i class="p3ra-swatch p3ra-swatch-shared"></i>Shared lifecycle/control</span><span class="p3ra-key"><i class="p3ra-outline"></i>New Phase 3 operator boundary</span></div>
+</div>
+<div class="p3rm-visual" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:24px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1160px;margin:0 auto;overflow-x:auto;">
+  <style>
+    .p3rm-visual{--text:#172b4d;--muted:#6b778c;--border:#dfe1e6;--green:#006644;--green-bg:#e3fcef;--blue:#0052cc;--blue-bg:#deebff;--purple:#6554c0;--purple-bg:#eae6ff}.p3rm-visual *{box-sizing:border-box}.p3rm-visual h2{margin:0;color:var(--text);font-size:18px}.p3rm-visual .p3rm-subtitle{margin:6px 0 16px;color:var(--muted);font-size:12px;line-height:1.45}.p3rm-visual .p3rm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;min-width:1080px}.p3rm-visual .p3rm-column{padding:14px;border:1px solid var(--border);border-radius:9px;background:#fcfcfd}.p3rm-visual .p3rm-column h3{margin:0 0 4px;font-size:14px}.p3rm-visual .p3rm-column p{margin:0 0 12px;color:var(--muted);font-size:10px;line-height:1.4}.p3rm-visual .p3rm-column-reuse{border-top:4px solid var(--green)}.p3rm-visual .p3rm-column-extend{border-top:4px solid var(--blue)}.p3rm-visual .p3rm-column-new{border-top:4px solid var(--purple)}.p3rm-visual .p3rm-column-reuse h3{color:var(--green)}.p3rm-visual .p3rm-column-extend h3{color:var(--blue)}.p3rm-visual .p3rm-column-new h3{color:var(--purple)}.p3rm-visual .p3rm-card{margin-top:8px;padding:10px 11px;border-radius:7px;font-size:10px;line-height:1.35}.p3rm-visual .p3rm-card strong{display:block;margin-bottom:2px;color:var(--text);font-size:11px}.p3rm-visual .p3rm-reuse{background:var(--green-bg);border:1px solid #abf5d1}.p3rm-visual .p3rm-extend{background:var(--blue-bg);border:1px solid #b3d4ff}.p3rm-visual .p3rm-new{background:var(--purple-bg);border:1px solid #c0b6f2}.p3rm-visual .p3rm-rule{min-width:1080px;margin-top:14px;padding:11px 13px;color:var(--text);background:#f4f5f7;border-left:3px solid var(--purple);font-size:11px;line-height:1.45}
+  </style>
+  <h2>Reuse, extend, or add new operator capability</h2>
+  <p class="p3rm-subtitle">The classification is preliminary until implementation maturity and technical fit are evidenced. “New” should be limited to regulated operator capabilities or boundaries that do not exist in Phases 1 and 2.</p>
+  <section class="p3rm-grid" aria-label="Three-column preliminary classification of Phase 3 capabilities into reuse, extend and new operator capability">
+    <article class="p3rm-column p3rm-column-reuse"><h3>Reuse as shared capability</h3><p>Preserve the contract and implementation where evidence proves fitness.</p><div class="p3rm-card p3rm-reuse"><strong>Legal entity and tenant</strong>One customer identity across every route</div><div class="p3rm-card p3rm-reuse"><strong>Canonical invoice and validation engine</strong>Common processing foundation</div><div class="p3rm-card p3rm-reuse"><strong>Connection, readiness and routing model</strong>Add Sage as another supported connection type</div><div class="p3rm-card p3rm-reuse"><strong>Immutable invoice route snapshot</strong>Keep provider and lifecycle history stable</div><div class="p3rm-card p3rm-reuse"><strong>Idempotency, reconciliation and audit</strong>One operational safety model</div></article>
+    <article class="p3rm-column p3rm-column-extend"><h3>Extend the shared capability</h3><p>Keep the core, then add Phase 3 scale, trust or workflow behaviour.</p><div class="p3rm-card p3rm-extend"><strong>Authorisation and credentials</strong>Add operator certificates, seals and external trust</div><div class="p3rm-card p3rm-extend"><strong>Submission and consultation</strong>Add private ingress, event acceleration and public copies</div><div class="p3rm-card p3rm-extend"><strong>Formats and validation packs</strong>Add admitted syntaxes and transformation evidence</div><div class="p3rm-card p3rm-extend"><strong>Lifecycle and status</strong>Fan out status without contradictory history</div><div class="p3rm-card p3rm-extend"><strong>Operations and support</strong>Add operator-wide incidents, BCP and statutory evidence</div></article>
+    <article class="p3rm-column p3rm-column-new"><h3>Add the Phase 3 operator edge</h3><p>Create only the externally consumable and regulated responsibilities that are genuinely absent.</p><div class="p3rm-card p3rm-new"><strong>Operator accreditation and governance</strong>Approval, control ownership and regulatory evidence</div><div class="p3rm-card p3rm-new"><strong>Published Sage entry point</strong>Discoverable destination for inbound invoices</div><div class="p3rm-card p3rm-new"><strong>External platform API</strong>Stable ingress and egress contract for other PPIFEs</div><div class="p3rm-card p3rm-new"><strong>Interconnection management</strong>Requests, tests, activation, timing and evidence</div><div class="p3rm-card p3rm-new"><strong>Commercial and exit controls</strong>Subscription, accountability and portability</div></article>
+  </section>
+  <div class="p3rm-rule"><strong>Design rule:</strong> provider-specific adapters may be reused behind the platform boundary, but their internal interfaces must not become Sage's external private-platform API.</div>
+</div>
+<div class="p3rd-visual" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:24px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1160px;margin:0 auto;overflow-x:auto;">
+  <style>
+    .p3rd-visual{--text:#172b4d;--muted:#6b778c;--border:#dfe1e6;--green:#006644;--green-bg:#e3fcef;--red:#bf2600;--red-bg:#ffebe6;--amber:#974f0c;--amber-bg:#fff7d6;--blue:#0052cc;--blue-bg:#deebff;--purple:#6554c0;--purple-bg:#eae6ff}.p3rd-visual *{box-sizing:border-box}.p3rd-visual h2{margin:0;color:var(--text);font-size:18px}.p3rd-visual .p3rd-subtitle{margin:6px 0 16px;color:var(--muted);font-size:12px;line-height:1.45}.p3rd-visual .p3rd-canvas{min-width:1080px;border:1px solid var(--border);border-radius:8px;background:#fcfcfd}.p3rd-visual svg{display:block;width:1080px;height:500px}.p3rd-visual .p3rd-label{fill:var(--muted);font-size:9px;font-weight:700;letter-spacing:.08em}.p3rd-visual .p3rd-title{fill:var(--text);font-size:12px;font-weight:700}.p3rd-visual .p3rd-copy{fill:#42526e;font-size:9.5px}.p3rd-visual .p3rd-node{fill:#fff;stroke:#c1c7d0;stroke-width:1.5}.p3rd-visual .p3rd-check{fill:var(--red-bg);stroke:var(--red);stroke-width:1.5}.p3rd-visual .p3rd-research{fill:var(--red-bg);stroke:var(--red);stroke-width:1.5;stroke-dasharray:5 4}.p3rd-visual .p3rd-gate{fill:var(--amber-bg);stroke:#ffab00;stroke-width:1.5}.p3rd-visual .p3rd-reuse{fill:var(--green-bg);stroke:#36b37e;stroke-width:1.5}.p3rd-visual .p3rd-extend{fill:var(--blue-bg);stroke:#4c9aff;stroke-width:1.5}.p3rd-visual .p3rd-wrap{fill:#f4f5f7;stroke:#7a869a;stroke-width:1.5;stroke-dasharray:5 4}.p3rd-visual .p3rd-new{fill:var(--purple-bg);stroke:var(--purple);stroke-width:1.5}.p3rd-visual .p3rd-path{fill:none;stroke:var(--green);stroke-width:2.1}.p3rd-visual .p3rd-loop{fill:none;stroke:var(--red);stroke-width:1.6;stroke-dasharray:6 4}.p3rd-visual .p3rd-branch{fill:none;stroke:#7a869a;stroke-width:1.5;stroke-dasharray:5 4}.p3rd-visual .p3rd-arrow{fill:none;stroke:var(--green);stroke-width:2.1}.p3rd-visual .p3rd-arrow-loop{fill:none;stroke:var(--red);stroke-width:1.6}.p3rd-visual .p3rd-arrow-branch{fill:none;stroke:#7a869a;stroke-width:1.5}.p3rd-visual .p3rd-yes{fill:var(--green);font-size:9px;font-weight:700}.p3rd-visual .p3rd-no{fill:var(--red);font-size:9px;font-weight:700}.p3rd-visual .p3rd-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1080px;margin-top:12px}.p3rd-visual .p3rd-note{padding:10px 12px;border:1px solid var(--border);border-radius:7px;color:#42526e;background:#fff;font-size:10px;line-height:1.45}.p3rd-visual .p3rd-note strong{display:block;margin-bottom:3px;color:var(--text);font-size:11px}
+  </style>
+  <h2>Prove reuse before committing Phase 3 architecture</h2>
+  <p class="p3rd-subtitle">Each candidate moves from documented intent to implementation evidence, fit assessment and an explicit architecture decision. Missing evidence returns to discovery rather than becoming an assumed dependency.</p>
+  <div class="p3rd-canvas">
+    <svg viewBox="0 0 1080 500" role="img" aria-label="A Phase 3 reuse decision starts with a Phase 1 or Phase 2 capability inventory, checks for implementation evidence, returns missing evidence to discovery, assesses Phase 3 fit and records one of four outcomes: reuse, extend, wrap or build new.">
+      <text x="40" y="38" class="p3rd-label">CANDIDATE</text><text x="270" y="38" class="p3rd-label">EVIDENCE GATE</text><text x="535" y="38" class="p3rd-label">FIT AND GAP</text><text x="790" y="38" class="p3rd-label">RECORDED DECISION</text>
+
+      <rect x="38" y="180" width="190" height="90" rx="10" class="p3rd-node"></rect><text x="133" y="211" text-anchor="middle" class="p3rd-title">Inventory capability</text><text x="133" y="233" text-anchor="middle" class="p3rd-copy">PRD source • service owner</text><text x="133" y="250" text-anchor="middle" class="p3rd-copy">consumer • dependency</text>
+
+      <path d="M228 225 H286" class="p3rd-path"></path><path d="M276 218 L286 225 L276 232" class="p3rd-arrow"></path>
+
+      <polygon points="360,150 434,225 360,300 286,225" class="p3rd-check"></polygon><text x="360" y="213" text-anchor="middle" class="p3rd-title">Implementation</text><text x="360" y="230" text-anchor="middle" class="p3rd-title">evidence?</text><text x="360" y="249" text-anchor="middle" class="p3rd-copy">Built • deployed • tested</text>
+
+      <text x="446" y="213" class="p3rd-yes">YES</text><path d="M434 225 H508" class="p3rd-path"></path><path d="M498 218 L508 225 L498 232" class="p3rd-arrow"></path>
+
+      <text x="348" y="321" class="p3rd-no">NO</text><path d="M360 300 V348" class="p3rd-loop"></path><path d="M353 338 L360 348 L367 338" class="p3rd-arrow-loop"></path>
+      <rect x="273" y="350" width="174" height="66" rx="9" class="p3rd-research"></rect><text x="360" y="377" text-anchor="middle" class="p3rd-title">Discovery / proof</text><text x="360" y="397" text-anchor="middle" class="p3rd-copy">Inspect, test or prototype</text>
+      <path d="M273 383 H174 V280" class="p3rd-loop"></path><path d="M167 280 L174 270 L181 280" class="p3rd-arrow-loop"></path>
+
+      <polygon points="600,150 692,225 600,300 508,225" class="p3rd-gate"></polygon><text x="600" y="207" text-anchor="middle" class="p3rd-title">Fit for Phase 3?</text><text x="600" y="228" text-anchor="middle" class="p3rd-copy">Contract • scale • security</text><text x="600" y="245" text-anchor="middle" class="p3rd-copy">regulation • operations</text>
+
+      <path d="M692 225 H730 V190 H764" class="p3rd-branch"></path><path d="M754 183 L764 190 L754 197" class="p3rd-arrow-branch"></path><rect x="766" y="154" width="266" height="70" rx="9" class="p3rd-reuse"></rect><text x="786" y="181" class="p3rd-title">Reuse unchanged</text><text x="786" y="201" class="p3rd-copy">Existing contract and component remain fit</text>
+      <path d="M692 225 H730 V268 H764" class="p3rd-branch"></path><path d="M754 261 L764 268 L754 275" class="p3rd-arrow-branch"></path><rect x="766" y="233" width="266" height="70" rx="9" class="p3rd-extend"></rect><text x="786" y="260" class="p3rd-title">Extend shared capability</text><text x="786" y="280" class="p3rd-copy">Keep core; add operator behaviour</text>
+      <path d="M692 225 H720 V347 H764" class="p3rd-branch"></path><path d="M754 340 L764 347 L754 354" class="p3rd-arrow-branch"></path><rect x="766" y="312" width="266" height="70" rx="9" class="p3rd-wrap"></rect><text x="786" y="339" class="p3rd-title">Wrap behind a new boundary</text><text x="786" y="359" class="p3rd-copy">Reuse internally; protect external contract</text>
+      <path d="M600 300 V425 H764" class="p3rd-branch"></path><path d="M754 418 L764 425 L754 432" class="p3rd-arrow-branch"></path><rect x="766" y="391" width="266" height="70" rx="9" class="p3rd-new"></rect><text x="786" y="418" class="p3rd-title">Build or source new</text><text x="786" y="438" class="p3rd-copy">No safe reusable capability exists</text>
+    </svg>
+  </div>
+  <div class="p3rd-notes"><div class="p3rd-note"><strong>Evidence, not PRD status</strong>Record repository/service ownership, deployment, tests, limits and production history.</div><div class="p3rd-note"><strong>Assess the whole fit</strong>Functional similarity is insufficient if scale, security, regulatory or operational characteristics differ.</div><div class="p3rd-note"><strong>Keep the decision durable</strong>Record owner, rationale, required changes, dependencies and verification evidence for every outcome.</div></div>
+</div>
+</div>
+<!-- confluence-html-macro:end -->
 
 ## Strategic transition visual
 
@@ -503,6 +608,8 @@ No numeric targets are approved. Owners must establish baselines and target date
 | Invoice exchange success without manual intervention | Tests core reliability | Platform Engineering |
 | Outcome-unknown and duplicate prevention rate | Tests exchange safety | SRE/Operations |
 | Public-copy and mandatory-status deadline compliance | Tests regulated operation | Compliance + Operations |
+<!-- slide -->
+
 | Interconnection request age and pass rate | Tests operator readiness | Platform Operations |
 | Support contacts and cost per active customer | Tests commercial viability | Customer Services + Finance |
 | Paid add-on attach, retention and margin | Tests value hypothesis | Commercial + Finance |
