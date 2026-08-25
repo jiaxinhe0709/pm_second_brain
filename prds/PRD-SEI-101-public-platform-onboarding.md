@@ -26,7 +26,7 @@ related:
   - PRD-SEI-226
   - PRD-SEI-231
   - PRD-SEI-233
-  - PRD-SEI-235
+  - PRD-SEI-234
 confluence:
   publish: true
   space_key: DNBU
@@ -75,7 +75,7 @@ A direct customer or delegated accountant can establish one or many independentl
 | Capability | Phase 1 | Later phase or owning PRD |
 |---|---|---|
 | Legal-subject and Spanish tax-identity capture | In scope | Shared country model in PRD-SEI-231 |
-| Transaction-scope facts and applicability preconditions | In scope | Per-transaction decision in PRD-SEI-235 |
+| Transaction-scope facts and applicability preconditions | In scope | Per-transaction decision in PRD-SEI-234 |
 | Direct customer onboarding | In scope | — |
 | Accountant portfolio intake | In scope | — |
 | Per-client, per-capability authority evaluation | In scope, subject to Spain evidence | Shared authority model in PRD-SEI-231 |
@@ -254,7 +254,7 @@ Onboarding prepares a reusable compliance context; it does not collapse the comp
 | E6 | [AEAT — identification-quality web service manual](https://sede.agenciatributaria.gob.es/static_files/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Modelos_y_formularios/Declaraciones/Modelos_01_al_99/030_036_037/WS_Masivo/Manual_Tecnico_WS_Masivo_Calidad_Datos_Identificativos.pdf) | Documents SOAP results including identified, similar, not identified, baja, revoked and not processed | Official technical document, version 1.8 dated 2021; current access/limits/security must be reconfirmed | Proposed adapter/status mapping; production gate |
 | E7 | Existing Confluence parent and five child pages listed in the source consolidation | Provide personas, draft flows, API examples, environment/error proposals and identity questions | Internal discovery input only; many claims lack official evidence | Scenarios and proposed requirements, not provider facts |
 | E8 | PRD-SEI-231 | Separates access context, legal subject, presence, official identifier, network address, authority and credential | Shared discovery model | FR1–FR19 |
-| E9 | PRD-SEI-235 | Applicability requires transaction facts beyond B2B/B2C/B2G label | Shared discovery model | FR8, FR20 and readiness limits |
+| E9 | PRD-SEI-234 | Applicability requires transaction facts beyond B2B/B2C/B2G label | Shared discovery model | FR8, FR20 and readiness limits |
 | E10 | PRD-SEI-211/212 | Public consultation and submission need immutable identity/authority context and their own operation lifecycles | Detailed discovery PRDs; external interfaces still gated | Capability handoff and evidence |
 | E11 | PRD-SEI-215/225/226 | Shared reconciliation, security, trust, data and audit controls | Shared discovery/draft requirements | Failure, NFR and operations requirements |
 
@@ -618,7 +618,7 @@ Publication to the six existing stable Confluence pages was explicitly approved 
 | What should `IDENTIFICADO-BAJA` and `IDENTIFICADO-REVOCADO` mean for onboarding and later invoices? | Avoids unsupported universal block or unsafe activation | Spain tax/legal/product | Identity policy/pilot | Manual/policy review until decided |
 | What is the official TEST or homologation environment and synthetic-data contract? | Determines safe external testing | AEAT liaison/engineering | External test/pilot | No production-like assumptions without evidence |
 | Which exact product/dataset maps to a legal subject, and can one workspace contain several subjects? | Determines tenancy/cardinality | Product/data/architecture | Data/API design | Explicit relationship, never equality by assumption |
-| Which customer cohorts and transaction directions are Phase 1? | Determines eligibility and volume | Spain product/regulatory | Journey/rollout | Use PRD-SEI-235 applicability contract after approval |
+| Which customer cohorts and transaction directions are Phase 1? | Determines eligibility and volume | Spain product/regulatory | Journey/rollout | Use PRD-SEI-234 applicability contract after approval |
 | What are expected direct customers, accountant firms, clients per firm, concurrent batches and peak checks? | Determines capacity and operational model | Product/analytics | NFR targets/pilot | Measure pilot and set reviewed limits |
 | What evidence and retention periods apply to identity, authority, credentials and readiness decisions? | Determines privacy, audit and deletion | Legal/privacy/security | Production | Separate configurable schedules pending approval |
 | Should the five current child pages remain published as generated children or become anchors/redirects to the consolidated parent? | Prevents duplicate sources and broken navigation | Product/document owner | Publication plan only | Preserve links until explicit migration plan is approved |

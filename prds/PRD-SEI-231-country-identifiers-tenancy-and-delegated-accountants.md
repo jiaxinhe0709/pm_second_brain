@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-12
-updated: 2026-08-18
+updated: 2026-08-25
 reviewers: []
 related:
   - PRD-SEI-227
@@ -224,9 +224,50 @@ The same character sequence can legitimately appear in more than one role. The p
 | Ireland | CRO number identifies incorporated companies, not every economic actor | No general establishment identity for the future B2B route is confirmed | Revenue issues a Tax Reference Number; VAT invoices use the supplier registration number. A sole trader's TRN can equal the PPSN after tax registration | Ireland uses Peppol for B2G; `9935` IE:VAT is active. Future domestic B2B participant/routing detail remains open | CRO, TRN and VAT values cover different subjects/purposes. PPSN-derived values require restricted-data treatment | Current Revenue/CRO/B2G evidence confirmed; future B2B technical contract remains a gate |
 | UK | Companies House CRN identifies registered companies, generally eight digits or two letters plus six characters; it does not cover all businesses | No universal establishment identifier is confirmed | UTR is a ten-digit tax-administration identifier; VAT registration number is nine digits and required on VAT invoices | Peppol `9932` GB:VAT is active, but final UK mandate participant/profile rules remain open | CRN, UTR and VAT number cannot be collapsed. UTR must not become a public routing key | Current HMRC/Peppol facts confirmed; future UK e-invoice implementation detail remains open |
 
-Sources: [French SIREN/SIRET and VAT guidance](https://www.impots.gouv.fr/professionnel/les-numeros-didentification), [French directory guidance](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/fiches_reforme/fiche-1_f_v.pdf), [AEAT NIF guidance](https://sede.agenciatributaria.gob.es/Sede/censos-nif-domicilio-fiscal/solicitar-nif/nif-juridica.html), [Spain Royal Decree 238/2026](https://www.boe.es/eli/es/rd/2026/03/25/238), [German W-IdNr guidance](https://www.bundesfinanzministerium.de/Content/DE/FAQ/wirtschafts-identifikationsnummer.html), [German e-invoice FAQ](https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html), [German federal Peppol guidance](https://e-rechnung-bund.de/en/faq/what-is-the-peppol-participant-id-and-how-can-it-be-requested/), [Irish Revenue TRN guidance](https://www.revenue.ie/en/starting-a-business/registering-for-tax/tax-reference-number.aspx), [Irish VAT invoice requirements](https://www.revenue.ie/en/vat/vat-records-invoices-credit-notes/invoices/information-required-vat-invoice.aspx), [Irish Peppol Authority](https://www.gov.ie/en/office-of-government-procurement/publications/irish-peppol-authority/), [UK VAT registration](https://www.gov.uk/register-for-vat/how-register-for-vat), [UK UTR guidance](https://www.gov.uk/find-utr-number), and [OpenPeppol Participant Identifier Schemes v9.7](https://docs.peppol.eu/edelivery/codelists/v9.7/Peppol%20Code%20Lists%20-%20Participant%20identifier%20schemes%20v9.7.html), accessed 2026-08-18.
+Sources: [French SIREN/SIRET and VAT guidance](https://www.impots.gouv.fr/professionnel/les-numeros-didentification), [French directory guidance](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/fiches_reforme/fiche-1_f_v.pdf), [AEAT entity NIF guidance](https://sede.agenciatributaria.gob.es/Sede/censos-nif-domicilio-fiscal/solicitar-nif/nif-juridica.html), [AEAT natural-person NIF guidance](https://sede.agenciatributaria.gob.es/Sede/censos-nif-domicilio-fiscal/solicitar-nif/nif-fisica.html), [Spain Royal Decree 238/2026](https://www.boe.es/eli/es/rd/2026/03/25/238), [German W-IdNr guidance](https://www.bundesfinanzministerium.de/Content/DE/FAQ/wirtschafts-identifikationsnummer.html), [German e-invoice FAQ](https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html), [German federal Peppol guidance](https://e-rechnung-bund.de/en/faq/what-is-the-peppol-participant-id-and-how-can-it-be-requested/), [Irish Revenue TRN guidance](https://www.revenue.ie/en/starting-a-business/registering-for-tax/tax-reference-number.aspx), [Irish VAT invoice requirements](https://www.revenue.ie/en/vat/vat-records-invoices-credit-notes/invoices/information-required-vat-invoice.aspx), [Irish Peppol Authority](https://www.gov.ie/en/office-of-government-procurement/publications/irish-peppol-authority/), [UK VAT registration](https://www.gov.uk/register-for-vat/how-register-for-vat), [UK UTR guidance](https://www.gov.uk/find-utr-number), and [OpenPeppol Participant Identifier Schemes v9.7](https://docs.peppol.eu/edelivery/codelists/v9.7/Peppol%20Code%20Lists%20-%20Participant%20identifier%20schemes%20v9.7.html), accessed 2026-08-25.
 
 The OpenPeppol list is dynamic. Store the scheme/version or verification time and support deprecation without reinterpreting historical participant addresses.
+
+### Country-pack identifier catalogue — explicit entries and counts
+
+An identifier count is meaningful only after defining what is being counted. The entries below are **country-pack catalogue rows**, not the number of identifiers that every business must possess. An official identity, a source class through which that identity is represented, a document identifier and a network/directory binding remain separate even when they reuse the same characters.
+
+| Country | Catalogue position at this review | What the count means | Delivery status |
+|---|---:|---|---|
+| France | **7 evidenced rows** | 3 official identity/tax records plus 4 directory/network bindings | Detailed below; field-level and route qualifiers remain country-owned |
+| Spain | **8 modelled rows** | 5 identity/tax subject classes, 1 document identity and 2 delivery bindings | Detailed below; the statutory destination/interconnection identifier is still open |
+| Germany | Not yet counted | W-IdNr/base and distinguishing suffix, Steuernummer, USt-IdNr, Leitweg-ID and eligible network schemes are known, but the implementation catalogue is not approved | Country workshop required |
+| Ireland | Not yet counted | CRO, TRN, VAT and Peppol roles are known; future domestic B2B identity and route remain open | Future technical artefacts required |
+| UK | Not yet counted | CRN, UTR, VAT and Peppol roles are known; final mandate identity and route remain open | Final legislation and technical artefacts required |
+
+#### France — seven catalogue rows at current evidence depth
+
+| Key | Catalogue entry | Subject/purpose | Relationship and reuse rule |
+|---|---|---|---|
+| `FR-ID-01` | SIREN | Legal unit | One legal-unit identity; parent component of SIRET and part of the VAT-number derivation, but retained as its own scheme |
+| `FR-ID-02` | SIRET | Establishment | SIREN + NIC; one legal unit may have several SIRETs and each establishment remains separate |
+| `FR-ID-03` | French VAT identification number | VAT/tax registration | `FR` + two-digit key + SIREN; never treated as the SIREN merely because it contains it |
+| `FR-RT-01` | French directory address | Invoice destination | Uses an eligible SIREN or SIRET principal identifier and may add a routing code; stored as an address binding, not another legal identity |
+| `FR-RT-02` | Peppol `0002` FR:SIRENE participant address | Network destination | May reuse a SIREN value; scheme, direction, profile capability and discovery evidence remain mandatory |
+| `FR-RT-03` | Peppol `0009` FR:SIRET participant address | Network destination | May reuse a SIRET value; it does not replace the establishment record or prove current reachability |
+| `FR-RT-04` | Peppol `9957` FR:VAT participant address | Network destination | May reuse a French VAT-number value; active scheme-list status does not prove France-route eligibility for every document/profile |
+
+This is therefore **three official identity/tax schemes and four delivery-address bindings**, not seven unrelated identifiers issued to every French business.
+
+#### Spain — eight modelled catalogue rows at current evidence depth
+
+| Key | Catalogue entry | Subject/purpose | Relationship and reuse rule |
+|---|---|---|---|
+| `ES-ID-01` | Entity NIF | Spanish legal person/entity | Tax/invoice identity for the entity; not an establishment or network address |
+| `ES-ID-02` | DNI-derived NIF | Spanish natural person/sole trader | DNI generally supplies the natural person's NIF; keep the subject/source class |
+| `ES-ID-03` | NIE-derived NIF | Foreign natural person/sole trader | NIE generally supplies the natural person's NIF; it is not a SIRET-like establishment identifier |
+| `ES-ID-04` | Assigned exceptional NIF, including applicable `NIF-M` cases | Natural person without the common DNI/NIE route | Represent the assignment/evidence explicitly; do not relabel it as DNI or NIE |
+| `ES-ID-05` | NIF-IVA | Relevant intra-EU VAT activity | Tax-purpose identity related to NIF but not a universal domestic destination |
+| `ES-DOC-01` | Statutory invoice unique code | Invoice identity | Composite includes issuer NIF, series/number and issue date; it identifies the invoice, not the party or establishment |
+| `ES-RT-01` | Peppol `9920` ES:VAT participant address | Network destination where the scheme/profile is eligible | Scheme-qualified address; presence in the Peppol list does not prove it is the universal Spanish statutory route |
+| `ES-RT-02` | Spanish public/private platform destination binding | Statutory delivery/interconnection | Required conceptual row, but final scheme, lookup and technical-order contract remain open; never infer it from NIF/NIE alone |
+
+Spain therefore does **not** have a SIREN/SIRET hierarchy. The eight rows describe different roles and source classes; they do not mean that one Spanish business must hold eight official identifiers.
 
 ## Reusable conceptual records and fields
 
@@ -555,7 +596,7 @@ The 83% figure is a discovery hypothesis for reusable **design surface**. It mus
 |---|---|---|---|---|
 | E1 | [French SIREN/SIRET guidance](https://entreprendre.service-public.gouv.fr/vosdroits/F32135) and [tax identifier guidance](https://www.impots.gouv.fr/professionnel/les-numeros-didentification) | SIREN identifies legal unit; SIRET identifies establishment; VAT number has a separate tax role | Confirmed official evidence | BR1–BR4; ID-FR1–5; ID-AC1 |
 | E2 | [French e-invoice directory/reform guidance](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/fiches_reforme/fiche-1_f_v.pdf) | Directory and routing use SIREN/SIRET and routing information; explicit mandate is relevant when activity is delegated | Official, but detailed production specifications/versioning still require country ownership | ID-FR14; ID-FR9–12 |
-| E3 | [AEAT NIF guidance](https://sede.agenciatributaria.gob.es/Sede/censos-nif-domicilio-fiscal/solicitar-nif/nif-juridica.html) and [RD 238/2026](https://www.boe.es/eli/es/rd/2026/03/25/238) | NIF identifies issuer/recipient in Spain public B2B solution; invoice unique code includes issuer NIF; public/private delivery and reporting are distinct | Confirmed primary/official evidence; technical order remains a gate | Compliance-branch separation and Spain catalog |
+| E3 | [AEAT entity NIF guidance](https://sede.agenciatributaria.gob.es/Sede/censos-nif-domicilio-fiscal/solicitar-nif/nif-juridica.html), [natural-person NIF guidance](https://sede.agenciatributaria.gob.es/Sede/censos-nif-domicilio-fiscal/solicitar-nif/nif-fisica.html) and [RD 238/2026](https://www.boe.es/eli/es/rd/2026/03/25/238) | NIF identifies issuer/recipient in Spain public B2B solution; DNI/NIE generally supply natural-person NIF and NIF M covers applicable foreign-person exceptions; invoice unique code includes issuer NIF; public/private delivery and reporting are distinct | Confirmed primary/official evidence; technical order remains a gate | Compliance-branch separation and Spain catalog |
 | E4 | [AEAT delegation FAQ](https://sede.agenciatributaria.gob.es/Sede/iva/sistemas-informaticos-facturacion-verifactu/preguntas-frecuentes/cuestiones-generales-cumplimiento-delegacion.html) and [social collaboration FAQ](https://sede.agenciatributaria.gob.es/Sede/colaborar-agencia-tributaria/colaboracion-social-presentacion-declaraciones/preguntas-frecuentes-sobre-colaboracion-social.html) | Representation is procedure-bounded and does not confer universal rights | Official but VERI*FACTU/tax-procedure-specific | BR8–BR9; country authority gate |
 | E5 | [German W-IdNr FAQ](https://www.bundesfinanzministerium.de/Content/DE/FAQ/wirtschafts-identifikationsnummer.html), [e-invoice FAQ](https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html) and [federal Peppol guidance](https://e-rechnung-bund.de/en/faq/what-is-the-peppol-participant-id-and-how-can-it-be-requested/) | W-IdNr, USt-IdNr/Steuernummer and Leitweg/Peppol identities have different roles; Leitweg-ID is B2G, not B2B | Confirmed current guidance; rollout/future uses are version-sensitive | Prevents universal identifier and route assumptions |
 | E6 | [ELSTER Vollmachtsdatenbank](https://www.elster.de/elsterweb/infoseite/vollmachtsdatenbank) | German tax powers can be electronically transmitted and scoped | Official tax context, not proof of e-invoice network authority | Country authority separation |
@@ -600,3 +641,4 @@ This document is **consultation-ready for identity, country-policy, delegation, 
 | 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |
 | 2026-08-12 | Relayout separated workspace, delegated authority, identifiers and credentials into collision-free lanes; made SVG and note cards responsive | Confluence visual review |
 | 2026-08-18 | Deepened the discovery into an identity-driven compliance-delivery model; separated document, recipient-delivery and authority-reporting outcomes; added five-country identifier/authority evidence, reusable records, lifecycle, journeys, failures, requirements, acceptance, metrics, reuse method and delivery gates | User review and official sources accessed 2026-08-18 |
+| 2026-08-25 | Added explicit France and Spain country-pack catalogue rows and counts; incorporated DNI/NIE/assigned-NIF treatment and separated identity, document and network bindings; included active Peppol `9957` FR:VAT | User request; existing official identity, directory, Royal Decree and OpenPeppol v9.7 evidence |

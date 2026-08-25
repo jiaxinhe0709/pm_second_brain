@@ -15,7 +15,7 @@ related:
   - PRD-SEI-212
   - PRD-SEI-231
   - PRD-SEI-233
-  - PRD-SEI-235
+  - PRD-SEI-234
 confluence:
   publish: true
   space_key: DNBU
@@ -38,7 +38,7 @@ Buyer identity does not by itself establish that the transaction is mandatory B2
 
 > **Product principle:** Identify the invoice parties by role; decide applicability and destination with separate evidence.
 
-This document owns seller/issuer and buyer/recipient identifier-role mapping. PRD-SEI-106 owns identifier validation/census matching, PRD-SEI-235 owns transaction applicability, PRD-SEI-233 owns network addresses and PRD-SEI-212 owns final public-solution payload mapping.
+This document owns seller/issuer and buyer/recipient identifier-role mapping. PRD-SEI-106 owns identifier validation/census matching, PRD-SEI-234 owns transaction applicability and cross-border policy, PRD-SEI-233 owns network addresses and PRD-SEI-212 owns final public-solution payload mapping.
 
 ## Source relationship
 
@@ -88,7 +88,7 @@ No equality is assumed between these records even when values share characters.
 
 Royal Decree 238/2026 applies mandatory electronic invoicing where the supplier and relevant recipient are entrepreneurs/professionals and the recipient has its business seat, fixed establishment, domicile or habitual residence in Spain, subject to the detailed conditions/exceptions. A buyer with DNI/NIE is not automatically B2B; a foreign party with no NIE is not automatically out of every e-invoicing/reporting obligation.
 
-Onboarding may capture reusable identity and presence facts, but each invoice must consume the effective applicability decision from PRD-SEI-235.
+Onboarding may capture reusable identity and presence facts, but each invoice must consume the effective applicability decision from PRD-SEI-234.
 
 ## Business scenarios
 
@@ -111,9 +111,9 @@ Onboarding may capture reusable identity and presence facts, but each invoice mu
 |---|---|---|---|
 | BR1 | Public-solution invoice is created | Include correctly informed issuer and recipient NIF mentions under the final approved profile | RD 238/2026 Article 11.3 |
 | BR2 | Natural person is a party | Represent NIF with DNI/NIE/assigned-NIF source class appropriate to subject | AEAT guidance |
-| BR3 | Buyer possesses DNI/NIE | Do not infer entrepreneur/professional status or B2B applicability | PRD-SEI-235 |
-| BR4 | Foreign party lacks NIE | Do not infer invalid transaction; apply country/scope/identity policy | PRD-SEI-235/234 |
-| BR5 | Presence affects scope | Store presence separately and decide invoice-specific relationship | PRD-SEI-231/235 |
+| BR3 | Buyer possesses DNI/NIE | Do not infer entrepreneur/professional status or B2B applicability | PRD-SEI-234 |
+| BR4 | Foreign party lacks NIE | Do not infer invalid transaction; apply country/scope/identity policy | PRD-SEI-234 |
+| BR5 | Presence affects scope | Store presence separately and decide invoice-specific relationship | PRD-SEI-231/234 |
 | BR6 | Accountant/platform performs operation | Seller/buyer invoice identity remains principal-party identity; actor is separate and authorised | PRD-SEI-231 |
 | BR7 | Raw value passes regex | Do not call it valid until subject-class check-character and policy controls pass | PRD-SEI-106 |
 | BR8 | NIF value is available for routing | Require explicit eligible address scheme, purpose and directory/route evidence | PRD-SEI-233 |
