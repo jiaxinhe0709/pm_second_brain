@@ -5,9 +5,6 @@ publication:
   include_source_revision: true
   include_source_link: true
   preserve_manual_discussion_section: true
-  change_history:
-    enabled: true
-    limit: 10
   current_sources:
     "837610648": PRD-SEI-101
     "848078252": PRD-SEI-104

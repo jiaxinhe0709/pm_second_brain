@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-24
+updated: 2026-08-10
 reviewers: []
 related:
   - PRD-SEI-203
@@ -17,9 +17,6 @@ related:
   - PRD-SEI-206
   - PRD-SEI-207
   - PRD-SEI-208
-  - PRD-SEI-221
-  - PRD-SEI-223
-  - PRD-SEI-224
   - research/provider-apis/README.md
 confluence:
   publish: true
@@ -194,7 +191,6 @@ The business objective is to preserve invoice and routing continuity while givin
 | BR6 | Provider diagnostic contains sensitive data | Translate/redact before customer or general operations display | Security/privacy | Proposed for approval |
 | BR7 | One customer request fails | Do not infer provider-wide outage from the isolated event | Avoid misleading health status | Proposed for approval |
 | BR8 | Provider-specific recovery capability is absent | Use explicit manual-decision path; do not simulate certainty | Evidence limitations | Proposed for approval |
-| BR9 | One business invoice has several compliance legs | Classify, retry and reconcile each external mutation independently; success/failure of delivery, faithful copy, readable representation or reporting must not be inherited by another leg | PRD-SEI-210/223/224 | Proposed for approval |
 
 ## Scope
 
@@ -442,9 +438,6 @@ Technical names may change, but known failure and unknown outcome must remain di
 | FR26 | Distributed correlation must cover client request, orchestration, adapter call, event and reconciliation. |
 | FR27 | Credential expiry/authentication failure must be detected and surfaced before or at first avoidable failure. |
 | FR28 | Alerts must distinguish provider degradation from individual customer configuration errors. |
-| FR29 | Work items and attempts must identify their business-invoice/compliance-context identity and exact compliance leg/destination. |
-| FR30 | Recovery of a failed/outcome-unknown leg must not repeat a completed leg unless an approved obligation explicitly requires coupled replay. |
-| FR31 | Reconciliation views must show independent document, recipient-delivery and authority-reporting outcomes and a derived overall summary without allowing the summary to overwrite leg truth. |
 
 ## Failure-mode matrix
 
@@ -529,8 +522,6 @@ Operations must see:
 12. Provider degradation is visible by provider/environment/operation.
 13. One provider outage does not prevent processing through a healthy provider beyond shared-capacity limits.
 14. Each provider passes an operation-safety and reconciliation readiness review before production.
-15. Private recipient delivery succeeding while the faithful-copy or authority-reporting leg times out results in reconciliation of only the unknown leg and no duplicate recipient delivery.
-16. A derived overall invoice status cannot convert one unknown compliance leg into success or failure by inheritance.
 
 ## Metrics
 
@@ -610,4 +601,3 @@ Operations must see:
 | 2026-07-27 | `phase2-prds-v0.1` | Initial discovery draft | |
 | 2026-07-27 | `phase2-prds-v0.2` | Confluence publication baseline | |
 | 2026-07-28 | Draft | Deepened business analysis, research, solution model, recovery visual and operational gates | |
-| 2026-08-24 | Working revision | Added compliance-leg identity, independent recovery and no-inherited-outcome controls for cross-regime orchestration | PRD-SEI-210/223/224 |

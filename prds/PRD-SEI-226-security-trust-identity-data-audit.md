@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-24
+updated: 2026-08-10
 reviewers: []
 related:
   - PRD-SEI-210
@@ -17,7 +17,6 @@ related:
   - PRD-SEI-225
   - FP-SEI-001
   - ADR-SEI-001
-  - PRD-SEI-231
 confluence:
   publish: true
   space_key: DNBU
@@ -96,11 +95,7 @@ Define security and data requirements for identity, authority, trust material, s
 |---|---|---|
 | User identity | Authenticated person/service accessing Sage | Legal entity represented |
 | Legal-entity identity | Verified business/NIF and tenancy context | User account or provider tenant |
-| Establishment/presence identity | Verified seat, fixed establishment, branch/site or domicile/residence fact linked to a legal subject | VAT registration, entry point or parent entity by implication |
-| External identifier | Scheme-qualified value issued/recognised for a named subject, role and validity | A universal tenant, route or credential key |
 | Authority | Evidence that an actor may perform an action for a legal entity/scope | Authentication alone |
-| Accountant/platform delegation | Client- and operation-specific permission for a delegate | Self-billing authority or unrestricted representation |
-| Self-billing/third-party issuance authority | Approved arrangement allowing another actor to materially issue a document for the supplier/principal | General accountant access, route activation or platform credential |
 | Service identity | Workload/platform identity used for internal/external calls | Customer consent |
 | Operator identity | Legal/technical identity of the private-platform operator | Sage brand or underlying partner UI |
 | Transport credential | Key/certificate/secret securing and authenticating a channel | Invoice signature or seal |
@@ -165,9 +160,6 @@ Define security and data requirements for identity, authority, trust material, s
 | S7 | Partner changes subprocessor/data location/control | Change is assessed and approved before affected processing | Restrict/suspend if approval/evidence absent |
 | S8 | Customer switches route/operator | New trust activates after readiness; old credential retained only for approved historical operations | Historical signature/audit remains unchanged |
 | S9 | Security incident affects one operator/environment | Contain/revoke/suspend affected scope, preserve evidence and coordinate notice | Unaffected routes remain separated where safe |
-| S10 | Accountant authenticates for a client portfolio | Evaluate each client and requested operation against its effective grant | Firm login/portfolio membership does not reveal or authorise another client |
-| S11 | Platform is authorised to report payment but not correct an invoice | Permit only payment reporting; deny correction/issuance while retaining safe audit | One grant must not expand across compliance branches |
-| S12 | Customer uses self-billing/third-party issuance | Verify a separate permitted arrangement, principal duty, performing actor, signing/reporting scope and interval | Connection readiness or accountant role alone is insufficient |
 
 ## Security and data rules
 
@@ -183,11 +175,6 @@ Define security and data requirements for identity, authority, trust material, s
 | BR8 | Route/operator changes | Preserve original signature, certificate validation, actor, representation hash and network evidence | Confirmed continuity principle |
 | BR9 | Partner operates a control | Sage requires scoped evidence, incident access, audit rights, subprocessor/change control and exit obligations | ADR/PRD-SEI-221 principle |
 | BR10 | Retention/deletion conflict exists | Legal hold/approved obligation wins; record decision and delete only at authorised gate | Open legal/privacy policy |
-| BR11 | External identifier is used | Bind scheme, issuing authority/country, subject/role, validity, verification evidence and sensitivity; never authorise from a bare value match | PRD-SEI-231 |
-| BR12 | Delegate performs a protected operation | Require a current grant for client, capability, compliance branch, direction, country/route, environment and effective time | PRD-SEI-231 operation-specific authority rule |
-| BR13 | Credential or certificate validates | Treat it as authentication/trust evidence only; do not infer client authority, self-billing or permitted signing actor | Security boundary |
-| BR14 | Self-billing/third-party issuance is used | Maintain a separate approved arrangement and preserve supplier/principal duty, performing actor and reporting/signing responsibility | AEAT/Spain legal matrix required |
-| BR15 | Authority/identifier/credential expires or is revoked | Block affected future protected operations while preserving the immutable decision and evidence used by completed historical actions | Historical-context principle |
 
 ## Research and evidence register
 
@@ -199,7 +186,6 @@ Define security and data requirements for identity, authority, trust material, s
 | RD 238/2026 Article 11 | Public authentication/representation and integrity procedures depend on official specifications | Primary regulation with ministerial-order dependency | Public trust adapter and readiness gate |
 | PRD-SEI-202/203 | Connection-aware credential lifecycle, tenancy, audit and resilience | Product intent; implementation fitness unassessed | Reuse assessment input |
 | ADR-SEI-001/PRD-SEI-221 | Named operator, accountability, supplier evidence and ongoing readiness | Proposed governance | Control ownership and partner boundary |
-| PRD-SEI-231 | Scheme-qualified identifiers, establishment records, credential separation and client/capability-specific delegated authority | Shared proposed model; Spain authority-evidence matrix remains open | Identity graph, operation authorisation, accountant isolation and historical snapshots |
 
 ## Proposed trust model
 
@@ -208,11 +194,8 @@ Define security and data requirements for identity, authority, trust material, s
 | Dimension | Required evidence/lifecycle |
 |---|---|
 | Human user | Authentication strength, Sage account, role, session/risk, joiner/mover/leaver |
-| Customer legal entity | Stable Sage subject, scheme-qualified NIF/other identity references, tenant mapping, evidence source, review/expiry |
-| Establishment/presence | Parent subject, type, jurisdiction/address, validity, identifier references and applicability role |
-| External identifier | Scheme/value, issuing authority/country, subject/role, validity, verification source/time and sensitivity |
-| Customer authority | Principal, delegate organisation/user, capability/compliance branch, action/direction/route/environment, effective interval, evidence and revocation |
-| Self-billing/third-party arrangement | Supplier/principal, performing actor, permitted document/operation, signing/reporting responsibility, evidence and effective interval |
+| Customer legal entity | Verified NIF/identity, tenant mapping, evidence source, review/expiry |
+| Customer authority | Authoriser, represented entity, action/direction/scope, effective interval, revocation |
 | Sage service | Workload identity, environment, service owner, least privilege and rotation |
 | Operator/platform | Legal operator, technical platform identity, qualification/control scope and environment |
 | Counterparty/public | Trusted endpoint/platform identity, certificate/contract version and observed validation |
@@ -330,20 +313,6 @@ At minimum distinguish: customer/legal-entity identity, user/authority evidence,
 | FR25 | Preserve forensic and business evidence and reconcile external state before service resumption. |
 | FR26 | Test data/evidence portability, credential revocation and partner deletion/transition assistance before production. |
 
-### Identifier and operation-specific authority
-
-| ID | Requirement |
-|---|---|
-| FR27 | Store external identifiers as scheme-qualified, verified references to a legal subject or establishment with role, validity and sensitivity; a bare NIF/value must not be the global tenant, route or authority key. |
-| FR28 | Distinguish legal subject, establishment/presence, participant address, provider resource, credential and user/delegate identities in authorisation and audit evidence. |
-| FR29 | Evaluate authority separately for document creation/validation, recipient delivery, retrieval, acceptance/rejection, payment/status reporting, correction, evidence access and administrative route actions. |
-| FR30 | Every authority decision must bind actor, principal client, capability/compliance branch, direction, country/route, environment, effective time, evidence/version and decision result before protected mutation or disclosure. |
-| FR31 | Authentication, token/certificate possession, platform connection and portfolio membership must not bypass FR29–FR30. |
-| FR32 | Accountant/bulk processing must isolate each client/item and produce safe per-item outcomes without leaking unauthorised identifiers, configuration or invoice evidence. |
-| FR33 | Self-billing/third-party issuance must require a separate approved arrangement identifying supplier/principal duty, performing actor, permitted document/operation, signing/reporting responsibilities, evidence and effective interval. |
-| FR34 | Revocation/expiry must prevent affected future operations while retaining the historical identity, authority and credential snapshots used for completed external actions. |
-| FR35 | Audit/support views must expose enough redacted authority reasoning to explain allow/deny outcomes while masking identifiers according to classification and never exposing mandate documents or secrets beyond approved roles. |
-
 ## Non-functional requirements
 
 | ID | Requirement |
@@ -384,11 +353,6 @@ At minimum distinguish: customer/legal-entity identity, user/authority evidence,
 - Given support investigates a case, when evidence is displayed, then it contains correlation and trust results but no raw secrets/private keys or unnecessary invoice/payment content.
 - Given a partner/model exit, when the exit test completes, then required data/evidence is portable, credentials are revoked at approved gates and partner deletion/retention evidence is available.
 - Given a security incident affects one operator/environment, when containment occurs, then affected traffic is suspended narrowly while immutable historical evidence and unaffected isolated routes are preserved.
-- Given an authenticated accountant lacks a payment-reporting grant for one client, when payment reporting is requested, then the operation is denied/audited without exposing the client's invoice or route state.
-- Given an accountant has payment-reporting but not correction authority, when a corrective document is requested, then correction is denied while the valid payment capability remains unchanged.
-- Given two external identifiers share the same characters under different schemes/subjects, when authorisation or routing runs, then they are not treated as the same identity.
-- Given self-billing is attempted through a ready private connection without an approved self-billing arrangement, when issuance is authorised, then it is blocked before signing or external mutation.
-- Given a grant is revoked after a successful submission, when history is inspected, then the original valid authority/credential snapshots remain explainable while new protected operations are denied.
 
 ## Measures
 
@@ -427,9 +391,6 @@ At minimum distinguish: customer/legal-entity identity, user/authority evidence,
 | Retention defaults conflict with privacy/continuity | Data-class policy, holds and separate deletion gates |
 | Partner/model exit strands data/evidence | Contracted portability/deletion and tested exit |
 | Security containment causes unnecessary outage | Tenant/operator/environment/capability-scoped controls |
-| Bare identifier becomes an authority or routing key | Scheme/subject/role-qualified identity plus independent authority/participant-address records |
-| One delegation grants every compliance operation | Capability/branch-specific grants and explicit deny/audit |
-| Self-billing is inferred from accountant/platform access | Separate approved arrangement and principal-duty/signing/reporting context |
 
 ## Open questions and owners
 
@@ -445,13 +406,9 @@ At minimum distinguish: customer/legal-entity identity, user/authority evidence,
 | What retention/deletion periods apply by data class? | Storage, audit and exit | Legal/privacy | Production | Configurable until approved |
 | What security evidence can support/customer roles see? | Diagnosis versus minimisation | Security/operations | Design | Role-specific redacted views |
 | Which controls must continue for historical invoices after switch? | Credential/access lifecycle | Legal/security/product | Production/exit | Restrict to required historical operations |
-| What Spain evidence proves each issue, submit, receive, consult, status/payment report, correction and evidence-view grant? | Determines operation-specific allow/deny and audit | Local legal/identity/security | Design/pilot | Produce a procedure-by-procedure evidence matrix |
-| Which official identifiers are sensitive and what masking/disclosure applies by product/support/audit role? | Prevents NIF or personal-derived identity leakage | Privacy/security/legal | Design/production | Classification and role-specific redacted views |
-| What evidence and trust actor are required for self-billing/third-party issuance and delegated signing? | Prevents unauthorised issuance/signature | Local tax/legal/security | Affected pilot | Separate arrangement, authority and signing decision |
 
 ## Change log
 
 | Date | Version | Change | Evidence/decision |
 |---|---|---|---|
 | 2026-08-10 | Version 1 | Initial Phase 3 trust, identity, data and audit PRD | PRD-SEI-210/221–225 and RD 238/2026 |
-| 2026-08-24 | Working revision | Added scheme-qualified identifier controls, establishment distinction, operation-specific delegation, accountant isolation and self-billing authority/signing boundaries | PRD-SEI-231; Spain solution-design brief comparison |

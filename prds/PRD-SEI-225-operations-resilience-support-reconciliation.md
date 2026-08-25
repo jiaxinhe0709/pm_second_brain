@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-24
+updated: 2026-08-10
 reviewers: []
 related:
   - PRD-SEI-210
@@ -173,8 +173,6 @@ Provide one operational control plane and service model for health, cases, recon
 | BR8 | Support/availability target is needed | Approve it through legal, operations and risk review; do not infer a target from regulatory wording | PRD-SEI-221/open interpretation |
 | BR9 | Incident recovery appears complete | Validate customer outcome, backlog, reconciliations and external state before closure | Proposed control |
 | BR10 | Critical readiness/security control fails | Enter controlled suspension/degradation and require re-approval before resumption | PRD-SEI-221/226 |
-| BR11 | Deadline or availability is monitored | Keep invoice/event statutory deadline, customer cohort applicability, operator/interconnection process clock and internal service objective as separate versioned measures | RD 238/2026 plus PRD-SEI-221/224 |
-| BR12 | A lifecycle timer expires without an explicit event | Escalate missing information/deadline risk as applicable; never generate an explicit acceptance event from operational timer expiry | RD 238/2026 Article 10/12 distinction |
 
 ## Research and evidence register
 
@@ -318,10 +316,6 @@ Branches: `WAITING_EXTERNAL`, `MANUAL_APPROVAL`, `SUSPENDED`, `KNOWN_LIMITATION`
 | FR23 | Provide partner-control evidence, telemetry and action rights required by the selected accountability model. |
 | FR24 | Produce post-incident/problem records and track corrective actions to closure. |
 | FR25 | Preserve complete audit for alert, case, evidence, action, approval, communication and closure. |
-| FR26 | Operational records must identify the exact document, recipient-delivery or authority-reporting leg and must not derive recovery action from an overall invoice summary alone. |
-| FR27 | Deadline monitoring must retain the event/obligation effective time, applicable policy/calendar version, cohort decision, destination and calculation evidence. |
-| FR28 | Dashboards and cases must distinguish statutory customer/event deadlines, operator/interconnection process clocks and internal service objectives so one does not mask or satisfy another. |
-| FR29 | Timer/deadline automation must not create an explicit commercial acceptance event; any presumed acceptance remains a separately derived lifecycle view owned by PRD-SEI-224. |
 
 ## Non-functional requirements
 
@@ -362,10 +356,6 @@ Branches: `WAITING_EXTERNAL`, `MANUAL_APPROVAL`, `SUSPENDED`, `KNOWN_LIMITATION`
 - Given a manual reconcile/replay action, when it is invoked, then permission, runbook, precondition, reason, correlation and result are auditable.
 - Given DR restores service, when traffic is considered for resumption, then in-flight external outcomes and backlog are reconciled and readiness/security approval is recorded.
 - Given a customer has switched provider, when an old invoice requires payment/status reporting, then operations can continue it through the historical network context without changing the new route.
-- Given recipient delivery succeeds and authority reporting is outcome-unknown, when operations opens the case, then only the reporting leg is recoverable and delivery is shown as completed.
-- Given a qualifying customer remains inside the additional status transition, when deadline monitoring runs, then no mandatory Article 10/12 breach is raised and the policy/cohort evidence is visible.
-- Given four days pass without an explicit acceptance/rejection event, when operational timers run, then no explicit acceptance event is created; any applicable derived view remains labelled and reversible.
-- Given an operator interconnection clock and customer status deadline coexist, when the dashboard is reviewed, then both are displayed/calculated independently with their own owner and evidence.
 
 ## Measures
 
@@ -374,8 +364,6 @@ Branches: `WAITING_EXTERNAL`, `MANUAL_APPROVAL`, `SUSPENDED`, `KNOWN_LIMITATION`
 | Customer-impacting availability by route/capability | Service outcome | Operations/product |
 | Outcome-unknown cases and age | Reconciliation health | Operations |
 | Backlog/headroom and deadline exposure | Capacity/compliance risk | Engineering/operations |
-| Obligations with complete policy/calendar/cohort deadline evidence | Deadline explainability | Compliance/operations |
-| Statutory, operator-process and internal-SLO breaches by type | Prevents clock conflation | Product/operations |
 | Detection, ownership, containment and recovery times | Incident effectiveness | Operations |
 | Repeat/duplicate mutation prevented | Safety effectiveness | Engineering/QA |
 | Cases reopened after closure | Recovery validation quality | Operations |
@@ -425,4 +413,3 @@ Branches: `WAITING_EXTERNAL`, `MANUAL_APPROVAL`, `SUSPENDED`, `KNOWN_LIMITATION`
 | Date | Version | Change | Evidence/decision |
 |---|---|---|---|
 | 2026-08-10 | Version 1 | Initial Phase 3 operations, resilience, support and reconciliation PRD | PRD-SEI-203/210/221–224 and RD 238/2026 |
-| 2026-08-24 | Working revision | Added per-compliance-leg operations, independent statutory/operator/internal clocks, cohort evidence and no-timer-generated-acceptance controls | PRD-SEI-210/221/224; RD 238/2026 |

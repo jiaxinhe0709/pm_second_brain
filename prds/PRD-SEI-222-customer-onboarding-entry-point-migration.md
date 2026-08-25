@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-24
+updated: 2026-08-10
 reviewers: []
 related:
   - PRD-SEI-210
@@ -17,9 +17,6 @@ related:
   - PRD-SEI-202
   - PRD-SEI-223
   - PRD-SEI-224
-  - PRD-SEI-214
-  - PRD-SEI-226
-  - PRD-SEI-231
 confluence:
   publish: true
   space_key: DNBU
@@ -104,10 +101,6 @@ Provide an auditable onboarding and migration capability that separates commerci
 | Deactivation | Stops new traffic on a route | Deregistration, offboarding or deletion |
 | Migration | Controlled change of active route/operator for a defined scope | A hard disconnect from the previous route |
 | Rollback | Restore the last known safe route after a failed cutover | Blindly reversing external mutations |
-| Legal subject | Sage identity for the business/sole trader for which configuration and authority are evaluated | A raw NIF, product tenant or user identity |
-| Establishment/presence | Verified seat, fixed establishment, branch/site or domicile/residence fact available to transaction applicability | A VAT registration or entry point by itself |
-| Delegated authority | Effective evidence that an accountant, platform or third party may perform a named operation for a client and time | Login, portfolio membership or credential possession |
-| Self-billing/third-party issuance | Approved arrangement in which a party other than the supplier materially issues the invoice under the applicable rule | General accountant access or platform routing authority |
 
 ## Onboarding and migration visual
 
@@ -144,7 +137,7 @@ Provide an auditable onboarding and migration capability that separates commerci
 | Actor | Need/responsibility |
 |---|---|
 | Business owner/authorised administrator | Understand options, authorise the legal entity and select the intended route |
-| Accountant/finance user | Manage only authorised clients/operations, know when inbound/outbound is active and understand historical continuity |
+| Accountant/finance user | Know when inbound/outbound is active and how existing invoices continue |
 | Sage ERP/API consumer | Configure and track onboarding through stable product-neutral operations |
 | Sage proposition owner | Apply eligibility, pricing/entitlement and customer-choice rules |
 | Legal operator | Provision the platform relationship and prove external readiness |
@@ -165,9 +158,6 @@ Provide an auditable onboarding and migration capability that separates commerci
 | S7 | Customer cancels before activation | Draft/configured resources are removed or retained by policy | Live routes remain unchanged |
 | S8 | Cutover produces unacceptable failures | Controlled rollback restores last known safe route where permitted | New-route invoices retain their actual origin; no history rewrite |
 | S9 | Customer switches out of Sage | New traffic moves after destination readiness; historical access and evidence continue | Credentials/registration removed only when no longer required |
-| S10 | Accountant onboards several client businesses | Each client's legal subject, identifiers, authority, connection and route are verified independently | One client denial/failure does not leak or change another client |
-| S11 | Customer has a Spanish fixed establishment or several operational presences | Onboarding records verified presence facts without inventing a universal establishment identifier or permanent transaction outcome | Each invoice still resolves which presence receives the operation |
-| S12 | Customer enables self-billing/third-party issuance | Separate approved authority and permitted-operation scope are captured before issuance; route activation alone does not authorise it | Supplier duty, performing actor and reporting responsibilities remain explicit |
 
 ## Business rules
 
@@ -183,10 +173,6 @@ Provide an auditable onboarding and migration capability that separates commerci
 | BR8 | Activation outcome is ambiguous | Reconcile before retry or rollback | Phase 2 resilience principle |
 | BR9 | Customer cancels before activation | Live route remains unchanged; configured resources follow retention/security policy | Proposed rule |
 | BR10 | Previous registration/credential may be released | Release only after approved safety checks and continuity ownership are satisfied | Open sequence; conservative hypothesis |
-| BR11 | Identity is captured during onboarding | Store Sage legal subject plus scheme-qualified external identifiers and verification evidence; do not use a bare NIF as tenant, endpoint and credential identity | PRD-SEI-231 |
-| BR12 | Presence facts are collected | Onboarding records current verified facts, but transaction-level applicability decides whether a seat/fixed establishment/domicile receives each operation | RD 238/2026 scope plus PRD-SEI-231 |
-| BR13 | Accountant/platform/third party acts | Authentication is necessary but insufficient; evaluate operation-specific authority for each client, capability, direction, route/country and effective time | PRD-SEI-231 |
-| BR14 | Self-billing or third-party issuance is proposed | Capture it as a separate legally approved grant/arrangement; do not infer it from accountant role, connection readiness or route activation | Operation-bound authority rule; Spain legal matrix required |
 
 ## Evidence and open research
 
@@ -197,7 +183,6 @@ Provide an auditable onboarding and migration capability that separates commerci
 | RD 238/2026 Articles 5–6 | Public/private combination, private entry-point publication, open lookup and public default | Primary regulation; detailed technical mechanism requires confirmation | Entry-point/route requirements |
 | RD 238/2026 Articles 8–9 | Interconnection and public bridging during setup | Primary regulation; implementation specification open | Migration continuity and external readiness |
 | ADR-SEI-001 | Legal operator and delivery-model decision | Proposed, not selected | Subscription, authority and support ownership |
-| PRD-SEI-231 | Legal subject, establishment, scheme-qualified identifiers, credentials and client/capability-specific delegated authority | Shared proposed model; Spain evidence matrix remains open | Identity/authority records, accountant isolation and historical snapshots |
 
 ## Proposed conceptual model
 
@@ -205,17 +190,14 @@ Provide an auditable onboarding and migration capability that separates commerci
 
 | Record | Required information |
 |---|---|
-| Legal entity | Stable Sage legal-subject identity, legal name/form, jurisdiction, Sage tenant/product context and verified external-identifier references |
-| Establishment/presence | Parent legal subject, type, address/jurisdiction, validity and official-identifier references where available; transaction applicability remains separate |
-| External identifier | Scheme/value, issuing country/authority, subject/role, validity, verification source/time and sensitivity classification |
-| Customer authority | Principal client, delegate organisation/user, capability/action, direction, country/route/environment, effective interval, evidence, verification and revocation |
+| Legal entity | NIF/tax identity, Sage tenant/product context, jurisdiction and verification evidence |
+| Customer authority | Authoriser, role, legal entity, allowed direction/scope, action, timestamp and evidence |
 | Platform subscription | Proposition, operator, contract/entitlement, start/end and commercial state |
-| Connection | Legal-subject/optional-presence scope, operator/environment, credential reference, capability, configured state and health |
-| Entry-point registration | Legal subject/presence, participant-address scheme/value, direction/scope, intended/observed value, source, external reference and timestamps |
+| Connection | Operator/environment, credentials/certificates, capability, configured state and health |
+| Entry-point registration | Direction/scope, intended value, observed value, source, external reference and timestamps |
 | Route policy | Direction/scope, selected route, priority, effective interval, authoriser and decision reason |
 | Transition | From/to route, requested/validated/activated times, state, checkpoints, rollback and case |
 | Invoice network context | Original route/operator, identifiers, syntax, evidence and lifecycle history |
-| Self-billing/third-party arrangement | Supplier/principal, performing actor, permitted document/operation, effective interval, evidence and reporting responsibility |
 
 ### Independent state dimensions
 
@@ -291,25 +273,6 @@ No single `ONBOARDED` flag should replace these dimensions.
 4. Historical read/status/export access continues for the approved period.
 5. Entry point, credentials and subscription are removed/revoked only at their separate safe gates.
 
-### J8 — Accountant onboards a client portfolio safely
-
-1. Accountant user authenticates through the approved firm/user mechanism.
-2. Sage resolves the requested client legal subject without disclosing other clients or trusting portfolio membership as authority.
-3. For each item, Sage verifies the client-specific grant for the requested configure/register/activate operation, direction, route/environment and effective time.
-4. Authorised items proceed independently; denied or expired items return safe per-client outcomes without changing routes.
-5. Every successful external mutation binds the legal-subject, identifier, authority and credential snapshots actually used.
-
-**Result:** batch convenience never becomes batch authority and one client's state cannot affect another.
-
-### J9 — Prepare self-billing or third-party issuance without broadening route authority
-
-1. Customer identifies supplier/principal, proposed performing actor, document/operation scope and effective interval.
-2. Sage validates that the effective Spain rule permits the arrangement and records the approved evidence/authority separately from product roles and route activation.
-3. Connection and entry-point readiness may continue, but invoice issuance remains blocked until the arrangement and required signing/reporting responsibilities are approved.
-4. Each later invoice binds the arrangement and principal-duty context used; revocation blocks eligible new issuance without rewriting prior evidence.
-
-**Result:** authentication, private-platform onboarding and self-billing authority remain distinct controls.
-
 ## Functional requirements
 
 ### Identity, choice and authority
@@ -356,19 +319,6 @@ No single `ONBOARDED` flag should replace these dimensions.
 | FR23 | Provide customer messages that identify affected direction/scope and whether existing invoices continue. |
 | FR24 | Prevent manual actions that bypass mandatory readiness, authority or audit controls. |
 
-### Legal subject, establishment and delegated operation
-
-| ID | Requirement |
-|---|---|
-| FR25 | Onboarding must create/reference a stable Sage legal subject and scheme-qualified external identifiers with verification status/time rather than using NIF as a universal tenant, entry-point or credential key. |
-| FR26 | Onboarding must support verified establishment/presence facts and validity without precomputing a permanent transaction-applicability result. |
-| FR27 | Entry-point configuration must record participant-address scheme/value separately from legal/tax identifiers and provider resource IDs. |
-| FR28 | Every protected configure, register, activate, migrate, roll back, remove, retrieve or evidence-view operation must bind an effective client- and capability-specific authority decision. |
-| FR29 | A valid login, token, certificate or portfolio membership must not bypass FR28 or grant access to another client by implication. |
-| FR30 | Accountant/bulk operations must return isolated per-client outcomes and must not disclose an unauthorised client's configuration, identifiers, invoices or existence beyond the approved safe error contract. |
-| FR31 | Self-billing/third-party issuance must use a separate arrangement/authority record identifying principal duty, performing actor, permitted document/operation, effective interval, evidence and reporting responsibilities. |
-| FR32 | Revoked/expired identity, authority or credential records must block affected future protected operations while preserving the snapshots and evidence of completed historical actions. |
-
 ## Non-functional requirements
 
 | ID | Requirement |
@@ -406,11 +356,6 @@ No single `ONBOARDED` flag should replace these dimensions.
 - Given migration from Provider A to Sage, when cutover completes, then new eligible invoices use Sage while Provider A invoices retain Provider A identifiers and lifecycle context.
 - Given rollback after some Sage invoices were exchanged, when the prior route is restored, then Sage-origin invoices remain Sage-origin and their lifecycle remains accessible.
 - Given switch-out, when new-route readiness is not proven, then Sage does not remove the current entry point or stop the safe route.
-- Given an accountant with valid authentication but no client route-activation grant, when activation is requested, then the request is denied/audited and all current routes remain unchanged.
-- Given an accountant batch contains one authorised and one unauthorised client, when onboarding executes, then only the authorised item changes and no unauthorised client data is returned.
-- Given a customer records a Spanish fixed establishment, when onboarding completes, then the verified presence is available to later applicability but no invoice is permanently classified from onboarding alone.
-- Given the same NIF has two scheme-qualified entry points, when registration is shown, then both destinations and scopes remain distinct rather than being merged by NIF.
-- Given self-billing is requested through an otherwise ready connection, when no approved self-billing arrangement exists, then invoice issuance remains blocked without changing route readiness.
 
 ## Measures
 
@@ -446,9 +391,6 @@ No single `ONBOARDED` flag should replace these dimensions.
 | Old credentials retained indefinitely | Connection-aware continuity purpose, expiry and revocation control |
 | Rollback rewrites history | Immutable invoice network context and actual effective intervals |
 | Partner model obscures responsibility | ADR accountability and PRD-SEI-221 evidence gates |
-| NIF, entry point and credential are conflated | Scheme-qualified identifier/address records and separate credential reference |
-| Accountant authentication is treated as client authority | Per-client, per-operation grant evaluation and isolated bulk outcomes |
-| Onboarding fixes transaction applicability permanently | Store verified presence/cohort facts; evaluate each transaction under effective policy |
 
 ## Open questions and decision owners
 
@@ -462,13 +404,9 @@ No single `ONBOARDED` flag should replace these dimensions.
 | Is activation immediate, scheduled or externally effective after propagation? | Determines customer promise and route timestamp | Local team/product | Design | Separate requested and observed effective time |
 | Which roles can bind each legal entity? | Prevents unauthorised registration | Legal/product | Pilot | Approved business administrator with audit evidence |
 | How long must historical access and credentials remain? | Drives retention/security | Legal/privacy/operator | Production | Configurable until approved |
-| What Spain evidence authorises each accountant/platform operation—configure, register, activate, retrieve, report, correct and view evidence? | Prevents a universal delegation grant | Local legal/identity/security | Pilot/production | Operation-specific matrix required |
-| Which presence facts belong in onboarding, and which remain transaction-only? | Prevents false establishment cardinality and stale applicability | Local legal/product/data | Design/pilot | Store verified facts; decide applicability per transaction |
-| What evidence and signing/reporting responsibilities make self-billing or third-party issuance valid? | Prevents route authority becoming invoice-issuance authority | Local tax/legal/security | Affected pilot | Separate arrangement and authority record |
 
 ## Change log
 
 | Date | Version | Change | Evidence/decision |
 |---|---|---|---|
 | 2026-08-10 | Version 1 | Initial Phase 3 customer onboarding, entry-point and migration PRD | PRD-SEI-210, Phase 2 transition foundations and RD 238/2026 |
-| 2026-08-24 | Working revision | Added legal-subject/presence/identifier records, operation-specific accountant authority, self-billing separation, portfolio journeys and acceptance coverage | PRD-SEI-214/226/231; Spain solution-design brief comparison |

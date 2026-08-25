@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-24
+updated: 2026-08-10
 reviewers: []
 related:
   - PRD-SEI-202
@@ -17,8 +17,6 @@ related:
   - PRD-SEI-206
   - PRD-SEI-207
   - PRD-SEI-208
-  - PRD-SEI-231
-  - PRD-SEI-233
   - https://confluence.sage.com/spaces/DNBU/pages/855183578/Platform+Transition+Management
   - https://confluence.sage.com/spaces/DNBU/pages/837610648/Public+Platform+Onboard
 confluence:
@@ -39,8 +37,8 @@ confluence:
 |---|---|
 | Predecessor | Based on PRD-SEI-202, which remains unchanged as the predecessor document. |
 | Reason for this successor | Provide an individually readable successor that publishes through a native Confluence two-column layout with a left-sidebar Table of Contents. |
-| Material changes | Assigns permanent ID PRD-SEI-214, adds Confluence layout/navigation metadata, and strengthens the connection/route contract with separate legal-subject, establishment, identifier, endpoint, credential and delegated-authority bindings. |
-| Unchanged areas | Connection, registration, readiness, route and historical invoice-context separation remains based on PRD-SEI-202. |
+| Material changes | Assigns permanent ID PRD-SEI-214, adds this revision overview, and adds Confluence layout and navigation metadata for publication as a new child page. |
+| Unchanged areas | Business analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks, decisions and open questions remain unchanged from PRD-SEI-202. |
 | Decisions still open | All product, provider, regulatory and architecture decisions remain as recorded in PRD-SEI-202; this successor introduces no new product decision. |
 
 ## Overview
@@ -167,11 +165,6 @@ The business objective is to provide a single, auditable and provider-neutral wa
 | Term | Definition |
 |---|---|
 | Legal entity | The customer business or sole trader to which the Spanish NIF and routing scope apply |
-| Establishment/presence | Seat, fixed establishment, branch/site or domicile/residence fact relevant to applicability or operation scope |
-| Official identifier | Scheme-qualified identifier issued/recognised by an authority for a named subject and purpose; Spanish NIF is not a universal endpoint or credential |
-| Participant/entry-point address | Scheme-qualified destination used for directory lookup or routing |
-| Delegated authority | Effective evidence that a delegate may perform a named operation for a client, direction, country/route and time |
-| Credential reference | Secret/certificate/token reference used to authenticate or secure an operation; possession does not itself prove delegated authority |
 | Connection | Sage configuration and secure credential reference used to communicate with one network/provider in one environment |
 | External registration | The provider or network's record that the legal entity is enrolled or reachable |
 | Capability | An operation a connection is confirmed to support, such as outbound submission, inbound receipt, status retrieval, or reconciliation |
@@ -204,8 +197,6 @@ The business objective is to provide a single, auditable and provider-neutral wa
 | Provider credentials expire | Customer/operations | Connection becomes action-required; unsafe operations stop | Existing work remains visible and recoverable |
 | Disable unused connection | Operations/authorised customer | Connection cannot be selected for new routes | Block or warn if active/historical work depends on it |
 | Investigate invoice routing | Support/operations | Route selection and historical context can be explained | No secret or unnecessary invoice content exposed |
-| Accountant configures several clients | Accountant/client admin | Each connection/route action is evaluated for the named client and operation | Portfolio membership or authentication does not grant access to another client |
-| Same NIF has several published entry points/scopes | Customer/platform | Each scheme-qualified destination and effective scope remains separately observable and selectable only under approved precedence | NIF is not used as the participant address by implication |
 
 ## Business rules
 
@@ -219,11 +210,6 @@ The business objective is to provide a single, auditable and provider-neutral wa
 | BR6 | Route is deactivated | Connection, registration, credentials, and data are not automatically deleted | Transition is not offboarding | Confirmed principle |
 | BR7 | More than one route matches implemented scope | Sage must not choose arbitrarily | Deterministic and auditable routing | Proposed for approval |
 | BR8 | Provider capability is unconfirmed | Connection cannot be activated for that capability | Avoid unsupported routing | Proposed for approval |
-| BR9 | Connection/route is created | Bind it to a Sage legal subject and, where relevant, establishment/presence and official-identifier references; never use a bare NIF as the global connection key | PRD-SEI-231 identity model | Proposed for approval |
-| BR10 | Network destination is required | Store participant/entry-point scheme and value separately from legal/tax identifiers and from provider resource IDs | PRD-SEI-231/233 | Proposed for approval |
-| BR11 | Credential successfully authenticates | Treat authentication as connection evidence only; require a separate effective authority decision for protected customer operations | PRD-SEI-231 | Proposed for approval |
-| BR12 | Accountant/delegate performs an operation | Grant must cover client, capability, direction, route/country, environment and effective time | PRD-SEI-231 | Proposed for approval |
-| BR13 | Identifier, authority or credential changes | Apply the new record prospectively to eligible work; retain the snapshot/evidence used by historical external mutations | Audit and historical-continuity principle | Proposed for approval |
 
 ## Scope by capability
 
@@ -300,7 +286,7 @@ Phase 2 must validate these dependencies before treating the Phase 1 implementat
 
 > **Solution maturity: proposed conceptual model. Architecture approval is required before delivery commitment.**
 
-The foundation separates ten responsibilities:
+The foundation separates six responsibilities:
 
 1. **Legal entity:** owns the Spanish routing scope.
 2. **Connection:** stores provider/environment configuration and secure credential references.
@@ -308,10 +294,6 @@ The foundation separates ten responsibilities:
 4. **Capability readiness:** states what the connection is currently eligible to do.
 5. **Route:** selects a ready connection for a time-bound invoice scope.
 6. **Invoice routing snapshot:** preserves the decision and provider context used by an invoice.
-7. **Legal subject/establishment:** identifies the business/presence for which a connection or route is authorised.
-8. **Official/participant identifiers:** keep legal/tax identity and network destination in separate scheme-qualified records.
-9. **Delegated authority:** proves that the actor may perform the named operation for this client and time.
-10. **Credential reference:** authenticates/secures the boundary without becoming authority by implication.
 
 Provider adapters translate the shared capability contract into provider-specific operations. The routing service does not call a provider synchronously to decide every invoice route; it resolves from validated internal state and then records that decision.
 
@@ -322,13 +304,10 @@ Provider adapters translate the shared capability contract into provider-specifi
 | Attribute | Business purpose |
 |---|---|
 | `connection_id` | Stable Sage identity independent of mutable provider/customer names |
-| `legal_entity_id` | Sage legal-subject scope; not a raw NIF |
-| `establishment_reference` | Relevant seat/fixed-establishment/branch/presence scope where the connection or external registration requires it |
-| `official_identifier_references` | Scheme-qualified subject identifiers with role, validity and verification evidence |
+| `legal_entity_id` | Legal entity/NIF scope |
 | `provider_id` | Public or private network/provider |
 | `environment` | Prevent test/production mixing |
 | `credential_reference` | Pointer to approved secret storage; never the secret itself |
-| `authority_policy_reference` | Required authority shape for protected provisioning/routing operations; the per-operation decision is bound at execution |
 | `capabilities` | Inbound, outbound, status, reconciliation and other confirmed operations |
 | `status` | Configuration/communication lifecycle |
 | `version` | Concurrency and audit |
@@ -341,8 +320,6 @@ Provider adapters translate the shared capability contract into provider-specifi
 | `connection_id` | Owning connection |
 | `external_registration_id` | Provider/network traceability |
 | `scope/direction` | Registration applicability |
-| `participant_address` | Network/directory scheme and value, kept separate from NIF and provider resource ID |
-| `subject/establishment_reference` | Legal subject/presence represented by the external registration |
 | `intended_status` | State Sage is trying to establish |
 | `observed_status` | Last authoritative external observation |
 | `observed_at` | Freshness and reconciliation evidence |
@@ -354,7 +331,6 @@ Provider adapters translate the shared capability contract into provider-specifi
 |---|---|
 | `route_id` | Stable route identity |
 | `legal_entity_id` | Customer scope |
-| `establishment_reference` | Optional approved presence scope; absence must not be inferred from NIF |
 | `direction` | Inbound or outbound in initial delivery |
 | `connection_id` | Selected eligible connection |
 | `environment` | Test or production |
@@ -373,8 +349,6 @@ Provider adapters translate the shared capability contract into provider-specifi
 | `decision_timestamp` | Resolve cutover-boundary disputes |
 | `external_reference` | Continue provider lifecycle operations |
 | `protocol/schema_version` | Interpret historical provider data where required |
-| `identifier_snapshot` | Legal/tax/participant identifiers actually used and their verification/version evidence |
-| `authority_decision_reference` | Actor, client, capability, direction, route/environment and effective grant used for the routing mutation |
 
 ## Proposed connection lifecycle
 
@@ -515,19 +489,6 @@ The model preserves extension points for document type, counterparty, counterpar
 | FR26 | Disablement must show active-route and historical-invoice impact before execution. |
 | FR27 | Secrets and certificate material must never be returned through client or operations APIs. |
 
-### Identity, establishment and delegated authority
-
-| ID | Requirement |
-|---|---|
-| FR28 | Connections, registrations and routes must reference stable Sage legal-subject identities and scheme-qualified external identifiers rather than using a bare NIF as a global key. |
-| FR29 | The model must support a relevant establishment/presence reference with type, jurisdiction and validity where applicability, registration or route scope depends on it. |
-| FR30 | Participant/entry-point scheme and value must be stored separately from legal/tax identifiers, provider resource IDs and credential references. |
-| FR31 | Every protected create, validate, register, activate, transition, disable or deregister operation must bind an authority decision covering actor, client, capability, direction/scope, route/country, environment and effective time. |
-| FR32 | Authentication or valid credential use must not bypass FR31 or imply accountant/client authority. |
-| FR33 | Identifier, establishment, authority and credential snapshots used for an external mutation must remain historically reproducible after later correction, expiry, revocation or route change. |
-| FR34 | Accountant bulk processing must evaluate each client/item independently and return per-item authority and routing outcomes without leaking another client's existence or data. |
-| FR35 | Product and operations views must distinguish legal subject, official identifier, participant address, provider registration, credential health and delegated-authority status. |
-
 ## Proposed client/API capabilities
 
 | Operation | Business behaviour |
@@ -621,10 +582,6 @@ Operations must be able to answer:
 10. Disabling a connection shows and protects active/historical dependencies.
 11. Provider-specific fields do not change the shared route contract.
 12. Every mutation and route decision is auditable without exposing secrets.
-13. A connection using a valid credential cannot activate a route when the actor lacks an effective client- and operation-specific authority grant.
-14. Two scheme-qualified entry points associated with the same NIF remain separate destinations and are not collapsed into one route by value matching.
-15. Changing a current identifier, credential or delegated grant does not rewrite the snapshot used by an existing invoice or completed route mutation.
-16. An accountant bulk request containing one authorised and one unauthorised client produces independent item outcomes and exposes no unauthorised client data.
 
 ## Metrics
 
@@ -648,8 +605,6 @@ Operations must be able to answer:
 | Route resolution depends on live provider call | Availability and latency risk | Resolve from reconciled internal readiness |
 | Current route overwrites historical context | Broken status/audit continuity | Immutable invoice routing snapshot |
 | Connection disabled too early | Historical lifecycle failure | Dependency impact and separate deregistration |
-| NIF is used as tenant, endpoint and credential key | Cross-client access, wrong route and unexplainable history | Separate Sage subject, scheme-qualified identifier, participant address and credential records |
-| Authentication is treated as authority | Accountant or integration performs an unauthorised client operation | Operation-specific authority evaluation and audited denial |
 | Proposed model is treated as approved architecture | Premature implementation constraint | Architecture decision gate and explicit labels |
 
 ## Dependencies and rollout
@@ -684,9 +639,6 @@ Operations must be able to answer:
 | What happens when no route is eligible? | Determines customer/API and queue behaviour | Product + operations | API contract | Fail explicitly; do not invent fallback |
 | Which additional route dimensions are required? | Determines schema/precedence | Product/local team | Later scope, not initial foundation | Direction-level initial delivery |
 | How fresh must provider state be before activation/disablement? | Determines safe irreversible actions | Architecture + provider | Operational design | Provider-specific threshold |
-| Which Spain evidence proves authority for registration, route activation, invoice retrieval, lifecycle reporting and deregistration? | Prevents one broad accountant/platform grant from authorising every operation | Local legal/identity/security | Production activation | Use operation-specific grants; evidence matrix required |
-| When does a Spanish seat/fixed establishment/branch become part of route scope rather than transaction-only applicability? | Determines connection cardinality without inventing a SIRET-like hierarchy | Local legal/product/architecture | Detailed model/pilot | Keep optional establishment reference and activate only confirmed granularity |
-| What authoritative source and scheme identify each public/private entry point? | Prevents NIF from becoming an assumed network address | Local technical team/providers | Production routing | Scheme-qualified address plus observed evidence |
 
 ## Decisions
 
@@ -705,4 +657,3 @@ Operations must be able to answer:
 | 2026-07-27 | `phase2-prds-v0.1` | Initial discovery draft | |
 | 2026-07-27 | `phase2-prds-v0.2` | Confluence publication baseline | |
 | 2026-07-28 | Draft | Deepened business analysis, research, solution, visual, traceability and readiness gates | |
-| 2026-08-24 | Working revision | Separated legal subject, establishment, official identifier, participant address, credential and delegated authority; added historical snapshots and accountant-isolation acceptance coverage | PRD-SEI-231/233; Spain solution-design brief comparison | |
