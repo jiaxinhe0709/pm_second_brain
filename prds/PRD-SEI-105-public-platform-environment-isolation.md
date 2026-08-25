@@ -16,7 +16,7 @@ related:
   - PRD-SEI-215
   - PRD-SEI-226
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "837610648"
   page_id: "848078351"
@@ -274,7 +274,7 @@ Every onboarding case, work item, verification finding, authority decision, cred
 | Environment is trusted server-side context, not caller-controlled routing | Proposed for approval |
 | Missing/conflicting context is rejected; there is no silent TEST default | Proposed for approval |
 | Test evidence is isolated and retained under policy, never promoted as production evidence | Proposed for approval |
-| Existing Confluence page remains the stable publishing target | Accepted mapping; publication disabled |
+| Existing Confluence page remains the stable publishing target | Publication approved by user on 2026-08-25, subject to merge and dry-run |
 
 | Date | Version | Change | Evidence |
 |---|---|---|---|

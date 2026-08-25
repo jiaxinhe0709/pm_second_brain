@@ -16,7 +16,7 @@ related:
   - PRD-SEI-231
   - PRD-SEI-235
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "837610648"
   page_id: "855187086"
@@ -317,7 +317,7 @@ Production external lookup is gated on current official service artefacts, Sage 
 | NIF is the identity role; DNI/NIE/entity assignment describe subject/value class | Evidence-led proposed decision |
 | NIE is not an establishment identifier or SIRET equivalent | Confirmed correction |
 | Census match does not prove e-invoicing eligibility, authority or routing | Evidence-led control |
-| Existing Confluence page remains the stable publishing target | Accepted mapping; publication disabled |
+| Existing Confluence page remains the stable publishing target | Publication approved by user on 2026-08-25, subject to merge and dry-run |
 
 | Date | Version | Change | Evidence |
 |---|---|---|---|

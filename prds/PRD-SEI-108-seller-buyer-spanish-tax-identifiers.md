@@ -17,7 +17,7 @@ related:
   - PRD-SEI-233
   - PRD-SEI-235
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "837610648"
   page_id: "837610770"
@@ -296,7 +296,7 @@ Production is gated on the ministerial Spanish semantic/syntax profile, approved
 | Seller/buyer are invoice roles; NIF is the tax-identity role and DNI/NIE describe natural-person source class | Evidence-led proposed decision |
 | Buyer identity does not determine B2B applicability or route | Proposed for approval |
 | Regex-only examples and draft field mappings are not production contracts | Evidence-led correction |
-| Existing Confluence page remains the stable publishing target | Accepted mapping; publication disabled |
+| Existing Confluence page remains the stable publishing target | Publication approved by user on 2026-08-25, subject to merge and dry-run |
 
 | Date | Version | Change | Evidence |
 |---|---|---|---|

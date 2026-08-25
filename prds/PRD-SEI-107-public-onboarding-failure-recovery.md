@@ -17,7 +17,7 @@ related:
   - PRD-SEI-225
   - PRD-SEI-226
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "837610648"
   page_id: "848078012"
@@ -313,7 +313,7 @@ Production is gated on official external operation/error/idempotency/rate contra
 | Retry is determined by operation safety, not HTTP family alone | Proposed for approval; shared resilience principle |
 | Ambiguous mutation requires reconciliation before retry/success | Proposed for approval |
 | No fixed retry count/timing is approved in this PRD | Evidence-led correction |
-| Existing Confluence page remains the stable publishing target | Accepted mapping; publication disabled |
+| Existing Confluence page remains the stable publishing target | Publication approved by user on 2026-08-25, subject to merge and dry-run |
 
 | Date | Version | Change | Evidence |
 |---|---|---|---|

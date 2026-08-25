@@ -17,7 +17,7 @@ related:
   - PRD-SEI-226
   - PRD-SEI-231
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "837610648"
   page_id: "848078252"
@@ -318,7 +318,7 @@ Production is gated on the official SPFE representation contract, an approved cl
 | Direct and accountant are orchestration variants of one control model | Accepted product direction, 2026-08-25 |
 | Portfolio authority is evaluated per client and capability | Proposed for review; required safety principle |
 | Original master-certificate and forced sender-only rules are not delivery requirements | Evidence-led correction |
-| Existing Confluence page remains the stable publishing target | Accepted mapping; publication remains disabled |
+| Existing Confluence page remains the stable publishing target | Publication approved by user on 2026-08-25, subject to merge and dry-run |
 
 **Readiness: discovery-ready draft.** It is not approved for delivery until the representation, credential, client-relationship, volume and operations gates are closed.
 

@@ -28,7 +28,7 @@ related:
   - PRD-SEI-233
   - PRD-SEI-235
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: ""
   page_id: "837610648"
@@ -589,7 +589,7 @@ Targets require baselines and owners before production approval.
 | Pilot | Named direct and accountant cohorts, volumes, support model, success/kill criteria and manual recovery approved | Production |
 | Production | Security, capacity, observability, operations runbook, retention and evidence-completeness controls pass | General availability |
 
-Publication is a separate gate. `confluence.publish` remains `false`, and `config/confluence.yml` must not select this source until explicit publication approval.
+Publication to the six existing stable Confluence pages was explicitly approved on 2026-08-25. Merge and a successful dry-run remain required before the live update; global automatic publication remains disabled.
 
 ## Risks and mitigations
 
@@ -632,7 +632,7 @@ Publication is a separate gate. `confluence.publish` remains `false`, and `confi
 | D3 | Model direct and accountant pathways as different intake/orchestration modes using the same client-level controls | Proposed for review | TBD |
 | D4 | Do not infer accountant authority from authentication, certificate possession or portfolio membership | Proposed for review; consistent with PRD-SEI-231 | TBD |
 | D5 | Use per-capability readiness rather than one onboarding/registered flag | Proposed for review | TBD |
-| D6 | Record the existing stable parent page ID but do not publish or change current-source configuration without explicit approval | Required repository governance | 2026-08-25 |
+| D6 | Publish this canonical source to the existing stable parent page only after merge and a successful dry-run | Approved by user | 2026-08-25 |
 
 ## Readiness
 
