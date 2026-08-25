@@ -1,0 +1,110 @@
+Executive Summary & Context
+As visualized in the handwritten layout inside
+Screenshot
+, the Spain e-invoice onboarding configuration features an explicit operational branch split between
+TEST
+and
+PRO
+states.
+Because our core product is a Developer-First API Layer, internal client teams and integrating external systems must be able to test their onboarding logic, payload setups, and digital certificate handshakes safely before triggering production connections with the Spanish State Tax Administration Agency (AEAT)
+Developer-First API Layer
+. This specification outlines the architectural routing parameters, API behavior differences, and environment gating logic necessary to run both tracks securely.
+Environment Separation Matrix
+Environment
+Purpose
+Core Processing Behavior
+Target Gateway
+Legal Status
+TEST
+Developer integration testing, payload validation dry-runs, and status routing diagnostics.
+Structural data validation using internal schemas with non-binding connections to the tax authority's sandbox API.
+AEAT
+Entorno de Pruebas / Homologación
+Non-binding:
+No tax or legal liabilities are generated.
+PRO
+Live production onboarding execution for operational businesses and accountant portfolios.
+Strict structural compliance assertions, immutable security logging, and synchronous registration persistence with the state database.
+AEAT
+Entorno de Producción / Real
+Binding:
+Legally registers the targeted business entity under active Spanish reporting rules.
+API Header & Payload Routing Strategy -
+DRAFT
+To keep integration clean, our Spain onboarding engine exposes unified endpoint URLs. Client systems control whether an operation executes in a staging context or live production via two explicit validation mechanisms:
+1. HTTP Header-Based Control (Recommended for ERP Connections)
+All incoming API requests to the onboarding endpoints look for a standard routing header attribute. If this header is missing, the API securely defaults to
+test
+to protect organizations from accidental live actions.
+X-Environment: test
+X-Environment: production
+2. Request Level Parameters
+When initializing the onboarding setup lifecycle via
+POST /api/v1/es/onboarding/profile
+, the root properties record the designated operational target:
+{
+  "target_environment": "TEST",
+  "effective_date": "2026-10-01",
+  "organization": {
+    "nif": "B1234567A",
+    "entity_type": "BUSINESS"
+  }
+}
+Downstream Mapping to AEAT Infrastructure
+┌─────────────────────────────────────────┐
+                  │ Internal Onboarding API Router Engine  │
+                  └────────────────────┬────────────────────┘
+                                       │
+                    Is `target_environment` == "PRO"?
+                                       │
+                    ├──────────────────┴──────────────────┐
+               YES (PRO)                               NO (TEST)
+                    ▼                                     ▼
+      ┌───────────────────────────┐         ┌───────────────────────────┐
+      │    Production Adapter     │         │      Sandbox Adapter      │
+      ├───────────────────────────┤         ├───────────────────────────┤
+      │ Live Cryptographic Vault  │         │ Test Cryptographic Store  │
+      │   AEAT Entorno Real       │         │  AEAT Entorno de Pruebas  │
+      └───────────────────────────┘         └───────────────────────────┘
+### TEST Environment Processing Policies
+Flexible Certificate Ingestion:
+Flexible Certificate Ingestion: The compliance endpoint will accept test or simulation digital certificates. Cryptographic checking logic asserts that the certificate's structure and layout conform to standard X.509 formats without rejecting registrations due to unmatched tax-entity lookup records.
+Validation Emulation:
+Senders are required under national rules to ensure schemas match required structural frameworks before submission. In the TEST environment, our API runs complete code check evaluations, outputting descriptive logs without writing permanent data to the public repository
+TEST
+.
+No Permanency Binding:
+No Permanency Binding: Under Spanish e-invoicing parameters, starting live compliance processes locks an identity into automated tracking routines for that calendar cycle. The TEST state ensures no historical or tracking records persist, allowing teams to loop onboarding configurations iteratively without restriction
+TEST
+.
+PRO Environment Processing Policies
+Production Gatekeeping:
+The
+PRO
+onboarding thread enforces a strict match between the uploading entity's NIF, the signature keys embedded in the uploaded administrative certificate, and verified registration details.
+Live Handover Initialization:
+Live Handover Initialization: Upon successful confirmation from the user application, the connection routing engine compiles the finalized business configuration profile and executes a permanent registration request directly against the live Spanish Public Platform network endpoints.
+Sandbox Error & Failure Simulation (TEST Only)
+To enable developers to build and evaluate their own connection systems comprehensively against our
+Onboarding - Retry & Error Handling Specs
+child page, the
+TEST
+environment interceptor supports deterministic error triggering through dummy parameter properties:
+Timeout Loop Testing:
+Passing the exact string
+ERR5044444A
+inside the request's
+organization.nif
+field forces our sandbox adapter to intentionally simulate a gateway timeout scenario (
+ERR_GATEWAY_TIMEOUT_504
+). This permits quick validation of client-side exponential backoff engines.
+Validation Rejection Testing:
+Passing the string
+ERR4223333B
+inside the
+organization.nif
+property forces an instantaneous mock validation failure response return (
+ERR_INVALID_TAX_ID
+).
+Change Log
+7

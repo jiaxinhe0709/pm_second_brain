@@ -34,7 +34,7 @@ The left column should contain only Confluence's native Table of Contents macro.
 
 ### Expected content behaviour
 
-The right column should contain the source banner, headings, paragraphs, lists and tables from this Markdown file.
+The right column should contain the source banner, native Change History macro, headings, paragraphs, lists and tables from this Markdown file.
 
 ## Layout verification
 
@@ -42,6 +42,8 @@ Use this checklist after the page is published:
 
 - The page uses a narrow left column and a wide right column.
 - The Table of Contents appears in the left column.
+- The Publication history section displays no more than the configured ten page versions.
+- Published versions include the source document ID, Git revision and document update date in their version comment.
 - Selecting a Table of Contents entry navigates to the corresponding heading.
 - Heading level 2 and heading level 3 entries are visible.
 - The document remains readable without horizontal clipping.

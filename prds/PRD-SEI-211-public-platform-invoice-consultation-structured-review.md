@@ -7,7 +7,7 @@ version: 1
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-24
 reviewers:
   - dianna.hindle@sage.com
 related:
@@ -15,6 +15,9 @@ related:
   - https://confluence.sage.com/spaces/DNBU/pages/837610648/Public+Platform+Onboard
   - https://confluence.sage.com/spaces/DNBU/pages/837610662/Public+Platform+Consult
   - PRD-SEI-201
+  - PRD-SEI-221
+  - PRD-SEI-224
+  - PRD-SEI-231
   - research/PRD-SEI-201-spain-use-case-evidence.md
 confluence:
   publish: true
@@ -564,6 +567,7 @@ The authoritative cutover, overlap and historical lifecycle rules remain owned b
 | BR11 | Notification support becomes available | It may accelerate consultation but does not remove reconciliation without an explicit decision | Proposed for approval |
 | BR12 | Customer cadence choice is offered | Choice is bounded by approved service policies and cannot disable required retrieval | Proposed for approval |
 | BR13 | Public inbound route ends | Consultation follows the effective boundary without deleting historical context | Confirmed transition principle; sequence open |
+| BR14 | Public solution returns an invoice/faithful copy | Retrieval creates recipient-delivery evidence and one inbound business document only; it must not silently create SII or RRSIF/VERI*FACTU records/events | Spain regime-separation principle |
 
 ## Functional requirements
 
@@ -638,6 +642,8 @@ The authoritative cutover, overlap and historical lifecycle rules remain owned b
 | FR40 | Authorised operations must be able to retry, revalidate or request reconciliation without directly editing a cursor. |
 | FR41 | Every run and material state change must record actor/trigger, timestamp, scope, policy version, correlation ID and outcome. |
 | FR42 | The system must alert on sustained freshness breach, growing backlog, repeated action-required failures and reconciliation gaps. |
+| FR43 | Retrieved original/copy classification and public-route evidence must remain distinct from any independently applicable SII or RRSIF/VERI*FACTU record/reporting plan. |
+| FR44 | If another compliance service consumes the retrieved invoice, handoff must use the shared business-invoice/compliance-context identity and an explicit applicability decision rather than infer reporting from retrieval success. |
 
 ## Proposed API and operational capabilities
 
@@ -763,6 +769,7 @@ At minimum measure:
 | AC13 | High-volume customer has a large backlog | Other customers are due | Fair scheduling allows other customers to continue |
 | AC14 | Public inbound route reaches its end boundary | Scheduler evaluates eligibility | New out-of-bound consultation stops while historical evidence remains |
 | AC15 | Operations inspects a failed customer | Failure exists | Last success, next/retry state, checkpoint freshness and corrective action are visible without secrets |
+| AC16 | An invoice is retrieved successfully from the public solution | Downstream processing begins | One inbound business invoice and delivery evidence are created; no SII or RRSIF/VERI*FACTU event is created by retrieval alone |
 
 ## Metrics and success measures
 
@@ -881,3 +888,4 @@ At minimum measure:
 | Date | Version/revision | Change | Pull request |
 |---|---|---|---|
 | 2026-07-29 | Version 1 (Draft) | Initial evidence-led Phase 1 PRD with consultation options, recommended solution, detailed journeys, requirements, visual, acceptance criteria and production gates | |
+| 2026-08-24 | Working revision | Added the cross-regime boundary so public retrieval cannot manufacture SII/RRSIF/VERI*FACTU records and downstream obligations require explicit applicability | |

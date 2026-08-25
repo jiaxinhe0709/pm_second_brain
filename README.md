@@ -50,3 +50,12 @@ stable page per topic and displays the latest selected source. The selected sour
 for each stable page is recorded under `publication.current_sources` in
 `config/confluence.yml`. Keep credentials in GitHub Actions secrets, never in this
 repository.
+
+Generated pages include Confluence's native Change History macro when
+`publication.change_history.enabled` is true. The configured `limit` controls how
+many Confluence page versions are displayed. Live updates add a version comment
+containing the managed document ID, Git revision and document update date.
+
+The native macro records publication history; it does not replace a PRD's curated
+Markdown `Change log`, which remains the canonical explanation of material product
+and requirement changes.

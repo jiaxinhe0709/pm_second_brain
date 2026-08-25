@@ -1,0 +1,171 @@
+NIF/NIE are the official tax identifiers that make invoices legally valid and traceable in Spain
+Seller NIF → identifies
+who issued the invoice
+Buyer NIF/NIE → identifies
+who received the invoice
+Seller NIF (Número de Identificación Fiscal)
+What it is:
+The
+tax ID of the company or person issuing the invoice (the seller).
+What it provides:
+Uniquely identifies the supplier for tax purposes
+Ensures the invoice can be traced back to the correct business
+Used by authorities (AEAT) to validate and track transactions
+Where it appears:
+Mandatory invoice field (e.g. BT‑32)
+Buyer NIF (for businesses)
+What it is:
+The
+tax ID of the customer when the customer is a Spanish business entity.
+What it provides:
+Identifies the business receiving the invoice
+Enables correct tax reporting and matching on both sides of the transaction
+Buyer NIE (Número de Identidad de Extranjero)
+What it is:
+A
+tax identification number for foreign individuals
+(non-Spanish nationals) in Spain.
+When it is used:
+If the buyer is an
+individual (not a company)
+and is a foreign resident or taxpayer
+Used instead of NIF for those individuals
+How to Think About It (Product View)
+Field
+Who it represents
+Typical use
+Seller NIF
+Invoice issuer (supplier)
+Always required
+Buyer NIF
+Business customer
+Used for companies
+Buyer
+Individual (foreign) customer
+Used for non-Spanish individuals
+Why It Matters for Your API / Product Design
+From a product perspective (especially for your backend API work):
+These are
+core identity keys
+used to:
+Validate invoices
+Generate the
+unique invoice identifier
+Link invoices to payment reporting
+They must be:
+Mandatory fields
+Validated format-wise
+Consistently used across invoice + payment messages
+Validations
+Seller NIF (Business or Individual)
+✅ What to validate
+From your source document, the Seller NIF is a
+mandatory invoice field
+(BT‑32).
+In practice, NIF can represent:
+Companies (legal entities)
+Spanish individuals (self-employed)
+🔹 Standard NIF Formats
+A.
+Companies (Legal Entities)
+Format:
+[A-Z][0-9]{7}[A-Z0-9]
+Examples:
+B12345678
+A98765432
+F1234567J
+Breakdown:
+1st character = entity type (letter)
+Next 7 digits = unique identifier
+Last character = control/check character
+B.
+Spanish Individuals (DNI-based NIF)
+Format:
+[0-9]{8}[A-Z]
+Example:
+12345678Z
+Breakdown:
+8 digits = national ID number
+1 letter = checksum (derived from number)
+✅ Key Validation Rules (NIF)
+Must match one of the valid patterns above
+Must be
+uppercase
+Must not contain spaces or symbols
+Length:
+9 characters standard
+Optional (advanced):
+Verify checksum letter (for individuals and some entities)
+Buyer NIF / NIE
+From your document, the buyer field accepts
+NIF or NIE
+(BT‑48).
+🔹 A. Buyer NIF (Business or Spanish Individual)
+Same rules as above apply.
+🔹 B. NIE (Foreign Individual ID)
+✅ Format
+[X|Y|Z][0-9]{7}[A-Z]
+Examples:
+X1234567L
+Y7654321P
+Z1234567R
+🔍 Breakdown
+Part
+Meaning
+X / Y / Z
+Prefix identifying foreign nationals
+7 digits
+Unique identifier
+Final letter
+Checksum
+✅ NIE Validation Rules
+Must start with:
+X, Y, or Z
+Must be exactly 9 characters
+Last character must be a letter
+Must be uppercase
+Optional advanced validation:
+Convert prefix to number (X=0, Y=1, Z=2)
+Then apply standard DNI checksum logic
+Practical API Validation Logic
+✅ Recommended Validation Order
+IF matches company NIF pattern → valid NIF
+ELSE IF matches individual NIF pattern → valid NIF
+ELSE IF matches NIE pattern → valid NIE
+ELSE → invalid identifier
+✅ Regex Examples (Production-Ready)
+You can use these directly in your backend:
+NIF (combined)
+^([A-Z][0-9]{7}[A-Z0-9]|[0-9]{8}[A-Z])$
+NIE
+^[XYZ][0-9]{7}[A-Z]$
+Product & UX Considerations (Important for your flows)
+Input Handling
+Automatically:
+Trim spaces
+Convert to uppercase
+Reject:
+Special characters
+Incorrect lengths
+Error Messages (Customer-Friendly)
+Instead of “Invalid format”, use:
+“Enter a valid Spanish tax ID (e.g. B12345678 or 12345678Z)”
+“Foreign individuals should use NIE format (e.g. X1234567L)”
+Data Model Design
+You should store:
+taxIdentifier
+taxIdentifierType = [NIF | NIE]
+country = ES
+Optional enhancement:
+Add validation status (validated / unverified)
+Why This Matters in Spain e‑Invoicing
+These IDs are critical because they are used to:
+Identify buyer/seller in every invoice
+Generate the
+unique invoice linkage across systems
+Match invoices with
+payment reporting obligations
+They impact:
+Invoice validity (rejection risk)
+Matching across platforms
+Payment reporting linkage

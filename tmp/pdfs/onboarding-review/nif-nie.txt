@@ -1,0 +1,288 @@
+
+
+===== PAGE 1 =====
+
+NIF/NIE Verification &amp; Lookup API -DRAFT
+Context & Purpose
+Scope & Boundaries
+Core Functional Requirements 
+(FRs)
+Layer 1: Local 
+Algorithmic Validation
+Layer 2: AEAT 
+Census Verification
+Layer 3: Central 
+Directory Routing 
+(Directorio de 
+Empresas)
+API Endpoint Specifications
+Single Verification 
+(Synchronous)
+Batch Verification 
+(Asynchronous)
+Non-Functional Requirements 
+(NFRs)
+Spain E-Invoicing: NIF/NIE 
+Verification and Routing 
+Lookup
+Example: Single 
+Verification 
+Response
+ERP 
+Request
+Verified 
+Response
+Engineering & Implementation 
+Suggestions - DRAFT
+Do Not Reinvent the 
+Math
+Implement the 
+Wrapper Pattern 
+(Adapter)
+Change Log
+ 
+Context & Purpose
+As part of the broader Spanish 
+ e-invoicing mandate, passing an invalid or inactive 
+Crea y Crece
+counterparty NIF (Tax Identification Number) will cause hard rejections when transmitting invoices to the 
+government or private platforms.
+ This microservice acts as a synchronous defensive layer. It prevents "garbage in, garbage out" 
+Purpose:
+by validating that a buyer/supplier NIF entered into our ERPs is mathematically correct, legally registered 
+with the Spanish Tax Agency (AEAT), and (eventually) retrieves their mandatory e-invoicing routing 
+destination from the national directory.
+Scope & Boundaries
+In Scope:
+Local algorithmic format validation (Modulo 11 / Modulo 23).
+External integration with the AEAT's 
+ (Third-party 
+Comprobación de un NIF de terceros
+NIF verification) web service.
+Retrieval of routing preferences from the future central 
+.
+Directorio de Empresas
+Single and Batch verification endpoints.
+Out of Scope:
+Generation of UBL 2.5 / EN 16931 XML payloads.
+Application of electronic signatures (XAdES).
+Transmission of the actual invoice or handling of lifecycle status updates (Accepted
+/Paid).
+Core Functional Requirements (FRs)
+Layer 1: Local Algorithmic Validation
+To reduce latency and avoid wasting external API calls, the service must first validate the string locally.
+ Validate standard 9-character Spanish identification numbers 
+FR-1: DNI/NIF/NIE Validation:
+against the modulo 23 algorithm.
+ Validate standard corporate identification numbers against the modulo 11 
+FR-2: CIF Validation:
+algorithm, accounting for complex edge cases (e.g., control characters being either letters or 
+numbers depending on the corporate entity type).
+Layer 2: AEAT Census Verification
+If the local algorithmic check passes, the API must query the government database to confirm the entity 
+is active and permitted to trade.
+ The service must securely inject our company’s Qualified Digital 
+FR-3: Authentication:
+Certificate (
+) to authenticate against the AEAT 
+.
+Certificado FNMT
+Sede Electrónica
+ Map the specific AEAT responses to standardized API statuses 
+FR-4: Status Normalization:
+for our ERPs:
+  
+ (Entity matches and is active).
+IDENTIFICADO VALID
+  
+ (NIF is active, but the name 
+NO IDENTIFICADO - SIMILAR REVIEW_REQUIRED
+provided has a typo. Return the AEAT-registered name for the ERP user to correct).
+  
+ (NIF does not exist in the census).
+NO IDENTIFICADO INVALID
+ / 
+  
+ (Entity exists but is deregistered or 
+IDENTIFICADO - BAJA
+REVOCADO BLOCKED
+tax-revoked. Hard block the ERP from creating an invoice).
+Layer 3: Central Directory Routing (Directorio de Empresas)
+Note: This requirement activates in alignment with the Phase 1 Crea y Crece rollout (October 2027).
+ Once a NIF is verified as 
+, the API must query the national 
+FR-5: Endpoint Discovery:
+VALID
+central directory to identify the buyer's e-invoicing endpoint.
+ Append a 
+ field to the payload, returning 
+FR-6: Routing Output:
+routing_destination
+either the public portal (
+) or the registered Private Platform ID (
+).
+SPFE
+PDP_ID
+API Endpoint Specifications
+Single Verification (Synchronous)
+
+
+===== PAGE 2 =====
+
+ Triggered by the ERP UI when a user creates or 
+POST /api/v1/verify/nifPOST /api/v1/verify/nif
+updates a single client/supplier master record.
+Input Payload:
+{
+  "nif": "B12345678",
+  "name": "Empresa Ficticia SL"
+}
+Output Payload (Success):
+{
+  "status": "VALID",
+  "aeat_status": "IDENTIFICADO",
+  "registered_name": "EMPRESA FICTICIA SL",
+  "routing_destination": "SPFE", 
+  "timestamp": "2026-07-16T14:17:26Z"
+}
+Batch Verification (Asynchronous)
+ Triggered by the ERP for bulk 
+POST /api/v1/verify/nif/batchPOST /api/v1/verify/nif/batch
+clean-ups of the vendor/customer database.
+ Accepts a JSON array of up to 10,000 NIF/Name pairs (matching the AEAT CSV 
+Behavior:
+bulk upload limits).
+ Returns a 
+ with a 
+.
+Response:
+202 Accepted
+job_id
+ 
+ retrieves the processed array with 
+Retrieval: GET /api/v1/verify/nif/batch/{job_id}
+statuses applied.
+Non-Functional Requirements (NFRs)
+ The Layer 1 local algorithmic check must execute in 
+. The Layer 2 
+NFR-1 (Latency):
+< 50ms
+external AEAT census check must return to the ERP in 
+ to prevent UI freezing during 
+< 800ms
+client onboarding.
+NFR-2 (Caching Strategy):
+NIFs returning 
+ must be cached locally (e.g., Redis) for 
+. Subsequent 
+VALID
+30 days
+ERP queries for this NIF will hit the cache, saving AEAT API calls and drastically 
+reducing latency.
+NIFs returning 
+ or 
+ should only be cached for 
+ to allow for 
+INVALID
+BLOCKED
+24 hours
+quick resolution if the client corrects their tax status.
+Spain E-Invoicing: NIF/NIE Verification and 
+Routing Lookup
+A synchronous defensive API that verifies counterparties before an 
+ERP creates or transmits an invoice.
+LAYER 1
+Local Format Chec
+Validate DNI, NIF, NIE, and CIF format before ma
+
+
+===== PAGE 3 =====
+
+LAYER 2
+AEAT Census Chec
+Confirm that the counterparty is identified, activ
+LAYER 3
+Routing Lookup
+For a valid NIF, return the public portal or registered
+Example: Single Verification Response
+ERP Request
+POST /api/v1/verify/nif
+nifB12345678
+nameEmpresa Ficticia SL
+Verified Response
+VALID
+aeat_statusIDENTIFICADO
+registered_nameEMPRESA FICTICIA SL
+routing_destinationSPFE (Public Portal)
+example latency428 ms
+ the national directory lookup is planned 
+Routing lookup availability:
+to activate with the Phase 1 Crea y Crece rollout in October 2027. 
+Until then, the service can complete local and AEAT validation without 
+a routing destination.
+Engineering & Implementation Suggestions - DRAFT 
+To accelerate development and minimize the risk of unhandled edge cases in the mathematical 
+validation layer, the engineering team should adhere to the following guidelines:
+Do Not Reinvent the Math
+
+
+===== PAGE 4 =====
+
+The C# team should avoid writing custom Modulo 11 and Modulo 23 algorithms from scratch. Spanish 
+corporate identifiers (CIFs) contain highly specific edge cases regarding foreign entities and partnerships 
+that are notoriously difficult to maintain.
+Instead, leverage established open-source NuGet packages that specialize in Spanish tax identification 
+logic. Suggested libraries to evaluate include:
+: A highly optimized .NET library 
+NIF.DNI.NIE.CIF.ValidationNIF.DNI.NIE.CIF.Validation
+specifically built for validating Spanish identifiers, supporting both synchronous and 
+asynchronous batch processing.
+: A broader .NET library that handles tax ID validations 
+CountryValidatorCountryValidator
+(including Spain's NIF/CIF).
+Implement the Wrapper Pattern (Adapter)
+Do not inject the specific NuGet package directly into your API controllers. The engineering team must 
+create an internal C# interface (e.g., 
+) and wrap the chosen third-party library inside 
+ITaxIdValidator
+an implementation class (e.g., 
+).
+SpanishTaxIdValidator
+ If the chosen NuGet package is ever deprecated, introduces breaking changes in a newer .NET 
+Why:
+framework update, or fails a security audit, the team only needs to swap out the library in one specific 
+adapter class rather than refactoring the entire microservice.
+Change Log
+Version
+Published
+Changed By
+Comment
+ (v. 7)
+CURRENT
+21/07/2026 08:37
+ 
+ Jiaxinhe He
+v. 6
+21/07/2026 08:37
+ 
+ Jiaxinhe He
+v. 5
+16/07/2026 13:37
+ 
+ Jiaxinhe He
+v. 4
+16/07/2026 13:31
+ 
+ Jiaxinhe He
+v. 3
+16/07/2026 13:30
+ 
+ Jiaxinhe He
+v. 2
+16/07/2026 13:27
+ 
+ Jiaxinhe He
+v. 1
+16/07/2026 13:18
+ 
+ Jiaxinhe He

@@ -1,0 +1,44 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><p><ac:structured-macro ac:name="toc" ac:schema-version="1" ac:macro-id="ea1da8cc-3870-4a95-8b00-7b2638cece9f" /></p></ac:layout-cell><ac:layout-cell><h2>Executive Summary &amp; Context</h2><p>Connecting directly to external government networks—specifically the Spanish State Tax Administration Agency (AEAT) public e-invoicing infrastructure—presents inherent operational risks including network timeouts, unannounced gateway maintenance, and unexpected schema changes.</p><p>Because our onboarding product is a <strong>Developer-First API Layer</strong> with an optional downstream UI, the API must handle errors predictably. It must gracefully isolate external network instability from client-side integration bugs. This specification document defines the error taxonomy, response schemas, and automatic retry states required for <strong>Phase 1 (Spain Public Platform Onboarding)</strong>.</p><h2>Onboarding Error Taxonomy</h2><p>To ensure clear developer communication, all onboarding pipeline errors must be classified into one of three execution categories:</p><h3>1. Synchronous Validation Errors (Client-Side / 4xx)</h3><p>These occur during the initial data capture or certificate upload phases. They represent structural invalidity in the payload provided by the client application. The API must reject these requests immediately without making downstream network requests.</p><ul><li data-uuid="46171abc-d79b-4aa8-8219-82a7db4c150e"><p><strong>Invalid NIF/NIE Format (ERR_INVALID_TAX_ID):</strong><code>ERR_INVALID_TAX_ID</code> The provided tax identifier fails the regex check for standard Spanish NIF/NIE structures.</p></li><li data-uuid="25543e19-a8aa-4c32-b534-2091f013d5f9"><p><strong>Malformed Digital Certificate (ERR_CERTIFICATE_CORRUPTED):</strong><code>ERR_CERTIFICATE_CORRUPTED</code> The cryptographic payload uploaded via the multipart endpoint cannot be parsed as a valid X.509 certificate.</p></li><li data-uuid="a3673633-df72-4571-8bec-9f5d9ed8440f"><p><strong>Expired Certificate (ERR_CERTIFICATE_EXPIRED):</strong><code>ERR_CERTIFICATE_EXPIRED</code> The internal timestamp configuration reveals the certificate validity period (<code>NotAfter</code>) has passed.</p></li></ul><h3>2. Asynchronous Transient Errors (Retryable / 5xx)</h3><p>These occur after a valid payload has been submitted and our engine attempts to register the corporate profile with the Spanish Public Platform network. These failures are environmental and temporary.</p><ul><li data-uuid="4850041e-48be-4e86-9718-a8ca8c0e32ac"><p><strong>AEAT Gateway Timeout (ERR_GATEWAY_TIMEOUT_504):</strong><code>ERR_GATEWAY_TIMEOUT_504</code> The public platform endpoint fails to return a handshake status within our 15-second socket window.</p></li><li data-uuid="81562392-02c5-4aae-9766-af25ab6788a8"><p><strong>Rate Limiting / Throttling (ERR_PUBLIC_PLATFORM_THROTTLED_429):</strong><code>ERR_PUBLIC_PLATFORM_THROTTLED_429</code> The Spanish government gateway returns an HTTP 429 status code due to high systemic transactional congestion.</p></li><li data-uuid="e35f85a1-836c-40f5-bf86-7ea4facc2966"><p><strong>Service Maintenance (ERR_SERVICE_UNAVAILABLE_503):</strong><code>ERR_SERVICE_UNAVAILABLE_503</code> The public network infrastructure returns temporary maintenance windows.</p></li></ul><h3>3. Terminal Registration Errors (Non-Retryable)</h3><p>These occur when an explicit structural rejection is sent back by the Spanish Public Platform during onboarding execution. Automatic retries will not resolve these states; human intervention is mandatory.</p><ul><li data-uuid="eda1b905-98fa-4f8b-8799-1c380995c25e"><p><strong>Unauthorized Certificate Signature (ERR_CERTIFICATE_UNAUTHORIZED):</strong><code>ERR_CERTIFICATE_UNAUTHORIZED</code> The digital certificate is successfully read but lacks authorized administrative signing rights within AEAT for the specified company NIF.</p></li><li data-uuid="b0600845-cb55-4623-874c-1642529ea55d"><p><strong>Entity Registration Mismatch (ERR_REGISTRATION_REJECTED):</strong><code>ERR_REGISTRATION_REJECTED</code> The tax authority rejects the onboarding request due to conflicting profile combinations (e.g., submitting a Business NIF mapped under a Sole Trader registry type).</p></li></ul><h2>State Machine Retry Mechanics</h2><p>For all <strong>Asynchronous Transient Errors</strong>, the onboarding engine will avoid failing the onboarding pipeline outright. Instead, the account will transition through a managed recovery sequence:</p><ac:structured-macro ac:name="code" ac:schema-version="1" ac:macro-id="e68f9de0-668a-4b1c-b5a4-6fa54a3360eb"><ac:parameter ac:name="language">json</ac:parameter><ac:plain-text-body><![CDATA[ [Valid Payload Received] 
+           │
+           ▼
+[State: PENDING_REGISTRATION] ────► (Call Public Platform API)
+           │                                 │
+           │ (Success)                       │ (Transient Error Detected)
+           ▼                                 ▼
+[State: REGISTERED]              [State: REGISTRATION_QUEUED_RETRYING]
+                                             │
+                                             ├─► [Retry Strategy: Exponential Backoff]
+                                             │
+                                             ├─► (Success on Retry) ──► [State: REGISTERED]
+                                             │
+                                             └─► (Max Retries Exhausted) ─► [State: FAILED_CRITICAL]
+ ]]></ac:plain-text-body></ac:structured-macro><p><br /></p><pre>Retry Algorithm Details</pre><ul><li data-uuid="0c430da0-26df-47b3-b2e7-558bade3c185"><p><strong>Mechanism:</strong> Exponential backoff with random jitter applied to prevent synchronized request spikes hitting the public gateway.</p></li><li data-uuid="44cbed14-3218-499b-af70-882192c80194"><p><strong>Max Retry Limit:</strong> 5 attempts.</p></li><li data-uuid="d4c5d4b8-ac46-4924-ad30-589130a00f1f"><p><strong>Backoff Cadence:</strong> Base delay of t_0 = 10\text{ seconds}, doubling on each consecutive retryable error up to a hard cap of 15 minutes between attempts.</p></li><li data-uuid="cc4ae050-28a3-4cd0-a589-76ee3d058f0e"><p><strong>Fallback Resolution:</strong> If the 5th attempt fails, the state machine will flag the registration as <code>FAILED_CRITICAL</code> and emit an asynchronous Webhook event to notify the consuming application.</p></li></ul><h2>Standardized Error Payload Schema - <span style="color:var(--ds-background-accent-red-bolder,#c9372c);">DRAFT</span></h2><p>All error responses from the onboarding endpoints must adhere to a standardized JSON schema. This ensures integrating developers can predictably parse programmatic error codes while passing localized diagnostic logs directly to end-users when desired.</p><h3>Example: Validation Failure Payload (422 Unprocessable Entity)</h3><ac:structured-macro ac:name="code" ac:schema-version="1" ac:macro-id="83e59cf6-1bb8-4100-9f71-4c6516c5ce22"><ac:parameter ac:name="language">json</ac:parameter><ac:plain-text-body><![CDATA[{
+  "status": 422,
+  "error_code": "ERR_INVALID_TAX_ID",
+  "message": "The provided tax identification string does not conform to Spanish NIF/NIE validation standards.",
+  "timestamp": "2026-07-06T10:35:00Z",
+  "path": "/api/v1/es/onboarding/profile",
+  "details": [
+    {
+      "field": "organization.nif",
+      "rejected_value": "B1234567X",
+      "reason": "Checksum character mismatch. Verify the leading/trailing letter corresponds correctly to corporate registry parameters."
+    }
+  ]
+}]]></ac:plain-text-body></ac:structured-macro><p><br /></p><pre><code class="language-json">
+</code></pre><h3>Example: Async Failure Payload (Transient Handshake Queued)</h3><p>When an external system drops during final validation, the active API status lookup endpoint will surface the tracking metadata below:</p><ac:structured-macro ac:name="code" ac:schema-version="1" ac:macro-id="a724aca0-93ac-48d0-b036-8e0d84dc3e1b"><ac:parameter ac:name="language">json</ac:parameter><ac:plain-text-body><![CDATA[ {
+  "account_id": "acc_es_99812",
+  "onboarding_state": "REGISTRATION_QUEUED_RETRYING",
+  "target_platform": "SPAIN_PUBLIC_PLATFORM",
+  "last_attempt": {
+    "timestamp": "2026-07-06T10:32:15Z",
+    "http_status": 503,
+    "error_code": "ERR_SERVICE_UNAVAILABLE_503"
+  },
+  "retry_metadata": {
+    "current_attempt_count": 2,
+    "max_attempts_allowed": 5,
+    "next_scheduled_attempt": "2026-07-06T10:36:15Z"
+  }
+}
+ ]]></ac:plain-text-body></ac:structured-macro><p><br /></p><pre>Change Log</pre><p><br /></p><p><ac:structured-macro ac:name="change-history" ac:schema-version="1" ac:macro-id="60bc955c-01a7-4abb-81fc-2a259e51773e" /></p></ac:layout-cell></ac:layout-section></ac:layout>

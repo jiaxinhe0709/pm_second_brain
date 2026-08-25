@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-24
 reviewers: []
 related:
   - PRD-SEI-210
@@ -17,6 +17,8 @@ related:
   - PRD-SEI-103
   - PRD-SEI-201
   - PRD-SEI-203
+  - PRD-SEI-231
+  - PRD-SEI-232
 confluence:
   publish: true
   space_key: DNBU
@@ -97,6 +99,7 @@ Capture immutable source events, validate customer authority, calculate required
 | Explicit acceptance | Recipient actively reports acceptance | Absence of rejection |
 | Presumed acceptance | Regulatory/business derived view when conditions are met | Evidence of an explicit approval event |
 | Correction/supersession | New event that corrects or supersedes a prior reported fact | Deletion or mutation of the original event |
+| Document relationship | Immutable link between an original invoice and a later country-approved corrective/replacement business document | An event-only status change or mutation of the original invoice |
 | Historical lifecycle route | Network/provider context used to continue an existing invoice's events | Customer's current route for new invoices |
 
 ## Lifecycle visual
@@ -155,6 +158,8 @@ Capture immutable source events, validate customer authority, calculate required
 | S7 | Payment event arrives before delivery acknowledgement | Store source event; derive cautiously and reconcile order | Do not discard valid late/out-of-order facts |
 | S8 | Customer switches provider | Older invoice events follow original invoice network obligations | Current route is used only where policy explicitly says so |
 | S9 | Public reporting times out after counterparty success | Counterparty success remains; public leg reconciles independently | No duplicate counterparty event |
+| S10 | Delivered invoice requires rectification/replacement | Create a new business document and explicit relationship to the original; retain both documents and their lifecycle evidence | Rejection alone does not create the corrective document |
+| S11 | Qualifying small natural-person/income-attribution recipient remains inside the additional status transition | Exchange remains governed by its applicable rule while Articles 10/12 status supply is labelled voluntary/not-yet-required | Do not infer that invoice delivery is also deferred |
 
 ## Business rules
 
@@ -170,6 +175,10 @@ Capture immutable source events, validate customer authority, calculate required
 | BR8 | Same business event has multiple deliveries | Maintain one source event with independent delivery obligations/outcomes | Proposed model |
 | BR9 | Corrected fact is received | Append a superseding event; do not mutate/delete the original | Proposed audit rule |
 | BR10 | Customer route changes | Continue the invoice's historical lifecycle through its original network context | Confirmed continuity principle |
+| BR11 | Four-day Article 10 deadline is evaluated | Start the clock from the actual status event being communicated; timer expiry does not create explicit acceptance | RD 238/2026 Article 10 and Article 12 distinction |
+| BR12 | Qualifying natural person or income-attribution entity at or below EUR 8 million remains within the additional transition | Treat Article 10/12 status supply as voluntary/not-yet-required while preserving any voluntarily supplied facts and evidence | RD 238/2026 transitional provision three |
+| BR13 | Invoice requires rectification, replacement or another country-approved corrective document | Create a new document with an immutable relationship to the original; do not overwrite or delete the original | Invoicing traceability principle; exact Spain document rules require approval |
+| BR14 | Recipient rejects an invoice | Preserve and report rejection as required; do not automatically create a corrective invoice or treat rejection as deletion/cancellation | RD 238/2026 Article 11.6 plus product safeguard |
 
 ## Research and evidence register
 
@@ -178,6 +187,8 @@ Capture immutable source events, validate customer authority, calculate required
 | RD 238/2026 Article 10 | Required commercial acceptance/rejection and full-payment information; optional partial/assignment events; four-day communication rule | Primary regulation; exact message contract open | Event catalogue, deadline and interconnection |
 | RD 238/2026 Articles 11–12 | Public status uses Article 12; full payment/rejection reporting, authorised platform reporting and public consultation | Primary regulation; service specification depends on ministerial order | Public obligation/fan-out and authority |
 | RD 238/2026 Article 11.6 | Commercial disagreement remains between parties and may require rectifying invoice separately | Primary regulation; legal process outside product scope | Rejection is not invoice deletion |
+| RD 238/2026 transitional provision three | Qualifying natural persons and income-attribution entities at or below EUR 8 million receive a further transition before Articles 10/12 status supply becomes mandatory | Primary regulation; cohort evidence and effective-date materialisation require approval | Status applicability and customer messaging |
+| Spain e-Invoicing Solution Design Brief, 21 August 2026 | Corrections, annulments and replacements should remain linked business documents rather than overwritten invoice state | Medium internal design/research handover; not legal authority | Proposed `DocumentRelationship`, journeys and ERP/platform boundary |
 | PRD-SEI-102/103 | Public retrieval/submission status and evidence patterns | Implementation fitness unassessed | Reuse input through FP-SEI-001 |
 | PRD-SEI-201/203 | Historical route context, idempotency, unknown outcome and reconciliation | Product intent | Continuity and recovery |
 
@@ -187,10 +198,30 @@ Capture immutable source events, validate customer authority, calculate required
 |---|---|
 | Lifecycle event | Invoice ID, event type, dimension, source/actor/authority, occurred/received time, data, source reference/hash and rule version |
 | Event relationship | Duplicate-of, corrects/supersedes, disputes or derives-from links |
+| Document relationship | Original/related document identities, country-approved relationship type, correction method, affected scope/value, reason, effective date, actor/authority, source evidence and policy version |
 | Delivery obligation | Destination, reason/rule, historical route, deadline, payload version and state |
 | Delivery attempt | Idempotency/correlation, transmitted time, acknowledgement/reference, error and observed state |
 | Derived lifecycle view | Technical/commercial/payment facts, derivation rule/time, pending actions and conflicts |
 | Reconciliation case | Conflicting observations, authority decision, safe action, owner and resolution evidence |
+
+### Proposed document-relationship model
+
+The field names and candidate values are proposed for architecture review. The behavioural distinction—new corrective business document plus retained original—is required wherever the applicable Spain rule requires a new document.
+
+| Field | Required meaning |
+|---|---|
+| `sourceDocumentId` | Original invoice or credit/corrective document being referenced |
+| `relatedDocumentId` | New business document carrying the correction or replacement |
+| `relationshipType` | Country-pack-approved relationship, for example `rectifies` or `replaces`; never inferred from a generic status alone |
+| `correctionMethod` | Difference/replacement or another approved method and version |
+| `affectedScope` | Whole document, specified lines, tax categories or monetary components |
+| `previousValue`, `newValue`, `deltaValue` | Values required to explain the approved correction method; optional only when the rule does not require them |
+| `reasonCode`, `reason` | Approved structured reason plus safe customer explanation |
+| `effectiveDate` | Business-effective date of the relationship/action |
+| `actor`, `authorityDecision` | Who created/approved the relationship and why they were authorised for this operation |
+| `policyVersion`, `sourceEvidence` | Country rule, ERP intent and external references used to create/prove the relationship |
+
+An event relationship answers how observations relate. A document relationship answers how separately issued business documents relate. Both can exist for the same correction and must remain traceable without becoming the same record.
 
 ### Event types and dimensions
 
@@ -257,6 +288,25 @@ Branches: `REJECTED_CORRECTABLE`, `RETRY_PENDING`, `OUTCOME_UNKNOWN`, `RECONCILI
 4. Event follows the approved historical lifecycle path, not the current route by default.
 5. Credentials/access are retained only as required for that continuity obligation.
 
+### J7 — Rectify a delivered invoice without rewriting history
+
+1. ERP/accounting product determines that a new corrective or replacement document is required and supplies the original document identity, proposed relationship, affected values, reason and effective date.
+2. Sage resolves the applicable country rule and verifies the actor's client- and operation-specific authority.
+3. The new document receives its own immutable identity and lifecycle; the original document remains unchanged and queryable.
+4. Sage records the `DocumentRelationship`, validates the approved correction method and establishes the new document's delivery/reporting plan.
+5. External delivery and reporting outcomes are correlated to both documents without converting the original delivery, rejection or payment facts into deletion.
+6. If the relationship or external outcome is ambiguous, only the unsafe new mutation pauses and reconciles; prior evidence remains intact.
+
+**Expected result:** products, customers and operations can explain what changed, why, who authorised it and which external outcomes belong to each document.
+
+### J8 — Apply the additional status-reporting transition
+
+1. Applicability supplies the recipient's legal form/tax regime, prior-year turnover, effective group and approved policy version.
+2. Sage determines that invoice exchange is effective but mandatory Articles 10/12 status supply remains inside the additional transition.
+3. Customer experience labels status supply as voluntary/not-yet-required and does not create a missed statutory deadline.
+4. Voluntarily supplied events retain their actual source, authority and delivery evidence and are never presented as mandatory compliance proof by implication.
+5. When the effective interval expires, only new status obligations use the new policy; historical decisions remain reproducible.
+
 ## Functional requirements
 
 ### Event capture and authority
@@ -301,6 +351,19 @@ Branches: `REJECTED_CORRECTABLE`, `RETRY_PENDING`, `OUTCOME_UNKNOWN`, `RECONCILI
 | FR21 | Give operations source events, derived rules, obligations, observed state, fault domain and safe recovery actions. |
 | FR22 | Audit every customer, automated and manual event/reporting/recovery action. |
 
+### Document correction and transitional applicability
+
+| ID | Requirement |
+|---|---|
+| FR23 | When the applicable rule requires a new corrective/replacement document, Sage must retain the original and create a separately identified document linked through an immutable `DocumentRelationship`. |
+| FR24 | A document relationship must retain relationship type, correction method, affected scope/values, reason, effective date, actor/authority, policy version and source evidence according to the approved country rule. |
+| FR25 | Rejection, baja, event supersession and document rectification must remain distinct operations; none may silently imply another. |
+| FR26 | The service must validate that the relationship type and correction method are permitted by the effective Spain rule before any external mutation. |
+| FR27 | Duplicate or conflicting corrective documents/relationships must be detected using document identity, relationship, source and provenance and must enter controlled reconciliation when not provably equivalent. |
+| FR28 | Lifecycle views must show the original and related documents, their independent states and the safe next action without presenting the original as deleted. |
+| FR29 | Article 10/12 status obligation decisions must consume an effective-dated cohort outcome and distinguish `required`, `voluntary/not-yet-required`, `not-applicable` and `undetermined`. |
+| FR30 | Deadline monitoring must not create an explicit acceptance event; any Article 12 presumed acceptance remains a versioned derived view reversible by later qualifying evidence. |
+
 ## Conceptual API/event capabilities
 
 | Capability | Behavioural contract |
@@ -310,6 +373,8 @@ Branches: `REJECTED_CORRECTABLE`, `RETRY_PENDING`, `OUTCOME_UNKNOWN`, `RECONCILI
 | List lifecycle history | Return ordered immutable events and supersession/conflict links subject to permission |
 | Get reporting obligations | Return destinations, deadlines and delivery/reconciliation states |
 | Correct event | Append an approved superseding fact; never overwrite prior evidence |
+| Create related corrective document | Accept a new document and approved relationship intent; validate authority/rule; return independent document and compliance-plan state |
+| Get document relationships | Return original/related identities, relationship type, affected scope, provenance and independent lifecycle states subject to permission |
 | Notify product | Emit stable events when customer-relevant fact/action changes after durable persistence |
 
 ## Non-functional requirements
@@ -340,6 +405,9 @@ Branches: `REJECTED_CORRECTABLE`, `RETRY_PENDING`, `OUTCOME_UNKNOWN`, `RECONCILI
 | Internal failure after external success | Recover via correlation/external reference; no duplicate report |
 | Route changed since invoice | Use historical invoice route/context |
 | Calendar/rule version changes | Apply version effective for the event and preserve calculation evidence |
+| Invalid/unsupported document relationship | Reject before mutation with rule, relationship and affected-field guidance |
+| Duplicate/conflicting corrective document | Link if provably identical; otherwise quarantine/reconcile without altering the original |
+| Missing transition-cohort evidence | Return status applicability undetermined/action-required; do not create a false missed deadline |
 
 ## Acceptance criteria
 
@@ -351,6 +419,11 @@ Branches: `REJECTED_CORRECTABLE`, `RETRY_PENDING`, `OUTCOME_UNKNOWN`, `RECONCILI
 - Given duplicate equivalent events from ERP and operator, when deduplication runs, then one set of obligations exists while both source observations remain traceable.
 - Given conflicting payment events, when authority cannot be established automatically, then external reporting/derived closure pauses and operations receives a controlled case.
 - Given a route change after invoice exchange, when a later payment event occurs, then reporting follows the invoice's historical network obligations rather than the route for new invoices.
+- Given four days elapse without an explicit acceptance/rejection event, when the lifecycle view is derived, then no explicit acceptance event or recipient-action timestamp is created.
+- Given a delivered invoice requires rectification, when an authorised ERP supplies an approved corrective document and relationship, then a new document lifecycle is created and the original remains unchanged and queryable.
+- Given a rejection exists without a corrective document, when the customer views the invoice, then rejection is shown without implying that rectification, cancellation or deletion occurred.
+- Given two non-equivalent corrective documents claim to replace the same original, when conflict detection runs, then both are preserved, unsafe external mutation pauses and an owned reconciliation case is created.
+- Given a qualifying natural person/income-attribution entity remains within the additional status transition, when Article 10/12 applicability is evaluated, then status supply is shown as voluntary/not-yet-required and no mandatory-deadline breach is generated.
 
 ## Measures
 
@@ -397,6 +470,8 @@ Branches: `REJECTED_CORRECTABLE`, `RETRY_PENDING`, `OUTCOME_UNKNOWN`, `RECONCILI
 | What public API/query supports rejection/payment reconciliation? | Unknown-outcome safety | Public technical team | External validation | Ministerial-order dependency |
 | How should presumed acceptance appear and when does it apply? | Customer/legal clarity | Local legal/product | Design | Derived label only, never explicit event |
 | How are corrections to an already reported payment/rejection expressed? | Audit and external consistency | Local technical/legal team | Pilot | Append superseding event if contract supports it |
+| Which Spain relationship types, correction methods, affected values and identity-reuse rules apply to each rectifying/replacement scenario? | Determines document validation, ERP contract and external mapping | Local legal/tax/product owners | Design/pilot | Proposed model is extensible; activate only approved country-pack values |
+| Which evidence source proves eligibility for the additional Article 10/12 transition? | Prevents false deadlines and customer misclassification | Local legal/product/data owners | Pilot/production | Versioned legal-form/tax-regime, turnover and effective-date evidence |
 | Who owns older invoice status after route switch? | Credential and operational continuity | Local team/operator | Pilot/production | Original network context retained; owner to approve |
 | What retention applies to event and delivery evidence? | Data/security design | Legal/privacy | Production | Configurable until approved |
 
@@ -405,3 +480,4 @@ Branches: `REJECTED_CORRECTABLE`, `RETRY_PENDING`, `OUTCOME_UNKNOWN`, `RECONCILI
 | Date | Version | Change | Evidence/decision |
 |---|---|---|---|
 | 2026-08-10 | Version 1 | Initial Phase 3 status, rejection and payment reporting PRD | PRD-SEI-210, Phase 1/2 lifecycle foundations and RD 238/2026 |
+| 2026-08-24 | Working revision | Added proposed document relationships, corrective-document journeys, Article 10/12 timer safeguard and additional status-transition behaviour | RD 238/2026; PRD-SEI-231/232; Spain solution-design brief comparison |

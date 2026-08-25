@@ -1,0 +1,194 @@
+
+
+===== PAGE 1 =====
+
+Accountant &amp; Single Client
+Onboarding Personas & 
+Pathways
+Technical Framework: Batch 
+vs. Single-Tenant
+Pathway A: Individual 
+Customer-Facing 
+Flow
+Pathway B: 
+Accountant Batch 
+Processing Flow
+Batch API Contract 
+Specifications - DRAFT
+Example Request 
+Payload: POST /api
+/v1/es/onboarding
+/batch
+Example Response 
+Payload (Immediate 
+ 
+Asynchronous Return)
+Legal Compliance & Data 
+Isolation Constraints
+System Enforcement Rules:
+Change Log:
+ 
+Onboarding Personas & Pathways
+To accommodate both direct market ingestion and accounting firm partnerships, the Spain onboarding 
+engine must split into two parallel processing pipelines:
+Capability
+Pathway A: Customer-
+Facing (Direct)
+Pathway B: Accountant Portal (Batch)
+ 
+Target User
+Direct Business Owners & 
+Sole Traders onboarding a 
+single workspace.
+Certified Accountants (
+) onboarding their 
+Asesorías
+entire client portfolio at once.
+API Mode
+ Simple, 
+Synchronous REST:
+sequential endpoint 
+transactions.
+ Bulk payload submission 
+Asynchronous Batch:
+returning an execution receipt.
+Auth 
+Context
+Client's individual corporate 
+workspace authorization token.
+Master Partner/Accountant API Key with multi-tenant 
+workspace delegation rights.
+Certificate 
+Model
+Business uploads their own 
+individual AEAT digital 
+certificate.
+Accountant uses a single 
+ (
+Master Certificate Colabo
+ or global 
+) to cover 
+rador Social
+Apoderamiento
+multiple client NIFs.
+Technical Framework: Batch vs. Single-Tenant
+Pathway A: Individual Customer-Facing Flow
+For single-tenant scenarios, the consuming client application loops through standard REST endpoints 
+sequentially as defined in the master PRD.
+ 
+Endpoint: POST /api/v1/es/onboarding/profile
+ Structural checks (NIF validity, basic configuration) execute synchronously and 
+Behavior:
+return instant feedback to block UI user friction.
+Pathway B: Accountant Batch Processing Flow
+Accountants will not execute endpoints 500 times. Instead, the API exposes a dedicated bulk endpoint.
+ 
+Endpoint: POST /api/v1/es/onboarding/batch
+ Because querying the Spanish Tax Agency (AEAT) for dozens of companies 
+Behavior:
+simultaneously will cause timeouts, this endpoint acts 
+. It validates payload 
+asynchronously
+formatting, creates the target profiles in a 
+ state, drops the messages into a processing 
+PENDING
+queue, and immediately releases the thread with an HTTP status 
+.
+202 Accepted
+Accountant Client Array Payload 
+               
+               
+   [POST /onboarding/batch]
+               
+                Validation Check (Pass)  Return `202 Accepted` + `batch_id`
+               
+                 (Async Worker Thread)
+   [Process Client NIF 1 to N]  Push to AEAT via Master Cert  Update 
+Internal Workspace States 
+Batch API Contract Specifications - DRAFT
+Example Request Payload: POST /api/v1/es/onboarding/batch
+
+
+===== PAGE 2 =====
+
+The accountant submits an array of clients, specifying their structural profile properties and their 
+administrative representation configuration.
+{
+  "accountant_firm_id": "firm_madrid_889",
+  "representation_type": "COLABORADOR_SOCIAL",
+  "master_certificate_id": "cert_firm_2026_prod",
+  "clients": [
+    {
+      "client_nif": "B1234567A",
+      "entity_type": "BUSINESS",
+      "role": "SENDER_AND_RECEIVER",
+      "effective_date": "2026-10-01",
+      "allow_invoice_level_override": false
+    },
+    {
+      "client_nif": "45678901X",
+      "entity_type": "SOLE_TRADER",
+      "role": "SENDER_ONLY",
+      "effective_date": "2026-10-15",
+      "allow_invoice_level_override": true
+    }
+  ]
+}
+Example Response Payload (Immediate Asynchronous Return)
+{
+  "batch_id": "batch_es_onb_771A9",
+  "status": "PROCESSING",
+  "submitted_at": "2026-07-06T11:00:00Z",
+  "total_records_received": 2,
+  "links": {
+    "status_check": "/api/v1/es/onboarding/batch/batch_es_onb_771A9/status"
+  }
+}
+Legal Compliance & Data Isolation Constraints
+CRITICAL SPAIN REGULATORY COMPLIANCE NOTE: Per the AEAT SPFE 
+functional guidelines, a registered Social Collaborator or generic attorney-in-fact 
+can legally transmit/send invoices and registrations on behalf of third parties using 
+a master certificateCRITICAL SPAIN REGULATORY COMPLIANCE NOTE:Socia
+. However, retrieving/consulting inbound invoices or 
+l Collaboratortransmit/send
+historical statuses requires explicit, documented Power of Attorney 
+(Apoderamiento) filed directly inside the AEAT platform for each specific client NIFr
+.
+etrieving/consultingApoderamiento
+System Enforcement Rules:
+Asymmetric Capability Assignment: If an accountant 
+Asymmetric Capability Assignment:
+onboards a client using a Colaborador Social certificate without an explicit individual 
+Apoderamiento linkage, the onboarding state machine must forcefully lock the client profile to 
+SENDING_ONLY and disable automated inbound invoice polling profilesColaborador SocialApo
+.
+deramientoSENDING_ONLY
+ The API security layer must explicitly validate that the 
+Data Multi-Tenancy Segregation:
+accou
+ owns the child workspace relationship. Under no circumstances should an 
+ntant_firm_id
+error or status search lookup from Batch A leak metadata or validation profiles belonging to an 
+unlinked enterprise client or rival accounting entity.
+Change Log:
+Version
+Published
+Changed By
+Comment
+ (v. 3)
+CURRENT
+21/07/2026 08:36
+ 
+ Jiaxinhe He
+
+
+===== PAGE 3 =====
+
+v. 2
+06/07/2026 10:10
+ 
+ Jiaxinhe He
+v. 1
+06/07/2026 10:10
+ 
+ Jiaxinhe He

@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-24
 reviewers: []
 related:
   - PRD-SEI-210
@@ -18,6 +18,8 @@ related:
   - PRD-SEI-103
   - PRD-SEI-202
   - PRD-SEI-203
+  - PRD-SEI-231
+  - PRD-SEI-233
 confluence:
   publish: true
   space_key: DNBU
@@ -180,6 +182,7 @@ Define a product-neutral exchange capability that plans, validates, transforms, 
 | BR8 | Direct interconnection is unavailable during setup | Use the public solution bridge according to the statutory process | RD 238/2026 Article 9 |
 | BR9 | One external leg succeeds and another is unknown | Preserve successful evidence and reconcile only the unknown leg | Proposed resilience rule |
 | BR10 | Representation changes | Preserve business identity plus input/output syntax, mapping and trust provenance | Proposed audit rule |
+| BR11 | Provider/network supports Peppol | Treat it as one evidenced capability/address family only; do not infer that Peppol is Spain's universal statutory route, participant authority or entry-point directory | RD 238/2026 public/private model plus PRD-SEI-233 |
 
 ## Research and evidence register
 
@@ -197,7 +200,7 @@ Define a product-neutral exchange capability that plans, validates, transforms, 
 |---|---|
 | Business invoice | Legal parties, invoice number/series/date, canonical content/version and internal identity |
 | Representation | Syntax/profile/version, payload hash, source, transform mapping, validation result and trust evidence |
-| Entry-point observation | Recipient, direction/scope, destination, source, observed time, validity/freshness and evidence |
+| Entry-point observation | Recipient legal subject/presence, participant-address scheme/value, direction/scope, destination, authoritative source, observed time, validity/freshness and evidence |
 | Exchange plan | Immutable recipient route, legs, representation plan, trust actor, copy duty, rule versions and created time |
 | Exchange leg | Type (`PRIVATE_DIRECT`, `PUBLIC_BRIDGE`, `PUBLIC_COPY`, `INTERNAL`), destination, request/idempotency ID and state |
 | External evidence | Platform reference, acknowledgement, timestamp, protocol/certificate evidence and redacted diagnostic |
@@ -314,6 +317,8 @@ Transport acknowledgement and business lifecycle state remain separate.
 | FR24 | Quarantine invalid, untrusted, conflicting or unrouteable inbound content with redacted operational evidence. |
 | FR25 | Expose intended/observed state, correlation, representation, external reference, safe action and owner per leg. |
 | FR26 | Preserve a complete audit chain from product intent through every representation, route leg and outcome. |
+| FR27 | Entry-point and participant addresses must remain scheme-qualified and separate from NIF, provider resource IDs and credentials, including when several addresses exist for one legal subject. |
+| FR28 | Peppol capability or address discovery must not be treated as Spain route authority unless the approved customer/regulatory entry-point evidence selects it for the scoped exchange. |
 
 ## Conceptual API/event capabilities
 
@@ -368,6 +373,8 @@ Names and payloads are proposed boundaries, not approved endpoints.
 - Given the same invoice arrives directly and through public bridge, when deduplication runs, then one business invoice is delivered while both network references remain auditable.
 - Given a certificate is invalid, when inbound validation runs, then the invoice is quarantined and no product delivery or trusted acknowledgement occurs.
 - Given interconnection is not operational, when the approved bridge applies, then exchange through the public solution remains traceable to the same invoice identity and route decision.
+- Given a provider advertises Peppol and a Spanish recipient has no approved Peppol entry-point selection, when route resolution runs, then Peppol is not selected by capability presence alone and the approved Spain public/private route rule is applied.
+- Given one legal subject has multiple scheme-qualified participant addresses, when exchange is planned, then the exact address, scheme, source, scope and observation used are frozen in the exchange plan.
 
 ## Measures
 
@@ -416,9 +423,11 @@ Names and payloads are proposed boundaries, not approved endpoints.
 | Who signs: issuer, delegated operator or platform? | Trust model and transform order | Legal/security/operator | Design | Support approved modes with explicit evidence |
 | Can direct and bridge deliveries coexist during interconnection cutover? | Duplicate/reachability risk | Local/operator | External test | Dedupe and effective intervals required |
 | Which statuses must interconnection exchange? | Boundary with PRD-SEI-224 | Local team | Lifecycle design | Article 10 minimum plus approved extensions |
+| Which authoritative Spain source selects among multiple participant addresses and networks, including Peppol? | Prevents capability discovery becoming route authority | Local technical/regulatory team | Design/external test | Use PRD-SEI-233 precedence model only after Spain evidence approves the source |
 
 ## Change log
 
 | Date | Version | Change | Evidence/decision |
 |---|---|---|---|
 | 2026-08-10 | Version 1 | Initial Phase 3 interoperability, routing and transformation PRD | PRD-SEI-210, Phase 1/2 foundations and RD 238/2026 |
+| 2026-08-24 | Working revision | Added scheme-qualified multi-address routing and explicit prohibition on treating Peppol availability as Spain's universal statutory route | PRD-SEI-231/233; RD 238/2026 |

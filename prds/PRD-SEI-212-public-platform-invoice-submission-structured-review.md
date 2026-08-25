@@ -7,7 +7,7 @@ version: 1
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-24
 reviewers:
   - dianna.hindle@sage.com
 related:
@@ -16,6 +16,9 @@ related:
   - https://confluence.sage.com/spaces/DNBU/pages/837610656/UBL+2.5+Invoice+Submission+Send
   - PRD-SEI-102
   - PRD-SEI-201
+  - PRD-SEI-221
+  - PRD-SEI-224
+  - PRD-SEI-231
   - research/PRD-SEI-201-spain-use-case-evidence.md
 confluence:
   publish: true
@@ -35,8 +38,8 @@ confluence:
 |---|---|
 | Predecessor | Based on PRD-SEI-103, which remains unchanged as the predecessor document. |
 | Reason for this successor | Provide an individually readable successor that publishes through a native Confluence two-column layout with a left-sidebar Table of Contents. |
-| Material changes | Assigns permanent ID PRD-SEI-212, adds this revision overview, and adds Confluence layout and navigation metadata for publication as a new child page. |
-| Unchanged areas | Business analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks, decisions and open questions remain unchanged from PRD-SEI-103. |
+| Material changes | Assigns permanent ID PRD-SEI-212, adds this revision overview and Confluence layout/navigation metadata, and records the confirmed RD 238/2026 transitional readable-PDF rule as a separate correlated delivery leg rather than an embedded public-UBL attachment. |
+| Unchanged areas | Public submission, validation, idempotency, admission, correction and unknown-outcome boundaries remain based on PRD-SEI-103. |
 | Decisions still open | All product, provider, regulatory and architecture decisions remain as recorded in PRD-SEI-103; this successor introduces no new product decision. |
 
 ## Overview
@@ -324,6 +327,7 @@ The objective is to give every eligible Sage ERP one stable, asynchronous submis
 | Submit valid invoice | ERP/customer | One public submission is admitted and receipt evidence is available | Asynchronous operation remains distinct from later delivery |
 | Correct invalid invoice | ERP/customer | Field-level actionable errors are returned before transmission | No public invoice identity is created by Sage |
 | Submit invoice containing embedded PDF | ERP/customer | Sage rejects it as an unsupported embedded file | Guidance explains how supporting information may be represented/referenced if allowed |
+| Submit while transitional readable PDF applies | ERP/customer/platform | Structured invoice and separate readable representation are correlated to one business invoice | A PDF-leg failure does not change or duplicate the public UBL outcome |
 | Retry same request | ERP | Existing operation/result is returned | No second public mutation |
 | Public service rejects item | Platform | Rejection reason is mapped and retained | Correctability/reuse of identity follows confirmed public rules |
 | Mixed batch response | Platform | Each item receives its own admitted/rejected outcome | Batch transport success does not hide item failure |
@@ -348,6 +352,8 @@ The objective is to give every eligible Sage ERP one stable, asynchronous submis
 | BR10 | Validation pack changes | Existing submissions retain the pack/version used; new submissions use only an approved effective version | Audit and reproducibility | Proposed for approval |
 | BR11 | Invoice is improper after admission | It follows approved baja/correction behaviour with retained traceability | Draft order | Confirmed direction; business sequence open |
 | BR12 | Public service has a technical incident | Backlogged work is retained and sent under the final permitted recovery window | Draft four-day recovery provision | Draft constraint; final legal confirmation required |
+| BR13 | Issuer exceeded EUR 8 million in the preceding year and is within its first 12 months of RD 238/2026 applicability | An emitted electronic invoice must be accompanied by a readable PDF for the transitional period | RD 238/2026 transitional provision two | Confirmed regulation-level rule; channel/specification open |
+| BR14 | A transitional readable PDF is required | Treat it as a separately correlated representation/delivery obligation; do not embed it in the public UBL | RD 238/2026 plus draft public-solution attachment constraint | Confirmed boundary; orchestration contract proposed |
 
 ## Research and evidence
 
@@ -356,11 +362,11 @@ The objective is to give every eligible Sage ERP one stable, asynchronous submis
 | Evidence | Confidence | What it confirms | Limitation/follow-up |
 |---|---|---|---|
 | [UBL 2.5 Invoice Submission (Send)](https://confluence.sage.com/spaces/DNBU/pages/837610656/UBL+2.5+Invoice+Submission+Send), revision 3 | Low/medium internal | Attachments are expected to be rejected; submission feature is Phase 1 | Does not define UBL contract, journeys, errors or evidence source |
-| [Real Decreto 238/2026](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295), Articles 2, 6, 7 and 11 | High official | Public solution requires UBL terms defined through EN 16931/EU syntax reference; NIFs and minimum invoice content matter; unique identity and public lifecycle are required | Detailed schemas, services and volumetry depend on implementing order/AEAT |
+| [Real Decreto 238/2026](https://www.boe.es/eli/es/rd/2026/03/25/238), Articles 2, 6, 7 and 11 and transitional provision two | High official | Public solution requires UBL terms defined through EN 16931/EU syntax reference; NIFs and minimum invoice content matter; unique identity and public lifecycle are required; affected issuers above EUR 8 million must temporarily accompany emitted e-invoices with a readable PDF | Detailed schemas, services, volumetry and the PDF delivery/evidence contract depend on implementing order/AEAT material |
 | [Commission Implementing Decision (EU) 2017/1870](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32017D1870) | High official | Referenced UBL invoice/credit-note syntax is ISO/IEC 19845:2015 / UBL 2.1 | Later Spanish technical profile could explicitly evolve; final AEAT artefacts remain authoritative |
 | [April 2026 Spanish draft ministerial order](https://www.hacienda.gob.es/sgt/normativadoctrina/proyectos/16042026-proyecto-pom-factura-electronica.pdf), Articles 3–6 | Medium-high official draft | EN 16931/UBL, AEAT-hosted specifications/volumetry, no embedded files, web-service validation, per-item admitted/rejected results, receipt/verification code, duplicate rules, unique code and technical-incident handling | Draft, not final; service artefacts/error catalogue are not included |
 | [OASIS UBL 2.5 Committee Specification 01](https://docs.oasis-open.org/ubl/UBL-2.5.html) | High standards source | UBL 2.5 exists as an April 2026 Committee Specification; UBL minor versions are designed for backward compatibility | Existence/backward compatibility does not prove AEAT accepts `UBLVersionID=2.5` |
-| Internal Spain use-case evidence, UC1/UC4/UC6/UC7 | Medium internal | Public UBL submission, transformation, parallel PDF and correction are important scenarios | Exact format, PDF transition obligation and correction rules need official/local confirmation |
+| Internal Spain use-case evidence, UC1/UC4/UC6/UC7 | Medium internal | Public UBL submission, transformation, parallel PDF and correction are important scenarios | PDF obligation is now confirmed at decree level for a bounded cohort; exact channel, evidence and correction rules still need official/local confirmation |
 
 ### Confirmed findings
 
@@ -374,6 +380,7 @@ The objective is to give every eligible Sage ERP one stable, asynchronous submis
 8. The draft expects syntax/semantic/profile validation and an itemised admitted/rejected response.
 9. The draft expects receipt evidence including a secure verification code.
 10. The draft unique code uses issuer NIF, invoice number/series and issue date and applies duplicate/original-copy controls.
+11. RD 238/2026 transitional provision two requires issuers above EUR 8 million to accompany emitted electronic invoices with a readable PDF during their first 12 months of applicability; it does not authorise embedding that PDF in the public UBL.
 
 ### Key contradiction: UBL 2.5 page title versus official syntax baseline
 
@@ -400,7 +407,9 @@ The objective is to give every eligible Sage ERP one stable, asynchronous submis
 - receipt/secure-verification-code structure and retrieval;
 - authoritative query/reconciliation operation after a lost response;
 - correction, baja, credit-note and identity-reuse rules; and
-- final technical-incident recovery timing.
+- final technical-incident recovery timing;
+- transitional PDF delivery channel, recipient evidence and failure/reconciliation contract; and
+- authoritative turnover/cohort evidence and expiry calculation for the transitional PDF rule.
 
 ## Current-state and option analysis
 
@@ -567,6 +576,17 @@ Do not turn this excerpt into a test fixture. Production fixtures must be genera
 5. Customer submits a corrected structured invoice without the embedded file.
 6. If a separate transitional PDF channel is required, it follows its own approved correlated journey.
 
+### Journey 4A — accompany an invoice with a transitional readable PDF
+
+1. Applicability determines that the issuer exceeded EUR 8 million in the preceding year and remains within its first 12 months of RD 238/2026 applicability.
+2. Sage creates one immutable business-invoice correlation before either representation crosses an external boundary.
+3. The structured invoice follows the approved public submission journey without an embedded attachment.
+4. A readable PDF representation follows the separately approved recipient channel and records its own attempt, outcome and evidence.
+5. ERP and operations see the structured-submission and PDF-accompaniment outcomes independently without creating two commercial invoices.
+6. If either leg is outcome-unknown, only that leg reconciles; a successful leg is not repeated solely because the other failed.
+
+**Expected result:** the time-bounded readability obligation is evidenced without changing the public UBL or duplicating the commercial invoice.
+
 ### Journey 5 — public service rejects the invoice
 
 1. Sage validation passed under the local pack.
@@ -712,6 +732,9 @@ If the final service is individual-only, this journey becomes an adapter-level n
 | FR42 | Baja/correction requests must be separate idempotent operations and preserve original traceability. |
 | FR43 | Submission and historical access must continue under the original Public context after a later route change. |
 | FR44 | Every material state change must record actor/trigger, timestamp, reason, correlation and previous/new state. |
+| FR45 | When applicability requires the transitional readable PDF, Sage must create a separate correlated accompaniment leg without embedding or silently adding the PDF to the public UBL. |
+| FR46 | The structured-submission and readable-PDF legs must expose independent states, attempts, evidence and safe recovery while remaining bound to one business invoice identity. |
+| FR47 | The PDF obligation decision must retain the turnover cohort, applicable policy version, applicability start, transitional expiry and evidence used; an unknown decisive fact must not be converted to not-required. |
 
 ## Proposed Sage API and experience
 
@@ -821,6 +844,9 @@ Required signals include:
 | AC15 | Outbound route switches to Private | Earlier Public submission remains active | Earlier invoice retains Public context; new invoice resolves the effective new route |
 | AC16 | Improper admitted invoice requires action | Approved baja/correction is requested | Separate auditable operation runs and original history remains |
 | AC17 | Production configuration has no confirmed AEAT UBL version/profile | Activation is attempted | Production entry is blocked rather than defaulting to UBL 2.5 |
+| AC18 | Issuer is above EUR 8 million and within its first 12 months of applicability | Valid electronic invoice is emitted | Structured submission and separate readable-PDF accompaniment are correlated to one business invoice and independently evidenced |
+| AC19 | Public UBL succeeds and the required PDF leg becomes outcome-unknown | Recovery runs | Public UBL is not resubmitted; only the PDF leg is reconciled under its approved channel contract |
+| AC20 | Turnover or applicability-start evidence is missing | PDF applicability is evaluated | Decision is undetermined/action-required rather than silently treated as not-required |
 
 ## Metrics and success measures
 
@@ -943,7 +969,7 @@ Production approval requires a model showing that live traffic, outcome reconcil
 | Can a rejected invoice reuse the same identity after correction? | Determines ERP correction journey | AEAT spec + local team | Error recovery | Must follow public duplicate/identity rules |
 | When is baja valid versus a corrective/credit invoice? | Prevents improper deletion/correction | Spain local team/compliance | Post-admission lifecycle | Separate decisions; preserve original trace |
 | Is the draft four-day post-incident window final and how is incident evidenced? | Determines backlog SLA/runbook | Legal/local team + AEAT | Operations readiness | Queue and audit now; final timing after order |
-| Is parallel PDF delivery required during transition, and through what channel? | Determines dual delivery without embedding | Spain local team/compliance | Adjacent feature | Never embed it in public UBL under current draft |
+| Which channel, recipient acknowledgement and reconciliation evidence implement the confirmed transitional readable-PDF accompaniment? | Determines dual delivery without embedding or duplicate processing | Spain local team/compliance + architecture | Adjacent feature | Separate correlated leg; never embed it in public UBL under the current public-solution constraint |
 | Who owns validation-pack updates and emergency rollback? | Determines operational governance | Product/compliance + engineering | Production operations | Named pack owner and two-person approval |
 
 ## Decisions
@@ -958,6 +984,7 @@ Production approval requires a model showing that live traffic, outcome reconcil
 | 2026-07-29 | Admission, delivery, business acceptance and payment are distinct | Proposed lifecycle principle |
 | 2026-07-29 | Outcome-unknown submission reconciles before retry | Proposed safety requirement |
 | 2026-07-29 | Validation pack and outbound context remain immutable per attempt | Proposed audit/reproducibility requirement |
+| 2026-08-24 | Transitional readable PDF is a bounded, separately correlated obligation and not an embedded public-UBL attachment | RD 238/2026 transitional provision two; channel/evidence design remains open |
 
 ## Source notes
 
@@ -971,3 +998,4 @@ Production approval requires a model showing that live traffic, outcome reconcil
 | Date | Version/revision | Change | Evidence/decision source | Pull request |
 |---|---|---|---|---|
 | 2026-07-29 | Version 1 (Draft) | Initial evidence-led Phase 1 submission PRD with UBL-version correction, attachment rule, detailed journeys, requirements, visual, acceptance and production gates | Confluence revision 3, RD 238/2026, EU Decision 2017/1870, April 2026 draft order, OASIS UBL 2.5 | |
+| 2026-08-24 | Working revision | Added the confirmed transitional readable-PDF cohort, separate-leg orchestration, failure behaviour and acceptance coverage | RD 238/2026 transitional provision two; Spain solution-design brief comparison | |

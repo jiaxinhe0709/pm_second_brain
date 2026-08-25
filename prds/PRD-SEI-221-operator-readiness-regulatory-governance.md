@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-24
 reviewers: []
 related:
   - PRD-SEI-210
@@ -17,6 +17,11 @@ related:
   - PRD-SEI-201
   - PRD-SEI-202
   - PRD-SEI-203
+  - PRD-SEI-212
+  - PRD-SEI-222
+  - PRD-SEI-224
+  - PRD-SEI-231
+  - PRD-SEI-234
 confluence:
   publish: true
   space_key: DNBU
@@ -107,6 +112,9 @@ Create one authoritative readiness control register that:
 | External validation | Test, approval or review involving the public solution, another platform, authority or independent assessor | Internal testing alone may not demonstrate interoperability |
 | Waiver | Time-bound approval to accept a defined non-critical gap with compensating control | Cannot override law or a critical production blocker |
 | Suspension | Controlled removal of new traffic or availability after readiness degrades | Historical access and reconciliation may still be required |
+| Customer applicability | Effective-dated decision that a named business/professional and transaction are subject to one or more obligations | Operator readiness does not make every customer or invoice in scope |
+| Invoice applicability | Decision using transaction, recipient presence, document, exemption, cohort and effective-time facts | A customer-level setting alone is insufficient |
+| Operator readiness | Evidence that a named operator/environment/capability can perform an applicable obligation | Does not replace customer or invoice applicability |
 
 ## Regulatory evidence and confidence
 
@@ -124,6 +132,10 @@ This section records product implications, not legal conclusions. The official p
 | E8 | Real Decreto 238/2026, Articles 11–12 | The public solution is managed by AEAT; its UBL, authentication, download and payment/rejection services depend in part on ministerial-order specifications | Confirmed regulation-level design with an open technical dependency | Public-copy, consultation, payment/status and authorisation controls |
 | E9 | Real Decreto 238/2026, final provisions | Effective application is tied to the ministerial order for the public solution, with staged periods | Confirmed dependency; do not infer a calendar date until the order status is verified | Regulatory-change monitoring and launch gate |
 | E10 | PRD-SEI-210 strategy context | Sage seeks a credible private-platform proposition while retaining public and existing-provider choice | Internal product hypothesis/decision context | Customer proposition and delivery-model controls |
+| E11 | Real Decreto 238/2026, Articles 3–4 and amended invoicing regulation Article 8 bis | Scope depends on the recipient business/professional having a Spanish seat, fixed establishment, domicile or habitual residence and the transaction being addressed to it; ordinary simplified invoices are excluded but qualified simplified invoices are not excluded by that rule | Confirmed regulation-level predicates; scenario interpretation requires local legal approval | Applicability facts, validation, exclusions and customer explanation |
+| E12 | Real Decreto 238/2026, final provision four | Application starts 12 months after the ministerial order enters into force for businesses above EUR 8 million and 24 months after it for the rest; private-platform duties specified there start after 12 months | Confirmed relative clocks; calendar dates remain unknown until the order is verified | Customer cohort and operator-readiness clocks must remain separate |
+| E13 | Real Decreto 238/2026, transitional provisions one to three | FACeB2B has a bounded migration, affected issuers above EUR 8 million temporarily accompany e-invoices with readable PDF, and qualifying natural persons/income-attribution entities at or below EUR 8 million receive an additional status-reporting transition | Confirmed regulation-level transitions; technical/process details remain open | Migration, PDF, status deadline and policy-version controls |
+| E14 | Real Decreto 238/2026, additional provisions three and four | Basque Country and Navarra require territory/authority-aware treatment and tax-authority access | Confirmed territorial dependency; detailed foral journey and technical interfaces require approval | Country policy, authority destination and test coverage |
 
 ### Evidence caveats
 
@@ -131,6 +143,22 @@ This section records product implications, not legal conclusions. The official p
 - The detailed public technical contract, conformance process and some operational interpretation may depend on the ministerial order and subsequent official material.
 - “Resources of support available at all times” must be translated into measurable coverage by legal and operations; this PRD does not equate the phrase to an invented SLA.
 - A partner's existing operator status or certification does not prove that the Sage-branded service, data flow, countries, environments and support chain are covered.
+
+### Applicability and commencement control baseline
+
+This is a governance baseline, not a substitute for transaction-level legal evaluation. Relative clocks must be materialised only from a verified, versioned ministerial-order effective date.
+
+| Control subject | Confirmed rule baseline | Required decision evidence | Product treatment |
+|---|---|---|---|
+| Recipient presence | Recipient has a Spanish seat, fixed establishment, domicile or habitual residence and the operation is addressed to that presence | Presence type, source, validity and transaction-addressing facts | Evaluate per transaction; VAT registration or address alone does not prove the test |
+| Simplified invoice | Ordinary simplified invoices are excluded; qualified simplified invoices are not excluded by that exception | Document classification and applicable Article 7.2 facts | Return applicable, not-applicable or undetermined with rule version |
+| Issuer above EUR 8 million | Core customer obligations apply 12 months after the ministerial order enters into force | Prior-year turnover evidence and verified order date/version | Calculate effective interval; do not hard-code a calendar date before verification |
+| Other issuer/customer | Core customer obligations apply 24 months after the ministerial order enters into force | Cohort evidence and verified order date/version | Calculate independently from operator readiness |
+| Private-platform operator | Specified copy, interconnection and operator requirements apply after 12 months | Named operator, capability, environment and verified order date/version | Gate each capability even when a customer cohort is not yet mandatory |
+| Transitional readable PDF | Affected issuers above EUR 8 million accompany emitted e-invoices with readable PDF for their first 12 months of applicability | Issuer cohort, applicability start/expiry, representation and delivery evidence | Separate correlated leg; never infer embedded public-UBL permission |
+| Status transition | Qualifying natural persons and income-attribution entities at or below EUR 8 million receive a further 12-month transition for Articles 10 and 12; status supply is voluntary until then | Legal form, tax regime, turnover, group-b effect date and policy version | Status obligation may be not-yet-required while invoice exchange is already required |
+| FACeB2B | Affected subcontractors have up to 24 months from the order's entry into force to migrate | Existing obligation/route and migration evidence | Preserve historical route and run controlled migration; do not silently switch |
+| Basque/Navarre | Foral territory and authority rules affect applicability, reporting and access | Tax territory, competent authority and approved country-policy version | Return undetermined when decisive territory facts or approved rules are absent |
 
 ## Actors and accountability
 
@@ -200,6 +228,12 @@ Readiness must be scoped by operator, environment, capability, direction, syntax
 | BR9 | A waiver is requested | Legal obligations and critical safety controls cannot be waived; other waivers are scoped, time-bound and approved | Proposed governance rule |
 | BR10 | Operator or partner changes | Re-run applicable readiness controls and preserve customer/history continuity | Proposed governance rule |
 | BR11 | A qualifying private-platform interconnection request is received | Accept, queue and make the interconnection operational within the applicable statutory process; provide the required test capability and do not charge the requesting platform for the interconnection | Regulation-level finding; operational interpretation required |
+| BR12 | Customer or invoice applicability is evaluated | Use effective-dated recipient presence, transaction, document, exemption, cohort and territory facts; do not infer applicability from `B2B` or NIF alone | Regulation-level predicates; decision contract proposed |
+| BR13 | A decisive applicability fact is missing or conflicting | Return undetermined/action-required and block mandatory routing rather than treating the obligation as not applicable | Proposed safety/governance rule |
+| BR14 | Customer and operator clocks differ | Track customer obligation, invoice applicability and operator readiness independently | RD 238/2026 final provision four |
+| BR15 | Transitional PDF applies | Evidence the structured invoice and readable representation as separate correlated legs | RD 238/2026 transitional provision two; channel open |
+| BR16 | Additional status transition applies | Do not require Article 10/12 reporting before the cohort clock expires; label voluntary handling separately | RD 238/2026 transitional provision three |
+| BR17 | Transaction involves a potentially foral subject/authority | Resolve the competent policy/authority or return undetermined; do not default silently to common-territory AEAT behaviour | RD 238/2026 additional provisions three and four |
 
 ## Detailed readiness journeys
 
@@ -323,6 +357,18 @@ Readiness must be scoped by operator, environment, capability, direction, syntax
 | FR27 | Revalidate affected controls before resuming activity after suspension. |
 | FR28 | Test partner and operating-model exit while preserving customer configuration, history, evidence and a viable transition route. |
 
+### Applicability and commencement governance
+
+| ID | Requirement |
+|---|---|
+| FR29 | Maintain versioned policy records for recipient presence, document exclusions, turnover/legal-form cohorts, transitions, territory and effective intervals with official evidence and approval. |
+| FR30 | Produce separate customer-obligation, invoice-applicability and operator-readiness outcomes; one outcome must not imply success or applicability of another. |
+| FR31 | Calculate relative commencement and transition dates from a verified ministerial-order effective date and retain the source/version used. |
+| FR32 | Prevent production activation where a mandatory policy version, decisive fact or required technical specification is unresolved; return the missing fact, owner and safe next action. |
+| FR33 | Record transitional PDF and Article 10/12 status decisions with cohort facts, effective interval, policy version and evidence suitable for customer and operational explanation. |
+| FR34 | Maintain a foral/common-territory decision and test matrix before activating affected authority/reporting routes. |
+| FR35 | Preserve FACeB2B-origin route and history during migration and require an approved cutover, reconciliation and rollback plan. |
+
 ## Non-functional requirements
 
 | ID | Requirement |
@@ -400,6 +446,12 @@ Operations requires:
 - Given a partner-operated control, when Sage requests incident or audit evidence, then the evidence is available within the approved contractual/operational process and is sufficient to explain the customer outcome.
 - Given a partner/model exit exercise, when the transition is executed, then customer configuration, invoice history, audit evidence and the approved alternative route remain usable.
 - Given an unresolved ministerial-order dependency, when production readiness is reviewed, then affected controls remain blocked rather than relying on an assumed endpoint or date.
+- Given a recipient that is only Spanish VAT-registered and no qualifying Spanish presence receiving the operation is proven, when applicability is evaluated, then registration alone does not activate the mandatory route.
+- Given a qualified simplified invoice, when the simplified-invoice exclusion is evaluated, then it is not excluded merely because it is simplified; the applicable qualified-invoice rule path is retained.
+- Given an issuer above EUR 8 million in its first 12 months of applicability, when an e-invoice is emitted, then the readiness review expects separately correlated structured-invoice and readable-PDF evidence.
+- Given a qualifying natural person or income-attribution entity within the additional transition, when Article 10/12 status policy is evaluated, then mandatory status reporting is not activated and the voluntary state is labelled.
+- Given operator requirements have commenced but a customer cohort has not, when readiness is evaluated, then the operator control may be required while that customer's invoice obligation remains not-yet-effective.
+- Given territory facts may place a subject under foral rules and no approved rule resolves the case, when routing/reporting is requested, then the affected obligation is undetermined and common-territory AEAT behaviour is not selected silently.
 
 ## Measures
 
@@ -438,6 +490,8 @@ Targets and measurement windows require owners after the pilot baseline is defin
 - ADR-SEI-001 delivery-model and accountability decision.
 - FP-SEI-001 evidence-backed reuse and gap assessment.
 - Current official ministerial order and public technical specifications when published/applicable.
+- Verified ministerial-order entry-into-force date/version used to materialise every relative commencement and transition clock.
+- Approved recipient-presence, simplified-invoice, turnover/legal-form, FACeB2B and foral applicability interpretations.
 - Named legal/compliance interpretation owners.
 - Operator/partner sandbox, conformance, security and operational evidence.
 - Public solution and counterparty platform test access.
@@ -452,6 +506,9 @@ Targets and measurement windows require owners after the pilot baseline is defin
 | What process evidences operator qualification/registration? | Defines external readiness path | Local legal/compliance | R4/pilot | Official confirmation required |
 | What is the authoritative entry-point publication/lookup mechanism and propagation model? | Controls inbound activation and reconciliation | Local technical/regulatory team | R3/R4 | Open |
 | Which technical profiles, APIs and test suites will the ministerial order define? | Determines implementation and conformance | Local technical/regulatory team | R3/R4/production | Track official publication |
+| Which evidence source proves prior-year turnover, legal form/income-attribution status and the start/end of each transition? | Determines correct cohort and customer explanation | Local legal/product/data owners | R2/R5/production | Store versioned evidence; do not infer from subscription tier |
+| What facts and authority determine common-territory versus Basque/Navarre treatment for each obligation? | Prevents misrouting and wrong reporting authority | Local legal/foral technical owners | Affected pilot/production | Explicit territory decision; no silent AEAT default |
+| What is the controlled FACeB2B migration sequence and historical-access contract? | Prevents lost invoices and status history during the transition | Local team/product/operations | Affected production cohort | Preserve origin context and reconcile before cutover |
 | How should “support resources available at all times” be measured? | Drives staffing, partner SLA and cost | Legal/operations | R2/R5 | Formal interpretation required |
 | Which lifecycle/payment event is authoritative when platforms disagree? | Prevents contradictory history | Local team/legal/product | R3/R4 | Preserve source observations; approved precedence required |
 | What are the statutory/contractual evidence and invoice retention periods? | Drives data model and exit | Legal/privacy | R2/production | Do not invent duration |
@@ -475,3 +532,4 @@ Targets and measurement windows require owners after the pilot baseline is defin
 | Date | Version | Change | Evidence/decision |
 |---|---|---|---|
 | 2026-08-10 | Version 1 | Initial discovery PRD for Phase 3 operator readiness and regulatory governance | Official BOE sources, PRD-SEI-210 and Phase 1/2 foundations |
+| 2026-08-24 | Working revision | Added recipient-presence/document-scope rules, independent customer/operator clocks, PDF and status transitions, FACeB2B and foral governance with testable gates | RD 238/2026; Spain solution-design brief comparison |

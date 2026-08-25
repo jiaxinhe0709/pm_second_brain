@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-24
 reviewers: []
 related:
   - PRD-SEI-209
@@ -18,6 +18,10 @@ related:
   - PRD-SEI-224
   - PRD-SEI-225
   - PRD-SEI-226
+  - PRD-SEI-231
+  - PRD-SEI-232
+  - PRD-SEI-233
+  - PRD-SEI-234
   - PRD-SEI-102
   - PRD-SEI-103
   - PRD-SEI-201
@@ -52,7 +56,7 @@ confluence:
 |---|---|
 | Predecessor | Based on PRD-SEI-209, which remains the unchanged predecessor document. |
 | Reason for this successor | Preserve the original Phase 3 draft while evaluating Phase 1 and Phase 2 component reuse as a formal Phase 3 design constraint, then consolidate the legacy *Sage as a Private Platform (Spain)* and *Private platform building blocks* Confluence pages into one authoritative Phase 3 product story. |
-| Material changes | Adds the shared-platform/operator-edge architecture, the reuse/extend/new capability classification, an evidence-gated reuse decision flow, a labelled strategic-hypothesis register, the four-category Confluence structure, and explicit links to the Phase 1 submission and consultation PRDs. |
+| Material changes | Adds the shared-platform/operator-edge architecture, the reuse/extend/new capability classification, an evidence-gated reuse decision flow, the four-category Confluence structure, and a single Spain compliance-regime/orchestration narrative with an explicit ERP/platform responsibility contract. |
 | Unchanged areas | Retains the strategic rationale, customer proposition, operating-model options, regulatory analysis, scenarios, requirements, risks, dependencies, and open questions from PRD-SEI-209. |
 | Decisions still open | Actual component maturity; service ownership; reuse fitness; operator accountability; build/partner route; customer and commercial evidence; and the Phase 3 delivery investment decision. |
 
@@ -63,6 +67,47 @@ This PRD defines the discovery and decision boundary for Sage to offer a Sage-br
 The strategic direction is **proposed, not approved**. This document does not select build, white-label, alliance, or acquisition. It defines the minimum product and regulated operator outcomes that any route must satisfy and the evidence gates required before Sage accepts operator accountability.
 
 > **Product principle:** A Sage-branded experience must have explicit operational and regulatory accountability. Branding a partner service as Sage must not hide who operates the platform, controls data, resolves failures, maintains interconnections, or remains responsible when the partnership changes.
+
+## Spain compliance regimes and orchestration boundary
+
+Spain does not have one undifferentiated “e-invoicing” obligation. The platform must evaluate the transaction and effective policy before selecting routes or reporting actions. One commercial invoice may create several correlated compliance legs, but those legs and representations remain one business invoice rather than duplicate commercial documents.
+
+| Regime/domain | Governs | Typical outcome | Must remain distinct from |
+|---|---|---|---|
+| Crea y Crece B2B | Structured invoice issuance/receipt, public/private exchange, faithful public copy and commercial/payment lifecycle | Recipient delivery plus required lifecycle communications/evidence | Tax-system invoice records and VAT books |
+| RRSIF / VERI*FACTU | Behaviour of invoice-producing systems and invoice records; VERI*FACTU sends records to AEAT | Invoice-record compliance, AEAT transmission where selected/applicable and QR-bearing invoice representation | Crea y Crece recipient delivery |
+| SII | VAT book reporting through AEAT | VAT ledger/reporting records | VERI*FACTU and the structured B2B route; SII taxpayers are generally outside RRSIF |
+| B2G / FACe and FACeB2B transition | Public-sector and affected subcontractor routes | Public-procurement/subcontractor invoice exchange and migration evidence | General private B2B routing |
+| Foral arrangements | Territory/authority-specific treatment in the Basque Country and Navarra | Competent-authority and country-policy outcomes | A silent default to common-territory AEAT behaviour |
+
+The common platform model is `transaction facts → applicable regimes → document, delivery and reporting plans → independently evidenced outcomes`. B2B is one input, not the whole applicability decision; recipient presence, transaction-addressing, direction, document, exemption, cohort, territory and effective time also matter.
+
+<!-- confluence-html-macro:start -->
+<div class="p3spain-visual" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:24px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1140px;margin:0 auto;overflow-x:auto;">
+  <style>
+    .p3spain-visual *{box-sizing:border-box}.p3spain-visual h2{margin:0;color:#172b4d;font-size:18px}.p3spain-visual .sub{margin:6px 0 16px;color:#6b778c;font-size:12px;line-height:1.45}.p3spain-visual svg{display:block;width:1080px;height:610px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.p3spain-visual .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.8}.p3spain-visual .decision{fill:#fff7d6;stroke:#ffab00;stroke-width:1.8}.p3spain-visual .outcome{fill:#e3fcef;stroke:#36b37e;stroke-width:1.5}.p3spain-visual .optional{fill:#f4f5f7;stroke:#7a869a;stroke-width:1.5;stroke-dasharray:6 4}.p3spain-visual .evidence{fill:#e3fcef;stroke:#00875a;stroke-width:2}.p3spain-visual .title{fill:#172b4d;font-size:12px;font-weight:700}.p3spain-visual .copy{fill:#42526e;font-size:9.5px}.p3spain-visual .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.p3spain-visual .path{fill:none;stroke:#00875a;stroke-width:2}.p3spain-visual .path-optional{fill:none;stroke:#7a869a;stroke-width:1.8;stroke-dasharray:6 4}.p3spain-visual .arrow{fill:#00875a}.p3spain-visual .arrow-optional{fill:#7a869a}.p3spain-visual .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1080px;margin-top:12px}.p3spain-visual .note{padding:10px 12px;border:1px solid #dfe1e6;border-radius:7px;color:#42526e;background:#fff;font-size:10px;line-height:1.45}.p3spain-visual .note strong{display:block;margin-bottom:3px;color:#172b4d;font-size:11px}
+  </style>
+  <h2>One commercial invoice, independently evidenced compliance legs</h2>
+  <p class="sub">The effective Spain policy decides which document, recipient-delivery and authority-reporting obligations activate. Success or failure on one leg never proves the others.</p>
+  <svg viewBox="0 0 1080 610" role="img" aria-label="Transaction facts flow into a versioned Spain applicability decision. The decision can activate document compliance, recipient delivery through Crea y Crece or B2G routes, and authority reporting through RRSIF VERI*FACTU or SII. Each branch has an independent outcome and all branches correlate to one immutable compliance context and evidence record without creating duplicate commercial invoices.">
+    <text x="34" y="34" class="label">FACTS</text><text x="354" y="34" class="label">EFFECTIVE POLICY</text><text x="700" y="34" class="label">INDEPENDENT COMPLIANCE LEGS</text>
+    <rect x="34" y="70" width="250" height="162" rx="10" class="main"/><text x="54" y="100" class="title">Transaction context</text><text x="54" y="124" class="copy">Seller • recipient • B2B/B2G</text><text x="54" y="145" class="copy">Seat/fixed establishment • destination</text><text x="54" y="166" class="copy">Document • direction • territory</text><text x="54" y="187" class="copy">Turnover/cohort • exemption</text><text x="54" y="208" class="copy">Issue time • policy evidence version</text>
+    <path d="M284 151 H348" class="path"/><polygon points="348,151 338,145 338,157" class="arrow"/>
+    <rect x="350" y="70" width="280" height="240" rx="12" class="decision"/><text x="372" y="101" class="title">Spain applicability decision</text><text x="372" y="128" class="copy">1. validate decisive facts and provenance</text><text x="372" y="151" class="copy">2. select effective common/foral policies</text><text x="372" y="174" class="copy">3. test presence, scope and exemptions</text><text x="372" y="197" class="copy">4. calculate cohort and transitions</text><text x="372" y="220" class="copy">5. activate obligations independently</text><text x="372" y="247" class="copy">Outcomes: required • permitted • not applicable</text><text x="372" y="270" class="copy">not yet effective • undetermined/action required</text><text x="372" y="293" class="copy">Never convert unknown into “not applicable”</text>
+    <path d="M630 123 H690" class="path"/><polygon points="690,123 680,117 680,129" class="arrow"/>
+    <path d="M630 190 H670 V266 H690" class="path"/><polygon points="690,266 680,260 680,272" class="arrow"/>
+    <path d="M630 260 H655 V419 H690" class="path-optional"/><polygon points="690,419 680,413 680,425" class="arrow-optional"/>
+    <rect x="692" y="70" width="354" height="106" rx="10" class="outcome"/><text x="714" y="100" class="title">Document compliance</text><text x="714" y="124" class="copy">Structured semantics/profile • correction relationship</text><text x="714" y="145" class="copy">Readable representation/QR only where its regime requires it</text><text x="714" y="163" class="copy">Own state • representation • policy/evidence version</text>
+    <rect x="692" y="213" width="354" height="106" rx="10" class="outcome"/><text x="714" y="243" class="title">Recipient-delivery compliance</text><text x="714" y="267" class="copy">Crea y Crece public/private • B2G/FACe where applicable</text><text x="714" y="288" class="copy">Recipient resolution • route • acknowledgement • recovery</text><text x="714" y="306" class="copy">Faithful copy is correlated, not a second invoice</text>
+    <rect x="692" y="366" width="354" height="106" rx="10" class="optional"/><text x="714" y="396" class="title">Authority-reporting compliance</text><text x="714" y="420" class="copy">RRSIF/VERI*FACTU or SII according to policy</text><text x="714" y="441" class="copy">Payment/status • competent authority • deadline</text><text x="714" y="459" class="copy">Optional/dashed because applicability varies by transaction</text>
+    <path d="M1046 123 H1062 V480 H980 V492" class="path"/><polygon points="980,492 974,482 986,482" class="arrow"/><path d="M1046 266 H1054 V484 H900 V492" class="path"/><polygon points="900,492 894,482 906,482" class="arrow"/><path d="M869 472 V492" class="path-optional"/><polygon points="869,492 863,482 875,482" class="arrow-optional"/>
+    <rect x="350" y="494" width="696" height="78" rx="39" class="evidence"/><text x="698" y="524" text-anchor="middle" class="title">One immutable compliance context and correlated evidence history</text><text x="698" y="548" text-anchor="middle" class="copy">Business invoice • identifiers/authority • policy decisions • independent outcomes • acknowledgements • safe next actions</text>
+  </svg>
+  <div class="notes"><div class="note"><strong>Crea y Crece is not VERI*FACTU</strong>Recipient exchange and tax-system invoice records are different obligations even when they arise from the same invoice.</div><div class="note"><strong>SII and RRSIF are policy alternatives</strong>SII taxpayers are generally outside RRSIF; the policy decision selects the correct reporting domain rather than activating both blindly.</div><div class="note"><strong>History remains explainable</strong>Corrections create linked documents/events and later policy or route changes do not rewrite executed context.</div></div>
+</div>
+<!-- confluence-html-macro:end -->
+
+This visual is a proposed product orchestration model, not approved architecture. PRD-SEI-221 owns Spain regulatory readiness; PRD-SEI-224 owns lifecycle/document relationships; PRD-SEI-231 owns identity/authority; PRD-SEI-232 owns cross-country lifecycle mapping; PRD-SEI-233 owns multi-address routing; and PRD-SEI-234 owns cross-country reuse boundaries.
 
 ## Phase 3 document map
 
@@ -272,6 +317,7 @@ A credible Sage option could protect product relevance, offer a consistent multi
 | G3 | Keep invoice exchange and exception handling inside the Sage workflow | Pilot users can complete and understand primary and recovery journeys without a separate platform console for routine work |
 | G4 | Establish a viable operating and commercial model | Approved business case covers ownership, cost-to-serve, pricing, partner economics and exit |
 | G5 | Preserve a future cross-country capability path without delaying Spain | Spain design separates reusable platform services from country-specific obligations |
+| G6 | Give products and customers one explainable invoice story across Spain regimes | Every applicable document, delivery and reporting leg is correlated to one invoice while retaining its own applicability, outcome and evidence |
 
 ## Non-goals
 
@@ -337,6 +383,8 @@ A credible Sage option could protect product relevance, offer a consistent multi
 | S6 | Customer pays or rejects an invoice | Required state reaches the relevant issuer and public solution within the applicable rule | Duplicate or delayed events do not create contradictory history |
 | S7 | Underlying partner is unavailable | Sage shows degraded state, preserves invoice safety and reconciles ambiguous outcomes | Retry occurs only when operation safety is known |
 | S8 | Partner contract ends or Sage changes operating model | Customers and historical invoices remain accessible through a controlled transition | Exit plan is required before launch, not after termination |
+| S9 | Crea y Crece applies to a customer using SII | Structured B2B exchange and SII reporting are planned as separate correlated obligations | Do not activate RRSIF/VERI*FACTU merely because B2B exchange applies |
+| S10 | Delivered invoice requires rectification | ERP supplies a new corrective business document and approved relationship to the original; platform executes the applicable new compliance legs | Rejection, event correction and document rectification are not interchangeable |
 
 ## Business rules
 
@@ -351,6 +399,11 @@ A credible Sage option could protect product relevance, offer a consistent multi
 | BR7 | Current route or operator changes | Never rewrite invoice-origin provider, identifiers, syntax, signature evidence or status history | Confirmed product continuity principle |
 | BR8 | A value-added feature is not needed for regulated exchange | Package it separately from baseline compliance and disclose price/limits | Proposed commercial rule |
 | BR9 | A regulatory technical detail depends on the ministerial order | Treat it as an open implementation gate, not an assumed contract | Confirmed dependency |
+| BR10 | A transaction enters the platform | Resolve effective document, delivery and reporting obligations before selecting routes or authority calls | Proposed orchestration rule supported by Spain scope/timing evidence |
+| BR11 | Several obligations arise from one commercial invoice | Correlate all representations, records, routes and acknowledgements to one business invoice while retaining independent outcomes | Product model; manager design brief plus PRD-SEI-221/224 |
+| BR12 | SII applies to the taxpayer/transaction | Do not activate RRSIF/VERI*FACTU as a second mandatory tax-record leg unless an approved rule explicitly requires it | AEAT scope distinction; country-policy approval required |
+| BR13 | A QR/readable representation is considered | Apply it only under the regime and cohort that requires it; do not infer a QR or embedded-PDF requirement for Crea y Crece UBL | Official RRSIF and RD 238/2026 boundary |
+| BR14 | Correction/replacement requires a new business document | Preserve the original and create a country-approved immutable document relationship | Proposed shared model; Spain relationship catalogue requires approval |
 
 ## Research and evidence register
 
@@ -361,6 +414,7 @@ A credible Sage option could protect product relevance, offer a consistent multi
 | E3 | [Real Decreto 238/2026](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295) | Defines the Spanish system, private platform, formats, interconnection, status, public-copy and operator requirements | Confirmed primary regulation. Some technical details still depend on a ministerial order | FR12–FR38, NFR1–NFR15, G2 |
 | E4 | [Ministry announcement on the approved B2B system](https://portal.mineco.gob.es/es-es/comunicacion/Paginas/Gobierno-impulsa-factura-electronica-en-pagos-de-empresas-y-profesionales-rebajar-carga-administrativa-y-morosidad.aspx) | Confirms public/private route choice and staged timing from the ministerial order | Official explanatory source; regulation prevails | Timeline and customer-choice framing |
 | E5 | [European Commission ViDA adoption](https://taxation-customs.ec.europa.eu/news/adoption-vat-in-digital-age-package-2025-03-11_en) | ViDA adopted in March 2025; cross-border digital reporting changes are phased toward 2030 and beyond | Confirmed EU source; not proof that a Spain build is reusable unchanged | G5 and future extensibility |
+| E6 | *Spain e-Invoicing Solution Design Brief*, 21 August 2026, manager research handover supplied by the user | Separates Crea y Crece, RRSIF/VERI*FACTU and SII; proposes linked corrective documents, ERP/platform responsibility and cross-regime correlation | Medium internal research/design evidence; not legal or final technical authority | G6, S9–S10, BR10–BR14 and the proposed responsibility/orchestration models |
 
 ### Regulatory findings that change the strategy-paper baseline
 
@@ -391,6 +445,23 @@ The target is a product-neutral Sage platform layer used by eligible Sage produc
 | Customer support and incident command | Sage-led | What is the partner escalation and evidence contract? |
 | Historical access and exit | Sage accountable to customer | How is data/service continuity protected if the route changes? |
 
+### Proposed ERP/platform responsibility contract
+
+This is a behavioural responsibility boundary for product and architecture approval, not an instruction that every datum must be physically stored in only one component.
+
+| Capability/fact | ERP/accounting product responsibility | Shared platform/operator responsibility | Joint decision or boundary evidence |
+|---|---|---|---|
+| Commercial intent and accounting truth | Approve sales/purchase document, parties, tax/accounting facts and source correction decision | Consume an authorised, versioned intent without becoming the accounting ledger | Supported ERP input contract and authoritative-source rules |
+| Applicability facts | Supply known party, establishment, document, direction, tax/cohort and transaction facts with provenance | Evaluate effective country policies and return explainable document/delivery/reporting obligations | Missing-fact ownership and legal-policy approval |
+| Structured representation | Supply canonical business data or an explicitly supported prebuilt document | Map, validate, transform and retain representation/profile provenance | Canonical/prebuilt contract and semantic-loss policy |
+| Route and recipient delivery | Show customer choice and actionable outcome | Resolve authorised destination, execute route, acknowledge, deduplicate and reconcile | Entry-point authority and customer consent |
+| Commercial/payment lifecycle | Record authorised customer/accounting events and effective dates | Validate authority, calculate obligations/deadlines, deliver/reconcile and derive views | Source precedence and operation-specific authority |
+| Correction/replacement | Decide and create the new accounting document plus relationship intent | Validate the country relationship, execute new compliance legs and preserve correlated evidence | Approved Spain relationship/method catalogue |
+| Compliance evidence | Display meaningful status and support user action | Retain policy, identity/authority, request/representation, acknowledgement, failure and recovery evidence | Retention, disclosure and controller/processor responsibilities |
+| Customer and operational exceptions | Correct source facts and identify authorised business action | Classify fault, retry only safe work, reconcile outcome unknown and expose redacted evidence | Support ownership, escalation and manual-action permissions |
+
+The ERP remains the preferred source of accounting truth. The platform owns compliance execution and external evidence for the operations entrusted to it. Exceptions—such as authorised bank facts, platform-observed delivery or authority acknowledgements—must be explicit rather than silently changing the accounting source of record.
+
 ### Core conceptual records
 
 - **Legal entity:** immutable tax identity, jurisdiction and product tenancy.
@@ -401,6 +472,8 @@ The target is a product-neutral Sage platform layer used by eligible Sage produc
 - **Invoice network context:** original route/operator, external IDs, syntax/profile, signature evidence, public-copy reference and timestamps.
 - **Interconnection:** requesting/responding platform, client basis, request date, test state, effective date and evidence.
 - **Operational case:** fault domain, safe next action, reconciliation status, owner and redacted evidence.
+- **Compliance context:** invoice/action, transaction facts, applicable policy versions, legal subjects, identifier/authority snapshot and independently required document/delivery/reporting legs.
+- **Document relationship:** original and related document identities, approved relationship/method, affected scope/value, reason, effective date and authority/evidence.
 
 ## Delivery-route decision
 
@@ -566,6 +639,19 @@ Legal archiving, OCR/capture, portals, approvals, payment services, reconciliati
 | FR41 | A value-added service may launch only after its product owner, legal basis, data boundary, operational owner, price and acceptance criteria are approved. |
 | FR42 | Referral or revenue-share arrangements must not bias route recommendations presented as compliance guidance. |
 
+### Applicability and correlated compliance legs
+
+| ID | Requirement |
+|---|---|
+| FR43 | Before selecting a statutory route or authority action, the platform must obtain an effective-dated applicability decision using transaction, recipient presence, document, exemption, cohort, territory and time facts. |
+| FR44 | The compliance plan must represent document, recipient-delivery and authority-reporting obligations independently with `required`, `permitted`, `not_applicable`, `not_yet_effective` or `undetermined` applicability and an evidence/rule path. |
+| FR45 | All representations and external operations arising from one commercial invoice must share a stable business-invoice/compliance-context identity without merging their independent outcomes. |
+| FR46 | A failed or outcome-unknown compliance leg must recover independently and must not cause an already successful leg or recipient delivery to repeat unless an approved rule requires it. |
+| FR47 | The Spain country policy must distinguish Crea y Crece exchange from RRSIF/VERI*FACTU, SII, B2G/FACe and foral obligations and must not activate mutually incompatible reporting domains blindly. |
+| FR48 | QR and readable-PDF behaviour must be selected from the applicable regime/cohort and represented separately from public UBL attachment handling. |
+| FR49 | When a new corrective/replacement business document is required, the platform must consume an authorised ERP relationship intent and preserve the original document plus the approved `DocumentRelationship`. |
+| FR50 | Product and operations views must explain which system supplied the business fact, which service performed each compliance operation and which source remains authoritative without exposing secrets or unnecessary invoice content. |
+
 ## Proposed state model
 
 ### Platform readiness
@@ -654,6 +740,11 @@ Operations need portfolio health, certificate/credential expiry, interconnection
 | AC8 | Given a partner or route transition, new invoices use the new route while old invoices retain original identifiers, evidence, status access and support ownership. Covers FR35–FR37 and NFR15. |
 | AC9 | Security review can trace every production operator control to certification scope, protocol, secret, tenant, audit, continuity and supplier evidence. Covers NFR1–NFR14. |
 | AC10 | A customer can identify which capabilities are regulated core, paid add-ons or partner-supplied before purchase and on an invoice. Covers FR1 and FR39–FR42. |
+| AC11 | Given a customer subject to SII and Crea y Crece, applicability creates structured B2B delivery and SII reporting plans without blindly activating RRSIF/VERI*FACTU. Covers FR43–FR48. |
+| AC12 | Given a transaction whose recipient is only Spanish VAT-registered and no qualifying Spanish presence receiving it is proven, applicability returns undetermined/not-applicable according to the approved rule rather than routing from VAT registration alone. Covers FR43–FR44. |
+| AC13 | Given private recipient delivery succeeds and an independently required authority-reporting leg is outcome-unknown, recovery reconciles only the reporting leg and does not redeliver the commercial invoice. Covers FR45–FR47. |
+| AC14 | Given an affected issuer in the temporary readable-PDF cohort, the structured invoice and separate PDF accompaniment remain one business invoice with independent evidence and no embedded public-UBL attachment. Covers FR45–FR48. |
+| AC15 | Given an ERP creates an approved corrective document, the original remains unchanged and the new document, relationship, compliance plan and external outcomes are independently traceable. Covers FR49–FR50. |
 
 ## Measures and baselines
 
@@ -693,6 +784,8 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 - Phase 1 public connectivity and Phase 2 connection/routing/resilience contracts.
 - Official sandbox/test facilities and interconnection specifications.
 - Identity, entitlement, billing, consent, certificate, signature/seal and support capabilities.
+- Approved Spain applicability policies covering recipient presence, document scope, SII/RRSIF distinction, B2G/FACe, foral territory, cohorts and transitions.
+- Approved ERP/platform responsibility contract and Spain corrective-document relationship catalogue.
 - Partner technical, security, service, data, audit and exit evidence for non-build routes.
 - Current customer research and validated commercial model.
 
@@ -728,6 +821,8 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 | OQ10 | Which entity reports payment/rejection and obtains the source data? | Determines API, deadline and accountability | Product + Compliance | G4 |
 | OQ11 | What retention, archiving and post-termination access applies to each record? | Determines cost, privacy and exit | Legal + Records Management | G4/G5 |
 | OQ12 | Which Tier 2 services warrant separate proposals? | Prevents unbounded Phase 3 scope | Portfolio Product | Post-G2 |
+| OQ13 | Which system/fact source is authoritative for every applicability input and lifecycle/correction operation? | Prevents conflicting ERP/platform decisions and unexplainable compliance plans | Product + Architecture + Compliance | G1/G4 |
+| OQ14 | Which Spain document relationships, correction methods and affected-value rules are permitted? | Determines ERP contract, validation and external mapping | Spain Tax/Legal + Product | G1/G4/G6 |
 
 ## Decisions
 
@@ -746,6 +841,7 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 | Compliant exchange | E2–E4, BR4–BR6 | S4–S6 | FR12–FR30 | AC3–AC7 |
 | Safe operation and continuity | E1, E3, BR7–BR9 | S7–S8 | FR31–FR38, NFR1–NFR15 | AC5, AC8–AC9 |
 | Viable differentiated proposition | E1, E5, BR8 | S1–S2 | FR39–FR42 | AC10 |
+| Explainable cross-regime compliance | E3, E6, BR10–BR14 | S9–S10 | FR43–FR50 | AC11–AC15 |
 
 ## Readiness
 
@@ -757,3 +853,4 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 |---|---|---|
 | 2026-08-05 | Initial Phase 3 discovery PRD created | July 2026 strategy paper; Ley 18/2022; RD 238/2026; official Ministry and EU sources |
 | 2026-08-10 | Consolidated the legacy strategic rationale and building-block navigation into the authoritative Phase 3 umbrella; renamed the Confluence topic and aligned it to four capability categories | User-approved Phase 3 information architecture; legacy Confluence pages 837588801 and 855180225 |
+| 2026-08-24 | Added the authoritative Spain regime/orchestration narrative, Confluence-safe visual, ERP/platform responsibility contract, cross-regime rules, requirements and acceptance coverage | Manager solution-design brief comparison; RD 238/2026; AEAT RRSIF/SII guidance; PRD-SEI-221/224/231–234 |

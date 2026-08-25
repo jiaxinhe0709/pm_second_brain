@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-24
 reviewers: []
 related:
   - PRD-SEI-201
@@ -17,6 +17,14 @@ related:
   - PRD-SEI-206
   - PRD-SEI-207
   - PRD-SEI-208
+  - PRD-SEI-212
+  - PRD-SEI-214
+  - PRD-SEI-221
+  - PRD-SEI-222
+  - PRD-SEI-223
+  - PRD-SEI-224
+  - PRD-SEI-226
+  - PRD-SEI-231
   - https://confluence.sage.com/spaces/DNBU/pages/855183578/Platform+Transition+Management
   - https://confluence.sage.com/spaces/DNBU/pages/837610648/Public+Platform+Onboard
   - research/PRD-SEI-201-spain-use-case-evidence.md
@@ -38,8 +46,8 @@ confluence:
 |---|---|
 | Predecessor | Based on PRD-SEI-201, which remains unchanged as the predecessor document. |
 | Reason for this successor | Provide an individually readable successor that publishes through a native Confluence two-column layout with a left-sidebar Table of Contents. |
-| Material changes | Assigns permanent ID PRD-SEI-213, adds this revision overview, and adds Confluence layout and navigation metadata for publication as a new child page. |
-| Unchanged areas | Business analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks, decisions and open questions remain unchanged from PRD-SEI-201. |
+| Material changes | Assigns permanent ID PRD-SEI-213, adds Confluence layout/navigation metadata, corrects the four-day acceptance interpretation, records the bounded readable-PDF rule and connects Phase 2 to the current Spain lifecycle, identity and authority models. |
+| Unchanged areas | Public/private coexistence, independent direction, route transition, provider separation and historical-continuity principles remain based on PRD-SEI-201. |
 | Decisions still open | All product, provider, regulatory and architecture decisions remain as recorded in PRD-SEI-201; this successor introduces no new product decision. |
 
 ## Summary
@@ -316,17 +324,17 @@ Phase 1 establishes the public connection and invoice lifecycle. Phase 2 introdu
 | Stakeholder confirmation on mixed directions | High internal | Public inbound/private outbound and inverse must be representable | Route-authority mechanism remains open |
 | `eInvoicing Spain Use Cases.pptx` (May 2026) | Medium internal discovery | Adds Public → Private, multiple platforms, transformation, retrieval, dual channel, corrections and accountant scenarios | Regulatory/technical claims require official/local-team validation |
 | Provider API evidence packs | Mixed | Provider-specific capabilities and resilience | Technical evidence incomplete for several providers |
+| [Real Decreto 238/2026](https://www.boe.es/eli/es/rd/2026/03/25/238), Articles 10 and 12 and transitional provision two | High official | Four-day communication follows an actual status event; public-solution acceptance is a presumption in the absence of rejection or later rectification; affected issuers above EUR 8 million have a bounded readable-PDF accompaniment | Exact lifecycle messages, PDF channel and evidence contract still depend on official specifications/local approval |
 
 ### Research interpretation
 
-The PowerPoint is treated as use-case discovery evidence, not an approved regulatory specification. In particular, the following claims must not become delivery requirements until confirmed:
+The PowerPoint is treated as use-case discovery evidence, not an approved regulatory specification. Official evidence now resolves two previously open claims: four days is a communication deadline after a status event, not an automatic-acceptance timer; and the readable-PDF accompaniment is a bounded requirement for an affected turnover cohort, although its channel/evidence contract remains open. The following remaining claims must not become delivery requirements until confirmed:
 
 - absence of a central directory;
-- four-day automatic acceptance timing;
 - a receiver endpoint field in UBL;
 - the party responsible for public-platform polling;
 - trusted-copy and format-transformation responsibilities;
-- the legal duration/behaviour of dual PDF and e-invoice delivery.
+- the exact channel, acknowledgement and reconciliation behaviour of dual PDF and e-invoice delivery.
 
 ## Business rules and scope hypotheses
 
@@ -340,6 +348,9 @@ The PowerPoint is treated as use-case discovery evidence, not an approved regula
 | BR6 | Provider transforms format | Preserve sufficient original/transformed context to avoid silent data loss | Proposed; evidence required |
 | BR7 | PDF and e-invoice represent the same business invoice | Correlate channels and prevent duplicate business processing | Proposed adjacent requirement |
 | BR8 | Accountant accesses client invoices | Delegated authority and certificate ownership must be explicit | Open identity/certificate dependency |
+| BR9 | Acceptance, rejection or payment occurs | Apply the approved Article 10 communication deadline from the actual event time; do not start it from invoice delivery without an event | Confirmed regulation-level distinction; message contract open |
+| BR10 | No rejection or later rectifying invoice is recorded for the public solution | Any presumed acceptance is a labelled derived interpretation, not an explicit recipient event and not a four-day timer result | RD 238/2026 Article 12 plus product safeguard |
+| BR11 | Transitional readable PDF applies | Correlate the PDF and structured representation to one business invoice while preserving independent outcomes and recovery | Confirmed cohort rule; channel/evidence design open |
 
 ## Requirements
 
@@ -391,6 +402,15 @@ The PowerPoint is treated as use-case discovery evidence, not an approved regula
 | FR29 | Operations must be able to compare intended Sage state with observed provider state. |
 | FR30 | Manual retry, reconciliation, rollback, disablement, and deregistration must be permission-controlled and audited. |
 
+### Compliance correlation and authority
+
+| ID | Requirement |
+|---|---|
+| FR31 | Connectivity status mapping must preserve whether a lifecycle fact is explicit, externally observed or derived; a timer must not create an explicit acceptance event. |
+| FR32 | Article 10 communication deadlines must be calculated from the effective time of the actual status being reported using the approved calendar/version. |
+| FR33 | When applicability requires a readable PDF alongside the electronic invoice, Phase 2 must correlate the representations and recover their external outcomes independently without creating duplicate commercial processing. |
+| FR34 | Submit, receive, consult, accept/reject, report payment, correct and view-evidence operations must each require an effective authority decision for the client, direction, route and operation as defined by PRD-SEI-231. |
+
 ### Research and scope-decision requirements
 
 These items require an explicit answer or related-PRD allocation before the Phase 2 delivery baseline is approved. They are not silently committed functionality.
@@ -401,8 +421,8 @@ These items require an explicit answer or related-PRD allocation before the Phas
 | DR2 | Multiple private platforms and per-invoice override | Confirm initial scope, precedence, permissions and audit |
 | DR3 | Public → Private retrieval responsibility | Identify who polls/retrieves and how missed invoices are detected |
 | DR4 | Format transformation and trusted-copy behaviour | Define canonical/original document storage and data-loss policy |
-| DR5 | Public polling and claimed auto-acceptance timing | Validate official behaviour and define alert/service targets |
-| DR6 | Dual PDF + e-invoice delivery | Define correlation, customer experience and duplicate prevention |
+| DR5 | Article 10/12 lifecycle transport, calendar and source evidence | Define status-event input, deadline calculation, public/private destinations and derived-view handling without inventing automatic acceptance |
+| DR6 | Transitional PDF + e-invoice delivery | Define channel, correlation, customer experience, evidence, expiry and duplicate prevention for the affected cohort |
 | DR7 | Rejection, correction, credit note and payment status | Define lifecycle linkage and platform ownership after route change |
 | DR8 | Accountant delegated visibility | Define authorisation, multi-certificate lifecycle and cross-product synchronisation |
 
@@ -503,7 +523,7 @@ The visual summarises the Phase 2 customer and operations journeys. It does not 
       <span class="p2j-chip">Multiple private platforms</span>
       <span class="p2j-chip">Per-invoice provider override</span>
       <span class="p2j-chip">Format transformation</span>
-      <span class="p2j-chip">Polling and auto-acceptance exposure</span>
+      <span class="p2j-chip">Polling and explicit/derived lifecycle exposure</span>
       <span class="p2j-chip">PDF + e-invoice dual delivery</span>
       <span class="p2j-chip">Corrections and credit notes</span>
       <span class="p2j-chip">Accountant delegated visibility</span>
@@ -596,12 +616,12 @@ The visual summarises the Phase 2 customer and operations journeys. It does not 
 
 | PowerPoint use case | Relevance to Phase 2 | Required treatment outside the visual |
 |---|---|---|
-| Public → Public default flow | Phase 1/public lifecycle dependency | Validate polling, status/payment reporting and claimed acceptance timing |
+| Public → Public default flow | Phase 1/public lifecycle dependency | Validate polling and status/payment reporting; keep explicit events separate from the Article 12 derived acceptance view |
 | Public → Private | Direct Phase 2 dependency | Define destination identification and which private platform retrieves from public |
 | Multiple platforms for one company | Direct domain-model implication | Support multiple connections; decide whether selection is default-, direction- or invoice-level |
 | Format transformation | Provider and document-model dependency | Preserve original/transformed documents and define canonical data responsibility |
 | Invoice retrieval | Resilience/public lifecycle dependency | Define batching, rate limits, alerts and missed-invoice reconciliation |
-| PDF + e-invoice dual delivery | Adjacent transition requirement | Correlate channels and prevent duplicate business processing |
+| PDF + e-invoice dual delivery | Adjacent transition requirement | Apply only when the effective cohort rule requires it; correlate channels and prevent duplicate business processing |
 | Corrections/adjustments | Historical continuity dependency | Link rejection, credit note and corrective invoice to original network context |
 | Accountant visibility | Identity/certificate dependency | Define delegated authority, certificate reuse/rotation and cross-product synchronisation |
 
@@ -681,6 +701,10 @@ Final technical names may change during solution design, but the distinct behavi
 8. An ambiguous provider timeout results in reconciliation rather than blind retry.
 9. Route deactivation does not automatically deregister the underlying connection.
 10. Every route change and manual recovery action appears in the audit history.
+11. Four days without a recorded acceptance/rejection event does not create an explicit acceptance event or recipient-action timestamp.
+12. A public-solution presumed acceptance is labelled as derived and can be revised when rejection or a later rectifying invoice is observed.
+13. When a transitional PDF is required, a failure of its delivery leg does not cause a successful structured-invoice leg to be repeated.
+14. An authenticated accountant without the required client- and operation-specific grant cannot submit, retrieve, report, correct or view protected evidence for that operation.
 
 ## User experience
 
@@ -749,8 +773,8 @@ The experience must distinguish `connection ready` from `route active`.
 | What are the authoritative cutover, rollback and deregistration sequences? | Determines safe orchestration | Local team + architecture | Production transitions |
 | How long must a previous connection remain available? | Determines continuity, cost and credential lifecycle | Compliance + product | Disablement/offboarding |
 | Which formats/original artefacts must Sage retain after provider transformation? | Prevents data loss and supports audit | Product + providers | Format capability |
-| Are polling, no-push and four-day auto-acceptance claims confirmed? | Drives capacity, alerts and customer response | Local team/regulatory owner | Public lifecycle dependency |
-| What dual PDF/e-invoice synchronisation is required? | Prevents duplicate customer processing | Product/local team | Adjacent transition scope |
+| What polling/push surfaces carry Article 10 and Article 12 lifecycle information, and what calendar/version implements the confirmed four-day communication deadline? | Drives capacity, alerts, deadline evidence and customer response without inventing automatic acceptance | Local team/regulatory owner | Public lifecycle dependency |
+| Which channel, acknowledgement and reconciliation evidence implement the confirmed transitional PDF accompaniment? | Prevents duplicate customer processing and proves the bounded obligation | Product/local team | Adjacent transition scope |
 | How is accountant authority/certificate reuse managed across products? | Determines access and credential security | Identity/security/product | Accountant journey |
 | Which provider should be the reference integration? | Sequences foundation validation | Product + engineering | Rollout |
 | Which ERP/customer cohort enters the first rollout? | Establishes measurable pilot | Product/ERP owners | Rollout |
@@ -765,6 +789,8 @@ The experience must distinguish `connection ready` from `route active`.
 | 2026-07-27 | Phase 2 discovery baseline may be published to the configured Confluence pages | Confirmed and executed at `phase2-prds-v0.2` |
 | 2026-07-29 | PowerPoint use cases are discovery evidence, not confirmed regulatory specification | Confirmed analysis treatment |
 | 2026-07-29 | Per-invoice provider selection remains an explicit Phase 2 scope decision | Open |
+| 2026-08-24 | Four days is a post-event communication deadline; the product must not generate an explicit acceptance event from timer expiry | Confirmed from RD 238/2026 Articles 10 and 12 |
+| 2026-08-24 | The transitional readable PDF is a separate correlated representation for the affected cohort | Confirmed cohort rule; channel/evidence design remains open |
 
 ## Revision history
 
@@ -773,3 +799,4 @@ The experience must distinguish `connection ready` from `route active`.
 | 2026-07-27 | `phase2-prds-v0.1` | Initial discovery draft | |
 | 2026-07-27 | `phase2-prds-v0.2` | Confluence publication baseline | |
 | 2026-07-29 | Draft | Added Phase 2 HTML journey visual, PowerPoint evidence coverage, business rules and structured scope decisions | |
+| 2026-08-24 | Working revision | Corrected the automatic-acceptance hypothesis; added Article 10/12, transitional PDF and operation-specific authority requirements and acceptance coverage | |

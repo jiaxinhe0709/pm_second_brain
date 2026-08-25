@@ -1,0 +1,373 @@
+
+
+===== PAGE 1 =====
+
+Public Platform - Onboarding
+Executive Summary & Context
+Spain E-Invoice Onboarding 
+Flow
+The Strategic Problem & 
+Value Pillars
+Unified Corporate 
+Trust (Garantía de 
+Cumplimiento)
+Frictionless Internal 
+Integration 
+(Simplicidad para 
+Desarrolladores)
+Accountant 
+Ecosystem Velocity 
+(Efecto Multiplicador)
+Commercial & Platform 
+Success Metrics
+Functional Requirements 
+(Core Journey)
+FR-1: Core Profile 
+Data Capture 
+(Platform-Agnostic)
+FR-2: Timelines & 
+Operational Direction 
+(Platform-Agnostic)
+FR-3: Phase 1 
+Platform Routing 
+Constraints & 
+Extensibility
+FR-4: Digital 
+Certificate Storage & 
+Management
+FR-5: Onboarding 
+State Finalization
+Non-Functional Requirements
+Architectural 
+Extensibility (The 
+Provider-Adapter 
+Pattern)
+Data Security & 
+Privacy
+Change Log
+Executive Summary & Context
+With the formal activation of regional e-invoicing mandates in Spain, traditional billing formats are being 
+legally phased out. Every business and self-employed professional (
+) must transition entirely to 
+autónomo
+machine-readable formats via the Spanish State Tax Administration Agency (AEAT) public network.
+To protect Sage's market footprint, this product serves as the centralized compliance onboarding 
+ (e.g., Sage 50, Sage 200, etc). Instead of forcing individual ERP product 
+engine for internal Sage ERPs
+teams to duplicate efforts and independently reverse-engineer complex government APIs, this developer-
+first API layer acts as a shared platform service. It abstracts away the operational friction of Spanish Tax 
+Identification Number (NIF) validation, 
+ compliance, and digital certificate management.
+Verifactu
+ Execution for Phase 1 is 
+ to the 
+CRITICAL SCOPE BOUNDARY:
+strictly limited
+Spain Public Platform connection. While the core data contracts must be designed 
+using an extensible adapter pattern to accommodate private networks (Sovos, 
+B2B Router) in Phase 2, the local Spain team is only building and testing the 
+Public Platform adapter at this time.
+Spain E-Invoice Onboarding Flow
+
+
+===== PAGE 2 =====
+
+ 
+ 
+ 
+CLIENT Sage ERP Starts onboarding
+ 
+ 
+ 
+201 STEP 1 Identity Ingestion
+ 
+Validate NIF and onboarding profile
+ 
+ 
+200 STEP 2 Timelines and 
+ 
+ 
+Direction Set activation date and invoice scope
+ 
+ 
+201 STEP 3 Certificate 
+ 
+ 
+Vault Validate and encrypt signing certificate
+ 
+STEP 4 Private Platform 
+ 
+ 
+Adapter Route through the selected provider
+ 
+STEP 5 Activation and 
+ 
+ 
+Handshake Confirm taxpayer and software with AEAT
+ 
+200 AEAT 
+ 
+ 
+CONFIRMED Registered
+ 
+ 
+ 
+504 RETRY PATH Gateway Timeout AEA
+ 
+T connection did not respond
+ 
+ 
+ 
+202 RETRY PATH Queued Retrying Backoff
+ 
+worker resubmits activation
+ 
+ 
+422 VALIDATION LOOP Invalid NIF 
+ 
+ 
+Response Correct NIF and resubmit profile
+ 
+ 
+SWITCH IN Private Platform
+ 
+Transfer onboarding configuration
+ 
+ 
+SWITCH OUT Private Platform Export 
+ 
+ 
+ 
+ 
+configuration for handover Fix and retry Timeout Queue Retry activation
+Happy path
+Validation loop
+Retry path
+Private platform switch
+MAIN FLOW
+Main Flow
+Overview
+Sage ERP submits the NIF and onboarding profile, records the 
+activation scope, secures the signing certificate, then configures the 
+selected private e-invoice platform before registration is confirmed.
+VALIDATION LOOP
+422 Path
+Why It Loops
+A rejected NIF or incomplete profile returns to identity ingestion before 
+certificate storage or AEAT activation begins, keeping correction close 
+to the source data.
+RETRY MODELING
+Retry Modeling
+Why The Loop Stays
+A transient AEAT or network timeout is placed in a queued backoff 
+flow, then re-enters activation without repeating completed validation 
+and certificate work.
+
+
+===== PAGE 3 =====
+
+The Strategic Problem & Value Pillars
+If a long-time Sage user finds the transition to Spanish e-invoicing confusing, buggy, or legally non-
+compliant, they will churn to local competitors. Every feature built by the engineering team must align 
+with these three internal platform value pillars:
+Unified Corporate Trust (
+)
+Garantía de Cumplimiento
+Businesses trust Sage to keep them safe from tax infractions. This onboarding API maintains 
+that legacy by guaranteeing that any internal Sage product utilizing it handles NIF verification 
+and 
+ digital certificate storage with absolute cryptographic security.
+Verifactu
+Frictionless Internal Integration (Simplicidad para 
+)
+Desarrolladores
+The internal Sage ERP engineering teams are our primary customers. "Smoothness" means 
+providing clear internal documentation, predictable sandbox routing (TEST vs. PRO), and 
+standard JSON error translation layers so that an internal Sage team can plug their ledger 
+software into the Spanish public platform in days rather than months.
+Accountant Ecosystem Velocity (
+)
+Efecto Multiplicador
+Accountants (
+) control the B2B relationship landscape in Spain. By designing high-
+asesorías
+capacity bulk-onboarding endpoints natively into our architecture, we turn accountants into a 
+powerful customer retention tool. If a partner firm can seamlessly onboard 500 downstream 
+clients to the public platform at once, Sage protects massive blocks of subscription revenue 
+simultaneously.
+Commercial & Platform Success Metrics
+Metric
+Target 
+Baseline
+Strategic Justification
+Sage Product 
+Adoption Rate
+100% of 
+Target 
+ERPs
+Every designated Sage ERP operating in Spain must successfully 
+adopt this unified onboarding API for Phase 1.
+Internal Time-
+ 
+to-Market (TTM)
+Reduced 
+by 3–6 
+Months
+ERP teams should launch their Spain compliance updates months 
+faster by consuming this pre-built engine rather than building it from 
+scratch.
+End-User 
+Onboarding 
+Completion
+> 95% 
+Success 
+Rate
+Out of the box, customers launching the onboarding wizard within 
+any Sage ERP must complete registration successfully without 
+support intervention.
+Customer 
+Support Ticket 
+Deflection
+< 2% 
+ 
+Escalation
+Clear client-facing error messages must allow users to resolve NIF 
+or certificate issues themselves, preventing support backlogs.
+Functional Requirements (Core Journey)
+The requirements below map directly to the sequential steps visualized in the onboarding user journey 
+layout (
+).
+image-2026-7-1_14-59-34.png
+FR-1: Core Profile Data Capture (Platform-Agnostic)
+ The onboarding schema must accept a clear profile indicator distinguishing 
+Entity Delineation:
+between a 
+ and a 
+ entity type.
+Sole Trader
+Business
+ The system must collect and structurally validate the Spanish 
+ 
+Tax Identification Number:
+NIF
+format before allowing registration to progress.
+ The API payload must tag whether the onboarding is executed by a direct 
+Persona Context:
+Bu
+ owner or an 
+ operating on behalf of a client company.
+siness
+Accountant
+FR-2: Timelines & Operational Direction (Platform-Agnostic)
+ The API must record the user-specified date to start automated e-
+Effective Date Tracking:
+invoicing processes.
+ The profile must capture whether the user is onboarding for invoice 
+,
+Directional Flags:
+sending
+invoice 
+, or seamlessly handling 
+.
+receiving
+both
+
+
+===== PAGE 4 =====
+
+FR-3: Phase 1 Platform Routing Constraints & Extensibility
+ The API database tables must support an array structure for 
+Platform Ingestion Matrix:
+platform routing targets to ensure future extensibility.
+ For Phase 1 execution, the API routing layer must enforce 
+Phase 1 Hardcoding:
+platform_ta
+. Any requests attempting to pass private platforms must 
+rget = SPAIN_PUBLIC_PLATFORM
+return a graceful error code 
+.
+ERR_PLATFORM_NOT_YET_SUPPORTED
+ The database schema must include an 
+Invoice-Level Override Flag:
+allow_invoice_level
+ boolean flag, defaulting to 
+ for Phase 1, to preserve future dynamic routing 
+_override
+false
+logic at the invoice layer.
+FR-4: Digital Certificate Storage & Management
+ Provide endpoints to securely upload and store Spanish digital certificates 
+Secure Storage:
+used for validating transactions via the Public Platform.
+ The API must provide explicit actions to 
+, 
+ (expiration 
+Lifecycle CRUD:
+Store View Metadata
+dates), 
+, and 
+ digital certificates.
+Update/Rotate
+Delete
+FR-5: Onboarding State Finalization
+ An aggregation endpoint must return a structured view of all submitted 
+Pre-flight Summary:
+profile details, selected dates, and certificate validity states for client review.
+ Upon receiving a client confirmation payload, the onboarding state machine 
+State Transition:
+must transition the account status to 
+ and run the live 
+REGISTERED_FOR_PUBLIC_PLATFORM
+AEAT registration routines.
+Non-Functional Requirements
+Architectural Extensibility (The Provider-Adapter Pattern)
+ The local team must design the onboarding core using an adapter 
+Decoupled Business Logic:
+pattern. Core validation engine logic (NIF formatting, certificate validation) must remain strictly 
+separate from the network communication block used to talk to the Spain Public Platform. This 
+ensures that adding private network adapters in Phase 2 won't break the base onboarding 
+endpoints.
+Data Security & Privacy
+ Digital certificates must be stored in an isolated, high-security data 
+Cryptographic Vaulting:
+store with encryption at rest. Credentials or cryptographic pins must never be exposed via 
+transactional API responses or standard logging systems.
+Change Log
+Version
+Published
+Changed By
+Comment
+ (v. 36)
+CURRENT
+29/07/2026 14:22
+ 
+ Jiaxinhe He
+v. 35
+22/07/2026 12:20
+ 
+ Jiaxinhe He
+v. 34
+22/07/2026 12:16
+ 
+ Jiaxinhe He
+v. 33
+22/07/2026 09:17
+ 
+ Jiaxinhe He
+
+
+===== PAGE 5 =====
+
+v. 32
+21/07/2026 08:24
+ 
+ Jiaxinhe He
+v. 31
+15/07/2026 10:52
+ 
+ Jiaxinhe He
+v. 30
+15/07/2026 10:52
+ 
+ Jiaxinhe He
+Go to Page History
