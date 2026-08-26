@@ -62,24 +62,55 @@ For France, use the actual reform lifecycle codes and French terms before derivi
 </div>
 <!-- confluence-html-macro:end -->
 
-## Shared contract and country ownership
+## Layered ownership — Sage Network and country packs
 
-| Shared platform | Country pack |
-|---|---|
-| Raw-event envelope, append-only evidence, deduplication and ordering metadata | Source/status/reason catalog and official semantics |
-| Common dimensions and customer-safe outcome contract | Which dimensions/statuses apply, mapping effects and precedence |
-| Derived views, reconciliation and observability | Effective dates, owner approval, test fixtures and retirement |
-| Mapping engine/version contract | Country/provider/network-specific mapping artefact |
+Sage Network provides the reusable lifecycle capability. A country pack does not replace that capability; it supplies the official meaning and constraints that Sage Network must apply. A route/provider binding then translates between the governed country contract and the selected external interface.
+
+| Responsibility | Sage Network core | Country compliance pack | Route/provider binding | Sage product |
+|---|---|---|---|---|
+| Intake | Durable event/command envelope, invoice and correlation identity | Determines whether the event/capability exists for the country | Converts provider webhook, poll, API or file into the envelope | Creates a permitted command or displays an observed event |
+| Vocabulary | Namespaced Sage technical/orchestration events and shared lifecycle dimensions | Exact official terms, codes, phase, actors, reasons and actions | Exact provider/protocol values and endpoint version | Customer wording without replacing source evidence |
+| Validation | Schema, deduplication, ordering, authority hooks and immutable persistence | Producer role, permitted event, transition, data, deadline and precedence rules | Provider authentication, payload and transport constraints | Product permission and field-level correction experience |
+| Execution | Idempotent orchestration, delivery-leg tracking, retry/reconciliation | Required destinations and country-specific reporting obligations | Makes and observes the external operation | Supplies authorised business facts |
+| State/view | Technical, document, delivery, commercial, payment and reporting dimensions | Mapping effects and rules for explicit versus derived status | Provider acknowledgement/error observations | Workflow/UI state and next action |
+| Governance | Contract compatibility, audit, observability and runtime pack selection | Effective dates, source/version, owner approval, fixtures and retirement | Provider contract/version, environment and readiness evidence | Product adoption/version support |
+
+### Execution direction
+
+| Direction | Sequence | Important control |
+|---|---|---|
+| Outbound command | Sage product → Sage Network intake → effective country-pack validation/mapping → route/provider binding → external participant/authority | The country pack is evaluated **before** emission; Network must not send a generic status that the country/actor does not permit |
+| Inbound observation | External participant/authority → route/provider binding → immutable Sage Network raw event → effective country-pack interpretation → derived view/product | The raw source event is persisted **before** mapping; an unknown mapping never causes the evidence to be discarded |
+| Product-only workflow | Sage product/Network workflow event → Sage-qualified state/history | `New`, `File Uploaded` or an internal review state never enters a country namespace unless an evidenced country event separately occurs |
+| Reconciliation/replay | Stored raw evidence + original pack/binding versions → compare intended and observed legs → append resolution | Replay must not silently use today's rules to rewrite a historical decision |
+
+This means the country pack is a **governing plug-in to Sage Network**, not a country-specific fork and not merely a lookup table used after delivery.
 
 ## How to specify an actual country lifecycle
 
-A useful country lifecycle guide needs the same navigable detail as the supplied Sage Network example, but it must keep the following three layers separate.
+A useful country lifecycle guide needs the same navigable detail as the supplied Sage Network example, but it must keep the following four namespaces separate.
 
-| Layer | Examples | Owner | Rule |
+| Namespace | Examples | Owner | Rule |
 |---|---|---|---|
 | Country/source lifecycle | France `200 — Déposée`; Spain `Aceptación comercial de la factura` | Country authority, standard or approved provider contract | Preserve exact term, code, actor, event time, obligation and version |
-| Sage canonical interpretation | Technical accepted, delivery available, commercial refused, payment received | Shared lifecycle service | May map one source event into several independent dimensions; never replace the source fact |
-| Product/workflow state | `New`, `File Uploaded`, review queue, internal UUID/status ID | Sage product or network | Must use a Sage-qualified namespace and must not be presented as a regulatory status |
+| Provider/protocol observation | HTTP/API result, webhook event, CDAR field or provider error | Route/provider binding | Preserve provider value and version; map only through an approved binding |
+| Sage Network event/view | Technical accepted, delivery available, commercial refused, payment received, outcome unknown | Sage Network lifecycle service | May map one source event into several independent dimensions; never replace the source fact |
+| Product/workflow state | `New`, `File Uploaded`, review queue, internal UUID/status ID | Sage product | Must use a Sage-qualified product namespace and must not be presented as a regulatory status |
+
+### Country-pack lifecycle contract
+
+Each effective country-pack version must provide or explicitly mark unknown:
+
+| Contract area | Required content |
+|---|---|
+| Applicability | Jurisdiction, transaction/document type, direction, cohort and effective dates |
+| External catalogue | Exact event/status codes and terms, phase, actor, reason/action catalogues and source version |
+| Behaviour | Preconditions, permitted paths, repeatability, terminal/correction semantics, precedence and conflict handling |
+| Obligations | Mandatory/optional classification, destination, deadline/calendar and acknowledgement evidence |
+| Canonical mapping | Effects on each shared dimension plus customer-safe wording and action |
+| Binding eligibility | Approved network/channel/provider profiles and versions able to carry the event |
+| Verification | Positive, negative, out-of-order, duplicate, correction and historical-version fixtures |
+| Governance | Owner, reviewer, confidence, activation/retirement dates and rollback compatibility |
 
 The supplied guide therefore contributes a good **presentation pattern**, not a complete country contract:
 
@@ -227,6 +258,11 @@ Source: [Spain Royal Decree 238/2026, Articles 10–12](https://www.boe.es/eli/e
 | LS-FR10 | Outbound status commands must validate producer role, phase, invoice identity, authority, required reason/action data and permitted transition before emission. |
 | LS-FR11 | Repeatable payment/collection events must retain individual amount, currency, occurrence date and correction/supersession evidence; a `212 Encaissée` event must not automatically mark the full invoice settled. |
 | LS-FR12 | Spain technical status codes must remain unknown/open until an applicable implementing-order or approved provider catalogue is registered; French or internal codes must not be reused as placeholders. |
+| LS-FR13 | Sage Network must select and record the effective country-pack and route/provider-binding versions for every outbound command before external emission. |
+| LS-FR14 | Sage Network must persist an inbound provider/country event with its raw namespace and binding version before country-pack mapping or derived-view changes. |
+| LS-FR15 | Country packs must declare applicable events, actors, transitions, obligations and fixtures without implementing separate country event stores, retry engines or product lifecycle APIs. |
+| LS-FR16 | Provider bindings must not change country meaning; an unmapped provider value must remain raw/unknown and enter mapping review or reconciliation. |
+| LS-FR17 | Sage Network technical success must not imply country document, delivery, commercial, payment or reporting success unless the effective pack maps evidenced source events to those dimensions. |
 | LS-AC1 | Given delivery succeeds and authority reporting fails, then product and operations views show both outcomes and recover only the reporting leg. |
 | LS-AC2 | Given an unmapped country status, then the raw event is visible, current status is not falsely advanced and a mapping/reconciliation action is created. |
 | LS-AC3 | Given a late rejection after a prior acknowledgement, then both events remain and the derived view follows the approved country precedence with an explanation. |
@@ -236,6 +272,9 @@ Source: [Spain Royal Decree 238/2026, Articles 10–12](https://www.boe.es/eli/e
 | LS-AC7 | Given a product state named `New` or `File Uploaded`, then its API/audit representation uses the Sage namespace and is never emitted or displayed as France code `200`. |
 | LS-AC8 | Given a partial French collection followed by another collection, then both code `212` events remain and the payment view is derived from their amounts rather than treating the first as terminal. |
 | LS-AC9 | Given a Spain event has no technical source code in the governing contract, then the statutory Spanish term is preserved and the source code remains absent/unknown rather than receiving a fabricated number. |
+| LS-AC10 | Given a Sage Network command requests a French buyer-only status from a seller actor, then the active France pack rejects the command before the provider binding is called. |
+| LS-AC11 | Given a provider sends an unknown lifecycle code, then Sage Network retains the raw event and binding version, leaves the country-derived view unchanged and creates a mapping/reconciliation action. |
+| LS-AC12 | Given a country pack is upgraded after an invoice event, then audit and replay retain the original pack/binding versions unless a governed re-derivation appends a new interpretation. |
 
 ## Research matrix
 
@@ -260,3 +299,4 @@ Open gates: approve the shared dimensions; name country owners; obtain authorita
 | 2026-08-12 | Added distinct view connectors, moved reconciliation routing into an open gutter and made the diagram responsive | Confluence visual review |
 | 2026-08-25 | Added explicit France and Spain lifecycle catalogues, counting rules and source-to-shared mapping boundaries; recorded unknown totals for Germany, Ireland and UK | User request; DGFiP June 2026 guidance and Spain RD 238/2026 Articles 10/12 |
 | 2026-08-26 | Expanded the lifecycle into implementation-oriented source catalogues: corrected France to 15 terms/16 contexts, added reform codes, phases, actors, guarded paths and namespace rules; added Spain's exact statutory terms, event data and precedence without inventing technical codes | User-supplied Sage guide as presentation input; current XP Z12-012/DGFiP/AIFE evidence; Spain RD 238/2026 Articles 10–12 |
+| 2026-08-26 | Made Sage Network, country-pack, route/provider-binding and product responsibilities explicit for outbound, inbound and historical reconciliation flows | User product-direction clarification; PRD-SEI-227 shared-platform boundary |
