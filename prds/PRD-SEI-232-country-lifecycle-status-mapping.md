@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-12
-updated: 2026-08-25
+updated: 2026-08-26
 reviewers: []
 related:
   - PRD-SEI-227
@@ -27,7 +27,9 @@ confluence:
 
 ## Decision summary
 
-Keep the external country/provider status and reason exactly as observed. Map it through an effective-dated country-pack catalog into one or more shared compliance dimensions. Product views are derived from evidence; they are not the legal record and do not force every country into one linear state machine.
+Keep the external country/provider status, code, phase, actor, reason and requested action exactly as observed. Map them through an effective-dated country-pack catalog into one or more shared compliance dimensions. Product views are derived from evidence; they are not the legal record and do not force every country into one linear state machine.
+
+For France, use the actual reform lifecycle codes and French terms before deriving a Sage view. For Spain, preserve the exact statutory event terms and reporting obligations while the implementing order has not yet supplied a technical code catalogue. Sage workflow states and UUIDs remain a separate namespace in both cases.
 
 ## Preserve first, map second, derive last
 
@@ -69,62 +71,145 @@ Keep the external country/provider status and reason exactly as observed. Map it
 | Derived views, reconciliation and observability | Effective dates, owner approval, test fixtures and retirement |
 | Mapping engine/version contract | Country/provider/network-specific mapping artefact |
 
+## How to specify an actual country lifecycle
+
+A useful country lifecycle guide needs the same navigable detail as the supplied Sage Network example, but it must keep the following three layers separate.
+
+| Layer | Examples | Owner | Rule |
+|---|---|---|---|
+| Country/source lifecycle | France `200 — Déposée`; Spain `Aceptación comercial de la factura` | Country authority, standard or approved provider contract | Preserve exact term, code, actor, event time, obligation and version |
+| Sage canonical interpretation | Technical accepted, delivery available, commercial refused, payment received | Shared lifecycle service | May map one source event into several independent dimensions; never replace the source fact |
+| Product/workflow state | `New`, `File Uploaded`, review queue, internal UUID/status ID | Sage product or network | Must use a Sage-qualified namespace and must not be presented as a regulatory status |
+
+The supplied guide therefore contributes a good **presentation pattern**, not a complete country contract:
+
+| Supplied element | Treatment here |
+|---|---|
+| `New` and `File Uploaded` | Retained only as possible Sage workflow events; they are not French lifecycle statuses |
+| Codes `200`–`213` | Treated as French reform status codes only when matched to the applicable XP Z12-012 catalogue; do not assign `200` to internal workflow states |
+| Internal UUID identifier | Keep as an internal mapping ID, outside the country pack's external-code namespace |
+| Mandatory/optional and actor | Preserved and expanded with phase, event meaning and reporting boundary |
+| Blocked-transition matrix | Not copied as authoritative: its terminal-state rows contradict its own definition and it omits correction, repeated payment and source-leg rules |
+| Downloaded matrix | May become a governed fixture only after source, version, owner and checksum are registered |
+
+### Minimum catalogue fields
+
+| Field | Purpose |
+|---|---|
+| `country`, `source`, `sourceVersion` | Identifies the authority or provider contract actually interpreted |
+| `externalPhase`, `externalCode`, `externalTerm`, `externalReasonCode` | Preserves the country vocabulary |
+| `producerRole`, `recipientRole`, `direction`, `exchangeLeg` | Distinguishes the actor and point in the lifecycle |
+| `obligationClass`, `reportingDestination`, `deadlineRule` | Separates occurrence from mandatory reporting |
+| `occurredAt`, `observedAt`, `externalMessageId`, `invoiceIdentity` | Supports ordering, deduplication and reconciliation |
+| `requestedActionCode`, `amount`, `currency`, `effectiveDate` | Carries status-specific business detail |
+| `mappingVersion`, `dimensionEffects`, `confidence` | Explains the derived Sage view |
+| `internalStatusId` | Optional Sage identifier; never reused as the external code |
+
 ## Country lifecycle catalogues — actual events and counts
 
 The six boxes in the shared model are **dimensions**, not a claim that every country has six lifecycle statuses. Country totals must state whether they count official labels, legal event categories, outcome variants, technical acknowledgements or derived product states.
 
 | Country | Confirmed catalogue count at this review | Counting basis | Important boundary |
 |---|---:|---|---|
-| France | **14 named invoice-status labels** | 4 mandatory + 10 optional labels shown in current DGFiP guidance | The applicable message/profile implementation must follow the effective XP Z12-012 version |
+| France | **15 distinct standards-level labels / 16 source contexts** | 5 transmission labels plus 10 treatment labels; `Rejetée` has issuing- and receiving-platform contexts. The DGFiP customer guide displays 14 labels because it omits optional `Annulée` | Four statuses are mandatory to the public reporting path when applicable; the implementation catalogue must follow the effective XP Z12-012 version |
 | Spain | **5 statutory categories / 7 explicit outcome variants** | Article 10: 2 required categories producing 3 variants, plus 3 optional categories producing 4 variants | Public-solution reporting under Article 12 is a subset; technical platform statuses await the implementing order |
 | Germany | No national total confirmed | Reviewed evidence does not establish one central B2B lifecycle catalogue | Channel/profile acknowledgements must be catalogued separately |
 | Ireland | No final domestic B2B total confirmed | Future technical and reporting artefacts remain incomplete | Do not reuse France or Spain counts |
 | UK | No final mandate total confirmed | Final lifecycle/profile and reporting artefacts remain open | Peppol direction alone does not establish the UK status catalogue |
 
-### France — 14 named status labels
+### France — actual reform catalogue
 
-Current DGFiP customer guidance, updated June 2026, identifies four mandatory statuses and shows ten additional optional statuses. The catalogue must preserve the French label and applicable XP Z12-012 code/profile version before mapping it to shared dimensions.
+The current XP Z12-012 structure distinguishes **transmission** (`MDT-77 = 305`) from **treatment** (`MDT-77 = 23`). The reform status is carried in `MDT-105`/`MDT-115`; a UNTDID 1373 status is carried separately in `MDT-88`; reasons and requested actions use `MDT-113` and `MDT-121`. These fields must not be replaced by an English label or internal UUID.
 
-| Classification | French source status | Primary producer/meaning | Shared dimension effect |
+#### Status list
+
+| Reform code | Exact French term/context | Public-reporting class | Phase | Set by | External meaning | Shared interpretation |
+|---:|---|---|---|---|---|---|
+| `200` | `Déposée` | Mandatory | Transmission | Issuing PA | Issuing platform has accepted/deposited the invoice after its applicable controls | Technical submission accepted; recipient delivery remains unproven |
+| `201` | `Émise par la plateforme` | Optional | Transmission | Issuing PA | Issuing platform has emitted the invoice towards the receiving route | Delivery dispatched |
+| `202` | `Reçue par la plateforme` | Optional | Transmission | Receiving PA | Receiving platform has received the invoice | Delivery received at platform boundary |
+| `203` | `Mise à disposition` | Optional | Transmission | Receiving PA | Invoice is available to the buyer | Recipient availability; not commercial acceptance |
+| `204` | `Prise en charge` | Optional | Treatment | Buyer or authorised actor | Buyer has started processing the invoice | Commercial processing |
+| `205` | `Approuvée` | Optional | Treatment | Buyer or authorised actor | Buyer approves the invoice in full | Explicit commercial acceptance |
+| `206` | `Approuvée partiellement` | Optional | Treatment | Buyer or authorised actor | Buyer approves only the identified part/amount | Partial commercial acceptance; details required |
+| `207` | `En litige` | Optional | Treatment | Buyer or authorised actor | Commercial dispute requires resolution | Disputed/action required; not technical rejection |
+| `208` | `Suspendue` | Optional | Treatment | Buyer or authorised actor | Processing is paused pending information or supporting material | Action required; lifecycle remains open |
+| `209` | `Complétée` | Optional | Treatment | Seller or authorised actor | Seller provides the requested complement to a suspended invoice | Additional evidence supplied; buyer must resume its decision |
+| `210` | `Refusée` | Mandatory | Treatment | Buyer or authorised actor | Buyer refuses the invoice for an approved business reason | Commercial refusal; distinct from code `213` |
+| `211` | `Paiement transmis` | Optional | Treatment | Buyer/payer or authorised actor | Payment or reimbursement instruction has been sent | Payment initiated; funds receipt is unproven |
+| `212` | `Encaissée` | Mandatory when applicable | Treatment | Seller/payee or authorised actor | Seller records an effective partial or full collection | Payment received amount; may recur and need amount/date detail |
+| `213` | `Rejetée à l’émission` | Mandatory | Transmission | Issuing PA | Issuing-platform controls prevent the invoice continuing | Technical/document rejection on issuing leg |
+| `213` | `Rejetée en réception` | Mandatory | Transmission | Receiving PA | Receiving-platform controls prevent the invoice continuing | Technical/document rejection on receiving leg |
+| `220` | `Annulée` | Optional | Treatment | Buyer or seller under the applicable correction scenario | Original invoice lifecycle is closed after the replacing/correcting invoice is taken into account | Superseded/cancelled original; preserve link to replacement |
+
+This is **15 distinct terms but 16 observable source contexts**. `Rejetée` cannot be de-duplicated without its issuing/receiving leg. The 14-label DGFiP customer illustration omits `Annulée`; it remains present in the standards/official FAQ lifecycle and must not be lost from the implementation catalogue.
+
+`Encaissée` is not automatically terminal: a partial collection, later collection or approved correction can create further events. “Mandatory” means the relevant status must be reported through the required public path when its regulatory condition occurs; it does not mean every invoice will experience all four mandatory-status types.
+
+#### France transition paths
+
+The country pack should encode guarded **events and paths**, not a single “current status can never move backwards” list.
+
+| Path | Evidenced sequence | Guard/meaning | End behaviour |
 |---|---|---|---|
-| Mandatory | `Déposée` | Invoice accepted into the sender platform and timestamped | Technical/document submission evidence; not recipient delivery |
-| Mandatory | `Rejetée` | Platform rejects for a technical, consistency or conformity reason | Technical/document rejection |
-| Mandatory | `Refusée` | Recipient refuses for a business/commercial reason | Commercial rejection; distinct from technical rejection |
-| Mandatory when applicable | `Encaissée` | Supplier records receipt of payment | Payment received/reporting evidence |
-| Optional | `Émise par la plateforme` | Sender platform emitted the invoice | Delivery processing |
-| Optional | `Reçue par la plateforme` | Recipient platform received the invoice | Delivery evidence at platform boundary |
-| Optional | `Mise à disposition` | Invoice made available to the recipient | Delivery/availability; not proof of commercial acceptance |
-| Optional | `Prise en charge` | Recipient started handling the invoice | Commercial processing |
-| Optional | `Complétée` | Supplier supplied requested supporting information | Document/commercial correction context |
-| Optional | `Suspendue` | Processing paused, for example pending supporting material | Commercial/action-required |
-| Optional | `En litige` | A dispute exists | Commercial dispute |
-| Optional | `Approuvée` | Recipient approved the invoice | Commercial acceptance |
-| Optional | `Approuvée partiellement` | Recipient approved only part | Commercial partial acceptance |
-| Optional | `Paiement transmis` | Payment instruction/remittance was sent | Payment in progress; not proof of receipt by supplier |
+| Nominal transmission | `200 Déposée` → `201 Émise` → `202 Reçue` → `203 Mise à disposition` | Optional visibility events may be absent; a later event must not fabricate a missing earlier event | Opens buyer treatment |
+| Issuing technical rejection | Intake/control → `213 Rejetée à l’émission` | Preserve technical reason, action and issuing leg | Terminal for that invoice instance; correction creates a new valid invoice flow |
+| Receiving technical rejection | `200/201` → `213 Rejetée en réception` | Preserve receiving leg and rejection reason | Terminal for that invoice instance; do not convert to commercial refusal |
+| Nominal treatment/payment | `203` → optional `204` → `205` → optional/repeatable `211` → one or more `212` | Approval, payment instruction and collection are different facts | Payment view derives from amounts; history remains open to reconciliation/correction |
+| Suspension/completion | Processing → `208 Suspendue` → `209 Complétée` → buyer processing/decision | Completion answers the missing-information request; it is not final invoice completion | Returns control to buyer |
+| Dispute resolution | Processing → `207 En litige` → `205`, `206`, `210`, or correction route | Resolution outcome must be explicit | Do not infer acceptance from dispute closure |
+| Commercial refusal | Processing → `210 Refusée` | Approved refusal reason required; business decision, not schema failure | Terminal for that invoice instance; accounting/corrective treatment remains separate |
+| Replacement/correction | Original F1 under correction → replacement F2 taken into account → `220 Annulée` on F1 | Preserve F1/F2 relationship and actor | Terminal for F1 only; F2 has its own lifecycle |
+| Payment correction | Prior `211` → new `211` with correcting/negative amount where permitted | A status event is appended; the original is not deleted | Derived payment is recalculated with both events |
 
-The total is **14 labels**, not “14 steps that every invoice must pass through.” Branching, optionality and applicability mean several labels may never occur for a particular invoice.
+#### Transition validation classes
 
-Sources: [DGFiP — receiving and following an electronic invoice, June 2026](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/fiche-6_comment-mon-entreprise-va-recevoir-les-factures.pdf) and [DGFiP — applicable external specifications and XP Z12 standards](https://www.impots.gouv.fr/specifications-externes-b2b), accessed 2026-08-25.
+| Result | Connector behaviour | Examples |
+|---|---|---|
+| `ACCEPT` | Persist the source event and derive mapped dimensions | `208 Suspendue` followed by seller `209 Complétée` |
+| `INCONSISTENT` | Persist, do not silently advance, and create reconciliation | Late `203 Mise à disposition` observed after a buyer decision; duplicate event with different payload |
+| `REJECT` | Reject the attempted command before emission while retaining safe audit evidence | Buyer tries to emit platform-only `200 Déposée`; seller tries to emit buyer-only `210 Refusée` |
+| `NEW_DOCUMENT_REQUIRED` | Close/reject the current invoice instance according to the applicable rule and require a new/replacing document | Attempt to re-submit the same rejected invoice as though code `213` had not occurred |
 
-### Spain — five legal categories and seven explicit outcome variants
+A complete all-pairs matrix remains a governed delivery fixture to import from the applicable XP Z12-012 Annex A/version. It must include role, phase, reason/action requirements, repeatability and correction behaviour; a hand-authored blocked list is insufficient.
 
-Royal Decree 238/2026 Article 10 defines event categories rather than one end-to-end technical state machine. Splitting “acceptance or rejection” into observable outcomes produces seven explicit variants.
+Sources: [DGFiP — receiving and following an electronic invoice, June 2026](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/fiche-6_comment-mon-entreprise-va-recevoir-les-factures.pdf), [DGFiP — applicable external specifications and XP Z12 standards](https://www.impots.gouv.fr/specifications-externes-b2b), [AFNOR — XP Z12-012, June 2026](https://www.boutique.afnor.org/fr-fr/norme/xp-z12012/formats-et-profils-des-messages-factures-et-statuts-de-cycle-de-vie-constit/fa301169/601641) and [AIFE/Chorus Pro — PA lifecycle FAQ](https://portail.chorus-pro.gouv.fr/aife_documentation?id=kb_article_view&sysparm_article=KB0012866), accessed 2026-08-26.
 
-| Obligation | Article 10 category | Explicit outcome variant | Data/timing | Shared dimension effect |
-|---|---|---|---|---|
-| Required | Full commercial decision | `FULL_ACCEPTED` | Decision date; communicate within the applicable four-day rule | Commercial acceptance |
-| Required | Full commercial decision | `FULL_REJECTED` | Decision date and reason/evidence contract to be confirmed | Commercial rejection |
-| Required | Effective full payment | `FULL_PAID` | Effective payment date; communicate within the applicable four-day rule | Payment complete |
-| Optional | Partial commercial decision | `PARTIALLY_ACCEPTED` | Decision date and affected scope/amount contract to be confirmed | Commercial partial acceptance |
-| Optional | Partial commercial decision | `PARTIALLY_REJECTED` | Decision date and affected scope/amount contract to be confirmed | Commercial partial rejection |
-| Optional | Partial payment | `PARTIALLY_PAID` | Amount paid and payment date | Payment partial |
-| Optional | Assignment to a third party for collection or payment | `ASSIGNED` | Assignee identity, assignment date and collection/payment purpose | Commercial/payment responsibility context; not payment itself |
+### Spain — actual statutory events and reporting legs
 
-Article 12 then requires communication to the public solution of **full payment or rejection**. These are not two additional business events when the same fact has already occurred; they are separate reporting obligations/delivery legs for those events. In the absence of rejection or a later correcting invoice, acceptance may be presumed, but `PRESUMED_ACCEPTED` is a **derived view**, not an eighth explicit recipient event.
+Royal Decree 238/2026 Article 10 defines event categories rather than a numeric end-to-end state machine. The Spanish term and statutory data are therefore the external truth today; the English uppercase name below is only a proposed Sage canonical event. Numeric source codes remain `TBD_BY_IMPLEMENTING_ORDER`, not `200`–`213` copied from France.
 
-Technical states such as schema validation, platform receipt, interconnection delivery, public-copy deposit and authority acknowledgement must be added as separate source catalogues when the ministerial order and service specifications define them. They must not be inserted into the seven Article 10 variants merely to reach a target count.
+#### Status/event list
 
-Source: [Spain Royal Decree 238/2026, Articles 10 and 12](https://www.boe.es/eli/es/rd/2026/03/25/238), accessed 2026-08-25.
+| Exact Spanish statutory term | Proposed Sage event | Obligation | Set by | Required event data | Deadline/destination | Shared interpretation |
+|---|---|---|---|---|---|---|
+| `Aceptación comercial de la factura` | `FULL_ACCEPTED` | Required Article 10 outcome | Recipient or authorised actor | Decision and occurrence date | Communicate to issuer within the Article 10 four-day rule | Explicit commercial acceptance |
+| `Rechazo comercial de la factura` | `FULL_REJECTED` | Required Article 10 outcome | Recipient or authorised actor | Decision and occurrence date; technical reason contract pending | Communicate to issuer within four-day rule; also report rejection to public solution under Article 12 | Explicit commercial rejection plus independent reporting obligation |
+| `Pago efectivo completo de la factura` | `FULL_PAID` | Required | Recipient or authorised actor | Effective payment date | Communicate to issuer within four-day rule and public solution within Article 12 rule | Payment complete plus independent public-reporting obligation |
+| `Aceptación comercial parcial de la factura` | `PARTIALLY_ACCEPTED` | Optional | Recipient or authorised actor | Decision date and affected part/amount when the technical contract defines it | Communicate to issuer within four-day rule | Partial commercial acceptance |
+| `Rechazo comercial parcial de la factura` | `PARTIALLY_REJECTED` | Optional | Recipient or authorised actor | Decision date and affected part/amount when defined | Communicate to issuer within four-day rule | Partial commercial rejection |
+| `Pago parcial de la factura` | `PARTIALLY_PAID` | Optional | Recipient or authorised actor | Amount paid and payment date | Communicate to issuer within four-day rule | Partial payment; repeatable until/corrected by full payment evidence |
+| `Cesión de la factura a un tercero para su cobro o pago` | `ASSIGNED` | Optional | Recipient or authorised actor | Assignee identity and assignment date | Communicate to issuer within four-day rule | Collection/payment responsibility changed; no payment inferred |
+
+The four-day rule is a maximum of four calendar days while excluding Saturdays, Sundays and national holidays, measured from the date the reported event occurs. Its calendar implementation and time-zone/cut-off interpretation require an approved Spain rule fixture.
+
+#### Spain event eligibility and precedence
+
+| Existing evidence | New event | Treatment |
+|---|---|---|
+| No commercial decision | Full or partial acceptance/rejection | Accept when actor/authority and required data are valid |
+| Partial acceptance/rejection | Later full decision | Append; derive the latest approved commercial view without deleting the partial event |
+| Explicit full acceptance | Conflicting full rejection, or vice versa | Retain both and reconcile/supersede through an approved correction rule; do not overwrite |
+| One or more partial payments | Full payment | Append and derive paid total from source amounts; do not erase instalments |
+| Assignment | Partial/full payment | Accept independently; assignment never proves settlement |
+| Full rejection | Public-solution rejection report | Create a reporting obligation/outcome referencing the same business event, not another commercial event |
+| Full payment | Public-solution payment report | Create a reporting obligation/outcome referencing the same payment event |
+| No rejection and no later correcting invoice | Presumed acceptance | Derive `PRESUMED_ACCEPTED`; never store it as an explicit recipient event |
+| Technical platform acknowledgement/rejection | Any Article 10 event | Preserve in a separate technical/delivery catalogue; do not map it into commercial status solely by order |
+
+None of the seven Article 10 variants is declared by the decree to be a universal terminal state. Rectifying invoices, discrepancies, public-reporting outcomes and later evidence remain separate events. Technical states such as schema validation, platform receipt, interconnection delivery, faithful-copy deposit and authority acknowledgement must be added when the ministerial order/service specifications define them.
+
+Source: [Spain Royal Decree 238/2026, Articles 10–12](https://www.boe.es/eli/es/rd/2026/03/25/238), accessed 2026-08-26.
 
 ## Requirements and acceptance
 
@@ -137,17 +222,26 @@ Source: [Spain Royal Decree 238/2026, Articles 10 and 12](https://www.boe.es/eli
 | LS-FR5 | Keep document, delivery, commercial, payment and reporting status separately queryable and expose technical processing separately. |
 | LS-FR6 | A new mapping version applies prospectively unless a governed re-derivation explicitly records old/new versions and reason. |
 | LS-FR7 | Every published country count must identify its source/version, counting basis, obligation class and whether entries are explicit source events, technical observations or derived views. |
+| LS-FR8 | Country/source codes, UNTDID codes, Sage canonical events, product workflow states and internal UUIDs must use distinct namespaces and remain independently queryable. |
+| LS-FR9 | France code `213` must retain issuing-versus-receiving platform leg; its original reason and requested action must be preserved. |
+| LS-FR10 | Outbound status commands must validate producer role, phase, invoice identity, authority, required reason/action data and permitted transition before emission. |
+| LS-FR11 | Repeatable payment/collection events must retain individual amount, currency, occurrence date and correction/supersession evidence; a `212 Encaissée` event must not automatically mark the full invoice settled. |
+| LS-FR12 | Spain technical status codes must remain unknown/open until an applicable implementing-order or approved provider catalogue is registered; French or internal codes must not be reused as placeholders. |
 | LS-AC1 | Given delivery succeeds and authority reporting fails, then product and operations views show both outcomes and recover only the reporting leg. |
 | LS-AC2 | Given an unmapped country status, then the raw event is visible, current status is not falsely advanced and a mapping/reconciliation action is created. |
 | LS-AC3 | Given a late rejection after a prior acknowledgement, then both events remain and the derived view follows the approved country precedence with an explanation. |
 | LS-AC4 | Given a French `Rejetée` event and a French `Refusée` event, then they remain distinct technical/document and commercial rejection facts with their original labels and evidence. |
 | LS-AC5 | Given a Spanish full-payment event that must also be reported to the public solution, then one business event creates a separate reporting obligation/outcome rather than a duplicate payment event. |
+| LS-AC6 | Given France code `213` is received from the receiving PA, then the event is stored as receiving-leg `Rejetée` and cannot be mistaken for an issuing-leg rejection solely because the reform code matches. |
+| LS-AC7 | Given a product state named `New` or `File Uploaded`, then its API/audit representation uses the Sage namespace and is never emitted or displayed as France code `200`. |
+| LS-AC8 | Given a partial French collection followed by another collection, then both code `212` events remain and the payment view is derived from their amounts rather than treating the first as terminal. |
+| LS-AC9 | Given a Spain event has no technical source code in the governing contract, then the statutory Spanish term is preserved and the source code remains absent/unknown rather than receiving a fabricated number. |
 
 ## Research matrix
 
 | Country | Current discovery position | Required next evidence |
 |---|---|---|
-| France | Current DGFiP guidance exposes 14 named labels: 4 mandatory and 10 optional | Import the applicable XP Z12-012 codes/profiles, reason/precedence rules and effective versions into governed fixtures |
+| France | The standards-level catalogue has 15 distinct terms and 16 source contexts; the customer illustration shows 14 because it omits optional `Annulée`. Reform codes, phases and principal actors are now named in this discovery | Import the applicable XP Z12-012 Annex A reason/action lists and complete transition matrix into governed, checksum-pinned fixtures; confirm implementation against the June 2026 edition |
 | Spain | RD 238/2026 Article 10 confirms 5 legal categories/7 explicit outcome variants; Article 12 defines the public full-payment/rejection reporting subset | Keep B2B e-invoice, public-reporting and VERI*FACTU/SII events in separate bounded contexts; add the implementing-order technical catalogue when issued |
 | Germany | Flexible delivery methods mean document and delivery evidence cannot be inferred from one network status | Format/channel-specific acknowledgements, rejection and correction rules |
 | Ireland | Phased mandate is known; detailed reporting/transport events remain incomplete | Revenue technical specifications and official event catalog |
@@ -165,3 +259,4 @@ Open gates: approve the shared dimensions; name country owners; obtain authorita
 | 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |
 | 2026-08-12 | Added distinct view connectors, moved reconciliation routing into an open gutter and made the diagram responsive | Confluence visual review |
 | 2026-08-25 | Added explicit France and Spain lifecycle catalogues, counting rules and source-to-shared mapping boundaries; recorded unknown totals for Germany, Ireland and UK | User request; DGFiP June 2026 guidance and Spain RD 238/2026 Articles 10/12 |
+| 2026-08-26 | Expanded the lifecycle into implementation-oriented source catalogues: corrected France to 15 terms/16 contexts, added reform codes, phases, actors, guarded paths and namespace rules; added Spain's exact statutory terms, event data and precedence without inventing technical codes | User-supplied Sage guide as presentation input; current XP Z12-012/DGFiP/AIFE evidence; Spain RD 238/2026 Articles 10–12 |
