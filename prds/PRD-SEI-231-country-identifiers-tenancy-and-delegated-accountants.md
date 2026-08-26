@@ -228,6 +228,61 @@ Sources: [French SIREN/SIRET and VAT guidance](https://www.impots.gouv.fr/profes
 
 The OpenPeppol list is dynamic. Store the scheme/version or verification time and support deprecation without reinterpreting historical participant addresses.
 
+### How does the "central directory" work in Spain?
+
+**Direct answer:** Spain does not currently define a France-style central directory that authoritatively maps every invoice routing address to one receiving platform. It defines a **distributed entry-point model** with a public default:
+
+1. A Spanish business or professional may receive invoices wholly or partially through one or more private-platform entry points.
+2. The recipient must publish its private entry point or entry points in its business communications and, where it has one, on its website.
+3. Each private-platform operator must expose an open public lookup showing which businesses have selected it as an invoice entry point.
+4. When no private entry point has been publicly identified, the AEAT public solution is deemed to be the recipient's entry point without a separate declaration.
+5. Different private platforms must interconnect when a customer requests it. Until that interconnection is operational, the sending platform deposits the invoices in the public solution and the receiving platform retrieves them through that bridge.
+
+Taken together, the Royal Decree's rules require Sage to represent **`NIF → zero, one or several private entry points`**, but the decree does not yet provide a single machine-readable national directory contract or the complete rule for choosing among several entry points. The technical meaning of receiving "partially"—for example by supplier, document type, organisational unit or another scope—must remain open until the ministerial/technical specification or other approved evidence defines it.
+
+#### France–Spain recipient-routing comparison
+
+| Dimension | France | Spain | Shared Sage treatment |
+|---|---|---|---|
+| Primary business identity | SIREN for legal unit; SIRET for establishment | NIF; no SIRET-like establishment hierarchy | Legal/establishment identity remains separate from the delivery address |
+| Destination cardinality | A company may use one or several PAs, but each effective directory routing line resolves to one receiving PA at a time | One NIF may have zero, one or several published private entry points; exact partial-receipt scope/precedence remains open | `LegalEntity 1 → many effective NetworkAddress/EntryPointRegistration records` |
+| Resolution authority | Central government directory containing electronic invoice addresses and their receiving PA | Recipient publication plus an open lookup operated by each private platform; no equivalent central aggregate is currently defined | Country resolver records source, lookup time, scope, freshness and evidence |
+| No private destination | The applicable directory/default-line rules determine the result | AEAT public solution is the statutory default entry point | Public default is an evidenced country rule, not an arbitrary failover |
+| Sending versus receiving platform | Sending and receiving PAs may differ | Public solution, private platform or a combination may be used | Sender connection and recipient destination are separate bindings |
+| Different private platforms | Central directory resolves the recipient address; the PAs exchange through the approved French framework | Operators must establish customer-requested interconnection | Persist sending operator, receiving operator, interconnection/bridge and observed acknowledgements separately |
+| Interconnection gap | Governed by the French directory/network route | Public solution bridges delivery until the requested private interconnection is operational | A temporary bridge is an actual route with its own evidence, not a delivery failure |
+| Route change | Update the affected directory routing line; historical invoices retain their original PA context | Prove and publish the target entry point before ending the prior route; absence of a private point returns new traffic to the public default | Effective-dated transition; preserve the route snapshot on every invoice |
+
+France therefore centralises **discovery**, not platform choice: official DGFiP guidance permits one or several PAs and different PAs for emission and reception, while each directory address resolves deterministically. Spain permits multiple entry points but distributes their publication and lookup across recipients/providers, with the public solution supplying the default and temporary interconnection bridge.
+
+#### Illustrative Spain routing example
+
+This example shows the required product behaviour; `SUPPLIER_GROUP_A/B` are illustrative scopes, not confirmed Spanish statutory scope values.
+
+| Recipient and effective scope | Published entry point | Resolution result |
+|---|---|---|
+| NIF `B12345678`; `SUPPLIER_GROUP_A` | Sage/private-platform entry point | Use the Sage private destination after its scope, authority, readiness and observed publication are verified |
+| NIF `B12345678`; `SUPPLIER_GROUP_B` | Provider B entry point | Use Provider B through the appropriate direct or public-bridge interconnection route |
+| NIF `B12345678`; no private entry point is publicly identified | None | Use the AEAT public solution as the statutory default |
+| NIF `B12345678`; private entry points are published but none has an evidenced matching scope | Unresolved | Do not infer public default; obtain/reconcile the authoritative scope before dispatch |
+| NIF `B12345678`; two private entry points both appear eligible | Ambiguous | Do not guess or select by internal priority; obtain/reconcile authoritative scope before dispatch |
+
+```text
+Recipient NIF + invoice context + effective time
+                    │
+                    ▼
+      Find published private entry points
+          │              │                 │
+     one match       none published    unresolved/multiple
+          │              │                 │
+          ▼              ▼                 ▼
+   private route    public default       block/reconcile
+```
+
+The immutable invoice delivery context must retain the selected entry point, its source and observation time, the sending/receiving operators, whether the public bridge was used and the country-rule version. Switching and offboarding behaviour belongs to [PRD-SEI-222](PRD-SEI-222-customer-onboarding-entry-point-migration.md); a route change must not rewrite this context for an older invoice.
+
+Sources: [DGFiP FAQ, version 2.0, questions 2.1–3.3](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/faq---fe_je-decouvre-la-facturation-electronique.pdf), [DGFiP central-directory announcement](https://www.impots.gouv.fr/actualite/facturation-electronique-un-cap-determinant-est-franchi), and [Spain Royal Decree 238/2026, Articles 5–9](https://www.boe.es/eli/es/rd/2026/03/25/238), accessed 2026-08-26.
+
 ### Country-pack identifier catalogue — explicit entries and counts
 
 An identifier count is meaningful only after defining what is being counted. The entries below are **country-pack catalogue rows**, not the number of identifiers that every business must possess. An official identity, a source class through which that identity is represented, a document identifier and a network/directory binding remain separate even when they reuse the same characters.
@@ -505,6 +560,14 @@ Expected result: partial success is safe and no item inherits another client's a
 | ID-FR21 | Support views and exports must mask or omit restricted identifiers and authority evidence according to actor, purpose and jurisdiction. |
 | ID-FR22 | Scheme, directory, mandate and policy versions must be observable so deprecation/migration can be planned without reinterpreting historical invoices. |
 
+### Recipient resolution
+
+| ID | Requirement |
+|---|---|
+| ID-FR23 | The country resolver must support one legal entity to multiple effective delivery-address or entry-point registrations without treating the legal/tax identifier itself as the network address. |
+| ID-FR24 | For Spain, the resolver must select the one evidenced private entry point matching the approved effective scope; when no private entry point is publicly identified it must select the public solution, and when published entries cannot be resolved uniquely it must block dispatch and create a reconciliation/correction outcome. |
+| ID-FR25 | Every Spain resolution must retain the NIF, invoice context, evaluated scope/rule version, candidate and selected entry points, source/observation time, sending/receiving operators and whether direct or public-bridge interconnection was used. |
+
 ## Failure and recovery matrix
 
 | Failure | Affected outcome | Required behaviour | Prohibited behaviour |
@@ -512,6 +575,7 @@ Expected result: partial success is safe and no item inherits another client's a
 | Unknown/invalid legal or tax identity | Applicability/document/reporting | Block affected branch, identify subject/scheme and correction owner | Guess identifier type or merge by value |
 | Valid identifier in wrong role | Any | Reject role binding with explainable rule | Reuse VAT/registry/network value merely because strings match |
 | Recipient address not found | Delivery | Return distinct discovery/readiness result; preserve valid document outcome | Claim document failure or invent email/PDF fallback |
+| Several Spain private entry points match without authoritative precedence | Delivery | Block dispatch, retain candidates/evidence and request authoritative scope correction or reconciliation | Select by array order, cost, provider preference or another unevidenced priority |
 | Profile validation fails | Document | No dispatch; return stable rule/field/version guidance | Mark delivery/reporting pending as if mutation occurred |
 | Delegate lacks one capability | Requested branch | Deny that operation with audit; preserve unrelated valid grants | Deny all clients/capabilities or widen permission automatically |
 | Grant revoked during batch | Per item/branch | Evaluate at each item's protected decision point; stop newly unauthorised work | Treat batch acceptance time as permanent authority |
@@ -551,6 +615,9 @@ Expected result: partial success is safe and no item inherits another client's a
 | ID-AC10 | Given an identifier/directory scheme version is deprecated, when a new invoice and a historical invoice are viewed, then new ineligible use is blocked/replaced while the historical scheme/version remains intact. |
 | ID-AC11 | Given restricted Irish sole-trader or UK tax identifiers, when operations/support views are used, then only authorised roles see permitted masked/full values and logs/metrics contain none. |
 | ID-AC12 | Given three required branches have succeeded, when the aggregate is derived, then it is complete; if any required branch later receives contradictory evidence, the branch and summary expose reconciliation without deleting prior evidence. |
+| ID-AC13 | Given a Spanish recipient NIF has one verified private entry point matching the effective approved scope, when delivery is resolved, then that destination and its discovery evidence are bound to the invoice before dispatch. |
+| ID-AC14 | Given a Spanish recipient NIF has no publicly identified private entry point, when delivery is resolved, then the AEAT public solution is selected as the country default with the applied rule/version recorded. |
+| ID-AC15 | Given Spanish private entry points are published but no single entry is proven to match—because none has evidenced scope or several appear eligible—when delivery is requested, then no dispatch or public fallback occurs and the candidates enter correction/reconciliation without Sage choosing arbitrarily. |
 
 ## Reuse assessment
 
@@ -604,6 +671,7 @@ The 83% figure is a discovery hypothesis for reusable **design surface**. It mus
 | E8 | [UK VAT registration](https://www.gov.uk/register-for-vat/how-register-for-vat), [UTR](https://www.gov.uk/find-utr-number) and [agent authorisation](https://www.gov.uk/guidance/how-to-get-authorised-to-act-as-a-tax-agent-on-behalf-of-your-clients) | Company, UTR, VAT and agent-service identities/permissions are separate | Official current sources; future e-invoice implementation remains open | Privacy, identifier and authority separation |
 | E9 | [OpenPeppol Participant Identifier Schemes v9.7](https://docs.peppol.eu/edelivery/codelists/v9.7/Peppol%20Code%20Lists%20-%20Participant%20identifier%20schemes%20v9.7.html) | Active scheme list includes relevant FR/ES/DE/IE/GB schemes and is versioned/dynamic | Official network source; presence does not mean country production approval | Scheme/version/deprecation requirements |
 | E10 | [Accountant & Single Client — Domain Services Team](https://confluence.sage.com/spaces/DNBU/pages/848078252/Accountant+Single+Client) | Proposes direct/batch paths, asymmetric send/retrieve authority and client isolation | Internal discovery input; endpoint/certificate/SPFE assumptions unapproved | Batch and authority scenarios |
+| E11 | [DGFiP FAQ v2.0](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/faq---fe_je-decouvre-la-facturation-electronique.pdf), [DGFiP directory announcement](https://www.impots.gouv.fr/actualite/facturation-electronique-un-cap-determinant-est-franchi) and [Spain RD 238/2026 Articles 5–9](https://www.boe.es/eli/es/rd/2026/03/25/238) | France permits multiple PAs but centrally resolves each electronic invoice address; Spain uses recipient-published/provider-queryable private entry points, public default and a public bridge during requested interconnection setup | France/Spain country-level behaviour confirmed; Spain's machine contract and partial-receipt scope/precedence remain open | ID-FR23–25; ID-AC13–15 |
 
 ## Open questions and delivery gates
 
@@ -618,6 +686,7 @@ The 83% figure is a discovery hypothesis for reusable **design surface**. It mus
 | What are acknowledgement semantics and operation-safety rules per leg? | Determines success and retry | Provider/authority integration owner | Production resilience | No success without defined evidence; unknown reconciles first |
 | What retention/masking rules apply to official IDs and mandates? | Privacy, tax evidence and support | Legal/privacy/security | Production data handling | Classify per scheme/evidence, not one universal period |
 | Which real services/code are reusable against the 24 slices? | Converts design estimate into delivery evidence | Architecture/current France/Spain teams | Delivery estimate | 83% remains a hypothesis until inventory/tests |
+| What exact dimensions can scope Spain's "total or partial" private receipt, and what authoritative rule resolves several eligible entry points? | Determines deterministic recipient resolution and prevents misdelivery | Spain regulatory/technical owner | Production private routing | Model effective scope extensibly; do not activate a dimension or priority without approved evidence |
 
 ## Decisions
 
@@ -642,3 +711,4 @@ This document is **consultation-ready for identity, country-policy, delegation, 
 | 2026-08-12 | Relayout separated workspace, delegated authority, identifiers and credentials into collision-free lanes; made SVG and note cards responsive | Confluence visual review |
 | 2026-08-18 | Deepened the discovery into an identity-driven compliance-delivery model; separated document, recipient-delivery and authority-reporting outcomes; added five-country identifier/authority evidence, reusable records, lifecycle, journeys, failures, requirements, acceptance, metrics, reuse method and delivery gates | User review and official sources accessed 2026-08-18 |
 | 2026-08-25 | Added explicit France and Spain country-pack catalogue rows and counts; incorporated DNI/NIE/assigned-NIF treatment and separated identity, document and network bindings; included active Peppol `9957` FR:VAT | User request; existing official identity, directory, Royal Decree and OpenPeppol v9.7 evidence |
+| 2026-08-26 | Added the answer-led section “How does the central directory work in Spain?”, including France–Spain route cardinality, a concrete NIF example, zero/one/multiple-match behaviour and explicit unresolved partial-receipt scope | User request; DGFiP FAQ/directory evidence and Spain RD 238/2026 Articles 5–9 |
