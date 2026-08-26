@@ -14,7 +14,7 @@ related:
   - PRD-SEI-108
   - PRD-SEI-226
   - PRD-SEI-231
-  - PRD-SEI-235
+  - PRD-SEI-234
 confluence:
   publish: true
   space_key: DNBU

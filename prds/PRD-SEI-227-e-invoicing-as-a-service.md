@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-10
-updated: 2026-08-12
+updated: 2026-08-25
 reviewers: []
 related:
   - PRD-SEI-223
@@ -64,6 +64,20 @@ This PRD is the parent product decision surface. Germany, Ireland and the UK are
 | Child analysis | PRD-SEI-234 — Cross-border applicability and reusable capabilities | Page `866152237`, child of `866150169` |
 
 The original commonality and country documents use existing stable Confluence pages. The four focused research analyses are canonical Git documents published as new children of the commonality page.
+
+## Evidence-first commonality method
+
+Commonality is derived **after** the source terms are visible. A shared name never replaces the official identifier, status, participant scheme, transaction category, exemption or obligation from which it was derived.
+
+| Analysis order | Actual terms retained in | Reusable result derived afterwards |
+|---|---|---|
+| 1 — Identify the subject | [PRD-SEI-231](PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md): SIREN, SIRET, French VAT ID, entity/DNI/NIE/NIF-M-derived Spanish NIF, W-IdNr, TRN, UTR and scheme-qualified address bindings | Legal entity, establishment, external identifier, network address and delegated-authority records |
+| 2 — Classify the transaction | [PRD-SEI-234](PRD-SEI-234-cross-border-and-reusable-country-capabilities.md): country wording for B2B/B2C/B2G, domestic/foreign, presence, exemption, cohort, receipt, issue and reporting | Effective-dated applicability decision with independent document, delivery and reporting legs |
+| 3 — Resolve the destination | [PRD-SEI-233](PRD-SEI-233-peppol-multi-address-and-endpoint-routing.md): actual Peppol scheme IDs, participant forms, document/process capability, SMP endpoints and provider roles | Versioned recipient discovery and immutable route-evidence contract |
+| 4 — Interpret outcomes | [PRD-SEI-232](PRD-SEI-232-country-lifecycle-status-mapping.md): French named statuses, Spanish statutory event categories/variants and explicit unknown country catalogues | Raw-event preservation plus shared technical, document, delivery, commercial, payment and reporting dimensions |
+| 5 — Assess reuse | This parent and the child evidence tables | Mark each capability `reusable unchanged`, `reusable with country binding`, `country-specific` or `unknown`; calculate a percentage only from a named inventory |
+
+This order prevents a common model from hiding a missing country rule. It also prevents a country term that merely resembles another—such as NIE and SIRET, or technical `Rejetée` and commercial `Refusée`—from being mapped as equivalent.
 
 ## Phased capability model
 
@@ -792,3 +806,4 @@ Dependencies include country legal/compliance owners, Sage product teams, existi
 | 2026-08-11 | Added a diagram-led route model separating regulation, network, provider and adapter; strengthened Peppol four-corner evidence, requirements and acceptance | User context and official OpenPeppol sources | |
 | 2026-08-12 | Added four child research PRDs covering country identifiers and accountants, lifecycle mappings, Peppol multi-address routing, and cross-border reusable capability boundaries | User feedback and supplied accountant research | |
 | 2026-08-12 | Published the four focused analyses as children of commonality page `866150169` | User publication approval | |
+| 2026-08-25 | Made the evidence-first derivation order explicit and indexed the actual country terms owned by each commonality child before reuse is assessed | User clarification |

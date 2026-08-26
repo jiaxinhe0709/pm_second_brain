@@ -6,13 +6,16 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-12
-updated: 2026-08-12
+updated: 2026-08-25
 reviewers: []
 related:
   - PRD-SEI-227
   - PRD-SEI-228
   - PRD-SEI-229
   - PRD-SEI-230
+  - PRD-SEI-231
+  - PRD-SEI-232
+  - PRD-SEI-233
 confluence:
   publish: true
   space_key: DNBU
@@ -33,6 +36,45 @@ Current official evidence supports two deliberately different examples:
 
 - France: domestic B2B e-invoicing is complemented by transaction e-reporting for B2C and operators established abroad.
 - Spain: Royal Decree 238/2026 applies mandatory B2B e-invoicing when the recipient business/professional has its seat, permanent establishment, domicile or habitual residence in Spain and the operation is addressed to that Spanish presence. A foreign-recipient sale is therefore outside that decree's mandatory B2B route on the cited test; this does **not** prove that no other invoicing, VAT, reporting or destination-country obligation applies.
+
+## Actual country applicability terms before reusable classification
+
+`B2B`, `B2C`, `B2G`, `domestic` and `cross-border` are useful common labels, but they are not country rules. Preserve each official scope term, exemption and rollout condition first; only then map it to a reusable applicability contract.
+
+| Country | Actual official term or scope test | Current compliance consequence | Must remain country-specific |
+|---|---|---|---|
+| France | Purchases and sales of goods/services between businesses established in France and subject to French VAT | French e-invoicing; the platform handling the invoice also sends invoice-derived data to the administration | Establishment/VAT scope, effective cohort/date, exempt operations, approved-platform and profile rules |
+| France | Transactions with non-taxable persons, for example consumers (`B2C`) | Transaction e-reporting rather than the domestic B2B invoice-delivery route | Aggregation/detail, frequency, fields, responsible reporter and exceptions |
+| France | Transactions with operators established abroad, including relevant exports, intra-Community supplies/acquisitions and other international cases | Transaction e-reporting can apply even though the French domestic B2B route does not | Seller/buyer reporting responsibility, place/tax treatment, foreign identifier treatment and excluded operations |
+| France | Operations for which VAT is payable on collection, such as relevant services where no debit option or reverse-charge exclusion applies | Payment/collection e-reporting | Applicability, reporter, date/amount semantics and reporting schedule |
+| France | Transactions to public entities (`B2G`) | Separate public-sector invoicing route and rules | Chorus Pro/public-sector identifiers, profiles and acknowledgements |
+| Spain | Recipient is an entrepreneur/professional with its business seat, permanent establishment, domicile or habitual residence in Spain, and the operation is addressed to that Spanish presence | Mandatory electronic invoice under RD 238/2026, subject to commencement and exceptions | Evidence for recipient status/presence and the establishment to which the operation is addressed |
+| Spain | Simplified invoice under the general simplified-invoice rule | Excluded from the mandatory electronic-invoice obligation unless it is a qualified simplified invoice under the cited exception | Document classification and any later ministerial exclusions |
+| Spain | Recipient or third party materially issues the invoice under permitted self-billing/third-party arrangements | Electronic-invoice scope can still apply; the legally obliged supplier remains responsible | Agreement, authority, performing actor, invoice identity and reporting responsibility |
+| Spain | Private platform, public solution or a combination is selected | Delivery/public-copy/interconnection obligations differ even for the same in-scope B2B invoice | Destination, faithful-copy, signature, format, status and acknowledgement rules |
+| Spain | `B2C`, public-sector (`B2G`), SII or VERI*FACTU/SIF context | Not converted into RD 238/2026 domestic B2B merely because invoice data is shared | Each domain retains its own scope, actor, route, lifecycle and evidence |
+| Germany | Transaction between domestic businesses (`inländische Unternehmer`) | German structured e-invoice rules generally apply, subject to transition and exceptions | Domestic-business test, effective date, allowed syntax and agreed transmission channel |
+| Germany | End consumer (`B2C`) or many tax-exempt transactions under §4 numbers 8–29 UStG | Outside the ordinary mandatory B2B e-invoice rule | Exact exemption and ordinary invoice duty |
+| Germany | Small-value invoice up to €250 gross, ticket treated as an invoice, or supply by a small business covered by the stated exception | E-invoice issuance exception can apply | Threshold/version, supplier status and document evidence |
+| Germany | Public-administration transaction (`B2G`) | Separate federal/state public-sector rules; not the same tax B2B route | Buyer jurisdiction, XRechnung/profile, Leitweg-ID and transport |
+| Ireland | VAT-registered large corporate managed by Revenue's Large Corporates Division and established or fixed-established in Ireland issues a domestic B2B invoice from 1 November 2028 | Must issue an EN 16931 structured invoice and report a subset of invoice data to Revenue | Cohort evidence, technical profile, reporting subset, route and acknowledgement |
+| Ireland | Any business in Ireland receiving from 1 November 2028 | Must be able to receive structured e-invoices even if not yet in the issuing cohort | Recipient capability, delivery network/profile and onboarding |
+| United Kingdom | HMRC roadmap wording: mandatory e-invoicing for all VAT invoices from April 2029; Peppol announced as the core interoperability network | Product planning can prepare for VAT-invoice and Peppol capability | Legislation, B2B/B2G/B2C boundary, geography, exemptions, participant schemes, profiles, reporting and rollout details remain open |
+
+Sources: [France — scope of e-invoicing and transaction/payment e-reporting](https://www.impots.gouv.fr/professionnel/je-decouvre-la-facturation-electronique), [France — foreign businesses without a permanent establishment](https://www.impots.gouv.fr/international-professionnel/le-reporting-pour-les-entreprises-etrangeres-sans-etablissement-stable), [Spain RD 238/2026 Articles 3–6](https://www.boe.es/eli/es/rd/2026/03/25/238), [Germany BMF e-invoice FAQ, March 2026](https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html), [Ireland Revenue Phase One](https://www.revenue.ie/en/vat/vida-vat-modernisation/large-corporates-vat-modernisation.aspx), [UK HMRC Transformation Roadmap 2026](https://www.gov.uk/government/publications/hmrc-transformation-roadmap-progress-update-2026/hmrc-transformation-roadmap-update-2026) and [UK Tax Update 2026](https://www.gov.uk/government/publications/summary-of-tax-update-2026-simplification-modernisation-and-fairness/tax-update-2026-simplification-modernisation-and-fairness-summary), accessed 2026-08-25.
+
+### Reusable applicability contract derived from those terms
+
+| Actual country variation | Reusable fact or decision shape |
+|---|---|
+| Business, consumer or public body wording | `counterpartyRelationship` plus verified tax/economic-operator status; never label from identifier alone |
+| Seat, establishment, domicile, residence and “operation addressed to” tests | Seller/buyer legal-subject and relevant-presence references with provenance |
+| Domestic, intra-EU, export/import or operator-abroad wording | Policy-relative geographic classification; evaluate every relevant jurisdiction |
+| Goods/services, tax-on-collection, reverse charge and exemptions | Supply/tax-result inputs; applicability consumes rather than recalculates tax |
+| Invoice, qualified/simplified invoice, credit/correction or self-billing | Document classification plus principal and performing actor |
+| Cohort, threshold, transition and effective date | Effective-dated policy version and explicit `required`, `permitted`, `not_applicable`, `exempt` or `undetermined` result |
+| E-invoice, recipient delivery, public copy and authority reporting | Independent document, delivery and reporting obligation legs |
+| Country route/profile/status terminology | Country-owned binding to shared validation, routing, lifecycle, evidence and recovery frameworks |
 
 ## Applicability first; reusable modules second
 
@@ -89,9 +131,14 @@ Current official evidence supports two deliberately different examples:
 | CB-FR4 | Activate a reusable module only through an approved country binding with schema/profile, route, statuses, dates, exceptions, owner and tests. |
 | CB-FR5 | Keep Spanish B2B e-invoicing, Spanish VERI*FACTU/SII and French e-reporting as separate policy domains even when they reuse orchestration. |
 | CB-FR6 | Preserve the country policy and module versions selected for every invoice/reporting leg; later reuse or policy changes do not rewrite history. |
+| CB-FR7 | Preserve the official country scope term, source/version, decisive facts, exemption and result before mapping it to a common relationship/geography classification. |
+| CB-FR8 | Evaluate issuance, receipt, recipient delivery, public-copy and authority-reporting obligations independently, including cohort asymmetry. |
 | CB-AC1 | Given a French seller invoices a business established abroad, then the French pack evaluates transaction e-reporting and does not route it as French domestic B2B e-invoicing. |
 | CB-AC2 | Given a Spanish seller invoices a foreign recipient with no relevant Spanish seat/establishment, then the RD 238/2026 recipient test is out of scope and the engine continues other applicable evaluations. |
 | CB-AC3 | Given Ireland later requires a reporting leg similar in shape to Spain, then the shared reporting framework is reused but Ireland supplies its own rule, schema, dates, route, statuses and evidence. |
+| CB-AC4 | Given a German sale to a private consumer or a qualifying small-value invoice, then the German domestic B2B rule is not activated merely because both parties or the currency are German. |
+| CB-AC5 | Given an Irish business must receive from 1 November 2028 but is not in the large-corporate issuing cohort, then receipt readiness can be required while issuance remains not applicable for that cohort. |
+| CB-AC6 | Given a UK VAT invoice dated before final legislation and technical rules are approved, then the future Peppol direction remains a planning input and the production applicability result is not guessed. |
 
 ## Evidence and open gates
 
@@ -100,8 +147,11 @@ Current official evidence supports two deliberately different examples:
 | [Spain Royal Decree 238/2026, Article 3](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295), 2026-03-25 | Mandatory B2B e-invoicing applies when the recipient business/professional has the relevant seat, permanent establishment, domicile or habitual residence in Spain | Supports Spanish recipient-presence scope test; other obligations still require separate evaluation |
 | [French tax authority e-invoicing overview](https://www.impots.gouv.fr/professionnel/je-decouvre-la-facturation-electronique), modified 2026-05-26 | Domestic French B2B is in e-invoicing; transactions with non-taxable persons or operators established abroad are in transaction e-reporting | Confirms France-specific reporting branch, not a universal country pattern |
 | [European Commission ViDA 2026 work programme](https://taxation-customs.ec.europa.eu/news/vat-digital-age-2026-work-programme-available-2026-05-22_en), 2026-05-22 | Cross-border B2B DRR based on e-invoicing moves toward 2030 EU implementation | Drives future compatibility/versioning; does not replace current national rules |
+| [German BMF e-invoice FAQ](https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html), updated 2026-03 | Uses the actual domestic-business scope and identifies B2C, tax-exempt, small-value, ticket, small-business and B2G boundaries | Supplies Germany reference terms; detailed channel/profile and transition fixtures remain country-owned |
+| [Ireland Revenue Phase One](https://www.revenue.ie/en/vat/vida-vat-modernisation/large-corporates-vat-modernisation.aspx), accessed 2026-08-25 | Defines November 2028 large-corporate domestic B2B issuance/reporting and all-business receipt asymmetry | Supplies Ireland reference scenarios; later phases and technical artefacts remain open |
+| [UK HMRC Transformation Roadmap 2026](https://www.gov.uk/government/publications/hmrc-transformation-roadmap-progress-update-2026/hmrc-transformation-roadmap-update-2026) and [Tax Update 2026](https://www.gov.uk/government/publications/summary-of-tax-update-2026-simplification-modernisation-and-fairness/tax-update-2026-simplification-modernisation-and-fairness-summary) | State April 2029 mandatory e-invoicing for all VAT invoices and Peppol as the core interoperability network | Confirms direction/date wording, not final country-policy or technical bindings |
 
-Open gates: full Spain cross-border decision table (sales, purchases, intra-EU, exports/imports, fixed establishments, reverse charge); interaction with VERI*FACTU/SII; France edge cases; Germany/Ireland/UK official rules; module ownership/versioning; and reference scenarios approved by country legal/compliance owners.
+Open gates: full Spain sales/purchases and cross-border decision table; interaction with VERI*FACTU/SII and B2G; France territorial/exemption and buyer-side international cases; Germany transition/channel and state-level B2G fixtures; Ireland later phases/technical artefacts; final UK legislation/profile/reporting rules; module ownership/versioning; and reference scenarios approved by country legal/compliance owners.
 
 ## Revision history
 
@@ -110,3 +160,4 @@ Open gates: full Spain cross-border decision table (sales, purchases, intra-EU, 
 | 2026-08-12 | Initial child discovery PRD for cross-border applicability and safe country-capability reuse | User feedback and official Spanish, French and EU sources |
 | 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |
 | 2026-08-12 | Rerouted reusable-module connectors through a clear gutter into the country binding and made the diagram responsive | Confluence visual review |
+| 2026-08-25 | Added actual five-country relationship, geography, exemption, cohort and route terms before deriving the reusable applicability contract | User request; official France, Spain, Germany, Ireland and UK sources |

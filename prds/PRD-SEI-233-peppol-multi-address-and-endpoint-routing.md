@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-12
-updated: 2026-08-12
+updated: 2026-08-25
 reviewers: []
 related:
   - PRD-SEI-227
@@ -76,6 +76,35 @@ The platform must support multiple participant addresses and one or more discove
 | Sending AP ↔ receiving AP | Four-corner exchange allows different providers |
 | Network ↔ provider ↔ Sage adapter | Peppol is the network/rules; the provider operates an AP; Sage owns its provider boundary/configuration |
 
+## Actual participant-scheme terms before reusable routing
+
+The shared router must be derived from real scheme-qualified country addresses. The following are **active entries in OpenPeppol Participant Identifier Schemes v9.7 (2026-07-02)**; active list status means registrable in the network, not that a country mandates or approves that scheme for every invoice, direction, profile or participant.
+
+| Country/context | Scheme ID and official term | Illustrative participant form | Country-specific interpretation required |
+|---|---|---|---|
+| France | `0002` — `FR:SIRENE` | `0002::<9-digit SIREN>` or an eligible 14-digit SIRET form under the v9.7 scheme rules | Decide whether the legal unit or establishment is the intended receiver; do not discard subject level |
+| France | `0009` — `FR:SIRET` | `0009::<14-digit SIRET>` | Bind the exact establishment and supported document/process |
+| France | `9957` — `FR:VAT` | `9957::<French VAT number>` | VAT identity reused as a network address remains a separate scheme-qualified binding |
+| Spain | `9920` — `ES:VAT` | `9920::<Spanish VAT/NIF value permitted by scheme rules>` | Peppol availability does not establish the universal route under Spain's public/private statutory topology |
+| Germany | `0246` — `DE:GEBA` | `0246::DE#########[-#####][.sub-address]` | German Electronic Business Address can include W-IdNr, distinguishing feature and self-published sub-address; country rollout/usage policy applies |
+| Germany B2G | `0204` — `DE:LWID` / Peppol-Leitweg-ID | `0204::<Leitweg-ID>` | Public-sector routing identity; never infer for ordinary B2B |
+| Germany / eligible context | `9930` — `DE:VAT` | `9930::<German VAT number>` | VAT participant scheme; exact B2B eligibility and capability must be discovered |
+| International / eligible context | `0088` — `GLN` | `0088::<13-digit GLN>` | Not Germany-specific; use only where the participant is registered and country/profile policy permits it |
+| Ireland | `9935` — `IE:VAT` | `9935::<Irish VAT number>` | Active Peppol scheme; future domestic B2B mandate binding remains country-owned |
+| United Kingdom | `9932` — `GB:VAT` | `9932::<UK VAT number>` | Active Peppol scheme; the future UK mandate's participant/profile rules remain open |
+
+The reusable routing contract begins only after those source terms are retained:
+
+| Actual country/network term | Reusable field or behaviour |
+|---|---|
+| Scheme ID and value | `participantScheme`, raw/display value and normalized value; uniqueness includes the scheme |
+| Legal unit, establishment, VAT registration or sub-address meaning | Explicit subject reference, purpose, direction and no value-only merge |
+| Registrable/active/deprecated/removed state | Code-list version, verification time, effective interval and prospective blocking |
+| Registered document type and process | Capability-specific lookup; an address is not globally reachable for every document |
+| SML/DNS and authoritative SMP result | Discovery source, lookup time, returned endpoint set and freshness |
+| Technical endpoint, transport and certificate | Deterministic selection plus immutable execution-route evidence |
+| Country mandate/profile eligibility | Country-pack decision kept outside the generic Peppol resolver |
+
 ## Requirements and acceptance
 
 | ID | Requirement / acceptance |
@@ -87,9 +116,12 @@ The platform must support multiple participant addresses and one or more discove
 | PA-FR5 | Produce a deterministic, explainable selected route that binds network, sending/receiving provider roles, Sage adapter/config, participant and technical endpoint. |
 | PA-FR6 | Freeze the selected route with the invoice exchange leg; metadata refresh changes only eligible new work. |
 | PA-FR7 | Following a timeout after possible transmission, reconcile by external identity before switching endpoints or providers. |
+| PA-FR8 | Load participant schemes from a versioned OpenPeppol code list and apply country/profile eligibility separately; deprecated or removed entries affect eligible new work without rewriting history. |
 | PA-AC1 | Given two participant addresses where only one supports the required invoice document/process, then discovery selects that address and records why. |
 | PA-AC2 | Given SMP returns two transport endpoints, then only an approved eligible endpoint is selected and both candidates/evidence remain explainable. |
 | PA-AC3 | Given an endpoint/certificate changes after dispatch, then historical status/recovery uses the original route while a new invoice can use refreshed metadata. |
+| PA-AC4 | Given the same character sequence appears under two participant schemes, then the two addresses remain distinct and discovery never merges them by value alone. |
+| PA-AC5 | Given an active Peppol scheme exists for a country but the selected country pack has not approved it for the document/process, then route selection remains blocked or undetermined rather than treating list presence as mandate eligibility. |
 
 ## Evidence and open gates
 
@@ -98,6 +130,7 @@ The platform must support multiple participant addresses and one or more discove
 | [Peppol SMP 1.4](https://docs.peppol.eu/edelivery/smp/Peppol-EDN-Service-Metadata-Publishing-1.4.0-2025-02-06.pdf), 2025-02-06 | A process has a `ServiceEndpointList` with one or more endpoints; an endpoint is a technical URL with transport metadata | Confirms multi-endpoint model and process/document-specific discovery |
 | [Peppol Policy for use of Identifiers 4.4](https://docs.peppol.eu/edelivery/policies/Peppol-EDN-Policy-for-use-of-identifiers-4.4.0-2025-02-06.pdf), 2025-02-06 | Business-document parties/`EndpointID` and transport Participant Identifiers can relate, but no reliable universal linking rule exists | Requires explicit association and preserved discovery context |
 | [Peppol MLS specification](https://docs.peppol.eu/edelivery/specs/mls/v1.0.0/mls/spec/), accessed 2026-08-12 | Some Peppol cases explicitly support participants with multiple service providers and providers with multiple Access Points | Prevents single-provider/single-AP assumptions; exact applicability must follow the selected BIS/process |
+| [OpenPeppol Participant Identifier Schemes v9.7](https://docs.peppol.eu/edelivery/codelists/v9.7/Peppol%20Code%20Lists%20-%20Participant%20identifier%20schemes%20v9.7.html), 2026-07-02 | Confirms active country and international scheme terms including `0002`, `0009`, `9957`, `9920`, `0246`, `0204`, `9930`, `0088`, `9935` and `9932` | Supplies actual scheme vocabulary and version/state; does not supply national mandate eligibility |
 
 Open gates: approved participant-identifier schemes per country; whether one legal entity, establishment or product context owns each address; address priority/purpose UX; discovery cache/freshness policy; multiple-provider commercial model; transport selection; certificate rollover; and operational reconciliation rules.
 
@@ -108,3 +141,4 @@ Open gates: approved participant-identifier schemes per country; whether one leg
 | 2026-08-12 | Initial child discovery PRD; clarified “Access Point address” as Peppol participant and service-endpoint concerns | User clarification and official Peppol specifications |
 | 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |
 | 2026-08-12 | Attached selection and recovery connectors to node boundaries, removed through-node routing and made the diagram responsive | Confluence visual review |
+| 2026-08-25 | Added the actual v9.7 participant-scheme catalogue for France, Spain, Germany, Ireland and the UK, then derived the reusable routing fields and tests | User request; OpenPeppol eDEC v9.7 |
