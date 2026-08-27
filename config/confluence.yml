@@ -5,6 +5,9 @@ publication:
   include_source_revision: true
   include_source_link: true
   preserve_manual_discussion_section: true
+  change_history:
+    enabled: true
+    limit: 10
   current_sources:
     "837610648": PRD-SEI-101
     "848078252": PRD-SEI-104
@@ -23,7 +26,7 @@ publication:
     "855180245": PRD-SEI-219
     "855180249": PRD-SEI-220
     "837588803": PRD-SEI-210
-    "876576843": TEST-CONFLUENCE-001
+    "880492320": TEST-CONFLUENCE-001
     "866148652": ADR-SEI-001
     "866148653": FP-SEI-001
     "866148654": PRD-SEI-221
