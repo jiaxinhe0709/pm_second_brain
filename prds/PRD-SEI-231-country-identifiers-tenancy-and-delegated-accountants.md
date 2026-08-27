@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-12
-updated: 2026-08-25
+updated: 2026-08-27
 reviewers: []
 related:
   - PRD-SEI-227
@@ -257,27 +257,97 @@ France therefore centralises **discovery**, not platform choice: official DGFiP 
 
 #### Illustrative Spain routing example
 
-This example shows the required product behaviour; `SUPPLIER_GROUP_A/B` are illustrative scopes, not confirmed Spanish statutory scope values.
+- **Fictional buyer:** Distribuciones Sol, S.L.
+- **Recipient NIF:** `B12345678`
 
-| Recipient and effective scope | Published entry point | Resolution result |
+The first discovery result is the number of private entry points that the recipient has publicly identified:
+
+| Published private entry points | Example discovery result | Expected routing behaviour |
 |---|---|---|
-| NIF `B12345678`; `SUPPLIER_GROUP_A` | Sage/private-platform entry point | Use the Sage private destination after its scope, authority, readiness and observed publication are verified |
-| NIF `B12345678`; `SUPPLIER_GROUP_B` | Provider B entry point | Use Provider B through the appropriate direct or public-bridge interconnection route |
-| NIF `B12345678`; no private entry point is publicly identified | None | Use the AEAT public solution as the statutory default |
-| NIF `B12345678`; private entry points are published but none has an evidenced matching scope | Unresolved | Do not infer public default; obtain/reconcile the authoritative scope before dispatch |
-| NIF `B12345678`; two private entry points both appear eligible | Ambiguous | Do not guess or select by internal priority; obtain/reconcile authoritative scope before dispatch |
+| Zero | Distribuciones Sol has not publicly identified a private-platform entry point | Use the AEAT public solution as the statutory default |
+| One | `B12345678 → Sage Network` | Use Sage Network after the entry point's authority, readiness and observed publication are verified |
+| Several | `B12345678 → Sage Network` and `B12345678 → Platform X` | Evaluate an authoritative effective-scope rule; do not choose by platform preference or array order |
 
-```text
-Recipient NIF + invoice context + effective time
-                    │
-                    ▼
-      Find published private entry points
-          │              │                 │
-     one match       none published    unresolved/multiple
-          │              │                 │
-          ▼              ▼                 ▼
-   private route    public default       block/reconcile
-```
+In the **several-entry-point** case, the intended arrangement might be:
+
+- Sage Network receives invoices associated with purchase orders beginning `MAD-`.
+- Platform X receives invoices associated with purchase orders beginning `LOG-`.
+- Both invoice populations have the same recipient NIF, `B12345678`.
+
+`MAD-*` and `LOG-*` are an **illustrative product model**, not confirmed Spanish statutory scope values or a routing mechanism prescribed by the Royal Decree. The example exposes the unresolved decision: the decree permits private receipt “totally or partially” but does not yet define a standard machine-readable scope vocabulary or precedence rule.
+
+| Recipient and effective context | Published entry-point evidence | Resolution result |
+|---|---|---|
+| NIF `B12345678`; PO `MAD-1001` | One verified Sage entry point whose evidenced scope matches `MAD-*` | Use Sage Network through the appropriate direct or public-bridge interconnection route |
+| NIF `B12345678`; PO `LOG-2001` | One verified Platform X entry point whose evidenced scope matches `LOG-*` | Use Platform X through the appropriate direct or public-bridge interconnection route |
+| NIF `B12345678`; no private entry point is publicly identified | None | Use the AEAT public solution as the statutory default; zero private points does not mean the buyer cannot receive e-invoices |
+| NIF `B12345678`; PO `BCN-3001`; Sage and Platform X are published but neither has an evidenced matching scope | Unresolved | Do not infer public default; obtain or reconcile authoritative scope before dispatch |
+| NIF `B12345678`; PO `MAD-1001`; Sage and Platform X both appear eligible | Ambiguous | Do not guess or select by internal priority; obtain or reconcile authoritative scope before dispatch |
+
+The notation `NIF → platform` is a conceptual discovery relationship, not a claim that the NIF itself is always the technical transport address. Each observed entry-point binding must retain the recipient NIF, platform/operator, scheme-qualified destination when defined, claimed scope and authority, publication source and observation time, validity/readiness, and country-rule version.
+
+This is not a France-style SIREN/SIRET relationship. Spain's multiple entry points need not represent different establishments with separate official establishment identifiers; they may be several receiving arrangements attached to the same NIF.
+
+<!-- confluence-html-macro:start -->
+<div class="eii-spain-routing" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:22px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1180px;margin:0 auto;overflow-x:auto;">
+  <style>
+    .eii-spain-routing *{box-sizing:border-box}.eii-spain-routing .intro{margin:0 0 14px;color:#42526e;font-size:12px}.eii-spain-routing svg{display:block;width:1100px;height:550px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eii-spain-routing .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.8}.eii-spain-routing .success{fill:#abf5d1;stroke:#00875a;stroke-width:1.9}.eii-spain-routing .alert{fill:#ffebe6;stroke:#de350b;stroke-width:1.9}.eii-spain-routing .title{fill:#172b4d;font-size:16px;font-weight:700}.eii-spain-routing .copy{fill:#42526e;font-size:12px}.eii-spain-routing .label{fill:#6b778c;font-size:11px;font-weight:700;letter-spacing:.08em}.eii-spain-routing .path{fill:none;stroke:#00875a;stroke-width:2.2}.eii-spain-routing .path-alert{fill:none;stroke:#de350b;stroke-width:2;stroke-dasharray:7 5}.eii-spain-routing .arrow{fill:#00875a}.eii-spain-routing .arrow-alert{fill:#de350b}.eii-spain-routing .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1100px;margin-top:10px}.eii-spain-routing .note{padding:10px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:11px;line-height:1.45}.eii-spain-routing .note strong{display:block;color:#172b4d;margin-bottom:3px}
+  </style>
+  <p class="intro">Distribuciones Sol, S.L. illustrates Spain recipient resolution for one NIF: select only an evidenced unique private match, apply the public default only when no private entry point is publicly identified, and block when published candidates cannot be resolved safely.</p>
+  <svg viewBox="0 0 1100 550" role="img" aria-label="An invoice for fictional buyer Distribuciones Sol, S.L., recipient NIF B12345678, enters the Spain country resolver with its purchase order and effective time. The resolver examines recipient publications and private-platform open lookups. Exactly one verified entry point matching the effective scope routes to Sage Network or Platform X; MAD and LOG purchase-order prefixes are illustrative scope values only. No publicly identified private entry point routes to the AEAT public solution. Published entry points with no evidenced matching scope, or multiple apparently eligible entry points, are blocked for reconciliation rather than guessed or treated as public default.">
+    <text x="34" y="34" class="label">INVOICE CONTEXT</text>
+    <text x="360" y="34" class="label">DISTRIBUTED DISCOVERY</text>
+    <text x="745" y="34" class="label">EVIDENCED ROUTING OUTCOME</text>
+
+    <rect x="34" y="190" width="246" height="136" rx="12" class="main"/>
+    <text x="58" y="224" class="title">Distribuciones Sol, S.L.</text>
+    <text x="58" y="252" class="copy">recipient NIF B12345678</text>
+    <text x="58" y="275" class="copy">PO MAD-* / LOG-* (illustrative)</text>
+    <text x="58" y="298" class="copy">effective time</text>
+
+    <path d="M280 258 H350" class="path"/>
+    <polygon points="350,258 339,251 339,265" class="arrow"/>
+
+    <rect x="350" y="164" width="286" height="188" rx="12" class="main"/>
+    <text x="378" y="201" class="title">Spain country resolver</text>
+    <text x="378" y="231" class="copy">Find published private entry points</text>
+    <text x="378" y="255" class="copy">Check claimed effective scope (open)</text>
+    <text x="378" y="279" class="copy">Verify authority and readiness</text>
+    <text x="378" y="303" class="copy">Record source + observation time</text>
+    <text x="378" y="327" class="copy">Apply versioned country rule</text>
+
+    <path d="M636 210 H678 V115 H728" class="path"/>
+    <polygon points="728,115 717,108 717,122" class="arrow"/>
+
+    <path d="M636 258 H728" class="path"/>
+    <polygon points="728,258 717,251 717,265" class="arrow"/>
+
+    <path d="M636 306 H678 V426 H728" class="path-alert"/>
+    <polygon points="728,426 717,419 717,433" class="arrow-alert"/>
+
+    <rect x="728" y="60" width="338" height="112" rx="56" class="success"/>
+    <text x="762" y="100" class="title">One verified private match</text>
+    <text x="762" y="127" class="copy">MAD-* → Sage; LOG-* → Platform X</text>
+    <text x="762" y="149" class="copy">Illustrative scope; direct or public bridge</text>
+
+    <rect x="728" y="202" width="338" height="112" rx="56" class="success"/>
+    <text x="762" y="242" class="title">AEAT public default</text>
+    <text x="762" y="269" class="copy">Use only when no private entry point</text>
+    <text x="762" y="291" class="copy">has been publicly identified</text>
+
+    <polygon points="897,350 1066,426 897,502 728,426" class="alert"/>
+    <text x="809" y="407" class="title">No unique private match</text>
+    <text x="820" y="434" class="copy">Block + reconcile; never guess</text>
+    <text x="805" y="456" class="copy">Do not infer public default when private</text>
+    <text x="817" y="478" class="copy">candidates have been published</text>
+  </svg>
+  <div class="notes">
+    <div class="note"><strong>Confirmed country rule</strong>The public solution is the default only when the recipient has not publicly identified a private entry point.</div>
+    <div class="note"><strong>Illustrative scope</strong><code>MAD-*</code> and <code>LOG-*</code> expose the product decision; they are not a confirmed Spanish statutory scope vocabulary.</div>
+    <div class="note"><strong>Historical continuity</strong>Persist the selected destination, evidence source and time, operators, bridge usage and country-rule version on the invoice.</div>
+  </div>
+</div>
+<!-- confluence-html-macro:end -->
 
 The immutable invoice delivery context must retain the selected entry point, its source and observation time, the sending/receiving operators, whether the public bridge was used and the country-rule version. Switching and offboarding behaviour belongs to [PRD-SEI-222](PRD-SEI-222-customer-onboarding-entry-point-migration.md); a route change must not rewrite this context for an older invoice.
 
@@ -712,3 +782,4 @@ This document is **consultation-ready for identity, country-policy, delegation, 
 | 2026-08-18 | Deepened the discovery into an identity-driven compliance-delivery model; separated document, recipient-delivery and authority-reporting outcomes; added five-country identifier/authority evidence, reusable records, lifecycle, journeys, failures, requirements, acceptance, metrics, reuse method and delivery gates | User review and official sources accessed 2026-08-18 |
 | 2026-08-25 | Added explicit France and Spain country-pack catalogue rows and counts; incorporated DNI/NIE/assigned-NIF treatment and separated identity, document and network bindings; included active Peppol `9957` FR:VAT | User request; existing official identity, directory, Royal Decree and OpenPeppol v9.7 evidence |
 | 2026-08-26 | Added the answer-led section “How does the central directory work in Spain?”, including France–Spain route cardinality, a concrete NIF example, zero/one/multiple-match behaviour and explicit unresolved partial-receipt scope | User request; DGFiP FAQ/directory evidence and Spain RD 238/2026 Articles 5–9 |
+| 2026-08-27 | Added the fictional Distribuciones Sol zero/one/several entry-point example, concrete `MAD-*`/`LOG-*` partial-routing hypothesis, NIF-versus-transport-address clarification and a Confluence-safe resolution diagram while retaining unresolved-scope and immutable-context rules | User request; existing evidence and product behaviour in this PRD |
