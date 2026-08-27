@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-27
 reviewers: []
 related:
   - PRD-SEI-210
@@ -135,12 +135,29 @@ Capture immutable source events, validate customer authority, calculate required
 | Invoice recipient/authorised user | Record commercial decision and payment facts accurately and on time |
 | Invoice issuer | Receive relevant events and understand explicit/derived status |
 | Sage ERP/accounting product | Supply authoritative accounting/payment facts where authorised and display actions/outcomes |
+| Sage e-invoicing Domain Service Product Owner | Accountable for the invoice lifecycle and statutory-reporting service outcome, scope, priorities and roadmap |
+| Sage banking/payment Domain Service Product Owner | Accountable for authorised bank/payment data acquisition, consent, provenance and the banking service outcome; bank observations do not independently decide legal invoice state |
+| Domain-service Solution Designer | Supports the relevant Domain Service Product Owner by defining cross-product capability boundaries, journeys, API/event contracts, failure behaviour and reusable-versus-country-specific design; does not own product priority or regulated interpretation |
 | Sage lifecycle service | Validate, deduplicate, order, derive, fan out, reconcile and audit events |
 | Private-platform operator | Exchange required events with counterparties and the public solution |
 | Counterparty platform | Authenticate, acknowledge and forward events to its customer |
 | Public solution | Receive/query applicable rejection/payment information using the official contract |
 | Operations/support | Resolve delayed, conflicting and ambiguous delivery obligations |
 | Legal/compliance | Approve event applicability, timing, authority and retention interpretation |
+
+### Domain-service ownership boundary
+
+Regulatory ownership, domain-service ownership and ERP product ownership are separate. A Spain PM or Compliance reviewer can validate what must happen, but that does not identify the Sage team accountable for building and operating the reusable API. Conversely, a domain-service owner cannot approve the Spanish legal interpretation alone.
+
+| Capability/domain | Delivery roles | Owns | Does not decide alone |
+|---|---|---|---|
+| E-invoicing domain service | Domain Service Product Owner (accountable); Solution Designer (solution responsibility); Engineering owner (build); Operations owner (run) | Product-neutral APIs/events for onboarding, exchange, lifecycle, routing and statutory reporting; contract versioning, compatibility, observability, service levels, incident response and deprecation | Spanish applicability, legal authority, statutory deadlines or customer proposition |
+| Banking/payment domain service | Banking Domain Service Product Owner (accountable); Solution Designer (solution responsibility); Engineering owner (build); Operations owner (run) | Bank connection/consent, payment observations, provenance, normalisation, availability and API lifecycle | Whether a bank movement legally settles a particular invoice or triggers a Spanish report |
+| Spain country capability/rule pack | Spain PM with local technical lead; Compliance/Legal/Tax approves regulated interpretation | Applicability, terminology, mapping, deadlines, country-specific validation and evidence references | Shared API architecture or another domain's delivery roadmap |
+| Sage ERP/accounting product | ERP Product and Engineering owners | Customer workflow, accounting facts, permissions, product integration and presentation of API outcomes | Reimplementing national routing/reporting logic or redefining shared API semantics |
+| Shared platform operations/security | Platform Operations and Security owners | Runtime controls, credential custody, monitoring, audit, recovery and support hand-off | Product scope or regulatory interpretation |
+
+Before a capability enters pilot, its ownership record must name the Domain Service Product Owner, Solution Designer, Engineering owner and Operations owner, plus the consuming products, support boundary, service-level expectations, API/version policy and escalation route. If the e-invoicing service consumes a banking/payment event, both Domain Service Product Owners remain accountable for their side of the contract; ownership does not silently transfer to the Solution Designer, ERP or Spain country team.
 
 ## Business scenarios
 
@@ -300,6 +317,7 @@ Branches: `REJECTED_CORRECTABLE`, `RETRY_PENDING`, `OUTCOME_UNKNOWN`, `RECONCILI
 | FR20 | Let authorised products/users submit supported rejection/acceptance/payment facts and retrieve history. |
 | FR21 | Give operations source events, derived rules, obligations, observed state, fault domain and safe recovery actions. |
 | FR22 | Audit every customer, automated and manual event/reporting/recovery action. |
+| FR23 | Expose the owning domain service and fault domain for each API operation, event and delivery obligation so consuming products and support can route incidents without assuming country-team ownership. |
 
 ## Conceptual API/event capabilities
 
@@ -351,6 +369,7 @@ Branches: `REJECTED_CORRECTABLE`, `RETRY_PENDING`, `OUTCOME_UNKNOWN`, `RECONCILI
 - Given duplicate equivalent events from ERP and operator, when deduplication runs, then one set of obligations exists while both source observations remain traceable.
 - Given conflicting payment events, when authority cannot be established automatically, then external reporting/derived closure pauses and operations receives a controlled case.
 - Given a route change after invoice exchange, when a later payment event occurs, then reporting follows the invoice's historical network obligations rather than the route for new invoices.
+- Given a lifecycle capability is proposed for pilot, when its readiness is reviewed, then the e-invoicing and any banking/payment Domain Service Product Owner, Solution Designer, Engineering owner and Operations owner, API/version policy, support boundary and escalation route are recorded.
 
 ## Measures
 
@@ -389,6 +408,8 @@ Branches: `REJECTED_CORRECTABLE`, `RETRY_PENDING`, `OUTCOME_UNKNOWN`, `RECONCILI
 
 ## Open questions and owners
 
+External ownership after a route change is intentionally not decided in this PRD. The research-backed consultation in [PRD-SEI-222](PRD-SEI-222-customer-onboarding-entry-point-migration.md) is the authoritative question set for who may or must execute historical Article 10/12 actions, rectification, access and forced-exit operations. This PRD owns the reusable event and obligation behaviour: preserve original context, never reroute or duplicate silently, and retain independent outcomes for every required destination.
+
 | Question | Why it matters | Owner | Blocks | Hypothesis |
 |---|---|---|---|---|
 | Which Article 10 optional events are launch scope? | UI, API and mapping effort | Product/local team | Design | Full rejection/payment first; decide partial/assignment separately |
@@ -397,11 +418,12 @@ Branches: `REJECTED_CORRECTABLE`, `RETRY_PENDING`, `OUTCOME_UNKNOWN`, `RECONCILI
 | What public API/query supports rejection/payment reconciliation? | Unknown-outcome safety | Public technical team | External validation | Ministerial-order dependency |
 | How should presumed acceptance appear and when does it apply? | Customer/legal clarity | Local legal/product | Design | Derived label only, never explicit event |
 | How are corrections to an already reported payment/rejection expressed? | Audit and external consistency | Local technical/legal team | Pilot | Append superseding event if contract supports it |
-| Who owns older invoice status after route switch? | Credential and operational continuity | Local team/operator | Pilot/production | Original network context retained; owner to approve |
+| Who owns older invoice status after route switch? | Credential and operational continuity | Spain PM/Compliance and affected providers | Pilot/production | See PRD-SEI-222 research-backed consultation: immutable origin is retained; executing actor and route remain open |
 | What retention applies to event and delivery evidence? | Data/security design | Legal/privacy | Production | Configurable until approved |
 
 ## Change log
 
 | Date | Version | Change | Evidence/decision |
 |---|---|---|---|
+| 2026-08-27 | Version 2 | Linked historical route-change ownership to the research-backed Spain consultation, retained reusable lifecycle invariants and defined accountable e-invoicing/banking domain-service ownership | PRD-SEI-222; user research |
 | 2026-08-10 | Version 1 | Initial Phase 3 status, rejection and payment reporting PRD | PRD-SEI-210, Phase 1/2 lifecycle foundations and RD 238/2026 |

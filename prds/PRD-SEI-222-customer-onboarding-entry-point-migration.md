@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-27
 reviewers: []
 related:
   - PRD-SEI-210
@@ -140,6 +140,8 @@ Provide an auditable onboarding and migration capability that separates commerci
 | Accountant/finance user | Know when inbound/outbound is active and how existing invoices continue |
 | Sage ERP/API consumer | Configure and track onboarding through stable product-neutral operations |
 | Sage proposition owner | Apply eligibility, pricing/entitlement and customer-choice rules |
+| Sage e-invoicing Domain Service Product Owner | Accountable for the product-neutral onboarding, connection, route and migration service outcome, scope, priorities and roadmap |
+| Domain-service Solution Designer | Supports the Domain Service Product Owner by defining the cross-product solution, capability boundaries, journeys, API/event contracts and reusable-versus-country-specific behaviour; does not approve product priority or Spanish regulatory interpretation |
 | Legal operator | Provision the platform relationship and prove external readiness |
 | Existing/public platform | Preserve or release route state according to the approved transition sequence |
 | Sage operations/support | Reconcile intended/observed state, recover cases and explain customer impact |
@@ -394,19 +396,44 @@ No single `ONBOARDED` flag should replace these dimensions.
 
 ## Open questions and decision owners
 
+### Research-backed consultation — historical lifecycle after a route change
+
+The questions below are **OPEN — RESEARCHED**. They preserve the current research and proposed treatment, but they are not approved Spanish legal, regulatory or provider decisions. They require review by the Spain PM/PMM, Spain Compliance/Legal/Tax, the local technical lead, the accountable Sage Domain Service Product Owner, the supporting Solution Designer, Engineering owner, and relevant public/private platform specialists. Operations/Support and Security/Privacy must also approve decisions affecting service continuity, credential custody, access or retention.
+
+The reusable platform principles are firmer and can guide the design while consultation continues:
+
+- activation of a new route applies prospectively to new eligible invoices within the approved scope;
+- every invoice retains immutable original network, route, provider and obligation context;
+- route deactivation, external deregistration, credential revocation, subscription termination and historical access/retention are separate actions;
+- an unresolved external outcome must be reconciled before Sage retries, releases the previous route or claims that a transition is complete.
+
+These controls prevent data loss and duplicate processing. They do **not** decide which external actor may or must perform a later Article 10 or Article 12 operation in Spain.
+
+| Decision question | Current research/hypothesis | Evidence already available | Required local validation | Blocks |
+|---|---|---|---|---|
+| Who owns an Article 10 commercial-status action after the customer switches route? | The invoice's original network context remains authoritative. The original platform may still be required to communicate or evidence the action, but the permitted executing actor is open. | RD 238/2026 Article 10; PRD-SEI-224 event and obligation model | Spain Compliance/Legal, Spain PM/PMM, local technical lead and affected providers | Pilot route-switch test and production |
+| Who sends the Article 12 full-rejection or payment report after a switch? | Treat it as an independent public-reporting obligation linked to the original invoice. The new route must not create a duplicate; the permitted actor, interface and credential remain open. | RD 238/2026 Article 12; PRD-SEI-224 independent-destination model | Spain Compliance/Tax, AEAT/public-platform technical SME, Spain PM and architecture | External contract and pilot |
+| Can the new provider perform a follow-up operation for an invoice exchanged through the previous provider? | Do not assume authority transfers with the route. Permit it only where the official interface, customer authority and provider contract support cross-provider operation. | Immutable origin and capability-scoped authority principles in PRD-SEI-224 and PRD-SEI-231 | Spain Compliance/Legal, provider SMEs and Security | API design and production |
+| Which route handles a rectifying invoice created after the switch? | The current route may carry a new rectifying invoice if the Spanish rules and interfaces permit it, while Sage must preserve the link to the original invoice and both network contexts. Ownership and reporting treatment remain open. | RD 238/2026 rectification provisions; PRD-SEI-224 append-only correction model | Spain Compliance/Tax, local technical lead and Product | Detailed design and acceptance |
+| What happens to an invoice in flight at the cutover boundary? | The original route reconciles any uncertain or incomplete delivery. The target route handles only clearly post-cutover invoices; Sage must not resend merely because the customer switched. | Phase 2 idempotency, reconciliation and transition-continuity principles | Spain technical lead, providers and Operations | Migration runbook and pilot |
+| How long must old-provider access and credentials remain available? | Keep only the minimum purpose-bound access needed to complete non-terminal obligations, reconciliation, evidence export and approved audit/retention duties. No duration is assumed. | Security minimisation and operational-continuity principles; PRD-SEI-224 | Spain Compliance/Legal, Privacy, Security, Operations and provider contract owner | Production and offboarding |
+| What is the process if a provider becomes unavailable or the customer must exit immediately? | Preserve queues, immutable evidence and unresolved outcomes. Use an approved public or alternative route prospectively, and for historical actions only where the country rule permits; open a controlled operations case. | Business-continuity and interconnection principles in PRD-SEI-201/203 | Spain PM, Compliance, local technical lead, providers and Operations | BCP and production |
+| Does an accountant's or agent's authority continue across a route switch? | Authority is client-, capability-, direction-, route- and validity-specific. A previous-provider login, mandate or certificate must not be treated as universal authority. | PRD-SEI-231 delegated-authority model | Spain Compliance/Legal, accountant-product PM/PMM and Security | Delegated onboarding and operations |
+
+**Decision recording rule:** each question remains `OPEN — RESEARCHED` until the named reviewers record `CONFIRMED`, `AMENDED` or `REJECTED`, with an accountable owner, decision date and evidence reference. Every confirmed capability must also name its Domain Service Product Owner, Solution Designer, Engineering owner and Operations owner. The Product Owner is accountable for the service outcome and priority; the Solution Designer is responsible for the cross-product solution and contract proposal; Engineering builds it; Operations runs it. Only a confirmed decision may be promoted into binding business rules, requirements, acceptance criteria or an operational runbook.
+
 | Question | Why it matters | Owner | Blocks | Current hypothesis |
 |---|---|---|---|---|
 | What precisely determines an invoice's route? | Defines authoritative selection and reconciliation | Local technical/regulatory team | Design/pilot | Explicit route policy plus external entry-point observation |
 | What route granularity is legally and technically supported? | Determines independent inbound/outbound/entity/supplier behaviour | Local team | Design | Model extensibly; activate only confirmed scopes |
 | Can public and private registrations coexist, and how are multiple private entry points represented? | Controls migration safety | Local team/operator | External validation | Coexistence is supported conceptually; exact mechanics open |
-| Who owns older invoice lifecycle after switching? | Determines credential/evidence continuity | Local/legal/operator | Pilot/production | Original-network context remains; responsibility requires approval |
 | What is the authoritative cutover, rollback and deregistration sequence? | Prevents reachability and duplicate risk | Local team/architecture/operator | Pilot | Prove new state before release where permitted |
 | Is activation immediate, scheduled or externally effective after propagation? | Determines customer promise and route timestamp | Local team/product | Design | Separate requested and observed effective time |
 | Which roles can bind each legal entity? | Prevents unauthorised registration | Legal/product | Pilot | Approved business administrator with audit evidence |
-| How long must historical access and credentials remain? | Drives retention/security | Legal/privacy/operator | Production | Configurable until approved |
 
 ## Change log
 
 | Date | Version | Change | Evidence/decision |
 |---|---|---|---|
+| 2026-08-27 | Version 2 | Added a research-backed local-validation matrix for historical lifecycle ownership after route change; retained current hypotheses as open; named the required Spain reviewers and accountable domain-service owners | User research; PRD-SEI-224 and PRD-SEI-231 |
 | 2026-08-10 | Version 1 | Initial Phase 3 customer onboarding, entry-point and migration PRD | PRD-SEI-210, Phase 2 transition foundations and RD 238/2026 |
