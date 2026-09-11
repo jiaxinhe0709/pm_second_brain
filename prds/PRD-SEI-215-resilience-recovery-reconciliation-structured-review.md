@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-09-11
 reviewers: []
 related:
   - PRD-SEI-203
@@ -17,6 +17,7 @@ related:
   - PRD-SEI-206
   - PRD-SEI-207
   - PRD-SEI-208
+  - PRD-SEI-235
   - research/provider-apis/README.md
 confluence:
   publish: true
@@ -36,9 +37,9 @@ confluence:
 |---|---|
 | Predecessor | Based on PRD-SEI-203, which remains unchanged as the predecessor document. |
 | Reason for this successor | Provide an individually readable successor that publishes through a native Confluence two-column layout with a left-sidebar Table of Contents. |
-| Material changes | Assigns permanent ID PRD-SEI-215, adds this revision overview, and adds Confluence layout and navigation metadata for publication as a new child page. |
-| Unchanged areas | Business analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks, decisions and open questions remain unchanged from PRD-SEI-203. |
-| Decisions still open | All product, provider, regulatory and architecture decisions remain as recorded in PRD-SEI-203; this successor introduces no new product decision. |
+| Material changes | Assigns permanent ID PRD-SEI-215, adds Confluence layout/navigation metadata, and applies the resilience model to Provider API, adapter, event and reconciliation legs without creating competing mutation owners. |
+| Unchanged areas | Existing failure analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks and recovery principles remain based on PRD-SEI-203. |
+| Decisions still open | Exact integration mode, recovery capability, limits and service targets remain open per provider capability. |
 
 ## Overview
 
@@ -54,7 +55,10 @@ The provider portfolio will not behave uniformly. Providers may use different au
 |---|---|
 | Shared routing foundation — PRD-SEI-202 | Connection, registration, capability readiness, route and invoice context |
 | **Shared resilience and operations — PRD-SEI-203** | **Error ownership, operation safety, retry, reconciliation, monitoring, audit and controlled recovery** |
-| Provider PRDs — PRD-SEI-204–208 | Provider-specific evidence, mappings, limits and reconciliation mechanisms |
+| Provider API — PRD-SEI-235 | Sage-owned provider-facing operations, events, access and conformance controls |
+| Current provider PRDs — PRD-SEI-216–220 | Provider-specific evidence, mappings, limits, selected integration direction and reconciliation mechanisms |
+
+These controls apply on both sides of the provider boundary. Provider-to-Sage submissions and retrieval, Sage-to-provider adapter calls, callbacks/events and reconciliation reads each require their own authentication, idempotency, failure and readiness evidence. “Bidirectional” business exchange must not be implemented as two competing mutation owners for the same operation.
 
 ## Product principle
 

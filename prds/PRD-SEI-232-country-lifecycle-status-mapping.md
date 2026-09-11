@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-12
-updated: 2026-08-26
+updated: 2026-09-11
 reviewers: []
 related:
   - PRD-SEI-227
@@ -260,7 +260,9 @@ Royal Decree 238/2026 Article 10 defines event categories rather than a numeric 
 | `Pago parcial de la factura` | `PARTIALLY_PAID` | Optional | Recipient or authorised actor | Amount paid and payment date | Communicate to issuer within four-day rule | Partial payment; repeatable until/corrected by full payment evidence |
 | `Cesión de la factura a un tercero para su cobro o pago` | `ASSIGNED` | Optional | Recipient or authorised actor | Assignee identity and assignment date | Communicate to issuer within four-day rule | Collection/payment responsibility changed; no payment inferred |
 
-The four-day rule is a maximum of four calendar days while excluding Saturdays, Sundays and national holidays, measured from the date the reported event occurs. Its calendar implementation and time-zone/cut-off interpretation require an approved Spain rule fixture.
+Primary source for the statutory terms, required events and optional events: [BOE — Royal Decree 238/2026, Article 10.1–10.2](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295#a1-2), accessed 2026-09-11. The uppercase Sage events and shared interpretations are proposed mappings, not terms defined by the decree.
+
+The four-day rule is a maximum of four calendar days while excluding Saturdays, Sundays and national holidays, measured from the date the reported event occurs. Its calendar implementation and time-zone/cut-off interpretation require an approved Spain rule fixture. Source: [BOE — Royal Decree 238/2026, Article 10.3](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295#a1-2), accessed 2026-09-11.
 
 #### Spain event eligibility and precedence
 
@@ -278,7 +280,9 @@ The four-day rule is a maximum of four calendar days while excluding Saturdays, 
 
 None of the seven Article 10 variants is declared by the decree to be a universal terminal state. Rectifying invoices, discrepancies, public-reporting outcomes and later evidence remain separate events. Technical states such as schema validation, platform receipt, interconnection delivery, faithful-copy deposit and authority acknowledgement must be added when the ministerial order/service specifications define them.
 
-Source: [Spain Royal Decree 238/2026, Articles 10–12](https://www.boe.es/eli/es/rd/2026/03/25/238), accessed 2026-08-26.
+Primary source for the independent public-solution reporting leg: [BOE — Royal Decree 238/2026, Article 12.1–12.3](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295#a1-4), accessed 2026-09-11. Article 12 requires reporting full payment or rejection to the public solution, permits the recipient to authorise its private platform to communicate payments, and gives the full-payment communication its own four-day rule.
+
+Operational corroboration: [AEAT — Facturación electrónica obligatoria](https://sede.agenciatributaria.gob.es/Sede/iva/novedades-iva/novedades-normativa-2026/real-decreto-238-2026-25-marzo.html), accessed 2026-09-11, confirms AEAT's role in the public solution and its planned support for invoice-status information, including full payment. It is supporting operational context; the BOE remains the primary source for the statutory event and deadline rules, and the future ministerial order/AEAT service specifications remain the source required for technical implementation.
 
 ## Requirements and acceptance
 
@@ -341,3 +345,4 @@ Open gates: approve the shared dimensions; name country owners; obtain authorita
 | 2026-08-26 | Expanded the lifecycle into implementation-oriented source catalogues: corrected France to 15 terms/16 contexts, added reform codes, phases, actors, guarded paths and namespace rules; added Spain's exact statutory terms, event data and precedence without inventing technical codes | User-supplied Sage guide as presentation input; current XP Z12-012/DGFiP/AIFE evidence; Spain RD 238/2026 Articles 10–12 |
 | 2026-08-26 | Made Sage Network, country-pack, route/provider-binding and product responsibilities explicit for outbound, inbound and historical reconciliation flows | User product-direction clarification; PRD-SEI-227 shared-platform boundary |
 | 2026-08-26 | Added a cross-country commonality matrix showing the reusable Sage Network capability beside actual terms, legal-only events, channel-specific evidence, open specifications and inactive obligations for France, Spain, Germany, Ireland and the UK | User request for an overall visual comparison; PRD-SEI-228/229/230 country-pack evidence |
+| 2026-09-11 | Added claim-adjacent official BOE sources for Spain's Article 10 event catalogue and deadline and its separate Article 12 public-reporting leg; added AEAT operational corroboration without treating it as the unpublished technical contract | Royal Decree 238/2026, Articles 10.1–10.3 and 12.1–12.3; AEAT mandatory e-invoicing overview |

@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-12
-updated: 2026-08-27
+updated: 2026-08-28
 reviewers: []
 related:
   - PRD-SEI-227
@@ -29,7 +29,7 @@ confluence:
 
 ## Decision summary
 
-Model Sage access context, legal identity, establishment identity, tax identity, network address, delegated authority and credentials as separate, related records. Do not attach country identifiers directly to `tenantId` or `datasetId`, and do not treat a credential as proof that an accountant may act for every client or operation.
+Use the product's applicable `tenantId`, `datasetId` or combined tenant/dataset reference as the internal access-context key used to organise and recognise the account. Classify that context as either a **direct customer context** or an **accountant portfolio context**. A direct customer context associates with one customer identity set; an accountant context relates one-to-many to client identity sets. Associate each customer/client's scheme-qualified country identifiers with that context or client relationship, while retaining their different legal, establishment, tax and network roles. Do not collapse those roles into one untyped identifier field, and do not treat a credential as proof that an accountant may act for every client or operation.
 
 Apply those identities through one immutable **compliance context** that produces three independently evidenced outcomes:
 
@@ -41,6 +41,8 @@ Apply those identities through one immutable **compliance context** that produce
 
 For France, the corrected cardinality is: an accountant portfolio may contain many client **SIRENs**; each legal unit has one SIREN and may have many establishment **SIRETs**. A SIRET contains the SIREN plus an establishment-specific NIC. [French official guidance](https://entreprendre.service-public.gouv.fr/vosdroits/F32135) gives the example `1 SIREN + 3 SIRETs` for one head office and two shops.
 
+In Sage context terms, one customer `tenantId`/`datasetId` context holds that customer's identity set. One accountant `tenantId`/`datasetId` context holds the accountant account and relates to many client identity sets; the `1 SIREN + many SIRETs` structure is evaluated separately for each French client. The accountant context does not turn all client SIRENs into one company and does not confer authority across the portfolio.
+
 This is a discovery contract, not an approved physical schema or API.
 
 ## Outcome, phase and product principles
@@ -49,6 +51,7 @@ This discovery defines how Sage products, customers, accountants, platform servi
 
 | Principle | Product consequence |
 |---|---|
+| Internal context organises the account | The applicable `tenantId`/`datasetId` key resolves either one direct customer's identity set or an accountant portfolio with one-to-many client identity relationships. |
 | One context, three outcomes | Document, recipient-delivery and authority-reporting states remain independently queryable, recoverable and evidenced. |
 | Identity is role-specific | A legal-registration number, establishment number, VAT number and network address may share characters but are never interchangeable without an explicit scheme and role. |
 | Authority is evaluated per operation | An accountant's login or certificate does not grant portfolio-wide submission, retrieval, correction or reporting rights. |
@@ -60,6 +63,8 @@ This discovery defines how Sage products, customers, accountants, platform servi
 
 | Term | Meaning in this PRD | Must not be confused with |
 |---|---|---|
+| Access context | Product-owned account boundary identified by the applicable `tenantId`, `datasetId` or combined reference and classified as direct customer or accountant portfolio | An official country identifier or proof of statutory authority |
+| Customer/client identity set | The official legal, establishment, tax and network identities associated with one direct customer or one selected accountant client; this is a conceptual grouping, not a new `legalEntityId` | The accountant portfolio, tenant permission or one universal identifier |
 | Compliance delivery | Overall capability that evaluates policy, binds identity/authority, executes required compliance legs and retains evidence | Recipient delivery alone |
 | Document compliance | Validity of the structured invoice representation under the applicable semantic, syntax/profile and business rules | Proof the recipient received it |
 | Delivery compliance | Successful and evidenced delivery to the intended recipient using an eligible address, route and provider/network context | Government reporting or commercial acceptance |
@@ -122,18 +127,18 @@ This discovery defines how Sage products, customers, accountants, platform servi
   <style>
     .eii-map *{box-sizing:border-box}.eii-map .sub{margin:0 0 14px;color:#6b778c;font-size:12px}.eii-map svg{display:block;width:100%;max-width:1100px;height:auto;min-width:760px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eii-map .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.6}.eii-map .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.8}.eii-map .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eii-map .warn{fill:#fff7d6;stroke:#ffab00;stroke-width:1.6}.eii-map .title{fill:#172b4d;font-size:10px;font-weight:700}.eii-map .copy{fill:#42526e;font-size:8.5px}.eii-map .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.eii-map .path{fill:none;stroke:#00875a;stroke-width:2}.eii-map .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eii-map .arrow{fill:#00875a}.eii-map .arrow-g{fill:#6b778c}.eii-map .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;min-width:0;margin-top:10px}.eii-map .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px;line-height:1.4}.eii-map .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <p class="sub">One internal access context can reference several legal entities; each legal entity can carry country identities, establishments and network addresses. Delegation is an explicit scoped edge.</p>
-  <svg viewBox="0 0 1100 640" role="img" aria-label="Two onboarding paths lead to a common identity graph. A direct client enters a workspace directly. An accountant firm reaches the workspace only through a separate delegated authority grant. The workspace references a client legal entity without embedding official identifiers. The French example shows one SIREN and multiple SIRETs. Tax identities, Peppol participant addresses and credentials sit in separate non-overlapping lanes. Every connector uses a dedicated gutter and every action binds actor, authority, client entity, capability, direction and effective time.">
+  <p class="sub">The product's tenant/dataset context is the internal account key. A customer context associates with one customer identity set; an accountant context relates one-to-many to separately authorised client identity sets.</p>
+  <svg viewBox="0 0 1100 640" role="img" aria-label="Two access paths lead to a product access context identified by tenant ID, dataset ID or both. A direct customer context associates with one customer identity set. An accountant portfolio context relates to many client identity sets only through separate delegated authority grants. Each selected customer or client carries scheme-qualified legal, establishment, tax and network identities. The French example shows one client SIREN and multiple SIRETs. Credentials remain separate from authority, and every action binds actor, authority, selected client, capability, direction and effective time.">
     <text x="32" y="30" class="label">ACCESS PATH</text><text x="350" y="30" class="label">SAGE CONTEXT AND AUTHORITY</text><text x="720" y="30" class="label">LEGAL / COUNTRY / NETWORK IDENTITY</text>
     <rect x="32" y="62" width="238" height="82" rx="10" class="main"/><text x="52" y="92" class="title">Direct client</text><text x="52" y="114" class="copy">Owner/admin acts for own business</text><text x="52" y="132" class="copy">interactive or bounded bulk operations</text>
     <rect x="32" y="194" width="238" height="104" rx="10" class="main"/><text x="52" y="224" class="title">Accountant firm + authorised user</text><text x="52" y="246" class="copy">Portfolio may contain many client SIRENs</text><text x="52" y="266" class="copy">batch is execution mode, not authority</text><text x="52" y="286" class="copy">no implicit access to another client</text>
-    <rect x="350" y="62" width="270" height="104" rx="10" class="main"/><text x="370" y="92" class="title">Workspace / access context</text><text x="370" y="114" class="copy">tenantId • datasetId? • product/account</text><text x="370" y="134" class="copy">internal references and permissions</text><text x="370" y="154" class="copy">dataset meaning/cardinality is an open gate</text>
+    <rect x="350" y="62" width="270" height="104" rx="10" class="main"/><text x="370" y="92" class="title">Product access context</text><text x="370" y="114" class="copy">tenantId • datasetId • product/account</text><text x="370" y="134" class="copy">role: customer or accountant portfolio</text><text x="370" y="154" class="copy">internal account key and permissions</text>
     <rect x="350" y="208" width="270" height="90" rx="10" class="optional"/><text x="370" y="238" class="title">Delegated authority grant</text><text x="370" y="260" class="copy">client • capability • direction • country</text><text x="370" y="280" class="copy">effective interval • evidence • revocation</text>
     <path d="M270 103 H350" class="path"/><polygon points="350,103 340,97 340,109" class="arrow"/>
     <path d="M270 246 H350" class="path-opt"/><polygon points="350,246 340,240 340,252" class="arrow-g"/>
     <path d="M485 208 V166" class="path-opt"/><polygon points="485,166 479,176 491,176" class="arrow-g"/>
     <path d="M620 114 H720" class="path"/><polygon points="720,114 710,108 710,120" class="arrow"/>
-    <rect x="720" y="62" width="330" height="104" rx="10" class="main"/><text x="740" y="92" class="title">Client legal entity</text><text x="740" y="114" class="copy">stable Sage entity reference</text><text x="740" y="134" class="copy">country establishment and tax context</text><text x="740" y="154" class="copy">one workspace may reference 1..n by policy</text>
+    <rect x="720" y="62" width="330" height="104" rx="10" class="main"/><text x="740" y="92" class="title">Customer / selected client identity set</text><text x="740" y="114" class="copy">customer context: exactly one customer</text><text x="740" y="134" class="copy">accountant context: one of 1..n clients</text><text x="740" y="154" class="copy">country legal • establishment • tax identities</text>
     <path d="M885 166 V206" class="path"/><polygon points="885,206 879,196 891,196" class="arrow"/>
     <rect x="720" y="208" width="330" height="142" rx="10" class="finish"/><text x="740" y="238" class="title">France identity example</text><text x="740" y="262" class="copy">Legal unit — one SIREN (9 digits)</text><text x="740" y="286" class="copy">├─ Head office — SIRET A (SIREN + NIC)</text><text x="740" y="310" class="copy">├─ Establishment — SIRET B</text><text x="740" y="334" class="copy">└─ Establishment — SIRET C</text>
     <rect x="350" y="378" width="270" height="82" rx="10" class="optional"/><text x="370" y="408" class="title">Tax identities</text><text x="370" y="430" class="copy">NIF / VAT / country registration</text><text x="370" y="450" class="copy">scheme + value + country + validity</text>
@@ -144,7 +149,7 @@ This discovery defines how Sage products, customers, accountants, platform servi
     <path d="M620 253 H660 V449 H720" class="path-opt"/><polygon points="720,449 710,443 710,455" class="arrow-g"/>
     <rect x="178" y="598" width="744" height="30" rx="15" class="finish"/><text x="274" y="618" class="title">Action context = actor + authority + client entity + identifier + capability + direction + effective time</text>
   </svg>
-  <div class="notes"><div class="note"><strong>No identifier stuffing</strong>Internal IDs reference identity records; they do not become part of SIREN, SIRET, NIF or a Peppol address.</div><div class="note"><strong>Authority is narrower than access</strong>A login, API key or certificate never grants portfolio-wide rights by implication.</div><div class="note"><strong>Batch preserves isolation</strong>Every item is authorised, processed, evidenced and failed independently for its client entity.</div></div>
+  <div class="notes"><div class="note"><strong>Context-linked identity</strong>The tenant/dataset key organises the account and links to typed country identity records; no separate <code>legalEntityId</code> is assumed.</div><div class="note"><strong>Authority is narrower than access</strong>A login, API key or certificate never grants portfolio-wide rights by implication.</div><div class="note"><strong>Batch preserves isolation</strong>Every item is authorised, processed, evidenced and failed independently for its selected client identity set.</div></div>
 </div>
 <!-- confluence-html-macro:end -->
 
@@ -156,7 +161,7 @@ This discovery defines how Sage products, customers, accountants, platform servi
 | Accountant firm and authorised user | Work across a portfolio without gaining transitive access; act only for approved clients, capabilities, directions and periods. |
 | Sage product or API consumer | Submit stable business intent and receive separate document, delivery and reporting outcomes without encoding country identifier rules. |
 | Identity/country-policy owner | Maintain official schemes, issuer evidence, validation rules, role eligibility, effective dates and deprecations. |
-| Platform service | Bind tenant, legal subject, identity snapshot, authority decision and obligations before external mutation. |
+| Platform service | Resolve the tenant/dataset context role, bind the direct customer or selected accountant client identity snapshot, and record authority and obligations before external mutation. |
 | Provider/network/authority | Validate, route, receive or acknowledge one defined external leg; it is not the owner of the other outcomes by implication. |
 | Operations/support | See intended and observed state, evidence freshness, fault domain and safe next action without exposing restricted identifiers. |
 | Security/privacy/legal | Approve credential custody, identifier classification, delegated-authority evidence, retention and disclosure. |
@@ -396,13 +401,14 @@ Spain therefore does **not** have a SIREN/SIRET hierarchy. The eight rows descri
 
 ## Reusable conceptual records and fields
 
-These are conceptual fields, not an approved physical schema. Country-named columns such as `siren`, `nif`, `utr` or `croNumber` should not be added to a shared tenant record.
+These are conceptual fields, not an approved physical schema. The tenant/dataset context should link and index the applicable typed identifier records so Sage can organise and recognise the customer or accountant client. Country-named scalar columns such as `siren`, `nif`, `utr` or `croNumber` should not replace the scheme-qualified collection or imply that all identifiers have the same subject and role.
 
 | Record | Reusable fields | Country-owned content or rule |
 |---|---|---|
-| AccessContext | `contextId`, `tenantId`, `datasetId`, `productId`, `environment`, `legalEntityRefs`, validity | Product meaning/cardinality of tenant and dataset; who may attach legal entities |
-| LegalEntity | `legalEntityId`, legal name, legal form, incorporation/subject jurisdiction, status, validity, predecessor/successor references | Which registry/identity proves existence; merger, legal-form and cessation effects |
-| Establishment | `establishmentId`, `parentLegalEntityId`, establishment type, address, jurisdiction, official identifier references, validity | Whether a formal establishment identifier exists and when the establishment controls applicability/reporting |
+| AccessContext | `tenantId`, `datasetId`, `productId`, `environment`, context role (`DIRECT_CUSTOMER` or `ACCOUNTANT_PORTFOLIO`), validity | Which internal key or combination the product supplies and the context lifecycle |
+| Customer/client identity set | Access-context reference for a direct customer, or accountant-client relationship reference for a portfolio client; legal name, legal form, jurisdiction, status, validity and official identifier references | Which registry/identity proves the subject; merger, legal-form and cessation effects; no separate `legalEntityId` is assumed |
+| Establishment | Parent customer/client identity-set reference, establishment type, address, jurisdiction, official identifier references and validity | Whether a formal establishment identifier exists and when the establishment controls applicability/reporting |
+| Accountant-client relationship | Accountant access context, selected client identity-set references, optional client customer-context reference when available, product scope, validity and status | Relationship cardinality and lifecycle; this records portfolio membership but not statutory authority |
 | ExternalIdentifier | `identifierId`, `scheme`, raw value, normalized value, issuing country, issuing authority, subject type/reference, permitted roles, validity, status, verification source/time, sensitivity classification | Format/check digits, normalization, issuer, role eligibility, verification method, deprecation and masking |
 | NetworkAddress | `addressId`, network, participant scheme/value, direction, document profiles/capabilities, directory/endpoint reference, provider/access-point role, validity, discovery source/time | Eligible schemes, registration/discovery rules, routing priority, capability lookup and acknowledgement meaning |
 | DelegatedAuthorityGrant | `grantId`, principal entity, delegate organisation/user, capability, direction, country, network/route scope, validity, evidence reference, verification status, revocation reason/time | Legally accepted mandate/agent mechanism, sub-delegation, proof format and operation scope |
@@ -475,7 +481,7 @@ Sources: [France reform guidance](https://www.impots.gouv.fr/sites/default/files
 | ID | Condition | Rule | Evidence/status |
 |---|---|---|---|
 | BR1 | Any external identifier is stored or used | Store scheme, value, issuer country/authority, subject level, permitted role, validity and verification evidence; never infer type from length alone | Confirmed product principle |
-| BR2 | Product context is linked to compliance identity | `tenantId` and `datasetId` remain internal access/context identifiers and reference versioned legal subjects/identities | Proposed; product cardinality is open |
+| BR2 | Product context is linked to compliance identity | The applicable `tenantId`/`datasetId` context is the internal organising key. A direct-customer context associates with one customer identity set; an accountant context relates one-to-many to separately selected client identity sets. Each set retains versioned, scheme-qualified official identifiers. | Confirmed product direction; exact per-product key contract remains open |
 | BR3 | French legal identity is represented | One legal unit has one SIREN and may have many establishment SIRETs | Confirmed official evidence |
 | BR4 | A national value is used as a Peppol/directory address | Preserve the participant/directory scheme and role separately from the legal/tax identity record | Confirmed network-model principle |
 | BR5 | Country policy evaluates an invoice/action | It declares document, delivery and reporting obligations independently as required, not applicable, unsupported or unknown | Confirmed parent-PRD principle |
@@ -587,7 +593,7 @@ Expected result: partial success is safe and no item inherits another client's a
 
 | ID | Requirement |
 |---|---|
-| ID-FR1 | Before external mutation or protected retrieval, the platform must resolve `tenant/access context → Sage legal entity → applicable establishment → scheme-qualified identifiers` and record the resolution evidence. |
+| ID-FR1 | Before external mutation or protected retrieval, the platform must resolve `tenant/dataset access context → context role → direct customer or selected accountant client identity set → applicable establishment → scheme-qualified identifiers` and record the resolution evidence. A bare country-identifier value must not bypass context, client selection or authority checks. |
 | ID-FR2 | The platform must support one legal entity to many establishments and many identifiers/network addresses with effective dates, explicit roles and no silent overwrite. |
 | ID-FR3 | Identifier uniqueness and lookup must include scheme, normalized value, issuer country/authority and subject level; a bare value must not be a global key. |
 | ID-FR4 | The platform must retain raw/display and normalized identifier values plus verification/deprecation evidence without placing restricted values in logs or metrics labels. |
@@ -688,6 +694,7 @@ Expected result: partial success is safe and no item inherits another client's a
 | ID-AC13 | Given a Spanish recipient NIF has one verified private entry point matching the effective approved scope, when delivery is resolved, then that destination and its discovery evidence are bound to the invoice before dispatch. |
 | ID-AC14 | Given a Spanish recipient NIF has no publicly identified private entry point, when delivery is resolved, then the AEAT public solution is selected as the country default with the applied rule/version recorded. |
 | ID-AC15 | Given Spanish private entry points are published but no single entry is proven to match—because none has evidenced scope or several appear eligible—when delivery is requested, then no dispatch or public fallback occurs and the candidates enter correction/reconciliation without Sage choosing arbitrarily. |
+| ID-AC16 | Given one direct-customer context and one accountant-portfolio context, when identity is resolved, then the direct context returns its one customer identity set while the accountant context requires selection and authority evaluation for one of its one-to-many client identity sets; neither context implies a portfolio-wide grant. |
 
 ## Reuse assessment
 
@@ -747,7 +754,7 @@ The 83% figure is a discovery hypothesis for reusable **design surface**. It mus
 
 | Question | Why it matters | Decision owner | Blocks | Current hypothesis |
 |---|---|---|---|---|
-| What does `datasetId` represent and can one dataset contain several legal entities/establishments? | Determines tenancy and identity cardinality | Product/domain architecture | Approved conceptual model and API | Keep dataset as internal context until decided |
+| Which products use `tenantId`, `datasetId` or both as the access-context key, and how is the context role supplied? | Determines the cross-product lookup/API contract | Product/domain architecture | Approved conceptual model and API | Context role is customer or accountant portfolio; exact key shape remains product-owned |
 | Which facts make each country policy applicable? | Selects legal subject, establishment and branches | Country legal/compliance | Production scope | Country pack owns effective-dated applicability |
 | Which identifier is required for each semantic/profile/directory/report field? | Prevents correct value in wrong role | Country product/technical owner | Country implementation | Use role-qualified mapping, never bare aliases |
 | What official verification sources and freshness rules are available? | Determines identity trust and stale-route risk | Identity/country owner | Production onboarding | Format-only validation is insufficient where registry checks exist |
@@ -762,7 +769,8 @@ The 83% figure is a discovery hypothesis for reusable **design surface**. It mus
 
 | Decision | Status |
 |---|---|
-| Separate access context, legal entity, establishment, tax identity, network address, delegated authority and credential | Confirmed product direction |
+| Separate access context, customer/client identity set, establishment identity, tax identity, network address, delegated authority and credential | Confirmed product direction |
+| Use the tenant/dataset access context as the internal organising key: one customer identity set for a direct context and one-to-many client identity sets for an accountant context | Confirmed by user clarification, 2026-08-28 |
 | Use one immutable compliance context and three independent outcome branches | Confirmed by parent PRD and this detailed review |
 | Treat compliance delivery as orchestration, not a fourth outcome | Confirmed clarification from user review, 2026-08-18 |
 | Use shared conceptual records plus country-owned catalogs/bindings | Proposed; architecture and country consultation required |
@@ -783,3 +791,4 @@ This document is **consultation-ready for identity, country-policy, delegation, 
 | 2026-08-25 | Added explicit France and Spain country-pack catalogue rows and counts; incorporated DNI/NIE/assigned-NIF treatment and separated identity, document and network bindings; included active Peppol `9957` FR:VAT | User request; existing official identity, directory, Royal Decree and OpenPeppol v9.7 evidence |
 | 2026-08-26 | Added the answer-led section “How does the central directory work in Spain?”, including France–Spain route cardinality, a concrete NIF example, zero/one/multiple-match behaviour and explicit unresolved partial-receipt scope | User request; DGFiP FAQ/directory evidence and Spain RD 238/2026 Articles 5–9 |
 | 2026-08-27 | Added the fictional Distribuciones Sol zero/one/several entry-point example, concrete `MAD-*`/`LOG-*` partial-routing hypothesis, NIF-versus-transport-address clarification and a Confluence-safe resolution diagram while retaining unresolved-scope and immutable-context rules | User request; existing evidence and product behaviour in this PRD |
+| 2026-08-28 | Corrected the tenancy model: removed the invented `legalEntityId`, made tenant/dataset the internal account context, distinguished one direct customer from an accountant's one-to-many client portfolio, and retained scheme-qualified country identities and per-client authority | User clarification |

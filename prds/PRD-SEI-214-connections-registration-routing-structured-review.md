@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-09-11
 reviewers: []
 related:
   - PRD-SEI-202
@@ -17,6 +17,7 @@ related:
   - PRD-SEI-206
   - PRD-SEI-207
   - PRD-SEI-208
+  - PRD-SEI-235
   - https://confluence.sage.com/spaces/DNBU/pages/855183578/Platform+Transition+Management
   - https://confluence.sage.com/spaces/DNBU/pages/837610648/Public+Platform+Onboard
 confluence:
@@ -37,9 +38,9 @@ confluence:
 |---|---|
 | Predecessor | Based on PRD-SEI-202, which remains unchanged as the predecessor document. |
 | Reason for this successor | Provide an individually readable successor that publishes through a native Confluence two-column layout with a left-sidebar Table of Contents. |
-| Material changes | Assigns permanent ID PRD-SEI-214, adds this revision overview, and adds Confluence layout and navigation metadata for publication as a new child page. |
-| Unchanged areas | Business analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks, decisions and open questions remain unchanged from PRD-SEI-202. |
-| Decisions still open | All product, provider, regulatory and architecture decisions remain as recorded in PRD-SEI-202; this successor introduces no new product decision. |
+| Material changes | Assigns permanent ID PRD-SEI-214, adds Confluence layout/navigation metadata, and clarifies that connection readiness is measured independently for Provider API, adapter, event and reconciliation legs. |
+| Unchanged areas | Existing business analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks and route model remain based on PRD-SEI-202. |
+| Decisions still open | Integration mode and readiness evidence remain open per provider capability; existing regulatory and routing decisions remain as recorded. |
 
 ## Overview
 
@@ -48,6 +49,8 @@ This feature provides the shared Phase 2 foundation that allows a Spanish e-invo
 Phase 1 establishes public-platform onboarding. Phase 2 adds private-provider connectivity and Public ↔ Private route transitions. This foundation prevents each provider integration from inventing its own customer, connection, registration, route, credential, invoice-context, and transition model.
 
 > **Connect a platform once, prove that it is ready, and activate it only for the invoice scope the customer intends to change.**
+
+The connection and route model is neutral to network initiation. A private-platform capability may use the Sage-owned Provider API, a Sage-managed provider adapter, or an explicitly approved hybrid. Connection readiness must therefore be recorded separately for provider-to-Sage calls, Sage-to-provider calls, asynchronous events and reconciliation; one successful leg must not imply that every required leg is ready.
 
 ### Delivery context
 

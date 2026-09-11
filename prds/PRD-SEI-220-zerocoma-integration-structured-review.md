@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-09-11
 reviewers:
   - dianna.hindle@sage.com
 related:
@@ -14,11 +14,12 @@ related:
   - PRD-SEI-201
   - PRD-SEI-202
   - PRD-SEI-203
+  - PRD-SEI-235
   - research/provider-apis/zerocoma/README.md
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: "837588799"
+  parent_page_id: "899154047"
   page_id: "855180249"
   title: Provider Integration — ZeroComa
   layout: two_left_sidebar
@@ -33,9 +34,15 @@ confluence:
 |---|---|
 | Predecessor | Based on PRD-SEI-208, which remains unchanged as the predecessor document. |
 | Reason for this successor | Provide an individually readable successor that publishes through a native Confluence two-column layout with a left-sidebar Table of Contents. |
-| Material changes | Assigns permanent ID PRD-SEI-220, adds this revision overview, and adds Confluence layout and navigation metadata for publication as a new child page. |
-| Unchanged areas | Business analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks, decisions and open questions remain unchanged from PRD-SEI-208. |
-| Decisions still open | All product, provider, regulatory and architecture decisions remain as recorded in PRD-SEI-208; this successor introduces no new product decision. |
+| Material changes | Assigns permanent ID PRD-SEI-220, adds Confluence layout/navigation metadata, and aligns the current source beneath PRD-SEI-235 without removing provider-specific evidence. |
+| Unchanged areas | ZeroComa research evidence, provisional journeys, requirements, acceptance criteria and risks remain based on PRD-SEI-208. |
+| Decisions still open | Architecture must decide per capability whether ZeroComa consumes the Sage Provider API, Sage retains this provider adapter, or an approved hybrid assigns one authoritative operation owner. |
+
+## Relationship to the Sage Provider API
+
+[PRD-SEI-235](PRD-SEI-235-provider-api-for-e-invoicing-service.md) defines the Sage-owned contract that providers may consume. This PRD retains ZeroComa-specific product/protocol discovery gates and the Sage-managed adapter hypothesis; no target service is treated as confirmed.
+
+The integration mode is **open per capability**: `PROVIDER_API`, `SAGE_ADAPTER` or an explicitly approved `HYBRID`. Bidirectional invoice/lifecycle exchange is required, but provider push, provider pull, Sage push and Sage pull are distinct network patterns. Before implementation, assign one authoritative mutation, idempotency and reconciliation owner to every operation and prove inbound, outbound, event and reconciliation readiness independently.
 
 ## Summary
 

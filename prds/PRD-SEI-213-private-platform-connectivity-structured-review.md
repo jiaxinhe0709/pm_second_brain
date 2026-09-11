@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-09-11
 reviewers: []
 related:
   - PRD-SEI-201
@@ -17,13 +17,19 @@ related:
   - PRD-SEI-206
   - PRD-SEI-207
   - PRD-SEI-208
+  - PRD-SEI-216
+  - PRD-SEI-217
+  - PRD-SEI-218
+  - PRD-SEI-219
+  - PRD-SEI-220
+  - PRD-SEI-235
   - https://confluence.sage.com/spaces/DNBU/pages/855183578/Platform+Transition+Management
   - https://confluence.sage.com/spaces/DNBU/pages/837610648/Public+Platform+Onboard
   - research/PRD-SEI-201-spain-use-case-evidence.md
 confluence:
   publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "837588792"
   page_id: "837588799"
   title: Phase 2 - Private Platform Connectivity
   layout: two_left_sidebar
@@ -38,9 +44,9 @@ confluence:
 |---|---|
 | Predecessor | Based on PRD-SEI-201, which remains unchanged as the predecessor document. |
 | Reason for this successor | Provide an individually readable successor that publishes through a native Confluence two-column layout with a left-sidebar Table of Contents. |
-| Material changes | Assigns permanent ID PRD-SEI-213, adds this revision overview, and adds Confluence layout and navigation metadata for publication as a new child page. |
-| Unchanged areas | Business analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks, decisions and open questions remain unchanged from PRD-SEI-201. |
-| Decisions still open | All product, provider, regulatory and architecture decisions remain as recorded in PRD-SEI-201; this successor introduces no new product decision. |
+| Material changes | Assigns permanent ID PRD-SEI-213, adds Confluence layout/navigation metadata, aligns the Phase 2 hierarchy, and recognises the Provider API, Sage adapter and approved hybrid integration modes. |
+| Unchanged areas | Existing business analysis, research evidence, scenarios, requirements, acceptance criteria, risks and route principles remain based on PRD-SEI-201. |
+| Decisions still open | Architecture must select the integration mode and authoritative operation owner per provider capability; provider readiness and contract details remain evidence-gated. |
 
 ## Summary
 
@@ -50,7 +56,9 @@ This is the umbrella Phase 2 PRD. Shared routing, resilience, and provider-speci
 
 ## Phase 2 provider landscape
 
-This visual shows the product boundary and common integration model. It is a portfolio view, not a commitment that every provider supports identical capabilities. Provider readiness, authentication, registration, document exchange, status behaviour, and limitations remain governed by the relevant provider PRD and evidence gate.
+This visual shows the product boundary and common integration model. It is a portfolio view, not a commitment that every provider supports identical capabilities or uses the same network initiator. Provider readiness, authentication, registration, document exchange, status behaviour, and limitations remain governed by the relevant provider PRD and evidence gate.
+
+The provider boundary can be implemented through the Sage-owned Provider API, a Sage-managed provider adapter, or an explicitly approved hybrid. Bidirectional invoice and lifecycle exchange is required; it does not by itself require both Sage and the provider to expose or call APIs in both directions.
 
 <!-- confluence-html-macro:start -->
 <div class="p2pl-visual" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; padding:26px; background:#ffffff; border:1px solid #dfe1e6; border-radius:8px; box-sizing:border-box; max-width:1160px; margin:0 auto; overflow-x:auto;">
@@ -95,10 +103,10 @@ This visual shows the product boundary and common integration model. It is a por
   </style>
 
   <h2>Sage and the Phase 2 Private Provider Landscape</h2>
-  <p class="p2pl-subtitle">One shared Sage platform provides connection, routing and resilience controls while provider-specific adapters preserve each network's contract and limitations.</p>
+  <p class="p2pl-subtitle">One shared Sage platform provides connection, routing and resilience controls while each capability selects a Sage Provider API, Sage adapter or approved hybrid boundary.</p>
 
   <div class="p2pl-canvas">
-    <svg viewBox="0 0 1080 580" role="img" aria-label="Sage ERP products connect to the Sage e-Invoicing platform, which selects an eligible provider adapter for B2B Router, Banqup, EDICOM, SERES or ZeroComa while retaining an optional coexisting public-platform route.">
+    <svg viewBox="0 0 1080 580" role="img" aria-label="Sage ERP products connect to the Sage e-Invoicing platform, which selects a governed Provider API, provider adapter or hybrid integration boundary for B2B Router, Banqup, EDICOM, SERES or ZeroComa while retaining an optional coexisting public-platform route.">
       <text x="42" y="44" class="p2pl-label">SAGE PRODUCTS</text>
       <text x="292" y="44" class="p2pl-label">SHARED PLATFORM CAPABILITY</text>
       <text x="650" y="44" class="p2pl-label">PROVIDER BOUNDARY</text>
@@ -134,16 +142,16 @@ This visual shows the product boundary and common integration model. It is a por
       <path d="M628 261 L638 268 L628 275" class="p2pl-arrow-main"></path>
 
       <rect x="640" y="118" width="176" height="300" rx="12" class="p2pl-adapter-card"></rect>
-      <text x="728" y="150" text-anchor="middle" class="p2pl-title">Provider adapter layer</text>
-      <text x="728" y="171" text-anchor="middle" class="p2pl-small">Common interface</text>
+      <text x="728" y="150" text-anchor="middle" class="p2pl-title">Provider integration boundary</text>
+      <text x="728" y="171" text-anchor="middle" class="p2pl-small">Mode selected per capability</text>
       <rect x="662" y="190" width="132" height="42" rx="6" class="p2pl-layer"></rect>
-      <text x="728" y="215" text-anchor="middle" class="p2pl-copy">Authentication</text>
+      <text x="728" y="215" text-anchor="middle" class="p2pl-copy">Sage Provider API</text>
       <rect x="662" y="242" width="132" height="42" rx="6" class="p2pl-layer"></rect>
-      <text x="728" y="267" text-anchor="middle" class="p2pl-copy">Format mapping</text>
+      <text x="728" y="267" text-anchor="middle" class="p2pl-copy">Sage provider adapter</text>
       <rect x="662" y="294" width="132" height="42" rx="6" class="p2pl-layer"></rect>
-      <text x="728" y="319" text-anchor="middle" class="p2pl-copy">Status mapping</text>
+      <text x="728" y="319" text-anchor="middle" class="p2pl-copy">Approved hybrid</text>
       <rect x="662" y="346" width="132" height="42" rx="6" class="p2pl-layer"></rect>
-      <text x="728" y="371" text-anchor="middle" class="p2pl-copy">Provider limitations</text>
+      <text x="728" y="371" text-anchor="middle" class="p2pl-copy">One operation owner</text>
 
       <path d="M816 268 H842" class="p2pl-path-provider"></path>
       <path d="M842 82 V410" class="p2pl-path-provider"></path>
@@ -192,7 +200,7 @@ This visual shows the product boundary and common integration model. It is a por
 
   <div class="p2pl-notes">
     <div class="p2pl-note"><strong>Shared Sage foundation</strong>Connections, scoped routing, invoice context, resilience and operational controls are defined once for all providers.</div>
-    <div class="p2pl-note"><strong>Independent provider contracts</strong>Each adapter owns its provider authentication, endpoints, mappings, status semantics, evidence and constraints.</div>
+    <div class="p2pl-note"><strong>Governed integration direction</strong>Each capability records who initiates the call and whether the provider consumes Sage's API, Sage consumes the provider contract, or an approved hybrid is used.</div>
     <div class="p2pl-note"><strong>Explicit route activation</strong>A ready provider connection becomes active only through an authorised routing decision; coexistence does not imply duplicate delivery.</div>
   </div>
 
@@ -212,11 +220,12 @@ This visual shows the product boundary and common integration model. It is a por
 | PRD-SEI-201 | Public and Private Platform Transition | Phase 2 outcomes, scope, journeys, and delivery gates |
 | PRD-SEI-202 | Private Platform Connection and Routing Foundation | Shared connection, route, registration, and transition model |
 | PRD-SEI-203 | Private Platform Resilience and Operations | Cross-provider reliability, reconciliation, monitoring, and recovery |
-| PRD-SEI-204 | B2B Router Integration | B2B Router provider adapter and onboarding |
-| PRD-SEI-205 | Banqup (Unifiedpost) Integration | Banqup provider adapter and onboarding |
-| PRD-SEI-206 | EDICOM Integration | EDICOM provider adapter and onboarding |
-| PRD-SEI-207 | SERES (Docaposte) Integration | SERES provider adapter and onboarding |
-| PRD-SEI-208 | ZeroComa Integration | ZeroComa provider adapter and onboarding |
+| PRD-SEI-235 | Provider API for e-Invoicing Service | Sage-owned provider-facing contract and integration-direction decision model |
+| PRD-SEI-216 | B2B Router Integration | Current B2B Router evidence, onboarding and capability-boundary decisions |
+| PRD-SEI-217 | Banqup (Unifiedpost) Integration | Current Banqup evidence, onboarding and capability-boundary decisions |
+| PRD-SEI-218 | EDICOM Integration | Current EDICOM discovery gates and capability-boundary decisions |
+| PRD-SEI-219 | SERES (Docaposte) Integration | Current SERES discovery gates and capability-boundary decisions |
+| PRD-SEI-220 | ZeroComa Integration | Current ZeroComa discovery gates and capability-boundary decisions |
 
 ## Problem
 

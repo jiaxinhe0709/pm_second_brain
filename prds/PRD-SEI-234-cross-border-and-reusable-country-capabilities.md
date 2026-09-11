@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-12
-updated: 2026-08-25
+updated: 2026-09-11
 reviewers: []
 related:
   - PRD-SEI-227
@@ -62,6 +62,32 @@ Current official evidence supports two deliberately different examples:
 | United Kingdom | HMRC roadmap wording: mandatory e-invoicing for all VAT invoices from April 2029; Peppol announced as the core interoperability network | Product planning can prepare for VAT-invoice and Peppol capability | Legislation, B2B/B2G/B2C boundary, geography, exemptions, participant schemes, profiles, reporting and rollout details remain open |
 
 Sources: [France — scope of e-invoicing and transaction/payment e-reporting](https://www.impots.gouv.fr/professionnel/je-decouvre-la-facturation-electronique), [France — foreign businesses without a permanent establishment](https://www.impots.gouv.fr/international-professionnel/le-reporting-pour-les-entreprises-etrangeres-sans-etablissement-stable), [Spain RD 238/2026 Articles 3–6](https://www.boe.es/eli/es/rd/2026/03/25/238), [Germany BMF e-invoice FAQ, March 2026](https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html), [Ireland Revenue Phase One](https://www.revenue.ie/en/vat/vida-vat-modernisation/large-corporates-vat-modernisation.aspx), [UK HMRC Transformation Roadmap 2026](https://www.gov.uk/government/publications/hmrc-transformation-roadmap-progress-update-2026/hmrc-transformation-roadmap-update-2026) and [UK Tax Update 2026](https://www.gov.uk/government/publications/summary-of-tax-update-2026-simplification-modernisation-and-fairness/tax-update-2026-simplification-modernisation-and-fairness-summary), accessed 2026-08-25.
+
+### Spain customer-segmentation research reconciliation
+
+The internal [E-Invoicing Customer Segmentation — Spanish Legislation Knowledge](https://confluence.sage.com/spaces/SLK/pages/771503855/E-Invoicing+Customer+Segmentation) page adds a useful product lens: classify a Spanish seller's customers by relationship (`B2B`, `B2G`, `B2C`) and geography (`domestic`, `EU`, `ROW`), then consider whether additional platform services create customer value. It is an internal research input, not the legal or technical source of record.
+
+The matrix below preserves that insight while separating confirmed obligations, planning direction and evidence still required.
+
+| Customer segment from Spanish seller perspective | Evidence-backed current treatment | Format/route treatment | Third-party/platform opportunity | Evidence status and correction to source wording |
+|---|---|---|---|---|
+| `B2B — domestic` | RD 238/2026 applies when the recipient is an entrepreneur/professional with the relevant Spanish seat, permanent establishment, domicile or habitual residence and the operation is addressed there, subject to exceptions | Structured EN16931 message using `CII`, `UBL`, `EDIFACT` or `Facturae`; public solution uses UBL under the future ministerial order | Lifecycle extensions, partial-payment/status capability, payment integration, managed routing and reconciliation may add value | **Confirmed scope and syntax families.** Do not fix `01/07/2027`, `2027–2028`, `UBL 2.5` or `CIUS ES` until the ministerial order/profile does so. Effective application is `+12 months` for turnover over EUR 8m and `+24 months` for others after that order enters into force |
+| `B2B — EU` | Not generally brought into Spain's mandatory domestic B2B route merely because the seller is Spanish; evaluate the recipient presence, place/tax treatment and each relevant destination-country rule | Use the evidenced destination/bilateral profile and route. From 1 July 2030, ViDA introduces cross-border B2B digital reporting based on e-invoicing | Destination-country transformation, Peppol or other approved delivery, reporting and reconciliation can add value | **ViDA direction confirmed; current transaction treatment remains multi-policy.** Replace broad “EU mandatory 2030” and “any format including PDF” with an effective-dated destination and ViDA decision |
+| `B2B — ROW` | A recipient with no relevant Spanish presence is outside the cited RD 238/2026 mandatory-recipient test; this does not prove that no invoicing, VAT, customs, reporting or destination-country obligation applies | Apply the destination/bilateral format and channel supported by evidence; Peppol is not universal | Multi-country format, destination routing, evidence and exception handling can add value | **Corrected:** replace unconditional “No” with `outside this Spanish mandate / continue other policy evaluations` |
+| `B2G — domestic` | Separate Spanish public-sector invoicing rules apply; do not classify the transaction through the RD 238/2026 B2B route | Facturae/FACe and any applicable EN16931/CIUS or public-body profile must be selected from the current B2G contract | High-volume, multi-administration, validation, routing and status consolidation may add value | **Separate domain confirmed; exact supported versions/profile require B2G-owned evidence.** Do not infer them from the B2B ministerial-order gap |
+| `B2G — EU or ROW` | Evaluate the destination public-procurement mandate and buyer authority; no single worldwide rule applies | Use the destination public-sector profile, identifiers and network. Peppol may be required or useful only where the applicable authority/profile confirms it | Destination transformation, authority discovery, Peppol/other transport and acknowledgement management may add value | **Country-specific.** “Usually Peppol” is a product hypothesis, not a universal compliance rule |
+| `B2C — domestic` | Outside mandatory RD 238/2026 B2B. Spanish general invoicing rules require recipient consent for electronic invoicing except where mandatory e-invoicing applies | Preserve an accessible/human-readable customer representation as required by the applicable product/legal policy; do not make PDF universally mandatory without evidence | Digital delivery, consent evidence and customer access may add value but are not private-platform interconnection | **Consent principle confirmed; “always PDF/human-readable” needs a precise source and accessibility/retention contract** |
+| `B2C — EU or ROW` | Evaluate destination consumer, VAT, invoicing and consent requirements; the B2B ViDA statement does not automatically classify B2C | Select destination-compliant presentation, delivery and evidence rules | Multi-country consumer delivery and tax/reporting services may add value | **Open by destination.** Do not reuse the domestic B2C or cross-border B2B conclusion |
+
+#### Product conclusions from the segmentation
+
+1. Relationship, geography and legal applicability are separate facts. `B2B + EU` is not itself a compliance decision.
+2. “Mandatory e-invoice,” “permitted electronic invoice,” “mandatory reporting” and “customer may benefit from a platform” must be returned as separate outcomes.
+3. A format family is not a complete profile. Version, CIUS, validation artefacts, route and effective dates belong to the applicable country/B2G/destination binding.
+4. Peppol is a selectable network capability, not the default answer for every EU, ROW or B2G transaction.
+5. Effective dates must retain their legal trigger. Until the ministerial order is effective, Spain B2B rollout is represented as relative rules rather than an assumed calendar date.
+
+Sources: [BOE — RD 238/2026 Article 3 scope, Article 7 formats and final provision 4 commencement](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295), [AEAT — mandatory e-invoicing overview](https://sede.agenciatributaria.gob.es/Sede/iva/novedades-iva/novedades-normativa-2026/real-decreto-238-2026-25-marzo.html), [BOE — consolidated invoicing regulation, Articles 8 bis and 9](https://www.boe.es/buscar/act.php?id=BOE-A-2012-14696), and [European Commission — VAT in the Digital Age](https://taxation-customs.ec.europa.eu/taxation/vat/vat-digital-age-vida_en), accessed 2026-09-11.
 
 ### Reusable applicability contract derived from those terms
 
@@ -133,25 +159,34 @@ Sources: [France — scope of e-invoicing and transaction/payment e-reporting](h
 | CB-FR6 | Preserve the country policy and module versions selected for every invoice/reporting leg; later reuse or policy changes do not rewrite history. |
 | CB-FR7 | Preserve the official country scope term, source/version, decisive facts, exemption and result before mapping it to a common relationship/geography classification. |
 | CB-FR8 | Evaluate issuance, receipt, recipient delivery, public-copy and authority-reporting obligations independently, including cohort asymmetry. |
+| CB-FR9 | Classify counterparty relationship and geography independently from legal applicability, format/profile, route and optional service recommendation. |
+| CB-FR10 | Return mandatory e-invoice, permitted electronic invoice, reporting obligations and value-added platform capabilities as separate results with their own evidence. |
+| CB-FR11 | Store relative commencement rules with their legal trigger and resolve a fixed date only from an effective, approved policy version. |
+| CB-FR12 | Select syntax family, version, CIUS/profile, validation artefacts and route from the applicable country/public-sector/destination binding rather than from `B2B`, `B2G`, `B2C`, `EU` or `ROW` labels alone. |
 | CB-AC1 | Given a French seller invoices a business established abroad, then the French pack evaluates transaction e-reporting and does not route it as French domestic B2B e-invoicing. |
 | CB-AC2 | Given a Spanish seller invoices a foreign recipient with no relevant Spanish seat/establishment, then the RD 238/2026 recipient test is out of scope and the engine continues other applicable evaluations. |
 | CB-AC3 | Given Ireland later requires a reporting leg similar in shape to Spain, then the shared reporting framework is reused but Ireland supplies its own rule, schema, dates, route, statuses and evidence. |
 | CB-AC4 | Given a German sale to a private consumer or a qualifying small-value invoice, then the German domestic B2B rule is not activated merely because both parties or the currency are German. |
 | CB-AC5 | Given an Irish business must receive from 1 November 2028 but is not in the large-corporate issuing cohort, then receipt readiness can be required while issuance remains not applicable for that cohort. |
 | CB-AC6 | Given a UK VAT invoice dated before final legislation and technical rules are approved, then the future Peppol direction remains a planning input and the production applicability result is not guessed. |
+| CB-AC7 | Given a domestic Spanish B2B transaction is evaluated before the ministerial-order trigger is known, then the result preserves the `+12/+24 months` rule and does not assert `01/07/2027` as its effective date. |
+| CB-AC8 | Given a Spanish seller invoices an EU business, then the result separately evaluates Spanish scope, destination-country obligations and the effective ViDA rule; it does not return “EU mandatory 2030” as a complete current compliance answer. |
+| CB-AC9 | Given a B2G or cross-border route could use Peppol, then the route is activated only when the destination authority/profile and participant evidence support it. |
 
 ## Evidence and open gates
 
 | Evidence | Finding | Impact |
 |---|---|---|
 | [Spain Royal Decree 238/2026, Article 3](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295), 2026-03-25 | Mandatory B2B e-invoicing applies when the recipient business/professional has the relevant seat, permanent establishment, domicile or habitual residence in Spain | Supports Spanish recipient-presence scope test; other obligations still require separate evaluation |
+| [Internal E-Invoicing Customer Segmentation — Spanish Legislation Knowledge](https://confluence.sage.com/spaces/SLK/pages/771503855/E-Invoicing+Customer+Segmentation), supplied 2026-09-11 | Proposes a useful `B2B/B2G/B2C × domestic/EU/ROW` customer and service-needs matrix | Retained as product segmentation; dates, formats and universal Peppol statements are corrected or evidence-gated against primary sources |
+| [AEAT mandatory e-invoicing overview](https://sede.agenciatributaria.gob.es/Sede/iva/novedades-iva/novedades-normativa-2026/real-decreto-238-2026-25-marzo.html), accessed 2026-09-11 | Confirms AEAT's public-solution role and the commencement dependency on the future ministerial order | Operational corroboration; BOE remains the statutory source and future AEAT specifications remain a delivery gate |
 | [French tax authority e-invoicing overview](https://www.impots.gouv.fr/professionnel/je-decouvre-la-facturation-electronique), modified 2026-05-26 | Domestic French B2B is in e-invoicing; transactions with non-taxable persons or operators established abroad are in transaction e-reporting | Confirms France-specific reporting branch, not a universal country pattern |
 | [European Commission ViDA 2026 work programme](https://taxation-customs.ec.europa.eu/news/vat-digital-age-2026-work-programme-available-2026-05-22_en), 2026-05-22 | Cross-border B2B DRR based on e-invoicing moves toward 2030 EU implementation | Drives future compatibility/versioning; does not replace current national rules |
 | [German BMF e-invoice FAQ](https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html), updated 2026-03 | Uses the actual domestic-business scope and identifies B2C, tax-exempt, small-value, ticket, small-business and B2G boundaries | Supplies Germany reference terms; detailed channel/profile and transition fixtures remain country-owned |
 | [Ireland Revenue Phase One](https://www.revenue.ie/en/vat/vida-vat-modernisation/large-corporates-vat-modernisation.aspx), accessed 2026-08-25 | Defines November 2028 large-corporate domestic B2B issuance/reporting and all-business receipt asymmetry | Supplies Ireland reference scenarios; later phases and technical artefacts remain open |
 | [UK HMRC Transformation Roadmap 2026](https://www.gov.uk/government/publications/hmrc-transformation-roadmap-progress-update-2026/hmrc-transformation-roadmap-update-2026) and [Tax Update 2026](https://www.gov.uk/government/publications/summary-of-tax-update-2026-simplification-modernisation-and-fairness/tax-update-2026-simplification-modernisation-and-fairness-summary) | State April 2029 mandatory e-invoicing for all VAT invoices and Peppol as the core interoperability network | Confirms direction/date wording, not final country-policy or technical bindings |
 
-Open gates: full Spain sales/purchases and cross-border decision table; interaction with VERI*FACTU/SII and B2G; France territorial/exemption and buyer-side international cases; Germany transition/channel and state-level B2G fixtures; Ireland later phases/technical artefacts; final UK legislation/profile/reporting rules; module ownership/versioning; and reference scenarios approved by country legal/compliance owners.
+Open gates: Spain ministerial order, fixed rollout dates and technical profile; current B2G format/version/CIUS contracts; full Spain sales/purchases and cross-border decision table; interaction with VERI*FACTU/SII; destination-country B2B/B2G/B2C fixtures; France territorial/exemption and buyer-side international cases; Germany transition/channel and state-level B2G fixtures; Ireland later phases/technical artefacts; final UK legislation/profile/reporting rules; module ownership/versioning; and reference scenarios approved by country legal/compliance owners.
 
 ## Revision history
 
@@ -161,3 +196,4 @@ Open gates: full Spain sales/purchases and cross-border decision table; interact
 | 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |
 | 2026-08-12 | Rerouted reusable-module connectors through a clear gutter into the country binding and made the diagram responsive | Confluence visual review |
 | 2026-08-25 | Added actual five-country relationship, geography, exemption, cohort and route terms before deriving the reusable applicability contract | User request; official France, Spain, Germany, Ireland and UK sources |
+| 2026-09-11 | Reconciled the internal Spain customer-segmentation matrix against primary scope, format, commencement, consent and ViDA evidence; retained its product-service lens while correcting or gating unsupported dates, profiles and universal network assumptions | User-supplied Spanish Legislation Knowledge page; BOE RD 238/2026; AEAT; BOE invoicing regulation; European Commission ViDA |
