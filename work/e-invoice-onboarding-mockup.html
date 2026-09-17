@@ -1,0 +1,841 @@
+<div id="spain-einvoice-onboarding-mockup" aria-label="Interactive Spanish e-invoice customer onboarding and platform switching mockup">
+  <style>
+    #spain-einvoice-onboarding-mockup {
+      --seo-page: light-dark(#f3f6f7, #11171c);
+      --seo-surface: light-dark(#ffffff, #1b232b);
+      --seo-surface-soft: light-dark(#f6f8fa, #242e38);
+      --seo-text: light-dark(#17222c, #f1f5f7);
+      --seo-muted: light-dark(#5a6876, #b6c1ca);
+      --seo-border: light-dark(#d7dee4, #3e4a55);
+      --seo-brand: light-dark(#1b7556, #73d3b0);
+      --seo-brand-text: light-dark(#ffffff, #0c2119);
+      --seo-success: light-dark(#176944, #79d4a8);
+      --seo-success-soft: light-dark(#e7f5ed, #17372a);
+      --seo-warning: light-dark(#805600, #f2c66b);
+      --seo-warning-soft: light-dark(#fff6df, #382d18);
+      --seo-danger: light-dark(#a32a26, #ff9e97);
+      --seo-danger-soft: light-dark(#fff0ef, #40211f);
+      --seo-focus: light-dark(#0a70c3, #75bdf0);
+      width: 100%;
+      color: var(--seo-text);
+      background: transparent;
+      color-scheme: light dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #spain-einvoice-onboarding-mockup * { box-sizing: border-box; }
+    #spain-einvoice-onboarding-mockup h2,
+    #spain-einvoice-onboarding-mockup h3,
+    #spain-einvoice-onboarding-mockup p { margin: 0; }
+    #spain-einvoice-onboarding-mockup .seo-window {
+      overflow: hidden;
+      background: var(--seo-page);
+      border: 1px solid var(--seo-border);
+      border-radius: 14px;
+      box-shadow: 0 14px 34px light-dark(rgba(28, 42, 54, .12), rgba(0, 0, 0, .28));
+    }
+    #spain-einvoice-onboarding-mockup .seo-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--seo-surface);
+      border-bottom: 1px solid var(--seo-border);
+    }
+    #spain-einvoice-onboarding-mockup .seo-brand,
+    #spain-einvoice-onboarding-mockup .seo-active-route,
+    #spain-einvoice-onboarding-mockup button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #spain-einvoice-onboarding-mockup .seo-brand { font-weight: 500; }
+    #spain-einvoice-onboarding-mockup .seo-brand-mark {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      color: var(--seo-brand-text);
+      background: var(--seo-brand);
+      border-radius: 8px;
+    }
+    #spain-einvoice-onboarding-mockup .seo-environment { color: var(--seo-muted); font-size: .84rem; }
+    #spain-einvoice-onboarding-mockup .seo-content { padding: 22px; }
+    #spain-einvoice-onboarding-mockup .seo-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    #spain-einvoice-onboarding-mockup h2 { font-size: 1.22rem; font-weight: 500; }
+    #spain-einvoice-onboarding-mockup h3 { font-size: .95rem; font-weight: 500; }
+    #spain-einvoice-onboarding-mockup .seo-subtitle {
+      margin-top: 5px;
+      color: var(--seo-muted);
+      font-size: .87rem;
+    }
+    #spain-einvoice-onboarding-mockup .seo-rollout-control { width: min(265px, 100%); }
+    #spain-einvoice-onboarding-mockup label,
+    #spain-einvoice-onboarding-mockup legend {
+      color: var(--seo-muted);
+      font-size: .75rem;
+    }
+    #spain-einvoice-onboarding-mockup input,
+    #spain-einvoice-onboarding-mockup select {
+      width: 100%;
+      min-height: 39px;
+      margin-top: 5px;
+      padding: 8px 10px;
+      color: var(--seo-text);
+      background: var(--seo-surface-soft);
+      border: 1px solid var(--seo-border);
+      border-radius: 7px;
+      font: inherit;
+      font-size: .89rem;
+    }
+    #spain-einvoice-onboarding-mockup input:focus,
+    #spain-einvoice-onboarding-mockup select:focus,
+    #spain-einvoice-onboarding-mockup button:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--seo-focus) 35%, transparent);
+      outline-offset: 2px;
+    }
+    #spain-einvoice-onboarding-mockup .seo-progress {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 20px 0 16px;
+      padding: 0;
+      list-style: none;
+    }
+    #spain-einvoice-onboarding-mockup .seo-progress li {
+      position: relative;
+      display: grid;
+      justify-items: center;
+      gap: 6px;
+      color: var(--seo-muted);
+      text-align: center;
+      font-size: .73rem;
+    }
+    #spain-einvoice-onboarding-mockup .seo-progress li:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      left: 50%;
+      top: 13px;
+      width: 100%;
+      height: 2px;
+      background: var(--seo-border);
+    }
+    #spain-einvoice-onboarding-mockup .seo-progress-marker {
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      color: var(--seo-muted);
+      background: var(--seo-surface);
+      border: 1px solid var(--seo-border);
+      border-radius: 50%;
+      font-weight: 500;
+    }
+    #spain-einvoice-onboarding-mockup .seo-progress li[data-state="done"],
+    #spain-einvoice-onboarding-mockup .seo-progress li[data-state="active"] { color: var(--seo-brand); }
+    #spain-einvoice-onboarding-mockup .seo-progress li[data-state="done"] .seo-progress-marker,
+    #spain-einvoice-onboarding-mockup .seo-progress li[data-state="active"] .seo-progress-marker {
+      color: var(--seo-brand-text);
+      background: var(--seo-brand);
+      border-color: transparent;
+    }
+    #spain-einvoice-onboarding-mockup .seo-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.65fr) minmax(230px, .75fr);
+      gap: 14px;
+      align-items: start;
+    }
+    #spain-einvoice-onboarding-mockup .seo-panel {
+      background: var(--seo-surface);
+      border: 1px solid var(--seo-border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    #spain-einvoice-onboarding-mockup .seo-identity-grid,
+    #spain-einvoice-onboarding-mockup .seo-detail-grid,
+    #spain-einvoice-onboarding-mockup .seo-dialog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+      margin-top: 13px;
+    }
+    #spain-einvoice-onboarding-mockup .seo-field-wide { grid-column: 1 / -1; }
+    #spain-einvoice-onboarding-mockup .seo-route-panel { margin-top: 14px; }
+    #spain-einvoice-onboarding-mockup .seo-route-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    #spain-einvoice-onboarding-mockup .seo-phase-note {
+      color: var(--seo-brand);
+      font-size: .76rem;
+      font-weight: 500;
+    }
+    #spain-einvoice-onboarding-mockup .seo-route-fieldset {
+      margin: 13px 0 0;
+      padding: 0;
+      border: 0;
+    }
+    #spain-einvoice-onboarding-mockup .seo-route-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 8px;
+    }
+    #spain-einvoice-onboarding-mockup .seo-route-option {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 8px;
+      min-height: 112px;
+      padding: 11px;
+      color: var(--seo-text);
+      background: var(--seo-surface-soft);
+      border: 1px solid var(--seo-border);
+      border-radius: 9px;
+      cursor: pointer;
+    }
+    #spain-einvoice-onboarding-mockup .seo-route-option:has(input:checked) {
+      border-color: var(--seo-brand);
+      box-shadow: inset 0 0 0 1px var(--seo-brand);
+    }
+    #spain-einvoice-onboarding-mockup .seo-route-option:has(input:disabled) { opacity: .58; cursor: not-allowed; }
+    #spain-einvoice-onboarding-mockup .seo-route-option input {
+      width: auto;
+      min-height: auto;
+      height: 16px;
+      margin: 3px 0 0;
+      padding: 0;
+      align-self: start;
+    }
+    #spain-einvoice-onboarding-mockup .seo-route-option strong,
+    #spain-einvoice-onboarding-mockup .seo-route-option span { display: block; }
+    #spain-einvoice-onboarding-mockup .seo-route-option strong { font-size: .82rem; font-weight: 500; }
+    #spain-einvoice-onboarding-mockup .seo-route-option span {
+      margin-top: 5px;
+      color: var(--seo-muted);
+      font-size: .72rem;
+    }
+    #spain-einvoice-onboarding-mockup .seo-route-option > span {
+      margin-top: 0;
+      color: var(--seo-text);
+    }
+    #spain-einvoice-onboarding-mockup .seo-tag {
+      display: inline-block !important;
+      width: fit-content;
+      margin-top: 7px !important;
+      padding: 3px 6px;
+      color: var(--seo-brand) !important;
+      background: var(--seo-surface);
+      border: 1px solid var(--seo-border);
+      border-radius: 999px;
+      font-size: .66rem !important;
+      font-weight: 500;
+    }
+    #spain-einvoice-onboarding-mockup .seo-route-details {
+      margin-top: 11px;
+      padding: 12px;
+      background: var(--seo-surface-soft);
+      border-radius: 9px;
+    }
+    #spain-einvoice-onboarding-mockup .seo-route-details[hidden] { display: none; }
+    #spain-einvoice-onboarding-mockup .seo-detail-copy {
+      color: var(--seo-muted);
+      font-size: .77rem;
+    }
+    #spain-einvoice-onboarding-mockup .seo-rule {
+      margin-top: 12px;
+      padding: 10px 12px;
+      color: var(--seo-muted);
+      background: var(--seo-surface-soft);
+      border-left: 3px solid var(--seo-brand);
+      font-size: .78rem;
+    }
+    #spain-einvoice-onboarding-mockup .seo-lifecycle { display: grid; gap: 13px; }
+    #spain-einvoice-onboarding-mockup .seo-active-route {
+      width: 100%;
+      padding: 10px;
+      color: var(--seo-success);
+      background: var(--seo-success-soft);
+      border-radius: 8px;
+      font-size: .79rem;
+      font-weight: 500;
+    }
+    #spain-einvoice-onboarding-mockup .seo-active-route[data-state="draft"] {
+      color: var(--seo-muted);
+      background: var(--seo-surface-soft);
+    }
+    #spain-einvoice-onboarding-mockup .seo-lifecycle-list {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    #spain-einvoice-onboarding-mockup .seo-lifecycle-list li {
+      position: relative;
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr);
+      gap: 8px;
+      min-height: 61px;
+      color: var(--seo-muted);
+    }
+    #spain-einvoice-onboarding-mockup .seo-lifecycle-list li:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 25px;
+      bottom: 0;
+      width: 2px;
+      background: var(--seo-border);
+    }
+    #spain-einvoice-onboarding-mockup .seo-life-icon {
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      color: var(--seo-brand);
+      background: var(--seo-surface);
+      border: 1px solid var(--seo-border);
+      border-radius: 50%;
+    }
+    #spain-einvoice-onboarding-mockup .seo-lifecycle-list strong,
+    #spain-einvoice-onboarding-mockup .seo-lifecycle-list span { display: block; }
+    #spain-einvoice-onboarding-mockup .seo-lifecycle-list strong { margin-top: 2px; color: var(--seo-text); font-size: .79rem; font-weight: 500; }
+    #spain-einvoice-onboarding-mockup .seo-lifecycle-list span { margin-top: 3px; font-size: .72rem; }
+    #spain-einvoice-onboarding-mockup .seo-boundary {
+      padding: 10px;
+      color: var(--seo-warning);
+      background: var(--seo-warning-soft);
+      border-radius: 8px;
+      font-size: .73rem;
+    }
+    #spain-einvoice-onboarding-mockup .seo-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 15px;
+    }
+    #spain-einvoice-onboarding-mockup .seo-status { color: var(--seo-muted); font-size: .8rem; }
+    #spain-einvoice-onboarding-mockup .seo-actions { display: flex; gap: 8px; }
+    #spain-einvoice-onboarding-mockup button {
+      justify-content: center;
+      min-height: 42px;
+      padding: 9px 15px;
+      color: var(--seo-brand-text);
+      background: var(--seo-brand);
+      border: 0;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #spain-einvoice-onboarding-mockup button.seo-secondary {
+      color: var(--seo-text);
+      background: var(--seo-surface-soft);
+      border: 1px solid var(--seo-border);
+    }
+    #spain-einvoice-onboarding-mockup button:disabled { opacity: .58; cursor: not-allowed; }
+    #spain-einvoice-onboarding-mockup .seo-dialog {
+      width: min(650px, calc(100% - 28px));
+      max-height: calc(100% - 28px);
+      padding: 0;
+      color: var(--seo-text);
+      background: var(--seo-surface);
+      border: 1px solid var(--seo-border);
+      border-radius: 13px;
+      box-shadow: 0 24px 70px light-dark(rgba(24, 36, 46, .24), rgba(0, 0, 0, .6));
+    }
+    #spain-einvoice-onboarding-mockup .seo-dialog::backdrop {
+      background: light-dark(rgba(20, 32, 42, .42), rgba(0, 0, 0, .68));
+    }
+    #spain-einvoice-onboarding-mockup .seo-dialog-header,
+    #spain-einvoice-onboarding-mockup .seo-dialog-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 18px;
+    }
+    #spain-einvoice-onboarding-mockup .seo-dialog-header { border-bottom: 1px solid var(--seo-border); }
+    #spain-einvoice-onboarding-mockup .seo-dialog-footer { justify-content: flex-end; border-top: 1px solid var(--seo-border); }
+    #spain-einvoice-onboarding-mockup .seo-dialog-content { padding: 18px; }
+    #spain-einvoice-onboarding-mockup .seo-dialog-subtitle { margin-top: 4px; color: var(--seo-muted); font-size: .79rem; }
+    #spain-einvoice-onboarding-mockup .seo-icon-button { min-width: 40px; padding: 8px; }
+    #spain-einvoice-onboarding-mockup .seo-transition-summary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 12px;
+      background: var(--seo-surface-soft);
+      border-radius: 9px;
+    }
+    #spain-einvoice-onboarding-mockup .seo-transition-summary span,
+    #spain-einvoice-onboarding-mockup .seo-transition-summary strong { display: block; }
+    #spain-einvoice-onboarding-mockup .seo-transition-summary span { color: var(--seo-muted); font-size: .7rem; }
+    #spain-einvoice-onboarding-mockup .seo-transition-summary strong { margin-top: 3px; font-size: .84rem; font-weight: 500; }
+    #spain-einvoice-onboarding-mockup .seo-switch-note {
+      margin-top: 12px;
+      padding: 10px;
+      color: var(--seo-muted);
+      background: var(--seo-surface-soft);
+      border-radius: 8px;
+      font-size: .75rem;
+    }
+    #spain-einvoice-onboarding-mockup .seo-switch-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-top: 15px;
+    }
+    #spain-einvoice-onboarding-mockup .seo-switch-step {
+      padding: 9px;
+      color: var(--seo-muted);
+      background: var(--seo-surface-soft);
+      border-radius: 8px;
+      font-size: .7rem;
+    }
+    #spain-einvoice-onboarding-mockup .seo-switch-step strong { display: block; margin-bottom: 3px; color: inherit; font-weight: 500; }
+    #spain-einvoice-onboarding-mockup .seo-switch-step[data-state="current"] { color: var(--seo-brand); box-shadow: inset 0 0 0 1px var(--seo-brand); }
+    #spain-einvoice-onboarding-mockup .seo-switch-step[data-state="done"] { color: var(--seo-success); background: var(--seo-success-soft); }
+    #spain-einvoice-onboarding-mockup .seo-dialog-result {
+      display: none;
+      margin-top: 13px;
+      padding: 11px;
+      color: var(--seo-success);
+      background: var(--seo-success-soft);
+      border-radius: 8px;
+      font-size: .76rem;
+    }
+    #spain-einvoice-onboarding-mockup .seo-dialog-result[data-visible="true"] { display: block; }
+    @media (max-width: 820px) {
+      #spain-einvoice-onboarding-mockup .seo-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 670px) {
+      #spain-einvoice-onboarding-mockup .seo-heading,
+      #spain-einvoice-onboarding-mockup .seo-footer { flex-direction: column; align-items: stretch; }
+      #spain-einvoice-onboarding-mockup .seo-route-options { grid-template-columns: 1fr; }
+      #spain-einvoice-onboarding-mockup .seo-actions { flex-direction: column-reverse; }
+      #spain-einvoice-onboarding-mockup .seo-actions button { width: 100%; }
+      #spain-einvoice-onboarding-mockup .seo-route-option { min-height: auto; }
+    }
+    @media (max-width: 470px) {
+      #spain-einvoice-onboarding-mockup .seo-content { padding: 16px; }
+      #spain-einvoice-onboarding-mockup .seo-identity-grid,
+      #spain-einvoice-onboarding-mockup .seo-detail-grid,
+      #spain-einvoice-onboarding-mockup .seo-dialog-grid,
+      #spain-einvoice-onboarding-mockup .seo-transition-summary,
+      #spain-einvoice-onboarding-mockup .seo-switch-steps { grid-template-columns: 1fr; }
+      #spain-einvoice-onboarding-mockup .seo-progress li span:last-child { display: none; }
+      #spain-einvoice-onboarding-mockup .seo-dialog-footer { flex-direction: column-reverse; }
+      #spain-einvoice-onboarding-mockup .seo-dialog-footer button { width: 100%; }
+      #spain-einvoice-onboarding-mockup .seo-dialog-header .seo-icon-button { width: auto; }
+    }
+  </style>
+
+  <section class="seo-window">
+    <header class="seo-topbar">
+      <div class="seo-brand"><span class="seo-brand-mark"><i data-lucide="network" aria-hidden="true"></i></span><span>Spain e-invoicing</span></div>
+      <span class="seo-environment">TEST environment</span>
+    </header>
+
+    <main class="seo-content">
+      <div class="seo-heading">
+        <div>
+          <h2>Onboard a company</h2>
+          <p class="seo-subtitle">Set up the legal entity once; connections and delivery routes can change later.</p>
+        </div>
+        <label class="seo-rollout-control">Availability preview
+          <select id="seo-rollout" aria-label="Availability preview">
+            <option value="phase1">Phase 1 — Public platform</option>
+            <option value="phase2" selected>Phase 2 — Existing private providers</option>
+            <option value="phase3">Phase 3 — Sage private platform</option>
+          </select>
+        </label>
+      </div>
+
+      <ol class="seo-progress" aria-label="Onboarding progress">
+        <li data-state="done"><span class="seo-progress-marker">✓</span><span>Company</span></li>
+        <li data-state="active"><span class="seo-progress-marker">2</span><span>Starting route</span></li>
+        <li><span class="seo-progress-marker">3</span><span>Connection</span></li>
+        <li><span class="seo-progress-marker">4</span><span>Activate</span></li>
+      </ol>
+
+      <div class="seo-layout">
+        <div>
+          <section class="seo-panel" aria-labelledby="seo-company-heading">
+            <h3 id="seo-company-heading">Company and authority</h3>
+            <div class="seo-identity-grid">
+              <label>Legal entity
+                <input type="text" value="Demo Supplier S.L." aria-label="Legal entity">
+              </label>
+              <label>Sage account
+                <input type="text" value="SYNTH-ACCOUNT-2048" aria-label="Sage account">
+              </label>
+              <label>Tax scheme
+                <select aria-label="Tax scheme"><option selected>ES:NIF</option></select>
+              </label>
+              <label>Tax identifier
+                <input type="text" value="B12345674" aria-label="Tax identifier">
+              </label>
+              <label>Onboarding actor
+                <select aria-label="Onboarding actor">
+                  <option selected>Customer administrator</option>
+                  <option>Authorised accountant</option>
+                  <option>Sage operations</option>
+                </select>
+              </label>
+              <label>Invoice directions
+                <select id="seo-directions" aria-label="Invoice directions">
+                  <option>Send only</option>
+                  <option>Receive only</option>
+                  <option selected>Send and receive</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="seo-panel seo-route-panel" aria-labelledby="seo-route-heading">
+            <div class="seo-route-header">
+              <h3 id="seo-route-heading">Choose the starting route</h3>
+              <span id="seo-phase-note" class="seo-phase-note">Public or one supported private provider</span>
+            </div>
+            <fieldset class="seo-route-fieldset">
+              <legend>Platform route</legend>
+              <div class="seo-route-options">
+                <label class="seo-route-option">
+                  <input type="radio" name="starting-route" value="public" checked>
+                  <span><strong>Spanish Public Platform</strong><span>Baseline route available in every phase. Suitable for starting compliant onboarding.</span><span class="seo-tag">Always available</span></span>
+                </label>
+                <label class="seo-route-option">
+                  <input id="seo-private-choice" type="radio" name="starting-route" value="private">
+                  <span><strong>Existing private provider</strong><span>Connect a supported provider, validate it, then explicitly activate its route.</span><span class="seo-tag">Phase 2+</span></span>
+                </label>
+                <label class="seo-route-option">
+                  <input id="seo-sage-choice" type="radio" name="starting-route" value="sage" disabled>
+                  <span><strong>Sage private platform</strong><span>A future Sage-branded entry point; this is not arbitrary-provider access.</span><span class="seo-tag">Phase 3</span></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div id="seo-public-details" class="seo-route-details">
+              <p class="seo-detail-copy">The company is registered and authorised for the AEAT public route. A private connection may be prepared later without interrupting this live route.</p>
+              <div class="seo-detail-grid">
+                <label>Public connection
+                  <select aria-label="Public connection"><option selected>Sage managed AEAT connection</option></select>
+                </label>
+                <label>Activation
+                  <select aria-label="Public activation"><option selected>Activate after validation</option></select>
+                </label>
+              </div>
+            </div>
+
+            <div id="seo-private-details" class="seo-route-details" hidden>
+              <p class="seo-detail-copy">Provider setup creates a connection first. It does not become the live delivery route until readiness and an authorised transition are confirmed.</p>
+              <div class="seo-detail-grid">
+                <label>Private platform
+                  <select id="seo-starting-provider" aria-label="Starting private platform">
+                    <option value="b2b-router">B2B Router</option>
+                    <option value="banqup">Banqup (Unifiedpost)</option>
+                    <option value="edicom">EDICOM</option>
+                    <option value="seres">SERES (Docaposte)</option>
+                    <option value="zerocoma">ZeroComa</option>
+                  </select>
+                </label>
+                <label>Provider account reference
+                  <input type="text" value="SYNTH-PROVIDER-001" aria-label="Provider account reference">
+                </label>
+              </div>
+            </div>
+
+            <div id="seo-sage-details" class="seo-route-details" hidden>
+              <p class="seo-detail-copy">Phase 3 adds a Sage private-platform proposition while retaining public and supported customer-owned provider routes. Commercial and operator readiness remain gated.</p>
+            </div>
+
+            <p class="seo-rule"><strong>Continuity rule:</strong> onboarding a connection never silently switches a route. New invoices use the route effective at their routing time; older invoices keep their original platform identifiers, status path and audit evidence.</p>
+          </section>
+        </div>
+
+        <aside class="seo-panel seo-lifecycle" aria-labelledby="seo-lifecycle-heading">
+          <h3 id="seo-lifecycle-heading">Customer route lifecycle</h3>
+          <div id="seo-active-route" class="seo-active-route" data-state="draft"><i data-lucide="circle-dashed" aria-hidden="true"></i><span>Not activated</span></div>
+          <ol class="seo-lifecycle-list">
+            <li><span class="seo-life-icon"><i data-lucide="building-2" aria-hidden="true"></i></span><span><strong>Onboard once</strong><span>Legal entity, tax identity, tenant, authority and directions.</span></span></li>
+            <li><span class="seo-life-icon"><i data-lucide="plug-zap" aria-hidden="true"></i></span><span><strong>Prepare another connection</strong><span>Validate credentials, registration, capability and reachability while the current route stays live.</span></span></li>
+            <li><span class="seo-life-icon"><i data-lucide="replace" aria-hidden="true"></i></span><span><strong>Switch by scope</strong><span>Activate inbound, outbound or both at a controlled effective time.</span></span></li>
+            <li><span class="seo-life-icon"><i data-lucide="history" aria-hidden="true"></i></span><span><strong>Preserve history</strong><span>Continue lifecycle processing through each invoice’s original platform.</span></span></li>
+          </ol>
+          <p id="seo-boundary" class="seo-boundary">Phase 2 supports Public ↔ one of the planned private-provider connections. Private A → Private B and multiple active private routes are not part of the initial Phase 2 delivery.</p>
+        </aside>
+      </div>
+
+      <div class="seo-footer">
+        <p id="seo-status" class="seo-status" aria-live="polite">Draft · company identity captured</p>
+        <div class="seo-actions">
+          <button id="seo-switch" class="seo-secondary" type="button"><i data-lucide="replace" aria-hidden="true"></i> Preview later switch</button>
+          <button id="seo-activate" type="button"><i data-lucide="badge-check" aria-hidden="true"></i> Validate &amp; activate</button>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <dialog id="seo-switch-dialog" class="seo-dialog" aria-labelledby="seo-switch-title">
+    <form method="dialog">
+      <header class="seo-dialog-header">
+        <div>
+          <h3 id="seo-switch-title">Plan a controlled platform switch</h3>
+          <p class="seo-dialog-subtitle">Prepare the target before changing the live route.</p>
+        </div>
+        <button class="seo-secondary seo-icon-button" type="submit" value="cancel" aria-label="Close platform switch"><i data-lucide="x" aria-hidden="true"></i></button>
+      </header>
+      <div class="seo-dialog-content">
+        <div class="seo-transition-summary">
+          <div><span>Legal entity</span><strong>Demo Supplier S.L. · B12345674</strong></div>
+          <div><span>Current route</span><strong id="seo-current-route">Spanish Public Platform (AEAT)</strong></div>
+        </div>
+        <div class="seo-dialog-grid">
+          <label>Target supported platform
+            <select id="seo-switch-provider" aria-label="Target supported platform">
+              <option value="b2b-router">B2B Router</option>
+              <option value="banqup">Banqup (Unifiedpost)</option>
+              <option value="edicom">EDICOM</option>
+              <option value="seres">SERES (Docaposte)</option>
+              <option value="zerocoma">ZeroComa</option>
+              <option id="seo-sage-target" value="sage" disabled>Sage private platform — Phase 3</option>
+            </select>
+          </label>
+          <label>Transition scope
+            <select id="seo-switch-scope" aria-label="Transition scope">
+              <option value="outbound">Outbound only</option>
+              <option value="inbound">Inbound only</option>
+              <option value="both" selected>Inbound and outbound</option>
+            </select>
+          </label>
+          <label>Effective time
+            <select aria-label="Effective time">
+              <option selected>After readiness confirmation</option>
+              <option>Schedule for a later date</option>
+            </select>
+          </label>
+          <label>Initiator
+            <select aria-label="Transition initiator"><option selected>Customer administrator</option><option>Authorised accountant</option></select>
+          </label>
+        </div>
+        <p id="seo-switch-note" class="seo-switch-note">Phase 2 targets are limited to supported provider adapters. Choosing a provider creates or validates its connection; it does not activate routing automatically.</p>
+        <div class="seo-switch-steps" aria-label="Platform transition steps">
+          <div class="seo-switch-step" data-switch-step="1"><strong>1 · Configure</strong>Credentials and provider account</div>
+          <div class="seo-switch-step" data-switch-step="2"><strong>2 · Validate</strong>Registration and capability</div>
+          <div class="seo-switch-step" data-switch-step="3"><strong>3 · Activate</strong>Scoped effective boundary</div>
+          <div class="seo-switch-step" data-switch-step="4"><strong>4 · Reconcile</strong>New route and old history</div>
+        </div>
+        <div id="seo-switch-result" class="seo-dialog-result" data-visible="false" aria-live="polite"></div>
+      </div>
+      <footer class="seo-dialog-footer">
+        <button class="seo-secondary" type="submit" value="cancel">Close</button>
+        <button id="seo-schedule-switch" type="button" disabled>Activate transition</button>
+        <button id="seo-prepare-switch" type="button"><i data-lucide="shield-check" aria-hidden="true"></i> Prepare connection</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <script>
+    (() => {
+      const root = document.getElementById('spain-einvoice-onboarding-mockup');
+      const rollout = root.querySelector('#seo-rollout');
+      const privateChoice = root.querySelector('#seo-private-choice');
+      const sageChoice = root.querySelector('#seo-sage-choice');
+      const sageTarget = root.querySelector('#seo-sage-target');
+      const phaseNote = root.querySelector('#seo-phase-note');
+      const boundary = root.querySelector('#seo-boundary');
+      const routeDetails = {
+        public: root.querySelector('#seo-public-details'),
+        private: root.querySelector('#seo-private-details'),
+        sage: root.querySelector('#seo-sage-details')
+      };
+      const startingProvider = root.querySelector('#seo-starting-provider');
+      const activeRoute = root.querySelector('#seo-active-route');
+      const status = root.querySelector('#seo-status');
+      const activateButton = root.querySelector('#seo-activate');
+      const switchButton = root.querySelector('#seo-switch');
+      const dialog = root.querySelector('#seo-switch-dialog');
+      const currentRouteCopy = root.querySelector('#seo-current-route');
+      const switchProvider = root.querySelector('#seo-switch-provider');
+      const switchScope = root.querySelector('#seo-switch-scope');
+      const switchNote = root.querySelector('#seo-switch-note');
+      const switchSteps = [...root.querySelectorAll('[data-switch-step]')];
+      const switchResult = root.querySelector('#seo-switch-result');
+      const prepareButton = root.querySelector('#seo-prepare-switch');
+      const scheduleButton = root.querySelector('#seo-schedule-switch');
+      const providerLabels = {
+        'b2b-router': 'B2B Router',
+        banqup: 'Banqup (Unifiedpost)',
+        edicom: 'EDICOM',
+        seres: 'SERES (Docaposte)',
+        zerocoma: 'ZeroComa',
+        sage: 'Sage private platform'
+      };
+      let activeRouteLabel = 'Spanish Public Platform (AEAT)';
+      let activated = false;
+      let switchPrepared = false;
+      let timers = [];
+
+      const refreshIcons = () => {
+        if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+      };
+
+      const selectedStartingRoute = () => root.querySelector('input[name="starting-route"]:checked').value;
+
+      const plannedStartingRouteLabel = () => {
+        const selected = selectedStartingRoute();
+        if (selected === 'public') return 'Spanish Public Platform (AEAT)';
+        if (selected === 'private') return providerLabels[startingProvider.value];
+        return 'Sage private platform';
+      };
+
+      const showStartingRoute = () => {
+        const selected = selectedStartingRoute();
+        Object.entries(routeDetails).forEach(([key, panel]) => { panel.hidden = key !== selected; });
+        activated = false;
+        activeRoute.dataset.state = 'draft';
+        activeRoute.innerHTML = '<i data-lucide="circle-dashed" aria-hidden="true"></i><span>Not activated</span>';
+        status.textContent = 'Draft · route selection changed';
+        activateButton.disabled = false;
+        activateButton.innerHTML = '<i data-lucide="badge-check" aria-hidden="true"></i> Validate &amp; activate';
+        refreshIcons();
+      };
+
+      const applyRollout = () => {
+        const phase = rollout.value;
+        privateChoice.disabled = phase === 'phase1';
+        sageChoice.disabled = phase !== 'phase3';
+        sageTarget.disabled = phase !== 'phase3';
+
+        if ((privateChoice.checked && privateChoice.disabled) || (sageChoice.checked && sageChoice.disabled)) {
+          root.querySelector('input[name="starting-route"][value="public"]').checked = true;
+        }
+
+        if (phase === 'phase1') {
+          phaseNote.textContent = 'Public platform only';
+          boundary.textContent = 'Phase 1 establishes the public connection and invoice lifecycle. Private-provider onboarding and controlled route switching arrive in Phase 2.';
+          switchNote.textContent = 'This previews the later Phase 2 workflow. Production switching is unavailable while the Phase 1 availability view is selected.';
+          prepareButton.disabled = true;
+        } else if (phase === 'phase2') {
+          phaseNote.textContent = 'Public or one supported private provider';
+          boundary.textContent = 'Phase 2 supports Public ↔ one of the planned private-provider connections. Private A → Private B and multiple active private routes are not part of the initial Phase 2 delivery.';
+          switchNote.textContent = 'Phase 2 targets are limited to supported provider adapters. Choosing a provider creates or validates its connection; it does not activate routing automatically.';
+          prepareButton.disabled = false;
+        } else {
+          phaseNote.textContent = 'Public, supported providers, or Sage private platform';
+          boundary.textContent = 'Phase 3 adds a Sage private-platform option and extends switching/interoperability. It does not mean an arbitrary platform works without qualification, onboarding, an adapter and operational approval.';
+          switchNote.textContent = 'Phase 3 retains the public route and supported customer-owned providers, and adds the Sage private-platform proposition. Targets still require approved capability and readiness.';
+          prepareButton.disabled = false;
+        }
+        showStartingRoute();
+      };
+
+      const activateOnboarding = () => {
+        const label = plannedStartingRouteLabel();
+        activateButton.disabled = true;
+        status.textContent = 'Validating identity, authority and connection readiness…';
+        window.setTimeout(() => {
+          activeRouteLabel = label;
+          activated = true;
+          activeRoute.dataset.state = 'active';
+          activeRoute.innerHTML = `<i data-lucide="check" aria-hidden="true"></i><span>Active · ${label}</span>`;
+          status.textContent = `Onboarding complete · ${label} is active for new invoices`;
+          activateButton.textContent = 'Activated';
+          activateButton.disabled = false;
+          refreshIcons();
+        }, 850);
+      };
+
+      const clearTimers = () => {
+        timers.forEach((timer) => window.clearTimeout(timer));
+        timers = [];
+      };
+
+      const resetSwitch = () => {
+        clearTimers();
+        switchPrepared = false;
+        switchSteps.forEach((step) => { step.dataset.state = ''; });
+        switchResult.dataset.visible = 'false';
+        switchResult.textContent = '';
+        scheduleButton.disabled = true;
+        scheduleButton.textContent = 'Activate transition';
+        prepareButton.classList.remove('seo-secondary');
+        prepareButton.innerHTML = '<i data-lucide="shield-check" aria-hidden="true"></i> Prepare connection';
+        prepareButton.disabled = rollout.value === 'phase1';
+        refreshIcons();
+      };
+
+      const openSwitch = () => {
+        resetSwitch();
+        currentRouteCopy.textContent = activated ? activeRouteLabel : `${plannedStartingRouteLabel()} — planned starting route`;
+        dialog.showModal();
+      };
+
+      const prepareSwitch = () => {
+        resetSwitch();
+        prepareButton.disabled = true;
+        switchSteps[0].dataset.state = 'current';
+        timers.push(window.setTimeout(() => {
+          switchSteps[0].dataset.state = 'done';
+          switchSteps[1].dataset.state = 'current';
+        }, 450));
+        timers.push(window.setTimeout(() => {
+          switchSteps[1].dataset.state = 'done';
+          switchPrepared = true;
+          scheduleButton.disabled = false;
+          prepareButton.disabled = false;
+          prepareButton.classList.add('seo-secondary');
+          prepareButton.textContent = 'Recheck connection';
+          switchResult.dataset.visible = 'true';
+          const sourceRoute = activated ? activeRouteLabel : plannedStartingRouteLabel();
+          switchResult.textContent = `${providerLabels[switchProvider.value]} is ready but inactive. The current route remains ${sourceRoute}.`;
+        }, 1050));
+      };
+
+      const scheduleSwitch = () => {
+        if (!switchPrepared) return;
+        scheduleButton.disabled = true;
+        prepareButton.disabled = true;
+        switchSteps[2].dataset.state = 'current';
+        switchResult.textContent = 'Activating the confirmed scope and reconciling provider state…';
+        timers.push(window.setTimeout(() => {
+          switchSteps[2].dataset.state = 'done';
+          switchSteps[3].dataset.state = 'current';
+        }, 500));
+        timers.push(window.setTimeout(() => {
+          switchSteps[3].dataset.state = 'done';
+          activeRouteLabel = providerLabels[switchProvider.value];
+          activated = true;
+          activeRoute.dataset.state = 'active';
+          activeRoute.innerHTML = `<i data-lucide="check" aria-hidden="true"></i><span>Active · ${activeRouteLabel}</span>`;
+          status.textContent = `Transition complete · ${activeRouteLabel} active for ${switchScope.options[switchScope.selectedIndex].text.toLowerCase()}`;
+          switchResult.textContent = `Transition complete. New ${switchScope.options[switchScope.selectedIndex].text.toLowerCase()} invoices use ${activeRouteLabel}; existing invoices retain their original platform context.`;
+          scheduleButton.textContent = 'Transition active';
+          refreshIcons();
+        }, 1100));
+      };
+
+      root.querySelectorAll('input[name="starting-route"]').forEach((input) => input.addEventListener('change', showStartingRoute));
+      rollout.addEventListener('change', applyRollout);
+      startingProvider.addEventListener('change', () => { if (selectedStartingRoute() === 'private') showStartingRoute(); });
+      activateButton.addEventListener('click', activateOnboarding);
+      switchButton.addEventListener('click', openSwitch);
+      switchProvider.addEventListener('change', resetSwitch);
+      prepareButton.addEventListener('click', prepareSwitch);
+      scheduleButton.addEventListener('click', scheduleSwitch);
+      dialog.addEventListener('close', clearTimers);
+      applyRollout();
+    })();
+  </script>
+</div>

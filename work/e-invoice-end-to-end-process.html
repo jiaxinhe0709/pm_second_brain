@@ -1,0 +1,572 @@
+<div id="spain-einvoice-end-to-end" aria-label="Interactive end-to-end Spanish e-invoice process">
+  <style>
+    #spain-einvoice-end-to-end {
+      --e2e-page: light-dark(#f4f6f8, #11161c);
+      --e2e-surface: light-dark(#ffffff, #1b222b);
+      --e2e-surface-soft: light-dark(#f7f9fb, #242d38);
+      --e2e-surface-active: light-dark(#e9f5f0, #16362b);
+      --e2e-text: light-dark(#17212b, #f2f5f7);
+      --e2e-muted: light-dark(#5d6a77, #b6c0ca);
+      --e2e-border: light-dark(#d8dee5, #3c4856);
+      --e2e-brand: light-dark(#1c6f51, #73d4b1);
+      --e2e-brand-text: light-dark(#ffffff, #0c2119);
+      --e2e-success: light-dark(#176b45, #7bd6aa);
+      --e2e-info: light-dark(#0b6fc2, #76bdf1);
+      --e2e-warning: light-dark(#8b5a00, #f4c76b);
+      --e2e-focus-ring: light-dark(rgba(11, 111, 194, .32), rgba(118, 189, 241, .42));
+      width: 100%;
+      color: var(--e2e-text);
+      background: transparent;
+      color-scheme: light dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #spain-einvoice-end-to-end * { box-sizing: border-box; }
+    #spain-einvoice-end-to-end h2,
+    #spain-einvoice-end-to-end h3,
+    #spain-einvoice-end-to-end p { margin: 0; }
+    #spain-einvoice-end-to-end h2 { font-size: 1.22rem; line-height: 1.35; font-weight: 500; }
+    #spain-einvoice-end-to-end h3 { font-size: .94rem; line-height: 1.4; font-weight: 500; }
+    #spain-einvoice-end-to-end .e2e-window {
+      overflow: hidden;
+      background: var(--e2e-page);
+      border: 1px solid var(--e2e-border);
+      border-radius: 14px;
+      box-shadow: 0 14px 34px light-dark(rgba(28, 42, 54, .12), rgba(0, 0, 0, .28));
+    }
+    #spain-einvoice-end-to-end .e2e-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      background: var(--e2e-surface);
+      border-bottom: 1px solid var(--e2e-border);
+    }
+    #spain-einvoice-end-to-end .e2e-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+    #spain-einvoice-end-to-end .e2e-brand-mark {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      color: var(--e2e-brand-text);
+      background: var(--e2e-brand);
+      border-radius: 8px;
+    }
+    #spain-einvoice-end-to-end .e2e-environment { color: var(--e2e-muted); font-size: .84rem; }
+    #spain-einvoice-end-to-end .e2e-content { padding: 22px; }
+    #spain-einvoice-end-to-end .e2e-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    #spain-einvoice-end-to-end .e2e-head-copy { display: grid; gap: 5px; }
+    #spain-einvoice-end-to-end .e2e-head-copy p { color: var(--e2e-muted); font-size: .88rem; }
+    #spain-einvoice-end-to-end .e2e-phase-key {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+    #spain-einvoice-end-to-end .e2e-phase-tag {
+      padding: 5px 9px;
+      color: var(--e2e-brand);
+      background: var(--e2e-surface);
+      border: 1px solid var(--e2e-border);
+      border-radius: 999px;
+      font-size: .74rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    #spain-einvoice-end-to-end .e2e-controlbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      background: var(--e2e-surface);
+      border: 1px solid var(--e2e-border);
+      border-radius: 10px;
+    }
+    #spain-einvoice-end-to-end .e2e-scenario { display: grid; gap: 6px; }
+    #spain-einvoice-end-to-end label { color: var(--e2e-muted); font-size: .75rem; }
+    #spain-einvoice-end-to-end select {
+      width: 100%;
+      min-height: 40px;
+      padding: 8px 34px 8px 10px;
+      color: var(--e2e-text);
+      background: var(--e2e-surface-soft);
+      border: 1px solid var(--e2e-border);
+      border-radius: 7px;
+      font: inherit;
+      font-size: .9rem;
+    }
+    #spain-einvoice-end-to-end button {
+      min-height: 42px;
+      padding: 9px 13px;
+      color: var(--e2e-text);
+      background: var(--e2e-surface-soft);
+      border: 1px solid var(--e2e-border);
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #spain-einvoice-end-to-end select:focus,
+    #spain-einvoice-end-to-end button:focus-visible {
+      outline: 3px solid var(--e2e-focus-ring);
+      outline-offset: 2px;
+    }
+    #spain-einvoice-end-to-end .e2e-audience-controls { display: flex; gap: 7px; }
+    #spain-einvoice-end-to-end .e2e-view-toggle[aria-pressed="true"] {
+      color: var(--e2e-brand-text);
+      background: var(--e2e-brand);
+      border-color: transparent;
+    }
+    #spain-einvoice-end-to-end .e2e-scenario-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      min-height: 42px;
+      margin-bottom: 14px;
+      padding: 11px 12px;
+      color: var(--e2e-text);
+      background: var(--e2e-surface-active);
+      border-left: 3px solid var(--e2e-brand);
+      border-radius: 8px;
+      font-size: .82rem;
+      line-height: 1.5;
+    }
+    #spain-einvoice-end-to-end .e2e-scenario-line i { flex: none; margin-top: 2px; color: var(--e2e-brand); }
+    #spain-einvoice-end-to-end .e2e-journey-panel,
+    #spain-einvoice-end-to-end .e2e-route-panel {
+      padding: 15px;
+      background: var(--e2e-surface);
+      border: 1px solid var(--e2e-border);
+      border-radius: 10px;
+    }
+    #spain-einvoice-end-to-end .e2e-journey-panel { margin-bottom: 14px; }
+    #spain-einvoice-end-to-end .e2e-section-heading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    #spain-einvoice-end-to-end .e2e-section-heading i { color: var(--e2e-brand); }
+    #spain-einvoice-end-to-end .e2e-process {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    #spain-einvoice-end-to-end .e2e-process::before {
+      content: "";
+      position: absolute;
+      top: 31px;
+      left: 6%;
+      right: 6%;
+      height: 2px;
+      background: var(--e2e-border);
+      z-index: 0;
+    }
+    #spain-einvoice-end-to-end .e2e-stage {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 7px;
+      min-width: 0;
+    }
+    #spain-einvoice-end-to-end .e2e-stage small {
+      display: block;
+      color: var(--e2e-muted);
+      font-size: .68rem;
+      letter-spacing: .04em;
+      text-align: center;
+    }
+    #spain-einvoice-end-to-end .e2e-step {
+      width: 100%;
+      min-width: 0;
+      padding: 10px 7px;
+      background: var(--e2e-surface-soft);
+      white-space: normal;
+    }
+    #spain-einvoice-end-to-end .e2e-step[aria-pressed="true"] {
+      color: var(--e2e-brand-text);
+      background: var(--e2e-brand);
+      border-color: transparent;
+      box-shadow: 0 5px 14px light-dark(rgba(28, 111, 81, .18), rgba(0, 0, 0, .22));
+    }
+    #spain-einvoice-end-to-end .e2e-step-inner {
+      display: grid;
+      justify-items: center;
+      gap: 6px;
+      text-align: center;
+      font-size: .75rem;
+      line-height: 1.25;
+    }
+    #spain-einvoice-end-to-end .e2e-step-inner i { color: var(--e2e-muted); }
+    #spain-einvoice-end-to-end .e2e-step[aria-pressed="true"] .e2e-step-inner i,
+    #spain-einvoice-end-to-end .e2e-step[aria-pressed="true"] .e2e-step-number { color: currentColor; }
+    #spain-einvoice-end-to-end .e2e-step-number {
+      color: var(--e2e-muted);
+      font-size: .68rem;
+      font-variant-numeric: tabular-nums;
+    }
+    #spain-einvoice-end-to-end .e2e-focus {
+      padding: 12px;
+      color: var(--e2e-text);
+      background: var(--e2e-surface-soft);
+      border-radius: 8px;
+    }
+    #spain-einvoice-end-to-end .e2e-focus-head {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 5px;
+    }
+    #spain-einvoice-end-to-end .e2e-focus-head i { color: var(--e2e-brand); }
+    #spain-einvoice-end-to-end .e2e-focus p { color: var(--e2e-muted); font-size: .8rem; line-height: 1.5; }
+    #spain-einvoice-end-to-end .e2e-route-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    #spain-einvoice-end-to-end .e2e-route-title i { color: var(--e2e-brand); }
+    #spain-einvoice-end-to-end .e2e-route {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 8px;
+    }
+    #spain-einvoice-end-to-end .e2e-route-node {
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      gap: 5px;
+      min-width: 0;
+      min-height: 112px;
+      padding: 11px 8px;
+      background: var(--e2e-surface-soft);
+      border-radius: 8px;
+      text-align: center;
+    }
+    #spain-einvoice-end-to-end .e2e-route-node i { color: var(--e2e-brand); }
+    #spain-einvoice-end-to-end .e2e-route-node strong { font-size: .79rem; line-height: 1.35; font-weight: 500; }
+    #spain-einvoice-end-to-end .e2e-route-node span { color: var(--e2e-muted); font-size: .69rem; }
+    #spain-einvoice-end-to-end .e2e-route-arrow { color: var(--e2e-muted); }
+    #spain-einvoice-end-to-end .e2e-public-leg {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 2fr);
+      align-items: center;
+      gap: 8px;
+      margin: 12px 0 0 calc(14.285% + 8px);
+      padding: 11px 12px;
+      color: var(--e2e-warning);
+      background: light-dark(#fff6df, #382d18);
+      border-radius: 8px;
+      font-size: .76rem;
+      line-height: 1.4;
+    }
+    #spain-einvoice-end-to-end .e2e-public-leg-label { display: flex; align-items: center; gap: 7px; }
+    #spain-einvoice-end-to-end .e2e-public-leg strong { font-weight: 500; }
+    #spain-einvoice-end-to-end .e2e-principle {
+      margin-top: 14px;
+      padding: 11px 12px;
+      color: var(--e2e-muted);
+      background: var(--e2e-surface);
+      border: 1px solid var(--e2e-border);
+      border-radius: 8px;
+      font-size: .77rem;
+      line-height: 1.45;
+      text-align: center;
+    }
+    #spain-einvoice-end-to-end .e2e-principle strong { color: var(--e2e-text); font-weight: 500; }
+    #spain-einvoice-end-to-end .e2e-sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    @media (max-width: 760px) {
+      #spain-einvoice-end-to-end .e2e-head,
+      #spain-einvoice-end-to-end .e2e-controlbar { grid-template-columns: 1fr; }
+      #spain-einvoice-end-to-end .e2e-head { display: grid; }
+      #spain-einvoice-end-to-end .e2e-phase-key { justify-content: flex-start; }
+      #spain-einvoice-end-to-end .e2e-audience-controls { flex-wrap: wrap; }
+      #spain-einvoice-end-to-end .e2e-process { grid-template-columns: 1fr; gap: 7px; }
+      #spain-einvoice-end-to-end .e2e-process::before { display: none; }
+      #spain-einvoice-end-to-end .e2e-stage { grid-template-columns: 74px minmax(0, 1fr); grid-template-rows: auto; align-items: center; }
+      #spain-einvoice-end-to-end .e2e-stage small { text-align: left; }
+      #spain-einvoice-end-to-end .e2e-step-inner { grid-template-columns: auto auto 1fr; justify-items: start; text-align: left; }
+      #spain-einvoice-end-to-end .e2e-route { grid-template-columns: 1fr; justify-items: stretch; }
+      #spain-einvoice-end-to-end .e2e-route-node { min-height: 88px; }
+      #spain-einvoice-end-to-end .e2e-route-arrow { justify-self: center; transform: rotate(90deg); }
+      #spain-einvoice-end-to-end .e2e-public-leg { grid-template-columns: 1fr; margin-left: 0; text-align: center; }
+      #spain-einvoice-end-to-end .e2e-public-leg-label { justify-content: center; }
+      #spain-einvoice-end-to-end .e2e-public-leg > i { justify-self: center; transform: rotate(90deg); }
+    }
+    @media (max-width: 420px) {
+      #spain-einvoice-end-to-end .e2e-topbar,
+      #spain-einvoice-end-to-end .e2e-content { padding: 15px; }
+      #spain-einvoice-end-to-end .e2e-environment { display: none; }
+      #spain-einvoice-end-to-end .e2e-view-toggle { flex: 1 1 0; }
+      #spain-einvoice-end-to-end .e2e-phase-tag { white-space: normal; }
+    }
+  </style>
+
+  <div class="e2e-window">
+    <div class="e2e-topbar">
+      <div class="e2e-brand"><span class="e2e-brand-mark"><i data-lucide="network" aria-hidden="true"></i></span><span>Spain e-Invoice</span></div>
+      <span class="e2e-environment">End-to-end process · Concept</span>
+    </div>
+    <main class="e2e-content">
+  <header class="e2e-head">
+    <div class="e2e-head-copy">
+      <h2>Spain e-invoice: end-to-end journey</h2>
+      <p>One customer onboarding, then governed connections, routes and invoice exchanges.</p>
+    </div>
+    <div class="e2e-phase-key" aria-label="Delivery phases">
+      <span class="e2e-phase-tag">Phase 1 · Public</span>
+      <span class="e2e-phase-tag">Phase 2 · Supported private</span>
+      <span class="e2e-phase-tag">Phase 3 · Extended supported choice</span>
+    </div>
+  </header>
+
+  <div class="e2e-controlbar">
+    <div class="e2e-scenario">
+      <label for="e2e-scenario-select">Starting scenario</label>
+      <select id="e2e-scenario-select">
+        <option value="public-first">New customer starts on the public platform</option>
+        <option value="add-private" selected>Existing Phase 1 customer adds a private platform</option>
+        <option value="private-first">New customer starts with a private platform</option>
+      </select>
+    </div>
+    <div class="e2e-audience">
+      <div class="e2e-audience-controls" role="group" aria-label="Audience view">
+        <button class="e2e-view-toggle" id="e2e-customer-view" type="button" aria-pressed="true">Customer view</button>
+        <button class="e2e-view-toggle" id="e2e-technical-view" type="button" aria-pressed="false">Technical view</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="e2e-scenario-line" aria-live="polite">
+    <i data-lucide="info" aria-hidden="true"></i>
+    <span id="e2e-scenario-summary"></span>
+  </p>
+
+  <section class="e2e-journey-panel" aria-label="Seven-stage process">
+    <h3 class="e2e-section-heading"><i data-lucide="workflow" aria-hidden="true"></i>Customer and invoice journey</h3>
+    <div class="e2e-process" id="e2e-process">
+      <div class="e2e-stage">
+        <small>ESTABLISH</small>
+        <button class="e2e-step" type="button" data-step="0" aria-pressed="true">
+          <span class="e2e-step-inner"><span class="e2e-step-number">01</span><i data-lucide="building-2" aria-hidden="true"></i><span data-step-label="0"></span></span>
+        </button>
+      </div>
+      <div class="e2e-stage">
+        <small>ESTABLISH</small>
+        <button class="e2e-step" type="button" data-step="1" aria-pressed="false">
+          <span class="e2e-step-inner"><span class="e2e-step-number">02</span><i data-lucide="plug-zap" aria-hidden="true"></i><span data-step-label="1"></span></span>
+        </button>
+      </div>
+      <div class="e2e-stage">
+        <small>ESTABLISH</small>
+        <button class="e2e-step" type="button" data-step="2" aria-pressed="false">
+          <span class="e2e-step-inner"><span class="e2e-step-number">03</span><i data-lucide="route" aria-hidden="true"></i><span data-step-label="2"></span></span>
+        </button>
+      </div>
+      <div class="e2e-stage">
+        <small>EXCHANGE</small>
+        <button class="e2e-step" type="button" data-step="3" aria-pressed="false">
+          <span class="e2e-step-inner"><span class="e2e-step-number">04</span><i data-lucide="file-check-2" aria-hidden="true"></i><span data-step-label="3"></span></span>
+        </button>
+      </div>
+      <div class="e2e-stage">
+        <small>EXCHANGE</small>
+        <button class="e2e-step" type="button" data-step="4" aria-pressed="false">
+          <span class="e2e-step-inner"><span class="e2e-step-number">05</span><i data-lucide="search" aria-hidden="true"></i><span data-step-label="4"></span></span>
+        </button>
+      </div>
+      <div class="e2e-stage">
+        <small>EXCHANGE</small>
+        <button class="e2e-step" type="button" data-step="5" aria-pressed="false">
+          <span class="e2e-step-inner"><span class="e2e-step-number">06</span><i data-lucide="send" aria-hidden="true"></i><span data-step-label="5"></span></span>
+        </button>
+      </div>
+      <div class="e2e-stage">
+        <small>CONTINUE</small>
+        <button class="e2e-step" type="button" data-step="6" aria-pressed="false">
+          <span class="e2e-step-inner"><span class="e2e-step-number">07</span><i data-lucide="history" aria-hidden="true"></i><span data-step-label="6"></span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="e2e-focus" aria-live="polite">
+      <div class="e2e-focus-head"><i id="e2e-focus-icon" data-lucide="building-2" aria-hidden="true"></i><h3 id="e2e-focus-title"></h3></div>
+      <p id="e2e-focus-detail"></p>
+    </div>
+  </section>
+
+  <section class="e2e-route-panel" aria-labelledby="e2e-route-heading">
+    <h3 class="e2e-route-title" id="e2e-route-heading"><i data-lucide="waypoints" aria-hidden="true"></i>Exchange route for this scenario</h3>
+    <div class="e2e-route" role="img" aria-labelledby="e2e-route-heading" aria-describedby="e2e-route-description">
+      <div class="e2e-route-node"><i data-lucide="landmark" aria-hidden="true"></i><strong id="e2e-route-source"></strong><span>Legal entity</span></div>
+      <i class="e2e-route-arrow" data-lucide="arrow-right" aria-hidden="true"></i>
+      <div class="e2e-route-node"><i data-lucide="radio-tower" aria-hidden="true"></i><strong id="e2e-route-sender"></strong><span>Active sending route</span></div>
+      <i class="e2e-route-arrow" data-lucide="arrow-right" aria-hidden="true"></i>
+      <div class="e2e-route-node"><i data-lucide="scan-search" aria-hidden="true"></i><strong id="e2e-route-resolver"></strong><span>Recipient resolution</span></div>
+      <i class="e2e-route-arrow" data-lucide="arrow-right" aria-hidden="true"></i>
+      <div class="e2e-route-node"><i data-lucide="inbox" aria-hidden="true"></i><strong id="e2e-route-recipient"></strong><span>Delivery destination</span></div>
+    </div>
+    <div class="e2e-public-leg">
+      <span class="e2e-public-leg-label"><i data-lucide="git-branch" aria-hidden="true"></i>Public compliance leg</span>
+      <i data-lucide="arrow-right" aria-hidden="true"></i>
+      <strong id="e2e-public-copy"></strong>
+    </div>
+    <p class="e2e-sr-only" id="e2e-route-description"></p>
+  </section>
+
+  <p class="e2e-principle"><strong>Product principle:</strong> onboard once · connect providers as needed · activate one eligible route per scope · resolve recipients automatically · preserve invoice origin forever.</p>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.getElementById('spain-einvoice-end-to-end');
+      if (!root) return;
+
+      const icons = ['building-2', 'plug-zap', 'route', 'file-check-2', 'search', 'send', 'history'];
+      const labels = {
+        customer: ['Confirm the business', 'Set up the platform', 'Make the route live', 'Prepare the invoice', 'Find the recipient route', 'Send and report', 'Track and change'],
+        technical: ['Identity & authority', 'Connection & registration', 'Route activation', 'Invoice intent & validation', 'Entry-point resolution', 'Exchange plan execution', 'Lifecycle & transition history']
+      };
+
+      const baseDetails = {
+        customer: [
+          'Confirm the legal entity, tax identity, authorised users and whether it will send, receive, or both. A batch still validates every entity independently.',
+          'Reuse the customer profile and add only the connection needed for the chosen platform; do not onboard the customer again.',
+          'Prove the platform is ready, publish any private receiving point, then activate the route for the selected direction and effective date.',
+          'Create the invoice, validate mandatory tax and buyer data, and stop errors before anything is transmitted.',
+          'The sending platform looks up the recipient across distributed provider directories; the public route is the fallback when no private point is found.',
+          'Deliver through the resolved recipient route and, when the private route is used, send the required faithful copy to the public platform.',
+          'Return delivery, acceptance, rejection and payment events. A later platform change applies to future invoices; existing invoices keep their original route and identifiers.'
+        ],
+        technical: [
+          'Create or reuse customer_profile, legal_subject, tax identifiers, authority_evidence and capability_scope; batch orchestration produces independent evidence per entity.',
+          'Create connection and registration records with provider, environment, credential references and capability status; connection does not equal an active route.',
+          'Pass readiness gates, persist entry-point evidence, then create the inbound/outbound route with scope, status and effective time; prevent overlapping active routes.',
+          'Persist invoice_intent, apply the jurisdiction rule pack, format and tax checks, then allocate an idempotency key before submission.',
+          'Resolve from fresh entry-point observations across open provider lookups; record source, timestamp and confidence, then use the public default if unresolved.',
+          'Freeze an immutable exchange_plan with recipient delivery leg, public-copy leg when required, transformation decisions, correlation IDs and retry policy.',
+          'Store origin context and status events for delivery, acceptance, rejection and payment; platform transitions version routes without rewriting prior invoice history.'
+        ]
+      };
+
+      const scenarios = {
+        'public-first': {
+          customerSummary: 'The customer is onboarded once and starts on the public route. Moving to a supported private provider later adds a connection and route change—not a second customer onboarding.',
+          technicalSummary: 'Create the subject and authority once, provision public capabilities, activate public inbound/outbound routes, and retain those records when a later private connection is introduced.',
+          source: 'Customer account',
+          senderCustomer: 'Spanish public platform',
+          senderTechnical: 'public connection · active',
+          resolverCustomer: 'Public route lookup',
+          resolverTechnical: 'public resolver / access point',
+          recipientCustomer: 'Recipient access point',
+          recipientTechnical: 'resolved public destination',
+          copyCustomer: 'No duplicate copy—the public platform is already part of the exchange.',
+          copyTechnical: 'copy_leg = not_required because the public solution is the transport/interconnection route.',
+          routeDescription: 'The customer sends through the Spanish public platform, which resolves and delivers to the recipient. No separate public copy is required.'
+        },
+        'add-private': {
+          customerSummary: 'The Phase 1 customer keeps its identity and public history. EDICOM is connected and proven first; only then can it become the active route for future invoices.',
+          technicalSummary: 'Reuse customer_profile and authority evidence; create EDICOM connection/registration, validate credentials and capabilities, publish the private entry point, then activate a versioned route.',
+          source: 'Existing Phase 1 customer',
+          senderCustomer: 'EDICOM · connected',
+          senderTechnical: 'connection: EDICOM · route: active',
+          resolverCustomer: 'Automatic provider lookup',
+          resolverTechnical: 'distributed lookup + public default',
+          recipientCustomer: 'SERES · resolved example',
+          recipientTechnical: 'recipient entry point: SERES',
+          copyCustomer: 'A faithful UBL copy is also submitted to the Spanish public platform.',
+          copyTechnical: 'exchange_plan adds a simultaneous public_copy_leg with independent status and idempotency.',
+          routeDescription: 'The existing customer sends through EDICOM. The recipient route is automatically resolved to SERES in this example, and a faithful copy is submitted to the public platform.'
+        },
+        'private-first': {
+          customerSummary: 'The customer is onboarded once, chooses a supported private provider, and does not complete a separate public customer journey. Public compliance capability is provisioned behind the scenes.',
+          technicalSummary: 'Create the subject and authority, connect and validate EDICOM, provision the public compliance leg, publish the private entry point, and activate the private route only after all gates pass.',
+          source: 'New customer account',
+          senderCustomer: 'EDICOM · connected',
+          senderTechnical: 'connection: EDICOM · route: active',
+          resolverCustomer: 'Automatic provider lookup',
+          resolverTechnical: 'distributed lookup + public default',
+          recipientCustomer: 'Resolved private or public route',
+          recipientTechnical: 'selected entry-point observation',
+          copyCustomer: 'A faithful UBL copy is submitted to the Spanish public platform when required.',
+          copyTechnical: 'exchange_plan includes the public_copy_leg unless the public solution is itself used for transport.',
+          routeDescription: 'The new customer sends through EDICOM. The recipient is resolved through distributed lookups with a public fallback, and the required public copy is submitted separately.'
+        }
+      };
+
+      const scenarioSelect = root.querySelector('#e2e-scenario-select');
+      const customerButton = root.querySelector('#e2e-customer-view');
+      const technicalButton = root.querySelector('#e2e-technical-view');
+      const stepButtons = Array.from(root.querySelectorAll('.e2e-step'));
+      let audience = 'customer';
+      let activeStep = 0;
+
+      function setText(selector, value) {
+        const element = root.querySelector(selector);
+        if (element) element.textContent = value;
+      }
+
+      function render() {
+        const scenario = scenarios[scenarioSelect.value];
+        root.querySelectorAll('[data-step-label]').forEach((element) => {
+          element.textContent = labels[audience][Number(element.dataset.stepLabel)];
+        });
+        setText('#e2e-scenario-summary', scenario[audience + 'Summary']);
+        setText('#e2e-focus-title', labels[audience][activeStep]);
+        setText('#e2e-focus-detail', baseDetails[audience][activeStep]);
+        setText('#e2e-route-source', scenario.source);
+        setText('#e2e-route-sender', scenario[audience === 'customer' ? 'senderCustomer' : 'senderTechnical']);
+        setText('#e2e-route-resolver', scenario[audience === 'customer' ? 'resolverCustomer' : 'resolverTechnical']);
+        setText('#e2e-route-recipient', scenario[audience === 'customer' ? 'recipientCustomer' : 'recipientTechnical']);
+        setText('#e2e-public-copy', scenario[audience === 'customer' ? 'copyCustomer' : 'copyTechnical']);
+        setText('#e2e-route-description', scenario.routeDescription);
+        customerButton.setAttribute('aria-pressed', String(audience === 'customer'));
+        technicalButton.setAttribute('aria-pressed', String(audience === 'technical'));
+        stepButtons.forEach((button, index) => button.setAttribute('aria-pressed', String(index === activeStep)));
+        const focusIcon = root.querySelector('#e2e-focus-icon');
+        focusIcon.setAttribute('data-lucide', icons[activeStep]);
+        if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+      }
+
+      scenarioSelect.addEventListener('change', render);
+      customerButton.addEventListener('click', () => { audience = 'customer'; render(); });
+      technicalButton.addEventListener('click', () => { audience = 'technical'; render(); });
+      stepButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          activeStep = Number(button.dataset.step);
+          render();
+        });
+      });
+
+      render();
+    })();
+  </script>
+</div>

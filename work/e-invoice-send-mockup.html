@@ -1,0 +1,926 @@
+<div id="spain-einvoice-mockup" aria-label="Example screen for sending a Spanish electronic invoice">
+  <style>
+    #spain-einvoice-mockup {
+      --sei-page: light-dark(#f4f6f8, #11161c);
+      --sei-surface: light-dark(#ffffff, #1b222b);
+      --sei-surface-soft: light-dark(#f7f9fb, #242d38);
+      --sei-text: light-dark(#17212b, #f2f5f7);
+      --sei-muted: light-dark(#5d6a77, #b6c0ca);
+      --sei-border: light-dark(#d8dee5, #3c4856);
+      --sei-brand: light-dark(#1c6f51, #73d4b1);
+      --sei-brand-text: light-dark(#ffffff, #0c2119);
+      --sei-success: light-dark(#176b45, #7bd6aa);
+      --sei-success-soft: light-dark(#e8f6ef, #17372b);
+      --sei-warning: light-dark(#8b5a00, #f4c76b);
+      --sei-warning-soft: light-dark(#fff6df, #382d18);
+      --sei-focus: light-dark(#0b6fc2, #76bdf1);
+      color: var(--sei-text);
+      background: transparent;
+      color-scheme: light dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      width: 100%;
+    }
+    #spain-einvoice-mockup * { box-sizing: border-box; }
+    #spain-einvoice-mockup .sei-window {
+      overflow: hidden;
+      background: var(--sei-page);
+      border: 1px solid var(--sei-border);
+      border-radius: 14px;
+      box-shadow: 0 14px 34px light-dark(rgba(28, 42, 54, .12), rgba(0, 0, 0, .28));
+    }
+    #spain-einvoice-mockup .sei-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      background: var(--sei-surface);
+      border-bottom: 1px solid var(--sei-border);
+    }
+    #spain-einvoice-mockup .sei-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+    #spain-einvoice-mockup .sei-brand-mark {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      color: var(--sei-brand-text);
+      background: var(--sei-brand);
+      border-radius: 8px;
+    }
+    #spain-einvoice-mockup .sei-environment {
+      color: var(--sei-muted);
+      font-size: .85rem;
+    }
+    #spain-einvoice-mockup .sei-content { padding: 22px; }
+    #spain-einvoice-mockup .sei-heading-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    #spain-einvoice-mockup h2,
+    #spain-einvoice-mockup h3,
+    #spain-einvoice-mockup p { margin: 0; }
+    #spain-einvoice-mockup h2 { font-size: 1.2rem; font-weight: 500; }
+    #spain-einvoice-mockup h3 { font-size: .95rem; font-weight: 500; }
+    #spain-einvoice-mockup .sei-subtitle {
+      margin-top: 5px;
+      color: var(--sei-muted);
+      font-size: .88rem;
+    }
+    #spain-einvoice-mockup .sei-badge {
+      flex: none;
+      padding: 5px 9px;
+      color: var(--sei-brand);
+      background: var(--sei-surface-soft);
+      border: 1px solid var(--sei-border);
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 500;
+    }
+    #spain-einvoice-mockup .sei-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    #spain-einvoice-mockup .sei-panel {
+      background: var(--sei-surface);
+      border: 1px solid var(--sei-border);
+      border-radius: 10px;
+      padding: 15px;
+    }
+    #spain-einvoice-mockup .sei-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    #spain-einvoice-mockup .sei-field-wide { grid-column: 1 / -1; }
+    #spain-einvoice-mockup .sei-help {
+      grid-column: 1 / -1;
+      color: var(--sei-muted);
+      font-size: .76rem;
+    }
+    #spain-einvoice-mockup label {
+      display: block;
+      color: var(--sei-muted);
+      font-size: .75rem;
+    }
+    #spain-einvoice-mockup input,
+    #spain-einvoice-mockup select {
+      width: 100%;
+      min-height: 38px;
+      margin-top: 5px;
+      padding: 8px 10px;
+      color: var(--sei-text);
+      background: var(--sei-surface-soft);
+      border: 1px solid var(--sei-border);
+      border-radius: 7px;
+      font: inherit;
+      font-size: .9rem;
+    }
+    #spain-einvoice-mockup input:focus,
+    #spain-einvoice-mockup select:focus,
+    #spain-einvoice-mockup button:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--sei-focus) 35%, transparent);
+      outline-offset: 2px;
+    }
+    #spain-einvoice-mockup .sei-invoice { margin-top: 14px; }
+    #spain-einvoice-mockup .sei-invoice-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    #spain-einvoice-mockup .sei-note {
+      margin-top: 14px;
+      padding: 10px 12px;
+      color: var(--sei-muted);
+      background: var(--sei-surface-soft);
+      border-left: 3px solid var(--sei-brand);
+      font-size: .82rem;
+    }
+    #spain-einvoice-mockup .sei-route-field {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 8px;
+    }
+    #spain-einvoice-mockup .sei-route-field label,
+    #spain-einvoice-mockup .sei-route-evidence { grid-column: 1 / -1; }
+    #spain-einvoice-mockup .sei-route-field label { grid-row: 1; grid-column: 1; }
+    #spain-einvoice-mockup .sei-route-field button { grid-row: 1; grid-column: 2; }
+    #spain-einvoice-mockup .sei-route-evidence {
+      margin-top: 0;
+      color: var(--sei-muted);
+      font-size: .76rem;
+    }
+    #spain-einvoice-mockup .sei-route-evidence[data-state="valid"] { color: var(--sei-success); }
+    #spain-einvoice-mockup .sei-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    #spain-einvoice-mockup .sei-status {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 40px;
+      color: var(--sei-muted);
+      font-size: .86rem;
+    }
+    #spain-einvoice-mockup .sei-status[data-state="admitted"] {
+      color: var(--sei-success);
+      background: var(--sei-success-soft);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    #spain-einvoice-mockup .sei-status[data-state="error"] {
+      color: light-dark(#a12622, #ff9b94);
+      background: light-dark(#fff0ef, #40201f);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    #spain-einvoice-mockup .sei-status-icon {
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 24px;
+      height: 24px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+    }
+    #spain-einvoice-mockup button {
+      min-height: 42px;
+      padding: 9px 16px;
+      color: var(--sei-brand-text);
+      background: var(--sei-brand);
+      border: 0;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #spain-einvoice-mockup button.sei-secondary {
+      color: var(--sei-text);
+      background: var(--sei-surface-soft);
+      border: 1px solid var(--sei-border);
+    }
+    #spain-einvoice-mockup button.sei-icon-button {
+      display: grid;
+      place-items: center;
+      min-width: 40px;
+      padding: 8px;
+    }
+    #spain-einvoice-mockup button:disabled { opacity: .65; cursor: wait; }
+    #spain-einvoice-mockup .sei-dialog {
+      width: min(650px, calc(100% - 28px));
+      max-height: calc(100% - 28px);
+      padding: 0;
+      color: var(--sei-text);
+      background: var(--sei-surface);
+      border: 1px solid var(--sei-border);
+      border-radius: 13px;
+      box-shadow: 0 24px 70px light-dark(rgba(24, 36, 46, .24), rgba(0, 0, 0, .6));
+    }
+    #spain-einvoice-mockup .sei-dialog::backdrop {
+      background: light-dark(rgba(20, 32, 42, .42), rgba(0, 0, 0, .68));
+    }
+    #spain-einvoice-mockup .sei-dialog-header,
+    #spain-einvoice-mockup .sei-dialog-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 15px 18px;
+    }
+    #spain-einvoice-mockup .sei-dialog-header { border-bottom: 1px solid var(--sei-border); }
+    #spain-einvoice-mockup .sei-dialog-footer {
+      justify-content: flex-end;
+      border-top: 1px solid var(--sei-border);
+    }
+    #spain-einvoice-mockup .sei-dialog-content { padding: 18px; }
+    #spain-einvoice-mockup .sei-dialog-subtitle {
+      margin-top: 4px;
+      color: var(--sei-muted);
+      font-size: .8rem;
+    }
+    #spain-einvoice-mockup .sei-dialog-summary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 17px;
+      padding: 12px;
+      background: var(--sei-surface-soft);
+      border-radius: 9px;
+    }
+    #spain-einvoice-mockup .sei-dialog-summary span {
+      display: block;
+      color: var(--sei-muted);
+      font-size: .72rem;
+    }
+    #spain-einvoice-mockup .sei-dialog-summary strong {
+      display: block;
+      margin-top: 3px;
+      font-size: .87rem;
+      font-weight: 500;
+    }
+    #spain-einvoice-mockup .sei-method-fieldset {
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+    #spain-einvoice-mockup .sei-method-fieldset legend {
+      margin-bottom: 9px;
+      font-size: .82rem;
+      font-weight: 500;
+    }
+    #spain-einvoice-mockup .sei-methods {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    #spain-einvoice-mockup .sei-method {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 9px;
+      min-height: 86px;
+      padding: 11px;
+      color: var(--sei-text);
+      background: var(--sei-surface-soft);
+      border: 1px solid var(--sei-border);
+      border-radius: 9px;
+      cursor: pointer;
+    }
+    #spain-einvoice-mockup .sei-method input {
+      width: auto;
+      min-height: auto;
+      margin: 2px 0 0;
+    }
+    #spain-einvoice-mockup .sei-method strong {
+      display: block;
+      font-size: .82rem;
+      font-weight: 500;
+    }
+    #spain-einvoice-mockup .sei-method span {
+      display: block;
+      margin-top: 4px;
+      color: var(--sei-muted);
+      font-size: .74rem;
+    }
+    #spain-einvoice-mockup .sei-private-directory {
+      margin-top: 12px;
+    }
+    #spain-einvoice-mockup .sei-private-directory[hidden] { display: none; }
+    #spain-einvoice-mockup .sei-validation-steps {
+      display: grid;
+      gap: 0;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    #spain-einvoice-mockup .sei-validation-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 10px;
+      min-height: 53px;
+      color: var(--sei-muted);
+    }
+    #spain-einvoice-mockup .sei-validation-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      top: 27px;
+      bottom: 1px;
+      width: 2px;
+      background: var(--sei-border);
+    }
+    #spain-einvoice-mockup .sei-step-marker {
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      color: var(--sei-muted);
+      background: var(--sei-surface);
+      border: 1px solid var(--sei-border);
+      border-radius: 50%;
+      font-size: .73rem;
+      font-weight: 500;
+    }
+    #spain-einvoice-mockup .sei-validation-step strong {
+      display: block;
+      margin-top: 3px;
+      color: inherit;
+      font-size: .82rem;
+      font-weight: 500;
+    }
+    #spain-einvoice-mockup .sei-validation-step span:last-child {
+      display: block;
+      margin-top: 2px;
+      font-size: .73rem;
+    }
+    #spain-einvoice-mockup .sei-validation-step[data-state="current"] { color: var(--sei-brand); }
+    #spain-einvoice-mockup .sei-validation-step[data-state="current"] .sei-step-marker {
+      color: var(--sei-brand-text);
+      background: var(--sei-brand);
+      border-color: transparent;
+    }
+    #spain-einvoice-mockup .sei-validation-step[data-state="done"] { color: var(--sei-success); }
+    #spain-einvoice-mockup .sei-validation-step[data-state="done"] .sei-step-marker {
+      color: var(--sei-brand-text);
+      background: var(--sei-success);
+      border-color: transparent;
+    }
+    #spain-einvoice-mockup .sei-validation-result {
+      display: none;
+      margin-top: 14px;
+      padding: 12px;
+      color: var(--sei-success);
+      background: var(--sei-success-soft);
+      border-radius: 9px;
+    }
+    #spain-einvoice-mockup .sei-validation-result[data-visible="true"] { display: block; }
+    #spain-einvoice-mockup .sei-validation-result strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: .86rem;
+      font-weight: 500;
+    }
+    #spain-einvoice-mockup .sei-validation-result p {
+      color: inherit;
+      font-size: .76rem;
+    }
+    @media (max-width: 610px) {
+      #spain-einvoice-mockup .sei-grid,
+      #spain-einvoice-mockup .sei-fields,
+      #spain-einvoice-mockup .sei-invoice-fields { grid-template-columns: 1fr; }
+      #spain-einvoice-mockup .sei-field-wide { grid-column: auto; }
+      #spain-einvoice-mockup .sei-heading-row,
+      #spain-einvoice-mockup .sei-footer { align-items: stretch; flex-direction: column; }
+      #spain-einvoice-mockup button { width: 100%; }
+      #spain-einvoice-mockup .sei-route-field { grid-template-columns: 1fr; }
+      #spain-einvoice-mockup .sei-route-field label,
+      #spain-einvoice-mockup .sei-route-field button,
+      #spain-einvoice-mockup .sei-route-evidence { grid-column: 1; grid-row: auto; }
+      #spain-einvoice-mockup .sei-methods,
+      #spain-einvoice-mockup .sei-dialog-summary { grid-template-columns: 1fr; }
+      #spain-einvoice-mockup .sei-dialog-footer { flex-direction: column-reverse; }
+      #spain-einvoice-mockup .sei-dialog-header .sei-icon-button { width: auto; }
+    }
+  </style>
+
+  <section class="sei-window">
+    <header class="sei-topbar">
+      <div class="sei-brand">
+        <span class="sei-brand-mark"><i data-lucide="send" aria-hidden="true"></i></span>
+        <span>Spain e-invoicing</span>
+      </div>
+      <span class="sei-environment">TEST environment</span>
+    </header>
+
+    <main class="sei-content">
+      <div class="sei-heading-row">
+        <div>
+          <h2>Send electronic invoice</h2>
+          <p class="sei-subtitle">Identity, route and UBL profile selected from effective country policy</p>
+        </div>
+        <span class="sei-badge">Synthetic example</span>
+      </div>
+
+      <div class="sei-grid">
+        <section class="sei-panel" aria-labelledby="sei-seller-heading">
+          <h3 id="sei-seller-heading">Seller / issuer</h3>
+          <div class="sei-fields">
+            <label class="sei-field-wide">Legal name
+              <input type="text" value="Demo Supplier S.L." aria-label="Seller legal name">
+            </label>
+            <label class="sei-field-wide">Subject type
+              <select aria-label="Seller subject type">
+                <option selected>Spanish legal person / entity</option>
+                <option>Spanish natural person / autónomo</option>
+                <option>Foreign natural person / professional</option>
+                <option>Foreign or non-resident entity</option>
+                <option>Permanent establishment</option>
+              </select>
+            </label>
+            <label class="sei-field-wide">Business capacity
+              <select aria-label="Seller business capacity">
+                <option selected>Entrepreneur / professional</option>
+                <option>Public body</option>
+                <option>Private individual / consumer</option>
+                <option>Undetermined — review required</option>
+              </select>
+            </label>
+            <label class="sei-field-wide">Tax scheme
+              <select id="sei-seller-scheme" aria-label="Seller tax scheme">
+                <option value="es-nif" selected>ES:NIF — Spanish tax identity</option>
+                <option value="eu-vat">EU:VAT — country-qualified VAT ID</option>
+                <option value="country-tax">Country tax ID — non-Spanish</option>
+                <option value="unresolved">Unresolved — policy review</option>
+              </select>
+            </label>
+            <label class="sei-field-wide">Source identifier class
+              <select id="sei-seller-source" aria-label="Seller source identifier class"></select>
+            </label>
+            <label>Identifier country
+              <select aria-label="Seller identifier country">
+                <option selected>Spain (ES)</option>
+                <option>Another EU member state</option>
+                <option>Non-EU country</option>
+              </select>
+            </label>
+            <label>Tax identifier value
+              <input id="sei-seller-id" type="text" value="B12345674" aria-label="Seller tax identifier">
+            </label>
+            <p id="sei-seller-help" class="sei-help"></p>
+          </div>
+        </section>
+
+        <section class="sei-panel" aria-labelledby="sei-buyer-heading">
+          <h3 id="sei-buyer-heading">Buyer / recipient</h3>
+          <div class="sei-fields">
+            <label class="sei-field-wide">Legal name
+              <input type="text" value="Elena Example" aria-label="Buyer legal name">
+            </label>
+            <label class="sei-field-wide">Subject type
+              <select aria-label="Buyer subject type">
+                <option>Spanish legal person / entity</option>
+                <option>Spanish natural person / autónomo</option>
+                <option selected>Foreign natural person / professional</option>
+                <option>Foreign or non-resident entity</option>
+                <option>Permanent establishment</option>
+              </select>
+            </label>
+            <label class="sei-field-wide">Business capacity
+              <select aria-label="Buyer business capacity">
+                <option selected>Entrepreneur / professional</option>
+                <option>Public body</option>
+                <option>Private individual / consumer</option>
+                <option>Undetermined — review required</option>
+              </select>
+            </label>
+            <label class="sei-field-wide">Tax scheme
+              <select id="sei-buyer-scheme" aria-label="Buyer tax scheme">
+                <option value="es-nif" selected>ES:NIF — Spanish tax identity</option>
+                <option value="eu-vat">EU:VAT — country-qualified VAT ID</option>
+                <option value="country-tax">Country tax ID — non-Spanish</option>
+                <option value="unresolved">Unresolved — policy review</option>
+              </select>
+            </label>
+            <label class="sei-field-wide">Source identifier class
+              <select id="sei-buyer-source" aria-label="Buyer source identifier class"></select>
+            </label>
+            <label>Identifier country
+              <select aria-label="Buyer identifier country">
+                <option selected>Spain (ES)</option>
+                <option>Another EU member state</option>
+                <option>Non-EU country</option>
+              </select>
+            </label>
+            <label>Tax identifier value
+              <input id="sei-buyer-id" type="text" value="X1234567L" aria-label="Buyer tax identifier">
+            </label>
+            <p id="sei-buyer-help" class="sei-help"></p>
+          </div>
+        </section>
+      </div>
+
+      <section class="sei-panel sei-invoice" aria-labelledby="sei-invoice-heading">
+        <h3 id="sei-invoice-heading">Invoice</h3>
+        <div class="sei-invoice-fields">
+          <label>Invoice number
+            <input type="text" value="SYNTH-2026-0001" aria-label="Invoice number">
+          </label>
+          <label>Issue date
+            <input type="date" value="2026-09-15" aria-label="Issue date">
+          </label>
+          <label>Currency
+            <select aria-label="Currency"><option>EUR</option></select>
+          </label>
+          <label>Total
+            <input type="text" value="€1,210.00" aria-label="Invoice total">
+          </label>
+          <div class="sei-route-field">
+            <label>Delivery route
+              <select id="sei-route" aria-label="Delivery route">
+                <option value="auto" selected>Automatically discover recipient route</option>
+                <optgroup label="Public route">
+                  <option value="public">Spanish Public Platform (AEAT)</option>
+                </optgroup>
+                <optgroup label="Private platforms — Phase 2 portfolio">
+                  <option value="b2b-router">B2B Router</option>
+                  <option value="banqup">Banqup (Unifiedpost)</option>
+                  <option value="edicom">EDICOM</option>
+                  <option value="seres">SERES (Docaposte)</option>
+                  <option value="zerocoma">ZeroComa</option>
+                </optgroup>
+                <option value="unresolved">Manual reconciliation required</option>
+              </select>
+            </label>
+            <button id="sei-validate-route" class="sei-secondary" type="button"><i data-lucide="search-check" aria-hidden="true"></i> Validate route</button>
+            <p id="sei-route-evidence" class="sei-route-evidence" data-state="pending">Recipient route has not been validated.</p>
+          </div>
+          <label>Submitting actor
+            <select aria-label="Submitting actor">
+              <option selected>Seller directly</option>
+              <option>Authorised accountant</option>
+              <option>Authorised platform / third party</option>
+              <option>Buyer under self-billing agreement</option>
+            </select>
+          </label>
+        </div>
+        <p class="sei-note">The buyer’s NIE supplies their NIF value. Business capacity, applicability, delegated authority and delivery route remain separate decisions.</p>
+      </section>
+
+      <div class="sei-footer">
+        <div id="sei-status" class="sei-status" data-state="ready" aria-live="polite">
+          <span class="sei-status-icon"><i data-lucide="circle-dashed" aria-hidden="true"></i></span>
+          <span id="sei-status-text">Ready for local validation</span>
+        </div>
+        <button id="sei-send" type="button"><i data-lucide="send" aria-hidden="true"></i> Validate &amp; send</button>
+      </div>
+    </main>
+  </section>
+
+  <dialog id="sei-route-dialog" class="sei-dialog" aria-labelledby="sei-route-dialog-title">
+    <form method="dialog">
+      <header class="sei-dialog-header">
+        <div>
+          <h3 id="sei-route-dialog-title">Validate recipient delivery route</h3>
+          <p class="sei-dialog-subtitle">Synthetic routing check · no external request is made</p>
+        </div>
+        <button class="sei-secondary sei-icon-button" type="submit" value="cancel" aria-label="Close route validation"><i data-lucide="x" aria-hidden="true"></i></button>
+      </header>
+
+      <div class="sei-dialog-content">
+        <div class="sei-dialog-summary">
+          <div><span>Recipient</span><strong id="sei-dialog-recipient">X1234567L · Elena Example</strong></div>
+          <div><span>Requested route</span><strong id="sei-dialog-requested-route">Automatic discovery</strong></div>
+        </div>
+
+        <fieldset class="sei-method-fieldset">
+          <legend>Directory validation method</legend>
+          <div class="sei-methods">
+            <label class="sei-method">
+              <input type="radio" name="directory-method" value="country" checked>
+              <span><strong>Country / central resolver</strong><span>For Spain this is distributed discovery, not a single national directory. Check recipient publication and provider open lookups, then apply the AEAT public default only when no private point is published.</span></span>
+            </label>
+            <label class="sei-method">
+              <input type="radio" name="directory-method" value="private">
+              <span><strong>Selected private directory</strong><span>Check one private platform’s published recipient entry point, effective scope, direction and connection readiness.</span></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <label id="sei-private-directory-field" class="sei-private-directory" hidden>Private platform directory
+          <select id="sei-private-directory" aria-label="Private platform directory">
+            <option value="b2b-router">B2B Router</option>
+            <option value="banqup">Banqup (Unifiedpost)</option>
+            <option value="edicom">EDICOM</option>
+            <option value="seres">SERES (Docaposte)</option>
+            <option value="zerocoma">ZeroComa</option>
+          </select>
+        </label>
+
+        <ol class="sei-validation-steps" aria-label="Route validation steps">
+          <li class="sei-validation-step" data-validation-step="1" data-state="waiting"><span class="sei-step-marker">1</span><span><strong>Validate recipient identity</strong><span>Check scheme, source class and normalized identifier.</span></span></li>
+          <li class="sei-validation-step" data-validation-step="2" data-state="waiting"><span class="sei-step-marker">2</span><span><strong>Discover published entry points</strong><span id="sei-discovery-step-copy">Check recipient publication and private-platform open lookups.</span></span></li>
+          <li class="sei-validation-step" data-validation-step="3" data-state="waiting"><span class="sei-step-marker">3</span><span><strong>Evaluate route eligibility</strong><span>Check direction, document profile, effective scope and configured connection.</span></span></li>
+          <li class="sei-validation-step" data-validation-step="4" data-state="waiting"><span class="sei-step-marker">4</span><span><strong>Freeze route evidence</strong><span>Record selected operator, source, observation time and country-rule version.</span></span></li>
+        </ol>
+
+        <div id="sei-validation-result" class="sei-validation-result" data-visible="false" aria-live="polite">
+          <strong id="sei-validation-result-title"></strong>
+          <p id="sei-validation-result-copy"></p>
+        </div>
+      </div>
+
+      <footer class="sei-dialog-footer">
+        <button class="sei-secondary" type="submit" value="cancel">Close</button>
+        <button id="sei-run-route-validation" type="button"><i data-lucide="scan-search" aria-hidden="true"></i> Run validation</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <script>
+    (() => {
+      const root = document.getElementById('spain-einvoice-mockup');
+      const sendButton = root.querySelector('#sei-send');
+      const status = root.querySelector('#sei-status');
+      const statusText = root.querySelector('#sei-status-text');
+      const statusIcon = status.querySelector('.sei-status-icon');
+      const route = root.querySelector('#sei-route');
+      const routeEvidence = root.querySelector('#sei-route-evidence');
+      const validateRouteButton = root.querySelector('#sei-validate-route');
+      const routeDialog = root.querySelector('#sei-route-dialog');
+      const dialogRecipient = root.querySelector('#sei-dialog-recipient');
+      const dialogRequestedRoute = root.querySelector('#sei-dialog-requested-route');
+      const directoryMethods = [...root.querySelectorAll('input[name="directory-method"]')];
+      const privateDirectoryField = root.querySelector('#sei-private-directory-field');
+      const privateDirectory = root.querySelector('#sei-private-directory');
+      const discoveryStepCopy = root.querySelector('#sei-discovery-step-copy');
+      const validationSteps = [...root.querySelectorAll('[data-validation-step]')];
+      const validationResult = root.querySelector('#sei-validation-result');
+      const validationResultTitle = root.querySelector('#sei-validation-result-title');
+      const validationResultCopy = root.querySelector('#sei-validation-result-copy');
+      const runRouteValidationButton = root.querySelector('#sei-run-route-validation');
+
+      const privateRoutes = ['b2b-router', 'banqup', 'edicom', 'seres', 'zerocoma'];
+      const routeLabels = {
+        auto: 'Automatic recipient discovery',
+        public: 'Spanish Public Platform (AEAT)',
+        'b2b-router': 'B2B Router',
+        banqup: 'Banqup (Unifiedpost)',
+        edicom: 'EDICOM',
+        seres: 'SERES (Docaposte)',
+        zerocoma: 'ZeroComa',
+        unresolved: 'Manual reconciliation required'
+      };
+      let routeValidated = false;
+      let validationTimers = [];
+
+      const schemeOptions = {
+        'es-nif': {
+          classes: [
+            ['entity-nif', 'Entity NIF'],
+            ['dni', 'DNI-derived NIF'],
+            ['nie', 'NIE-derived NIF'],
+            ['assigned', 'Other AEAT-assigned NIF']
+          ],
+          examples: {
+            'entity-nif': 'B12345674',
+            dni: '12345678Z',
+            nie: 'X1234567L',
+            assigned: 'SYNTH-ASSIGNED-NIF'
+          },
+          help: 'NIF is the Spanish tax-identity role; entity NIF, DNI and NIE are source classes, not interchangeable peer schemes.'
+        },
+        'eu-vat': {
+          classes: [['vat', 'Country-qualified EU VAT identifier']],
+          examples: { vat: 'EU-VAT-SYNTH-001' },
+          help: 'Use the VAT identity selected by the applicable country profile; do not force it into ES:NIF.'
+        },
+        'country-tax': {
+          classes: [
+            ['entity-tax', 'Legal-entity national tax identifier'],
+            ['person-tax', 'Natural-person / professional tax identifier'],
+            ['presence-tax', 'Permanent-establishment tax identifier']
+          ],
+          examples: {
+            'entity-tax': 'COUNTRY-TAX-SYNTH-001',
+            'person-tax': 'COUNTRY-PERSON-SYNTH-001',
+            'presence-tax': 'COUNTRY-PE-SYNTH-001'
+          },
+          help: 'The country pack supplies the actual scheme, format, validation and invoice-field mapping.'
+        },
+        unresolved: {
+          classes: [['review', 'Requires country / transaction policy decision']],
+          examples: { review: '' },
+          help: 'Do not guess a tax scheme. Hold the invoice for an applicability and identity decision.'
+        }
+      };
+
+      const setState = (state, label, icon) => {
+        status.dataset.state = state;
+        statusText.textContent = label;
+        statusIcon.innerHTML = `<i data-lucide="${icon}" aria-hidden="true"></i>`;
+        if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+      };
+
+      const resetStatus = () => {
+        setState('ready', 'Ready for local validation', 'circle-dashed');
+        sendButton.innerHTML = '<i data-lucide="send" aria-hidden="true"></i> Validate &amp; send';
+        if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+        sendButton.disabled = false;
+      };
+
+      const invalidateRoute = () => {
+        routeValidated = false;
+        routeEvidence.dataset.state = 'pending';
+        routeEvidence.textContent = 'Recipient route has not been validated.';
+        resetStatus();
+      };
+
+      const configureParty = (party, preferredClass) => {
+        const scheme = root.querySelector(`#sei-${party}-scheme`);
+        const source = root.querySelector(`#sei-${party}-source`);
+        const identifier = root.querySelector(`#sei-${party}-id`);
+        const help = root.querySelector(`#sei-${party}-help`);
+
+        const refreshScheme = (requestedClass) => {
+          const config = schemeOptions[scheme.value];
+          source.innerHTML = '';
+          config.classes.forEach(([value, label]) => {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = label;
+            option.selected = value === requestedClass;
+            source.appendChild(option);
+          });
+          source.value = requestedClass && config.classes.some(([value]) => value === requestedClass)
+            ? requestedClass
+            : config.classes[0][0];
+          identifier.value = config.examples[source.value];
+          help.textContent = config.help;
+          if (party === 'buyer') invalidateRoute();
+          else resetStatus();
+        };
+
+        scheme.addEventListener('change', () => refreshScheme());
+        source.addEventListener('change', () => {
+          identifier.value = schemeOptions[scheme.value].examples[source.value];
+          if (party === 'buyer') invalidateRoute();
+          else resetStatus();
+        });
+        identifier.addEventListener('input', () => {
+          if (party === 'buyer') invalidateRoute();
+          else resetStatus();
+        });
+        refreshScheme(preferredClass);
+      };
+
+      const selectedDirectoryMethod = () => root.querySelector('input[name="directory-method"]:checked').value;
+
+      const toggleDirectoryMethod = () => {
+        const usesPrivateDirectory = selectedDirectoryMethod() === 'private';
+        privateDirectoryField.hidden = !usesPrivateDirectory;
+        discoveryStepCopy.textContent = usesPrivateDirectory
+          ? `Query the ${routeLabels[privateDirectory.value]} open recipient directory.`
+          : 'Check recipient publication and private-platform open lookups; Spain has no single national directory.';
+      };
+
+      const clearValidationTimers = () => {
+        validationTimers.forEach((timer) => window.clearTimeout(timer));
+        validationTimers = [];
+      };
+
+      const resetValidationSteps = () => {
+        clearValidationTimers();
+        validationSteps.forEach((step, index) => {
+          step.dataset.state = 'waiting';
+          step.querySelector('.sei-step-marker').textContent = String(index + 1);
+        });
+        validationResult.dataset.visible = 'false';
+        validationResultTitle.textContent = '';
+        validationResultCopy.textContent = '';
+        runRouteValidationButton.disabled = false;
+        runRouteValidationButton.innerHTML = '<i data-lucide="scan-search" aria-hidden="true"></i> Run validation';
+        if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+      };
+
+      const setValidationStep = (stepNumber, state) => {
+        const step = validationSteps[stepNumber - 1];
+        step.dataset.state = state;
+        step.querySelector('.sei-step-marker').textContent = state === 'done' ? '✓' : String(stepNumber);
+      };
+
+      const openRouteValidation = () => {
+        resetValidationSteps();
+        dialogRecipient.textContent = `${root.querySelector('#sei-buyer-id').value || 'No identifier'} · Elena Example`;
+        dialogRequestedRoute.textContent = routeLabels[route.value];
+
+        const routeIsPrivate = privateRoutes.includes(route.value);
+        directoryMethods.forEach((method) => {
+          method.checked = method.value === (routeIsPrivate ? 'private' : 'country');
+        });
+        if (routeIsPrivate) privateDirectory.value = route.value;
+        toggleDirectoryMethod();
+        routeDialog.showModal();
+      };
+
+      const finishRouteValidation = () => {
+        const method = selectedDirectoryMethod();
+
+        if (method === 'private') {
+          const providerValue = privateDirectory.value;
+          const providerLabel = routeLabels[providerValue];
+          route.value = providerValue;
+          validationResultTitle.textContent = `Private entry point candidate verified in ${providerLabel}`;
+          validationResultCopy.textContent = `This synthetic lookup found one matching outbound entry point. Direction, profile and illustrative scope matched, and the configured ${providerLabel} connection is shown as ready.`;
+          routeEvidence.textContent = `Validated via ${providerLabel} open directory · one matching private entry point.`;
+        } else {
+          route.value = 'public';
+          validationResultTitle.textContent = 'AEAT public default resolved';
+          validationResultCopy.textContent = 'Spain does not currently define a France-style central national directory. In this synthetic run, distributed publication checks found no private entry point, so the Spanish Public Platform is the statutory default.';
+          routeEvidence.textContent = 'Validated via Spain distributed discovery · no published private point · AEAT public default.';
+        }
+
+        routeValidated = true;
+        routeEvidence.dataset.state = 'valid';
+        validationResult.dataset.visible = 'true';
+        runRouteValidationButton.disabled = false;
+        runRouteValidationButton.innerHTML = '<i data-lucide="rotate-cw" aria-hidden="true"></i> Run again';
+        setState('ready', `Route validated · ${routeLabels[route.value]}`, 'badge-check');
+        if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+      };
+
+      const runRouteValidation = () => {
+        resetValidationSteps();
+        runRouteValidationButton.disabled = true;
+        setValidationStep(1, 'current');
+
+        validationTimers.push(window.setTimeout(() => {
+          setValidationStep(1, 'done');
+          setValidationStep(2, 'current');
+        }, 450));
+        validationTimers.push(window.setTimeout(() => {
+          setValidationStep(2, 'done');
+          setValidationStep(3, 'current');
+        }, 950));
+        validationTimers.push(window.setTimeout(() => {
+          setValidationStep(3, 'done');
+          setValidationStep(4, 'current');
+        }, 1450));
+        validationTimers.push(window.setTimeout(() => {
+          setValidationStep(4, 'done');
+          finishRouteValidation();
+        }, 1950));
+      };
+
+      configureParty('seller', 'entity-nif');
+      configureParty('buyer', 'nie');
+      route.addEventListener('change', () => {
+        if (privateRoutes.includes(route.value)) privateDirectory.value = route.value;
+        invalidateRoute();
+      });
+      directoryMethods.forEach((method) => method.addEventListener('change', toggleDirectoryMethod));
+      privateDirectory.addEventListener('change', toggleDirectoryMethod);
+      validateRouteButton.addEventListener('click', openRouteValidation);
+      runRouteValidationButton.addEventListener('click', runRouteValidation);
+      routeDialog.addEventListener('close', clearValidationTimers);
+
+      sendButton.addEventListener('click', () => {
+        const unresolvedScheme = [...root.querySelectorAll('[id$="-scheme"]')]
+          .some((select) => select.value === 'unresolved');
+        if (unresolvedScheme || route.value === 'unresolved') {
+          setState('error', 'Resolve the tax scheme and delivery route before validation', 'triangle-alert');
+          return;
+        }
+        if (!routeValidated) {
+          setState('error', 'Validate the recipient delivery route before sending', 'map-pin-check');
+          openRouteValidation();
+          return;
+        }
+        sendButton.disabled = true;
+        setState('validating', 'Validating identity, totals and UBL rules…', 'scan-search');
+        window.setTimeout(() => setState('submitting', `Validated · submitting via ${routeLabels[route.value]}…`, 'loader-circle'), 700);
+        window.setTimeout(() => {
+          const referencePrefix = route.value === 'public' ? 'AEAT' : route.value.toUpperCase();
+          setState('admitted', `Admitted · ${referencePrefix} reference SYNTH-${referencePrefix}-6F2A (delivery not yet confirmed)`, 'check');
+          sendButton.textContent = 'Sent';
+          sendButton.disabled = false;
+        }, 1500);
+      });
+    })();
+  </script>
+</div>

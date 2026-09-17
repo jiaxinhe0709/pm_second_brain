@@ -1,0 +1,351 @@
+<div id="einvoice-field-explorer" aria-label="E-invoicing fields across onboarding, sending, receiving and platform switching">
+  <style>
+    #einvoice-field-explorer {
+      color-scheme: light dark;
+      width: 100%;
+    }
+    #einvoice-field-explorer .efc-header { margin-bottom: 18px; }
+    #einvoice-field-explorer .efc-kicker {
+      margin: 0 0 5px;
+      color: var(--muted-foreground);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    #einvoice-field-explorer h2,
+    #einvoice-field-explorer h3,
+    #einvoice-field-explorer h4,
+    #einvoice-field-explorer p { margin-top: 0; }
+    #einvoice-field-explorer .efc-intro {
+      max-width: 68ch;
+      margin-bottom: 0;
+      color: var(--muted-foreground);
+    }
+    #einvoice-field-explorer .efc-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+      margin: 18px 0;
+    }
+    #einvoice-field-explorer .efc-flow-step {
+      min-height: 72px;
+      padding: 12px 14px;
+      background: color-mix(in srgb, var(--muted) 55%, transparent);
+      border-radius: 9px;
+    }
+    #einvoice-field-explorer .efc-flow-step strong {
+      display: block;
+      margin-bottom: 3px;
+      font-weight: 500;
+    }
+    #einvoice-field-explorer .efc-flow-step span {
+      color: var(--muted-foreground);
+      font-size: 12px;
+    }
+    #einvoice-field-explorer .efc-arrow { color: var(--muted-foreground); }
+    #einvoice-field-explorer .efc-stage-nav { margin-bottom: 18px; }
+    #einvoice-field-explorer .efc-panel-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    #einvoice-field-explorer .efc-panel-heading h3 { margin-bottom: 4px; }
+    #einvoice-field-explorer .efc-panel-heading p {
+      margin-bottom: 0;
+      color: var(--muted-foreground);
+    }
+    #einvoice-field-explorer .efc-principle {
+      flex: none;
+      max-width: 240px;
+      color: var(--foreground);
+      font-size: 12px;
+      text-align: right;
+    }
+    #einvoice-field-explorer .efc-owner {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 24px;
+      padding: 20px 0 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    #einvoice-field-explorer .efc-owner:last-of-type { border-bottom: 0; }
+    #einvoice-field-explorer .efc-owner-heading {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+    }
+    #einvoice-field-explorer .efc-owner-heading i { margin-top: 2px; }
+    #einvoice-field-explorer .efc-owner-heading h4 {
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    #einvoice-field-explorer .efc-owner-heading p {
+      margin-bottom: 0;
+      color: var(--muted-foreground);
+      font-size: 12px;
+    }
+    #einvoice-field-explorer .efc-items {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 28px;
+    }
+    #einvoice-field-explorer details {
+      padding: 0;
+      border-top: 1px solid var(--border);
+    }
+    #einvoice-field-explorer details:nth-child(-n+2) { border-top: 0; }
+    #einvoice-field-explorer summary {
+      min-height: 48px;
+      padding: 12px 2px;
+      cursor: pointer;
+    }
+    #einvoice-field-explorer .efc-summary-row {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: calc(100% - 10px);
+      vertical-align: middle;
+    }
+    #einvoice-field-explorer .efc-summary-row strong { font-weight: 500; }
+    #einvoice-field-explorer .efc-detail {
+      padding: 0 2px 14px 18px;
+    }
+    #einvoice-field-explorer .efc-detail p {
+      margin-bottom: 9px;
+      color: var(--muted-foreground);
+      font-size: 12px;
+    }
+    #einvoice-field-explorer .efc-tokens {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    #einvoice-field-explorer .efc-tokens code { white-space: normal; }
+    #einvoice-field-explorer .efc-gate {
+      margin: 18px 0 0;
+      padding: 12px 14px;
+      color: var(--muted-foreground);
+      background: color-mix(in srgb, var(--muted) 55%, transparent);
+      border-left: 3px solid var(--orange);
+      font-size: 12px;
+    }
+    @media (max-width: 680px) {
+      #einvoice-field-explorer .efc-flow {
+        grid-template-columns: 1fr;
+      }
+      #einvoice-field-explorer .efc-arrow { transform: rotate(90deg); justify-self: center; }
+      #einvoice-field-explorer .efc-panel-heading { display: block; }
+      #einvoice-field-explorer .efc-principle {
+        max-width: none;
+        margin-top: 8px;
+        text-align: left;
+      }
+      #einvoice-field-explorer .efc-owner {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      #einvoice-field-explorer .efc-items { grid-template-columns: 1fr; }
+      #einvoice-field-explorer details:nth-child(2) { border-top: 1px solid var(--border); }
+    }
+  </style>
+
+  <header class="efc-header">
+    <p class="efc-kicker">Spain e-invoicing · conceptual data contract</p>
+    <h2>What information moves through each journey?</h2>
+    <p class="efc-intro">The customer does not complete one giant form. Business facts are supplied once, Sage derives and freezes operational context, and external systems return their own identifiers and evidence.</p>
+  </header>
+
+  <div class="efc-flow" aria-label="Ownership flow from customer input through Sage processing to external evidence">
+    <div class="efc-flow-step"><strong>Customer or ERP</strong><span>Supplies legal, invoice and requested-route facts</span></div>
+    <i class="efc-arrow" data-lucide="arrow-right" aria-hidden="true"></i>
+    <div class="efc-flow-step"><strong>Sage platform</strong><span>Validates, decides, versions and preserves context</span></div>
+    <i class="efc-arrow" data-lucide="arrow-right" aria-hidden="true"></i>
+    <div class="efc-flow-step"><strong>External platform</strong><span>Returns registration, delivery and receipt evidence</span></div>
+  </div>
+
+  <nav class="viz-controls efc-stage-nav" aria-label="Select e-invoicing journey">
+    <button type="button" class="btn" data-stage="onboard" aria-pressed="true">1 · Onboard</button>
+    <button type="button" class="btn" data-stage="send" aria-pressed="false">2 · Send</button>
+    <button type="button" class="btn" data-stage="receive" aria-pressed="false">3 · Receive</button>
+    <button type="button" class="btn" data-stage="switch" aria-pressed="false">4 · Switch platform</button>
+  </nav>
+
+  <main id="efc-active-stage" aria-live="polite">
+    <section data-panel="onboard">
+      <div class="efc-panel-heading">
+        <div><h3>Onboard the customer or account</h3><p>Create reusable identity, authority, connection and readiness records.</p></div>
+        <div class="efc-principle">Outcome: ready per capability—not one universal “onboarded” flag.</div>
+      </div>
+
+      <section class="efc-owner">
+        <div class="efc-owner-heading"><i data-lucide="user-round" aria-hidden="true"></i><div><h4>Customer or accountant supplies</h4><p>Business facts and requested capabilities</p></div></div>
+        <div class="efc-items">
+          <details open><summary><span class="efc-summary-row"><strong>Customer identity</strong><span class="viz-badge">Required</span></span></summary><div class="efc-detail"><p>The legal subject that owns the e-invoicing obligation.</p><div class="efc-tokens"><code>legalName</code><code>legalForm</code><code>subjectType</code><code>jurisdiction</code><code>status</code><code>effectiveFrom</code><code>effectiveTo</code></div></div></details>
+          <details open><summary><span class="efc-summary-row"><strong>Tax identity</strong><span class="viz-badge">Required</span></span></summary><div class="efc-detail"><p>Scheme-qualified identity; NIE or DNI is a source class under Spanish NIF treatment.</p><div class="efc-tokens"><code>scheme</code><code>displayValue</code><code>sourceClass</code><code>issuingCountry</code><code>issuingAuthority</code><code>purpose</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Establishment or presence</strong><span class="viz-badge">When applicable</span></span></summary><div class="efc-detail"><p>Captured separately from tax identity because presence can affect applicability.</p><div class="efc-tokens"><code>presenceType</code><code>address</code><code>country</code><code>parentSubject</code><code>evidenceRef</code><code>validity</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Requested capabilities</strong><span class="viz-badge">Required</span></span></summary><div class="efc-detail"><p>Each direction and operation is requested and evaluated independently.</p><div class="efc-tokens"><code>capability</code><code>direction</code><code>routePreference</code><code>effectiveRequestTime</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Delegation evidence</strong><span class="viz-badge">If delegated</span></span></summary><div class="efc-detail"><p>Needed when an accountant, platform or other delegate acts for the customer.</p><div class="efc-tokens"><code>principal</code><code>delegateOrganisation</code><code>delegateUser</code><code>capabilities</code><code>directions</code><code>validity</code><code>evidenceRef</code></div></div></details>
+        </div>
+      </section>
+
+      <section class="efc-owner">
+        <div class="efc-owner-heading"><i data-lucide="database" aria-hidden="true"></i><div><h4>Sage creates and manages</h4><p>Context, decisions and evidence</p></div></div>
+        <div class="efc-items">
+          <details open><summary><span class="efc-summary-row"><strong>Access context</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Links the Sage product account to the correct direct customer or selected accountant client.</p><div class="efc-tokens"><code>tenantId</code><code>datasetId</code><code>productId</code><code>environment</code><code>contextRole</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Verified identifier</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Preserves entered and normalised values plus verification provenance.</p><div class="efc-tokens"><code>identifierId</code><code>normalizedValue</code><code>permittedRoles</code><code>verificationResult</code><code>verificationSource</code><code>verifiedAt</code><code>sensitivity</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Authority decision</strong><span class="viz-badge">Per capability</span></span></summary><div class="efc-detail"><p>Authentication alone never grants authority for every client or operation.</p><div class="efc-tokens"><code>grantId</code><code>capability</code><code>direction</code><code>routeScope</code><code>authorityResult</code><code>reason</code><code>validity</code><code>revocation</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Readiness decision</strong><span class="viz-badge">Per capability</span></span></summary><div class="efc-detail"><p>Send and receive readiness can differ for the same customer.</p><div class="efc-tokens"><code>capability</code><code>direction</code><code>result</code><code>limitation</code><code>policyVersion</code><code>evidenceSnapshot</code><code>expiry</code><code>recheckAt</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Onboarding operation</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Supports direct setup and isolated accountant portfolio batches.</p><div class="efc-tokens"><code>caseId</code><code>intakeMode</code><code>status</code><code>actor</code><code>correlationId</code><code>idempotencyKey</code><code>createdAt</code><code>updatedAt</code></div></div></details>
+        </div>
+      </section>
+
+      <section class="efc-owner">
+        <div class="efc-owner-heading"><i data-lucide="plug-zap" aria-hidden="true"></i><div><h4>Provider or authority contributes</h4><p>Connection and external evidence</p></div></div>
+        <div class="efc-items">
+          <details open><summary><span class="efc-summary-row"><strong>Credential reference</strong><span class="viz-badge">Secret external</span></span></summary><div class="efc-detail"><p>Sage stores metadata and a secure reference, never secret values in the business record.</p><div class="efc-tokens"><code>credentialRef</code><code>owner</code><code>custodian</code><code>purpose</code><code>provider</code><code>environment</code><code>validity</code><code>rotationStatus</code><code>secretStoreRef</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Provider connection</strong><span class="viz-badge">Provider-specific</span></span></summary><div class="efc-detail"><p>Exact configuration depends on the selected public or private platform.</p><div class="efc-tokens"><code>connectionId</code><code>providerId</code><code>externalAccountRef</code><code>mailboxRef</code><code>participantRef</code><code>directions</code><code>profiles</code><code>registrationState</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>External verification</strong><span class="viz-badge">Evidence</span></span></summary><div class="efc-detail"><p>Returned status is preserved without giving it a broader legal meaning.</p><div class="efc-tokens"><code>externalCode</code><code>externalStatus</code><code>providerReference</code><code>observedAt</code><code>contractVersion</code><code>evidenceRef</code></div></div></details>
+        </div>
+      </section>
+    </section>
+
+    <section data-panel="send" hidden>
+      <div class="efc-panel-heading">
+        <div><h3>Send an electronic invoice</h3><p>Combine invoice data with a frozen validation profile and outbound route.</p></div>
+        <div class="efc-principle">Outcome: admitted or rejected—not automatically delivered, accepted or paid.</div>
+      </div>
+
+      <section class="efc-owner">
+        <div class="efc-owner-heading"><i data-lucide="file-input" aria-hidden="true"></i><div><h4>ERP or customer supplies</h4><p>The business invoice and stable request identity</p></div></div>
+        <div class="efc-items">
+          <details open><summary><span class="efc-summary-row"><strong>Submission command</strong><span class="viz-badge">Required</span></span></summary><div class="efc-detail"><p>Identifies one logical submission even when the caller retries.</p><div class="efc-tokens"><code>requestId</code><code>idempotencyKey</code><code>accessContextRef</code><code>actor</code><code>legalSubjectRef</code><code>environment</code><code>inputMode</code></div></div></details>
+          <details open><summary><span class="efc-summary-row"><strong>Invoice identity</strong><span class="viz-badge">Required</span></span></summary><div class="efc-detail"><p>The stable business identity and document classification.</p><div class="efc-tokens"><code>invoiceNumber</code><code>series</code><code>issueDate</code><code>invoiceType</code><code>originalCopyIndicator</code><code>currency</code><code>correctedInvoiceRef</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Seller and buyer</strong><span class="viz-badge">Required</span></span></summary><div class="efc-detail"><p>Each party keeps its role, subject/presence and scheme-qualified tax identity.</p><div class="efc-tokens"><code>legalName</code><code>partyRole</code><code>subjectRef</code><code>presenceRef</code><code>identifierScheme</code><code>taxIdentifier</code><code>sourceClass</code><code>address</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Invoice lines</strong><span class="viz-badge">Required/profile</span></span></summary><div class="efc-detail"><p>Exact cardinality and code lists belong to the approved Spanish profile.</p><div class="efc-tokens"><code>lineId</code><code>description</code><code>quantity</code><code>unit</code><code>unitPrice</code><code>allowanceCharge</code><code>taxCategory</code><code>taxRate</code><code>lineNetAmount</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Tax and totals</strong><span class="viz-badge">Required/profile</span></span></summary><div class="efc-detail"><p>Sage validates the mathematical and semantic relationships.</p><div class="efc-tokens"><code>taxBasis</code><code>taxBreakdown</code><code>taxTotal</code><code>lineNetTotal</code><code>allowanceTotal</code><code>chargeTotal</code><code>invoiceTotal</code><code>prepaidAmount</code><code>rounding</code><code>amountDue</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Payment and references</strong><span class="viz-badge">Conditional</span></span></summary><div class="efc-detail"><p>Required according to transaction, payment method and approved profile.</p><div class="efc-tokens"><code>dueDate</code><code>paymentTerms</code><code>paymentMeans</code><code>paymentAccount</code><code>purchaseOrderRef</code><code>contractRef</code><code>deliveryRef</code><code>projectRef</code></div></div></details>
+        </div>
+      </section>
+
+      <section class="efc-owner">
+        <div class="efc-owner-heading"><i data-lucide="shield-check" aria-hidden="true"></i><div><h4>Sage validates and freezes</h4><p>The exact context used for this invoice</p></div></div>
+        <div class="efc-items">
+          <details open><summary><span class="efc-summary-row"><strong>Document profile</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Makes historical validation reproducible after rule changes.</p><div class="efc-tokens"><code>validationPackId</code><code>packVersion</code><code>ublVersion</code><code>schemaVersion</code><code>en16931Rules</code><code>spainRules</code><code>profileId</code><code>codeListVersion</code></div></div></details>
+          <details open><summary><span class="efc-summary-row"><strong>Resolved outbound route</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>The platform resolves one effective route before transmission.</p><div class="efc-tokens"><code>routeId</code><code>routeVersion</code><code>connectionId</code><code>providerId</code><code>direction</code><code>decisionTime</code><code>decisionEvidence</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Submission artefact</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Proves exactly what Sage intended to send. Embedded files are rejected on the public route.</p><div class="efc-tokens"><code>xmlRef</code><code>contentHash</code><code>size</code><code>encoding</code><code>signatureContext</code><code>createdAt</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Submission attempt</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Separates safe pre-send failure from an outcome that may have mutated externally.</p><div class="efc-tokens"><code>attemptId</code><code>sendBoundary</code><code>correlationId</code><code>startedAt</code><code>endedAt</code><code>transportEvidence</code><code>outcome</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Lifecycle record</strong><span class="viz-badge">Never rewrite</span></span></summary><div class="efc-detail"><p>Retains route, profile, attempts and state history through later changes.</p><div class="efc-tokens"><code>invoiceId</code><code>publicIdentity</code><code>currentState</code><code>stateHistory</code><code>actor</code><code>reason</code><code>changedAt</code></div></div></details>
+        </div>
+      </section>
+
+      <section class="efc-owner">
+        <div class="efc-owner-heading"><i data-lucide="receipt-text" aria-hidden="true"></i><div><h4>Public or private platform returns</h4><p>External outcome and evidence</p></div></div>
+        <div class="efc-items">
+          <details open><summary><span class="efc-summary-row"><strong>Item result</strong><span class="viz-badge">External</span></span></summary><div class="efc-detail"><p>Each invoice item is classified independently.</p><div class="efc-tokens"><code>externalOutcome</code><code>externalCode</code><code>fieldPath</code><code>externalMessage</code><code>sageCategory</code><code>observedAt</code></div></div></details>
+          <details open><summary><span class="efc-summary-row"><strong>Receipt and reference</strong><span class="viz-badge">After admission</span></span></summary><div class="efc-detail"><p>Admission evidence is persisted before the ERP is notified.</p><div class="efc-tokens"><code>providerInvoiceRef</code><code>publicReference</code><code>secureVerificationCode</code><code>receiptEvidenceRef</code><code>receivedAt</code></div></div></details>
+        </div>
+      </section>
+      <p class="efc-gate"><strong>Delivery gate:</strong> exact AEAT UBL profile identifiers, extensions, code lists and mandatory/conditional business terms are not yet an approved production schema.</p>
+    </section>
+
+    <section data-panel="receive" hidden>
+      <div class="efc-panel-heading">
+        <div><h3>Receive and retrieve invoices</h3><p>Keep invoice content separate from polling, duplicate control and availability evidence.</p></div>
+        <div class="efc-principle">Outcome: one durable business invoice even if it is observed more than once.</div>
+      </div>
+
+      <section class="efc-owner">
+        <div class="efc-owner-heading"><i data-lucide="user-cog" aria-hidden="true"></i><div><h4>Customer or ERP supplies</h4><p>Very little at retrieval time</p></div></div>
+        <div class="efc-items">
+          <details open><summary><span class="efc-summary-row"><strong>Inbound setup</strong><span class="viz-badge">From onboarding</span></span></summary><div class="efc-detail"><p>The legal subject, authority, environment and route are reused rather than re-entered.</p><div class="efc-tokens"><code>legalSubjectRef</code><code>environment</code><code>inboundConnectionId</code><code>inboundRouteId</code><code>effectivePeriod</code><code>authorityRef</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Refresh request</strong><span class="viz-badge">Optional</span></span></summary><div class="efc-detail"><p>A manual refresh accelerates controlled scheduling; it does not block while the provider is queried.</p><div class="efc-tokens"><code>requestId</code><code>legalSubjectRef</code><code>actor</code><code>reason</code><code>idempotencyKey</code></div></div></details>
+        </div>
+      </section>
+
+      <section class="efc-owner">
+        <div class="efc-owner-heading"><i data-lucide="refresh-cw" aria-hidden="true"></i><div><h4>Sage schedules and ingests</h4><p>Operational fields are platform-managed</p></div></div>
+        <div class="efc-items">
+          <details open><summary><span class="efc-summary-row"><strong>Consultation eligibility</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Only an authorised, inbound-ready subject is scheduled.</p><div class="efc-tokens"><code>legalSubjectRef</code><code>environment</code><code>publicConnectionId</code><code>inboundRouteId</code><code>effectivePeriod</code><code>status</code><code>reason</code></div></div></details>
+          <details open><summary><span class="efc-summary-row"><strong>Policy and checkpoint</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Supports safe incremental retrieval, overlap and recovery.</p><div class="efc-tokens"><code>policyId</code><code>policyVersion</code><code>cadenceClass</code><code>backoffClass</code><code>queryScope</code><code>cursor</code><code>watermark</code><code>overlapBoundary</code><code>lastCommittedItem</code><code>checkpointVersion</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Retrieval run</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Every scheduled, manual or reconciliation run remains observable.</p><div class="efc-tokens"><code>runId</code><code>trigger</code><code>dueAt</code><code>startedAt</code><code>endedAt</code><code>queryBounds</code><code>pages</code><code>items</code><code>result</code><code>errorClass</code><code>correlationId</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Observation and duplicate control</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Repeated compatible observations correlate; conflicting content is quarantined.</p><div class="efc-tokens"><code>observationId</code><code>stableExternalIdentity</code><code>checksum</code><code>firstSeenAt</code><code>lastSeenAt</code><code>duplicateOf</code><code>conflictReason</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Validation and ingestion</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Proves exactly-once business availability.</p><div class="efc-tokens"><code>validationResult</code><code>validationPackVersion</code><code>invoiceId</code><code>ingestionOutcome</code><code>persistedAt</code><code>publishedAt</code><code>quarantineReason</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>ERP availability</strong><span class="viz-badge">Output</span></span></summary><div class="efc-detail"><p>Exposes the invoice and freshness without leaking provider secrets.</p><div class="efc-tokens"><code>invoiceId</code><code>receivedAt</code><code>sourceRouteRef</code><code>providerRef</code><code>freshness</code><code>originalCopyStatus</code><code>lifecycleState</code><code>safeNextAction</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Reconciliation</strong><span class="viz-badge">Resilience</span></span></summary><div class="efc-detail"><p>Searches a bounded historical window for missed work.</p><div class="efc-tokens"><code>scope</code><code>window</code><code>expectedCount</code><code>observedCount</code><code>gaps</code><code>correctiveActions</code><code>runOutcome</code><code>evidenceRef</code></div></div></details>
+        </div>
+      </section>
+
+      <section class="efc-owner">
+        <div class="efc-owner-heading"><i data-lucide="inbox" aria-hidden="true"></i><div><h4>External platform supplies</h4><p>The original invoice and source metadata</p></div></div>
+        <div class="efc-items">
+          <details open><summary><span class="efc-summary-row"><strong>External observation</strong><span class="viz-badge">External</span></span></summary><div class="efc-detail"><p>Stable identity and source metadata used for traceability.</p><div class="efc-tokens"><code>publicInvoiceIdentity</code><code>providerInvoiceRef</code><code>originalCopyIndicator</code><code>externalCreatedAt</code><code>externalUpdatedAt</code><code>checksum</code><code>metadata</code></div></div></details>
+          <details open><summary><span class="efc-summary-row"><strong>Invoice document</strong><span class="viz-badge">External/profile</span></span></summary><div class="efc-detail"><p>The original structured payload includes the same business invoice families used on send.</p><div class="efc-tokens"><code>payloadRef</code><code>seller</code><code>buyer</code><code>invoiceIdentity</code><code>dates</code><code>lines</code><code>tax</code><code>totals</code><code>payment</code><code>references</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Paging and query evidence</strong><span class="viz-badge">Provider-specific</span></span></summary><div class="efc-detail"><p>Exact cursor, page and ordering semantics depend on the final provider/public API.</p><div class="efc-tokens"><code>pageToken</code><code>nextCursor</code><code>resultCount</code><code>queryCorrelation</code><code>responseTimestamp</code></div></div></details>
+        </div>
+      </section>
+      <p class="efc-gate"><strong>Delivery gate:</strong> final consultation API, cursor semantics, polling limits, automatic-download behaviour and initial lookback remain provider/public-specification decisions.</p>
+    </section>
+
+    <section data-panel="switch" hidden>
+      <div class="efc-panel-heading">
+        <div><h3>Switch public or private platform</h3><p>Prepare the new connection first, then activate a route by direction and effective time.</p></div>
+        <div class="efc-principle">Outcome: future routing changes; historical invoice context stays fixed.</div>
+      </div>
+
+      <section class="efc-owner">
+        <div class="efc-owner-heading"><i data-lucide="route" aria-hidden="true"></i><div><h4>Customer or ERP supplies</h4><p>Target choice, scope, timing and authority</p></div></div>
+        <div class="efc-items">
+          <details open><summary><span class="efc-summary-row"><strong>Target connection request</strong><span class="viz-badge">Required</span></span></summary><div class="efc-detail"><p>The connection can be prepared without changing the active route.</p><div class="efc-tokens"><code>providerId</code><code>legalSubjectRef</code><code>environment</code><code>intendedDirections</code><code>requestedCapabilities</code><code>providerConfiguration</code><code>credentialRef</code></div></div></details>
+          <details open><summary><span class="efc-summary-row"><strong>Transition command</strong><span class="viz-badge">Required</span></span></summary><div class="efc-detail"><p>Changes inbound, outbound or both only after the target is ready.</p><div class="efc-tokens"><code>transitionId</code><code>idempotencyKey</code><code>legalSubjectRef</code><code>environment</code><code>directionScope</code><code>sourceRouteId</code><code>targetConnectionId</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Timing and confirmation</strong><span class="viz-badge">Required</span></span></summary><div class="efc-detail"><p>The authorised actor reviews timing and continuity impact before activation.</p><div class="efc-tokens"><code>requestedEffectiveAt</code><code>initiator</code><code>reason</code><code>authorityRef</code><code>confirmedAt</code><code>expectedConfigVersion</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Cancel or rollback request</strong><span class="viz-badge">Recovery</span></span></summary><div class="efc-detail"><p>Rollback is a new controlled transition, not a history rewrite.</p><div class="efc-tokens"><code>transitionId</code><code>requestedAction</code><code>actor</code><code>reason</code><code>requestedAt</code></div></div></details>
+        </div>
+      </section>
+
+      <section class="efc-owner">
+        <div class="efc-owner-heading"><i data-lucide="workflow" aria-hidden="true"></i><div><h4>Sage validates and orchestrates</h4><p>Route safety, cutover and continuity</p></div></div>
+        <div class="efc-items">
+          <details open><summary><span class="efc-summary-row"><strong>Connection readiness</strong><span class="viz-badge">Must pass</span></span></summary><div class="efc-detail"><p>A ready connection is still inactive until a transition completes.</p><div class="efc-tokens"><code>connectionId</code><code>supportedDirections</code><code>supportedProfiles</code><code>registrationState</code><code>validationOutcome</code><code>readinessResult</code><code>limitation</code><code>evidenceAt</code></div></div></details>
+          <details open><summary><span class="efc-summary-row"><strong>Source and target snapshot</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Makes the intended change explicit and detects conflicts.</p><div class="efc-tokens"><code>sourceRouteId</code><code>sourceRouteVersion</code><code>sourceConnectionId</code><code>targetConnectionId</code><code>targetProviderId</code><code>directionScope</code><code>decisionBoundary</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Transition execution</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Ambiguous external outcomes reconcile before any repeat mutation.</p><div class="efc-tokens"><code>state</code><code>previousState</code><code>attemptId</code><code>correlationId</code><code>providerOperationRef</code><code>observedProviderState</code><code>faultOwner</code><code>safeNextAction</code><code>changedAt</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Activation result</strong><span class="viz-badge">System</span></span></summary><div class="efc-detail"><p>Inbound and outbound can have different effective routes.</p><div class="efc-tokens"><code>effectiveAt</code><code>activeInboundRouteId</code><code>activeOutboundRouteId</code><code>retainedConnectionIds</code><code>reconciliationResult</code><code>evidenceRef</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Per-invoice route snapshot</strong><span class="viz-badge">Never rewrite</span></span></summary><div class="efc-detail"><p>Every new invoice freezes the route that was effective at its routing-decision time.</p><div class="efc-tokens"><code>invoiceId</code><code>resolvedRouteId</code><code>connectionId</code><code>providerId</code><code>direction</code><code>environment</code><code>externalReference</code><code>decisionTimestamp</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Retirement guard</strong><span class="viz-badge">Before deregistration</span></span></summary><div class="efc-detail"><p>Prevents removal of a connection still needed by open or historical invoices.</p><div class="efc-tokens"><code>openInvoiceCount</code><code>nonTerminalDependencies</code><code>historicalAccessDecision</code><code>retentionDecision</code><code>approvedOverride</code></div></div></details>
+        </div>
+      </section>
+
+      <section class="efc-owner">
+        <div class="efc-owner-heading"><i data-lucide="network" aria-hidden="true"></i><div><h4>Provider or network returns</h4><p>External registration and observed state</p></div></div>
+        <div class="efc-items">
+          <details open><summary><span class="efc-summary-row"><strong>External connection identity</strong><span class="viz-badge">Provider-specific</span></span></summary><div class="efc-detail"><p>The selected platform may use accounts, tenants, mailboxes or participant identities.</p><div class="efc-tokens"><code>externalAccountRef</code><code>tenantRef</code><code>mailboxRef</code><code>participantScheme</code><code>participantValue</code><code>registrationRef</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Registration and activation evidence</strong><span class="viz-badge">External</span></span></summary><div class="efc-detail"><p>Sage compares intended state with authoritative observed provider state.</p><div class="efc-tokens"><code>externalStatus</code><code>externalOperationRef</code><code>acknowledgement</code><code>observedAt</code><code>effectiveAt</code><code>errorCode</code><code>errorMessage</code></div></div></details>
+          <details><summary><span class="efc-summary-row"><strong>Disable or deregister evidence</strong><span class="viz-badge">Provider-specific</span></span></summary><div class="efc-detail"><p>Only performed through a separately authorised lifecycle after continuity checks.</p><div class="efc-tokens"><code>deregistrationRef</code><code>credentialRevocationStatus</code><code>providerAcknowledgement</code><code>observedAt</code></div></div></details>
+        </div>
+      </section>
+      <p class="efc-gate"><strong>Delivery gate:</strong> receiver discovery, provider activation APIs, multiple-platform precedence, retrieval ownership, irreversible steps and deregistration rules remain provider/country decisions.</p>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const root = document.getElementById('einvoice-field-explorer');
+      const buttons = [...root.querySelectorAll('[data-stage]')];
+      const panels = [...root.querySelectorAll('[data-panel]')];
+
+      const activateStage = (selected) => {
+        buttons.forEach((candidate) => candidate.setAttribute('aria-pressed', String(candidate.dataset.stage === selected)));
+        panels.forEach((panel) => { panel.hidden = panel.dataset.panel !== selected; });
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => activateStage(button.dataset.stage));
+      });
+    })();
+  </script>
+</div>

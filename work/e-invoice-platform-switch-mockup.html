@@ -1,0 +1,686 @@
+<div id="spain-einvoice-platform-switch" aria-label="Interactive Spanish e-invoice platform switching mockup">
+  <style>
+    #spain-einvoice-platform-switch {
+      --ses-page: light-dark(#f3f6f7, #11171c);
+      --ses-surface: light-dark(#ffffff, #1b232b);
+      --ses-surface-soft: light-dark(#f6f8fa, #242e38);
+      --ses-text: light-dark(#17222c, #f1f5f7);
+      --ses-muted: light-dark(#5a6876, #b6c1ca);
+      --ses-border: light-dark(#d7dee4, #3e4a55);
+      --ses-brand: light-dark(#1b7556, #73d3b0);
+      --ses-brand-text: light-dark(#ffffff, #0c2119);
+      --ses-success: light-dark(#176944, #79d4a8);
+      --ses-success-soft: light-dark(#e7f5ed, #17372a);
+      --ses-warning: light-dark(#805600, #f2c66b);
+      --ses-warning-soft: light-dark(#fff6df, #382d18);
+      --ses-danger: light-dark(#a32a26, #ff9e97);
+      --ses-danger-soft: light-dark(#fff0ef, #40211f);
+      --ses-focus: light-dark(#0a70c3, #75bdf0);
+      width: 100%;
+      color: var(--ses-text);
+      background: transparent;
+      color-scheme: light dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #spain-einvoice-platform-switch * { box-sizing: border-box; }
+    #spain-einvoice-platform-switch h2,
+    #spain-einvoice-platform-switch h3,
+    #spain-einvoice-platform-switch p { margin: 0; }
+    #spain-einvoice-platform-switch .ses-window {
+      overflow: hidden;
+      background: var(--ses-page);
+      border: 1px solid var(--ses-border);
+      border-radius: 14px;
+      box-shadow: 0 14px 34px light-dark(rgba(28, 42, 54, .12), rgba(0, 0, 0, .28));
+    }
+    #spain-einvoice-platform-switch .ses-topbar,
+    #spain-einvoice-platform-switch .ses-brand,
+    #spain-einvoice-platform-switch .ses-heading,
+    #spain-einvoice-platform-switch .ses-current-head,
+    #spain-einvoice-platform-switch .ses-route-value,
+    #spain-einvoice-platform-switch .ses-panel-heading,
+    #spain-einvoice-platform-switch .ses-footer,
+    #spain-einvoice-platform-switch .ses-actions,
+    #spain-einvoice-platform-switch button {
+      display: flex;
+      align-items: center;
+    }
+    #spain-einvoice-platform-switch .ses-topbar {
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--ses-surface);
+      border-bottom: 1px solid var(--ses-border);
+    }
+    #spain-einvoice-platform-switch .ses-brand { gap: 9px; font-weight: 500; }
+    #spain-einvoice-platform-switch .ses-brand-mark {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      color: var(--ses-brand-text);
+      background: var(--ses-brand);
+      border-radius: 8px;
+    }
+    #spain-einvoice-platform-switch .ses-environment { color: var(--ses-muted); font-size: .84rem; }
+    #spain-einvoice-platform-switch .ses-content { padding: 22px; }
+    #spain-einvoice-platform-switch .ses-heading { justify-content: space-between; align-items: flex-start; gap: 18px; }
+    #spain-einvoice-platform-switch h2 { font-size: 1.22rem; font-weight: 500; }
+    #spain-einvoice-platform-switch h3 { font-size: .94rem; font-weight: 500; }
+    #spain-einvoice-platform-switch .ses-subtitle { margin-top: 5px; color: var(--ses-muted); font-size: .86rem; }
+    #spain-einvoice-platform-switch label,
+    #spain-einvoice-platform-switch legend { display: block; color: var(--ses-muted); font-size: .74rem; }
+    #spain-einvoice-platform-switch input,
+    #spain-einvoice-platform-switch select {
+      width: 100%;
+      min-height: 39px;
+      margin-top: 5px;
+      padding: 8px 10px;
+      color: var(--ses-text);
+      background: var(--ses-surface-soft);
+      border: 1px solid var(--ses-border);
+      border-radius: 7px;
+      font: inherit;
+      font-size: .87rem;
+    }
+    #spain-einvoice-platform-switch input:focus,
+    #spain-einvoice-platform-switch select:focus,
+    #spain-einvoice-platform-switch button:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--ses-focus) 35%, transparent);
+      outline-offset: 2px;
+    }
+    #spain-einvoice-platform-switch .ses-phase-select { width: min(270px, 100%); }
+    #spain-einvoice-platform-switch .ses-entity {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+      gap: 11px;
+      margin-top: 18px;
+      padding: 12px 14px;
+      background: var(--ses-surface);
+      border: 1px solid var(--ses-border);
+      border-radius: 9px;
+    }
+    #spain-einvoice-platform-switch .ses-entity span,
+    #spain-einvoice-platform-switch .ses-entity strong { display: block; }
+    #spain-einvoice-platform-switch .ses-entity span { color: var(--ses-muted); font-size: .7rem; }
+    #spain-einvoice-platform-switch .ses-entity strong { margin-top: 3px; font-size: .84rem; font-weight: 500; }
+    #spain-einvoice-platform-switch .ses-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(230px, .75fr);
+      gap: 14px;
+      margin-top: 14px;
+      align-items: start;
+    }
+    #spain-einvoice-platform-switch .ses-stack { display: grid; gap: 14px; }
+    #spain-einvoice-platform-switch .ses-panel {
+      background: var(--ses-surface);
+      border: 1px solid var(--ses-border);
+      border-radius: 10px;
+      padding: 15px;
+    }
+    #spain-einvoice-platform-switch .ses-current-head,
+    #spain-einvoice-platform-switch .ses-panel-heading { justify-content: space-between; gap: 12px; }
+    #spain-einvoice-platform-switch .ses-live-badge {
+      padding: 4px 7px;
+      color: var(--ses-success);
+      background: var(--ses-success-soft);
+      border-radius: 999px;
+      font-size: .68rem;
+      font-weight: 500;
+    }
+    #spain-einvoice-platform-switch .ses-current-routes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 12px;
+    }
+    #spain-einvoice-platform-switch .ses-route-card {
+      padding: 11px;
+      background: var(--ses-surface-soft);
+      border-radius: 8px;
+    }
+    #spain-einvoice-platform-switch .ses-route-card > span { color: var(--ses-muted); font-size: .7rem; }
+    #spain-einvoice-platform-switch .ses-route-value { gap: 7px; margin-top: 6px; color: var(--ses-success); font-size: .81rem; font-weight: 500; }
+    #spain-einvoice-platform-switch .ses-origin-note { margin-top: 10px; color: var(--ses-muted); font-size: .73rem; }
+    #spain-einvoice-platform-switch .ses-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+      margin-top: 12px;
+    }
+    #spain-einvoice-platform-switch .ses-field-wide { grid-column: 1 / -1; }
+    #spain-einvoice-platform-switch .ses-scope {
+      margin: 12px 0 0;
+      padding: 0;
+      border: 0;
+    }
+    #spain-einvoice-platform-switch .ses-scope-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin-top: 7px; }
+    #spain-einvoice-platform-switch .ses-check {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 8px;
+      padding: 10px;
+      color: var(--ses-text);
+      background: var(--ses-surface-soft);
+      border: 1px solid var(--ses-border);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #spain-einvoice-platform-switch .ses-check input {
+      width: 17px;
+      min-height: auto;
+      height: 17px;
+      margin: 2px 0 0;
+      padding: 0;
+    }
+    #spain-einvoice-platform-switch .ses-check strong,
+    #spain-einvoice-platform-switch .ses-check span { display: block; }
+    #spain-einvoice-platform-switch .ses-check strong { font-size: .79rem; font-weight: 500; }
+    #spain-einvoice-platform-switch .ses-check span { margin-top: 3px; color: var(--ses-muted); font-size: .7rem; }
+    #spain-einvoice-platform-switch .ses-policy-note {
+      margin-top: 11px;
+      padding: 9px 11px;
+      color: var(--ses-muted);
+      background: var(--ses-surface-soft);
+      border-left: 3px solid var(--ses-brand);
+      font-size: .75rem;
+    }
+    #spain-einvoice-platform-switch .ses-policy-note[data-state="error"] {
+      color: var(--ses-danger);
+      background: var(--ses-danger-soft);
+      border-left-color: var(--ses-danger);
+    }
+    #spain-einvoice-platform-switch .ses-gates { display: grid; gap: 0; margin: 12px 0 0; padding: 0; list-style: none; }
+    #spain-einvoice-platform-switch .ses-gate {
+      position: relative;
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 9px;
+      min-height: 58px;
+      color: var(--ses-muted);
+    }
+    #spain-einvoice-platform-switch .ses-gate:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      top: 27px;
+      bottom: 0;
+      width: 2px;
+      background: var(--ses-border);
+    }
+    #spain-einvoice-platform-switch .ses-gate-marker {
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      color: var(--ses-muted);
+      background: var(--ses-surface);
+      border: 1px solid var(--ses-border);
+      border-radius: 50%;
+      font-size: .71rem;
+      font-weight: 500;
+    }
+    #spain-einvoice-platform-switch .ses-gate strong,
+    #spain-einvoice-platform-switch .ses-gate span { display: block; }
+    #spain-einvoice-platform-switch .ses-gate strong { margin-top: 2px; color: inherit; font-size: .78rem; font-weight: 500; }
+    #spain-einvoice-platform-switch .ses-gate span { margin-top: 3px; font-size: .69rem; }
+    #spain-einvoice-platform-switch .ses-gate[data-state="current"] { color: var(--ses-brand); }
+    #spain-einvoice-platform-switch .ses-gate[data-state="current"] .ses-gate-marker { color: var(--ses-brand-text); background: var(--ses-brand); border-color: transparent; }
+    #spain-einvoice-platform-switch .ses-gate[data-state="done"] { color: var(--ses-success); }
+    #spain-einvoice-platform-switch .ses-gate[data-state="done"] .ses-gate-marker { color: var(--ses-brand-text); background: var(--ses-success); border-color: transparent; }
+    #spain-einvoice-platform-switch .ses-readiness-result {
+      display: none;
+      margin-top: 9px;
+      padding: 10px;
+      color: var(--ses-success);
+      background: var(--ses-success-soft);
+      border-radius: 8px;
+      font-size: .73rem;
+    }
+    #spain-einvoice-platform-switch .ses-readiness-result[data-visible="true"] { display: block; }
+    #spain-einvoice-platform-switch .ses-history {
+      margin-top: 14px;
+      padding: 12px;
+      color: var(--ses-muted);
+      background: var(--ses-surface);
+      border: 1px solid var(--ses-border);
+      border-radius: 9px;
+      font-size: .75rem;
+    }
+    #spain-einvoice-platform-switch .ses-history strong { color: var(--ses-text); font-weight: 500; }
+    #spain-einvoice-platform-switch .ses-history-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 9px;
+      align-items: center;
+      margin-top: 9px;
+    }
+    #spain-einvoice-platform-switch .ses-history-node { padding: 9px; background: var(--ses-surface-soft); border-radius: 8px; }
+    #spain-einvoice-platform-switch .ses-history-node span { display: block; margin-top: 2px; font-size: .68rem; }
+    #spain-einvoice-platform-switch .ses-footer { justify-content: space-between; gap: 12px; margin-top: 14px; }
+    #spain-einvoice-platform-switch .ses-status { color: var(--ses-muted); font-size: .77rem; }
+    #spain-einvoice-platform-switch .ses-actions { gap: 8px; }
+    #spain-einvoice-platform-switch button {
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 15px;
+      color: var(--ses-brand-text);
+      background: var(--ses-brand);
+      border: 0;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #spain-einvoice-platform-switch button.ses-secondary {
+      color: var(--ses-text);
+      background: var(--ses-surface-soft);
+      border: 1px solid var(--ses-border);
+    }
+    #spain-einvoice-platform-switch button:disabled { opacity: .56; cursor: not-allowed; }
+    #spain-einvoice-platform-switch .ses-dialog {
+      width: min(620px, calc(100% - 28px));
+      max-height: calc(100% - 28px);
+      padding: 0;
+      color: var(--ses-text);
+      background: var(--ses-surface);
+      border: 1px solid var(--ses-border);
+      border-radius: 13px;
+      box-shadow: 0 24px 70px light-dark(rgba(24, 36, 46, .24), rgba(0, 0, 0, .6));
+    }
+    #spain-einvoice-platform-switch .ses-dialog::backdrop { background: light-dark(rgba(20, 32, 42, .42), rgba(0, 0, 0, .68)); }
+    #spain-einvoice-platform-switch .ses-dialog-header,
+    #spain-einvoice-platform-switch .ses-dialog-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 18px;
+    }
+    #spain-einvoice-platform-switch .ses-dialog-header { border-bottom: 1px solid var(--ses-border); }
+    #spain-einvoice-platform-switch .ses-dialog-footer { justify-content: flex-end; border-top: 1px solid var(--ses-border); }
+    #spain-einvoice-platform-switch .ses-dialog-content { padding: 18px; }
+    #spain-einvoice-platform-switch .ses-dialog-subtitle { margin-top: 4px; color: var(--ses-muted); font-size: .78rem; }
+    #spain-einvoice-platform-switch .ses-icon-button { min-width: 40px; padding: 8px; }
+    #spain-einvoice-platform-switch .ses-before-after { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 10px; align-items: center; }
+    #spain-einvoice-platform-switch .ses-route-summary { padding: 12px; background: var(--ses-surface-soft); border-radius: 8px; }
+    #spain-einvoice-platform-switch .ses-route-summary span,
+    #spain-einvoice-platform-switch .ses-route-summary strong { display: block; }
+    #spain-einvoice-platform-switch .ses-route-summary span { color: var(--ses-muted); font-size: .69rem; }
+    #spain-einvoice-platform-switch .ses-route-summary strong { margin-top: 3px; font-size: .84rem; font-weight: 500; }
+    #spain-einvoice-platform-switch .ses-dialog-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin-top: 12px; }
+    #spain-einvoice-platform-switch .ses-dialog-fact { padding: 10px; border-bottom: 1px solid var(--ses-border); }
+    #spain-einvoice-platform-switch .ses-dialog-fact span,
+    #spain-einvoice-platform-switch .ses-dialog-fact strong { display: block; }
+    #spain-einvoice-platform-switch .ses-dialog-fact span { color: var(--ses-muted); font-size: .69rem; }
+    #spain-einvoice-platform-switch .ses-dialog-fact strong { margin-top: 3px; font-size: .79rem; font-weight: 500; }
+    #spain-einvoice-platform-switch .ses-dialog-note { margin-top: 12px; padding: 10px; color: var(--ses-warning); background: var(--ses-warning-soft); border-radius: 8px; font-size: .73rem; }
+    #spain-einvoice-platform-switch .ses-dialog-result { display: none; margin-top: 12px; padding: 10px; color: var(--ses-success); background: var(--ses-success-soft); border-radius: 8px; font-size: .74rem; }
+    #spain-einvoice-platform-switch .ses-dialog-result[data-visible="true"] { display: block; }
+    @media (max-width: 820px) {
+      #spain-einvoice-platform-switch .ses-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      #spain-einvoice-platform-switch .ses-heading,
+      #spain-einvoice-platform-switch .ses-footer { flex-direction: column; align-items: stretch; }
+      #spain-einvoice-platform-switch .ses-panel-heading { flex-direction: column; align-items: flex-start; }
+      #spain-einvoice-platform-switch .ses-entity,
+      #spain-einvoice-platform-switch .ses-current-routes,
+      #spain-einvoice-platform-switch .ses-form-grid,
+      #spain-einvoice-platform-switch .ses-scope-options { grid-template-columns: 1fr; }
+      #spain-einvoice-platform-switch .ses-field-wide { grid-column: auto; }
+      #spain-einvoice-platform-switch .ses-actions { flex-direction: column-reverse; }
+      #spain-einvoice-platform-switch .ses-actions button { width: 100%; }
+    }
+    @media (max-width: 440px) {
+      #spain-einvoice-platform-switch .ses-content { padding: 16px; }
+      #spain-einvoice-platform-switch .ses-history-flow,
+      #spain-einvoice-platform-switch .ses-before-after,
+      #spain-einvoice-platform-switch .ses-dialog-facts { grid-template-columns: 1fr; }
+      #spain-einvoice-platform-switch .ses-history-flow > i,
+      #spain-einvoice-platform-switch .ses-before-after > i { transform: rotate(90deg); justify-self: center; }
+      #spain-einvoice-platform-switch .ses-dialog-footer { flex-direction: column-reverse; }
+      #spain-einvoice-platform-switch .ses-dialog-footer button { width: 100%; }
+      #spain-einvoice-platform-switch .ses-dialog-header .ses-icon-button { width: auto; }
+    }
+  </style>
+
+  <section class="ses-window">
+    <header class="ses-topbar">
+      <div class="ses-brand"><span class="ses-brand-mark"><i data-lucide="replace" aria-hidden="true"></i></span><span>Spain e-invoicing</span></div>
+      <span class="ses-environment">TEST environment</span>
+    </header>
+
+    <main class="ses-content">
+      <div class="ses-heading">
+        <div>
+          <h2>Switch delivery platform</h2>
+          <p class="ses-subtitle">Prepare and prove the target before changing the effective route for new invoices.</p>
+        </div>
+        <label class="ses-phase-select">Availability preview
+          <select id="ses-phase" aria-label="Availability preview">
+            <option value="phase2" selected>Phase 2 — Public ↔ supported private</option>
+            <option value="phase3">Phase 3 — extended switching</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="ses-entity">
+        <div><span>Legal entity</span><strong>Demo Supplier S.L. · ES:NIF B12345674</strong></div>
+        <div><span>Requested by</span><strong>Customer administrator · SYNTH-ACTOR-18</strong></div>
+      </div>
+
+      <div class="ses-layout">
+        <div class="ses-stack">
+          <section class="ses-panel" aria-labelledby="ses-current-heading">
+            <div class="ses-current-head"><h3 id="ses-current-heading">Current effective routing</h3><span class="ses-live-badge">LIVE</span></div>
+            <div class="ses-current-routes">
+              <div class="ses-route-card"><span>Outbound invoices</span><div class="ses-route-value"><i data-lucide="arrow-up-right" aria-hidden="true"></i><span id="ses-outbound-current">Spanish Public Platform (AEAT)</span></div></div>
+              <div class="ses-route-card"><span>Inbound invoices</span><div class="ses-route-value"><i data-lucide="arrow-down-left" aria-hidden="true"></i><span id="ses-inbound-current">Spanish Public Platform (AEAT)</span></div></div>
+            </div>
+            <p class="ses-origin-note">Current routing controls new invoices only. Existing public-origin invoices continue to use their original public identifiers, status and correction path.</p>
+          </section>
+
+          <section class="ses-panel" aria-labelledby="ses-target-heading">
+            <div class="ses-panel-heading"><h3 id="ses-target-heading">Target connection and scope</h3><span id="ses-target-status" class="ses-live-badge">NOT VALIDATED</span></div>
+            <div class="ses-form-grid">
+              <label>Target platform
+                <select id="ses-target" aria-label="Target platform">
+                  <option value="public">Spanish Public Platform (AEAT)</option>
+                  <optgroup label="Supported private platforms">
+                    <option value="b2b-router">B2B Router</option>
+                    <option value="banqup">Banqup (Unifiedpost)</option>
+                    <option value="edicom" selected>EDICOM</option>
+                    <option value="seres">SERES (Docaposte)</option>
+                    <option value="zerocoma">ZeroComa</option>
+                  </optgroup>
+                  <option id="ses-sage-target" value="sage" disabled>Sage private platform — Phase 3</option>
+                </select>
+              </label>
+              <label>Target connection
+                <select id="ses-connection" aria-label="Target connection"><option selected>EDICOM · SYNTH-CONNECTION-042</option></select>
+              </label>
+              <label>Effective time
+                <select id="ses-effective" aria-label="Effective time"><option selected>After successful readiness checks</option><option>Schedule for 18 September 2026 · 00:00</option></select>
+              </label>
+              <label>Reason
+                <select aria-label="Switch reason"><option selected>Customer route choice</option><option>Provider service change</option><option>Controlled rollback</option></select>
+              </label>
+            </div>
+
+            <fieldset class="ses-scope">
+              <legend>Transition scope</legend>
+              <div class="ses-scope-options">
+                <label class="ses-check"><input id="ses-outbound-scope" type="checkbox" checked><span><strong>Outbound</strong><span>New sales invoices use the target route.</span></span></label>
+                <label class="ses-check"><input id="ses-inbound-scope" type="checkbox" checked><span><strong>Inbound</strong><span>Receiver reachability and retrieval ownership must be proven.</span></span></label>
+              </div>
+            </fieldset>
+            <p id="ses-policy-note" class="ses-policy-note">Phase 2 allows a controlled Public → supported Private transition for the selected direction. The connection may be prepared while the public route remains live.</p>
+          </section>
+        </div>
+
+        <aside class="ses-panel" aria-labelledby="ses-gates-heading">
+          <h3 id="ses-gates-heading">Readiness gates</h3>
+          <ol class="ses-gates">
+            <li class="ses-gate" data-gate="1"><span class="ses-gate-marker">1</span><span><strong>Connection</strong><span>Credentials, account and provider capability.</span></span></li>
+            <li class="ses-gate" data-gate="2"><span class="ses-gate-marker">2</span><span><strong>Registration</strong><span>Recipient publication, entry point and reachability.</span></span></li>
+            <li class="ses-gate" data-gate="3"><span class="ses-gate-marker">3</span><span><strong>Authority and conflict</strong><span>Actor, scope and overlapping-transition checks.</span></span></li>
+            <li class="ses-gate" data-gate="4"><span class="ses-gate-marker">4</span><span><strong>Continuity</strong><span>Cutover, reconciliation, history and rollback plan.</span></span></li>
+          </ol>
+          <div id="ses-readiness-result" class="ses-readiness-result" data-visible="false" aria-live="polite"></div>
+        </aside>
+      </div>
+
+      <section class="ses-history" aria-labelledby="ses-history-heading">
+        <h3 id="ses-history-heading">Invoice history remains with its origin route</h3>
+        <div class="ses-history-flow">
+          <div class="ses-history-node"><strong>Before effective boundary</strong><span id="ses-before-history">Public-origin invoice lifecycle remains on AEAT context</span></div>
+          <i data-lucide="arrow-right" aria-hidden="true"></i>
+          <div class="ses-history-node"><strong>After effective boundary</strong><span id="ses-after-history">New selected-scope invoices will use EDICOM</span></div>
+        </div>
+      </section>
+
+      <div class="ses-footer">
+        <p id="ses-status" class="ses-status" aria-live="polite">Target route has not been validated.</p>
+        <div class="ses-actions">
+          <button id="ses-review" type="button" disabled><i data-lucide="replace" aria-hidden="true"></i> Review &amp; switch</button>
+          <button id="ses-validate" type="button"><i data-lucide="shield-check" aria-hidden="true"></i> Validate target</button>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <dialog id="ses-confirm-dialog" class="ses-dialog" aria-labelledby="ses-confirm-title">
+    <form method="dialog">
+      <header class="ses-dialog-header">
+        <div><h3 id="ses-confirm-title">Confirm route transition</h3><p class="ses-dialog-subtitle">This changes routing for new invoices in the selected scope.</p></div>
+        <button class="ses-secondary ses-icon-button" type="submit" value="cancel" aria-label="Close transition review"><i data-lucide="x" aria-hidden="true"></i></button>
+      </header>
+      <div class="ses-dialog-content">
+        <div class="ses-before-after">
+          <div class="ses-route-summary"><span>Current route</span><strong id="ses-dialog-source">Spanish Public Platform (AEAT)</strong></div>
+          <i data-lucide="arrow-right" aria-hidden="true"></i>
+          <div class="ses-route-summary"><span>Target route</span><strong id="ses-dialog-target">EDICOM</strong></div>
+        </div>
+        <div class="ses-dialog-facts">
+          <div class="ses-dialog-fact"><span>Scope</span><strong id="ses-dialog-scope">Inbound and outbound</strong></div>
+          <div class="ses-dialog-fact"><span>Effective boundary</span><strong id="ses-dialog-effective">After readiness confirmation</strong></div>
+          <div class="ses-dialog-fact"><span>Transition ID</span><strong>SYNTH-TRANSITION-762</strong></div>
+          <div class="ses-dialog-fact"><span>Rollback</span><strong>Return selected scope to public</strong></div>
+        </div>
+        <p class="ses-dialog-note">Activation does not deregister the public connection or rewrite historical invoices. The previous route remains available for continuity and controlled rollback until its separate release gate is approved.</p>
+        <div id="ses-dialog-result" class="ses-dialog-result" data-visible="false" aria-live="polite"></div>
+      </div>
+      <footer class="ses-dialog-footer">
+        <button class="ses-secondary" type="submit" value="cancel">Cancel</button>
+        <button id="ses-confirm" type="button"><i data-lucide="check" aria-hidden="true"></i> Confirm switch</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <script>
+    (() => {
+      const root = document.getElementById('spain-einvoice-platform-switch');
+      const phase = root.querySelector('#ses-phase');
+      const target = root.querySelector('#ses-target');
+      const sageTarget = root.querySelector('#ses-sage-target');
+      const connection = root.querySelector('#ses-connection');
+      const effective = root.querySelector('#ses-effective');
+      const outboundScope = root.querySelector('#ses-outbound-scope');
+      const inboundScope = root.querySelector('#ses-inbound-scope');
+      const outboundCurrent = root.querySelector('#ses-outbound-current');
+      const inboundCurrent = root.querySelector('#ses-inbound-current');
+      const targetStatus = root.querySelector('#ses-target-status');
+      const policyNote = root.querySelector('#ses-policy-note');
+      const gates = [...root.querySelectorAll('[data-gate]')];
+      const readinessResult = root.querySelector('#ses-readiness-result');
+      const beforeHistory = root.querySelector('#ses-before-history');
+      const afterHistory = root.querySelector('#ses-after-history');
+      const status = root.querySelector('#ses-status');
+      const validateButton = root.querySelector('#ses-validate');
+      const reviewButton = root.querySelector('#ses-review');
+      const dialog = root.querySelector('#ses-confirm-dialog');
+      const dialogSource = root.querySelector('#ses-dialog-source');
+      const dialogTarget = root.querySelector('#ses-dialog-target');
+      const dialogScope = root.querySelector('#ses-dialog-scope');
+      const dialogEffective = root.querySelector('#ses-dialog-effective');
+      const dialogResult = root.querySelector('#ses-dialog-result');
+      const confirmButton = root.querySelector('#ses-confirm');
+      const labels = {
+        public: 'Spanish Public Platform (AEAT)',
+        'b2b-router': 'B2B Router',
+        banqup: 'Banqup (Unifiedpost)',
+        edicom: 'EDICOM',
+        seres: 'SERES (Docaposte)',
+        zerocoma: 'ZeroComa',
+        sage: 'Sage private platform'
+      };
+      let validated = false;
+      let timers = [];
+
+      const refreshIcons = () => {
+        if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+      };
+
+      const selectedDirections = () => {
+        const directions = [];
+        if (outboundScope.checked) directions.push('outbound');
+        if (inboundScope.checked) directions.push('inbound');
+        return directions;
+      };
+
+      const scopeLabel = () => {
+        const directions = selectedDirections();
+        if (directions.length === 2) return 'Inbound and outbound';
+        if (directions[0] === 'outbound') return 'Outbound only';
+        if (directions[0] === 'inbound') return 'Inbound only';
+        return 'No direction selected';
+      };
+
+      const sourceLabels = () => {
+        const sources = selectedDirections().map((direction) => direction === 'outbound' ? outboundCurrent.textContent : inboundCurrent.textContent);
+        return [...new Set(sources)];
+      };
+
+      const isPrivate = (label) => label !== labels.public;
+
+      const setGate = (index, state) => {
+        const gate = gates[index];
+        gate.dataset.state = state;
+        gate.querySelector('.ses-gate-marker').textContent = state === 'done' ? '✓' : String(index + 1);
+      };
+
+      const resetValidation = () => {
+        timers.forEach((timer) => window.clearTimeout(timer));
+        timers = [];
+        validated = false;
+        gates.forEach((gate, index) => setGate(index, ''));
+        targetStatus.textContent = 'NOT VALIDATED';
+        readinessResult.dataset.visible = 'false';
+        readinessResult.textContent = '';
+        reviewButton.disabled = true;
+        validateButton.disabled = false;
+        validateButton.innerHTML = '<i data-lucide="shield-check" aria-hidden="true"></i> Validate target';
+        status.textContent = 'Target route has not been validated.';
+        refreshIcons();
+      };
+
+      const updateConnection = () => {
+        connection.innerHTML = '';
+        const option = document.createElement('option');
+        option.textContent = target.value === 'public'
+          ? 'Sage managed AEAT connection'
+          : `${labels[target.value]} · SYNTH-CONNECTION-042`;
+        connection.appendChild(option);
+        afterHistory.textContent = `New selected-scope invoices will use ${labels[target.value]}`;
+        resetValidation();
+      };
+
+      const updatePhase = () => {
+        sageTarget.disabled = phase.value !== 'phase3';
+        if (target.value === 'sage' && sageTarget.disabled) target.value = 'edicom';
+        policyNote.dataset.state = '';
+        policyNote.textContent = phase.value === 'phase2'
+          ? 'Phase 2 allows a controlled Public → supported Private transition for the selected direction. Private A → Private B is outside the initial Phase 2 delivery.'
+          : 'Phase 3 extends the shared route model for supported Private A → Private B switching and adds the Sage private-platform option. Targets still require an approved adapter and readiness.';
+        updateConnection();
+      };
+
+      const validatePolicy = () => {
+        const directions = selectedDirections();
+        if (!directions.length) return 'Select inbound, outbound or both.';
+        const sources = sourceLabels();
+        if (sources.length === 1 && sources[0] === labels[target.value]) return 'The target is already active for the selected scope.';
+        const privateSource = sources.some(isPrivate);
+        const privateTarget = target.value !== 'public';
+        if (phase.value === 'phase2' && privateSource && privateTarget) {
+          return 'Private A → Private B switching is not part of the initial Phase 2 delivery. Choose the public route or preview Phase 3.';
+        }
+        return '';
+      };
+
+      const runValidation = () => {
+        resetValidation();
+        const error = validatePolicy();
+        if (error) {
+          policyNote.dataset.state = 'error';
+          policyNote.textContent = error;
+          status.textContent = 'Transition cannot proceed with the current phase and scope.';
+          return;
+        }
+        policyNote.dataset.state = '';
+        validateButton.disabled = true;
+        setGate(0, 'current');
+        status.textContent = 'Checking target connection and transition authority…';
+        timers.push(window.setTimeout(() => { setGate(0, 'done'); setGate(1, 'current'); }, 350));
+        timers.push(window.setTimeout(() => { setGate(1, 'done'); setGate(2, 'current'); }, 700));
+        timers.push(window.setTimeout(() => { setGate(2, 'done'); setGate(3, 'current'); }, 1050));
+        timers.push(window.setTimeout(() => {
+          setGate(3, 'done');
+          validated = true;
+          targetStatus.textContent = 'READY · INACTIVE';
+          readinessResult.dataset.visible = 'true';
+          readinessResult.textContent = `${labels[target.value]} is ready for ${scopeLabel().toLowerCase()}. Current routes remain unchanged until confirmation.`;
+          reviewButton.disabled = false;
+          validateButton.disabled = false;
+          validateButton.innerHTML = '<i data-lucide="rotate-cw" aria-hidden="true"></i> Validate again';
+          status.textContent = 'Target is ready but inactive.';
+          refreshIcons();
+        }, 1400));
+      };
+
+      const openReview = () => {
+        if (!validated) return;
+        dialogSource.textContent = sourceLabels().join(' / ');
+        dialogTarget.textContent = labels[target.value];
+        dialogScope.textContent = scopeLabel();
+        dialogEffective.textContent = effective.options[effective.selectedIndex].text;
+        dialogResult.dataset.visible = 'false';
+        dialogResult.textContent = '';
+        confirmButton.disabled = false;
+        confirmButton.innerHTML = '<i data-lucide="check" aria-hidden="true"></i> Confirm switch';
+        refreshIcons();
+        dialog.showModal();
+      };
+
+      const confirmSwitch = () => {
+        confirmButton.disabled = true;
+        confirmButton.textContent = 'Activating…';
+        dialogResult.dataset.visible = 'true';
+        dialogResult.textContent = 'Preparing effective boundary and activating the selected scope…';
+        timers.push(window.setTimeout(() => {
+          dialogResult.textContent = 'Activation observed. Reconciling route state and preserving source history…';
+        }, 600));
+        timers.push(window.setTimeout(() => {
+          const targetLabel = labels[target.value];
+          if (outboundScope.checked) outboundCurrent.textContent = targetLabel;
+          if (inboundScope.checked) inboundCurrent.textContent = targetLabel;
+          beforeHistory.textContent = 'Invoices before the boundary retain their original provider context and lifecycle';
+          afterHistory.textContent = `New ${scopeLabel().toLowerCase()} invoices use ${targetLabel}`;
+          dialogResult.textContent = `Transition completed. ${targetLabel} is effective for ${scopeLabel().toLowerCase()}; previous-route history remains accessible.`;
+          confirmButton.textContent = 'Switch complete';
+          status.textContent = `Transition complete · ${targetLabel} active for ${scopeLabel().toLowerCase()}`;
+          targetStatus.textContent = 'ACTIVE';
+          reviewButton.disabled = true;
+          validateButton.disabled = false;
+          validateButton.innerHTML = '<i data-lucide="shield-check" aria-hidden="true"></i> Validate another target';
+          validated = false;
+          refreshIcons();
+        }, 1250));
+      };
+
+      phase.addEventListener('change', updatePhase);
+      target.addEventListener('change', updateConnection);
+      outboundScope.addEventListener('change', resetValidation);
+      inboundScope.addEventListener('change', resetValidation);
+      effective.addEventListener('change', resetValidation);
+      validateButton.addEventListener('click', runValidation);
+      reviewButton.addEventListener('click', openReview);
+      confirmButton.addEventListener('click', confirmSwitch);
+      dialog.addEventListener('close', () => timers.forEach((timer) => window.clearTimeout(timer)));
+      updatePhase();
+    })();
+  </script>
+</div>

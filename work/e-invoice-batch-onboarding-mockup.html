@@ -1,0 +1,617 @@
+<div id="spain-einvoice-batch-onboarding" aria-label="Interactive Spanish e-invoice batch onboarding mockup">
+  <style>
+    #spain-einvoice-batch-onboarding {
+      --seb-page: light-dark(#f3f6f7, #11171c);
+      --seb-surface: light-dark(#ffffff, #1b232b);
+      --seb-surface-soft: light-dark(#f6f8fa, #242e38);
+      --seb-text: light-dark(#17222c, #f1f5f7);
+      --seb-muted: light-dark(#5a6876, #b6c1ca);
+      --seb-border: light-dark(#d7dee4, #3e4a55);
+      --seb-brand: light-dark(#1b7556, #73d3b0);
+      --seb-brand-text: light-dark(#ffffff, #0c2119);
+      --seb-success: light-dark(#176944, #79d4a8);
+      --seb-success-soft: light-dark(#e7f5ed, #17372a);
+      --seb-warning: light-dark(#805600, #f2c66b);
+      --seb-warning-soft: light-dark(#fff6df, #382d18);
+      --seb-danger: light-dark(#a32a26, #ff9e97);
+      --seb-danger-soft: light-dark(#fff0ef, #40211f);
+      --seb-focus: light-dark(#0a70c3, #75bdf0);
+      width: 100%;
+      color: var(--seb-text);
+      background: transparent;
+      color-scheme: light dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #spain-einvoice-batch-onboarding * { box-sizing: border-box; }
+    #spain-einvoice-batch-onboarding h2,
+    #spain-einvoice-batch-onboarding h3,
+    #spain-einvoice-batch-onboarding p { margin: 0; }
+    #spain-einvoice-batch-onboarding .seb-window {
+      overflow: hidden;
+      background: var(--seb-page);
+      border: 1px solid var(--seb-border);
+      border-radius: 14px;
+      box-shadow: 0 14px 34px light-dark(rgba(28, 42, 54, .12), rgba(0, 0, 0, .28));
+    }
+    #spain-einvoice-batch-onboarding .seb-topbar,
+    #spain-einvoice-batch-onboarding .seb-brand,
+    #spain-einvoice-batch-onboarding .seb-heading,
+    #spain-einvoice-batch-onboarding .seb-file,
+    #spain-einvoice-batch-onboarding .seb-panel-heading,
+    #spain-einvoice-batch-onboarding .seb-footer,
+    #spain-einvoice-batch-onboarding .seb-actions,
+    #spain-einvoice-batch-onboarding button {
+      display: flex;
+      align-items: center;
+    }
+    #spain-einvoice-batch-onboarding .seb-topbar {
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--seb-surface);
+      border-bottom: 1px solid var(--seb-border);
+    }
+    #spain-einvoice-batch-onboarding .seb-brand { gap: 9px; font-weight: 500; }
+    #spain-einvoice-batch-onboarding .seb-brand-mark {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      color: var(--seb-brand-text);
+      background: var(--seb-brand);
+      border-radius: 8px;
+    }
+    #spain-einvoice-batch-onboarding .seb-environment { color: var(--seb-muted); font-size: .84rem; }
+    #spain-einvoice-batch-onboarding .seb-content { padding: 22px; }
+    #spain-einvoice-batch-onboarding .seb-heading { justify-content: space-between; align-items: flex-start; gap: 16px; }
+    #spain-einvoice-batch-onboarding h2 { font-size: 1.22rem; font-weight: 500; }
+    #spain-einvoice-batch-onboarding h3 { font-size: .94rem; font-weight: 500; }
+    #spain-einvoice-batch-onboarding .seb-subtitle { margin-top: 5px; color: var(--seb-muted); font-size: .86rem; }
+    #spain-einvoice-batch-onboarding .seb-batch-state {
+      padding: 5px 9px;
+      color: var(--seb-brand);
+      background: var(--seb-surface);
+      border: 1px solid var(--seb-border);
+      border-radius: 999px;
+      font-size: .75rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    #spain-einvoice-batch-onboarding .seb-progress {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 20px 0 16px;
+      padding: 0;
+      list-style: none;
+    }
+    #spain-einvoice-batch-onboarding .seb-progress li {
+      position: relative;
+      display: grid;
+      justify-items: center;
+      gap: 6px;
+      color: var(--seb-muted);
+      text-align: center;
+      font-size: .72rem;
+    }
+    #spain-einvoice-batch-onboarding .seb-progress li:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 13px;
+      width: 100%;
+      height: 2px;
+      background: var(--seb-border);
+    }
+    #spain-einvoice-batch-onboarding .seb-progress-marker {
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      color: var(--seb-muted);
+      background: var(--seb-surface);
+      border: 1px solid var(--seb-border);
+      border-radius: 50%;
+      font-weight: 500;
+    }
+    #spain-einvoice-batch-onboarding .seb-progress li[data-state="done"],
+    #spain-einvoice-batch-onboarding .seb-progress li[data-state="active"] { color: var(--seb-brand); }
+    #spain-einvoice-batch-onboarding .seb-progress li[data-state="done"] .seb-progress-marker,
+    #spain-einvoice-batch-onboarding .seb-progress li[data-state="active"] .seb-progress-marker {
+      color: var(--seb-brand-text);
+      background: var(--seb-brand);
+      border-color: transparent;
+    }
+    #spain-einvoice-batch-onboarding .seb-panel {
+      background: var(--seb-surface);
+      border: 1px solid var(--seb-border);
+      border-radius: 10px;
+      padding: 15px;
+    }
+    #spain-einvoice-batch-onboarding .seb-settings {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) repeat(2, minmax(150px, .75fr));
+      gap: 11px;
+      align-items: end;
+    }
+    #spain-einvoice-batch-onboarding label { display: block; color: var(--seb-muted); font-size: .74rem; }
+    #spain-einvoice-batch-onboarding input,
+    #spain-einvoice-batch-onboarding select {
+      width: 100%;
+      min-height: 39px;
+      margin-top: 5px;
+      padding: 8px 10px;
+      color: var(--seb-text);
+      background: var(--seb-surface-soft);
+      border: 1px solid var(--seb-border);
+      border-radius: 7px;
+      font: inherit;
+      font-size: .87rem;
+    }
+    #spain-einvoice-batch-onboarding input:focus,
+    #spain-einvoice-batch-onboarding select:focus,
+    #spain-einvoice-batch-onboarding button:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--seb-focus) 35%, transparent);
+      outline-offset: 2px;
+    }
+    #spain-einvoice-batch-onboarding .seb-file {
+      gap: 10px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      color: var(--seb-muted);
+      background: var(--seb-surface-soft);
+      border-radius: 8px;
+      font-size: .77rem;
+    }
+    #spain-einvoice-batch-onboarding .seb-file-icon {
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 32px;
+      height: 32px;
+      color: var(--seb-success);
+      background: var(--seb-success-soft);
+      border-radius: 8px;
+    }
+    #spain-einvoice-batch-onboarding .seb-file strong { display: block; color: var(--seb-text); font-weight: 500; }
+    #spain-einvoice-batch-onboarding .seb-file span { margin-left: auto; white-space: nowrap; }
+    #spain-einvoice-batch-onboarding .seb-principle {
+      margin-top: 11px;
+      padding: 9px 11px;
+      color: var(--seb-muted);
+      background: var(--seb-surface-soft);
+      border-left: 3px solid var(--seb-brand);
+      font-size: .76rem;
+    }
+    #spain-einvoice-batch-onboarding .seb-results { margin-top: 14px; }
+    #spain-einvoice-batch-onboarding .seb-panel-heading { justify-content: space-between; gap: 12px; }
+    #spain-einvoice-batch-onboarding .seb-counts { display: flex; gap: 7px; flex-wrap: wrap; }
+    #spain-einvoice-batch-onboarding .seb-count {
+      padding: 4px 7px;
+      color: var(--seb-muted);
+      background: var(--seb-surface-soft);
+      border-radius: 999px;
+      font-size: .7rem;
+      white-space: nowrap;
+    }
+    #spain-einvoice-batch-onboarding .seb-table-wrap { margin-top: 12px; }
+    #spain-einvoice-batch-onboarding table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    #spain-einvoice-batch-onboarding th,
+    #spain-einvoice-batch-onboarding td {
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--seb-border);
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+    #spain-einvoice-batch-onboarding th { color: var(--seb-muted); font-size: .69rem; font-weight: 500; }
+    #spain-einvoice-batch-onboarding td { color: var(--seb-muted); font-size: .73rem; }
+    #spain-einvoice-batch-onboarding th:first-child,
+    #spain-einvoice-batch-onboarding td:first-child { width: 38px; }
+    #spain-einvoice-batch-onboarding th:nth-child(2) { width: 24%; }
+    #spain-einvoice-batch-onboarding th:nth-child(3) { width: 19%; }
+    #spain-einvoice-batch-onboarding th:nth-child(4) { width: 22%; }
+    #spain-einvoice-batch-onboarding .seb-company { display: block; color: var(--seb-text); font-weight: 500; }
+    #spain-einvoice-batch-onboarding .seb-nif { display: block; margin-top: 3px; color: var(--seb-muted); }
+    #spain-einvoice-batch-onboarding .seb-select-row {
+      width: 17px;
+      min-height: auto;
+      height: 17px;
+      margin: 1px 0 0;
+      padding: 0;
+    }
+    #spain-einvoice-batch-onboarding .seb-result {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+    }
+    #spain-einvoice-batch-onboarding .seb-result[data-state="pending"] { color: var(--seb-muted); }
+    #spain-einvoice-batch-onboarding .seb-result[data-state="ready"],
+    #spain-einvoice-batch-onboarding .seb-result[data-state="active"] { color: var(--seb-success); }
+    #spain-einvoice-batch-onboarding .seb-result[data-state="action"] { color: var(--seb-warning); }
+    #spain-einvoice-batch-onboarding .seb-result[data-state="denied"] { color: var(--seb-danger); }
+    #spain-einvoice-batch-onboarding .seb-result-copy { display: block; margin-top: 4px; font-size: .68rem; }
+    #spain-einvoice-batch-onboarding .seb-footer { justify-content: space-between; gap: 12px; margin-top: 14px; }
+    #spain-einvoice-batch-onboarding .seb-status { color: var(--seb-muted); font-size: .77rem; }
+    #spain-einvoice-batch-onboarding .seb-actions { gap: 8px; }
+    #spain-einvoice-batch-onboarding button {
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 15px;
+      color: var(--seb-brand-text);
+      background: var(--seb-brand);
+      border: 0;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #spain-einvoice-batch-onboarding button.seb-secondary {
+      color: var(--seb-text);
+      background: var(--seb-surface-soft);
+      border: 1px solid var(--seb-border);
+    }
+    #spain-einvoice-batch-onboarding button:disabled { opacity: .56; cursor: not-allowed; }
+    #spain-einvoice-batch-onboarding .seb-dialog {
+      width: min(590px, calc(100% - 28px));
+      max-height: calc(100% - 28px);
+      padding: 0;
+      color: var(--seb-text);
+      background: var(--seb-surface);
+      border: 1px solid var(--seb-border);
+      border-radius: 13px;
+      box-shadow: 0 24px 70px light-dark(rgba(24, 36, 46, .24), rgba(0, 0, 0, .6));
+    }
+    #spain-einvoice-batch-onboarding .seb-dialog::backdrop { background: light-dark(rgba(20, 32, 42, .42), rgba(0, 0, 0, .68)); }
+    #spain-einvoice-batch-onboarding .seb-dialog-header,
+    #spain-einvoice-batch-onboarding .seb-dialog-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 18px;
+    }
+    #spain-einvoice-batch-onboarding .seb-dialog-header { border-bottom: 1px solid var(--seb-border); }
+    #spain-einvoice-batch-onboarding .seb-dialog-footer { justify-content: flex-end; border-top: 1px solid var(--seb-border); }
+    #spain-einvoice-batch-onboarding .seb-dialog-content { padding: 18px; }
+    #spain-einvoice-batch-onboarding .seb-dialog-subtitle { margin-top: 4px; color: var(--seb-muted); font-size: .78rem; }
+    #spain-einvoice-batch-onboarding .seb-icon-button { min-width: 40px; padding: 8px; }
+    #spain-einvoice-batch-onboarding .seb-review-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+    }
+    #spain-einvoice-batch-onboarding .seb-review-summary div {
+      padding: 11px;
+      background: var(--seb-surface-soft);
+      border-radius: 8px;
+    }
+    #spain-einvoice-batch-onboarding .seb-review-summary span,
+    #spain-einvoice-batch-onboarding .seb-review-summary strong { display: block; }
+    #spain-einvoice-batch-onboarding .seb-review-summary span { color: var(--seb-muted); font-size: .69rem; }
+    #spain-einvoice-batch-onboarding .seb-review-summary strong { margin-top: 3px; font-size: .88rem; font-weight: 500; }
+    #spain-einvoice-batch-onboarding .seb-review-list { margin: 14px 0 0; padding-left: 20px; color: var(--seb-muted); font-size: .76rem; }
+    #spain-einvoice-batch-onboarding .seb-review-list li + li { margin-top: 7px; }
+    #spain-einvoice-batch-onboarding .seb-dialog-result {
+      display: none;
+      margin-top: 13px;
+      padding: 11px;
+      color: var(--seb-success);
+      background: var(--seb-success-soft);
+      border-radius: 8px;
+      font-size: .76rem;
+    }
+    #spain-einvoice-batch-onboarding .seb-dialog-result[data-visible="true"] { display: block; }
+    @media (max-width: 660px) {
+      #spain-einvoice-batch-onboarding .seb-heading,
+      #spain-einvoice-batch-onboarding .seb-footer { flex-direction: column; align-items: stretch; }
+      #spain-einvoice-batch-onboarding .seb-settings { grid-template-columns: 1fr; }
+      #spain-einvoice-batch-onboarding .seb-actions { flex-direction: column-reverse; }
+      #spain-einvoice-batch-onboarding .seb-actions button { width: 100%; }
+      #spain-einvoice-batch-onboarding .seb-panel-heading { align-items: flex-start; flex-direction: column; }
+      #spain-einvoice-batch-onboarding table,
+      #spain-einvoice-batch-onboarding tbody,
+      #spain-einvoice-batch-onboarding tr,
+      #spain-einvoice-batch-onboarding td { display: block; width: 100%; }
+      #spain-einvoice-batch-onboarding thead { display: none; }
+      #spain-einvoice-batch-onboarding tr {
+        margin-bottom: 10px;
+        padding: 9px;
+        background: var(--seb-surface-soft);
+        border-radius: 8px;
+      }
+      #spain-einvoice-batch-onboarding td,
+      #spain-einvoice-batch-onboarding td:first-child {
+        display: grid;
+        grid-template-columns: 104px minmax(0, 1fr);
+        gap: 8px;
+        width: 100%;
+        padding: 6px 2px;
+        border: 0;
+      }
+      #spain-einvoice-batch-onboarding td::before { content: attr(data-label); color: var(--seb-muted); font-size: .68rem; font-weight: 500; }
+      #spain-einvoice-batch-onboarding .seb-file { align-items: flex-start; }
+      #spain-einvoice-batch-onboarding .seb-file span { margin-left: 0; }
+    }
+    @media (max-width: 440px) {
+      #spain-einvoice-batch-onboarding .seb-content { padding: 16px; }
+      #spain-einvoice-batch-onboarding .seb-progress li span:last-child { display: none; }
+      #spain-einvoice-batch-onboarding .seb-review-summary { grid-template-columns: 1fr; }
+      #spain-einvoice-batch-onboarding .seb-dialog-footer { flex-direction: column-reverse; }
+      #spain-einvoice-batch-onboarding .seb-dialog-footer button { width: 100%; }
+      #spain-einvoice-batch-onboarding .seb-dialog-header .seb-icon-button { width: auto; }
+    }
+  </style>
+
+  <section class="seb-window">
+    <header class="seb-topbar">
+      <div class="seb-brand"><span class="seb-brand-mark"><i data-lucide="users" aria-hidden="true"></i></span><span>Spain e-invoicing</span></div>
+      <span class="seb-environment">TEST environment</span>
+    </header>
+
+    <main class="seb-content">
+      <div class="seb-heading">
+        <div>
+          <h2>Batch onboard companies</h2>
+          <p class="seb-subtitle">One batch envelope, independently controlled legal-entity onboarding cases.</p>
+        </div>
+        <span id="seb-batch-state" class="seb-batch-state">RECEIVED · SYNTH-BATCH-024</span>
+      </div>
+
+      <ol class="seb-progress" aria-label="Batch onboarding progress">
+        <li data-state="done"><span class="seb-progress-marker">✓</span><span>Upload</span></li>
+        <li data-state="done"><span class="seb-progress-marker">✓</span><span>Map fields</span></li>
+        <li id="seb-progress-validation" data-state="active"><span class="seb-progress-marker">3</span><span>Validate clients</span></li>
+        <li id="seb-progress-activation"><span class="seb-progress-marker">4</span><span>Activate ready</span></li>
+      </ol>
+
+      <section class="seb-panel" aria-labelledby="seb-source-heading">
+        <h3 id="seb-source-heading">Batch source and defaults</h3>
+        <div class="seb-settings">
+          <label>Onboarding context
+            <select aria-label="Onboarding context">
+              <option selected>Accountant portfolio · SYNTH-FIRM-0042</option>
+              <option>Multi-entity customer group</option>
+            </select>
+          </label>
+          <label>Requested capabilities
+            <select aria-label="Requested capabilities"><option selected>Send and receive</option><option>Send only</option><option>Receive only</option></select>
+          </label>
+          <label>Default starting route
+            <select aria-label="Default starting route"><option selected>Spanish Public Platform (AEAT)</option></select>
+          </label>
+        </div>
+        <div class="seb-file">
+          <span class="seb-file-icon"><i data-lucide="file-spreadsheet" aria-hidden="true"></i></span>
+          <div><strong>spain-onboarding-synthetic.csv</strong>Mapped: legal entity, Sage account, tax scheme, NIF, directions, authority reference</div>
+          <span>5 client rows</span>
+        </div>
+        <p class="seb-principle"><strong>Isolation rule:</strong> batch receipt proves durable acceptance only. Every company gets its own relationship, identity, authority, capability and readiness decision; one failure does not fail or expose another company.</p>
+      </section>
+
+      <section class="seb-panel seb-results" aria-labelledby="seb-results-heading">
+        <div class="seb-panel-heading">
+          <h3 id="seb-results-heading">Client validation results</h3>
+          <div class="seb-counts" aria-live="polite">
+            <span id="seb-total-count" class="seb-count">5 received</span>
+            <span id="seb-ready-count" class="seb-count">0 ready</span>
+            <span id="seb-action-count" class="seb-count">0 action required</span>
+            <span id="seb-excluded-count" class="seb-count">0 excluded</span>
+          </div>
+        </div>
+
+        <div class="seb-table-wrap">
+          <table aria-label="Client onboarding validation results">
+            <thead>
+              <tr><th>Select</th><th>Company</th><th>Capabilities</th><th>Starting route</th><th>Validation result</th></tr>
+            </thead>
+            <tbody>
+              <tr data-row="1" data-outcome="ready">
+                <td data-label="Select"><input class="seb-select-row" type="checkbox" disabled aria-label="Select Demo Uno S.L."></td>
+                <td data-label="Company"><span class="seb-company">Demo Uno S.L.</span><span class="seb-nif">ES:NIF · B12345674</span></td>
+                <td data-label="Capabilities">Send and receive</td>
+                <td data-label="Starting route">Public now<br><span class="seb-nif">Private switch available later</span></td>
+                <td data-label="Validation"><span class="seb-result" data-state="pending"><i data-lucide="circle-dashed" aria-hidden="true"></i> Pending</span><span class="seb-result-copy">Awaiting client controls</span></td>
+              </tr>
+              <tr data-row="2" data-outcome="action">
+                <td data-label="Select"><input class="seb-select-row" type="checkbox" disabled aria-label="Select Norte Servicios S.L."></td>
+                <td data-label="Company"><span class="seb-company">Norte Servicios S.L.</span><span class="seb-nif">ES:NIF · B76543214</span></td>
+                <td data-label="Capabilities">Send and receive</td>
+                <td data-label="Starting route">Public now</td>
+                <td data-label="Validation"><span class="seb-result" data-state="pending"><i data-lucide="circle-dashed" aria-hidden="true"></i> Pending</span><span class="seb-result-copy">Awaiting client controls</span></td>
+              </tr>
+              <tr data-row="3" data-outcome="denied">
+                <td data-label="Select"><input class="seb-select-row" type="checkbox" disabled aria-label="Submitted client row 003"></td>
+                <td data-label="Company"><span class="seb-company">Submitted client 003</span><span class="seb-nif">Identifier hidden</span></td>
+                <td data-label="Capabilities">Send only</td>
+                <td data-label="Starting route">No route change</td>
+                <td data-label="Validation"><span class="seb-result" data-state="pending"><i data-lucide="circle-dashed" aria-hidden="true"></i> Pending</span><span class="seb-result-copy">Awaiting client controls</span></td>
+              </tr>
+              <tr data-row="4" data-outcome="duplicate">
+                <td data-label="Select"><input class="seb-select-row" type="checkbox" disabled aria-label="Select Costa Retail S.L."></td>
+                <td data-label="Company"><span class="seb-company">Costa Retail S.L.</span><span class="seb-nif">ES:NIF · B24681355</span></td>
+                <td data-label="Capabilities">Send only</td>
+                <td data-label="Starting route">Public already active</td>
+                <td data-label="Validation"><span class="seb-result" data-state="pending"><i data-lucide="circle-dashed" aria-hidden="true"></i> Pending</span><span class="seb-result-copy">Awaiting client controls</span></td>
+              </tr>
+              <tr data-row="5" data-outcome="ready">
+                <td data-label="Select"><input class="seb-select-row" type="checkbox" disabled aria-label="Select Taller Ejemplo S.L."></td>
+                <td data-label="Company"><span class="seb-company">Taller Ejemplo S.L.</span><span class="seb-nif">ES:NIF · B13572466</span></td>
+                <td data-label="Capabilities">Send and receive</td>
+                <td data-label="Starting route">Public now<br><span class="seb-nif">EDICOM preparation later</span></td>
+                <td data-label="Validation"><span class="seb-result" data-state="pending"><i data-lucide="circle-dashed" aria-hidden="true"></i> Pending</span><span class="seb-result-copy">Awaiting client controls</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="seb-footer">
+          <p id="seb-status" class="seb-status" aria-live="polite">Batch received; no client is ready until validation completes.</p>
+          <div class="seb-actions">
+            <button id="seb-activate" type="button" disabled><i data-lucide="badge-check" aria-hidden="true"></i> Activate ready (0)</button>
+            <button id="seb-validate" type="button"><i data-lucide="scan-search" aria-hidden="true"></i> Validate batch</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <dialog id="seb-review-dialog" class="seb-dialog" aria-labelledby="seb-review-title">
+    <form method="dialog">
+      <header class="seb-dialog-header">
+        <div><h3 id="seb-review-title">Activate selected companies</h3><p class="seb-dialog-subtitle">Only independently ready items will be changed.</p></div>
+        <button class="seb-secondary seb-icon-button" type="submit" value="cancel" aria-label="Close activation review"><i data-lucide="x" aria-hidden="true"></i></button>
+      </header>
+      <div class="seb-dialog-content">
+        <div class="seb-review-summary">
+          <div><span>Selected</span><strong id="seb-review-selected">2 companies</strong></div>
+          <div><span>Starting route</span><strong>AEAT public</strong></div>
+          <div><span>Unchanged</span><strong id="seb-review-unchanged">3 companies</strong></div>
+        </div>
+        <ul class="seb-review-list">
+          <li>Each selected company receives a separate effective route, evidence record and audit event.</li>
+          <li>Action-required, denied and duplicate items are not activated or rolled back with successful items.</li>
+          <li>Later Public → Private transitions are prepared and authorised per company; the batch does not grant shared route authority.</li>
+        </ul>
+        <div id="seb-dialog-result" class="seb-dialog-result" data-visible="false" aria-live="polite"></div>
+      </div>
+      <footer class="seb-dialog-footer">
+        <button class="seb-secondary" type="submit" value="cancel">Close</button>
+        <button id="seb-confirm-activation" type="button"><i data-lucide="check" aria-hidden="true"></i> Confirm activation</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <script>
+    (() => {
+      const root = document.getElementById('spain-einvoice-batch-onboarding');
+      const rows = [...root.querySelectorAll('tbody tr')];
+      const validateButton = root.querySelector('#seb-validate');
+      const activateButton = root.querySelector('#seb-activate');
+      const status = root.querySelector('#seb-status');
+      const batchState = root.querySelector('#seb-batch-state');
+      const progressValidation = root.querySelector('#seb-progress-validation');
+      const progressActivation = root.querySelector('#seb-progress-activation');
+      const readyCount = root.querySelector('#seb-ready-count');
+      const actionCount = root.querySelector('#seb-action-count');
+      const excludedCount = root.querySelector('#seb-excluded-count');
+      const dialog = root.querySelector('#seb-review-dialog');
+      const reviewSelected = root.querySelector('#seb-review-selected');
+      const reviewUnchanged = root.querySelector('#seb-review-unchanged');
+      const dialogResult = root.querySelector('#seb-dialog-result');
+      const confirmActivation = root.querySelector('#seb-confirm-activation');
+      let timers = [];
+
+      const refreshIcons = () => {
+        if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+      };
+
+      const setResult = (row, state, label, copy, icon) => {
+        const result = row.querySelector('.seb-result');
+        result.dataset.state = state;
+        result.innerHTML = `<i data-lucide="${icon}" aria-hidden="true"></i> ${label}`;
+        row.querySelector('.seb-result-copy').textContent = copy;
+      };
+
+      const selectedReadyRows = () => rows.filter((row) => row.dataset.outcome === 'ready' && row.querySelector('.seb-select-row').checked);
+
+      const updateSelection = () => {
+        const selected = selectedReadyRows().length;
+        activateButton.disabled = selected === 0;
+        activateButton.innerHTML = `<i data-lucide="badge-check" aria-hidden="true"></i> Activate ready (${selected})`;
+        refreshIcons();
+      };
+
+      const finishValidation = () => {
+        rows.forEach((row) => {
+          const checkbox = row.querySelector('.seb-select-row');
+          if (row.dataset.outcome === 'ready') {
+            setResult(row, 'ready', 'Ready', 'Identity, relationship and requested authority verified', 'check');
+            checkbox.disabled = false;
+            checkbox.checked = true;
+          } else if (row.dataset.outcome === 'action') {
+            setResult(row, 'action', 'Action required', 'Receive authority missing; no route activated', 'triangle-alert');
+          } else if (row.dataset.outcome === 'denied') {
+            setResult(row, 'denied', 'Access not verified', 'Client relationship could not be confirmed', 'shield-x');
+          } else {
+            setResult(row, 'active', 'Already onboarded', 'Existing idempotent result reused; no duplicate work', 'copy-check');
+          }
+        });
+        readyCount.textContent = '2 ready';
+        actionCount.textContent = '1 action required';
+        excludedCount.textContent = '2 excluded';
+        batchState.textContent = 'PARTIAL · SYNTH-BATCH-024';
+        progressValidation.dataset.state = 'done';
+        progressValidation.querySelector('.seb-progress-marker').textContent = '✓';
+        progressActivation.dataset.state = 'active';
+        status.textContent = 'Validation complete · ready items selected; other clients remain unchanged.';
+        validateButton.disabled = false;
+        validateButton.innerHTML = '<i data-lucide="rotate-cw" aria-hidden="true"></i> Validate again';
+        updateSelection();
+      };
+
+      const runValidation = () => {
+        timers.forEach((timer) => window.clearTimeout(timer));
+        timers = [];
+        validateButton.disabled = true;
+        activateButton.disabled = true;
+        batchState.textContent = 'PROCESSING · SYNTH-BATCH-024';
+        status.textContent = 'Validating five isolated client cases…';
+        rows.forEach((row) => {
+          const checkbox = row.querySelector('.seb-select-row');
+          checkbox.checked = false;
+          checkbox.disabled = true;
+          setResult(row, 'pending', 'Validating', 'Checking relationship, identity, authority and readiness', 'loader-circle');
+        });
+        refreshIcons();
+        timers.push(window.setTimeout(finishValidation, 1250));
+      };
+
+      const openReview = () => {
+        const selected = selectedReadyRows().length;
+        if (!selected) return;
+        reviewSelected.textContent = `${selected} ${selected === 1 ? 'company' : 'companies'}`;
+        reviewUnchanged.textContent = `${rows.length - selected} ${rows.length - selected === 1 ? 'company' : 'companies'}`;
+        dialogResult.dataset.visible = 'false';
+        dialogResult.textContent = '';
+        confirmActivation.disabled = false;
+        confirmActivation.innerHTML = '<i data-lucide="check" aria-hidden="true"></i> Confirm activation';
+        refreshIcons();
+        dialog.showModal();
+      };
+
+      const activateSelected = () => {
+        const selectedRows = selectedReadyRows();
+        confirmActivation.disabled = true;
+        confirmActivation.textContent = 'Activating…';
+        dialogResult.dataset.visible = 'true';
+        dialogResult.textContent = 'Creating independent public routes and evidence records…';
+        timers.push(window.setTimeout(() => {
+          selectedRows.forEach((row) => {
+            setResult(row, 'active', 'Active', 'AEAT public route active for new invoices', 'check');
+            const checkbox = row.querySelector('.seb-select-row');
+            checkbox.checked = false;
+            checkbox.disabled = true;
+          });
+          progressActivation.dataset.state = 'done';
+          progressActivation.querySelector('.seb-progress-marker').textContent = '✓';
+          readyCount.textContent = `${selectedRows.length} activated`;
+          batchState.textContent = 'PARTIAL · SYNTH-BATCH-024';
+          status.textContent = `${selectedRows.length} companies activated · 3 independent items unchanged`;
+          dialogResult.textContent = `${selectedRows.length} public routes activated. Remaining items retain their previous state and can be corrected or resumed individually.`;
+          confirmActivation.textContent = 'Activation complete';
+          refreshIcons();
+          updateSelection();
+        }, 950));
+      };
+
+      rows.forEach((row) => row.querySelector('.seb-select-row').addEventListener('change', updateSelection));
+      validateButton.addEventListener('click', runValidation);
+      activateButton.addEventListener('click', openReview);
+      confirmActivation.addEventListener('click', activateSelected);
+      dialog.addEventListener('close', () => timers.forEach((timer) => window.clearTimeout(timer)));
+    })();
+  </script>
+</div>
