@@ -1,0 +1,1615 @@
+<!-- Visual design variant derived from the repository's design.md. -->
+<div id="spain-einvoice-process-explorer" data-design-variant="vercel" aria-label="Interactive Spanish e-invoice process explorer">
+  <style>
+    #spain-einvoice-process-explorer {
+      --exp-page: light-dark(#f4f6f8, #11161c);
+      --exp-surface: light-dark(#ffffff, #1b222b);
+      --exp-surface-soft: light-dark(#f7f9fb, #242d38);
+      --exp-surface-active: light-dark(#e8f6ef, #17372b);
+      --exp-text: light-dark(#17212b, #f2f5f7);
+      --exp-muted: light-dark(#5d6a77, #b6c0ca);
+      --exp-border: light-dark(#d8dee5, #3c4856);
+      --exp-brand: light-dark(#1c6f51, #73d4b1);
+      --exp-brand-text: light-dark(#ffffff, #0c2119);
+      --exp-blue: light-dark(#0b6fc2, #76bdf1);
+      --exp-blue-soft: light-dark(#e9f4fc, #172e40);
+      --exp-purple: light-dark(#6f4aa8, #c4a2f0);
+      --exp-purple-soft: light-dark(#f1ecf8, #2d2340);
+      --exp-warning: light-dark(#8b5a00, #f4c76b);
+      --exp-warning-soft: light-dark(#fff6df, #382d18);
+      --exp-danger: light-dark(#a12622, #ff9b94);
+      --exp-danger-soft: light-dark(#fff0ef, #40201f);
+      --exp-focus: light-dark(rgba(11, 111, 194, .32), rgba(118, 189, 241, .42));
+      width: 100%;
+      color: var(--exp-text);
+      background: transparent;
+      color-scheme: light dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #spain-einvoice-process-explorer * { box-sizing: border-box; }
+    #spain-einvoice-process-explorer h2,
+    #spain-einvoice-process-explorer h3,
+    #spain-einvoice-process-explorer h4,
+    #spain-einvoice-process-explorer p { margin: 0; }
+    #spain-einvoice-process-explorer h2 { font-size: 1.24rem; line-height: 1.35; font-weight: 500; }
+    #spain-einvoice-process-explorer h3 { font-size: .96rem; line-height: 1.4; font-weight: 500; }
+    #spain-einvoice-process-explorer h4 { font-size: .82rem; line-height: 1.4; font-weight: 500; }
+    #spain-einvoice-process-explorer .exp-window {
+      overflow: hidden;
+      background: var(--exp-page);
+      border: 1px solid var(--exp-border);
+      border-radius: 14px;
+      box-shadow: 0 14px 34px light-dark(rgba(28, 42, 54, .12), rgba(0, 0, 0, .28));
+    }
+    #spain-einvoice-process-explorer .exp-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      background: var(--exp-surface);
+      border-bottom: 1px solid var(--exp-border);
+    }
+    #spain-einvoice-process-explorer .exp-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+    #spain-einvoice-process-explorer .exp-brand-mark {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      color: var(--exp-brand-text);
+      background: var(--exp-brand);
+      border-radius: 8px;
+    }
+    #spain-einvoice-process-explorer .exp-environment { color: var(--exp-muted); font-size: .84rem; }
+    #spain-einvoice-process-explorer .exp-content { padding: 22px; }
+    #spain-einvoice-process-explorer .exp-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    #spain-einvoice-process-explorer .exp-heading-copy { display: grid; gap: 5px; }
+    #spain-einvoice-process-explorer .exp-heading-copy p { color: var(--exp-muted); font-size: .88rem; }
+    #spain-einvoice-process-explorer .exp-phase-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+    #spain-einvoice-process-explorer .exp-phase-tag {
+      padding: 5px 9px;
+      color: var(--exp-brand);
+      background: var(--exp-surface);
+      border: 1px solid var(--exp-border);
+      border-radius: 999px;
+      font-size: .73rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    #spain-einvoice-process-explorer .exp-scenario-bar {
+      display: grid;
+      grid-template-columns: minmax(260px, .8fr) minmax(0, 1.5fr);
+      align-items: center;
+      gap: 14px;
+      padding: 13px 14px;
+      margin-bottom: 14px;
+      background: var(--exp-surface);
+      border: 1px solid var(--exp-border);
+      border-radius: 10px;
+    }
+    #spain-einvoice-process-explorer .exp-scenario-field { display: grid; gap: 6px; }
+    #spain-einvoice-process-explorer label { color: var(--exp-muted); font-size: .75rem; }
+    #spain-einvoice-process-explorer select {
+      width: 100%;
+      min-height: 40px;
+      padding: 8px 34px 8px 10px;
+      color: var(--exp-text);
+      background: var(--exp-surface-soft);
+      border: 1px solid var(--exp-border);
+      border-radius: 7px;
+      font: inherit;
+      font-size: .88rem;
+    }
+    #spain-einvoice-process-explorer button {
+      min-height: 42px;
+      padding: 9px 12px;
+      color: var(--exp-text);
+      background: var(--exp-surface-soft);
+      border: 1px solid var(--exp-border);
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #spain-einvoice-process-explorer select:focus,
+    #spain-einvoice-process-explorer button:focus-visible {
+      outline: 3px solid var(--exp-focus);
+      outline-offset: 2px;
+    }
+    #spain-einvoice-process-explorer .exp-scenario-summary {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 10px 12px;
+      color: var(--exp-text);
+      background: var(--exp-surface-active);
+      border-left: 3px solid var(--exp-brand);
+      border-radius: 8px;
+      font-size: .8rem;
+      line-height: 1.5;
+    }
+    #spain-einvoice-process-explorer .exp-scenario-summary i { flex: none; margin-top: 2px; color: var(--exp-brand); }
+    #spain-einvoice-process-explorer .exp-overview {
+      padding: 15px;
+      background: var(--exp-surface);
+      border: 1px solid var(--exp-border);
+      border-radius: 10px;
+    }
+    #spain-einvoice-process-explorer .exp-overview-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 13px;
+    }
+    #spain-einvoice-process-explorer .exp-overview-title { display: flex; align-items: center; gap: 8px; }
+    #spain-einvoice-process-explorer .exp-overview-title i { color: var(--exp-brand); }
+    #spain-einvoice-process-explorer .exp-overview-hint { color: var(--exp-muted); font-size: .74rem; }
+    #spain-einvoice-process-explorer .exp-lanes { display: grid; gap: 10px; }
+    #spain-einvoice-process-explorer .exp-lane {
+      display: grid;
+      grid-template-columns: 132px minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      padding: 10px;
+      background: var(--exp-surface-soft);
+      border-radius: 9px;
+    }
+    #spain-einvoice-process-explorer .exp-lane-label {
+      display: grid;
+      align-content: center;
+      gap: 4px;
+      padding: 9px 10px;
+      border-left: 3px solid var(--exp-brand);
+    }
+    #spain-einvoice-process-explorer .exp-lane:nth-child(2) .exp-lane-label { border-left-color: var(--exp-blue); }
+    #spain-einvoice-process-explorer .exp-lane:nth-child(3) .exp-lane-label { border-left-color: var(--exp-purple); }
+    #spain-einvoice-process-explorer .exp-lane-label strong { font-size: .78rem; font-weight: 500; }
+    #spain-einvoice-process-explorer .exp-lane-label span { color: var(--exp-muted); font-size: .69rem; line-height: 1.35; }
+    #spain-einvoice-process-explorer .exp-flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      align-items: stretch;
+    }
+    #spain-einvoice-process-explorer .exp-lane:nth-child(2) .exp-flow { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    #spain-einvoice-process-explorer .exp-lane:nth-child(3) .exp-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #spain-einvoice-process-explorer .exp-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 10px;
+      text-align: left;
+      background: var(--exp-surface);
+    }
+    #spain-einvoice-process-explorer .exp-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -17px;
+      color: var(--exp-muted);
+      font-weight: 500;
+      pointer-events: none;
+    }
+    #spain-einvoice-process-explorer .exp-step[aria-expanded="true"] {
+      color: var(--exp-brand-text);
+      background: var(--exp-brand);
+      border-color: transparent;
+      box-shadow: 0 5px 14px light-dark(rgba(28, 111, 81, .18), rgba(0, 0, 0, .22));
+    }
+    #spain-einvoice-process-explorer .exp-lane:nth-child(2) .exp-step[aria-expanded="true"] {
+      color: light-dark(#ffffff, #071721);
+      background: var(--exp-blue);
+    }
+    #spain-einvoice-process-explorer .exp-lane:nth-child(3) .exp-step[aria-expanded="true"] {
+      color: light-dark(#ffffff, #1b102a);
+      background: var(--exp-purple);
+    }
+    #spain-einvoice-process-explorer .exp-step-icon {
+      display: grid;
+      place-items: center;
+      width: 29px;
+      height: 29px;
+      color: var(--exp-brand);
+      background: var(--exp-surface-active);
+      border-radius: 7px;
+    }
+    #spain-einvoice-process-explorer .exp-lane:nth-child(2) .exp-step-icon { color: var(--exp-blue); background: var(--exp-blue-soft); }
+    #spain-einvoice-process-explorer .exp-lane:nth-child(3) .exp-step-icon { color: var(--exp-purple); background: var(--exp-purple-soft); }
+    #spain-einvoice-process-explorer .exp-step[aria-expanded="true"] .exp-step-icon {
+      color: currentColor;
+      background: light-dark(rgba(255, 255, 255, .18), rgba(0, 0, 0, .16));
+    }
+    #spain-einvoice-process-explorer .exp-step-copy { display: grid; gap: 2px; min-width: 0; }
+    #spain-einvoice-process-explorer .exp-step-copy strong { font-size: .76rem; line-height: 1.3; font-weight: 500; }
+    #spain-einvoice-process-explorer .exp-step-copy span { color: var(--exp-muted); font-size: .66rem; line-height: 1.3; }
+    #spain-einvoice-process-explorer .exp-step[aria-expanded="true"] .exp-step-copy span { color: currentColor; opacity: .84; }
+    #spain-einvoice-process-explorer .exp-step > i { color: var(--exp-muted); }
+    #spain-einvoice-process-explorer .exp-step[aria-expanded="true"] > i { color: currentColor; }
+    #spain-einvoice-process-explorer .exp-deep {
+      margin-top: 14px;
+      background: var(--exp-surface);
+      border: 1px solid var(--exp-border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    #spain-einvoice-process-explorer .exp-deep[hidden] { display: none; }
+    #spain-einvoice-process-explorer .exp-deep-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 15px;
+      border-bottom: 1px solid var(--exp-border);
+    }
+    #spain-einvoice-process-explorer .exp-deep-heading { display: flex; align-items: flex-start; gap: 10px; }
+    #spain-einvoice-process-explorer .exp-deep-heading-mark {
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 32px;
+      height: 32px;
+      color: var(--exp-brand-text);
+      background: var(--exp-brand);
+      border-radius: 8px;
+    }
+    #spain-einvoice-process-explorer .exp-deep-heading-copy { display: grid; gap: 4px; }
+    #spain-einvoice-process-explorer .exp-deep-heading-copy p { color: var(--exp-muted); font-size: .78rem; line-height: 1.4; }
+    #spain-einvoice-process-explorer .exp-close { display: flex; align-items: center; gap: 7px; flex: none; }
+    #spain-einvoice-process-explorer .exp-deep-context {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 10px 15px;
+      color: var(--exp-text);
+      background: var(--exp-surface-active);
+      border-bottom: 1px solid var(--exp-border);
+      font-size: .76rem;
+      line-height: 1.45;
+    }
+    #spain-einvoice-process-explorer .exp-deep-context i { flex: none; margin-top: 2px; color: var(--exp-brand); }
+    #spain-einvoice-process-explorer .exp-deep-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      padding: 12px 15px 0;
+    }
+    #spain-einvoice-process-explorer .exp-tab { min-height: 38px; padding: 7px 11px; }
+    #spain-einvoice-process-explorer .exp-tab[aria-selected="true"] {
+      color: var(--exp-brand-text);
+      background: var(--exp-brand);
+      border-color: transparent;
+    }
+    #spain-einvoice-process-explorer .exp-deep-body { padding: 15px; }
+    #spain-einvoice-process-explorer .exp-deep-body-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    #spain-einvoice-process-explorer .exp-deep-body-head span { color: var(--exp-muted); font-size: .72rem; }
+    #spain-einvoice-process-explorer .exp-mini-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: stretch;
+      gap: 24px;
+    }
+    #spain-einvoice-process-explorer .exp-mini-step {
+      position: relative;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 7px;
+      min-height: 102px;
+      padding: 11px;
+      background: var(--exp-surface-soft);
+      border-radius: 8px;
+      text-align: center;
+    }
+    #spain-einvoice-process-explorer .exp-mini-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -18px;
+      top: calc(50% - 10px);
+      color: var(--exp-muted);
+      font-weight: 500;
+    }
+    #spain-einvoice-process-explorer .exp-mini-number {
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      color: var(--exp-brand-text);
+      background: var(--exp-brand);
+      border-radius: 50%;
+      font-size: .7rem;
+      font-variant-numeric: tabular-nums;
+    }
+    #spain-einvoice-process-explorer .exp-mini-step p { font-size: .77rem; line-height: 1.4; }
+    #spain-einvoice-process-explorer .exp-tab-note {
+      margin-top: 12px;
+      padding: 10px 12px;
+      color: var(--exp-muted);
+      background: var(--exp-surface-soft);
+      border-left: 3px solid var(--exp-brand);
+      border-radius: 7px;
+      font-size: .75rem;
+      line-height: 1.45;
+    }
+    #spain-einvoice-process-explorer .exp-branch-map { display: grid; gap: 12px; }
+    #spain-einvoice-process-explorer .exp-branch-map[hidden] { display: none; }
+    #spain-einvoice-process-explorer .exp-horizontal-map { display: grid; gap: 12px; }
+    #spain-einvoice-process-explorer .exp-horizontal-flow {
+      display: grid;
+      grid-template-columns: minmax(130px, .8fr) 26px minmax(210px, 1.35fr) 26px minmax(210px, 1.35fr) 26px minmax(130px, .8fr);
+      align-items: center;
+      gap: 7px;
+    }
+    #spain-einvoice-process-explorer .exp-horizontal-flow.is-invoice {
+      grid-template-columns: minmax(130px, .8fr) 26px minmax(130px, .8fr) 26px minmax(250px, 1.5fr) 26px minmax(140px, .9fr);
+    }
+    #spain-einvoice-process-explorer .exp-horizontal-flow.is-change {
+      grid-template-columns: minmax(150px, .9fr) 26px minmax(280px, 1.5fr) 26px minmax(170px, 1fr);
+    }
+    #spain-einvoice-process-explorer .exp-horizontal-flow > .exp-node { width: 100%; }
+    #spain-einvoice-process-explorer .exp-h-arrow {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 34px;
+      color: var(--exp-brand);
+    }
+    #spain-einvoice-process-explorer .exp-h-arrow::after {
+      content: "→";
+      display: block;
+      color: var(--exp-brand);
+      font-size: 1.65rem;
+      line-height: 1;
+      font-weight: 500;
+      text-align: center;
+    }
+    #spain-einvoice-process-explorer .exp-h-arrow i,
+    #spain-einvoice-process-explorer .exp-h-arrow svg {
+      display: none;
+    }
+    #spain-einvoice-process-explorer .exp-h-choice {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+      padding: 8px;
+      background: var(--exp-surface);
+      border-top: 3px solid var(--exp-border);
+      border-radius: 8px;
+    }
+    #spain-einvoice-process-explorer .exp-h-choice .exp-node { width: 100%; max-width: none; }
+    #spain-einvoice-process-explorer .exp-h-choice > .exp-node {
+      background: var(--exp-warning-soft);
+      border-color: color-mix(in srgb, var(--exp-warning) 38%, var(--exp-border));
+    }
+    #spain-einvoice-process-explorer .exp-h-split {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding-top: 4px;
+      color: var(--exp-brand);
+      border-top: 1px solid var(--exp-border);
+      font-size: .66rem;
+      font-weight: 500;
+      text-align: center;
+    }
+    #spain-einvoice-process-explorer .exp-h-split::before {
+      content: "↙";
+      color: var(--exp-brand);
+      font-size: 1.25rem;
+      line-height: 1;
+      text-align: right;
+    }
+    #spain-einvoice-process-explorer .exp-h-split::after {
+      content: "↘";
+      color: var(--exp-brand);
+      font-size: 1.25rem;
+      line-height: 1;
+      text-align: left;
+    }
+    #spain-einvoice-process-explorer .exp-h-split i,
+    #spain-einvoice-process-explorer .exp-h-split svg { display: none; }
+    #spain-einvoice-process-explorer .exp-h-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+    #spain-einvoice-process-explorer .exp-h-options .exp-node {
+      grid-template-columns: auto minmax(0, 1fr);
+      align-content: center;
+      min-height: 66px;
+    }
+    #spain-einvoice-process-explorer .exp-h-options .exp-node > :last-child { display: none; }
+    #spain-einvoice-process-explorer .exp-horizontal-outcome {
+      min-height: 96px;
+      align-content: center;
+      background: var(--exp-blue-soft);
+    }
+    #spain-einvoice-process-explorer .exp-map-section {
+      padding: 13px;
+      background: var(--exp-surface-soft);
+      border-radius: 9px;
+    }
+    #spain-einvoice-process-explorer .exp-map-section-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    #spain-einvoice-process-explorer .exp-map-section-title { display: flex; align-items: flex-start; gap: 9px; }
+    #spain-einvoice-process-explorer .exp-map-section-title > i { flex: none; margin-top: 2px; color: var(--exp-brand); }
+    #spain-einvoice-process-explorer .exp-map-section:nth-child(2) .exp-map-section-title > i { color: var(--exp-blue); }
+    #spain-einvoice-process-explorer .exp-map-section:nth-child(3) .exp-map-section-title > i { color: var(--exp-purple); }
+    #spain-einvoice-process-explorer .exp-map-section-title div { display: grid; gap: 2px; }
+    #spain-einvoice-process-explorer .exp-map-section-title p { color: var(--exp-muted); font-size: .7rem; line-height: 1.35; }
+    #spain-einvoice-process-explorer .exp-map-label {
+      flex: none;
+      padding: 4px 8px;
+      color: var(--exp-brand);
+      background: var(--exp-surface-active);
+      border-radius: 999px;
+      font-size: .68rem;
+      font-weight: 500;
+    }
+    #spain-einvoice-process-explorer .exp-map-section:nth-child(2) .exp-map-label { color: var(--exp-blue); background: var(--exp-blue-soft); }
+    #spain-einvoice-process-explorer .exp-map-section:nth-child(3) .exp-map-label { color: var(--exp-purple); background: var(--exp-purple-soft); }
+    #spain-einvoice-process-explorer .exp-map-sequence {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 10px;
+    }
+    #spain-einvoice-process-explorer .exp-map-sequence + .exp-down,
+    #spain-einvoice-process-explorer .exp-branch-grid + .exp-down { margin-top: 6px; }
+    #spain-einvoice-process-explorer .exp-node {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 8px;
+      width: min(100%, 245px);
+      min-width: 0;
+      padding: 9px 10px;
+      text-align: left;
+      background: var(--exp-surface);
+    }
+    #spain-einvoice-process-explorer .exp-node.is-path {
+      background: var(--exp-surface-active);
+      border-color: var(--exp-brand);
+    }
+    #spain-einvoice-process-explorer .exp-node[aria-expanded="true"] {
+      color: var(--exp-brand-text);
+      background: var(--exp-brand);
+      border-color: transparent;
+      box-shadow: 0 5px 14px light-dark(rgba(28, 111, 81, .18), rgba(0, 0, 0, .22));
+    }
+    #spain-einvoice-process-explorer .exp-node-mark {
+      display: grid;
+      place-items: center;
+      width: 29px;
+      height: 29px;
+      color: var(--exp-brand);
+      background: var(--exp-surface-active);
+      border-radius: 7px;
+    }
+    #spain-einvoice-process-explorer .exp-node[data-kind="decision"] .exp-node-mark {
+      color: var(--exp-warning);
+      background: var(--exp-warning-soft);
+    }
+    #spain-einvoice-process-explorer .exp-node[data-kind="outcome"] .exp-node-mark {
+      color: var(--exp-blue);
+      background: var(--exp-blue-soft);
+    }
+    #spain-einvoice-process-explorer .exp-node[aria-expanded="true"] .exp-node-mark {
+      color: currentColor;
+      background: light-dark(rgba(255, 255, 255, .18), rgba(0, 0, 0, .16));
+    }
+    #spain-einvoice-process-explorer .exp-node-copy { display: grid; gap: 2px; min-width: 0; }
+    #spain-einvoice-process-explorer .exp-node-copy strong { font-size: .76rem; line-height: 1.3; font-weight: 500; }
+    #spain-einvoice-process-explorer .exp-node-copy span { color: var(--exp-muted); font-size: .66rem; line-height: 1.3; }
+    #spain-einvoice-process-explorer .exp-node[aria-expanded="true"] .exp-node-copy span { color: currentColor; opacity: .84; }
+    #spain-einvoice-process-explorer .exp-node > i { color: var(--exp-muted); }
+    #spain-einvoice-process-explorer .exp-node[aria-expanded="true"] > i { color: currentColor; }
+    #spain-einvoice-process-explorer .exp-map-arrow {
+      display: grid;
+      place-items: center;
+      flex: none;
+      min-width: 34px;
+      color: var(--exp-muted);
+    }
+    #spain-einvoice-process-explorer .exp-map-arrow i { width: 24px; height: 24px; }
+    #spain-einvoice-process-explorer .exp-down {
+      display: grid;
+      justify-items: center;
+      gap: 2px;
+      padding: 4px 0;
+      color: var(--exp-muted);
+      font-size: .67rem;
+    }
+    #spain-einvoice-process-explorer .exp-branch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      width: 100%;
+    }
+    #spain-einvoice-process-explorer .exp-fork,
+    #spain-einvoice-process-explorer .exp-merge-connector {
+      position: relative;
+      width: 100%;
+      height: 34px;
+      color: var(--exp-muted);
+    }
+    #spain-einvoice-process-explorer .exp-fork::before,
+    #spain-einvoice-process-explorer .exp-merge-connector::before {
+      content: "";
+      position: absolute;
+      left: 25%;
+      right: 25%;
+      border-top: 2px solid var(--exp-border);
+    }
+    #spain-einvoice-process-explorer .exp-fork::before { top: 12px; }
+    #spain-einvoice-process-explorer .exp-merge-connector::before { top: 20px; }
+    #spain-einvoice-process-explorer .exp-fork::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      border-left: 2px solid var(--exp-border);
+    }
+    #spain-einvoice-process-explorer .exp-fork::after { top: 0; height: 14px; }
+    #spain-einvoice-process-explorer .exp-flow-arm {
+      position: absolute;
+      width: 0;
+      border-left: 2px solid var(--exp-border);
+    }
+    #spain-einvoice-process-explorer .exp-fork .exp-flow-arm { top: 12px; height: 18px; }
+    #spain-einvoice-process-explorer .exp-merge-connector .exp-flow-arm { top: 0; height: 22px; }
+    #spain-einvoice-process-explorer .exp-flow-arm.is-left { left: 25%; }
+    #spain-einvoice-process-explorer .exp-flow-arm.is-right { left: 75%; }
+    #spain-einvoice-process-explorer .exp-fork .exp-flow-arm::after {
+      content: "↓";
+      position: absolute;
+      left: -7px;
+      bottom: -9px;
+      color: var(--exp-muted);
+      background: var(--exp-surface-soft);
+      font-size: .8rem;
+      line-height: 1;
+    }
+    #spain-einvoice-process-explorer .exp-merge-connector::after {
+      content: "↓";
+      position: absolute;
+      left: calc(50% - 7px);
+      top: 17px;
+      color: var(--exp-muted);
+      background: var(--exp-surface-soft);
+      font-size: .8rem;
+      line-height: 1;
+    }
+    #spain-einvoice-process-explorer .exp-branch {
+      display: grid;
+      justify-items: center;
+      align-content: start;
+      gap: 7px;
+      min-width: 0;
+      padding: 10px;
+      background: var(--exp-surface);
+      border-top: 3px solid var(--exp-border);
+      border-radius: 8px;
+    }
+    #spain-einvoice-process-explorer .exp-branch.is-public { border-top-color: var(--exp-blue); }
+    #spain-einvoice-process-explorer .exp-branch.is-private { border-top-color: var(--exp-purple); }
+    #spain-einvoice-process-explorer .exp-branch-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--exp-muted);
+      font-size: .7rem;
+      font-weight: 500;
+      text-align: center;
+    }
+    #spain-einvoice-process-explorer .exp-branch .exp-node { width: 100%; }
+    #spain-einvoice-process-explorer .exp-map-merge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 6px 0;
+      color: var(--exp-muted);
+      font-size: .68rem;
+    }
+    #spain-einvoice-process-explorer .exp-path-legend {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--exp-muted);
+      font-size: .7rem;
+    }
+    #spain-einvoice-process-explorer .exp-path-swatch {
+      width: 18px;
+      height: 10px;
+      background: var(--exp-surface-active);
+      border: 1px solid var(--exp-brand);
+      border-radius: 3px;
+    }
+    #spain-einvoice-process-explorer .exp-section-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 28px;
+      color: var(--exp-muted);
+      font-size: .7rem;
+      text-align: center;
+    }
+    #spain-einvoice-process-explorer .exp-section-flow i { color: var(--exp-brand); }
+    #spain-einvoice-process-explorer .exp-footer-note {
+      margin-top: 14px;
+      padding: 10px 12px;
+      color: var(--exp-muted);
+      background: var(--exp-surface);
+      border: 1px solid var(--exp-border);
+      border-radius: 8px;
+      font-size: .76rem;
+      line-height: 1.45;
+      text-align: center;
+    }
+    #spain-einvoice-process-explorer .exp-footer-note strong { color: var(--exp-text); font-weight: 500; }
+    @media (min-width: 861px) {
+      #spain-einvoice-process-explorer .exp-branch {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        justify-content: center;
+        gap: 7px;
+      }
+      #spain-einvoice-process-explorer .exp-branch-label { flex: 0 0 100%; justify-content: center; }
+      #spain-einvoice-process-explorer .exp-branch .exp-node {
+        flex: 1 1 0;
+        width: auto;
+      }
+      #spain-einvoice-process-explorer .exp-branch > .exp-down {
+        flex: none;
+        align-self: center;
+        padding: 0;
+        transform: rotate(-90deg);
+      }
+      #spain-einvoice-process-explorer .exp-fork,
+      #spain-einvoice-process-explorer .exp-merge-connector { height: 25px; }
+      #spain-einvoice-process-explorer .exp-fork::before { top: 8px; }
+      #spain-einvoice-process-explorer .exp-fork::after { height: 10px; }
+      #spain-einvoice-process-explorer .exp-fork .exp-flow-arm { top: 8px; height: 13px; }
+      #spain-einvoice-process-explorer .exp-merge-connector::before { top: 15px; }
+      #spain-einvoice-process-explorer .exp-merge-connector .exp-flow-arm { height: 17px; }
+      #spain-einvoice-process-explorer .exp-merge-connector::after { top: 12px; }
+      #spain-einvoice-process-explorer .exp-mini-step { min-height: 88px; }
+    }
+    @media (max-width: 860px) {
+      #spain-einvoice-process-explorer .exp-heading,
+      #spain-einvoice-process-explorer .exp-scenario-bar { grid-template-columns: 1fr; }
+      #spain-einvoice-process-explorer .exp-heading { display: grid; }
+      #spain-einvoice-process-explorer .exp-phase-tags { justify-content: flex-start; }
+      #spain-einvoice-process-explorer .exp-lane { grid-template-columns: 110px minmax(0, 1fr); }
+      #spain-einvoice-process-explorer .exp-flow,
+      #spain-einvoice-process-explorer .exp-lane:nth-child(2) .exp-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #spain-einvoice-process-explorer .exp-step::after { display: none; }
+      #spain-einvoice-process-explorer .exp-mini-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #spain-einvoice-process-explorer .exp-mini-step::after { display: none; }
+      #spain-einvoice-process-explorer .exp-map-sequence { flex-wrap: wrap; }
+      #spain-einvoice-process-explorer .exp-horizontal-flow,
+      #spain-einvoice-process-explorer .exp-horizontal-flow.is-invoice,
+      #spain-einvoice-process-explorer .exp-horizontal-flow.is-change { grid-template-columns: 1fr; }
+      #spain-einvoice-process-explorer .exp-h-arrow::after { content: "↓"; }
+    }
+    @media (max-width: 560px) {
+      #spain-einvoice-process-explorer .exp-content { padding: 15px; }
+      #spain-einvoice-process-explorer .exp-environment { display: none; }
+      #spain-einvoice-process-explorer .exp-overview-head,
+      #spain-einvoice-process-explorer .exp-deep-header { flex-direction: column; }
+      #spain-einvoice-process-explorer .exp-lane { grid-template-columns: 1fr; }
+      #spain-einvoice-process-explorer .exp-lane-label { padding-block: 5px; }
+      #spain-einvoice-process-explorer .exp-flow,
+      #spain-einvoice-process-explorer .exp-lane:nth-child(2) .exp-flow,
+      #spain-einvoice-process-explorer .exp-lane:nth-child(3) .exp-flow,
+      #spain-einvoice-process-explorer .exp-mini-flow { grid-template-columns: 1fr; }
+      #spain-einvoice-process-explorer .exp-close { width: 100%; justify-content: center; }
+      #spain-einvoice-process-explorer .exp-tab { flex: 1 1 calc(50% - 7px); }
+      #spain-einvoice-process-explorer .exp-mini-step { min-height: 82px; }
+      #spain-einvoice-process-explorer .exp-phase-tag { white-space: normal; }
+      #spain-einvoice-process-explorer .exp-map-section-head { flex-direction: column; }
+      #spain-einvoice-process-explorer .exp-map-sequence { display: grid; grid-template-columns: 1fr; }
+      #spain-einvoice-process-explorer .exp-map-arrow { transform: rotate(90deg); }
+      #spain-einvoice-process-explorer .exp-branch-grid { grid-template-columns: 1fr; }
+      #spain-einvoice-process-explorer .exp-node { width: 100%; }
+      #spain-einvoice-process-explorer .exp-h-options { grid-template-columns: 1fr; }
+      #spain-einvoice-process-explorer .exp-fork,
+      #spain-einvoice-process-explorer .exp-merge-connector { height: 30px; }
+      #spain-einvoice-process-explorer .exp-fork::before,
+      #spain-einvoice-process-explorer .exp-merge-connector::before,
+      #spain-einvoice-process-explorer .exp-fork .exp-flow-arm,
+      #spain-einvoice-process-explorer .exp-merge-connector .exp-flow-arm { display: none; }
+      #spain-einvoice-process-explorer .exp-fork::after,
+      #spain-einvoice-process-explorer .exp-merge-connector::after {
+        content: "↓";
+        top: 4px;
+        left: calc(50% - 7px);
+        height: auto;
+        border: 0;
+        background: transparent;
+        color: var(--exp-muted);
+      }
+    }
+
+    /* Vercel-inspired design layer. The process content and behaviour remain unchanged. */
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] {
+      --exp-page: #fafafa;
+      --exp-surface: #ffffff;
+      --exp-surface-soft: #fafafa;
+      --exp-surface-active: #f2f2f2;
+      --exp-text: #171717;
+      --exp-muted: #4d4d4d;
+      --exp-border: rgba(0, 0, 0, .08);
+      --exp-brand: #0072f5;
+      --exp-brand-text: #ffffff;
+      --exp-blue: #0072f5;
+      --exp-blue-soft: #f2f2f2;
+      --exp-purple: #171717;
+      --exp-purple-soft: #f2f2f2;
+      --exp-warning: #4d4d4d;
+      --exp-warning-soft: #fafafa;
+      --exp-danger: #e5484d;
+      --exp-danger-soft: #fafafa;
+      --exp-focus: #0072f5;
+      color-scheme: light;
+      font-family: "Geist Sans", Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-window {
+      max-width: 1400px;
+      margin-inline: auto;
+      background: var(--exp-page);
+      border: 0;
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 0 2px 2px rgba(0, 0, 0, .04), 0 8px 16px -8px rgba(0, 0, 0, .06);
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-topbar {
+      min-height: 64px;
+      padding: 0 24px;
+      background: rgba(250, 250, 250, .92);
+      border: 0;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-brand-mark {
+      width: 32px;
+      height: 32px;
+      color: #ffffff;
+      background: #171717;
+      border-radius: 6px;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-brand {
+      font-weight: 500;
+      letter-spacing: -.01em;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-environment {
+      color: #8f8f8f;
+      font-size: .75rem;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-content {
+      padding: 32px 24px 24px;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-heading {
+      margin-bottom: 24px;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-heading-copy {
+      gap: 8px;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-heading-copy h2 {
+      font-size: 2rem;
+      line-height: 1.25;
+      font-weight: 600;
+      letter-spacing: -1.28px;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-heading-copy p {
+      max-width: 720px;
+      color: var(--exp-muted);
+      font-size: .875rem;
+      line-height: 1.5;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] h3,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] h4 {
+      letter-spacing: -.02em;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-phase-tags {
+      gap: 8px;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-phase-tag {
+      padding: 6px 10px;
+      color: var(--exp-muted);
+      background: var(--exp-surface);
+      border: 0;
+      border-radius: 9999px;
+      box-shadow: 0 0 0 1px var(--exp-border);
+      font-weight: 400;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] button,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] select {
+      border: 0;
+      border-radius: 6px;
+      box-shadow: 0 0 0 1px var(--exp-border);
+      font-weight: 400;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] button {
+      transition: background-color .15s ease, color .15s ease, box-shadow .15s ease;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] button:hover {
+      color: var(--exp-text);
+      background: #ebebeb;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] button:focus-visible {
+      outline: 0;
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0072f5;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] select:focus {
+      outline: #005fcc auto 1px;
+      box-shadow: none;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-scenario-bar,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-overview,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-deep,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-footer-note {
+      background: var(--exp-surface);
+      border: 0;
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--exp-border), 0 2px 2px rgba(0, 0, 0, .04);
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-scenario-bar {
+      gap: 24px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-scenario-summary {
+      color: var(--exp-muted);
+      background: var(--exp-surface-soft);
+      border: 0;
+      border-radius: 6px;
+      box-shadow: inset 3px 0 0 #0072f5;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-scenario-summary i,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-overview-title i,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-map-section-title > i,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-section-flow i {
+      color: #0072f5;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-overview {
+      padding: 16px;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-map-section {
+      padding: 16px;
+      background: var(--exp-surface-soft);
+      border-radius: 6px;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .05);
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-map-label {
+      color: var(--exp-muted) !important;
+      background: #f2f2f2 !important;
+      border-radius: 9999px;
+      font-weight: 500;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-h-choice,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-branch {
+      background: var(--exp-surface);
+      border: 0;
+      border-radius: 6px;
+      box-shadow: 0 0 0 1px var(--exp-border);
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-branch.is-public,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-branch.is-private {
+      box-shadow: 0 0 0 1px var(--exp-border), inset 0 3px 0 #8f8f8f;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-h-choice > .exp-node,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-horizontal-outcome {
+      background: var(--exp-surface);
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-node {
+      background: var(--exp-surface);
+      border-radius: 6px;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-node.is-path {
+      color: var(--exp-text);
+      background: var(--exp-surface);
+      box-shadow: 0 0 0 1px #0072f5, 0 2px 2px rgba(0, 0, 0, .04);
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-node[aria-expanded="true"],
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-tab[aria-selected="true"] {
+      color: #ffffff;
+      background: #171717;
+      box-shadow: 0 0 0 1px #171717, 0 2px 2px rgba(0, 0, 0, .04), 0 8px 8px -8px rgba(0, 0, 0, .08);
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-node-mark,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-node[data-kind="decision"] .exp-node-mark,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-node[data-kind="outcome"] .exp-node-mark {
+      color: var(--exp-muted);
+      background: #f2f2f2;
+      border-radius: 6px;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-node.is-path .exp-node-mark {
+      color: #0072f5;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-node[aria-expanded="true"] .exp-node-mark {
+      color: #ffffff;
+      background: rgba(255, 255, 255, .16);
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-h-arrow,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-h-arrow::after,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-h-split,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-h-split::before,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-h-split::after {
+      color: #8f8f8f;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-h-split,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-deep-header,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-deep-context {
+      border-color: transparent;
+      box-shadow: 0 -1px 0 rgba(0, 0, 0, .08);
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-deep-heading-mark,
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-mini-number {
+      color: #ffffff;
+      background: #171717;
+      border-radius: 6px;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-deep-tabs {
+      gap: 8px;
+      padding: 16px 16px 0;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-tab {
+      background: transparent;
+      box-shadow: none;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-tab:hover {
+      background: #f2f2f2;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-mini-step {
+      background: var(--exp-surface-soft);
+      border-radius: 6px;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .06);
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-tab-note {
+      color: var(--exp-muted);
+      background: var(--exp-surface-soft);
+      border: 0;
+      border-radius: 6px;
+      box-shadow: inset 3px 0 0 #0072f5;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-path-swatch {
+      background: var(--exp-surface);
+      border: 0;
+      border-radius: 3px;
+      box-shadow: 0 0 0 1px #0072f5;
+    }
+    #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-footer-note {
+      margin-top: 16px;
+      color: var(--exp-muted);
+      text-align: left;
+    }
+    @media (max-width: 560px) {
+      #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-content {
+        padding: 24px 16px 16px;
+      }
+      #spain-einvoice-process-explorer[data-design-variant="vercel"] .exp-heading-copy h2 {
+        font-size: 1.75rem;
+        letter-spacing: -1px;
+      }
+    }
+  </style>
+
+  <div class="exp-window">
+    <div class="exp-topbar">
+      <div class="exp-brand"><span class="exp-brand-mark"><i data-lucide="network" aria-hidden="true"></i></span><span>Spain e-Invoice</span></div>
+      <span class="exp-environment">Process explorer · Design study</span>
+    </div>
+
+    <main class="exp-content">
+      <header class="exp-heading">
+        <div class="exp-heading-copy">
+          <h2>From customer onboarding to invoice lifecycle</h2>
+          <p>Start with the complete journey, then select any step to inspect its experience, systems and controls.</p>
+        </div>
+        <div class="exp-phase-tags" aria-label="Delivery phases">
+          <span class="exp-phase-tag">Phase 1 · Public</span>
+          <span class="exp-phase-tag">Phase 2 · Supported private</span>
+          <span class="exp-phase-tag">Phase 3 · Extended supported choice</span>
+        </div>
+      </header>
+
+      <div class="exp-scenario-bar">
+        <div class="exp-scenario-field">
+          <label for="exp-scenario">Starting scenario</label>
+          <select id="exp-scenario">
+            <option value="public-first">New customer starts on the public platform</option>
+            <option value="add-private" selected>Existing Phase 1 customer adds a private platform</option>
+            <option value="private-first">New customer starts with a private platform</option>
+          </select>
+        </div>
+        <p class="exp-scenario-summary" aria-live="polite"><i data-lucide="info" aria-hidden="true"></i><span id="exp-scenario-summary"></span></p>
+      </div>
+
+      <section class="exp-overview" aria-labelledby="exp-overview-title">
+        <div class="exp-overview-head">
+          <h3 class="exp-overview-title" id="exp-overview-title"><i data-lucide="workflow" aria-hidden="true"></i>High-level process</h3>
+          <div class="exp-path-legend"><span class="exp-path-swatch" aria-hidden="true"></span><span>Highlighted = selected scenario path · select any step to explore</span></div>
+        </div>
+
+        <div class="exp-horizontal-map">
+          <div class="exp-map-section">
+            <div class="exp-map-section-head">
+              <div class="exp-map-section-title"><i data-lucide="building-2" aria-hidden="true"></i><div><h4>Set up once</h4><p>Reuse the customer where possible, then choose the operating model.</p></div></div>
+              <span class="exp-map-label">CUSTOMER &amp; ACCOUNT</span>
+            </div>
+            <div class="exp-horizontal-flow">
+              <button class="exp-node" type="button" data-stage="onboard" data-kind="action" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="clipboard-pen" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Confirm business details</strong><span>Identity, authority and scope</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+              <span class="exp-h-arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
+              <div class="exp-h-choice">
+                <button class="exp-node" type="button" data-stage="onboard" data-kind="decision" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="diamond" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Existing e-invoice profile?</strong><span>Choose the entry path</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <span class="exp-h-split"><i data-lucide="git-fork" aria-hidden="true"></i>Yes or no</span>
+                <div class="exp-h-options">
+                  <button class="exp-node" type="button" data-stage="onboard" data-kind="outcome" data-path="add-private" aria-expanded="false" aria-controls="exp-deep-dive">
+                    <span class="exp-node-mark"><i data-lucide="refresh-cw" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Reuse profile</strong><span>Existing customer</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+                  <button class="exp-node" type="button" data-stage="onboard" data-kind="action" data-path="public-first private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                    <span class="exp-node-mark"><i data-lucide="user-round-check" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Onboard once</strong><span>New customer</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <span class="exp-h-arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
+              <div class="exp-h-choice">
+                <button class="exp-node" type="button" data-stage="connect" data-kind="decision" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="diamond" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Choose operating model</strong><span>Delivery platform</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <span class="exp-h-split"><i data-lucide="git-fork" aria-hidden="true"></i>Public or private</span>
+                <div class="exp-h-options">
+                  <button class="exp-node" type="button" data-stage="activate" data-kind="outcome" data-path="public-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                    <span class="exp-node-mark"><i data-lucide="landmark" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Public route</strong><span>Provision and activate</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+                  <button class="exp-node" type="button" data-stage="connect" data-kind="outcome" data-path="add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                    <span class="exp-node-mark"><i data-lucide="network" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Private route</strong><span>Connect, prove and activate</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <span class="exp-h-arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
+              <button class="exp-node exp-horizontal-outcome" type="button" data-stage="activate" data-kind="outcome" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="circle-check" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Ready to exchange</strong><span>One effective route per scope</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="exp-section-flow" aria-hidden="true"><i data-lucide="arrow-down" aria-hidden="true"></i><span>Run for every invoice</span></div>
+
+          <div class="exp-map-section">
+            <div class="exp-map-section-head">
+              <div class="exp-map-section-title"><i data-lucide="send" aria-hidden="true"></i><div><h4>Repeat for every invoice</h4><p>Validate, resolve, deliver and track the invoice.</p></div></div>
+              <span class="exp-map-label">INVOICE EXCHANGE</span>
+            </div>
+            <div class="exp-horizontal-flow is-invoice">
+              <button class="exp-node" type="button" data-stage="prepare" data-kind="action" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="file-check-2" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Create and validate</strong><span>Compliant invoice intent</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+              <span class="exp-h-arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
+              <button class="exp-node" type="button" data-stage="resolve" data-kind="action" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="scan-search" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Resolve recipient</strong><span>Distributed lookup</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+              <span class="exp-h-arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
+              <div class="exp-h-choice">
+                <button class="exp-node" type="button" data-stage="resolve" data-kind="decision" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="diamond" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Private recipient point found?</strong><span>Buyer determines delivery branch</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <span class="exp-h-split"><i data-lucide="git-fork" aria-hidden="true"></i>Delivery outcome</span>
+                <div class="exp-h-options">
+                  <button class="exp-node" type="button" data-stage="deliver" data-kind="outcome" data-path="" aria-expanded="false" aria-controls="exp-deep-dive">
+                    <span class="exp-node-mark"><i data-lucide="network" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Private delivery</strong><span>Public copy when required</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+                  <button class="exp-node" type="button" data-stage="deliver" data-kind="outcome" data-path="" aria-expanded="false" aria-controls="exp-deep-dive">
+                    <span class="exp-node-mark"><i data-lucide="landmark" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Public default</strong><span>No duplicate public copy</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <span class="exp-h-arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
+              <button class="exp-node exp-horizontal-outcome" type="button" data-stage="lifecycle" data-kind="outcome" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="history" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Track lifecycle</strong><span>Status, rejection and payment</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="exp-section-flow" aria-hidden="true"><i data-lucide="git-branch" aria-hidden="true"></i><span>Optional later transition</span></div>
+
+          <div class="exp-map-section">
+            <div class="exp-map-section-head">
+              <div class="exp-map-section-title"><i data-lucide="arrow-left-right" aria-hidden="true"></i><div><h4>Change when needed</h4><p>Prepare the target and move only future invoice traffic.</p></div></div>
+              <span class="exp-map-label">OPTIONAL TRANSITION</span>
+            </div>
+            <div class="exp-horizontal-flow is-change">
+              <button class="exp-node" type="button" data-stage="replacement" data-kind="decision" data-path="add-private" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="diamond" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Change platform?</strong><span>Account-level decision</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+              <span class="exp-h-arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
+              <div class="exp-h-choice">
+                <button class="exp-node" type="button" data-stage="replacement" data-kind="decision" data-path="add-private" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="diamond" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Target connection ready?</strong><span>Readiness gate</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <span class="exp-h-split"><i data-lucide="git-fork" aria-hidden="true"></i>Yes or no</span>
+                <div class="exp-h-options">
+                  <button class="exp-node" type="button" data-stage="switch" data-kind="action" data-path="add-private" aria-expanded="false" aria-controls="exp-deep-dive">
+                    <span class="exp-node-mark"><i data-lucide="calendar-clock" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Schedule switch</strong><span>Target ready</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+                  <button class="exp-node" type="button" data-stage="replacement" data-kind="action" data-path="add-private" aria-expanded="false" aria-controls="exp-deep-dive">
+                    <span class="exp-node-mark"><i data-lucide="wrench" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Connect then switch</strong><span>Prepare target first</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <span class="exp-h-arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
+              <button class="exp-node exp-horizontal-outcome" type="button" data-stage="switch" data-kind="outcome" data-path="add-private" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="route" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Future invoices use target</strong><span>Existing invoices retain origin</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-branch-map" hidden aria-hidden="true">
+          <div class="exp-map-section">
+            <div class="exp-map-section-head">
+              <div class="exp-map-section-title"><i data-lucide="building-2" aria-hidden="true"></i><div><h4>Set up once</h4><p>Reuse the customer where possible, then choose and prove the operating model.</p></div></div>
+              <span class="exp-map-label">CUSTOMER &amp; ACCOUNT</span>
+            </div>
+
+            <div class="exp-map-sequence">
+              <button class="exp-node" type="button" data-stage="onboard" data-kind="action" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="clipboard-pen" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Enter or confirm business details</strong><span>Identity, authority and scope</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+              <span class="exp-map-arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
+              <button class="exp-node" type="button" data-stage="onboard" data-kind="decision" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="diamond" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Existing e-invoice profile?</strong><span>Decision</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+            </div>
+
+            <div class="exp-down"><i data-lucide="arrow-down" aria-hidden="true"></i><span>Choose the matching entry path</span></div>
+            <div class="exp-fork" aria-hidden="true"><span class="exp-flow-arm is-left"></span><span class="exp-flow-arm is-right"></span></div>
+            <div class="exp-branch-grid">
+              <div class="exp-branch">
+                <span class="exp-branch-label"><i data-lucide="check" aria-hidden="true"></i>Yes · profile already exists</span>
+                <button class="exp-node" type="button" data-stage="onboard" data-kind="outcome" data-path="add-private" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="refresh-cw" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Reuse identity and authority</strong><span>No repeat customer onboarding</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="exp-branch">
+                <span class="exp-branch-label"><i data-lucide="plus" aria-hidden="true"></i>No · new customer</span>
+                <button class="exp-node" type="button" data-stage="onboard" data-kind="action" data-path="public-first private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="user-round-check" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Onboard legal entity once</strong><span>Create reusable customer profile</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="exp-merge-connector" aria-hidden="true"><span class="exp-flow-arm is-left"></span><span class="exp-flow-arm is-right"></span></div>
+            <div class="exp-map-merge"><i data-lucide="git-merge" aria-hidden="true"></i><span>Both paths converge</span></div>
+            <div class="exp-map-sequence">
+              <button class="exp-node" type="button" data-stage="connect" data-kind="decision" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="diamond" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Choose operating model</strong><span>Public or supported private</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="exp-down"><i data-lucide="arrow-down" aria-hidden="true"></i><span>Follow the chosen platform path</span></div>
+            <div class="exp-fork" aria-hidden="true"><span class="exp-flow-arm is-left"></span><span class="exp-flow-arm is-right"></span></div>
+
+            <div class="exp-branch-grid">
+              <div class="exp-branch is-public">
+                <span class="exp-branch-label"><i data-lucide="landmark" aria-hidden="true"></i>Public platform</span>
+                <button class="exp-node" type="button" data-stage="connect" data-kind="action" data-path="public-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="plug-zap" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Provision public connection</strong><span>Public send and receive capability</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <span class="exp-down"><i data-lucide="arrow-down" aria-hidden="true"></i></span>
+                <button class="exp-node" type="button" data-stage="activate" data-kind="outcome" data-path="public-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="route" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Activate public routes</strong><span>Public platform carries future traffic</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="exp-branch is-private">
+                <span class="exp-branch-label"><i data-lucide="network" aria-hidden="true"></i>Supported private platform</span>
+                <button class="exp-node" type="button" data-stage="connect" data-kind="action" data-path="add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="plug-zap" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Connect private provider</strong><span>Credentials and provider registration</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <span class="exp-down"><i data-lucide="arrow-down" aria-hidden="true"></i></span>
+                <button class="exp-node" type="button" data-stage="connect" data-kind="action" data-path="add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="badge-check" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Validate and publish receiving point</strong><span>Prove readiness before selection</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <span class="exp-down"><i data-lucide="arrow-down" aria-hidden="true"></i></span>
+                <button class="exp-node" type="button" data-stage="activate" data-kind="outcome" data-path="add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="route" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Activate private route + public compliance</strong><span>Private exchange with public reporting</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div class="exp-merge-connector" aria-hidden="true"><span class="exp-flow-arm is-left"></span><span class="exp-flow-arm is-right"></span></div>
+            <div class="exp-map-merge"><i data-lucide="circle-check" aria-hidden="true"></i><span>Customer is ready to exchange invoices</span></div>
+          </div>
+
+          <div class="exp-section-flow" aria-hidden="true"><i data-lucide="arrow-down" aria-hidden="true"></i><span>Once ready, run this flow for every invoice</span></div>
+
+          <div class="exp-map-section">
+            <div class="exp-map-section-head">
+              <div class="exp-map-section-title"><i data-lucide="send" aria-hidden="true"></i><div><h4>Repeat for every invoice</h4><p>Validate the invoice, resolve the recipient and execute the applicable exchange legs.</p></div></div>
+              <span class="exp-map-label">INVOICE EXCHANGE</span>
+            </div>
+            <div class="exp-map-sequence">
+              <button class="exp-node" type="button" data-stage="prepare" data-kind="action" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="file-check-2" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Create and validate invoice</strong><span>Compliant, unique intent</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+              <span class="exp-map-arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
+              <button class="exp-node" type="button" data-stage="resolve" data-kind="action" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="scan-search" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Resolve recipient route</strong><span>Distributed lookup + public default</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+              <span class="exp-map-arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
+              <button class="exp-node" type="button" data-stage="resolve" data-kind="decision" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="diamond" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Private recipient point found?</strong><span>Recipient-dependent decision</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="exp-down"><i data-lucide="arrow-down" aria-hidden="true"></i><span>The buyer’s published route determines the delivery branch</span></div>
+            <div class="exp-fork" aria-hidden="true"><span class="exp-flow-arm is-left"></span><span class="exp-flow-arm is-right"></span></div>
+            <div class="exp-branch-grid">
+              <div class="exp-branch is-private">
+                <span class="exp-branch-label"><i data-lucide="check" aria-hidden="true"></i>Yes · private point found</span>
+                <button class="exp-node" type="button" data-stage="deliver" data-kind="action" data-path="" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="send" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Deliver to private recipient platform</strong><span>Interoperate with the resolved provider</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <span class="exp-down"><i data-lucide="arrow-down" aria-hidden="true"></i></span>
+                <button class="exp-node" type="button" data-stage="deliver" data-kind="outcome" data-path="" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="copy-check" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Send faithful public copy when required</strong><span>Independent compliance leg</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="exp-branch is-public">
+                <span class="exp-branch-label"><i data-lucide="x" aria-hidden="true"></i>No · use public default</span>
+                <button class="exp-node" type="button" data-stage="deliver" data-kind="action" data-path="" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="landmark" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Deliver through public platform</strong><span>Default recipient route</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <span class="exp-down"><i data-lucide="arrow-down" aria-hidden="true"></i></span>
+                <button class="exp-node" type="button" data-stage="deliver" data-kind="outcome" data-path="" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="copy-x" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>No duplicate public copy</strong><span>Public solution is already the transport</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div class="exp-merge-connector" aria-hidden="true"><span class="exp-flow-arm is-left"></span><span class="exp-flow-arm is-right"></span></div>
+            <div class="exp-map-merge"><i data-lucide="git-merge" aria-hidden="true"></i><span>Both delivery branches converge</span></div>
+            <div class="exp-map-sequence">
+              <button class="exp-node" type="button" data-stage="lifecycle" data-kind="outcome" data-path="public-first add-private private-first" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="history" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Track status, rejection and payment</strong><span>Preserve the original exchange route</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="exp-section-flow" aria-hidden="true"><i data-lucide="git-branch" aria-hidden="true"></i><span>At any later point, the customer may start an optional platform transition</span></div>
+
+          <div class="exp-map-section">
+            <div class="exp-map-section-head">
+              <div class="exp-map-section-title"><i data-lucide="arrow-left-right" aria-hidden="true"></i><div><h4>Change when needed</h4><p>Prepare the target in parallel and move only future invoice traffic.</p></div></div>
+              <span class="exp-map-label">OPTIONAL TRANSITION</span>
+            </div>
+            <div class="exp-map-sequence">
+              <button class="exp-node" type="button" data-stage="replacement" data-kind="decision" data-path="add-private" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="diamond" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Change sending or receiving platform?</strong><span>Optional account-level decision</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+              <span class="exp-map-arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
+              <button class="exp-node" type="button" data-stage="replacement" data-kind="decision" data-path="add-private" aria-expanded="false" aria-controls="exp-deep-dive">
+                <span class="exp-node-mark"><i data-lucide="diamond" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Target connection already ready?</strong><span>Readiness gate</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="exp-down"><i data-lucide="arrow-down" aria-hidden="true"></i><span>Prepare the target only when necessary</span></div>
+            <div class="exp-fork" aria-hidden="true"><span class="exp-flow-arm is-left"></span><span class="exp-flow-arm is-right"></span></div>
+            <div class="exp-branch-grid">
+              <div class="exp-branch">
+                <span class="exp-branch-label"><i data-lucide="check" aria-hidden="true"></i>Yes · target is proven</span>
+                <button class="exp-node" type="button" data-stage="switch" data-kind="action" data-path="add-private" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="calendar-clock" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Schedule effective switch</strong><span>Select scope and effective time</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="exp-branch">
+                <span class="exp-branch-label"><i data-lucide="wrench" aria-hidden="true"></i>No · target needs preparation</span>
+                <button class="exp-node" type="button" data-stage="replacement" data-kind="action" data-path="add-private" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="circle-plus" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Connect and validate replacement</strong><span>Keep current route active</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <span class="exp-down"><i data-lucide="arrow-down" aria-hidden="true"></i></span>
+                <button class="exp-node" type="button" data-stage="switch" data-kind="action" data-path="add-private" aria-expanded="false" aria-controls="exp-deep-dive">
+                  <span class="exp-node-mark"><i data-lucide="calendar-clock" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Schedule effective switch</strong><span>Only after readiness passes</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div class="exp-merge-connector" aria-hidden="true"><span class="exp-flow-arm is-left"></span><span class="exp-flow-arm is-right"></span></div>
+            <div class="exp-map-merge"><i data-lucide="circle-check" aria-hidden="true"></i><span>Future invoices use the target; existing invoices keep their original route and identifiers</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="exp-deep" id="exp-deep-dive" aria-labelledby="exp-deep-title" hidden>
+        <div class="exp-deep-header">
+          <div class="exp-deep-heading">
+            <span class="exp-deep-heading-mark"><i data-lucide="zoom-in" aria-hidden="true"></i></span>
+            <div class="exp-deep-heading-copy"><h3 id="exp-deep-title"></h3><p id="exp-deep-outcome"></p></div>
+          </div>
+          <button class="exp-close" id="exp-close" type="button"><i data-lucide="x" aria-hidden="true"></i>Close deep dive</button>
+        </div>
+        <p class="exp-deep-context" aria-live="polite"><i data-lucide="split" aria-hidden="true"></i><span id="exp-stage-context"></span></p>
+        <div class="exp-deep-tabs" role="tablist" aria-label="Deep-dive perspective">
+          <button class="exp-tab" id="exp-tab-process" type="button" role="tab" aria-selected="true" aria-controls="exp-deep-panel" data-tab="process">Process</button>
+          <button class="exp-tab" id="exp-tab-customer" type="button" role="tab" aria-selected="false" aria-controls="exp-deep-panel" data-tab="customer">Customer journey</button>
+          <button class="exp-tab" id="exp-tab-technical" type="button" role="tab" aria-selected="false" aria-controls="exp-deep-panel" data-tab="technical">Technical</button>
+          <button class="exp-tab" id="exp-tab-controls" type="button" role="tab" aria-selected="false" aria-controls="exp-deep-panel" data-tab="controls">Controls &amp; exceptions</button>
+        </div>
+        <div class="exp-deep-body" id="exp-deep-panel" role="tabpanel" aria-labelledby="exp-tab-process" aria-live="polite">
+          <div class="exp-deep-body-head"><h4 id="exp-tab-title"></h4><span id="exp-tab-label"></span></div>
+          <div class="exp-mini-flow" id="exp-mini-flow"></div>
+          <p class="exp-tab-note" id="exp-tab-note"></p>
+        </div>
+      </section>
+
+      <p class="exp-footer-note"><strong>Core principle:</strong> onboard the legal entity once; connect providers separately; activate only proven routes; resolve recipients automatically; preserve each invoice’s origin and evidence.</p>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.getElementById('spain-einvoice-process-explorer');
+      if (!root) return;
+
+      const scenarios = {
+        'public-first': {
+          summary: 'The customer completes one business onboarding and starts on the public route. A later private provider is added as a new connection and route transition—not as another customer onboarding.',
+          context: 'Public-first: the public connection and routes are created first. When the public solution is the transport path, no duplicate public-copy leg is needed.'
+        },
+        'add-private': {
+          summary: 'The existing Phase 1 customer keeps its identity, authority and public history. The supported private provider is connected, validated and published before it can become the route for future invoices.',
+          context: 'Public to private: reuse the existing customer profile, keep the current route live during validation, and add the faithful public-copy leg after private activation.'
+        },
+        'private-first': {
+          summary: 'The customer is onboarded once and chooses a supported private provider. Public compliance capability is provisioned behind the scenes; there is no separate public customer journey.',
+          context: 'Private-first: prove the private connection and receiving point, provision the public compliance channel, and use the public route as the default when no private recipient point is found.'
+        }
+      };
+
+      const stages = {
+        onboard: {
+          title: 'Onboard business',
+          outcome: 'Create one reusable legal-entity profile with verified identity, authority and e-invoice capabilities.',
+          process: ['Capture the legal entity', 'Validate NIF/NIE and authority', 'Choose send and receive capabilities', 'Create the reusable customer profile'],
+          customer: ['Enter company and contact details', 'Confirm the authorised representative', 'Choose send, receive or both', 'Review the readiness result'],
+          technical: ['Create customer_profile and legal_subject', 'Store tax IDs and authority_evidence', 'Persist capability_scope per entity', 'Generate independent batch evidence'],
+          controls: ['Required identity data is complete', 'Authority covers the requested scope', 'Duplicate legal entities are detected', 'One failed batch row does not block others'],
+          notes: {
+            process: 'Customer onboarding establishes the party once. Provider-specific work belongs to connection and routing records.',
+            customer: 'A customer should not repeat these details every time they connect or change a delivery provider.',
+            technical: 'Batch onboarding is orchestration only: each legal entity receives separate validation, evidence and readiness state.',
+            controls: 'A batch receipt is not proof that every entity is ready; partial success must remain visible and recoverable.'
+          }
+        },
+        connect: {
+          title: 'Connect platform',
+          outcome: 'Establish and prove the public or supported private provider connection before it can be used.',
+          process: ['Choose public or supported private', 'Create the provider connection', 'Validate credentials and capabilities', 'Prove registration or receiving point'],
+          customer: ['Choose the delivery provider', 'Provide authorisation or credentials', 'Run the connection check', 'Resolve any action-required result'],
+          technical: ['Create connection and registration records', 'Reference credentials without storing raw secrets', 'Probe provider capabilities', 'Persist readiness status and evidence'],
+          controls: ['Provider is supported in this phase', 'Authentication succeeds', 'Send and receive capabilities are proven', 'Unproven connection stays unavailable'],
+          notes: {
+            process: 'Connecting a platform does not activate it. Connection, registration, readiness and route are separate states.',
+            customer: 'The target provider must be connected and validated before it can appear as an eligible sending platform.',
+            technical: 'Keep environment, provider identity, credential references, capabilities and observed readiness independently auditable.',
+            controls: 'Never let a successful credential check alone imply that registration, entry-point publication or routing is ready.'
+          }
+        },
+        activate: {
+          title: 'Activate routes',
+          outcome: 'Make one eligible platform effective for the selected inbound or outbound scope and time.',
+          process: ['Choose inbound or outbound scope', 'Set the effective time', 'Check route eligibility and overlap', 'Activate the selected route'],
+          customer: ['Review the current and target routes', 'Choose the direction to change', 'Confirm the activation date', 'Approve the route activation'],
+          technical: ['Create a versioned route record', 'Persist scope and effective_from', 'Evaluate connection readiness', 'Enforce one active route per scope'],
+          controls: ['Target connection is ready', 'Receiving point is published where required', 'No gap or overlapping active route exists', 'Activation creates an audit event'],
+          notes: {
+            process: 'Route activation controls future traffic. It must not rewrite the origin of invoices already sent or received.',
+            customer: 'Inbound and outbound routes may change independently if the product and provider support that scope.',
+            technical: 'Treat effective routing as versioned configuration, not a mutable platform field on the customer record.',
+            controls: 'An eligible connection can remain inactive; activation always requires an explicit, auditable decision.'
+          }
+        },
+        prepare: {
+          title: 'Prepare and validate invoice',
+          outcome: 'Turn invoice data into a compliant, uniquely identifiable intent that is safe to submit.',
+          process: ['Capture or import the invoice', 'Apply the tax scheme and rules', 'Validate buyer, totals and format', 'Create the submission intent'],
+          customer: ['Create or import the invoice', 'Complete mandatory information', 'Correct highlighted errors', 'Confirm the invoice is ready'],
+          technical: ['Persist invoice_intent', 'Apply the Spain jurisdiction rule pack', 'Record format and transformation decision', 'Allocate an idempotency key'],
+          controls: ['Mandatory fields are complete', 'Tax totals reconcile', 'Business and format rules pass', 'Duplicate submission is prevented'],
+          notes: {
+            process: 'Validation should fail early, before recipient lookup or any external transmission begins.',
+            customer: 'Use plain-language errors and identify exactly which field or rule prevents sending.',
+            technical: 'Keep the canonical intent separate from provider-specific payloads so routing or provider changes do not alter invoice meaning.',
+            controls: 'The same intent and idempotency key must not create two legal invoices during retry or timeout recovery.'
+          }
+        },
+        resolve: {
+          title: 'Resolve recipient route',
+          outcome: 'Find the recipient’s proven electronic delivery point without requiring the sender to connect to that provider.',
+          process: ['Check a known recipient point', 'Query private provider directories', 'Assess freshness and evidence', 'Use the public default if unresolved'],
+          customer: ['Confirm the buyer identity', 'See the resolved destination', 'Review any public-fallback notice', 'Send without connecting to the recipient provider'],
+          technical: ['Create entry_point_observation', 'Store source, observed_at and confidence', 'Run distributed provider lookup', 'Attach the result to the exchange plan'],
+          controls: ['Do not assume a central directory', 'Refresh stale observations', 'Stop on ambiguous conflicting results', 'Retain the public default route'],
+          notes: {
+            process: 'Spain uses distributed discovery: private operators expose lookups and the public solution is the default when no private point is identified.',
+            customer: 'A sender connected to EDICOM can deliver to a buyer on SERES; the sender does not onboard or connect to SERES.',
+            technical: 'Resolution evidence must be frozen with the invoice exchange so later directory changes do not alter the historical decision.',
+            controls: 'A cached result needs freshness policy, provenance and a safe fallback—not silent trust.'
+          }
+        },
+        deliver: {
+          title: 'Deliver and report',
+          outcome: 'Execute the recipient delivery and any required public compliance leg as one traceable exchange plan.',
+          process: ['Freeze the exchange plan', 'Send the recipient delivery leg', 'Send the public copy when required', 'Correlate acknowledgements'],
+          customer: ['See the active sending platform', 'See the resolved recipient route', 'Send the invoice', 'Track each delivery leg'],
+          technical: ['Persist immutable exchange_plan', 'Execute delivery_leg and public_copy_leg', 'Create the faithful UBL copy', 'Use correlation IDs, retry and idempotency'],
+          controls: ['Public-copy rule reflects the transport route', 'One leg failure does not erase another', 'Retries cannot duplicate the invoice', 'Every acknowledgement retains evidence'],
+          notes: {
+            process: 'A private-origin invoice normally creates a recipient leg and a faithful public UBL copy; the copy is not duplicated when the public solution is itself the transport.',
+            customer: 'The send screen should separate “sending through”, “recipient route” and “public copy” so users do not confuse them.',
+            technical: 'Freeze routing, transformation and leg decisions before the first transmission; manage each leg with independent status.',
+            controls: 'Partial success is a recoverable exchange state, not permission to resend the whole invoice blindly.'
+          }
+        },
+        lifecycle: {
+          title: 'Track lifecycle',
+          outcome: 'Maintain delivery, acceptance, rejection, payment and correction history against the invoice’s original route.',
+          process: ['Receive delivery status', 'Record acceptance or rejection', 'Capture payment events', 'Correct through the origin path'],
+          customer: ['View the current status', 'Respond to a rejection', 'Record or confirm payment', 'Issue a correction when needed'],
+          technical: ['Persist origin_context', 'Append ordered status events', 'Report payment and rejection events', 'Link corrections to original identifiers'],
+          controls: ['Events are ordered and auditable', 'Actor authority is checked', 'Original route and IDs remain immutable', 'Failed events remain recoverable'],
+          notes: {
+            process: 'Platform changes affect future invoices only; existing invoices continue through the status and correction path of their origin.',
+            customer: 'Show one coherent timeline even when recipient delivery and public reporting produce separate acknowledgements.',
+            technical: 'Keep transport events, business responses and payment events distinct while correlating them to one invoice.',
+            controls: 'Never rewrite historical identifiers or provider provenance to make an old invoice look as though it used the new route.'
+          }
+        },
+        replacement: {
+          title: 'Connect replacement platform',
+          outcome: 'Prepare and prove the target provider while the current route continues carrying live traffic.',
+          process: ['Choose a supported target provider', 'Create a separate connection', 'Validate registration and entry point', 'Keep the current route active'],
+          customer: ['Select the target provider', 'Complete provider authorisation', 'Resolve validation issues', 'Review readiness before switching'],
+          technical: ['Create a new connection version', 'Maintain parallel readiness state', 'Store target registration evidence', 'Leave current routes unchanged'],
+          controls: ['Target is supported in the current phase', 'Target is proven before selection', 'Live traffic remains uninterrupted', 'Credentials stay isolated by provider'],
+          notes: {
+            process: 'Preparation and cutover are separate. The replacement can be fully ready without yet receiving any production invoice.',
+            customer: 'The current platform remains active until the customer explicitly approves the effective route change.',
+            technical: 'Do not mutate the existing connection into the target; preserve both connection histories and their evidence.',
+            controls: 'Phase 3 expands supported choice, but it does not imply that every arbitrary provider pair is automatically interoperable.'
+          }
+        },
+        switch: {
+          title: 'Switch future invoices',
+          outcome: 'Move the selected route scope to the proven target at an effective time without migrating invoice history.',
+          process: ['Compare current and target routes', 'Schedule the effective time', 'Activate the target route', 'Retire the old route for future traffic'],
+          customer: ['Review scope and impact', 'Confirm the direction and date', 'Approve the switch', 'See the new active route'],
+          technical: ['Create an effective-dated transition', 'Version route and audit event', 'Route new intents through the target', 'Keep prior origin_context immutable'],
+          controls: ['Do not migrate in-flight invoices', 'Define rollback and recovery policy', 'Switch only eligible scopes', 'Check phase and provider-pair support'],
+          notes: {
+            process: 'Switching is an account-level route transition for future invoices—not an arbitrary platform picker on every send.',
+            customer: 'Existing invoices retain their public or private origin, identifiers and lifecycle route after the switch.',
+            technical: 'Resolve the effective route when the exchange plan is created and freeze that decision for the invoice.',
+            controls: 'Private-to-private transitions must be constrained by the interoperability combinations the product actually supports.'
+          }
+        }
+      };
+
+      const tabNames = {
+        process: ['Process flow', 'Outcome sequence'],
+        customer: ['Customer journey', 'User actions and decisions'],
+        technical: ['Technical flow', 'Records and services'],
+        controls: ['Controls and exceptions', 'Gates and recovery']
+      };
+
+      const scenarioSelect = root.querySelector('#exp-scenario');
+      const scenarioSummary = root.querySelector('#exp-scenario-summary');
+      const deepDive = root.querySelector('#exp-deep-dive');
+      const stageButtons = Array.from(root.querySelectorAll('.exp-horizontal-map .exp-node'));
+      const tabButtons = Array.from(root.querySelectorAll('.exp-tab'));
+      const closeButton = root.querySelector('#exp-close');
+      let activeStage = null;
+      let activeNode = null;
+      let activeTab = 'process';
+
+      function renderScenario() {
+        scenarioSummary.textContent = scenarios[scenarioSelect.value].summary;
+        stageButtons.forEach((button) => {
+          const paths = (button.dataset.path || '').split(' ');
+          button.classList.toggle('is-path', paths.includes(scenarioSelect.value));
+        });
+        if (activeStage) root.querySelector('#exp-stage-context').textContent = scenarios[scenarioSelect.value].context;
+      }
+
+      function renderDeepDive() {
+        if (!activeStage) return;
+        const stage = stages[activeStage];
+        root.querySelector('#exp-deep-title').textContent = stage.title;
+        root.querySelector('#exp-deep-outcome').textContent = stage.outcome;
+        root.querySelector('#exp-stage-context').textContent = scenarios[scenarioSelect.value].context;
+        root.querySelector('#exp-tab-title').textContent = tabNames[activeTab][0];
+        root.querySelector('#exp-tab-label').textContent = tabNames[activeTab][1];
+        root.querySelector('#exp-tab-note').textContent = stage.notes[activeTab];
+        root.querySelector('#exp-deep-panel').setAttribute('aria-labelledby', 'exp-tab-' + activeTab);
+
+        const miniFlow = root.querySelector('#exp-mini-flow');
+        miniFlow.replaceChildren();
+        stage[activeTab].forEach((text, index) => {
+          const item = document.createElement('div');
+          item.className = 'exp-mini-step';
+          const number = document.createElement('span');
+          number.className = 'exp-mini-number';
+          number.textContent = String(index + 1).padStart(2, '0');
+          const copy = document.createElement('p');
+          copy.textContent = text;
+          item.append(number, copy);
+          miniFlow.append(item);
+        });
+
+        stageButtons.forEach((button) => button.setAttribute('aria-expanded', String(button === activeNode)));
+        tabButtons.forEach((button) => button.setAttribute('aria-selected', String(button.dataset.tab === activeTab)));
+        deepDive.hidden = false;
+      }
+
+      scenarioSelect.addEventListener('change', () => {
+        renderScenario();
+        if (activeStage) renderDeepDive();
+      });
+
+      stageButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          activeNode = button;
+          activeStage = button.dataset.stage;
+          activeTab = 'process';
+          renderDeepDive();
+        });
+      });
+
+      tabButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          activeTab = button.dataset.tab;
+          renderDeepDive();
+        });
+      });
+
+      closeButton.addEventListener('click', () => {
+        activeStage = null;
+        activeNode = null;
+        deepDive.hidden = true;
+        stageButtons.forEach((button) => button.setAttribute('aria-expanded', 'false'));
+      });
+
+      renderScenario();
+    })();
+  </script>
+</div>

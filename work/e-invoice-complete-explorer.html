@@ -1,0 +1,1310 @@
+<div id="spain-einvoice-complete-explorer" data-map-route="public" data-density="comfortable" data-show-notes="true" aria-label="Complete Spain e-invoicing product and journey explorer">
+  <style>
+    #spain-einvoice-complete-explorer {
+      --hub-page: light-dark(#f6f7f8, #0d1013);
+      --hub-surface: light-dark(#ffffff, #181c20);
+      --hub-soft: light-dark(#f1f3f5, #242a30);
+      --hub-hover: light-dark(#e9ecef, #2c333a);
+      --hub-text: light-dark(#17191b, #f1f3f5);
+      --hub-secondary: light-dark(#4e555c, #bcc3ca);
+      --hub-muted: light-dark(#7f878f, #929ca5);
+      --hub-line: light-dark(#cbd1d6, #47515b);
+      --hub-line-soft: light-dark(#e3e6e9, #303840);
+      --hub-blue: light-dark(#0072f5, #64b5ff);
+      --hub-green: light-dark(#1c7a55, #70d3ad);
+      --hub-purple: light-dark(#7445a8, #c29aeb);
+      --hub-orange: light-dark(#c66a0a, #ffb45b);
+      --hub-red: light-dark(#b5423f, #ff8e89);
+      --hub-inverse: light-dark(#ffffff, #101214);
+      --hub-inverse-bg: light-dark(#17191b, #f1f3f5);
+      --hub-focus-gap: light-dark(#ffffff, #181c20);
+      --hub-grid: light-dark(#e8ebee, #252b31);
+      --hub-note-yellow: light-dark(#fff2a6, #4d4319);
+      --hub-note-orange: light-dark(#ffd0a2, #563318);
+      --hub-note-pink: light-dark(#f8c8e5, #4e243d);
+      width: 100%;
+      color: var(--hub-text);
+      background: transparent;
+      color-scheme: light dark;
+      font-family: "Geist Sans", Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #spain-einvoice-complete-explorer * { box-sizing: border-box; }
+    #spain-einvoice-complete-explorer h1,
+    #spain-einvoice-complete-explorer h2,
+    #spain-einvoice-complete-explorer h3,
+    #spain-einvoice-complete-explorer p,
+    #spain-einvoice-complete-explorer ul,
+    #spain-einvoice-complete-explorer ol { margin: 0; }
+    #spain-einvoice-complete-explorer button,
+    #spain-einvoice-complete-explorer input,
+    #spain-einvoice-complete-explorer select { font: inherit; }
+    #spain-einvoice-complete-explorer button:focus-visible,
+    #spain-einvoice-complete-explorer input:focus-visible,
+    #spain-einvoice-complete-explorer select:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--hub-focus-gap), 0 0 0 4px var(--hub-blue);
+    }
+    #spain-einvoice-complete-explorer .hub-app {
+      overflow: hidden;
+      background: var(--hub-page);
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--hub-line) 70%, transparent), 0 8px 24px -16px rgba(0, 0, 0, .25);
+    }
+    #spain-einvoice-complete-explorer .hub-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 64px;
+      padding: 0 20px;
+      background: var(--hub-surface);
+      box-shadow: 0 1px 0 0 var(--hub-line-soft);
+    }
+    #spain-einvoice-complete-explorer .hub-brand,
+    #spain-einvoice-complete-explorer .hub-context,
+    #spain-einvoice-complete-explorer .hub-title-row,
+    #spain-einvoice-complete-explorer .hub-actions,
+    #spain-einvoice-complete-explorer .hub-inline-status { display: flex; align-items: center; }
+    #spain-einvoice-complete-explorer .hub-brand { gap: 10px; }
+    #spain-einvoice-complete-explorer .hub-brand-mark {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      color: var(--hub-inverse);
+      background: var(--hub-inverse-bg);
+      border-radius: 6px;
+    }
+    #spain-einvoice-complete-explorer .hub-brand-mark i { width: 17px; height: 17px; }
+    #spain-einvoice-complete-explorer .hub-brand-copy { display: grid; gap: 1px; }
+    #spain-einvoice-complete-explorer .hub-brand-copy strong { font-size: 14px; line-height: 20px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-brand-copy span,
+    #spain-einvoice-complete-explorer .hub-context { color: var(--hub-muted); font-size: 12px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-context { gap: 7px; }
+    #spain-einvoice-complete-explorer .hub-dot { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--hub-green); }
+    #spain-einvoice-complete-explorer .hub-nav {
+      display: flex;
+      gap: 4px;
+      padding: 10px 16px 0;
+      background: var(--hub-surface);
+    }
+    #spain-einvoice-complete-explorer .hub-nav-button {
+      min-height: 42px;
+      padding: 0 12px;
+      color: var(--hub-secondary);
+      background: transparent;
+      border: 0;
+      border-radius: 6px 6px 0 0;
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+    #spain-einvoice-complete-explorer .hub-nav-button:hover { color: var(--hub-text); background: var(--hub-hover); }
+    #spain-einvoice-complete-explorer .hub-nav-button[aria-selected="true"] {
+      color: var(--hub-text);
+      background: var(--hub-page);
+      box-shadow: 0 -1px 0 0 var(--hub-line-soft), 1px 0 0 0 var(--hub-line-soft), -1px 0 0 0 var(--hub-line-soft);
+      font-weight: 500;
+    }
+    #spain-einvoice-complete-explorer .hub-main { padding: 24px 20px 32px; }
+    #spain-einvoice-complete-explorer .hub-view[hidden] { display: none; }
+    #spain-einvoice-complete-explorer .hub-page-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 18px;
+    }
+    #spain-einvoice-complete-explorer .hub-page-copy { max-width: 720px; }
+    #spain-einvoice-complete-explorer .hub-kicker {
+      margin-bottom: 7px;
+      color: var(--hub-secondary);
+      font-size: 11px;
+      line-height: 16px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    #spain-einvoice-complete-explorer h1 {
+      font-size: clamp(26px, 3.7vw, 40px);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+      font-weight: 600;
+    }
+    #spain-einvoice-complete-explorer .hub-page-copy > p:last-child { margin-top: 9px; color: var(--hub-secondary); font-size: 13px; line-height: 20px; }
+    #spain-einvoice-complete-explorer .hub-reference-strip {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px 10px;
+      margin: -5px 0 18px;
+      padding: 9px 12px;
+      background: var(--hub-surface);
+      border-left: 3px solid var(--hub-blue);
+      border-radius: 0 7px 7px 0;
+      box-shadow: 0 0 0 1px var(--hub-line-soft);
+      font-size: 11px;
+      line-height: 16px;
+    }
+    #spain-einvoice-complete-explorer .hub-reference-strip > span {
+      color: var(--hub-muted);
+      font-weight: 500;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    #spain-einvoice-complete-explorer .hub-reference-strip a {
+      color: var(--hub-blue);
+      font-weight: 500;
+      text-decoration: none;
+    }
+    #spain-einvoice-complete-explorer .hub-reference-strip a:hover { text-decoration: underline; }
+    #spain-einvoice-complete-explorer .hub-segmented {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 4px;
+      background: var(--hub-soft);
+      border-radius: 8px;
+    }
+    #spain-einvoice-complete-explorer .hub-segmented button {
+      min-height: 36px;
+      padding: 8px 11px;
+      color: var(--hub-secondary);
+      background: transparent;
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 16px;
+    }
+    #spain-einvoice-complete-explorer .hub-segmented button:hover { color: var(--hub-text); background: var(--hub-hover); }
+    #spain-einvoice-complete-explorer .hub-segmented button[aria-pressed="true"] {
+      color: var(--hub-text);
+      background: var(--hub-surface);
+      box-shadow: 0 0 0 1px var(--hub-line-soft), 0 2px 2px rgba(0, 0, 0, .04);
+      font-weight: 500;
+    }
+    #spain-einvoice-complete-explorer .hub-map-routes {
+      flex: 0 0 390px;
+      flex-wrap: nowrap;
+    }
+    #spain-einvoice-complete-explorer .hub-map-routes button { flex: 1 1 0; }
+    #spain-einvoice-complete-explorer .hub-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 40px;
+      padding: 0 14px;
+      color: var(--hub-inverse);
+      background: var(--hub-inverse-bg);
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 500;
+    }
+    #spain-einvoice-complete-explorer .hub-button:hover { color: #ffffff; background: var(--hub-blue); }
+    #spain-einvoice-complete-explorer .hub-button.is-secondary { color: var(--hub-text); background: var(--hub-soft); box-shadow: 0 0 0 1px var(--hub-line-soft); }
+    #spain-einvoice-complete-explorer .hub-button:disabled { color: var(--hub-muted); background: var(--hub-soft); cursor: not-allowed; }
+    #spain-einvoice-complete-explorer .hub-button i { width: 15px; height: 15px; }
+    #spain-einvoice-complete-explorer .hub-board {
+      overflow: hidden;
+      background: var(--hub-surface);
+      border-radius: 10px;
+      box-shadow: 0 0 0 1px var(--hub-line-soft);
+    }
+    #spain-einvoice-complete-explorer .hub-board svg { display: block; width: 100%; height: auto; }
+    #spain-einvoice-complete-explorer .hub-board .hub-zone { fill: color-mix(in srgb, var(--hub-surface) 92%, var(--hub-soft)); stroke: var(--hub-line-soft); stroke-width: 1; }
+    #spain-einvoice-complete-explorer .hub-board .hub-zone-title { fill: var(--hub-secondary); font-size: 11px; font-weight: 500; letter-spacing: .08em; }
+    #spain-einvoice-complete-explorer .hub-board .hub-node rect { fill: var(--hub-surface); stroke: var(--hub-line); stroke-width: 1.2; }
+    #spain-einvoice-complete-explorer .hub-board .hub-node.is-core rect { fill: var(--hub-inverse-bg); stroke: var(--hub-inverse-bg); }
+    #spain-einvoice-complete-explorer .hub-board .hub-node text { fill: var(--hub-text); font-size: 11.5px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-board .hub-node .hub-node-sub { fill: var(--hub-muted); font-size: 10.5px; font-weight: 400; }
+    #spain-einvoice-complete-explorer .hub-board .hub-node.is-core text { fill: var(--hub-inverse); }
+    #spain-einvoice-complete-explorer[data-map-route="public"] .hub-board .hub-node.is-route-public rect { stroke: var(--hub-blue); stroke-width: 2.5; }
+    #spain-einvoice-complete-explorer[data-map-route="private"] .hub-board .hub-node.is-route-private rect { stroke: var(--hub-green); stroke-width: 2.5; }
+    #spain-einvoice-complete-explorer[data-map-route="accountant"] .hub-board .hub-node.is-route-accountant rect { stroke: var(--hub-purple); stroke-width: 2.5; }
+    #spain-einvoice-complete-explorer .hub-board .hub-edge-base { fill: none; stroke: var(--hub-line); stroke-width: 1.35; }
+    #spain-einvoice-complete-explorer .hub-board .hub-edge-active { display: none; fill: none; stroke-width: 3; }
+    #spain-einvoice-complete-explorer[data-map-route="public"] .hub-board .hub-edge-active.route-public,
+    #spain-einvoice-complete-explorer[data-map-route="private"] .hub-board .hub-edge-active.route-private,
+    #spain-einvoice-complete-explorer[data-map-route="accountant"] .hub-board .hub-edge-active.route-accountant { display: block; }
+    #spain-einvoice-complete-explorer .hub-board .route-public { stroke: var(--hub-blue); }
+    #spain-einvoice-complete-explorer .hub-board .route-private { stroke: var(--hub-green); }
+    #spain-einvoice-complete-explorer .hub-board .route-accountant { stroke: var(--hub-purple); }
+    #spain-einvoice-complete-explorer .hub-board .hub-copy-edge,
+    #spain-einvoice-complete-explorer .hub-board .hub-copy-label { display: none; }
+    #spain-einvoice-complete-explorer[data-map-route="private"] .hub-board .hub-copy-edge,
+    #spain-einvoice-complete-explorer[data-map-route="private"] .hub-board .hub-copy-label { display: block; }
+    #spain-einvoice-complete-explorer .hub-board .hub-copy-edge { fill: none; stroke: var(--hub-blue); stroke-width: 2; stroke-dasharray: 6 5; }
+    #spain-einvoice-complete-explorer .hub-board .hub-status-edge { fill: none; stroke: var(--hub-orange); stroke-width: 1.5; stroke-dasharray: 5 4; }
+    #spain-einvoice-complete-explorer .hub-board .hub-edge-label { fill: var(--hub-secondary); font-size: 10.5px; font-weight: 400; paint-order: stroke; stroke: var(--hub-surface); stroke-width: 5; stroke-linejoin: round; }
+    #spain-einvoice-complete-explorer .hub-board .hub-note rect { stroke: color-mix(in srgb, var(--hub-text) 12%, transparent); stroke-width: 1; }
+    #spain-einvoice-complete-explorer .hub-board .hub-note text { fill: var(--hub-text); font-size: 10px; font-weight: 400; }
+    #spain-einvoice-complete-explorer .hub-board .hub-note.is-yellow rect { fill: var(--hub-note-yellow); }
+    #spain-einvoice-complete-explorer .hub-board .hub-note.is-orange rect { fill: var(--hub-note-orange); }
+    #spain-einvoice-complete-explorer .hub-board .hub-note.is-pink rect { fill: var(--hub-note-pink); }
+    #spain-einvoice-complete-explorer[data-show-notes="false"] .hub-board .hub-note { display: none; }
+    #spain-einvoice-complete-explorer .hub-map-mobile { display: none; }
+    #spain-einvoice-complete-explorer .hub-map-summary {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+      margin-top: 14px;
+      padding: 14px 16px;
+      background: var(--hub-surface);
+      border-radius: 10px;
+      box-shadow: 0 0 0 1px var(--hub-line-soft);
+    }
+    #spain-einvoice-complete-explorer .hub-map-summary strong { display: block; margin-bottom: 3px; font-size: 13px; line-height: 18px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-map-summary p { color: var(--hub-secondary); font-size: 12px; line-height: 18px; }
+    #spain-einvoice-complete-explorer .hub-map-summary .hub-prd-trace { margin-top: 5px; color: var(--hub-muted); font-size: 10.5px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-legend { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; color: var(--hub-muted); font-size: 11px; }
+    #spain-einvoice-complete-explorer .hub-legend span { display: inline-flex; align-items: center; gap: 6px; }
+    #spain-einvoice-complete-explorer .hub-line-key { width: 22px; height: 3px; background: var(--hub-blue); }
+    #spain-einvoice-complete-explorer .hub-line-key.is-green { background: var(--hub-green); }
+    #spain-einvoice-complete-explorer .hub-line-key.is-purple { background: var(--hub-purple); }
+    #spain-einvoice-complete-explorer .hub-line-key.is-dashed { height: 0; background: transparent; border-top: 2px dashed var(--hub-orange); }
+    #spain-einvoice-complete-explorer .hub-journey-list { display: grid; gap: 12px; }
+    #spain-einvoice-complete-explorer .hub-lane {
+      display: grid;
+      grid-template-columns: 128px minmax(0, 1fr);
+      align-items: stretch;
+      gap: 14px;
+      padding: 14px;
+      background: var(--hub-surface);
+      border-radius: 10px;
+      box-shadow: 0 0 0 1px var(--hub-line-soft);
+    }
+    #spain-einvoice-complete-explorer .hub-lane-label { display: grid; align-content: center; gap: 4px; }
+    #spain-einvoice-complete-explorer .hub-lane-label strong { font-size: 12px; line-height: 17px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-lane-label span { color: var(--hub-muted); font-size: 11px; line-height: 15px; }
+    #spain-einvoice-complete-explorer .hub-lane-flow { display: flex; align-items: stretch; min-width: 0; }
+    #spain-einvoice-complete-explorer .hub-step {
+      flex: 1 1 0;
+      min-width: 0;
+      min-height: 68px;
+      padding: 10px;
+      color: var(--hub-secondary);
+      text-align: left;
+      background: var(--hub-page);
+      border: 0;
+      border-radius: 6px;
+      box-shadow: 0 0 0 1px var(--hub-line-soft);
+      cursor: pointer;
+      font-size: 11px;
+      line-height: 16px;
+    }
+    #spain-einvoice-complete-explorer .hub-step:hover { color: var(--hub-text); background: var(--hub-hover); }
+    #spain-einvoice-complete-explorer .hub-step[aria-pressed="true"] { color: var(--hub-text); box-shadow: 0 0 0 2px var(--hub-blue); font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-arrow { display: grid; place-items: center; width: 26px; flex: none; color: var(--hub-blue); font-size: 18px; }
+    #spain-einvoice-complete-explorer .hub-detail {
+      display: grid;
+      grid-template-columns: minmax(170px, .7fr) repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 14px;
+      padding: 18px;
+      background: var(--hub-surface);
+      border-radius: 10px;
+      box-shadow: 0 0 0 1px var(--hub-line-soft);
+    }
+    #spain-einvoice-complete-explorer .hub-detail h2 { font-size: 21px; line-height: 26px; letter-spacing: -.03em; font-weight: 600; }
+    #spain-einvoice-complete-explorer .hub-detail > div > p { margin-top: 7px; color: var(--hub-secondary); font-size: 12px; line-height: 18px; }
+    #spain-einvoice-complete-explorer .hub-detail h3 { margin-bottom: 7px; color: var(--hub-secondary); font-size: 11px; line-height: 15px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+    #spain-einvoice-complete-explorer .hub-detail ul { display: grid; gap: 4px; padding-left: 16px; color: var(--hub-secondary); font-size: 11px; line-height: 17px; }
+    #spain-einvoice-complete-explorer .hub-workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(250px, .75fr);
+      gap: 14px;
+    }
+    #spain-einvoice-complete-explorer .hub-party-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    #spain-einvoice-complete-explorer .hub-panel {
+      padding: 16px;
+      background: var(--hub-surface);
+      border-radius: 10px;
+      box-shadow: 0 0 0 1px var(--hub-line-soft);
+    }
+    #spain-einvoice-complete-explorer .hub-panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    #spain-einvoice-complete-explorer .hub-panel h2 { font-size: 15px; line-height: 20px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-panel h3 { font-size: 12px; line-height: 17px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-panel-head p,
+    #spain-einvoice-complete-explorer .hub-helper { margin-top: 3px; color: var(--hub-muted); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    #spain-einvoice-complete-explorer .hub-field { display: grid; gap: 5px; color: var(--hub-secondary); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-field.is-wide { grid-column: 1 / -1; }
+    #spain-einvoice-complete-explorer .hub-identity-help {
+      grid-column: 1 / -1;
+      color: var(--hub-muted);
+      font-size: 11px;
+      line-height: 16px;
+    }
+    #spain-einvoice-complete-explorer .hub-field input,
+    #spain-einvoice-complete-explorer .hub-field select {
+      width: 100%;
+      min-height: 40px;
+      padding: 8px 10px;
+      color: var(--hub-text);
+      background: var(--hub-page);
+      border: 0;
+      border-radius: 6px;
+      box-shadow: 0 0 0 1px var(--hub-line-soft);
+      font-size: 13px;
+    }
+    #spain-einvoice-complete-explorer .hub-choice-list { display: grid; gap: 8px; }
+    #spain-einvoice-complete-explorer .hub-choice {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 9px;
+      align-items: flex-start;
+      padding: 10px;
+      border-radius: 6px;
+      box-shadow: 0 0 0 1px var(--hub-line-soft);
+      cursor: pointer;
+    }
+    #spain-einvoice-complete-explorer .hub-choice input { margin-top: 3px; }
+    #spain-einvoice-complete-explorer .hub-choice strong { display: block; font-size: 12px; line-height: 17px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-choice span span { display: block; margin-top: 2px; color: var(--hub-muted); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-progress { display: grid; gap: 9px; padding: 0; list-style: none; }
+    #spain-einvoice-complete-explorer .hub-progress li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 9px; color: var(--hub-muted); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-progress-marker { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; box-shadow: 0 0 0 1px var(--hub-line); }
+    #spain-einvoice-complete-explorer .hub-progress li.is-done { color: var(--hub-green); }
+    #spain-einvoice-complete-explorer .hub-progress li.is-done .hub-progress-marker { color: var(--hub-inverse); background: var(--hub-green); box-shadow: none; }
+    #spain-einvoice-complete-explorer .hub-rule {
+      margin-top: 12px;
+      padding: 11px 12px;
+      color: var(--hub-secondary);
+      background: var(--hub-page);
+      border-radius: 6px;
+      box-shadow: 0 0 0 1px var(--hub-line-soft);
+      font-size: 11px;
+      line-height: 17px;
+    }
+    #spain-einvoice-complete-explorer .hub-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+    #spain-einvoice-complete-explorer .hub-inline-status { gap: 8px; color: var(--hub-secondary); font-size: 12px; line-height: 17px; }
+    #spain-einvoice-complete-explorer .hub-actions { gap: 8px; }
+    #spain-einvoice-complete-explorer .hub-batch-table { width: 100%; border-collapse: collapse; }
+    #spain-einvoice-complete-explorer .hub-batch-table th,
+    #spain-einvoice-complete-explorer .hub-batch-table td { padding: 10px 8px; text-align: left; box-shadow: 0 1px 0 0 var(--hub-line-soft); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-batch-table th { color: var(--hub-muted); font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-batch-table td { color: var(--hub-secondary); }
+    #spain-einvoice-complete-explorer .hub-batch-table strong { color: var(--hub-text); font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-state { display: inline-flex; align-items: center; gap: 6px; }
+    #spain-einvoice-complete-explorer .hub-state::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--hub-orange); }
+    #spain-einvoice-complete-explorer .hub-state.is-ready::before { background: var(--hub-green); }
+    #spain-einvoice-complete-explorer .hub-state.is-error::before { background: var(--hub-red); }
+    #spain-einvoice-complete-explorer .hub-readiness { display: grid; gap: 9px; }
+    #spain-einvoice-complete-explorer .hub-readiness-row { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 8px; padding: 8px 0; color: var(--hub-secondary); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-readiness-row .hub-progress-marker { font-size: 10px; }
+    #spain-einvoice-complete-explorer .hub-readiness-row.is-done { color: var(--hub-green); }
+    #spain-einvoice-complete-explorer .hub-readiness-row.is-done .hub-progress-marker { color: var(--hub-inverse); background: var(--hub-green); box-shadow: none; }
+    #spain-einvoice-complete-explorer .hub-dialog {
+      width: min(680px, calc(100% - 28px));
+      max-height: calc(100% - 28px);
+      padding: 0;
+      color: var(--hub-text);
+      background: var(--hub-surface);
+      border: 1px solid var(--hub-line-soft);
+      border-radius: 12px;
+      box-shadow: 0 24px 70px light-dark(rgba(24, 36, 46, .24), rgba(0, 0, 0, .6));
+    }
+    #spain-einvoice-complete-explorer .hub-dialog::backdrop { background: light-dark(rgba(20, 32, 42, .42), rgba(0, 0, 0, .68)); }
+    #spain-einvoice-complete-explorer .hub-dialog-header,
+    #spain-einvoice-complete-explorer .hub-dialog-footer { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 15px 18px; }
+    #spain-einvoice-complete-explorer .hub-dialog-header { border-bottom: 1px solid var(--hub-line-soft); }
+    #spain-einvoice-complete-explorer .hub-dialog-header h2 { font-size: 16px; line-height: 21px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-dialog-header p { margin-top: 3px; color: var(--hub-muted); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-dialog-content { padding: 18px; }
+    #spain-einvoice-complete-explorer .hub-dialog-footer { justify-content: flex-end; border-top: 1px solid var(--hub-line-soft); }
+    #spain-einvoice-complete-explorer .hub-dialog-summary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 17px;
+      padding: 12px;
+      background: var(--hub-page);
+      border-radius: 8px;
+    }
+    #spain-einvoice-complete-explorer .hub-dialog-summary span { display: block; color: var(--hub-muted); font-size: 11px; line-height: 15px; }
+    #spain-einvoice-complete-explorer .hub-dialog-summary strong { display: block; margin-top: 3px; font-size: 12px; line-height: 17px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-validation-methods { margin: 0; padding: 0; border: 0; }
+    #spain-einvoice-complete-explorer .hub-validation-methods legend { margin-bottom: 9px; font-size: 12px; line-height: 17px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-validation-method-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    #spain-einvoice-complete-explorer .hub-validation-method {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: start;
+      gap: 9px;
+      min-height: 112px;
+      padding: 11px;
+      color: var(--hub-text);
+      background: var(--hub-page);
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px var(--hub-line-soft);
+      cursor: pointer;
+    }
+    #spain-einvoice-complete-explorer .hub-validation-method input { margin-top: 3px; }
+    #spain-einvoice-complete-explorer .hub-validation-method strong { display: block; font-size: 12px; line-height: 17px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-validation-method span span { display: block; margin-top: 4px; color: var(--hub-muted); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-private-directory { margin-top: 12px; }
+    #spain-einvoice-complete-explorer .hub-private-directory[hidden] { display: none; }
+    #spain-einvoice-complete-explorer .hub-validation-steps { display: grid; gap: 0; margin: 18px 0 0; padding: 0; list-style: none; }
+    #spain-einvoice-complete-explorer .hub-validation-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 10px;
+      min-height: 55px;
+      color: var(--hub-muted);
+      font-size: 11px;
+      line-height: 16px;
+    }
+    #spain-einvoice-complete-explorer .hub-validation-step:not(:last-child)::after { content: ""; position: absolute; left: 13px; top: 27px; bottom: 1px; width: 2px; background: var(--hub-line-soft); }
+    #spain-einvoice-complete-explorer .hub-validation-step .hub-progress-marker { z-index: 1; background: var(--hub-surface); }
+    #spain-einvoice-complete-explorer .hub-validation-step strong { display: block; margin-top: 2px; color: inherit; font-size: 12px; line-height: 17px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-validation-step[data-state="current"] { color: var(--hub-blue); }
+    #spain-einvoice-complete-explorer .hub-validation-step[data-state="current"] .hub-progress-marker { color: var(--hub-inverse); background: var(--hub-blue); box-shadow: none; }
+    #spain-einvoice-complete-explorer .hub-validation-step[data-state="done"] { color: var(--hub-green); }
+    #spain-einvoice-complete-explorer .hub-validation-step[data-state="done"] .hub-progress-marker { color: var(--hub-inverse); background: var(--hub-green); box-shadow: none; }
+    #spain-einvoice-complete-explorer .hub-validation-result { display: none; margin-top: 14px; padding: 12px; color: var(--hub-green); background: color-mix(in srgb, var(--hub-green) 10%, var(--hub-surface)); border-radius: 8px; }
+    #spain-einvoice-complete-explorer .hub-validation-result[data-visible="true"] { display: block; }
+    #spain-einvoice-complete-explorer .hub-validation-result strong { display: block; margin-bottom: 4px; font-size: 12px; line-height: 17px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-validation-result p { color: inherit; font-size: 11px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-history-flow { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin-top: 14px; }
+    #spain-einvoice-complete-explorer .hub-history-flow.is-three { grid-template-columns: 1fr auto 1fr auto 1fr; }
+    #spain-einvoice-complete-explorer .hub-history-node { padding: 12px; background: var(--hub-page); border-radius: 6px; box-shadow: 0 0 0 1px var(--hub-line-soft); }
+    #spain-einvoice-complete-explorer .hub-history-node strong { display: block; font-size: 12px; line-height: 17px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-history-node span { display: block; margin-top: 3px; color: var(--hub-muted); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-history-flow > span { color: var(--hub-blue); font-size: 18px; }
+    #spain-einvoice-complete-explorer .hub-fields-flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; gap: 10px; }
+    #spain-einvoice-complete-explorer .hub-field-owner { padding: 14px; background: var(--hub-surface); border-radius: 10px; box-shadow: 0 0 0 1px var(--hub-line-soft); }
+    #spain-einvoice-complete-explorer .hub-field-owner h2 { margin-bottom: 4px; font-size: 14px; line-height: 19px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-field-owner > p { margin-bottom: 12px; color: var(--hub-muted); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-complete-explorer .hub-field-group { padding: 10px 0; box-shadow: 0 1px 0 0 var(--hub-line-soft); }
+    #spain-einvoice-complete-explorer .hub-field-group:last-child { box-shadow: none; }
+    #spain-einvoice-complete-explorer .hub-field-group strong { display: block; margin-bottom: 6px; font-size: 12px; line-height: 17px; font-weight: 500; }
+    #spain-einvoice-complete-explorer .hub-token-list { display: flex; flex-wrap: wrap; gap: 5px; }
+    #spain-einvoice-complete-explorer .hub-token-list code { padding: 3px 5px; color: var(--hub-secondary); background: var(--hub-soft); border-radius: 4px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; line-height: 14px; }
+    #spain-einvoice-complete-explorer .hub-fields-arrow { display: grid; place-items: center; color: var(--hub-blue); font-size: 20px; }
+    #spain-einvoice-complete-explorer[data-density="compact"] .hub-main { padding-top: 18px; }
+    #spain-einvoice-complete-explorer[data-density="compact"] .hub-panel { padding: 13px; }
+    #spain-einvoice-complete-explorer[data-density="compact"] .hub-step { min-height: 58px; padding: 8px; }
+    @media (max-width: 850px) {
+      #spain-einvoice-complete-explorer .hub-nav { overflow-x: auto; }
+      #spain-einvoice-complete-explorer .hub-page-head { align-items: stretch; flex-direction: column; }
+      #spain-einvoice-complete-explorer .hub-map-routes { flex-basis: auto; }
+      #spain-einvoice-complete-explorer .hub-workspace { grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-party-grid { grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-detail { grid-template-columns: 1fr 1fr; }
+      #spain-einvoice-complete-explorer .hub-fields-flow { grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-fields-arrow { transform: rotate(90deg); }
+    }
+    @media (max-width: 700px) {
+      #spain-einvoice-complete-explorer .hub-topbar { align-items: flex-start; padding: 14px 16px; }
+      #spain-einvoice-complete-explorer .hub-context { justify-content: flex-end; text-align: right; }
+      #spain-einvoice-complete-explorer .hub-nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2px;
+        padding: 8px 10px 0;
+        overflow: visible;
+      }
+      #spain-einvoice-complete-explorer .hub-nav-button {
+        min-height: 42px;
+        padding: 5px 7px;
+        white-space: normal;
+      }
+      #spain-einvoice-complete-explorer .hub-main { padding: 20px 14px 28px; }
+      #spain-einvoice-complete-explorer .hub-board { display: none; }
+      #spain-einvoice-complete-explorer .hub-map-mobile { display: grid; gap: 10px; }
+      #spain-einvoice-complete-explorer .hub-map-mobile-block { padding: 13px; background: var(--hub-surface); border-radius: 8px; box-shadow: 0 0 0 1px var(--hub-line-soft); }
+      #spain-einvoice-complete-explorer .hub-map-mobile-block strong { display: block; font-size: 12px; line-height: 17px; font-weight: 500; }
+      #spain-einvoice-complete-explorer .hub-map-mobile-block span { display: block; margin-top: 3px; color: var(--hub-muted); font-size: 11px; line-height: 16px; }
+      #spain-einvoice-complete-explorer .hub-map-mobile-arrow { color: var(--hub-blue); text-align: center; font-size: 20px; }
+      #spain-einvoice-complete-explorer .hub-map-summary { grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-legend { justify-content: flex-start; }
+      #spain-einvoice-complete-explorer .hub-lane { grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-lane-flow { display: grid; grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-arrow { width: auto; min-height: 22px; transform: rotate(90deg); }
+      #spain-einvoice-complete-explorer .hub-detail { grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-form-grid { grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-field.is-wide { grid-column: auto; }
+      #spain-einvoice-complete-explorer .hub-footer { align-items: stretch; flex-direction: column; }
+      #spain-einvoice-complete-explorer .hub-actions { align-items: stretch; flex-direction: column-reverse; }
+      #spain-einvoice-complete-explorer .hub-button { width: 100%; }
+      #spain-einvoice-complete-explorer .hub-history-flow { grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-history-flow.is-three { grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-history-flow > span { text-align: center; transform: rotate(90deg); }
+      #spain-einvoice-complete-explorer .hub-dialog-summary,
+      #spain-einvoice-complete-explorer .hub-validation-method-grid { grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-validation-method { min-height: 0; }
+      #spain-einvoice-complete-explorer .hub-dialog { max-height: 760px; overflow: auto; }
+      #spain-einvoice-complete-explorer .hub-dialog-footer { align-items: stretch; flex-direction: column-reverse; }
+      #spain-einvoice-complete-explorer .hub-batch-table,
+      #spain-einvoice-complete-explorer .hub-batch-table tbody,
+      #spain-einvoice-complete-explorer .hub-batch-table tr,
+      #spain-einvoice-complete-explorer .hub-batch-table td { display: block; width: 100%; }
+      #spain-einvoice-complete-explorer .hub-batch-table thead { display: none; }
+      #spain-einvoice-complete-explorer .hub-batch-table tr { margin-bottom: 10px; padding: 8px; border-radius: 6px; box-shadow: 0 0 0 1px var(--hub-line-soft); }
+      #spain-einvoice-complete-explorer .hub-batch-table td { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 8px; box-shadow: none; }
+      #spain-einvoice-complete-explorer .hub-batch-table td::before { content: attr(data-label); color: var(--hub-muted); font-weight: 500; }
+    }
+  </style>
+
+  <div class="hub-app">
+    <header class="hub-topbar">
+      <div class="hub-brand">
+        <span class="hub-brand-mark"><i data-lucide="network" aria-hidden="true"></i></span>
+        <span class="hub-brand-copy"><strong>Spain e-invoicing</strong><span>Complete product journey</span></span>
+      </div>
+      <span class="hub-context"><span class="hub-dot"></span>Product context · process · working screens · data</span>
+    </header>
+
+    <nav class="hub-nav" role="tablist" aria-label="Spain e-invoicing explorer">
+      <button class="hub-nav-button" type="button" role="tab" aria-selected="true" aria-controls="hub-view-map" data-view="map">Ecosystem map</button>
+      <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-journey" data-view="journey">Journey</button>
+      <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-onboarding" data-view="onboarding">Onboarding</button>
+      <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-exchange" data-view="exchange">Invoice exchange</button>
+      <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-switch" data-view="switch">Private connections</button>
+      <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-fields" data-view="fields">Field catalogue</button>
+    </nav>
+
+    <main class="hub-main">
+      <section class="hub-view" id="hub-view-map" role="tabpanel">
+        <div class="hub-page-head">
+          <div class="hub-page-copy">
+            <p class="hub-kicker">Product context · Reference-style system map</p>
+            <h1>How five Sage products connect to one Spain e-invoicing capability.</h1>
+            <p>The diagram keeps systems, routes, responsibilities, lifecycle feedback and unresolved decisions visible on one board.</p>
+          </div>
+          <div class="hub-segmented hub-map-routes" role="group" aria-label="Highlight ecosystem route">
+            <button type="button" aria-pressed="true" data-map-route="public">Public-first</button>
+            <button type="button" aria-pressed="false" data-map-route="private">Phase 2 private</button>
+            <button type="button" aria-pressed="false" data-map-route="accountant">Accountant portfolio</button>
+          </div>
+        </div>
+        <div class="hub-reference-strip" aria-label="Detailed Confluence references">
+          <span>Detailed Confluence</span>
+          <a href="https://confluence.sage.com/pages/viewpage.action?pageId=866150169" target="_blank" rel="noopener noreferrer">Shared platform &amp; country packs ↗</a>
+          <a href="https://confluence.sage.com/pages/viewpage.action?pageId=837588799" target="_blank" rel="noopener noreferrer">Phase 2 platform connectivity ↗</a>
+          <a href="https://confluence.sage.com/pages/viewpage.action?pageId=866126304" target="_blank" rel="noopener noreferrer">Connections, registration &amp; routing ↗</a>
+        </div>
+
+        <div class="hub-board">
+          <svg viewBox="0 0 1000 752" role="img" aria-labelledby="hub-map-title hub-map-desc">
+            <title id="hub-map-title">Spain e-invoicing product and platform ecosystem</title>
+            <desc id="hub-map-desc">Sage products feed a shared e-invoicing capability which connects to the Spanish public platform, supported private platforms and recipient environments. Dashed arrows return lifecycle evidence.</desc>
+            <defs>
+              <pattern id="hub-grid-pattern" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M 28 0 L 0 0 0 28" fill="none" stroke="var(--hub-grid)" stroke-width="1"/></pattern>
+              <marker id="hub-arrow-neutral" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--hub-line)"/></marker>
+              <marker id="hub-arrow-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--hub-blue)"/></marker>
+              <marker id="hub-arrow-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--hub-green)"/></marker>
+              <marker id="hub-arrow-purple" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--hub-purple)"/></marker>
+              <marker id="hub-arrow-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--hub-orange)"/></marker>
+            </defs>
+            <rect width="1000" height="752" fill="url(#hub-grid-pattern)"/>
+
+            <rect class="hub-zone" x="20" y="52" width="240" height="470" rx="10"/>
+            <rect class="hub-zone" x="292" y="52" width="405" height="470" rx="10"/>
+            <rect class="hub-zone" x="730" y="52" width="250" height="470" rx="10"/>
+            <rect class="hub-zone" x="292" y="654" width="688" height="76" rx="10"/>
+            <text class="hub-zone-title" x="36" y="38">SAGE PRODUCT ENTRY POINTS</text>
+            <text class="hub-zone-title" x="310" y="38">SHARED PLATFORM + SPAIN COUNTRY BINDING</text>
+            <text class="hub-zone-title" x="748" y="38">EXTERNAL DELIVERY ECOSYSTEM</text>
+            <text class="hub-zone-title" x="36" y="548">ASSUMPTIONS AND OPEN DECISIONS</text>
+            <text class="hub-zone-title" x="310" y="646">CROSS-PRODUCT OPERATIONS AND EVIDENCE</text>
+
+            <g class="hub-node" transform="translate(62 97)"><rect width="140" height="38" rx="7"/><text x="11" y="17">Sage Active</text><text class="hub-node-sub" x="11" y="31">Cloud small business</text></g>
+            <g class="hub-node" transform="translate(62 165)"><rect width="140" height="38" rx="7"/><text x="11" y="17">Sage 50</text><text class="hub-node-sub" x="11" y="31">On-premises / hosted</text></g>
+            <g class="hub-node" transform="translate(62 233)"><rect width="140" height="38" rx="7"/><text x="11" y="17">Sage 200</text><text class="hub-node-sub" x="11" y="31">Configurable SMB ERP</text></g>
+            <g class="hub-node" transform="translate(62 301)"><rect width="140" height="38" rx="7"/><text x="11" y="17">Sage X3</text><text class="hub-node-sub" x="11" y="31">Cloud ERP · multi-entity</text></g>
+            <g class="hub-node is-route-accountant" transform="translate(62 410)"><rect width="140" height="46" rx="7"/><text x="11" y="18">Sage Despachos</text><text class="hub-node-sub" x="11" y="32">Accountant portfolio</text><text class="hub-node-sub" x="11" y="43">Batch operations</text></g>
+
+            <g class="hub-node" transform="translate(336 92)"><rect width="126" height="42" rx="7"/><text x="10" y="18">Access &amp; authority</text><text class="hub-node-sub" x="10" y="33">Tenant · client · actor</text></g>
+            <g class="hub-node" transform="translate(528 92)"><rect width="126" height="42" rx="7"/><text x="10" y="18">Connection &amp; adapter</text><text class="hub-node-sub" x="10" y="33">Register · credential · health</text></g>
+            <g class="hub-node" transform="translate(336 384)"><rect width="126" height="42" rx="7"/><text x="10" y="18">Validate &amp; transform</text><text class="hub-node-sub" x="10" y="33">Canonical · Spain rules</text></g>
+            <g class="hub-node" transform="translate(528 384)"><rect width="126" height="42" rx="7"/><text x="10" y="18">Lifecycle &amp; evidence</text><text class="hub-node-sub" x="10" y="33">Technical · commercial · pay</text></g>
+            <g class="hub-node is-core" transform="translate(417 236)"><rect width="156" height="58" rx="9"/><text x="78" y="21" text-anchor="middle">Sage e-Invoicing</text><text x="78" y="38" text-anchor="middle">shared platform</text><text class="hub-node-sub" x="78" y="52" text-anchor="middle">Scope · route · orchestrate</text></g>
+
+            <g class="hub-node is-route-public" transform="translate(780 113)"><rect width="148" height="46" rx="7"/><text x="10" y="19">Spanish public platform</text><text class="hub-node-sub" x="10" y="35">Public route and copy</text></g>
+            <g class="hub-node is-route-private" transform="translate(780 255)"><rect width="148" height="58" rx="7"/><text x="10" y="19">Private platforms</text><text class="hub-node-sub" x="10" y="35">EDICOM · SERES · Banqup</text><text class="hub-node-sub" x="10" y="50">B2B Router · ZeroComa</text></g>
+            <g class="hub-node" transform="translate(780 416)"><rect width="148" height="46" rx="7"/><text x="10" y="19">Recipient environment</text><text class="hub-node-sub" x="10" y="35">Platform, product or customer</text></g>
+
+            <g class="hub-node" transform="translate(335 676)"><rect width="160" height="32" rx="7"/><text x="10" y="14">Canonical + Spain pack</text><text class="hub-node-sub" x="10" y="27">Shared contract · effective rules</text></g>
+            <g class="hub-node" transform="translate(549 676)"><rect width="160" height="32" rx="7"/><text x="10" y="14">Immutable route evidence</text><text class="hub-node-sub" x="10" y="27">Origin · plan · route · events</text></g>
+            <g class="hub-node" transform="translate(763 676)"><rect width="160" height="32" rx="7"/><text x="10" y="14">Reconcile + support</text><text class="hub-node-sub" x="10" y="27">Health · exceptions · recovery</text></g>
+
+            <path class="hub-edge-base" d="M202 116 H268 M202 184 H268 M202 252 H268 M202 320 H268 M268 116 V320"/>
+            <path class="hub-edge-base" d="M268 252 H417" marker-end="url(#hub-arrow-neutral)"/>
+            <path class="hub-edge-base" d="M202 433 H278 V113 H336" marker-end="url(#hub-arrow-neutral)"/>
+            <path class="hub-edge-active route-accountant" d="M202 433 H278 V113 H336" marker-end="url(#hub-arrow-purple)"/>
+            <text class="hub-edge-label" x="300" y="242">invoice intent</text>
+            <text class="hub-edge-label" x="226" y="480">client portfolio + delegated authority</text>
+
+            <path class="hub-edge-base" d="M399 134 L462 236" marker-end="url(#hub-arrow-neutral)"/>
+            <path class="hub-edge-base" d="M591 134 L528 236" marker-end="url(#hub-arrow-neutral)"/>
+            <path class="hub-edge-base" d="M399 384 L462 294" marker-end="url(#hub-arrow-neutral)"/>
+            <path class="hub-edge-base" d="M591 384 L528 294" marker-end="url(#hub-arrow-neutral)"/>
+
+            <path class="hub-edge-base" d="M573 249 C670 210 710 136 780 136" marker-end="url(#hub-arrow-neutral)"/>
+            <path class="hub-edge-base" d="M573 269 C664 269 704 284 780 284" marker-end="url(#hub-arrow-neutral)"/>
+            <path class="hub-edge-active route-public" d="M573 249 C670 210 710 136 780 136" marker-end="url(#hub-arrow-blue)"/>
+            <path class="hub-edge-active route-private" d="M573 269 C664 269 704 284 780 284" marker-end="url(#hub-arrow-green)"/>
+            <path class="hub-copy-edge" d="M573 249 C670 210 710 136 780 136" marker-end="url(#hub-arrow-blue)"/>
+            <text class="hub-edge-label" x="625" y="190">public delivery route</text>
+            <text class="hub-edge-label hub-copy-label" x="630" y="208">separate public-copy leg</text>
+            <text class="hub-edge-label" x="638" y="256">private send · receive</text>
+
+            <path class="hub-edge-base" d="M854 159 L854 416" marker-end="url(#hub-arrow-neutral)"/>
+            <path class="hub-edge-base" d="M878 313 L878 416" marker-end="url(#hub-arrow-neutral)"/>
+            <path class="hub-edge-active route-public" d="M840 159 C820 260 817 350 840 416" marker-end="url(#hub-arrow-blue)"/>
+            <path class="hub-edge-active route-private" d="M878 313 L878 416" marker-end="url(#hub-arrow-green)"/>
+            <text class="hub-edge-label" x="888" y="372">delivery</text>
+
+            <path class="hub-status-edge" d="M780 450 C686 492 614 463 573 294" marker-end="url(#hub-arrow-orange)"/>
+            <path class="hub-status-edge" d="M780 125 C704 82 650 112 607 236" marker-end="url(#hub-arrow-orange)"/>
+            <text class="hub-edge-label" x="612" y="490">status · rejection · payment · evidence</text>
+
+            <path class="hub-edge-base" d="M462 294 C430 420 310 470 310 640 L415 676" marker-end="url(#hub-arrow-neutral)"/>
+            <path class="hub-edge-base" d="M520 294 C555 430 629 480 629 676" marker-end="url(#hub-arrow-neutral)"/>
+            <path class="hub-edge-base" d="M573 283 C720 330 950 400 950 640 L843 676" marker-end="url(#hub-arrow-neutral)"/>
+
+            <g class="hub-note is-orange" transform="translate(36 565)"><rect width="260" height="56" rx="2"/><text x="12" y="21"><tspan x="12" dy="0">Direct customer or accountant portfolio:</tspan><tspan x="12" dy="16">authority is checked per client and action.</tspan></text></g>
+            <g class="hub-note is-yellow" transform="translate(320 565)"><rect width="290" height="56" rx="2"/><text x="12" y="21"><tspan x="12" dy="0">Connection says where Sage can communicate;</tspan><tspan x="12" dy="16">route says when and for which invoice scope.</tspan></text></g>
+            <g class="hub-note is-pink" transform="translate(634 565)"><rect width="310" height="56" rx="2"/><text x="12" y="21"><tspan x="12" dy="0">Working discovery model: directory, phase and</tspan><tspan x="12" dy="16">provider capabilities remain evidence-gated.</tspan></text></g>
+          </svg>
+        </div>
+
+        <div class="hub-map-mobile" aria-label="Mobile ecosystem flow">
+          <div class="hub-map-mobile-block"><strong>Sage product entry points</strong><span>Sage Active · Sage 50 · Sage 200 · Sage X3 · Sage Despachos</span></div>
+          <div class="hub-map-mobile-arrow" aria-hidden="true">↓</div>
+          <div class="hub-map-mobile-block"><strong>Shared platform + Spain country binding</strong><span>Access · authority · connections · adapters · validation · routing · lifecycle · evidence</span></div>
+          <div class="hub-map-mobile-arrow" aria-hidden="true">↓</div>
+          <div class="hub-map-mobile-block"><strong>External delivery ecosystem</strong><span>Spanish public platform · supported private platforms · recipient environment</span></div>
+          <div class="hub-map-mobile-arrow" aria-hidden="true">↕</div>
+          <div class="hub-map-mobile-block"><strong>Cross-product operations</strong><span>Canonical invoice + Spain pack · immutable context · reconciliation and recovery</span></div>
+        </div>
+
+        <div class="hub-map-summary" aria-live="polite">
+          <div><strong id="hub-map-summary-title">Public-first route</strong><p id="hub-map-summary-copy"></p><p class="hub-prd-trace">Discovery model aligned to PRD-SEI-201, 202, 222–227 and 231; this is not an approved delivery architecture.</p></div>
+          <div class="hub-legend"><span><span class="hub-line-key"></span>Public route</span><span><span class="hub-line-key is-green"></span>Private route</span><span><span class="hub-line-key is-purple"></span>Accountant flow</span><span><span class="hub-line-key is-dashed"></span>Lifecycle feedback</span></div>
+        </div>
+      </section>
+
+      <section class="hub-view" id="hub-view-journey" role="tabpanel" hidden>
+        <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">High-level process with drill-down</p><h1>Set up once, exchange repeatedly, change route deliberately.</h1><p>Select any step to see its customer, technical and control views.</p></div></div>
+        <div class="hub-reference-strip" aria-label="Detailed Confluence references"><span>Detailed Confluence</span><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837588799" target="_blank" rel="noopener noreferrer">Phase 2 platform connectivity ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148655" target="_blank" rel="noopener noreferrer">Customer onboarding &amp; migration ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148657" target="_blank" rel="noopener noreferrer">Lifecycle, rejection &amp; payment ↗</a></div>
+        <div class="hub-journey-list">
+          <section class="hub-lane"><div class="hub-lane-label"><strong>Set up once</strong><span>Company and authority</span></div><div class="hub-lane-flow"><button class="hub-step" type="button" data-journey="identify" aria-pressed="true">Identify company</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="authority" aria-pressed="false">Confirm authority</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="register" aria-pressed="false">Register and confirm readiness</button></div></section>
+          <section class="hub-lane"><div class="hub-lane-label"><strong>Every invoice</strong><span>Send, receive and track</span></div><div class="hub-lane-flow"><button class="hub-step" type="button" data-journey="create" aria-pressed="false">Create in Sage product</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="validate" aria-pressed="false">Validate and resolve recipient</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="deliver" aria-pressed="false">Route and deliver</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="status" aria-pressed="false">Return lifecycle status</button></div></section>
+          <section class="hub-lane"><div class="hub-lane-label"><strong>When needed</strong><span>Private platform setup</span></div><div class="hub-lane-flow"><button class="hub-step" type="button" data-journey="connect" aria-pressed="false">Connect private provider</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="prove" aria-pressed="false">Prove readiness</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="switch" aria-pressed="false">Select route in Send</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="preserve" aria-pressed="false">Preserve prior history</button></div></section>
+        </div>
+        <section class="hub-detail" aria-live="polite"><div><p class="hub-kicker">Selected step</p><h2 id="hub-journey-title"></h2><p id="hub-journey-summary"></p></div><div><h3>Customer experience</h3><ul id="hub-journey-customer"></ul></div><div><h3>Technical responsibility</h3><ul id="hub-journey-technical"></ul></div><div><h3>Control or exception</h3><ul id="hub-journey-control"></ul></div></section>
+      </section>
+
+      <section class="hub-view" id="hub-view-onboarding" role="tabpanel" hidden>
+        <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">Customer and accountant setup</p><h1>Onboard one company—or a client portfolio.</h1><p>The legal entity is established once. Provider connections and routes remain separate, replaceable records.</p></div><div class="hub-segmented" role="group" aria-label="Onboarding mode"><button type="button" data-onboard-mode="single" aria-pressed="true">Single company</button><button type="button" data-onboard-mode="batch" aria-pressed="false">Batch portfolio</button></div></div>
+        <div class="hub-reference-strip" aria-label="Detailed Confluence references"><span>Detailed Confluence</span><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148655" target="_blank" rel="noopener noreferrer">Customer onboarding &amp; migration ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866152234" target="_blank" rel="noopener noreferrer">Identifiers, tenancy &amp; delegated accountants ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837610648" target="_blank" rel="noopener noreferrer">Public platform onboarding ↗</a></div>
+        <div id="hub-onboard-single">
+          <div class="hub-workspace">
+            <section class="hub-panel"><div class="hub-panel-head"><div><h2>Company and authority</h2><p>Reusable identity and requested capabilities</p></div></div><div class="hub-form-grid">
+              <label class="hub-field is-wide">Legal entity<input type="text" value="Demo Supplier S.L."></label>
+              <label class="hub-field">Tax scheme<select><option>ES:NIF</option></select></label>
+              <label class="hub-field">Tax identifier<input type="text" value="B12345674"></label>
+              <label class="hub-field">Onboarding actor<select><option>Customer administrator</option><option>Authorised accountant</option></select></label>
+              <label class="hub-field">Directions<select><option>Send and receive</option><option>Send only</option><option>Receive only</option></select></label>
+            </div><div class="hub-panel-head" style="margin-top:16px"><div><h2>Choose the starting route</h2><p>A provider connection never silently becomes the live route</p></div></div><div class="hub-choice-list">
+              <label class="hub-choice"><input type="radio" name="hub-start-route" value="public" checked><span><strong>Spanish public platform</strong><span>Public-first baseline route.</span></span></label>
+              <label class="hub-choice"><input type="radio" name="hub-start-route" value="private"><span><strong>Supported private provider</strong><span>Connect and validate it; select it later in Send.</span></span></label>
+            </div><div id="hub-private-provider" class="hub-form-grid" style="margin-top:12px" hidden><label class="hub-field">Private platform<select><option>EDICOM</option><option>SERES</option><option>Banqup</option><option>B2B Router</option><option>ZeroComa</option></select></label><label class="hub-field">Provider account<input value="SYNTH-PROVIDER-001"></label></div><p class="hub-rule"><strong>Continuity rule:</strong> older invoices retain their original platform identifiers, lifecycle path and evidence after later route changes.</p></section>
+            <aside class="hub-panel"><div class="hub-panel-head"><div><h2>Activation readiness</h2><p>Checked per capability and direction</p></div></div><ol class="hub-progress" id="hub-onboard-progress"><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Company identity</strong><br>Legal and tax identity captured</span></li><li><span class="hub-progress-marker">2</span><span><strong>Authority</strong><br>Actor scope and evidence</span></li><li><span class="hub-progress-marker">3</span><span><strong>Connection</strong><br>Registration and credentials</span></li><li><span class="hub-progress-marker">4</span><span><strong>Capability</strong><br>Send and receive readiness</span></li></ol></aside>
+          </div>
+          <div class="hub-footer"><p class="hub-inline-status" id="hub-onboard-status"><span class="hub-dot"></span>Draft · identity captured</p><div class="hub-actions"><button class="hub-button" type="button" id="hub-onboard-validate"><i data-lucide="badge-check" aria-hidden="true"></i>Validate and activate</button></div></div>
+        </div>
+        <div id="hub-onboard-batch" hidden>
+          <section class="hub-panel"><div class="hub-panel-head"><div><h2>Client validation results</h2><p>Every company succeeds or fails independently</p></div><span class="hub-state">3 received</span></div><table class="hub-batch-table"><thead><tr><th>Select</th><th>Company</th><th>Tax identity</th><th>Starting route</th><th>Result</th></tr></thead><tbody>
+            <tr><td data-label="Select"><input type="checkbox" checked aria-label="Select Norte Studio"></td><td data-label="Company"><strong>Norte Studio S.L.</strong></td><td data-label="Tax identity">ES:NIF B76234819</td><td data-label="Starting route">Public platform</td><td data-label="Result"><span class="hub-state is-ready" data-batch-state>Ready</span></td></tr>
+            <tr><td data-label="Select"><input type="checkbox" checked aria-label="Select Costa Services"></td><td data-label="Company"><strong>Costa Services S.L.</strong></td><td data-label="Tax identity">ES:NIF B18402957</td><td data-label="Starting route">EDICOM</td><td data-label="Result"><span class="hub-state" data-batch-state>Connection check</span></td></tr>
+            <tr><td data-label="Select"><input type="checkbox" aria-label="Select Luna Trading"></td><td data-label="Company"><strong>Luna Trading S.L.</strong></td><td data-label="Tax identity">ES:NIF B00000000</td><td data-label="Starting route">Public platform</td><td data-label="Result"><span class="hub-state is-error" data-batch-state>Tax ID invalid</span></td></tr>
+          </tbody></table><p class="hub-rule">Batch activation changes only selected, independently ready companies. A failed client does not roll back another client.</p></section>
+          <div class="hub-footer"><p class="hub-inline-status" id="hub-batch-status"><span class="hub-dot"></span>1 ready · 1 needs connection · 1 needs correction</p><div class="hub-actions"><button class="hub-button" type="button" id="hub-batch-activate"><i data-lucide="users-round" aria-hidden="true"></i>Activate ready companies</button></div></div>
+        </div>
+      </section>
+
+      <section class="hub-view" id="hub-view-exchange" role="tabpanel" hidden>
+        <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">Operational invoice experience</p><h1>Send and receive from the Sage product.</h1><p>The shared service resolves the network route and returns one understandable lifecycle.</p></div><div class="hub-segmented" role="group" aria-label="Invoice exchange mode"><button type="button" data-exchange-mode="send" aria-pressed="true">Send invoice</button><button type="button" data-exchange-mode="receive" aria-pressed="false">Receive invoices</button></div></div>
+        <div class="hub-reference-strip" aria-label="Detailed Confluence references"><span>Detailed Confluence</span><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148656" target="_blank" rel="noopener noreferrer">Interoperability, routing &amp; transformation ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148657" target="_blank" rel="noopener noreferrer">Lifecycle, rejection &amp; payment ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866150169" target="_blank" rel="noopener noreferrer">Shared platform &amp; country packs ↗</a></div>
+        <div id="hub-exchange-send">
+          <div class="hub-party-grid">
+            <section class="hub-panel" aria-labelledby="hub-seller-heading">
+              <div class="hub-panel-head"><div><h2 id="hub-seller-heading">Seller / issuer</h2><p>Legal subject and scheme-qualified tax identity</p></div></div>
+              <div class="hub-form-grid">
+                <label class="hub-field is-wide">Legal name<input id="hub-seller-name" type="text" value="Demo Supplier S.L." aria-label="Seller legal name"></label>
+                <label class="hub-field is-wide">Subject type<select aria-label="Seller subject type"><option selected>Spanish legal person / entity</option><option>Spanish natural person / autónomo</option><option>Foreign natural person / professional</option><option>Foreign or non-resident entity</option><option>Permanent establishment</option></select></label>
+                <label class="hub-field is-wide">Business capacity<select aria-label="Seller business capacity"><option selected>Entrepreneur / professional</option><option>Public body</option><option>Private individual / consumer</option><option>Undetermined — review required</option></select></label>
+                <label class="hub-field is-wide">Tax scheme<select id="hub-seller-scheme" aria-label="Seller tax scheme"><option value="es-nif" selected>ES:NIF — Spanish tax identity</option><option value="eu-vat">EU:VAT — country-qualified VAT ID</option><option value="country-tax">Country tax ID — non-Spanish</option><option value="unresolved">Unresolved — policy review</option></select></label>
+                <label class="hub-field is-wide">Source identifier class<select id="hub-seller-source" aria-label="Seller source identifier class"></select></label>
+                <label class="hub-field">Identifier country<select id="hub-seller-country" aria-label="Seller identifier country"><option value="es" selected>Spain (ES)</option><option value="eu">Another EU member state</option><option value="non-eu">Non-EU country</option></select></label>
+                <label class="hub-field">Tax identifier value<input id="hub-seller-id" type="text" value="B12345674" aria-label="Seller tax identifier"></label>
+                <p id="hub-seller-help" class="hub-identity-help" aria-live="polite"></p>
+              </div>
+            </section>
+
+            <section class="hub-panel" aria-labelledby="hub-buyer-heading">
+              <div class="hub-panel-head"><div><h2 id="hub-buyer-heading">Buyer / recipient</h2><p>Identity used for applicability and route discovery</p></div></div>
+              <div class="hub-form-grid">
+                <label class="hub-field is-wide">Legal name<input id="hub-buyer-name" type="text" value="Elena Example" aria-label="Buyer legal name"></label>
+                <label class="hub-field is-wide">Subject type<select aria-label="Buyer subject type"><option>Spanish legal person / entity</option><option>Spanish natural person / autónomo</option><option selected>Foreign natural person / professional</option><option>Foreign or non-resident entity</option><option>Permanent establishment</option></select></label>
+                <label class="hub-field is-wide">Business capacity<select aria-label="Buyer business capacity"><option selected>Entrepreneur / professional</option><option>Public body</option><option>Private individual / consumer</option><option>Undetermined — review required</option></select></label>
+                <label class="hub-field is-wide">Tax scheme<select id="hub-buyer-scheme" aria-label="Buyer tax scheme"><option value="es-nif" selected>ES:NIF — Spanish tax identity</option><option value="eu-vat">EU:VAT — country-qualified VAT ID</option><option value="country-tax">Country tax ID — non-Spanish</option><option value="unresolved">Unresolved — policy review</option></select></label>
+                <label class="hub-field is-wide">Source identifier class<select id="hub-buyer-source" aria-label="Buyer source identifier class"></select></label>
+                <label class="hub-field">Identifier country<select id="hub-buyer-country" aria-label="Buyer identifier country"><option value="es" selected>Spain (ES)</option><option value="eu">Another EU member state</option><option value="non-eu">Non-EU country</option></select></label>
+                <label class="hub-field">Tax identifier value<input id="hub-buyer-id" type="text" value="X1234567L" aria-label="Buyer tax identifier"></label>
+                <p id="hub-buyer-help" class="hub-identity-help" aria-live="polite"></p>
+              </div>
+            </section>
+          </div>
+
+          <div class="hub-workspace">
+            <section class="hub-panel">
+              <div class="hub-panel-head"><div><h2>Invoice and delivery intent</h2><p>Synthetic example · route is resolved after identity checks</p></div></div>
+              <div class="hub-form-grid">
+                <label class="hub-field">Invoice number<input value="SYNTH-2026-0001" aria-label="Invoice number"></label>
+                <label class="hub-field">Issue date<input type="date" value="2026-09-15" aria-label="Issue date"></label>
+                <label class="hub-field">Currency<select aria-label="Currency"><option>EUR</option></select></label>
+                <label class="hub-field">Total<input value="€1,210.00" aria-label="Invoice total"></label>
+                <label class="hub-field is-wide">Delivery route<select id="hub-send-route" aria-label="Delivery route"><option value="auto">Automatically discover recipient route</option><optgroup label="Public route"><option value="public">Spanish Public Platform (AEAT)</option></optgroup><optgroup label="Private platforms — Phase 2 portfolio"><option value="b2b-router">B2B Router</option><option value="banqup">Banqup (Unifiedpost)</option><option value="edicom">EDICOM</option><option value="seres">SERES (Docaposte)</option><option value="zerocoma">ZeroComa</option></optgroup><option value="unresolved">Manual reconciliation required</option></select></label>
+              </div>
+              <p class="hub-rule">NIF is the Spanish tax-identity role. Entity NIF, DNI and NIE describe the source class; business capacity, applicability, authority and route remain separate decisions.</p>
+            </section>
+            <aside class="hub-panel"><div class="hub-panel-head"><div><h2>Route validation</h2><p>Distributed discovery or provider directory check</p></div></div><div class="hub-readiness" id="hub-send-checks"><div class="hub-readiness-row"><span class="hub-progress-marker">1</span><span><strong>Recipient identity</strong><br>Scheme, source class and value</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">2</span><span><strong>Applicability</strong><br>Capacity, country and transaction scope</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">3</span><span><strong>Directory discovery</strong><br>Public and available private sources</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">4</span><span><strong>Effective route</strong><br>Connected, capable and reachable</span></div></div><p class="hub-rule" id="hub-route-result">Recipient route has not been validated.</p><button class="hub-button is-secondary" type="button" id="hub-route-check" style="margin-top:12px"><i data-lucide="search-check" aria-hidden="true"></i>Validate recipient route</button></aside>
+          </div>
+          <div class="hub-footer"><p class="hub-inline-status" id="hub-send-status"><span class="hub-dot"></span>Ready for local validation</p><div class="hub-actions"><button class="hub-button" type="button" id="hub-send-button" disabled><i data-lucide="send" aria-hidden="true"></i>Validate and send</button></div></div>
+        </div>
+
+        <dialog id="hub-route-dialog" class="hub-dialog" aria-labelledby="hub-route-dialog-title">
+          <form method="dialog">
+            <header class="hub-dialog-header">
+              <div><h2 id="hub-route-dialog-title">Validate recipient delivery route</h2><p>Synthetic routing check · no external request is made</p></div>
+              <button class="hub-button is-secondary" type="submit" value="cancel">Close</button>
+            </header>
+            <div class="hub-dialog-content">
+              <div class="hub-dialog-summary">
+                <div><span>Recipient</span><strong id="hub-dialog-recipient">X1234567L · Elena Example</strong></div>
+                <div><span>Requested route</span><strong id="hub-dialog-requested-route">Automatic recipient discovery</strong></div>
+              </div>
+
+              <fieldset class="hub-validation-methods">
+                <legend>Directory validation method</legend>
+                <div class="hub-validation-method-grid">
+                  <label class="hub-validation-method">
+                    <input type="radio" name="hub-directory-method" value="country" checked>
+                    <span><strong>Country / distributed resolver</strong><span>Spain has no single France-style national directory. Check recipient publication and available provider lookups, then apply the public default only where the policy allows.</span></span>
+                  </label>
+                  <label class="hub-validation-method">
+                    <input type="radio" name="hub-directory-method" value="private">
+                    <span><strong>Selected private directory</strong><span>Check one private platform’s published recipient entry point, effective scope, direction, document profile and configured connection readiness.</span></span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <label id="hub-private-directory-field" class="hub-field hub-private-directory" hidden>Private platform directory
+                <select id="hub-private-directory" aria-label="Private platform directory"><option value="b2b-router">B2B Router</option><option value="banqup">Banqup (Unifiedpost)</option><option value="edicom">EDICOM</option><option value="seres">SERES (Docaposte)</option><option value="zerocoma">ZeroComa</option></select>
+              </label>
+
+              <ol class="hub-validation-steps" aria-label="Route validation steps">
+                <li class="hub-validation-step" data-route-validation-step="1" data-state="waiting"><span class="hub-progress-marker">1</span><span><strong>Validate recipient identity</strong>Check scheme, source class, country and normalised identifier.</span></li>
+                <li class="hub-validation-step" data-route-validation-step="2" data-state="waiting"><span class="hub-progress-marker">2</span><span><strong>Discover published entry points</strong><span id="hub-discovery-step-copy">Check recipient publication and available private-platform lookups.</span></span></li>
+                <li class="hub-validation-step" data-route-validation-step="3" data-state="waiting"><span class="hub-progress-marker">3</span><span><strong>Evaluate route eligibility</strong>Check transaction applicability, direction, document profile, effective scope and configured connection.</span></li>
+                <li class="hub-validation-step" data-route-validation-step="4" data-state="waiting"><span class="hub-progress-marker">4</span><span><strong>Freeze route evidence</strong>Record selected operator, lookup source, observation time, route version and country-rule version.</span></li>
+              </ol>
+
+              <div id="hub-validation-result" class="hub-validation-result" data-visible="false" aria-live="polite">
+                <strong id="hub-validation-result-title"></strong>
+                <p id="hub-validation-result-copy"></p>
+              </div>
+            </div>
+            <footer class="hub-dialog-footer">
+              <button class="hub-button is-secondary" type="submit" value="cancel">Close</button>
+              <button class="hub-button" id="hub-run-route-validation" type="button"><i data-lucide="scan-search" aria-hidden="true"></i>Run validation</button>
+            </footer>
+          </form>
+        </dialog>
+
+        <div id="hub-exchange-receive" hidden>
+          <div class="hub-workspace"><section class="hub-panel"><div class="hub-panel-head"><div><h2>Inbound invoice queue</h2><p>Retrieved through the active inbound route</p></div><span class="hub-state is-ready">Inbound ready</span></div><table class="hub-batch-table"><thead><tr><th>Supplier</th><th>Invoice</th><th>Route</th><th>Total</th><th>Status</th></tr></thead><tbody><tr><td data-label="Supplier"><strong>Iberia Office S.L.</strong></td><td data-label="Invoice">FAC-90812</td><td data-label="Route">Public platform</td><td data-label="Total">€842.10</td><td data-label="Status"><span class="hub-state is-ready">Available</span></td></tr><tr><td data-label="Supplier"><strong>Servicios Norte S.A.</strong></td><td data-label="Invoice">2026-1187</td><td data-label="Route">EDICOM</td><td data-label="Total">€2,140.00</td><td data-label="Status"><span class="hub-state">Needs review</span></td></tr></tbody></table></section><aside class="hub-panel"><div class="hub-panel-head"><div><h2>Retrieval control</h2><p>Scheduling, checkpoints and duplicate protection</p></div></div><ol class="hub-progress"><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Authority</strong><br>Inbound scope verified</span></li><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Checkpoint</strong><br>Cursor committed safely</span></li><li><span class="hub-progress-marker">3</span><span><strong>Reconciliation</strong><br>Next scheduled comparison</span></li></ol><button class="hub-button is-secondary" type="button" id="hub-retrieve" style="margin-top:12px"><i data-lucide="refresh-cw" aria-hidden="true"></i>Retrieve now</button></aside></div><div class="hub-footer"><p class="hub-inline-status" id="hub-receive-status"><span class="hub-dot"></span>Last scheduled retrieval completed</p></div>
+        </div>
+      </section>
+
+      <section class="hub-view" id="hub-view-switch" role="tabpanel" hidden>
+        <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">Provider-specific preparation</p><h1>Connect a private platform without onboarding the company again.</h1><p>Reuse the verified legal entity and authority. A connection makes a provider available; it does not change the effective invoice route.</p></div></div>
+        <div class="hub-reference-strip" aria-label="Detailed Confluence references"><span>Detailed Confluence</span><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866126304" target="_blank" rel="noopener noreferrer">Connections, registration &amp; routing ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148655" target="_blank" rel="noopener noreferrer">Customer onboarding &amp; migration ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=899154047" target="_blank" rel="noopener noreferrer">Provider API &amp; adapter boundary ↗</a></div>
+        <div class="hub-workspace">
+          <div>
+            <section class="hub-panel"><div class="hub-panel-head"><div><h2>Existing company context</h2><p>Reused from the completed public-platform onboarding</p></div><span class="hub-state is-ready">Reused</span></div><div class="hub-form-grid"><label class="hub-field is-wide">Legal entity<input value="Demo Supplier S.L." readonly></label><label class="hub-field">Tax identity<input value="ES:NIF B12345674" readonly></label><label class="hub-field">Onboarding status<input value="Active" readonly></label><label class="hub-field is-wide">Current active route<input value="Spanish public platform" readonly></label></div><p class="hub-rule"><strong>No re-onboarding:</strong> the new provider connection references the existing legal subject, tax identity and authority grant.</p></section>
+            <section class="hub-panel" style="margin-top:14px"><div class="hub-panel-head"><div><h2>Private platform connection</h2><p>Provider-specific account, credentials and capability</p></div></div><div class="hub-form-grid"><label class="hub-field">Private platform<select id="hub-connect-provider"><option value="EDICOM">EDICOM</option><option value="SERES">SERES</option><option value="Banqup">Banqup</option><option value="B2B Router">B2B Router</option><option value="ZeroComa">ZeroComa</option></select></label><label class="hub-field">Direction<select><option>Send and receive</option><option>Send only</option><option>Receive only</option></select></label><label class="hub-field">Provider account reference<input value="SYNTH-PROVIDER-001" aria-label="Provider account reference"></label><label class="hub-field">Credential reference<input value="SYNTH-CREDENTIAL-042" aria-label="Credential reference"></label><label class="hub-field">Environment<select><option>Production</option><option>Test</option></select></label><label class="hub-field">Authority grant<input value="SYNTH-GRANT-018" readonly aria-label="Authority grant"></label></div><p class="hub-rule">Store only a secure credential reference here—not the provider secret itself. Connection scope is separate from invoice routing scope.</p></section>
+          </div>
+          <aside class="hub-panel"><div class="hub-panel-head"><div><h2>Connection checks</h2><p>All checks must pass before the provider appears in Send</p></div></div><div class="hub-readiness" id="hub-connect-gates"><div class="hub-readiness-row"><span class="hub-progress-marker">1</span><span><strong>Authority scope</strong><br>Actor may connect this provider for the legal entity</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">2</span><span><strong>Account and credentials</strong><br>Provider account exists and the credential reference works</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">3</span><span><strong>Capability profile</strong><br>Requested directions and document profiles are supported</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">4</span><span><strong>Reachability and health</strong><br>Endpoint, callback and provider health checks succeed</span></div></div><button class="hub-button is-secondary" type="button" id="hub-connect-validate" style="margin-top:12px"><i data-lucide="shield-check" aria-hidden="true"></i>Validate connection</button></aside>
+        </div>
+        <section class="hub-panel" style="margin-top:14px"><h2>Connection makes the provider available—it does not switch the route</h2><div class="hub-history-flow is-three"><div class="hub-history-node"><strong>1 · Existing onboarded company</strong><span>Identity, authority and public route remain active.</span></div><span aria-hidden="true">→</span><div class="hub-history-node"><strong>2 · Connected private provider</strong><span>Provider-specific readiness is stored independently.</span></div><span aria-hidden="true">→</span><div class="hub-history-node"><strong>3 · Selectable in Send</strong><span id="hub-connected-provider">After connection, EDICOM can be selected for eligible invoices. The current public route remains unchanged.</span></div></div></section>
+        <div class="hub-footer"><p class="hub-inline-status" id="hub-connection-status"><span class="hub-dot"></span>Not connected · current public route remains active</p><div class="hub-actions"><button class="hub-button" type="button" id="hub-connect-save" disabled><i data-lucide="plug" aria-hidden="true"></i>Connect private platform</button></div></div>
+      </section>
+
+      <section class="hub-view" id="hub-view-fields" role="tabpanel" hidden>
+        <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">Conceptual data contract</p><h1>What information moves through each journey?</h1><p>Business facts are supplied once, Sage derives and freezes operational context, and external systems return identifiers and evidence.</p></div><div class="hub-segmented" role="group" aria-label="Field catalogue stage"><button type="button" data-field-stage="onboard" aria-pressed="true">Onboard</button><button type="button" data-field-stage="batch" aria-pressed="false">Batch onboard</button><button type="button" data-field-stage="send" aria-pressed="false">Send</button><button type="button" data-field-stage="receive" aria-pressed="false">Receive</button><button type="button" data-field-stage="connect" aria-pressed="false">Connect</button></div></div>
+        <div class="hub-reference-strip" aria-label="Detailed Confluence references"><span>Detailed Confluence</span><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866152234" target="_blank" rel="noopener noreferrer">Identifiers, tenancy &amp; delegated accountants ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148660" target="_blank" rel="noopener noreferrer">Trust, identity, data &amp; audit ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866126304" target="_blank" rel="noopener noreferrer">Connections, registration &amp; routing ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866150169" target="_blank" rel="noopener noreferrer">Shared platform &amp; country packs ↗</a></div>
+        <div class="hub-fields-flow" id="hub-fields-flow"></div>
+        <p class="hub-rule" id="hub-fields-principle"></p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.getElementById('spain-einvoice-complete-explorer');
+      if (!root) return;
+
+      const journey = {
+        identify: { title: 'Identify company', summary: 'Create the reusable legal-subject record.', customer: ['Confirm legal name and tax identity', 'Choose send, receive or both'], technical: ['Link Sage tenant, dataset and product', 'Normalise scheme-qualified identifiers'], control: ['Reject ambiguous or invalid identity', 'Keep effective dates and provenance'] },
+        authority: { title: 'Confirm authority', summary: 'Prove who may act and for which capability.', customer: ['Customer admin acts directly or delegates', 'Accountant selects the correct client'], technical: ['Create a scoped authority grant', 'Track evidence, validity and revocation'], control: ['Authentication alone is insufficient', 'Prevent cross-client access'] },
+        register: { title: 'Register and confirm readiness', summary: 'Establish capability-specific network readiness.', customer: ['See send and receive readiness separately', 'Resolve actionable setup gaps'], technical: ['Register through the selected route', 'Persist connection and external references'], control: ['Do not collapse readiness to one flag', 'Recheck expiring evidence'] },
+        create: { title: 'Create in the Sage product', summary: 'The existing accounting workflow remains the starting point.', customer: ['Create the invoice in the familiar product', 'Reuse customer and tax master data'], technical: ['Map product data into the canonical contract', 'Keep stable invoice and request identities'], control: ['Prevent duplicate logical submissions', 'Preserve the source record'] },
+        validate: { title: 'Validate and resolve recipient', summary: 'Check the invoice and determine reachable routes.', customer: ['Fix field-level errors before sending', 'Understand the proposed route'], technical: ['Run business, tax and schema rules', 'Check public and available private directories'], control: ['Separate warnings from blockers', 'Timestamp routing evidence'] },
+        deliver: { title: 'Route and deliver', summary: 'Freeze one effective route and transmission profile.', customer: ['Send through the selected connected route', 'Avoid provider-specific complexity'], technical: ['Transform and transmit the artefact', 'Record attempt, correlation and provider reference'], control: ['Protect the send boundary', 'Never retry ambiguously'] },
+        status: { title: 'Return lifecycle status', summary: 'Normalise external events into one Sage history.', customer: ['See admission, rejection, delivery and payment', 'Know who must act on an exception'], technical: ['Map provider events to canonical states', 'Retain raw status and evidence'], control: ['Do not equate admission with acceptance', 'Keep mapping versions'] },
+        connect: { title: 'Connect target provider', summary: 'Prepare credentials and capability while the current route stays live.', customer: ['Select a supported provider', 'Supply account and authority details'], technical: ['Create a provider-specific connection', 'Test credentials and callbacks'], control: ['Do not expose an unverified route', 'Protect secret references'] },
+        prove: { title: 'Prove readiness', summary: 'Verify registration, reachability, authority and continuity.', customer: ['See every failed gate', 'Correct setup without interrupting service'], technical: ['Run provider capability and health checks', 'Detect conflicts and in-flight work'], control: ['Require all scoped gates', 'Define safe rollback'] },
+        switch: { title: 'Select route in Send', summary: 'Choose a proven connected provider for the eligible invoice; connection alone never changes routing.', customer: ['Choose from connected, ready routes', 'See the resolved route before sending'], technical: ['Resolve the route for this invoice scope', 'Freeze connection and decision evidence'], control: ['Require an explicit route choice or policy', 'Keep the current route unchanged until selection'] },
+        preserve: { title: 'Preserve prior history', summary: 'Every invoice continues through its origin route.', customer: ['See one history across old and new routes', 'Continue correcting older invoices'], technical: ['Retain route and profile snapshots', 'Reconcile lifecycle events by origin'], control: ['Never rewrite historic evidence', 'Keep retention and dispute records'] }
+      };
+
+      const fields = {
+        onboard: { principle: 'The legal entity and authority are established once. Readiness is recorded per capability; private-provider credentials and connections are separate.', owners: [
+          { title: 'Customer or accountant supplies', subtitle: 'Reusable business identity and authority', groups: [['Company identity', 'legalName, legalForm, subjectType, jurisdiction'], ['Tax identity', 'taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Tax scheme values', 'ES:NIF, EU:VAT, countryTaxId, unresolved'], ['Source identifier classes', 'entityNIF, DNIDerivedNIF, NIEDerivedNIF, otherAEATAssignedNIF, countryQualifiedVATId, entityNationalTaxId, personNationalTaxId, permanentEstablishmentTaxId, policyReview'], ['Business context', 'businessCapacity, requestedCapabilities, directions'], ['Authority or delegation', 'actor, principal, delegateOrganisation, validFrom, validTo, evidenceRef']] },
+          { title: 'Sage creates and manages', subtitle: 'Product context, legal subject and decisions', groups: [['Access context', 'tenantId, datasetId, productId, contextRole'], ['Legal subject record', 'legalSubjectId, normalisedTaxIdentity, provenance, effectivePeriod'], ['Authority decision', 'grantId, capabilities, routeScope, validity, revocationStatus'], ['Capability readiness', 'direction, publicRegistrationStatus, result, limitation, policyVersion'], ['Onboarding operation', 'caseId, intakeMode, status, idempotencyKey']] },
+          { title: 'Public platform or authority returns', subtitle: 'Registration and verification evidence only', groups: [['Registration result', 'externalRegistrationRef, participantRef, publicMailboxRef'], ['Verification result', 'externalCode, externalStatus, observedAt, evidenceRef'], ['Capability result', 'sendStatus, receiveStatus, limitations, validUntil']] }
+        ]},
+        batch: { principle: 'A portfolio upload is one operation but every company is validated and activated independently; identity, authority and failures never leak across clients.', owners: [
+          { title: 'Accountant or product supplies', subtitle: 'Portfolio context and one record per company', groups: [['Batch command', 'batchId, idempotencyKey, accountantOrganisationId, sourceFileRef'], ['Client row identity', 'sourceRowId, tenantId, datasetId, legalName'], ['Client tax identity', 'taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Client request', 'requestedCapabilities, directions, startingRoutePreference'], ['Delegated authority', 'principal, delegateOrganisation, validity, evidenceRef']] },
+          { title: 'Sage validates and manages', subtitle: 'Independent processing and item-level outcomes', groups: [['Batch operation', 'operationId, receivedCount, processedCount, completedAt'], ['Item operation', 'itemId, sourceRowId, idempotencyKey, status'], ['Identity and authority checks', 'legalSubjectId, grantId, validationErrors'], ['Per-company readiness', 'publicRegistrationStatus, sendStatus, receiveStatus, limitations'], ['Activation decision', 'selected, activatedAt, retainedForCorrection']] },
+          { title: 'Public platform or authority returns', subtitle: 'Correlated result for each company', groups: [['Item registration result', 'itemId, externalRegistrationRef, externalStatus'], ['Item verification evidence', 'externalCode, observedAt, evidenceRef'], ['Batch reconciliation', 'succeededCount, failedCount, unresolvedItems']] }
+        ]},
+        send: { principle: 'Identity, applicability, directory discovery and route choice are separate decisions. A private recipient leg and any required public copy or reporting leg are correlated but evidenced separately.', owners: [
+          { title: 'ERP or customer supplies', subtitle: 'Invoice facts, qualified identities and delivery intent', groups: [['Submission command', 'requestId, idempotencyKey, actor, legalSubjectRef'], ['Invoice identity', 'invoiceNumber, series, issueDate, invoiceType, currency'], ['Seller identity', 'legalName, subjectType, businessCapacity, taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Buyer identity', 'legalName, subjectType, businessCapacity, taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Tax scheme values', 'ES:NIF, EU:VAT, countryTaxId, unresolved'], ['Source identifier classes', 'entityNIF, DNIDerivedNIF, NIEDerivedNIF, otherAEATAssignedNIF, countryQualifiedVATId, entityNationalTaxId, personNationalTaxId, permanentEstablishmentTaxId, policyReview'], ['Lines and totals', 'description, quantity, unitPrice, taxRate, taxAmount, invoiceTotal, amountDue'], ['Delivery intent', 'routePreference, selectedProviderId, directoryMethod']] },
+          { title: 'Sage validates and freezes', subtitle: 'Exact policy, discovery and routing evidence used', groups: [['Applicability decision', 'transactionScope, mandateResult, countryRuleVersion, policyEvidence'], ['Document profile', 'validationPackId, schemaVersion, profileId, validationOutcome'], ['Recipient discovery', 'directoryMethod, directoryProviderId, entryPoint, candidateRoutes, observedAt'], ['Resolved route', 'routeId, routeVersion, connectionId, providerId, decisionEvidence'], ['Delivery legs', 'recipientDeliveryLegId, publicCopyLegId, copyRequirement, correlationId'], ['Submission artefact', 'xmlRef, contentHash, signatureContext'], ['Lifecycle record', 'invoiceId, currentState, stateHistory']] },
+          { title: 'External platforms return', subtitle: 'Outcome and evidence for each delivery leg', groups: [['Recipient-leg result', 'deliveryLegId, providerInvoiceRef, externalOutcome, externalCode, observedAt'], ['Public-copy result', 'publicCopyLegId, publicReference, copyOutcome, receivedAt'], ['Validation feedback', 'fieldPath, ruleCode, severity, message'], ['Lifecycle evidence', 'externalState, rejectionReason, paymentState, evidenceRef'], ['Receipt evidence', 'secureVerificationCode, receiptEvidenceRef']] }
+        ]},
+        receive: { principle: 'Create one durable business invoice even when it is observed through more than one route; retain the origin route and reconciliation evidence.', owners: [
+          { title: 'Customer or ERP supplies', subtitle: 'Reusable inbound setup and explicit refresh intent', groups: [['Inbound setup', 'legalSubjectRef, inboundRouteId, inboundConnectionId, providerId'], ['Retrieval preference', 'schedule, directions, effectivePeriod'], ['Refresh request', 'requestId, actor, reason, idempotencyKey']] },
+          { title: 'Sage schedules and ingests', subtitle: 'Eligibility, safe checkpoints and canonical identity', groups: [['Eligibility', 'authorityRef, capabilityStatus, effectivePeriod'], ['Checkpoint', 'cursor, watermark, overlapBoundary, checkpointVersion'], ['Route observation', 'originRouteId, originConnectionId, providerObservationRef'], ['Duplicate control', 'contentHash, externalReference, existingInvoiceId'], ['Canonical invoice', 'invoiceId, sourceInvoiceRef, ingestionStatus, reconciliationStatus']] },
+          { title: 'External platform supplies', subtitle: 'Invoice content, availability and lifecycle evidence', groups: [['Availability result', 'providerRef, observedAt, pageToken'], ['Inbound artefact', 'xmlRef, attachments, signatureEvidence'], ['Sender identity', 'taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Provider status', 'externalState, externalCode, evidenceRef']] }
+        ]},
+        connect: { principle: 'A proven private-platform connection becomes a route candidate in Send; it never re-onboards the company or silently changes the current route.', owners: [
+          { title: 'Customer or ERP supplies', subtitle: 'Existing company reference and provider account', groups: [['Company reference', 'legalSubjectRef, taxIdentityRef, authorityGrantId'], ['Connection request', 'providerId, environment, directions'], ['Provider account', 'externalAccountRef, participantHint'], ['Credential input', 'credentialMaterial, consentEvidence']] },
+          { title: 'Sage validates and manages', subtitle: 'Secure references and provider-specific readiness', groups: [['Connection record', 'connectionId, legalSubjectRef, providerId, environment'], ['Secure credential reference', 'credentialRef, owner, rotationStatus, expiresAt'], ['Capability checks', 'directions, documentProfiles, registration, reachability'], ['Health checks', 'endpointStatus, callbackStatus, providerHealth'], ['Readiness evidence', 'result, limitation, policyVersion, observedAt']] },
+          { title: 'Private provider returns', subtitle: 'Account, registration and health evidence', groups: [['Account result', 'externalAccountRef, providerStatus'], ['Registration result', 'participantRef, mailboxRef, observedAt'], ['Capability result', 'supportedDirections, supportedProfiles, limitations'], ['Health evidence', 'endpointResult, callbackResult, evidenceRef']] }
+        ]}
+      };
+
+      const identitySchemeOptions = {
+        'es-nif': {
+          classes: [['entity-nif', 'Entity NIF'], ['dni', 'DNI-derived NIF'], ['nie', 'NIE-derived NIF'], ['assigned', 'Other AEAT-assigned NIF']],
+          examples: { 'entity-nif': 'B12345674', dni: '12345678Z', nie: 'X1234567L', assigned: 'SYNTH-ASSIGNED-NIF' },
+          help: 'NIF is the Spanish tax-identity role; entity NIF, DNI and NIE are source classes, not interchangeable peer schemes.'
+        },
+        'eu-vat': {
+          classes: [['vat', 'Country-qualified EU VAT identifier']],
+          examples: { vat: 'EU-VAT-SYNTH-001' },
+          help: 'Use the VAT identity selected by the applicable country profile; do not force it into ES:NIF.'
+        },
+        'country-tax': {
+          classes: [['entity-tax', 'Legal-entity national tax identifier'], ['person-tax', 'Natural-person / professional tax identifier'], ['presence-tax', 'Permanent-establishment tax identifier']],
+          examples: { 'entity-tax': 'COUNTRY-TAX-SYNTH-001', 'person-tax': 'COUNTRY-PERSON-SYNTH-001', 'presence-tax': 'COUNTRY-PE-SYNTH-001' },
+          help: 'The country pack supplies the actual scheme, format, validation and invoice-field mapping.'
+        },
+        unresolved: {
+          classes: [['review', 'Requires country / transaction policy decision']],
+          examples: { review: '' },
+          help: 'Do not guess a tax scheme. Hold the invoice for an applicability and identity decision.'
+        }
+      };
+      const privateExchangeRoutes = ['b2b-router', 'banqup', 'edicom', 'seres', 'zerocoma'];
+      const exchangeRouteLabels = {
+        auto: 'Automatic recipient discovery',
+        public: 'Spanish Public Platform (AEAT)',
+        'b2b-router': 'B2B Router',
+        banqup: 'Banqup (Unifiedpost)',
+        edicom: 'EDICOM',
+        seres: 'SERES (Docaposte)',
+        zerocoma: 'ZeroComa',
+        unresolved: 'Manual reconciliation required'
+      };
+      let routeValidationTimers = [];
+
+      const mapCopy = {
+        public: ['Phase 1 · public-first route', 'A Sage product submits through the shared platform to the Spanish public route. The selected route and resulting evidence remain attached to that invoice.'],
+        private: ['Phase 2 · public/private coexistence', 'A proven private connection is activated only for its intended entity, direction, environment and effective period. Recipient delivery and any required public copy remain separate, correlated legs.'],
+        accountant: ['Accountant-managed portfolio', 'Sage Despachos supplies a portfolio access context, but identity, authority, readiness, routes and evidence remain isolated for each client and operation.']
+      };
+
+      const saved = window.openai && window.openai.widgetState && window.openai.widgetState.modelContent;
+      const state = {
+        view: saved && ['map','journey','onboarding','exchange','switch','fields'].includes(saved.view) ? saved.view : 'map',
+        mapRoute: saved && ['public','private','accountant'].includes(saved.mapRoute) ? saved.mapRoute : 'public',
+        journeyStage: saved && journey[saved.journeyStage] ? saved.journeyStage : 'identify',
+        onboardMode: saved && ['single','batch'].includes(saved.onboardMode) ? saved.onboardMode : 'single',
+        exchangeMode: saved && ['send','receive'].includes(saved.exchangeMode) ? saved.exchangeMode : 'send',
+        fieldStage: saved && fields[saved.fieldStage] ? saved.fieldStage : 'onboard',
+        routeReady: false,
+        connectionReady: false
+      };
+      const designState = { density: 'comfortable', showNotes: true };
+
+      function invalidateSendValidation(message = 'Recipient identity or route changed. Validate recipient reachability again.') {
+        state.routeReady = false;
+        const sendButton = root.querySelector('#hub-send-button');
+        const routeResult = root.querySelector('#hub-route-result');
+        if (sendButton) sendButton.disabled = true;
+        if (routeResult) routeResult.textContent = message;
+        root.querySelectorAll('#hub-send-checks .hub-readiness-row').forEach(row => row.classList.remove('is-done'));
+        root.querySelectorAll('#hub-send-checks .hub-progress-marker').forEach((marker, index) => marker.textContent = String(index + 1));
+        const status = root.querySelector('#hub-send-status');
+        if (status) status.innerHTML = '<span class="hub-dot"></span>Ready for local validation';
+      }
+
+      function configureExchangeParty(party, preferredClass) {
+        const scheme = root.querySelector(`#hub-${party}-scheme`);
+        const source = root.querySelector(`#hub-${party}-source`);
+        const identifier = root.querySelector(`#hub-${party}-id`);
+        const country = root.querySelector(`#hub-${party}-country`);
+        const help = root.querySelector(`#hub-${party}-help`);
+        if (!scheme || !source || !identifier || !country || !help) return;
+
+        const refreshScheme = (requestedClass, shouldInvalidate = true) => {
+          const config = identitySchemeOptions[scheme.value];
+          source.replaceChildren(...config.classes.map(([value, label]) => {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = label;
+            return option;
+          }));
+          source.value = requestedClass && config.classes.some(([value]) => value === requestedClass) ? requestedClass : config.classes[0][0];
+          identifier.value = config.examples[source.value];
+          help.textContent = config.help;
+          if (shouldInvalidate) invalidateSendValidation();
+        };
+
+        scheme.addEventListener('change', () => refreshScheme());
+        source.addEventListener('change', () => {
+          identifier.value = identitySchemeOptions[scheme.value].examples[source.value];
+          invalidateSendValidation();
+        });
+        identifier.addEventListener('input', () => invalidateSendValidation());
+        country.addEventListener('change', () => invalidateSendValidation());
+        refreshScheme(preferredClass, false);
+      }
+
+      function hasUnresolvedExchangeIdentity() {
+        return [...root.querySelectorAll('#hub-exchange-send [id$="-scheme"]')].some(select => select.value === 'unresolved');
+      }
+
+      function clearRouteValidationTimers() {
+        routeValidationTimers.forEach(timer => window.clearTimeout(timer));
+        routeValidationTimers = [];
+      }
+
+      function resetRouteValidationDialog() {
+        clearRouteValidationTimers();
+        root.querySelectorAll('[data-route-validation-step]').forEach((step, index) => {
+          step.dataset.state = 'waiting';
+          step.querySelector('.hub-progress-marker').textContent = String(index + 1);
+        });
+        const result = root.querySelector('#hub-validation-result');
+        result.dataset.visible = 'false';
+        root.querySelector('#hub-validation-result-title').textContent = '';
+        root.querySelector('#hub-validation-result-copy').textContent = '';
+        const runButton = root.querySelector('#hub-run-route-validation');
+        runButton.disabled = false;
+        runButton.innerHTML = '<i data-lucide="scan-search" aria-hidden="true"></i>Run validation';
+        if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+      }
+
+      function selectedDirectoryMethod() {
+        const selected = root.querySelector('input[name="hub-directory-method"]:checked');
+        return selected ? selected.value : 'country';
+      }
+
+      function toggleDirectoryMethod() {
+        const privateMethod = selectedDirectoryMethod() === 'private';
+        const field = root.querySelector('#hub-private-directory-field');
+        const directory = root.querySelector('#hub-private-directory');
+        field.hidden = !privateMethod;
+        root.querySelector('#hub-discovery-step-copy').textContent = privateMethod
+          ? `Query the ${exchangeRouteLabels[directory.value]} recipient directory and retain its observed evidence.`
+          : 'Check recipient publication and available provider lookups; Spain has no single national directory.';
+        resetRouteValidationDialog();
+      }
+
+      function openRouteValidationDialog() {
+        const route = root.querySelector('#hub-send-route');
+        const dialog = root.querySelector('#hub-route-dialog');
+        const privateRoute = privateExchangeRoutes.includes(route.value);
+        root.querySelector('#hub-dialog-recipient').textContent = `${root.querySelector('#hub-buyer-id').value || 'No identifier'} · ${root.querySelector('#hub-buyer-name').value || 'Unnamed recipient'}`;
+        root.querySelector('#hub-dialog-requested-route').textContent = exchangeRouteLabels[route.value];
+        root.querySelectorAll('input[name="hub-directory-method"]').forEach(method => { method.checked = method.value === (privateRoute ? 'private' : 'country'); });
+        if (privateRoute) root.querySelector('#hub-private-directory').value = route.value;
+        toggleDirectoryMethod();
+        if (root.getBoundingClientRect().width <= 700) {
+          const triggerTop = root.querySelector('#hub-route-check').getBoundingClientRect().top;
+          dialog.style.position = 'absolute';
+          dialog.style.top = `${Math.max(12, triggerTop - 600)}px`;
+        } else {
+          dialog.style.position = '';
+          dialog.style.top = '';
+        }
+        if (typeof dialog.showModal === 'function') dialog.showModal();
+        else dialog.setAttribute('open', '');
+      }
+
+      function setRouteValidationStep(stepNumber, status) {
+        const step = root.querySelector(`[data-route-validation-step="${stepNumber}"]`);
+        step.dataset.state = status;
+        step.querySelector('.hub-progress-marker').textContent = status === 'done' ? '✓' : String(stepNumber);
+      }
+
+      function finishRouteValidation() {
+        const route = root.querySelector('#hub-send-route');
+        const directory = root.querySelector('#hub-private-directory');
+        const method = selectedDirectoryMethod();
+        const resultTitle = root.querySelector('#hub-validation-result-title');
+        const resultCopy = root.querySelector('#hub-validation-result-copy');
+        const mainResult = root.querySelector('#hub-route-result');
+
+        if (method === 'private') {
+          route.value = directory.value;
+          const label = exchangeRouteLabels[directory.value];
+          resultTitle.textContent = `${label} entry point candidate verified`;
+          resultCopy.textContent = `The synthetic lookup found one matching recipient entry point. Direction, document profile, effective scope and the configured ${label} connection are ready; the lookup evidence is frozen with this route decision.`;
+          mainResult.textContent = `Validated via ${label} directory · matching entry point · connection ready.`;
+        } else {
+          route.value = 'public';
+          resultTitle.textContent = 'Public route resolved from distributed discovery';
+          resultCopy.textContent = 'The synthetic check found no eligible private recipient entry point in the available publication sources. The Spanish public platform is selected as the scenario default and the discovery evidence is retained.';
+          mainResult.textContent = 'Validated via distributed discovery · no eligible private entry point · public route selected.';
+        }
+
+        root.querySelector('#hub-validation-result').dataset.visible = 'true';
+        state.routeReady = true;
+        root.querySelectorAll('#hub-send-checks .hub-readiness-row').forEach(row => row.classList.add('is-done'));
+        root.querySelectorAll('#hub-send-checks .hub-progress-marker').forEach(marker => marker.textContent = '✓');
+        root.querySelector('#hub-send-button').disabled = false;
+        root.querySelector('#hub-send-status').innerHTML = `<span class="hub-dot"></span>Recipient route validated · ${exchangeRouteLabels[route.value]}`;
+        const runButton = root.querySelector('#hub-run-route-validation');
+        runButton.disabled = false;
+        runButton.innerHTML = '<i data-lucide="rotate-cw" aria-hidden="true"></i>Run again';
+        if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+      }
+
+      function runRouteValidation() {
+        resetRouteValidationDialog();
+        const runButton = root.querySelector('#hub-run-route-validation');
+        runButton.disabled = true;
+        runButton.textContent = 'Checking…';
+        setRouteValidationStep(1, 'current');
+        routeValidationTimers.push(window.setTimeout(() => { setRouteValidationStep(1, 'done'); setRouteValidationStep(2, 'current'); }, 350));
+        routeValidationTimers.push(window.setTimeout(() => { setRouteValidationStep(2, 'done'); setRouteValidationStep(3, 'current'); }, 750));
+        routeValidationTimers.push(window.setTimeout(() => { setRouteValidationStep(3, 'done'); setRouteValidationStep(4, 'current'); }, 1150));
+        routeValidationTimers.push(window.setTimeout(() => { setRouteValidationStep(4, 'done'); finishRouteValidation(); }, 1550));
+      }
+
+      function persist() {
+        if (!window.openai || !window.openai.setWidgetState) return;
+        window.openai.setWidgetState({ modelContent: { view: state.view, mapRoute: state.mapRoute, journeyStage: state.journeyStage, onboardMode: state.onboardMode, exchangeMode: state.exchangeMode, fieldStage: state.fieldStage }, privateContent: null }).catch(() => {});
+      }
+
+      function renderView() {
+        root.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-selected', String(button.dataset.view === state.view)));
+        root.querySelectorAll('.hub-view').forEach(panel => panel.hidden = panel.id !== `hub-view-${state.view}`);
+      }
+
+      function renderMap() {
+        root.dataset.mapRoute = state.mapRoute;
+        root.querySelectorAll('[data-map-route]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.mapRoute === state.mapRoute)));
+        root.querySelector('#hub-map-summary-title').textContent = mapCopy[state.mapRoute][0];
+        root.querySelector('#hub-map-summary-copy').textContent = mapCopy[state.mapRoute][1];
+      }
+
+      function fillList(selector, items) {
+        const list = root.querySelector(selector);
+        list.replaceChildren(...items.map(text => { const li = document.createElement('li'); li.textContent = text; return li; }));
+      }
+
+      function renderJourney() {
+        root.querySelectorAll('[data-journey]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.journey === state.journeyStage)));
+        const item = journey[state.journeyStage];
+        root.querySelector('#hub-journey-title').textContent = item.title;
+        root.querySelector('#hub-journey-summary').textContent = item.summary;
+        fillList('#hub-journey-customer', item.customer);
+        fillList('#hub-journey-technical', item.technical);
+        fillList('#hub-journey-control', item.control);
+      }
+
+      function renderOnboarding() {
+        root.querySelectorAll('[data-onboard-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.onboardMode === state.onboardMode)));
+        root.querySelector('#hub-onboard-single').hidden = state.onboardMode !== 'single';
+        root.querySelector('#hub-onboard-batch').hidden = state.onboardMode !== 'batch';
+      }
+
+      function renderExchange() {
+        root.querySelectorAll('[data-exchange-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.exchangeMode === state.exchangeMode)));
+        root.querySelector('#hub-exchange-send').hidden = state.exchangeMode !== 'send';
+        root.querySelector('#hub-exchange-receive').hidden = state.exchangeMode !== 'receive';
+      }
+
+      function renderFields() {
+        root.querySelectorAll('[data-field-stage]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.fieldStage === state.fieldStage)));
+        const item = fields[state.fieldStage];
+        const holder = root.querySelector('#hub-fields-flow');
+        const nodes = [];
+        item.owners.forEach((owner, index) => {
+          const section = document.createElement('section');
+          section.className = 'hub-field-owner';
+          section.innerHTML = `<h2>${owner.title}</h2><p>${owner.subtitle}</p>${owner.groups.map(group => `<div class="hub-field-group"><strong>${group[0]}</strong><div class="hub-token-list">${group[1].split(', ').map(token => `<code>${token}</code>`).join('')}</div></div>`).join('')}`;
+          nodes.push(section);
+          if (index < item.owners.length - 1) { const arrow = document.createElement('span'); arrow.className = 'hub-fields-arrow'; arrow.setAttribute('aria-hidden','true'); arrow.textContent = '→'; nodes.push(arrow); }
+        });
+        holder.replaceChildren(...nodes);
+        root.querySelector('#hub-fields-principle').textContent = item.principle;
+      }
+
+      function renderAll() { renderView(); renderMap(); renderJourney(); renderOnboarding(); renderExchange(); renderFields(); }
+
+      root.addEventListener('click', event => {
+        const view = event.target.closest('[data-view]');
+        if (view) { state.view = view.dataset.view; renderView(); persist(); return; }
+        const mapRoute = event.target.closest('button[data-map-route]');
+        if (mapRoute) { state.mapRoute = mapRoute.dataset.mapRoute; renderMap(); persist(); return; }
+        const stage = event.target.closest('[data-journey]');
+        if (stage) { state.journeyStage = stage.dataset.journey; renderJourney(); persist(); return; }
+        const onboardMode = event.target.closest('[data-onboard-mode]');
+        if (onboardMode) { state.onboardMode = onboardMode.dataset.onboardMode; renderOnboarding(); persist(); return; }
+        const exchangeMode = event.target.closest('[data-exchange-mode]');
+        if (exchangeMode) { state.exchangeMode = exchangeMode.dataset.exchangeMode; renderExchange(); persist(); return; }
+        const fieldStage = event.target.closest('[data-field-stage]');
+        if (fieldStage) { state.fieldStage = fieldStage.dataset.fieldStage; renderFields(); persist(); return; }
+
+        if (event.target.closest('#hub-onboard-validate')) {
+          root.querySelectorAll('#hub-onboard-progress li').forEach(li => li.classList.add('is-done'));
+          root.querySelectorAll('#hub-onboard-progress .hub-progress-marker').forEach(marker => marker.textContent = '✓');
+          root.querySelector('#hub-onboard-status').innerHTML = '<span class="hub-dot"></span>Active · public route ready for send and receive';
+          return;
+        }
+        if (event.target.closest('#hub-batch-activate')) {
+          root.querySelectorAll('[data-batch-state]').forEach(status => { if (!status.classList.contains('is-error')) { status.className = 'hub-state is-ready'; status.textContent = 'Activated'; } });
+          root.querySelector('#hub-batch-status').innerHTML = '<span class="hub-dot"></span>2 activated · 1 retained for correction';
+          return;
+        }
+        if (event.target.closest('#hub-route-check')) {
+          const route = root.querySelector('#hub-send-route');
+          if (hasUnresolvedExchangeIdentity()) {
+            invalidateSendValidation('Resolve the seller and buyer tax schemes before route discovery.');
+            root.querySelector('#hub-send-status').innerHTML = '<span class="hub-dot"></span>Identity policy decision required';
+            return;
+          }
+          if (route.value === 'unresolved') {
+            invalidateSendValidation('Choose automatic discovery or a supported delivery route before validation.');
+            root.querySelector('#hub-send-status').innerHTML = '<span class="hub-dot"></span>Delivery route decision required';
+            return;
+          }
+          openRouteValidationDialog();
+          return;
+        }
+        if (event.target.closest('#hub-run-route-validation')) {
+          runRouteValidation();
+          return;
+        }
+        if (event.target.closest('#hub-send-button')) {
+          if (hasUnresolvedExchangeIdentity()) {
+            invalidateSendValidation('Resolve the seller and buyer tax schemes before sending.');
+            root.querySelector('#hub-send-status').innerHTML = '<span class="hub-dot"></span>Identity policy decision required';
+            return;
+          }
+          root.querySelector('#hub-send-status').innerHTML = '<span class="hub-dot"></span>Admitted · provider reference SYNTH-REF-6041';
+          return;
+        }
+        if (event.target.closest('#hub-retrieve')) {
+          root.querySelector('#hub-receive-status').innerHTML = '<span class="hub-dot"></span>Retrieval completed · 2 observed · 0 duplicates created';
+          return;
+        }
+        if (event.target.closest('#hub-connect-validate')) {
+          state.connectionReady = true;
+          root.querySelectorAll('#hub-connect-gates .hub-readiness-row').forEach(row => row.classList.add('is-done'));
+          root.querySelectorAll('#hub-connect-gates .hub-progress-marker').forEach(marker => marker.textContent = '✓');
+          root.querySelector('#hub-connect-save').disabled = false;
+          root.querySelector('#hub-connection-status').innerHTML = '<span class="hub-dot"></span>Checks passed · current public route remains active';
+          return;
+        }
+        if (event.target.closest('#hub-connect-save')) {
+          const provider = root.querySelector('#hub-connect-provider').value;
+          root.querySelector('#hub-connected-provider').textContent = `${provider} is connected and can now appear as a route candidate in Send. The current public route remains unchanged.`;
+          root.querySelector('#hub-connection-status').innerHTML = `<span class="hub-dot"></span>Connected · ${provider} available in Send`;
+          event.target.closest('#hub-connect-save').innerHTML = '<i data-lucide="check" aria-hidden="true"></i>Connected';
+          if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+        }
+      });
+
+      root.addEventListener('change', event => {
+        if (event.target.matches('input[name="hub-start-route"]')) root.querySelector('#hub-private-provider').hidden = event.target.value !== 'private';
+        if (event.target.matches('input[name="hub-directory-method"]')) toggleDirectoryMethod();
+        if (event.target.id === 'hub-private-directory') toggleDirectoryMethod();
+        if (event.target.id === 'hub-send-route') {
+          invalidateSendValidation('Route selection changed. Validate recipient reachability again.');
+        }
+        if (event.target.id === 'hub-connect-provider') {
+          state.connectionReady = false;
+          const saveButton = root.querySelector('#hub-connect-save');
+          saveButton.disabled = true;
+          saveButton.innerHTML = '<i data-lucide="plug" aria-hidden="true"></i>Connect private platform';
+          root.querySelector('#hub-connected-provider').textContent = `After connection, ${event.target.value} can be selected for eligible invoices. The current public route remains unchanged.`;
+          root.querySelector('#hub-connection-status').innerHTML = '<span class="hub-dot"></span>Provider changed · validate the connection';
+          root.querySelectorAll('#hub-connect-gates .hub-readiness-row').forEach(row => row.classList.remove('is-done'));
+          root.querySelectorAll('#hub-connect-gates .hub-progress-marker').forEach((marker, index) => marker.textContent = String(index + 1));
+          if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+        }
+      });
+
+      window.addEventListener('openai:set_globals', event => {
+        const incoming = event.detail && event.detail.globals && event.detail.globals.widgetState && event.detail.globals.widgetState.modelContent;
+        if (!incoming) return;
+        if (['map','journey','onboarding','exchange','switch','fields'].includes(incoming.view)) state.view = incoming.view;
+        if (['public','private','accountant'].includes(incoming.mapRoute)) state.mapRoute = incoming.mapRoute;
+        if (journey[incoming.journeyStage]) state.journeyStage = incoming.journeyStage;
+        if (['single','batch'].includes(incoming.onboardMode)) state.onboardMode = incoming.onboardMode;
+        if (['send','receive'].includes(incoming.exchangeMode)) state.exchangeMode = incoming.exchangeMode;
+        if (fields[incoming.fieldStage]) state.fieldStage = incoming.fieldStage;
+        renderAll();
+      });
+
+      function renderDesign() { root.dataset.density = designState.density; root.dataset.showNotes = String(designState.showNotes); }
+      configureExchangeParty('seller', 'entity-nif');
+      configureExchangeParty('buyer', 'nie');
+      root.querySelector('#hub-route-dialog').addEventListener('close', clearRouteValidationTimers);
+      renderDesign();
+      renderAll();
+      if (globalThis.Tweak) {
+        const tweak = new Tweak({ container: root, onChange: renderDesign });
+        tweak.addSelect(designState, 'density', { label: 'Information density', options: [{ label: 'Comfortable', value: 'comfortable' }, { label: 'Compact', value: 'compact' }], reference: 'complete-explorer.density' });
+        tweak.addToggle(designState, 'showNotes', { label: 'Show diagram notes', reference: 'complete-explorer.notes' });
+      }
+    })();
+  </script>
+</div>

@@ -1,0 +1,918 @@
+<div id="spain-einvoice-product-context" aria-label="Spain e-invoicing product context explorer">
+  <style>
+    #spain-einvoice-product-context {
+      --pc-page: light-dark(#fafafa, #0a0a0a);
+      --pc-surface: light-dark(#ffffff, #171717);
+      --pc-surface-soft: light-dark(#f2f2f2, #242424);
+      --pc-surface-hover: light-dark(#ebebeb, #2d2d2d);
+      --pc-text: light-dark(#171717, #ededed);
+      --pc-secondary: light-dark(#4d4d4d, #b5b5b5);
+      --pc-muted: light-dark(#8f8f8f, #8a8a8a);
+      --pc-line: light-dark(rgba(0, 0, 0, .10), rgba(255, 255, 255, .15));
+      --pc-blue: light-dark(#0072f5, #52aeff);
+      --pc-blue-strong: light-dark(#005fcc, #77bdff);
+      --pc-focus-gap: light-dark(#ffffff, #171717);
+      --pc-inverse: light-dark(#ffffff, #0a0a0a);
+      --pc-inverse-bg: light-dark(#171717, #ededed);
+      --pc-success: light-dark(#398e4a, #6cda75);
+      --pc-warning: light-dark(#d97706, #ffb94a);
+      --pc-question: light-dark(#7820bc, #bf89ec);
+      width: 100%;
+      color: var(--pc-text);
+      background: transparent;
+      color-scheme: light dark;
+      font-family: "Geist Sans", Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #spain-einvoice-product-context * { box-sizing: border-box; }
+    #spain-einvoice-product-context h1,
+    #spain-einvoice-product-context h2,
+    #spain-einvoice-product-context h3,
+    #spain-einvoice-product-context p,
+    #spain-einvoice-product-context ul { margin: 0; }
+    #spain-einvoice-product-context button { font: inherit; }
+    #spain-einvoice-product-context button:focus-visible,
+    #spain-einvoice-product-context select:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--pc-focus-gap), 0 0 0 4px var(--pc-blue);
+    }
+    #spain-einvoice-product-context .pc-window {
+      overflow: hidden;
+      background: var(--pc-page);
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--pc-line), 0 2px 2px rgba(0, 0, 0, .04), 0 8px 16px -8px rgba(0, 0, 0, .06);
+    }
+    #spain-einvoice-product-context .pc-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 64px;
+      padding: 0 24px;
+      background: var(--pc-surface);
+      box-shadow: 0 1px 0 0 var(--pc-line);
+    }
+    #spain-einvoice-product-context .pc-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    #spain-einvoice-product-context .pc-brand-mark {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      flex: none;
+      color: var(--pc-inverse);
+      background: var(--pc-inverse-bg);
+      border-radius: 6px;
+    }
+    #spain-einvoice-product-context .pc-brand-mark i { width: 17px; height: 17px; }
+    #spain-einvoice-product-context .pc-brand-copy { display: grid; gap: 1px; min-width: 0; }
+    #spain-einvoice-product-context .pc-brand-copy strong { font-size: 14px; line-height: 20px; font-weight: 500; }
+    #spain-einvoice-product-context .pc-brand-copy span { color: var(--pc-muted); font-size: 12px; line-height: 16px; }
+    #spain-einvoice-product-context .pc-context-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--pc-secondary);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    #spain-einvoice-product-context .pc-dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      flex: none;
+      border-radius: 50%;
+      background: var(--pc-muted);
+    }
+    #spain-einvoice-product-context .pc-dot.is-confirmed { background: var(--pc-success); }
+    #spain-einvoice-product-context .pc-dot.is-assumption { background: var(--pc-warning); }
+    #spain-einvoice-product-context .pc-dot.is-question { background: var(--pc-question); }
+    #spain-einvoice-product-context .pc-tabs {
+      display: flex;
+      gap: 4px;
+      padding: 12px 24px 0;
+      background: var(--pc-surface);
+    }
+    #spain-einvoice-product-context .pc-tab {
+      min-height: 40px;
+      padding: 0 14px;
+      color: var(--pc-secondary);
+      background: transparent;
+      border: 0;
+      border-radius: 6px 6px 0 0;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    #spain-einvoice-product-context .pc-tab:hover { color: var(--pc-text); background: var(--pc-surface-hover); }
+    #spain-einvoice-product-context .pc-tab[aria-selected="true"] {
+      color: var(--pc-text);
+      background: var(--pc-page);
+      box-shadow: 0 -1px 0 0 var(--pc-line), 1px 0 0 0 var(--pc-line), -1px 0 0 0 var(--pc-line);
+      font-weight: 500;
+    }
+    #spain-einvoice-product-context .pc-main { padding: 32px 24px 40px; }
+    #spain-einvoice-product-context .pc-panel[hidden] { display: none; }
+    #spain-einvoice-product-context .pc-hero {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 24px;
+    }
+    #spain-einvoice-product-context .pc-hero-copy { max-width: 680px; }
+    #spain-einvoice-product-context .pc-eyebrow {
+      margin-bottom: 8px;
+      color: var(--pc-secondary);
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    #spain-einvoice-product-context h1 {
+      font-size: clamp(30px, 4.3vw, 46px);
+      line-height: 1.02;
+      letter-spacing: -.045em;
+      font-weight: 600;
+    }
+    #spain-einvoice-product-context .pc-hero-copy > p:last-child {
+      max-width: 720px;
+      margin-top: 12px;
+      color: var(--pc-secondary);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+    #spain-einvoice-product-context .pc-scope {
+      display: grid;
+      gap: 8px;
+      min-width: 220px;
+      padding: 16px;
+      background: var(--pc-surface);
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--pc-line), 0 2px 2px rgba(0, 0, 0, .03);
+    }
+    #spain-einvoice-product-context .pc-scope strong { font-size: 13px; line-height: 20px; font-weight: 500; }
+    #spain-einvoice-product-context .pc-scope span { color: var(--pc-secondary); font-size: 12px; line-height: 18px; }
+    #spain-einvoice-product-context .pc-toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 16px;
+      background: var(--pc-surface);
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--pc-line);
+    }
+    #spain-einvoice-product-context .pc-control-group { display: grid; gap: 10px; }
+    #spain-einvoice-product-context .pc-control-label {
+      color: var(--pc-secondary);
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 500;
+    }
+    #spain-einvoice-product-context .pc-segmented {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 4px;
+      background: var(--pc-surface-soft);
+      border-radius: 8px;
+    }
+    #spain-einvoice-product-context .pc-segmented button {
+      flex: 1 1 120px;
+      min-height: 36px;
+      padding: 8px 10px;
+      color: var(--pc-secondary);
+      background: transparent;
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+    #spain-einvoice-product-context .pc-segmented button:hover { color: var(--pc-text); background: var(--pc-surface-hover); }
+    #spain-einvoice-product-context .pc-segmented button[aria-pressed="true"] {
+      color: var(--pc-text);
+      background: var(--pc-surface);
+      box-shadow: 0 0 0 1px var(--pc-line), 0 2px 2px rgba(0, 0, 0, .04);
+      font-weight: 500;
+    }
+    #spain-einvoice-product-context .pc-summary-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 16px;
+      color: var(--pc-secondary);
+      font-size: 13px;
+      line-height: 19px;
+    }
+    #spain-einvoice-product-context .pc-summary-line i { width: 16px; height: 16px; margin-top: 1px; flex: none; color: var(--pc-blue); }
+    #spain-einvoice-product-context .pc-map {
+      display: grid;
+      grid-template-columns: minmax(110px, .7fr) 30px minmax(170px, 1fr) 30px minmax(220px, 1.35fr) 30px minmax(165px, 1fr);
+      align-items: stretch;
+      gap: 8px;
+    }
+    #spain-einvoice-product-context .pc-column {
+      min-width: 0;
+      padding: 14px;
+      background: var(--pc-surface);
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--pc-line);
+    }
+    #spain-einvoice-product-context .pc-column-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    #spain-einvoice-product-context .pc-column-head strong { font-size: 13px; line-height: 18px; font-weight: 500; }
+    #spain-einvoice-product-context .pc-column-head span { color: var(--pc-muted); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-product-context .pc-node-list { display: grid; gap: 8px; }
+    #spain-einvoice-product-context .pc-node {
+      width: 100%;
+      min-height: 46px;
+      padding: 9px 10px;
+      color: var(--pc-secondary);
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-radius: 6px;
+      box-shadow: 0 0 0 1px var(--pc-line);
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 400;
+    }
+    #spain-einvoice-product-context .pc-node:hover { color: var(--pc-text); background: var(--pc-surface-hover); }
+    #spain-einvoice-product-context .pc-node[aria-pressed="true"] {
+      color: var(--pc-text);
+      background: var(--pc-surface-soft);
+      box-shadow: 0 0 0 2px var(--pc-blue);
+      font-weight: 500;
+    }
+    #spain-einvoice-product-context .pc-node[data-relevant="false"] { color: var(--pc-muted); }
+    #spain-einvoice-product-context .pc-node strong,
+    #spain-einvoice-product-context .pc-node span { display: block; }
+    #spain-einvoice-product-context .pc-node strong { color: inherit; font-size: 12px; line-height: 16px; font-weight: 500; }
+    #spain-einvoice-product-context .pc-node span { margin-top: 2px; color: var(--pc-muted); font-size: 11px; line-height: 15px; font-weight: 400; }
+    #spain-einvoice-product-context .pc-flow-arrow {
+      display: grid;
+      place-items: center;
+      color: var(--pc-muted);
+      font-size: 22px;
+      font-weight: 400;
+    }
+    #spain-einvoice-product-context .pc-flow-arrow.is-active { color: var(--pc-blue); }
+    #spain-einvoice-product-context .pc-capability-group { display: grid; gap: 8px; }
+    #spain-einvoice-product-context .pc-capability-row {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 8px;
+      color: var(--pc-secondary);
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #spain-einvoice-product-context .pc-capability-row:hover { color: var(--pc-text); background: var(--pc-surface-hover); }
+    #spain-einvoice-product-context .pc-capability-row[aria-pressed="true"] {
+      color: var(--pc-text);
+      background: var(--pc-surface-soft);
+      box-shadow: 0 0 0 2px var(--pc-blue);
+    }
+    #spain-einvoice-product-context .pc-capability-row i { width: 17px; height: 17px; color: var(--pc-blue); }
+    #spain-einvoice-product-context .pc-capability-row strong { display: block; font-size: 12px; line-height: 16px; font-weight: 500; }
+    #spain-einvoice-product-context .pc-capability-row span { display: block; margin-top: 1px; color: var(--pc-muted); font-size: 11px; line-height: 15px; }
+    #spain-einvoice-product-context .pc-outcomes {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: var(--pc-surface);
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--pc-line);
+    }
+    #spain-einvoice-product-context .pc-outcome { display: flex; align-items: flex-start; gap: 9px; min-width: 0; }
+    #spain-einvoice-product-context .pc-outcome i { width: 16px; height: 16px; margin-top: 1px; flex: none; color: var(--pc-blue); }
+    #spain-einvoice-product-context .pc-outcome strong { display: block; font-size: 12px; line-height: 16px; font-weight: 500; }
+    #spain-einvoice-product-context .pc-outcome span { display: block; margin-top: 2px; color: var(--pc-muted); font-size: 11px; line-height: 15px; }
+    #spain-einvoice-product-context .pc-inspector {
+      display: grid;
+      grid-template-columns: minmax(190px, .7fr) minmax(0, 1.3fr);
+      gap: 24px;
+      margin-top: 24px;
+      padding: 20px;
+      background: var(--pc-surface);
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--pc-line), 0 2px 2px rgba(0, 0, 0, .03), 0 8px 8px -8px rgba(0, 0, 0, .04);
+    }
+    #spain-einvoice-product-context .pc-inspector-head { display: grid; align-content: start; gap: 10px; }
+    #spain-einvoice-product-context .pc-status-line { display: flex; align-items: center; gap: 8px; color: var(--pc-secondary); font-size: 12px; line-height: 16px; }
+    #spain-einvoice-product-context .pc-inspector h2 { font-size: 24px; line-height: 30px; letter-spacing: -.035em; font-weight: 600; }
+    #spain-einvoice-product-context .pc-inspector-head p { color: var(--pc-secondary); font-size: 13px; line-height: 19px; }
+    #spain-einvoice-product-context .pc-inspector-body {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+    #spain-einvoice-product-context .pc-inspector-block h3 {
+      margin-bottom: 8px;
+      color: var(--pc-secondary);
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    #spain-einvoice-product-context .pc-inspector-block p,
+    #spain-einvoice-product-context .pc-inspector-block li { color: var(--pc-secondary); font-size: 12px; line-height: 18px; }
+    #spain-einvoice-product-context .pc-inspector-block ul { display: grid; gap: 5px; padding-left: 17px; }
+    #spain-einvoice-product-context .pc-next-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 40px;
+      margin-top: 4px;
+      padding: 0 14px;
+      color: var(--pc-inverse);
+      background: var(--pc-inverse-bg);
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 400;
+    }
+    #spain-einvoice-product-context .pc-next-button:hover { background: var(--pc-blue-strong); color: #ffffff; }
+    #spain-einvoice-product-context .pc-next-button i { width: 15px; height: 15px; }
+    #spain-einvoice-product-context .pc-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 16px;
+      color: var(--pc-muted);
+      font-size: 11px;
+      line-height: 16px;
+    }
+    #spain-einvoice-product-context .pc-legend span { display: inline-flex; align-items: center; gap: 6px; }
+    #spain-einvoice-product-context .pc-journey-shell { display: grid; gap: 16px; }
+    #spain-einvoice-product-context .pc-journey-lane {
+      display: grid;
+      grid-template-columns: 140px minmax(0, 1fr);
+      gap: 20px;
+      padding: 18px;
+      background: var(--pc-surface);
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--pc-line);
+    }
+    #spain-einvoice-product-context .pc-lane-label { display: grid; align-content: center; gap: 5px; }
+    #spain-einvoice-product-context .pc-lane-label strong { font-size: 13px; line-height: 18px; font-weight: 500; }
+    #spain-einvoice-product-context .pc-lane-label span { color: var(--pc-muted); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-product-context .pc-lane-flow {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, auto));
+      align-items: center;
+      justify-content: stretch;
+      gap: 8px;
+    }
+    #spain-einvoice-product-context .pc-lane-step {
+      min-height: 64px;
+      padding: 12px;
+      background: var(--pc-page);
+      border-radius: 6px;
+      box-shadow: 0 0 0 1px var(--pc-line);
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 500;
+    }
+    #spain-einvoice-product-context .pc-lane-arrow { color: var(--pc-blue); text-align: center; font-size: 18px; }
+    #spain-einvoice-product-context .pc-journey-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 16px;
+      color: var(--pc-secondary);
+      background: var(--pc-surface);
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--pc-line);
+      font-size: 13px;
+      line-height: 20px;
+    }
+    #spain-einvoice-product-context .pc-catalogue {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    #spain-einvoice-product-context .pc-catalogue-item {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 10px;
+      min-height: 92px;
+      padding: 14px;
+      color: var(--pc-text);
+      text-align: left;
+      background: var(--pc-surface);
+      border: 0;
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px var(--pc-line);
+      cursor: pointer;
+    }
+    #spain-einvoice-product-context .pc-catalogue-item:hover { background: var(--pc-surface-hover); }
+    #spain-einvoice-product-context .pc-catalogue-item[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--pc-blue); }
+    #spain-einvoice-product-context .pc-catalogue-item i { width: 18px; height: 18px; margin-top: 1px; color: var(--pc-blue); }
+    #spain-einvoice-product-context .pc-catalogue-item strong { display: block; font-size: 13px; line-height: 18px; font-weight: 500; }
+    #spain-einvoice-product-context .pc-catalogue-item span { display: block; margin-top: 4px; color: var(--pc-muted); font-size: 11px; line-height: 16px; }
+    #spain-einvoice-product-context[data-density="compact"] .pc-main { padding-top: 24px; }
+    #spain-einvoice-product-context[data-density="compact"] .pc-node { min-height: 40px; padding-top: 6px; padding-bottom: 6px; }
+    #spain-einvoice-product-context[data-density="compact"] .pc-capability-row { min-height: 36px; padding-top: 5px; padding-bottom: 5px; }
+    #spain-einvoice-product-context[data-show-questions="false"] [data-question-content] { display: none; }
+    @media (max-width: 860px) {
+      #spain-einvoice-product-context .pc-hero { align-items: stretch; flex-direction: column; }
+      #spain-einvoice-product-context .pc-scope { min-width: 0; }
+      #spain-einvoice-product-context .pc-toolbar { grid-template-columns: 1fr; }
+      #spain-einvoice-product-context .pc-map {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      #spain-einvoice-product-context .pc-flow-arrow { min-height: 22px; transform: rotate(90deg); }
+      #spain-einvoice-product-context .pc-outcomes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #spain-einvoice-product-context .pc-inspector { grid-template-columns: 1fr; }
+      #spain-einvoice-product-context .pc-journey-lane { grid-template-columns: 1fr; }
+      #spain-einvoice-product-context .pc-lane-flow { grid-template-columns: 1fr; }
+      #spain-einvoice-product-context .pc-lane-arrow { transform: rotate(90deg); }
+      #spain-einvoice-product-context .pc-catalogue { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 620px) {
+      #spain-einvoice-product-context .pc-topbar { align-items: flex-start; padding: 16px; }
+      #spain-einvoice-product-context .pc-context-tag { white-space: normal; justify-content: flex-end; text-align: right; }
+      #spain-einvoice-product-context .pc-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 2px;
+        padding: 8px 12px 0;
+      }
+      #spain-einvoice-product-context .pc-tab {
+        min-height: 48px;
+        padding: 6px;
+        font-size: 12px;
+        line-height: 16px;
+      }
+      #spain-einvoice-product-context .pc-main { padding: 24px 16px 32px; }
+      #spain-einvoice-product-context .pc-inspector-body { grid-template-columns: 1fr; }
+      #spain-einvoice-product-context .pc-outcomes,
+      #spain-einvoice-product-context .pc-catalogue { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="pc-window">
+    <header class="pc-topbar">
+      <div class="pc-brand">
+        <span class="pc-brand-mark"><i data-lucide="network" aria-hidden="true"></i></span>
+        <span class="pc-brand-copy">
+          <strong>Spain e-invoicing</strong>
+          <span>Product and journey explorer</span>
+        </span>
+      </div>
+      <span class="pc-context-tag"><span class="pc-dot is-confirmed"></span>Spain portfolio context</span>
+    </header>
+
+    <nav class="pc-tabs" role="tablist" aria-label="Explorer level">
+      <button class="pc-tab" id="pc-tab-context" type="button" role="tab" aria-selected="true" aria-controls="pc-panel-context" data-top-tab="context">Product context</button>
+      <button class="pc-tab" id="pc-tab-journey" type="button" role="tab" aria-selected="false" aria-controls="pc-panel-journey" data-top-tab="journey">End-to-end journey</button>
+      <button class="pc-tab" id="pc-tab-deep" type="button" role="tab" aria-selected="false" aria-controls="pc-panel-deep" data-top-tab="deep">Deep-dive catalogue</button>
+    </nav>
+
+    <main class="pc-main">
+      <section class="pc-panel" id="pc-panel-context" role="tabpanel" aria-labelledby="pc-tab-context">
+        <div class="pc-hero">
+          <div class="pc-hero-copy">
+            <p class="pc-eyebrow">Level 0 · Portfolio and product context</p>
+            <h1>One compliant capability, five Sage product entry points.</h1>
+            <p>Customers keep creating and managing invoices in the Sage product that fits their business. A shared capability handles onboarding, routing, provider interoperability and lifecycle evidence.</p>
+          </div>
+          <aside class="pc-scope">
+            <strong>Scope boundary</strong>
+            <span>Spain e-invoicing only. The French e-reporting Miro board informs the altitude and visual grammar, not this process.</span>
+          </aside>
+        </div>
+
+        <div class="pc-toolbar" aria-label="Product context controls">
+          <div class="pc-control-group">
+            <span class="pc-control-label">Who is using the capability?</span>
+            <div class="pc-segmented" role="group" aria-label="User route">
+              <button type="button" aria-pressed="true" data-persona="business">Business customer</button>
+              <button type="button" aria-pressed="false" data-persona="accountant">Accountant-managed portfolio</button>
+              <button type="button" aria-pressed="false" data-persona="operations">Product and operations</button>
+            </div>
+          </div>
+          <div class="pc-control-group">
+            <span class="pc-control-label">Which network model are we exploring?</span>
+            <div class="pc-segmented" role="group" aria-label="Network model">
+              <button type="button" aria-pressed="true" data-network="public">Public-first</button>
+              <button type="button" aria-pressed="false" data-network="private">Supported private</button>
+              <button type="button" aria-pressed="false" data-network="choice">Broader provider choice</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="pc-summary-line" aria-live="polite"><i data-lucide="route" aria-hidden="true"></i><span id="pc-scenario-summary"></span></p>
+
+        <div class="pc-map" aria-label="Product ecosystem flow from users through Sage products and shared e-invoicing services to external delivery networks">
+          <section class="pc-column">
+            <div class="pc-column-head"><strong>Who needs it</strong><span>Actors</span></div>
+            <div class="pc-node-list">
+              <button class="pc-node" type="button" data-entity-type="actor" data-entity-id="business" aria-pressed="false">Owner and admin</button>
+              <button class="pc-node" type="button" data-entity-type="actor" data-entity-id="finance" aria-pressed="false">Finance teams</button>
+              <button class="pc-node" type="button" data-entity-type="actor" data-entity-id="accountant" aria-pressed="false">Accountants and bookkeepers</button>
+              <button class="pc-node" type="button" data-entity-type="actor" data-entity-id="operations" aria-pressed="false">IT and operations</button>
+            </div>
+          </section>
+
+          <div class="pc-flow-arrow is-active" aria-hidden="true">→</div>
+
+          <section class="pc-column">
+            <div class="pc-column-head"><strong>Where work starts</strong><span>Sage products</span></div>
+            <div class="pc-node-list">
+              <button class="pc-node" type="button" data-entity-type="product" data-entity-id="active" aria-pressed="true"><strong>Sage Active</strong><span>Cloud-native small business</span></button>
+              <button class="pc-node" type="button" data-entity-type="product" data-entity-id="50" aria-pressed="false"><strong>Sage 50</strong><span>Small business · on-prem or hosted</span></button>
+              <button class="pc-node" type="button" data-entity-type="product" data-entity-id="200" aria-pressed="false"><strong>Sage 200</strong><span>SMB ERP · configurable</span></button>
+              <button class="pc-node" type="button" data-entity-type="product" data-entity-id="x3" aria-pressed="false"><strong>Sage X3</strong><span>Cloud ERP · multi-entity</span></button>
+              <button class="pc-node" type="button" data-entity-type="product" data-entity-id="despachos" aria-pressed="false"><strong>Sage Despachos</strong><span>Accountant-led · multi-client</span></button>
+            </div>
+          </section>
+
+          <div class="pc-flow-arrow is-active" aria-hidden="true">→</div>
+
+          <section class="pc-column">
+            <div class="pc-column-head"><strong>What Sage provides once</strong><span>Shared capability</span></div>
+            <div class="pc-capability-group">
+              <button class="pc-capability-row" type="button" data-entity-type="capability" data-entity-id="onboarding" aria-pressed="false"><i data-lucide="badge-check" aria-hidden="true"></i><span><strong>Onboarding and authority</strong><span>Company identity, permissions, batch readiness</span></span></button>
+              <button class="pc-capability-row" type="button" data-entity-type="capability" data-entity-id="validation" aria-pressed="false"><i data-lucide="list-checks" aria-hidden="true"></i><span><strong>Validate and prepare</strong><span>Required data, tax and technical checks</span></span></button>
+              <button class="pc-capability-row" type="button" data-entity-type="capability" data-entity-id="routing" aria-pressed="false"><i data-lucide="waypoints" aria-hidden="true"></i><span><strong>Resolve and route</strong><span>Recipient reachability and delivery route</span></span></button>
+              <button class="pc-capability-row" type="button" data-entity-type="capability" data-entity-id="lifecycle" aria-pressed="false"><i data-lucide="history" aria-hidden="true"></i><span><strong>Lifecycle and evidence</strong><span>Status, rejection, payment and audit trail</span></span></button>
+              <button class="pc-capability-row" type="button" data-entity-type="capability" data-entity-id="operations" aria-pressed="false"><i data-lucide="settings-2" aria-hidden="true"></i><span><strong>Provider operations</strong><span>Connections, recovery and platform change</span></span></button>
+            </div>
+          </section>
+
+          <div class="pc-flow-arrow is-active" aria-hidden="true">→</div>
+
+          <section class="pc-column">
+            <div class="pc-column-head"><strong>Where it is delivered</strong><span>External ecosystem</span></div>
+            <div class="pc-node-list">
+              <button class="pc-node" type="button" data-entity-type="external" data-entity-id="public" aria-pressed="true"><strong>Public platform</strong><span>Initial public route and public copy where applicable</span></button>
+              <button class="pc-node" type="button" data-entity-type="external" data-entity-id="private" aria-pressed="false"><strong>Supported private platforms</strong><span>Connected providers such as EDICOM or SERES</span></button>
+              <button class="pc-node" type="button" data-entity-type="external" data-entity-id="recipient" aria-pressed="false"><strong>Recipient environment</strong><span>Recipient platform, Sage product or customer</span></button>
+            </div>
+          </section>
+        </div>
+
+        <div class="pc-outcomes" aria-label="Customer and product outcomes">
+          <div class="pc-outcome"><i data-lucide="send" aria-hidden="true"></i><span><strong>Invoice delivered</strong><span>Through the selected reachable route</span></span></div>
+          <div class="pc-outcome"><i data-lucide="inbox" aria-hidden="true"></i><span><strong>Invoice received</strong><span>Returned into the product workflow</span></span></div>
+          <div class="pc-outcome"><i data-lucide="activity" aria-hidden="true"></i><span><strong>Status understood</strong><span>One lifecycle across providers</span></span></div>
+          <div class="pc-outcome"><i data-lucide="shield-check" aria-hidden="true"></i><span><strong>Evidence retained</strong><span>Origin, delivery and changes remain traceable</span></span></div>
+        </div>
+
+        <section class="pc-inspector" aria-live="polite">
+          <div class="pc-inspector-head">
+            <span class="pc-status-line"><span class="pc-dot is-confirmed" id="pc-detail-dot"></span><span id="pc-detail-status">Confirmed portfolio context</span></span>
+            <h2 id="pc-detail-title">Sage Active</h2>
+            <p id="pc-detail-description"></p>
+            <button class="pc-next-button" type="button" data-go-tab="journey">Explore the journey <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+          </div>
+          <div class="pc-inspector-body">
+            <div class="pc-inspector-block"><h3>What we know</h3><ul id="pc-detail-known"></ul></div>
+            <div class="pc-inspector-block"><h3>Product implication</h3><ul id="pc-detail-implication"></ul></div>
+            <div class="pc-inspector-block" data-question-content><h3>Decision to resolve</h3><p id="pc-detail-question"></p></div>
+          </div>
+        </section>
+
+        <div class="pc-legend" aria-label="Evidence legend">
+          <span><span class="pc-dot is-confirmed"></span>Confirmed from the Spain portfolio material</span>
+          <span><span class="pc-dot is-assumption"></span>Working product model</span>
+          <span><span class="pc-dot is-question"></span>Open product decision</span>
+        </div>
+      </section>
+
+      <section class="pc-panel" id="pc-panel-journey" role="tabpanel" aria-labelledby="pc-tab-journey" hidden>
+        <div class="pc-hero">
+          <div class="pc-hero-copy">
+            <p class="pc-eyebrow">Level 1 · End-to-end customer journey</p>
+            <h1>Set up once, exchange repeatedly, change route without losing history.</h1>
+            <p>The journey is shared at capability level, while each Sage product may present and integrate it differently.</p>
+          </div>
+        </div>
+        <div class="pc-journey-shell">
+          <section class="pc-journey-lane">
+            <div class="pc-lane-label"><strong>Set up once</strong><span>Company and authority</span></div>
+            <div class="pc-lane-flow">
+              <div class="pc-lane-step">Identify the legal entity</div><span class="pc-lane-arrow" aria-hidden="true">→</span>
+              <div class="pc-lane-step">Confirm authority and contacts</div><span class="pc-lane-arrow" aria-hidden="true">→</span>
+              <div class="pc-lane-step">Register or confirm readiness</div><span class="pc-lane-arrow" aria-hidden="true">→</span>
+              <div class="pc-lane-step">Connect a provider if required</div>
+            </div>
+          </section>
+          <section class="pc-journey-lane">
+            <div class="pc-lane-label"><strong>Every invoice</strong><span>Send, receive and track</span></div>
+            <div class="pc-lane-flow">
+              <div class="pc-lane-step">Create in the Sage product</div><span class="pc-lane-arrow" aria-hidden="true">→</span>
+              <div class="pc-lane-step">Validate and resolve recipient</div><span class="pc-lane-arrow" aria-hidden="true">→</span>
+              <div class="pc-lane-step">Route and deliver</div><span class="pc-lane-arrow" aria-hidden="true">→</span>
+              <div class="pc-lane-step">Return status and evidence</div>
+            </div>
+          </section>
+          <section class="pc-journey-lane">
+            <div class="pc-lane-label"><strong>When the route changes</strong><span>Provider transition</span></div>
+            <div class="pc-lane-flow">
+              <div class="pc-lane-step">Connect the new provider</div><span class="pc-lane-arrow" aria-hidden="true">→</span>
+              <div class="pc-lane-step">Verify credentials and reachability</div><span class="pc-lane-arrow" aria-hidden="true">→</span>
+              <div class="pc-lane-step">Make the route available</div><span class="pc-lane-arrow" aria-hidden="true">→</span>
+              <div class="pc-lane-step">Preserve prior evidence</div>
+            </div>
+          </section>
+          <aside class="pc-journey-note"><span class="pc-dot is-assumption"></span><span><strong>Working product model:</strong> connecting an additional private provider is a provider-connection task, not a complete repeat of company and authority onboarding. The precise transition rules remain phase- and provider-dependent.</span></aside>
+          <button class="pc-next-button" type="button" data-go-tab="deep">Open the deep-dive catalogue <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+        </div>
+      </section>
+
+      <section class="pc-panel" id="pc-panel-deep" role="tabpanel" aria-labelledby="pc-tab-deep" hidden>
+        <div class="pc-hero">
+          <div class="pc-hero-copy">
+            <p class="pc-eyebrow">Level 2 · Detailed design catalogue</p>
+            <h1>Open the detail only when the audience needs it.</h1>
+            <p>Each topic can carry customer, technical, control and exception views without making the product-context map unreadable.</p>
+          </div>
+        </div>
+        <div class="pc-catalogue" id="pc-catalogue"></div>
+        <section class="pc-inspector" aria-live="polite">
+          <div class="pc-inspector-head">
+            <span class="pc-status-line"><span class="pc-dot is-assumption" id="pc-catalogue-dot"></span><span id="pc-catalogue-status">Working product model</span></span>
+            <h2 id="pc-catalogue-title"></h2>
+            <p id="pc-catalogue-description"></p>
+          </div>
+          <div class="pc-inspector-body">
+            <div class="pc-inspector-block"><h3>Customer view</h3><p id="pc-catalogue-customer"></p></div>
+            <div class="pc-inspector-block"><h3>Technical view</h3><p id="pc-catalogue-technical"></p></div>
+            <div class="pc-inspector-block" data-question-content><h3>Control or open question</h3><p id="pc-catalogue-control"></p></div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.getElementById('spain-einvoice-product-context');
+      if (!root) return;
+
+      const details = {
+        product: {
+          active: {
+            title: 'Sage Active', status: 'confirmed', statusLabel: 'Confirmed portfolio context',
+            description: 'A cloud-native entry point for owners, finance users, administrators and accountants in small and growing businesses.',
+            known: ['Browser and mobile access', 'Accounting, sales, purchases and compliance workflows', 'Automatic updates and security'],
+            implication: ['Embed onboarding in the product journey', 'Return invoice status in near real time', 'Keep network complexity behind the Sage experience'],
+            question: 'Should Sage Active be the reference experience for the shared onboarding and status components?'
+          },
+          '50': {
+            title: 'Sage 50', status: 'confirmed', statusLabel: 'Confirmed portfolio context',
+            description: 'A small-business product offered on-premises and hosted, with customer and supplier invoicing in the core workflow.',
+            known: ['Small-business users and accountant collaboration', 'On-premises and hosted deployments', 'Manual or life-update deployment'],
+            implication: ['Plan for connectivity and version readiness', 'Avoid assuming an always-on cloud session', 'Make local errors recoverable and supportable'],
+            question: 'What is the minimum supported product version and connectivity model for e-invoicing?'
+          },
+          '200': {
+            title: 'Sage 200', status: 'confirmed', statusLabel: 'Confirmed portfolio context',
+            description: 'A configurable ERP for medium businesses, supported by implementation partners and broader commercial workflows.',
+            known: ['Finance, IT and operational personas', 'On-premises and hosted deployments', 'Configurable integrations and partner ecosystem'],
+            implication: ['Separate shared rules from product customisation', 'Support more complex source transactions', 'Give partners clear integration and diagnostics guidance'],
+            question: 'Which custom invoice extensions must survive validation, routing and lifecycle updates?'
+          },
+          x3: {
+            title: 'Sage X3', status: 'confirmed', statusLabel: 'Confirmed portfolio context',
+            description: 'A managed cloud ERP for larger and more complex organisations with multi-site, multi-language and extensibility needs.',
+            known: ['Enterprise finance and operations personas', 'Fully managed cloud with continuous updates', 'APIs and partner extensibility'],
+            implication: ['Design for multiple legal entities and sites', 'Expose stable service APIs and event status', 'Handle higher operational and integration complexity'],
+            question: 'Where should legal-entity routing configuration live in a multi-entity X3 organisation?'
+          },
+          despachos: {
+            title: 'Sage Despachos', status: 'confirmed', statusLabel: 'Confirmed portfolio context',
+            description: 'The accountant-focused ERP for firms performing accounting, tax and payroll work on behalf of many clients.',
+            known: ['Accountants, consultants and bookkeepers', 'Practice management and client accounting', 'On-premises and hosted deployments'],
+            implication: ['Make client readiness visible at portfolio level', 'Support batch onboarding with per-client outcomes', 'Preserve client-specific authority and routing'],
+            question: 'Which actions can an accountant perform for a client, and which require the client’s explicit approval?'
+          }
+        },
+        actor: {
+          business: { title: 'Owner and administrator', status: 'assumption', statusLabel: 'Working persona model', description: 'Runs day-to-day invoicing and needs a guided compliant route without understanding the network.', known: ['Creates and follows invoices', 'May own business registration details'], implication: ['Use plain language and progressive disclosure', 'Surface only actionable exceptions'], question: 'Who is the legal approver when day-to-day setup is delegated?' },
+          finance: { title: 'Finance team', status: 'assumption', statusLabel: 'Working persona model', description: 'Operates receivables, payables and controls across higher invoice volumes.', known: ['Needs status and reconciliation', 'May manage multiple entities or sites'], implication: ['Support queues, filters and operational evidence', 'Keep the accounting record aligned with network status'], question: 'Which lifecycle events should update accounting automatically?' },
+          accountant: { title: 'Accountant or bookkeeper', status: 'assumption', statusLabel: 'Working persona model', description: 'Sets up and monitors e-invoicing for multiple client businesses.', known: ['Works across a portfolio', 'May act under delegated authority'], implication: ['Provide batch operations and portfolio readiness', 'Make client boundaries and permissions explicit'], question: 'How is authority captured, renewed and revoked per client?' },
+          operations: { title: 'Product, IT and operations', status: 'assumption', statusLabel: 'Working persona model', description: 'Maintains integrations, credentials, routing and recovery behind the user experience.', known: ['Needs diagnostics and auditability', 'Manages shared and product-specific dependencies'], implication: ['Expose correlation IDs and retry state', 'Separate customer errors from provider incidents'], question: 'Which team owns a failure at each boundary?' }
+        },
+        capability: {
+          onboarding: { title: 'Onboarding and authority', status: 'assumption', statusLabel: 'Working product model', description: 'Establishes the company, authorised actor, network readiness and optional provider connections.', known: ['Company identity should be reusable', 'Accountant-led onboarding needs client boundaries'], implication: ['Separate legal-entity onboarding from provider connection', 'Return per-company status in batch flows'], question: 'What is the canonical source for company identity, authority and readiness?' },
+          validation: { title: 'Validate and prepare', status: 'assumption', statusLabel: 'Working product model', description: 'Checks the business and technical data before an invoice enters the delivery network.', known: ['Products create different source shapes', 'Errors need product-friendly explanations'], implication: ['Use a shared canonical model', 'Return field-level, actionable validation results'], question: 'Which checks happen in-product, in the shared service or at the provider?' },
+          routing: { title: 'Resolve and route', status: 'assumption', statusLabel: 'Working product model', description: 'Determines recipient reachability and chooses an available public or private delivery route.', known: ['The selected provider must be connected first', 'Route evidence must remain explainable'], implication: ['Keep directory checks behind one service', 'Show why a route was selected or unavailable'], question: 'How do central and provider directories combine when no single national directory is available?' },
+          lifecycle: { title: 'Lifecycle and evidence', status: 'assumption', statusLabel: 'Working product model', description: 'Normalises submission, delivery, rejection, payment and evidence events for the originating product.', known: ['Providers may use different status models', 'Users need one coherent invoice history'], implication: ['Define a Sage lifecycle vocabulary', 'Retain raw provider evidence behind normalised states'], question: 'Which system is the system of record for lifecycle state?' },
+          operations: { title: 'Provider operations', status: 'assumption', statusLabel: 'Working product model', description: 'Manages credentials, health, retries, recovery and transitions between supported providers.', known: ['Connections are separate from company identity', 'Prior invoice evidence must remain intact'], implication: ['Make connection readiness visible before send', 'Use controlled cutover and rollback'], question: 'What must be tested before a provider becomes selectable for sending?' }
+        },
+        external: {
+          public: { title: 'Spanish public platform', status: 'assumption', statusLabel: 'Phase-dependent network model', description: 'Represents the public exchange route and receipt of a public copy where the applicable model requires it.', known: ['Public-first is the initial product scenario', 'The public route is external to Sage products'], implication: ['Isolate public-platform specifics in an adapter', 'Return consistent status to every product'], question: 'Which registration and directory behaviours will the final public service expose?' },
+          private: { title: 'Supported private platforms', status: 'assumption', statusLabel: 'Phase-dependent network model', description: 'Private providers connected and certified for use through the Sage capability.', known: ['A provider must be connected before selection', 'Provider capabilities and credentials differ'], implication: ['Maintain an explicit supported-provider catalogue', 'Show connection and service health'], question: 'Which providers, message variants and lifecycle events are supported in each phase?' },
+          recipient: { title: 'Recipient environment', status: 'assumption', statusLabel: 'Working ecosystem model', description: 'The receiving platform or product where the buyer can process the invoice and return lifecycle events.', known: ['The recipient may use a different provider', 'Delivery evidence must cross platform boundaries'], implication: ['Resolve reachability independently of the source product', 'Normalise acknowledgements and rejections'], question: 'What fallback applies when recipient reachability cannot be confirmed?' }
+        }
+      };
+
+      const catalogue = [
+        { id: 'onboard', icon: 'user-round-check', title: 'Onboarding and authority', subtitle: 'Single company and delegated accountant', customer: 'Enter company details once, prove authority and see readiness.', technical: 'Legal entity, tax identity, contacts, authority evidence and registration state.', control: 'Define who can initiate, approve, amend and revoke onboarding.' },
+        { id: 'batch', icon: 'users-round', title: 'Batch onboarding', subtitle: 'Portfolio-scale setup', customer: 'An accountant submits many clients and receives an outcome for each.', technical: 'Asynchronous batch, per-record validation, retry and idempotency.', control: 'A partial failure must not hide successful client onboarding.' },
+        { id: 'connection', icon: 'plug-zap', title: 'Provider connection', subtitle: 'Credentials and capability readiness', customer: 'Connect a supported provider before it becomes selectable.', technical: 'Credential lifecycle, provider capabilities, health check and callback configuration.', control: 'Do not expose a route until connection verification succeeds.' },
+        { id: 'recipient', icon: 'search-check', title: 'Recipient resolution', subtitle: 'Directory and reachability checks', customer: 'Know whether and how the recipient can receive before sending.', technical: 'Public lookup plus supported private-directory checks behind one response.', control: 'Show the evidence and timestamp behind the routing decision.' },
+        { id: 'validation', icon: 'list-checks', title: 'Invoice validation', subtitle: 'Business, tax and technical rules', customer: 'Fix clear field-level errors before submission.', technical: 'Canonical invoice, rule versions and provider-specific constraints.', control: 'Separate warnings, blocking errors and external rejections.' },
+        { id: 'exchange', icon: 'arrow-left-right', title: 'Send and receive', subtitle: 'Outbound and inbound invoice data', customer: 'Work from the existing Sage sales and purchase workflows.', technical: 'Transformation, attachments, signatures, correlation and duplicate protection.', control: 'Preserve the source invoice and transmission evidence.' },
+        { id: 'lifecycle', icon: 'activity', title: 'Lifecycle status', subtitle: 'Delivery, rejection and payment', customer: 'See one understandable status history regardless of provider.', technical: 'Provider events mapped to a Sage canonical lifecycle.', control: 'Retain raw status and mapping version for audit.' },
+        { id: 'exceptions', icon: 'triangle-alert', title: 'Exceptions and recovery', subtitle: 'Actionable failures and retry', customer: 'Know what happened, who must act and whether retry is safe.', technical: 'Error ownership, retry policy, dead-letter handling and incident correlation.', control: 'Prevent duplicate delivery during manual or automated recovery.' },
+        { id: 'switch', icon: 'replace', title: 'Platform change', subtitle: 'Connect, verify and cut over', customer: 'Adopt another supported provider without repeating all onboarding.', technical: 'Parallel readiness, effective date, rollback and historic route retention.', control: 'Never strand in-flight invoices or overwrite prior evidence.' },
+        { id: 'evidence', icon: 'shield-check', title: 'Evidence and audit', subtitle: 'Traceability across boundaries', customer: 'Find the legal and operational history from the invoice.', technical: 'Immutable events, timestamps, payload hashes and retention policy.', control: 'Clarify which evidence is authoritative in a dispute.' },
+        { id: 'product', icon: 'blocks', title: 'Product integration', subtitle: 'Five products, shared contract', customer: 'Receive a consistent capability in the product already used.', technical: 'Shared APIs and events with product-specific adapters and UX.', control: 'Define the minimum compatible product version and feature set.' },
+        { id: 'operations', icon: 'gauge', title: 'Service operations', subtitle: 'Health, support and ownership', customer: 'See useful service status without provider jargon.', technical: 'Observability, provider SLAs, runbooks, support tooling and reconciliation.', control: 'Make ownership unambiguous at every product-provider boundary.' }
+      ];
+
+      const scenarioCopy = {
+        business: {
+          public: 'A business user starts in Sage Active, Sage 50, Sage 200 or Sage X3. The shared service validates the company and invoice, then uses the public-first route.',
+          private: 'A business user keeps working in the Sage product, while a verified private connection becomes an available delivery route and public-copy handling remains behind the shared service.',
+          choice: 'The product experience stays stable while the shared service expands the catalogue of supported and verified provider routes.'
+        },
+        accountant: {
+          public: 'An accountant uses Sage Despachos to onboard and monitor multiple clients, with per-client authority, readiness and public-route outcomes.',
+          private: 'An accountant can connect a supported private provider for an authorised client without losing the client’s existing company identity or evidence.',
+          choice: 'Portfolio management remains consistent as more supported provider choices become available per client.'
+        },
+        operations: {
+          public: 'Product and operations teams integrate five Sage products with one shared public-route contract, diagnostics model and lifecycle vocabulary.',
+          private: 'Operations verifies credentials, capabilities and health before a private provider is exposed to product users.',
+          choice: 'A broader provider catalogue requires certification, versioning, observability and controlled cutover—not an unbounded “any platform” promise.'
+        }
+      };
+
+      const saved = window.openai && window.openai.widgetState && window.openai.widgetState.modelContent;
+      const state = {
+        topTab: saved && ['context', 'journey', 'deep'].includes(saved.topTab) ? saved.topTab : 'context',
+        persona: saved && ['business', 'accountant', 'operations'].includes(saved.persona) ? saved.persona : 'business',
+        network: saved && ['public', 'private', 'choice'].includes(saved.network) ? saved.network : 'public',
+        selectedType: saved && details[saved.selectedType] ? saved.selectedType : 'product',
+        selectedId: saved && details[saved.selectedType] && details[saved.selectedType][saved.selectedId] ? saved.selectedId : 'active',
+        catalogueId: saved && catalogue.some(item => item.id === saved.catalogueId) ? saved.catalogueId : 'onboard'
+      };
+      const designState = { density: 'comfortable', showQuestions: true };
+
+      function persist() {
+        if (!window.openai || !window.openai.setWidgetState) return;
+        window.openai.setWidgetState({
+          modelContent: { topTab: state.topTab, persona: state.persona, network: state.network, selectedType: state.selectedType, selectedId: state.selectedId, catalogueId: state.catalogueId },
+          privateContent: null
+        }).catch(() => {});
+      }
+
+      function statusClass(status) {
+        return status === 'confirmed' ? 'is-confirmed' : status === 'question' ? 'is-question' : 'is-assumption';
+      }
+
+      function listInto(element, items) {
+        element.replaceChildren(...items.map(item => {
+          const li = document.createElement('li');
+          li.textContent = item;
+          return li;
+        }));
+      }
+
+      function renderTopTab() {
+        root.querySelectorAll('[data-top-tab]').forEach(button => {
+          const selected = button.dataset.topTab === state.topTab;
+          button.setAttribute('aria-selected', String(selected));
+        });
+        root.querySelectorAll('.pc-panel').forEach(panel => {
+          panel.hidden = panel.id !== `pc-panel-${state.topTab}`;
+        });
+      }
+
+      function renderContext() {
+        root.querySelectorAll('[data-persona]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.persona === state.persona)));
+        root.querySelectorAll('[data-network]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.network === state.network)));
+        root.querySelector('#pc-scenario-summary').textContent = scenarioCopy[state.persona][state.network];
+
+        const relevantProducts = state.persona === 'accountant' ? ['despachos'] : state.persona === 'business' ? ['active', '50', '200', 'x3'] : ['active', '50', '200', 'x3', 'despachos'];
+        const relevantActors = state.persona === 'accountant' ? ['accountant'] : state.persona === 'business' ? ['business', 'finance'] : ['operations'];
+        root.querySelectorAll('[data-entity-type="product"]').forEach(button => button.dataset.relevant = String(relevantProducts.includes(button.dataset.entityId)));
+        root.querySelectorAll('[data-entity-type="actor"]').forEach(button => button.dataset.relevant = String(relevantActors.includes(button.dataset.entityId)));
+        root.querySelectorAll('[data-entity-type="external"]').forEach(button => {
+          const active = state.network === 'public' ? button.dataset.entityId === 'public' : state.network === 'private' ? button.dataset.entityId === 'private' : ['public', 'private'].includes(button.dataset.entityId);
+          if (state.selectedType !== 'external') button.setAttribute('aria-pressed', String(active));
+        });
+        root.querySelectorAll('[data-entity-type]').forEach(button => {
+          if (button.dataset.entityType === 'external' && state.selectedType !== 'external') return;
+          button.setAttribute('aria-pressed', String(button.dataset.entityType === state.selectedType && button.dataset.entityId === state.selectedId));
+        });
+
+        const item = details[state.selectedType][state.selectedId];
+        root.querySelector('#pc-detail-title').textContent = item.title;
+        root.querySelector('#pc-detail-description').textContent = item.description;
+        root.querySelector('#pc-detail-status').textContent = item.statusLabel;
+        root.querySelector('#pc-detail-dot').className = `pc-dot ${statusClass(item.status)}`;
+        listInto(root.querySelector('#pc-detail-known'), item.known);
+        listInto(root.querySelector('#pc-detail-implication'), item.implication);
+        root.querySelector('#pc-detail-question').textContent = item.question;
+      }
+
+      function renderCatalogue() {
+        const holder = root.querySelector('#pc-catalogue');
+        holder.replaceChildren(...catalogue.map(item => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'pc-catalogue-item';
+          button.dataset.catalogueId = item.id;
+          button.setAttribute('aria-pressed', String(item.id === state.catalogueId));
+          button.innerHTML = `<i data-lucide="${item.icon}" aria-hidden="true"></i><span><strong>${item.title}</strong><span>${item.subtitle}</span></span>`;
+          return button;
+        }));
+        const item = catalogue.find(entry => entry.id === state.catalogueId) || catalogue[0];
+        root.querySelector('#pc-catalogue-title').textContent = item.title;
+        root.querySelector('#pc-catalogue-description').textContent = item.subtitle;
+        root.querySelector('#pc-catalogue-customer').textContent = item.customer;
+        root.querySelector('#pc-catalogue-technical').textContent = item.technical;
+        root.querySelector('#pc-catalogue-control').textContent = item.control;
+        if (globalThis.lucide) globalThis.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+      }
+
+      function render() {
+        renderTopTab();
+        renderContext();
+        renderCatalogue();
+      }
+
+      function renderDesign() {
+        root.dataset.density = designState.density;
+        root.dataset.showQuestions = String(designState.showQuestions);
+      }
+
+      root.addEventListener('click', event => {
+        const tab = event.target.closest('[data-top-tab]');
+        if (tab) {
+          state.topTab = tab.dataset.topTab;
+          renderTopTab(); persist(); return;
+        }
+        const goTab = event.target.closest('[data-go-tab]');
+        if (goTab) {
+          state.topTab = goTab.dataset.goTab;
+          renderTopTab(); persist(); return;
+        }
+        const persona = event.target.closest('[data-persona]');
+        if (persona) {
+          state.persona = persona.dataset.persona;
+          if (state.persona === 'accountant') { state.selectedType = 'product'; state.selectedId = 'despachos'; }
+          if (state.persona === 'business' && state.selectedType === 'product' && state.selectedId === 'despachos') state.selectedId = 'active';
+          renderContext(); persist(); return;
+        }
+        const network = event.target.closest('[data-network]');
+        if (network) { state.network = network.dataset.network; renderContext(); persist(); return; }
+        const entity = event.target.closest('[data-entity-type]');
+        if (entity) { state.selectedType = entity.dataset.entityType; state.selectedId = entity.dataset.entityId; renderContext(); persist(); return; }
+        const catalogueButton = event.target.closest('[data-catalogue-id]');
+        if (catalogueButton) { state.catalogueId = catalogueButton.dataset.catalogueId; renderCatalogue(); persist(); }
+      });
+
+      window.addEventListener('openai:set_globals', event => {
+        const incoming = event.detail && event.detail.globals && event.detail.globals.widgetState && event.detail.globals.widgetState.modelContent;
+        if (!incoming) return;
+        if (['context', 'journey', 'deep'].includes(incoming.topTab)) state.topTab = incoming.topTab;
+        if (['business', 'accountant', 'operations'].includes(incoming.persona)) state.persona = incoming.persona;
+        if (['public', 'private', 'choice'].includes(incoming.network)) state.network = incoming.network;
+        if (details[incoming.selectedType] && details[incoming.selectedType][incoming.selectedId]) { state.selectedType = incoming.selectedType; state.selectedId = incoming.selectedId; }
+        if (catalogue.some(item => item.id === incoming.catalogueId)) state.catalogueId = incoming.catalogueId;
+        render();
+      });
+
+      renderDesign();
+      render();
+
+      if (globalThis.Tweak) {
+        const tweak = new Tweak({ container: root, onChange: renderDesign });
+        tweak.addSelect(designState, 'density', { label: 'Information density', options: [{ label: 'Comfortable', value: 'comfortable' }, { label: 'Compact', value: 'compact' }], reference: 'product-context.density' });
+        tweak.addToggle(designState, 'showQuestions', { label: 'Show open decisions', reference: 'product-context.questions' });
+      }
+    })();
+  </script>
+</div>
