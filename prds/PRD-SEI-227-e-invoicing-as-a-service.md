@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-10
-updated: 2026-08-25
+updated: 2026-09-23
 reviewers: []
 related:
   - PRD-SEI-223
@@ -37,6 +37,8 @@ confluence:
 Create one jurisdiction-neutral e-invoicing platform that accepts business invoice intent, determines applicable policy, validates and transforms invoice data, selects the required delivery and reporting routes, normalises lifecycle events, and preserves audit evidence. Country compliance packs provide effective-dated rules, mappings and adapters without forking the shared service.
 
 This PRD is the parent product decision surface. Germany, Ireland and the UK are separate child PRDs because their mandate maturity, delivery topology and reporting obligations differ. France and Spain remain evidence/reference contexts; this document does not silently redefine their approved scope.
+
+Spain discovery has now supplied a sufficiently mature reference model for the next country work: capability-specific onboarding, client-scoped accountant authority, purpose-specific certificate/trust readiness, governed formats and transformations, provider connection without legal-entity re-onboarding, independent send/receive/download capabilities, and evidence-led recovery. These are reusable product patterns, not Spanish rules. Spain's NIF/NIE logic, public/private topology, faithful-copy duty and signature requirements remain country-bound and must not become UK or Ireland defaults.
 
 > **Product principle:** Sage products express invoice intent; the shared service owns jurisdictional compliance orchestration and returns explainable outcomes through a stable contract.
 
@@ -78,6 +80,25 @@ Commonality is derived **after** the source terms are visible. A shared name nev
 | 5 — Assess reuse | This parent and the child evidence tables | Mark each capability `reusable unchanged`, `reusable with country binding`, `country-specific` or `unknown`; calculate a percentage only from a named inventory |
 
 This order prevents a common model from hiding a missing country rule. It also prevents a country term that merely resembles another—such as NIE and SIRET, or technical `Rejetée` and commercial `Refusée`—from being mapped as equivalent.
+
+## Spain-to-UK/Ireland reuse and gap assessment
+
+The following is a product-capability disposition, not a claim that Spain code is production-ready or portable unchanged.
+
+| Capability learned in Spain | Shared-platform position | Ireland binding/gap | UK binding/gap | Must remain country-specific |
+|---|---|---|---|---|
+| Legal-entity onboarding | Reuse identity, tenancy, authority, evidence and capability-readiness records | Irish VAT registration, establishment and Revenue cohort evidence | UK VAT/legal-entity facts plus future participant eligibility | Identifier rules and official verification sources |
+| Accountant and portfolio onboarding | Reuse direct/batch orchestration, per-client isolation and independent authority decisions | Determine recognised Irish representation mechanisms and cohort evidence access | Determine UK/Peppol participant-management authority and accountant operating model | No master certificate or portfolio-wide legal authority assumption |
+| Capability readiness | Reuse separate `ISSUE`, `RECEIVE`, `REPORT`, `DOWNLOAD` and route/trust readiness | Phase One is asymmetric: all receive; only defined large corporates issue/report | Final inbound/outbound scope remains an evidence gate | Country phase, cohort, exemptions and effective dates |
+| Certificates, credentials and signatures | Reuse purpose-specific custody, expiry, rotation, revocation and historic evidence controls | Do not assume Spanish private-platform signing; resolve delivery and Revenue authentication separately | Separate participant/AP transport trust from any future invoice-signature requirement | Accepted trust service, certificate policy and signature/seal law |
+| Format and transformation | Reuse registry, semantic provenance, validation packs, DTS qualification and transform-before-trust sequencing | EN 16931 confirmed; syntax, CIUS and reporting representation remain open | Final UK/Peppol invoice profile and versions remain open | Country schemas, rules, extensions and accepted versions |
+| Recipient discovery and route planning | Reuse immutable route evidence and no-guess behaviour | Network/directory model is not yet confirmed | Peppol is confirmed direction; UK participant schemes/process rules remain open | Authoritative directory, freshness and route precedence |
+| Provider connection and change | Reuse connection lifecycle without repeating legal-entity onboarding; preserve invoice-origin context | Provider/network model and switching contract open | Sending Access Point connection can change independently from participant/legal-entity evidence where policy permits | Registration transfer, notice, portability and exit rules |
+| Exchange and reporting legs | Reuse independent idempotency, correlation, status and reconciliation per leg | Buyer delivery and Revenue reporting are confirmed separate obligations | No HMRC reporting leg until separately evidenced | Authority payload, timing, acknowledgement and correction rules |
+| Send, receive, retrieve and download | Reuse operation-level capability model and original/canonical/rendering distinction | All-business inbound readiness is a Phase One priority | Inbound/outbound and historical access require final UK policy/AP evidence | Country retention, legal-original and lifecycle semantics |
+| Operations and evidence | Reuse outcome-unknown, deduplication, redacted diagnostics, kill controls and historical continuity | Dual-leg backlog and report rejection operations | Discovery/AP/provider faults and participant migration operations | Country escalation, deadlines, enforcement and support ownership |
+
+**Recommended focus:** Ireland is the first delivery-depth country because Phase One is earlier and its issue/receive/report asymmetry is confirmed. The UK runs in parallel as a Peppol, participant-onboarding and product-readiness track until the remaining legal and technical gates close.
 
 ## Phased capability model
 
@@ -570,6 +591,10 @@ The strategic, route-model and compliance visuals above plus the atlas below con
 | S7 | Recipient/Sage product | Provides or receives lifecycle events | External vocabulary is preserved and mapped to explainable canonical events | Unknown/out-of-order events are retained for reconciliation |
 | S8 | Support | Investigates an invoice after a route/policy change | Intended and observed state plus immutable origin context are visible | Current configuration never rewrites historical evidence |
 | S9 | Security/compliance | Suspends a compromised adapter or credential | Affected scope stops safely with audit and recovery guidance | Unaffected country/routes remain isolated where safe |
+| S10 | Customer/accountant | Onboards one entity or a client portfolio | Each legal entity receives independent identity, authority and issue/receive/report readiness | Batch receipt or firm role does not create legal authority |
+| S11 | Customer | Connects or changes a provider/network service | Connection readiness changes without recreating the legal entity or rewriting historical invoice routes | External re-registration occurs only where the country/network requires it |
+| S12 | Platform/security | Certificate or credential approaches expiry | Named owner rotates the affected purpose before outage; unsafe new use is blocked | Historic validation and unrelated capabilities remain intact |
+| S13 | Product/platform | Country requires a new syntax/profile or transformation | Versioned format/rule packs are qualified and activated prospectively | No country silently inherits Spain or France rules |
 
 ## Business rules
 
@@ -586,6 +611,11 @@ The strategic, route-model and compliance visuals above plus the atlas below con
 | BR9 | Spain capability is considered | B2B e-invoice exchange and fiscal-record/VERI*FACTU compliance remain separate bounded contexts | Confirmed research distinction; country confirmation required |
 | BR10 | Reuse is assessed | Measure capability fitness and avoided duplication; do not treat a percentage of France code as a product commitment | Confirmed product direction |
 | BR11 | A delivery route is planned | Record regulation, network/channel, provider service role and Sage adapter as separate dimensions; never represent Peppol or another interoperability network as the provider | Confirmed Peppol distinction; proposed cross-network rule |
+| BR12 | An entity is onboarded | Record identity, authority and capability-specific readiness separately; do not create one universal `ONBOARDED` state | Spain learning adopted as shared product rule |
+| BR13 | An accountant or batch acts | Evaluate current client relationship and operation-specific authority independently for every legal entity/capability | PRD-SEI-231; Spain portfolio learning |
+| BR14 | Trust material is required | Resolve purpose, owner, custodian, environment, validity and dependency; a valid transport credential does not imply invoice-signing or reporting authority | PRD-SEI-226; country policy still required |
+| BR15 | A provider connection changes | Preserve legal-entity and approved authority evidence where still valid; re-run only country/network/provider checks that actually changed | Proposed continuity rule |
+| BR16 | A shared transformer is reused | Activate only the country/profile artefacts proven for the selected route; French or Spanish rules never become Ireland/UK defaults | DTS/Spain learning; conformance evidence required |
 
 ## Scope
 
@@ -617,10 +647,11 @@ The strategic, route-model and compliance visuals above plus the atlas below con
 | Supplied cross-country research, 2026-08-10 | Repeated capabilities support a core-plus-country-pack hypothesis; text diagrams and detailed analysis are product input | Secondary synthesis; source URLs were not supplied and solution claims are not approved | Informs capability map and consultation, not legal acceptance |
 | [European Commission ViDA 2026 Work Programme](https://taxation-customs.ec.europa.eu/news/vat-digital-age-2026-work-programme-available-2026-05-22_en), 2026-05-22 | Cross-border B2B DRR based on mandatory e-invoicing starts 2030-07-01; domestic real-time systems align by 2035-01-01 | Official EU summary; implementation detail continues through work programme | Versioned EU policy, reporting framework and future compatibility |
 | [German Federal Ministry of Finance FAQ](https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html), updated 2026-03 | German B2B structured invoice requirements, transition, formats and flexible transmission | Official tax guidance; B2G and detailed technical implementation differ | Germany pack must not impose a universal network |
-| [Irish Revenue Phase One](https://www.revenue.ie/en/vat/vida-vat-modernisation/large-corporates-vat-modernisation.aspx), accessed 2026-08-10 | 2028-11-01 large-corporate domestic B2B issuance/reporting; all businesses receive; EN 16931 | Official; later transport/reporting specifications remain open | Ireland pack gates and inbound/outbound asymmetry |
+| [Irish Revenue Phase One](https://www.revenue.ie/en/vat/vida-vat-modernisation/large-corporates-vat-modernisation.aspx) and [timeline](https://www.revenue.ie/en/vat/vida-vat-modernisation/vat-modernisation-timeline.aspx), accessed 2026-09-23 | 2028-11-01 large-corporate domestic B2B issuance/reporting; all businesses receive; EN 16931; later phases widen domestic/cross-border scope | Official current direction; transport, syntax/profile and reporting specifications remain open | Ireland delivery priority, gates and inbound/outbound asymmetry |
 | [UK 2026 tax update](https://www.gov.uk/government/publications/summary-of-tax-update-2026-simplification-modernisation-and-fairness/tax-update-2026-simplification-modernisation-and-fairness-summary), 2026 | Peppol announced as core interoperability network | Official direction; detailed standards/legislation and legacy treatment remain in development | UK pack can prepare Peppol capability but must keep policy gates open |
-| [OpenPeppol interoperability framework](https://peppol.org/learn-more/peppol-interoperability-framework/) and [certified-provider register](https://peppol.org/members/peppol-certified-service-providers/), accessed 2026-08-11 | Peppol uses interoperating Access Point providers plus participant capability lookup; sender and recipient can use different providers | Official network/governance evidence; provider register states legal residence rather than operating coverage and is not a Sage shortlist | Separate network, provider role, adapter and recipient destination; verify exact legal entity, authority, service role and coverage before selection |
+| [OpenPeppol interoperability framework](https://peppol.org/learn-more/peppol-interoperability-framework/) and [certified-provider register](https://peppol.org/members/peppol-certified-service-providers/), accessed 2026-09-23 | Peppol uses interoperating Access Point providers plus participant capability lookup; sender and recipient can use different providers | Official network/governance evidence; provider register states legal residence rather than operating coverage and is not a Sage shortlist | Separate network, provider role, adapter and recipient destination; verify exact legal entity, authority, service role and coverage before selection |
 | Existing PRD-SEI-223–226 | Spain routing, lifecycle, resilience, operations, security and audit requirements | Canonical internal product context; capability fitness not proven for multi-country use | Reuse assessment input; do not duplicate implementation assumptions |
+| Product direction, 2026-09-23 | Park Spain for an end-October official-document/pre-production refresh and shift detailed discovery to Ireland and the UK | Stakeholder planning decision; does not confirm a regulatory date or delivery commitment | Ireland delivery-depth and UK readiness work become the active country focus |
 
 ## Proposed conceptual model
 
@@ -629,7 +660,10 @@ The atlas is a **proposed model**, not approved architecture. Its minimum durabl
 | Layer | Includes | Historical rule |
 |---|---|---|
 | Intent and semantics | Invoice intent, canonical meaning, extensions and source provenance | Corrections retain lineage; source evidence is not discarded |
+| Subject and authority | Legal entity, establishment, tax/network identifiers, tenant, direct/delegated actor, capability authority and effective evidence | Provider change never rewrites the represented legal subject or prior authority snapshot |
+| Readiness and connection | Independent issue/receive/report/download readiness; provider/network connections; purpose-specific credentials and trust | Readiness is effective-dated by capability; a new provider does not imply full re-onboarding |
 | Policy and plan | Scope result, country-policy version, obligations and dependencies | Original inputs, reasons and effective policy remain immutable |
+| Format and trust | Format/profile registry, validation/transformation packs, trust policy and certificate/credential references | Exact representation, mapping, policy and trust versions are frozen per operation |
 | Boundary execution | Representations plus independent recipient/authority exchange legs; each route binds network/channel, provider role, technical adapter and recipient destination separately | Each leg retains profile, provider/adapter versions, route, correlation and recovery evidence |
 | Lifecycle and governance | Raw/canonical events, pack owner/version, approval and rollback | Events append; later policy/configuration does not rewrite history |
 
@@ -652,6 +686,9 @@ Proposed canonical events describe business meaning, not a universal linear stat
 | External success then internal persistence failure | Recover from durable intent/correlation and reconcile; never create a second invoice blindly |
 | Concurrent policy/route change | Use optimistic concurrency/effective boundary; one approved plan wins for new work |
 | Current route removed with historical work | Block destructive removal or retain scoped historical capability until obligations close |
+| Accountant batch contains unauthorised client | Deny only that client/capability without revealing unrelated client state; continue independent safe items |
+| Credential expires or is revoked | Block new dependent use, identify owner/remediation and preserve historical public evidence; do not suspend unrelated purposes |
+| Provider changes while work is in flight | Freeze existing operation route/context; activate the new connection only for eligible new work and reconcile ambiguous old-provider outcomes |
 
 ## Requirements
 
@@ -693,6 +730,19 @@ Proposed canonical events describe business meaning, not a universal linear stat
 | FR17 | Route, provider, credential or policy changes must apply only to eligible new work; historical invoices retain origin context and supported follow-up/retrieval paths. |
 | FR18 | The platform must support scoped suspension/kill control by country, pack version, provider, credential, direction or environment with authorised audit and recovery. |
 
+### Onboarding, trust and country activation
+
+| ID | Requirement |
+|---|---|
+| FR19 | Onboarding must create separate identity, authority and capability-readiness results for issue, receive, report, retrieve/download and each required route rather than one universal onboarded flag. |
+| FR20 | Direct and accountant/batch onboarding must use the same client-level policies; every delegated operation must bind firm/actor, represented legal entity, capability, environment, authority evidence and effective period. |
+| FR21 | Certificate, key, token and consent readiness must be purpose-specific and expose owner/custodian, environment, validity/expiry, status/revocation, dependency and remediation without exposing secret material. |
+| FR22 | The format registry must govern syntax, version, profile/CIUS, extensions, operation, route, validation artefacts, mapping and effective period independently; existence of a standard/version must not imply country acceptance. |
+| FR23 | Reused transformation capability, including DTS, must pass country/profile semantic-loss, validation-pack, version-coexistence and operational qualification before activation. |
+| FR24 | Connecting or changing a provider/network service must reuse still-valid legal-entity and authority evidence, run only affected readiness checks and preserve all prior invoice/route/provider history. |
+| FR25 | Create/send, receive, retrieve/download, render and report capabilities must be assessed independently by product, country, route and provider; one supported operation must not imply another. |
+| FR26 | Every live country pack must have a versioned evidence manifest covering official policy, formats/rules, identity/authority, network/provider contract, trust, environments, limits, lifecycle, retention, operations and rollback; missing mandatory evidence must block only the dependent capability. |
+
 ## Non-functional requirements
 
 | ID | Requirement |
@@ -705,6 +755,9 @@ Proposed canonical events describe business meaning, not a universal linear stat
 | NFR6 | Observability must distinguish customer-data, Sage-policy/platform, country-pack, service-provider, network/channel and authority failures without exposing confidential invoice content. |
 | NFR7 | APIs/events must have explicit versioning, compatibility and deprecation policy; country-pack change must not force unrelated product contract changes. |
 | NFR8 | Customer-facing validation and recovery information must be accessible, localisable and safe to disclose. |
+| NFR9 | Accountant portfolio and batch processing must enforce tenant/client isolation, fair scheduling, durable item state and independently recoverable outcomes. |
+| NFR10 | Credential/trust monitoring must detect expiry, revocation, compromise and dependency risk using purpose-specific policies and named renewal owners. |
+| NFR11 | Format, validation, mapping, policy and provider changes must be independently versioned and reproducible from retained evidence across rollout and rollback. |
 
 ## Acceptance criteria
 
@@ -720,6 +773,12 @@ Proposed canonical events describe business meaning, not a universal linear stat
 | AC8 | Given an unapproved/expired country pack is selected, when an invoice is submitted, then the service blocks external mutation and identifies the owning decision gate. |
 | AC9 | Given the Germany, Ireland and UK pack definitions, when reviewed against the pack contract, then every capability has an explicit evidence state rather than an implicit assumption. |
 | AC10 | Given Sage uses one certified Access Point and a buyer uses another, when a Peppol route is planned, then both provider roles and the shared network are recorded separately and the invoice can route without requiring a common provider. |
+| AC11 | Given an accountant submits a portfolio batch, when authority covers only some clients/capabilities, then only those items may progress and no firm-wide authority is inferred. |
+| AC12 | Given a legal entity is ready to receive but not issue/report, when readiness is displayed, then the independent capability results are visible without a generic onboarded success. |
+| AC13 | Given a provider connection changes, when the new connection becomes ready, then the legal entity is not re-created and historical invoices retain their original provider, route and credential context. |
+| AC14 | Given a transport certificate is valid but invoice-signing authority is absent, when signing is requested, then the operation is blocked as wrong-purpose rather than accepted from certificate possession. |
+| AC15 | Given DTS supports a syntax used elsewhere, when Ireland or the UK activates a profile, then activation remains blocked until the country/profile conformance and semantic-preservation evidence passes. |
+| AC16 | Given an approved country pack lacks one mandatory evidence item for reporting, when issue/receive capabilities are otherwise ready, then only reporting remains blocked and the missing owner/action is explicit. |
 
 ## Goal traceability
 
@@ -727,7 +786,7 @@ Proposed canonical events describe business meaning, not a universal linear stat
 |---|---|---|
 | G1 — Stable product contract | FR1, FR4, FR5, FR13; NFR7 | AC1, AC7, AC9 |
 | G2 — Governed country policy | FR2, FR3, FR17; NFR3, NFR4 | AC2, AC6, AC8 |
-| G3 — Reusable capability frameworks | FR5–FR12, FR18; NFR1, NFR2, NFR6 | AC1, AC3, AC9, AC10 |
+| G3 — Reusable capability frameworks | FR5–FR12, FR18–FR26; NFR1, NFR2, NFR6, NFR9–NFR11 | AC1, AC3, AC9–AC16 |
 | G4 — Independent obligation outcomes | FR10, FR15, FR16 | AC4, AC5 |
 | G5 — Add countries without forks/history loss | FR3, FR7, FR9, FR11, FR13, FR17; NFR7 | AC1, AC6, AC9, AC10 |
 
@@ -746,8 +805,8 @@ Proposed canonical events describe business meaning, not a universal linear stat
 ## Rollout, dependencies and decision gates
 
 1. Approve shared vs country responsibility matrix and accountable owners.
-2. Inventory France/Spain capabilities against FR1–FR18; label reusable, adaptable, missing or country-bound with evidence.
-3. Select a reference product, country/direction and bounded cohort; confirm volume/data/support baseline.
+2. Maintain the Spain capability disposition against FR1–FR26; label implementation evidence `reusable`, `adaptable`, `missing` or `country-bound` rather than assuming code reuse.
+3. Select an Ireland Phase One reference product/cohort for delivery-depth assessment and a UK product/cohort for Peppol/readiness assessment; confirm volume, data, customer and support baselines.
 4. Approve canonical semantic/provenance model and API/event compatibility principles.
 5. Build country-pack authoring, test, approval, effective-date and rollback governance before live policy.
 6. Demonstrate happy, correction, retry, outcome-unknown, duplicate, rollback and historical-continuity scenarios in a sandbox.
@@ -768,12 +827,15 @@ Dependencies include country legal/compliance owners, Sage product teams, existi
 | Reuse target drives premature coupling | Platform complexity without proven value | Measure capability fitness and onboarding outcomes, not code percentage |
 | External outage/timeout duplicates legal documents | Customer/compliance harm | Durable intent, idempotency, outcome-unknown and reconciliation |
 | Local accountability becomes unclear | Slow decisions and regulatory exposure | Named pack owner/RACI and evidence provenance |
+| Spain requirements are copied into Ireland/UK | Wrong identity, route, format or trust behaviour | Country bindings, explicit non-reuse column and pack-level acceptance tests |
+| Provider change is implemented as customer re-onboarding | Customer friction, duplicate external registrations and history loss | Separate legal-entity/authority records from provider connection and route state |
 
 ## Consultation questions
 
 | Question | Why it matters | Owner | Blocks | Current hypothesis |
 |---|---|---|---|---|
-| Which product, country and direction is the reference cohort? | Determines data, API and operational depth | Portfolio/platform product | Delivery start | Germany inbound/outbound assessment is a useful topology test; no choice approved |
+| Which Ireland Phase One product/cohort should be the first delivery-depth reference? | Determines data, inbound, reporting and operating depth | Ireland product/compliance + platform product | Delivery start | Prioritise a product serving Revenue large corporates, subject to portfolio evidence |
+| Which UK product/cohort should lead Peppol and participant-readiness work? | Determines onboarding, SME/accountant UX, scale and AP integration needs | UK portfolio/product | Readiness track | Choose a bounded cohort after product/participant gap assessment |
 | What existing France/Spain capabilities are demonstrably reusable? | Avoids rewrite and false reuse assumptions | Architecture + current teams | Architecture baseline | Reuse frameworks only after fitness evidence |
 | Who legally approves and operationally owns each pack/version? | Controls policy activation and incidents | Country compliance + platform | Production | Country owns policy; platform owns safe execution |
 | Is one physical canonical schema appropriate, or a semantic layer over versioned contracts? | Affects compatibility and loss | Architecture | Detailed design | Semantic contract first |
@@ -794,6 +856,8 @@ Dependencies include country legal/compliance owners, Sage product teams, existi
 | Do not promise 70–80% reuse | Confirmed drafting constraint; evidence required for any target | 2026-08-10 |
 | Keep network/channel, provider service role and Sage adapter as separate route concepts; no vendor is selected by this PRD | Confirmed by user-supplied Peppol context and official OpenPeppol model | 2026-08-11 |
 | Create four focused child analyses under the commonality page for identifiers/delegation, lifecycle mapping, Peppol multi-address routing and cross-border reuse | Confirmed by user feedback | 2026-08-12 |
+| Park Spain as the mature reference until the planned end-October official-document/pre-production refresh; focus detailed country work on Ireland and the UK | Confirmed stakeholder direction | 2026-09-23 |
+| Treat Ireland as the first delivery-depth track and the UK as a parallel Peppol/product-readiness track, subject to cohort approval | Proposed sequencing from confirmed dates and evidence maturity | 2026-09-23 |
 
 ## Revision history
 
@@ -806,4 +870,5 @@ Dependencies include country legal/compliance owners, Sage product teams, existi
 | 2026-08-11 | Added a diagram-led route model separating regulation, network, provider and adapter; strengthened Peppol four-corner evidence, requirements and acceptance | User context and official OpenPeppol sources | |
 | 2026-08-12 | Added four child research PRDs covering country identifiers and accountants, lifecycle mappings, Peppol multi-address routing, and cross-border reusable capability boundaries | User feedback and supplied accountant research | |
 | 2026-08-12 | Published the four focused analyses as children of commonality page `866150169` | User publication approval | |
-| 2026-08-25 | Made the evidence-first derivation order explicit and indexed the actual country terms owned by each commonality child before reuse is assessed | User clarification |
+| 2026-08-25 | Made the evidence-first derivation order explicit and indexed the actual country terms owned by each commonality child before reuse is assessed | User clarification | |
+| 2026-09-23 | Added the Spain-to-UK/Ireland reuse/gap matrix; adopted capability-specific onboarding, accountant isolation, purpose-specific trust, governed formats/DTS qualification, provider-change continuity and operation-level readiness; set Ireland delivery-depth and UK readiness sequencing | Stakeholder direction; PRD-SEI-101/104/223/226; current Revenue/HMRC/OpenPeppol evidence | |
