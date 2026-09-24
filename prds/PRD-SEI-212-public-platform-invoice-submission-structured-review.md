@@ -3,20 +3,24 @@ id: PRD-SEI-212
 title: Public Platform — Invoice Submission — Structured Review
 type: prd
 status: draft
-version: 1
+version: 2
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-09-21
 reviewers:
   - dianna.hindle@sage.com
 related:
   - PRD-SEI-103
   - https://confluence.sage.com/spaces/DNBU/pages/837610648/Public+Platform+Onboard
   - https://confluence.sage.com/spaces/DNBU/pages/837610656/UBL+2.5+Invoice+Submission+Send
+  - https://confluence.sage.com/spaces/DNBU/pages/837610654/UBL+2.5+Invoice+Creation
   - PRD-SEI-102
   - PRD-SEI-201
   - research/PRD-SEI-201-spain-use-case-evidence.md
+  - PRD-SEI-223
+  - PRD-SEI-226
+  - PRD-SEI-236
 confluence:
   publish: true
   space_key: DNBU
@@ -35,8 +39,8 @@ confluence:
 |---|---|
 | Predecessor | Based on PRD-SEI-103, which remains unchanged as the predecessor document. |
 | Reason for this successor | Provide an individually readable successor that publishes through a native Confluence two-column layout with a left-sidebar Table of Contents. |
-| Material changes | Assigns permanent ID PRD-SEI-212, adds this revision overview, and adds Confluence layout and navigation metadata for publication as a new child page. |
-| Unchanged areas | Business analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks, decisions and open questions remain unchanged from PRD-SEI-103. |
+| Material changes | Assigns permanent ID PRD-SEI-212, adds Confluence layout/navigation metadata, and now consolidates the creation-to-submission boundary formerly split across the internal Creation and Submission pages. |
+| Unchanged areas | Public-route eligibility, validation, idempotency, response classification, evidence and recovery principles remain aligned with PRD-SEI-103. |
 | Decisions still open | All product, provider, regulatory and architecture decisions remain as recorded in PRD-SEI-103; this successor introduces no new product decision. |
 
 ## Overview
@@ -58,6 +62,21 @@ It covers the product boundary from an ERP's request to send an invoice through:
 The existing Confluence title refers to **UBL 2.5**. Current official evidence confirms EN 16931 using UBL syntax, but the referenced European syntax binding is UBL 2.1. UBL 2.5 was published by OASIS as a Committee Specification in April 2026; that does not establish it as the version accepted by Spain's public solution.
 
 The product requirement is therefore a **versioned public invoice profile**, not an unverified hard-coded `UBL 2.5` label. The exact version, customization/profile identifiers, schemas, code lists and AEAT validation rules are production gates.
+
+### Creation and submission boundary
+
+PRD-SEI-212 is the journey owner for both creation of an exchange-ready public representation and its submission. It accepts either canonical/business invoice data or an explicitly supported prebuilt UBL representation, but the paths converge before mutation.
+
+| Stage | Responsibility | Output/evidence |
+|---|---|---|
+| Intake | Bind legal subject, business invoice identity, environment, idempotency identity and input mode | Immutable request context |
+| Normalise | Convert canonical data or validate the declared prebuilt representation into the common pipeline | Canonical/source relationship |
+| Create representation | Resolve PRD-SEI-236 format profile and generate/fix the exact exchange representation | Created bytes/reference, hash, generator/mapping and profile versions |
+| Validate and trust | Run syntax/profile/business checks and required PRD-SEI-226 readiness/signing policy | Validation result and trust evidence |
+| Submit | Cross the public mutating boundary once | Attempt, correlation and exact sent representation |
+| Classify/reconcile | Persist admission/rejection/unknown result independently from later lifecycle | Public reference, receipt and recovery state |
+
+Creation success means an immutable representation is ready; it does not mean the invoice has been submitted. Submission success means the public solution admitted the item; it does not mean recipient delivery, commercial acceptance or payment.
 
 > **Validate before transmission, identify every submission once, and never convert an unknown external outcome into a duplicate invoice.**
 
@@ -451,6 +470,7 @@ This is a proposed product model, not an approved architecture.
 | Public route snapshot | public connection, effective route/version, decision time | Preserves why Public was selected |
 | Validation pack | pack ID/version, UBL version, XSD, EN 16931 rules, Spanish rules, code lists, effective dates | Reproducible validation |
 | Submission artefact | exact XML or secure object reference, content hash, size, signature context, created time | Proves what Sage sent |
+| Creation result | source mode, source hash, canonical version, generator/mapping version, target format/profile, created artefact hash and validation result | Proves how the exchange-ready representation was produced |
 | Public identity | issuer NIF, invoice number/series, issue date, derived/returned unique code | Duplicate detection and lifecycle correlation |
 | Submission attempt | attempt ID, send boundary, correlation, start/end, transport evidence, outcome | Safe retry/reconciliation |
 | Item result | admitted/rejected/unknown, public error code/path/message, mapped Sage category | Item-level behaviour |
@@ -465,6 +485,8 @@ Mutable customer configuration must not rewrite the public route, validation pac
 |---|---|---|
 | `RECEIVED` | Sage accepted the client operation identity | Eligibility and normalisation |
 | `VALIDATING` | Route, document and profile validation in progress | Ready or correction-required |
+| `CREATING_REPRESENTATION` | Target UBL/profile resolved and exact exchange artefact is being generated/fixed | Validation or correction-required |
+| `REPRESENTATION_READY` | Exact target bytes/hash and creation provenance are durable | Final validation/trust and submit |
 | `CORRECTION_REQUIRED` | Known pre-transmission issue | Customer corrects and submits a new version under approved identity rule |
 | `READY_TO_SUBMIT` | Exact artefact and pack are fixed | Send when capacity/service permits |
 | `SUBMITTING` | External attempt has started | Await response |
@@ -713,6 +735,19 @@ If the final service is individual-only, this journey becomes an adapter-level n
 | FR43 | Submission and historical access must continue under the original Public context after a later route change. |
 | FR44 | Every material state change must record actor/trigger, timestamp, reason, correlation and previous/new state. |
 
+### Creation-to-submission contract
+
+| ID | Requirement |
+|---|---|
+| FR45 | The operation must declare whether input is canonical/business data or a prebuilt representation and must reject undeclared or ambiguous input. |
+| FR46 | Canonical and prebuilt inputs must converge on the same route, profile, validation, evidence, idempotency, submission and lifecycle controls. |
+| FR47 | Creation must resolve the exact activated PRD-SEI-236 UBL version/profile rather than infer it from a page title or latest available schema. |
+| FR48 | The creation result must retain source/canonical references, generator or mapping version, target profile/version, exact artefact hash, validation-pack version and created time. |
+| FR49 | A prebuilt UBL representation must retain its original bytes/source and pass the active route profile; acceptance must not silently regenerate it into a different representation. |
+| FR50 | The exact representation that passes final validation and any applicable trust step must be the representation submitted; any byte-changing operation requires revalidation and re-signing where applicable. |
+| FR51 | Representation creation and public submission must have separate states and timestamps so a created-but-unsent invoice is never shown as admitted. |
+| FR52 | Products must be able to retrieve the created representation and validation findings before submission where policy authorises preview/download, without exposing secrets or treating preview as legal issuance. |
+
 ## Proposed Sage API and experience
 
 | Capability | Product behaviour |
@@ -821,6 +856,10 @@ Required signals include:
 | AC15 | Outbound route switches to Private | Earlier Public submission remains active | Earlier invoice retains Public context; new invoice resolves the effective new route |
 | AC16 | Improper admitted invoice requires action | Approved baja/correction is requested | Separate auditable operation runs and original history remains |
 | AC17 | Production configuration has no confirmed AEAT UBL version/profile | Activation is attempted | Production entry is blocked rather than defaulting to UBL 2.5 |
+| AC18 | Canonical invoice data is accepted | Representation creation completes | Exact UBL/profile, mapping/generator version, validation pack and artefact hash are durable before submission |
+| AC19 | A prebuilt UBL invoice is supplied | Intake runs | Original bytes are retained and the same route/profile controls apply without silent regeneration |
+| AC20 | Representation creation succeeds but submission has not started | Status is queried | The invoice is shown as representation-ready/unsent, not transmitted or admitted |
+| AC21 | A byte-changing operation occurs after validation or signing | Submission is requested | The operation is blocked until the changed representation is revalidated and, where required, re-signed |
 
 ## Metrics and success measures
 
@@ -971,3 +1010,4 @@ Production approval requires a model showing that live traffic, outcome reconcil
 | Date | Version/revision | Change | Evidence/decision source | Pull request |
 |---|---|---|---|---|
 | 2026-07-29 | Version 1 (Draft) | Initial evidence-led Phase 1 submission PRD with UBL-version correction, attachment rule, detailed journeys, requirements, visual, acceptance and production gates | Confluence revision 3, RD 238/2026, EU Decision 2017/1870, April 2026 draft order, OASIS UBL 2.5 | |
+| 2026-09-21 | Version 2 (Draft) | Consolidated creation and submission under one journey owner; added explicit input modes, representation-creation provenance, separate states and byte-integrity controls | Internal Creation/Submission pages; PRD-SEI-223/226/236 |

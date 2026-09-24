@@ -29,6 +29,7 @@
       font-family: "Geist Sans", Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     #spain-einvoice-complete-explorer * { box-sizing: border-box; }
+    #spain-einvoice-complete-explorer [hidden] { display: none !important; }
     #spain-einvoice-complete-explorer h1,
     #spain-einvoice-complete-explorer h2,
     #spain-einvoice-complete-explorer h3,
@@ -340,8 +341,11 @@
     #spain-einvoice-complete-explorer .hub-panel-head p,
     #spain-einvoice-complete-explorer .hub-helper { margin-top: 3px; color: var(--hub-muted); font-size: 11px; line-height: 16px; }
     #spain-einvoice-complete-explorer .hub-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    #spain-einvoice-complete-explorer #hub-certificate-fields,
+    #spain-einvoice-complete-explorer #hub-accountant-fields { grid-column: 1 / -1; }
     #spain-einvoice-complete-explorer .hub-field { display: grid; gap: 5px; color: var(--hub-secondary); font-size: 11px; line-height: 16px; }
     #spain-einvoice-complete-explorer .hub-field.is-wide { grid-column: 1 / -1; }
+    #spain-einvoice-complete-explorer .hub-form-grid > .hub-rule.is-wide { grid-column: 1 / -1; }
     #spain-einvoice-complete-explorer .hub-identity-help {
       grid-column: 1 / -1;
       color: var(--hub-muted);
@@ -717,25 +721,49 @@
         <div id="hub-onboard-single">
           <div class="hub-workspace">
             <section class="hub-panel"><div class="hub-panel-head"><div><h2>Company and authority</h2><p>Reusable identity and requested capabilities</p></div></div><div class="hub-form-grid">
-              <label class="hub-field is-wide">Legal entity<input type="text" value="Demo Supplier S.L."></label>
+              <label class="hub-field is-wide">Legal entity<input id="hub-onboard-company-name" type="text" value="Demo Supplier S.L."></label>
               <label class="hub-field">Tax scheme<select><option>ES:NIF</option></select></label>
               <label class="hub-field">Tax identifier<input type="text" value="B12345674"></label>
-              <label class="hub-field">Onboarding actor<select><option>Customer administrator</option><option>Authorised accountant</option></select></label>
+              <label class="hub-field">Onboarding actor<select id="hub-onboarding-actor" aria-label="Onboarding actor"><option value="customer" selected>Customer administrator</option><option value="accountant">Authorised accountant</option></select></label>
               <label class="hub-field">Directions<select><option>Send and receive</option><option>Send only</option><option>Receive only</option></select></label>
+              <div id="hub-accountant-fields" class="hub-form-grid is-wide" hidden>
+                <label class="hub-field">Accountancy practice<input id="hub-accountant-practice" value="SYNTH Accounting Partners S.L." aria-label="Accountancy practice"></label>
+                <label class="hub-field">Acting user<input value="Ana Torres" aria-label="Accountant acting user"></label>
+                <label class="hub-field">Client mandate reference<input value="SYNTH-MANDATE-1042" aria-label="Client mandate reference"></label>
+                <label class="hub-field">Delegated scope<select aria-label="Delegated authority scope"><option>Onboard and manage e-invoicing</option><option>Onboard only</option><option>Manage routes and connections</option><option>View and receive only</option></select></label>
+                <label class="hub-field">Authority valid until<input type="date" value="2027-12-31" aria-label="Delegated authority valid until"></label>
+                <label class="hub-field">Client context<input value="Demo Supplier S.L. · isolated client workspace" readonly aria-label="Selected client context"></label>
+              </div>
             </div><div class="hub-panel-head" style="margin-top:16px"><div><h2>Choose the starting route</h2><p>A provider connection never silently becomes the live route</p></div></div><div class="hub-choice-list">
               <label class="hub-choice"><input type="radio" name="hub-start-route" value="public" checked><span><strong>Spanish public platform</strong><span>Public-first baseline route.</span></span></label>
               <label class="hub-choice"><input type="radio" name="hub-start-route" value="private"><span><strong>Supported private provider</strong><span>Connect and validate it; select it later in Send.</span></span></label>
-            </div><div id="hub-private-provider" class="hub-form-grid" style="margin-top:12px" hidden><label class="hub-field">Private platform<select><option>EDICOM</option><option>SERES</option><option>Banqup</option><option>B2B Router</option><option>ZeroComa</option></select></label><label class="hub-field">Provider account<input value="SYNTH-PROVIDER-001"></label></div><p class="hub-rule"><strong>Continuity rule:</strong> older invoices retain their original platform identifiers, lifecycle path and evidence after later route changes.</p></section>
-            <aside class="hub-panel"><div class="hub-panel-head"><div><h2>Activation readiness</h2><p>Checked per capability and direction</p></div></div><ol class="hub-progress" id="hub-onboard-progress"><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Company identity</strong><br>Legal and tax identity captured</span></li><li><span class="hub-progress-marker">2</span><span><strong>Authority</strong><br>Actor scope and evidence</span></li><li><span class="hub-progress-marker">3</span><span><strong>Connection</strong><br>Registration and credentials</span></li><li><span class="hub-progress-marker">4</span><span><strong>Capability</strong><br>Send and receive readiness</span></li></ol></aside>
+            </div><div id="hub-private-provider" class="hub-form-grid" style="margin-top:12px" hidden><label class="hub-field">Private platform<select id="hub-onboard-private-provider"><option>EDICOM</option><option>SERES</option><option>Banqup</option><option>B2B Router</option><option>ZeroComa</option></select></label><label class="hub-field">Provider account<input value="SYNTH-PROVIDER-001"></label></div>
+            <div class="hub-panel-head" style="margin-top:16px"><div><h2>Conditional certificate readiness</h2><p>Required only when the selected capability, route or format needs it</p></div></div>
+            <div class="hub-form-grid">
+              <label class="hub-field is-wide">Certificate policy<select id="hub-certificate-policy" aria-label="Certificate policy"><option value="not-required" selected>Not required for the selected public capability</option><option value="private-signing">Private-platform advanced invoice signature</option><option value="provider-auth">Provider / API authentication</option><option value="facturae-xades">Facturae XAdES signing</option></select></label>
+              <p class="hub-rule is-wide" id="hub-certificate-summary">No certificate is requested for the selected public capability. This is a recorded policy result—not a missing onboarding step.</p>
+              <div id="hub-certificate-fields" class="hub-form-grid is-wide" hidden>
+                <label class="hub-field is-wide">Certificate supplied or managed by<select id="hub-certificate-holder" aria-label="Certificate supplied or managed by"><option value="customer" selected>Customer / invoice issuer</option><option value="accountant">Accountant / delegated representative</option><option value="provider">Private platform / delegated signing service</option><option value="sage">Sage trust service</option></select></label>
+                <label class="hub-field">Certificate reference<input value="SYNTH-CERT-009" aria-label="Certificate reference"></label>
+                <label class="hub-field">Certificate legal owner<input id="hub-certificate-owner" value="Demo Supplier S.L." readonly aria-label="Certificate owner"></label>
+                <label class="hub-field">Signing on behalf of<input id="hub-certificate-principal" value="Demo Supplier S.L." readonly aria-label="Certificate signing principal"></label>
+                <label class="hub-field">Purpose<input id="hub-certificate-purpose" value="Invoice signing" readonly aria-label="Certificate purpose"></label>
+                <label class="hub-field">Valid until<input type="date" value="2027-09-30" aria-label="Certificate valid until"></label>
+                <label class="hub-field is-wide">Readiness<input value="Owner, authority, purpose, chain and revocation status to validate" readonly aria-label="Certificate readiness"></label>
+              </div>
+            </div>
+            <p class="hub-rule"><strong>Authority rule:</strong> an accountant's product access or possession of a certificate does not by itself grant invoice-signing authority. The client mandate, delegated scope, signer role and certificate policy must agree. Older invoices retain their original platform, certificate/signature and lifecycle evidence after rotation or route changes.</p></section>
+            <aside class="hub-panel"><div class="hub-panel-head"><div><h2>Activation readiness</h2><p>Checked per capability and direction</p></div></div><ol class="hub-progress" id="hub-onboard-progress"><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Company identity</strong><br>Legal and tax identity captured</span></li><li><span class="hub-progress-marker">2</span><span><strong>Authority</strong><br><span id="hub-authority-progress-copy">Customer administrator scope and evidence</span></span></li><li><span class="hub-progress-marker">3</span><span><strong>Certificate decision</strong><br><span id="hub-certificate-progress-copy">Not required for selected public capability</span></span></li><li><span class="hub-progress-marker">4</span><span><strong>Connection</strong><br>Registration and protected credentials</span></li><li><span class="hub-progress-marker">5</span><span><strong>Capability</strong><br>Send and receive readiness</span></li></ol></aside>
           </div>
           <div class="hub-footer"><p class="hub-inline-status" id="hub-onboard-status"><span class="hub-dot"></span>Draft · identity captured</p><div class="hub-actions"><button class="hub-button" type="button" id="hub-onboard-validate"><i data-lucide="badge-check" aria-hidden="true"></i>Validate and activate</button></div></div>
         </div>
         <div id="hub-onboard-batch" hidden>
-          <section class="hub-panel"><div class="hub-panel-head"><div><h2>Client validation results</h2><p>Every company succeeds or fails independently</p></div><span class="hub-state">3 received</span></div><table class="hub-batch-table"><thead><tr><th>Select</th><th>Company</th><th>Tax identity</th><th>Starting route</th><th>Result</th></tr></thead><tbody>
-            <tr><td data-label="Select"><input type="checkbox" checked aria-label="Select Norte Studio"></td><td data-label="Company"><strong>Norte Studio S.L.</strong></td><td data-label="Tax identity">ES:NIF B76234819</td><td data-label="Starting route">Public platform</td><td data-label="Result"><span class="hub-state is-ready" data-batch-state>Ready</span></td></tr>
-            <tr><td data-label="Select"><input type="checkbox" checked aria-label="Select Costa Services"></td><td data-label="Company"><strong>Costa Services S.L.</strong></td><td data-label="Tax identity">ES:NIF B18402957</td><td data-label="Starting route">EDICOM</td><td data-label="Result"><span class="hub-state" data-batch-state>Connection check</span></td></tr>
-            <tr><td data-label="Select"><input type="checkbox" aria-label="Select Luna Trading"></td><td data-label="Company"><strong>Luna Trading S.L.</strong></td><td data-label="Tax identity">ES:NIF B00000000</td><td data-label="Starting route">Public platform</td><td data-label="Result"><span class="hub-state is-error" data-batch-state>Tax ID invalid</span></td></tr>
-          </tbody></table><p class="hub-rule">Batch activation changes only selected, independently ready companies. A failed client does not roll back another client.</p></section>
+          <section class="hub-panel"><div class="hub-panel-head"><div><h2>Accountant portfolio context</h2><p>The practice authenticates once; authority and readiness are still evaluated per client</p></div><span class="hub-state">3 clients</span></div><div class="hub-form-grid"><label class="hub-field">Accountancy practice<input value="SYNTH Accounting Partners S.L." readonly aria-label="Batch accountancy practice"></label><label class="hub-field">Portfolio authority reference<input value="SYNTH-PORTFOLIO-88" aria-label="Portfolio authority reference"></label></div><p class="hub-rule">A portfolio mandate may prove the accountant can administer onboarding, but it does not automatically let the practice sign every client's invoice or reuse one certificate across the portfolio.</p></section>
+          <section class="hub-panel" style="margin-top:14px"><div class="hub-panel-head"><div><h2>Client validation results</h2><p>Identity, delegated authority, certificate policy and route succeed or fail independently</p></div><span class="hub-state">3 received</span></div><table class="hub-batch-table"><thead><tr><th>Select</th><th>Company</th><th>Tax identity</th><th>Authority</th><th>Certificate decision</th><th>Starting route</th><th>Result</th></tr></thead><tbody>
+            <tr><td data-label="Select"><input type="checkbox" checked aria-label="Select Norte Studio"></td><td data-label="Company"><strong>Norte Studio S.L.</strong></td><td data-label="Tax identity">ES:NIF B76234819</td><td data-label="Authority">Mandate valid</td><td data-label="Certificate decision">Not required · public</td><td data-label="Starting route">Public platform</td><td data-label="Result"><span class="hub-state is-ready" data-batch-state>Ready</span></td></tr>
+            <tr><td data-label="Select"><input type="checkbox" checked aria-label="Select Costa Services"></td><td data-label="Company"><strong>Costa Services S.L.</strong></td><td data-label="Tax identity">ES:NIF B18402957</td><td data-label="Authority">Admin valid · signing scope check</td><td data-label="Certificate decision">Issuer, accountant or provider signer</td><td data-label="Starting route">EDICOM</td><td data-label="Result"><span class="hub-state" data-batch-state data-batch-blocked>Trust + connection check</span></td></tr>
+            <tr><td data-label="Select"><input type="checkbox" aria-label="Select Luna Trading"></td><td data-label="Company"><strong>Luna Trading S.L.</strong></td><td data-label="Tax identity">ES:NIF B00000000</td><td data-label="Authority">Mandate valid</td><td data-label="Certificate decision">Not evaluated</td><td data-label="Starting route">Public platform</td><td data-label="Result"><span class="hub-state is-error" data-batch-state>Tax ID invalid</span></td></tr>
+          </tbody></table><p class="hub-rule">Batch activation changes only selected, independently ready companies. A failed client does not roll back another client, and certificate material is never copied from one client record to another.</p></section>
           <div class="hub-footer"><p class="hub-inline-status" id="hub-batch-status"><span class="hub-dot"></span>1 ready · 1 needs connection · 1 needs correction</p><div class="hub-actions"><button class="hub-button" type="button" id="hub-batch-activate"><i data-lucide="users-round" aria-hidden="true"></i>Activate ready companies</button></div></div>
         </div>
       </section>
@@ -783,10 +811,13 @@
                 <label class="hub-field">Currency<select aria-label="Currency"><option>EUR</option></select></label>
                 <label class="hub-field">Total<input value="€1,210.00" aria-label="Invoice total"></label>
                 <label class="hub-field is-wide">Delivery route<select id="hub-send-route" aria-label="Delivery route"><option value="auto">Automatically discover recipient route</option><optgroup label="Public route"><option value="public">Spanish Public Platform (AEAT)</option></optgroup><optgroup label="Private platforms — Phase 2 portfolio"><option value="b2b-router">B2B Router</option><option value="banqup">Banqup (Unifiedpost)</option><option value="edicom">EDICOM</option><option value="seres">SERES (Docaposte)</option><option value="zerocoma">ZeroComa</option></optgroup><option value="unresolved">Manual reconciliation required</option></select></label>
+                <label class="hub-field">Exchange syntax<select id="hub-exchange-format" aria-label="Exchange syntax"><option value="ubl" selected>UBL</option><option value="cii">UN/CEFACT CII</option><option value="edifact">UN/EDIFACT invoice</option><option value="facturae">Facturae</option></select></label>
+                <label class="hub-field">Profile / implementation guide<select id="hub-exchange-profile" aria-label="Exchange profile"></select></label>
+                <label class="hub-field is-wide">Readability companion<select id="hub-pdf-companion" aria-label="PDF readability companion"><option value="none" selected>None</option><option value="transition">Transition PDF — separate companion, not invoice syntax</option></select></label>
               </div>
-              <p class="hub-rule">NIF is the Spanish tax-identity role. Entity NIF, DNI and NIE describe the source class; business capacity, applicability, authority and route remain separate decisions.</p>
+              <p class="hub-rule">Spain currently admits four structured syntaxes for private-platform exchange: CII, UBL, EDIFACT invoice and Facturae. Peppol BIS is a UBL/EN 16931 profile; a transition PDF is only a separate readability companion. The public solution uses its approved UBL profile.</p>
             </section>
-            <aside class="hub-panel"><div class="hub-panel-head"><div><h2>Route validation</h2><p>Distributed discovery or provider directory check</p></div></div><div class="hub-readiness" id="hub-send-checks"><div class="hub-readiness-row"><span class="hub-progress-marker">1</span><span><strong>Recipient identity</strong><br>Scheme, source class and value</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">2</span><span><strong>Applicability</strong><br>Capacity, country and transaction scope</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">3</span><span><strong>Directory discovery</strong><br>Public and available private sources</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">4</span><span><strong>Effective route</strong><br>Connected, capable and reachable</span></div></div><p class="hub-rule" id="hub-route-result">Recipient route has not been validated.</p><button class="hub-button is-secondary" type="button" id="hub-route-check" style="margin-top:12px"><i data-lucide="search-check" aria-hidden="true"></i>Validate recipient route</button></aside>
+            <aside class="hub-panel"><div class="hub-panel-head"><div><h2>Route and representation validation</h2><p>Discovery, format, transformation and trust checks</p></div></div><div class="hub-readiness" id="hub-send-checks"><div class="hub-readiness-row"><span class="hub-progress-marker">1</span><span><strong>Recipient identity</strong><br>Scheme, source class and value</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">2</span><span><strong>Applicability</strong><br>Capacity, country and transaction scope</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">3</span><span><strong>Directory discovery</strong><br>Public and available private sources</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">4</span><span><strong>Format and profile</strong><br>Activated version, mapping and recipient capability</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">5</span><span><strong>Effective route and trust</strong><br>Connected, reachable and signature-ready</span></div></div><p class="hub-rule" id="hub-route-result">Recipient route and representation have not been validated.</p><button class="hub-button is-secondary" type="button" id="hub-route-check" style="margin-top:12px"><i data-lucide="search-check" aria-hidden="true"></i>Validate route and format</button></aside>
           </div>
           <div class="hub-footer"><p class="hub-inline-status" id="hub-send-status"><span class="hub-dot"></span>Ready for local validation</p><div class="hub-actions"><button class="hub-button" type="button" id="hub-send-button" disabled><i data-lucide="send" aria-hidden="true"></i>Validate and send</button></div></div>
         </div>
@@ -824,8 +855,9 @@
               <ol class="hub-validation-steps" aria-label="Route validation steps">
                 <li class="hub-validation-step" data-route-validation-step="1" data-state="waiting"><span class="hub-progress-marker">1</span><span><strong>Validate recipient identity</strong>Check scheme, source class, country and normalised identifier.</span></li>
                 <li class="hub-validation-step" data-route-validation-step="2" data-state="waiting"><span class="hub-progress-marker">2</span><span><strong>Discover published entry points</strong><span id="hub-discovery-step-copy">Check recipient publication and available private-platform lookups.</span></span></li>
-                <li class="hub-validation-step" data-route-validation-step="3" data-state="waiting"><span class="hub-progress-marker">3</span><span><strong>Evaluate route eligibility</strong>Check transaction applicability, direction, document profile, effective scope and configured connection.</span></li>
-                <li class="hub-validation-step" data-route-validation-step="4" data-state="waiting"><span class="hub-progress-marker">4</span><span><strong>Freeze route evidence</strong>Record selected operator, lookup source, observation time, route version and country-rule version.</span></li>
+                <li class="hub-validation-step" data-route-validation-step="3" data-state="waiting"><span class="hub-progress-marker">3</span><span><strong>Evaluate route eligibility</strong>Check transaction applicability, direction, effective scope and configured connection.</span></li>
+                <li class="hub-validation-step" data-route-validation-step="4" data-state="waiting"><span class="hub-progress-marker">4</span><span><strong>Validate representation plan</strong><span id="hub-format-step-copy">Check syntax, exact profile/version, transformation owner and semantic preservation.</span></span></li>
+                <li class="hub-validation-step" data-route-validation-step="5" data-state="waiting"><span class="hub-progress-marker">5</span><span><strong>Freeze route and trust evidence</strong>Record operator, lookup source, format/profile, signing policy, observation time and rule versions.</span></li>
               </ol>
 
               <div id="hub-validation-result" class="hub-validation-result" data-visible="false" aria-live="polite">
@@ -841,7 +873,7 @@
         </dialog>
 
         <div id="hub-exchange-receive" hidden>
-          <div class="hub-workspace"><section class="hub-panel"><div class="hub-panel-head"><div><h2>Inbound invoice queue</h2><p>Retrieved through the active inbound route</p></div><span class="hub-state is-ready">Inbound ready</span></div><table class="hub-batch-table"><thead><tr><th>Supplier</th><th>Invoice</th><th>Route</th><th>Total</th><th>Status</th></tr></thead><tbody><tr><td data-label="Supplier"><strong>Iberia Office S.L.</strong></td><td data-label="Invoice">FAC-90812</td><td data-label="Route">Public platform</td><td data-label="Total">€842.10</td><td data-label="Status"><span class="hub-state is-ready">Available</span></td></tr><tr><td data-label="Supplier"><strong>Servicios Norte S.A.</strong></td><td data-label="Invoice">2026-1187</td><td data-label="Route">EDICOM</td><td data-label="Total">€2,140.00</td><td data-label="Status"><span class="hub-state">Needs review</span></td></tr></tbody></table></section><aside class="hub-panel"><div class="hub-panel-head"><div><h2>Retrieval control</h2><p>Scheduling, checkpoints and duplicate protection</p></div></div><ol class="hub-progress"><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Authority</strong><br>Inbound scope verified</span></li><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Checkpoint</strong><br>Cursor committed safely</span></li><li><span class="hub-progress-marker">3</span><span><strong>Reconciliation</strong><br>Next scheduled comparison</span></li></ol><button class="hub-button is-secondary" type="button" id="hub-retrieve" style="margin-top:12px"><i data-lucide="refresh-cw" aria-hidden="true"></i>Retrieve now</button></aside></div><div class="hub-footer"><p class="hub-inline-status" id="hub-receive-status"><span class="hub-dot"></span>Last scheduled retrieval completed</p></div>
+          <div class="hub-workspace"><section class="hub-panel"><div class="hub-panel-head"><div><h2>Inbound invoice queue</h2><p>Retrieved through the active inbound route</p></div><span class="hub-state is-ready">Inbound ready</span></div><table class="hub-batch-table"><thead><tr><th>Supplier</th><th>Invoice</th><th>Route</th><th>Format</th><th>Total</th><th>Status</th></tr></thead><tbody><tr><td data-label="Supplier"><strong>Iberia Office S.L.</strong></td><td data-label="Invoice">FAC-90812</td><td data-label="Route">Public platform</td><td data-label="Format">UBL · public profile</td><td data-label="Total">€842.10</td><td data-label="Status"><span class="hub-state is-ready">Available</span></td></tr><tr><td data-label="Supplier"><strong>Servicios Norte S.A.</strong></td><td data-label="Invoice">2026-1187</td><td data-label="Route">EDICOM</td><td data-label="Format">CII · D16B</td><td data-label="Total">€2,140.00</td><td data-label="Status"><span class="hub-state">Needs review</span></td></tr></tbody></table><div class="hub-form-grid" style="margin-top:14px"><label class="hub-field">Download artefact<select aria-label="Download artefact"><option>Original structured invoice</option><option>Canonical Sage representation</option><option>Human-readable rendering</option><option>Transition PDF companion, if present</option></select></label><label class="hub-field">Evidence included<input value="Role · media type · format/profile · hash · provenance" readonly aria-label="Download evidence"></label></div><p class="hub-rule">Original, canonical, rendering and transition companion are distinct artefacts. A rendering or PDF companion is never labelled as the authoritative structured invoice.</p></section><aside class="hub-panel"><div class="hub-panel-head"><div><h2>Retrieval control</h2><p>Scheduling, checkpoints and duplicate protection</p></div></div><ol class="hub-progress"><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Authority</strong><br>Inbound scope verified</span></li><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Original artefact</strong><br>Bytes, hash, route and format profile retained</span></li><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Checkpoint</strong><br>Cursor committed after durable outcomes</span></li><li><span class="hub-progress-marker">4</span><span><strong>Reconciliation</strong><br>Next scheduled comparison</span></li></ol><button class="hub-button is-secondary" type="button" id="hub-retrieve" style="margin-top:12px"><i data-lucide="refresh-cw" aria-hidden="true"></i>Retrieve now</button></aside></div><div class="hub-footer"><p class="hub-inline-status" id="hub-receive-status"><span class="hub-dot"></span>Last scheduled retrieval completed</p></div>
         </div>
       </section>
 
@@ -851,9 +883,9 @@
         <div class="hub-workspace">
           <div>
             <section class="hub-panel"><div class="hub-panel-head"><div><h2>Existing company context</h2><p>Reused from the completed public-platform onboarding</p></div><span class="hub-state is-ready">Reused</span></div><div class="hub-form-grid"><label class="hub-field is-wide">Legal entity<input value="Demo Supplier S.L." readonly></label><label class="hub-field">Tax identity<input value="ES:NIF B12345674" readonly></label><label class="hub-field">Onboarding status<input value="Active" readonly></label><label class="hub-field is-wide">Current active route<input value="Spanish public platform" readonly></label></div><p class="hub-rule"><strong>No re-onboarding:</strong> the new provider connection references the existing legal subject, tax identity and authority grant.</p></section>
-            <section class="hub-panel" style="margin-top:14px"><div class="hub-panel-head"><div><h2>Private platform connection</h2><p>Provider-specific account, credentials and capability</p></div></div><div class="hub-form-grid"><label class="hub-field">Private platform<select id="hub-connect-provider"><option value="EDICOM">EDICOM</option><option value="SERES">SERES</option><option value="Banqup">Banqup</option><option value="B2B Router">B2B Router</option><option value="ZeroComa">ZeroComa</option></select></label><label class="hub-field">Direction<select><option>Send and receive</option><option>Send only</option><option>Receive only</option></select></label><label class="hub-field">Provider account reference<input value="SYNTH-PROVIDER-001" aria-label="Provider account reference"></label><label class="hub-field">Credential reference<input value="SYNTH-CREDENTIAL-042" aria-label="Credential reference"></label><label class="hub-field">Environment<select><option>Production</option><option>Test</option></select></label><label class="hub-field">Authority grant<input value="SYNTH-GRANT-018" readonly aria-label="Authority grant"></label></div><p class="hub-rule">Store only a secure credential reference here—not the provider secret itself. Connection scope is separate from invoice routing scope.</p></section>
+            <section class="hub-panel" style="margin-top:14px"><div class="hub-panel-head"><div><h2>Private platform connection</h2><p>Provider-specific account, credentials, format and trust capability</p></div></div><div class="hub-form-grid"><label class="hub-field">Private platform<select id="hub-connect-provider"><option value="EDICOM">EDICOM</option><option value="SERES">SERES</option><option value="Banqup">Banqup</option><option value="B2B Router">B2B Router</option><option value="ZeroComa">ZeroComa</option></select></label><label class="hub-field">Direction<select><option>Send and receive</option><option>Send only</option><option>Receive only</option></select></label><label class="hub-field">Provider account reference<input value="SYNTH-PROVIDER-001" aria-label="Provider account reference"></label><label class="hub-field">Credential reference<input value="SYNTH-CREDENTIAL-042" aria-label="Credential reference"></label><label class="hub-field">Environment<select><option>Production</option><option>Test</option></select></label><label class="hub-field">Authority grant<input value="SYNTH-GRANT-018" readonly aria-label="Authority grant"></label><label class="hub-field is-wide">Required format coverage<input value="CII · UBL (including eligible Peppol BIS profiles) · EDIFACT invoice · Facturae" readonly aria-label="Required format coverage"></label><label class="hub-field">Signing certificate reference<input value="SYNTH-CERT-009" aria-label="Signing certificate reference"></label><label class="hub-field">Signing readiness<input value="Owner, authority, purpose, validity and revocation check" readonly aria-label="Signing readiness"></label></div><p class="hub-rule">Store only protected credential/certificate references—not secrets or private keys. A Spanish private platform must transform between the four admitted syntaxes and apply the required advanced signature; exact versions/profiles remain evidence-gated.</p></section>
           </div>
-          <aside class="hub-panel"><div class="hub-panel-head"><div><h2>Connection checks</h2><p>All checks must pass before the provider appears in Send</p></div></div><div class="hub-readiness" id="hub-connect-gates"><div class="hub-readiness-row"><span class="hub-progress-marker">1</span><span><strong>Authority scope</strong><br>Actor may connect this provider for the legal entity</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">2</span><span><strong>Account and credentials</strong><br>Provider account exists and the credential reference works</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">3</span><span><strong>Capability profile</strong><br>Requested directions and document profiles are supported</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">4</span><span><strong>Reachability and health</strong><br>Endpoint, callback and provider health checks succeed</span></div></div><button class="hub-button is-secondary" type="button" id="hub-connect-validate" style="margin-top:12px"><i data-lucide="shield-check" aria-hidden="true"></i>Validate connection</button></aside>
+          <aside class="hub-panel"><div class="hub-panel-head"><div><h2>Connection checks</h2><p>All checks must pass before the provider appears in Send</p></div></div><div class="hub-readiness" id="hub-connect-gates"><div class="hub-readiness-row"><span class="hub-progress-marker">1</span><span><strong>Authority scope</strong><br>Actor may connect this provider for the legal entity</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">2</span><span><strong>Account and credentials</strong><br>Provider account exists and the credential reference works</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">3</span><span><strong>Format and transformation</strong><br>Four admitted syntaxes, exact profiles and mappings are evidenced</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">4</span><span><strong>Advanced-signature readiness</strong><br>Signer authority and certificate lifecycle are valid</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">5</span><span><strong>Reachability and health</strong><br>Endpoint, callback and provider health checks succeed</span></div></div><button class="hub-button is-secondary" type="button" id="hub-connect-validate" style="margin-top:12px"><i data-lucide="shield-check" aria-hidden="true"></i>Validate connection</button></aside>
         </div>
         <section class="hub-panel" style="margin-top:14px"><h2>Connection makes the provider available—it does not switch the route</h2><div class="hub-history-flow is-three"><div class="hub-history-node"><strong>1 · Existing onboarded company</strong><span>Identity, authority and public route remain active.</span></div><span aria-hidden="true">→</span><div class="hub-history-node"><strong>2 · Connected private provider</strong><span>Provider-specific readiness is stored independently.</span></div><span aria-hidden="true">→</span><div class="hub-history-node"><strong>3 · Selectable in Send</strong><span id="hub-connected-provider">After connection, EDICOM can be selected for eligible invoices. The current public route remains unchanged.</span></div></div></section>
         <div class="hub-footer"><p class="hub-inline-status" id="hub-connection-status"><span class="hub-dot"></span>Not connected · current public route remains active</p><div class="hub-actions"><button class="hub-button" type="button" id="hub-connect-save" disabled><i data-lucide="plug" aria-hidden="true"></i>Connect private platform</button></div></div>
@@ -875,8 +907,8 @@
 
       const journey = {
         identify: { title: 'Identify company', summary: 'Create the reusable legal-subject record.', customer: ['Confirm legal name and tax identity', 'Choose send, receive or both'], technical: ['Link Sage tenant, dataset and product', 'Normalise scheme-qualified identifiers'], control: ['Reject ambiguous or invalid identity', 'Keep effective dates and provenance'] },
-        authority: { title: 'Confirm authority', summary: 'Prove who may act and for which capability.', customer: ['Customer admin acts directly or delegates', 'Accountant selects the correct client'], technical: ['Create a scoped authority grant', 'Track evidence, validity and revocation'], control: ['Authentication alone is insufficient', 'Prevent cross-client access'] },
-        register: { title: 'Register and confirm readiness', summary: 'Establish capability-specific network readiness.', customer: ['See send and receive readiness separately', 'Resolve actionable setup gaps'], technical: ['Register through the selected route', 'Persist connection and external references'], control: ['Do not collapse readiness to one flag', 'Recheck expiring evidence'] },
+        authority: { title: 'Confirm authority', summary: 'Prove who may act and for which client and capability.', customer: ['Customer admin acts directly or an accountant presents the client mandate', 'Accountant selects one isolated client context before acting'], technical: ['Create a scoped authority grant per client', 'Track mandate evidence, capabilities, validity and revocation'], control: ['Product access is not invoice-signing authority', 'Prevent cross-client access and certificate reuse'] },
+        register: { title: 'Confirm capability readiness', summary: 'Establish capability-specific readiness without assuming a universal registration step.', customer: ['See send and receive readiness separately', 'Complete certificate setup only when the route or capability requires it'], technical: ['Persist connection and external references where an external operation exists', 'Resolve certificate owner, purpose, authority and lifecycle through the trust service'], control: ['Do not collapse readiness to one flag', 'Certificate possession never grants authority; recheck expiry and revocation'] },
         create: { title: 'Create in the Sage product', summary: 'The existing accounting workflow remains the starting point.', customer: ['Create the invoice in the familiar product', 'Reuse customer and tax master data'], technical: ['Map product data into the canonical contract', 'Keep stable invoice and request identities'], control: ['Prevent duplicate logical submissions', 'Preserve the source record'] },
         validate: { title: 'Validate and resolve recipient', summary: 'Check the invoice and determine reachable routes.', customer: ['Fix field-level errors before sending', 'Understand the proposed route'], technical: ['Run business, tax and schema rules', 'Check public and available private directories'], control: ['Separate warnings from blockers', 'Timestamp routing evidence'] },
         deliver: { title: 'Route and deliver', summary: 'Freeze one effective route and transmission profile.', customer: ['Send through the selected connected route', 'Avoid provider-specific complexity'], technical: ['Transform and transmit the artefact', 'Record attempt, correlation and provider reference'], control: ['Protect the send boundary', 'Never retry ambiguously'] },
@@ -888,30 +920,30 @@
       };
 
       const fields = {
-        onboard: { principle: 'The legal entity and authority are established once. Readiness is recorded per capability; private-provider credentials and connections are separate.', owners: [
-          { title: 'Customer or accountant supplies', subtitle: 'Reusable business identity and authority', groups: [['Company identity', 'legalName, legalForm, subjectType, jurisdiction'], ['Tax identity', 'taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Tax scheme values', 'ES:NIF, EU:VAT, countryTaxId, unresolved'], ['Source identifier classes', 'entityNIF, DNIDerivedNIF, NIEDerivedNIF, otherAEATAssignedNIF, countryQualifiedVATId, entityNationalTaxId, personNationalTaxId, permanentEstablishmentTaxId, policyReview'], ['Business context', 'businessCapacity, requestedCapabilities, directions'], ['Authority or delegation', 'actor, principal, delegateOrganisation, validFrom, validTo, evidenceRef']] },
-          { title: 'Sage creates and manages', subtitle: 'Product context, legal subject and decisions', groups: [['Access context', 'tenantId, datasetId, productId, contextRole'], ['Legal subject record', 'legalSubjectId, normalisedTaxIdentity, provenance, effectivePeriod'], ['Authority decision', 'grantId, capabilities, routeScope, validity, revocationStatus'], ['Capability readiness', 'direction, publicRegistrationStatus, result, limitation, policyVersion'], ['Onboarding operation', 'caseId, intakeMode, status, idempotencyKey']] },
-          { title: 'Public platform or authority returns', subtitle: 'Registration and verification evidence only', groups: [['Registration result', 'externalRegistrationRef, participantRef, publicMailboxRef'], ['Verification result', 'externalCode, externalStatus, observedAt, evidenceRef'], ['Capability result', 'sendStatus, receiveStatus, limitations, validUntil']] }
+        onboard: { principle: 'The legal entity and authority are established once. Certificate setup is conditional by capability, route, format profile and environment; provider connections remain separate.', owners: [
+          { title: 'Customer or accountant supplies', subtitle: 'Reusable business identity, client-scoped authority and conditional trust input', groups: [['Company identity', 'legalName, legalForm, subjectType, jurisdiction'], ['Tax identity', 'taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Tax scheme values', 'ES:NIF, EU:VAT, countryTaxId, unresolved'], ['Source identifier classes', 'entityNIF, DNIDerivedNIF, NIEDerivedNIF, otherAEATAssignedNIF, countryQualifiedVATId, entityNationalTaxId, personNationalTaxId, permanentEstablishmentTaxId, policyReview'], ['Business context', 'businessCapacity, requestedCapabilities, directions'], ['Authority or delegation', 'actor, principal, delegateOrganisation, clientMandateRef, delegatedScope, validFrom, validTo, evidenceRef'], ['Conditional certificate', 'certificateRef, certificateOwner, certificateCustodian, certificatePurpose, environment, signerAuthorityRef']] },
+          { title: 'Sage creates and manages', subtitle: 'Product context, legal subject and readiness decisions', groups: [['Access context', 'tenantId, datasetId, productId, contextRole'], ['Legal subject record', 'legalSubjectId, normalisedTaxIdentity, provenance, effectivePeriod'], ['Authority decision', 'grantId, capabilities, routeScope, validity, revocationStatus'], ['Certificate readiness', 'requirement, ownerMatch, purposeMatch, chainStatus, validFrom, validUntil, revocationStatus, checkedAt'], ['Capability readiness', 'direction, result, limitation, policyVersion'], ['Onboarding operation', 'caseId, intakeMode, status, idempotencyKey']] },
+          { title: 'Authority or trust service returns', subtitle: 'Only confirmed external and certificate evidence', groups: [['Registration result where applicable', 'externalRegistrationRef, participantRef, publicMailboxRef'], ['Verification result', 'externalCode, externalStatus, observedAt, evidenceRef'], ['Certificate status', 'issuer, chainStatus, revocationStatus, expiresAt, evidenceRef'], ['Capability result', 'sendStatus, receiveStatus, limitations, validUntil']] }
         ]},
         batch: { principle: 'A portfolio upload is one operation but every company is validated and activated independently; identity, authority and failures never leak across clients.', owners: [
-          { title: 'Accountant or product supplies', subtitle: 'Portfolio context and one record per company', groups: [['Batch command', 'batchId, idempotencyKey, accountantOrganisationId, sourceFileRef'], ['Client row identity', 'sourceRowId, tenantId, datasetId, legalName'], ['Client tax identity', 'taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Client request', 'requestedCapabilities, directions, startingRoutePreference'], ['Delegated authority', 'principal, delegateOrganisation, validity, evidenceRef']] },
-          { title: 'Sage validates and manages', subtitle: 'Independent processing and item-level outcomes', groups: [['Batch operation', 'operationId, receivedCount, processedCount, completedAt'], ['Item operation', 'itemId, sourceRowId, idempotencyKey, status'], ['Identity and authority checks', 'legalSubjectId, grantId, validationErrors'], ['Per-company readiness', 'publicRegistrationStatus, sendStatus, receiveStatus, limitations'], ['Activation decision', 'selected, activatedAt, retainedForCorrection']] },
+          { title: 'Accountant or product supplies', subtitle: 'Portfolio context plus independently authorised records per client', groups: [['Batch command', 'batchId, idempotencyKey, accountantOrganisationId, portfolioAuthorityRef, sourceFileRef'], ['Client row identity', 'sourceRowId, tenantId, datasetId, legalName'], ['Client tax identity', 'taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Client request', 'requestedCapabilities, directions, startingRoutePreference'], ['Delegated authority', 'principal, delegateOrganisation, clientMandateRef, delegatedScope, validity, evidenceRef'], ['Conditional certificate reference', 'certificateRef, certificateOwner, certificateCustodian, certificatePurpose, signerAuthorityRef']] },
+          { title: 'Sage validates and manages', subtitle: 'Independent processing and item-level outcomes', groups: [['Batch operation', 'operationId, receivedCount, processedCount, completedAt'], ['Item operation', 'itemId, sourceRowId, idempotencyKey, status'], ['Identity and authority checks', 'legalSubjectId, grantId, validationErrors'], ['Per-company certificate readiness', 'requirement, ownerMatch, purposeMatch, validity, revocationStatus'], ['Per-company readiness', 'sendStatus, receiveStatus, limitations'], ['Activation decision', 'selected, activatedAt, retainedForCorrection']] },
           { title: 'Public platform or authority returns', subtitle: 'Correlated result for each company', groups: [['Item registration result', 'itemId, externalRegistrationRef, externalStatus'], ['Item verification evidence', 'externalCode, observedAt, evidenceRef'], ['Batch reconciliation', 'succeededCount, failedCount, unresolvedItems']] }
         ]},
         send: { principle: 'Identity, applicability, directory discovery and route choice are separate decisions. A private recipient leg and any required public copy or reporting leg are correlated but evidenced separately.', owners: [
           { title: 'ERP or customer supplies', subtitle: 'Invoice facts, qualified identities and delivery intent', groups: [['Submission command', 'requestId, idempotencyKey, actor, legalSubjectRef'], ['Invoice identity', 'invoiceNumber, series, issueDate, invoiceType, currency'], ['Seller identity', 'legalName, subjectType, businessCapacity, taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Buyer identity', 'legalName, subjectType, businessCapacity, taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Tax scheme values', 'ES:NIF, EU:VAT, countryTaxId, unresolved'], ['Source identifier classes', 'entityNIF, DNIDerivedNIF, NIEDerivedNIF, otherAEATAssignedNIF, countryQualifiedVATId, entityNationalTaxId, personNationalTaxId, permanentEstablishmentTaxId, policyReview'], ['Lines and totals', 'description, quantity, unitPrice, taxRate, taxAmount, invoiceTotal, amountDue'], ['Delivery intent', 'routePreference, selectedProviderId, directoryMethod']] },
-          { title: 'Sage validates and freezes', subtitle: 'Exact policy, discovery and routing evidence used', groups: [['Applicability decision', 'transactionScope, mandateResult, countryRuleVersion, policyEvidence'], ['Document profile', 'validationPackId, schemaVersion, profileId, validationOutcome'], ['Recipient discovery', 'directoryMethod, directoryProviderId, entryPoint, candidateRoutes, observedAt'], ['Resolved route', 'routeId, routeVersion, connectionId, providerId, decisionEvidence'], ['Delivery legs', 'recipientDeliveryLegId, publicCopyLegId, copyRequirement, correlationId'], ['Submission artefact', 'xmlRef, contentHash, signatureContext'], ['Lifecycle record', 'invoiceId, currentState, stateHistory']] },
+          { title: 'Sage validates and freezes', subtitle: 'Exact policy, representation, discovery and routing evidence used', groups: [['Applicability decision', 'transactionScope, mandateResult, countryRuleVersion, policyEvidence'], ['Format profile', 'format, syntaxVersion, profileId, ciusId, extensionSet, validationPackId'], ['Transformation plan', 'sourceProfile, targetProfile, mappingVersion, transformationOwner, semanticValidation'], ['Recipient discovery', 'directoryMethod, directoryProviderId, entryPoint, candidateRoutes, observedAt'], ['Resolved route', 'routeId, routeVersion, connectionId, providerId, decisionEvidence'], ['Trust plan', 'signaturePolicyId, signerRole, certificateRef, certificateReadiness'], ['Representation set', 'originalRef, canonicalRef, deliveryRef, publicCopyRef, renderingRef, companionRef'], ['Delivery legs', 'recipientDeliveryLegId, publicCopyLegId, copyRequirement, correlationId'], ['Submission artefact', 'contentType, contentHash, exactSentRef, signatureContext'], ['Lifecycle record', 'invoiceId, currentState, stateHistory']] },
           { title: 'External platforms return', subtitle: 'Outcome and evidence for each delivery leg', groups: [['Recipient-leg result', 'deliveryLegId, providerInvoiceRef, externalOutcome, externalCode, observedAt'], ['Public-copy result', 'publicCopyLegId, publicReference, copyOutcome, receivedAt'], ['Validation feedback', 'fieldPath, ruleCode, severity, message'], ['Lifecycle evidence', 'externalState, rejectionReason, paymentState, evidenceRef'], ['Receipt evidence', 'secureVerificationCode, receiptEvidenceRef']] }
         ]},
         receive: { principle: 'Create one durable business invoice even when it is observed through more than one route; retain the origin route and reconciliation evidence.', owners: [
           { title: 'Customer or ERP supplies', subtitle: 'Reusable inbound setup and explicit refresh intent', groups: [['Inbound setup', 'legalSubjectRef, inboundRouteId, inboundConnectionId, providerId'], ['Retrieval preference', 'schedule, directions, effectivePeriod'], ['Refresh request', 'requestId, actor, reason, idempotencyKey']] },
-          { title: 'Sage schedules and ingests', subtitle: 'Eligibility, safe checkpoints and canonical identity', groups: [['Eligibility', 'authorityRef, capabilityStatus, effectivePeriod'], ['Checkpoint', 'cursor, watermark, overlapBoundary, checkpointVersion'], ['Route observation', 'originRouteId, originConnectionId, providerObservationRef'], ['Duplicate control', 'contentHash, externalReference, existingInvoiceId'], ['Canonical invoice', 'invoiceId, sourceInvoiceRef, ingestionStatus, reconciliationStatus']] },
-          { title: 'External platform supplies', subtitle: 'Invoice content, availability and lifecycle evidence', groups: [['Availability result', 'providerRef, observedAt, pageToken'], ['Inbound artefact', 'xmlRef, attachments, signatureEvidence'], ['Sender identity', 'taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Provider status', 'externalState, externalCode, evidenceRef']] }
+          { title: 'Sage schedules and ingests', subtitle: 'Eligibility, safe checkpoints, artefacts and canonical identity', groups: [['Eligibility', 'authorityRef, capabilityStatus, effectivePeriod'], ['Checkpoint', 'cursor, watermark, overlapBoundary, checkpointVersion'], ['Route observation', 'originRouteId, originConnectionId, providerObservationRef'], ['Original artefact', 'originalRef, contentType, format, syntaxVersion, profileId, contentHash'], ['Derived artefacts', 'canonicalRef, renderingRef, mappingVersion, renderingVersion'], ['Duplicate control', 'contentHash, externalReference, existingInvoiceId'], ['Product distribution', 'distributionId, productId, acknowledgement, distributedAt'], ['Canonical invoice', 'invoiceId, sourceInvoiceRef, ingestionStatus, reconciliationStatus']] },
+          { title: 'External platform supplies', subtitle: 'Invoice content, availability and lifecycle evidence', groups: [['Availability result', 'providerRef, observedAt, pageToken'], ['Inbound artefact', 'originalRef, contentType, format, syntaxVersion, profileId, extensions, signatureEvidence'], ['Sender identity', 'taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Provider status', 'externalState, externalCode, evidenceRef']] }
         ]},
         connect: { principle: 'A proven private-platform connection becomes a route candidate in Send; it never re-onboards the company or silently changes the current route.', owners: [
-          { title: 'Customer or ERP supplies', subtitle: 'Existing company reference and provider account', groups: [['Company reference', 'legalSubjectRef, taxIdentityRef, authorityGrantId'], ['Connection request', 'providerId, environment, directions'], ['Provider account', 'externalAccountRef, participantHint'], ['Credential input', 'credentialMaterial, consentEvidence']] },
-          { title: 'Sage validates and manages', subtitle: 'Secure references and provider-specific readiness', groups: [['Connection record', 'connectionId, legalSubjectRef, providerId, environment'], ['Secure credential reference', 'credentialRef, owner, rotationStatus, expiresAt'], ['Capability checks', 'directions, documentProfiles, registration, reachability'], ['Health checks', 'endpointStatus, callbackStatus, providerHealth'], ['Readiness evidence', 'result, limitation, policyVersion, observedAt']] },
-          { title: 'Private provider returns', subtitle: 'Account, registration and health evidence', groups: [['Account result', 'externalAccountRef, providerStatus'], ['Registration result', 'participantRef, mailboxRef, observedAt'], ['Capability result', 'supportedDirections, supportedProfiles, limitations'], ['Health evidence', 'endpointResult, callbackResult, evidenceRef']] }
+          { title: 'Customer or ERP supplies', subtitle: 'Existing company reference and provider account', groups: [['Company reference', 'legalSubjectRef, taxIdentityRef, authorityGrantId'], ['Connection request', 'providerId, environment, directions'], ['Provider account', 'externalAccountRef, participantHint'], ['Credential input', 'credentialRef, consentEvidence'], ['Signing input', 'certificateRef, signerAuthorityRef']] },
+          { title: 'Sage validates and manages', subtitle: 'Secure references and provider-specific readiness', groups: [['Connection record', 'connectionId, legalSubjectRef, providerId, environment'], ['Secure credential reference', 'credentialRef, owner, rotationStatus, expiresAt'], ['Format coverage', 'UBLProfiles, CIIProfiles, EDIFACTProfiles, FacturaeProfiles, transformationMappings'], ['Signing readiness', 'signaturePolicyId, certificateRef, ownerMatch, purposeMatch, revocationStatus'], ['Capability checks', 'directions, documentProfiles, registration, reachability'], ['Health checks', 'endpointStatus, callbackStatus, providerHealth'], ['Readiness evidence', 'result, limitation, policyVersion, observedAt']] },
+          { title: 'Private provider returns', subtitle: 'Account, format, trust and health evidence', groups: [['Account result', 'externalAccountRef, providerStatus'], ['Registration result', 'participantRef, mailboxRef, observedAt'], ['Format result', 'supportedFormats, supportedProfiles, mappingVersions, limitations'], ['Trust result', 'signatureModes, delegatedSignerSupport, verificationEvidence'], ['Capability result', 'supportedDirections, supportedProfiles, limitations'], ['Health evidence', 'endpointResult, callbackResult, evidenceRef']] }
         ]}
       };
 
@@ -937,6 +969,17 @@
           help: 'Do not guess a tax scheme. Hold the invoice for an applicability and identity decision.'
         }
       };
+      const formatProfileOptions = {
+        ubl: [
+          ['spain-public', 'Spain public UBL profile — exact version evidence gate'],
+          ['peppol-bis', 'Peppol BIS Billing — UBL / EN 16931 profile'],
+          ['bilateral-ubl', 'Bilateral UBL profile — agreement required']
+        ],
+        cii: [['en16931-d16b', 'EN 16931 · SCRDM-CII D16B']],
+        edifact: [['bilateral-invoic', 'Bilateral INVOIC — directory and subset required']],
+        facturae: [['facturae-322', 'Facturae 3.2.2 — route-specific XAdES policy']]
+      };
+      const formatLabels = { ubl: 'UBL', cii: 'UN/CEFACT CII', edifact: 'UN/EDIFACT invoice', facturae: 'Facturae' };
       const privateExchangeRoutes = ['b2b-router', 'banqup', 'edicom', 'seres', 'zerocoma'];
       const exchangeRouteLabels = {
         auto: 'Automatic recipient discovery',
@@ -1017,6 +1060,80 @@
         return [...root.querySelectorAll('#hub-exchange-send [id$="-scheme"]')].some(select => select.value === 'unresolved');
       }
 
+      function configureFormatProfile(requestedProfile) {
+        const format = root.querySelector('#hub-exchange-format');
+        const profile = root.querySelector('#hub-exchange-profile');
+        const options = formatProfileOptions[format.value];
+        profile.replaceChildren(...options.map(([value, label]) => {
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = label;
+          return option;
+        }));
+        if (requestedProfile && options.some(([value]) => value === requestedProfile)) profile.value = requestedProfile;
+        const copy = root.querySelector('#hub-format-step-copy');
+        if (copy) {
+          copy.textContent = format.value === 'edifact'
+            ? 'Check ISO 9735, directory, INVOIC message version, subset, mapping and bilateral agreement.'
+            : `Check ${formatLabels[format.value]} profile/version, mapping, recipient capability and semantic preservation.`;
+        }
+      }
+
+      function syncCertificateOwner() {
+        const holder = root.querySelector('#hub-certificate-holder');
+        const owner = root.querySelector('#hub-certificate-owner');
+        const principal = root.querySelector('#hub-certificate-principal');
+        const company = root.querySelector('#hub-onboard-company-name');
+        if (!holder || !owner || !principal || !company) return;
+        const ownerLabels = {
+          customer: company.value || 'Selected client legal entity',
+          accountant: root.querySelector('#hub-accountant-practice').value || 'Authorised accountancy practice',
+          provider: `${root.querySelector('#hub-onboard-private-provider').value} delegated signing service`,
+          sage: 'Sage trust service'
+        };
+        owner.value = ownerLabels[holder.value];
+        principal.value = company.value || 'Selected client legal entity';
+      }
+
+      function toggleOnboardingActor() {
+        const actor = root.querySelector('#hub-onboarding-actor');
+        const accountantFields = root.querySelector('#hub-accountant-fields');
+        const holder = root.querySelector('#hub-certificate-holder');
+        const authorityCopy = root.querySelector('#hub-authority-progress-copy');
+        const isAccountant = actor.value === 'accountant';
+        accountantFields.hidden = !isAccountant;
+        authorityCopy.textContent = isAccountant
+          ? 'Client mandate, delegated scope, validity and client isolation'
+          : 'Customer administrator scope and evidence';
+        if (isAccountant && holder.value === 'customer') holder.value = 'accountant';
+        if (!isAccountant && holder.value === 'accountant') holder.value = 'customer';
+        syncCertificateOwner();
+        toggleCertificateSetup();
+      }
+
+      function toggleCertificateSetup() {
+        const policy = root.querySelector('#hub-certificate-policy');
+        const fields = root.querySelector('#hub-certificate-fields');
+        const purpose = root.querySelector('#hub-certificate-purpose');
+        const summary = root.querySelector('#hub-certificate-summary');
+        const progressCopy = root.querySelector('#hub-certificate-progress-copy');
+        const isAccountant = root.querySelector('#hub-onboarding-actor').value === 'accountant';
+        const required = policy.value !== 'not-required';
+        fields.hidden = !required;
+        const purposes = { 'private-signing': 'Advanced invoice signing', 'provider-auth': 'Provider / API authentication', 'facturae-xades': 'Facturae XAdES signing' };
+        if (required) purpose.value = purposes[policy.value];
+        syncCertificateOwner();
+        summary.textContent = required
+          ? 'Certificate setup is required for this selected capability. Validate the certificate owner, the client principal, delegated signer authority, purpose, chain, expiry and revocation status.'
+          : 'No certificate is requested for the selected public capability. This is a recorded policy result—not a missing onboarding step.';
+        progressCopy.textContent = required
+          ? 'Owner, delegated signer, purpose and lifecycle must pass'
+          : 'Not required for selected public capability';
+        root.querySelector('#hub-onboard-status').innerHTML = required
+          ? `<span class="hub-dot"></span>Draft · ${isAccountant ? 'client mandate and ' : ''}certificate owner, signer authority, purpose and status must be validated`
+          : `<span class="hub-dot"></span>Draft · ${isAccountant ? 'client mandate must be validated; ' : ''}certificate not required for current selected capability`;
+      }
+
       function clearRouteValidationTimers() {
         routeValidationTimers.forEach(timer => window.clearTimeout(timer));
         routeValidationTimers = [];
@@ -1084,6 +1201,8 @@
       function finishRouteValidation() {
         const route = root.querySelector('#hub-send-route');
         const directory = root.querySelector('#hub-private-directory');
+        const format = root.querySelector('#hub-exchange-format');
+        const profile = root.querySelector('#hub-exchange-profile');
         const method = selectedDirectoryMethod();
         const resultTitle = root.querySelector('#hub-validation-result-title');
         const resultCopy = root.querySelector('#hub-validation-result-copy');
@@ -1093,13 +1212,15 @@
           route.value = directory.value;
           const label = exchangeRouteLabels[directory.value];
           resultTitle.textContent = `${label} entry point candidate verified`;
-          resultCopy.textContent = `The synthetic lookup found one matching recipient entry point. Direction, document profile, effective scope and the configured ${label} connection are ready; the lookup evidence is frozen with this route decision.`;
-          mainResult.textContent = `Validated via ${label} directory · matching entry point · connection ready.`;
+          resultCopy.textContent = `The synthetic lookup found one matching recipient entry point. ${formatLabels[format.value]} / ${profile.options[profile.selectedIndex].text} is eligible for this scenario, transformation occurs before the mandatory private-platform advanced signature, and the configured ${label} connection is ready.`;
+          mainResult.textContent = `Validated via ${label} directory · ${formatLabels[format.value]} profile eligible · advanced signature ready.`;
         } else {
           route.value = 'public';
+          format.value = 'ubl';
+          configureFormatProfile('spain-public');
           resultTitle.textContent = 'Public route resolved from distributed discovery';
-          resultCopy.textContent = 'The synthetic check found no eligible private recipient entry point in the available publication sources. The Spanish public platform is selected as the scenario default and the discovery evidence is retained.';
-          mainResult.textContent = 'Validated via distributed discovery · no eligible private entry point · public route selected.';
+          resultCopy.textContent = 'The synthetic check found no eligible private recipient entry point. The Spanish public platform and its evidence-gated UBL profile are selected; any transition PDF remains a separate readability companion.';
+          mainResult.textContent = 'Validated via distributed discovery · public route · approved UBL profile selected.';
         }
 
         root.querySelector('#hub-validation-result').dataset.visible = 'true';
@@ -1123,7 +1244,8 @@
         routeValidationTimers.push(window.setTimeout(() => { setRouteValidationStep(1, 'done'); setRouteValidationStep(2, 'current'); }, 350));
         routeValidationTimers.push(window.setTimeout(() => { setRouteValidationStep(2, 'done'); setRouteValidationStep(3, 'current'); }, 750));
         routeValidationTimers.push(window.setTimeout(() => { setRouteValidationStep(3, 'done'); setRouteValidationStep(4, 'current'); }, 1150));
-        routeValidationTimers.push(window.setTimeout(() => { setRouteValidationStep(4, 'done'); finishRouteValidation(); }, 1550));
+        routeValidationTimers.push(window.setTimeout(() => { setRouteValidationStep(4, 'done'); setRouteValidationStep(5, 'current'); }, 1550));
+        routeValidationTimers.push(window.setTimeout(() => { setRouteValidationStep(5, 'done'); finishRouteValidation(); }, 1950));
       }
 
       function persist() {
@@ -1205,12 +1327,15 @@
         if (event.target.closest('#hub-onboard-validate')) {
           root.querySelectorAll('#hub-onboard-progress li').forEach(li => li.classList.add('is-done'));
           root.querySelectorAll('#hub-onboard-progress .hub-progress-marker').forEach(marker => marker.textContent = '✓');
-          root.querySelector('#hub-onboard-status').innerHTML = '<span class="hub-dot"></span>Active · public route ready for send and receive';
+          const actor = root.querySelector('#hub-onboarding-actor').value;
+          root.querySelector('#hub-onboard-status').innerHTML = actor === 'accountant'
+            ? '<span class="hub-dot"></span>Active · client ready under recorded delegated authority'
+            : '<span class="hub-dot"></span>Active · public route ready for send and receive';
           return;
         }
         if (event.target.closest('#hub-batch-activate')) {
-          root.querySelectorAll('[data-batch-state]').forEach(status => { if (!status.classList.contains('is-error')) { status.className = 'hub-state is-ready'; status.textContent = 'Activated'; } });
-          root.querySelector('#hub-batch-status').innerHTML = '<span class="hub-dot"></span>2 activated · 1 retained for correction';
+          root.querySelectorAll('[data-batch-state]').forEach(status => { if (!status.classList.contains('is-error') && !status.hasAttribute('data-batch-blocked')) { status.className = 'hub-state is-ready'; status.textContent = 'Activated'; } });
+          root.querySelector('#hub-batch-status').innerHTML = '<span class="hub-dot"></span>1 activated · 1 blocked by trust/connection · 1 retained for correction';
           return;
         }
         if (event.target.closest('#hub-route-check')) {
@@ -1263,9 +1388,24 @@
       });
 
       root.addEventListener('change', event => {
-        if (event.target.matches('input[name="hub-start-route"]')) root.querySelector('#hub-private-provider').hidden = event.target.value !== 'private';
+        if (event.target.matches('input[name="hub-start-route"]')) {
+          const isPrivate = event.target.value === 'private';
+          root.querySelector('#hub-private-provider').hidden = !isPrivate;
+          root.querySelector('#hub-certificate-policy').value = isPrivate ? 'private-signing' : 'not-required';
+          toggleCertificateSetup();
+        }
+        if (event.target.id === 'hub-certificate-policy') toggleCertificateSetup();
+        if (event.target.id === 'hub-onboarding-actor') toggleOnboardingActor();
+        if (event.target.id === 'hub-certificate-holder' || event.target.id === 'hub-onboard-company-name' || event.target.id === 'hub-accountant-practice' || event.target.id === 'hub-onboard-private-provider') syncCertificateOwner();
         if (event.target.matches('input[name="hub-directory-method"]')) toggleDirectoryMethod();
         if (event.target.id === 'hub-private-directory') toggleDirectoryMethod();
+        if (event.target.id === 'hub-exchange-format') {
+          configureFormatProfile();
+          invalidateSendValidation('Exchange syntax changed. Validate route, profile, transformation and trust again.');
+        }
+        if (event.target.id === 'hub-exchange-profile' || event.target.id === 'hub-pdf-companion') {
+          invalidateSendValidation('Representation profile or companion changed. Validate route and format again.');
+        }
         if (event.target.id === 'hub-send-route') {
           invalidateSendValidation('Route selection changed. Validate recipient reachability again.');
         }
@@ -1297,6 +1437,8 @@
       function renderDesign() { root.dataset.density = designState.density; root.dataset.showNotes = String(designState.showNotes); }
       configureExchangeParty('seller', 'entity-nif');
       configureExchangeParty('buyer', 'nie');
+      configureFormatProfile('spain-public');
+      toggleOnboardingActor();
       root.querySelector('#hub-route-dialog').addEventListener('close', clearRouteValidationTimers);
       renderDesign();
       renderAll();

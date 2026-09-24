@@ -10,6 +10,28 @@ Read `schema/DOCUMENT_RULES.md` before creating or changing managed documents.
 - Never add secrets, tokens, customer personal data, or confidential raw exports.
 - Do not publish to Confluence or change document status without explicit user approval.
 
+## Context and chat lifecycle
+
+- Treat each chat as one primary outcome. Continue in the same chat while refining
+  that outcome or its directly related files.
+- A change of deliverable, country, or lifecycle phase (for example research to
+  mockup, mockup to PRD, or PRD to publication) is a natural boundary for a fresh
+  chat.
+- At such a boundary, finish the current safe work, then recommend a fresh chat and
+  provide a concise handoff containing: objective, canonical files, agreed
+  decisions, completed work, open questions, and a ready-to-paste next prompt.
+- If the objective is unchanged but the chat has become long, recommend `/compact`
+  once at a natural pause. Do not repeatedly interrupt the work with context advice.
+- Use `/side` for a quick explanatory question when available. Use a fresh chat for
+  maximum context savings; use `/fork` only when inherited conversation history is
+  materially useful.
+- Prefer current repository files and Git state over raw chat history. Read only the
+  files needed for the task; do not reload every related PRD by default.
+- Keep handoffs under 300 words and omit command history, failed attempts,
+  superseded ideas, and routine verification output.
+- Do not create permanent handoff files unless the user asks. Never refuse to
+  continue solely because a chat is long.
+
 ## Separate-version requests
 
 When a user asks for a new version, a separate version, or says not to overwrite a

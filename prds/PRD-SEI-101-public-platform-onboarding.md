@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-25
-updated: 2026-08-25
+updated: 2026-09-22
 reviewers: []
 related:
   - PRD-SEI-104
@@ -27,6 +27,9 @@ related:
   - PRD-SEI-231
   - PRD-SEI-233
   - PRD-SEI-234
+  - PRD-SEI-223
+  - PRD-SEI-236
+  - PRD-SEI-239
 confluence:
   publish: true
   space_key: DNBU
@@ -44,6 +47,8 @@ confluence:
 Phase 1 onboarding prepares a Spanish business or professional to use Sage capabilities that interact with the public e-invoicing solution. It establishes the Sage access context, legal subject, Spanish tax identity, transaction-scope facts, operation-specific authority, requested capabilities, environment and evidence needed to decide whether the customer is ready.
 
 Onboarding does **not** by itself prove that an invoice is compliant, delivered or reported. It produces a versioned readiness decision that later document, delivery and reporting operations consume.
+
+Certificate setup is a conditional readiness stage, not a universal upload step. When a selected capability, route or format requires certificate-backed authentication, signing or sealing, onboarding must establish the correct protected reference, owner, purpose, authority and current validity. PRD-SEI-226 owns the certificate/key lifecycle; this PRD owns whether missing or invalid readiness blocks the requested capability.
 
 The Phase 1 completion state is `READY_FOR_PUBLIC_SOLUTION` or `READY_WITH_LIMITATIONS`, not `REGISTERED_FOR_PUBLIC_PLATFORM`, unless an official external registration contract and authoritative acknowledgement are subsequently evidenced. Royal Decree 238/2026 makes the public solution the default when no private receipt platform has been expressly agreed, but leaves its detailed identification, authentication and representation mechanisms to a ministerial order.
 
@@ -82,6 +87,7 @@ A direct customer or delegated accountant can establish one or many independentl
 | Local NIF structural/check-character validation | In scope | Validator implementation requires approved rules/tests |
 | AEAT census identity-quality check | Proposed, gated on approved access and service contract | Provider specification if integration is approved |
 | Public-solution access/readiness evidence | In scope conceptually | Technical binding requires ministerial order/provider artefacts |
+| Conditional certificate setup/readiness | In scope where required by the selected capability/route/profile | Lifecycle, custody, rotation and revocation in PRD-SEI-226; runtime signing in PRD-SEI-223/format child |
 | Public invoice submission | Out of scope | PRD-SEI-212 |
 | Public invoice consultation/retrieval | Out of scope | PRD-SEI-211 |
 | Invoice rejection and payment reporting | Out of scope | PRD-SEI-224 |
@@ -120,6 +126,12 @@ Onboarding prepares a reusable compliance context; it does not collapse the comp
 | Authentication | Evidence establishing who is accessing a service | Authority to act for a client or capability |
 | Delegated authority | Effective evidence permitting a delegate to perform named operations for a principal | Accountant role, API key, certificate possession or portfolio membership |
 | Credential reference | Reference to a protected authentication/signing credential and its custodian | The delegated-authority grant itself |
+| Certificate readiness | Evidence that the referenced certificate is valid for the named owner, purpose, environment, capability and time | Proof of delegated authority or a universal “connected” state |
+| Certificate custody mode | Customer, accountant/delegate, Sage, provider or trust-service boundary that controls the private key/signing operation | Certificate owner, represented legal subject or signing authority |
+| Sage-managed signing | Sage invokes a protected signing service for an explicitly identified customer/delegate under approved authority | Using a Sage workload/transport certificate or making Sage the invoice issuer |
+| Sage operator seal | Seal whose creator is the named Sage legal person/operator | The customer's/direct or delegated signature |
+| Transport certificate | Certificate used to authenticate or encrypt a service/network channel | Certificate used to sign the invoice representation |
+| Organisational certification | ISO/IEC 27001 or equivalent assurance over a defined scope | An electronic certificate or signature |
 | Channel decision | Recorded use/default/combination of public and private routes | Technical connection or invoice-level routing result |
 | Readiness | Sage decision that required onboarding controls passed for named capabilities | External registration, delivery success or legal compliance of all future invoices |
 | Environment | Isolated test or production execution boundary | A request field that callers may freely switch |
@@ -149,7 +161,7 @@ Onboarding prepares a reusable compliance context; it does not collapse the comp
   </style>
   <h2>Two intake modes, one evidence-led readiness decision</h2>
   <p class="sub">Direct and accountant pathways differ in orchestration only. Every legal subject passes the same identity, scope, authority and capability controls.</p>
-  <svg viewBox="0 0 1120 510" role="img" aria-label="Direct customers and accountant portfolio batches create isolated onboarding cases. Each case passes access-context, identity and scope validation, operation-specific authority, capability and environment checks, and confirmed external checks when available. Correctable failures return for correction, ambiguous external outcomes wait for reconciliation, and successful cases become ready or ready with limitations with immutable evidence.">
+  <svg viewBox="0 0 1120 510" role="img" aria-label="Direct customers and accountant portfolio batches create isolated onboarding cases. Each case passes access-context, identity and scope validation, operation-specific authority, capability and environment checks, and conditional certificate readiness when required. Correctable failures return for correction, ambiguous external outcomes wait for reconciliation, and successful cases become ready or ready with limitations with immutable evidence.">
     <text x="28" y="32" class="label">INTAKE</text><text x="258" y="32" class="label">SHARED CONTROLS</text><text x="844" y="32" class="label">DECISION AND EVIDENCE</text>
     <rect x="28" y="72" width="188" height="76" rx="9" class="node"/><text x="46" y="99" class="title">Direct customer</text><text x="46" y="120" class="copy">One legal subject / workspace</text><text x="46" y="136" class="copy">Immediate structural feedback</text>
     <rect x="28" y="205" width="188" height="76" rx="9" class="node"/><text x="46" y="232" class="title">Accountant portfolio</text><text x="46" y="253" class="copy">Asynchronous batch receipt</text><text x="46" y="269" class="copy">Independent client work items</text>
@@ -158,7 +170,7 @@ Onboarding prepares a reusable compliance context; it does not collapse the comp
     <path d="M432 110 H464" class="path"/><polygon points="464,110 454,104 454,116" class="arrow"/>
     <rect x="466" y="72" width="174" height="76" rx="9" class="node"/><text x="484" y="99" class="title">Scope and authority</text><text x="484" y="120" class="copy">Policy • principal • delegate</text><text x="484" y="136" class="copy">capability • validity • evidence</text>
     <path d="M640 110 H672" class="path"/><polygon points="672,110 662,104 662,116" class="arrow"/>
-    <rect x="674" y="62" width="174" height="96" rx="9" class="gate"/><text x="692" y="89" class="title">Readiness controls</text><text x="692" y="110" class="copy">Direction • environment</text><text x="692" y="128" class="copy">Credential reference</text><text x="692" y="146" class="copy">Official checks when confirmed</text>
+    <rect x="674" y="62" width="174" height="96" rx="9" class="gate"/><text x="692" y="89" class="title">Readiness controls</text><text x="692" y="110" class="copy">Direction • environment</text><text x="692" y="128" class="copy">Conditional certificate check</text><text x="692" y="146" class="copy">Official checks when confirmed</text>
     <path d="M848 110 H882" class="path"/><polygon points="882,110 872,104 872,116" class="arrow"/>
     <rect x="884" y="62" width="204" height="96" rx="12" class="done"/><text x="902" y="89" class="title">Capability readiness</text><text x="902" y="110" class="copy">READY or READY_WITH_LIMITATIONS</text><text x="902" y="128" class="copy">per client and capability</text><text x="902" y="146" class="copy">policy and evidence snapshot retained</text>
     <rect x="466" y="242" width="174" height="82" rx="9" class="fail"/><text x="484" y="269" class="title">Correctable failure</text><text x="484" y="290" class="copy">Invalid/mismatched facts or evidence</text><text x="484" y="307" class="copy">No external mutation; correct and resume</text>
@@ -264,7 +276,7 @@ Onboarding prepares a reusable compliance context; it does not collapse the comp
 |---|---|
 | Every business must transition entirely through the AEAT public network | The mandate is scoped to qualifying B2B operations; public/private routes or a combination are permitted |
 | Onboarding registers the customer with AEAT and receives registration confirmation | No such contract is assumed; readiness is internal unless official evidence proves an external operation |
-| Business uploads its certificate and accountant uses one master certificate for all clients | Credential and representation mechanism is open pending the ministerial order; authority remains per client/capability |
+| Business uploads its certificate and accountant uses one master certificate for all clients | Certificate setup is conditional by capability/route/profile; custody may be customer, accountant, Sage or provider, but authority and readiness remain per client/capability and private keys stay in an approved protected boundary |
 | Social collaborator can send but cannot retrieve without individual apoderamiento | Retained as a research question, not an enforcement rule for SPFE |
 | `NIF` and `NIE` are peer identifier schemes | NIF is the invoice/tax identity role; NIE generally supplies that NIF for a foreign natural person |
 | All DNI/NIF/NIE use the same modulo-23 rule and entities use legacy CIF handling | Validation is selected by subject/identifier class and implemented from approved rules/tests; historical terminology is not the canonical model |
@@ -310,6 +322,7 @@ The proposed target keeps the detailed scenarios but places each claim behind an
 | Capability request | client, capability, direction, effective request time and requested route | Evaluated independently |
 | Authority decision | principal, delegate/user, capability, direction, environment, evidence, validity, result/reason | Separate from authentication/credential |
 | Credential reference | owner, custodian, purpose, environment, expiry/rotation/status | Secret remains in approved vault |
+| Certificate-readiness result | trust-material class/reference, owner/legal subject, custodian, signer/seal creator, represented principal, direct/delegated/Sage-managed/provider mode, purpose, capability/route/profile, environment, chain/issuer, validity, revocation/status evidence, authority reference, checked time, next recheck and remediation | PRD-SEI-226 owns lifecycle and protected material; onboarding stores no private key |
 | Verification finding | check type/source/version/time, input subject, outcome, reason, evidence reference | Result meaning cannot exceed source contract |
 | Readiness decision | capability, result, limitation/reason, policy version, evidence snapshot and expiry/recheck | Consumed by later operation |
 | Batch | batch ID, submitting firm, counts, status and item references | No client details leaked across item boundaries |
@@ -324,6 +337,7 @@ Do not represent the customer with one `onboarded` flag.
 | Identity | `UNVERIFIED`, `STRUCTURALLY_VALID`, `VERIFIED`, `MISMATCH`, `REVIEW_REQUIRED` | Identity evidence only |
 | Authority | `NOT_REQUIRED`, `PENDING`, `EFFECTIVE`, `DENIED`, `EXPIRED`, `REVOKED`, `UNDETERMINED` | Per capability and client |
 | Credential | `NOT_YET_REQUIRED`, `PENDING`, `VALID`, `EXPIRING`, `INVALID`, `REVOKED` | Authentication/custody readiness |
+| Certificate requirement | `NOT_REQUIRED`, `REQUIRED_PENDING`, `READY`, `EXPIRING`, `EXPIRED`, `REVOKED`, `WRONG_PURPOSE`, `OWNER_MISMATCH`, `UNDETERMINED` | Conditional readiness for a named capability/route/profile |
 | External check | `NOT_REQUIRED`, `NOT_ATTEMPTED`, `PENDING`, `CONFIRMED`, `NOT_CONFIRMED`, `OUTCOME_UNKNOWN` | Only for a confirmed external operation |
 | Capability readiness | `NOT_REQUESTED`, `ACTION_REQUIRED`, `READY_WITH_LIMITATIONS`, `READY_FOR_PUBLIC_SOLUTION`, `SUSPENDED` | Final onboarding result per capability |
 
@@ -409,6 +423,19 @@ Each capability must carry `CONFIRMED`, `PROPOSED`, `UNKNOWN` or `UNSUPPORTED` e
 3. Any outcome-unknown external work is reconciled rather than forgotten.
 4. A new effective-dated decision governs future operations; historical invoice/onboarding evidence remains unchanged.
 
+### J8 — Conditional certificate setup and readiness
+
+1. The selected capability, environment, route and format profile determine whether transport authentication, direct signing, delegated signing, Sage-managed signing, provider signing/sealing or an operator seal is required; `Sage certificate` is not accepted as an undifferentiated choice.
+2. If no certificate is required, the check records `NOT_REQUIRED`; the user is not asked to upload or configure one.
+3. If required, the user selects the signing/custody mode and selects or provisions the corresponding certificate through the approved PRD-SEI-226 custody flow; onboarding stores only a protected reference and safe metadata.
+4. Sage verifies the certificate owner/legal subject, custodian, represented principal, actual signer/delegate or seal creator, intended purpose/key usage, environment, issuer/chain, validity period and current revocation/status evidence.
+5. Missing, expiring, expired, revoked, wrong-purpose or owner-mismatched evidence produces a precise action and blocks only the affected capability.
+6. Readiness records the policy and evidence snapshot. Expiry, rotation, revocation or authority change invalidates future use without rewriting historical decisions.
+7. For Sage-managed signing, onboarding records that Sage operates the protected signing service while the approved principal/delegate remains explicit; a Sage workload/transport certificate cannot satisfy invoice-signing readiness.
+8. For a proposed Sage operator seal, readiness remains blocked until the applicable route and Legal decision explicitly permit that seal model.
+
+**Result:** a certificate-dependent capability becomes ready only when trust and authority align; possession alone never grants permission to act.
+
 ## Functional requirements
 
 ### Intake, tenancy and isolation
@@ -448,7 +475,24 @@ Each capability must carry `CONFIRMED`, `PROPOSED`, `UNKNOWN` or `UNSUPPORTED` e
 | FR16 | Authentication, accountant-firm role, portfolio membership, API credential or certificate possession must not satisfy FR15 by implication. |
 | FR17 | Authority evidence must record source/type, principal, delegate, permitted operations, validity, status, evidence reference and revocation history. |
 | FR18 | Revoked, expired, denied or undetermined authority must block only the affected future capabilities and preserve historical evidence. |
-| FR19 | Credential workflows must remain abstract references until the official SPFE authentication/representation contract and Sage custody design are approved. |
+| FR19 | Public-solution credential workflows must remain evidence-gated until the official SPFE authentication/representation contract is approved; all credential material must use the PRD-SEI-226 custody design rather than document-local storage. |
+
+### Conditional certificate readiness
+
+| ID | Requirement |
+|---|---|
+| FR39 | The service must determine certificate need from the requested capability, route, format/signature profile, actor role, environment and effective policy; it must not require a certificate universally. |
+| FR40 | Where required, setup must use an approved PRD-SEI-226 provision/select/import flow and persist only a protected reference plus non-secret metadata. |
+| FR41 | Readiness must verify owner/legal subject, direct/delegated signer authority, permitted purpose, capability/route/profile, environment, issuer/chain, validity and current revocation/status evidence. |
+| FR42 | Certificate possession must not satisfy delegated authority, and a valid authentication certificate must not be treated as a valid invoice-signing certificate unless the policy permits that purpose. |
+| FR43 | `PENDING`, `EXPIRING`, `EXPIRED`, `REVOKED`, `WRONG_PURPOSE`, `OWNER_MISMATCH` or `UNDETERMINED` must block only the dependent capability and expose the responsible actor and remediation. |
+| FR44 | Onboarding must subscribe to or re-evaluate PRD-SEI-226 expiry, rotation, revocation and authority changes before later use; rotation must preserve historical certificate/signature evidence. |
+| FR45 | Batch onboarding must evaluate certificate readiness independently per legal subject/capability even when a credential reference is reusable within its proven authority scope. |
+| FR46 | The onboarding contract must distinguish customer/direct signing, accountant/delegated signing, Sage-managed remote signing, provider signing/sealing, Sage operator seal and transport authentication as separate readiness modes. |
+| FR47 | `Sage-managed signing` must identify the represented customer principal, actual signer/delegate, Sage service role, custody boundary and authority reference; it must not treat the Sage workload identity as the invoice signer. |
+| FR48 | A Sage operator seal must return separate `SEAL_READY` evidence naming Sage as seal creator and must not satisfy private-platform delegated-signature readiness unless the effective Legal/trust policy explicitly permits it. |
+| FR49 | Readiness must expose expiry horizon, renewal/rotation owner, next mandatory recheck and affected capabilities without exposing private-key or secret material. |
+| FR50 | `EXPIRED`, `REVOKED`, `COMPROMISED`, `SUSPENDED` or `VALIDATION_UNKNOWN` must block new dependent use; historic signed-invoice evidence remains governed separately by PRD-SEI-226. |
 
 ### Public-solution context and readiness
 
@@ -508,6 +552,8 @@ This table defines behaviours, not approved URLs or transport choices.
 | Unknown client or unauthorised accountant | Security/authority | Deny with non-enumerating response and audit | No client existence/data leakage |
 | Authority expired/revoked during processing | Authority | Stop affected future capability; leave other authorised items independent | Action required with evidence owner |
 | Credential invalid/expired | Authentication/configuration | Block affected external step; do not change authority record | Credential custodian remediates |
+| Certificate owner/purpose/authority mismatch | Trust/authority | Block only dependent capability; retain redacted finding and required owner action | Select/provision the correct certificate or authority evidence |
+| Certificate expires or is revoked after readiness | Lifecycle | Suspend future dependent actions and re-evaluate through PRD-SEI-226; preserve historical evidence | Rotate/replace and re-establish readiness |
 | Environment mismatch | Security/configuration | Reject before external call | Explicit correction; no silent TEST default |
 | External validation/throttle/unavailability | Transient where contract permits | Retry only under approved budget; otherwise retain pending/recoverable state | Fault domain and next action visible |
 | Timeout after confirmed read-only call | Transient | Retry safely with correlation as contract permits | No duplicate mutation risk |
@@ -557,6 +603,14 @@ This table defines behaviours, not approved URLs or transport choices.
 | AC16 | Given a customer is ready to submit but retrieval is not evidenced, when the product displays status, then it shows the capability difference rather than a single `ONBOARDED` flag. |
 | AC17 | Given an operator inspects a failed case, when evidence is displayed, then correlation, fault owner and safe action are visible while full identifiers and secrets remain redacted. |
 | AC18 | Given onboarding completes, when PRD-SEI-212 or PRD-SEI-211 consumes readiness, then it receives subject, capability, authority, environment, policy and evidence references without mutable customer-master substitution. |
+| AC19 | Given a capability/route/profile does not require a certificate, when onboarding runs, then certificate readiness is `NOT_REQUIRED` and the user is not forced through certificate setup. |
+| AC20 | Given private-platform signing requires a certificate, when the referenced certificate is valid but belongs to another legal subject or lacks signer authority, then readiness is blocked and possession does not grant authority. |
+| AC21 | Given a ready certificate is rotated or revoked, when a later operation begins, then current readiness is re-evaluated while the prior certificate and signature evidence remain historically attributable. |
+| AC22 | Given a portfolio batch shares a certificate reference whose authority covers only some clients, when readiness runs, then only those evidenced clients can become ready and no batch-wide authority is inferred. |
+| AC23 | Given a customer selects Sage-managed signing, when onboarding evaluates readiness, then it records the customer principal, approved signer/delegate, Sage service role, custody reference and authority separately. |
+| AC24 | Given a valid Sage transport/workload certificate, when invoice-signing readiness is evaluated, then it is rejected for the wrong purpose unless a separate approved signing policy and certificate exist. |
+| AC25 | Given a Sage operator seal is available, when delegated customer-signature readiness is requested, then readiness remains blocked unless Legal has approved that exact route/policy and the UI identifies Sage as seal creator. |
+| AC26 | Given a certificate approaches expiry, when readiness is displayed, then the affected capability, named renewal owner, policy horizon and action are visible; after expiry new use is blocked while historic evidence remains attributable. |
 
 ## Measures
 
@@ -583,6 +637,7 @@ Targets require baselines and owners before production approval.
 | Policy | Approved Phase 1 customer/transaction cohort, effective dates, exclusions and public/default interpretation | Customer eligibility |
 | Identity | Approved Spain identifier catalogue, validator rules/test fixtures, data classification and census-result policy | Identity implementation |
 | Representation | Ministerial order/provider artefacts plus approved per-capability accountant authority matrix | Delegate production readiness |
+| Certificate and trust | PRD-SEI-226 custody/lifecycle design, capability-specific certificate policy, signer/delegation rules and revocation evidence source | Certificate-dependent readiness |
 | External contract | Current official WSDL/OpenAPI/schema, authentication, environments, limits, idempotency, status/error and support evidence | External integration design |
 | Design | State/record boundaries, API/client contract, privacy, retention and threat model approved | Build |
 | Non-production | Environment isolation, synthetic data, fault injection, idempotency and reconciliation tests pass | Pilot |
@@ -621,6 +676,10 @@ Publication to the six existing stable Confluence pages was explicitly approved 
 | Which customer cohorts and transaction directions are Phase 1? | Determines eligibility and volume | Spain product/regulatory | Journey/rollout | Use PRD-SEI-234 applicability contract after approval |
 | What are expected direct customers, accountant firms, clients per firm, concurrent batches and peak checks? | Determines capacity and operational model | Product/analytics | NFR targets/pilot | Measure pilot and set reviewed limits |
 | What evidence and retention periods apply to identity, authority, credentials and readiness decisions? | Determines privacy, audit and deletion | Legal/privacy/security | Production | Separate configurable schedules pending approval |
+| For each public/private capability and format profile, is a certificate required and for authentication, signing, sealing or more than one purpose? | Prevents universal upload and wrong-purpose use | Legal/security/architecture | Certificate journey |
+| Does the proposed Sage capability remotely sign for the identified customer/delegate, apply a Sage operator seal, or provide both as separate services? | Determines represented actor, custody, authority, liability and customer wording | Business Identity owner / Legal / Security | Certificate and signing journey |
+| Which approved service supplies certificate status/revocation and how fresh must the evidence be at onboarding and runtime? | Prevents use after revocation | Security/trust owner | Production signing/authentication |
+| Which expiry-warning horizons, renewal owners and rotation-overlap rules apply to each certificate class? | Prevents avoidable outage without inventing a universal threshold | Security/operations/provider owners | Production readiness |
 | Should the five current child pages remain published as generated children or become anchors/redirects to the consolidated parent? | Prevents duplicate sources and broken navigation | Product/document owner | Publication plan only | Preserve links until explicit migration plan is approved |
 
 ## Decisions
@@ -645,3 +704,4 @@ The document is ready for structured review of scope, identity and proposed cont
 | Date | Version | Change | Evidence/decision |
 |---|---|---|---|
 | 2026-08-25 | Initial canonical draft | Consolidated the Public Platform onboarding parent and five child subjects; separated readiness from registration, NIF from NIE source identity, authority from authentication, TEST from production and safe retry from reconciliation | User approval; internal Confluence pages; Royal Decree 238/2026; AEAT identity guidance; PRD-SEI-211/212/215/225/226/231/235 |
+| 2026-09-22 | Certificate-readiness extension | Added a conditional certificate setup/readiness stage linked to PRD-SEI-226, including explicit Sage-managed/operator-seal distinctions, owner, purpose, authority, environment, validity, expiry, revocation, rotation and batch controls | PRD-SEI-226; RD 238/2026 Article 7.3; format-profile decomposition in PRD-SEI-223 |

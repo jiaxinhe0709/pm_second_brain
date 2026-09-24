@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-09-21
-updated: 2026-09-21
+updated: 2026-09-22
 reviewers: []
 related:
   - NAV-SEI-004
@@ -76,6 +76,8 @@ Out of scope: generic “all EDIFACT” support; assuming an `INVOIC` label iden
 | EDI-FR8 | Apply signing/sealing only when required by the selected route/profile and after final transformation. |
 | EDI-FR9 | Expose EDIFACT capability per directory/message/subset, operation, product and provider. |
 | EDI-FR10 | Version agreements and profiles so trading-party changes do not alter historical exchanges. |
+| EDI-FR11 | Resolve direct, delegated, Sage-managed, provider signature/seal or Sage operator-seal mode explicitly through PRD-SEI-223/226; a generic Sage/workload/transport certificate must not satisfy invoice-signing policy. |
+| EDI-FR12 | Freeze the signer/seal creator, represented principal, trust-material version, signature policy and exact signed EDIFACT object/container, and retain expiry/status/validation/preservation evidence while private keys remain in the approved custody boundary. |
 
 ## Product execution hypothesis
 
@@ -90,6 +92,7 @@ Discovery input says Sage 50, Sage 200 and Despachos expect private-platform ISV
 | Unsupported segment/value | Apply only registered fallback; otherwise reject/quarantine |
 | Functional negative acknowledgement | Preserve separately from transport result and permit correction flow |
 | Timeout after transmission | Reconcile using route correlation; do not generate a new business invoice |
+| Certificate expires/revokes or signer authority changes | Block unsafe new signing; preserve historical interchange/signature evidence and require a newly approved trust plan |
 
 ## Acceptance criteria
 
@@ -97,6 +100,8 @@ Discovery input says Sage 50, Sage 200 and Despachos expect private-platform ISV
 - Given an interchange validates syntactically but violates the bilateral subset, when processing runs, then it is rejected before transformation/signing.
 - Given EDIFACT is transformed to UBL, when a mandatory value lacks an approved mapping, then the representation is quarantined and no public/private submission occurs.
 - Given a technical acknowledgement succeeds and a functional acknowledgement rejects, then transport and business/functional outcomes remain separate.
+- Given Sage-managed signing of an EDIFACT exchange object, when evidence is stored, then the represented customer/delegate, Sage service role and exact signed object/container are distinct and a Sage workload certificate cannot be substituted.
+- Given a signing certificate later expires, when archived EDIFACT evidence is validated, then retained signing-time evidence is used and the original signed object remains unchanged.
 
 ## Open decisions
 
@@ -106,9 +111,11 @@ Discovery input says Sage 50, Sage 200 and Despachos expect private-platform ISV
 | Which private platforms accept each profile? | Partner team | Routing |
 | Which acknowledgement messages are required? | Architecture/provider partners | Lifecycle design |
 | Is EDIFACT always provider-transformed for the first product cohort? | Product owners | Delivery plan |
+| What exact object/container is signed for each EDIFACT route, and does Sage remotely sign for the customer/delegate, apply an operator seal, or consume provider evidence? | Business Identity / Legal / Security / provider partners | Signature interoperability and custody |
 
 ## Change log
 
 | Date | Version | Change | Evidence/decision |
 |---|---|---|---|
 | 2026-09-21 | Version 1 | Created EDIFACT format child with complete bilateral-profile and transformation controls | PRD-SEI-223; UNECE UN/EDIFACT artefacts; internal requirement 41 |
+| 2026-09-22 | Version 2 | Added explicit signing/seal modes, prohibited generic Sage certificate use and added expiry/historic-validation evidence requirements | PRD-SEI-223/226; stakeholder direction |

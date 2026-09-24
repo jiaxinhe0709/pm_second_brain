@@ -3,19 +3,24 @@ id: PRD-SEI-211
 title: Public Platform — Invoice Consultation and Retrieval — Structured Review
 type: prd
 status: draft
-version: 1
+version: 2
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-09-21
 reviewers:
   - dianna.hindle@sage.com
 related:
   - PRD-SEI-102
   - https://confluence.sage.com/spaces/DNBU/pages/837610648/Public+Platform+Onboard
   - https://confluence.sage.com/spaces/DNBU/pages/837610662/Public+Platform+Consult
+  - https://confluence.sage.com/spaces/DNBU/pages/837610659/UBL+2.5+Invoice+Download
+  - https://confluence.sage.com/spaces/DNBU/pages/837610722/SPFE+Invoice+Retrieval+Distribution
   - PRD-SEI-201
   - research/PRD-SEI-201-spain-use-case-evidence.md
+  - PRD-SEI-223
+  - PRD-SEI-226
+  - PRD-SEI-236
 confluence:
   publish: true
   space_key: DNBU
@@ -34,8 +39,8 @@ confluence:
 |---|---|
 | Predecessor | Based on PRD-SEI-102, which remains unchanged as the predecessor document. |
 | Reason for this successor | Provide an individually readable successor that publishes through a native Confluence two-column layout with a left-sidebar Table of Contents. |
-| Material changes | Assigns permanent ID PRD-SEI-211, adds this revision overview, and adds Confluence layout and navigation metadata for publication as a new child page. |
-| Unchanged areas | Business analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks, decisions and open questions remain unchanged from PRD-SEI-102. |
+| Material changes | Assigns permanent ID PRD-SEI-211, adds Confluence layout/navigation metadata, and now consolidates consultation, retrieval, download artefacts and authorised product distribution. |
+| Unchanged areas | Scheduling, checkpoint, idempotency, reconciliation, freshness, isolation and operational controls remain aligned with PRD-SEI-102. |
 | Decisions still open | All product, provider, regulatory and architecture decisions remain as recorded in PRD-SEI-102; this successor introduces no new product decision. |
 
 ## Overview
@@ -53,6 +58,18 @@ The public solution is not expected to deliver invoices directly into each Sage 
 - exposes a stable result to Sage ERPs and operations.
 
 The exact public API, notification support, query mechanism, rate limits and acceptable retrieval delay are still discovery inputs. This PRD defines the product behaviour that must hold regardless of whether the final integration uses polling alone or combines polling with a future notification mechanism.
+
+### Retrieval, download and distribution boundary
+
+| Term | Meaning in this PRD | Completion evidence |
+|---|---|---|
+| Consultation/discovery | Query or event processing that identifies candidate invoices/changes | Query scope, checkpoint/cursor and result identity |
+| Retrieval | Fetch and durably retain the authoritative structured representation and public context | Exact original bytes/reference, hash, media type, format/profile/version and public reference |
+| Validation/normalisation | Verify trust, syntax/profile, recipient and identity, then create canonical data where supported | Validation pack, trust evidence and mapping provenance |
+| Download | Authorised delivery of a selected stored artefact to a person/product | Actor, purpose, artefact role, media type, hash and time |
+| Product distribution | Exactly-once business publication of the accepted canonical/original relationship to the correct ERP/legal entity | Product acknowledgement and durable distribution identity |
+
+The original structured representation, canonical representation and human-readable rendering are separate artefacts. A rendering or transition PDF must never be presented as the authoritative structured original. Format/profile rules remain in PRD-SEI-223 and PRD-SEI-236.
 
 > **Consultation is complete only when Sage can prove both invoice delivery and retrieval freshness. An empty response is not, by itself, proof that nothing was missed.**
 
@@ -639,6 +656,21 @@ The authoritative cutover, overlap and historical lifecycle rules remain owned b
 | FR41 | Every run and material state change must record actor/trigger, timestamp, scope, policy version, correlation ID and outcome. |
 | FR42 | The system must alert on sustained freshness breach, growing backlog, repeated action-required failures and reconciliation gaps. |
 
+### Artefacts, download and distribution
+
+| ID | Requirement |
+|---|---|
+| FR43 | Retrieval must preserve the exact original structured representation or an approved immutable source reference before checkpoint advancement or product distribution. |
+| FR44 | Every stored artefact must identify its role (`ORIGINAL`, `CANONICAL`, `PUBLIC_COPY`, `RENDERING`, `TRANSITION_COMPANION`), media type, format/profile/version, content hash, source and creation/retrieval time. |
+| FR45 | Validation must resolve the activated PRD-SEI-236 UBL/public profile and retain syntax, business-rule, recipient, integrity and trust results independently. |
+| FR46 | Canonical conversion and human-readable rendering must record generator/mapping versions and must not overwrite or relabel the original representation. |
+| FR47 | Download must authorise the actor for the legal subject, invoice, artefact role and purpose and must record a redacted access audit. |
+| FR48 | Where multiple artefacts are available, the client must be able to select or clearly distinguish original structured invoice, faithful copy, canonical data and rendering. |
+| FR49 | Product distribution must occur only after durable original/context persistence and must carry a stable business distribution identity for exactly-once handling. |
+| FR50 | A failed product acknowledgement must retry/reconcile distribution without re-retrieving or creating a second business invoice. |
+| FR51 | Retention, access and deletion policy must be evaluated separately for original, canonical, rendering and operational evidence while preserving statutory/audit duties. |
+| FR52 | Download/retrieval capability must remain independent from scheduled consultation so an authorised user can access already stored invoices even when a later poll is delayed, subject to suspension/security policy. |
+
 ## Proposed API and operational capabilities
 
 | Capability | Product behaviour |
@@ -763,6 +795,12 @@ At minimum measure:
 | AC13 | High-volume customer has a large backlog | Other customers are due | Fair scheduling allows other customers to continue |
 | AC14 | Public inbound route reaches its end boundary | Scheduler evaluates eligibility | New out-of-bound consultation stops while historical evidence remains |
 | AC15 | Operations inspects a failed customer | Failure exists | Last success, next/retry state, checkpoint freshness and corrective action are visible without secrets |
+| AC16 | A public UBL invoice is retrieved | Persistence completes | Exact original bytes/reference, hash, public reference, UBL/profile version and validation evidence are durable before checkpoint advancement |
+| AC17 | A rendering is generated | User downloads both artefacts | Original structured UBL and rendering are distinctly labelled with separate hashes and provenance |
+| AC18 | An unauthorised actor requests an invoice artefact | Download is attempted | Access is denied without disclosing invoice existence/content and the denied attempt is audited safely |
+| AC19 | Product distribution succeeds but a later poll repeats the invoice | Deduplication runs | The same business invoice remains available once and all observations remain traceable |
+| AC20 | Product acknowledgement fails after durable inbound persistence | Recovery runs | Distribution resumes/reconciles without re-fetching or duplicating the business invoice |
+| AC21 | A transition PDF accompanies an invoice | Download is offered | It is labelled as `TRANSITION_COMPANION`, never as the authoritative structured invoice or public faithful copy |
 
 ## Metrics and success measures
 
@@ -881,3 +919,4 @@ At minimum measure:
 | Date | Version/revision | Change | Pull request |
 |---|---|---|---|
 | 2026-07-29 | Version 1 (Draft) | Initial evidence-led Phase 1 PRD with consultation options, recommended solution, detailed journeys, requirements, visual, acceptance criteria and production gates | |
+| 2026-09-21 | Version 2 (Draft) | Consolidated retrieval, download and product distribution; added representation roles, provenance, authorisation and exactly-once distribution controls | Internal Download and SPFE Retrieval/Distribution pages; PRD-SEI-223/226/236 |

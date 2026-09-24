@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-25
-updated: 2026-08-25
+updated: 2026-09-22
 reviewers: []
 related:
   - PRD-SEI-101
@@ -16,6 +16,7 @@ related:
   - PRD-SEI-212
   - PRD-SEI-226
   - PRD-SEI-231
+  - PRD-SEI-223
 confluence:
   publish: true
   space_key: DNBU
@@ -33,6 +34,8 @@ confluence:
 Direct-customer and accountant-portfolio onboarding are two intake and orchestration modes for the same client-level controls. Every client must have an independently verified Sage access relationship, legal subject, identifier, requested capability, authority decision, environment and evidence set.
 
 A firm API credential, accountant role, certificate or portfolio relationship authenticates or authorises access only within its approved product purpose. It does not prove that the accountant may submit, receive, consult, reject or report payment for every client. Those operations require separate, effective authority decisions under the eventual Spanish public-solution representation contract.
+
+The same separation applies to invoice signing. An accountant may configure a client's onboarding, but may sign only where effective evidence authorises that accountant/delegate for the named client, capability, route and period. Customer-held, accountant-held, Sage-managed and provider-held signing are custody/operation modes—not shortcuts to authority—and a Sage operator seal is a different legal/technical act.
 
 Batch acceptance proves durable receipt, not client readiness. One client failure must not fail, change or disclose another client.
 
@@ -81,7 +84,7 @@ This is the canonical Git source proposed for existing Confluence page [Accounta
 
 - Defining the final Spanish legal mechanism for every delegated operation.
 - Assuming `Colaborador Social`, generic apoderamiento or one certificate covers SPFE operations.
-- Uploading or selecting a production certificate before the official contract is approved.
+- Defining certificate/key custody, expiry, rotation, revocation, compromise or destruction, owned by PRD-SEI-226.
 - NIF validation/AEAT census semantics, owned by PRD-SEI-106.
 - Generic retry/reconciliation algorithms, owned by PRD-SEI-107 and PRD-SEI-215.
 - Sending, retrieving or reporting an invoice, owned by PRD-SEI-211/212/224.
@@ -95,6 +98,10 @@ This is the canonical Git source proposed for existing Confluence page [Accounta
 | Client relationship | Firm is linked to a Sage client/workspace | Submission, receipt or consultation mandate |
 | Delegated authority | Effective evidence for principal, delegate and operation | Credential custody or route readiness |
 | Credential reference | Protected means used to authenticate/sign where required | The legal scope of representation |
+| Signing authority | Effective permission for a named natural person/delegate to sign for a named client and purpose | Firm membership, certificate possession or permission to manage onboarding |
+| Signing custody mode | Customer, accountant, Sage remote-signing service or provider boundary that controls the signing operation/key | The legal signer, represented principal or authority grant |
+| Sage-managed signing | Sage invokes protected signing for the explicitly represented customer/delegate | A Sage workload certificate or Sage becoming the invoice issuer |
+| Sage operator seal | Electronic seal whose creator is the named Sage legal person/operator | A customer's or accountant's delegated signature |
 | Batch | Envelope grouping several client requests | Shared client state, transaction or grant |
 | Batch receipt | Durable acceptance for processing | Validation, authorisation or readiness success |
 | Capability readiness | Client-specific decision for a named operation | Readiness for any other operation |
@@ -109,6 +116,7 @@ This is the canonical Git source proposed for existing Confluence page [Accounta
 | Access context | Customer workspace/user | Firm user plus client workspace relationship | Tenant/client isolation |
 | Authority | Direct actor or delegated actor | Evaluated for every client/capability | No batch-level universal grant |
 | Credentials | Client/approved custodian reference if required | Client-scoped or reusable reference only where official scope proves it | Separate from authority |
+| Signing | Customer/direct signer or approved delegate | Evaluated per client, signer/delegate and capability; may use a protected Sage/provider service | No firm-wide master signer/certificate |
 | Result | Per capability | Aggregate counts plus authorised item detail | Stable redacted reasons |
 | Correction | Update/resume case | Update/resume selected items | Prior evidence retained |
 | Cancellation | Cancel safe pending work | Cancel selected items or remaining batch | Unknown outcomes reconciled |
@@ -143,6 +151,8 @@ The matrix is a required decision surface; legal evidence and mechanisms remain 
 | S8 | Two users change the same client concurrently | Version/conflict control preserves one authoritative revision | No last-write-wins authority change |
 | S9 | Accountant loses client relationship | Future reads/changes are denied; retention and client continuity remain governed | Firm cannot continue polling status |
 | S10 | Customer corrects identity or mandate evidence | New revision is validated and resumed | Previous decision remains auditable |
+| S11 | Accountant selects one certificate/reference for several clients | Each client is evaluated against the certificate subject, signer/delegate authority, purpose and validity | No batch-wide signing authority is inferred |
+| S12 | Sage-managed signing is offered to an accountant | The client principal, authorised accountant/delegate, Sage service role and custody boundary remain separately evidenced | A Sage service identity is not labelled as the client signer |
 
 ## Business rules
 
@@ -158,6 +168,10 @@ The matrix is a required decision surface; legal evidence and mechanisms remain 
 | BR8 | Capability authority differs | Preserve asymmetric results; never coerce them into one role flag | Proposed |
 | BR9 | Item changes after readiness | Create a new effective revision; do not rewrite historical evidence | PRD-SEI-101/231 |
 | BR10 | External outcome is unknown | Reconcile before retry, success or cancellation completion | PRD-SEI-107/215 |
+| BR11 | Accountant configures certificate readiness | Permit configuration only within product/client permission; evaluate signing authority separately | PRD-SEI-101/226 |
+| BR12 | A credential/reference is reused across clients | Prove subject, purpose and authority scope independently for every client/capability | No master-certificate inference |
+| BR13 | Sage manages the signing operation | Preserve the represented client, actual authorised signer/delegate, service role, trust-material version and authority snapshot | PRD-SEI-226 |
+| BR14 | Sage operator seal is available | Do not present it as the client's or accountant's signature or use it as a substitute without explicit Legal approval for that route/policy | Evidence gate |
 
 ## Evidence register
 
@@ -167,6 +181,7 @@ The matrix is a required decision surface; legal evidence and mechanisms remain 
 | [AEAT apoderamientos overview](https://sede.agenciatributaria.gob.es/Sede/colaborar-agencia-tributaria/registro-apoderamientos.html) | AEAT supports powers scoped to enabled procedures | Official general service; does not prove SPFE operation coverage | Authority record must preserve procedure/capability scope |
 | Confluence page 848078252 v3 | Proposed sync direct flow, async batch and client isolation | Internal discovery; endpoints/master-certificate rules unapproved | Retain pathway intent, correct authority assumptions |
 | PRD-SEI-101/231 | Common onboarding and delegated-authority model | Discovery model | Shared controls and records |
+| PRD-SEI-226 | Purpose-scoped certificate, signature, seal, custody, expiry and historical-evidence model | Does not grant accountant authority by itself | Consume readiness; do not duplicate key lifecycle |
 
 ## Proposed conceptual model
 
@@ -176,6 +191,7 @@ The matrix is a required decision surface; legal evidence and mechanisms remain 
 | Firm user/service principal | actor ID, roles, authentication assurance | Cannot infer client access |
 | Client relationship | firm, client workspace/legal subject, product scope, validity, status | Separate from statutory authority |
 | Authority evidence | principal, delegate, source/procedure, capabilities, direction, environment, validity, evidence ref | Re-evaluated per request |
+| Client signing assignment | client principal, actual signer/delegate, signing mode, custody/reference, signature or seal policy, capability/route/profile, authority reference, validity, readiness and next recheck | No private key; no firm-wide authority flag |
 | Batch | firm, idempotency scope, counts, state, created/cancelled times | Contains item references, not shared readiness |
 | Client work item | client, requested capabilities, case revision, state, safe correlation | Isolation and independent recovery |
 | Item result | capability outcomes, redacted reasons, evidence refs, timestamps | Visible only within authorised relationship |
@@ -187,6 +203,7 @@ The matrix is a required decision surface; legal evidence and mechanisms remain 
 | Batch | `RECEIVED`, `PROCESSING`, `PARTIAL`, `COMPLETED`, `CANCELLING`, `CANCELLED`, `FAILED_ENVELOPE` | Aggregate orchestration only |
 | Item | `QUEUED`, `VALIDATING`, `ACTION_REQUIRED`, `READY`, `READY_WITH_LIMITATIONS`, `OUTCOME_UNKNOWN`, `CANCELLED` | One client onboarding revision |
 | Capability authority | `PENDING`, `EFFECTIVE`, `DENIED`, `EXPIRED`, `REVOKED`, `UNDETERMINED` | Independent official-authority decision |
+| Signing readiness | `NOT_REQUIRED`, `ACTION_REQUIRED`, `DIRECT_SIGN_READY`, `DELEGATED_SIGN_READY`, `SEAL_READY`, `EXPIRING`, `SUSPENDED` | Per client/capability; certificate lifecycle remains in PRD-SEI-226 |
 
 Batch `FAILED_ENVELOPE` is reserved for an unusable envelope. Item business failures produce `PARTIAL` or `COMPLETED` with item outcomes rather than destroying the batch.
 
@@ -223,6 +240,15 @@ Batch `FAILED_ENVELOPE` is reserved for an unusable envelope. Item business fail
 3. Any outcome-unknown external operation is reconciled by an authorised operational path.
 4. Audit/evidence remain retained; the client may continue through its direct channel.
 
+### J5 — Accountant establishes client signing readiness
+
+1. The accountant selects a client and requested signing-dependent capability; Sage rechecks the active firm-client relationship and product permission.
+2. The accountant selects direct customer signing, accountant/delegated signing, Sage-managed remote signing or provider-managed signing. A Sage operator seal is displayed separately and only where an approved policy permits it.
+3. Sage resolves the protected trust-material reference and current PRD-SEI-226 status without importing private-key material into the product.
+4. Sage evaluates the client principal, actual signer/delegate, authority scope, certificate subject/purpose, route/profile, environment and validity independently.
+5. The client/capability becomes ready only for the supported mode and effective period. Other clients in the same batch remain independent.
+6. Expiry, revocation, compromise, relationship loss or authority withdrawal suspends only affected future use; historical signed evidence remains available under its retention policy.
+
 ## Functional requirements
 
 | ID | Requirement |
@@ -247,6 +273,13 @@ Batch `FAILED_ENVELOPE` is reserved for an unusable envelope. Item business fail
 | FR18 | Operations/manual actions must enforce the same client, authority, environment and audit controls. |
 | FR19 | Capacity, concurrency, item and batch limits must be configured from measured demand and approved external constraints. |
 | FR20 | Products must explain batch receipt, progress, partial completion and per-capability action required in plain language. |
+| FR21 | Accountant onboarding must distinguish permission to configure certificate readiness from authority to create an invoice signature for the client. |
+| FR22 | Every delegated-signing decision must bind the client principal, actual signer/delegate, capability, route/profile, environment, authority evidence, effective period and protected trust-material reference. |
+| FR23 | A certificate or signing-service reference may be reused across clients only where its verified subject/purpose and the delegate's authority independently cover every client and operation. |
+| FR24 | Sage-managed signing must identify the represented client, authorised signer/delegate, Sage service role and custody boundary; the Sage workload/transport identity must not be treated as the invoice signer. |
+| FR25 | Sage operator sealing must have a separate readiness result and must not satisfy delegated-signature readiness unless Legal approves that exact route and policy. |
+| FR26 | Batch status must expose certificate/signing action required per client without disclosing certificate secrets or another client's identity/configuration. |
+| FR27 | Expiry, revocation, compromise or loss of signing authority must suspend only dependent future client capabilities and must not invalidate historical evidence solely because the certificate later expired. |
 
 ## Failure and recovery
 
@@ -261,6 +294,8 @@ Batch `FAILED_ENVELOPE` is reserved for an unusable envelope. Item business fail
 | Ambiguous mutation | `OUTCOME_UNKNOWN` and reconcile | No blind repeat |
 | Internal failure after durable receipt | Resume from durable item state | No client resubmission required |
 | Batch cancellation | Cancel safe queued work; complete/reconcile in-flight items | Accurate aggregate outcome |
+| Certificate wrong owner/purpose or delegate not authorised | Block that client's signing-dependent capability and show the authorised actor a precise remediation | Other clients/capabilities continue |
+| Certificate expires/revokes during a batch | Freeze new affected signing work, reconcile possible in-flight use and re-evaluate after replacement | No silent fallback to another certificate/signer |
 
 ## Non-functional requirements
 
@@ -287,6 +322,11 @@ Batch `FAILED_ENVELOPE` is reserved for an unusable envelope. Item business fail
 | AC8 | Given two users update one client revision, when a stale update arrives, then it cannot silently overwrite the effective revision. |
 | AC9 | Given a status request after the client relationship ended, when the accountant calls it, then access is denied without disclosing current client state. |
 | AC10 | Given an outcome-unknown external operation, when batch cancellation occurs, then the item remains reconcilable and is not falsely reported cancelled. |
+| AC11 | Given an accountant may manage a client's onboarding but lacks signing authority, when delegated signing readiness is requested, then configuration access succeeds but signing readiness is denied/undetermined. |
+| AC12 | Given one certificate reference is submitted for several clients, when only some authority scopes match, then only those client/capability combinations may become ready. |
+| AC13 | Given Sage-managed signing is selected, when readiness is displayed, then the client principal, approved signer/delegate, Sage service role and custody reference are separately identifiable. |
+| AC14 | Given a valid Sage workload/transport certificate, when client invoice signing is requested, then it is rejected as wrong-purpose unless a separate approved signing policy exists. |
+| AC15 | Given a delegated signing certificate expires after earlier valid invoices were signed, when the next batch runs, then new affected signing is blocked while historical evidence remains attributable. |
 
 ## Measures and rollout gates
 
@@ -298,6 +338,7 @@ Batch `FAILED_ENVELOPE` is reserved for an unusable envelope. Item business fail
 | Authority-undetermined rate | Quantify missing Spain representation evidence | Legal/product |
 | Cross-client access denials/incidents | Validate isolation | Security |
 | Duplicate suppression and unknown-outcome age | Validate safe recovery | Operations |
+| Signing readiness/action-required by client and mode | Identify custody, authority and expiry friction without hiding it in batch status | Product/security |
 
 Production is gated on the official SPFE representation contract, an approved client/capability authority matrix, accountant product roles, firm-client lifecycle, privacy/retention, expected volumes, batch limits, operations runbook and security testing.
 
@@ -310,6 +351,9 @@ Production is gated on the official SPFE representation contract, an approved cl
 | What is the firm-client/workspace cardinality and lifecycle across products? | Product/data | API/security design | Explicit many-to-many relationship with validity |
 | What are expected firms, clients per firm, batch sizes and peak concurrency? | Product/analytics | Capacity targets | Pilot measurement required |
 | Which item details may accountants/support view after relationship or authority ends? | Legal/privacy/security | Retention/access | Historical access is purpose- and policy-bound |
+| Which accountant/delegate mechanisms will the public and private routes recognise for each operation? | Spain legal/operator | Signing and submission readiness | Do not infer one mechanism covers all capabilities |
+| May an accountant use a customer-held, accountant-held or Sage-managed remote-signing credential, and who is named as signatory in each mode? | Legal/security/Business Identity | Custody and UX design | Keep authority, signer and custodian separate |
+| Which expiry horizons, renewal owners and in-flight behaviours apply to portfolio signing credentials? | Security/operations/product | Production operations | Configure by certificate class; no universal threshold |
 
 ## Decisions and readiness
 
@@ -327,3 +371,4 @@ Production is gated on the official SPFE representation contract, an approved cl
 | Date | Version | Change | Evidence |
 |---|---|---|---|
 | 2026-08-25 | Initial canonical draft | Preserved direct/batch pathways and isolation; replaced universal credential/authority assumptions with per-client capability decisions and safe batch lifecycle | Confluence v3, PRD-SEI-101/231, Royal Decree 238/2026 |
+| 2026-09-22 | Certificate/signature precision | Added per-client direct, delegated, Sage-managed, provider and operator-seal distinctions; separated accountant configuration permission from signing authority and added expiry/revocation behaviour | PRD-SEI-101/223/226; RD 238/2026 Article 7.3 |
