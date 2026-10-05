@@ -88,6 +88,17 @@ class ConfluenceChangeHistoryTests(unittest.TestCase):
                 change_history_limit=0,
             )
 
+    def test_storage_comparison_ignores_confluence_generated_macro_ids(self) -> None:
+        generated = '<ac:structured-macro ac:name="toc"></ac:structured-macro>'
+        saved = (
+            '<ac:structured-macro ac:name="toc" ac:schema-version="1" '
+            'ac:macro-id="cf0bfca7-3416-4602-a41f-1b9b7f8d6788"></ac:structured-macro>'
+        )
+        self.assertEqual(
+            publisher.normalize_storage(generated),
+            publisher.normalize_storage(saved),
+        )
+
     @patch.object(publisher, "configured_change_history_limit", return_value=10)
     @patch.object(
         publisher,
@@ -166,6 +177,8 @@ class DrawioPublicationTests(unittest.TestCase):
         client = MagicMock()
         client.get_page_by_title.return_value = None
         client.create_page.return_value = {"id": "12345"}
+        metadata = dict(self.metadata)
+        metadata["confluence"] = dict(self.metadata["confluence"], page_id="")
         with patch.object(
             publisher,
             "upload_drawio_assets",
@@ -174,7 +187,7 @@ class DrawioPublicationTests(unittest.TestCase):
             result = publisher.update_document(
                 client,
                 self.path,
-                self.metadata,
+                metadata,
                 self.body,
                 "abcdef1234567890",
                 live=True,

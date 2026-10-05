@@ -530,6 +530,10 @@ def confluence_client() -> Confluence:
 
 
 def normalize_storage(value: str) -> str:
+    # Confluence adds these attributes to structured macros when saving a page.
+    # Their presence alone must not trigger another page and attachment version.
+    value = re.sub(r'\s+ac:schema-version="[^"]+"', "", value)
+    value = re.sub(r'\s+ac:macro-id="[^"]+"', "", value)
     return re.sub(r"\s+", " ", value).strip()
 
 
