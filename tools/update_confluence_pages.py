@@ -38,6 +38,7 @@ macro after generated page content and set a Git source version comment.
 from __future__ import annotations
 
 import argparse
+from dataclasses import dataclass
 import html
 import os
 from pathlib import Path
@@ -45,6 +46,9 @@ import re
 import subprocess
 import sys
 from typing import Any
+from urllib.parse import urljoin
+import uuid
+from xml.etree import ElementTree
 
 from atlassian import Confluence
 import markdown
@@ -66,6 +70,126 @@ HTML_MACRO_PATTERN = re.compile(
 )
 LEFT_TOC_LAYOUT = "two_left_sidebar"
 CONFLUENCE_CONFIG = ROOT_DIR / "config" / "confluence.yml"
+DRAWIO_IMAGE_PATTERN = re.compile(r"!\[[^\]]*\]\(([^)]+\.svg)\)")
+
+
+@dataclass(frozen=True)
+class DrawioAsset:
+    markdown_image: str
+    name: str
+    source: Path
+    preview: Path
+    diagram_width: int
+    diagram_height: int
+
+
+def drawio_assets(path: Path, body: str) -> list[DrawioAsset]:
+    """Find editable diagrams that have a checked-in PNG for the Confluence app."""
+    assets: list[DrawioAsset] = []
+    for match in DRAWIO_IMAGE_PATTERN.finditer(body):
+        svg = (path.resolve().parent / match.group(1)).resolve()
+        try:
+            svg.relative_to(ROOT_DIR)
+        except ValueError as exc:
+            raise ValueError(f"Diagram escapes the repository: {svg}") from exc
+        source = svg.with_suffix(".drawio")
+        preview = svg.with_suffix(".png")
+        if not source.exists():
+            continue
+        if not preview.exists():
+            raise ValueError(f"Missing Draw.io PNG preview: {preview}")
+        svg_root = ElementTree.parse(svg).getroot()
+        view_box = svg_root.get("viewBox", "").split()
+        if len(view_box) != 4:
+            raise ValueError(f"Missing SVG viewBox: {svg}")
+        assets.append(
+            DrawioAsset(
+                markdown_image=match.group(0),
+                name=source.stem,
+                source=source,
+                preview=preview,
+                diagram_width=int(float(view_box[2])),
+                diagram_height=int(float(view_box[3])),
+            )
+        )
+    names = [asset.name for asset in assets]
+    if len(names) != len(set(names)):
+        raise ValueError(f"Duplicate Draw.io image in {path}")
+    return assets
+
+
+def drawio_macro(metadata: dict[str, Any], asset: DrawioAsset, revision: int) -> str:
+    """Use the macro and attachment naming observed in the DNBU Draw.io app."""
+    if revision < 1:
+        raise ValueError("Draw.io attachment revision must be positive")
+    macro_id = uuid.uuid5(uuid.NAMESPACE_URL, f"{metadata['id']}:{asset.name}")
+    name = html.escape(asset.name, quote=True)
+    height = min(680, max(460, round(asset.diagram_height * 0.58)))
+    return (
+        f'<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="{macro_id}">'
+        '<ac:parameter ac:name="border">true</ac:parameter>'
+        f'<ac:parameter ac:name="diagramName">{name}</ac:parameter>'
+        '<ac:parameter ac:name="simpleViewer">false</ac:parameter>'
+        '<ac:parameter ac:name="width">auto</ac:parameter>'
+        '<ac:parameter ac:name="tbstyle">top</ac:parameter>'
+        '<ac:parameter ac:name="lbox">true</ac:parameter>'
+        f'<ac:parameter ac:name="diagramWidth">{asset.diagram_width}</ac:parameter>'
+        f'<ac:parameter ac:name="height">{height}</ac:parameter>'
+        f'<ac:parameter ac:name="revision">{revision}</ac:parameter>'
+        '</ac:structured-macro>'
+    )
+
+
+def storage_with_drawio(
+    metadata: dict[str, Any], body: str, revision: str, source_url: str | None,
+    assets: list[DrawioAsset], attachment_revisions: dict[str, int],
+) -> str:
+    macros: list[tuple[str, str]] = []
+    for index, asset in enumerate(assets):
+        token = f"CONFLUENCE_DRAWIO_MACRO_{index}"
+        body = body.replace(asset.markdown_image, f"\n\n{token}\n\n", 1)
+        macros.append((token, drawio_macro(metadata, asset, attachment_revisions.get(asset.name, 1))))
+    if source_url:
+        body = re.sub(
+            r"(?<!!)\[([^\]]+)\]\((?!https?://|#)([^)]+)\)",
+            lambda match: f"[{match.group(1)}]({urljoin(source_url, match.group(2))})",
+            body,
+        )
+    storage = markdown_to_storage(
+        metadata, body, revision, source_url, required_change_history_limit()
+    )
+    for token, macro in macros:
+        paragraph = f"<p>{token}</p>"
+        if paragraph not in storage:
+            raise ValueError(f"Could not restore Draw.io macro token {token}")
+        storage = storage.replace(paragraph, macro, 1)
+    return storage
+
+
+def attachment_revisions(client: Confluence, page_id: str, assets: list[DrawioAsset]) -> dict[str, int]:
+    if not assets:
+        return {}
+    response = client.get_attachments_from_content(page_id, limit=500, expand="version")
+    if not isinstance(response, dict):
+        raise ValueError(f"Could not inspect Draw.io attachments on page {page_id}")
+    return {
+        item["title"]: int(item.get("version", {}).get("number", 1))
+        for item in response.get("results", [])
+        if item.get("title") in {asset.name for asset in assets}
+    }
+
+
+def upload_drawio_assets(client: Confluence, page_id: str, assets: list[DrawioAsset]) -> dict[str, int]:
+    for asset in assets:
+        client.attach_file(
+            str(asset.source), name=asset.name,
+            content_type="application/vnd.jgraph.mxfile", page_id=page_id,
+        )
+        client.attach_file(
+            str(asset.preview), name=f"{asset.name}.png",
+            content_type="image/png", page_id=page_id,
+        )
+    return attachment_revisions(client, page_id, assets)
 
 
 def parse_args() -> argparse.Namespace:
@@ -428,14 +552,14 @@ def update_document(
     target = validate_publication(metadata, path, create_missing)
     validate_no_manual_history(body, path)
     source_url = git_source_url(revision, path)
-    new_body = markdown_to_storage(
-        metadata, body, revision, source_url, required_change_history_limit()
-    )
+    assets = drawio_assets(path, body)
     if target["mode"] == "create":
+        new_body = storage_with_drawio(metadata, body, revision, source_url, assets, {})
         if not live:
             return (
                 f"DRY-RUN CREATE {metadata['id']} title={target['title']!r} "
-                f"space={target['space_key']} parent={target['parent_page_id']}"
+                f"space={target['space_key']} parent={target['parent_page_id']} "
+                f"drawio={len(assets)}"
             )
 
         existing = client.get_page_by_title(
@@ -460,9 +584,23 @@ def update_document(
             raise ValueError(
                 f"Confluence did not return a page ID for {metadata['id']}"
             )
+        if assets:
+            uploaded_revisions = upload_drawio_assets(client, created_id, assets)
+            final_body = storage_with_drawio(
+                metadata, body, revision, source_url, assets, uploaded_revisions
+            )
+            client.update_page(
+                page_id=created_id,
+                title=target["title"],
+                body=final_body,
+                parent_id=target["parent_page_id"],
+                type="page",
+                representation="storage",
+                version_comment=publication_version_comment(metadata, revision),
+            )
         return (
             f"CREATED {metadata['id']} page={created_id} "
-            f"parent={target['parent_page_id']}"
+            f"parent={target['parent_page_id']} drawio={len(assets)}"
         )
 
     page_id = target["page_id"]
@@ -479,6 +617,10 @@ def update_document(
     expected_parent_id = target["parent_page_id"]
     parent_changed = bool(expected_parent_id) and actual_parent_id != expected_parent_id
 
+    existing_revisions = attachment_revisions(client, page_id, assets)
+    new_body = storage_with_drawio(
+        metadata, body, revision, source_url, assets, existing_revisions
+    )
     current_body = page["body"]["storage"]["value"]
     current_version = int(page["version"]["number"])
     body_changed = normalize_storage(current_body) != normalize_storage(new_body)
@@ -497,9 +639,14 @@ def update_document(
         return (
             f"DRY-RUN {metadata['id']} page={page_id} "
             f"v{current_version} -> v{current_version + 1}"
-            f"{rename_summary}{parent_summary}"
+            f"{rename_summary}{parent_summary} drawio={len(assets)}"
         )
 
+    if assets:
+        uploaded_revisions = upload_drawio_assets(client, page_id, assets)
+        new_body = storage_with_drawio(
+            metadata, body, revision, source_url, assets, uploaded_revisions
+        )
     client.update_page(
         page_id=page_id,
         title=expected_title,
@@ -512,7 +659,7 @@ def update_document(
     return (
         f"UPDATED {metadata['id']} page={page_id} "
         f"v{current_version} -> v{current_version + 1}"
-        f"{rename_summary}{parent_summary}"
+        f"{rename_summary}{parent_summary} drawio={len(assets)}"
     )
 
 

@@ -28,9 +28,9 @@ related:
   - PRD-SEI-242
   - PRD-SEI-243
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "866150169"
   page_id: ""
   title: E-Invoicing Process Flow Specification
   layout: two_left_sidebar
@@ -43,7 +43,7 @@ confluence:
 
 This is a **solution-design working draft** for a consistent family of business and technical process flows. It translates existing PRD behaviour into reviewable actor handoffs, decisions, evidence and exception paths. The referenced PRDs remain authoritative for product requirements and country rules. The diagrams do not approve an architecture, network route, provider, legal interpretation or production release.
 
-The outbound pilot established the visual convention through review. The remaining diagrams apply that convention to the agreed main and domain flows. All diagrams remain draft solution analysis for validation; this document is not selected for Confluence publication.
+The outbound pilot established the visual convention through review. The remaining diagrams apply that convention to the agreed main and domain flows. All diagrams remain draft solution analysis for validation.
 
 ## Diagram family
 
@@ -53,6 +53,7 @@ The outbound pilot established the visual convention through review. The remaini
 | Domain 1 | Customer and service readiness | Identity, authority, onboarding, connections and activation |
 | Domain 2 | Outbound invoice exchange | From invoice intent to separate recipient and reporting outcomes; **pilot below** |
 | Domain 3 | Inbound invoice exchange | Receipt, trust, validation, retrieval and product distribution |
+| Domain 3a | Public inbound consultation and reconciliation | Scheduled discovery, safe progress, freshness and gap recovery for the public source |
 | Domain 4 | Lifecycle and reporting | Source events, derived views, buyer decisions and reporting obligations |
 | Domain 5a | Recovery and reconciliation | Unknown outcomes, incidents and safe recovery |
 | Domain 5b | Route transition and offboarding | Prospective cutover and historical continuity |
@@ -67,6 +68,7 @@ Country and network differences are overlays on these flows. A separate variant 
 | Customer and service readiness | [View](../assets/diagrams/e-invoicing-customer-service-readiness.svg) | [Edit](../assets/diagrams/e-invoicing-customer-service-readiness.drawio) | PRD-SEI-101, 104, 222, 231 |
 | Outbound invoice exchange | [View](../assets/diagrams/e-invoicing-outbound-exchange-pilot.svg) | [Edit](../assets/diagrams/e-invoicing-outbound-exchange-pilot.drawio) | PRD-SEI-223, 233, 241, 242 |
 | Inbound invoice exchange | [View](../assets/diagrams/e-invoicing-inbound-exchange.svg) | [Edit](../assets/diagrams/e-invoicing-inbound-exchange.drawio) | PRD-SEI-102, 223, 227, 241 |
+| Public consultation and reconciliation | [View](../assets/diagrams/e-invoicing-public-consultation-reconciliation.svg) | [Edit](../assets/diagrams/e-invoicing-public-consultation-reconciliation.drawio) | PRD-SEI-102, 201, 225 |
 | Lifecycle and reporting | [View](../assets/diagrams/e-invoicing-lifecycle-reporting.svg) | [Edit](../assets/diagrams/e-invoicing-lifecycle-reporting.drawio) | PRD-SEI-224, 232, 242 |
 | Recovery and reconciliation | [View](../assets/diagrams/e-invoicing-recovery-reconciliation.svg) | [Edit](../assets/diagrams/e-invoicing-recovery-reconciliation.drawio) | PRD-SEI-203, 225, 227 |
 | Route transition and offboarding | [View](../assets/diagrams/e-invoicing-route-transition-offboarding.svg) | [Edit](../assets/diagrams/e-invoicing-route-transition-offboarding.drawio) | PRD-SEI-201, 202, 222, 243 |
@@ -79,9 +81,12 @@ The main diagram shows how domains connect. Each domain diagram is independently
 | Readiness | Direct and accountant starts converge; identity and authority corrections branch upward; evidence cards sit in separate lanes |
 | Outbound | Reviewed pilot with validation and route gates, plus a contained external exchange split |
 | Inbound | Public retrieval and private arrival converge before trust, duplicate and file checks |
+| Public consultation | Routine and independent reconciliation triggers converge, descend through the public query boundary, then return to durable progress and freshness; four local exception paths stop unsafe progress |
 | Lifecycle | Correlation and raw event ledger lead to independent counterparty and authority obligations |
 | Recovery | Safety decision opens a bounded choice of retry, reconciliation or manual action, followed by outcome verification |
 | Transition | New-route readiness and historical continuity run in parallel into one cutover gate |
+
+**Reading key:** Lanes show the accountable actor or boundary. Ellipses start a flow; rounded rectangles perform service work; diamonds ask a decision; cylinders retain evidence or state; document shapes represent a plan or rule; parallelograms show product input or output; dashed trapezoids are external parties; dashed hexagons are holds or unresolved outcomes. Solid arrows are process movement, dashed arrows are exception movement, and dotted lines bring supporting evidence into a decision. Labels on a decision branch state the condition for taking it. The recovery container holds alternative actions; the outbound container holds independent external obligations.
 
 ## Main: end-to-end e-invoicing journey
 
@@ -124,7 +129,7 @@ Business or accountant requests a capability for one legal entity
   ↳ external outcome unknown: reconcile before mutation is repeated
 ```
 
-Batch intake repeats the per-client path and isolates each result; the diagram represents one client item. The lower evidence cards identify checks that may inform a gate; their lack of arrows means they are conditional references, not sequential tasks. A ready connection is not an active route, and an authenticated accountant is not automatically authorised for a client. Sources: [public onboarding](PRD-SEI-101-public-platform-onboarding.md), [accountant intake](PRD-SEI-104-accountant-and-single-client-onboarding.md), [entry point and migration](PRD-SEI-222-customer-onboarding-entry-point-migration.md), [identity/authority](PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md).
+Batch intake repeats the per-client path and isolates each result; the diagram represents one client item. Dotted lines from the lower cards are supporting evidence inputs, not additional process steps. A ready connection is not an active route, and an authenticated accountant is not automatically authorised for a client. Sources: [public onboarding](PRD-SEI-101-public-platform-onboarding.md), [accountant intake](PRD-SEI-104-accountant-and-single-client-onboarding.md), [entry point and migration](PRD-SEI-222-customer-onboarding-entry-point-migration.md), [identity/authority](PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md).
 
 ## Pilot: outbound invoice exchange
 
@@ -218,6 +223,31 @@ One approved source supplies an invoice: public retrieval OR private/AP arrival
 
 The two source boxes are **alternative intake paths**, not a requirement to run both. A public poll may produce no new invoice; that is different from denied access or a failed query. Original bytes and route evidence remain available even when a derived representation is created. Sources: [public consultation/retrieval](PRD-SEI-102-public-platform-invoice-consultation-retrieval.md), [exchange](PRD-SEI-223-interoperability-routing-transformation.md), [shared inbound contract](PRD-SEI-227-e-invoicing-as-a-service.md), [validation](PRD-SEI-241-ubl-validation-service.md).
 
+## Domain 3a: public inbound consultation and reconciliation
+
+![Public inbound consultation and reconciliation](../assets/diagrams/e-invoicing-public-consultation-reconciliation.svg)
+
+**Editable source:** [Public consultation Draw.io diagram](../assets/diagrams/e-invoicing-public-consultation-reconciliation.drawio).
+
+```text
+Routine consultation is due OR a separate historical reconciliation scan is due
+  → Sage leases a baseline or historical-scan run and coalesces controlled refreshes
+  → checks effective route, authority and versioned policy
+  → leases scoped work with rate and concurrency controls
+  → queries the public solution from a safe checkpoint and overlap window
+  → downloads pages with source identity, cursor and correlation
+  → classifies each result as new, duplicate, empty, invalid or conflicting
+  → stores every item outcome and original route evidence durably
+  → advances the routine checkpoint or records historical-scan coverage only after the committed boundary is fully classified
+  → publishes a new invoice once for business processing and exposes freshness
+  ↳ ineligible scope or expired authority: hold without moving checkpoint
+  ↳ query failure or invalid cursor: bounded retry or historical rescan
+  ↳ invalid/conflicting item: quarantine with identity, evidence and owner
+  ↳ incomplete page: resume the same boundary; do not skip items
+```
+
+The diagram represents one consultation or reconciliation run, not a fixed polling cadence or an approved public API contract. The broader historical scan is independent of the routine checkpoint; it records its own coverage without moving routine progress. An empty successful run updates freshness without emitting an invoice; it must remain distinguishable from a stale or failed run. The scheduler is platform-owned and does not depend on customer login. A route change stops new out-of-bound consultation while retaining historical checkpoint and invoice evidence. Source: [public consultation and retrieval](PRD-SEI-102-public-platform-invoice-consultation-retrieval.md), especially its eligibility, scheduling, checkpoint, reconciliation and availability requirements. The shared [inbound exchange diagram](../assets/diagrams/e-invoicing-inbound-exchange.svg) takes over after a result is available for intake.
+
 ## Domain 4: lifecycle and reporting
 
 ![Lifecycle and reporting](../assets/diagrams/e-invoicing-lifecycle-reporting.svg)
@@ -258,7 +288,7 @@ Customer, telemetry or partner reports a failure or mismatch
   ↳ still unknown: keep the case open and escalate; do not blind-resend
 ```
 
-The recovery-action group shows permitted choices after classifying mutation safety. Its original-operation evidence card anchors reconciliation to the affected route and leg. Completed legs remain completed. Recovery never silently switches an in-flight invoice to a new route. Sources: [private-platform resilience](PRD-SEI-203-private-platform-resilience-operations.md), [operations](PRD-SEI-225-operations-resilience-support-reconciliation.md), [shared failure model](PRD-SEI-227-e-invoicing-as-a-service.md).
+The recovery-action group is one subprocess: classify mutation safety, select one permitted action, then verify the actual outcome. Its original-operation evidence card anchors reconciliation to the affected route and leg. Completed legs remain completed. Recovery never silently switches an in-flight invoice to a new route. Sources: [private-platform resilience](PRD-SEI-203-private-platform-resilience-operations.md), [operations](PRD-SEI-225-operations-resilience-support-reconciliation.md), [shared failure model](PRD-SEI-227-e-invoicing-as-a-service.md).
 
 ## Domain 5b: route transition and offboarding
 
@@ -281,6 +311,8 @@ Authorised customer requests a change or exit for a named scope
 ```
 
 Cutover, provider deregistration, credential revocation and data disposition are different actions. The two readiness rails prevent a prepared destination from erasing unfinished work or historical access on the previous route. Sources: [Phase 2 transition](PRD-SEI-201-public-private-platform-transition.md), [connection and route foundation](PRD-SEI-202-private-platform-connection-routing-foundation.md), [customer migration](PRD-SEI-222-customer-onboarding-entry-point-migration.md), [offboarding](PRD-SEI-243-customer-offboarding-and-provider-exit.md).
+
+Each rail now has a visible failure action: an unproven destination keeps the old route, while unresolved historical obligations retain the previous access. Neither failure enters the cutover gate. The gate itself blocks prospective activation if the combined conditions cease to hold or a cutover result is unknown.
 
 ## Cross-diagram rules and country overlays
 
@@ -316,7 +348,7 @@ Cutover, provider deregistration, credential revocation and data disposition are
 
 ## Draw.io and Confluence integration note
 
-The repository's current Markdown publisher renders headings, tables, images and its explicit HTML macro blocks. It does not currently upload `.drawio` files or produce a native Draw.io Confluence macro. The editable source is therefore kept in Git and the Markdown shows an SVG preview. Before Confluence publication, the publisher or a controlled manual workflow must be tested against the installed Draw.io app so the diagram stays editable without making Confluence the only source of truth. Do not add a Confluence-only diagram that can be overwritten by a later Git publication.
+Git keeps each editable `.drawio` source, SVG review preview and PNG display preview together. The Markdown publisher uploads the Draw.io source and PNG as Confluence attachments, then places the installed native Draw.io macro where each SVG appears in this source document. The published page also links back to the Git source. Diagram edits should return to Git before a later publication so Confluence does not become a competing source of truth.
 
 ## Review questions
 
@@ -326,16 +358,3 @@ The repository's current Markdown publisher renders headings, tables, images and
 4. Is the split between recovery and route transition the right boundary for operations and customer review?
 5. Should the customer view lead with one summary containing independent delivery/reporting details, or present those outcomes separately?
 6. Which country should supply the first fully evidenced process variant: Spain, Ireland, UK or Germany?
-
-## Revision history
-
-| Date | Change | Basis |
-|---|---|---|
-| 2026-10-05 | Created unpublished specification with one editable outbound-exchange pilot diagram | User request and cited PRDs |
-| 2026-10-05 | Redrew the pilot in monochrome with horizontal swimlanes | User visual feedback |
-| 2026-10-05 | Simplified connectors to one main service line, short exception branches and a contained external split | User feedback on confusing arrows |
-| 2026-10-05 | Added semantic shapes and phase bands to distinguish actions, decisions, evidence, external exchange and customer outcomes | User feedback on flat, rectangle-only layout |
-| 2026-10-05 | Replaced paired external connectors with one external subprocess and removed policy-card arrows | User feedback on persistent connection confusion |
-| 2026-10-05 | Fixed Draw.io connection ports and removed labels from short progression arrows | Review of editable connector behaviour |
-| 2026-10-05 | Added end-to-end, readiness, inbound, lifecycle, recovery and route-transition diagrams with text equivalents and source traceability | User approval of pilot style and request for the remaining flows |
-| 2026-10-05 | Redrew the six follow-on diagrams with process-specific topology, lane counts, node types and connector paths | User feedback that the shared layout made the flows too uniform |

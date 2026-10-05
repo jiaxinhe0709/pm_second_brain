@@ -126,5 +126,65 @@ class ConfluenceChangeHistoryTests(unittest.TestCase):
         self.assertIn('ac:name="change-history"', call["body"])
 
 
+class DrawioPublicationTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.path = ROOT / "prds" / "PRD-SEI-244-e-invoicing-process-flow-specification.md"
+        self.metadata, self.body = publisher.load_document(self.path)
+        self.assets = publisher.drawio_assets(self.path, self.body)
+
+    def test_eight_diagrams_render_as_native_macros(self) -> None:
+        self.assertEqual(len(self.assets), 8)
+        storage = publisher.storage_with_drawio(
+            self.metadata,
+            self.body,
+            "abcdef1234567890",
+            "https://github.com/example/repo/blob/abcdef1234567890/prds/PRD-SEI-244-e-invoicing-process-flow-specification.md",
+            self.assets,
+            {},
+        )
+        self.assertEqual(storage.count('ac:name="drawio"'), 8)
+        self.assertNotIn("../assets/diagrams/", storage)
+        self.assertIn('ac:name="change-history"', storage)
+
+    def test_uploads_both_editable_source_and_preview(self) -> None:
+        client = MagicMock()
+        client.get_attachments_from_content.return_value = {
+            "results": [
+                {"title": asset.name, "version": {"number": 1}}
+                for asset in self.assets
+            ]
+        }
+        revisions = publisher.upload_drawio_assets(client, "12345", self.assets)
+        self.assertEqual(client.attach_file.call_count, 16)
+        self.assertEqual(revisions, {asset.name: 1 for asset in self.assets})
+        self.assertEqual(
+            client.get_attachments_from_content.call_args.kwargs["expand"], "version"
+        )
+
+    @patch.object(publisher, "git_source_url", return_value=None)
+    def test_create_places_macros_under_configured_parent(self, _source_url: MagicMock) -> None:
+        client = MagicMock()
+        client.get_page_by_title.return_value = None
+        client.create_page.return_value = {"id": "12345"}
+        with patch.object(
+            publisher,
+            "upload_drawio_assets",
+            return_value={asset.name: 1 for asset in self.assets},
+        ):
+            result = publisher.update_document(
+                client,
+                self.path,
+                self.metadata,
+                self.body,
+                "abcdef1234567890",
+                live=True,
+                create_missing=True,
+            )
+        self.assertIn("parent=866150169", result)
+        self.assertEqual(client.create_page.call_args.kwargs["parent_id"], "866150169")
+        self.assertEqual(client.update_page.call_args.kwargs["body"].count('ac:name="drawio"'), 8)
+        self.assertIn("PRD-SEI-244 published from Git abcdef123456", client.update_page.call_args.kwargs["version_comment"])
+
+
 if __name__ == "__main__":
     unittest.main()

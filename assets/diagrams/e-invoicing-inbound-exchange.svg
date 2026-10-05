@@ -26,6 +26,14 @@
 <path d="M1725 500 V720" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
 <path d="M2025 500 V720" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
 <path d="M2325 390 V275" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="1554.0" y="413" width="42" height="18" rx="3" fill="#fff" opacity=".96"/>
+<text x="1575" y="426" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#333">Yes</text>
+<rect x="1854.0" y="413" width="42" height="18" rx="3" fill="#fff" opacity=".96"/>
+<text x="1875" y="426" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#333">No</text>
+<rect x="1424.0" y="605" width="42" height="18" rx="3" fill="#fff" opacity=".96"/>
+<text x="1445" y="618" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#333">No</text>
+<rect x="1724.0" y="605" width="42" height="18" rx="3" fill="#fff" opacity=".96"/>
+<text x="1745" y="618" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#333">Yes</text>
 <polygon points="322,690 538,690 560,780 300,780" fill="#fff" stroke="#555" stroke-width="2.2" stroke-dasharray="6 4"/>
 <text x="430.0" y="723" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Public retrieval</text>
 <text x="430.0" y="747" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Authorised query and download</text>
@@ -39,13 +47,13 @@
 <text x="1125.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Authenticate and match</text>
 <text x="1125.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Channel, environment, recipient</text>
 <polygon points="1425.0,390 1550,445.0 1425.0,500 1300,445.0" fill="#d1d1d1" stroke="#222" stroke-width="2.2"/>
-<text x="1425.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Trust valid?</text>
-<text x="1425.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Integrity, replay,</text>
-<text x="1425.0" y="463" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">file safety</text>
+<text x="1425.0" y="441" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Trust valid?</text>
+<text x="1425.0" y="461" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Integrity, replay,</text>
+<text x="1425.0" y="477" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">file safety</text>
 <polygon points="1725.0,390 1850,445.0 1725.0,500 1600,445.0" fill="#d1d1d1" stroke="#222" stroke-width="2.2"/>
-<text x="1725.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Duplicate?</text>
-<text x="1725.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Business and network</text>
-<text x="1725.0" y="463" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">identity</text>
+<text x="1725.0" y="441" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Duplicate?</text>
+<text x="1725.0" y="461" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Business and network</text>
+<text x="1725.0" y="477" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">identity</text>
 <path d="M1900 390 H2150 V487 Q2090 473 2030 487 T1900 487 Z" fill="#fff" stroke="#333" stroke-width="2.2"/>
 <text x="2025.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Validate and preserve</text>
 <text x="2025.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Original file, profile and rules</text>
@@ -64,5 +72,5 @@
 <polygon points="2224,180 2450,180 2426,275 2200,275" fill="#fff" stroke="#222" stroke-width="2.2"/>
 <text x="2325.0" y="213" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Invoice available</text>
 <text x="2325.0" y="237" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Original, status and history</text>
-<text x="35" y="980" font-family="Arial,sans-serif" font-size="13" fill="#444">Solid arrows show the process; dashed arrows end at a hold, correction or unresolved case. Country and provider details require source evidence.</text>
+<text x="35" y="980" font-family="Arial,sans-serif" font-size="13" fill="#444">Solid arrows = process; dashed arrows = hold or correction. Country and provider details require source evidence.</text>
 </svg>

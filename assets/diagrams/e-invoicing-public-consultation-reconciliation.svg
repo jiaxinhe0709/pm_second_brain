@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 1150" role="img" aria-labelledby="title desc">
+<title id="title">Public inbound consultation and reconciliation</title>
+<desc id="desc">Routine and historical runs preserve separate progress, classify results and expose freshness</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#444"/></marker></defs>
+<rect width="3000" height="1150" fill="#fff"/>
+<text x="35" y="44" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#111">Public inbound consultation and reconciliation</text>
+<text x="35" y="76" font-family="Arial,sans-serif" font-size="15" fill="#444">Routine and historical runs preserve separate progress, classify results and expose freshness</text>
+<rect x="30" y="130" width="2940" height="170" fill="#fafafa" stroke="#aaa"/>
+<rect x="30" y="130" width="245" height="170" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="174" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">ELIGIBLE ENTITY /</text>
+<text x="152" y="193" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">PRODUCT</text>
+<rect x="30" y="310" width="2940" height="280" fill="#f1f1f1" stroke="#aaa"/>
+<rect x="30" y="310" width="245" height="280" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="354" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">SAGE CONSULTATION</text>
+<text x="152" y="373" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">SERVICE</text>
+<rect x="30" y="600" width="2940" height="205" fill="#fafafa" stroke="#aaa"/>
+<rect x="30" y="600" width="245" height="205" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="644" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">PUBLIC SOLUTION</text>
+<rect x="30" y="815" width="2940" height="285" fill="#f1f1f1" stroke="#aaa"/>
+<rect x="30" y="815" width="245" height="285" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="859" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">EXCEPTIONS / RECOVERY</text>
+<path d="M550 217 H580 V440 H620" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M745 265 V390" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M870 440 H920" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1170 440 H1220" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1345 490 V660" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1470 710 H1560 V440 H1670" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1920 440 H2000" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M2250 440 H2300" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M2550 440 H2660" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M2800 390 V265" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M745 490 V900" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M1345 760 V900" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M1795 490 V900" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M2125 490 V900" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<ellipse cx="425.0" cy="217.5" rx="125.0" ry="47.5" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<text x="425.0" y="203" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Consultation due</text>
+<text x="425.0" y="227" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Scheduled baseline; controlled</text>
+<text x="425.0" y="243" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">refresh</text>
+<ellipse cx="745.0" cy="217.5" rx="125.0" ry="47.5" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<text x="745.0" y="203" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Reconciliation due</text>
+<text x="745.0" y="227" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Independent historical window</text>
+<polygon points="2684,170 2940,170 2916,265 2660,265" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<text x="2800.0" y="203" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Invoice and freshness view</text>
+<text x="2800.0" y="227" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">New items, no result, stale or</text>
+<text x="2800.0" y="243" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">failed</text>
+<rect x="620" y="390" width="250" height="100" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="745.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Check run scope</text>
+<text x="745.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Route, authority and policy</text>
+<rect x="920" y="390" width="250" height="100" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="1045.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Schedule and lease</text>
+<text x="1045.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Coalesce triggers; rate limit</text>
+<rect x="1220" y="390" width="250" height="100" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="1345.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Query safe window</text>
+<text x="1345.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Checkpoint, overlap and page ID</text>
+<polygon points="1242,660 1448,660 1470,760 1220,760" fill="#fff" stroke="#555" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1345.0" y="693" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Consult / download</text>
+<text x="1345.0" y="717" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Page, cursor and correlation</text>
+<rect x="1670" y="390" width="250" height="100" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="1795.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Classify and persist</text>
+<text x="1795.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">New, duplicate, empty or invalid</text>
+<polygon points="2125.0,390 2250,440.0 2125.0,490 2000,440.0" fill="#d1d1d1" stroke="#222" stroke-width="2.2"/>
+<text x="2125.0" y="437" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Boundary durable?</text>
+<text x="2125.0" y="455" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Every item classified</text>
+<text x="2125.0" y="471" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">and stored</text>
+<path d="M2300 403 V477 C2300 493 2550 493 2550 477 V403 Z" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
+<ellipse cx="2425.0" cy="403" rx="125.0" ry="13" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
+<text x="2425.0" y="435" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Commit run progress</text>
+<text x="2425.0" y="458" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Checkpoint or scan coverage</text>
+<rect x="2660" y="390" width="280" height="100" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="2800.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Publish availability</text>
+<text x="2800.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">One business invoice; source age</text>
+<polygon points="644,900 846,900 870,947.5 846,995 644,995 620,947.5" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="745.0" y="933" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Hold ineligible scope</text>
+<text x="745.0" y="957" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Keep checkpoint and explain</text>
+<text x="745.0" y="973" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">action</text>
+<polygon points="1244,900 1446,900 1470,947.5 1446,995 1244,995 1220,947.5" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1345.0" y="933" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Retry or bounded rescan</text>
+<text x="1345.0" y="957" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Backoff or invalid-cursor</text>
+<text x="1345.0" y="973" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">recovery</text>
+<polygon points="1694,900 1896,900 1920,947.5 1896,995 1694,995 1670,947.5" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1795.0" y="933" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Quarantine conflict</text>
+<text x="1795.0" y="957" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Preserve identity and</text>
+<text x="1795.0" y="973" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">evidence</text>
+<polygon points="2024,900 2226,900 2250,947.5 2226,995 2024,995 2000,947.5" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="2125.0" y="933" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Resume incomplete page</text>
+<text x="2125.0" y="957" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Do not advance past unsafe</text>
+<text x="2125.0" y="973" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">items</text>
+<text x="35" y="1130" font-family="Arial,sans-serif" font-size="13" fill="#444">Solid arrows = process; dashed arrows = hold or correction. Country and provider details require source evidence.</text>
+</svg>

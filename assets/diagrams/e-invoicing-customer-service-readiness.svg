@@ -30,6 +30,16 @@
 <path d="M1020 395 V250" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
 <path d="M1320 395 V250" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
 <path d="M2320 395 V250" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1020 665 V505" fill="none" stroke="#777" stroke-width="2.2" stroke-dasharray="2 5"/>
+<path d="M1320 665 V505" fill="none" stroke="#777" stroke-width="2.2" stroke-dasharray="2 5"/>
+<path d="M1620 665 V505" fill="none" stroke="#777" stroke-width="2.2" stroke-dasharray="2 5"/>
+<path d="M1920 665 V505" fill="none" stroke="#777" stroke-width="2.2" stroke-dasharray="2 5"/>
+<path d="M1020 895 V760" fill="none" stroke="#777" stroke-width="2.2" stroke-dasharray="2 5"/>
+<path d="M1920 895 V760" fill="none" stroke="#777" stroke-width="2.2" stroke-dasharray="2 5"/>
+<rect x="1449.0" y="418" width="42" height="18" rx="3" fill="#fff" opacity=".96"/>
+<text x="1470" y="431" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#333">Yes</text>
+<rect x="1319.0" y="320" width="42" height="18" rx="3" fill="#fff" opacity=".96"/>
+<text x="1340" y="333" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#333">No</text>
 <ellipse cx="400.0" cy="195.0" rx="110.0" ry="35.0" fill="#fff" stroke="#222" stroke-width="2.2"/>
 <text x="400.0" y="188" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#111">Direct request</text>
 <text x="400.0" y="207" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Business administrator</text>
@@ -52,9 +62,9 @@
 <text x="1020.0" y="428" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Verify legal subject</text>
 <text x="1020.0" y="452" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Identifier, type and presence</text>
 <polygon points="1320.0,395 1440,450.0 1320.0,505 1200,450.0" fill="#d1d1d1" stroke="#222" stroke-width="2.2"/>
-<text x="1320.0" y="428" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Actor authorised?</text>
-<text x="1320.0" y="452" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Client, capability and</text>
-<text x="1320.0" y="468" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">time</text>
+<text x="1320.0" y="446" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Actor authorised?</text>
+<text x="1320.0" y="466" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Client, capability and</text>
+<text x="1320.0" y="482" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">time</text>
 <rect x="1500" y="395" width="240" height="110" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
 <text x="1620.0" y="428" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Evaluate readiness</text>
 <text x="1620.0" y="452" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Issue, receive, report, download</text>
@@ -75,13 +85,13 @@
 <text x="1620.0" y="722" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Signer, custody, expiry</text>
 <path d="M1800 678 V747 C1800 763 2040 763 2040 747 V678 Z" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
 <ellipse cx="1920.0" cy="678" rx="120.0" ry="13" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
-<text x="1920.0" y="698" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Route state</text>
-<text x="1920.0" y="722" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Configured is not active</text>
+<text x="1920.0" y="707" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Route state</text>
+<text x="1920.0" y="729" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Configured is not active</text>
 <polygon points="922,895 1118,895 1140,985 900,985" fill="#fff" stroke="#555" stroke-width="2.2" stroke-dasharray="6 4"/>
 <text x="1020.0" y="928" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Official identity check</text>
 <text x="1020.0" y="952" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Only when access is approved</text>
 <polygon points="1822,895 2018,895 2040,985 1800,985" fill="#fff" stroke="#555" stroke-width="2.2" stroke-dasharray="6 4"/>
 <text x="1920.0" y="928" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">External registration</text>
 <text x="1920.0" y="952" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Observe actual state if needed</text>
-<text x="35" y="1080" font-family="Arial,sans-serif" font-size="13" fill="#444">Solid arrows show the process; dashed arrows end at a hold, correction or unresolved case. Country and provider details require source evidence.</text>
+<text x="35" y="1080" font-family="Arial,sans-serif" font-size="13" fill="#444">Solid arrows = process; dashed arrows = hold or correction; dotted lines = supporting evidence.</text>
 </svg>
