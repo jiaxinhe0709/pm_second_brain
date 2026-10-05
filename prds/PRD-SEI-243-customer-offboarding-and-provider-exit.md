@@ -127,6 +127,37 @@ The **proposed** `ExitCase` records legal entity, actor and authority evidence, 
 
 The case progresses through `requested → assessed → destination_ready → cutover_pending → cutover_observed → historical_continuity → release_pending → completed`. `blocked`, `outcome_unknown`, `cancelled` and `manual_recovery` are explicit branches. State names and storage shape require architecture review; the observable gates are product requirements.
 
+### Exit and handover visual
+
+<!-- confluence-html-macro:start -->
+<div class="p3exit-visual" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding:24px;background:#fff;border:1px solid #dfe1e6;border-radius:8px;box-sizing:border-box;max-width:1180px;margin:0 auto;overflow-x:auto;">
+  <style>
+    .p3exit-visual *{box-sizing:border-box}.p3exit-visual h3{margin:0;color:#172b4d;font-size:18px}.p3exit-visual .sub{margin:6px 0 16px;color:#6b778c;font-size:12px;line-height:1.45}.p3exit-visual svg{display:block;width:1120px;height:390px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.p3exit-visual .node{fill:#e3fcef;stroke:#36b37e;stroke-width:1.5}.p3exit-visual .done{fill:#e3fcef;stroke:#00875a;stroke-width:2}.p3exit-visual .title{fill:#172b4d;font-size:12px;font-weight:700}.p3exit-visual .copy{fill:#42526e;font-size:10px}.p3exit-visual .label{fill:#6b778c;font-size:10px;font-weight:700;letter-spacing:.08em}.p3exit-visual .path{fill:none;stroke:#00875a;stroke-width:2}.p3exit-visual .arrow{fill:#00875a}.p3exit-visual .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1120px;margin-top:12px}.p3exit-visual .note{padding:10px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:11px;line-height:1.45}.p3exit-visual .note strong{display:block;color:#172b4d;margin-bottom:3px}.p3exit-visual .hold{border-left:3px solid #de350b}.p3exit-visual .unknown{border-left:3px solid #ffab00}.p3exit-visual .history{border-left:3px solid #7a869a}
+  </style>
+  <h3>Prove the destination before releasing the previous route</h3>
+  <p class="sub">Proposed customer-exit control flow. Each gate requires observed evidence; this is not a prescribed Spanish statutory sequence.</p>
+  <svg viewBox="0 0 1120 390" role="img" aria-label="Proposed customer offboarding flow: authorise the exit, inventory invoices and obligations, prove the destination, observe the cutover, preserve historical continuity, release the previous route, decide data disposition, and complete the case. A missing destination or uncertain external result holds progress while the last safe route and original invoice evidence are preserved.">
+    <text x="32" y="37" class="label">ASSESS AND CUT OVER</text><text x="32" y="225" class="label">PRESERVE, RELEASE AND CLOSE</text>
+    <rect x="32" y="70" width="228" height="90" rx="9" class="node"/><text x="50" y="100" class="title">1  Authorise exit</text><text x="50" y="122" class="copy">Legal entity, actor, direction</text><text x="50" y="140" class="copy">and affected scope</text>
+    <path d="M260 115 H306" class="path"/><polygon points="306,115 296,109 296,121" class="arrow"/>
+    <rect x="308" y="70" width="228" height="90" rx="9" class="node"/><text x="326" y="100" class="title">2  Inventory obligations</text><text x="326" y="122" class="copy">In-flight invoices, reporting,</text><text x="326" y="140" class="copy">evidence and access</text>
+    <path d="M536 115 H582" class="path"/><polygon points="582,115 572,109 572,121" class="arrow"/>
+    <rect x="584" y="70" width="228" height="90" rx="9" class="node"/><text x="602" y="100" class="title">3  Prove destination</text><text x="602" y="122" class="copy">Eligibility, reachability and</text><text x="602" y="140" class="copy">effective external state</text>
+    <path d="M812 115 H858" class="path"/><polygon points="858,115 848,109 848,121" class="arrow"/>
+    <rect x="860" y="70" width="228" height="90" rx="9" class="node"/><text x="878" y="100" class="title">4  Observe cutover</text><text x="878" y="122" class="copy">New traffic changes only at</text><text x="878" y="140" class="copy">the evidenced boundary</text>
+    <path d="M974 160 V254" class="path"/><polygon points="974,254 968,244 980,244" class="arrow"/>
+    <rect x="860" y="256" width="228" height="90" rx="9" class="node"/><text x="878" y="286" class="title">5  Preserve history</text><text x="878" y="308" class="copy">Original provider, obligations</text><text x="878" y="326" class="copy">and permitted execution path</text>
+    <path d="M860 301 H814" class="path"/><polygon points="814,301 824,295 824,307" class="arrow"/>
+    <rect x="584" y="256" width="228" height="90" rx="9" class="node"/><text x="602" y="286" class="title">6  Release old route</text><text x="602" y="308" class="copy">Withdraw entry point and revoke</text><text x="602" y="326" class="copy">access at separate safe gates</text>
+    <path d="M584 301 H538" class="path"/><polygon points="538,301 548,295 548,307" class="arrow"/>
+    <rect x="308" y="256" width="228" height="90" rx="9" class="node"/><text x="326" y="286" class="title">7  Decide disposition</text><text x="326" y="308" class="copy">Export, retain or delete by</text><text x="326" y="326" class="copy">approved data-class policy</text>
+    <path d="M308 301 H262" class="path"/><polygon points="262,301 272,295 272,307" class="arrow"/>
+    <rect x="32" y="256" width="228" height="90" rx="45" class="done"/><text x="50" y="286" class="title">8  Complete exit</text><text x="50" y="308" class="copy">Customer and provider receive</text><text x="50" y="326" class="copy">the evidenced outcome</text>
+  </svg>
+  <div class="notes"><div class="note hold"><strong>Destination blocked</strong>Keep the last safe route active. Correct and retest before cutover.</div><div class="note unknown"><strong>External result unknown</strong>Observe and reconcile before retrying a mutation or claiming completion.</div><div class="note history"><strong>Historical continuity</strong>Keep a named owner and permitted channel for every unfinished obligation before removing access.</div></div>
+</div>
+<!-- confluence-html-macro:end -->
+
 | Gate | Evidence required before proceeding | If missing |
 |---|---|---|
 | G1 Authority/scope | Legal entity, actor authority, affected direction, contract and requested action | Reject or request correction |
@@ -237,4 +268,5 @@ Each decision needs a named owner, date, source and `confirmed`, `amended` or `r
 
 | Date | Change | Basis |
 |---|---|---|
+| 2026-10-05 | Added Confluence-safe HTML exit and handover visual beside the proposed case gates | User request; existing G1–G7 and failure/recovery rules |
 | 2026-10-05 | Initial dedicated Spain customer offboarding and provider-exit draft | User request; PRD-SEI-222/224/225/226; RD 238/2026 |
