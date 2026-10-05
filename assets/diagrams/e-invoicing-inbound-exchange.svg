@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 1000" role="img" aria-labelledby="title desc">
+<title id="title">Inbound invoice exchange</title>
+<desc id="desc">Public retrieval or private arrival converges on trust, identity and duplicate controls</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#444"/></marker></defs>
+<rect width="2500" height="1000" fill="#fff"/>
+<text x="35" y="44" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#111">Inbound invoice exchange</text>
+<text x="35" y="76" font-family="Arial,sans-serif" font-size="15" fill="#444">Public retrieval or private arrival converges on trust, identity and duplicate controls</text>
+<rect x="30" y="130" width="2440" height="180" fill="#fafafa" stroke="#aaa"/>
+<rect x="30" y="130" width="245" height="180" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="174" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">RECEIVING PRODUCT</text>
+<rect x="30" y="320" width="2440" height="330" fill="#f1f1f1" stroke="#aaa"/>
+<rect x="30" y="320" width="245" height="330" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="364" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">SAGE INBOUND SERVICE</text>
+<rect x="30" y="660" width="2440" height="300" fill="#fafafa" stroke="#aaa"/>
+<rect x="30" y="660" width="245" height="300" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="704" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">EXTERNAL SOURCES /</text>
+<text x="152" y="723" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">EXCEPTIONS</text>
+<path d="M560 735 H630 V785 H700" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M560 865 H650 V825 H700" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M930 805 H960 V445 H1000" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1250 445 H1300" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1550 445 H1600" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1850 445 H1900" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M2150 445 H2200" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1425 500 V720" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M1725 500 V720" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M2025 500 V720" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M2325 390 V275" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<polygon points="322,690 538,690 560,780 300,780" fill="#fff" stroke="#555" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="430.0" y="723" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Public retrieval</text>
+<text x="430.0" y="747" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Authorised query and download</text>
+<polygon points="322,820 538,820 560,910 300,910" fill="#fff" stroke="#555" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="430.0" y="853" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Private / AP arrival</text>
+<text x="430.0" y="877" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Approved push or poll</text>
+<rect x="700" y="755" width="230" height="100" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="815.0" y="788" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">One inbound item</text>
+<text x="815.0" y="812" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Preserve source route</text>
+<rect x="1000" y="390" width="250" height="110" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="1125.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Authenticate and match</text>
+<text x="1125.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Channel, environment, recipient</text>
+<polygon points="1425.0,390 1550,445.0 1425.0,500 1300,445.0" fill="#d1d1d1" stroke="#222" stroke-width="2.2"/>
+<text x="1425.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Trust valid?</text>
+<text x="1425.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Integrity, replay,</text>
+<text x="1425.0" y="463" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">file safety</text>
+<polygon points="1725.0,390 1850,445.0 1725.0,500 1600,445.0" fill="#d1d1d1" stroke="#222" stroke-width="2.2"/>
+<text x="1725.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Duplicate?</text>
+<text x="1725.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Business and network</text>
+<text x="1725.0" y="463" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">identity</text>
+<path d="M1900 390 H2150 V487 Q2090 473 2030 487 T1900 487 Z" fill="#fff" stroke="#333" stroke-width="2.2"/>
+<text x="2025.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Validate and preserve</text>
+<text x="2025.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Original file, profile and rules</text>
+<rect x="2200" y="390" width="250" height="110" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="2325.0" y="423" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Distribute to product</text>
+<text x="2325.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Authorised entity and product</text>
+<polygon points="1324,720 1526,720 1550,765.0 1526,810 1324,810 1300,765.0" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1425.0" y="753" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Quarantine</text>
+<text x="1425.0" y="777" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Unsafe source or file</text>
+<polygon points="1624,720 1826,720 1850,765.0 1826,810 1624,810 1600,765.0" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1725.0" y="753" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Link duplicate</text>
+<text x="1725.0" y="777" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">No second business invoice</text>
+<polygon points="1924,720 2126,720 2150,765.0 2126,810 1924,810 1900,765.0" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="2025.0" y="753" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Hold invalid file</text>
+<text x="2025.0" y="777" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Named correction owner</text>
+<polygon points="2224,180 2450,180 2426,275 2200,275" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<text x="2325.0" y="213" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Invoice available</text>
+<text x="2325.0" y="237" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Original, status and history</text>
+<text x="35" y="980" font-family="Arial,sans-serif" font-size="13" fill="#444">Solid arrows show the process; dashed arrows end at a hold, correction or unresolved case. Country and provider details require source evidence.</text>
+</svg>

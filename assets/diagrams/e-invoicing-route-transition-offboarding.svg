@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2700 1100" role="img" aria-labelledby="title desc">
+<title id="title">Route transition and offboarding</title>
+<desc id="desc">Prove the new route and account for old invoices before changing or releasing anything</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#444"/></marker></defs>
+<rect width="2700" height="1100" fill="#fff"/>
+<text x="35" y="44" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#111">Route transition and offboarding</text>
+<text x="35" y="76" font-family="Arial,sans-serif" font-size="15" fill="#444">Prove the new route and account for old invoices before changing or releasing anything</text>
+<rect x="30" y="130" width="2640" height="175" fill="#fafafa" stroke="#aaa"/>
+<rect x="30" y="130" width="245" height="175" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="174" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">CUSTOMER /</text>
+<text x="152" y="193" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">ADMINISTRATOR</text>
+<rect x="30" y="315" width="2640" height="220" fill="#f1f1f1" stroke="#aaa"/>
+<rect x="30" y="315" width="245" height="220" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="359" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">NEW ROUTE READINESS</text>
+<rect x="30" y="545" width="2640" height="220" fill="#fafafa" stroke="#aaa"/>
+<rect x="30" y="545" width="245" height="220" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="589" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">HISTORICAL CONTINUITY</text>
+<rect x="30" y="775" width="2640" height="275" fill="#f1f1f1" stroke="#aaa"/>
+<rect x="30" y="775" width="245" height="275" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="819" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">CUTOVER AND RELEASE</text>
+<text x="152" y="838" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">CONTROL</text>
+<path d="M425 255 V835" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M550 885 H600 V417 H650" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M550 915 H620 V647 H650" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M900 417 H1000" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1250 417 H1400" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M900 647 H1000" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1250 647 H1400" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1650 417 H1765 V865 H1850" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1650 647 H1790 V925 H1850" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M2100 885 H2150" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1975 935 V955" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M2370 885 H2400" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M2510 835 V255" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<ellipse cx="425.0" cy="210.0" rx="125.0" ry="45.0" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<text x="425.0" y="198" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Request route change</text>
+<text x="425.0" y="222" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Entity, direction and effective</text>
+<text x="425.0" y="238" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">scope</text>
+<polygon points="2424,165 2650,165 2626,255 2400,255" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<text x="2525.0" y="198" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Receive exit evidence</text>
+<text x="2525.0" y="222" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Cutover, export, retained access</text>
+<rect x="300" y="835" width="250" height="100" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="425.0" y="868" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Open transition case</text>
+<text x="425.0" y="892" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">One active request per scope</text>
+<rect x="650" y="370" width="250" height="95" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="775.0" y="403" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Configure destination</text>
+<text x="775.0" y="427" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Connection and trust ready</text>
+<path d="M1000 383 V452 C1000 468 1250 468 1250 452 V383 Z" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
+<ellipse cx="1125.0" cy="383" rx="125.0" ry="13" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
+<text x="1125.0" y="403" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Observe entry point</text>
+<text x="1125.0" y="427" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Actual external registration</text>
+<polygon points="1525.0,370 1650,417.5 1525.0,465 1400,417.5" fill="#d1d1d1" stroke="#222" stroke-width="2.2"/>
+<text x="1525.0" y="403" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">New route ready?</text>
+<text x="1525.0" y="427" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Authority and</text>
+<text x="1525.0" y="443" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">reachability</text>
+<path d="M650 613 V682 C650 698 900 698 900 682 V613 Z" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
+<ellipse cx="775.0" cy="613" rx="125.0" ry="13" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
+<text x="775.0" y="633" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Inventory old work</text>
+<text x="775.0" y="657" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">In-flight invoices and statuses</text>
+<rect x="1000" y="600" width="250" height="95" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="1125.0" y="633" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Assign obligation owner</text>
+<text x="1125.0" y="657" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Historic response and reporting</text>
+<polygon points="1525.0,600 1650,647.5 1525.0,695 1400,647.5" fill="#d1d1d1" stroke="#222" stroke-width="2.2"/>
+<text x="1525.0" y="633" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Continuity covered?</text>
+<text x="1525.0" y="657" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Access and evidence</text>
+<text x="1525.0" y="673" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">retained</text>
+<rect x="1850" y="835" width="250" height="100" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="1975.0" y="868" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Cutover gate</text>
+<text x="1975.0" y="892" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Both rails must pass</text>
+<polygon points="1874,955 2076,955 2100,992.5 2076,1030 1874,1030 1850,992.5" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1975.0" y="988" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Keep old route</text>
+<text x="1975.0" y="1012" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Correct or reconcile failed</text>
+<text x="1975.0" y="1028" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">gate</text>
+<rect x="2150" y="835" width="220" height="100" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="2260.0" y="868" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Prospective activation</text>
+<text x="2260.0" y="892" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Only eligible new work changes</text>
+<path d="M2400 835 H2620 V922 Q2560 908 2500 922 T2400 922 Z" fill="#fff" stroke="#333" stroke-width="2.2"/>
+<text x="2510.0" y="868" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Retain or release</text>
+<text x="2510.0" y="892" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Old access ends at safe gates</text>
+<text x="35" y="1080" font-family="Arial,sans-serif" font-size="13" fill="#444">Solid arrows show the process; dashed arrows end at a hold, correction or unresolved case. Country and provider details require source evidence.</text>
+</svg>

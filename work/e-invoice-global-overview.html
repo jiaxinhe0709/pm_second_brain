@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How Sage plans to support e-invoicing across countries.</title>
+  <style>
+    body { margin:0; background:#f7f8fa; color:#172b4d; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+    header { background:#fff; border-bottom:1px solid #dfe1e6; }
+    .top { max-width:1180px; margin:auto; padding:16px 24px; display:flex; justify-content:space-between; gap:16px; }
+    .brand { color:#006644; font-weight:700; }
+    a { color:#0052cc; text-underline-offset:3px; }
+    a:focus-visible { outline:3px solid #00875a; outline-offset:3px; }
+    main { max-width:1228px; margin:auto; padding:30px 24px 60px; }
+    .eyebrow { color:#006644; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    h1 { max-width:900px; margin:8px 0 12px; font:normal clamp(30px,4vw,46px)/1.13 Georgia,serif; }
+    .lead { max-width:850px; margin:0 0 26px; color:#42526e; font-size:16px; line-height:1.5; }
+    footer { max-width:1180px; margin:24px auto 0; padding-top:17px; border-top:1px solid #dfe1e6; color:#42526e; font-size:12px; line-height:1.7; }
+    footer nav { display:flex; flex-wrap:wrap; gap:8px 18px; }
+  </style>
+</head>
+<body>
+  <header><div class="top"><span class="brand">Sage e-Invoicing · Stakeholder overview</span><a href="e-invoice-spain-phases-overview.html">View Spain features →</a></div></header>
+  <main>
+    <p class="eyebrow">Global e-invoicing · What we plan to support</p>
+    <h1>How Sage plans to support e-invoicing across countries.</h1>
+    <p class="lead">See what customers do in Sage, what the shared service handles, and where country services take over.</p>
+    <div class="sei-global-map">
+      <style>
+        .sei-global-map { box-sizing:border-box; max-width:1180px; margin:0 auto; padding:24px; overflow-x:auto; border:1px solid #dfe1e6; border-radius:8px; background:#fff; color:#172b4d; font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+        .sei-global-map * { box-sizing:border-box; }
+        .sei-global-map h2 { margin:0; font-size:21px; line-height:1.2; }
+        .sei-global-map .intro { max-width:850px; margin:7px 0 18px; color:#42526e; }
+        .sei-global-map svg { display:block; width:1100px; height:930px; border:1px solid #dfe1e6; border-radius:8px; background:#fcfcfd; }
+        .sei-global-map .lane-label { fill:#6b778c; font-size:11px; font-weight:700; letter-spacing:.09em; }
+        .sei-global-map .phase-label { fill:#006644; font-size:16px; font-weight:700; }
+        .sei-global-map .phase-copy { fill:#42526e; font-size:11px; }
+        .sei-global-map .band { fill:#fff; stroke:#dfe1e6; stroke-width:1.3; }
+        .sei-global-map .band-proposed { fill:#f7f8fa; stroke:#c1c7d0; stroke-width:1.3; stroke-dasharray:7 5; }
+        .sei-global-map .main { fill:#e3fcef; stroke:#36b37e; stroke-width:1.8; }
+        .sei-global-map .finish { fill:#abf5d1; stroke:#00875a; stroke-width:2; }
+        .sei-global-map .optional { fill:#f4f5f7; stroke:#6b778c; stroke-width:1.6; stroke-dasharray:7 5; }
+        .sei-global-map .error { fill:#ffebe6; stroke:#de350b; stroke-width:1.8; }
+        .sei-global-map .retry { fill:#fff7d6; stroke:#ffab00; stroke-width:1.8; }
+        .sei-global-map .title { fill:#172b4d; font-size:14px; font-weight:700; }
+        .sei-global-map .copy { fill:#42526e; font-size:11px; }
+        .sei-global-map .small { fill:#42526e; font-size:10px; }
+        .sei-global-map .side-title { fill:#172b4d; font-size:13px; font-weight:700; }
+        .sei-global-map .path-main { fill:none; stroke:#00875a; stroke-width:2.2; }
+        .sei-global-map .path-opt { fill:none; stroke:#6b778c; stroke-width:1.9; stroke-dasharray:7 5; }
+        .sei-global-map .path-alert { fill:none; stroke:#de350b; stroke-width:1.9; stroke-dasharray:6 4; }
+        .sei-global-map .path-warn { fill:none; stroke:#ff8b00; stroke-width:1.9; stroke-dasharray:6 4; }
+        .sei-global-map .arrow-main { fill:none; stroke:#00875a; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+        .sei-global-map .arrow-opt { fill:none; stroke:#6b778c; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+        .sei-global-map .arrow-alert { fill:none; stroke:#de350b; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+        .sei-global-map .arrow-warn { fill:none; stroke:#ff8b00; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+        .sei-global-map .notes { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; width:1100px; margin-top:12px; }
+        .sei-global-map .note { padding:11px 12px; border:1px solid #dfe1e6; border-radius:7px; background:#fff; color:#42526e; font-size:11px; }
+        .sei-global-map .note strong { display:block; margin-bottom:3px; color:#172b4d; font-size:12px; }
+        .sei-global-map .legend { display:flex; flex-wrap:wrap; gap:9px 18px; width:1100px; margin-top:12px; color:#42526e; font-size:11px; }
+        .sei-global-map .key { display:inline-flex; align-items:center; gap:6px; }
+        .sei-global-map .swatch { display:inline-block; width:16px; height:10px; border:1.5px solid; border-radius:4px; }
+        .sei-global-map .swatch-main { border-color:#36b37e; background:#e3fcef; }
+        .sei-global-map .swatch-alert { border-color:#de350b; background:#ffebe6; }
+        .sei-global-map .swatch-warn { border-color:#ffab00; background:#fff7d6; }
+        .sei-global-map .swatch-opt { border-color:#6b778c; border-style:dashed; background:#f4f5f7; }
+        .sei-global-map .basis { width:1100px; margin:12px 0 0; color:#6b778c; font-size:10px; }
+      </style>
+      <h2>How Sage plans to support e-invoicing across countries</h2>
+      <p class="intro">Customers would work in their Sage product. A shared service would check the country's rules, uses a suitable way to send or receive the invoice, and returns a clear result.</p>
+      <svg viewBox="0 0 1100 930" role="img" aria-label="How Sage e-invoicing works. The customer starts in a Sage product. Sage checks who can act, checks the country's rules, prepares the invoice, finds a suitable way to send it, and shows the result. Some countries also need a separate tax report. An invoice with missing details goes back for correction. If it is unclear whether an invoice was sent, Sage checks before sending again.">
+        <text x="35" y="35" class="lane-label">WHEN SOMETHING NEEDS ATTENTION</text>
+        <text x="390" y="35" class="lane-label">SAGE'S SHARED SERVICE</text>
+        <text x="782" y="35" class="lane-label">COUNTRY SERVICES AND NETWORKS</text>
+        <path d="M560 136 V164" class="path-main"/><path d="M554 157 L560 165 L566 157" class="arrow-main"/>
+        <path d="M560 246 V274" class="path-main"/><path d="M554 267 L560 275 L566 267" class="arrow-main"/>
+        <path d="M560 356 V384" class="path-main"/><path d="M554 377 L560 385 L566 377" class="arrow-main"/>
+        <path d="M560 466 V494" class="path-main"/><path d="M554 487 L560 495 L566 487" class="arrow-main"/>
+        <path d="M560 576 V604" class="path-main"/><path d="M554 597 L560 605 L566 597" class="arrow-main"/>
+        <path d="M560 686 V714" class="path-main"/><path d="M554 707 L560 715 L566 707" class="arrow-main"/>
+        <path d="M560 796 V830" class="path-main"/><path d="M554 823 L560 831 L566 823" class="arrow-main"/>
+        <path d="M780 320 H738" class="path-opt"/><path d="M745 314 L737 320 L745 326" class="arrow-opt"/>
+        <path d="M730 540 H772" class="path-opt"/><path d="M765 534 L773 540 L765 546" class="arrow-opt"/>
+        <path d="M730 562 H755 V650 H773" class="path-opt"/>
+        <path d="M766 644 L774 650 L766 656" class="arrow-opt"/>
+        <path d="M390 430 H270" class="path-alert"/><path d="M277 424 L269 430 L277 436" class="arrow-alert"/>
+        <path d="M160 430 H105 V210 H383" class="path-alert"/>
+        <path d="M376 204 L384 210 L376 216" class="arrow-alert"/>
+        <path d="M730 666 H755 V758 H879" class="path-warn"/>
+        <path d="M872 752 L880 758 L872 764" class="arrow-warn"/>
+        <path d="M886 780 H738" class="path-warn"/><path d="M745 774 L737 780 L745 786" class="arrow-warn"/>
+        <rect x="390" y="64" width="340" height="72" rx="11" class="main"/>
+        <text x="410" y="92" class="title">Check the business and permissions</text>
+        <text x="410" y="114" class="copy">Who can send or receive for this company</text>
+        <rect x="390" y="174" width="340" height="72" rx="11" class="main"/>
+        <text x="410" y="202" class="title">Start with an invoice</text>
+        <text x="410" y="224" class="copy">Keep the details entered in the Sage product</text>
+        <rect x="390" y="284" width="340" height="72" rx="11" class="main"/>
+        <text x="410" y="312" class="title">Check the country's rules</text>
+        <text x="410" y="334" class="copy">Which rules apply to this invoice and when</text>
+        <rect x="390" y="394" width="340" height="72" rx="11" class="main"/>
+        <text x="410" y="422" class="title">Check and prepare the invoice</text>
+        <text x="410" y="444" class="copy">Include the right details and file type</text>
+        <rect x="390" y="504" width="340" height="72" rx="11" class="main"/>
+        <text x="410" y="532" class="title">Find the right way to send it</text>
+        <text x="410" y="554" class="copy">Choose a suitable destination and provider</text>
+        <rect x="390" y="614" width="340" height="72" rx="11" class="main"/>
+        <text x="410" y="642" class="title">Send or receive the invoice</text>
+        <text x="410" y="664" class="copy">Use the chosen service or network</text>
+        <rect x="390" y="724" width="340" height="72" rx="11" class="main"/>
+        <text x="410" y="752" class="title">Keep responses and updates</text>
+        <text x="410" y="774" class="copy">Track delivery and any separate tax report</text>
+        <rect x="390" y="844" width="340" height="70" rx="35" class="finish"/>
+        <text x="410" y="873" class="title">Show the result in Sage</text>
+        <text x="410" y="895" class="copy">Tell the customer what happened and what to do</text>
+        <path d="M210 380 L260 430 L210 480 L160 430 Z" class="error"/>
+        <text x="210" y="425" class="side-title" text-anchor="middle">Needs fix</text>
+        <text x="210" y="443" class="small" text-anchor="middle">check details</text>
+        <rect x="780" y="276" width="290" height="98" rx="11" class="optional"/>
+        <text x="800" y="304" class="side-title">Country rules</text>
+        <text x="800" y="326" class="copy">Who must use e-invoicing and when</text>
+        <text x="800" y="344" class="small">Allowed details, formats and services</text>
+        <text x="800" y="361" class="small">Tax reports and result meanings</text>
+        <rect x="780" y="494" width="290" height="94" rx="11" class="optional"/>
+        <text x="800" y="522" class="side-title">Optional invoice network</text>
+        <text x="800" y="544" class="copy">Peppol only where it suits the buyer</text>
+        <text x="800" y="562" class="small">Sage or a partner must be ready</text>
+        <text x="800" y="579" class="small">The country's rules still apply</text>
+        <rect x="780" y="604" width="290" height="92" rx="11" class="optional"/>
+        <text x="800" y="632" class="side-title">Tax authority report, if needed</text>
+        <text x="800" y="654" class="copy">A separate step with its own result</text>
+        <text x="800" y="672" class="small">Sending to a buyer does not prove this step</text>
+        <path d="M906 716 H952 L970 734 V780 L952 798 H906 L888 780 V734 Z" class="retry"/>
+        <text x="929" y="754" class="side-title" text-anchor="middle">Unclear</text>
+        <text x="929" y="772" class="small" text-anchor="middle">check first</text>
+      </svg>
+      <div class="notes"><div class="note"><strong>In Sage products</strong>Customers would set up their business, create or review invoices, and see progress.</div><div class="note"><strong>In Sage's shared service</strong>Sage would check country rules, prepare invoices, choose connections, and keep results together.</div><div class="note"><strong>Outside Sage</strong>Country directories, invoice networks, providers and tax authorities return their own results. Delivery, acceptance and payment are different outcomes.</div></div>
+      <div class="legend" aria-label="Diagram legend"><span class="key"><span class="swatch swatch-main"></span>Main steps</span><span class="key"><span class="swatch swatch-alert"></span>Invoice details need fixing</span><span class="key"><span class="swatch swatch-warn"></span>Unclear result: check before resending</span><span class="key"><span class="swatch swatch-opt"></span>Country rule or extra route</span></div>
+      <p class="basis">High-level view of what we plan to support; it does not say every country or route is live. Based on PRD-SEI-227, 231–234 and 240.</p>
+    </div>
+        <footer><p>Source PRDs and detailed context:</p><nav><a href="e-invoice-complete-explorer.html">Detailed explorer</a> <a href="../prds/PRD-SEI-227-e-invoicing-as-a-service.md">Shared service</a> <a href="../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md">Identity and authority</a> <a href="../prds/PRD-SEI-232-country-lifecycle-status-mapping.md">Lifecycle</a> <a href="../prds/PRD-SEI-233-peppol-multi-address-and-endpoint-routing.md">Routing</a> <a href="../prds/PRD-SEI-234-cross-border-and-reusable-country-capabilities.md">Applicability</a> <a href="../prds/PRD-SEI-240-peppol-access-point-service-readiness.md">Access Point readiness</a></nav></footer>
+  </main>
+</body>
+</html>

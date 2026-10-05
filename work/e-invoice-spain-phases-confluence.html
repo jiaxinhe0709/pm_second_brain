@@ -1,0 +1,152 @@
+<div class="sei-spain-swimlane">
+  <style>
+
+    .sei-spain-swimlane { box-sizing:border-box; max-width:1200px; margin:0 auto; padding:16px; overflow-x:auto; border-radius:8px; background:#fafafa; color:#171717; box-shadow:0 0 0 1px #00000014; font:11px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+    .sei-spain-swimlane * { box-sizing:border-box; }
+    .sei-spain-swimlane h2 { margin:0; font-size:18px; font-weight:600; line-height:1.2; letter-spacing:-.02em; }
+    .sei-spain-swimlane .intro { max-width:1000px; margin:4px 0 9px; color:#4d4d4d; }
+    .sei-spain-swimlane .scope { width:1140px; margin-bottom:8px; padding:8px 10px; border-radius:6px; background:#fff; box-shadow:0 0 0 1px #00000014; color:#4d4d4d; font-size:10px; }
+    .sei-spain-swimlane .scope strong { display:inline; margin-right:7px; color:#171717; font-size:11px; font-weight:600; }
+    .sei-spain-swimlane .terms { width:1140px; margin-bottom:7px; color:#4d4d4d; font-size:10px; }
+    .sei-spain-swimlane .terms strong { color:#171717; font-weight:600; }
+    .sei-spain-swimlane .key { display:flex; flex-wrap:wrap; gap:4px 14px; width:1140px; margin-bottom:7px; color:#4d4d4d; font-size:9px; }
+    .sei-spain-swimlane .key span { display:inline-flex; gap:4px; align-items:center; }
+    .sei-spain-swimlane .tag { display:inline-flex; align-items:center; gap:4px; color:#4d4d4d; font-size:9px; font-style:normal; font-weight:500; line-height:1; white-space:nowrap; }
+    .sei-spain-swimlane .tag::before { content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:#8f8f8f; }
+    .sei-spain-swimlane .tag.build::before { background:#398e4a; }
+    .sei-spain-swimlane .tag.add::before { background:#ff990a; }
+    .sei-spain-swimlane .phase-flow { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+    .sei-spain-swimlane .phase-flow .line { fill:none; stroke:#8f8f8f; stroke-width:1.4; }
+    .sei-spain-swimlane .phase-flow .arrowhead { fill:none; stroke:#8f8f8f; stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; }
+    .sei-spain-swimlane .matrix { width:1140px; }
+    .sei-spain-swimlane .matrix-head, .sei-spain-swimlane .cap-row { display:grid; grid-template-columns:260px repeat(3,minmax(0,1fr)); gap:26px; }
+    .sei-spain-swimlane .matrix-head { position:relative; margin-bottom:6px; }
+    .sei-spain-swimlane .matrix-head > div { min-height:56px; padding:8px 10px; border-radius:6px; background:#fff; box-shadow:0 0 0 1px #00000014; }
+    .sei-spain-swimlane .matrix-head .axis-title { display:flex; align-items:center; color:#8f8f8f; font-size:10px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; }
+    .sei-spain-swimlane .matrix-head .phase-three { background:#f2f2f2; }
+    .sei-spain-swimlane .phase-kicker { display:block; color:#4d4d4d; font-size:9px; font-weight:600; text-transform:uppercase; }
+    .sei-spain-swimlane .matrix-head strong { display:block; margin-top:2px; color:#171717; font-size:12px; font-weight:600; line-height:1.15; }
+    .sei-spain-swimlane .matrix-head small { display:block; margin-top:2px; color:#4d4d4d; font-size:9px; }
+    .sei-spain-swimlane .cap-row { margin-bottom:6px; }
+    .sei-spain-swimlane .cap-label { padding:8px 9px; border-radius:6px; background:#f2f2f2; box-shadow:0 0 0 1px #00000014; }
+    .sei-spain-swimlane .cap-label strong { display:block; color:#171717; font-size:11px; font-weight:600; line-height:1.15; }
+    .sei-spain-swimlane .cap-label span { display:block; margin-top:3px; color:#8f8f8f; font-size:9px; }
+    .sei-spain-swimlane .cap-label .scope-split { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px; margin-top:6px; }
+    .sei-spain-swimlane .cap-label .scope-item { display:block; padding:5px 6px; border-radius:4px; background:#fff; box-shadow:0 0 0 1px #00000014; }
+    .sei-spain-swimlane .cap-label .scope-item.local { background:#fafafa; outline:1px dashed #8f8f8f; outline-offset:-2px; }
+    .sei-spain-swimlane .cap-label .scope-kicker { display:block; margin:0; color:#171717; font-size:9px; font-weight:600; line-height:1.1; text-transform:uppercase; letter-spacing:.02em; }
+    .sei-spain-swimlane .cap-label .scope-item.common .scope-kicker::before { content:""; display:inline-block; width:6px; height:6px; margin-right:5px; border-radius:50%; background:#398e4a; vertical-align:1px; }
+    .sei-spain-swimlane .cap-label .scope-item.local .scope-kicker::before { content:"ES"; display:inline-block; margin-right:5px; padding:1px 3px; border-radius:2px; background:#171717; color:#fff; font-size:8px; letter-spacing:0; }
+    .sei-spain-swimlane .cap-label .scope-ids { display:block; margin:3px 0 0; color:#8f8f8f; font-size:9px; }
+    .sei-spain-swimlane .cap-label .scope-copy { display:block; margin:1px 0 0; color:#4d4d4d; font-size:9px; line-height:1.2; }
+    .sei-spain-swimlane .cell { min-width:0; padding:5px; border-radius:6px; background:#f2f2f2; box-shadow:0 0 0 1px #00000014; }
+    .sei-spain-swimlane .cell.phase-three { background:#ececec; }
+    .sei-spain-swimlane .feature { min-height:0; padding:6px 8px; border-radius:6px; background:#fff; box-shadow:0 0 0 1px #00000014; }
+    .sei-spain-swimlane .feature + .feature { margin-top:5px; }
+    .sei-spain-swimlane .feature-meta { display:flex; align-items:center; justify-content:space-between; gap:5px; min-height:12px; }
+    .sei-spain-swimlane .prd-links { display:inline-flex; flex-wrap:wrap; justify-content:flex-end; gap:3px 6px; }
+    .sei-spain-swimlane .prd-links a { color:#0072f5; font-size:10px; font-weight:500; text-decoration:none; white-space:nowrap; }
+    .sei-spain-swimlane .prd-links a:hover { text-decoration:underline; }
+    .sei-spain-swimlane .prd-links a:focus-visible { outline:2px solid #005fcc; outline-offset:2px; }
+    .sei-spain-swimlane .feature strong { display:block; margin-top:2px; color:#171717; font-size:12px; font-weight:600; line-height:1.2; }
+    .sei-spain-swimlane .feature p { margin:2px 0 0; color:#4d4d4d; font-size:10px; line-height:1.25; }
+    .sei-spain-swimlane .feature.gate { outline:1px dashed #8f8f8f; outline-offset:-2px; }
+    .sei-spain-swimlane .ownership { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; width:1140px; margin-top:8px; }
+    .sei-spain-swimlane .ownership div { padding:7px 9px; border-radius:6px; background:#fff; box-shadow:0 0 0 1px #00000014; color:#4d4d4d; font-size:9px; }
+    .sei-spain-swimlane .ownership strong { display:block; margin-bottom:2px; color:#171717; font-size:10px; font-weight:600; }
+    .sei-spain-swimlane .consultation { width:1140px; margin-top:8px; padding:8px 10px; border-radius:6px; background:#fff; box-shadow:0 0 0 1px #00000014; }
+    .sei-spain-swimlane .consultation h3 { display:inline; margin:0 9px 0 0; color:#171717; font-size:10px; font-weight:600; }
+    .sei-spain-swimlane .chips { display:inline-flex; flex-wrap:wrap; gap:4px 10px; }
+    .sei-spain-swimlane .chip { color:#4d4d4d; font-size:9px; }
+    .sei-spain-swimlane .chip::before { content:"• "; color:#8f8f8f; }
+    .sei-spain-swimlane .footer { width:1140px; margin-top:8px; color:#8f8f8f; font-size:9px; }
+  </style>
+  <h2>Spain: what we build, reuse and add</h2>
+  <p class="intro">Read across each row to see what Spain adds in each phase. The left rail separates reusable approaches from Spain-specific work, with node IDs for both.</p>
+  <div class="scope"><strong>Spain country capability spans Phases 1–3</strong>Public connection → chosen private providers → proposed Sage private platform. Shared methods support all three; Spanish rules and connections stay in the Spain connector. An ID can appear in both left-rail boxes when its method is reusable but its rule is local.</div>
+  <div class="terms"><strong>Public solution:</strong> Spain's public e-invoicing service. <strong>Private provider:</strong> a service a business chooses to exchange invoices.</div>
+  <div class="key" aria-label="Feature labels">
+    <span><i class="tag build">Build</i> Create the feature in this phase</span>
+    <span><i class="tag reuse">Reuse</i> Keep using an earlier feature</span>
+    <span><i class="tag add">Add</i> Extend it for this phase</span>
+  </div>
+  <div class="matrix" aria-label="Spain e-invoicing feature swimlanes">
+    <div class="matrix-head">
+      <div class="axis-title">Capability &amp; country reuse</div>
+      <div><span class="phase-kicker">Phase 1 · Build first</span><strong>Public solution</strong><small>Create the common customer and invoice features.</small></div>
+      <div><span class="phase-kicker">Phase 2 · Reuse + add</span><strong>Private provider choice</strong><small>Use that base with providers chosen by customers.</small></div>
+      <div class="phase-three"><span class="phase-kicker">Phase 3 · Proposed</span><strong>Possible Sage service</strong><small>Reuse both phases and add provider responsibilities.</small></div>
+      <svg class="phase-flow" viewBox="0 0 1140 100" preserveAspectRatio="none" role="img" aria-label="Phase 1 leads to Phase 2, then to a proposed Phase 3.">
+        <path d="M556 50 H576" class="line"/><path d="M570 44 L576 50 L570 56" class="arrowhead"/>
+        <path d="M849 50 H869" class="line"/><path d="M863 44 L869 50 L863 56" class="arrowhead"/>
+      </svg>
+    </div>
+    <section class="cap-row" aria-label="Business &amp; permission features by phase">
+      <div class="cap-label"><strong>Business &amp; permission</strong><span>Who may act?</span><div class="scope-split"><div class="scope-item common"><span class="scope-kicker">Reusable approach</span><span class="scope-ids">A1–A2 · B1 · C1</span><span class="scope-copy">Business identity and permissions.</span></div><div class="scope-item local"><span class="scope-kicker">Spain-specific work</span><span class="scope-ids">A1–A2</span><span class="scope-copy">Spanish IDs and accountant authority.</span></div></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag build">Build</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=855187086" aria-label="Open PRD-SEI-106 for A1 in Confluence" title="PRD-SEI-106 in Confluence">PRD 106 ↗</a></span></div><strong>A1 · Know the business</strong><p>Check the company and its Spanish tax ID.</p></div><div class="feature"><div class="feature-meta"><span class="tag build">Build</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=848078252" aria-label="Open PRD-SEI-104 for A2 in Confluence" title="PRD-SEI-104 in Confluence">PRD 104 ↗</a></span></div><strong>A2 · Check who can act</strong><p>Know which user or accountant may act.</p></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag reuse">Reuse Phase 1</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866126304" aria-label="Open PRD-SEI-214 for B1 in Confluence" title="PRD-SEI-214 in Confluence">PRD 214 ↗</a></span></div><strong>B1 · Use business setup</strong><p>Keep the same company and permission checks.</p></div></div>
+      <div class="cell phase-three"><div class="feature"><div class="feature-meta"><span class="tag reuse">Reuse Phase 1</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148655" aria-label="Open PRD-SEI-222 for C1 in Confluence" title="PRD-SEI-222 in Confluence">PRD 222 ↗</a></span></div><strong>C1 · Use business setup</strong><p>Keep one customer identity and permission record.</p></div></div>
+    </section>
+    <section class="cap-row" aria-label="Connect features by phase">
+      <div class="cap-label"><strong>Connect</strong><span>Which service?</span><div class="scope-split"><div class="scope-item common"><span class="scope-kicker">Reusable approach</span><span class="scope-ids">B2–B4 · C2–C4</span><span class="scope-copy">Readiness, route choice and discovery.</span></div><div class="scope-item local"><span class="scope-kicker">Spain-specific work</span><span class="scope-ids">A3 · C3–C4</span><span class="scope-copy">Public setup and operator interconnection.</span></div></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag build">Build</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837610648" aria-label="Open PRD-SEI-101 for A3 in Confluence" title="PRD-SEI-101 in Confluence">PRD 101 ↗</a></span></div><strong>A3 · Connect to the public solution</strong><p>Set up access for the business.</p></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag add">Add Phase 2</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866126304" aria-label="Open PRD-SEI-214 for B2 in Confluence" title="PRD-SEI-214 in Confluence">PRD 214 ↗</a></span></div><strong>B2 · Add a private provider</strong><p>Link the chosen provider to the business.</p></div><div class="feature"><div class="feature-meta"><span class="tag add">Add Phase 2</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866126304" aria-label="Open PRD-SEI-214 for B3 in Confluence" title="PRD-SEI-214 in Confluence">PRD 214 ↗</a></span></div><strong>B3 · Check it is ready</strong><p>Make sure it can send, receive and return updates.</p></div><div class="feature"><div class="feature-meta"><span class="tag add">Add Phase 2</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866126304" aria-label="Open PRD-SEI-214 for B4 in Confluence" title="PRD-SEI-214 in Confluence">PRD 214 ↗</a></span></div><strong>B4 · Choose when to use it</strong><p>Choose sending, receiving or both, and when to start.</p></div></div>
+      <div class="cell phase-three"><div class="feature"><div class="feature-meta"><span class="tag reuse">Reuse Phase 2</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148655" aria-label="Open PRD-SEI-222 for C2 in Confluence" title="PRD-SEI-222 in Confluence">PRD 222 ↗</a></span></div><strong>C2 · Keep provider choice</strong><p>Use the connection and route choices from Phase 2.</p></div><div class="feature"><div class="feature-meta"><span class="tag add">Add Phase 3</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148655" aria-label="Open PRD-SEI-222 for C3 in Confluence" title="PRD-SEI-222 in Confluence">PRD 222 ↗</a></span></div><strong>C3 · Make Sage a destination</strong><p>Let other services find where to send invoices.</p></div><div class="feature"><div class="feature-meta"><span class="tag add">Add Phase 3</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148656" aria-label="Open PRD-SEI-223 for C4 in Confluence" title="PRD-SEI-223 in Confluence">PRD 223 ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=899154047" aria-label="Open PRD-SEI-235 for C4 in Confluence" title="PRD-SEI-235 in Confluence">PRD 235 ↗</a></span></div><strong>C4 · Connect to other providers</strong><p>Exchange with private providers and the public solution.</p></div></div>
+    </section>
+    <section class="cap-row" aria-label="Check invoices features by phase">
+      <div class="cap-label"><strong>Check invoices</strong><span>Before exchange</span><div class="scope-split"><div class="scope-item common"><span class="scope-kicker">Reusable approach</span><span class="scope-ids">A4 · B5 · C5</span><span class="scope-copy">Check invoices before exchange.</span></div><div class="scope-item local"><span class="scope-kicker">Spain-specific work</span><span class="scope-ids">A4 · C5</span><span class="scope-copy">Approved formats and local rules.</span></div></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag build">Build</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837610656" aria-label="Open PRD-SEI-212 for A4 in Confluence" title="PRD-SEI-212 in Confluence">PRD 212 ↗</a></span></div><strong>A4 · Prepare each invoice</strong><p>Check the information Spain needs before sending.</p></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag reuse">Reuse + add</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837588799" aria-label="Open PRD-SEI-213 for B5 in Confluence" title="PRD-SEI-213 in Confluence">PRD 213 ↗</a></span></div><strong>B5 · Use the same invoice checks</strong><p>Keep the base checks; add provider rules when needed.</p></div></div>
+      <div class="cell phase-three"><div class="feature"><div class="feature-meta"><span class="tag reuse">Reuse + add</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148656" aria-label="Open PRD-SEI-223 for C5 in Confluence" title="PRD-SEI-223 in Confluence">PRD 223 ↗</a></span></div><strong>C5 · Use the same invoice checks</strong><p>Keep the base checks; support more approved file types.</p></div></div>
+    </section>
+    <section class="cap-row" aria-label="Send features by phase">
+      <div class="cap-label"><strong>Send</strong><span>Out to the buyer</span><div class="scope-split"><div class="scope-item common"><span class="scope-kicker">Reusable approach</span><span class="scope-ids">A5 · B6 · C6</span><span class="scope-copy">Send, keep replies and report separately.</span></div><div class="scope-item local"><span class="scope-kicker">Spain-specific work</span><span class="scope-ids">A5 · C7</span><span class="scope-copy">Public route and copy duty.</span></div></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag build">Build</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837610656" aria-label="Open PRD-SEI-212 for A5 in Confluence" title="PRD-SEI-212 in Confluence">PRD 212 ↗</a></span></div><strong>A5 · Send via the public solution</strong><p>Send the invoice and keep the reply.</p></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag reuse">Reuse Phase 1</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837588799" aria-label="Open PRD-SEI-213 for B6 in Confluence" title="PRD-SEI-213 in Confluence">PRD 213 ↗</a></span></div><strong>B6 · Send via the chosen provider</strong><p>Keep the Sage sending steps; use the selected service.</p></div></div>
+      <div class="cell phase-three"><div class="feature"><div class="feature-meta"><span class="tag reuse">Reuse + add</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148656" aria-label="Open PRD-SEI-223 for C6 in Confluence" title="PRD-SEI-223 in Confluence">PRD 223 ↗</a></span></div><strong>C6 · Send through Sage</strong><p>Use the shared sending steps and connect to other services.</p></div><div class="feature"><div class="feature-meta"><span class="tag add">Add Phase 3</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148656" aria-label="Open PRD-SEI-223 for C7 in Confluence" title="PRD-SEI-223 in Confluence">PRD 223 ↗</a></span></div><strong>C7 · Send a public copy if needed</strong><p>Meet Spain&#x27;s separate public-copy rule.</p></div></div>
+    </section>
+    <section class="cap-row" aria-label="Receive features by phase">
+      <div class="cap-label"><strong>Receive</strong><span>Into Sage</span><div class="scope-split"><div class="scope-item common"><span class="scope-kicker">Reusable approach</span><span class="scope-ids">A6 · B7 · C8</span><span class="scope-copy">One receiving flow into Sage.</span></div><div class="scope-item local"><span class="scope-kicker">Spain-specific work</span><span class="scope-ids">A6 · C8</span><span class="scope-copy">Public retrieval and delivery rules.</span></div></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag build">Build</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837610662" aria-label="Open PRD-SEI-211 for A6 in Confluence" title="PRD-SEI-211 in Confluence">PRD 211 ↗</a></span></div><strong>A6 · Receive from the public solution</strong><p>Bring incoming invoices into Sage.</p></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag reuse">Reuse Phase 1</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837588799" aria-label="Open PRD-SEI-213 for B7 in Confluence" title="PRD-SEI-213 in Confluence">PRD 213 ↗</a></span></div><strong>B7 · Receive via the chosen provider</strong><p>Keep the Sage receiving view; use the selected service.</p></div></div>
+      <div class="cell phase-three"><div class="feature"><div class="feature-meta"><span class="tag reuse">Reuse + add</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148656" aria-label="Open PRD-SEI-223 for C8 in Confluence" title="PRD-SEI-223 in Confluence">PRD 223 ↗</a></span></div><strong>C8 · Receive through Sage</strong><p>Reuse the receiving view and accept invoices from other services.</p></div></div>
+    </section>
+    <section class="cap-row" aria-label="Track features by phase">
+      <div class="cap-label"><strong>Lifecycle</strong><span>What happened?</span><div class="scope-split"><div class="scope-item common"><span class="scope-kicker">Reusable approach</span><span class="scope-ids">A7 · B8 · C9</span><span class="scope-copy">Progress and original route history.</span></div><div class="scope-item local"><span class="scope-kicker">Spain-specific work</span><span class="scope-ids">A7 · C9</span><span class="scope-copy">Spanish status meanings.</span></div></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag build">Build</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837610662" aria-label="Open PRD-SEI-211 for A7 in Confluence" title="PRD-SEI-211 in Confluence">PRD 211 ↗</a></span></div><strong>A7 · Show progress</strong><p>Show what arrived, was rejected or changed.</p></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag add">Add Phase 2</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866126304" aria-label="Open PRD-SEI-214 for B8 in Confluence" title="PRD-SEI-214 in Confluence">PRD 214 ↗</a></span></div><strong>B8 · Keep the old history</strong><p>Each invoice stays linked to the service originally used.</p></div></div>
+      <div class="cell phase-three"><div class="feature"><div class="feature-meta"><span class="tag reuse">Reuse Phases 1 + 2</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148657" aria-label="Open PRD-SEI-224 for C9 in Confluence" title="PRD-SEI-224 in Confluence">PRD 224 ↗</a></span></div><strong>C9 · Show one view</strong><p>Keep the same progress view across all services.</p></div></div>
+    </section>
+    <section class="cap-row" aria-label="Support tooling features by phase">
+      <div class="cap-label"><strong>Support tooling</strong><span>What happened for this customer?</span><div class="scope-split"><div class="scope-item common"><span class="scope-kicker">Reusable approach</span><span class="scope-ids">A8 · B9 · C10</span><span class="scope-copy">Give support a clear journey and safe next action.</span></div><div class="scope-item local"><span class="scope-kicker">Spain-specific work</span><span class="scope-ids">C11</span><span class="scope-copy">Set up support for Spain's private-platform duties.</span></div></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag build">Build</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837610648" aria-label="Open PRD-SEI-101 for A8 in Confluence" title="PRD-SEI-101 in Confluence">PRD 101 ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837610662" aria-label="Open PRD-SEI-211 for A8 in Confluence" title="PRD-SEI-211 in Confluence">PRD 211 ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837610656" aria-label="Open PRD-SEI-212 for A8 in Confluence" title="PRD-SEI-212 in Confluence">PRD 212 ↗</a></span></div><strong>A8 · See the public-service journey</strong><p>Support can trace setup, sending, receiving, replies and errors.</p></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag reuse">Build on Phase 1</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866126304" aria-label="Open PRD-SEI-214 for B9 in Confluence" title="PRD-SEI-214 in Confluence">PRD 214 ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837611183" aria-label="Open PRD-SEI-215 for B9 in Confluence" title="PRD-SEI-215 in Confluence">PRD 215 ↗</a></span></div><strong>B9 · See provider changes</strong><p>Support can trace the chosen service, route changes and issues.</p></div></div>
+      <div class="cell phase-three"><div class="feature"><div class="feature-meta"><span class="tag reuse">Reuse Phases 1 + 2</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148658" aria-label="Open PRD-SEI-225 for C10 in Confluence" title="PRD-SEI-225 in Confluence">PRD 225 ↗</a></span></div><strong>C10 · See the full journey</strong><p>Support can find where an issue occurred and what to do next.</p></div><div class="feature gate"><div class="feature-meta"><span class="tag add">Add Phase 3</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148654" aria-label="Open PRD-SEI-221 for C11 in Confluence" title="PRD-SEI-221 in Confluence">PRD 221 ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148660" aria-label="Open PRD-SEI-226 for C11 in Confluence" title="PRD-SEI-226 in Confluence">PRD 226 ↗</a></span></div><strong>C11 · Prepare Sage operations</strong><p>Confirm support, security, signing and legal duties.</p></div></div>
+    </section>
+    <section class="cap-row" aria-label="Usage data and insight features by phase">
+      <div class="cap-label"><strong>Usage data &amp; insights</strong><span>Service health and business insight</span><div class="scope-split"><div class="scope-item common"><span class="scope-kicker">Reusable approach</span><span class="scope-ids">A9 · B10 · C12</span><span class="scope-copy">Count activity and outcomes without invoice content.</span></div><div class="scope-item local"><span class="scope-kicker">Spain-specific work</span><span class="scope-ids">A9 · B10 · C12</span><span class="scope-copy">Report on Spanish products, routes and customer groups.</span></div></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag build">Build</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837610662" aria-label="Open PRD-SEI-211 for A9 in Confluence" title="PRD-SEI-211 in Confluence">PRD 211 ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837610656" aria-label="Open PRD-SEI-212 for A9 in Confluence" title="PRD-SEI-212 in Confluence">PRD 212 ↗</a></span></div><strong>A9 · Count public-service use</strong><p>Measure sends, retrievals and results without invoice content.</p></div></div>
+      <div class="cell"><div class="feature"><div class="feature-meta"><span class="tag add">Add Phase 2</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837611183" aria-label="Open PRD-SEI-215 for B10 in Confluence" title="PRD-SEI-215 in Confluence">PRD 215 ↗</a></span></div><strong>B10 · Compare provider use</strong><p>Measure volume, errors and results by provider and route.</p></div></div>
+      <div class="cell phase-three"><div class="feature"><div class="feature-meta"><span class="tag add">Add Phase 3</span><span class="prd-links"><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837588803" aria-label="Open PRD-SEI-210 for C12 in Confluence" title="PRD-SEI-210 in Confluence">PRD 210 ↗</a></span></div><strong>C12 · See adoption and cost</strong><p>Measure uptake and service cost by customer group.</p></div></div>
+    </section>
+  </div>
+  <section class="ownership" aria-label="Who handles each part of the Spain e-invoicing journey">
+    <div><strong>In Sage products</strong>Customers would set up their business, send or receive invoices, and see progress.</div>
+    <div><strong>In Sage's shared service</strong>Common methods would check, route, exchange and track invoices.</div>
+    <div><strong>In the Spain connector</strong>Spanish rules, public and private connections, and the proposed Phase 3 operator role.</div>
+    <div><strong>Outside Sage</strong>Spain's public solution and chosen private providers deliver invoices and return updates.</div>
+  </section>
+  <section class="consultation" aria-label="Spain choices that still need a decision">
+    <h3>Choices we still need to work through</h3>
+    <div class="chips">
+      <span class="chip">Send from public to private</span>
+      <span class="chip">Use more than one private provider</span>
+      <span class="chip">Choose a provider for one invoice</span>
+      <span class="chip">Change an invoice's file type</span>
+      <span class="chip">Corrections and credit notes</span>
+      <span class="chip">What accountants can see</span>
+      <span class="chip">Send a PDF as well</span>
+    </div>
+  </section>
+  <div class="footer">Planned capabilities, not a statement that features are live or portable code. Phase 3 remains proposed. Node links use the current Confluence PRD for each stable page.</div>
+</div>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2700 1050" role="img" aria-labelledby="title desc">
+<title id="title">Lifecycle and reporting</title>
+<desc id="desc">Raw events drive separate buyer, delivery, payment and reporting views</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#444"/></marker></defs>
+<rect width="2700" height="1050" fill="#fff"/>
+<text x="35" y="44" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#111">Lifecycle and reporting</text>
+<text x="35" y="76" font-family="Arial,sans-serif" font-size="15" fill="#444">Raw events drive separate buyer, delivery, payment and reporting views</text>
+<rect x="30" y="130" width="2640" height="180" fill="#fafafa" stroke="#aaa"/>
+<rect x="30" y="130" width="245" height="180" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="174" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">EVENT PRODUCER</text>
+<rect x="30" y="320" width="2640" height="300" fill="#f1f1f1" stroke="#aaa"/>
+<rect x="30" y="320" width="245" height="300" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="364" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">SAGE LIFECYCLE SERVICE</text>
+<rect x="30" y="630" width="2640" height="250" fill="#fafafa" stroke="#aaa"/>
+<rect x="30" y="630" width="245" height="250" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="674" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">EXTERNAL OBLIGATIONS /</text>
+<text x="152" y="693" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">EXCEPTIONS</text>
+<rect x="30" y="890" width="2640" height="130" fill="#f1f1f1" stroke="#aaa"/>
+<rect x="30" y="890" width="245" height="130" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="934" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">PRODUCT VIEW</text>
+<path d="M425 270 V385" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M550 435 H600" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M850 435 H900" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1150 435 H1200" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1450 435 H1500" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1750 435 H2200" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M725 385 V270" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M1325 485 V690" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M1625 485 V645 H1785 V690" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1750 435 H1930 V640 H2085 V690" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M2325 485 V920" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<ellipse cx="425.0" cy="225.0" rx="125.0" ry="45.0" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<text x="425.0" y="213" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Event observed</text>
+<text x="425.0" y="237" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Buyer, ERP or platform source</text>
+<polygon points="624,180 826,180 850,225.0 826,270 624,270 600,225.0" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="725.0" y="213" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Unmatched event</text>
+<text x="725.0" y="237" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Retain and investigate</text>
+<rect x="300" y="385" width="250" height="100" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="425.0" y="418" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Ingest observation</text>
+<text x="425.0" y="442" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Authenticate source and identity</text>
+<polygon points="725.0,385 850,435.0 725.0,485 600,435.0" fill="#d1d1d1" stroke="#222" stroke-width="2.2"/>
+<text x="725.0" y="418" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Correlate to invoice</text>
+<text x="725.0" y="442" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Original route, leg</text>
+<text x="725.0" y="458" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">and actor</text>
+<path d="M900 398 V472 C900 488 1150 488 1150 472 V398 Z" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
+<ellipse cx="1025.0" cy="398" rx="125.0" ry="13" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
+<text x="1025.0" y="418" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Raw event ledger</text>
+<text x="1025.0" y="442" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Code, reason, time and source</text>
+<rect x="1200" y="385" width="250" height="100" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="1325.0" y="418" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Map business meaning</text>
+<text x="1325.0" y="442" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Versioned country/network rules</text>
+<path d="M1500 385 H1750 V472 Q1690 458 1630 472 T1500 472 Z" fill="#fff" stroke="#333" stroke-width="2.2"/>
+<text x="1625.0" y="418" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Create obligations</text>
+<text x="1625.0" y="442" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Recipient and authority independent</text>
+<path d="M2200 398 V472 C2200 488 2450 488 2450 472 V398 Z" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
+<ellipse cx="2325.0" cy="398" rx="125.0" ry="13" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
+<text x="2325.0" y="418" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Track each result</text>
+<text x="2325.0" y="442" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Ack, retry, conflict and freshness</text>
+<polygon points="1224,690 1426,690 1450,735.0 1426,780 1224,780 1200,735.0" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1325.0" y="723" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Unknown code</text>
+<text x="1325.0" y="747" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Preserve raw; do not guess</text>
+<polygon points="1672,690 1898,690 1920,780 1650,780" fill="#fff" stroke="#555" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1785.0" y="723" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Counterparty update</text>
+<text x="1785.0" y="747" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Original invoice route</text>
+<polygon points="1972,690 2198,690 2220,780 1950,780" fill="#fff" stroke="#555" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="2085.0" y="723" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Authority report</text>
+<text x="2085.0" y="747" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Only where required</text>
+<polygon points="2224,920 2450,920 2426,1010 2200,1010" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<text x="2325.0" y="953" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Current lifecycle view</text>
+<text x="2325.0" y="977" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Technical, commercial, payment,</text>
+<text x="2325.0" y="993" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">report</text>
+<text x="35" y="1030" font-family="Arial,sans-serif" font-size="13" fill="#444">Solid arrows show the process; dashed arrows end at a hold, correction or unresolved case. Country and provider details require source evidence.</text>
+</svg>

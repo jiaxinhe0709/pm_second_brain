@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2600 1100" role="img" aria-labelledby="title desc">
+<title id="title">Customer and service readiness</title>
+<desc id="desc">Direct and accountant intake converge on one legal-entity, capability-specific assessment</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#444"/></marker></defs>
+<rect width="2600" height="1100" fill="#fff"/>
+<text x="35" y="44" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#111">Customer and service readiness</text>
+<text x="35" y="76" font-family="Arial,sans-serif" font-size="15" fill="#444">Direct and accountant intake converge on one legal-entity, capability-specific assessment</text>
+<rect x="30" y="130" width="2540" height="195" fill="#fafafa" stroke="#aaa"/>
+<rect x="30" y="130" width="245" height="195" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="174" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">CUSTOMER / ACCOUNTANT</text>
+<rect x="30" y="335" width="2540" height="265" fill="#f1f1f1" stroke="#aaa"/>
+<rect x="30" y="335" width="245" height="265" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="379" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">SAGE ONBOARDING</text>
+<text x="152" y="398" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">SERVICE</text>
+<rect x="30" y="610" width="2540" height="220" fill="#fafafa" stroke="#aaa"/>
+<rect x="30" y="610" width="245" height="220" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="654" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">IDENTITY / AUTHORITY /</text>
+<text x="152" y="673" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">TRUST</text>
+<rect x="30" y="840" width="2540" height="210" fill="#f1f1f1" stroke="#aaa"/>
+<rect x="30" y="840" width="245" height="210" fill="#e5e5e5" stroke="#aaa"/>
+<text x="152" y="884" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">CONDITIONAL EXTERNAL</text>
+<text x="152" y="903" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">EVIDENCE</text>
+<path d="M510 195 H550 V430 H600" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M510 280 H565 V470 H600" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M820 450 H900" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1140 450 H1200" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1440 450 H1500" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1740 450 H1800" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M2040 450 H2200" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1020 395 V250" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M1320 395 V250" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M2320 395 V250" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<ellipse cx="400.0" cy="195.0" rx="110.0" ry="35.0" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<text x="400.0" y="188" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#111">Direct request</text>
+<text x="400.0" y="207" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Business administrator</text>
+<ellipse cx="400.0" cy="280.0" rx="110.0" ry="35.0" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<text x="400.0" y="273" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#111">Portfolio item</text>
+<text x="400.0" y="292" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Accountant for one client</text>
+<polygon points="924,160 1140,160 1116,250 900,250" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<text x="1020.0" y="193" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Correct identity</text>
+<text x="1020.0" y="217" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">New evidence revision</text>
+<polygon points="1224,160 1416,160 1440,205.0 1416,250 1224,250 1200,205.0" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1320.0" y="193" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Authority action</text>
+<text x="1320.0" y="217" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Obtain client-specific grant</text>
+<polygon points="2224,160 2440,160 2416,250 2200,250" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<text x="2320.0" y="193" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Capability result</text>
+<text x="2320.0" y="217" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Ready, limited or action needed</text>
+<rect x="600" y="395" width="220" height="110" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="710.0" y="428" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Open scoped case</text>
+<text x="710.0" y="452" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">One entity and environment</text>
+<rect x="900" y="395" width="240" height="110" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="1020.0" y="428" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Verify legal subject</text>
+<text x="1020.0" y="452" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Identifier, type and presence</text>
+<polygon points="1320.0,395 1440,450.0 1320.0,505 1200,450.0" fill="#d1d1d1" stroke="#222" stroke-width="2.2"/>
+<text x="1320.0" y="428" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Actor authorised?</text>
+<text x="1320.0" y="452" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Client, capability and</text>
+<text x="1320.0" y="468" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">time</text>
+<rect x="1500" y="395" width="240" height="110" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="1620.0" y="428" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Evaluate readiness</text>
+<text x="1620.0" y="452" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Issue, receive, report, download</text>
+<path d="M1800 395 H2040 V492 Q1980 478 1920 492 T1800 492 Z" fill="#fff" stroke="#333" stroke-width="2.2"/>
+<text x="1920.0" y="428" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Configure route</text>
+<text x="1920.0" y="452" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Connection, credential and trust</text>
+<rect x="2200" y="395" width="240" height="110" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
+<text x="2320.0" y="428" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Activate approved scope</text>
+<text x="2320.0" y="452" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Direction, environment and time</text>
+<path d="M900 665 H1140 V747 Q1080 733 1020 747 T900 747 Z" fill="#fff" stroke="#555" stroke-width="2.2"/>
+<text x="1020.0" y="698" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Identifier scheme</text>
+<text x="1020.0" y="722" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Country-specific classes</text>
+<path d="M1200 665 H1440 V747 Q1380 733 1320 747 T1200 747 Z" fill="#fff" stroke="#555" stroke-width="2.2"/>
+<text x="1320.0" y="698" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Delegated authority</text>
+<text x="1320.0" y="722" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Authentication is separate</text>
+<path d="M1500 665 H1740 V747 Q1680 733 1620 747 T1500 747 Z" fill="#fff" stroke="#555" stroke-width="2.2"/>
+<text x="1620.0" y="698" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Purpose-specific trust</text>
+<text x="1620.0" y="722" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Signer, custody, expiry</text>
+<path d="M1800 678 V747 C1800 763 2040 763 2040 747 V678 Z" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
+<ellipse cx="1920.0" cy="678" rx="120.0" ry="13" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
+<text x="1920.0" y="698" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Route state</text>
+<text x="1920.0" y="722" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Configured is not active</text>
+<polygon points="922,895 1118,895 1140,985 900,985" fill="#fff" stroke="#555" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1020.0" y="928" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Official identity check</text>
+<text x="1020.0" y="952" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Only when access is approved</text>
+<polygon points="1822,895 2018,895 2040,985 1800,985" fill="#fff" stroke="#555" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1920.0" y="928" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">External registration</text>
+<text x="1920.0" y="952" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Observe actual state if needed</text>
+<text x="35" y="1080" font-family="Arial,sans-serif" font-size="13" fill="#444">Solid arrows show the process; dashed arrows end at a hold, correction or unresolved case. Country and provider details require source evidence.</text>
+</svg>
