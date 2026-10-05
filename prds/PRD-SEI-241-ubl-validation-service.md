@@ -216,11 +216,6 @@ Support needs a redacted view of input and derived references, exact profile/rul
 | Who owns localisation and the final customer wording? | Domain Service Product + ERP UX | Customer usability | Service supplies safe meaning; ERP presents it |
 | What are retention and access periods for source, derived and failed files? | Legal/Compliance + Security | Production | Country/route policy, not a universal default |
 
-## Decisions and change log
+## Decisions
 
 No country, UBL profile, API or transformation policy is approved here. This PRD is the validation decision surface; Peppol feedback has its own PRD.
-
-| Date | Change | Basis |
-|---|---|---|
-| 2026-10-01 | Allocated PRD-SEI-241 to the initial combined discovery draft | User request and initial brainstorm |
-| 2026-10-02 | Split into a UBL-only validation PRD; moved Peppol lifecycle feedback to PRD-SEI-242 and retained the permanent ID | User correction to create two separate PRDs |

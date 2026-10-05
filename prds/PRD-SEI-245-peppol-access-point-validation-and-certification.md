@@ -141,9 +141,3 @@ No production date or success target is asserted. The AP owner should baseline t
 | Does Sage also intend to operate an SMP or use a contracted SMP? | Network product; separate authority and migration decision |
 
 **Current decision:** proceed with validation planning for the reported Sage AP. **Open decision:** production activation requires named evidence at every gate above; this draft does not certify Sage or select a country route.
-
-## Revision history
-
-| Date | Change | Pull request |
-|---|---|---|
-| 2026-10-05 | Separate successor focused on validation, accreditation and certificates after stakeholder reported Sage has an AP | |
