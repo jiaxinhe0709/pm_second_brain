@@ -17,9 +17,9 @@ related:
   - PRD-SEI-201
   - ADR-SEI-001
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "876576919"
   page_id: ""
   title: Customer Offboarding and Provider Exit
   layout: two_left_sidebar

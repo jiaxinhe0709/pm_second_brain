@@ -17,9 +17,9 @@ related:
   - PRD-SEI-239
   - PRD-SEI-242
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: "866150169"
+  parent_page_id: "837588796"
   page_id: ""
   title: E-Invoicing — UBL Validation Service
   layout: two_left_sidebar
