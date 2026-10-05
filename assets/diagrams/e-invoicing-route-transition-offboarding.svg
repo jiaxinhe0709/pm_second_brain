@@ -26,12 +26,26 @@
 <path d="M1250 417 H1400" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
 <path d="M900 647 H1000" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
 <path d="M1250 647 H1400" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M1525 465 V480" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M1525 695 V710" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
 <path d="M1650 417 H1765 V865 H1850" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
 <path d="M1650 647 H1790 V925 H1850" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
 <path d="M2100 885 H2150" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
 <path d="M1975 935 V955" fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
 <path d="M2370 885 H2400" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
 <path d="M2510 835 V255" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="1559.0" y="463" width="42" height="18" rx="3" fill="#fff" opacity=".96"/>
+<text x="1580" y="476" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#333">No</text>
+<rect x="1559.0" y="693" width="42" height="18" rx="3" fill="#fff" opacity=".96"/>
+<text x="1580" y="706" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#333">No</text>
+<rect x="1686.5" y="386" width="47" height="18" rx="3" fill="#fff" opacity=".96"/>
+<text x="1710" y="399" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#333">Ready</text>
+<rect x="1689.5" y="616" width="61" height="18" rx="3" fill="#fff" opacity=".96"/>
+<text x="1720" y="629" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#333">Covered</text>
+<rect x="2087.5" y="795" width="75" height="18" rx="3" fill="#fff" opacity=".96"/>
+<text x="2125" y="808" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#333">Both pass</text>
+<rect x="1989.5" y="937" width="61" height="18" rx="3" fill="#fff" opacity=".96"/>
+<text x="2020" y="950" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#333">Blocked</text>
 <ellipse cx="425.0" cy="210.0" rx="125.0" ry="45.0" fill="#fff" stroke="#222" stroke-width="2.2"/>
 <text x="425.0" y="198" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Request route change</text>
 <text x="425.0" y="222" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Entity, direction and effective</text>
@@ -47,23 +61,29 @@
 <text x="775.0" y="427" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Connection and trust ready</text>
 <path d="M1000 383 V452 C1000 468 1250 468 1250 452 V383 Z" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
 <ellipse cx="1125.0" cy="383" rx="125.0" ry="13" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
-<text x="1125.0" y="403" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Observe entry point</text>
-<text x="1125.0" y="427" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Actual external registration</text>
+<text x="1125.0" y="412" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Observe entry point</text>
+<text x="1125.0" y="434" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Actual external registration</text>
 <polygon points="1525.0,370 1650,417.5 1525.0,465 1400,417.5" fill="#d1d1d1" stroke="#222" stroke-width="2.2"/>
-<text x="1525.0" y="403" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">New route ready?</text>
-<text x="1525.0" y="427" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Authority and</text>
-<text x="1525.0" y="443" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">reachability</text>
+<text x="1525.0" y="414" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">New route ready?</text>
+<text x="1525.0" y="431" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Authority and</text>
+<text x="1525.0" y="447" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">reachability</text>
+<polygon points="1424,480 1626,480 1650,507.5 1626,535 1424,535 1400,507.5" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1525.0" y="508" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#111">Keep old route</text>
+<text x="1525.0" y="527" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Correct destination readiness</text>
 <path d="M650 613 V682 C650 698 900 698 900 682 V613 Z" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
 <ellipse cx="775.0" cy="613" rx="125.0" ry="13" fill="#e0e0e0" stroke="#333" stroke-width="2.2"/>
-<text x="775.0" y="633" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Inventory old work</text>
-<text x="775.0" y="657" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">In-flight invoices and statuses</text>
+<text x="775.0" y="642" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Inventory old work</text>
+<text x="775.0" y="664" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">In-flight invoices and statuses</text>
 <rect x="1000" y="600" width="250" height="95" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
 <text x="1125.0" y="633" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Assign obligation owner</text>
 <text x="1125.0" y="657" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Historic response and reporting</text>
 <polygon points="1525.0,600 1650,647.5 1525.0,695 1400,647.5" fill="#d1d1d1" stroke="#222" stroke-width="2.2"/>
-<text x="1525.0" y="633" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Continuity covered?</text>
-<text x="1525.0" y="657" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Access and evidence</text>
-<text x="1525.0" y="673" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">retained</text>
+<text x="1525.0" y="644" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Continuity covered?</text>
+<text x="1525.0" y="661" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Access and evidence</text>
+<text x="1525.0" y="677" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">retained</text>
+<polygon points="1424,710 1626,710 1650,737.5 1626,765 1424,765 1400,737.5" fill="#f4f4f4" stroke="#222" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text x="1525.0" y="738" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#111">Retain old access</text>
+<text x="1525.0" y="757" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Resolve historic obligations</text>
 <rect x="1850" y="835" width="250" height="100" rx="9" fill="#e8e8e8" stroke="#333" stroke-width="2.2"/>
 <text x="1975.0" y="868" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Cutover gate</text>
 <text x="1975.0" y="892" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Both rails must pass</text>
@@ -77,5 +97,5 @@
 <path d="M2400 835 H2620 V922 Q2560 908 2500 922 T2400 922 Z" fill="#fff" stroke="#333" stroke-width="2.2"/>
 <text x="2510.0" y="868" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Retain or release</text>
 <text x="2510.0" y="892" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Old access ends at safe gates</text>
-<text x="35" y="1080" font-family="Arial,sans-serif" font-size="13" fill="#444">Solid arrows show the process; dashed arrows end at a hold, correction or unresolved case. Country and provider details require source evidence.</text>
+<text x="35" y="1080" font-family="Arial,sans-serif" font-size="13" fill="#444">Solid arrows = process; dashed arrows = hold or correction. Country and provider details require source evidence.</text>
 </svg>
