@@ -33,6 +33,22 @@ class ConfluenceChangeHistoryTests(unittest.TestCase):
     def test_config_enables_ten_change_history_versions(self) -> None:
         self.assertEqual(publisher.configured_change_history_limit(), 10)
 
+    def test_publication_rejects_manual_history_headings(self) -> None:
+        path = ROOT / "prds" / "example.md"
+        for heading in ("## Change log", "## Revision history", "## Decisions and change log"):
+            with self.subTest(heading=heading):
+                with self.assertRaisesRegex(ValueError, "native Change History"):
+                    publisher.validate_no_manual_history(f"# Test\n\n{heading}\n", path)
+
+        publisher.validate_no_manual_history(
+            "# Test\n\n## Revision overview\n\nProduct changes.\n", path
+        )
+
+    @patch.object(publisher, "configured_change_history_limit", return_value=None)
+    def test_publication_requires_native_history(self, _history_limit: MagicMock) -> None:
+        with self.assertRaisesRegex(ValueError, "Publication requires Confluence Change History"):
+            publisher.required_change_history_limit()
+
     def test_storage_appends_native_change_history_macro(self) -> None:
         storage = publisher.markdown_to_storage(
             self.metadata(),

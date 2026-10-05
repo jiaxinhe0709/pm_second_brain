@@ -160,6 +160,30 @@ def configured_change_history_limit() -> int | None:
     return limit
 
 
+def required_change_history_limit() -> int:
+    limit = configured_change_history_limit()
+    if limit is None:
+        raise ValueError(
+            "Publication requires Confluence Change History; enable "
+            "publication.change_history in config/confluence.yml"
+        )
+    return limit
+
+
+MANUAL_HISTORY_HEADING = re.compile(
+    r"^\s{0,3}#{1,6}\s+[^\n]*(?:change[\s-]*log|revision[\s-]*history)\b",
+    re.IGNORECASE | re.MULTILINE,
+)
+
+
+def validate_no_manual_history(body: str, path: Path) -> None:
+    if MANUAL_HISTORY_HEADING.search(body):
+        raise ValueError(
+            f"Manual change log or revision history heading in {path}; "
+            "remove it and use Confluence's native Change History macro"
+        )
+
+
 def validate_publication(
     metadata: dict[str, Any], path: Path, create_missing: bool
 ) -> dict[str, str]:
@@ -402,9 +426,10 @@ def update_document(
     create_missing: bool,
 ) -> str:
     target = validate_publication(metadata, path, create_missing)
+    validate_no_manual_history(body, path)
     source_url = git_source_url(revision, path)
     new_body = markdown_to_storage(
-        metadata, body, revision, source_url, configured_change_history_limit()
+        metadata, body, revision, source_url, required_change_history_limit()
     )
     if target["mode"] == "create":
         if not live:
@@ -508,6 +533,8 @@ def main() -> int:
         try:
             metadata, body = load_document(path)
             validate_publication(metadata, path, args.create_missing)
+            validate_no_manual_history(body, path)
+            required_change_history_limit()
             documents.append((path, metadata, body))
         except Exception as exc:
             print(f"ERROR {path}: {exc}", file=sys.stderr)

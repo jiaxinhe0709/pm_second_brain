@@ -54,3 +54,5 @@ repository.
 Generated Confluence pages show the native Change History macro. Page updates
 also record the source document ID and Git revision in the Confluence version
 comment; the PRD itself does not need a manual publication change log.
+The publisher rejects a manual change-log or revision-history heading and
+refuses publication if the native Change History macro is disabled.
