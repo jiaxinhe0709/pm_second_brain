@@ -263,10 +263,3 @@ Track completed exits by destination/scope, cutover success, stale-entry-point i
 | OD8 | Which implementing-order and provider specifications are effective for the planned pilot date? | Regulatory and interface readiness | Spain Compliance/Tax, local technical lead |
 
 Each decision needs a named owner, date, source and `confirmed`, `amended` or `rejected` outcome. Until then, the proposed case model must not be presented as approved policy. OD1–OD5 and OD8 block production exit automation; OD3, OD1 and OD2 block any pilot that would make those actions necessary.
-
-## Change log
-
-| Date | Change | Basis |
-|---|---|---|
-| 2026-10-05 | Added Confluence-safe HTML exit and handover visual beside the proposed case gates | User request; existing G1–G7 and failure/recovery rules |
-| 2026-10-05 | Initial dedicated Spain customer offboarding and provider-exit draft | User request; PRD-SEI-222/224/225/226; RD 238/2026 |

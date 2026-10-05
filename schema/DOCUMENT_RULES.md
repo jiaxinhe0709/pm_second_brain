@@ -57,4 +57,11 @@ PRDs and feature proposals also require `product`, `reviewers`, `related`, and `
 - Publish only merged documents explicitly marked for publication.
 - Confluence feedback should result in a GitHub issue or pull request.
 - Publication must display the source document ID and Git revision.
+- Published pages must use Confluence's native Change History macro, supplied by
+  the publisher from `config/confluence.yml`. Record the document ID and Git
+  revision in each Confluence version comment.
+- Do not add or update a manual publication change-log or revision-history table
+  in managed Markdown. Git records source changes and Confluence records page
+  versions. A successor's required `Revision overview` remains a separate
+  explanation of the product changes and open decisions.
 - Credentials belong in repository or organisation secrets.

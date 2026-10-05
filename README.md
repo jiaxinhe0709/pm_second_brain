@@ -50,3 +50,7 @@ stable page per topic and displays the latest selected source. The selected sour
 for each stable page is recorded under `publication.current_sources` in
 `config/confluence.yml`. Keep credentials in GitHub Actions secrets, never in this
 repository.
+
+Generated Confluence pages show the native Change History macro. Page updates
+also record the source document ID and Git revision in the Confluence version
+comment; the PRD itself does not need a manual publication change log.

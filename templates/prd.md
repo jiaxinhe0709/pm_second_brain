@@ -43,9 +43,3 @@ confluence:
 ## Open questions
 
 ## Decisions
-
-## Revision history
-
-| Date | Change | Pull request |
-|---|---|---|
-| 2026-07-27 | Initial draft | |

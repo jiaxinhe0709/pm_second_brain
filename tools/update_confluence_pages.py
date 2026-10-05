@@ -30,6 +30,9 @@ An optional PM-friendly page layout can be requested in front matter:
 
 This places Confluence's native Table of Contents macro in the narrow left
 column and the generated document in the wide right column.
+
+The publication configuration can append Confluence's native Change History
+macro after generated page content and set a Git source version comment.
 """
 
 from __future__ import annotations
@@ -118,7 +121,7 @@ def load_document(path: Path) -> tuple[dict[str, Any], str]:
     return metadata, match.group(2)
 
 
-def current_page_sources() -> dict[str, str]:
+def publication_config() -> dict[str, Any]:
     if not CONFLUENCE_CONFIG.exists():
         return {}
     config = yaml.safe_load(CONFLUENCE_CONFIG.read_text(encoding="utf-8")) or {}
@@ -127,12 +130,34 @@ def current_page_sources() -> dict[str, str]:
     publication = config.get("publication", {})
     if not isinstance(publication, dict):
         raise ValueError(f"Invalid publication configuration: {CONFLUENCE_CONFIG}")
+    return publication
+
+
+def current_page_sources() -> dict[str, str]:
+    publication = publication_config()
     selected = publication.get("current_sources", {})
     if not isinstance(selected, dict):
         raise ValueError(
             f"publication.current_sources must be a mapping: {CONFLUENCE_CONFIG}"
         )
     return {str(page_id): str(document_id) for page_id, document_id in selected.items()}
+
+
+def configured_change_history_limit() -> int | None:
+    change_history = publication_config().get("change_history", {})
+    if change_history in ({}, None):
+        return None
+    if not isinstance(change_history, dict):
+        raise ValueError("publication.change_history must be a mapping")
+    enabled = change_history.get("enabled", False)
+    if not isinstance(enabled, bool):
+        raise ValueError("publication.change_history.enabled must be boolean")
+    if not enabled:
+        return None
+    limit = change_history.get("limit", 10)
+    if isinstance(limit, bool) or not isinstance(limit, int) or limit <= 0:
+        raise ValueError("publication.change_history.limit must be a positive integer")
+    return limit
 
 
 def validate_publication(
@@ -224,7 +249,11 @@ def git_source_url(revision: str, path: Path) -> str | None:
 
 
 def markdown_to_storage(
-    metadata: dict[str, Any], body: str, revision: str, source_url: str | None
+    metadata: dict[str, Any],
+    body: str,
+    revision: str,
+    source_url: str | None,
+    change_history_limit: int | None = None,
 ) -> str:
     source = (
         f'<a href="{html.escape(source_url, quote=True)}">{html.escape(revision)}</a>'
@@ -281,7 +310,21 @@ def markdown_to_storage(
                 f"Could not restore preserved Confluence HTML macro token {token}."
             )
         rendered = rendered.replace(paragraph_token, macro, 1)
-    content = banner + rendered
+    change_history = ""
+    if change_history_limit is not None:
+        if (
+            isinstance(change_history_limit, bool)
+            or not isinstance(change_history_limit, int)
+            or change_history_limit <= 0
+        ):
+            raise ValueError("Change History limit must be a positive integer")
+        change_history = (
+            "<h2>Confluence page history</h2>"
+            '<ac:structured-macro ac:name="change-history">'
+            f'<ac:parameter ac:name="limit">{change_history_limit}</ac:parameter>'
+            "</ac:structured-macro>"
+        )
+    content = banner + rendered + change_history
     confluence = metadata.get("confluence", {})
     if not isinstance(confluence, dict):
         raise ValueError("Invalid confluence metadata")
@@ -342,6 +385,13 @@ def normalize_storage(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip()
 
 
+def publication_version_comment(metadata: dict[str, Any], revision: str) -> str:
+    return (
+        f"{metadata['id']} published from Git {revision[:12]} "
+        f"(document updated {metadata['updated']})"
+    )
+
+
 def update_document(
     client: Confluence,
     path: Path,
@@ -353,7 +403,9 @@ def update_document(
 ) -> str:
     target = validate_publication(metadata, path, create_missing)
     source_url = git_source_url(revision, path)
-    new_body = markdown_to_storage(metadata, body, revision, source_url)
+    new_body = markdown_to_storage(
+        metadata, body, revision, source_url, configured_change_history_limit()
+    )
     if target["mode"] == "create":
         if not live:
             return (
@@ -430,6 +482,7 @@ def update_document(
         parent_id=expected_parent_id or None,
         type="page",
         representation="storage",
+        version_comment=publication_version_comment(metadata, revision),
     )
     return (
         f"UPDATED {metadata['id']} page={page_id} "
