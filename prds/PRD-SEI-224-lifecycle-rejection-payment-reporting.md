@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-27
+updated: 2026-10-06
 reviewers: []
 related:
   - PRD-SEI-210
@@ -189,6 +189,11 @@ Before a capability enters pilot, its ownership record must name the Domain Serv
 | BR10 | Customer route changes | Continue the invoice's historical lifecycle through its original network context | Confirmed continuity principle |
 
 ## Research and evidence register
+
+### Final public-order evidence
+
+Article 7.1 of the final order provides presumed acceptance in public communication/consultation when no rejection or later rectifying invoice exists. It does not establish a four-day automatic-acceptance timer. Keep this derived view separate from explicit acceptance, technical receipt and file access. Annex II and Article 8 require a dedicated public-reporting mapping/timing review before country rules activate. See the [source snapshot and impact review](../research/spain-public-platform-order-evidence.md).
+
 
 | Source | Finding | Confidence/limitation | Impact |
 |---|---|---|---|

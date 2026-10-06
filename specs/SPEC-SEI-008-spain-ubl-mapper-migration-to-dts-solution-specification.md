@@ -3,7 +3,7 @@ id: SPEC-SEI-008
 title: Spain UBL Mapper Migration to DTS Solution Specification
 type: solution-spec
 status: draft
-owner: TBD — DTS Solution Designer
+owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
 updated: 2026-10-06

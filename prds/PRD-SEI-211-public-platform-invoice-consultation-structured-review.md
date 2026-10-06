@@ -7,7 +7,7 @@ version: 2
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-09-21
+updated: 2026-10-06
 reviewers:
   - dianna.hindle@sage.com
 related:
@@ -21,6 +21,7 @@ related:
   - PRD-SEI-223
   - PRD-SEI-226
   - PRD-SEI-236
+  - SPEC-SEI-010
 confluence:
   publish: true
   space_key: DNBU
@@ -330,7 +331,7 @@ The objective is to deliver an automated, incremental, idempotent and observable
 | Internal Spain use-case evidence, UC1 and UC5 | Medium internal | Public receiver retrieval and periodic/triggered/configurable consultation are important business scenarios | No-push, cadence and timing claims require official confirmation |
 | [Real Decreto 238/2026, Article 11](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295) | High official | Public solution is an invoice repository and must provide agile manual and automatic download for issuers, recipients and authorised parties | Does not define API pagination, polling cadence, rate limits, callbacks or operational SLA |
 | [Real Decreto 238/2026, Articles 5–6](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295) | High official | Public and private routes can be combined; public is the default receiving point when no private point is identified | Detailed routing/registration mechanics still depend on implementing specifications |
-| [April 2026 draft ministerial order](https://www.hacienda.gob.es/sgt/normativadoctrina/proyectos/16042026-proyecto-pom-factura-electronica.pdf) | Medium-high official draft | Public interconnection uses web services and technical details/volumetry are to be published by AEAT | Draft, not final; retrieved material does not yet provide the consultation/download API contract |
+| [final Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028), Articles 9–11 | High official, published 5 October 2026 | Automated recovery, immediate customer availability for conservation, web-service/form consultation, and registered third-party authority | Exact discovery operations, batching, pagination, notification capability and limits still require AEAT technical documentation |
 
 ### Confirmed facts
 
@@ -338,7 +339,19 @@ The objective is to deliver an automated, incremental, idempotent and observable
 2. A recipient or its authorised intermediary can receive invoices through the public solution.
 3. The public solution also acts as a universal repository and must distinguish invoices/copies in supported download behaviour.
 4. Public and private mechanisms may be combined; consultation eligibility cannot be inferred from a permanent customer-wide “public” flag.
-5. Technical detail, authentication, service behaviour and volumetry depend on the implementing order and AEAT specifications.
+5. Final Order HAC/1028/2026 confirms automated customer-invoice recovery and immediate availability for conservation (Article 9), consultation/download channels (Article 10), and registered power of attorney for third-party recovery/consultation (Article 11). Exact API details and volumetry still depend on AEAT specifications.
+
+### Retrieval, conservation and bulk boundary
+
+**Confirmed:** Article 9 requires automated recovery in the applicable private-platform model and immediate availability of recovered invoices for customer conservation. This does not establish an hourly interval, absence of notifications, or a request spanning several customers. Third-party retrieval and consultation require registered power of attorney under Article 11; a valid certificate alone is insufficient.
+
+**Proposed:** save the exact received source file and expose controlled conservation access after safe file capture, independently of completed mapping or ERP delivery. A quarantine prevents business processing and ordinary download of unsafe content; an authorised controlled export/recovery path must be agreed with Security and Compliance so conservation access is not silently lost. “Immediate” has no invented numeric target in this PRD.
+
+**Open:** the AEAT discovery contract must establish how newly received invoices are identified, whether each call is scoped to one legal entity, and whether any multi-entity access is supported. Logical scheduling remains per authorised legal entity even if a future provider operation supports aggregation.
+
+Automated collection of many invoices is part of required recovery. A user requesting a ZIP of several stored invoices is a separate product option, proposed outside initial scope until usage and cost evidence justify it. France's feature coverage and expected Spanish usage do not remove the automated-recovery requirement.
+
+The proposed [retrieval, storage and download spec](../specs/SPEC-SEI-010-public-platform-invoice-retrieval-storage-and-download-solution-specification.md) owns this boundary. [SPEC-SEI-006](../specs/SPEC-SEI-006-inbound-invoice-receiving-solution-specification.md) owns validation, duplicate handling and product distribution after capture.
 
 ### Working hypotheses
 
@@ -354,7 +367,7 @@ The objective is to deliver an automated, incremental, idempotent and observable
 
 - final automatic-download service operations and schemas;
 - whether push, webhook or notification capability exists;
-- authentication, representation and legal-entity scoping;
+- accepted certificate and registered-authority verification mechanics, including legal-entity request scope and revocation;
 - test/prod endpoints and sandbox data;
 - query filters, ordering, pagination, cursor and retention semantics;
 - whether download/consult has acknowledgement or “mark as read” effects;
@@ -670,6 +683,9 @@ The authoritative cutover, overlap and historical lifecycle rules remain owned b
 | FR50 | A failed product acknowledgement must retry/reconcile distribution without re-retrieving or creating a second business invoice. |
 | FR51 | Retention, access and deletion policy must be evaluated separately for original, canonical, rendering and operational evidence while preserving statutory/audit duties. |
 | FR52 | Download/retrieval capability must remain independent from scheduled consultation so an authorised user can access already stored invoices even when a later poll is delayed, subject to suspension/security policy. |
+| FR53 | In the applicable private-platform model, recover customer invoices automatically and make recovered source files available immediately for conservation; approve a measurable service target and controlled unsafe-file access policy before production. |
+| FR54 | Third-party public recovery and consultation must check registered power of attorney for the represented subject and action separately from certificate validity; missing or revoked authority must block new public calls. |
+| FR55 | Automated multi-invoice collection must not depend on a user-facing bulk export. Keep per-entity authority and progress independent of any future aggregate provider operation. |
 
 ## Proposed API and operational capabilities
 
@@ -777,6 +793,13 @@ At minimum measure:
 - downstream publication delay.
 
 ## Acceptance criteria
+
+### Final-order acceptance additions
+
+- Given a recovered invoice whose mapping or ERP delivery fails, its durably captured source remains available through the approved conservation-access policy without waiting for ERP success (FR43, FR53).
+- Given a valid certificate without required registered authority, third-party retrieval and consultation are blocked and show an actionable authority issue (FR54).
+- Given several authorised entities and no confirmed aggregate API, each retains its own scope, progress and outcome; collection works without a ZIP feature (FR55).
+
 
 | ID | Given | When | Then |
 |---|---|---|---|
@@ -910,7 +933,7 @@ At minimum measure:
 ## Source notes
 
 - Official sources confirm policy and high-level capability but do not yet provide the complete production API contract.
-- The April 2026 ministerial-order source is a draft and must be replaced or supplemented when the final order and AEAT technical documentation are published.
+- The [final Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028) replaces the April draft as the regulatory source. The [evidence note](../research/spain-public-platform-order-evidence.md) records the supplied XML and the remaining technical gates.
 - Internal use-case evidence is summarised in `research/PRD-SEI-201-spain-use-case-evidence.md`; this PRD restates the relevant product conclusions so Confluence readers do not need repository access.
 - This document is a research/proposal/solution PRD. It does not represent final legal, API or architecture approval.
 

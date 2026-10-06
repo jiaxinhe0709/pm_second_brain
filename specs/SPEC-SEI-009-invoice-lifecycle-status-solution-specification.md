@@ -3,7 +3,7 @@ id: SPEC-SEI-009
 title: Invoice Lifecycle Status Solution Specification
 type: solution-spec
 status: draft
-owner: TBD — E-Invoicing Lifecycle Solution Designer
+owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
 updated: 2026-10-06

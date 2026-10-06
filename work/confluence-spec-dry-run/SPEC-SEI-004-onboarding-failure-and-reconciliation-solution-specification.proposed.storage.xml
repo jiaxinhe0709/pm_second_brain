@@ -1,0 +1,526 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-004<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md">021bcc7cadfccfe93d2388de4616efebe17558fb</a><br /><strong>Last updated:</strong> 2026-10-06</p></div><h1>Onboarding Failure and Reconciliation Solution Specification</h1>
+<h2>Part 1 Feature Solution Summary</h2>
+<h3>Reader guide</h3>
+<p>Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. Part 2 gives the detailed behaviour and rules. Part 3 describes service interactions and data. Part 4 links requirements to the checks and evidence needed before release.</p>
+<p>The design remains a draft. <strong>Proposed</strong> choices still need review; <strong>open</strong> decisions still need an owner’s recorded answer. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.</p>
+<h3>1 Purpose and design status</h3>
+<p>This <strong>proposed logical design</strong> explains what happens when public-platform onboarding fails or its result is uncertain. It covers identifying the problem, correcting data, retrying safely, cancelling work and checking what the external system actually did. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-107-public-onboarding-failure-recovery.md">PRD-SEI-107</a> owns the product requirements. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-002-onboarding-solution-specification.md">SPEC-SEI-002</a> owns the parent onboarding journey and capability readiness; this spec owns what happens when one of its operations fails or may have succeeded without a reliable response. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-225-operations-resilience-support-reconciliation.md">PRD-SEI-225</a> supplies shared operations principles.</p>
+<p>This design does not assign any unverified public-platform operation a safe retry class or assert an external endpoint, timeout, rate limit or retry count.</p>
+<p>Each business and capability gets an accurate status and a clear next action. A network or HTTP status alone cannot prove success, failure or whether retry is safe. An accountant’s portfolio shows mixed results, while each client recovers independently.</p>
+<p>If an external change may have happened, the result stays unresolved until a reliable source confirms it or an authorised person makes an approved decision supported by evidence.</p>
+<h3>Spain use and reuse boundaries</h3>
+<p>This is a <strong>Spain reference design</strong>. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. <strong>Reusable unchanged</strong> means the design pattern can stay the same. <strong>Reusable with country binding</strong> means the shared behaviour needs approved local policies or adapters. <strong>Country-specific</strong> rules stay in the country pack. <strong>Unknown</strong> means implementation fitness or coverage still needs evidence.</p>
+<p>This follows the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-227-e-invoicing-as-a-service.md">shared platform and country-pack direction</a>. Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Intended use in Spain</th>
+<th>Reuse classification</th>
+<th>Condition and owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Capture, classify and hold unknown results</td>
+<td>Record the original attempt, separate problem category from retry safety, and show each client’s actual result.</td>
+<td>Reusable unchanged</td>
+<td>Reuse the evidence and safety patterns; an unknown external effect stays unresolved. Recovery owner and Operations.</td>
+</tr>
+<tr>
+<td>Retry and reconciliation</td>
+<td>Retry safe Spain onboarding operations or check the original external result before repeating a change.</td>
+<td>Reusable with country binding</td>
+<td>Bind the exact provider operation, idempotency guarantee, query support, budgets and approved error mapping. Integration owner and Operations.</td>
+</tr>
+<tr>
+<td>Spain public-platform recovery</td>
+<td>Map the confirmed public-solution errors, authority corrections and cancellation rules.</td>
+<td>Country-specific</td>
+<td>Official operation and response semantics remain an evidence gate. Spain technical owner, Compliance and Product.</td>
+</tr>
+<tr>
+<td>Existing recovery implementation</td>
+<td>Assess scheduler, error catalogue, case handling and adapter observation support.</td>
+<td>Unknown</td>
+<td>This spec establishes logical behaviour, not a proven deployed recovery service. Check interfaces and failure evidence first. Architecture and integration owner.</td>
+</tr>
+</tbody>
+</table>
+<h3>Plain-language terms</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legal entity / legal subject</td>
+<td>The business to which the invoice or action belongs. Technical fields use <code>legalSubject</code> for this business.</td>
+</tr>
+<tr>
+<td>Authority</td>
+<td>Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission.</td>
+</tr>
+<tr>
+<td>Capability</td>
+<td>A supported function, such as receiving invoices or signing them.</td>
+</tr>
+<tr>
+<td>Route</td>
+<td>The platform and connection used to send or receive an invoice.</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>A repeat of the same request has no additional effect. The contract must define how the system recognises that request.</td>
+</tr>
+<tr>
+<td>Reconciliation</td>
+<td>Check the original operation against a reliable source to establish what actually happened before deciding the next action.</td>
+</tr>
+<tr>
+<td>Gate</td>
+<td>A condition, decision or evidence check that must pass before the next step can proceed.</td>
+</tr>
+<tr>
+<td>Tenant</td>
+<td>The customer account boundary used to keep one customer’s data and access separate from another’s.</td>
+</tr>
+<tr>
+<td>Immutable / append-only</td>
+<td>A saved item cannot be changed; new information is added as a new record instead of overwriting earlier records.</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td>The record of where data came from and which versions, checks and changes produced the result.</td>
+</tr>
+<tr>
+<td>Contract</td>
+<td>The agreed inputs, outputs, behaviour and responsibilities between services or parties.</td>
+</tr>
+<tr>
+<td>Durable</td>
+<td>Saved so the record remains available after a service restart.</td>
+</tr>
+<tr>
+<td>External mutation</td>
+<td>An operation that changes another system, such as registering a business. A timeout may leave its result unknown.</td>
+</tr>
+<tr>
+<td>Retry budget / backoff / jitter</td>
+<td>Limits on retry attempts and elapsed time; waiting between attempts; and varying that wait to avoid many retries at once.</td>
+</tr>
+<tr>
+<td>Portfolio item</td>
+<td>One client’s work item. Other clients do not share its permission, retry limits or result.</td>
+</tr>
+<tr>
+<td>Correlation / input digest</td>
+<td>A reference linking related requests and results; a fingerprint used to detect changes in the input.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Endpoints and responsibility</h3>
+<table>
+<thead>
+<tr>
+<th>Outcome</th>
+<th>Meaning</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Corrected and ready</td>
+<td>A new input/evidence revision passes the parent onboarding gates</td>
+<td>Customer/delegate corrects; onboarding decides</td>
+</tr>
+<tr>
+<td>Waiting safe retry</td>
+<td>Approved read-only or contractually idempotent operation is scheduled under a versioned budget</td>
+<td>Recovery scheduler</td>
+</tr>
+<tr>
+<td>Outcome unknown / reconciling</td>
+<td>Original mutation may have occurred; readiness is unconfirmed and repetition blocked</td>
+<td>Integration + operations</td>
+</tr>
+<tr>
+<td>Action required</td>
+<td>Validation, authority, authentication or policy issue has a specific actor and action</td>
+<td>Customer, credential custodian or policy owner</td>
+</tr>
+<tr>
+<td>Escalated recoverable</td>
+<td>Retry budget exhausted or authoritative state unavailable, with owned case and preserved intent</td>
+<td>Operations/provider</td>
+</tr>
+<tr>
+<td>Cancelled</td>
+<td>Pending safe work stopped and no unresolved external mutation is hidden</td>
+<td>Onboarding + recovery</td>
+</tr>
+</tbody>
+</table>
+<h3>3 Process diagrams</h3>
+<p><strong>Classify and recover:</strong> </p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="a5d54e65-b281-50ca-96d6-8e7eaf08accc"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-failure-classification-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">580</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/onboarding-failure-classification-process.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/onboarding-failure-classification-process.png">PNG</a>. Text equivalent: OFR-01 records the failed operation and durable intent → OFR-02 classifies fault and operation safety separately → correctable findings go to OFR-03, approved safe retries to OFR-04, uncertain mutations to OFR-05, and security violations to an incident. Exhausted safe retries go to an owned escalation, never to a false permanent rejection.</p>
+<p><strong>Reconcile an uncertain effect:</strong> </p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="6b76ebea-ca8f-5786-86b3-8264cb0817dd"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-uncertain-outcome-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">580</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/onboarding-uncertain-outcome-process.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/onboarding-uncertain-outcome-process.png">PNG</a>. Text equivalent: OFR-05 freezes the original operation and blocks repeats → OFR-06 queries an authoritative source using the original correlation and environment → proven success is committed once, proven absence may permit OFR-04 under the approved contract, and unresolved state becomes OFR-07 with owner, evidence and deadline → OFR-08 updates only the affected client/capability and the portfolio aggregate.</p>
+<h3>4 Ordered lifecycle</h3>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Trigger and required result</th>
+<th>Primary owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFR-01 Capture</td>
+<td>Operation intent, attempt, correlation and input digest are durable before possible side effect</td>
+<td>Onboarding/integration</td>
+</tr>
+<tr>
+<td>OFR-02 Classify</td>
+<td>Stable fault category, operation safety, business result and safe action are distinct</td>
+<td>Recovery policy</td>
+</tr>
+<tr>
+<td>OFR-03 Correct</td>
+<td>New customer/authority/policy evidence revision is linked; unchanged input is not retried</td>
+<td>Product + relevant actor</td>
+</tr>
+<tr>
+<td>OFR-04 Retry safely</td>
+<td>Same logical identity under approved contract, budget and cancellation check</td>
+<td>Scheduler/adapter</td>
+</tr>
+<tr>
+<td>OFR-05 Hold unknown</td>
+<td>Possible mutation is marked OUTCOME_UNKNOWN; no duplicate mutation or readiness claim</td>
+<td>Integration</td>
+</tr>
+<tr>
+<td>OFR-06 Reconcile</td>
+<td>Authoritative observed state is linked to original attempt</td>
+<td>Adapter/operations</td>
+</tr>
+<tr>
+<td>OFR-07 Escalate</td>
+<td>Unresolved or exhausted work gets owner, evidence, deadline and manual gate</td>
+<td>Operations</td>
+</tr>
+<tr>
+<td>OFR-08 Publish</td>
+<td>Item and parent aggregate reflect actual mixed outcomes; notification with sensitive values removed follows commit</td>
+<td>Onboarding/product</td>
+</tr>
+</tbody>
+</table>
+<h3>5 Open decisions</h3>
+<table>
+<thead>
+<tr>
+<th>Decision and effect</th>
+<th>Owner / gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Official public-solution operations, idempotency scope, state query and response semantics determine the safety class</td>
+<td>Spain technical/regulatory owner; integration design</td>
+</tr>
+<tr>
+<td>Approved attempt and elapsed budgets, provider guidance, concurrency and freshness targets determine scheduling</td>
+<td>Platform Operations + provider; pilot</td>
+</tr>
+<tr>
+<td>Legal/authority rules for correction and cancellation after an external effect determine terminal handling</td>
+<td>Spain Legal/Compliance + Product; design</td>
+</tr>
+<tr>
+<td>Which client-visible reasons and support diagnostics are safe determine the error catalogue</td>
+<td>Product, Privacy/Security, Support; UX/security review</td>
+</tr>
+<tr>
+<td>Manual proof and approval threshold where no authoritative query exists determine whether a capability can be automated</td>
+<td>Operations + Compliance; pilot</td>
+</tr>
+</tbody>
+</table>
+<h2>Part 2 Logical Feature Specification</h2>
+<p>This part explains the proposed behaviour step by step. An invariant is a rule that must always hold, including during failures and recovery.</p>
+<h3>1 Scope model and invariants</h3>
+<p>The recovery key is (tenant, legalSubject, environment, onboardingCase, capability, operationKind, inputRevision). A portfolio batch is only an aggregate; it cannot lend authority, credentials, retry budget or success to another client. Proposed operation safety classes are LOCAL_DETERMINISTIC, EXTERNAL_READ_ONLY, CONTRACT_IDEMPOTENT_MUTATION, RECONCILABLE_MUTATION and UNKNOWN_MUTATION. Only an approved, versioned external contract can place an operation in the latter three classes.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Rule that must always hold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFR-I01</td>
+<td>A 4xx/5xx, timeout or closed socket is evidence about transport, not a complete business outcome.</td>
+</tr>
+<tr>
+<td>OFR-I02</td>
+<td>Automatic retry requires a proven safety class, unchanged logical identity, current authority/environment and an approved policy budget.</td>
+</tr>
+<tr>
+<td>OFR-I03</td>
+<td>A possible external mutation remains OUTCOME_UNKNOWN until original-state observation or approved manual disposition; no fresh mutation or READY state is inferred.</td>
+</tr>
+<tr>
+<td>OFR-I04</td>
+<td>Correcting data/authority creates a new revision; original request, attempt and decision remain reproducible.</td>
+</tr>
+<tr>
+<td>OFR-I05</td>
+<td>Cancellation stops queued safe work but cannot erase an uncertain external side effect.</td>
+</tr>
+<tr>
+<td>OFR-I06</td>
+<td>One client/capability failure cannot roll back or promote another portfolio item.</td>
+</tr>
+<tr>
+<td>OFR-I07</td>
+<td>Error payloads, metrics, logs and notifications contain no full tax identifiers, names, credentials or raw confidential provider body.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Detailed behaviour</h3>
+<p><strong>OFR-01 Capture durable intent.</strong> Before calling an external system, save the case and item, tenant, business, environment, capability, actor and authority snapshot. Also save the operation kind, safety-policy version, request fingerprint, idempotency key and correlation reference.</p>
+<p>If saving fails before transmission, classify INTERNAL with no external effect only when a control proves that the request could not have been sent. If transmission may have happened, recover the saved intent, outbox or adapter correlation and enter OFR-05. A duplicate request returns the existing item. The same key with a different fingerprint returns a conflict.</p>
+<p><strong>OFR-02 Classify.</strong> Classify two things separately: the problem and whether the operation can safely be repeated. Problem categories are VALIDATION, AUTHENTICATION, AUTHORITY, POLICY, CONFLICT, THROTTLE, TRANSIENT_DEPENDENCY, OUTCOME_UNKNOWN, INTERNAL and SECURITY.</p>
+<p>Keep the original provider code in controlled storage with the mapping version. Return a stable Sage reason, responsible actor and safe next action. A definite validation or authority problem produces ACTION_REQUIRED. An unclassified provider result must not be treated as safe to retry. Deny and audit a security or environment mismatch; do not queue it.</p>
+<p><strong>OFR-03 Correct.</strong> A customer or validated delegate can amend only their own entity/capability item. New subject data, mandate, credential reference or policy evidence increments inputRevision and triggers the relevant parent onboarding gate again. Unchanged invalid data cannot enter an automatic loop. If old revision has an uncertain external effect, it remains under OFR-05/06 while the new revision is held from conflicting mutation. Preserve the original failure and correction lineage for support.</p>
+<p><strong>OFR-04 Retry safely.</strong> Eligible reads or contractually idempotent mutations use the same operation identity/key and approved adapter semantics. The scheduler checks cancellation, current authority, environment, provider guidance, attempt/elapsed budget, load and temporary lock for the affected scope before dispatch. Bounded backoff/jitter values are configuration, not guessed compliance constants. An exhausted budget creates OFR-07; it does not prove external absence. Manual retry is subject to the same checks and audit.</p>
+<p><strong>OFR-05 Hold unknown.</strong> A timeout after possible mutation, lost response, uncertain provider code or persistence failure after possible success records OUTCOME_UNKNOWN on that operation and blocks dependent readiness or terminal cancellation. Freeze original request hash, operation ID, provider reference if known, policy/adapter version and transmission timing. A lock prevents concurrent correction/retry from creating a second effect for overlapping scope.</p>
+<p><strong>OFR-06 Reconcile.</strong> Check reliable provider or public-platform state using the same business, environment and original correlation reference. Compare the intended and observed values under the applicable contract.</p>
+<p>CONFIRMED_SUCCESS records the original effect once and resumes onboarding checks. CONFIRMED_ABSENT permits a controlled retry only when the provider contract accepts that evidence as sufficient proof of absence. CONFLICT and UNRESOLVED stay on hold, with evidence and an escalation owner.</p>
+<p>An empty or failed query does not prove that nothing happened. Save a versioned reconciliation result and ensure repeated checks do not create an additional effect.</p>
+<p><strong>OFR-07 Escalate.</strong> Open a case when a safe budget expires, no authoritative query exists, observed state conflicts or age breaches the approved objective. Include affected item, fault domain, deadline exposure, original operation, last observation, unsafe actions, provider contact and message safe to show to the customer. An authorised manual decision must cite evidence and approver; it cannot overwrite actual external state. Security incidents use the incident path.</p>
+<p><strong>OFR-08 Publish.</strong> Persist state before emitting item-change notification. The customer sees ACTION_REQUIRED, WAITING_RETRY, OUTCOME_UNKNOWN/RECONCILING, READY_WITH_LIMITATIONS or READY with next action, without raw identifiers. A portfolio aggregate counts each state and never collapses unknown into failed or complete. Notification consumers deduplicate by item version; loss of notification is repaired by querying the authoritative item.</p>
+<h3>3 Requirements and quality controls</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement / source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFR-R01</td>
+<td>Classify business category and operation safety separately; PRD-SEI-107 FR1–4.</td>
+</tr>
+<tr>
+<td>OFR-R02</td>
+<td>Version retry policy and preserve idempotency/correlation across safe attempts; FR5–7.</td>
+</tr>
+<tr>
+<td>OFR-R03</td>
+<td>Hold and reconcile ambiguous mutations before retry/success; FR8–9/12.</td>
+</tr>
+<tr>
+<td>OFR-R04</td>
+<td>Escalate exhausted/unresolvable work without false terminal conclusion; FR10.</td>
+</tr>
+<tr>
+<td>OFR-R05</td>
+<td>Deduplicate requests and version concurrent revisions; FR11/13.</td>
+</tr>
+<tr>
+<td>OFR-R06</td>
+<td>Isolate portfolio recovery and cancellation by item; FR14–15.</td>
+</tr>
+<tr>
+<td>OFR-R07</td>
+<td>Apply tenant, authority, environment, security and audit controls to manual action; FR16–17.</td>
+</tr>
+<tr>
+<td>OFR-R08</td>
+<td>Provide stable safe customer/support status, correlation and policy version; FR18–20.</td>
+</tr>
+</tbody>
+</table>
+<p>Durable intent and idempotency records must survive restart and cover the approved duplicate window. Monitoring covers unknown age, retries, reconciliation lag, partial batches and missing owners without high-cardinality personal identifiers. Targets and retention follow approved operational/legal policy and measured pilot baselines.</p>
+<h2>Part 3 Logical Service Interactions and Data Inventory</h2>
+<p>This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.</p>
+<h3>Spain and reuse boundary in contracts</h3>
+<p>Share the error categories, original-operation record and recovery-state model. Select retry safety, code mapping, budgets and observation support by the approved external contract, country and environment. A read or mutation proven safe for one provider does not establish safety for another. Keep an unverified operation on hold or under a named manual gate.</p>
+<p>The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.</p>
+<h3>1 Interaction contracts</h3>
+<p>These are logical operations, not approved endpoints. Commands carry caseId, itemId, tenant/entity/environment, actor, inputRevision, operationId, idempotencyKey, expectedVersion and correlation as applicable. Results include stable category, safety class, state, owner, next action, evidence reference and mapping/policy version.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Caller → owner</th>
+<th>Contract and meaning of failures and recovery rules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFR-INT-01</td>
+<td>Onboarding → recovery</td>
+<td>Register intent/attempt before side effect; return durable operation identity or reject dispatch.</td>
+</tr>
+<tr>
+<td>OFR-INT-02</td>
+<td>Adapter → recovery</td>
+<td>Report transport/provider result with original code, transmission phase and safety evidence; mapping produces classified result.</td>
+</tr>
+<tr>
+<td>OFR-INT-03</td>
+<td>Product → onboarding/recovery</td>
+<td>Submit corrected input/evidence revision or cancel; expected-version and authority enforced; uncertain old effect remains held.</td>
+</tr>
+<tr>
+<td>OFR-INT-04</td>
+<td>Scheduler → adapter</td>
+<td>Retry only under approved safety/budget with same idempotency scope; return definitive/unknown result.</td>
+</tr>
+<tr>
+<td>OFR-INT-05</td>
+<td>Recovery → adapter</td>
+<td>Query original mutation state by operation/reference; return observed value, source, time and confidence.</td>
+</tr>
+<tr>
+<td>OFR-INT-06</td>
+<td>Operations → recovery</td>
+<td>Record manual reconciliation or escalation decision with approver, evidence and constrained action.</td>
+</tr>
+<tr>
+<td>OFR-INT-07</td>
+<td>Recovery → onboarding/product</td>
+<td>Publish committed item/aggregate change; at-least-once event, consumer deduplicates by item/version.</td>
+</tr>
+</tbody>
+</table>
+<p>Proposed events are ONBOARDING_ATTEMPT_CLASSIFIED, ONBOARDING_RECONCILIATION_REQUIRED, ONBOARDING_ITEM_RECOVERED and ONBOARDING_RECOVERY_ESCALATED. An event is a notification, not evidence that an external mutation completed.</p>
+<h3>2 Data inventory</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Record / owner</th>
+<th>Key fields, classification and consumers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFR-D01</td>
+<td>Recovery item / onboarding</td>
+<td>Tenant/entity/environment, capability, state/version, parent batch, owner, next action; restricted; OFR-01–08.</td>
+</tr>
+<tr>
+<td>OFR-D02</td>
+<td>Operation intent/attempt / recovery</td>
+<td>Immutable operation ID, input hash, authority snapshot, safety class/policy, adapter version, transmission phase, timestamps; restricted; OFR-01/04–06.</td>
+</tr>
+<tr>
+<td>OFR-D03</td>
+<td>Error catalogue/mapping / policy</td>
+<td>Stable Sage code, provider code mapping, fault domain, safe guidance, version/effective period; controlled; OFR-02/08.</td>
+</tr>
+<tr>
+<td>OFR-D04</td>
+<td>Retry schedule / recovery</td>
+<td>Same idempotency scope, attempt/elapsed budget, next eligibility, lease, cancellation flag; restricted; OFR-04/07.</td>
+</tr>
+<tr>
+<td>OFR-D05</td>
+<td>Reconciliation observation / adapter</td>
+<td>Original operation, authoritative source, observed value, time, reference, conclusion and evidence; append-only; OFR-05/06.</td>
+</tr>
+<tr>
+<td>OFR-D06</td>
+<td>Correction lineage / onboarding</td>
+<td>Prior/new input revision, changed evidence reference, actor, authority, reason; restricted; OFR-03.</td>
+</tr>
+<tr>
+<td>OFR-D07</td>
+<td>Escalation case / operations</td>
+<td>Fault, owner, deadline, unsafe actions, provider contact, manual approval and audit; restricted; OFR-07.</td>
+</tr>
+<tr>
+<td>OFR-D08</td>
+<td>Aggregate/notification / onboarding</td>
+<td>Child counts/versions and redacted event ID; derived/rebuildable; OFR-08.</td>
+</tr>
+</tbody>
+</table>
+<p>Exact retention periods are open; preserve D02/D05/D06 sufficiently to explain outcomes and avoid duplicate effects under the approved legal/operational policy. Store references rather than credentials or raw provider bodies in user-facing records.</p>
+<h2>Part 4 Assurance and Traceability View</h2>
+<p>This part shows how requirements connect to activities, interfaces, data and acceptance checks. The scenarios describe evidence still needed; they are not a claim that implementation tests have passed.</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Requirement → activity / interaction / data</th>
+<th>Expected evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFR-A01 Local invalid data</td>
+<td>R01/07 → OFR-02/03, INT-02/03, D03/06</td>
+<td>No external call or unchanged retry; safe correction action.</td>
+</tr>
+<tr>
+<td>OFR-A02 Safe read throttled</td>
+<td>R01/02 → OFR-02/04, INT-02/04, D02/04</td>
+<td>Same correlation; approved budget/provider guidance; other clients fair.</td>
+</tr>
+<tr>
+<td>OFR-A03 Mutation timeout</td>
+<td>R03 → OFR-05/06, INT-05, D02/05</td>
+<td>OUTCOME_UNKNOWN, no repeat or READY claim until observed.</td>
+</tr>
+<tr>
+<td>OFR-A04 External success, local persistence failure</td>
+<td>R03 → OFR-01/05/06, INT-01/05, D02/05</td>
+<td>Original effect committed once from durable intent/observation.</td>
+</tr>
+<tr>
+<td>OFR-A05 Budget exhausted</td>
+<td>R04 → OFR-07, INT-06, D04/07</td>
+<td>Owned recoverable case, no false external absence.</td>
+</tr>
+<tr>
+<td>OFR-A06 Duplicate and stale revision</td>
+<td>R05 → OFR-01/03, INT-01/03, D01/06</td>
+<td>Existing result or explicit conflict; no second effect.</td>
+</tr>
+<tr>
+<td>OFR-A07 Mixed accountant portfolio</td>
+<td>R06/08 → OFR-08, INT-07, D01/08</td>
+<td>Independent child outcomes and accurate aggregate.</td>
+</tr>
+<tr>
+<td>OFR-A08 Cancel while unknown</td>
+<td>R03/06 → OFR-05/06/08, INT-03/05, D01/05</td>
+<td>Safe queued work stops; case remains reconcilable.</td>
+</tr>
+<tr>
+<td>OFR-A09 Manual retry and redaction</td>
+<td>R07/08 → OFR-07/08, INT-06/07, D03/07</td>
+<td>Authority/environment enforced; support view lacks raw identity/secrets.</td>
+</tr>
+<tr>
+<td>OFR-A10 Provider and country safety isolation</td>
+<td>R01–03/07/08 → OFR-02/04–06, INT-02/04/05, D02–05</td>
+<td>A safe retry class for one approved contract is not inherited by another country or provider. Missing local safety evidence prevents automatic repeat; the original operation remains traceable and the next action has an owner.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Review gate:</strong> confirm operation inventory, safety classes, external state-query evidence and error catalogue. <strong>Pilot gate:</strong> prove correction, safe retry, uncertain mutation, persistence loss, cancellation, partial portfolio and manual-action drills against the selected integration. <strong>Production gate:</strong> approved budgets, monitoring/ownership, redaction, retention and measurable recovery objectives. Until official semantics are proven, mutation automation stays disabled or uses a named manual gate.</p><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

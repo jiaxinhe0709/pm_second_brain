@@ -1,0 +1,599 @@
+<div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-003<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-003-offboarding-solution-specification.md">021bcc7cadfccfe93d2388de4616efebe17558fb</a><br /><strong>Last updated:</strong> 2026-10-06</p></div><h1>Customer Offboarding Solution Specification</h1>
+<h2>Part 1 Feature Solution Summary</h2>
+<h3>Reader guide</h3>
+<p>Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. Part 2 gives the detailed behaviour and rules. Part 3 describes service interactions and data. Part 4 links requirements to the checks and evidence needed before release.</p>
+<p>The design remains a draft. <strong>Proposed</strong> choices still need review; <strong>open</strong> decisions still need an owner’s recorded answer. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.</p>
+<h3>1 Purpose, authority and boundaries</h3>
+<p>This <strong>proposed logical design</strong> explains how a business could move a defined part of its invoice traffic away from Sage or leave the service completely. New invoices must still have a valid destination. Work on earlier invoices must still have a responsible party, a permitted channel and the required evidence. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-243-customer-offboarding-and-provider-exit.md">PRD-SEI-243</a> is the outcome and requirement source; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md">onboarding/migration PRD-SEI-222</a> supplies route transition constraints.</p>
+<p>The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-002-onboarding-solution-specification.md">onboarding spec</a> covers adopting Sage; this spec covers leaving an active Sage scope. The proposed case, states, records and interactions need architecture, provider and country-rule review before implementation.</p>
+<p>An exit request may cover receiving invoices, sending invoices, one business or the full service. Ending a subscription, stopping new traffic, changing the receiving entry point, deregistering a provider, revoking credentials, exporting evidence and disposing of data are <strong>separate operations</strong>.</p>
+<p>New traffic can switch successfully while work on earlier invoices or data remains open. Legal permissions, provider interfaces and retention periods still need evidence; a template or another country’s experience cannot establish them.</p>
+<h3>Spain use and reuse boundaries</h3>
+<p>This is a <strong>Spain reference design</strong>. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. <strong>Reusable unchanged</strong> means the design pattern can stay the same. <strong>Reusable with country binding</strong> means the shared behaviour needs approved local policies or adapters. <strong>Country-specific</strong> rules stay in the country pack. <strong>Unknown</strong> means implementation fitness or coverage still needs evidence.</p>
+<p>This follows the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-227-e-invoicing-as-a-service.md">shared platform and country-pack direction</a>. Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Intended use in Spain</th>
+<th>Reuse classification</th>
+<th>Condition and owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exit case, inventory and audit</td>
+<td>Track requested scope, dependencies, unfinished work and separate release decisions.</td>
+<td>Reusable unchanged</td>
+<td>Reuse the case and evidence patterns, including preserving actual invoice history. Exit coordinator and Records.</td>
+</tr>
+<tr>
+<td>Destination checks and release gates</td>
+<td>Prove the new route and retain access needed for earlier invoices before release.</td>
+<td>Reusable with country binding</td>
+<td>Bind provider capabilities, legal authority, historical-work channels, contract and retention rules. Operations, Legal and provider owner.</td>
+</tr>
+<tr>
+<td>Spain exit obligations</td>
+<td>Resolve the actor/channel for post-switch Article 10/12 work and the Spain receiving-point change sequence.</td>
+<td>Country-specific</td>
+<td>These remain open decisions in this spec. Do not apply Spanish reporting or withdrawal rules to another country. Spain Compliance and providers.</td>
+</tr>
+<tr>
+<td>Existing exit implementation or experience</td>
+<td>Assess route, export and recovery services; use France lessons as discovery input.</td>
+<td>Unknown</td>
+<td>No reusable exit implementation or verified France incident record is established here. Validate contracts and lessons before claiming fitness. Architecture, Operations and France service owner.</td>
+</tr>
+</tbody>
+</table>
+<h3>Plain-language terms</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legal entity / legal subject</td>
+<td>The business to which the invoice or action belongs. Technical fields use <code>legalSubject</code> for this business.</td>
+</tr>
+<tr>
+<td>Authority</td>
+<td>Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission.</td>
+</tr>
+<tr>
+<td>Capability</td>
+<td>A supported function, such as receiving invoices or signing them.</td>
+</tr>
+<tr>
+<td>Route</td>
+<td>The platform and connection used to send or receive an invoice.</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>A repeat of the same request has no additional effect. The contract must define how the system recognises that request.</td>
+</tr>
+<tr>
+<td>Reconciliation</td>
+<td>Check the original operation against a reliable source to establish what actually happened before deciding the next action.</td>
+</tr>
+<tr>
+<td>Gate</td>
+<td>A condition, decision or evidence check that must pass before the next step can proceed.</td>
+</tr>
+<tr>
+<td>Tenant</td>
+<td>The customer account boundary used to keep one customer’s data and access separate from another’s.</td>
+</tr>
+<tr>
+<td>Immutable / append-only</td>
+<td>A saved item cannot be changed; new information is added as a new record instead of overwriting earlier records.</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td>The record of where data came from and which versions, checks and changes produced the result.</td>
+</tr>
+<tr>
+<td>Contract</td>
+<td>The agreed inputs, outputs, behaviour and responsibilities between services or parties.</td>
+</tr>
+<tr>
+<td>Durable</td>
+<td>Saved so the record remains available after a service restart.</td>
+</tr>
+<tr>
+<td>Offboarding</td>
+<td>Leaving the service or moving a defined part of invoice traffic to another platform.</td>
+</tr>
+<tr>
+<td>Cutover</td>
+<td>The agreed point when new invoices start using the destination route.</td>
+</tr>
+<tr>
+<td>Historical continuity</td>
+<td>Keep the access and responsible parties needed to complete work on earlier invoices.</td>
+</tr>
+<tr>
+<td>Disposition / legal hold</td>
+<td>The approved treatment of data, including retention or deletion; a legal hold prevents deletion where required.</td>
+</tr>
+<tr>
+<td>RACI</td>
+<td>A table showing who is responsible, accountable, consulted and informed.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Endpoints and responsibilities</h3>
+<table>
+<thead>
+<tr>
+<th>Outcome</th>
+<th>Customer and operations result</th>
+<th>Constraint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planned switch-out complete</td>
+<td>New scoped traffic uses an evidenced destination; Sage-origin invoices retain lifecycle/evidence path</td>
+<td>Unselected directions and entities unchanged</td>
+</tr>
+<tr>
+<td>Full exit complete</td>
+<td>Commercial, route, provider, credential, access, export and disposition gates have separately evidenced outcomes</td>
+<td>Future mandatory receipt responsibility has a valid destination</td>
+</tr>
+<tr>
+<td>Cutover blocked</td>
+<td>Last known safe route remains and next action/owner is shown</td>
+<td>No destination or authority is inferred</td>
+</tr>
+<tr>
+<td>Release pending</td>
+<td>New route may be active, but historical access or external withdrawal remains</td>
+<td>No premature credential or evidence deletion</td>
+</tr>
+<tr>
+<td>Outcome unknown / incident</td>
+<td>External state and invoice queue are reconciled under an owned case</td>
+<td>No repeat or completion claim before checking the original outcome</td>
+</tr>
+<tr>
+<td>Request cancelled/restored</td>
+<td>Actual external state is observed; any reversal is a new transition</td>
+<td>Past invoices keep actual origin</td>
+</tr>
+</tbody>
+</table>
+<p>The customer administrator or validated accountant delegate requests and approves scope. Onboarding/route services coordinate; identity verifies authority; exchange and records inventory invoice obligations; external adapters publish/withdraw/query provider state; operations owns unresolved cases; privacy/legal/records owners decide export and disposition.</p>
+<h3>3 Process diagrams and text equivalent</h3>
+<p><strong>Planned switch-out and release:</strong> </p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="50fa8c71-de78-5fe5-a4ae-1fe7a9ec9c76"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">offboarding-planned-exit-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">580</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/offboarding-planned-exit-process.drawio">Editable Draw.io source</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/offboarding-planned-exit-process.png">PNG preview</a>. The existing <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/e-invoicing-route-transition-offboarding.drawio">route transition and offboarding overview</a> shows the wider customer lifecycle.</p>
+<p>OFF-01 verifies one legal entity, direction/scope, actor and destination → OFF-02 inventories in-flight invoices, external mutations, obligations, registration, credentials and archive → OFF-03 proves the destination without disturbing live Sage traffic → OFF-04 commits an authorised effective cutover and observes external state → OFF-05 assigns each historical obligation to a permitted actor/channel → OFF-06 withdraws old route/registration and revokes credentials only when dependencies clear → OFF-07 exports evidence and schedules approved disposition. Failure or unknown result diverts to OFF-08; it does not jump to release.</p>
+<p><strong>Recovery and urgent provider exit:</strong> </p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="770f8fcd-f307-5855-8bcc-60cc2427ed43"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">offboarding-recovery-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">580</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/offboarding-recovery-process.drawio">Editable Draw.io source</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/offboarding-recovery-process.png">PNG preview</a>.</p>
+<p>An uncertain provider mutation or outage creates OFF-08 with original operation IDs, affected invoices, deadlines and last observed state. Operations queries authoritative state, protects the last safe route, preserves queued/in-flight evidence, then either resumes the same transition, selects an approved prospective fallback or escalates a historical obligation. A reversal after cutover is a new evidenced route transition; OFF-05 retains each invoice's original provider context.</p>
+<h3>4 Ordered lifecycle and gates</h3>
+<table>
+<thead>
+<tr>
+<th>Activity / gate</th>
+<th>Result that must be visible</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFF-01 / G1 Authority and scope</td>
+<td>Validated entity, actor, action, direction, destination and approval</td>
+<td>Identity + exit coordinator</td>
+</tr>
+<tr>
+<td>OFF-02 / G2 Inventory</td>
+<td>Frozen snapshot of route, invoices, obligations, provider dependencies and data</td>
+<td>Exchange/records + exit coordinator</td>
+</tr>
+<tr>
+<td>OFF-03 / G3 Destination</td>
+<td>Supported new route, inbound discoverability if relevant and tests evidenced</td>
+<td>Destination/provider owner</td>
+</tr>
+<tr>
+<td>OFF-04 / G4 Cutover</td>
+<td>Effective new-traffic boundary and observed external/internal state</td>
+<td>Route/operator</td>
+</tr>
+<tr>
+<td>OFF-05 / G5 Historical continuity</td>
+<td>Per-obligation actor, permitted channel, state and required access</td>
+<td>Compliance/operations/records</td>
+</tr>
+<tr>
+<td>OFF-06 / G6 Release</td>
+<td>Old route withdrawal and each registration/credential action evidenced</td>
+<td>Provider + security/operations</td>
+</tr>
+<tr>
+<td>OFF-07 / G7 Disposition</td>
+<td>Export manifest/receipt and each data-class retention/hold/deletion schedule</td>
+<td>Records/privacy</td>
+</tr>
+<tr>
+<td>OFF-08 Recovery</td>
+<td>Unknown/failure has owner, observed state, safe action and customer notice</td>
+<td>Operations</td>
+</tr>
+</tbody>
+</table>
+<h3>5 Key design decisions</h3>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Affected gate</th>
+<th>Owner / evidence gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Who performs post-switch Article 10 status and Article 12 rejection/payment reports for an old invoice?</td>
+<td>G5/G6</td>
+<td>Spain Compliance/Tax, providers; historical-work pilot</td>
+</tr>
+<tr>
+<td>Which route carries a later rectifying invoice, and can a new provider act on old-provider invoices?</td>
+<td>G2/G5</td>
+<td>Spain Compliance/Tax and providers; design</td>
+</tr>
+<tr>
+<td>What is the authoritative inbound publication, observation and withdrawal sequence?</td>
+<td>G3/G4/G6</td>
+<td>Local technical/regulatory team and providers; pilot</td>
+</tr>
+<tr>
+<td>Which provider actions and state queries are automated, manual or unsupported?</td>
+<td>G3/G4/G6/G8 recovery</td>
+<td>Provider owner and operations; integration contract</td>
+</tr>
+<tr>
+<td>What are contract, archive, portability, retention and legal-hold terms by data class?</td>
+<td>G5/G7</td>
+<td>Legal/Tax, Privacy, Security; production</td>
+</tr>
+<tr>
+<td>What France exit failures should become Spain tests and controls?</td>
+<td>All</td>
+<td>France service owner, Spain PM, operations; discovery</td>
+</tr>
+<tr>
+<td>Which implementing order and provider specifications are effective for pilot?</td>
+<td>G3–G6</td>
+<td>Spain regulatory/technical owner; pilot</td>
+</tr>
+</tbody>
+</table>
+<p>This is reviewable as a safety model, not an approved legal or provider implementation. The source PRD's discovery, design, pilot and production gates remain controlling.</p>
+<h2>Part 2 Logical Feature Specification</h2>
+<p>This part explains the proposed behaviour step by step. An invariant is a rule that must always hold, including during failures and recovery.</p>
+<h3>1 Scope, state and invariants</h3>
+<p>An exit case has (tenant, legalSubject, environment, direction, scope, action, destination, current route version). Overlapping cases on the same entity/direction/scope are serialised or rejected. A full exit is an explicit set of affected scopes and data/contract operations; it is not a wildcard mutation. Proposed case stages are REQUESTED, INVENTORY, DESTINATION_READY, CUTOVER_PENDING, CUTOVER_OBSERVED, HISTORICAL_CONTINUITY, RELEASE_PENDING, DISPOSITION_PENDING, COMPLETE, BLOCKED, OUTCOME_UNKNOWN and CANCELLED. The overall stage summarises progress. The route, registration, credentials, subscription and data each keep their own state.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Rule that must always hold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFF-I01</td>
+<td>Only the authorised legal entity, direction, scope and action can change. Accountant authority is per client and effective time.</td>
+</tr>
+<tr>
+<td>OFF-I02</td>
+<td>Destination configuration and tests cannot mutate the active Sage route.</td>
+</tr>
+<tr>
+<td>OFF-I03</td>
+<td>An inbound route is not withdrawn until the destination's required reachability/publication and safe sequence are evidenced.</td>
+</tr>
+<tr>
+<td>OFF-I04</td>
+<td>Each invoice retains original route, provider, identifiers, representation and obligation context through all transitions.</td>
+</tr>
+<tr>
+<td>OFF-I05</td>
+<td>Unknown external outcome blocks dependent retry, completion and release until authoritative observation or controlled decision.</td>
+</tr>
+<tr>
+<td>OFF-I06</td>
+<td>Subscription termination never implies provider deregistration, credential revocation, historical access removal or data deletion.</td>
+</tr>
+<tr>
+<td>OFF-I07</td>
+<td>Every unfinished obligation has one accountable actor/channel or a visible unresolved case; access it needs is not silently removed.</td>
+</tr>
+<tr>
+<td>OFF-I08</td>
+<td>No support override may erase actual external state, invoice attribution, approval history or evidence.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Detailed behaviour</h3>
+<p><strong>OFF-01 Request and authority (G1).</strong> Product or contractual process submits action (outbound switch, inbound switch, both, full termination, urgent exit or cancellation), exact scope, proposed destination and effective intent. Verify legal entity and direct/delegate authority for that action; independently validate commercial termination authority if applicable. Persist the request, authority snapshot, expected current route version, idempotency key and input digest. A duplicate returns the same case; same key with changed input conflicts.</p>
+<p>An overlapping active case cannot start a second cutover. An unauthorised or underspecified request is rejected before any external mutation.</p>
+<p><strong>OFF-02 Inventory and cutover plan (G2).</strong> Save a snapshot of the active route and receiving entry point, registrations and credentials. Include invoices still being processed or with unknown delivery results; pending Article 10/12 actions, corrections, payments and disputes; evidence and archive records; and subscription and provider obligations.</p>
+<p>For each item, record the owner, original operator, any due date, dependencies and confidence in the evidence. Record new events arriving after the snapshot in a separate change log until the cutover boundary. An incomplete inventory blocks release. It may also block cutover if receipt or a mandatory obligation cannot be assured.</p>
+<p>Before approving the plan, the customer sees the effect on sending, receiving, support and access to earlier invoices.</p>
+<p><strong>OFF-03 Destination proof (G3).</strong> Validate destination legal/operator eligibility and the exact supported direction/scope. For outbound, test capability and required profile; for inbound, prove the published/discoverable receiving point through the confirmed external sequence. Store intent and independently observed state, source, reference and timestamp. No unverified destination value counts as ready. Manual provider evidence is an explicit approved gate, not an invented automated success. Sage remains live while this work runs.</p>
+<p><strong>OFF-04 Cutover (G4).</strong> Recheck authority, destination freshness, current route version and planned notices. Acquire a scoped transition lock. Record the effective boundary and perform the approved external and internal sequence. The route service applies a compare-and-set decision so only new eligible invoices after the boundary use the destination; inbound receive continuity follows the confirmed publicity/propagation rule. If one step times out after possible side effect, enter OUTCOME_UNKNOWN and OFF-08.</p>
+<p>Do not tell the customer cutover is complete until observed external and internal state match. An earlier invoice still uses its original adapter and correlation; no replay through the destination.</p>
+<p><strong>OFF-05 Historical continuity (G5).</strong> For every unfinished obligation, resolve the legally permitted actor, route/channel, credentials, evidence and due date. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a> owns the event and per-destination obligation contract. Confirmed old-provider work retains access limited to the approved purpose even if new traffic moved. If post-switch Article 10/12 actor or cross-provider handling is unconfirmed, keep a visible case and block dependent release; escalate before deadlines. A new rectifying invoice is evaluated under the then-current confirmed rule, with an explicit link to the original invoice; it is not automatically moved to the old or new route.</p>
+<p>Export and customer access must explain both current and historical contexts.</p>
+<p><strong>OFF-06 Old route and credential release (G6).</strong> Separately authorise old-route deactivation, inbound entry-point withdrawal, external deregistration and each credential revocation. Before each action confirm no new traffic is using the old scope, inbound destination is effective, in-flight outcomes are reconciled, historical obligations have a channel, and shared credentials are not needed by other scopes. Store provider acknowledgement or observed withdrawal.</p>
+<p>A credential can remain restricted for a documented historical purpose, with owner and review date; it cannot remain indefinitely by default. Unsupported provider actions have a manual owner and evidence.</p>
+<p><strong>OFF-07 Export and disposition (G7).</strong> An authorised export includes agreed exact invoice representations, original identifiers and route, lifecycle events, acknowledgements, public-copy/reporting evidence and a machine-readable manifest of omissions or limitations. Access is scoped to the legal entity and delegate permission; generation, retrieval and receipt are audited. For each data class, record approved retention, legal hold, portability and deletion action/date. A missing export item or undecided data class keeps disposition pending even if cutover is complete. No immediate deletion follows merely from subscription end.</p>
+<p><strong>OFF-08 Recovery, cancellation and urgent exit.</strong> If an external change has an uncertain result, use the original operation and correlation references to check reliable provider or public-platform state. Confirmed absence may permit a retry only under the provider’s proven safety contract. Keep unresolved work on hold.</p>
+<p>Cancellation before cutover keeps Sage routing active and closes only draft steps that can be reversed safely. Reversal after cutover is a new authorised transition and needs fresh destination evidence. Earlier invoices keep their actual route.</p>
+<p>During a provider outage, operations opens an incident case showing affected queued work, deadlines, unsafe actions, an approved fallback for new traffic, customer communications and the recovery owner. Move work on earlier invoices only through a confirmed, permitted path.</p>
+<h3>3 Requirements and operational controls</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement and source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFF-R01</td>
+<td>Verify entity, actor, direction/scope, action and destination before mutation; PRD-SEI-243 OFR1.</td>
+</tr>
+<tr>
+<td>OFF-R02</td>
+<td>Inventory in-flight, unknown, historical, registration, credential and archive dependencies; OFR2.</td>
+</tr>
+<tr>
+<td>OFF-R03</td>
+<td>Prove destination without changing current live route; OFR3–4.</td>
+</tr>
+<tr>
+<td>OFF-R04</td>
+<td>Apply and evidence a scoped effective cutover; preserve invoice origin; OFR5–6.</td>
+</tr>
+<tr>
+<td>OFF-R05</td>
+<td>Assign each historical obligation a permitted actor/channel or owned unresolved case; OFR7.</td>
+</tr>
+<tr>
+<td>OFF-R06</td>
+<td>Independently gate route, registration, credentials, subscription and data; OFR8/13.</td>
+</tr>
+<tr>
+<td>OFF-R07</td>
+<td>Reconcile unknown external operations before retry/completion; OFR9.</td>
+</tr>
+<tr>
+<td>OFF-R08</td>
+<td>Serialise overlapping exit scopes; OFR10.</td>
+</tr>
+<tr>
+<td>OFF-R09</td>
+<td>Expose case state, next action, export and historical terms to authorised users; OFR11–12.</td>
+</tr>
+<tr>
+<td>OFF-R10</td>
+<td>Preserve actual state through cancellation, restoration and provider outage; OFR14–15.</td>
+</tr>
+</tbody>
+</table>
+<p>Every mutation or override records actor, legal entity, direction/scope, request ID, expected version, timestamp, external reference, observed result, approval and evidence reference. Secrets never appear in cases or exports. Apply tenant/entity/environment isolation, least privilege, audited support access and purpose-limited historical credentials. Measure time spent with an unknown outcome, stale entry points, old-route traffic after cutover, unowned obligations, export omissions, residual access and failed restoration. Product and Operations set targets from pilot baselines rather than guessed values.</p>
+<h2>Part 3 Logical Service Interactions and Data Inventory</h2>
+<p>This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.</p>
+<h3>Spain and reuse boundary in contracts</h3>
+<p>Keep the exit case and gate model shared, while selecting local destination, historical-obligation, provider-withdrawal and data-disposition policies. Article 10/12 obligations remain Spain policy decisions, not universal exit steps. Every provider action needs its own supported contract and evidence; another country’s exit experience cannot approve the Spain sequence.</p>
+<p>The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.</p>
+<h3>1 Interaction contracts</h3>
+<p>These are proposed logical operations, not approved endpoints. All commands use caseId, idempotency key, correlation, actor, tenant/entity/environment, exact scope, expected version and input digest. Responses distinguish definitive rejection, safe retry, outcome unknown, conflict and manual gate. Events are emitted after durable case changes and deduplicated by eventId/version.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Caller → logical owner</th>
+<th>Input / output and recovery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFF-INT-01</td>
+<td>Product/contract process → exit coordinator</td>
+<td>Open/get/cancel scoped case; returns case/version, gates, blockers and owner; duplicate-safe.</td>
+</tr>
+<tr>
+<td>OFF-INT-02</td>
+<td>Exit coordinator → identity/authority</td>
+<td>Get action-specific direct/delegate authority snapshot and validity; unknown blocks G1/G4.</td>
+</tr>
+<tr>
+<td>OFF-INT-03</td>
+<td>Exit coordinator → exchange/records</td>
+<td>Inventory invoices, route contexts and open obligations; returns snapshot cursor and delta stream; omissions flagged.</td>
+</tr>
+<tr>
+<td>OFF-INT-04</td>
+<td>Exit coordinator → destination/provider adapter</td>
+<td>Validate capability and observe destination/entry point; returns source, observedAt, reference, safety class.</td>
+</tr>
+<tr>
+<td>OFF-INT-05</td>
+<td>Exit coordinator → route/operator</td>
+<td>Compare-and-set cutover with expected route version and effective boundary; returns actual route version/observation.</td>
+</tr>
+<tr>
+<td>OFF-INT-06</td>
+<td>Exit coordinator → obligation owner</td>
+<td>Assign or query actor/channel/access for historical work; returns confirmed or unresolved with deadline/owner.</td>
+</tr>
+<tr>
+<td>OFF-INT-07</td>
+<td>Exit coordinator → provider/security/subscription</td>
+<td>Independently withdraw route/registration, revoke credential or end commercial relationship; each has separate approval and observation.</td>
+</tr>
+<tr>
+<td>OFF-INT-08</td>
+<td>Exit coordinator → records/export</td>
+<td>Build scoped export, manifest and retrieval receipt; record per-class disposition/hold schedule.</td>
+</tr>
+<tr>
+<td>OFF-INT-09</td>
+<td>Operations → external adapter</td>
+<td>Reconcile original uncertain operation or provider outage using correlation and observed state; no external change without checking the original outcome.</td>
+</tr>
+<tr>
+<td>OFF-INT-10</td>
+<td>Exit coordinator → product/operations</td>
+<td>Publish case/gate/incident changes after durable commit; consumer fetches authoritative case version.</td>
+</tr>
+</tbody>
+</table>
+<p>Provider capability metadata records supported direction separation, publication/withdrawal, deregistration, historical query, export, state observation and idempotency. An unsupported action cannot be represented as success; it requires a manual gate and accountable provider owner.</p>
+<h3>2 Data inventory</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Record / logical owner</th>
+<th>Essential fields and handling</th>
+<th>Consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFF-D01</td>
+<td>Exit case / coordinator</td>
+<td>Immutable request/action/scope/digest; gate state, version, owner, next action, approval and notice; restricted</td>
+<td>OFF-01–08</td>
+</tr>
+<tr>
+<td>OFF-D02</td>
+<td>Authority snapshot / identity</td>
+<td>Actor, legal subject, delegate grant, action, validity and evidence reference; versioned</td>
+<td>OFF-01/04</td>
+</tr>
+<tr>
+<td>OFF-D03</td>
+<td>Inventory and delta / exchange/records</td>
+<td>Invoice IDs, original route/provider, in-flight/unknown status, obligations, dependencies and snapshot cursor; access controlled</td>
+<td>OFF-02/04/05/06</td>
+</tr>
+<tr>
+<td>OFF-D04</td>
+<td>Destination proof / provider adapter</td>
+<td>Intended/observed endpoint, direction/scope, profile, source, time, test, external operation/reference; versioned</td>
+<td>OFF-03/04/08</td>
+</tr>
+<tr>
+<td>OFF-D05</td>
+<td>Route transition / route</td>
+<td>From/to, effective boundary, expected/actual version, observed state, rollback link; append-only transitions</td>
+<td>OFF-04/08</td>
+</tr>
+<tr>
+<td>OFF-D06</td>
+<td>Obligation assignment / records/operations</td>
+<td>Invoice, obligation kind, actor/channel, deadline, access dependency, resolution and evidence; restricted</td>
+<td>OFF-05/06</td>
+</tr>
+<tr>
+<td>OFF-D07</td>
+<td>Release action / provider/security</td>
+<td>Action type, dependency check, approval, original operation ID, observed result and credential reference only</td>
+<td>OFF-06/08</td>
+</tr>
+<tr>
+<td>OFF-D08</td>
+<td>Export and disposition / records/privacy</td>
+<td>Package reference, exact-content manifest, omissions, receipt, data class, hold/retention/deletion schedule; sensitive</td>
+<td>OFF-07</td>
+</tr>
+<tr>
+<td>OFF-D09</td>
+<td>Recovery case / operations</td>
+<td>Fault, affected invoices, deadlines, last observed state, unsafe actions, fallback, notice and owner; restricted</td>
+<td>OFF-08</td>
+</tr>
+</tbody>
+</table>
+<p>Invoice representations, external acknowledgements and audit evidence retain their original provenance and are never rewritten by an exit. Approved legal/privacy/contract schedules determine retention; this draft sets no period. Encryption and access controls apply to D02–D09, and D07 stores references rather than reusable credentials.</p>
+<h2>Part 4 Assurance and Traceability View</h2>
+<p>This part shows how requirements connect to activities, interfaces, data and acceptance checks. The scenarios describe evidence still needed; they are not a claim that implementation tests have passed.</p>
+<h3>1 Verification matrix</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Requirement → activity / interaction / data</th>
+<th>Evidence and expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFF-A01 Outbound-only switch</td>
+<td>R01–04 → OFF-01–04 / INT-01–05, D01–05</td>
+<td>Inbound unchanged; new outbound after boundary uses destination; prior invoices retain Sage context.</td>
+</tr>
+<tr>
+<td>OFF-A02 Inbound destination unproven</td>
+<td>R03 → OFF-03 / INT-04, D04</td>
+<td>G3 blocks cutover; Sage receiving path remains active and owner/action shown.</td>
+</tr>
+<tr>
+<td>OFF-A03 In-flight unknown delivery</td>
+<td>R02/04/07 → OFF-02/04/08 / INT-03/09, D03/09</td>
+<td>Original provider is reconciled before any resend; no duplicate via destination.</td>
+</tr>
+<tr>
+<td>OFF-A04 Late Article 10/12 obligation</td>
+<td>R05/06 → OFF-05/06 / INT-06/07, D06/07</td>
+<td>Required access remains until permitted actor/channel confirmed or approved exception.</td>
+</tr>
+<tr>
+<td>OFF-A05 Deregistration timeout</td>
+<td>R06/07 → OFF-06/08 / INT-07/09, D07/09</td>
+<td>Outcome unknown; no second mutation or complete claim until state observed.</td>
+</tr>
+<tr>
+<td>OFF-A06 Overlapping exits</td>
+<td>R08 → OFF-01/04 / INT-01/05, D01/05</td>
+<td>One scoped cutover wins; other conflicts or queues with visible reason.</td>
+</tr>
+<tr>
+<td>OFF-A07 Full termination/export</td>
+<td>R06/09 → OFF-06/07 / INT-07/08, D07/08</td>
+<td>Route, commercial and disposition actions each evidenced; manifest shows omissions and receipt.</td>
+</tr>
+<tr>
+<td>OFF-A08 Post-cutover reversal</td>
+<td>R04/10 → OFF-08 / INT-05/09, D03/05/09</td>
+<td>New transition has authority and observed state; invoice origin/history stays factual.</td>
+</tr>
+<tr>
+<td>OFF-A09 Urgent provider outage</td>
+<td>R05/07/10 → OFF-05/08 / INT-03/06/09, D03/06/09</td>
+<td>Queue and deadlines are visible; only approved prospective fallback is used.</td>
+</tr>
+<tr>
+<td>OFF-A10 Country-bound exit reuse</td>
+<td>R01/03/05/06 → OFF-01/03/05–07, INT-02/04/06–08, D02/04/06–08</td>
+<td>Shared exit gates select the correct local obligations, provider actions and retention policy. Spain Article 10/12 steps are not imposed on another country. Unknown local rules block only the dependent cutover or release gate.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Threat, conformance and release gates</h3>
+<p>Test cross-client delegate attempts, stale grants, forged destination values, leaked export links, premature credential revocation, duplicate external mutation, concurrent cutovers, stale inbound publication and unsupported manual overrides. The expected control is scoped rejection, audit, explanation with sensitive values removed and retained safe route or owned recovery. Verify provider/state-query and entry-point behaviour against the effective official and contractual specifications before treating an automated action as supported.</p>
+<p><strong>Reviewable now:</strong> the gated case, records, recovery and traceability. <strong>Design gate:</strong> decide historical Article 10/12 actors and correction routing, inbound publication/withdrawal order, provider capability and retention/contract rules. <strong>Pilot gate:</strong> run public/private and private/private switch-out, full exit, in-flight and late-obligation, timeout, cancellation, reversal, export and outage drills with observed external evidence. <strong>Production gate:</strong> approved runbook and support/provider RACI, customer wording, monitoring targets from pilot baselines, privacy/security review, portability rights and passed conformance tests. Open decisions in Part 1 must record owner, source, date and accepted outcome; until then affected automation stays blocked or explicitly manual.</p><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro>

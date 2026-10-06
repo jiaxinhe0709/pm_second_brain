@@ -1,0 +1,579 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-002<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-002-onboarding-solution-specification.md">021bcc7cadfccfe93d2388de4616efebe17558fb</a><br /><strong>Last updated:</strong> 2026-10-06</p></div><h1>Customer Onboarding Solution Specification</h1>
+<h2>Part 1 Feature Solution Summary</h2>
+<h3>Reader guide</h3>
+<p>Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. Part 2 gives the detailed behaviour and rules. Part 3 describes service interactions and data. Part 4 links requirements to the checks and evidence needed before release.</p>
+<p>The design remains a draft. <strong>Proposed</strong> choices still need review; <strong>open</strong> decisions still need an owner’s recorded answer. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.</p>
+<h3>1 Purpose, authority and boundaries</h3>
+<p>This is a <strong>proposed logical design</strong> for setting up one Spanish business to use e-invoicing. It covers two stages with separate checks and approvals. <strong>Phase 1</strong> checks readiness for functions that use the public solution. <strong>Later phases</strong> configure a private platform, check the published receiving destination, and activate or change the route.</p>
+<p>Public readiness alone does not mean that the business is registered externally, a private route is active, or invoices can be exchanged. The source requirements are <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-101-public-platform-onboarding.md">public onboarding</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-104-accountant-and-single-client-onboarding.md">direct and accountant onboarding</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-107-public-onboarding-failure-recovery.md">recovery</a>, and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md">private onboarding and migration</a>. The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-001-certificate-management-solution-specification.md">certificate spec</a> supplies the conditional trust-readiness contract.</p>
+<p>The logical services, state names, interaction shapes and records below are <strong>proposed</strong>. The PRDs establish customer outcomes and safety constraints. Spanish external interfaces, entry-point publication sequence, representation rules, operator model, signing policy, measurable service targets and ownership of the implemented services remain <strong>open</strong>. This document is one canonical Markdown source and one intended Confluence page; it is unpublished.</p>
+<h3>Spain use and reuse boundaries</h3>
+<p>This is a <strong>Spain reference design</strong>. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. <strong>Reusable unchanged</strong> means the design pattern can stay the same. <strong>Reusable with country binding</strong> means the shared behaviour needs approved local policies or adapters. <strong>Country-specific</strong> rules stay in the country pack. <strong>Unknown</strong> means implementation fitness or coverage still needs evidence.</p>
+<p>This follows the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-227-e-invoicing-as-a-service.md">shared platform and country-pack direction</a>. Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Intended use in Spain</th>
+<th>Reuse classification</th>
+<th>Condition and owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Work items and portfolio isolation</td>
+<td>Track each Spanish business separately, recognise repeated requests and show partial portfolio results.</td>
+<td>Reusable unchanged</td>
+<td>Reuse the work-item, version and independent-client patterns. Validate tenant and client isolation. Onboarding and Product.</td>
+</tr>
+<tr>
+<td>Readiness and route transition</td>
+<td>Assess public readiness, then separately configure and activate a private route where supported.</td>
+<td>Reusable with country binding</td>
+<td>Bind the local identity, authority, entitlement, provider and entry-point policies. Product, Identity and route owner.</td>
+</tr>
+<tr>
+<td>Spain onboarding rules</td>
+<td>Use Spain identity/representation checks and the confirmed public/private entry-point and migration sequence.</td>
+<td>Country-specific</td>
+<td>Do not make Spanish NIF/NIE rules or the public/private sequence defaults for other countries. Spain technical owner and Compliance.</td>
+</tr>
+<tr>
+<td>Existing onboarding implementation</td>
+<td>Assess identity, trust, work-item, connection and routing services for the Spain journey.</td>
+<td>Unknown</td>
+<td>No deployed end-to-end onboarding implementation is established here. Record existing owners, contracts and gaps first. Architecture and service owners.</td>
+</tr>
+</tbody>
+</table>
+<h3>Plain-language terms</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legal entity / legal subject</td>
+<td>The business to which the invoice or action belongs. Technical fields use <code>legalSubject</code> for this business.</td>
+</tr>
+<tr>
+<td>Authority</td>
+<td>Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission.</td>
+</tr>
+<tr>
+<td>Capability</td>
+<td>A supported function, such as receiving invoices or signing them.</td>
+</tr>
+<tr>
+<td>Route</td>
+<td>The platform and connection used to send or receive an invoice.</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>A repeat of the same request has no additional effect. The contract must define how the system recognises that request.</td>
+</tr>
+<tr>
+<td>Reconciliation</td>
+<td>Check the original operation against a reliable source to establish what actually happened before deciding the next action.</td>
+</tr>
+<tr>
+<td>Gate</td>
+<td>A condition, decision or evidence check that must pass before the next step can proceed.</td>
+</tr>
+<tr>
+<td>Tenant</td>
+<td>The customer account boundary used to keep one customer’s data and access separate from another’s.</td>
+</tr>
+<tr>
+<td>Immutable / append-only</td>
+<td>A saved item cannot be changed; new information is added as a new record instead of overwriting earlier records.</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td>The record of where data came from and which versions, checks and changes produced the result.</td>
+</tr>
+<tr>
+<td>Contract</td>
+<td>The agreed inputs, outputs, behaviour and responsibilities between services or parties.</td>
+</tr>
+<tr>
+<td>Durable</td>
+<td>Saved so the record remains available after a service restart.</td>
+</tr>
+<tr>
+<td>Readiness</td>
+<td>Evidence that the required checks for a specific function have passed. The result may expire or have limitations.</td>
+</tr>
+<tr>
+<td>Entry point</td>
+<td>The published address or destination used to reach a business for invoice receipt.</td>
+</tr>
+<tr>
+<td>Cutover / rollback</td>
+<td>Switch new work to a different route; or make a controlled change back. Earlier invoices keep their actual route history.</td>
+</tr>
+<tr>
+<td>Portfolio</td>
+<td>An accountant’s set of client businesses. Each client is checked separately.</td>
+</tr>
+<tr>
+<td>Input digest / hash</td>
+<td>A calculated fingerprint used to detect a change in the submitted data.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Endpoints and handoffs</h3>
+<table>
+<thead>
+<tr>
+<th>Outcome</th>
+<th>Observable result</th>
+<th>Boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public capability ready</td>
+<td>Entity/capability is ready or ready with stated limitations, with evidence, expiry/recheck and next action</td>
+<td>No claim of external registration, invoice compliance, delivery or private route activation</td>
+</tr>
+<tr>
+<td>Private route active</td>
+<td>Explicitly authorised direction/scope has matching intended and observed external readiness and an effective new-traffic boundary</td>
+<td>Earlier invoices retain original route and operator</td>
+</tr>
+<tr>
+<td>Action required / blocked</td>
+<td>Exact entity, capability or direction is held with stable reason and owner</td>
+<td>Other portfolio items and unaffected directions continue</td>
+</tr>
+<tr>
+<td>Cancelled before activation</td>
+<td>Pending work is closed under policy and live routing is unchanged</td>
+<td>Externally completed actions still require reconciliation and separate reversal</td>
+</tr>
+<tr>
+<td>Recovery or rollback case</td>
+<td>Actual external and invoice state is preserved; restoration is a new evidenced transition</td>
+<td>No silent state reset or historical rewrite</td>
+</tr>
+</tbody>
+</table>
+<p>Actors are the customer administrator or validated delegate; Sage product/API; onboarding orchestration; legal-subject and authority services; conditional trust service; operator/connection and route services; external public platform or provider; evidence store; and operations. Each performs only its authorised action for one tenant, legal entity, environment, capability, direction and route scope. An accountant portfolio is a collection of isolated client work items, not one shared mandate or credential.</p>
+<h3>3 Process diagrams and text equivalent</h3>
+<p><strong>Public readiness:</strong> </p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="fc6c8dcd-0449-503c-b112-7b5f381b945a"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-public-readiness-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">580</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/onboarding-public-readiness-process.drawio">Editable Draw.io source</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/onboarding-public-readiness-process.png">PNG preview</a>. The existing <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/e-invoicing-customer-service-readiness.drawio">customer and service readiness overview</a> provides cross-service context; this diagram isolates the Phase 1 process.</p>
+<p>Customer/delegate starts ONB-01 for one entity/capability → ONB-02 resolves legal subject and authority → ONB-03 checks applicable external identity/representation evidence and conditional certificate readiness → ONB-04 records readiness for each required check. Missing authority or uncertain policy yields an owned action; an ambiguous external mutation yields ONB-08 reconciliation. For a portfolio, repeat per client and return partial outcomes without promoting failed clients.</p>
+<p><strong>Private onboarding and migration:</strong> </p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="fc054533-e604-5999-8630-be89fb139007"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-private-route-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">580</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/onboarding-private-route-process.drawio">Editable Draw.io source</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/onboarding-private-route-process.png">PNG preview</a>. The existing <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/e-invoicing-route-transition-offboarding.drawio">route transition and offboarding overview</a> gives the wider lifecycle.</p>
+<p>ONB-05 records the chosen legal entity, direction, scope, operator and commercial/authority terms while existing traffic continues → ONB-06 validates connection and publishes/observes any required entry point → ONB-07 activates only after readiness, authorisation and effective boundary are recorded → ONB-09 preserves prior-route in-flight/history and releases dependencies at separate gates. Failure before cutover leaves the old route. Unknown external outcome goes to ONB-08. A post-cutover failure opens a controlled restoration case that keeps each invoice's actual origin.</p>
+<h3>4 Ordered lifecycle</h3>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Trigger and required result</th>
+<th>Owner / consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONB-01 Open work item</td>
+<td>Authenticated request creates one scoped, versioned work item; duplicate key returns same result</td>
+<td>Product → onboarding</td>
+</tr>
+<tr>
+<td>ONB-02 Establish subject and authority</td>
+<td>Verified entity, principal/delegate, action and validity; missing grant is visible</td>
+<td>Identity/authority → onboarding</td>
+</tr>
+<tr>
+<td>ONB-03 Assess prerequisites</td>
+<td>Applicability, environment, external checks and conditional trust assessed separately</td>
+<td>Onboarding → identity/trust/external</td>
+</tr>
+<tr>
+<td>ONB-04 Publish public readiness</td>
+<td>Result for each capability, evidence and recheck; no route mutation</td>
+<td>Onboarding → product</td>
+</tr>
+<tr>
+<td>ONB-05 Configure private choice</td>
+<td>Explicit option, subscription/connection intent and scope stored without new traffic</td>
+<td>Customer/product → onboarding/route</td>
+</tr>
+<tr>
+<td>ONB-06 Prove private readiness</td>
+<td>Operator, transport, profile and required external entry point observed ready</td>
+<td>Connection/adapter → onboarding</td>
+</tr>
+<tr>
+<td>ONB-07 Cut over new traffic</td>
+<td>Serialised scope transition records authorised effective boundary</td>
+<td>Route service → exchange/product</td>
+</tr>
+<tr>
+<td>ONB-08 Reconcile/recover</td>
+<td>Unknown result or discrepancy has owner, observed state and safe next action</td>
+<td>Operations/external adapter</td>
+</tr>
+<tr>
+<td>ONB-09 Preserve and release</td>
+<td>Original invoice context persists; previous dependencies released only after approved gates</td>
+<td>Route/records/operations</td>
+</tr>
+</tbody>
+</table>
+<h3>5 Key decisions and risks</h3>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Design impact</th>
+<th>Owner and gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Official public-solution identity, representation, certificate and API contract</td>
+<td>Determines which ONB-03 checks or mutations are real</td>
+<td>Spain regulatory/technical owner; public pilot</td>
+</tr>
+<tr>
+<td>Private operator, supported directions/scope granularity and activation mechanism</td>
+<td>Determines ONB-05–07 command and lock key</td>
+<td>Product, architecture, operator; design</td>
+</tr>
+<tr>
+<td>Entry-point publish/observe/withdraw order and propagation evidence</td>
+<td>Determines inbound cutover and rollback safety</td>
+<td>Local technical/regulatory owner, provider; pilot</td>
+</tr>
+<tr>
+<td>Post-switch historical status/reporting actor and route</td>
+<td>Determines how prior-provider access is retained</td>
+<td>Compliance/Tax, provider; migration pilot</td>
+</tr>
+<tr>
+<td>Provider idempotency, state query and correction support</td>
+<td>Determines whether automation or manual reconciliation is safe</td>
+<td>Provider owner, operations; integration</td>
+</tr>
+<tr>
+<td>Trust/signature and retention policies</td>
+<td>Determines conditional readiness and expiry/record schedules</td>
+<td>Security, Legal/Tax; design</td>
+</tr>
+</tbody>
+</table>
+<p>The main risks are an accountant acting without the required client permission, treating public readiness as route activation, losing inbound reachability, repeating an external change after a timeout, or losing access needed for earlier invoices.</p>
+<p>The controls below pause the affected scope, show the intended and observed states, and keep the last safe route until the required checks pass.</p>
+<h2>Part 2 Logical Feature Specification</h2>
+<p>This part explains the proposed behaviour step by step. An invariant is a rule that must always hold, including during failures and recovery.</p>
+<h3>1 Scope model and invariants</h3>
+<p>The proposed work-item key is (tenant, legalSubject, environment, capability, direction, scope, onboardingIntent). Each request includes an idempotency key and a fingerprint of the input in its agreed standard form.</p>
+<p>Changes affecting the same business, direction and scope run one at a time. Independent clients and directions that do not overlap can proceed separately. TEST and production use separate identities, evidence, credentials, route state and keys.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Rule that must always hold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONB-I01</td>
+<td>Authentication, legal-subject identity, representation authority, credential possession, commercial entitlement, external registration and active route are independent facts.</td>
+</tr>
+<tr>
+<td>ONB-I02</td>
+<td>Public readiness is per entity and capability, with limitations and evidence. It cannot activate a private route or prove invoice compliance.</td>
+</tr>
+<tr>
+<td>ONB-I03</td>
+<td>An accountant grant is checked per client, capability, action and effective time; portfolio batch success cannot mask a failed item.</td>
+</tr>
+<tr>
+<td>ONB-I04</td>
+<td>New eligible traffic changes route only after an explicit authorised cutover; every invoice freezes its actual origin route, operator and identifiers.</td>
+</tr>
+<tr>
+<td>ONB-I05</td>
+<td>An unknown external mutation is neither success nor safe retry. Observe/reconcile the original operation before repeating it.</td>
+</tr>
+<tr>
+<td>ONB-I06</td>
+<td>Subscription, connection, entry-point registration, route, transition and historical access have separate state and separate release gates.</td>
+</tr>
+<tr>
+<td>ONB-I07</td>
+<td>No private key or reusable secret enters a product response, work item, audit event or support view.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Activities and state transitions</h3>
+<p><strong>ONB-01 Intake.</strong> The product submits the business reference, requested capabilities and directions, actor, environment and any portfolio batch reference. Onboarding checks the request format, tenant access and whether the requested capability is supported, then saves a work item.</p>
+<p>The same key and input fingerprint return the existing item. Reusing the key with different content returns a conflict. Cancellation stops pending steps but does not erase an external change that may already have happened. A portfolio parent shows overall progress; each client item keeps its own permission, state and error.</p>
+<p><strong>ONB-02 Identity and authority.</strong> The legal-subject service resolves Spanish identity and product/tenant mapping without treating a user login as the legal entity. Authority evaluates direct administrator or delegate/mandate for the exact capability, direction, action and time. Missing, expired, revoked or ambiguous authority blocks that child item. Grant correction creates a new decision snapshot; an in-flight external operation retains the snapshot used at submission and is reconciled before replacement. Recheck authority immediately before ONB-07 and other external mutations.</p>
+<p><strong>ONB-03 Prerequisites.</strong> Resolve a versioned capability policy for phase, operator, environment, route, direction and effective date. Check required legal identity/representation evidence, product entitlement, external verification where an approved contract exists, and certificate readiness only when the policy says it is required. Record NOT_REQUIRED as an evidenced policy result; UNDETERMINED is a policy block. The trust service returns readiness for the specific purpose and evidence reference per <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-001-certificate-management-solution-specification.md">SPEC-SEI-001</a>, without exposing key material.</p>
+<p>External reads may be retried under a bounded policy; an external mutation requires operation safety classification and reconciliation support. Onboarding does not invent a registration call where no official interface is confirmed.</p>
+<p><strong>ONB-04 Public readiness.</strong> Save the result and evidence source for each required check before calculating the overall capability result. Proposed states are NOT_STARTED, CHECKING, ACTION_REQUIRED, READY_WITH_LIMITATIONS, READY, SUSPENDED and OUTCOME_UNKNOWN.</p>
+<p>READY means the approved Phase 1 checks for that capability passed at the recorded time. Expired or revoked dependencies can change the result; show the reason and when to check again. Product and support receive a result with sensitive values removed. The user sees who must act next. A public-readiness event cannot activate a route.</p>
+<p><strong>ONB-05 Private choice/configuration.</strong> Present supported public/current-provider/Sage options with operator, direction, supported scope, price and support boundary. Record explicit customer/delegate choice and action authority. Create proposed subscription and connection configurations independently from active route state. If there is an existing provider or public route, inventory current directions and historical obligations. A configuration failure or cancellation before cutover leaves the old route. Unsupported mixed-scope combinations are blocked with a product explanation rather than silently widened.</p>
+<p><strong>ONB-06 Private readiness.</strong> Validate operator/contract/cohort approval, credentials and conditional trust, transport/profile conformance, external-provider capabilities and (for inbound) required entry-point publication/discoverability. Store intended value, external operation ID, independently observed value, source, observed time and freshness. Connection configured is distinct from external observed ready. If publication times out, mark OUTCOME_UNKNOWN and invoke ONB-08. A provider without reliable observation requires a documented manual gate with named evidence and approver. Existing route remains selected throughout.</p>
+<p><strong>ONB-07 Activation/cutover.</strong> Check the actor’s permission again and confirm that readiness evidence is still current. Lock the affected scope and record the expected current route version. The cutover plan records the approved time and sequence, entry-point publication evidence, rollback trigger and customer notice.</p>
+<p>Change the route only if its current version still matches the expected version (compare-and-set). The change applies only to the authorised direction and scope, for invoices accepted after the agreed boundary. If the external and internal states do not match, do not report ACTIVE; open ONB-08.</p>
+<p>When accepting an invoice, the exchange service saves its route version so the provider cannot change while that invoice is being processed. After success, save the actual cutover time and return status for each direction. A single ONBOARDED flag must not hide different route states.</p>
+<p><strong>ONB-08 Recovery.</strong> Onboarding owns the affected capability and route outcome; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md">SPEC-SEI-004</a> owns the detailed failure classification, retry, correction, cancellation and reconciliation contract. Reconcile unknown external effects using the original correlation/operation ID before repeating a mutation or claiming readiness. A mismatch keeps the transition blocked and opens an owned case. After cutover, restoration is a new authorised transition, subject to current external state and inbound discoverability; invoice origins remain unchanged.</p>
+<p><strong>ONB-09 Continuity and release.</strong> Keep old-route access for in-flight delivery, statuses, rejection/payment reporting, corrections and audit according to confirmed actor/channel rules. Release old entry point, registration, credentials and commercial relationship at independent approved gates. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-003-offboarding-solution-specification.md">Offboarding SPEC-SEI-003</a> governs a later full exit. Lack of a confirmed historical execution path blocks release, not the already evidenced new-traffic cutover.</p>
+<h3>3 Logical requirements and quality controls</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement and PRD source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONB-R01</td>
+<td>Resolve legal subject, tenant, environment and exact capability before any mutation; PRD-SEI-101/222.</td>
+</tr>
+<tr>
+<td>ONB-R02</td>
+<td>Verify direct or per-client delegate authority for each action and recheck before activation; PRD-SEI-104/231.</td>
+</tr>
+<tr>
+<td>ONB-R03</td>
+<td>Maintain independent, evidenced readiness dimensions; conditional certificate need follows policy; PRD-SEI-101/226.</td>
+</tr>
+<tr>
+<td>ONB-R04</td>
+<td>Return partial portfolio results and isolate correction, cancellation and failure per client; PRD-SEI-104/107.</td>
+</tr>
+<tr>
+<td>ONB-R05</td>
+<td>Allow private configuration and tests while live route stays unchanged; PRD-SEI-222.</td>
+</tr>
+<tr>
+<td>ONB-R06</td>
+<td>Require observed external inbound readiness and explicit scope-specific authority before cutover; PRD-SEI-222.</td>
+</tr>
+<tr>
+<td>ONB-R07</td>
+<td>Serialise overlapping cutovers and freeze route origin for each invoice; PRD-SEI-222/202.</td>
+</tr>
+<tr>
+<td>ONB-R08</td>
+<td>Reconcile outcome-unknown external mutations before retry or success; PRD-SEI-107/222/225.</td>
+</tr>
+<tr>
+<td>ONB-R09</td>
+<td>Preserve historical actor, route and evidence; release previous dependencies separately; PRD-SEI-222/224.</td>
+</tr>
+<tr>
+<td>ONB-R10</td>
+<td>Audit intent, decision, mutation, observation, correction and override with actor, scope, time and source; PRD-SEI-225/226.</td>
+</tr>
+</tbody>
+</table>
+<p>Authorisation uses least privilege and delegation limited to the approved purpose; support override must be attributable and cannot bypass external-observation or legal-policy gates. Encrypt sensitive evidence, isolate tenant/entity/environment, redact diagnostics, and use reference-only credentials. Define service objectives after volumes, external propagation and recovery baselines are measured. Monitor age/count of pending, blocked, unknown and discrepant items, expiring grants/trust, stale entry points and failed cutovers; each alert has an operations owner.</p>
+<h2>Part 3 Logical Service Interactions and Data Inventory</h2>
+<p>This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.</p>
+<h3>Spain and reuse boundary in contracts</h3>
+<p>Reuse one work-item and readiness contract while resolving country rules through versioned policies and provider adapters. The Spain public-readiness result must remain separate from private-route activation. Another country needs its own identity, representation, certificate and receiving-address evidence; it cannot inherit Spain’s readiness or transition sequence.</p>
+<p>The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.</p>
+<h3>1 Interaction contracts</h3>
+<p>These are logical contracts, not approved endpoints or physical service allocations. Every command carries requestId, correlationId, actor, tenant, legalSubject, environment, action, scope, expectedVersion and inputDigest as applicable. An error includes stable category, affected scope, safe retry class and responsible action; never a credential.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Caller → logical owner</th>
+<th>Input / output and safety</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONB-INT-01</td>
+<td>Product → onboarding</td>
+<td>Open/get/cancel work item; idempotency key and digest; returns item/version and child outcomes; conflict on changed duplicate.</td>
+</tr>
+<tr>
+<td>ONB-INT-02</td>
+<td>Onboarding → identity/authority</td>
+<td>Resolve legal subject and scoped decision snapshot; returns grant evidence, validity and reason; fail closed on unknown.</td>
+</tr>
+<tr>
+<td>ONB-INT-03</td>
+<td>Onboarding → capability/trust</td>
+<td>Evaluate phase/operator/capability policy and conditional trust; returns READY, limited, action, not-required or undetermined plus evidence/recheck.</td>
+</tr>
+<tr>
+<td>ONB-INT-04</td>
+<td>Onboarding → external verification adapter</td>
+<td>Perform approved read/check or mutation only under a versioned contract; record operation ID, safety class, external reference and observed result.</td>
+</tr>
+<tr>
+<td>ONB-INT-05</td>
+<td>Onboarding → subscription/connection</td>
+<td>Store proposed commercial and technical context; returns independent states; cannot select active route.</td>
+</tr>
+<tr>
+<td>ONB-INT-06</td>
+<td>Onboarding → entry-point/provider adapter</td>
+<td>Publish or inspect supported entry point; intent and observed state remain distinct; unknown result invokes ONB-INT-08.</td>
+</tr>
+<tr>
+<td>ONB-INT-07</td>
+<td>Onboarding → route/exchange</td>
+<td>Compare-and-set cutover for exact direction/scope and effective boundary; route version returned and bound to new invoices.</td>
+</tr>
+<tr>
+<td>ONB-INT-08</td>
+<td>Operations/onboarding → adapter</td>
+<td>Query/reconcile original external operation; returns confirmed, absent-safe-to-retry or unresolved with evidence; no duplicate mutation.</td>
+</tr>
+<tr>
+<td>ONB-INT-09</td>
+<td>Onboarding → product/operations</td>
+<td>Emit state-changed/case-opened notification after durable commit; consumers deduplicate by eventId and version.</td>
+</tr>
+</tbody>
+</table>
+<p>Events are proposed ONBOARDING_ITEM_CHANGED, PUBLIC_READINESS_CHANGED, PRIVATE_READINESS_CHANGED, ROUTE_CUTOVER_OBSERVED and ONBOARDING_RECOVERY_OPENED. Delivery is at least once, so the same event may arrive again; consumers recognise repeats and read the authoritative work-item version. A notification is never the sole proof of an external side effect. External adapter capabilities (query, idempotency, publication, revocation, acknowledgement) are registered per provider and environment; unsupported operations become explicit manual gates.</p>
+<h3>2 Data inventory</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Record / owner</th>
+<th>Essential fields and handling</th>
+<th>Consumers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONB-D01</td>
+<td>Onboarding work item / onboarding</td>
+<td>Immutable request scope/digest; mutable state/version, phase, owner, deadline, child links, reason; restricted</td>
+<td>Product, operations</td>
+</tr>
+<tr>
+<td>ONB-D02</td>
+<td>Legal subject and authority snapshot / identity</td>
+<td>Tenant/entity key, verified identity reference, actor, mandate, action, scope, valid interval, evidence reference; versioned/restricted</td>
+<td>ONB-02, ONB-07</td>
+</tr>
+<tr>
+<td>ONB-D03</td>
+<td>Capability policy and readiness / policy/onboarding</td>
+<td>Policy version, phase, dimension, result, source, observedAt, validUntil, next action; append decision history</td>
+<td>ONB-03/04/06</td>
+</tr>
+<tr>
+<td>ONB-D04</td>
+<td>Trust reference / trust</td>
+<td>Purpose, material reference/version, readiness, next recheck; never key bytes</td>
+<td>ONB-03/06</td>
+</tr>
+<tr>
+<td>ONB-D05</td>
+<td>Subscription and connection / respective owner</td>
+<td>Operator, terms/entitlement, environment, transport/profile, independent state, credential reference</td>
+<td>ONB-05/06</td>
+</tr>
+<tr>
+<td>ONB-D06</td>
+<td>Entry-point intent/observation / operator adapter</td>
+<td>Direction/scope, intended value, external reference, observed value/source/time, safety class, operation ID</td>
+<td>ONB-06/08</td>
+</tr>
+<tr>
+<td>ONB-D07</td>
+<td>Route transition / route</td>
+<td>From/to route, expected version, effective boundary, approval, observed state, rollback case and outcome</td>
+<td>ONB-07/09</td>
+</tr>
+<tr>
+<td>ONB-D08</td>
+<td>Invoice origin / exchange/records</td>
+<td>Invoice ID, original operator/route/profile, route version, accepted time and external correlations; immutable</td>
+<td>ONB-07/09, offboarding</td>
+</tr>
+<tr>
+<td>ONB-D09</td>
+<td>Recovery/evidence case / operations</td>
+<td>Fault class, original operation, intended/observed state, owner, safe action, evidence with sensitive values removed and audit timeline</td>
+<td>ONB-08</td>
+</tr>
+</tbody>
+</table>
+<p>Retention and deletion periods are set by approved legal, privacy, contract and evidence policy per data class; none are inferred here. D02/D04/D05 references are access controlled. D08 remains available to explain later statuses and reports after route change. All records include tenant/entity/environment partition keys and audit attribution.</p>
+<h2>Part 4 Assurance and Traceability View</h2>
+<p>This part shows how requirements connect to activities, interfaces, data and acceptance checks. The scenarios describe evidence still needed; they are not a claim that implementation tests have passed.</p>
+<h3>1 Verification matrix</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Requirement → activities / contracts</th>
+<th>Evidence and expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONB-A01 Direct public readiness</td>
+<td>R01–03 → ONB-01–04 / INT-01–04, D01–04</td>
+<td>One entity/capability returns evidenced readiness or precise limitation; no private route changes.</td>
+</tr>
+<tr>
+<td>ONB-A02 Accountant partial portfolio</td>
+<td>R01–04 → ONB-01–04 / INT-01–03, D01–03</td>
+<td>One invalid client remains blocked; authorised clients continue; no shared grant or credential inference.</td>
+</tr>
+<tr>
+<td>ONB-A03 Corrected NIF or grant</td>
+<td>R01–03, R10 → ONB-02/03 / INT-02–04</td>
+<td>New evidence revision is checked; earlier decision and external operation remain auditable.</td>
+</tr>
+<tr>
+<td>ONB-A04 Configure private without activation</td>
+<td>R05 → ONB-05/06 / INT-05/06, D05–07</td>
+<td>Existing inbound/outbound routing is unchanged through tests and failure.</td>
+</tr>
+<tr>
+<td>ONB-A05 Scoped cutover</td>
+<td>R06/07/09 → ONB-06/07/09 / INT-06/07, D06–08</td>
+<td>Only authorised direction changes after evidenced boundary; earlier invoices retain origin.</td>
+</tr>
+<tr>
+<td>ONB-A06 Publication timeout</td>
+<td>R08/10 → ONB-08 / INT-08, D06/09</td>
+<td>Outcome unknown is visible; no second mutation until observed or manually resolved.</td>
+</tr>
+<tr>
+<td>ONB-A07 Overlapping transitions</td>
+<td>R07 → ONB-07 / INT-07, D07</td>
+<td>Only one transition passes the expected-version check. The other receives a conflict or waits in the queue; both cannot activate overlapping routes.</td>
+</tr>
+<tr>
+<td>ONB-A08 Rollback after live invoices</td>
+<td>R07–10 → ONB-08/09 / INT-07–09, D07–09</td>
+<td>Restoration has new evidence; invoices on each side keep actual route.</td>
+</tr>
+<tr>
+<td>ONB-A09 Country-bound onboarding reuse</td>
+<td>R01–03/06/10 → ONB-02/03/06, INT-02–04/06, D02/03/06</td>
+<td>The same workflow selects separate approved country policies. Spain identity and entry-point rules do not run for another country; missing local policy blocks readiness or activation. Existing Spain evidence remains unchanged.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Review and release gates</h3>
+<p><strong>Reviewable now:</strong> logical separation, lifecycle, failure model and proposed contracts. <strong>Public pilot gate:</strong> approved capability/representation and external API policy; authority and conditional trust policy; per-client isolation, cancellation and unknown-outcome drills. <strong>Private pilot gate:</strong> selected operator and provider capability matrix; verified entry-point mechanism/sequence; observed readiness and scoped route granularity; historical obligations decision table; rollback and concurrent-cutover drills. <strong>Production gate:</strong> approved legal/operator terms, threat review, conformance evidence, support runbooks and ownership, measured service objectives and monitoring, retention policy, and passed end-to-end pilot evidence.</p>
+<p>Open decisions in Part 1 must be recorded with owner, source, date and accepted outcome before their dependent paths are enabled. Where the official interface or legal actor is unknown, the product exposes a blocked/manual gate and does not assert that onboarding is complete.</p><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

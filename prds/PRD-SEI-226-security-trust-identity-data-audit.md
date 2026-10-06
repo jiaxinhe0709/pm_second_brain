@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-09-22
+updated: 2026-10-06
 reviewers: []
 related:
   - PRD-SEI-210
@@ -230,6 +230,11 @@ Define security and data requirements for identity, authority, trust material, s
 | BR15 | Historic signature is inspected after certificate expiry/rotation | Evaluate the preserved signing-time evidence and approved validation policy; do not decide from current certificate dates alone | ETSI preservation principle; retention profile open |
 
 ## Research and evidence register
+
+### Final public-order evidence
+
+Article 11 of the final order distinguishes authentication from representation. Third-party Article 9 recovery and Article 10 consultation, including web-service/automated access, require registered power of attorney. Check action and represented legal entity separately from certificate validity. The AEAT procedure/code, verification, revocation and accepted certificate contract remain implementation gates; do not infer these from SII or VERI*FACTU. See the [source snapshot and impact review](../research/spain-public-platform-order-evidence.md).
+
 
 | Source | Finding | Confidence/limitation | Security impact |
 |---|---|---|---|
@@ -590,7 +595,7 @@ At minimum distinguish: customer/legal-entity identity, user/authority evidence,
 | What expiry warning and rotation-overlap policies apply to each certificate class/protocol? | Prevents outage without inventing one universal threshold | Security/operations/provider owners | Operations readiness | Configure per class with named owner and tested lead time |
 | Which timestamp, OCSP/CRL/status, trust-list, signature level and preservation/augmentation evidence must be retained per route/profile? | Determines historic verification after expiry or algorithm change | Legal/security/local technical team | Retention and validation design | Retain a complete versioned validation package until approved profile says otherwise |
 | What happens to queued/in-flight invoices when a signing certificate rotates, expires or is revoked? | Prevents silent re-signing, duplicate attempts and unexplained representation change | Product/architecture/operations | Runtime design | Freeze trust version per attempt; restart only under explicit audited policy |
-| What public authentication/representation process will the ministerial order define? | Public trust boundary | Local technical team | External validation | Track official specification |
+| Which AEAT certificate and registered-authority procedures implement Article 11? | Public trust boundary | Local technical team | External validation | Track official specification |
 | What are controller/processor roles across Sage and partner? | Contract/privacy/control | Privacy/legal | Contract/pilot | Map per data flow/purpose |
 | Where may invoice/payment/evidence data be stored and processed? | Residency/subprocessor architecture | Privacy/security/legal | Design/contract | Approved locations only |
 | What retention/deletion periods apply by data class? | Storage, audit and exit | Legal/privacy | Production | Configurable until approved |

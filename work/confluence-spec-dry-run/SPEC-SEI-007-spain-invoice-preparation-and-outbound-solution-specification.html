@@ -1,0 +1,643 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Spain Invoice Preparation and Outbound Solution Specification</title><style>body{margin:0;font:15px/1.6 Arial,sans-serif;color:#172b4d;background:#f4f5f7}header{background:#0747a6;color:white;padding:18px 30px}header a{color:white}.notice{background:#fff0b3;padding:12px 24px;border-bottom:1px solid #ffe380}.shell{display:grid;grid-template-columns:270px minmax(0,1fr);gap:24px;max-width:1440px;margin:24px auto;padding:0 24px}aside{background:white;padding:20px;height:calc(100vh - 210px);overflow:auto;position:sticky;top:20px;font-size:13px}aside a{display:block;padding:4px 0;text-decoration:none}aside .sub{padding-left:10px;color:#42526e}main{min-width:0;background:white;padding:28px}h1{font-size:28px;line-height:1.3}h2{font-size:23px;border-bottom:1px solid #dfe1e6;padding-bottom:8px;margin-top:36px}h3{font-size:18px}a{color:#0052cc}table{border-collapse:collapse;width:100%;font-size:13px}th,td{border:1px solid #dfe1e6;padding:9px;vertical-align:top;text-align:left;overflow-wrap:anywhere}th{background:#f4f5f7}code{background:#f4f5f7;padding:1px 4px;overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere}img{width:100%;height:auto}figure{margin:20px 0;overflow:auto}figcaption,.muted{color:#5e6c84;font-size:12px}.generated-from-github{background:#e9f2ff;padding:12px 16px;font-size:12px}.generated-from-github p{margin:0}.history{border:1px dashed #97a0af;padding:14px;margin-top:30px;color:#5e6c84}@media(max-width:800px){.shell{display:block;padding:8px;margin:0}aside{position:static;height:auto;margin-bottom:12px}main{padding:16px}table{display:block;overflow:auto}}</style><header><a href="index.html">Spain solution specs</a> / Spain Invoice Preparation and Outbound Solution Specification</header><div class="notice">OFFLINE DRY RUN · Unpublished draft · Proposed parent: UBL 2.5 Invoice Submission (Send) · Layout simulation, not a live Confluence capture</div><div class="shell"><aside><strong>Contents</strong><a class="" href="#part-1-feature-solution-summary">Part 1 Feature Solution Summary</a><a class="sub" href="#reader-guide">Reader guide</a><a class="sub" href="#1-purpose-source-authority-and-scope">1 Purpose, source authority and scope</a><a class="sub" href="#spain-use-and-reuse-boundaries">Spain use and reuse boundaries</a><a class="sub" href="#plain-language-terms">Plain-language terms</a><a class="sub" href="#2-endpoints-and-outcomes">2 Endpoints and outcomes</a><a class="sub" href="#3-process-diagrams-and-text-equivalent">3 Process diagrams and text equivalent</a><a class="sub" href="#4-ordered-lifecycle">4 Ordered lifecycle</a><a class="sub" href="#5-material-open-decisions">5 Material open decisions</a><a class="" href="#part-2-logical-feature-specification">Part 2 Logical Feature Specification</a><a class="sub" href="#1-aggregate-model-and-invariants">1 Aggregate model and invariants</a><a class="sub" href="#2-detailed-behaviour">2 Detailed behaviour</a><a class="sub" href="#3-requirements-and-operational-controls">3 Requirements and operational controls</a><a class="" href="#part-3-logical-service-interactions-and-data-inventory">Part 3 Logical Service Interactions and Data Inventory</a><a class="sub" href="#spain-and-reuse-boundary-in-contracts">Spain and reuse boundary in contracts</a><a class="sub" href="#1-interaction-contracts">1 Interaction contracts</a><a class="sub" href="#2-data-inventory">2 Data inventory</a><a class="" href="#part-4-assurance-and-traceability-view">Part 4 Assurance and Traceability View</a><a class="" href="#confluence-page-history">Confluence page history</a></aside><main><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-007<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="SPEC-SEI-007-spain-invoice-preparation-and-outbound-solution-specification.html">021bcc7cadfccfe93d2388de4616efebe17558fb</a><br /><strong>Last updated:</strong> 2026-10-06</p></div><h1 id="spain-invoice-preparation-and-outbound-solution-specification">Spain Invoice Preparation and Outbound Solution Specification</h1>
+<h2 id="part-1-feature-solution-summary">Part 1 Feature Solution Summary</h2>
+<h3 id="reader-guide">Reader guide</h3>
+<p>Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. Part 2 gives the detailed behaviour and rules. Part 3 describes service interactions and data. Part 4 links requirements to the checks and evidence needed before release.</p>
+<p>The design remains a draft. <strong>Proposed</strong> choices still need review; <strong>open</strong> decisions still need an owner’s recorded answer. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.</p>
+<h3 id="1-purpose-source-authority-and-scope">1 Purpose, source authority and scope</h3>
+<p>This <strong>proposed logical design</strong> explains the Spain outbound invoice journey. The ERP submits a draft for checks, reviews the result and issues the invoice. Sage then checks the final issued data, confirms the recipient route, prepares the required files and sends them. Recipient delivery and any required public copy have separate results. The primary business-flow source is the review draft <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md">PRD-SEI-246</a> and its <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-invoice-preparation-and-outbound-flow.drawio">combined Draw.io diagram</a>. <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a> owns shared route, transformation, trust and leg principles; <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md">PRD-SEI-212</a> owns the public submission boundary. <a href="SPEC-SEI-005-ubl-validation-and-correction-solution-specification.html">SPEC-SEI-005</a> owns the UBL result and correction contract; <a href="SPEC-SEI-001-certificate-management-solution-specification.html">SPEC-SEI-001</a> owns protected trust-material use.</p>
+<p>This spec orchestrates those contracts for one issued outbound invoice.</p>
+<p>The diagram and PRD-SEI-246 are draft proposals. They do not approve external APIs, fields, format or profile versions, route update rules, who may sign, public-copy timing or legal correction procedures. These decisions remain open.</p>
+<p>The ERP owns invoice issuance. The Domain Service may prepare and check a draft, but it cannot issue the invoice or silently change the final business data. A successful draft check cannot authorise sending changed final data.</p>
+<h3 id="spain-use-and-reuse-boundaries">Spain use and reuse boundaries</h3>
+<p>This is a <strong>Spain reference design</strong>. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. <strong>Reusable unchanged</strong> means the design pattern can stay the same. <strong>Reusable with country binding</strong> means the shared behaviour needs approved local policies or adapters. <strong>Country-specific</strong> rules stay in the country pack. <strong>Unknown</strong> means implementation fitness or coverage still needs evidence.</p>
+<p>This follows the <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/prds/PRD-SEI-227-e-invoicing-as-a-service.md">shared platform and country-pack direction</a>. Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Intended use in Spain</th>
+<th>Reuse classification</th>
+<th>Condition and owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Invoice revisions, plans and independent results</td>
+<td>Keep ERP issuance separate from preparation; save final-file evidence and recover each external leg independently.</td>
+<td>Reusable unchanged</td>
+<td>Reuse versioned intent, audit and independent-leg safety patterns. ERP, exchange and lifecycle owners.</td>
+</tr>
+<tr>
+<td>Applicability, routing, transformation and trust</td>
+<td>Prepare the final issued invoice using the selected Spain route, approved format and signer/seal policy.</td>
+<td>Reusable with country binding</td>
+<td>Bind local applicability, directory evidence, profiles, mapping, trust and provider contracts. Assess DTS for transformation rather than assume native ERP support. Country, exchange and DTS owners.</td>
+</tr>
+<tr>
+<td>Spain recipient route and public copy</td>
+<td>Use the Spain private/public route decision and any separate faithful public-copy obligation described in this draft.</td>
+<td>Country-specific</td>
+<td>Proven absence, copy duty/timing and correction rules still need the named Spain evidence gates. Do not make this route/copy topology a default elsewhere. Spain Compliance and technical owner.</td>
+</tr>
+<tr>
+<td>Existing end-to-end outbound implementation</td>
+<td>Assess ERP-native functions, shared Sage services and provider-owned operations for the selected journey.</td>
+<td>Unknown</td>
+<td>This flow does not prove deployed end-to-end coverage. Record the actual execution owner, build, adapter and gaps for each step. Product, Architecture and service/provider owners.</td>
+</tr>
+</tbody>
+</table>
+<p>The existing DTS reuse direction comes from <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>. It identifies a preferred candidate; it does not certify a deployed build or Spain acceptance.</p>
+<h3 id="plain-language-terms">Plain-language terms</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legal entity / legal subject</td>
+<td>The business to which the invoice or action belongs. Technical fields use <code>legalSubject</code> for this business.</td>
+</tr>
+<tr>
+<td>Authority</td>
+<td>Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission.</td>
+</tr>
+<tr>
+<td>Capability</td>
+<td>A supported function, such as receiving invoices or signing them.</td>
+</tr>
+<tr>
+<td>Route</td>
+<td>The platform and connection used to send or receive an invoice.</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>A repeat of the same request has no additional effect. The contract must define how the system recognises that request.</td>
+</tr>
+<tr>
+<td>Reconciliation</td>
+<td>Check the original operation against a reliable source to establish what actually happened before deciding the next action.</td>
+</tr>
+<tr>
+<td>Gate</td>
+<td>A condition, decision or evidence check that must pass before the next step can proceed.</td>
+</tr>
+<tr>
+<td>Tenant</td>
+<td>The customer account boundary used to keep one customer’s data and access separate from another’s.</td>
+</tr>
+<tr>
+<td>Immutable / append-only</td>
+<td>A saved item cannot be changed; new information is added as a new record instead of overwriting earlier records.</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td>The record of where data came from and which versions, checks and changes produced the result.</td>
+</tr>
+<tr>
+<td>Contract</td>
+<td>The agreed inputs, outputs, behaviour and responsibilities between services or parties.</td>
+</tr>
+<tr>
+<td>Durable</td>
+<td>Saved so the record remains available after a service restart.</td>
+</tr>
+<tr>
+<td>ERP / Domain Service</td>
+<td>The business software that issues the invoice; and the Sage service that prepares, validates and coordinates its exchange.</td>
+</tr>
+<tr>
+<td>Preflight</td>
+<td>A draft check. It cannot replace checking the final issued invoice before sending.</td>
+</tr>
+<tr>
+<td>Leg / faithful public copy</td>
+<td>One separately tracked delivery or reporting operation; a copy for the public solution when the applicable policy requires it.</td>
+</tr>
+<tr>
+<td>Representation / hash</td>
+<td>A specific file or form of invoice data; its calculated content fingerprint.</td>
+</tr>
+<tr>
+<td>Entry point / evidence level</td>
+<td>The published receiving destination; and what a result actually proves, such as platform receipt rather than buyer acceptance.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-endpoints-and-outcomes">2 Endpoints and outcomes</h3>
+<table>
+<thead>
+<tr>
+<th>Outcome</th>
+<th>Observable result</th>
+<th>Must remain distinct from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Draft ready for ERP review</td>
+<td>Scoped preparation result, issues, route indication and possible generated draft representation</td>
+<td>Issued invoice</td>
+</tr>
+<tr>
+<td>Issued, dispatch blocked</td>
+<td>ERP-issued identity/revision retained with an actionable validation, route, trust or policy hold</td>
+<td>Automatic return to draft</td>
+</tr>
+<tr>
+<td>Planned for dispatch</td>
+<td>Immutable route/representation/trust/leg plan and durable send intent</td>
+<td>External transmission success</td>
+</tr>
+<tr>
+<td>Recipient leg known</td>
+<td>Accepted, rejected or completed outcome for each leg with evidence level</td>
+<td>Buyer acceptance or separate public-copy completion</td>
+</tr>
+<tr>
+<td>Public-copy leg known</td>
+<td>Separate faithful-copy result when required</td>
+<td>Recipient delivery</td>
+</tr>
+<tr>
+<td>Outcome unknown</td>
+<td>One original external leg is reconciled under its original route/correlation</td>
+<td>Permission to repeat all legs</td>
+</tr>
+<tr>
+<td>Customer view</td>
+<td>Separate preparation, issuance, submission, delivery, copy/reporting and later buyer states</td>
+<td>One global “sent” flag</td>
+</tr>
+</tbody>
+</table>
+<p>Actors are issuer/ERP; Domain Service preparation and exchange orchestration; legal-subject/authority and country policy; route/entry-point evidence owner; format/transformation, validation and trust services; private platform or public solution; operations; and product/lifecycle consumers. One legal entity, invoice and final revision are in scope per logical exchange; batch orchestration is outside this spec.</p>
+<h3 id="3-process-diagrams-and-text-equivalent">3 Process diagrams and text equivalent</h3>
+<p><strong>Primary Spain flow:</strong> </p>
+<figure><a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-invoice-preparation-and-outbound-flow.png"><img alt="spain-invoice-preparation-and-outbound-flow" src="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-invoice-preparation-and-outbound-flow.png"></a><figcaption>Draw.io viewer simulation. Open image to inspect at full size; the live page would use the Draw.io plugin.</figcaption></figure>
+<p><a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-invoice-preparation-and-outbound-flow.drawio">Editable Draw.io</a> · <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-invoice-preparation-and-outbound-flow.png">PNG preview</a>. The diagram's numbered nodes 01–15 correspond to OUT-01–OUT-15 below. Its public recipient route and resolved private route are alternatives; the faithful public copy is a separate conditional obligation. Observation arrows into the outcome ledger do not require a synchronous join.</p>
+<p>Text equivalent: OUT-01/02 submit complete draft data → OUT-03 applies authority and Spain policy, validates and makes an early route check → OUT-04 returns draft issues or ready result → ERP reviews and issues at OUT-05/06 → OUT-07 submits exact final issued data/revision → OUT-08 rechecks final data, authority, profile and trust → OUT-09 confirms current authoritative recipient lookup. A proven absence of a private receipt entry point selects the public recipient route; failed, stale or ambiguous lookup is held for recovery. OUT-10 freezes the exchange plan → OUT-11 creates the final representation, validates after transformation, obtains approved signature/seal if required and records send intent → OUT-12 executes recipient delivery and any separate required public-copy leg with independent identities → OUT-13 records raw results and reconciles only unknown legs → OUT-14/15 derive and show views that state what the evidence proves. An issued-invoice problem follows an approved correction process, never a silent loop back to draft.</p>
+<p><strong>Outbound exchange and exception detail:</strong> </p>
+<figure><a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/e-invoicing-outbound-exchange-pilot.png"><img alt="e-invoicing-outbound-exchange-pilot" src="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/e-invoicing-outbound-exchange-pilot.png"></a><figcaption>Draw.io viewer simulation. Open image to inspect at full size; the live page would use the Draw.io plugin.</figcaption></figure>
+<p><a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/e-invoicing-outbound-exchange-pilot.drawio">Editable Draw.io</a> · <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/e-invoicing-outbound-exchange-pilot.png">PNG preview</a>. This existing process makes validation correction, no-proven-route hold and outcome-unknown reconciliation explicit. It is a companion to the primary flow, not a second route policy.</p>
+<h3 id="4-ordered-lifecycle">4 Ordered lifecycle</h3>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Trigger and required result</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT-01 Create draft</td>
+<td>ERP holds complete business invoice data and source revision</td>
+<td>ERP</td>
+</tr>
+<tr>
+<td>OUT-02 Submit draft</td>
+<td>Authorised preparation request and input digest accepted idempotently</td>
+<td>ERP → Domain Service</td>
+</tr>
+<tr>
+<td>OUT-03 Prepare</td>
+<td>Entity, actor, policy, data, profile and early route indication evaluated</td>
+<td>Domain Service + policy</td>
+</tr>
+<tr>
+<td>OUT-04 Decide draft</td>
+<td>PASS/limitations/issues with correction owner returned; no issuance/send</td>
+<td>Validation → ERP</td>
+</tr>
+<tr>
+<td>OUT-05 Review</td>
+<td>ERP user reviews preparation and business content</td>
+<td>ERP/customer</td>
+</tr>
+<tr>
+<td>OUT-06 Issue</td>
+<td>ERP assigns issued identity and freezes business revision</td>
+<td>ERP</td>
+</tr>
+<tr>
+<td>OUT-07 Submit final</td>
+<td>Exact issued data, identity and revision bound to one dispatch intent</td>
+<td>ERP → Domain Service</td>
+</tr>
+<tr>
+<td>OUT-08 Final checks</td>
+<td>Current authority, final data/representation, policy and trust checked</td>
+<td>Exchange + validation/trust</td>
+</tr>
+<tr>
+<td>OUT-09 Lookup</td>
+<td>Current authoritative recipient evidence classifies private, proven-none/public or unresolved</td>
+<td>Route service</td>
+</tr>
+<tr>
+<td>OUT-10 Plan</td>
+<td>Immutable route, representation, trust mode and independent legs recorded</td>
+<td>Exchange</td>
+</tr>
+<tr>
+<td>OUT-11 Prepare/send intent</td>
+<td>Final bytes validated, trust applied if required, durable operation created</td>
+<td>Exchange/transform/trust</td>
+</tr>
+<tr>
+<td>OUT-12 Execute legs</td>
+<td>Recipient delivery and conditional copy have separate identities for operations that change external state</td>
+<td>Adapter/operator</td>
+</tr>
+<tr>
+<td>OUT-13 Record outcomes</td>
+<td>Each leg's raw/normalised result, unknown state and reconciliation evidence retained</td>
+<td>Exchange/operations</td>
+</tr>
+<tr>
+<td>OUT-14 Derive views</td>
+<td>Evidence-qualified technical, delivery, copy and later lifecycle statuses calculated</td>
+<td>Lifecycle service</td>
+</tr>
+<tr>
+<td>OUT-15 Show result</td>
+<td>ERP sees known/unknown outcomes, freshness, next action and ownership</td>
+<td>Product</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-material-open-decisions">5 Material open decisions</h3>
+<table>
+<thead>
+<tr>
+<th>Decision / design impact</th>
+<th>Owner and gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Complete draft and final-data contract, issued identity, revision binding and invalidation of preflight</td>
+<td>ERP Product + Domain Service; design/pilot</td>
+</tr>
+<tr>
+<td>Draft artefact and human-readable rendering ownership</td>
+<td>ERP Product + Architecture; design</td>
+</tr>
+<tr>
+<td>Whether early lookup failure blocks ERP issuance; final route must always block dispatch when unresolved</td>
+<td>Product/Compliance; design</td>
+</tr>
+<tr>
+<td>Legal/ERP process for correcting an already issued invoice</td>
+<td>Spain Legal/Tax + ERP Product; pilot</td>
+</tr>
+<tr>
+<td>Authoritative recipient entry-point source, freshness, eligibility, bridging and observed “none” semantics</td>
+<td>Local technical/regulatory owner + provider; route pilot</td>
+</tr>
+<tr>
+<td>Public-copy obligation, representation, timing and outcome vocabulary</td>
+<td>Spain Compliance/technical owner; external conformance</td>
+</tr>
+<tr>
+<td>Signature/seal actor, trust profile and provider handoff</td>
+<td>Legal/Security/Business Identity; trust gate</td>
+</tr>
+<tr>
+<td>External idempotency, query and acknowledgement semantics per leg</td>
+<td>Provider/public owner + Operations; integration</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-2-logical-feature-specification">Part 2 Logical Feature Specification</h2>
+<p>This part explains the proposed behaviour step by step. An invariant is a rule that must always hold, including during failures and recovery.</p>
+<h3 id="1-aggregate-model-and-invariants">1 Aggregate model and invariants</h3>
+<p>The proposed aggregate key is (tenant, legalSubject, environment, businessInvoiceId, issuedRevision). Preparation work is keyed separately by draftRevision. A final submission includes a stable idempotency key and fingerprint of the input in its agreed standard form; the same key/digest returns the existing exchange, while the same key with changed data conflicts. Every external leg has its own operation ID, idempotency scope and result. No endpoint or exact message schema is approved by this draft.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Rule that must always hold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT-I01</td>
+<td>Draft preparation, ERP issuance, final validation, external admission, recipient delivery, public-copy completion and buyer acceptance are independent facts.</td>
+</tr>
+<tr>
+<td>OUT-I02</td>
+<td>The ERP is the system of record for the issued business invoice. The service cannot change issued content or identity without a new authorised ERP revision/correction process.</td>
+</tr>
+<tr>
+<td>OUT-I03</td>
+<td>Early lookup is guidance; final dispatch uses fresh authoritative route evidence. A failed or stale lookup is not proof of no private entry point.</td>
+</tr>
+<tr>
+<td>OUT-I04</td>
+<td>A proven absence of a private entry point selects the Spain public recipient route under the effective policy; an observed private point still requires operational eligibility.</td>
+</tr>
+<tr>
+<td>OUT-I05</td>
+<td>Exchange plan freezes route, profile, representation, trust actor/policy and required legs before the first external invoice mutation.</td>
+</tr>
+<tr>
+<td>OUT-I06</td>
+<td>Transform and validate final target bytes before applicable signature/seal; no workload/transport certificate can substitute for invoice-signing authority.</td>
+</tr>
+<tr>
+<td>OUT-I07</td>
+<td>Recipient delivery and faithful public copy have independent attempts and outcomes. One leg's failure cannot repeat or erase another completed leg.</td>
+</tr>
+<tr>
+<td>OUT-I08</td>
+<td>Unknown mutation remains leg-specific and reconciles against original route, payload hash and operation identity before retry.</td>
+</tr>
+<tr>
+<td>OUT-I09</td>
+<td>Every representation and result retains source, hash, profile, mapping/trust version and external evidence; later route changes cannot rewrite original context.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-detailed-behaviour">2 Detailed behaviour</h3>
+<p><strong>OUT-01/02 Draft intake.</strong> The ERP submits complete invoice facts: issuer and recipient, type, dates, lines, quantities/prices, tax, totals, payment and applicable references/attachments, plus tenant/entity, actor, environment, source invoice/draft revision and request identity. The exact field contract is an open design item. A durable request record stores input reference/hash and authority context. The service rejects cross-tenant or unsupported cohort/capability before preparation. Duplicate request identity with same digest returns its existing result; changed digest conflicts. Intake is neither invoice issuance nor external transmission.</p>
+<p><strong>OUT-03/04 Prepare and decide draft.</strong> Resolve legal subject and action-specific authority independently of login or certificate possession. Country policy evaluates applicability, selected document type, required delivery/copy duties, activated profile and supported representation path. Apply <a href="SPEC-SEI-005-ubl-validation-and-correction-solution-specification.html">UBL validation/correction</a> when UBL is selected; other syntax profiles require their own activated packs. An early recipient lookup may report private, proven no-private/public, or unknown; its source/time and limitations are displayed.</p>
+<p>It is not frozen as the final route. Return precise blocking issues, owner and next action. A corrected draft creates a new revision; the prior result remains. Any generated electronic file is a distinct derived artefact, not a silently edited ERP source. No external invoice mutation occurs.</p>
+<p><strong>OUT-05/06 ERP review and issuance.</strong> The ERP decides whether and when to issue and records the final business invoice identity, issue time and revision under its own legal/product controls. A preparation PASS cannot issue on behalf of the ERP. The Domain Service does not infer that a changed draft or final invoice is still valid. Issued content is frozen for exchange; later content correction follows the approved legal/ERP process, potentially a new invoice or credit note, not automatic reversion to draft.</p>
+<p>Cancellation before issuance closes safe preparation work; cancellation after issuance cannot erase the issued record.</p>
+<p><strong>OUT-07 Final-data intake.</strong> ERP sends exact issued facts or approved immutable representation reference, issued identity/revision, issuer authority, route intent and idempotency identity. The service verifies that source revision, issued identity and hash are internally consistent and that no conflicting final submission already owns this invoice/revision. Persist final intent and operation identity before possible external mutation. Same final identity/hash resumes the existing exchange; changed bytes or issuer identity under the same key conflict and require an authorised correction/revision decision.</p>
+<p><strong>OUT-08 Final checks.</strong> Re-evaluate effective applicability, legal subject, actor/delegate authority, product entitlement, invoice identity and current profile. The exact final representation is generated or accepted, then validated under versioned syntax, semantic, country/route and attachment rules. A draft result cannot substitute for this gate. The selected signer/seal creator and represented principal, protected material, purpose and policy are resolved through <a href="SPEC-SEI-001-certificate-management-solution-specification.html">certificate management</a>.</p>
+<p>Invalid or unknown policy/trust blocks the affected operation. Issues in issued content return an issued-invoice resolution state with owner; the service must not amend the invoice.</p>
+<p><strong>OUT-09 Recipient lookup.</strong> Use the reliable entry-point source for the exact recipient, environment, document and process capability, direction and effective time. Save the source, observed value, observation time, freshness and rule version.</p>
+<p>PRIVATE_READY means a private destination is published and its route is eligible under the confirmed interconnection or bridge rule. PROVEN_NONE means the lookup succeeded and confirmed that no private receiving entry point exists. Spain policy then selects the public recipient route.</p>
+<p>FAILED, STALE, AMBIGUOUS and UNSUPPORTED leave the route unresolved and block dispatch. Check again or obtain approved manual evidence. A timeout cannot select the public route by default. If the route changes after planning but before an external change, report a version conflict and create a new plan. Legs already sent keep their original route.</p>
+<p><strong>OUT-10 Freeze exchange plan.</strong> Record business invoice/revision/hash, issuer/recipient, selected delivery route and authoritative evidence, exact delivery and public-copy representations/profiles, required leg set, trust mode/actor/policy/material references, mapping versions, source policy and effective time. Each leg specifies destination, purpose, operation/idempotency ID and dependency. The public recipient route and private recipient route are alternatives; a separate faithful public copy exists only when policy requires it.</p>
+<p>An unproven eligibility or format/signature combination cannot produce READY_TO_SEND. The plan is immutable; correction or material route/profile change creates a new plan version before mutation, with prior versions retained.</p>
+<p><strong>OUT-11 Final representation and send intent.</strong> Use an approved mapping only when evidence shows that it preserves the required business meaning. Validate each final target representation after transformation. Obtain protected signature/seal on the exact required bytes under the frozen trust plan; a signing timeout reconciles the original protected operation before a new attempt. Store signed/final bytes/hash, validation/trust evidence, external payload reference and durable send intent.</p>
+<p>The provider adapter receives only references and authorised protocol inputs; private keys do not enter invoice events or logs. A preparation or trust failure leaves all external legs unsubmitted.</p>
+<p><strong>OUT-12 Execute independent obligations.</strong> For each ready leg, adapter executes recipient delivery (private/direct or public) and any distinct required faithful public-copy leg using that leg's stable operation ID. Persist an attempt with payload hash, target, adapter/contract version and correlation before transmission, or use an approved recoverable external-first design. A public bridge or copy cannot be inferred simply from a private delivery result.</p>
+<p>One leg may finish while another remains pending, rejected or unknown. Provider acknowledgement is recorded at its actual evidence level; no customer claim of recipient retrieval, buyer acceptance or public-copy completion is derived solely from transport success.</p>
+<p><strong>OUT-13 Reconcile and retain outcomes.</strong> For each leg, add the raw provider or public-platform response, external references and normalised technical state to the record. A definite validation rejection returns a safe issue; correction follows the rules for an issued invoice. Temporary failures before any external change can retry under the versioned policy.</p>
+<p>A timeout after a possible external change produces OUTCOME_UNKNOWN for that leg only. Check the original external state using the same route and correlation before repeating it. Record proven success once. Retry after proven absence only if the contract permits it. An unresolved result opens an operations case.</p>
+<p>Do not repeat successful recipient delivery because the public-copy result is uncertain. If external success occurs but local saving fails, rebuild the ledger from the saved intent and reliable external observation.</p>
+<p><strong>OUT-14/15 Derive and present status.</strong> <a href="SPEC-SEI-009-invoice-lifecycle-status-solution-specification.html">SPEC-SEI-009</a> owns the source-preserving lifecycle event and derived-view contract after exchange handoff. Show separate states for draft preparation, issuance, planning, each leg’s submission or acknowledgement, delivery, public copy or reporting, and later buyer actions. Each leg can be submitted, acknowledged, rejected or unknown.</p>
+<p>Include the evidence source, time and freshness, affected leg, safe next action and owner. A status event may arrive later or out of order. Link it to the original invoice and leg; do not infer success without evidence. Limit product and support views to the permitted tenant and business, and remove confidential provider content.</p>
+<p>Keep the original sent bytes, route, profile and trust versions, and evidence for each leg under the approved retention policy.</p>
+<h3 id="3-requirements-and-operational-controls">3 Requirements and operational controls</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement / source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT-R01</td>
+<td>Accept complete draft data and return preparation issues without issuing or sending; PRD-SEI-246.</td>
+</tr>
+<tr>
+<td>OUT-R02</td>
+<td>Preserve ERP ownership of issuance and bind exact final issued identity/revision; PRD-SEI-246.</td>
+</tr>
+<tr>
+<td>OUT-R03</td>
+<td>Revalidate final representation and current authority/profile before mutation; PRD-SEI-241/246.</td>
+</tr>
+<tr>
+<td>OUT-R04</td>
+<td>Resolve route from authoritative fresh evidence; distinguish proven-none/public from failed lookup; PRD-SEI-223/246.</td>
+</tr>
+<tr>
+<td>OUT-R05</td>
+<td>Freeze immutable route, representation, trust and legs in an exchange plan; PRD-SEI-223 FR1–3.</td>
+</tr>
+<tr>
+<td>OUT-R06</td>
+<td>Transform without losing material business meaning and validate before approved signature/seal; FR7–9/31–34.</td>
+</tr>
+<tr>
+<td>OUT-R07</td>
+<td>Execute every leg with independent idempotency, correlation and outcome; FR12–16.</td>
+</tr>
+<tr>
+<td>OUT-R08</td>
+<td>Reconcile uncertain external effects on the original leg before retry; FR22–23.</td>
+</tr>
+<tr>
+<td>OUT-R09</td>
+<td>Preserve original/derived/sent representations and raw evidence, then derive qualified views; FR25–26/30.</td>
+</tr>
+<tr>
+<td>OUT-R10</td>
+<td>Keep public recipient delivery, public copy, technical acknowledgement and buyer lifecycle distinct; PRD-SEI-212/223/246.</td>
+</tr>
+</tbody>
+</table>
+<p>Authorisation, tenant/legal-entity and TEST/production isolation apply at draft, final, plan and adapter gates. Restrict invoice payloads and authority evidence; no secrets, private keys or full tax identifiers in logs or errors safe to show to the customer. Enforce compare-and-set or equivalent lock on final invoice/revision and each leg to prevent concurrent duplicate dispatch. Monitor preparation failures, stale/failing route lookup, final-check mismatches, plan conflicts, backlog and time spent in an unknown state for each leg, copy lag, signature failures and evidence gaps.</p>
+<p>Quantitative objectives and retention are design gates based on approved volumes, law/contract and pilot baselines.</p>
+<h2 id="part-3-logical-service-interactions-and-data-inventory">Part 3 Logical Service Interactions and Data Inventory</h2>
+<p>This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.</p>
+<h3 id="spain-and-reuse-boundary-in-contracts">Spain and reuse boundary in contracts</h3>
+<p>Keep the issued-invoice, exchange-plan and per-leg outcome models shared. Country policy must select delivery and reporting obligations; Spain’s public recipient default and faithful-copy leg must not be hard-coded as universal rules. Record whether each operation is ERP-native, shared-service or provider-owned. DTS is a preferred transformation candidate subject to qualification, while ERP issuance and external dispatch remain separate responsibilities.</p>
+<p>The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.</p>
+<h3 id="1-interaction-contracts">1 Interaction contracts</h3>
+<p>These are logical operations, not approved endpoints. Commands use requestId, tenant/legalSubject/environment, actor/authority reference, businessInvoiceId, revision, inputDigest, idempotencyKey and expectedVersion where applicable. Every response distinguishes business result, operation safety and evidence level.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Caller → logical owner</th>
+<th>Input / output and failure contract</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT-INT-01</td>
+<td>ERP → preparation</td>
+<td>Submit/get/cancel draft revision; returns preparation case, stable issues and early route indication; no external invoice mutation.</td>
+</tr>
+<tr>
+<td>OUT-INT-02</td>
+<td>Preparation → identity/country policy</td>
+<td>Resolve legal subject, actor authority, applicability, required delivery/copy duties and activated capability; unknown blocks.</td>
+</tr>
+<tr>
+<td>OUT-INT-03</td>
+<td>Preparation/exchange → validation/format</td>
+<td>Validate source/candidate/final target bytes under exact activated pack; returns layered result and immutable evidence.</td>
+</tr>
+<tr>
+<td>OUT-INT-04</td>
+<td>ERP → exchange</td>
+<td>Submit exact final issued data/revision and identity; duplicate-safe, changed digest conflicts; returns exchange ID/state.</td>
+</tr>
+<tr>
+<td>OUT-INT-05</td>
+<td>Exchange → recipient discovery</td>
+<td>Query authoritative entry point and operational eligibility; returns observed private, proven-none/public or unresolved with source/freshness.</td>
+</tr>
+<tr>
+<td>OUT-INT-06</td>
+<td>Exchange → route/plan store</td>
+<td>Compare-and-set immutable plan/version with route, representations, trust mode and leg set; rejects stale route/policy.</td>
+</tr>
+<tr>
+<td>OUT-INT-07</td>
+<td>Exchange → transform/trust</td>
+<td>Produce final representation with comparison of business meaning; validate then sign/seal under protected operation; returns exact bytes/hash/evidence or hold.</td>
+</tr>
+<tr>
+<td>OUT-INT-08</td>
+<td>Exchange → external adapter</td>
+<td>Submit one specified leg with stable operation ID/hash/route; returns definitive response or outcome unknown; no cross-leg replay.</td>
+</tr>
+<tr>
+<td>OUT-INT-09</td>
+<td>Operations/exchange → adapter</td>
+<td>Reconcile original leg by correlation/external reference; returns observed state/evidence or unresolved.</td>
+</tr>
+<tr>
+<td>OUT-INT-10</td>
+<td>Exchange → lifecycle/product</td>
+<td>Publish committed leg/result changes at least once; consumer deduplicates by eventId/version and reads authoritative ledger.</td>
+</tr>
+</tbody>
+</table>
+<p>Proposed events are OUTBOUND_PREPARATION_CHANGED, OUTBOUND_PLAN_FROZEN, OUTBOUND_LEG_STATE_CHANGED, OUTBOUND_RECONCILIATION_REQUIRED and OUTBOUND_VIEW_CHANGED. They contain IDs, scope, state, versions and safe evidence references, not invoice XML or secrets. An event cannot prove external completion without the corresponding ledger observation.</p>
+<h3 id="2-data-inventory">2 Data inventory</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Record / owner</th>
+<th>Essential fields, handling and consumers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT-D01</td>
+<td>Draft preparation / ERP + preparation</td>
+<td>Source draft ID/revision, complete-data reference/hash, actor/entity, policy/check results, early route source/time; restricted/versioned; OUT-01–05.</td>
+</tr>
+<tr>
+<td>OUT-D02</td>
+<td>Issued invoice snapshot / ERP</td>
+<td>Business identity, final revision/hash, issue time, issuer authority and correction lineage; immutable issued revision; OUT-06–15.</td>
+</tr>
+<tr>
+<td>OUT-D03</td>
+<td>Validation/profile result / validation</td>
+<td>Exact input/target hash, rule/profile versions, issues, status and evidence; append-only; OUT-03/04/08/11.</td>
+</tr>
+<tr>
+<td>OUT-D04</td>
+<td>Recipient route observation / discovery</td>
+<td>Qualified recipient, lookup source/value/time/freshness, private eligibility, proven-none or unresolved reason; versioned; OUT-03/09/10.</td>
+</tr>
+<tr>
+<td>OUT-D05</td>
+<td>Exchange plan / exchange</td>
+<td>Invoice/revision, selected route, representations, mapping/trust policy, leg set, authoriser, effective version; immutable; OUT-10–15.</td>
+</tr>
+<tr>
+<td>OUT-D06</td>
+<td>Representation set / transform/trust</td>
+<td>Source, canonical, delivery, public-copy and rendering refs/hashes, profiles, mapper, semantic/trust evidence; sensitive/immutable; OUT-08/11/15.</td>
+</tr>
+<tr>
+<td>OUT-D07</td>
+<td>Leg attempt/ledger / exchange</td>
+<td>Leg type, destination, payload hash, operation/idempotency ID, adapter/contract version, attempts, raw/normalised result, external ref; append-only; OUT-12–15.</td>
+</tr>
+<tr>
+<td>OUT-D08</td>
+<td>Reconciliation case / operations</td>
+<td>Original leg, intended/observed state, last query, owner, unsafe actions, deadline and manual approval; restricted; OUT-13.</td>
+</tr>
+<tr>
+<td>OUT-D09</td>
+<td>Product/lifecycle projection / lifecycle</td>
+<td>Separate derived preparation, issuance, delivery, copy/reporting and buyer dimensions with evidence freshness/next action; rebuildable; OUT-14/15.</td>
+</tr>
+<tr>
+<td>OUT-D10</td>
+<td>Audit/retention policy reference / records</td>
+<td>Actor, action, scope, time, policy version, evidence location and retention/hold class; restricted; all activities.</td>
+</tr>
+</tbody>
+</table>
+<p>D02 is ERP-owned; D05/D07 are exchange-owned; D03 and trust evidence are owned by their specialist services. A plan references immutable records rather than copying credentials. Exact retention, archival and data-disposition periods are not asserted here; Legal/Privacy/Records approve them by data class.</p>
+<h2 id="part-4-assurance-and-traceability-view">Part 4 Assurance and Traceability View</h2>
+<p>This part shows how requirements connect to activities, interfaces, data and acceptance checks. The scenarios describe evidence still needed; they are not a claim that implementation tests have passed.</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Requirement → activities / interactions / data</th>
+<th>Evidence and expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT-A01 Invalid draft</td>
+<td>R01 → OUT-01–04, INT-01–03, D01/D03</td>
+<td>Customer-correctable issues; no ERP issuance or external invoice transmission by this flow.</td>
+</tr>
+<tr>
+<td>OUT-A02 Final differs from preview</td>
+<td>R02/03 → OUT-06–08, INT-04/03, D01–03</td>
+<td>Exact final revision rechecked; stale preview cannot authorise dispatch.</td>
+</tr>
+<tr>
+<td>OUT-A03 Private route eligible</td>
+<td>R04–07 → OUT-09–12, INT-05–08, D04–07</td>
+<td>Private delivery selected from observed readiness; copy leg only if required; plan frozen before mutation.</td>
+</tr>
+<tr>
+<td>OUT-A04 Proven no private entry point</td>
+<td>R04/10 → OUT-09/10/12, INT-05/06/08, D04–07</td>
+<td>Successful authoritative absence selects Spain public recipient delivery with source/time.</td>
+</tr>
+<tr>
+<td>OUT-A05 Lookup timeout or stale result</td>
+<td>R04 → OUT-09, INT-05, D04</td>
+<td>Route unresolved and dispatch held; no public fallback by inference.</td>
+</tr>
+<tr>
+<td>OUT-A06 Mapping or trust failure</td>
+<td>R03/06 → OUT-08/11, INT-03/07, D03/D06</td>
+<td>No external leg; exact failed representation/policy preserved with owner.</td>
+</tr>
+<tr>
+<td>OUT-A07 Direct success, copy unknown</td>
+<td>R07/08/10 → OUT-12–15, INT-08–10, D07–09</td>
+<td>Delivery success retained; only copy leg reconciles; no repeat delivery.</td>
+</tr>
+<tr>
+<td>OUT-A08 Lost response after mutation</td>
+<td>R08/09 → OUT-12/13, INT-08/09, D07/D08</td>
+<td>Original leg queried; no resend or success claim before checking the original outcome.</td>
+</tr>
+<tr>
+<td>OUT-A09 Issued-content correction</td>
+<td>R02/03 → OUT-06–08, INT-04, D02/D03</td>
+<td>Issued original retained; ERP/Legal correction path named, no automatic draft rollback.</td>
+</tr>
+<tr>
+<td>OUT-A10 Ack versus buyer status</td>
+<td>R09/10 → OUT-13–15, INT-10, D07/D09</td>
+<td>Views that state what the evidence proves keep admission, recipient and buyer states separate.</td>
+</tr>
+<tr>
+<td>OUT-A11 Country-bound routes and leg plans</td>
+<td>R03–07/09/10 → OUT-08–12/14, INT-02/03/05–08/10, D03–07/09</td>
+<td>Spain policy selects the evidenced recipient route and required copy legs. Another country uses its own approved plan without inheriting Spain public fallback or copy duties. Execution owners and reused transformation evidence are recorded; a country-policy change leaves earlier plans unchanged.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Review gate:</strong> validate PRD-SEI-246's six open decisions, complete draft/final contracts, route source, representation ownership, trust model and vocabulary for each leg’s outcome. <strong>Pilot gate:</strong> test preflight/final mismatch, issued correction, private route, proven-none public default, failed lookup, conditional copy, loss of business meaning, signature failure, duplicate final request, partial leg result and unknown mutation against selected providers. <strong>Production gate:</strong> approved Spanish profiles/public interfaces and operator terms, conformance evidence, security/retention review, operations runbooks, measured service objectives and end-to-end pilot results. The existing Draw.io is the process basis; this draft does not convert it into an approved external API design.</p><h2 id="confluence-page-history">Confluence page history</h2><div class="history">Native Confluence Change History macro — populated only after publication.</div></main></div></html>

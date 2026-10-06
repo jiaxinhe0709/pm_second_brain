@@ -1,0 +1,1062 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Spain UBL Mapper Migration to DTS Solution Specification</title><style>body{margin:0;font:15px/1.6 Arial,sans-serif;color:#172b4d;background:#f4f5f7}header{background:#0747a6;color:white;padding:18px 30px}header a{color:white}.notice{background:#fff0b3;padding:12px 24px;border-bottom:1px solid #ffe380}.shell{display:grid;grid-template-columns:270px minmax(0,1fr);gap:24px;max-width:1440px;margin:24px auto;padding:0 24px}aside{background:white;padding:20px;height:calc(100vh - 210px);overflow:auto;position:sticky;top:20px;font-size:13px}aside a{display:block;padding:4px 0;text-decoration:none}aside .sub{padding-left:10px;color:#42526e}main{min-width:0;background:white;padding:28px}h1{font-size:28px;line-height:1.3}h2{font-size:23px;border-bottom:1px solid #dfe1e6;padding-bottom:8px;margin-top:36px}h3{font-size:18px}a{color:#0052cc}table{border-collapse:collapse;width:100%;font-size:13px}th,td{border:1px solid #dfe1e6;padding:9px;vertical-align:top;text-align:left;overflow-wrap:anywhere}th{background:#f4f5f7}code{background:#f4f5f7;padding:1px 4px;overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere}img{width:100%;height:auto}figure{margin:20px 0;overflow:auto}figcaption,.muted{color:#5e6c84;font-size:12px}.generated-from-github{background:#e9f2ff;padding:12px 16px;font-size:12px}.generated-from-github p{margin:0}.history{border:1px dashed #97a0af;padding:14px;margin-top:30px;color:#5e6c84}@media(max-width:800px){.shell{display:block;padding:8px;margin:0}aside{position:static;height:auto;margin-bottom:12px}main{padding:16px}table{display:block;overflow:auto}}</style><header><a href="index.html">Spain solution specs</a> / Spain UBL Mapper Migration to DTS Solution Specification</header><div class="notice">OFFLINE DRY RUN · Unpublished draft · Proposed parent: Spain UBL Mapper Migration to DTS · Layout simulation, not a live Confluence capture</div><div class="shell"><aside><strong>Contents</strong><a class="" href="#part-1-feature-solution-summary">Part 1 Feature Solution Summary</a><a class="sub" href="#reader-guide">Reader guide</a><a class="sub" href="#1-purpose-and-reading-route">1 Purpose and reading route</a><a class="sub" href="#spain-use-and-reuse-boundaries">Spain use and reuse boundaries</a><a class="sub" href="#plain-language-terms">Plain-language terms</a><a class="sub" href="#2-evidence-and-authority">2 Evidence and authority</a><a class="sub" href="#3-scope-terms-and-outcomes">3 Scope, terms and outcomes</a><a class="sub" href="#4-process-diagrams-and-lifecycle">4 Process diagrams and lifecycle</a><a class="sub" href="#5-architecture-delta-and-ownership">5 Architecture delta and ownership</a><a class="" href="#part-2-logical-feature-specification">Part 2 Logical Feature Specification</a><a class="sub" href="#1-proposed-invariants-and-contract-separation">1 Proposed invariants and contract separation</a><a class="sub" href="#2-runtime-lifecycle">2 Runtime lifecycle</a><a class="sub" href="#3-migration-and-release-lifecycle">3 Migration and release lifecycle</a><a class="sub" href="#4-requirements-quality-and-operations">4 Requirements, quality and operations</a><a class="" href="#part-3-logical-service-interactions-and-data-inventory">Part 3 Logical Service Interactions and Data Inventory</a><a class="sub" href="#spain-and-reuse-boundary-in-contracts">Spain and reuse boundary in contracts</a><a class="sub" href="#1-contract-shape-and-version-boundaries">1 Contract shape and version boundaries</a><a class="sub" href="#2-interactions">2 Interactions</a><a class="sub" href="#3-events-and-completion">3 Events and completion</a><a class="sub" href="#4-data-inventory">4 Data inventory</a><a class="" href="#part-4-assurance-and-traceability-view">Part 4 Assurance and Traceability View</a><a class="sub" href="#1-acceptance-and-evidence-matrix">1 Acceptance and evidence matrix</a><a class="sub" href="#2-open-decisions-and-gates">2 Open decisions and gates</a><a class="sub" href="#3-readiness-and-release-evidence">3 Readiness and release evidence</a><a class="" href="#confluence-page-history">Confluence page history</a></aside><main><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-008<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.html">021bcc7cadfccfe93d2388de4616efebe17558fb</a><br /><strong>Last updated:</strong> 2026-10-06</p></div><h1 id="spain-ubl-mapper-migration-to-dts-solution-specification">Spain UBL Mapper Migration to DTS Solution Specification</h1>
+<h2 id="part-1-feature-solution-summary">Part 1 Feature Solution Summary</h2>
+<h3 id="reader-guide">Reader guide</h3>
+<p>Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. Part 2 gives the detailed behaviour and rules. Part 3 describes service interactions and data. Part 4 links requirements to the checks and evidence needed before release.</p>
+<p>The design remains a draft. <strong>Proposed</strong> choices still need review; <strong>open</strong> decisions still need an owner’s recorded answer. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.</p>
+<h3 id="1-purpose-and-reading-route">1 Purpose and reading route</h3>
+<p>The aim is to move the existing Spain UBL 2.5 mapper into DTS ownership and make its invoice-generation function available through DTS. Existing consumers should move without unintended changes to invoice meaning or their integration behaviour.</p>
+<p>This is a <strong>reviewable logical proposal</strong> based on the supplied feature plan and DTS technical documentation. Implementation and production activation still require approval.</p>
+<p>The feature plan reports that the Spain team developed a Java mapper outside the shared DTS library, following the DTS API specification. The supplied DTS documentation describes an asynchronous AWS service with C# API handlers, UBL 2.1 processing and a gateway contract restricted to Factur-X/ZUGFeRD outputs. Following the DTS API specification does not prove that the current gateway can offer the Spain mapper without changes.</p>
+<p>The migration must cover how the mapper runs, the accepted input, the consumer contract, XML retrieval, completion reporting, ownership and consumer migration.</p>
+<p>Read Part 1 for the scope, handoffs and decisions; <a href="#part-2-logical-feature-specification">Part 2</a> for runtime and migration behaviour; <a href="#part-3-logical-service-interactions-and-data-inventory">Part 3</a> for contracts and records; and <a href="#part-4-assurance-and-traceability-view">Part 4</a> for acceptance and release gates. <code>UM-*</code> identifiers belong to this migration; <code>UV-*</code> identifiers remain owned by <a href="SPEC-SEI-005-ubl-validation-and-correction-solution-specification.html">SPEC-SEI-005</a>.</p>
+<h3 id="spain-use-and-reuse-boundaries">Spain use and reuse boundaries</h3>
+<p>This is a <strong>Spain reference design</strong>. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. <strong>Reusable unchanged</strong> means the design pattern can stay the same. <strong>Reusable with country binding</strong> means the shared behaviour needs approved local policies or adapters. <strong>Country-specific</strong> rules stay in the country pack. <strong>Unknown</strong> means implementation fitness or coverage still needs evidence.</p>
+<p>This follows the <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/prds/PRD-SEI-227-e-invoicing-as-a-service.md">shared platform and country-pack direction</a>. Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Intended use in Spain</th>
+<th>Reuse classification</th>
+<th>Condition and owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operation identity, evidence and migration control</td>
+<td>Keep fixed versions, one final result, comparison evidence and controlled consumer cutover.</td>
+<td>Reusable unchanged</td>
+<td>Reuse these design patterns, subject to the task, worker and recovery checks in this spec. DTS and consumer owners.</td>
+</tr>
+<tr>
+<td>Existing DTS platform and common UBL code</td>
+<td>Prefer DTS ownership, processing and common transformation resources where they meet the selected Spain contract.</td>
+<td>Reusable with country binding</td>
+<td>Confirm the deployed build; qualify source/XML contracts, runtime, completion, capacity and Spain rules. UM-Q01–Q07; DTS and Spain technical owner.</td>
+</tr>
+<tr>
+<td>Spain mapper and UBL/profile rules</td>
+<td>Move the reported Spain Java mapper into DTS ownership and qualify its selected UBL 2.5 mapping.</td>
+<td>Country-specific</td>
+<td>Shared ownership does not make Spain mapping rules valid for another country. Keep mappings and packs separate; each route needs activation evidence. Spain mapping owner and DTS.</td>
+</tr>
+<tr>
+<td>Exact integration and future-country coverage</td>
+<td>Establish the real mapper source contract, reusable functions and remaining implementation gaps.</td>
+<td>Unknown</td>
+<td>Code/deployment were not inspected for this spec. Other countries and general conversion pairs remain outside scope; contribution guidance is only a stretch deliverable. DTS Architecture and Product.</td>
+</tr>
+</tbody>
+</table>
+<p>The existing DTS reuse direction comes from <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>. It identifies a preferred candidate; it does not certify a deployed build or Spain acceptance.</p>
+<h3 id="plain-language-terms">Plain-language terms</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legal entity / legal subject</td>
+<td>The business to which the invoice or action belongs. Technical fields use <code>legalSubject</code> for this business.</td>
+</tr>
+<tr>
+<td>Authority</td>
+<td>Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission.</td>
+</tr>
+<tr>
+<td>Capability</td>
+<td>A supported function, such as receiving invoices or signing them.</td>
+</tr>
+<tr>
+<td>Route</td>
+<td>The platform and connection used to send or receive an invoice.</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>A repeat of the same request has no additional effect. The contract must define how the system recognises that request.</td>
+</tr>
+<tr>
+<td>Reconciliation</td>
+<td>Check the original operation against a reliable source to establish what actually happened before deciding the next action.</td>
+</tr>
+<tr>
+<td>Gate</td>
+<td>A condition, decision or evidence check that must pass before the next step can proceed.</td>
+</tr>
+<tr>
+<td>Tenant</td>
+<td>The customer account boundary used to keep one customer’s data and access separate from another’s.</td>
+</tr>
+<tr>
+<td>Immutable / append-only</td>
+<td>A saved item cannot be changed; new information is added as a new record instead of overwriting earlier records.</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td>The record of where data came from and which versions, checks and changes produced the result.</td>
+</tr>
+<tr>
+<td>Contract</td>
+<td>The agreed inputs, outputs, behaviour and responsibilities between services or parties.</td>
+</tr>
+<tr>
+<td>Durable</td>
+<td>Saved so the record remains available after a service restart.</td>
+</tr>
+<tr>
+<td>DTS / UBL / XML</td>
+<td>Document Transformation Service; Universal Business Language; and the structured file format used for the generated UBL invoice.</td>
+</tr>
+<tr>
+<td>Asynchronous processing</td>
+<td>The service accepts work first and completes it later. The consumer then checks or receives the result.</td>
+</tr>
+<tr>
+<td>Parity / semantic preservation</td>
+<td>The required old and new behaviour matches; and conversion keeps the required business meaning.</td>
+</tr>
+<tr>
+<td>Cohort / shadow comparison</td>
+<td>A defined group of consumers migrated together; comparing outputs without sending a second invoice downstream.</td>
+</tr>
+<tr>
+<td>Pinned version / cutover</td>
+<td>A version fixed for one operation; the agreed point when new work moves to the new capability.</td>
+</tr>
+<tr>
+<td>SQS / DLQ / redrive</td>
+<td>Amazon Simple Queue Service; a dead-letter queue holding messages that could not be processed; and controlled replay of those messages.</td>
+</tr>
+<tr>
+<td>NAS / JWT / IAM</td>
+<td>The authorisation service named NAS in the supplied documents; JSON Web Token; and identity and access management. The exact NAS protocol is still open.</td>
+</tr>
+<tr>
+<td>CDK / MIME type / CII</td>
+<td>Cloud Development Kit for deployment; a label identifying a file format; and Cross Industry Invoice, another structured invoice format.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-evidence-and-authority">2 Evidence and authority</h3>
+<p><strong>Confirmed</strong> means explicitly stated by the cited source, within that source's evidence limits. <strong>Proposed</strong> means a design or control recommended here. <strong>Open</strong> requires a named owner to establish the contract or record a decision. <strong>Out of scope</strong> means responsibility belongs elsewhere. The undated internal extracts were supplied by the user; the DTS source code, legacy mapper and deployed environments were not inspected.</p>
+<p>Technical-documentation claims below are a documented baseline to verify, not a live deployment certification. Repeated architecture and glossary attachments represent one source each.</p>
+<table>
+<thead>
+<tr>
+<th>Evidence ID</th>
+<th>Source</th>
+<th>What it establishes / limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UM-S01</td>
+<td><a href="https://confluence.sage.com/spaces/DNBU/pages/899154457/Spain+UBL+v2.5+Mapper+Migration+to+DTS+Transformation+Library">Spain UBL 2.5 mapper migration feature plan</a></td>
+<td>Reports existing external Java mapper; FR1–FR7, NFR1–NFR5, consumer continuity and DTS ownership are the requested outcomes. Exact source schema, build and consumer inventory are absent.</td>
+</tr>
+<tr>
+<td>UM-S02</td>
+<td><a href="https://upgraded-bassoon-9mo15j6.pages.github.io/system-overview/">DTS overview</a></td>
+<td>Async transformation/validation, temporary artifacts, NAS authorization and bounded invoice-document responsibility. No UBL 2.5 generation capability is evidenced.</td>
+</tr>
+<tr>
+<td>UM-S03</td>
+<td><a href="https://upgraded-bassoon-9mo15j6.pages.github.io/architecture/">DTS architecture</a></td>
+<td>Gateway routes, AWS/CDK components, C# handlers, packaged UBL 2.1 resources, exactly two attachments and Factur-X/ZUGFeRD gateway outputs. Java Factur-X project role is unknown; it is not evidence that the Spain mapper is integrated.</td>
+</tr>
+<tr>
+<td>UM-S04</td>
+<td><a href="https://upgraded-bassoon-9mo15j6.pages.github.io/domain-model/">DTS domain model</a></td>
+<td>Separate Task and Transformation; <code>OwnerId</code>, <code>DatasetId</code>, attachments, result path and <code>PENDING</code> → <code>SUCCEEDED</code>/<code>ERROR</code>. Initial task-state name and failure-to-task mapping are unresolved.</td>
+</tr>
+<tr>
+<td>UM-S05</td>
+<td><a href="https://upgraded-bassoon-9mo15j6.pages.github.io/events/">DTS events</a></td>
+<td>Intake SQS message, stream-derived <code>transformation.pending</code>/<code>transformation.completed</code>, format routing and two application-dependent notification paths. Delivery deduplication and full event schemas are unknown.</td>
+</tr>
+<tr>
+<td>UM-S06</td>
+<td><a href="https://upgraded-bassoon-9mo15j6.pages.github.io/integrations/">DTS integrations</a></td>
+<td>Required headers, <code>202</code>, polling <code>200</code>/<code>303</code>, PDF result assumptions, NAS checks and API/gateway drift. No established atomic SQS/task write or complete idempotency semantics.</td>
+</tr>
+<tr>
+<td>UM-S07</td>
+<td><a href="https://upgraded-bassoon-9mo15j6.pages.github.io/glossary/">DTS glossary</a></td>
+<td>Identifier and ownership distinctions; names <code>@Sage/sfds-team-orange</code> as DTS repository owner. Named migration approvers/on-call owners still need confirmation.</td>
+</tr>
+<tr>
+<td>UM-S08</td>
+<td><a href="https://upgraded-bassoon-9mo15j6.pages.github.io/known-limitations/">DTS known limitations</a></td>
+<td>Explicitly notes incomplete evidence and unavailable direct code inspection. Unknowns must not be presented as confirmed defects.</td>
+</tr>
+<tr>
+<td>UM-S09</td>
+<td><a href="https://upgraded-bassoon-9mo15j6.pages.github.io/operational-notes/">DTS operational notes</a></td>
+<td>Upload → submit → poll → download; operational gaps for retries, expiry, runbooks, environments and capacity.</td>
+</tr>
+<tr>
+<td>UM-S10</td>
+<td><a href="https://docs.oasis-open.org/ubl/os-UBL-2.5/UBL-2.5.html">OASIS UBL 2.5 Standard</a></td>
+<td>Official syntax specification and schema artifacts; checked 6 October 2026. Establishes the standard, not acceptance by a Spanish route or receiver.</td>
+</tr>
+<tr>
+<td>UM-S11</td>
+<td><a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>, <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/prds/PRD-SEI-236-ubl-format-profile.md">PRD-SEI-236</a>, <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/prds/PRD-SEI-241-ubl-validation-service.md">PRD-SEI-241</a></td>
+<td>Canonical routing/reuse, activated format profiles and validation requirements. DTS reuse requires qualification, jurisdiction isolation and preservation of business meaning.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>How the source requirements fit together:</strong> UM-S01 selects UBL 2.5 as the migration target. PRD-SEI-236 requires evidence before production use for any country or route. Build and test the versioned UBL 2.5 capability first, then enable each downstream use only after its acceptance checks pass. Schema validation alone does not establish Spain compliance. Approved UBL 2.1 paths remain separate.</p>
+<h3 id="3-scope-terms-and-outcomes">3 Scope, terms and outcomes</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning in this feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mapper</td>
+<td>Code that converts source invoice data into UBL using the required country-specific mapping rules. The exact accepted source data is still open.</td>
+</tr>
+<tr>
+<td>DTS library</td>
+<td>Shared transformation code and resources maintained centrally. How it is packaged and run is still open. The library is separate from the service interface used by consumers.</td>
+</tr>
+<tr>
+<td>Transformation</td>
+<td>A DTS operation that finishes after submission. It has a stable <code>TransformationId</code> and a final result recorded by DTS.</td>
+</tr>
+<tr>
+<td>Task</td>
+<td>A separate reference that the consumer uses to check progress. It points to a transformation and is currently documented as derived from SQS <code>MessageId</code>.</td>
+</tr>
+<tr>
+<td>Capability bundle</td>
+<td>A proposed fixed set of versions: input contract, document type, mapper, UBL syntax, country/profile rules and output contract.</td>
+</tr>
+<tr>
+<td>Compatibility cohort</td>
+<td>A proposed group of consumers moved together under an agreed contract and activation decision.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>In scope:</strong> legacy behaviour inventory; DTS-managed mapper integration; explicit UBL 2.5 generation and qualified validation; compatible consumer access; temporary XML output retrieval; support for multiple versions at the same time; staged migration, reconciliation and rollback; DTS support/release ownership; reusable shared code with isolated Spain rules. A contribution process for later regions is a stretch deliverable, not permission to activate another country.</p>
+<p><strong>Out of scope:</strong> creating the business invoice in the ERP; invoice signing/sealing; sending to a public platform/access point; recipient acknowledgements; legal correction after issuance; permanent invoice archival; a new general-purpose conversion service; automatic retirement of the legacy service; implementing other countries or all format pairs. Invoice/CreditNote and extensions are enabled only where the mapper inventory and profile gate establish support.</p>
+<table>
+<thead>
+<tr>
+<th>Outcome</th>
+<th>Consumer/support meaning</th>
+<th>Owning boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Generated</td>
+<td>One committed transformation result identifies exact UBL bytes, generation/validation evidence and temporary retrieval access</td>
+<td>DTS; consumer owns durable capture</td>
+</tr>
+<tr>
+<td>Rejected before acceptance</td>
+<td>Invalid, unauthorized or unsupported request; no new accepted transformation</td>
+<td>DTS API / NAS policy</td>
+</tr>
+<tr>
+<td>Failed after acceptance</td>
+<td>Transformation <code>ERROR</code>, safe issue category and next action; no successful result</td>
+<td>DTS, or consumer for correctable source data</td>
+</tr>
+<tr>
+<td>Pending or acceptance uncertain</td>
+<td>Existing operation is processing, or acceptance must be reconciled; no new key or mapper fallback merely because of a timeout</td>
+<td>DTS operations + consumer</td>
+</tr>
+<tr>
+<td>Rolled back for new work</td>
+<td>New submissions use the explicitly qualified earlier capability; existing operations and historical results retain their pinned versions</td>
+<td>DTS release owner + consumer owner</td>
+</tr>
+</tbody>
+</table>
+<p>Generation success is distinct from final dispatch validation, external acceptance and archival. <a href="SPEC-SEI-005-ubl-validation-and-correction-solution-specification.html">SPEC-SEI-005</a> owns preflight/correction and final byte-bound validation; this spec supplies a qualified generation operation for its UV-03/UV-INT-03 handoff.</p>
+<h3 id="4-process-diagrams-and-lifecycle">4 Process diagrams and lifecycle</h3>
+<p><strong>Generation, retrieval and recovery</strong></p>
+<figure><a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-ubl-dts-generation-process.png"><img alt="spain-ubl-dts-generation-process" src="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-ubl-dts-generation-process.png"></a><figcaption>Draw.io viewer simulation. Open image to inspect at full size; the live page would use the Draw.io plugin.</figcaption></figure>
+<p><a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-ubl-dts-generation-process.drawio">Editable Draw.io</a> · <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-ubl-dts-generation-process.png">PNG</a>.</p>
+<p>Text equivalent: UM-01 captures an immutable source revision → UM-02 authenticates, authorizes and checks the agreed contract → UM-03 binds a stable operation to a capability and durably dispatches work → UM-04 generates distinct XML → UM-05 checks applicable rules and preservation of business meaning → UM-06 commits one terminal outcome → UM-07 exposes authorized task/result access → UM-08 hands exact bytes and provenance to consumer-owned storage/downstream processing. UM-09 reconciles uncertain acceptance or technical failure; correctable input creates a new UM-01 revision. Unsupported contracts are rejected; missing rules, loss of business meaning or invalid output prevent successful generation. No external invoice send occurs.</p>
+<p><strong>Mapper qualification, consumer cutover and rollback</strong></p>
+<figure><a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-ubl-dts-migration-process.png"><img alt="spain-ubl-dts-migration-process" src="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-ubl-dts-migration-process.png"></a><figcaption>Draw.io viewer simulation. Open image to inspect at full size; the live page would use the Draw.io plugin.</figcaption></figure>
+<p><a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-ubl-dts-migration-process.drawio">Editable Draw.io</a> · <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-ubl-dts-migration-process.png">PNG</a>.</p>
+<p>Text equivalent: UM-10 inventories the legacy mapper and consumers → UM-11 selects and integrates the runtime/library boundary → UM-12 qualifies contracts, mapping parity, existing workloads and recovery → UM-13 runs comparison without downstream invoice submission, then switches an approved consumer cohort → UM-14 monitors and either expands or stops new admissions and rolls back new work after reconciling in-flight operations → UM-15 closes the ownership handover; legacy retirement requires a separate decision. Failed qualification returns to UM-11, rather than enabling a partially compatible mapper.</p>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Trigger and required result</th>
+<th>Primary owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UM-01 Capture source</td>
+<td>Consumer has a supported source revision; protected immutable input/reference and hash available</td>
+<td>Consumer / source attachment owner</td>
+</tr>
+<tr>
+<td>UM-02 Admit request</td>
+<td>Authenticated submission; authorized supported request or explicit rejection</td>
+<td>DTS API + NAS</td>
+</tr>
+<tr>
+<td>UM-03 Bind and dispatch</td>
+<td>Admitted request; operation/task correlation and pinned capability recoverably recorded</td>
+<td>DTS orchestration</td>
+</tr>
+<tr>
+<td>UM-04 Generate XML</td>
+<td>Repeat-safe worker claims work; versioned mapper produces distinct staged UBL candidate</td>
+<td>DTS mapper worker</td>
+</tr>
+<tr>
+<td>UM-05 Qualify candidate</td>
+<td>Candidate exists; applicable validation and comparison of business meaning recorded</td>
+<td>DTS validation + country rule owner</td>
+</tr>
+<tr>
+<td>UM-06 Commit outcome</td>
+<td>Validated output or classified fault; one authoritative terminal outcome</td>
+<td>DTS orchestration/status owner</td>
+</tr>
+<tr>
+<td>UM-07 Expose outcome</td>
+<td>Authorized poll/read; correct success/error and temporary access semantics</td>
+<td>DTS API</td>
+</tr>
+<tr>
+<td>UM-08 Transfer custody</td>
+<td>Consumer obtains success; exact XML/provenance captured by durable records owner</td>
+<td>Consumer / downstream Domain Services</td>
+</tr>
+<tr>
+<td>UM-09 Recover operation</td>
+<td>Timeout, duplicate, DLQ, expiry or partial commit; safe action with original identity</td>
+<td>DTS operations + consumer</td>
+</tr>
+<tr>
+<td>UM-10 Inventory baseline</td>
+<td>Migration starts; source contract, mapper build, consumers and evidence identified</td>
+<td>Spain mapper owner + DTS</td>
+</tr>
+<tr>
+<td>UM-11 Integrate capability</td>
+<td>Architecture gate passed; DTS-owned package/worker, contracts and resources are deployable together</td>
+<td>DTS engineering</td>
+</tr>
+<tr>
+<td>UM-12 Qualify release</td>
+<td>Candidate build available; parity, isolation, performance and recovery gates met</td>
+<td>DTS QA + Spain technical owner</td>
+</tr>
+<tr>
+<td>UM-13 Switch cohort</td>
+<td>Qualified build and consumer readiness; explicit new-work routing version committed</td>
+<td>DTS release + consumer owner</td>
+</tr>
+<tr>
+<td>UM-14 Observe or roll back</td>
+<td>Pilot metrics/incident; expand, hold or safely restore new-work routing</td>
+<td>DTS operations/release</td>
+</tr>
+<tr>
+<td>UM-15 Complete handover</td>
+<td>Cohorts stable; DTS maintenance/support accepted and legacy disposition recorded</td>
+<td>DTS Product/Engineering + Spain owner</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-architecture-delta-and-ownership">5 Architecture delta and ownership</h3>
+<p>All target changes below are <strong>proposed</strong>. Verify the documented baseline against code/CDK and a deployed contract before implementation.</p>
+<table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Supplied baseline</th>
+<th>Required migration treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td>Upload accepts PDF/XML; transformation gateway requires exactly two attachments</td>
+<td>Establish the legacy source schema. For single-source generation, add a distinct qualified contract without fake second attachments. JSON facts would require an explicit new input/adapter contract; existing upload acceptance does not establish JSON support.</td>
+</tr>
+<tr>
+<td>Format selection</td>
+<td>Packaged UBL 2.1 resources; gateway outputs only <code>FacturX</code>/<code>ZUGFeRD</code></td>
+<td>Add an explicit Spain/UBL 2.5 capability and supported source→target pair; do not replace a generic UBL alias or default globally.</td>
+</tr>
+<tr>
+<td>Runtime</td>
+<td>C# handlers; Java Factur-X project has an unknown role</td>
+<td>Keep the API/orchestration boundary independent of mapper runtime. Decide managed Java package/worker versus port only after build, dependency, performance and parity evidence.</td>
+</tr>
+<tr>
+<td>Work routing</td>
+<td>SQS intake → persisted <code>PENDING</code> → stream pipe → event rules and format queues</td>
+<td>Add a UBL generation selection and completion path. Keep existing <code>ubl-2.1/xml</code> and hybrid workflows unchanged; prove rule exclusivity.</td>
+</tr>
+<tr>
+<td>Result</td>
+<td>Documented retrieval uses <code>DTS_{transformationId}.pdf</code></td>
+<td>Generalize internal result metadata to XML MIME type, object reference/hash and safe filename while preserving old PDF responses for existing callers. Exact field shape is open.</td>
+</tr>
+<tr>
+<td>Completion</td>
+<td><code>facturx/</code> object event drives status updater; terminal events branch on <code>applicationId</code></td>
+<td>Do not put XML under a Factur-X prefix merely to trigger completion. Define a UBL success/error commit path; preserve legacy notification routing and agree absent/empty application behaviour.</td>
+</tr>
+<tr>
+<td>API artifacts</td>
+<td>OpenAPI/gateway media-type and upload <code>200</code>/<code>201</code> drift</td>
+<td>Reconcile code, OpenAPI, gateway models, response handlers and consumer examples for the new capability; prove legacy contract compatibility.</td>
+</tr>
+<tr>
+<td>Persistence</td>
+<td>Tasks, transformations, idempotency and staged objects</td>
+<td>Add pinned capability/provenance and repeat-safe completion; retain task/transform distinction and reconcile enqueue/write gaps.</td>
+</tr>
+<tr>
+<td>Release</td>
+<td>AWS CDK and Azure DevOps; promotion policy unknown</td>
+<td>Package mapper, schemas/rules, handler/model/routing changes and backward-compatible readers as one qualified release set. Deploy capability disabled until gates pass.</td>
+</tr>
+</tbody>
+</table>
+<p>DTS becomes accountable for the mapper implementation, bug fixes, dependency maintenance, releases and transformation support under FR3; the Spain technical/country owner remains accountable for mapping meaning and country-rule approval. Consumer teams own integration changes and archival. NAS owns authorization policy. Architecture/Security own runtime and isolation approval. Named accountable people and on-call arrangements are open under UM-Q08; repository ownership alone does not complete the handover.</p>
+<h2 id="part-2-logical-feature-specification">Part 2 Logical Feature Specification</h2>
+<p>This part explains the proposed behaviour step by step. An invariant is a rule that must always hold, including during failures and recovery.</p>
+<h3 id="1-proposed-invariants-and-contract-separation">1 Proposed invariants and contract separation</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Rule that must always hold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UM-I01</td>
+<td>Source revision, generated XML and later signed/sent representation are distinct; no migration rewrites historical invoice bytes.</td>
+</tr>
+<tr>
+<td>UM-I02</td>
+<td>Each accepted operation pins input, mapper, syntax, profile/rules and output-contract versions before worker execution; retries cannot pick a newer default.</td>
+</tr>
+<tr>
+<td>UM-I03</td>
+<td><code>202</code> is acceptance, task <code>COMPLETED</code> is polling completion, and transformation <code>SUCCEEDED</code> is generation success. None proves downstream acceptance.</td>
+</tr>
+<tr>
+<td>UM-I04</td>
+<td>UBL 2.5 generation and each route's production activation are separate decisions; UBL 2.1 capability remains separately addressable.</td>
+</tr>
+<tr>
+<td>UM-I05</td>
+<td>A duplicate logical request cannot produce a second authoritative result; same idempotency identity with different content/context conflicts. API deduplication alone is insufficient for worker safety.</td>
+</tr>
+<tr>
+<td>UM-I06</td>
+<td>Missing resources, mandatory loss of business meaning or incomplete validation cannot result in <code>SUCCEEDED</code>. Exact original input and fault provenance remain inspectable under retention policy.</td>
+</tr>
+<tr>
+<td>UM-I07</td>
+<td>Cohort cutover and rollback apply to new work; in-flight operations retain their original operation and capability identity.</td>
+</tr>
+<tr>
+<td>UM-I08</td>
+<td>Country-specific mappings/rules cannot leak into another country or alter unrelated conversion pairs. No automatic UBL 2.5→2.1 downgrade is permitted.</td>
+</tr>
+<tr>
+<td>UM-I09</td>
+<td>Task/result/source access is scoped to the authorized owner, dataset and environment; identifiers or a successful JWT check alone are insufficient.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-runtime-lifecycle">2 Runtime lifecycle</h3>
+<p>The following paragraphs define <strong>proposed required behaviour</strong>. They extend documented DTS concepts without inventing deployed enum values, endpoints, retry counts or service-level commitments.</p>
+<p><strong>UM-01 Capture source.</strong> Trigger: an authorized consumer requests generation for an identified source revision. Preconditions: UM-10 has established the accepted source contract and document types. Preserve the source bytes, or a versioned facts snapshot if that mode is explicitly approved, with digest and protected immutable reference. Preserve source invoice/revision, declared input contract and intended capability; resolve attachment ownership before read.</p>
+<p>Upload success creates source availability, not a transformation. An incomplete/expired upload is a consumer-owned transfer fault; acquire authorized access again and verify the original digest. Never supply arbitrary URLs for a worker to fetch. Unsupported document types/extensions are rejected explicitly, not dropped or guessed.</p>
+<p><strong>UM-02 Admit request.</strong> Trigger: consumer submits through the agreed DTS or compatibility-adapter interface. Authenticate using the established identity boundary, validate dataset/resource context, and obtain the applicable NAS authorization. Proposed behaviour for NAS timeout is no acceptance without an established authorized decision; the existing whitelist must be reviewed, not expanded to simplify migration. Validate source references, supported format pair, number of attachments, input schema, document type and capability activation.</p>
+<p>Check header/body/media-type behaviour at the gateway and handler. Return a safe rejection for malformed, unauthorized or unsupported input, distinct from an accepted async failure. Do not force a single-source mapper into the two-attachment hybrid contract by creating dummy files.</p>
+<p><strong>UM-03 Bind and dispatch.</strong> Trigger: the request passes admission checks. The idempotency scope includes the authorised caller or owner, dataset, environment and operation type. Link the key to a fingerprint covering the fixed source references and content, target and profile selection, and fields that affect behaviour.</p>
+<p>The same identity and fingerprint return the existing operation and task, or an explicit acceptance-pending response that can be recovered. Changed input returns a conflict. Select and save the fixed capability bundle before queueing work so delayed jobs cannot silently use a newer mapper. Keep the links between the request, idempotency identity, <code>TransformationId</code>, <code>TaskId</code>, SQS delivery and trace.</p>
+<p>The documented sequence sends to the queue before writing the task. It does not establish that both actions succeed together. Under UM-Q06, implement an acceptance journal or another design that can repair partial completion. After a partial write or response timeout, the operation must still be discoverable using its original identity. Detect accepted tasks with missing links and assign an owner; do not leave them unresolved indefinitely.</p>
+<p><strong>UM-04 Generate XML.</strong> Trigger: the designated worker receives persisted <code>PENDING</code> work for the exact supported pair. Preconditions: authorized immutable source, pinned bundle and all dependencies present. Recheck the record and claim execution using a conditional version/lease or equivalent repeat-safe mechanism. Duplicate deliveries return/reconcile the recorded outcome; concurrent workers cannot both commit results. The DTS-owned mapper reads the supported source, applies the isolated Spain mapping and stages a distinct UBL 2.5 candidate.</p>
+<p>Record mapper/package/resource digests and source/candidate relationship. Runtime/configuration failure is a DTS technical fault; missing consumer facts are a correctable input fault. Do not load schema locations from invoice-controlled URLs or silently transform through UBL 2.1. Expired execution claims require controlled takeover that prevents a stale worker committing after a newer execution.</p>
+<p><strong>UM-05 Qualify candidate.</strong> Trigger: staged candidate is available. Validate file/XML safety, actual generated document type and declared target context, UBL schema and each activated country/profile rule set. Record per-layer pass, block, undetermined or not-evaluated as applicable; missing required rule resources block success. Compare source and result meaning using the agreed mapping inventory: party identifiers, invoice identity/type/references, dates/currency, line quantities/prices, allowances/charges, taxes/rounding/totals, payment data and required extensions where supported.</p>
+<p>Comparison is against approved mapping semantics, not only against legacy output. Preserve separate exact-byte hashes even when an approved comparison of business meaning ignores formatting. Do not approve undocumented differences as “normalization.” Return stable issue categories with field/rule location, safe consumer guidance, fault owner and resource versions aligned to SPEC-SEI-005. Generation validation does not replace its final validation of later dispatch bytes.</p>
+<p><strong>UM-06 Commit outcome.</strong> Trigger: UM-05 produces a complete qualified result or UM-04/05 classifies a non-recoverable attempt. For success, verify the staged XML is readable and matches its recorded hash; conditionally commit <code>SUCCEEDED</code> with result reference/MIME type, immutable provenance and validation evidence. For failure, commit <code>ERROR</code> and safe issues without a downloadable successful result. Worker retries before terminal commit reconcile staged objects and record versions; a stale execution cannot change a newer terminal record.</p>
+<p>Define the UBL-specific status/task completion path explicitly; the <code>facturx/</code> S3 rule is insufficient. Update task visibility recoverably and drive completion publication from authoritative state. Notification failure cannot erase a committed success or strand a completed operation. Temporary candidate cleanup and queue acknowledgement must follow the recoverable commit boundary, not precede it.</p>
+<p><strong>UM-07 Expose outcome.</strong> Trigger: authorized consumer polls the task or reads transformation metadata. Preserve documented <code>200</code> while task is not <code>COMPLETED</code>, and <code>303</code> pointing to the transformation resource after completion, for interfaces using that contract. The new capability must expose terminal <code>ERROR</code> through an agreed task/result contract so clients do not poll forever; existing failure behaviour remains unverified. A successful result supplies metadata and temporary authorized XML download access without exposing bucket credentials or making the XML a PDF by filename.</p>
+<p>A refreshed URL must reference the same artifact and digest, subject to authorization and retention. A processing deadline, polling guidance and expiry/error responses require UM-Q07; expiry must be distinguishable from generation failure. Clients must not equate absence of a notification with absence of a result.</p>
+<p><strong>UM-08 Transfer custody.</strong> Trigger: the consumer obtains a <code>SUCCEEDED</code> result. Download the exact file, verify the agreed checksum and source/version evidence, and save it in the approved records system before temporary storage expires.</p>
+<p>Record the file identity, owner and downstream reference as handoff evidence. Issuing a URL does not prove that DTS or the consumer has stored the invoice permanently. Downstream Domain Services use the accepted input and profile contract and apply their own final trust and dispatch checks.</p>
+<p>A download can be repeated safely; a download timeout must not cause generation to run again. If the consumer cannot archive the result, it owns retry or escalation while authorised access remains available. Missing staged bytes are a DTS operations problem. The service must not silently regenerate the file under newer rules.</p>
+<p><strong>UM-09 Recover operation.</strong> Trigger: timeout, split acceptance, duplicate delivery, expired URL, DLQ, resource outage or inconsistent task/result. Consumer retries unknown submission only with the same request identity and digest; DTS looks up/reconciles the original acceptance and repairs missing task/transformation links before authorizing any new operation. A lost SQS send acknowledgement may conceal a delivered message; never infer absence from a single failed lookup.</p>
+<p>Technical processing can resume from preserved input under the pinned bundle after safe replay checks. Operations verifies outcome, staged hash, claim/version and notification history before DLQ redrive; redrive does not reset identifiers or emit a second authoritative success. Terminal failures may create an explicitly linked new attempt after repair, using a new key only once the original terminal outcome is established.</p>
+<p>Customer correction creates a new source revision and new linked operation. Missing/expired artifacts follow the approved recovery/retention policy; if exact pinned replay is unavailable, return an owned failure rather than claiming historical equivalence. No automatic fallback to the legacy mapper while acceptance is uncertain.</p>
+<p>Cancellation is <strong>open</strong>: no DTS cancellation endpoint/state is evidenced. For this proposal, consumers can stop requesting downstream submission, but cannot assume that stopping polling cancels generation. A requested cancellation contract must define accepted-work races and completion visibility before being added; completed results remain historical evidence.</p>
+<h3 id="3-migration-and-release-lifecycle">3 Migration and release lifecycle</h3>
+<p><strong>UM-10 Inventory baseline.</strong> Trigger: start of migration. Spain mapper owner supplies the code/build reference, dependencies/licenses, source/request/output contracts, implemented document types and country extensions, mapper rules, known defects, deployment topology and existing clients. DTS and consumers establish current auth, media types, sync/async behaviour, errors, byte/semantic expectations, volume/size distribution, latency and support arrangements. Create a synthetic or approved sanitized parity corpus; do not import customer invoices or confidential raw exports into this repository.</p>
+<p>Record which consumers require byte-stable XML, signature preservation or existing URL/task semantics. No claim of complete compatibility is possible before the inventory is accepted.</p>
+<p><strong>UM-11 Integrate capability.</strong> Trigger: baseline and UM-Q01–Q04 design choices resolved. Proposed starting approach: retain the qualified Java mapping implementation in a DTS-owned package behind a DTS-managed worker if feasibility is established; reuse orchestration and expose an explicit capability. This reduces simultaneous mapping and orchestration changes. A .NET port remains an alternative requiring the same full checks of business meaning. A permanent remote dependency on the Spain-owned service does not fulfil centralized mapper ownership.</p>
+<p>Align API models, handlers, source adapters, worker routing, schema/rule packages, XML staging/result readers and task completion as one release set. Add backwards-compatible readers before new writers and deploy new functionality disabled. Check Lambda packaging/execution limits and runtime security; the unrelated Java Factur-X project cannot settle these questions. Generalize reusable UBL primitives while keeping country rules separately owned and versioned.</p>
+<p><strong>UM-12 Qualify release.</strong> Trigger: candidate DTS bundle exists. Compare legacy and DTS output for every supported corpus case and approved error case. Use XML-aware comparison of business meaning plus exact-byte comparison where contracts require it; label every permitted difference with owner approval. Legacy defects are recorded and corrected through an explicit behaviour release, never hidden inside a parity claim. Validate independently against pinned target schemas and approved Spain/profile packs.</p>
+<p>Test consumer contract fixtures against OpenAPI, gateway, handlers and download behaviour; include existing Factur-X/ZUGFeRD/UBL 2.1 workloads. Measure current mapper versus DTS under comparable payloads, concurrency and conditions, separating queue, processing and retrieval time. Candidate capacity must meet the agreed baseline under NFR2; targets, tolerance and comparison method require recorded agreement. Exercise retries, partial commits, notification failure, DLQ replay, isolation, support for multiple versions at the same time and rollback.</p>
+<p>A failed gate returns to UM-11 without consumer activation.</p>
+<p><strong>UM-13 Switch cohort.</strong> Trigger: qualified build, consumer readiness and required downstream profile acceptance are evidenced. First run bounded comparison traffic against legacy/DTS where authorized; only one production path may supply an invoice to downstream exchange. Shadow generation produces comparison artifacts, never a second downstream send or notification to the business workflow. Confirm source/output compatibility, authorization, polling/redirect handling, archive ownership, monitoring and support for each consumer.</p>
+<p>Where old sync or request semantics differ, use a proposed compatibility adapter with an explicit input/response translation contract rather than silently changing them. Commit cohort routing using an expected configuration version and record effective time/bundle; conflicting updates must fail or be reconciled. Stop or hold new admissions on an unqualified route. Accepted jobs stay pinned; consumer-visible cutover does not rename historical task/result identifiers.</p>
+<p><strong>UM-14 Observe or roll back.</strong> Trigger: a consumer group switches, monitoring finds an unacceptable behaviour, performance or isolation result, or an incident occurs. DTS release and operations teams check acceptance outcomes, mapping and validation errors, queue age, tasks with missing links, retrieval and storage failures, and existing-workload health against approved thresholds.</p>
+<p>Expand only when the checks pass and the next group is ready. For rollback, stop accepting new work for the affected bundle and reconcile uncertain requests. Then send only new work to the previously qualified path. Running jobs keep their selected versions. Do not regenerate committed XML or resubmit an invoice already sent downstream.</p>
+<p>If the old mapper cannot support the new input or is no longer qualified, hold the request with a named owner. Keep compatible readers, package and rule versions, and original lookup routes while earlier jobs finish. Recovery records must show which traffic moved and which operations kept their original versions.</p>
+<p><strong>UM-15 Complete handover.</strong> Trigger: agreed cohorts stabilize and DTS accepts support. Record DTS accountable maintainers, country mapping/rule reviewers, release process, consumer migration guidance, issue triage, dependency updates, runbooks, dashboards and escalation ownership. Future regional contributions must supply an input/target matrix, rule owner, tests and support transfer; regional code cannot become an unowned permanent fork. Legacy retirement is a separate gated decision after consumer inventory closure, in-flight reconciliation, historical lookup continuity and rollback window agreement.</p>
+<p>Until that decision, the legacy path retains its explicitly agreed owner. Do not delete the old service or repoint historical records as a side effect of this spec.</p>
+<h3 id="4-requirements-quality-and-operations">4 Requirements, quality and operations</h3>
+<p>All <code>UM-R*</code> controls are proposed implementations of UM-S01 outcomes and canonical profile/validation constraints. Acceptance IDs are defined in Part 4.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Required behaviour</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UM-R01</td>
+<td>Inventory and preserve qualified mapper behaviour with DTS-managed code/resources and a supported source→target pair</td>
+<td>FR1</td>
+</tr>
+<tr>
+<td>UM-R02</td>
+<td>Generate UBL 2.5 only with exact syntax/profile evidence and preservation of business meaning; separate generation from route activation</td>
+<td>FR2; PRD-SEI-236 UBL-FR12/15</td>
+</tr>
+<tr>
+<td>UM-R03</td>
+<td>Establish DTS bug-fix, maintenance, release, support and country-rule responsibility</td>
+<td>FR3; NFR3/5</td>
+</tr>
+<tr>
+<td>UM-R04</td>
+<td>Preserve approved old consumer request, response, auth, error and XML semantics, with explicit adapters/changes where needed</td>
+<td>FR4</td>
+</tr>
+<tr>
+<td>UM-R05</td>
+<td>Independently version/pin input, mapper, syntax, country rules and output contract; preserve historical lookup/reproducibility subject to retention</td>
+<td>FR5</td>
+</tr>
+<tr>
+<td>UM-R06</td>
+<td>Provide a complete consumer inventory, migration guide, staged cutover and safe rollback</td>
+<td>FR6</td>
+</tr>
+<tr>
+<td>UM-R07</td>
+<td>Reuse common UBL code with isolated regional mappings/rules and qualified format-pair activation</td>
+<td>FR7; NFR4</td>
+</tr>
+<tr>
+<td>UM-R08</td>
+<td>Retain async operation/task distinction, XML result metadata and observable success/error completion</td>
+<td>FR1/2/4; UM-S03–06</td>
+</tr>
+<tr>
+<td>UM-R09</td>
+<td>Deduplicate both submissions and worker commits; reconcile split acceptance, stale workers and DLQ replay</td>
+<td>NFR1; UM-S05/06</td>
+</tr>
+<tr>
+<td>UM-R10</td>
+<td>Enforce authorized owner/dataset/environment access, source safety and least-privilege runtime/storage access</td>
+<td>NFR1/3; UM-S03/06</td>
+</tr>
+<tr>
+<td>UM-R11</td>
+<td>Prove no unintended regression to existing workloads and meet agreed baseline performance under representative load</td>
+<td>NFR1/2</td>
+</tr>
+<tr>
+<td>UM-R12</td>
+<td>Retain exact source/result provenance and establish consumer custody before temporary storage expires</td>
+<td>FR2/4/6; UM-S04/08</td>
+</tr>
+<tr>
+<td>UM-R13</td>
+<td>Classify errors by correction owner with safe diagnostics and linked new attempts/revisions</td>
+<td>FR2/6; SPEC-SEI-005</td>
+</tr>
+<tr>
+<td>UM-R14</td>
+<td>Shadow comparison, cutover and rollback cannot produce duplicate downstream invoice processing or alter running jobs</td>
+<td>FR4/6; NFR1</td>
+</tr>
+<tr>
+<td>UM-R15</td>
+<td>Ship consistent API documentation, deployable contract/resource versions and an owned operational handover</td>
+<td>FR3/5/6; NFR3/5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Security/privacy controls (proposed).</strong> Check upload/file ownership against dataset and caller, including read/download and worker access; never accept a cross-tenant <code>FileId</code> solely because it exists. Treat presigned URLs as temporary access links that can be used by whoever holds them and exclude them, JWTs and invoice content from logs/events. Use scoped IAM, approved encryption/residency and cleanup policies after Security/Privacy review. Disable external entity expansion and invoice-directed network resolution; bound XML size, depth, processing time and output under approved limits.</p>
+<p>Separate non-production comparison from production traffic. Migration artifacts in Git contain design and synthetic examples, not raw invoices. Hashing algorithm, scanning policy, key management and limits remain approval/evidence gates, not deployed claims.</p>
+<p><strong>Operational measures (proposed).</strong> Record accepted/completed/error counts by capability/cohort, queue age and execution latency distributions, duplicate/conflict counts, missing operation links and delays in task updates, rule/resource problems, differences in business meaning or expected behaviour, download expiry/custody failure and notification/DLQ backlog. Use correlation IDs that do not reveal business or personal data and approved low-cardinality dimensions. A mapper/rule defect goes to DTS with the Spain rule owner; consumer-data faults return actionable guidance; acceptance/replay/storage faults go to DTS operations.</p>
+<p>Alert thresholds, availability/recovery objectives and retention are open under UM-Q07/08. No numeric rate or latency target is inferred from documented gateway settings.</p>
+<h2 id="part-3-logical-service-interactions-and-data-inventory">Part 3 Logical Service Interactions and Data Inventory</h2>
+<p>This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.</p>
+<h3 id="spain-and-reuse-boundary-in-contracts">Spain and reuse boundary in contracts</h3>
+<p>Reuse assessment must identify which functions come from the existing DTS platform, which Spain-specific mappings/rules are retained, and which gaps need extension. Version these separately in the capability bundle. A shared library does not automatically approve a new country, format pair, source contract or route. Preserve existing France and UBL 2.1 workload contracts while enabling only the qualified Spain capability.</p>
+<p>The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.</p>
+<h3 id="1-contract-shape-and-version-boundaries">1 Contract shape and version boundaries</h3>
+<p>The four documented DTS API paths are a baseline to extend or adapt, not new endpoint approvals. <strong>Proposed logical generation input:</strong> authorized dataset/owner context, request/idempotency identity, source invoice/revision and immutable document reference(s), explicit input contract/document type, target syntax/country/profile capability and optional application correlation. Country/profile selectors may resolve server-side; their exact message fields are open. A mapper accepting invoice facts must have a qualified source adapter; the supplied DTS contract does not establish an ERP JSON API.</p>
+<p><strong>Proposed logical output:</strong> operation/task references at acceptance; authoritative transformation outcome; on success, result identity/reference, XML MIME type, content digest, temporary download access, pinned bundle and validation/provenance references; on error, stable issue category, correction owner and safe next action. Exact JSON shape, status/error codes beyond the documented baseline, format token and version negotiation are open under UM-Q03. API compatibility version, source-schema version, mapper version, UBL syntax version and country/profile rule version are separate concepts; one generic “version” cannot replace them.</p>
+<h3 id="2-interactions">2 Interactions</h3>
+<p>All new fields and behaviours are <strong>proposed</strong>. Internal interactions are logical contracts; they do not declare new public REST endpoints.</p>
+<table>
+<thead>
+<tr>
+<th>ID / consumer activities</th>
+<th>Caller → owner / purpose</th>
+<th>Input → output and authorization</th>
+<th>Duplicate, failure and recovery contract</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UM-INT-01 / UM-01/09</td>
+<td>Consumer → DTS upload/attachment owner; source staging</td>
+<td>Document metadata → protected upload/reference; documented <code>POST /transformations/documents</code>, MIME types PDF/XML; ownership split open</td>
+<td>Retry transfer with authorized access; verify immutable digest; clarify <code>200</code>/<code>201</code>, overwrite and expiry before integration</td>
+</tr>
+<tr>
+<td>UM-INT-02 / UM-02/07</td>
+<td>DTS gateway/handler → identity/NAS; admission/read authorization</td>
+<td>Established subject/issuer, dataset, resource/action → decision; exact NAS protocol open</td>
+<td>No new whitelist bypass; unavailable decision cannot create a new accepted operation under proposed policy; safe correlation, no credentials in evidence</td>
+</tr>
+<tr>
+<td>UM-INT-03 / UM-02/03/09</td>
+<td>Consumer/adapter → DTS; submit generation</td>
+<td>Agreed source/target contract + required documented headers → <code>202</code> task reference when accepted; <code>POST /transformations</code> reuse conditional on new gateway contract</td>
+<td>Scoped key/digest returns original or conflict; uncertain acceptance uses same identity and reconciliation, never blind new-key retry</td>
+</tr>
+<tr>
+<td>UM-INT-04 / UM-03/04/09</td>
+<td>DTS orchestration → state/queue/worker; bind and dispatch</td>
+<td>Authorized pinned operation → recoverable task/transformation correlation and work message</td>
+<td>Repair split writes; queue delivery repeat-safe; conditional execution/commit protects against stale workers</td>
+</tr>
+<tr>
+<td>UM-INT-05 / UM-03/04/05</td>
+<td>Orchestration/worker → DTS-managed capability/mapper; select and generate</td>
+<td>Exact source/bundle → distinct candidate reference/hash or categorized fault</td>
+<td>Immutable pack selection; repeat from same preserved input/version only; missing bundle is a DTS fault</td>
+</tr>
+<tr>
+<td>UM-INT-06 / UM-05/12</td>
+<td>Mapper worker → validation; verify target</td>
+<td>Exact XML, source semantic evidence, profile/rules → per-layer results/issues/comparison of business meaning</td>
+<td>Missing/failed pack cannot pass; deterministic validation uses pinned artifacts; interface aligns to UV-INT-03/04 concepts</td>
+</tr>
+<tr>
+<td>UM-INT-07 / UM-06/09</td>
+<td>Worker/status owner → state/storage; terminal commit</td>
+<td>Verified artifact + evidence or classified error → <code>SUCCEEDED</code>/<code>ERROR</code> and recoverable task completion</td>
+<td>One conditional terminal commit; repair object/state gaps; no successful URL from an error or notification alone</td>
+</tr>
+<tr>
+<td>UM-INT-08 / UM-07/09</td>
+<td>Consumer → DTS; poll/read outcome</td>
+<td>Authorized task/transformation IDs → documented <code>GET /transformations/tasks/{id}</code> (<code>200</code>/<code>303</code>) and <code>GET /transformations/{id}</code></td>
+<td>Repeated reads safe; ownership on both resources; agree terminal-error and expired-artifact responses; a delayed task does not authorize resubmission</td>
+</tr>
+<tr>
+<td>UM-INT-09 / UM-07/08/09</td>
+<td>Consumer → authorized storage/DTS; retrieve result</td>
+<td>Temporary access to immutable XML → exact bytes/digest and consumer custody evidence</td>
+<td>Repeat retrieval/renew access only while retained; verify hash; no regeneration as a URL refresh</td>
+</tr>
+<tr>
+<td>UM-INT-10 / UM-06/07/09</td>
+<td>DTS committed state → notification domain; completion</td>
+<td>Terminal operation reference/status → existing application-dependent route where compatible</td>
+<td>Duplicate/out-of-order tolerant; authoritative read wins; notification loss does not block polling; payload/version gates remain open</td>
+</tr>
+<tr>
+<td>UM-INT-11 / UM-09/14</td>
+<td>Operations → DTS state/replay controls; reconcile</td>
+<td>Original operation/claim/bundle/object/message evidence → owned repair, bounded replay or escalation</td>
+<td>Access-controlled audited action; terminal verification before replay; no new ID or version default during redrive</td>
+</tr>
+<tr>
+<td>UM-INT-12 / UM-10/12/13/14</td>
+<td>Qualification/cutover controller → legacy and DTS; compare/route</td>
+<td>Approved synthetic/sanitized source, pinned bundles, cohort config version → parity report and atomic new-work routing decision</td>
+<td>Shadow has no downstream send; compare before switch; concurrent config conflict is explicit; old jobs retain original versions</td>
+</tr>
+<tr>
+<td>UM-INT-13 / UM-11/12/15</td>
+<td>DTS delivery/maintainers → package/config/deployment; release and handover</td>
+<td>Qualified mapper/resources/contracts + gate evidence → controlled disabled deployment, activation record and support acceptance</td>
+<td>Roll back new-work config and compatible release set; preserve historical readers and old bundles until retention/drain policy permits retirement</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-events-and-completion">3 Events and completion</h3>
+<table>
+<thead>
+<tr>
+<th>Event ID</th>
+<th>Source evidence / proposed migration treatment</th>
+<th>Authoritative consumer and handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UM-E01</td>
+<td>Documented unnamed intake SQS request precedes <code>PENDING</code> persistence; carry/resolve pinned operation and capability without introducing invoice bytes</td>
+<td>UM-03/04 orchestration; correlate task/SQS/transform, detect duplicate and split acceptance</td>
+</tr>
+<tr>
+<td>UM-E02</td>
+<td>Documented <code>transformation.pending</code> comes from DynamoDB <code>INSERT</code> through <code>PendingTransformationPipe</code>; extend routing for explicit supported UBL generation pair</td>
+<td>UM-04 worker; verify current state/bundle and claim before processing; avoid overlapping old/new format rules</td>
+</tr>
+<tr>
+<td>UM-E03</td>
+<td>Documented <code>transformation.completed</code> comes from terminal <code>MODIFY</code> through <code>CompletedTransformationPipe</code> for both <code>SUCCEEDED</code> and <code>ERROR</code></td>
+<td>UM-06/07/09 notification/polling consumers; inspect status and current result; deduplicate using agreed operation/version identity</td>
+</tr>
+<tr>
+<td>UM-E04</td>
+<td><strong>Proposed logical</strong> UBL artifact/completion signal if required by chosen status-update design; name, transport and schema open</td>
+<td>UM-06 status owner; verify object/hash and validation evidence before terminal commit; failure reaches the same owned completion contract</td>
+</tr>
+</tbody>
+</table>
+<p>Do not assume <code>transformRequested</code> is an alias for <code>transformation.pending</code>: its producer/schema are unknown. Do not assume the <code>facturx/</code> object-created event can complete XML generation. Existing completion routing distinguishes empty versus non-empty <code>applicationId</code>; handling absent values, downstream schema additions, duplicate terminal writes and legacy/new notification compatibility needs UM-Q05 verification. Notifications carry authorized opaque references and safe status, not XML, sensitive invoice values or presigned URLs.</p>
+<h3 id="4-data-inventory">4 Data inventory</h3>
+<p>These are <strong>logical records</strong>, not prescribed tables or a new invoice ledger. Retention/deletion values require UM-Q07; DTS staging remains temporary and durable invoice custody belongs to the consumer.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Record / accountable owner</th>
+<th>Essential contents and classification</th>
+<th>Lifecycle consumers / continuity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UM-D01</td>
+<td>Source revision / consumer + confirmed attachment custodian</td>
+<td>Source ID/revision, contract/document type, protected immutable reference/digest, owner/dataset/environment; sensitive invoice content</td>
+<td>UM-01–05/08/09; new correction is a linked revision; source retained under approved custody policy</td>
+</tr>
+<tr>
+<td>UM-D02</td>
+<td>Capability bundle / DTS, country-rule approval by Spain owner</td>
+<td>Input/mapper/package/syntax/profile/rule/output versions and digests, supported pair/types, activation scope/effective period and decision evidence; controlled configuration</td>
+<td>UM-02–05/10–14; immutable versions, independently disable new work without rewriting old results</td>
+</tr>
+<tr>
+<td>UM-D03</td>
+<td>Acceptance/idempotency journal / DTS</td>
+<td>Scoped key/digest, request/transform/task/SQS correlation, pinned bundle, acceptance/repair evidence; restricted operational metadata</td>
+<td>UM-02/03/09/14; dedup retention covers agreed retry/reconciliation window; do not store raw bearer tokens</td>
+</tr>
+<tr>
+<td>UM-D04</td>
+<td>Transformation/task state / DTS</td>
+<td>Documented IDs/OwnerId/DatasetId/status plus proposed bundle, claim/version, timestamps, result/error references; restricted</td>
+<td>UM-03–07/09/14; task state remains distinct; conditional transitions and original lookup continuity</td>
+</tr>
+<tr>
+<td>UM-D05</td>
+<td>Candidate/result artifact and provenance / DTS temporary storage, then consumer records</td>
+<td>Source/result digest/reference, XML MIME type, mapper/bundle, comparison of business meaning and layer evidence; sensitive immutable bytes</td>
+<td>UM-04–08/09/12; staged cleanup cannot erase required retained evidence; never overwrite a success during rollback</td>
+</tr>
+<tr>
+<td>UM-D06</td>
+<td>Issues/recovery evidence / DTS or consumer by fault class</td>
+<td>Stable safe code, stage/location/rule, owner, prior/new operation links, diagnostics with sensitive values removed and replay/correction action; restricted</td>
+<td>UM-05–07/09/14; append attempts, redact business values, retain safe audit history per policy</td>
+</tr>
+<tr>
+<td>UM-D07</td>
+<td>Consumer and compatibility inventory / DTS Product + consumer owners</td>
+<td>Contract/version/auth expectations, document types, workloads, contacts/roles, custody owner and readiness/gap status; internal</td>
+<td>UM-10/12–15; avoid customer personal data; retirement requires complete inventory closure</td>
+</tr>
+<tr>
+<td>UM-D08</td>
+<td>Parity/performance qualification / DTS QA + Spain owner</td>
+<td>Synthetic case IDs, build/bundle digests, expected semantics, approved differences, measurements and gate decisions; controlled evidence</td>
+<td>UM-10–14; link corpus reference without importing confidential raw exports</td>
+</tr>
+<tr>
+<td>UM-D09</td>
+<td>Cohort activation/rollback record / DTS release owner</td>
+<td>Expected/new config version, cohort, prior/new bundle/path, effective time, evidence, in-flight/drain and rollback actions; internal immutable audit</td>
+<td>UM-13–15/03/09; new-work changes preserve old operation bindings</td>
+</tr>
+<tr>
+<td>UM-D10</td>
+<td>Custody/handoff evidence / consumer records owner</td>
+<td>Exact result digest/identity, authorized archive owner/reference and capture outcome; restricted</td>
+<td>UM-08/09/13/15; distinguishes download access from durable capture; exact handshake shape open</td>
+</tr>
+<tr>
+<td>UM-D11</td>
+<td>Operational/release evidence / DTS operations/maintainers</td>
+<td>Redacted trace correlation, message/outcome versions, runbook/alert/build references, support acceptance; restricted</td>
+<td>UM-06/09/11–15; preserve event audit without raw invoice content or capability URLs</td>
+</tr>
+</tbody>
+</table>
+<p>Temporary object removal, idempotency expiry, package retention and historical reproducibility are separate policies. After original bytes or a mapper version are removed under the approved legal policy, do not promise replay; preserve only the evidence allowed by policy and clearly report unavailable recovery. Rollback retention cannot override an approved deletion requirement. Legal invoice originals and final signed representations are owned by the relevant records/trust lifecycle, not inferred from DTS staging.</p>
+<h2 id="part-4-assurance-and-traceability-view">Part 4 Assurance and Traceability View</h2>
+<p>This part shows how requirements connect to activities, interfaces, data and acceptance checks. The scenarios describe evidence still needed; they are not a claim that implementation tests have passed.</p>
+<h3 id="1-acceptance-and-evidence-matrix">1 Acceptance and evidence matrix</h3>
+<p>UM-A03 checks that generation does not imply Spain route activation. UM-A18 checks country-pack isolation and existing-workload compatibility. UM-A22 checks ownership and migration readiness. These provide the acceptance coverage for the reuse boundary above.</p>
+<p>The following are <strong>required future acceptance scenarios</strong>, not tests claimed to have run against DTS. Activity/interaction/data IDs reference the definitions above; <code>R</code>, <code>INT</code> and <code>D</code> columns use the <code>UM-</code> prefix.</p>
+<table>
+<thead>
+<tr>
+<th>Acceptance ID / scenario</th>
+<th>Requirements</th>
+<th>Activities / interactions / data</th>
+<th>Evidence and expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UM-A01 Legacy mapper parity</td>
+<td>R01/02/04</td>
+<td>10–12; INT-05/06/12; D01/02/08</td>
+<td>Approved corpus gives equivalent required meaning; exact bytes match where promised; every allowed difference has approval</td>
+</tr>
+<tr>
+<td>UM-A02 Schema-valid but country-invalid output</td>
+<td>R02/13</td>
+<td>05/06; INT-06/07; D02/05/06</td>
+<td>Applicable country/profile rule blocks <code>SUCCEEDED</code>; issue identifies owner/rule/version</td>
+</tr>
+<tr>
+<td>UM-A03 UBL 2.5 route unapproved</td>
+<td>R02/07</td>
+<td>02/05/13; INT-03/06/12; D02/09</td>
+<td>Qualified generation does not activate downstream route; production cohort remains held</td>
+</tr>
+<tr>
+<td>UM-A04 Legacy contract and single-source input</td>
+<td>R04/08/15</td>
+<td>01–03/07/11–13; INT-01/03/08; D02/07/08</td>
+<td>Existing fixtures continue; selected new request passes gateway/handler; no dummy attachments; media/status discrepancies resolved</td>
+</tr>
+<tr>
+<td>UM-A05 XML retrieval</td>
+<td>R08/12</td>
+<td>06–08; INT-07/08/09; D04/05/10</td>
+<td>Correct XML MIME/name, exact digest and authorized download; existing PDF result contract still works</td>
+</tr>
+<tr>
+<td>UM-A06 Same key same request, and conflicting reuse</td>
+<td>R09</td>
+<td>02/03/09; INT-03/04/11; D03/04</td>
+<td>Same scoped identity returns original task/operation; changed digest conflicts; other datasets/environments stay isolated</td>
+</tr>
+<tr>
+<td>UM-A07 Enqueue/write/response split</td>
+<td>R08/09</td>
+<td>03/09; INT-04/11; D03/04/11</td>
+<td>Inject failure at each boundary; original operation remains discoverable/repaired; no stranded accepted task or duplicate generation</td>
+</tr>
+<tr>
+<td>UM-A08 Duplicate/concurrent/stale worker</td>
+<td>R05/09</td>
+<td>04/06/09; INT-04/07/11; D02/04/05</td>
+<td>Repeated delivery and expired-lease takeover yield one authoritative terminal artifact; stale worker cannot overwrite</td>
+</tr>
+<tr>
+<td>UM-A09 Terminal processing failure</td>
+<td>R08/13</td>
+<td>04–07/09; INT-05/06/07/08; D04/06</td>
+<td><code>ERROR</code> is readable and task resolves under agreed contract; no infinite polling or successful download</td>
+</tr>
+<tr>
+<td>UM-A10 Missing mapper/rule resource</td>
+<td>R02/05/13</td>
+<td>03–06/09; INT-05/06; D02/05/06</td>
+<td>No <code>SUCCEEDED</code>; DTS-owned fault and pinned recovery evidence; no resource default substitution</td>
+</tr>
+<tr>
+<td>UM-A11 Semantic loss / unsupported extension</td>
+<td>R01/02/07</td>
+<td>01/04/05/12; INT-05/06/12; D01/05/08</td>
+<td>Required source meaning loss blocks; unsupported source/types are explicit; no silent field removal</td>
+</tr>
+<tr>
+<td>UM-A12 Source correction</td>
+<td>R12/13</td>
+<td>01/05/09; INT-03/06/11; D01/05/06</td>
+<td>New source revision/key linked after known original outcome; historical XML/result remains unchanged</td>
+</tr>
+<tr>
+<td>UM-A13 URL expiry and missing artifact</td>
+<td>R08/12</td>
+<td>07–09; INT-08/09/11; D05/06/10</td>
+<td>Renew only authorized retained same bytes; no new transformation on download timeout; missing object has owned recovery</td>
+</tr>
+<tr>
+<td>UM-A14 Tenant and file-reference abuse</td>
+<td>R10</td>
+<td>01/02/04/07/08; INT-01/02/05/08/09; D01/04/05</td>
+<td>Cross-owner/dataset/environment source/task/result access denied; no credentials/URLs/XML in logs</td>
+</tr>
+<tr>
+<td>UM-A15 NAS failure and unsafe XML</td>
+<td>R10/13</td>
+<td>02/04/05/09; INT-02/05/06; D01/06</td>
+<td>No unauthorized admission; XML external resolution and resource-exhaustion cases blocked under agreed limits</td>
+</tr>
+<tr>
+<td>UM-A16 Notification outage/duplicates</td>
+<td>R08/09</td>
+<td>06/07/09; INT-07/08/10; D04/11</td>
+<td>Committed result remains readable; duplicate/stale notifications do not change outcome; both application routes qualified</td>
+</tr>
+<tr>
+<td>UM-A17 DLQ replay after partial success</td>
+<td>R09/13</td>
+<td>06/09/14; INT-07/11; D04/05/06/11</td>
+<td>Inspect terminal/object state before redrive; retain identity/bundle; no second authoritative completion</td>
+</tr>
+<tr>
+<td>UM-A18 Existing workload and jurisdiction isolation</td>
+<td>R07/11</td>
+<td>11/12/14; INT-05/12/13; D02/08/11</td>
+<td>UBL 2.1, CII/hybrid and France paths retain qualified behaviour; Spain rule activation affects only intended pair/cohort</td>
+</tr>
+<tr>
+<td>UM-A19 Version upgrade during queue delay</td>
+<td>R05/09</td>
+<td>03–06/11/14; INT-04/05/13; D02/04/09</td>
+<td>Delayed/retried old job uses its pinned bundle; new jobs select new activated bundle; old lookup remains valid</td>
+</tr>
+<tr>
+<td>UM-A20 Shadow, cutover and rollback races</td>
+<td>R06/14</td>
+<td>03/09/13/14; INT-03/11/12; D03/04/08/09</td>
+<td>Shadow never sends invoices; config conflict is explicit; timeout reconciles; only new work switches, no duplicate downstream effect</td>
+</tr>
+<tr>
+<td>UM-A21 Performance and reliability</td>
+<td>R11</td>
+<td>10–14; INT-04/05/12; D07/08/11</td>
+<td>Comparable load baseline, agreed latency/capacity metrics and old-workload measures meet gates; rollback exercised</td>
+</tr>
+<tr>
+<td>UM-A22 Ownership and migration closure</td>
+<td>R03/06/15</td>
+<td>10/13–15; INT-12/13; D07/09/11</td>
+<td>DTS maintainers/on-call accept support; consumer guide and rollback/custody runbook usable; legacy retirement separately decided</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-open-decisions-and-gates">2 Open decisions and gates</h3>
+<p>These are requested decisions, not recorded approvals. Owners are proposed responsible roles; assign names during review. A resolved decision must link its approved outcome and evidence before the relevant gate passes.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Open decision</th>
+<th>Responsible role / gate</th>
+<th>Impact and proposed holding position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UM-Q01</td>
+<td>What source schema/document types/extensions does the Java mapper actually support, and which build defines the baseline?</td>
+<td>Spain mapper owner + DTS / design</td>
+<td>Determines adapter and number of attachments, mapping corpus and support scope. Inventory first; no assumed ERP JSON or CreditNote support.</td>
+</tr>
+<tr>
+<td>UM-Q02</td>
+<td>DTS-managed Java library/worker or port to .NET; what package, runtime, dependencies and deployment unit?</td>
+<td>DTS Architecture/Engineering + Security / design</td>
+<td>Retain qualified Java logic if feasible; port requires full parity proof. Remote legacy service alone cannot complete ownership migration.</td>
+</tr>
+<tr>
+<td>UM-Q03</td>
+<td>Exact public generation contract, format token, input/output version negotiation, compatibility adapter and terminal-error semantics?</td>
+<td>DTS API owner + consumer owners / design/pilot</td>
+<td>Determines gateway/handler/schema changes and client migration. Preserve existing contract; new capability remains disabled until qualified.</td>
+</tr>
+<tr>
+<td>UM-Q04</td>
+<td>Which exact UBL 2.5 schema/profile/Spain rule packs and downstream input acceptance are approved per route?</td>
+<td>Spain technical/country owner + downstream Domain Services / activation</td>
+<td>Generation can be built/qualified; unapproved route use remains held. Do not downgrade or treat XSD pass as country acceptance.</td>
+</tr>
+<tr>
+<td>UM-Q05</td>
+<td>UBL worker selection, result completion/status path, metering and event/notification schema compatibility?</td>
+<td>DTS event/status owner + Notifications/metering owners / pilot</td>
+<td>Determines XML success/error visibility and avoids dependence on <code>facturx/</code>; retain old notification routes.</td>
+</tr>
+<tr>
+<td>UM-Q06</td>
+<td>Idempotency scope/expiry, recoverable acceptance, execution claims and state/task repair strategy?</td>
+<td>DTS orchestration owner / pilot</td>
+<td>Determines timeout/replay/concurrency safety. No exactly-once assumption or automatic legacy fallback.</td>
+</tr>
+<tr>
+<td>UM-Q07</td>
+<td>Artifact custody/retention, URL renewal, payload/runtime limits, polling deadlines, capacity and recovery targets?</td>
+<td>DTS Operations + consumer records owner + Security/Privacy / production</td>
+<td>Determines viable retrieval/replay and NFR comparison. Approve measured values and ownership, not invented targets.</td>
+</tr>
+<tr>
+<td>UM-Q08</td>
+<td>Named support/release/country reviewers, cohort inventory, thresholds, rollback window and retirement authority?</td>
+<td>DTS Product/Engineering + Spain/consumer leads / pilot/handover</td>
+<td>Without accountable readiness, hold expansion and legacy retirement; keep both paths explicitly owned.</td>
+</tr>
+<tr>
+<td>UM-Q09</td>
+<td>Which byte differences/legacy defects are permissible, and must any consumer retain existing synchronous semantics?</td>
+<td>Spain mapping owner + consumer leads / compatibility qualification</td>
+<td>Adapter or explicit behaviour release may be needed; no blanket “functionally equivalent” declaration.</td>
+</tr>
+<tr>
+<td>UM-Q10</td>
+<td>Which common UBL components and regional contribution rules should be generalized now?</td>
+<td>DTS Architecture/Product / handover</td>
+<td>Share proven primitives; isolate country packs. Full contribution automation and future-country implementations remain stretch/out of scope.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-readiness-and-release-evidence">3 Readiness and release evidence</h3>
+<p><strong>Design review:</strong> establish UM-Q01–Q03 and compatibility expectations under UM-Q09; inspect actual legacy code, DTS API/CDK and deployed contract; agree mapper/runtime boundary and supported source→target matrix. This draft already identifies the documented gaps but does not close them.</p>
+<p><strong>Pilot:</strong> approve the scoped profile/downstream use, terminal-result path, acceptance/worker safety, named support, controlled cohort and rollback plan (UM-Q04–Q06/08). Retain mapper/corpus/contract/parity evidence, negative/isolation tests and existing-workload results. Deploy inactive first; enable only the qualified pilot capability and consumer cohort.</p>
+<p><strong>Production and handover:</strong> require measured reliability/performance/capacity, custody/retention and operational objectives (UM-Q07), consumer migration readiness, exact profile activation evidence, exercised DLQ/reconciliation/rollback and DTS support acceptance. Historical records retain their original identifiers and bundle. Additional countries, cancellation or legacy retirement need their own explicit scope and decision gates.</p>
+<p>The present readiness is <strong>reviewable logical proposal</strong>. No DTS code migration, environment activation, consumer cutover, document approval or Confluence publication has been performed by creating this specification.</p><h2 id="confluence-page-history">Confluence page history</h2><div class="history">Native Confluence Change History macro — populated only after publication.</div></main></div></html>

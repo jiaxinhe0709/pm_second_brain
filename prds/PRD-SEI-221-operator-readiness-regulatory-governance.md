@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-10-06
 reviewers: []
 related:
   - PRD-SEI-210
@@ -110,6 +110,11 @@ Create one authoritative readiness control register that:
 
 ## Regulatory evidence and confidence
 
+### Final public-order evidence
+
+The final Order HAC/1028/2026 was published on 5 October 2026 and entered into force the following day. Its final provision starts the referenced staged application periods; Compliance must approve the detailed applicability calendar and operator responsibilities. The order is available; exact AEAT technical contracts and conformance evidence remain release gates. See the [source snapshot and impact review](../research/spain-public-platform-order-evidence.md).
+
+
 This section records product implications, not legal conclusions. The official publication and Sage legal/compliance interpretation take precedence.
 
 | ID | Source | Confirmed product-relevant finding | Confidence/limitation | Control impact |
@@ -122,7 +127,7 @@ This section records product implications, not legal conclusions. The official p
 | E6 | Real Decreto 238/2026, Article 13 | Private-platform requirements include public-solution connectivity, ISO/IEC 27001 or equivalent, AS2/AS4 secure transport, advanced signature/seal capability, all admitted syntaxes and transformation, BCP, service/support availability, data governance/confidentiality and free interoperability | Confirmed regulation-level requirements; scope/equivalence and measurable operation need formal approval | Security certification, protocol, trust, transformation, BCP, support and data controls |
 | E7 | Real Decreto 238/2026, Article 9 | Operators must accept qualifying interconnection requests; the regulation defines a one-month operating period subject to queueing rules, a test-bank/resource duty, public-solution bridging before direct interconnection, and no charge to the requesting platform | Confirmed regulation-level process; detailed technical execution remains to be evidenced | Request queue, deadline, test bank, bridging, evidence and commercial controls |
 | E8 | Real Decreto 238/2026, Articles 11–12 | The public solution is managed by AEAT; its UBL, authentication, download and payment/rejection services depend in part on ministerial-order specifications | Confirmed regulation-level design with an open technical dependency | Public-copy, consultation, payment/status and authorisation controls |
-| E9 | Real Decreto 238/2026, final provisions | Effective application is tied to the ministerial order for the public solution, with staged periods | Confirmed dependency; do not infer a calendar date until the order status is verified | Regulatory-change monitoring and launch gate |
+| E9 | Real Decreto 238/2026, final provisions | Effective application is tied to the ministerial order for the public solution, with staged periods | Final order published 5 October 2026; detailed staged applicability calendar requires Compliance approval | Regulatory-change monitoring and launch gate |
 | E10 | PRD-SEI-210 strategy context | Sage seeks a credible private-platform proposition while retaining public and existing-provider choice | Internal product hypothesis/decision context | Customer proposition and delivery-model controls |
 
 ### Evidence caveats
@@ -437,7 +442,7 @@ Targets and measurement windows require owners after the pilot baseline is defin
 - Approved owner and decision forum for Phase 3.
 - ADR-SEI-001 delivery-model and accountability decision.
 - FP-SEI-001 evidence-backed reuse and gap assessment.
-- Current official ministerial order and public technical specifications when published/applicable.
+- Final Order HAC/1028/2026 and the applicable AEAT technical specifications.
 - Named legal/compliance interpretation owners.
 - Operator/partner sandbox, conformance, security and operational evidence.
 - Public solution and counterparty platform test access.
@@ -451,7 +456,7 @@ Targets and measurement windows require owners after the pilot baseline is defin
 | Which entity will be the legal private-platform operator? | Determines most responsibilities and evidence | Executive/legal sponsor | R1 onward | Open via ADR-SEI-001 |
 | What process evidences operator qualification/registration? | Defines external readiness path | Local legal/compliance | R4/pilot | Official confirmation required |
 | What is the authoritative entry-point publication/lookup mechanism and propagation model? | Controls inbound activation and reconciliation | Local technical/regulatory team | R3/R4 | Open |
-| Which technical profiles, APIs and test suites will the ministerial order define? | Determines implementation and conformance | Local technical/regulatory team | R3/R4/production | Track official publication |
+| Which AEAT technical profiles, APIs and test suites implement the final order? | Determines implementation and conformance | Local technical/regulatory team | R3/R4/production | Track official publication |
 | How should “support resources available at all times” be measured? | Drives staffing, partner SLA and cost | Legal/operations | R2/R5 | Formal interpretation required |
 | Which lifecycle/payment event is authoritative when platforms disagree? | Prevents contradictory history | Local team/legal/product | R3/R4 | Preserve source observations; approved precedence required |
 | What are the statutory/contractual evidence and invoice retention periods? | Drives data model and exit | Legal/privacy | R2/production | Do not invent duration |
@@ -464,7 +469,7 @@ Targets and measurement windows require owners after the pilot baseline is defin
 
 1. Assign the Phase 3 compliance product owner and legal interpretation owner.
 2. Convert the readiness-domain table into the governed control register with evidence links and expiry.
-3. Confirm the current status of the ministerial order and official technical/conformance material.
+3. Map the published final order, approve the staged applicability calendar, and obtain official technical/conformance material.
 4. Map every ADR-SEI-001 option to the accountability and supplier-control rows.
 5. Select one outbound/public-copy and one inbound/interconnection reference journey for early external validation.
 6. Define pilot-critical versus production-critical controls only after legal, security and operations review.

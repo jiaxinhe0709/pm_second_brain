@@ -7,7 +7,7 @@ version: 2
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-09-21
+updated: 2026-10-06
 reviewers:
   - dianna.hindle@sage.com
 related:
@@ -268,16 +268,16 @@ The objective is to give every eligible Sage ERP one stable, asynchronous submis
 | Schema validation | Checks XML structure, namespace, type and cardinality against the selected XSD |
 | Semantic/profile validation | Checks cross-field, business-term, country and public-service rules not fully represented by XSD |
 | Embedded/integrated attachment | Another file carried inside the invoice document, for example encoded binary content |
-| Electronic signature | Cryptographic signature evidence; the draft order treats a signature accompanying interconnection separately from prohibited embedded files |
+| Electronic signature | Cryptographic signature evidence; the final order treats a signature accompanying interconnection separately from prohibited embedded files |
 | Submission | Mutating request to make an invoice available through the public solution |
 | Admission | Public-service validation outcome accepting the submitted item |
-| Receipt | Public-service evidence after submission, expected in the draft to include a secure verification code |
+| Receipt | Public-service evidence after submission, required by the final order to include a secure verification code |
 | Delivery | Invoice becomes available to or reaches the recipient; not proven solely by submission admission |
 | Commercial acceptance/rejection | Recipient's business response; separate from technical admission |
 | Outcome unknown | Sage cannot prove whether the public service admitted/rejected the request, usually because the response was lost after possible transmission |
 | Unique public invoice code | Draft identity derived from issuer NIF, invoice number/series and issue date |
 | Faithful copy | UBL representation deposited when the original invoice was not emitted/interconnected using the public solution; not the Phase 1 primary submission in this PRD |
-| Baja | Traceable withdrawal/removal message described by the draft for an improper invoice/copy; not automatically equivalent to correction or commercial cancellation |
+| Baja | Traceable withdrawal/removal message described by the final order for an improper invoice/copy; not automatically equivalent to correction or commercial cancellation |
 
 ### Submission stages must remain distinct
 
@@ -319,7 +319,7 @@ The objective is to give every eligible Sage ERP one stable, asynchronous submis
 - Canonical invoice data and ERP field semantics.
 - Public invoice lifecycle/status feature.
 - PRD-SEI-102 for public consultation/reconciliation capabilities where they can resolve submission state.
-- Final ministerial order, AEAT schemas, code lists, WSDL/OpenAPI, sandbox and volumetry.
+- Final Order HAC/1028/2026, AEAT schemas, code lists, WSDL/OpenAPI, sandbox and volumetry.
 - Correction/credit-note and baja product rules.
 
 ### Out of scope
@@ -355,17 +355,17 @@ The objective is to give every eligible Sage ERP one stable, asynchronous submis
 
 | ID | Condition | Rule | Rationale/evidence | Status |
 |---|---|---|---|---|
-| BR1 | Invoice uses the public solution | It must conform to EN 16931 under the approved UBL and AEAT profile | RD 238/2026 + draft order | Confirmed direction; final profile open |
-| BR2 | A document contains an embedded/integrated file | It must not be submitted to the public solution | Draft order Articles 3.6 and 4.4 | Confirmed draft constraint; final order gate |
-| BR3 | Electronic signature accompanies interconnection | It is evaluated under signature rules, not treated automatically as an embedded attachment | Draft order Article 3.6 | Confirmed draft distinction; format open |
+| BR1 | Invoice uses the public solution | It must conform to EN 16931 under the approved UBL and AEAT profile | RD 238/2026 + final Order HAC/1028/2026 | Confirmed direction; final profile open |
+| BR2 | A document contains an embedded/integrated file | It must not be submitted to the public solution | Final Order HAC/1028/2026 Articles 3.6 and 4.4 | Confirmed final-order constraint; technical conformance gate |
+| BR3 | Electronic signature accompanies interconnection | It is evaluated under signature rules, not treated automatically as an embedded attachment | Final Order HAC/1028/2026 Article 3.6 | Confirmed final-order distinction; format open |
 | BR4 | ERP repeats the same logical submission | Sage returns/reuses the existing operation and does not send a second mutation | Duplicate protection | Proposed for approval |
 | BR5 | Sage cannot prove whether transmission reached AEAT | Outcome must be reconciled before retry | Mutation safety | Proposed for approval |
 | BR6 | Public response admits one item | Invoice may be shown as admitted, not delivered/accepted/paid | Lifecycle separation | Proposed for approval |
-| BR7 | Public response contains multiple item outcomes | Each invoice result is processed independently | Draft response is a list of admitted/rejected items | Confirmed draft behaviour |
-| BR8 | Public service already holds the same original unique code | Duplicate submission must not create another invoice | Draft duplicate rejection | Confirmed draft behaviour |
+| BR7 | Public response contains multiple item outcomes | Each invoice result is processed independently | Final-order response is a list of admitted/rejected items | Confirmed final-order behaviour |
+| BR8 | Public service already holds the same original unique code | Duplicate submission must not create another invoice | Final-order duplicate rejection | Confirmed final-order behaviour |
 | BR9 | Invoice route is fixed for submission | Later route change does not rewrite its Public context | PRD-SEI-201 principle | Confirmed |
 | BR10 | Validation pack changes | Existing submissions retain the pack/version used; new submissions use only an approved effective version | Audit and reproducibility | Proposed for approval |
-| BR11 | Invoice is improper after admission | It follows approved baja/correction behaviour with retained traceability | Draft order | Confirmed direction; business sequence open |
+| BR11 | Invoice is improper after admission | It follows approved baja/correction behaviour with retained traceability | Final Order HAC/1028/2026 | Confirmed direction; business sequence open |
 | BR12 | Public service has a technical incident | Backlogged work is retained and sent under the final permitted recovery window | Draft four-day recovery provision | Draft constraint; final legal confirmation required |
 
 ## Research and evidence
@@ -377,22 +377,22 @@ The objective is to give every eligible Sage ERP one stable, asynchronous submis
 | [UBL 2.5 Invoice Submission (Send)](https://confluence.sage.com/spaces/DNBU/pages/837610656/UBL+2.5+Invoice+Submission+Send), revision 3 | Low/medium internal | Attachments are expected to be rejected; submission feature is Phase 1 | Does not define UBL contract, journeys, errors or evidence source |
 | [Real Decreto 238/2026](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295), Articles 2, 6, 7 and 11 | High official | Public solution requires UBL terms defined through EN 16931/EU syntax reference; NIFs and minimum invoice content matter; unique identity and public lifecycle are required | Detailed schemas, services and volumetry depend on implementing order/AEAT |
 | [Commission Implementing Decision (EU) 2017/1870](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32017D1870) | High official | Referenced UBL invoice/credit-note syntax is ISO/IEC 19845:2015 / UBL 2.1 | Later Spanish technical profile could explicitly evolve; final AEAT artefacts remain authoritative |
-| [April 2026 Spanish draft ministerial order](https://www.hacienda.gob.es/sgt/normativadoctrina/proyectos/16042026-proyecto-pom-factura-electronica.pdf), Articles 3–6 | Medium-high official draft | EN 16931/UBL, AEAT-hosted specifications/volumetry, no embedded files, web-service validation, per-item admitted/rejected results, receipt/verification code, duplicate rules, unique code and technical-incident handling | Draft, not final; service artefacts/error catalogue are not included |
+| [final Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028), Articles 3–6 | High official, published 5 October 2026 | EN 16931/UBL, no embedded files, validation, admitted/rejected results, receipt evidence, duplicate rules, unique code and sending-outage provision | Final regulatory evidence; exact schemas, profiles, error catalogue and annex-to-field mapping still require technical verification |
 | [OASIS UBL 2.5 Committee Specification 01](https://docs.oasis-open.org/ubl/UBL-2.5.html) | High standards source | UBL 2.5 exists as an April 2026 Committee Specification; UBL minor versions are designed for backward compatibility | Existence/backward compatibility does not prove AEAT accepts `UBLVersionID=2.5` |
 | Internal Spain use-case evidence, UC1/UC4/UC6/UC7 | Medium internal | Public UBL submission, transformation, parallel PDF and correction are important scenarios | Exact format, PDF transition obligation and correction rules need official/local confirmation |
 
 ### Confirmed findings
 
 1. Public invoices must use the UBL syntax/profile required by Spain's implementing rules.
-2. The Spanish draft requires the EN 16931 semantic model under UBL and delegates final technical specifications and volumetry to AEAT's electronic office.
+2. The final order requires the EN 16931 semantic model under UBL and delegates final technical specifications and volumetry to AEAT's electronic office.
 3. The currently incorporated European syntax reference is UBL 2.1, not UBL 2.5.
 4. UBL 2.5 is a real OASIS Committee Specification and is designed to remain compatible with earlier UBL 2.x documents; it is not yet evidence of the Spanish accepted submission version.
-5. The draft prohibits other integrated or embedded files in public invoices and faithful copies.
-6. The draft permits an electronic signature to accompany interconnection, subject to final signature mechanics.
+5. The final order prohibits other integrated or embedded files in public invoices and faithful copies.
+6. The final order permits an electronic signature to accompany interconnection, subject to final signature mechanics.
 7. Sage's likely system-to-system interconnection path is a web service, not the individual public web form.
-8. The draft expects syntax/semantic/profile validation and an itemised admitted/rejected response.
-9. The draft expects receipt evidence including a secure verification code.
-10. The draft unique code uses issuer NIF, invoice number/series and issue date and applies duplicate/original-copy controls.
+8. The final order requires syntax/semantic/profile validation and an itemised admitted/rejected response.
+9. The final order requires receipt evidence including a secure verification code.
+10. The final-order unique code uses issuer NIF, invoice number/series and issue date and applies duplicate/original-copy controls.
 
 ### Key contradiction: UBL 2.5 page title versus official syntax baseline
 
@@ -406,7 +406,7 @@ The objective is to give every eligible Sage ERP one stable, asynchronous submis
 
 ### Evidence gaps
 
-- final ministerial order and effective date;
+- Compliance-approved staged applicability calendar following entry into force on 6 October 2026;
 - AEAT service documentation, endpoint/WSDL/OpenAPI and environment details;
 - exact UBL version(s), namespaces and allowed `UBLVersionID`;
 - Spanish `CustomizationID`, `ProfileID`, extensions and code lists;
@@ -516,7 +516,7 @@ Validation should run in increasing-cost order and return one coherent error con
 
 ### Attachment behaviour
 
-The draft rule is specific: invoices cannot incorporate other integrated or embedded files. The product should therefore:
+The final-order rule is specific: invoices cannot incorporate other integrated or embedded files. The product should therefore:
 
 1. Detect binary/object attachment constructs and unsupported embedded content before submission.
 2. Return an actionable error identifying the unsupported content and affected invoice.
@@ -925,7 +925,7 @@ Production approval requires a model showing that live traffic, outcome reconcil
 
 ### Discovery
 
-1. Obtain final order and AEAT technical publication.
+1. Map the final order and obtain AEAT technical publication.
 2. Record exact accepted UBL version/profile and validation artefacts.
 3. Obtain service contract, sandbox, credentials and synthetic data process.
 4. Confirm attachment, signature, batch, receipt, duplicate, correction and outage rules.
@@ -981,8 +981,8 @@ Production approval requires a model showing that live traffic, outcome reconcil
 | How can Sage query an outcome after lost response? | Determines safe retry | AEAT spec | Production resilience | Use unique code/reference/receipt consultation |
 | Can a rejected invoice reuse the same identity after correction? | Determines ERP correction journey | AEAT spec + local team | Error recovery | Must follow public duplicate/identity rules |
 | When is baja valid versus a corrective/credit invoice? | Prevents improper deletion/correction | Spain local team/compliance | Post-admission lifecycle | Separate decisions; preserve original trace |
-| Is the draft four-day post-incident window final and how is incident evidenced? | Determines backlog SLA/runbook | Legal/local team + AEAT | Operations readiness | Queue and audit now; final timing after order |
-| Is parallel PDF delivery required during transition, and through what channel? | Determines dual delivery without embedding | Spain local team/compliance | Adjacent feature | Never embed it in public UBL under current draft |
+| How will Article 5.7 technical incidents and the four-working-day recovery window be evidenced? | Determines backlog SLA/runbook | Legal/local team + AEAT | Operations readiness | Queue and audit; approve incident timing and applicable calendar |
+| Is parallel PDF delivery required during transition, and through what channel? | Determines dual delivery without embedding | Spain local team/compliance | Adjacent feature | Never embed it in public UBL under the final order |
 | Who owns validation-pack updates and emergency rollback? | Determines operational governance | Product/compliance + engineering | Production operations | Named pack owner and two-person approval |
 
 ## Decisions
@@ -1000,7 +1000,7 @@ Production approval requires a model showing that live traffic, outcome reconcil
 
 ## Source notes
 
-- The April 2026 ministerial order is a draft. Its attachment, response, duplicate, receipt and outage provisions are treated as strong discovery evidence, not final legal/API approval.
+- The [final Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028) is now the regulatory source for Articles 3–6. This confirms the high-level provisions without approving an API implementation. See the [evidence and impact note](../research/spain-public-platform-order-evidence.md); Article 5 copy-withdrawal and correction cases require an explicit safe procedure before activation.
 - The official EU syntax reference incorporated by the Spanish regulation identifies UBL 2.1. OASIS UBL 2.5 compatibility does not authorise Sage to label a Spanish public invoice as 2.5.
 - This PRD restates all product-relevant evidence so Confluence readers do not need access to repository research files.
 - This is a research/proposal/solution PRD and does not provide tax or legal advice.

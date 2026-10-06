@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-09-21
-updated: 2026-09-22
+updated: 2026-10-06
 reviewers: []
 related:
   - PRD-SEI-211
@@ -43,6 +43,11 @@ This child owns UBL syntax/profile detail. PRD-SEI-223 owns cross-format transfo
 Out of scope: declaring any UBL version legally accepted without authority evidence; defining public submission transport; treating a PDF rendering as the structured invoice.
 
 ## Evidence register
+
+### Final public-order evidence
+
+Articles 3–4 of the final order confirm EN 16931/UBL public invoices, marked faithful copies and the prohibition on embedded files. Annex I provides regulatory content, but the exact accepted UBL version, technical profile, schemas and copy-field binding still require AEAT evidence. No UBL 2.5 acceptance is inferred. The received source file and a later rendering must retain separate roles. See the [source snapshot and impact review](../research/spain-public-platform-order-evidence.md).
+
 
 | Evidence | Finding | Confidence / limitation |
 |---|---|---|

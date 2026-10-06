@@ -3,7 +3,7 @@ id: SPEC-SEI-001
 title: Certificate Management Solution Specification
 type: solution-spec
 status: draft
-owner: TBD — Trust Service Solution Designer
+owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-05
 updated: 2026-10-06
@@ -18,6 +18,7 @@ related:
   - PRD-SEI-225
   - PRD-SEI-231
   - ADR-SEI-001
+  - RES-SEI-001
 confluence:
   publish: false
   space_key: DNBU
@@ -49,6 +50,33 @@ The four views below form one canonical document and one intended Confluence pag
 
 This document is for Product, Business Identity, Security, Legal, Spain Compliance, engineering, operations and integration teams. Start with Part 1 for the scope and decisions. Part 2 explains behaviour, Part 3 describes interfaces and data, and Part 4 shows how to verify the design. Open questions remain in the source PRDs until an approved decision record replaces them.
 
+### Spain certificate bridge direction and evidence
+
+**Proposed reference slice:** assess the existing Tax Service Engine Vault as a custody candidate for eligible Spain customer and accountant certificates. A centralised certificate bridge would resolve authorised dataset/client context, obtain a protected material reference, and request authentication or signing inside an approved protected boundary. The bridge stores mappings and evidence references. The supplied blueprint describes Tax Vault custody, but the ES AFL design below shows a different, purpose-specific Connections Service/AFL boundary; G1/G9 must establish the actual custodian and avoid a second copy of each credential. This supports the blueprint's “Upload Once, Comply Everywhere” aim only where purpose, authority, source and contract checks pass.
+
+Certificate reuse can remove a repeat upload. It cannot establish business authority, complete external registration or prove that a certificate supports every purpose. A valid certificate found by `datasetId` is a candidate for validation; it does not immediately make the customer `Authorized` or finish onboarding. The result is the existing purpose-specific readiness decision from CERT-05.
+
+| Evidence | What it supports | Limit / treatment in this spec |
+|---|---|---|
+| [Solution Blueprint: Centralised Spain Certificate Bridge Layer](https://confluence.sage.com/spaces/DNBU/pages/848083761/Solution+Blueprint+Centralised+Spain+Certificate+Bridge+Layer), user-supplied text; source date absent | Tax Vault reuse direction; `datasetId` lookup; pass-through upload; `Connection-Id` selection; signing wrapper and representation gaps. | Internal proposal, not an approved service contract. Claims of “100% reuse”, live API behaviour and legal equivalence remain unverified. |
+| *Sage certificate management*, supplied PDF, decision dated 25 March 2026 | Describes current ES AFL customer-certificate storage and retrieval, and a Sage-owned seal design with a dedicated connection provider, AFL KMS encryption and a legal-agreement gate. | Document status says `UNDER REVIEW` despite calling its summary agreed. Its proposed sequence diagram labels Parameter Store, while its resolved Q1 selects Secrets Manager; use the resolved Q1 and verify deployment. ES AFL tax behaviour does not establish B2B signing or public-platform acceptance. |
+| [How to upload Sage ES AEAT seal](https://confluence.sage.com/spaces/CCLD/pages/771513038/How+to+upload+Sage+ES+AEAT+seal+certificate+to+AWS), supplied runbook/PDF | Operational evidence for pre-encryption, protected handover, environment-specific deployment, manual rotation, expiry alerting and functional verification of the ES AFL Sage seal. | Restricted runbook details, credentials, cloud account identifiers and payloads are deliberately omitted here. Confirm live deployment and current controls with CloudOps. |
+| Supplied Product → Lambda → Submission Engine → Connections Service → AEAT sequence diagram | Shows two ES AFL credential-retrieval points and separate preparation/signing and tax-submission phases, with retry and later status checks. | Its hash/signature/QR flags and almost-complete-input statement are diagram assumptions for the anti-fraud flow, not generic B2B requirements or proof of a production contract. |
+| [Veri*factu developer reference](https://internaldeveloper.sage.com/network/docs/v1.0.0/solutions/tax/spain/spain-anti-fraud-legislation/verifactu#4-uploading-xml-file-for-submission) and [non-Veri*factu developer reference](https://internaldeveloper.sage.com/network/docs/v1.0.0/solutions/tax/spain/spain-anti-fraud-legislation/non-verifactu) | Candidate evidence for Tax Service upload, connection and operation contracts. | Inaccessible during review on 6 October 2026. `POST /operations`, action `sign`, response `signatureValue` and mandatory `Connection-Id` are reported by the blueprint, not independently verified here. G9/G10 require owner-supplied contracts and tests. |
+| [AEAT Informador Veri*factu](https://www2.agenciatributaria.gob.es/wlpl/AVAC-CALC/InformadorVerifactu) | Official guidance entry point for billing-system and representation questions. | Accessible; not a Tax Vault API contract or proof of B2B certificate/profile compatibility. |
+| [Order HAC/1028/2026, Article 11](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587) and [repository evidence E-04](../research/spain-public-platform-order-evidence.md) | Public access uses accepted AEAT certificates. Third-party retrieval and consultation require registered power of attorney, including automated/web-service access. Cl@ve is an option for specified forms. | Exact certificate acceptance, authority verification and service contracts still require AEAT technical evidence. This does not prove that every Veri*factu asset is suitable for every public or private B2B purpose. |
+
+Use **qualified electronic certificate** for a certificate and **qualified electronic signature (QES)** for a signature. Possessing a certificate or obtaining a raw cryptographic signature does not establish a QES; see the [European Commission's eSignature guidance](https://ec.europa.eu/digital-building-blocks/sites/spaces/DIGITAL/pages/467109069/What%2Bis%2BeSignature). The blueprint's certificate-equivalence claim requires validation of the actual subject, permitted use, issuer, profile, custody and target service.
+
+#### ES AFL credential paths and transfer limit
+
+| Existing or proposed ES AFL path | Source-described custody and use | Requirement for this B2B design |
+|---|---|---|
+| Customer-provided certificate (current ES AFL design) | A client application sends the customer certificate/password to Connections Service under a designated provider. Connections Service asks an AFL encryption endpoint to encrypt them and stores encrypted credentials in its database. AFL retrieves the encrypted value and decrypts with its KMS key for XML signing or tax submission. | Confirm the actual secret ingress, encryption, plaintext lifetime, authorisation, version and deletion controls before reuse. This is not evidence that Tax Vault holds this credential or that a normal B2B product API may accept it. |
+| Sage-owned AEAT seal (ES AFL proposal and deployment runbook) | Sage centrally holds one seal. The certificate/password are encrypted with the target-environment AFL KMS boundary before storage in Connections Service's AWS Secrets Manager; deployment injects the encrypted value into its service task. A dedicated connection provider/credential type selects it. Only AFL decrypts for use. | Require a stored, purpose-specific customer agreement and approved actor/representation mode before selection; qualify the exact tax or B2B purpose independently. Keep customer-certificate and Sage-seal paths distinct. |
+
+The ES AFL source says customers may choose their own certificate or the Sage seal. A `Connection-Id` selects the corresponding provider, but selection alone does not prove legal authority. For the Sage seal, the source forbids use until Sage has stored the customer's signed agreement for that purpose. Accountant-managed tax files may need accountant details, and the AEAT tax-submission endpoint differs by certificate mode. Those file and endpoint rules remain ES AFL-specific until the target B2B route confirms equivalent requirements. The sequence diagram retrieves a credential during preparation and again during submission; a B2B flow using that split must bind both steps to an approved material version or re-authorise an intentional change, never silently substitute a certificate.
+
 ### Spain use and reuse boundaries
 
 This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
@@ -60,7 +88,24 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 | Versioned inventory and evidence | Keep certificate versions, operation references and historical proof for Spain. | Reusable unchanged | Reuse the record and audit pattern; check storage, access and recovery fitness. Trust owner and Records. |
 | Readiness, protected use and rotation | Check the purpose, actor, route/profile and current authority before Spain operations. | Reusable with country binding | Bind approved Spain certificate, signer/seal, trust-source, custody and retention policies. Business Identity, Security and Spain Legal. |
 | Spain trust requirements | Resolve public-solution authentication, representation and signing requirements for each supported Spain route. | Country-specific | Keep these rules in the Spain policy. Do not carry them into another country by default. Spain technical owner and Legal. |
-| Existing trust-service implementation | Assess which inventory, custody, validation and signing functions can serve Spain. | Unknown | This spec does not establish a deployed service or approved custodian. Confirm owner, build, interfaces and gaps before committing reuse. Business Identity and Architecture. |
+| Existing Tax Service, Connections Service and AFL credential paths | Assess each actual protected source and certificate-selection capability for eligible Spain datasets. | Unknown B2B implementation fitness; reuse candidates | Sources show an ES AFL Connections Service/AFL path; the blueprint also proposes Tax Vault. Confirm build, owner, APIs, certificate classes, isolation and operations through G9–G12 before activation. Tax Service, Connections Service, AFL, Business Identity and Architecture. |
+
+### Tax Service reuse qualification and remaining work
+
+Each row separates a reported implementation from the proposed integration. None is proof of Spain B2B production readiness.
+
+| Source capability | Intended reuse and local change | Gap / evidence before activation | Accountable owner |
+|---|---|---|---|
+| Tax Vault custody proposed by the bridge blueprint | Reuse an eligible protected source by reference after identifying the real owner and source. | ES AFL customer credentials instead follow the Connections Service encrypted-store/AFL KMS path; establish whether Tax Vault is a separate build, alias or migration target. Confirm import, access, deletion and lifecycle contracts per source. | Tax Service, Connections Service, AFL and Security; G1/G3/G9 |
+| ES AFL Sage seal connection | Assess the dedicated provider/credential type and centrally pre-encrypted secret for approved ES AFL purposes; retain the signed-agreement gate. | Confirm deployed build, agreement record/lookup, provider ownership, runtime version evidence, exposure and rotation controls. No B2B use follows from the tax design. | Connections Service, AFL, Spain Legal and Security; G2/G9/G12 |
+| Existing Veri*factu certificate setup | Reuse eligible assets without another upload; add readiness checks and a standalone ERP upload path. Sage 50/200 are blueprint examples, not confirmed product integrations. | Dataset-to-business ownership, product access, import outcome lookup and remediation coverage. | Onboarding/Product and Tax Service owner; G9 |
+| Tax Service network authentication | Reuse protected client-certificate operations where the target protocol permits; add the selected public-service adapter. | Working AEAT tax-server communication does not prove SPFE endpoint, certificate or mTLS compatibility. Obtain counterpart conformance and failure evidence. | Spain Technical Owner and connection owner; G4/G8/G10 |
+| Reported `POST /operations` signing block | Reuse the cryptographic mechanism if eligible; add exact B2B representation/profile orchestration and evidence capture. | Reported anti-fraud schema restriction; no verified arbitrary UBL/Facturae support, signature profile, output binding or safe retry contract. | Tax Service owner and exchange owner; G5/G10 |
+| Reported `Connection-Id` selection | Reuse backend certificate selection; add server-side dataset/client/connection mapping and runtime checks. | Header semantics, secrecy classification, ownership, version selection and tenant/environment isolation. This needs backend authorisation as well as UI mapping. | Bridge/Identity and Tax Service owners; G9 |
+| Accountant representation | Reuse identity/authority patterns; add an effective-dated registry that links each client to the delegate and evidence. | The Vault is not the authority register. Confirm action-specific legal permission, registered powers where required and revocation verification. | Business Identity and Spain Legal; G2/G8/G11 |
+| DTS transformation candidate | Assess DTS for preparing and validating the selected B2B representation before protected signing. Keep transformation outside credential custody. | Qualify actual build, input/output contracts, mappings, Spain rule packs, operations and final-byte provenance; a proposed pattern is not an existing implementation. | DTS and exchange owners; [SPEC-SEI-008](SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md), G10 |
+
+Country-neutral patterns are protected custody, reference lookup, scoped readiness, version binding and recovery. Spain NIF/authority rules, AEAT acceptance, public-copy rules and route/profile choices remain in the Spain policy and adapters. No other country inherits them from this bridge.
 
 ### Plain-language terms
 
@@ -85,6 +130,11 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 | PKI / HSM | Public key infrastructure manages certificates and keys. A hardware security module is a device that protects cryptographic keys. |
 | CA / RTO / RPO | Certificate authority; target time to restore a service; and maximum acceptable loss of recent data. Values remain subject to approval. |
 | LFS | Logical Feature Specification: Part 2 of this document. |
+| QTSP | Qualified trust service provider; an external provider that issues certificates for the selected qualified service. FNMT is the blueprint's example, not a mandatory issuer. |
+| `datasetId` | Tax Service dataset reference. The bridge must verify its relationship to the tenant, business and environment before lookup. It is not proof of authority. |
+| `Connection-Id` | Tax Service request-header name reported in the blueprint for selecting a connection/certificate context. Exact contract and secrecy classification need verification. |
+| Apoderamiento / NIF / mTLS | Power of attorney; Spain tax identifier; and transport authentication in which both ends present certificates. These are separate authority, identity and connection concepts. |
+| SPFE / DTS | Spain public e-invoicing solution; and the existing Sage transformation service assessed for invoice preparation. Their exact service/profile contracts need qualification. |
 
 ### 2 Terms used
 
@@ -112,6 +162,8 @@ The process can finish with an active version approved for the requested use, a 
 
 The first design slice covers inventory, versioning, readiness, expiry monitoring, rotation and dependency impact for approved certificate classes; onboarding and exchange consume the service through explicit interfaces. Physical PKI/HSM selection, final Spanish certificate profiles, public-solution authentication details, exact retention periods, and the legal permissibility of an operator seal are outside this draft's authority. No universal certificate-upload step is assumed.
 
+For the Spain bridge slice, customer/accountant certificate issuance is external and out of scope for Sage. Sage manages approved custody and use. If no suitable certificate exists, onboarding offers approved, localised guidance to external issuers and a secure import path where policy permits it. Other workload/key classes may retain their separately approved generation flows.
+
 ### 4 Parties and responsibility boundary
 
 | Party | Responsibility | Handoff |
@@ -120,6 +172,8 @@ The first design slice covers inventory, versioning, readiness, expiry monitorin
 | Onboarding service | Resolves requested capability/route/profile, asks for certificate need and readiness, displays remediation | Stores scoped readiness reference, not a private key; [PRD-SEI-101](../prds/PRD-SEI-101-public-platform-onboarding.md) owns customer onboarding |
 | Identity and authority service | Resolves legal subject, principal, delegate, scope and effective authority | Supplies independently versioned authority decision; [PRD-SEI-231](../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md) owns identity/delegation model |
 | Trust service owner | Owns material inventory, policy evaluation, protected-operation orchestration, lifecycle and evidence contract | Returns purpose-specific readiness, operation result and audit/evidence references |
+| Certificate bridge owner (proposed Domain Services role) | Owns dataset/client mappings, Tax Service adapter and scoped orchestration | Resolves INT-13; never retrieves Vault passwords/private keys; final ownership remains G1 |
+| Tax Service, Connections Service and AFL owners | Identify the actual credential source and split storage, selection, encryption/decryption and key use for each path | Supply source-specific contracts, runtime version and lifecycle evidence; ES AFL evidence does not establish B2B ownership |
 | Custodian or provider | Holds/operates the protected key or supplies external trust/status evidence under an approved agreement | Returns attested result and evidence; custody and export rules are approved per class |
 | Exchange/connection service | Freezes trust plan per operation and enforces runtime readiness | Does not substitute signer, seal or transport credential; [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns exchange |
 | Security, Legal and Operations | Approve policy and high-risk actions; monitor expiry, compromise and historical proof | Control suspension, incident and restoration; [PRD-SEI-225](../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md) owns shared operations |
@@ -128,12 +182,14 @@ The first design slice covers inventory, versioning, readiness, expiry monitorin
 
 | Decision | Current position and design impact | Owner / gate |
 |---|---|---|
-| Which service physically owns inventory, remote signing, validation and preservation? | Logical boundary is proposed; integration/ownership cannot be fixed until Business Identity and architecture review | Business Identity, architecture / design |
+| Which service physically owns inventory, remote signing, validation and preservation? | Identify the actual Tax Vault or Connections Service/AFL source per credential class; use a reference-only bridge where qualified. Inventory, authority and preservation ownership still need agreement | Tax Service, Connections Service, AFL, Business Identity, Domain Services and architecture / G1/G9 |
 | Who may sign, and when may a Sage operator seal be used? | Keep direct, delegated, remote-service and seal modes separate; seal cannot substitute for issuer/delegate signature by default | Spain Legal, Security / trust-policy activation |
 | Which classes may import/export keys, and which custodians are approved? | Reference-only product boundary; non-exportability is preferred where applicable | Security, Legal / custody design |
 | Which CA/trust lists, status sources, freshness, signature profiles and preservation evidence apply? | Parameterise by country/route/profile; no guessed defaults | Spain technical owner, Security / conformance |
 | Which expiry horizon, overlap, retention and destruction rules apply per class? | Versioned policy fields with no universal duration | Security, Operations, Legal / production |
 | What is the public-solution authentication and representation contract? | Do not claim external registration or certificate need without official technical evidence | Spain regulatory/technical owner / external design |
+| Can the Tax Service bridge operate by reference for the selected Spain purposes? | Require owner-confirmed lookup, secure import, certificate selection, handshake/signing and outcome-query contracts; no key replication fallback | Tax Service owner and bridge owner / G9/G10 |
+| Can shared custody support B2B peaks and cross-service lifecycle changes? | Measure authentication/signing load, failure isolation, rotation and restore; no assumed HSM or capacity guarantee | Spain Engineering Manager, Tax Service and Operations / G12 |
 
 ### 6 End-to-end workflow
 
@@ -162,6 +218,8 @@ Customer or accountant requests one capability for one legal subject
 
 The direct and accountant paths share the same trust controls. A portfolio item is assessed per client and capability; one accountant certificate does not grant authority across the portfolio. A `READY` decision does not register the customer externally or activate a route.
 
+For the Tax Vault slice, CERT-02 verifies the client and any delegation; INT-13 then resolves the authorised dataset/connection mapping. CERT-03 registers an existing Vault version by reference or starts INT-14 secure import. CERT-04/05 validate and return readiness. A confirmed missing asset prompts issuance/import guidance; an unavailable Vault or ambiguous mapping holds the request for recovery. The existing setup diagram shows these logical custody and authority steps; it does not establish a physical Vault API.
+
 #### Process 2 Protected use and evidence
 
 ![Protected certificate use and evidence process](../assets/diagrams/certificate-protected-use-process.svg)
@@ -182,6 +240,8 @@ Exchange supplies final exact representation bytes and input hash
 ```
 
 A confirmed cryptographic result is not invoice delivery or buyer acceptance. Reconciliation may establish a confirmed signature or definitive rejection; it must preserve the original operation identity and cannot silently change the representation or signer.
+
+For the bridge slice, the server resolves and freezes the dataset/client/connection binding before INT-06. Tax Service performs the approved key operation within custody. B2B preparation, including any qualified DTS reuse, produces the final input before signing. A schema-limited tax operation cannot be treated as a general B2B signer until G10 is passed.
 
 #### Process 3 Renewal, containment and retirement
 
@@ -248,7 +308,7 @@ Actors are customer/delegate, product/onboarding, identity/authority service, tr
 | ID | Rule that must always hold |
 |---|---|
 | CM-I01 | A material reference never confers business authority. An effective authority decision is checked for the requested principal/delegate/action and time. |
-| CM-I02 | Every material version has exactly one class, custodian, owner, environment and version identity. A new certificate/key is a new version; historical rows are append-only. |
+| CM-I02 | Every logical material version has exactly one class, custodian, owner, environment and version identity. Separate purpose bindings can reference one physical Vault asset without duplicating custody. A new certificate/key is a new source version; historical rows are append-only. |
 | CM-I03 | A trust policy explicitly lists permitted uses. Authentication, direct signature, delegated signature, Sage-managed remote signature, provider signature/seal, operator seal, validation and timestamp are distinct purposes. |
 | CM-I04 | No product API, queue, log, support view, audit event or document carries an exportable private key or reusable secret. Custody APIs may receive protected material only inside an approved secure boundary. |
 | CM-I05 | `ACTIVE` material is usable only after policy, chain/status, authority, custody and environment checks for that exact operation. Inventory state alone cannot authorise use. |
@@ -257,6 +317,8 @@ Actors are customer/delegate, product/onboarding, identity/authority service, tr
 | CM-I08 | Rotation and route change affect future operations that meet the policy. They never rewrite prior signed bytes, actor, material/policy binding or historical conclusion. |
 | CM-I09 | Revocation, compromise, wrong purpose/owner/environment or stale/unknown validation blocks affected *new* use. Containment targets the narrowest proven dependency set. |
 | CM-I10 | Private-key destruction and evidence disposition are separate governed actions. Evidence cannot be deleted merely because material retires or a provider exits. |
+| CM-I11 | `datasetId` and connection selection are resolved from an authorised tenant/business/environment mapping. Caller-supplied identifiers cannot select another client's credential. |
+| CM-I12 | Reuse of any qualified protected source creates references and policy bindings, not another copy of the private key, certificate import package or password. One physical asset can support separate approved purpose bindings without duplicating custody. Customer-provided and Sage-owned seal credentials remain distinct material classes and authority paths. |
 
 ### 3 CERT-01 Classify request and applicability
 
@@ -286,6 +348,8 @@ A direct signer must be distinguished from a delegate; a Sage-operated signing s
 
 `DENIED`, `REVOKED`, `EXPIRED` or `UNDETERMINED` authority blocks the affected scoped action, records a reason with sensitive values removed and leaves unrelated clients/capabilities unchanged. An authority change emits invalidation for dependent readiness and future operations, while preserving prior snapshots. `INT-02` returns a versioned authority reference; no raw mandate is copied into the material inventory.
 
+**Spain delegation registry (proposed):** `D-11` links a represented client legal-subject/NIF reference to the accountant principal/delegate, applicable dataset/connection mapping, allowed actions, effective interval and authority evidence reference. Identity/authority owns the decision; the bridge consumes it. A local row records evidence and scope, and cannot create legal power of attorney. Each client is checked independently on setup, selection and runtime use. Revoked, expired or unverified powers invalidate only their dependent readiness and future use. Relevant registered-authority procedures remain G11. Public retrieval and consultation apply the Article 11 boundary recorded in Part 1; tax-submission authority cannot be carried over without validation.
+
 ### 5 CERT-03 Establish custody and material version
 
 An authorised owner requests one of: generate/issue in an approved protected boundary; register a customer-held or provider-held reference; or import only when the class-specific custody policy permits it. The request requires owner, custodian, subject, class, purpose, scope, environment, policy, renewal owner and change reason. High-risk actions require independently attributable approval and separation of duties under the effective corporate policy. The trust service records a `REQUESTED` inventory item before any external mutation, then `APPROVED` and `PROVISIONING`/`PROVISIONED` according to observed custodian evidence.
@@ -296,6 +360,22 @@ The custodian returns a non-secret handle and public certificate/attestation met
 
 If an external reference cannot provide the necessary evidence, readiness stays `UNDETERMINED`. `INT-03` is the logical command; `D-03` is the inventory record.
 
+#### Spain protected-source lookup and secure import
+
+**Trigger and actor:** onboarding or an authorised owner needs material for a policy classified `REQUIRED`. **Preconditions:** CERT-02 has resolved business authority and the service has a trusted tenant/environment context. INT-13 resolves `D-10`, the versioned dataset/client/connection mapping, and asks the qualified source owner for eligible non-secret material metadata. The source-specific adapter is a G9 decision; Tax Vault and ES AFL Connections Service/AFL cannot be treated as one store by assumption.
+
+| Lookup outcome | Operation and visible result | Recovery / owner |
+|---|---|---|
+| One eligible, evidenced protected-source version | CERT-03 records its protected reference and source version in D-03; CERT-04/05 still check purpose, trust and authority. No repeat upload. | Trust/bridge owner handles failed validation; no automatic `Authorized` state. |
+| Confirmed no suitable asset | Offer approved external-issuance guidance or INT-14 import. The blueprint's standalone ERP wizard is this path. | Customer/accountant supplies an eligible asset; Product owns localised guidance and issuer links. |
+| Several candidates or conflicting mappings | Hold selection with an action for an authorised owner to choose/repair the binding. | Bridge/Identity owner; never select a first/default certificate silently. |
+| Protected source unavailable, metadata stale or result unknown | Return `UNDETERMINED` and a safe dependency reason. | Source owner/Operations restores lookup and rechecks; do not report “no certificate” or request another upload. |
+| Dataset/client/environment mismatch | Reject before Vault access; audit safe scope and reason. | Bridge/Identity owner investigates or corrects the authorised mapping. |
+
+INT-14 is a **proposed B2B secure custody workflow**: an approved UI transfers `.pfx`/`.p12` and its password directly into the approved source's import boundary under a short-lived, scoped upload authorisation. Exact source, transport, size/type checks and ephemeral handling require G3/G9 approval. The bridge stores only request/session references and resulting public metadata. Certificate packages and passwords must not enter normal product APIs, application storage, queues, logs, analytics or support views. The existing ES AFL customer path does receive the package/password in Connections Service before AFL encryption; that path needs a separate security assessment and must not be represented as satisfying INT-14. Cancellation or a definite pre-custody failure clears transient input under the approved contract. After possible source acceptance, timeout/cancellation requires INT-09 lookup by the original request before any repeat import. A concurrent upload or renewal uses expected source/mapping versions and cannot overwrite the currently selected version silently.
+
+Successful import means an inventoried protected version, followed by validation; it does not mean business onboarding is complete. Each purpose has its own logical policy binding even if transport and signing reuse the same physical Vault asset. The same source reference/fingerprint avoids duplicate custody and supports shared rotation/incident impact.
+
 ### 6 CERT-04/05 Validate trust and calculate scoped readiness
 
 **Validation inputs:** material version, trust policy version, owner/principal/delegate, authority decision, capability, route/profile, environment and checked time. Validation evaluates: (1) exact subject/owner and permitted purpose; (2) custody and key availability/attestation; (3) current validity interval and algorithm/profile policy; (4) chain/trust-list status and approved issuer; (5) current revocation/status evidence and freshness; (6) dependency or incident suspension; and (7) per-operation authority where the class requires it. The source and version of each check are retained. Failure in one dimension cannot be hidden by a passing dimension.
@@ -305,6 +385,8 @@ If an external reference cannot provide the necessary evidence, readiness stays 
 The customer-facing label maps to `TRANSPORT_READY`, `DIRECT_SIGN_READY`, `DELEGATED_SIGN_READY`, `SEAL_READY` or `VALIDATION_READY`; it cannot collapse all purposes into one “certificate valid” flag. Onboarding stores only the readiness result/reference and rechecks before later use. A batch evaluates each legal subject and capability independently, including shared accountant material.
 
 `INT-04` validates material; `INT-05` returns readiness. Cache use, if approved, may not outlive the shortest applicable authority, certificate, status-source, policy or incident validity. Cache invalidation is driven by version change or revocation/suspension events; an unavailable status source is not a reason to assume validity. Exact freshness targets are open by class/profile.
+
+For inherited Tax Vault material, checks include source version, dataset/client binding, import/custody evidence and target-service eligibility. Authentication and signing return separate readiness results. Zero-touch reuse applies only when every required check already passes; missing evidence or permission produces remediation rather than a second upload by default.
 
 ### 7 CERT-06/07 Bind protected use and preserve evidence
 
@@ -318,13 +400,27 @@ A workload or transport certificate cannot fill a missing invoice-signature poli
 
 Inbound validation takes the same evidence principle but has no Sage signing actor: it verifies external channel/platform identity, replay controls, exact received bytes, signature/seal, recipient and profile. Untrusted content enters quarantine with reason with sensitive values removed; no trusted product delivery or success assertion occurs. This follows the boundary in PRD-SEI-226 and exchange behaviour in PRD-SEI-223.
 
+#### Spain connection selection and signing adapter
+
+Before INT-06, the bridge resolves INT-13 from the active legal subject and authorisation decision, checks the current D-10/D-11 versions, and freezes the dataset, connection reference, mapping version and exact source material version in D-06. It injects the reported `Connection-Id` header only inside the approved Tax Service adapter if G9 confirms that contract. A product/client selector is an input to authorisation, never permission to supply an arbitrary header. Concurrent portfolio operations carry their own context; changing the UI's active client cannot alter queued or in-flight bindings. Treat connection references as restricted internal data until Security confirms their secrecy classification.
+
+Where a Sage-owned seal is selected, INT-02 must also return evidence that the customer's signed agreement for the exact purpose is stored and effective. The selected provider/credential type, permitted actor mode, authority evidence and material version are bound before use. The ES AFL source reports different AEAT tax endpoints for Sage-seal and customer-certificate submissions, plus accountant data in some representative files; a route adapter must use its own approved mode-specific rules. If preparation/signing and submission each retrieve the credential, both retrievals must prove the same frozen version or stop and re-authorise a new operation. The source diagram's hash/QR flags and retry timing do not define B2B invoice behaviour.
+
+The blueprint reports a `POST /operations` action `sign` and a returned `signatureValue`, with anti-fraud schema validation. G10 must prove whether that mechanism can accept the final B2B input and produce the required signature/evidence. If it cannot, Tax Service must supply an approved extension or protected B2B adapter before this path activates. Do not export a key or wrap a commercial invoice in an unrelated tax schema to bypass the restriction. A raw signature value is insufficient unless the adapter verifies input binding, algorithm/profile, actual actor/material version and final signed-object integrity.
+
+Exchange owns representation preparation and validation; DTS is the preferred transformation reuse candidate where relevant, subject to its separate build/mapping/rule-pack qualification. UBL 2.1 and Facturae are blueprint examples, not proof of public-platform profile acceptance. The bridge neither transforms invoice semantics nor applies an invoice signature to a route that only requires transport authentication. Unknown signing/handshake results use the same INT-09 recovery rules; returning a channel/signature result cannot imply successful external invoice submission.
+
 ### 8 CERT-08 Monitor, renew and rotate
 
 Monitoring evaluates every active version against its class-specific expiry horizon, revocation/status freshness, chain/trust-list and algorithm policy, plus authority and owner changes. It produces a dependency graph covering workloads, connections, routes, signing policies, queued/in-flight operations and historic obligations. A renewal case names an owner, deadline derived from approved policy, replacement source and affected capabilities. No universal fixed warning period is assumed.
 
 Rotation creates a **new** version, validates it in the correct environment and tests counterpart acceptance where required. The owner approves an effective-dated cutover. New operations select the new version after cutover; in-flight operations retain their frozen binding and either complete on the old version while valid or enter controlled reconciliation/restart under an explicit policy. Overlap is permitted only where the protocol and trust policy allow it.
 
+For the ES AFL Sage seal, the supplied runbook describes manual, environment-specific AFL pre-encryption, controlled transfer, update of an encrypted deployment secret, redeployment and expiry monitoring. Rotation verification must check the credential version served by Connections Service **and** an authorised functional signing/submission result from AFL; a successful deployment or credential response alone cannot prove that a stale service task has stopped serving the old value. Record the new fingerprint/version, environment, deployment observation, functional result and rollback decision without recording the certificate package, password or encrypted payload. G7/G12 must assign alert ownership and verify this runbook against the live implementation; it is not a universal rotation method for other material classes.
+
 An unsuccessful cutover leaves the old version usable only if still valid and safe, records rollback and blocks unsafe new use; it does not erase the failed replacement. Old private-key use ends after dependency checks, then revocation/retirement/destruction follow approved gates. `INT-08` coordinates the change and emits `EVT-03`/`EVT-04`.
+
+For a shared Vault asset, D-05 includes Tax Service and e-invoicing consumers and D-10/D-11 mappings. The Tax Service owner and bridge owner agree how source-version changes are observed and how cutover selects an exact version. If the reported connection engine can select only “current certificate”, frozen-version execution must be proved or held for an approved restart; do not assume a connection reference pins a version. Offboarding one client removes its scoped use/mapping and does not delete an asset still needed by another authorised client or tax workload.
 
 ### 9 CERT-09 Revoke, compromise and reconcile
 
@@ -356,6 +452,8 @@ Observability records counts/age for expiry within policy horizon, unowned depen
 
 Disaster recovery must preserve inventory/evidence integrity and reconcile possible external key uses before traffic resumes.
 
+**Proposed commercial measures from the blueprint:** existing eligible Veri*factu users complete the certificate-configuration segment in `< 1 minute`; regional certificate-configuration support tickets reduce by `50%`; and SPFE adoption exceeds `80%` within 60 days among eligible active Sage Active/X3 datasets. These are hypotheses for Product approval, not service commitments. Measure configuration from reuse assessment start to CERT-05 readiness, separating external issuance and authority remediation; compare support tickets per active dataset against an agreed baseline; define eligible datasets and activation start for adoption. Record results without certificate/password contents. G12 separately requires engineering peak-load, latency, queue, isolation and restore evidence for the actual Vault/HSM implementation; adoption targets do not prove technical capacity.
+
 ### 13 Requirements and acceptance
 
 | ID | Testable logical requirement | Source |
@@ -372,8 +470,16 @@ Disaster recovery must preserve inventory/evidence integrity and reconcile possi
 | CM-R10 | Evidence supports historic validation after expiry, rotation, key destruction or provider exit without changing original signed bytes. | PRD-226 FR42–44 |
 | CM-R11 | Onboarding receives readiness for each client and capability and remediation without key data; later use rechecks current state. | PRD-101 FR39–50 |
 | CM-R12 | All protected actions emit audit that identifies the actor, hides sensitive values and shows signs of tampering with operation/policy/material version and outcome. | PRD-226 FR17/18 |
+| CM-R13 | An eligible existing protected-source asset is reused by reference after scoped validation; asset presence alone cannot authorise or complete onboarding. Its actual custodian and source version are recorded. | Blueprint REQ-001 and supplied ES AFL design, qualified by CM-R01/04/05/11; proposed |
+| CM-R14 | Missing eligible material uses approved external-issuance guidance and a qualified secure import path; no second copy of the credential is created, and ambiguous imports reconcile before repeat. | Blueprint REQ-002; PRD-226 custody controls; proposed |
+| CM-R15 | Every Tax Service operation resolves and freezes an authorised tenant/client/dataset/connection/material-version mapping; arbitrary headers or UI context cannot select a credential. | Blueprint connection selection; PRD-226 isolation; proposed |
+| CM-R16 | Delegation is effective-dated and action-specific for each client; an internal registry records evidence and cannot establish legal authority itself. | Blueprint REQ-003; PRD-226/231; proposed registry |
+| CM-R17 | B2B signing reuses only qualified Tax Service contracts and exact prepared input; unsupported schemas, profiles or evidence block activation without key export. | Blueprint signing gap; PRD-226/223; proposed |
+| CM-R18 | Shared protected-source changes invalidate/rotate affected tax and e-invoicing dependencies without silently switching in-flight versions or deleting assets needed elsewhere. | Blueprint shared custody; PRD-226 lifecycle; proposed |
+| CM-R19 | Sage-owned seal use requires stored, effective customer agreement for the exact purpose and approved actor/representation mode before connection selection or protected use; a customer certificate remains a separate choice. | Supplied ES AFL certificate-management design; PRD-226 authority controls; B2B application subject to G2/G8 |
+| CM-R20 | A split signing/submission flow binds both credential retrievals to the authorised source version; manual seal rotation proves the served version and a functional operation in the target environment. | Supplied ES AFL sequence diagram and seal runbook; PRD-226 lifecycle; B2B application subject to G9/G12 |
 
-Acceptance scenarios `CM-AC01`–`CM-AC16` and evidence gates are in [Part 4](#part-4-assurance-and-traceability-view). No feature is production-ready until the decisions there are resolved and test evidence exists.
+Acceptance scenarios `CM-AC01`–`CM-AC25` and evidence gates are in [Part 4](#part-4-assurance-and-traceability-view). No feature is production-ready until the decisions there are resolved and test evidence exists.
 
 ## Part 3 Logical Service Interactions and Data Inventory
 
@@ -382,6 +488,8 @@ This part describes what each service asks for, returns and stores. The technica
 ### Spain and reuse boundary in contracts
 
 Keep the shared operation and evidence model separate from Spain trust policy. Each decision must retain the selected country/route/profile policy version and actual signer or seal actor. A shared service must not apply another country’s certificate or signing defaults to Spain. The implementation owner remains open under G1; Security and Legal must approve each policy before activation.
+
+Tax Service is a candidate protected-operation adapter for this Spain slice, subject to G9/G10. The ES AFL source also describes a Connections Service/AFL credential path. `datasetId`, `Connection-Id`, import authorisation and source error/schema semantics must be assigned to the actual adapter contract. Shared consumers use scoped logical references. D-10/D-11 retain Spain client/authority bindings without making Spain rules shared defaults.
 
 The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.
 
@@ -398,7 +506,7 @@ The caller must not send or receive private keys through these application contr
 | ID | Caller → owner | Purpose and logical result | Safety / authorisation |
 |---|---|---|---|
 | INT-01 | Onboarding/exchange → trust policy | Resolve applicability for country, capability, direction, route/profile, actor mode, environment, effective time. Returns `NOT_REQUIRED/REQUIRED/PROHIBITED/UNDETERMINED`, policy version and reason. | Read-only; access scoped to legal subject/operator and product capability. Unknown policy blocks dependent use. |
-| INT-02 | Trust → identity/authority | Resolve legal subject and effective authority for principal/delegate, operation, capability, route and time. Returns versioned decision/evidence reference. | Read-only but sensitive; no mandate body copied to product or logs. Revocation forces re-evaluation. |
+| INT-02 | Trust → identity/authority | Resolve legal subject and effective authority for principal/delegate, operation, capability, route and time. For Sage-seal mode, also resolve the stored, effective agreement for the exact customer/purpose. Returns versioned decision/evidence reference. | Read-only but sensitive; no mandate/agreement body copied to product or logs. Revocation or agreement withdrawal forces re-evaluation. |
 | INT-03 | Owner/trust → approved custodian | Request issue/generate/register/import under class policy; returns protected handle, public certificate metadata, observed state and custodian reference. | Mutating; durable request/idempotency and authoritative lookup required before automatic retry. High-risk approval/dual control as policy requires. |
 | INT-04 | Trust → validator/status sources | Validate chain, subject, usage, period, issuer/trust list, revocation/status freshness and profile. Returns each check, source/version/time and aggregate. | Read-only; failure/unknown does not become valid by fallback. External query limits/freshness need approved policy. |
 | INT-05 | Onboarding/connection/exchange → trust | Evaluate scoped readiness from policy, material, authority, status and incident overlays. Returns purpose-specific result, reason, next recheck, owner and evidence reference. | Read-only derived decision; tenant/subject isolation; not a perpetual authorisation token. |
@@ -409,8 +517,12 @@ The caller must not send or receive private keys through these application contr
 | INT-10 | Records/operations → trust/custodian | Retire or destroy private-key version after dependency/hold checks, retaining separate historic evidence. | Irreversible action; privileged approval, custodian proof and audit required. |
 | INT-11 | Onboarding/operations → trust | List safe inventory/dependency/readiness summary for authorised scope. | Read-only and redacted; no cross-tenant enumeration or key contents. |
 | INT-12 | Audit/legal/support → evidence service | Retrieve a permitted historic validation package or initiate versioned revalidation/augmentation. | Role and purpose checked; original signed bytes/evidence immutable; sensitive content masked by role. |
+| INT-13 | Onboarding/trust/connection → bridge and qualified source adapter | Resolve authorised tenant/client/dataset/connection/provider binding, then query eligible protected material metadata. Returns custodian, mapping/source versions and non-secret refs, or missing/ambiguous/unavailable reason. | Read-only; CERT-02 authority checked first, including the stored-agreement evidence for any Sage seal. No caller-selected cross-client header. An unavailable source cannot mean absent material. INT-06 freezes and rechecks the binding. |
+| INT-14 | Approved upload UI/trust → qualified secure import boundary | Establish scoped upload authorisation; transfer approved package/password inside custody; return original request ref and observed import result/public metadata. | Proposed B2B mutating custody workflow, separate from normal product APIs. Bridge retains refs only. Subject/environment checks, duplicate/concurrency contract and INT-09 authoritative lookup required. Existing ES AFL customer ingress needs separate assessment. Accepted upload is not readiness. |
 
 **Consumer handoffs:** `INT-01` and `INT-05` are the onboarding boundary. `INT-02` remains independently owned by identity/authority. `INT-06` and `INT-07` are exchange-time, and `INT-08`–`INT-12` are trust/operations controls. A product must never activate a route from `INT-05` alone; route authority and external observation belong to PRD-SEI-202/222.
+
+For the bridge slice, INT-13 resolves custody/selection references for CERT-03/05/06 and INT-14 specialises INT-03 secure import. The bridge does not define new physical source endpoints here. G9 must establish lookup/import/connection selection for each actual source and G10 must establish protected-use contracts, including whether a connection supports exact material-version selection at both preparation and submission. The source-reported `sign` action is not an approved B2B API.
 
 ### 3 Events and delivery semantics
 
@@ -426,19 +538,25 @@ Events are proposed notifications of committed source state. Consumers must tole
 | EVT-06 `OperationOutcomeChanged` | Trust | operation ID, source, state, evidence ref, version/time | Reconcile original attempt; never infer invoice delivery from signature success |
 | EVT-07 `EvidencePreservationChanged` | Evidence service | package ID, preservation/revalidation version, result, time | Update historic evidence view without changing original signed bytes/time |
 
+Tax Service lifecycle changes must be adapted into relevant EVT-01/03/04/05 notifications or an approved authoritative recheck mechanism. No source event API is assumed. D-10/D-11 updates invalidate their dependent decisions; delayed events cannot override INT-06 runtime checks. G9/G12 qualify this delivery/recheck coverage.
+
 ### 4 Data inventory
 
 | ID | Record and owner | Required logical fields | Classification, versioning and disposition |
 |---|---|---|---|
 | D-01 | Trust policy — Security/Legal-approved trust owner | policy ID/version, jurisdiction, route/profile, direction, actor/mode, material class, required checks, signer/seal rule, custody rule, effective interval, approvers/evidence | Sensitive configuration; immutable version, effective-dated. Retain prior versions referenced by operations. |
 | D-02 | Applicability/readiness decision — trust service | decision ID, subject/operator scope, capability, purpose, material/policy/authority versions, checks and evidence, outcome/reason, evaluated/next-check times, remediation owner | Sensitive metadata; append-only decisions; current pointer derived. Product gets safe projection only. |
-| D-03 | Material/version inventory — trust service | stable material ID, version ID, class, subject/owner, custodian/ref, public certificate fingerprint/chain ref, issuer, key usage, environment, validity, lifecycle state, owner, dependency refs | Restricted security data; no private key. Immutable version plus audited lifecycle events; public material retained for historic proof as policy requires. |
-| D-04 | Authority snapshot — identity/authority owner | principal, delegate/signatory, legal subject, capability/route/environment, effective period, source/version, revocation result and evidence reference | Restricted personal/business authority data; trust stores reference or approved snapshot, not unrestricted mandate. |
+| D-03 | Material/version inventory — trust service | stable material ID, source version ID, class (`CUSTOMER_CERTIFICATE` or `SAGE_SEAL` where applicable), subject/owner, source system and custodian/ref, public certificate fingerprint/chain ref, issuer, key usage, environment, validity, lifecycle state, owner, dependency refs | Restricted security data; no private key or password. Immutable version plus audited lifecycle events; public material retained for historic proof as policy requires. |
+| D-04 | Authority snapshot — identity/authority owner | principal, delegate/signatory, legal subject, capability/route/environment, effective period, source/version, revocation result and evidence reference; for Sage-seal mode, purpose-specific stored-agreement reference, storage/effective state and withdrawal version | Restricted personal/business authority data; trust stores reference or approved snapshot, not unrestricted mandate/agreement body. |
 | D-05 | Dependency edge — trust service | material version, workload/connection/route/policy, queued or in-flight operation, historical obligation, owner and effective interval | Restricted operational metadata; versioned edges; needed for scoped rotation and containment. |
-| D-06 | Protected-operation binding — trust service | operation ID, request digest, input hash, principal/signer/seal creator, material/policy/authority versions, route/profile, environment, state, custodian ref and timestamps | Restricted immutable operation plan; corrections use a new version/operation. No key material. |
+| D-06 | Protected-operation binding — trust service | operation ID, request digest, input hash, principal/signer/seal creator, material/policy/authority and stored-agreement evidence versions where applicable, route/profile, environment, state, custodian ref and timestamps; for protected-source use, dataset/connection/provider refs and D-10/D-11 versions | Restricted immutable operation plan; corrections use a new version/operation. No key material. |
 | D-07 | Evidence package — evidence/archive owner | signed object or immutable object ref, exact hash, signature/seal, chain, status/trust-list/time, authority snapshot, policy/version, validation conclusion, provenance, preservation events, retention class | Highly restricted business/security evidence; append-only and independently retained from private-key version. |
 | D-08 | Rotation/incident/reconciliation case — trust/operations | case ID, trigger, intended/observed states, dependencies, owner, approvals, original external refs, next safe action, evidence and closure | Restricted operations record; full history, no secret payload; case closure requires evidenced outcome. |
 | D-09 | Audit event — security audit owner | actor/workload, scope, action, reason, request/operation ID, policy/material refs, source/result/time, evidence with sensitive values removed ref | Tamper-evident and access controlled; retention/hold policy separate from application logs. |
+| D-10 | Dataset/client/connection mapping — proposed bridge owner | mapping ID/version, tenant, legal subject ref, country/environment, `datasetId`, restricted connection/provider/credential-type ref, source system/custodian and protected material/version refs, allowed purposes, effective interval, owner and approval/source evidence | Restricted metadata; no package, password or upload token. Versioned, authorised changes; source relationship rechecked. Retention/hold follows approved mapping/audit policy. CERT-03/05/06/08/09 consume it. |
+| D-11 | Delegation registry binding — identity/authority owner; bridge consumes approved projection | binding ID/version, represented legal-subject/NIF ref, delegate/principal refs, D-10 ref, permitted actions/routes, effective interval, authority source/evidence/version, revocation result and next check | Restricted authority metadata; not a legal register or raw mandate store. Effective-dated and auditable, client-scoped. CERT-02/05/06/09 consume it; retained historical snapshots support D-06/D-07. |
+
+For this slice, custody is **source-specific and unresolved for B2B**. The blueprint proposes Tax Vault; ES AFL sources instead describe encrypted customer credentials in Connections Service with AFL KMS control, and a centrally encrypted Sage seal in Connections Service Secrets Manager. D-03 is the trust service's reference/public-metadata inventory, not a second custody store. Identity/authority remains authoritative for permission decisions; D-11 and the stored Sage-seal agreement evidence reference those decisions. Final physical ownership, retention and reconciliation of metadata/source versions are G1/G3/G6/G9 decisions.
 
 ### 5 Proposed payload examples
 
@@ -478,6 +596,8 @@ The response deliberately has no private key, raw mandate or claim that the cust
 
 The Business Identity/trust owner and architecture must select the actual service boundary and physical API/event transport. Security/Legal must approve custody and signer/seal policies. The Spain technical owner must provide issuer/trust-list/status, public-authentication and format/signature profiles. Custodians/providers must prove lookup/idempotency and returned evidence for each protected mutation. Privacy/records owners must approve retention, access and residency by record class. Performance/error budgets require measured volume and service commitments. Until those decisions are recorded, the fields above are a design proposal and the external adapters remain abstract.
 
+The blueprint's internal endpoint-exposure dependency is captured in G9: Tax Service must expose an approved API for reference-based lookup and operations across its security boundary. The source calls this the “Becca Request”; its `2/7/26` date is ambiguous and is not used as a delivery commitment. Name the accountable team, tracked dependency, contract version and service commitment before build planning. G10 covers schema/signature adaptation, G11 client representation, and G12 the Spain Engineering Manager's capacity/operability validation.
+
 ## Part 4 Assurance and Traceability View
 
 This part shows how requirements connect to activities, interfaces, data and acceptance checks. The scenarios describe evidence still needed; they are not a claim that implementation tests have passed.
@@ -491,17 +611,17 @@ This view links the [Part 1](#part-1-feature-solution-summary), [Part 2](#part-2
 | Activity | Requirements | Interactions / records | Acceptance and evidence |
 |---|---|---|---|
 | CERT-01 Classify | CM-R01 | INT-01; D-01, D-02 | CM-AC01, CM-AC02; approved policy catalogue and negative policy fixtures |
-| CERT-02 Authorise | CM-R04, CM-R11 | INT-02; D-04, D-09 | CM-AC03, CM-AC04; authority decision matrix and revocation test |
-| CERT-03 Establish custody | CM-R02, CM-R03 | INT-03; D-03, D-09 | CM-AC05; custody/attestation and secret-leak tests |
+| CERT-02 Authorise | CM-R04, CM-R11, CM-R16, CM-R19 | INT-02; D-04, D-09, D-11 | CM-AC03, CM-AC04, CM-AC21, CM-AC24; authority and stored-agreement decision matrix |
+| CERT-03 Establish custody | CM-R02, CM-R03, CM-R14 | INT-03, INT-13, INT-14; D-03, D-09, D-10 | CM-AC05, CM-AC18, CM-AC19; custody/import isolation, unknown-outcome and secret-leak checks |
 | CERT-04 Validate | CM-R05 | INT-04; D-01–D-03 | CM-AC06, CM-AC07; chain/status/profile corpus |
-| CERT-05 Decide readiness | CM-R01, CM-R05, CM-R11 | INT-05; D-02, EVT-02 | CM-AC02, CM-AC08; per-scope projections |
-| CERT-06 Bind and use | CM-R04, CM-R06, CM-R07 | INT-06, INT-09; D-06 | CM-AC09, CM-AC10, CM-AC11; custodian idempotency/lookup proof |
+| CERT-05 Decide readiness | CM-R01, CM-R05, CM-R11, CM-R13 | INT-05, INT-13; D-02, D-10, D-11, EVT-02 | CM-AC02, CM-AC08, CM-AC17, CM-AC19; inherited asset and per-scope projections |
+| CERT-06 Bind and use | CM-R04, CM-R06, CM-R07, CM-R15, CM-R17, CM-R19, CM-R20 | INT-06, INT-09, INT-13; D-06, D-10, D-11 | CM-AC09, CM-AC10, CM-AC11, CM-AC20, CM-AC22, CM-AC24, CM-AC25; selection isolation, agreement, version and B2B contract proof |
 | CERT-07 Preserve | CM-R10, CM-R12 | INT-07, INT-12; D-07, D-09 | CM-AC12; signed-object and evidence integrity checks |
-| CERT-08 Rotate | CM-R08 | INT-08; D-03, D-05, D-08; EVT-03/04 | CM-AC13; counterpart and in-flight cutover test |
-| CERT-09 Contain | CM-R05, CM-R07, CM-R09 | INT-09; D-05, D-08; EVT-05/06 | CM-AC07, CM-AC10, CM-AC14; scoped incident drill |
+| CERT-08 Rotate | CM-R08, CM-R18, CM-R20 | INT-08; D-03, D-05, D-08, D-10; EVT-03/04 | CM-AC13, CM-AC23, CM-AC25; shared-consumer counterpart and in-flight cutover test |
+| CERT-09 Contain | CM-R05, CM-R07, CM-R09, CM-R18 | INT-09; D-05, D-08, D-10, D-11; EVT-05/06 | CM-AC07, CM-AC10, CM-AC14, CM-AC23; scoped incident drill |
 | CERT-10 Retire | CM-R10 | INT-10, INT-12; D-03, D-07 | CM-AC15; destruction proof and historic revalidation |
 
-CM-AC16 also checks the country-policy boundary for CERT-01/02/04/06, CM-R01/04/05/06, INT-01/02/04/06 and D-01/D-02/D-06.
+CM-AC16 also checks the country-policy boundary for CERT-01/02/04/06, CM-R01/04/05/06, INT-01/02/04/06 and D-01/D-02/D-06. CM-AC17–25 qualify protected-source reuse and the ES AFL seal boundary, including CM-R13–20, INT-13/14 and D-10/11. Source adapter and country-policy tests are both required; reuse of a proposed pattern does not establish readiness of an existing build.
 
 Every `CM-R` appears in the matrix. `INT-11` is the safe operational projection used across CERT-05, CERT-08 and CERT-09; its authorisation/redaction is covered by CM-AC08 and CM-AC14. `EVT-01` supports CERT-03, `EVT-07` supports CERT-10. Detailed event delivery and replay tests remain part of the architecture and integration gate.
 
@@ -525,6 +645,15 @@ Every `CM-R` appears in the matrix. `INT-11` is the safe operational projection 
 | CM-AC14 | One material version is compromised | Affected new use stops, dependencies and forensic evidence are visible to authorised operators, unaffected isolated scopes continue where safe, and resumption requires reapproval. |
 | CM-AC15 | A retired private key is destroyed and its certificate later expires | Authorised historic verification uses retained signed bytes, chain, status/time/policy and preservation evidence; destruction and current expiry alone do not erase the past result. |
 | CM-AC16 | The same trust capability is evaluated for Spain and another country with different approved policies | CM-R01/04/05/06: CERT-01/02/04/06 and INT-01/02/04/06 select the correct policy and actor. D-01/D-02/D-06 retain each decision and operation version. Changing one country’s policy does not change the other country’s readiness or earlier evidence. |
+| CM-AC17 | An authorised dataset has an eligible Tax Vault version; then repeat with expired material, wrong purpose or missing authority | CM-R13: passing checks reuse references without upload; failing checks return scoped remediation/hold. No result grants authority, external registration or full onboarding solely from asset presence. |
+| CM-AC18 | A standalone ERP has confirmed missing material and uses approved secure import; repeat with timeout after possible acceptance | CM-R14: package/password reach only custody, bridge stores safe refs, validation follows import, and the unknown outcome queries the original request before repeat. Verify cancellation and concurrent-import handling. |
+| CM-AC19 | Vault lookup is unavailable, stale, ambiguous or returns a dataset/environment mismatch | CERT-03/05 distinguish unknown/ambiguous from confirmed missing. No repeat-upload prompt caused by outage, cross-scope Vault access, or default certificate selection. |
+| CM-AC20 | Parallel accountant requests target two clients; a caller alters dataset/connection context or the active UI client changes after queueing | CM-R15: server-side authorisation rejects tampering; each valid attempt keeps its client, mapping and exact material version. Neither request inherits the other's header/context. |
+| CM-AC21 | One delegate asset serves several clients; one client's required power expires/revokes or has no verified registration evidence | CM-R16: only that client's affected action is blocked/undetermined, including retrieval/consultation checks. A local registry row or tax authority grant cannot substitute for the required evidence. |
+| CM-AC22 | Tax Service signing that has passed reuse qualification is offered final B2B bytes; repeat with an anti-fraud-only schema, unsupported profile or wrong returned digest/version | CM-R17: activate only an evidenced compatible contract; verify resulting signed bytes/evidence. Unsupported inputs are blocked without key export, schema bypass or signer substitution. DTS reuse also needs actual build/mapping/rule-pack evidence where selected. |
+| CM-AC23 | One Vault asset serves tax and e-invoicing workloads; it rotates, is compromised, or one client offboards | CM-R18: all affected dependencies re-evaluate, safe cutover preserves frozen attempts/history, and offboarding removes scoped access without deleting another consumer's asset. Prove source-change observation and recovery under B2B peak load. |
+| CM-AC24 | A Sage-owned seal connection is selected for a customer before its purpose-specific signed agreement is stored; repeat after storage, expiry/revocation, and with a customer-owned certificate | CM-R19: seal use is blocked until the agreement is stored and effective for the exact customer/action; later loss of authority blocks new use. The customer-owned path stays distinct. Selection of a connection alone grants no authority. Confirm mode-specific representative data and endpoint only for an approved target route. |
+| CM-AC25 | A flow retrieves a credential for signing and later for submission while the seal rotates; repeat with the previous encrypted secret still served by one task | CM-R20: both uses match the frozen source version or stop for explicit re-authorisation. Rotation cannot close until the target environment serves the intended fingerprint/version and an authorised functional signing/submission check passes. No package, password or encrypted payload appears in evidence or logs. |
 
 Additional negative tests must cover tenant and TEST/production crossover, revoked signer versus valid transport, seal substitution, unauthorised approval/destroy, out-of-order events, duplicate event delivery, stale cache, lost evidence write after key use, invalid inbound trust, replay and provider exit. They are grouped into the corresponding scenarios above; test fixtures and exact expected codes require approved physical contracts.
 
@@ -539,22 +668,30 @@ Additional negative tests must cover tenant and TEST/production crossover, revok
 | Unknown outcomes are recoverable without duplicate use | Custodian lookup/idempotency contract, fault-injection, reconciliation runbook and unresolved-case dashboard | Trust owner and Operations |
 | Historical proof survives expiry, key destruction and provider exit | Evidence-package completeness test, restore/export test, independent verification and retention/hold policy | Records, Legal and Security |
 | Service can operate at launch scale | Measured class/provider volumes, latency, queue/backlog, alert and recovery baselines; approved target and capacity test | Product and Operations |
+| Tax Service reuse is fit for the selected Spain slice | Named build and owner, approved lookup/import/connection/signing contracts, material-version selection, country/isolation tests and shared-consumer rotation evidence; no duplicated key store | Tax Service, bridge/Identity, Security and Spain Engineering Manager |
+| ES AFL Sage seal reuse is controlled | Confirm customer agreement is stored and rechecked for the exact purpose; validate dedicated provider/credential type, AFL-only decryption, source-version binding, expiry alert ownership and manual rotation against deployed behaviour | Connections Service, AFL, Spain Legal, Security and CloudOps |
 
 ### 5 Decision and evidence gates
 
 | Gate | Decision or missing evidence | Accountable owner | Effect if unresolved |
 |---|---|---|---|
-| G1 Trust owner | Which Sage Business Identity/service team owns inventory, key operations, validation and preservation? | Business Identity and architecture | Blocks service boundary, API ownership and delivery plan |
-| G2 Legal actor | Which direct/delegated/Sage-managed signing and operator-seal modes are permitted for each Spain route/profile? | Spain Legal, Compliance and Security | Blocks trust-policy activation and signing design |
+| G1 Trust owner | Identify actual custody per credential class and source: Tax Vault proposal versus ES AFL Connections Service encrypted store/AFL KMS and Sage-seal secret; agree bridge inventory/orchestration, identity/authority and evidence-preservation ownership. | Tax Service, Connections Service, AFL, Business Identity, Domain Services and architecture | Blocks service boundary, API ownership and delivery plan |
+| G2 Legal actor | Which direct/delegated/Sage-managed signing and operator-seal modes are permitted for each Spain route/profile? For the ES AFL Sage seal, confirm purpose-specific signed-agreement content, storage, retrieval, withdrawal and runtime check; decide separately for B2B. | Spain Legal, Compliance, Business Identity and Security | Blocks trust-policy activation and signing design |
 | G3 Custody | Which key classes may be customer/provider/Sage held; what import/export and dual-control rules apply? | Security and trust owner | Blocks provisioning implementation |
 | G4 External profiles | Official public/AS2/AS4/signature profiles, accepted issuers/trust lists, status source and freshness | Spain technical owner and external parties | Blocks conformance and production validation |
 | G5 Failure contract | Custodian/provider idempotency or authoritative lookup for each protected mutation | Trust owner and supplier | Blocks automatic retry and recovery automation |
 | G6 Retention | Evidence, key destruction, residency, legal hold and access schedules by class | Legal, Privacy and Records | Blocks production data handling and exit |
-| G7 Operations | Per-class warning/overlap thresholds, owners, coverage, RTO/RPO and response commitments | Security, Product and Operations | Blocks production runbooks and service objectives |
-| G8 Regulatory/public | Public-solution authentication/representation technical contract and exact certificate requirement | Spain regulatory/technical owner | Blocks public-route certificate-dependent activation |
+| G7 Operations | Per-class warning/overlap thresholds, owners, coverage, RTO/RPO and response commitments; verify New Relic expiry alert ownership and controlled manual Sage-seal rotation in the actual ES AFL deployment | Security, Product, CloudOps and Operations | Blocks production runbooks and service objectives |
+| G8 Regulatory/public | Apply Article 11 and obtain AEAT acceptance/representation technical contracts for the selected operations; certificate equivalence remains unverified. | Spain regulatory/technical owner | Blocks public-route certificate-dependent activation |
+| G9 Protected-source reuse | Named builds/owners for Tax Vault and Connections Service/AFL; confirm whether they are separate sources, a shared build or a migration. Prove reference API, dataset/connection/provider ownership, secure import boundary, secret ingress/exposure, AFL encryption/decryption, version/lifecycle observation, original-request lookup and ERP access. Reconcile the PDF's `UNDER REVIEW` status with deployed behaviour. | Tax Service, Connections Service, AFL, bridge owner, Security and Architecture | Blocks bridge integration and any claim of production implementation reuse; no key-copy fallback |
+| G10 B2B operation adapter | Confirm handshake/target-service conformance and reported signing endpoint semantics; resolve anti-fraud schema restriction; prove exact input/output/profile/version binding and evidence. Qualify DTS build/contracts/mappings/rule packs where selected. | Tax Service, exchange/DTS and Spain Technical Owners | Blocks unsupported authentication/signing paths and automatic protected-use retry |
+| G11 Delegation registry | Approve per-client action/route scope, required registered powers, verification/revocation source, mapping changes and accountable registry owner. P1 blueprint priority cannot defer legally required authority checks. | Business Identity, Spain Legal and bridge owner | Blocks affected delegated actions, not unrelated direct authorised use |
+| G12 Shared service operations | Spain Engineering Manager confirms actual source/KMS capacity, B2B peak-load/latency, failure isolation, shared rotation/offboarding, restore and support ownership; CloudOps proves correct-environment seal encryption/deployment, served version and functional operation, including stale-task recovery; Product approves commercial baselines/targets. | Spain Engineering Manager, Tax Service, Connections Service, AFL, CloudOps, Security, Operations and Product | Blocks pilot/production readiness; blueprint reuse percentages and commercial targets are not evidence |
 
 These gates are drawn from the open questions in [PRD-SEI-226](../prds/PRD-SEI-226-security-trust-identity-data-audit.md), [PRD-SEI-101](../prds/PRD-SEI-101-public-platform-onboarding.md) and [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md). The source PRDs remain the authoritative open-question records until approved ADRs replace individual decisions.
 
+G9–G12 turn the supplied blueprint's reuse claims and dependencies into reviewable qualification work. Existing product/security requirements still govern the bridge; these proposed implementation details do not approve or change the source PRDs.
+
 ### 6 Readiness judgement
 
-This document is ready for a Product, Business Identity, Security, Legal, Spain technical and Operations solution review. It is **not approved for implementation or external activation**. The first review should resolve G1–G3 and select one concrete certificate class/route as the reference slice; G4–G8 then determine conformance, pilot and production gates. No document status or Confluence publication is changed by this review view.
+This document is ready for a Product, Tax Service, Connections Service, AFL, Domain Services, Business Identity, Security, Legal, Spain technical and Operations solution review. It is **not approved for implementation or external activation**. The reference slice is one eligible Spain dataset/client, one qualified protected source and one approved authentication or signing purpose. Resolve G1–G3 with G9 to establish ownership/custody, legal seal authority and the actual reuse contract; G4–G8 and G10–G12 determine conformance, delegated-use, pilot and production gates. No document status or Confluence publication is changed by this review view.

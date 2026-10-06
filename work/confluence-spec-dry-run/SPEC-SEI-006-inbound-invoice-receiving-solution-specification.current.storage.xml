@@ -1,0 +1,595 @@
+<div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-006<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-006-inbound-invoice-receiving-solution-specification.md">021bcc7cadfccfe93d2388de4616efebe17558fb</a><br /><strong>Last updated:</strong> 2026-10-06</p></div><h1>Inbound Invoice Receiving Solution Specification</h1>
+<h2>Part 1 Feature Solution Summary</h2>
+<h3>Retrieval and storage handoff</h3>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-010-public-platform-invoice-retrieval-storage-and-download-solution-specification.md">SPEC-SEI-010</a> proposes public discovery, exact source capture, safe checkpointing and authorised conservation download. This receiving spec consumes the captured artefact reference and owns validation and product distribution. Recovered source availability does not wait for ERP processing; unsafe content follows the controlled quarantine-access policy. The retrieval service commits progress only after every covered item has a durable outcome.</p>
+<h3>Reader guide</h3>
+<p>Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. Part 2 gives the detailed behaviour and rules. Part 3 describes service interactions and data. Part 4 links requirements to the checks and evidence needed before release.</p>
+<p>The design remains a draft. <strong>Proposed</strong> choices still need review; <strong>open</strong> decisions still need an owner’s recorded answer. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.</p>
+<h3>1 Purpose, authority and boundary</h3>
+<p>This <strong>proposed logical design</strong> explains how Sage could receive invoices through an approved private platform or retrieve them from the public platform. The service checks the source, recipient and original file, recognises duplicates, and makes one invoice available to the correct Sage product. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a> owns exchange/routing requirements; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md">PRD-SEI-211</a> owns scheduled public discovery, checkpoints and freshness; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-244-e-invoicing-process-flow-specification.md">PRD-SEI-244</a> supplies the inbound process boundary. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md">SPEC-SEI-005</a> owns the outbound UBL validation/correction contract; this spec calls an activated inbound validation profile with separate trust and quarantine policy. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a> owns lifecycle interpretation after durable receipt.</p>
+<p>The service starts when an external invoice is available. Public consultation decides <strong>whether and when to fetch it</strong>. Receiving decides <strong>what to do with the fetched invoice</strong>.</p>
+<p>Transport, download, technical acknowledgement, product availability, buyer acceptance and payment or rejection reporting have separate results. The exact operations, response codes, acknowledgement meaning, accepted profiles, retention and deadlines still need confirmation.</p>
+<h3>Spain use and reuse boundaries</h3>
+<p>This is a <strong>Spain reference design</strong>. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. <strong>Reusable unchanged</strong> means the design pattern can stay the same. <strong>Reusable with country binding</strong> means the shared behaviour needs approved local policies or adapters. <strong>Country-specific</strong> rules stay in the country pack. <strong>Unknown</strong> means implementation fitness or coverage still needs evidence.</p>
+<p>This follows the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-227-e-invoicing-as-a-service.md">shared platform and country-pack direction</a>. Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Intended use in Spain</th>
+<th>Reuse classification</th>
+<th>Condition and owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intake, evidence and one business invoice</td>
+<td>Preserve source observations, identify repeats, quarantine problems and deliver one invoice to the permitted product.</td>
+<td>Reusable unchanged</td>
+<td>Reuse receipt, audit and repeat-handling patterns. Receiving, Records and Product.</td>
+</tr>
+<tr>
+<td>Recipient, trust, mapping and acknowledgement</td>
+<td>Check the Spain recipient and route interval, approved inbound rules and source contract.</td>
+<td>Reusable with country binding</td>
+<td>Bind local identity, invoice-key rules, trust/profile packs and provider acknowledgement timing. Routing, Security and integration owner.</td>
+</tr>
+<tr>
+<td>Spain receipt channels</td>
+<td>Join public-platform retrieval and approved private receipt, preserving original/copy classification and source history.</td>
+<td>Country-specific</td>
+<td>Public checkpoints, bridge behaviour and Spain invoice identity need their own evidence. Do not assume the same topology elsewhere. Spain technical owner and consultation owner.</td>
+</tr>
+<tr>
+<td>Existing receiving and transformation services</td>
+<td>Assess adapters, receiving storage, product delivery and DTS mapping/validation functions.</td>
+<td>Unknown</td>
+<td>No complete reusable receiving implementation is proven here. DTS is a transformation candidate, not proof of retrieval or delivery support. Architecture and receiving/DTS owners.</td>
+</tr>
+</tbody>
+</table>
+<p>The existing DTS reuse direction comes from <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>. It identifies a preferred candidate; it does not certify a deployed build or Spain acceptance.</p>
+<h3>Plain-language terms</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legal entity / legal subject</td>
+<td>The business to which the invoice or action belongs. Technical fields use <code>legalSubject</code> for this business.</td>
+</tr>
+<tr>
+<td>Authority</td>
+<td>Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission.</td>
+</tr>
+<tr>
+<td>Capability</td>
+<td>A supported function, such as receiving invoices or signing them.</td>
+</tr>
+<tr>
+<td>Route</td>
+<td>The platform and connection used to send or receive an invoice.</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>A repeat of the same request has no additional effect. The contract must define how the system recognises that request.</td>
+</tr>
+<tr>
+<td>Reconciliation</td>
+<td>Check the original operation against a reliable source to establish what actually happened before deciding the next action.</td>
+</tr>
+<tr>
+<td>Gate</td>
+<td>A condition, decision or evidence check that must pass before the next step can proceed.</td>
+</tr>
+<tr>
+<td>Tenant</td>
+<td>The customer account boundary used to keep one customer’s data and access separate from another’s.</td>
+</tr>
+<tr>
+<td>Immutable / append-only</td>
+<td>A saved item cannot be changed; new information is added as a new record instead of overwriting earlier records.</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td>The record of where data came from and which versions, checks and changes produced the result.</td>
+</tr>
+<tr>
+<td>Contract</td>
+<td>The agreed inputs, outputs, behaviour and responsibilities between services or parties.</td>
+</tr>
+<tr>
+<td>Durable</td>
+<td>Saved so the record remains available after a service restart.</td>
+</tr>
+<tr>
+<td>Source observation</td>
+<td>A record of an invoice arriving or being retrieved from a particular platform.</td>
+</tr>
+<tr>
+<td>Quarantine</td>
+<td>Hold an item in restricted storage until an authorised owner resolves a trust, content or routing problem.</td>
+</tr>
+<tr>
+<td>Canonical representation</td>
+<td>The common data form used by Sage products. It is derived from the received invoice and does not replace the original.</td>
+</tr>
+<tr>
+<td>Technical acknowledgement</td>
+<td>A response defined by the platform contract. It does not by itself prove buyer approval or product availability.</td>
+</tr>
+<tr>
+<td>Outbox / checkpoint</td>
+<td>A saved record of an event waiting to be delivered; a saved position showing how far retrieval has progressed.</td>
+</tr>
+<tr>
+<td>Hash / SLA</td>
+<td>A calculated content fingerprint; and a service-level agreement. Service targets still need approval.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Endpoints and responsibility</h3>
+<table>
+<thead>
+<tr>
+<th>Outcome</th>
+<th>Meaning</th>
+<th>Not implied</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Available to product</td>
+<td>Original and canonical references are durable; one authorised entity/product receives one business invoice event</td>
+<td>Buyer approval or bookkeeping completion</td>
+</tr>
+<tr>
+<td>Duplicate linked</td>
+<td>Another source observation maps to an existing business invoice with its own route/reference evidence</td>
+<td>A second product invoice</td>
+</tr>
+<tr>
+<td>Quarantined</td>
+<td>Untrusted, invalid, conflicting or unrouteable item is preserved safely with owner and reason</td>
+<td>Trusted receipt or business delivery</td>
+</tr>
+<tr>
+<td>Pending external outcome</td>
+<td>Acknowledgement or source operation is uncertain and being reconciled</td>
+<td>Permission to send a new acknowledgement blindly</td>
+</tr>
+<tr>
+<td>No public result</td>
+<td>A successful consultation found no new item and updated freshness</td>
+<td>A receiving failure or proof that all historical gaps are closed</td>
+</tr>
+</tbody>
+</table>
+<p>External operator/public adapter supplies source evidence; receiving owns source classification, security gate, duplicate decision, original preservation and product publication; identity/routing owns recipient match; trust and validation services own their decisions; operations owns quarantine/recovery; the ERP owns buyer workflow after availability.</p>
+<h3>3 Process diagrams</h3>
+<p><strong>Inbound intake and delivery:</strong> </p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="73e0662c-57fe-5314-8f1b-14f5c0f661e6"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">receiving-intake-and-delivery-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">580</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/receiving-intake-and-delivery-process.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/receiving-intake-and-delivery-process.png">PNG</a>. The existing <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/e-invoicing-inbound-exchange.drawio">inbound exchange overview</a> shows the same cross-service route at a broader level.</p>
+<p>Text equivalent: RCV-01 accepts one public-retrieved or private-arrived item with durable source reference → RCV-02 authenticates channel and resolves the exact recipient/route interval → RCV-03 verifies file safety, trust, integrity and replay → RCV-04 classifies duplicate or conflict → RCV-05 validates activated syntax/profile and preserves exact original → RCV-06 maps approved canonical semantics → RCV-07 commits one business invoice and publishes to the authorised product → RCV-08 issues only the acknowledgement allowed by the confirmed source contract. Wrong recipient, untrusted, invalid or conflicting content is quarantined with an owner; duplicate observations are linked without a second business invoice.</p>
+<p><strong>Public discovery and gap recovery:</strong> </p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="e39d1fbe-203a-545b-a8b0-dd0be2ef4600"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">e-invoicing-public-consultation-reconciliation</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">3000</ac:parameter><ac:parameter ac:name="height">667</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/e-invoicing-public-consultation-reconciliation.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/e-invoicing-public-consultation-reconciliation.png">PNG</a>. This existing process is owned by PRD-SEI-211. The intake handoff occurs only after a retrieved item and source context are durable. A public cursor advances under that PRD's committed-page rule, not merely because RCV-01 accepted a notification.</p>
+<h3>4 Ordered lifecycle</h3>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Trigger and required result</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RCV-01 Register observation</td>
+<td>Source channel, external reference, original bytes/hash and receipt time are durable</td>
+<td>Adapter/receiving</td>
+</tr>
+<tr>
+<td>RCV-02 Match recipient</td>
+<td>Authenticated operator/public context and exact tenant/legal entity/route interval established</td>
+<td>Identity/routing</td>
+</tr>
+<tr>
+<td>RCV-03 Assess safety/trust</td>
+<td>File, transport, signature/integrity, replay and environment result evidenced</td>
+<td>Trust/security</td>
+</tr>
+<tr>
+<td>RCV-04 Resolve identity</td>
+<td>Technical duplicate, business duplicate, new invoice or conflicting identity decided</td>
+<td>Receiving/records</td>
+</tr>
+<tr>
+<td>RCV-05 Validate original</td>
+<td>Exact activated inbound syntax/profile/rules applied; invalid item quarantined</td>
+<td>Validation</td>
+</tr>
+<tr>
+<td>RCV-06 Map semantics</td>
+<td>Approved transform produces distinct canonical representation with loss check</td>
+<td>Transformation</td>
+</tr>
+<tr>
+<td>RCV-07 Publish once</td>
+<td>Original, context and canonical record commit; authorised product receives one business event</td>
+<td>Receiving/product</td>
+</tr>
+<tr>
+<td>RCV-08 Acknowledge/reconcile</td>
+<td>Contractual technical response or uncertain outcome is recorded separately</td>
+<td>Adapter/operations</td>
+</tr>
+<tr>
+<td>RCV-09 Recover</td>
+<td>Quarantine, missed delivery, cursor gap or unknown external effect has owner and safe action</td>
+<td>Operations</td>
+</tr>
+</tbody>
+</table>
+<h3>5 Decisions and risks</h3>
+<table>
+<thead>
+<tr>
+<th>Decision / impact</th>
+<th>Owner and gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Official public consultation/download and private provider ingress/acknowledgement contracts</td>
+<td>Local technical owner and providers; integration</td>
+</tr>
+<tr>
+<td>Recipient/route granularity, effective publication evidence and mixed public/private receipt</td>
+<td>Routing/Compliance; design/pilot</td>
+</tr>
+<tr>
+<td>Exact admitted syntax/profile and inbound validation/trust policy per route</td>
+<td>Country/standards, Security; activation</td>
+</tr>
+<tr>
+<td>Statutory/business unique identity components and handling of a changed payload under same identity</td>
+<td>Spain technical/Legal + records; design</td>
+</tr>
+<tr>
+<td>When to acknowledge: after durable raw receipt, quarantine classification, or product delivery</td>
+<td>Provider owner, Compliance, Operations; contract</td>
+</tr>
+<tr>
+<td>Data retention, original/copy classification, export and cross-product delivery ownership</td>
+<td>Legal/Privacy/Product; production</td>
+</tr>
+</tbody>
+</table>
+<h2>Part 2 Logical Feature Specification</h2>
+<p>This part explains the proposed behaviour step by step. An invariant is a rule that must always hold, including during failures and recovery.</p>
+<h3>1 Scope model and invariants</h3>
+<p>The source observation key includes (sourceNetwork, operator, environment, externalReference, retrieval/arrival identity). Business identity uses the approved country components plus seller, buyer, document type and issuer reference where required; no single raw field is assumed universally unique. Every record is partitioned by tenant, legal subject and environment. Source route and effective route interval are frozen when observed; a later onboarding/offboarding transition cannot rewrite them.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Rule that must always hold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RCV-I01</td>
+<td>Public retrieval and private arrival are alternative intake paths; both preserve their own source references and original bytes.</td>
+</tr>
+<tr>
+<td>RCV-I02</td>
+<td>Channel authentication does not prove recipient match, legal invoice validity or buyer acceptance.</td>
+</tr>
+<tr>
+<td>RCV-I03</td>
+<td>Wrong-tenant or unrouteable content is never exposed to another tenant/product; it is denied or quarantined with evidence with sensitive values removed.</td>
+</tr>
+<tr>
+<td>RCV-I04</td>
+<td>Duplicate network observations can attach to one business invoice; conflicting bytes under the same asserted identity are not silently merged.</td>
+</tr>
+<tr>
+<td>RCV-I05</td>
+<td>Original, derived canonical form, faithful copy and rendering are separately labelled, hashed and retained under policy.</td>
+</tr>
+<tr>
+<td>RCV-I06</td>
+<td>Product delivery is business-idempotent: a retry or public/private duplicate cannot create another business invoice.</td>
+</tr>
+<tr>
+<td>RCV-I07</td>
+<td>A technical acknowledgement is distinct from durable product availability and any later lifecycle status.</td>
+</tr>
+<tr>
+<td>RCV-I08</td>
+<td>An uncertain external acknowledgement or consultation effect is reconciled before repeating an unsafe mutation.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Detailed behaviour</h3>
+<p><strong>RCV-01 Register observation.</strong> An approved adapter supplies source network/operator, environment, authenticated channel reference, external item ID, arrival/retrieval time, declared document/profile, exact payload bytes/reference/hash and available public original/copy classification. Persist a durable intake receipt and correlation before downstream processing or any irreversible acknowledgement. Same observation key/hash returns prior state; same key with changed hash is a conflict and enters RCV-09. Public consultation may provide a checkpoint/page identity, but cursor ownership remains with PRD-SEI-211.</p>
+<p>A successful empty public query creates freshness evidence there, not an invoice here.</p>
+<p><strong>RCV-02 Match recipient.</strong> Verify source operator/channel and effective inbound capability, then resolve the addressed legal entity using scheme-qualified identifiers, tenant/product binding, route direction/scope and effective interval. Do not infer recipient from a user session, unqualified identifier or current route alone when the invoice was observed under an earlier interval. A wrong or ambiguous match is denied/quarantined without revealing another tenant. Delegate access is separate from receiving eligibility.</p>
+<p><strong>RCV-03 Assess safety and trust.</strong> Apply file/content-type/size/attachment safety, transport identity, signature or seal/integrity policy, status/time evidence and replay checks according to route/profile. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-001-certificate-management-solution-specification.md">Certificate management</a> owns purpose-specific trust validation. A failed or undetermined required check quarantines the item; no product event or trusted acknowledgement is issued. Retain safe evidence of the original and exact trust policy version, not private keys or raw confidential content in logs.</p>
+<p><strong>RCV-04 Resolve identity.</strong> First compare the identity of the source observation. Then compare the approved business invoice identity, content and source history. A repeated observation with the same content links to its existing result.</p>
+<p>If the same business invoice arrives through both a private platform and the public bridge, link both source records to one business invoice. Keep each source’s original route and evidence. If the claimed identity is the same but the file or recipient differs materially, quarantine it for investigation. Never overwrite the earlier invoice.</p>
+<p>Use a unique business key and transaction, or another approved concurrency control, so simultaneous requests cannot create conflicting identity decisions.</p>
+<p><strong>RCV-05 Validate original.</strong> Resolve exact activated inbound syntax, document type, country, route, profile and rule pack. Validate the received original, not an unlabelled canonical substitute; record parse/schema, business/profile and route outcomes separately. Inbound validation also requires trust, recipient and quarantine policy beyond outbound preflight. An unsupported or missing profile is UNSUPPORTED/UNDETERMINED, not accepted because a parser can read it. Invalid content is preserved under restricted quarantine with a safe reason and responsible source/customer/operations actor.</p>
+<p><strong>RCV-06 Map semantics.</strong> Transform only through an approved versioned mapping into facts in the agreed common data form for the product. Store source/target hashes, mapper and comparison of business meaning. Missing required meaning or unsupported extension blocks business delivery while preserving original evidence. An authorised rendering is derived and labelled as such; it cannot replace the exchanged original. If mapping fails due to service configuration, operations owns repair and replay from the original without creating a second business invoice.</p>
+<p><strong>RCV-07 Publish once.</strong> Save the original reference, validation and trust decisions, common data representation, business identity and product-delivery outbox together, either atomically or through a coordinated process that can recover from partial completion.</p>
+<p>The ERP-facing event identifies the tenant and business, invoice ID, original source route, file references, status and correlation. It excludes secrets. The product uses stable event and invoice IDs to recognise repeats and acknowledge delivery.</p>
+<p>If the product is unavailable, keep delivery pending with visible retry status. Do not report the invoice as absent or retrieve it externally again without a reason. The ERP separately manages review, acceptance, accounting and later rejection or payment actions.</p>
+<p><strong>RCV-08 Acknowledge/reconcile.</strong> Send a technical response only at the point allowed by the confirmed provider or public-platform contract and supported by the saved state. Record the acknowledgement kind, operation identity, content and meaning, provider reference and observed response. Keep these separate from invoice validation and buyer status.</p>
+<p>A timeout after a possible acknowledgement produces OUTCOME_UNKNOWN. Check the original operation before another external change, unless an effective idempotency guarantee is proven. A transport acknowledgement alone cannot establish delivery to the buyer.</p>
+<p><strong>RCV-09 Recover.</strong> Quarantines retain safe original and source context, fault category, owner, deadline and allowed action. A corrected replacement from sender is a new observation linked to the old one; the original is not edited. Reprocess after rule/mapper repair from preserved bytes under explicit current or historically frozen policy as appropriate, recording which version yielded the new result. For public retrieval, incomplete pages/cursors and historical gap scans follow PRD-SEI-211; receiving returns saved classification for each item (ingested, duplicate, quarantined/conflict) for its safe progress decision.</p>
+<p>Route switching preserves old invoice history and late-arrival handling.</p>
+<h3>3 Requirements and quality controls</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement / source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RCV-R01</td>
+<td>Authenticate/authorise inbound platform and exact environment/capability; PRD-SEI-223 FR17.</td>
+</tr>
+<tr>
+<td>RCV-R02</td>
+<td>Verify recipient, trust/integrity, syntax/profile and identity before product delivery; FR18.</td>
+</tr>
+<tr>
+<td>RCV-R03</td>
+<td>Deduplicate private, retry and public-bridge observations to one business invoice with all evidence; FR19.</td>
+</tr>
+<tr>
+<td>RCV-R04</td>
+<td>Deliver durably to correct entity/product once at business level; FR20.</td>
+</tr>
+<tr>
+<td>RCV-R05</td>
+<td>Preserve original and versioned transformation/validation evidence; FR7–10.</td>
+</tr>
+<tr>
+<td>RCV-R06</td>
+<td>Quarantine invalid, untrusted, conflicting or unrouteable content with owner; FR24.</td>
+</tr>
+<tr>
+<td>RCV-R07</td>
+<td>Classify retry/idempotent resume/reconcile-first/manual-only and expose state; FR22–26.</td>
+</tr>
+<tr>
+<td>RCV-R08</td>
+<td>Return durable classification for each item to public consultation and preserve freshness/gap recovery; PRD-SEI-211.</td>
+</tr>
+<tr>
+<td>RCV-R09</td>
+<td>Keep transport, validation, product availability and lifecycle/buyer status distinct; PRD-SEI-223/224.</td>
+</tr>
+</tbody>
+</table>
+<p>Protect source documents, credentials and recipient data with encryption, least privilege and tenant/environment isolation. Support access is audited and redacted. Monitor receipt-to-availability latency, quarantine age, duplicate/conflict rate, product backlog, stale public freshness, time spent with an unknown acknowledgement result and wrong-recipient attempts. Objectives require provider contracts, volume baselines and Product/Operations approval; no cadence or SLA is invented here.</p>
+<h2>Part 3 Logical Service Interactions and Data Inventory</h2>
+<p>This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.</p>
+<h3>Spain and reuse boundary in contracts</h3>
+<p>Keep the source-observation, original-file, duplicate and product-delivery contracts shared. Country/route policies determine recipient identity, business duplicate keys, accepted profiles, trust and acknowledgements. Public consultation stays a separate source adapter with its own checkpoint rules. Qualify any reused DTS mapping or validation function for the exact inbound contract; it does not own receipt or buyer workflow.</p>
+<p>The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.</p>
+<h3>1 Interaction contracts</h3>
+<p>These are logical operations, not approved endpoints. Each command/event carries tenant/entity/environment, source, external reference, observationId, correlationId, payload hash, route/profile version and expected record version where applicable.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Caller → owner</th>
+<th>Contract and safety</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RCV-INT-01</td>
+<td>Private adapter/public retrieval → receiving</td>
+<td>Register source observation and immutable payload reference; duplicate key returns prior outcome, changed hash conflicts.</td>
+</tr>
+<tr>
+<td>RCV-INT-02</td>
+<td>Receiving → identity/routing</td>
+<td>Resolve operator/source and recipient at observation effective time; returns scoped entity/product or ambiguous/denied.</td>
+</tr>
+<tr>
+<td>RCV-INT-03</td>
+<td>Receiving → trust/security</td>
+<td>Verify channel, file, integrity, signature/status and replay under effective policy; returns evidence reference or quarantine reason.</td>
+</tr>
+<tr>
+<td>RCV-INT-04</td>
+<td>Receiving → identity index</td>
+<td>Claim/link technical and business identity with concurrency control; returns new, duplicate or conflict.</td>
+</tr>
+<tr>
+<td>RCV-INT-05</td>
+<td>Receiving → inbound validation</td>
+<td>Validate exact original under activated profile/rules; returns layered outcome and issues; no silent repair.</td>
+</tr>
+<tr>
+<td>RCV-INT-06</td>
+<td>Receiving → transformation</td>
+<td>Produce separate canonical representation and comparison of business meaning; loss blocks delivery.</td>
+</tr>
+<tr>
+<td>RCV-INT-07</td>
+<td>Receiving → product</td>
+<td>Commit invoice and publish at-least-once event with stable invoice/event IDs; product deduplicates.</td>
+</tr>
+<tr>
+<td>RCV-INT-08</td>
+<td>Receiving → adapter</td>
+<td>Issue/query technical acknowledgement under approved contract; unknown outcome reconciles before unsafe repeat.</td>
+</tr>
+<tr>
+<td>RCV-INT-09</td>
+<td>Receiving → public consultation</td>
+<td>Return durable classification for each item and evidence reference; consultation alone owns checkpoint/freshness.</td>
+</tr>
+<tr>
+<td>RCV-INT-10</td>
+<td>Operations → receiving</td>
+<td>Inspect/reprocess quarantine or delivery backlog under authority, version and audit controls.</td>
+</tr>
+</tbody>
+</table>
+<p>Proposed events are INBOUND_ITEM_CLASSIFIED, INBOUND_INVOICE_AVAILABLE, INBOUND_QUARANTINE_OPENED and INBOUND_DELIVERY_RECOVERED. Notifications follow durable commit, are at least once, and cannot stand in for original bytes or provider evidence.</p>
+<h3>2 Data inventory</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Record / owner</th>
+<th>Essential fields and handling</th>
+<th>Consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RCV-D01</td>
+<td>Source observation / receiving</td>
+<td>Source/operator/environment, external ref, arrival time, original bytes/hash, original/copy flag, correlation; sensitive/immutable</td>
+<td>RCV-01–09</td>
+</tr>
+<tr>
+<td>RCV-D02</td>
+<td>Recipient/route decision / identity/routing</td>
+<td>Entity/tenant/product, qualified identifiers, route interval/version, source/freshness, decision reason; restricted/versioned</td>
+<td>RCV-02/07</td>
+</tr>
+<tr>
+<td>RCV-D03</td>
+<td>Trust/safety result / trust</td>
+<td>Channel, file, replay, signature/status policy/result/evidence; restricted/append-only</td>
+<td>RCV-03/05/08</td>
+</tr>
+<tr>
+<td>RCV-D04</td>
+<td>Identity link / receiving</td>
+<td>Observation IDs, business key, invoice ID, hashes, duplicate/conflict reason; concurrency protected</td>
+<td>RCV-04/07</td>
+</tr>
+<tr>
+<td>RCV-D05</td>
+<td>Validation/representation / validation + transformation</td>
+<td>Exact original/profile/rules, issues, canonical hash, mapper/comparison of business meaning, rendering labels; sensitive/append-only</td>
+<td>RCV-05–07</td>
+</tr>
+<tr>
+<td>RCV-D06</td>
+<td>Business inbound invoice / records</td>
+<td>Stable invoice ID, buyer/seller, source route, original/canonical refs, product delivery state; restricted</td>
+<td>RCV-07/09</td>
+</tr>
+<tr>
+<td>RCV-D07</td>
+<td>Product outbox / receiving</td>
+<td>Event ID, invoice ID, target product/entity, delivery attempt and acknowledged version; restricted/replayable</td>
+<td>RCV-07</td>
+</tr>
+<tr>
+<td>RCV-D08</td>
+<td>External acknowledgement / adapter</td>
+<td>Ack kind/operation, response, external reference, observed state, safety class; restricted</td>
+<td>RCV-08/09</td>
+</tr>
+<tr>
+<td>RCV-D09</td>
+<td>Quarantine/recovery case / operations</td>
+<td>Fault, original reference, owner, deadline, allowed action, evidence with sensitive values removed and audit; restricted</td>
+<td>RCV-09</td>
+</tr>
+<tr>
+<td>RCV-D10</td>
+<td>Public consultation checkpoint / consultation</td>
+<td>Cursor/window/page classification/freshness; owned by PRD-SEI-211, referenced here only</td>
+<td>RCV-01/09</td>
+</tr>
+</tbody>
+</table>
+<p>Retention and deletion follow approved legal/privacy/contract policy. The original received bytes and provenance must remain explainable after canonical mapping, route change or provider exit. D10 cannot advance merely because a product event was emitted; consultation applies its own committed-page and reconciliation rules.</p>
+<h2>Part 4 Assurance and Traceability View</h2>
+<p>This part shows how requirements connect to activities, interfaces, data and acceptance checks. The scenarios describe evidence still needed; they are not a claim that implementation tests have passed.</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Requirement → activity / interaction / data</th>
+<th>Expected evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RCV-A01 Direct private invoice</td>
+<td>R01–05 → RCV-01–07, INT-01–07, D01–07</td>
+<td>Authenticated source, exact original/trust/profile, correct entity and one product invoice.</td>
+</tr>
+<tr>
+<td>RCV-A02 Public retrieved invoice</td>
+<td>R02–05/08 → RCV-01–07/09, INT-01/09, D01/D10</td>
+<td>Durable item classification; cursor/freshness remains consultation-owned.</td>
+</tr>
+<tr>
+<td>RCV-A03 Wrong recipient</td>
+<td>R02/06 → RCV-02/09, INT-02/10, D02/09</td>
+<td>No cross-tenant disclosure or product event; redacted owned case.</td>
+</tr>
+<tr>
+<td>RCV-A04 Invalid trust or file</td>
+<td>R02/06 → RCV-03/09, INT-03/10, D03/09</td>
+<td>Quarantine; no trusted ack or product delivery.</td>
+</tr>
+<tr>
+<td>RCV-A05 Same invoice via two paths</td>
+<td>R03/04 → RCV-04/07, INT-04/07, D04/06/07</td>
+<td>One business invoice, both source observations retained.</td>
+</tr>
+<tr>
+<td>RCV-A06 Identity collision, different bytes</td>
+<td>R03/06 → RCV-04/09, INT-04/10, D04/09</td>
+<td>Conflict quarantine; prior invoice not overwritten.</td>
+</tr>
+<tr>
+<td>RCV-A07 Transformation loses meaning</td>
+<td>R05/06 → RCV-06/09, INT-06/10, D05/09</td>
+<td>Original preserved; no product event until approved repair.</td>
+</tr>
+<tr>
+<td>RCV-A08 Product outage</td>
+<td>R04/07 → RCV-07/09, INT-07/10, D06/07</td>
+<td>Durable invoice/outbox; one business event after recovery.</td>
+</tr>
+<tr>
+<td>RCV-A09 Ack timeout</td>
+<td>R07/09 → RCV-08/09, INT-08, D08/09</td>
+<td>Unknown result reconciled; no repeated acknowledgement without checking the original outcome.</td>
+</tr>
+<tr>
+<td>RCV-A10 Public gap or late item</td>
+<td>R07/08 → RCV-09, INT-09, D01/D10</td>
+<td>Revisit window without duplicate invoice; freshness truthful.</td>
+</tr>
+<tr>
+<td>RCV-A11 Country-bound receipt and identity</td>
+<td>R01–03/05/06/09 → RCV-02–06/08, INT-02–06/08, D02–05/08</td>
+<td>Shared intake uses the selected country’s recipient, invoice-key, trust, profile and acknowledgement rules. Spain bridge observations do not define another country’s receipt model. Missing local policy quarantines or blocks the affected item without changing another country’s records.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Review gate:</strong> confirm inbound operator/source contracts, recipient identity, duplicate keys, accepted profiles, trust and acknowledgement policy. <strong>Pilot gate:</strong> direct/private and public retrieval flows, cross-tenant denial, signature/file failures, mixed-route duplicate, conflicting hash, incomplete public page, product outage and unknown acknowledgement drills. <strong>Production gate:</strong> conformance evidence, retention/portability, support runbook, monitoring baselines and measured service objectives. Unsupported or unverified routes remain disabled or manually gated.</p><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro>

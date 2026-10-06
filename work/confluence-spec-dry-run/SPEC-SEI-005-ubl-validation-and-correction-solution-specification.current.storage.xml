@@ -1,0 +1,550 @@
+<div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-005<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md">021bcc7cadfccfe93d2388de4616efebe17558fb</a><br /><strong>Last updated:</strong> 2026-10-06</p></div><h1>UBL Validation and Correction Solution Specification</h1>
+<h2>Part 1 Feature Solution Summary</h2>
+<h3>Reader guide</h3>
+<p>Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. Part 2 gives the detailed behaviour and rules. Part 3 describes service interactions and data. Part 4 links requirements to the checks and evidence needed before release.</p>
+<p>The design remains a draft. <strong>Proposed</strong> choices still need review; <strong>open</strong> decisions still need an owner’s recorded answer. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.</p>
+<h3>1 Purpose, authority and boundary</h3>
+<p>This <strong>proposed logical design</strong> gives Sage products a consistent way to check a UBL Invoice or CreditNote and explain how to correct problems. Checks use the rules explicitly approved and enabled for the selected country, direction, route, document type and profile. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-241-ubl-validation-service.md">PRD-SEI-241</a> owns the product handoff; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-236-ubl-format-profile.md">PRD-SEI-236</a> owns versioned UBL profile capability; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a> owns transformation and exchange. This spec covers non-mutating preflight, final validation of exact dispatch bytes, structured issues and correction lineage. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-007-spain-invoice-preparation-and-outbound-solution-specification.md">SPEC-SEI-007</a> owns Spain outbound orchestration, actual send and external acknowledgement; lifecycle owners handle subsequent feedback.</p>
+<p>A validation PASS means that one identified representation passed one identified local rule set at one time. It does not prove that an access point or public platform accepted it, that a buyer received it, or that the invoice is legally settled. A customer correction before dispatch creates a new source revision. A correction after issuance is a separate governed invoice/credit-note lifecycle decision; the validation service must not rewrite a sent original.</p>
+<h3>Spain use and reuse boundaries</h3>
+<p>This is a <strong>Spain reference design</strong>. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. <strong>Reusable unchanged</strong> means the design pattern can stay the same. <strong>Reusable with country binding</strong> means the shared behaviour needs approved local policies or adapters. <strong>Country-specific</strong> rules stay in the country pack. <strong>Unknown</strong> means implementation fitness or coverage still needs evidence.</p>
+<p>This follows the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-227-e-invoicing-as-a-service.md">shared platform and country-pack direction</a>. Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Intended use in Spain</th>
+<th>Reuse classification</th>
+<th>Condition and owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source versions, issues and final-file evidence</td>
+<td>Preserve exact inputs, explain problems and link final validation to the intended send.</td>
+<td>Reusable unchanged</td>
+<td>Reuse the version, issue and evidence patterns. Validation owner and ERP Product.</td>
+</tr>
+<tr>
+<td>Validation and transformation services</td>
+<td>Run the exact enabled rules and qualified mapper for the selected Spain route.</td>
+<td>Reusable with country binding</td>
+<td>Assess DTS as the preferred existing candidate for transformation and relevant validation functions; isolate country packs and qualify gaps. DTS and country/standards owner.</td>
+</tr>
+<tr>
+<td>Spain UBL profiles and corrections</td>
+<td>Select approved Spain syntax/profile, extensions and rules; use the approved issued-invoice correction process.</td>
+<td>Country-specific</td>
+<td>Neither UBL 2.5 nor a France or Peppol profile is automatically approved for Spain. Spain technical owner, Legal and ERP Product.</td>
+</tr>
+<tr>
+<td>Exact deployed validation coverage</td>
+<td>Establish which DTS/validation build supports the selected input, profile, direction and final-file checks.</td>
+<td>Unknown</td>
+<td>Existing-service direction does not prove this complete contract. Record build, rule resources, interfaces, ownership and missing functions before activation. Architecture and DTS.</td>
+</tr>
+</tbody>
+</table>
+<p>The existing DTS reuse direction comes from <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>. It identifies a preferred candidate; it does not certify a deployed build or Spain acceptance.</p>
+<h3>Plain-language terms</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legal entity / legal subject</td>
+<td>The business to which the invoice or action belongs. Technical fields use <code>legalSubject</code> for this business.</td>
+</tr>
+<tr>
+<td>Authority</td>
+<td>Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission.</td>
+</tr>
+<tr>
+<td>Capability</td>
+<td>A supported function, such as receiving invoices or signing them.</td>
+</tr>
+<tr>
+<td>Route</td>
+<td>The platform and connection used to send or receive an invoice.</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>A repeat of the same request has no additional effect. The contract must define how the system recognises that request.</td>
+</tr>
+<tr>
+<td>Reconciliation</td>
+<td>Check the original operation against a reliable source to establish what actually happened before deciding the next action.</td>
+</tr>
+<tr>
+<td>Gate</td>
+<td>A condition, decision or evidence check that must pass before the next step can proceed.</td>
+</tr>
+<tr>
+<td>Tenant</td>
+<td>The customer account boundary used to keep one customer’s data and access separate from another’s.</td>
+</tr>
+<tr>
+<td>Immutable / append-only</td>
+<td>A saved item cannot be changed; new information is added as a new record instead of overwriting earlier records.</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td>The record of where data came from and which versions, checks and changes produced the result.</td>
+</tr>
+<tr>
+<td>Contract</td>
+<td>The agreed inputs, outputs, behaviour and responsibilities between services or parties.</td>
+</tr>
+<tr>
+<td>Durable</td>
+<td>Saved so the record remains available after a service restart.</td>
+</tr>
+<tr>
+<td>UBL / ERP</td>
+<td>Universal Business Language, a structured electronic document format; the business software that owns the invoice data.</td>
+</tr>
+<tr>
+<td>Profile / rule pack</td>
+<td>The precise rules approved for a country, route and document type; the versioned resources used to check those rules.</td>
+</tr>
+<tr>
+<td>Preflight / final check</td>
+<td>A preview check before sending; and a new check of the exact final file and current rules before dispatch.</td>
+</tr>
+<tr>
+<td>Representation / semantic preservation</td>
+<td>A specific file or form of invoice data; keeping its required business meaning when converting it.</td>
+</tr>
+<tr>
+<td>XSD / EN 16931 / BIS / CIUS</td>
+<td>XML Schema Definition checks XML structure. EN 16931 defines a European invoice model. Business Interoperability Specifications and Core Invoice Usage Specifications add more specific rules.</td>
+</tr>
+<tr>
+<td>AP / DTS</td>
+<td>Access point; and Document Transformation Service. Their responsibilities remain separate from local validation.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Input, output and endpoints</h3>
+<table>
+<thead>
+<tr>
+<th>Entry</th>
+<th>Expected result</th>
+<th>Limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prebuilt UBL bytes</td>
+<td>Exact source hash, declared/detected context comparison and layered validation</td>
+<td>No silent edit or profile guess</td>
+</tr>
+<tr>
+<td>ERP invoice facts</td>
+<td>Generated target UBL as a separately identified representation, comparison of business meaning and validation</td>
+<td>Mapper activation and preservation of required business meaning must be proved</td>
+</tr>
+<tr>
+<td>Preflight preview</td>
+<td>PASS, WARNINGS, BLOCKED, UNSUPPORTED or UNDETERMINED with issues and staleness context</td>
+<td>No external invoice mutation</td>
+</tr>
+<tr>
+<td>Corrected revision</td>
+<td>New linked source/derived representation and result</td>
+<td>Earlier bytes/result remain inspectable</td>
+</tr>
+<tr>
+<td>Final dispatch check</td>
+<td>One validation result bound to exact final bytes, route, profile/rules, trust plan and send intent</td>
+<td>External exchange still owns dispatch</td>
+</tr>
+</tbody>
+</table>
+<p>The ERP owns business-data edits and presentation. The Domain Service owns profile selection, rule execution, issue identity and validation evidence. Country/standards owners approve rule packs; operations owns service/configuration problems; a customer/delegate corrects business content only within their authority.</p>
+<h3>3 Process diagrams</h3>
+<p><strong>Preflight and correction:</strong> </p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="9c59f38a-e7f4-5ba2-9897-bb0f3cebb29a"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">ubl-preflight-correction-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">580</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/ubl-preflight-correction-process.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/ubl-preflight-correction-process.png">PNG</a>. Text equivalent: UV-01 accepts source facts or exact UBL → UV-02 resolves an activated profile → UV-03 creates a distinct derived file only if approved → UV-04 runs ordered rule layers → UV-05 returns stable issues and correction owner. Customer correction creates UV-06 as a new revision and loops to profile/validation; missing rule evidence yields UNDETERMINED, not PASS.</p>
+<p><strong>Final dispatch gate:</strong> </p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="930d4377-f413-5370-8cb3-3e672a239c49"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">ubl-final-validation-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">580</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/ubl-final-validation-process.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/ubl-final-validation-process.png">PNG</a>. Text equivalent: outbound exchange requests UV-07 with final bytes, route and source revision → UV-02/04 reevaluate the exact selected profile/rules and representation → UV-08 binds PASS to the final hash, route, trust plan and one send intent. Any changed bytes, stale preview, loss of business meaning or unavailable pack blocks dispatch and returns an owned issue. Delivery and feedback are separate outcomes.</p>
+<h3>4 Ordered lifecycle</h3>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Trigger and required result</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UV-01 Capture source</td>
+<td>Authorised facts or file, source revision, declared context and immutable hash recorded</td>
+<td>ERP → validation</td>
+</tr>
+<tr>
+<td>UV-02 Resolve capability</td>
+<td>Exact syntax/document/profile/route/rule versions selected or unsupported/undetermined</td>
+<td>Profile registry</td>
+</tr>
+<tr>
+<td>UV-03 Generate candidate</td>
+<td>Approved mapping produces distinct bytes/hash and comparison of business meaning</td>
+<td>Transformation</td>
+</tr>
+<tr>
+<td>UV-04 Validate layers</td>
+<td>File safety, parse/schema, code lists, EN 16931, BIS/CIUS and route rules assessed as applicable</td>
+<td>Validation</td>
+</tr>
+<tr>
+<td>UV-05 Return result</td>
+<td>Ordered stable issues, guidance suitable for the intended reader, owner, versions and next action stored</td>
+<td>Validation → ERP</td>
+</tr>
+<tr>
+<td>UV-06 Correct</td>
+<td>New authorised source revision/result linked to prior attempt; original unchanged</td>
+<td>ERP/customer</td>
+</tr>
+<tr>
+<td>UV-07 Final check</td>
+<td>Exact dispatch bytes and current route/profile/rules re-evaluated</td>
+<td>Exchange → validation</td>
+</tr>
+<tr>
+<td>UV-08 Bind evidence</td>
+<td>Final result/hash/context bound to one idempotent send intent; no mutation here</td>
+<td>Validation → exchange</td>
+</tr>
+</tbody>
+</table>
+<h3>5 Decisions and risks</h3>
+<table>
+<thead>
+<tr>
+<th>Decision / effect</th>
+<th>Owner and gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reference ERP, input mode, selected country/route and Invoice/CreditNote pilot scope</td>
+<td>Product + Domain Service; pilot selection</td>
+</tr>
+<tr>
+<td>Exact Spanish public/private UBL, EN 16931, BIS/CIUS and extension versions</td>
+<td>Country/standards owner; profile activation</td>
+</tr>
+<tr>
+<td>DTS or other mapper qualification and treatment of source fields/extensions that cannot map</td>
+<td>Architecture + country technical lead; conformance</td>
+</tr>
+<tr>
+<td>Whether a generated representation is returned as bytes or reference, and validation/send transport</td>
+<td>Architecture; design</td>
+</tr>
+<tr>
+<td>Correction ownership and customer wording for each rule/fault class</td>
+<td>ERP Product/UX + Domain Service; pilot usability</td>
+</tr>
+<tr>
+<td>Signature/seal actor and protected-use boundary after final validation</td>
+<td>Legal/Security + trust design; exchange gate</td>
+</tr>
+</tbody>
+</table>
+<p>The main risks are reusing a preview after data or rules change, assuming that readable XML is approved for a route, silently changing supplied XML, losing business meaning during conversion, or asking a customer to fix a Sage configuration problem. The activities below address these risks. A UBL version still needs approval before production use.</p>
+<h2>Part 2 Logical Feature Specification</h2>
+<p>This part explains the proposed behaviour step by step. An invariant is a rule that must always hold, including during failures and recovery.</p>
+<h3>1 Scope and invariants</h3>
+<p>The validation context is (tenant, legalSubject, actor, country, direction, route, documentType, sourceInvoiceId, sourceRevision, inputMode). The capability registry selects exact syntax version, profile/CIUS/BIS version, extension set, effective period and validation artefact hashes. Invoice and CreditNote, preflight and final, and outbound and inbound are separately activated. Inbound use is a separate trust/quarantine policy; it is not implied by this outbound reference design.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Rule that must always hold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UV-I01</td>
+<td>Source bytes/facts, generated UBL, final dispatched bytes and rendering are distinct, hash-addressed representations.</td>
+</tr>
+<tr>
+<td>UV-I02</td>
+<td>The service never silently edits prebuilt UBL. Parsing/facts in the agreed common data form do not replace the legal original.</td>
+</tr>
+<tr>
+<td>UV-I03</td>
+<td>No PASS is returned when required profile/rule evidence is absent, contradictory, expired or unactivated.</td>
+</tr>
+<tr>
+<td>UV-I04</td>
+<td>A preview is non-mutating and cannot authorise a later send unless exact content and current context are rechecked.</td>
+</tr>
+<tr>
+<td>UV-I05</td>
+<td>Each issue identifies source rule/layer/version, stable Sage code, location, severity, blocking effect, correction owner and safe guidance.</td>
+</tr>
+<tr>
+<td>UV-I06</td>
+<td>Correction creates a new linked revision/result; sent bytes and historical validation are append-only.</td>
+</tr>
+<tr>
+<td>UV-I07</td>
+<td>Final signing/sealing follows target-profile validation and binds to the exact final bytes under <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-001-certificate-management-solution-specification.md">certificate controls</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Detailed behaviour</h3>
+<p><strong>UV-01 Capture source.</strong> Authenticate product/delegate and resolve legal entity, environment, country, direction, route intent, document type and source revision. For prebuilt UBL, store exact bytes or immutable protected reference and hash before parsing; verify declared type/profile against content without guessing a missing contradictory profile. For facts mode, store a versioned fact snapshot/reference and hash. Scan file/attachments against approved content, size and file-safety policy.</p>
+<p>Duplicate key plus same digest returns the prior validation; changed content under the same key conflicts. Preview creates no external invoice effect.</p>
+<p><strong>UV-02 Resolve capability.</strong> Find the enabled capability using country, route, direction, document type, effective time and declared syntax or profile. Being able to parse a UBL version does not mean it is approved for use.</p>
+<p>Select the exact XSD, code-list, EN 16931, BIS/CIUS, country and route packs, including their hashes and effective versions. An unsupported choice returns UNSUPPORTED with safe alternatives where known. A missing pack or conflicting choice returns UNDETERMINED and an action for Sage.</p>
+<p>Peppol BIS is a specific UBL/EN 16931 profile, rather than a separate syntax. The existence of the UBL 2.5 standard does not establish that Spain accepts it.</p>
+<p><strong>UV-03 Generate candidate.</strong> Facts mode invokes only an approved mapper/generator for the selected target profile. Store mapper version, source relation, target bytes/hash and comparison of business meaning (party identities, invoice type/references, lines, amounts/tax, payment and required extensions as applicable). Any mandatory loss or unsupported extension blocks the candidate. A permitted normalisation is documented as a new derived representation; a supplied UBL source is never overwritten. If generation fails, return a service/mapping issue rather than a false customer data error.</p>
+<p><strong>UV-04 Validate layers.</strong> Run ordered file safety and parse checks, syntax/schema, code lists, EN 16931 core, BIS/CIUS and country/route rules when activated. Retain per-layer PASS, BLOCKED or UNDETERMINED, rule artefact hashes, elapsed time and original rule IDs. A later stage need not run when prerequisite parsing fails; report NOT_EVALUATED rather than PASS. Deterministic rule execution can be retried after infrastructure failure, but the same bytes and pack versions must be used for historical reproducibility. A failed or missing pack blocks final dispatch.</p>
+<p><strong>UV-05 Return result.</strong> Calculate PASS, WARNINGS, BLOCKED, UNSUPPORTED or UNDETERMINED from the policy and individual check results. Each issue records the Sage issue ID, original rule ID, stage, severity, document or field location, developer detail, safe customer text that can be translated, blocking effect, likely correction owner and evidence reference.</p>
+<p>Use a consistent issue order. Limit the visible list only under an approved user-experience contract; keep the complete result available to authorised users. Show whether the customer, developer, country policy owner or Sage operations must act next. PASS proves only that the local checks passed at the recorded time.</p>
+<p><strong>UV-06 Correct.</strong> An authorised ERP edit produces a new source revision and new validation request with lineage to the failed result. A customer may fix facts or replace a prebuilt file; the service does not patch XML invisibly. If the invoice has already been sent/issued, route to the approved correction/credit-note lifecycle and preserve the original signed/sent representation. Do not use a pre-send edit operation to rewrite a post-send invoice. Support can inspect prior hashes and issue versions subject to permissions.</p>
+<p><strong>UV-07 Final check.</strong> Outbound exchange passes the exact final representation reference/hash, frozen route choice, actor/trust plan, source revision and proposed send identity. Resolve current effective profile/rules and confirm the selected representation is the one to be signed/sent. Re-run applicable validation even if preflight PASS exists; changed bytes, route, pack or capability can change the result. If the final target file changes through mapping, validate after mapping and before signing. Failure or UNDETERMINED returns no dispatch authorisation.</p>
+<p><strong>UV-08 Bind evidence.</strong> Save the final result ID, exact file bytes and hash, profile, rule and mapper versions, comparison of business meaning, route version, authority and trust references, and one send intent.</p>
+<p>The send intent keeps a stable idempotency identity. A repeat returns the existing link between the result and send intent; changed content returns a conflict. The exchange service alone sends externally. It receives the validation evidence reference and must still enforce the current route and trust policy.</p>
+<p>Exchange and lifecycle owners record external rejection or Peppol feedback. That feedback does not rewrite the earlier UV-05 result.</p>
+<h3>3 Requirements and quality controls</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement / source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UV-R01</td>
+<td>Bind identity, source revision, direction and request before evaluating; PRD-SEI-241 UVAL-FR1.</td>
+</tr>
+<tr>
+<td>UV-R02</td>
+<td>Select exact activated profile and artefacts or return unsupported/undetermined; UVAL-FR2/10.</td>
+</tr>
+<tr>
+<td>UV-R03</td>
+<td>Preserve source and derived bytes/hash plus mapper/semantic provenance; UVAL-FR3/9.</td>
+</tr>
+<tr>
+<td>UV-R04</td>
+<td>Report each applicable validation layer and stable actionable issues; UVAL-FR4/5.</td>
+</tr>
+<tr>
+<td>UV-R05</td>
+<td>Keep preflight non-mutating and detect stale context; UVAL-FR6.</td>
+</tr>
+<tr>
+<td>UV-R06</td>
+<td>Validate exact final representation before send and bind evidence; UVAL-FR7/12.</td>
+</tr>
+<tr>
+<td>UV-R07</td>
+<td>Create linked corrected revisions without rewriting originals; UVAL-FR8.</td>
+</tr>
+<tr>
+<td>UV-R08</td>
+<td>Deduplicate final send identity and conflict on changed digest; UVAL-FR11.</td>
+</tr>
+</tbody>
+</table>
+<p>Tenant/entity/delegate access controls apply to files, results and evidence. Diagnostics and logs redact invoice content and personal data; no private key appears in validation. Rule, mapper and profile versions coexist to reproduce historical results. Pilot measures first-pass pass rate, correction completion, preventable external rejection, undetermined/stale-preview rate, latency, processing rate, payload size and issue volume; owners approve targets after baseline measurement.</p>
+<h2>Part 3 Logical Service Interactions and Data Inventory</h2>
+<p>This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.</p>
+<h3>Spain and reuse boundary in contracts</h3>
+<p>Keep one issue and result model, but independently version the runtime, mapper, syntax resources and country/route rule packs. Assess existing DTS functions before adding a new implementation. A France pack or a parser’s UBL support cannot establish Spain acceptance. A reusable UBL capability also does not establish support for other syntaxes, inbound use or another country.</p>
+<p>The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.</p>
+<h3>1 Interaction contracts</h3>
+<p>The operations below are logical, not approved HTTP endpoints. Commands carry requestId, tenant/entity/environment, actor, source invoice/revision, direction/route/document type, input mode, expectedVersion and idempotency key where relevant.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Caller → owner</th>
+<th>Contract and safe outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UV-INT-01</td>
+<td>ERP → validation</td>
+<td>Submit preflight facts or protected UBL reference; returns result ID/state and source hash; no external mutation.</td>
+</tr>
+<tr>
+<td>UV-INT-02</td>
+<td>Validation → profile registry</td>
+<td>Resolve exact activated syntax/profile/rule artefacts; returns versions/hashes/effective period or unsupported/undetermined.</td>
+</tr>
+<tr>
+<td>UV-INT-03</td>
+<td>Validation → transformation</td>
+<td>Generate candidate from facts under approved mapper; returns new representation/hash and comparison of business meaning or loss issue.</td>
+</tr>
+<tr>
+<td>UV-INT-04</td>
+<td>Validation → rule engine</td>
+<td>Evaluate exact bytes under frozen pack set; returns per-layer findings and execution evidence; deterministic duplicate-safe.</td>
+</tr>
+<tr>
+<td>UV-INT-05</td>
+<td>ERP → validation</td>
+<td>Get result/issues or submit corrected source revision; access controlled, new revision linked to previous.</td>
+</tr>
+<tr>
+<td>UV-INT-06</td>
+<td>Exchange → validation</td>
+<td>Request final validation for exact dispatch bytes/context; returns blocking decision and evidence reference.</td>
+</tr>
+<tr>
+<td>UV-INT-07</td>
+<td>Validation → exchange</td>
+<td>Bind PASS evidence to one send intent; duplicate-safe; changed digest conflicts; no send side effect.</td>
+</tr>
+<tr>
+<td>UV-INT-08</td>
+<td>Validation → operations/product</td>
+<td>Emit committed result/pack-fault notification with redacted references; consumers deduplicate by result version.</td>
+</tr>
+</tbody>
+</table>
+<p>Proposed events are UBL_VALIDATION_COMPLETED, UBL_CORRECTION_REQUIRED and UBL_VALIDATION_UNDETERMINED. Their payloads contain IDs, versions and safe status, never raw invoice XML. An event cannot substitute for reading the authoritative result.</p>
+<h3>2 Data inventory</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Record / owner</th>
+<th>Essential fields and handling</th>
+<th>Consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UV-D01</td>
+<td>Source revision / product + validation</td>
+<td>Source ID/revision, input mode, immutable bytes/facts reference/hash, actor, tenant/entity; sensitive</td>
+<td>UV-01/06</td>
+</tr>
+<tr>
+<td>UV-D02</td>
+<td>Capability selection / profile registry</td>
+<td>Country, route, direction, document, syntax/profile/extension version, effective interval, approval evidence; versioned</td>
+<td>UV-02/07</td>
+</tr>
+<tr>
+<td>UV-D03</td>
+<td>Rule pack / country/standards owner</td>
+<td>XSD, code lists, EN 16931, BIS/CIUS, country/route artefact IDs/hashes, state; controlled</td>
+<td>UV-04/07</td>
+</tr>
+<tr>
+<td>UV-D04</td>
+<td>Derived representation / transformation</td>
+<td>Source link, mapper version, target bytes/hash, comparison of business meaning and loss findings; sensitive/immutable</td>
+<td>UV-03/04/07</td>
+</tr>
+<tr>
+<td>UV-D05</td>
+<td>Validation result/issues / validation</td>
+<td>Input hash, context, layer states, overall outcome, stable/source rule IDs, location, guidance, owner, pack versions; restricted/append-only</td>
+<td>UV-05/06/08</td>
+</tr>
+<tr>
+<td>UV-D06</td>
+<td>Correction lineage / validation</td>
+<td>Prior/new source/result IDs, actor, reason and changed fields reference; restricted</td>
+<td>UV-06</td>
+</tr>
+<tr>
+<td>UV-D07</td>
+<td>Final send binding / validation + exchange</td>
+<td>Exact final hash, result, route/profile/rules, trust reference, send identity, time; immutable</td>
+<td>UV-07/08</td>
+</tr>
+<tr>
+<td>UV-D08</td>
+<td>Audit/operational evidence / operations</td>
+<td>Correlation, fault domain, rule execution, diagnostics with sensitive values removed and owner; restricted</td>
+<td>Support/assurance</td>
+</tr>
+</tbody>
+</table>
+<p>Retention, legal-original status and deletion are governed by approved country/privacy policy. D01/D04/D07 preserve exact provenance; a rendered PDF is labelled derived and cannot be presented as the structured invoice. Candidate rule packs can be disabled for new work without changing D05/D07 historical conclusions.</p>
+<h2>Part 4 Assurance and Traceability View</h2>
+<p>This part shows how requirements connect to activities, interfaces, data and acceptance checks. The scenarios describe evidence still needed; they are not a claim that implementation tests have passed.</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Requirement → activity / interaction / data</th>
+<th>Expected evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UV-A01 Well-formed UBL fails BIS rule</td>
+<td>R02/04 → UV-02/04/05, INT-02/04, D03/05</td>
+<td>Actual BIS rule/version/location and safe correction; no send.</td>
+</tr>
+<tr>
+<td>UV-A02 Contradictory profile</td>
+<td>R02 → UV-02, INT-02, D02</td>
+<td>Unsupported/block; no guessed profile.</td>
+</tr>
+<tr>
+<td>UV-A03 Facts mapped to UBL</td>
+<td>R03 → UV-01/03/04, INT-03, D01/04</td>
+<td>Distinct source/target hashes and comparison of business meaning.</td>
+</tr>
+<tr>
+<td>UV-A04 Mandatory meaning lost</td>
+<td>R03/06 → UV-03/07, INT-03/06, D04/07</td>
+<td>Block before signing/dispatch, mapper/field evidence.</td>
+</tr>
+<tr>
+<td>UV-A05 Correction</td>
+<td>R07 → UV-06, INT-05, D01/05/06</td>
+<td>New linked result; failed original preserved.</td>
+</tr>
+<tr>
+<td>UV-A06 Preview stale at send</td>
+<td>R05/06 → UV-07, INT-06, D05/07</td>
+<td>Exact final bytes/current rules rechecked; new invalid result blocks.</td>
+</tr>
+<tr>
+<td>UV-A07 Rule pack missing</td>
+<td>R02/06 → UV-02/07, INT-02/06, D02/03</td>
+<td>UNDETERMINED and Sage-owned action; no external mutation.</td>
+</tr>
+<tr>
+<td>UV-A08 Duplicate send identity</td>
+<td>R08 → UV-08, INT-07, D07</td>
+<td>Same binding returned or conflict; no second send intent.</td>
+</tr>
+<tr>
+<td>UV-A09 Historical pack upgrade</td>
+<td>R02/04 → UV-02/04, INT-02/04, D03/05</td>
+<td>Old result reproducible; new work selects approved effective pack.</td>
+</tr>
+<tr>
+<td>UV-A10 Country-pack and reused-service qualification</td>
+<td>R02–04/06 → UV-02–04/07, INT-02–04/06, D02–05/07</td>
+<td>Recorded DTS/validation build and rule-pack evidence prove the selected Spain contract. France and Spain packs remain separate; changing one does not change the other or rewrite historical results. Missing Spain resources block the final check.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Review gate:</strong> agree reference ERP/input modes, precise country-route profile and correction ownership. <strong>Pilot gate:</strong> approved rule artefacts and corpus, mapper semantic tests, cross-tenant/delegate tests, stale-preview/final-check tests, user comprehension and AP/provider conformance comparison. <strong>Production gate:</strong> country/profile activation evidence, trust/signing boundary, measured capacity objectives, retention/privacy and support runbook. This draft does not activate a Spanish UBL or BIS version.</p><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro>

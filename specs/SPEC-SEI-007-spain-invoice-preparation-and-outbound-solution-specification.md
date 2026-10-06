@@ -3,7 +3,7 @@ id: SPEC-SEI-007
 title: Spain Invoice Preparation and Outbound Solution Specification
 type: solution-spec
 status: draft
-owner: TBD — Spain E-Invoicing Exchange Solution Designer
+owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
 updated: 2026-10-06

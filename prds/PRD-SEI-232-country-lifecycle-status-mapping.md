@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-12
-updated: 2026-09-11
+updated: 2026-10-06
 reviewers: []
 related:
   - PRD-SEI-227
@@ -282,7 +282,7 @@ None of the seven Article 10 variants is declared by the decree to be a universa
 
 Primary source for the independent public-solution reporting leg: [BOE — Royal Decree 238/2026, Article 12.1–12.3](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295#a1-4), accessed 2026-09-11. Article 12 requires reporting full payment or rejection to the public solution, permits the recipient to authorise its private platform to communicate payments, and gives the full-payment communication its own four-day rule.
 
-Operational corroboration: [AEAT — Facturación electrónica obligatoria](https://sede.agenciatributaria.gob.es/Sede/iva/novedades-iva/novedades-normativa-2026/real-decreto-238-2026-25-marzo.html), accessed 2026-09-11, confirms AEAT's role in the public solution and its planned support for invoice-status information, including full payment. It is supporting operational context; the BOE remains the primary source for the statutory event and deadline rules, and the future ministerial order/AEAT service specifications remain the source required for technical implementation.
+Operational corroboration: [AEAT — Facturación electrónica obligatoria](https://sede.agenciatributaria.gob.es/Sede/iva/novedades-iva/novedades-normativa-2026/real-decreto-238-2026-25-marzo.html), accessed 2026-09-11, confirms AEAT's role in the public solution and its planned support for invoice-status information, including full payment. It is supporting operational context; the BOE remains the primary source for the statutory event and deadline rules, and final Order HAC/1028/2026 and AEAT service specifications are the sources required for technical implementation.
 
 ## Requirements and acceptance
 
@@ -322,10 +322,15 @@ Operational corroboration: [AEAT — Facturación electrónica obligatoria](http
 
 ## Research matrix
 
+### Final public-order evidence
+
+The final order is now available. Article 7.1 adds a presumed-acceptance view in the absence of rejection or a later rectifying invoice; it is derived, not an explicit acceptance event or a universal four-day timer. Map Article 7–8 and Annex II in a governed Spain public-reporting catalogue before activation; do not import those rules into other countries. See the [source snapshot and impact review](../research/spain-public-platform-order-evidence.md).
+
+
 | Country | Current discovery position | Required next evidence |
 |---|---|---|
 | France | The standards-level catalogue has 15 distinct terms and 16 source contexts; the customer illustration shows 14 because it omits optional `Annulée`. Reform codes, phases and principal actors are now named in this discovery | Import the applicable XP Z12-012 Annex A reason/action lists and complete transition matrix into governed, checksum-pinned fixtures; confirm implementation against the June 2026 edition |
-| Spain | RD 238/2026 Article 10 confirms 5 legal categories/7 explicit outcome variants; Article 12 defines the public full-payment/rejection reporting subset | Keep B2B e-invoice, public-reporting and VERI*FACTU/SII events in separate bounded contexts; add the implementing-order technical catalogue when issued |
+| Spain | RD 238/2026 Article 10 confirms 5 legal categories/7 explicit outcome variants; Article 12 defines the public full-payment/rejection reporting subset | Keep B2B e-invoice, public-reporting and VERI*FACTU/SII events in separate bounded contexts; map final Order HAC/1028/2026 Articles 7–8/Annex II and obtain the AEAT technical catalogue |
 | Germany | Flexible delivery methods mean document and delivery evidence cannot be inferred from one network status | Format/channel-specific acknowledgements, rejection and correction rules |
 | Ireland | Phased mandate is known; detailed reporting/transport events remain incomplete | Revenue technical specifications and official event catalog |
 | UK | Peppol direction is known; final UK lifecycle and HMRC reporting rules remain open | Final legislation, BIS/profile and reporting artefacts |

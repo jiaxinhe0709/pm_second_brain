@@ -3,7 +3,7 @@ id: SPEC-SEI-004
 title: Onboarding Failure and Reconciliation Solution Specification
 type: solution-spec
 status: draft
-owner: TBD — Spain E-Invoicing Solution Designer
+owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
 updated: 2026-10-06

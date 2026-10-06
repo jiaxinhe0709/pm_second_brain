@@ -10,6 +10,24 @@ Read `schema/DOCUMENT_RULES.md` before creating or changing managed documents.
 - Never add secrets, tokens, customer personal data, or confidential raw exports.
 - Do not publish to Confluence or change document status without explicit user approval.
 
+## Solution spec language and reuse
+
+- Write specs for engineering and stakeholders who use English as a second
+  language. Use plain language, explain necessary technical terms, and preserve
+  precise behaviour, technical IDs, controls and open decisions.
+- For each Spain spec, explicitly identify intended Spain use, reusable design
+  patterns, shared capabilities needing country rules or adapters, Spain-specific
+  behaviour, and unknown implementation coverage.
+- Distinguish reuse of an existing implementation from reuse of a proposed design
+  pattern. Record the source capability, local changes, gaps, owner and evidence
+  needed before activation; a reuse candidate is not proof of production readiness.
+- Assess existing DTS as the preferred transformation reuse candidate where
+  relevant. Qualify its actual build, contracts, mappings, rule packs and operations
+  for the selected Spain scope.
+- Keep country rules separate from shared behaviour. Spain identity, routing,
+  public-copy and reporting rules must not become defaults for another country.
+  Include acceptance coverage for country-rule isolation and reuse qualification.
+
 ## Context and chat lifecycle
 
 - Treat each chat as one primary outcome. Continue in the same chat while refining

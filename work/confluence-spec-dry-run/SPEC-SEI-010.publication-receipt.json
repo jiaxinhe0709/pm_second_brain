@@ -1,0 +1,30 @@
+{
+  "page_id": "912540298",
+  "url": "https://confluence.sage.com/pages/viewpage.action?pageId=912540298",
+  "parent_id": "837610662",
+  "version": 2,
+  "state": "published and read-back verified",
+  "source": "unmerged local pilot; explicit user-approved exception",
+  "local_revision": "40b03ff7de3a8c7e74bfc6fb7603a97d23ea393c",
+  "snapshot_sha256": {
+    "SPEC-SEI-010-public-platform-invoice-retrieval-storage-and-download-solution-specification.md": "497b96b49fa97315df54e1d6539c693f4db33b32a0983e72c5cd90a1dee33d9f",
+    "PRD-SEI-211-public-platform-invoice-consultation-structured-review.md": "d54a85f6f445f0c9eaf0edcfc011ab97c92ee1c9f57d1553ff51b3d2e1e67a16",
+    "spain-public-platform-order-evidence.md": "3d2efe950ee6b63d7a2b30665257dfb5261993384511bd236029d57a28f37225",
+    "BOE-A-2026-20587.xml": "636c666e6d73f826626595bc07f3daf60b33478d8647f865b3e0a66c75fc1076"
+  },
+  "verified_attachments": [
+    "BOE-A-2026-20587.xml",
+    "PRD-SEI-211-public-platform-invoice-consultation-structured-review.md",
+    "SPEC-SEI-010-public-platform-invoice-retrieval-storage-and-download-solution-specification.md",
+    "e-invoicing-public-consultation-reconciliation",
+    "e-invoicing-public-consultation-reconciliation.png",
+    "spain-public-platform-order-evidence.md"
+  ],
+  "macros": [
+    "toc",
+    "drawio",
+    "change-history"
+  ],
+  "server_view_available": true,
+  "other_specs": "unchanged and unpublished"
+}

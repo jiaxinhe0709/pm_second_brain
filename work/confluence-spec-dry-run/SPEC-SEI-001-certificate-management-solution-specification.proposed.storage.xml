@@ -1,0 +1,1155 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-001<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/specs/SPEC-SEI-001-certificate-management-solution-specification.md">021bcc7cadfccfe93d2388de4616efebe17558fb</a><br /><strong>Last updated:</strong> 2026-10-06</p></div><h1>Certificate Management Solution Specification</h1>
+<h2>Part 1 Feature Solution Summary</h2>
+<h3>Reader guide</h3>
+<p>Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. Part 2 gives the detailed behaviour and rules. Part 3 describes service interactions and data. Part 4 links requirements to the checks and evidence needed before release.</p>
+<p>The design remains a draft. <strong>Proposed</strong> choices still need review; <strong>open</strong> decisions still need an owner’s recorded answer. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.</p>
+<h3>1 Purpose and reading route</h3>
+<p>This draft explains how Sage could manage certificates and keys used by onboarding, connections, invoice exchange and operations. For each requested use, the service checks whether the approved policy and current evidence allow it. It also protects private keys, manages replacement or compromise, and preserves evidence for earlier operations.</p>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-226-security-trust-identity-data-audit.md">PRD-SEI-226</a> remains the source of product and security requirements. The interfaces, records and state names in this spec are <strong>proposed</strong>. They are not an approved architecture.</p>
+<p>The four views below form one canonical document and one intended Confluence page. The supplied templates guide its structure; they do not establish certificate policy or approve this design:</p>
+<ol>
+<li>This summary: scope, parties, workflow, lifecycle and decision gates.</li>
+<li><a href="#part-2-logical-feature-specification">Part 2 Logical Feature Specification</a>: complete behaviour, invariants, transitions, errors and acceptance scenarios.</li>
+<li><a href="#part-3-logical-service-interactions-and-data-inventory">Part 3 Logical Service Interactions and Data Inventory</a>: logical operations, events, records and contracts.</li>
+<li><a href="#part-4-assurance-and-traceability-view">Part 4 Assurance and Traceability View</a>: requirement coverage, verification and unresolved gates.</li>
+</ol>
+<p>This document is for Product, Business Identity, Security, Legal, Spain Compliance, engineering, operations and integration teams. Start with Part 1 for the scope and decisions. Part 2 explains behaviour, Part 3 describes interfaces and data, and Part 4 shows how to verify the design. Open questions remain in the source PRDs until an approved decision record replaces them.</p>
+<h3>Spain use and reuse boundaries</h3>
+<p>This is a <strong>Spain reference design</strong>. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. <strong>Reusable unchanged</strong> means the design pattern can stay the same. <strong>Reusable with country binding</strong> means the shared behaviour needs approved local policies or adapters. <strong>Country-specific</strong> rules stay in the country pack. <strong>Unknown</strong> means implementation fitness or coverage still needs evidence.</p>
+<p>This follows the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-227-e-invoicing-as-a-service.md">shared platform and country-pack direction</a>. Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Intended use in Spain</th>
+<th>Reuse classification</th>
+<th>Condition and owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Versioned inventory and evidence</td>
+<td>Keep certificate versions, operation references and historical proof for Spain.</td>
+<td>Reusable unchanged</td>
+<td>Reuse the record and audit pattern; check storage, access and recovery fitness. Trust owner and Records.</td>
+</tr>
+<tr>
+<td>Readiness, protected use and rotation</td>
+<td>Check the purpose, actor, route/profile and current authority before Spain operations.</td>
+<td>Reusable with country binding</td>
+<td>Bind approved Spain certificate, signer/seal, trust-source, custody and retention policies. Business Identity, Security and Spain Legal.</td>
+</tr>
+<tr>
+<td>Spain trust requirements</td>
+<td>Resolve public-solution authentication, representation and signing requirements for each supported Spain route.</td>
+<td>Country-specific</td>
+<td>Keep these rules in the Spain policy. Do not carry them into another country by default. Spain technical owner and Legal.</td>
+</tr>
+<tr>
+<td>Existing trust-service implementation</td>
+<td>Assess which inventory, custody, validation and signing functions can serve Spain.</td>
+<td>Unknown</td>
+<td>This spec does not establish a deployed service or approved custodian. Confirm owner, build, interfaces and gaps before committing reuse. Business Identity and Architecture.</td>
+</tr>
+</tbody>
+</table>
+<h3>Plain-language terms</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legal entity / legal subject</td>
+<td>The business to which the invoice or action belongs. Technical fields use <code>legalSubject</code> for this business.</td>
+</tr>
+<tr>
+<td>Authority</td>
+<td>Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission.</td>
+</tr>
+<tr>
+<td>Capability</td>
+<td>A supported function, such as receiving invoices or signing them.</td>
+</tr>
+<tr>
+<td>Route</td>
+<td>The platform and connection used to send or receive an invoice.</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>A repeat of the same request has no additional effect. The contract must define how the system recognises that request.</td>
+</tr>
+<tr>
+<td>Reconciliation</td>
+<td>Check the original operation against a reliable source to establish what actually happened before deciding the next action.</td>
+</tr>
+<tr>
+<td>Gate</td>
+<td>A condition, decision or evidence check that must pass before the next step can proceed.</td>
+</tr>
+<tr>
+<td>Tenant</td>
+<td>The customer account boundary used to keep one customer’s data and access separate from another’s.</td>
+</tr>
+<tr>
+<td>Immutable / append-only</td>
+<td>A saved item cannot be changed; new information is added as a new record instead of overwriting earlier records.</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td>The record of where data came from and which versions, checks and changes produced the result.</td>
+</tr>
+<tr>
+<td>Contract</td>
+<td>The agreed inputs, outputs, behaviour and responsibilities between services or parties.</td>
+</tr>
+<tr>
+<td>Durable</td>
+<td>Saved so the record remains available after a service restart.</td>
+</tr>
+<tr>
+<td>Custodian / custody</td>
+<td>The party or protected system that holds and uses a private key.</td>
+</tr>
+<tr>
+<td>Principal / delegate</td>
+<td>The business or person represented, and the person authorised to act for them.</td>
+</tr>
+<tr>
+<td>Signature / seal</td>
+<td>Different cryptographic proofs associated with a signer or an organisation. Their permitted use must be approved separately.</td>
+</tr>
+<tr>
+<td>Rotation / cutover</td>
+<td>Prepare a replacement certificate or key, then switch future work to it at an approved point.</td>
+</tr>
+<tr>
+<td>PKI / HSM</td>
+<td>Public key infrastructure manages certificates and keys. A hardware security module is a device that protects cryptographic keys.</td>
+</tr>
+<tr>
+<td>CA / RTO / RPO</td>
+<td>Certificate authority; target time to restore a service; and maximum acceptable loss of recent data. Values remain subject to approval.</td>
+</tr>
+<tr>
+<td>LFS</td>
+<td>Logical Feature Specification: Part 2 of this document.</td>
+</tr>
+</tbody>
+</table>
+<h3>2 Terms used</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trust material</td>
+<td>A certificate, certificate chain, key reference or external validation identity. Its subject, custodian, permitted purpose and lifecycle must be defined.</td>
+</tr>
+<tr>
+<td>Material version</td>
+<td>One saved version of the certificate or key reference. Renewal creates a new version and keeps the earlier record.</td>
+</tr>
+<tr>
+<td>Trust policy</td>
+<td>A rule valid for a stated period. It defines who may use which material, for what purpose and route/profile, and the required checks and evidence.</td>
+</tr>
+<tr>
+<td>Readiness</td>
+<td>The current result of checks for one capability, actor, business, environment and route/profile. Permission to act and invoice delivery are checked separately.</td>
+</tr>
+<tr>
+<td>Protected operation</td>
+<td>Use of a key inside the approved protected system operated by the customer, Sage, a provider or a trust service.</td>
+</tr>
+<tr>
+<td>Operation binding</td>
+<td>The fixed link between one attempt and its policy version, material version, authority snapshot and exact input hash.</td>
+</tr>
+<tr>
+<td>Evidence package</td>
+<td>Saved references to the exact signed file, signature or seal, certificate chain, status and time evidence, policy and source history. These allow later verification.</td>
+</tr>
+</tbody>
+</table>
+<h3>3 Feature purpose and scope</h3>
+<p>The process starts when an authorised owner requests, selects or registers trust material, or when another service asks to use it. The trust service records the material and its permitted purpose, checks custody and trust, and returns readiness for the requested use. It monitors dependent services and manages replacement, retirement and retained evidence.</p>
+<p>Direct customer signing, delegated accountant signing, Sage-managed remote signing, provider signing or sealing, Sage operator sealing, workload identity, transport authentication and inbound validation are <strong>different policy classes</strong>. Each class needs its own approved policy.</p>
+<p>Policy activation for an individual class requires legal/security approval.</p>
+<p>The process can finish with an active version approved for the requested use, a retired or destroyed private key with historical evidence retained, or a verified reference to material held externally. Denied or inapplicable requests are closed with a reason and an audit record.</p>
+<p><code>VALIDATION_UNKNOWN</code>, uncertain key creation or use, and failed replacement remain recovery cases. The service must show who owns the next action; it must not report success or close them silently.</p>
+<p>The first design slice covers inventory, versioning, readiness, expiry monitoring, rotation and dependency impact for approved certificate classes; onboarding and exchange consume the service through explicit interfaces. Physical PKI/HSM selection, final Spanish certificate profiles, public-solution authentication details, exact retention periods, and the legal permissibility of an operator seal are outside this draft's authority. No universal certificate-upload step is assumed.</p>
+<h3>4 Parties and responsibility boundary</h3>
+<table>
+<thead>
+<tr>
+<th>Party</th>
+<th>Responsibility</th>
+<th>Handoff</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer or accountant</td>
+<td>Identifies intended legal subject and direct/delegated signing mode; completes approved proof or customer-held setup</td>
+<td>Supplies authority evidence to onboarding/identity; never grants authority by presenting a certificate alone</td>
+</tr>
+<tr>
+<td>Onboarding service</td>
+<td>Resolves requested capability/route/profile, asks for certificate need and readiness, displays remediation</td>
+<td>Stores scoped readiness reference, not a private key; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-101-public-platform-onboarding.md">PRD-SEI-101</a> owns customer onboarding</td>
+</tr>
+<tr>
+<td>Identity and authority service</td>
+<td>Resolves legal subject, principal, delegate, scope and effective authority</td>
+<td>Supplies independently versioned authority decision; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md">PRD-SEI-231</a> owns identity/delegation model</td>
+</tr>
+<tr>
+<td>Trust service owner</td>
+<td>Owns material inventory, policy evaluation, protected-operation orchestration, lifecycle and evidence contract</td>
+<td>Returns purpose-specific readiness, operation result and audit/evidence references</td>
+</tr>
+<tr>
+<td>Custodian or provider</td>
+<td>Holds/operates the protected key or supplies external trust/status evidence under an approved agreement</td>
+<td>Returns attested result and evidence; custody and export rules are approved per class</td>
+</tr>
+<tr>
+<td>Exchange/connection service</td>
+<td>Freezes trust plan per operation and enforces runtime readiness</td>
+<td>Does not substitute signer, seal or transport credential; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a> owns exchange</td>
+</tr>
+<tr>
+<td>Security, Legal and Operations</td>
+<td>Approve policy and high-risk actions; monitor expiry, compromise and historical proof</td>
+<td>Control suspension, incident and restoration; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-225-operations-resilience-support-reconciliation.md">PRD-SEI-225</a> owns shared operations</td>
+</tr>
+</tbody>
+</table>
+<h3>5 Key open solution decisions</h3>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Current position and design impact</th>
+<th>Owner / gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which service physically owns inventory, remote signing, validation and preservation?</td>
+<td>Logical boundary is proposed; integration/ownership cannot be fixed until Business Identity and architecture review</td>
+<td>Business Identity, architecture / design</td>
+</tr>
+<tr>
+<td>Who may sign, and when may a Sage operator seal be used?</td>
+<td>Keep direct, delegated, remote-service and seal modes separate; seal cannot substitute for issuer/delegate signature by default</td>
+<td>Spain Legal, Security / trust-policy activation</td>
+</tr>
+<tr>
+<td>Which classes may import/export keys, and which custodians are approved?</td>
+<td>Reference-only product boundary; non-exportability is preferred where applicable</td>
+<td>Security, Legal / custody design</td>
+</tr>
+<tr>
+<td>Which CA/trust lists, status sources, freshness, signature profiles and preservation evidence apply?</td>
+<td>Parameterise by country/route/profile; no guessed defaults</td>
+<td>Spain technical owner, Security / conformance</td>
+</tr>
+<tr>
+<td>Which expiry horizon, overlap, retention and destruction rules apply per class?</td>
+<td>Versioned policy fields with no universal duration</td>
+<td>Security, Operations, Legal / production</td>
+</tr>
+<tr>
+<td>What is the public-solution authentication and representation contract?</td>
+<td>Do not claim external registration or certificate need without official technical evidence</td>
+<td>Spain regulatory/technical owner / external design</td>
+</tr>
+</tbody>
+</table>
+<h3>6 End-to-end workflow</h3>
+<p>Three process diagrams cover setup, protected use and lifecycle control. Each uses the existing <code>assets/diagrams</code> convention: horizontal responsibility lanes, phase bands, black/grey shapes, short branch labels and a version-controlled Draw.io source. Solid arrows are the selected process; dashed arrows are exception or conditional paths. The diagrams show logical responsibility, not a physical deployment or approved certificate policy.</p>
+<h4>Process 1 Certificate setup and onboarding readiness</h4>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="e9b5505c-283d-5fdc-b2f6-a571080e8294"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">certificate-setup-onboarding-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">580</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><strong>Editable source:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/certificate-setup-onboarding-process.drawio">Certificate setup and onboarding Draw.io</a>. <strong>Preview:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/certificate-setup-onboarding-process.png">PNG</a>. This is the certificate-specific detail of the broader <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/e-invoicing-customer-service-readiness.drawio">customer and service readiness Draw.io</a>. The broader diagram's route activation belongs to Phase 2/3; Phase 1 public onboarding returns capability readiness without activating a private route.</p>
+<pre><code class="language-text">Customer or accountant requests one capability for one legal subject
+  → CERT-01 resolves the effective route/profile policy and certificate need
+  → CERT-02 checks principal/delegate authority independently
+      └─ missing or expired grant → customer/accountant obtains the scoped grant
+  → evaluate the certificate-need decision for the authorised capability
+      ├─ NOT_REQUIRED → CERT-05 records an evidenced no-certificate result
+      └─ UNKNOWN or conflicting policy → hold for a named policy decision
+      └─ REQUIRED → CERT-03 establishes an approved protected version or external reference
+          → CERT-04 checks owner, purpose, environment, chain, validity and status
+              └─ invalid or unknown trust → remediation or original-operation reconciliation
+  → CERT-05 returns scoped readiness, next recheck and responsible action
+  → onboarding displays the result without exposing a private key
+</code></pre>
+<p>The direct and accountant paths share the same trust controls. A portfolio item is assessed per client and capability; one accountant certificate does not grant authority across the portfolio. A <code>READY</code> decision does not register the customer externally or activate a route.</p>
+<h4>Process 2 Protected use and evidence</h4>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="c26ee6e7-a650-5228-9e5f-623eef943893"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">certificate-protected-use-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">580</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><strong>Editable source:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/certificate-protected-use-process.drawio">Protected use Draw.io</a>. <strong>Preview:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/certificate-protected-use-process.png">PNG</a>.</p>
+<pre><code class="language-text">Exchange supplies final exact representation bytes and input hash
+  → CERT-06 freezes actor, authority snapshot, policy and material version
+  → use-time checks re-evaluate current scope, status and suspension
+      └─ failed check → block only affected new use; no key operation
+  → INT-06 invokes the protected custodian using one operation ID and input hash
+      ├─ definitive rejection → return safe rejected result with audit evidence
+      ├─ outcome unknown → CERT-09 queries/reconciles the original operation
+      │   └─ if still unproven → hold; do not start a fresh signing attempt
+      └─ confirmed result → CERT-07 durably stores exact object and trust evidence
+  → return an evidence reference and customer-safe trust result
+</code></pre>
+<p>A confirmed cryptographic result is not invoice delivery or buyer acceptance. Reconciliation may establish a confirmed signature or definitive rejection; it must preserve the original operation identity and cannot silently change the representation or signer.</p>
+<h4>Process 3 Renewal, containment and retirement</h4>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="6849a2ab-31e9-57b0-a2a5-6ee70098b2af"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">certificate-renewal-recovery-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">580</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><strong>Editable source:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/certificate-renewal-recovery-process.drawio">Renewal and recovery Draw.io</a>. <strong>Preview:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/assets/diagrams/certificate-renewal-recovery-process.png">PNG</a>.</p>
+<pre><code class="language-text">Monitoring detects approaching expiry, revocation or compromise
+  → CERT-08 maps active workloads, routes, policies and in-flight attempts
+      └─ compromise/revocation → CERT-09 contains affected new use and opens case
+  → for planned renewal, CERT-08 creates a new protected material version
+  → CERT-04 validates it and tests the required counterpart/profile
+      └─ failed or unknown test → hold; old version remains usable only if safe
+  → approved effective cutover selects the new version for future work
+  → frozen in-flight attempts retain their original binding or reconcile
+  → CERT-10 retires/destroys old key material after dependency and hold gates
+  → historical signed bytes, certificate and validation evidence remain available
+</code></pre>
+<p>The route, certificate and trust-policy versions used by an earlier operation remain part of its historical evidence. Key destruction and evidence retention follow separate approved schedules.</p>
+<p>The lifecycle below follows setup, permitted use, evidence storage, replacement and retirement (<code>CERT-01</code>–<code>CERT-10</code>). Inbound validation uses <code>CERT-04</code> and <code>CERT-07</code> without signing. When an external result is unknown, check the original operation before requesting another change.</p>
+<h3>7 One feature lifecycle</h3>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Result that must be visible</th>
+<th>Responsible party</th>
+<th>Detailed reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CERT-01 Classify</td>
+<td>Material class, intended purpose, environment and owner are explicit</td>
+<td>Trust service</td>
+<td>LFS §3, INT-01</td>
+</tr>
+<tr>
+<td>CERT-02 Authorise</td>
+<td>Principal/delegate/operator and effective policy are resolved independently of authentication</td>
+<td>Identity/authority and trust</td>
+<td>LFS §4, INT-02</td>
+</tr>
+<tr>
+<td>CERT-03 Establish custody</td>
+<td>Key is protected or externally referenced; version is inventoried</td>
+<td>Custodian and trust</td>
+<td>LFS §5, INT-03</td>
+</tr>
+<tr>
+<td>CERT-04 Validate</td>
+<td>Chain, scope, validity and status produce evidenced result or unknown</td>
+<td>Trust</td>
+<td>LFS §6, INT-04</td>
+</tr>
+<tr>
+<td>CERT-05 Decide readiness</td>
+<td>Scoped result and next recheck/remediation are returned</td>
+<td>Trust; onboarding consumes</td>
+<td>LFS §6, INT-05</td>
+</tr>
+<tr>
+<td>CERT-06 Bind and use</td>
+<td>Approved actor/policy/material/input are frozen before protected use</td>
+<td>Exchange and trust</td>
+<td>LFS §7, INT-06</td>
+</tr>
+<tr>
+<td>CERT-07 Preserve</td>
+<td>Exact output and evidence references are durable</td>
+<td>Trust/evidence store</td>
+<td>LFS §7, INT-07</td>
+</tr>
+<tr>
+<td>CERT-08 Rotate</td>
+<td>Replacement passes validation and dependency cutover before old new-use is disabled</td>
+<td>Trust and operations</td>
+<td>LFS §8, INT-08</td>
+</tr>
+<tr>
+<td>CERT-09 Contain</td>
+<td>Affected purposes stop; incident and unknown outcomes remain reconcilable</td>
+<td>Security and operations</td>
+<td>LFS §9, INT-09</td>
+</tr>
+<tr>
+<td>CERT-10 Retire</td>
+<td>Key-use ends; approved historical evidence remains available</td>
+<td>Trust and records owner</td>
+<td>LFS §10, INT-10</td>
+</tr>
+</tbody>
+</table>
+<h3>8 Cross-cutting controls and risks</h3>
+<p>Tenant, environment, legal subject, actor, purpose and route/profile are explicit in every decision; no bare certificate ID authorises use. Protected APIs require least privilege and action-specific authorisation. Every mutation is auditable and designed to handle repeats safely. The system retains prior material and policy versions so a route change or certificate expiry cannot rewrite the original signing conclusion. Capacity, latency, alert thresholds, retention and recovery targets require baselines and approval; this draft specifies the measurement points rather than inventing values.</p>
+<p>The main risks are using material for the wrong purpose, acting for a client without permission, silently replacing a signer or seal, an outage caused by expiry, signing twice after a timeout, and losing historical evidence. Part 2 explains when to block work and how to recover.</p>
+<p>This draft is <strong>ready for solution review</strong>. The decisions in §5 and the assurance gates must be resolved before production activation.</p>
+<h2>Part 2 Logical Feature Specification</h2>
+<p>This part explains the proposed behaviour step by step. An invariant is a rule that must always hold, including during failures and recovery.</p>
+<h3>1 Authority, status and design boundary</h3>
+<p>This is a <strong>proposed logical design</strong> for the certificate/key lifecycle in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-226-security-trust-identity-data-audit.md">PRD-SEI-226</a>, including the conditional onboarding consumer in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-101-public-platform-onboarding.md">PRD-SEI-101</a> and exchange consumer in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>. It does not approve a PKI/HSM product, cryptographic algorithm, certificate authority, signer model, Spanish legal interpretation, cloud boundary, or physical API. The <a href="#part-1-feature-solution-summary">Part 1</a> provides the lifecycle map; the <a href="#part-3-logical-service-interactions-and-data-inventory">Part 3</a> defines logical contracts; <a href="#part-4-assurance-and-traceability-view">Part 4</a> tracks verification.</p>
+<p><strong>Confirmed product constraints from the PRDs:</strong> certificate need is capability/route/profile dependent; authority is independent of certificate possession; different trust purposes are not interchangeable; key material remains inside approved custody; invalid/currently unknown trust blocks new dependent operations; old signed evidence persists independently of private-key lifecycle; ambiguous external mutations reconcile before repetition. <strong>Proposed design:</strong> the records, state vocabulary, commands/events, concurrency model and operation-binding protocol below. <strong>Open:</strong> the policy content, accountable service owner, custody implementation, trust/status sources, legal signature/seal modes and service objectives.</p>
+<h3>2 Actors, scope and invariants</h3>
+<p>Actors are customer/delegate, product/onboarding, identity/authority service, trust-policy approver, trust service, custody provider, exchange/connection service, security operations and evidence/archive service. An external certificate subject or provider is evidence, not a Sage-authorised user. Logical tenancy is <code>(tenant, legalSubject, environment)</code>; every material/policy/decision additionally has purpose, permitted actor/mode, capability, route and profile where applicable.</p>
+<p><strong>Invariants</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Rule that must always hold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CM-I01</td>
+<td>A material reference never confers business authority. An effective authority decision is checked for the requested principal/delegate/action and time.</td>
+</tr>
+<tr>
+<td>CM-I02</td>
+<td>Every material version has exactly one class, custodian, owner, environment and version identity. A new certificate/key is a new version; historical rows are append-only.</td>
+</tr>
+<tr>
+<td>CM-I03</td>
+<td>A trust policy explicitly lists permitted uses. Authentication, direct signature, delegated signature, Sage-managed remote signature, provider signature/seal, operator seal, validation and timestamp are distinct purposes.</td>
+</tr>
+<tr>
+<td>CM-I04</td>
+<td>No product API, queue, log, support view, audit event or document carries an exportable private key or reusable secret. Custody APIs may receive protected material only inside an approved secure boundary.</td>
+</tr>
+<tr>
+<td>CM-I05</td>
+<td><code>ACTIVE</code> material is usable only after policy, chain/status, authority, custody and environment checks for that exact operation. Inventory state alone cannot authorise use.</td>
+</tr>
+<tr>
+<td>CM-I06</td>
+<td>A protected operation is bound to immutable <code>operationId</code>, <code>materialVersionId</code>, <code>policyVersion</code>, <code>authoritySnapshotId</code>, <code>inputHash</code>, legal subject and environment before execution. A material/policy switch does not silently change an in-flight attempt.</td>
+</tr>
+<tr>
+<td>CM-I07</td>
+<td>A timeout after a possibly executed protected operation creates <code>OUTCOME_UNKNOWN</code>. No fresh attempt is issued until the original is reconciled or the custodian's effective idempotency guarantee is evidenced.</td>
+</tr>
+<tr>
+<td>CM-I08</td>
+<td>Rotation and route change affect future operations that meet the policy. They never rewrite prior signed bytes, actor, material/policy binding or historical conclusion.</td>
+</tr>
+<tr>
+<td>CM-I09</td>
+<td>Revocation, compromise, wrong purpose/owner/environment or stale/unknown validation blocks affected <em>new</em> use. Containment targets the narrowest proven dependency set.</td>
+</tr>
+<tr>
+<td>CM-I10</td>
+<td>Private-key destruction and evidence disposition are separate governed actions. Evidence cannot be deleted merely because material retires or a provider exits.</td>
+</tr>
+</tbody>
+</table>
+<h3>3 CERT-01 Classify request and applicability</h3>
+<p><strong>Trigger:</strong> onboarding requests a capability; connection/exchange needs trust; an owner requests issuance/import/reference; or monitoring detects changed material. <strong>Preconditions:</strong> caller identity, trusted environment and one legal subject/operator are resolved. The trust service looks up an effective, approved policy by country, capability, direction, route, format/profile, actor mode and time. A policy can return <code>NOT_REQUIRED</code>, <code>REQUIRED</code>, <code>PROHIBITED</code> or <code>UNDETERMINED</code>; <code>NOT_REQUIRED</code> is an evidenced decision, not a default caused by missing configuration. <code>UNDETERMINED</code> blocks the dependent capability and creates a policy decision case.</p>
+<p>The request names a class from the PRD taxonomy (direct issuer, accountant/delegate, Sage-managed remote signing, Sage operator seal, provider signing/sealing, workload, transport, external validation or timestamp). The service rejects a generic “Sage certificate” or “signing certificate” with no legal actor/purpose. The selected policy version and rule reason are stored in <code>D-02</code>; no material is provisioned from a policy lookup alone.</p>
+<p>Duplicate logical requests return the same classification for the same idempotency key and immutable input digest. A changed input creates a new assessment revision. <code>INT-01</code> serves the lookup.</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Decision inputs that cannot be inherited from another class</th>
+<th>Consumer boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Direct issuer signature</td>
+<td>Issuer/signatory identity, approved representation profile, key usage and direct authority</td>
+<td>Outbound exchange; onboarding checks conditional readiness</td>
+</tr>
+<tr>
+<td>Accountant/delegated signature</td>
+<td>Client-by-client mandate, delegate, permitted action, effective time and route</td>
+<td>Accountant onboarding and outbound exchange</td>
+</tr>
+<tr>
+<td>Sage-managed remote signing</td>
+<td>Actual customer/delegate signatory, Sage's custody/service role and approved remote-signing authority</td>
+<td>Trust service performs protected use; ERP receives no key</td>
+</tr>
+<tr>
+<td>Sage operator seal</td>
+<td>Named operator legal person, permitted document/route and Legal-approved seal policy</td>
+<td>Exchange; never silently satisfies customer signature</td>
+</tr>
+<tr>
+<td>Provider signing/sealing</td>
+<td>Provider's actual actor and attested returned evidence, authority defined by the contract and approved adapter</td>
+<td>Provider adapter and trust verification</td>
+</tr>
+<tr>
+<td>Workload / transport</td>
+<td>Endpoint or service identity, channel protocol, environment and counterpart trust</td>
+<td>Connection/transport; cannot imply invoice signature</td>
+</tr>
+<tr>
+<td>External validation / timestamp</td>
+<td>Trust-list, status/time source, evidence freshness and preservation profile</td>
+<td>Inbound and historical validation</td>
+</tr>
+</tbody>
+</table>
+<p>The activated format profiles in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-236-ubl-format-profile.md">PRD-SEI-236</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-237-cii-format-profile.md">237</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-238-un-edifact-format-profile.md">238</a> and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-239-facturae-format-profile.md">239</a> may require different representation and signature policy. The policy lookup must bind an exact profile/version rather than treating UBL, CII, EDIFACT and Facturae as interchangeable.</p>
+<h3>4 CERT-02 Resolve subject and authority</h3>
+<p>The caller supplies tenant/workspace context, legal subject reference, requested acting person/service, represented principal, capability and direction. The identity/authority owner independently verifies the tenant-to-subject relationship and an effective grant for the requested action, route/profile and environment. The decision includes evidence source/version, effective interval, revocation check and result; it is not inferred from login, portfolio membership, certificate subject, possession, or provider access.</p>
+<p>A direct signer must be distinguished from a delegate; a Sage-operated signing service is the custodian/operator and not automatically the signatory. An operator seal identifies the operator legal person and requires its own policy approval.</p>
+<p><code>DENIED</code>, <code>REVOKED</code>, <code>EXPIRED</code> or <code>UNDETERMINED</code> authority blocks the affected scoped action, records a reason with sensitive values removed and leaves unrelated clients/capabilities unchanged. An authority change emits invalidation for dependent readiness and future operations, while preserving prior snapshots. <code>INT-02</code> returns a versioned authority reference; no raw mandate is copied into the material inventory.</p>
+<h3>5 CERT-03 Establish custody and material version</h3>
+<p>An authorised owner requests one of: generate/issue in an approved protected boundary; register a customer-held or provider-held reference; or import only when the class-specific custody policy permits it. The request requires owner, custodian, subject, class, purpose, scope, environment, policy, renewal owner and change reason. High-risk actions require independently attributable approval and separation of duties under the effective corporate policy. The trust service records a <code>REQUESTED</code> inventory item before any external mutation, then <code>APPROVED</code> and <code>PROVISIONING</code>/<code>PROVISIONED</code> according to observed custodian evidence.</p>
+<p><code>PROVISIONING_OUTCOME_UNKNOWN</code> means the custodian may have created material; reconcile by request reference before issuing another command.</p>
+<p>The custodian returns a non-secret handle and public certificate/attestation metadata. The trust service verifies the returned subject, issuer/chain, public-key fingerprint, key usage/extended usage, validity, custodian attestation and environment against the approved request. It records an immutable material version, including source and observation time. It never stores the private key in an application database or emits it in an event. A customer-held key may never be copied to Sage just to satisfy readiness.</p>
+<p>If an external reference cannot provide the necessary evidence, readiness stays <code>UNDETERMINED</code>. <code>INT-03</code> is the logical command; <code>D-03</code> is the inventory record.</p>
+<h3>6 CERT-04/05 Validate trust and calculate scoped readiness</h3>
+<p><strong>Validation inputs:</strong> material version, trust policy version, owner/principal/delegate, authority decision, capability, route/profile, environment and checked time. Validation evaluates: (1) exact subject/owner and permitted purpose; (2) custody and key availability/attestation; (3) current validity interval and algorithm/profile policy; (4) chain/trust-list status and approved issuer; (5) current revocation/status evidence and freshness; (6) dependency or incident suspension; and (7) per-operation authority where the class requires it. The source and version of each check are retained. Failure in one dimension cannot be hidden by a passing dimension.</p>
+<p><strong>Proposed readiness outcomes:</strong> <code>NOT_REQUIRED</code>, <code>READY</code>, <code>EXPIRING</code>, <code>ACTION_REQUIRED</code>, <code>BLOCKED</code>, <code>UNDETERMINED</code>. <code>EXPIRING</code> can remain usable only until the approved horizon/policy says otherwise; it always creates a renewal action. <code>VALIDATION_UNKNOWN</code> yields <code>UNDETERMINED</code> and blocks new protected use by default. The result includes scope, material/policy/authority versions, evaluation time, next mandatory check, expiry, evidence reference, reason code, responsible remediation actor, and a non-secret dependency summary.</p>
+<p>The customer-facing label maps to <code>TRANSPORT_READY</code>, <code>DIRECT_SIGN_READY</code>, <code>DELEGATED_SIGN_READY</code>, <code>SEAL_READY</code> or <code>VALIDATION_READY</code>; it cannot collapse all purposes into one “certificate valid” flag. Onboarding stores only the readiness result/reference and rechecks before later use. A batch evaluates each legal subject and capability independently, including shared accountant material.</p>
+<p><code>INT-04</code> validates material; <code>INT-05</code> returns readiness. Cache use, if approved, may not outlive the shortest applicable authority, certificate, status-source, policy or incident validity. Cache invalidation is driven by version change or revocation/suspension events; an unavailable status source is not a reason to assume validity. Exact freshness targets are open by class/profile.</p>
+<h3>7 CERT-06/07 Bind protected use and preserve evidence</h3>
+<p>Before exchange uses a key, it finalises the representation under the approved transform/validate order, calculates the exact input hash and freezes a trust plan. The plan names the represented principal, actual signer/delegate or seal creator, custody service role, material version, policy version, authority snapshot, route/profile, environment and correlation. The trust service rechecks current authority, status and dependency suspension <strong>at use time</strong>; an onboarding <code>READY</code> result is not a perpetual grant.</p>
+<p>A workload or transport certificate cannot fill a missing invoice-signature policy. A Sage operator seal remains blocked for a signature duty until the legal/policy decision explicitly permits that use.</p>
+<p><code>INT-06</code> invokes the protected operation with an idempotency/correlation reference. The custodian must either guarantee one result per reference or expose authoritative operation lookup before automatic retry can be enabled. A definitive success returns signature/seal or channel proof, actual material version, observed time and custodian evidence. The trust service verifies that the result binds to the same input hash and approved actor/policy.</p>
+<p><code>INT-07</code> commits the immutable signed object/reference, hash, signature/seal, public chain, revocation/status and trusted-time evidence, authority snapshot, validation policy/conclusion, transformation provenance and retention class before reporting the operation as complete. If persistence fails after possible key use, outcome remains unknown and reconciliation searches by original operation ID; the system does not sign a new revision silently.</p>
+<p>Inbound validation takes the same evidence principle but has no Sage signing actor: it verifies external channel/platform identity, replay controls, exact received bytes, signature/seal, recipient and profile. Untrusted content enters quarantine with reason with sensitive values removed; no trusted product delivery or success assertion occurs. This follows the boundary in PRD-SEI-226 and exchange behaviour in PRD-SEI-223.</p>
+<h3>8 CERT-08 Monitor, renew and rotate</h3>
+<p>Monitoring evaluates every active version against its class-specific expiry horizon, revocation/status freshness, chain/trust-list and algorithm policy, plus authority and owner changes. It produces a dependency graph covering workloads, connections, routes, signing policies, queued/in-flight operations and historic obligations. A renewal case names an owner, deadline derived from approved policy, replacement source and affected capabilities. No universal fixed warning period is assumed.</p>
+<p>Rotation creates a <strong>new</strong> version, validates it in the correct environment and tests counterpart acceptance where required. The owner approves an effective-dated cutover. New operations select the new version after cutover; in-flight operations retain their frozen binding and either complete on the old version while valid or enter controlled reconciliation/restart under an explicit policy. Overlap is permitted only where the protocol and trust policy allow it.</p>
+<p>An unsuccessful cutover leaves the old version usable only if still valid and safe, records rollback and blocks unsafe new use; it does not erase the failed replacement. Old private-key use ends after dependency checks, then revocation/retirement/destruction follow approved gates. <code>INT-08</code> coordinates the change and emits <code>EVT-03</code>/<code>EVT-04</code>.</p>
+<h3>9 CERT-09 Revoke, compromise and reconcile</h3>
+<p>Confirmed revocation or compromise immediately marks the affected version and its dependent capabilities unavailable for new use. Security/operations classify the incident, preserve forensic and signing-time evidence, identify affected attempts/representations and evaluate whether historical conclusions require new review. The trust service sends scoped invalidation to onboarding, connection and exchange consumers; it does not globally suspend unrelated tenant/environment/purpose combinations without evidence. Support sees the impacted scope and next authorised action, with no secret exposure.</p>
+<p>An unknown external provisioning, signing, revocation or deletion outcome opens a case with <code>intendedState</code>, <code>observedState</code>, original request ID, last authoritative query, owner and next safe action. Reconciliation queries the custodian/external system if the contract supports it. If the contract lacks safe lookup/idempotency, the case requires manual, dual-controlled resolution; a blind duplicate mutation is prohibited. Recovery completion records the source of truth, preserves all attempted versions, and requires revalidation before resumption. The generic incident/reconciliation owner is PRD-SEI-225; this spec owns trust-specific facts and controls.</p>
+<h3>10 CERT-10 Retire, destroy and prove history</h3>
+<p>Retirement requires dependency checks for new and in-flight use, unresolved outcomes, legal hold, historical access and provider exit obligations. <code>RETIRED</code> removes new-use eligibility; <code>DESTROYED</code> applies only after custodian evidence that private-key material is destroyed or inaccessible under approved policy. Public certificate, chain, signature/seal, exact signed bytes or immutable hash/object reference, time/status/authority/policy and preservation evidence remain according to their separate legal schedule.</p>
+<p>An approved historical verification re-evaluates the signed object against the <strong>signing-time</strong> and preservation evidence under the applicable validation policy; present-day certificate expiry alone does not invalidate the past result. Revalidation/augmentation events are append-only and do not alter the original signing time or signed bytes.</p>
+<h3>11 State machines and concurrency</h3>
+<p><strong>Material version (proposed):</strong> <code>REQUESTED → APPROVED → PROVISIONING → PROVISIONED → ACTIVE → EXPIRING → ROTATION_PENDING → RETIRED → DESTROYED</code>. Exceptions are <code>PROVISIONING_OUTCOME_UNKNOWN</code>, <code>SUSPENDED</code>, <code>EXPIRED</code>, <code>REVOKED</code>, <code>COMPROMISED</code>, <code>VALIDATION_UNKNOWN</code>. <code>REVOKED</code> and <code>COMPROMISED</code> cannot return to <code>ACTIVE</code>; replacement requires a new version. State transitions use expected version/compare-and-swap and record actor, reason, source and time. An incident-suspension overlay can coexist with a lifecycle state; the service must not replace evidence of compromise with a generic <code>SUSPENDED</code> label.</p>
+<p><strong>Readiness (derived, not manually set):</strong> input/version changes create a new decision. The current view points to the latest valid scoped decision, but old decisions remain immutable. Concurrent requests with the same logical scope and input digest deduplicate; different input revisions are serialised or compared by revision so an older asynchronous response cannot overwrite a newer result. Authority revocation, policy withdrawal and material events invalidate affected cached decisions immediately as far as the event contract permits; use-time evaluation is still required.</p>
+<p><strong>Protected operation:</strong> <code>PREPARED → SUBMITTED → CONFIRMED | REJECTED | OUTCOME_UNKNOWN → RECONCILED_CONFIRMED | RECONCILED_REJECTED | MANUAL_REVIEW</code>. Only a confirmed/evidenced result may become complete. A retry uses the same operation ID only when the custody contract proves idempotency; changing input hash, actor or material version requires a different logical operation and an explicit correction decision.</p>
+<h3>12 Security, operations and service qualities</h3>
+<p>Authorisation is action-specific for view, create, approve, activate, rotate, revoke, destroy, use, validate and audit. High-risk actions follow approved separation of duties. Every service-to-service call authenticates workload and environment independently of customer authority. Non-production and production use isolated keys, endpoints, identities, policies, stores and monitoring data. Evidence/audit stores are append-only or tamper evident; support/customer projections redact subject identifiers as policy requires and never expose private keys, reusable tokens, raw cert-import packages or uncontrolled invoice contents.</p>
+<p>Data residency, retention, deletion and access policies are external approval inputs, not inferred here.</p>
+<p>Observability records counts/age for expiry within policy horizon, unowned dependencies, failed validation by reason, blocked wrong-purpose/attempts outside the permitted scope, rotation outcomes, protected operations with unknown outcomes and missing evidence packages. Each event carries trace/correlation and a safe material reference. Alerts route to the named renewal/incident owner. Capacity and latency must be measured by material class, custody provider and peak operation rate in pilot; no target is set without baseline and operator commitment.</p>
+<p>Disaster recovery must preserve inventory/evidence integrity and reconcile possible external key uses before traffic resumes.</p>
+<h3>13 Requirements and acceptance</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Testable logical requirement</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CM-R01</td>
+<td>The service returns certificate applicability for an exact capability/route/profile/actor/environment, including evidenced <code>NOT_REQUIRED</code> and blocking <code>UNDETERMINED</code>.</td>
+<td>PRD-226 FR30/45; PRD-101 FR39</td>
+</tr>
+<tr>
+<td>CM-R02</td>
+<td>Provisioning records class, owner, custodian, purpose, environment and immutable version before it can become active.</td>
+<td>PRD-226 FR31/36</td>
+</tr>
+<tr>
+<td>CM-R03</td>
+<td>Protected key material remains in approved custody; product/service outputs contain only approved references/public metadata.</td>
+<td>PRD-226 FR36/37</td>
+</tr>
+<tr>
+<td>CM-R04</td>
+<td>Authority is checked independently from possession/authentication for every direct/delegated/Sage-managed use.</td>
+<td>PRD-226 FR33; PRD-101 FR41/42</td>
+</tr>
+<tr>
+<td>CM-R05</td>
+<td>Readiness and use reject wrong-purpose, wrong-owner, wrong-environment, expired, revoked, compromised, suspended and validation-unknown material for affected new operations.</td>
+<td>PRD-226 FR39/45</td>
+</tr>
+<tr>
+<td>CM-R06</td>
+<td>A protected operation freezes material, policy, authority and exact input hash and cannot silently substitute a signer or seal.</td>
+<td>PRD-226 FR32/33/40</td>
+</tr>
+<tr>
+<td>CM-R07</td>
+<td>A possible external mutation with unknown result reconciles by original reference before a new attempt.</td>
+<td>PRD-226 J8; PRD-225</td>
+</tr>
+<tr>
+<td>CM-R08</td>
+<td>Rotation activates a validated new version through approved effective time and preserves in-flight and historical bindings.</td>
+<td>PRD-226 FR38/40</td>
+</tr>
+<tr>
+<td>CM-R09</td>
+<td>Revocation/compromise invalidates scoped new use, preserves forensic history and requires reapproval before resumption.</td>
+<td>PRD-226 FR39/41</td>
+</tr>
+<tr>
+<td>CM-R10</td>
+<td>Evidence supports historic validation after expiry, rotation, key destruction or provider exit without changing original signed bytes.</td>
+<td>PRD-226 FR42–44</td>
+</tr>
+<tr>
+<td>CM-R11</td>
+<td>Onboarding receives readiness for each client and capability and remediation without key data; later use rechecks current state.</td>
+<td>PRD-101 FR39–50</td>
+</tr>
+<tr>
+<td>CM-R12</td>
+<td>All protected actions emit audit that identifies the actor, hides sensitive values and shows signs of tampering with operation/policy/material version and outcome.</td>
+<td>PRD-226 FR17/18</td>
+</tr>
+</tbody>
+</table>
+<p>Acceptance scenarios <code>CM-AC01</code>–<code>CM-AC16</code> and evidence gates are in <a href="#part-4-assurance-and-traceability-view">Part 4</a>. No feature is production-ready until the decisions there are resolved and test evidence exists.</p>
+<h2>Part 3 Logical Service Interactions and Data Inventory</h2>
+<p>This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.</p>
+<h3>Spain and reuse boundary in contracts</h3>
+<p>Keep the shared operation and evidence model separate from Spain trust policy. Each decision must retain the selected country/route/profile policy version and actual signer or seal actor. A shared service must not apply another country’s certificate or signing defaults to Spain. The implementation owner remains open under G1; Security and Legal must approve each policy before activation.</p>
+<p>The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.</p>
+<h3>1 Contract status and common envelope</h3>
+<p>All interactions below are <strong>proposed logical interfaces</strong>, not approved HTTP routes, event topics or database tables. The <a href="#part-2-logical-feature-specification">Part 2</a> owns behaviour. Each command/query carries <code>correlationId</code>, trusted <code>environment</code>, authenticated caller identity, <code>tenantId</code> or operator scope as applicable, <code>legalSubjectId</code> where applicable, <code>requestId</code>/idempotency key for mutation, and an explicit <code>reason</code>. No caller-supplied tenant or environment value overrides trusted credentials/deployment context. The service rejects mismatches before data lookup or mutation.</p>
+<p>Responses identify <code>decisionId</code>/<code>operationId</code>, evidence reference, version and safe reason code. All times are recorded with offset/UTC and source clock; exact encoding is an architecture choice.</p>
+<p>The caller must not send or receive private keys through these application contracts. Any authorised import is a separately approved secure custody workflow. For asynchronous operations, accepted means <strong>durably received</strong>, never “external operation succeeded.” Error categories are <code>INVALID_INPUT</code>, <code>UNAUTHORISED_SCOPE</code>, <code>POLICY_UNDETERMINED</code>, <code>AUTHORITY_DENIED</code>, <code>TRUST_INVALID</code>, <code>DEPENDENCY_SUSPENDED</code>, <code>CONFLICT</code>, <code>TRANSIENT_UNAVAILABLE</code>, <code>OUTCOME_UNKNOWN</code> and <code>INTERNAL_FAILURE</code>; internal/provider details are retained only in controlled evidence. A mutating <code>TRANSIENT_UNAVAILABLE</code> is retryable only when it is proven not to have reached custody or the contract provides effective idempotency.</p>
+<h3>2 Logical service interactions</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Caller → owner</th>
+<th>Purpose and logical result</th>
+<th>Safety / authorisation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INT-01</td>
+<td>Onboarding/exchange → trust policy</td>
+<td>Resolve applicability for country, capability, direction, route/profile, actor mode, environment, effective time. Returns <code>NOT_REQUIRED/REQUIRED/PROHIBITED/UNDETERMINED</code>, policy version and reason.</td>
+<td>Read-only; access scoped to legal subject/operator and product capability. Unknown policy blocks dependent use.</td>
+</tr>
+<tr>
+<td>INT-02</td>
+<td>Trust → identity/authority</td>
+<td>Resolve legal subject and effective authority for principal/delegate, operation, capability, route and time. Returns versioned decision/evidence reference.</td>
+<td>Read-only but sensitive; no mandate body copied to product or logs. Revocation forces re-evaluation.</td>
+</tr>
+<tr>
+<td>INT-03</td>
+<td>Owner/trust → approved custodian</td>
+<td>Request issue/generate/register/import under class policy; returns protected handle, public certificate metadata, observed state and custodian reference.</td>
+<td>Mutating; durable request/idempotency and authoritative lookup required before automatic retry. High-risk approval/dual control as policy requires.</td>
+</tr>
+<tr>
+<td>INT-04</td>
+<td>Trust → validator/status sources</td>
+<td>Validate chain, subject, usage, period, issuer/trust list, revocation/status freshness and profile. Returns each check, source/version/time and aggregate.</td>
+<td>Read-only; failure/unknown does not become valid by fallback. External query limits/freshness need approved policy.</td>
+</tr>
+<tr>
+<td>INT-05</td>
+<td>Onboarding/connection/exchange → trust</td>
+<td>Evaluate scoped readiness from policy, material, authority, status and incident overlays. Returns purpose-specific result, reason, next recheck, owner and evidence reference.</td>
+<td>Read-only derived decision; tenant/subject isolation; not a perpetual authorisation token.</td>
+</tr>
+<tr>
+<td>INT-06</td>
+<td>Exchange/connection → trust/custodian</td>
+<td>Prepare and invoke protected signing, sealing or channel operation for frozen actor/policy/material/input. Returns operation state and attested result.</td>
+<td>Mutating; same <code>operationId</code>/input digest deduplicates. Unknown reconciles via INT-09 before a new attempt.</td>
+</tr>
+<tr>
+<td>INT-07</td>
+<td>Trust → evidence/archive</td>
+<td>Persist exact signed object/reference, output, chain, status/time, authority/policy, provenance and validation conclusion; return immutable package reference.</td>
+<td>Mutating; append-only by operation/version, no secret payload. Completion is not returned before required evidence is durable.</td>
+</tr>
+<tr>
+<td>INT-08</td>
+<td>Owner/operations → trust/custodian</td>
+<td>Create replacement version, validate/test it, approve effective cutover, stop old new-use, retire/revoke/destroy at separate gates.</td>
+<td>Mutating staged workflow; compare-and-swap on inventory version and explicit approvals; no blind rollback of in-flight work.</td>
+</tr>
+<tr>
+<td>INT-09</td>
+<td>Operations/trust → custodian/external source</td>
+<td>Query original request/operation status for unknown provisioning, key use, revocation or destruction; return authoritative evidence or manual-review need.</td>
+<td>Read-only query first; reconciliation case owns next mutation. Lack of query/idempotency blocks automatic replay.</td>
+</tr>
+<tr>
+<td>INT-10</td>
+<td>Records/operations → trust/custodian</td>
+<td>Retire or destroy private-key version after dependency/hold checks, retaining separate historic evidence.</td>
+<td>Irreversible action; privileged approval, custodian proof and audit required.</td>
+</tr>
+<tr>
+<td>INT-11</td>
+<td>Onboarding/operations → trust</td>
+<td>List safe inventory/dependency/readiness summary for authorised scope.</td>
+<td>Read-only and redacted; no cross-tenant enumeration or key contents.</td>
+</tr>
+<tr>
+<td>INT-12</td>
+<td>Audit/legal/support → evidence service</td>
+<td>Retrieve a permitted historic validation package or initiate versioned revalidation/augmentation.</td>
+<td>Role and purpose checked; original signed bytes/evidence immutable; sensitive content masked by role.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Consumer handoffs:</strong> <code>INT-01</code> and <code>INT-05</code> are the onboarding boundary. <code>INT-02</code> remains independently owned by identity/authority. <code>INT-06</code> and <code>INT-07</code> are exchange-time, and <code>INT-08</code>–<code>INT-12</code> are trust/operations controls. A product must never activate a route from <code>INT-05</code> alone; route authority and external observation belong to PRD-SEI-202/222.</p>
+<h3>3 Events and delivery semantics</h3>
+<p>Events are proposed notifications of committed source state. Consumers must tolerate duplicate, delayed and out-of-order delivery by event ID, aggregate ID and monotonic version. A missing event cannot be the only protection against unsafe use: <code>INT-06</code> performs a current check.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Producer</th>
+<th>Meaning and minimum payload</th>
+<th>Consumer action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EVT-01 <code>MaterialVersionRecorded</code></td>
+<td>Trust</td>
+<td>material ID/version, class, owner scope, environment, custody reference, state, event/version/time</td>
+<td>Refresh inventory/readiness without treating created as active</td>
+</tr>
+<tr>
+<td>EVT-02 <code>ReadinessChanged</code></td>
+<td>Trust</td>
+<td>scope, purpose, old/new result, reason, policy/material/authority versions, next recheck, event/version/time</td>
+<td>Onboarding/connection update their projection; maintain old decision history</td>
+</tr>
+<tr>
+<td>EVT-03 <code>RotationPlanned</code></td>
+<td>Trust</td>
+<td>old/new version refs, affected dependencies, planned effective time, approval ref</td>
+<td>Exchange/operations prepare and test; do not switch early</td>
+</tr>
+<tr>
+<td>EVT-04 <code>RotationEffective</code></td>
+<td>Trust</td>
+<td>effective time, new selected version, old new-use disposition, reconciliation ref</td>
+<td>New work chooses new version; in-flight work keeps frozen binding</td>
+</tr>
+<tr>
+<td>EVT-05 <code>TrustUseBlocked</code></td>
+<td>Trust</td>
+<td>scoped material/purpose, reason class, observed time, incident/case ref</td>
+<td>Stop affected new use, notify owner; no secret data</td>
+</tr>
+<tr>
+<td>EVT-06 <code>OperationOutcomeChanged</code></td>
+<td>Trust</td>
+<td>operation ID, source, state, evidence ref, version/time</td>
+<td>Reconcile original attempt; never infer invoice delivery from signature success</td>
+</tr>
+<tr>
+<td>EVT-07 <code>EvidencePreservationChanged</code></td>
+<td>Evidence service</td>
+<td>package ID, preservation/revalidation version, result, time</td>
+<td>Update historic evidence view without changing original signed bytes/time</td>
+</tr>
+</tbody>
+</table>
+<h3>4 Data inventory</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Record and owner</th>
+<th>Required logical fields</th>
+<th>Classification, versioning and disposition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-01</td>
+<td>Trust policy — Security/Legal-approved trust owner</td>
+<td>policy ID/version, jurisdiction, route/profile, direction, actor/mode, material class, required checks, signer/seal rule, custody rule, effective interval, approvers/evidence</td>
+<td>Sensitive configuration; immutable version, effective-dated. Retain prior versions referenced by operations.</td>
+</tr>
+<tr>
+<td>D-02</td>
+<td>Applicability/readiness decision — trust service</td>
+<td>decision ID, subject/operator scope, capability, purpose, material/policy/authority versions, checks and evidence, outcome/reason, evaluated/next-check times, remediation owner</td>
+<td>Sensitive metadata; append-only decisions; current pointer derived. Product gets safe projection only.</td>
+</tr>
+<tr>
+<td>D-03</td>
+<td>Material/version inventory — trust service</td>
+<td>stable material ID, version ID, class, subject/owner, custodian/ref, public certificate fingerprint/chain ref, issuer, key usage, environment, validity, lifecycle state, owner, dependency refs</td>
+<td>Restricted security data; no private key. Immutable version plus audited lifecycle events; public material retained for historic proof as policy requires.</td>
+</tr>
+<tr>
+<td>D-04</td>
+<td>Authority snapshot — identity/authority owner</td>
+<td>principal, delegate/signatory, legal subject, capability/route/environment, effective period, source/version, revocation result and evidence reference</td>
+<td>Restricted personal/business authority data; trust stores reference or approved snapshot, not unrestricted mandate.</td>
+</tr>
+<tr>
+<td>D-05</td>
+<td>Dependency edge — trust service</td>
+<td>material version, workload/connection/route/policy, queued or in-flight operation, historical obligation, owner and effective interval</td>
+<td>Restricted operational metadata; versioned edges; needed for scoped rotation and containment.</td>
+</tr>
+<tr>
+<td>D-06</td>
+<td>Protected-operation binding — trust service</td>
+<td>operation ID, request digest, input hash, principal/signer/seal creator, material/policy/authority versions, route/profile, environment, state, custodian ref and timestamps</td>
+<td>Restricted immutable operation plan; corrections use a new version/operation. No key material.</td>
+</tr>
+<tr>
+<td>D-07</td>
+<td>Evidence package — evidence/archive owner</td>
+<td>signed object or immutable object ref, exact hash, signature/seal, chain, status/trust-list/time, authority snapshot, policy/version, validation conclusion, provenance, preservation events, retention class</td>
+<td>Highly restricted business/security evidence; append-only and independently retained from private-key version.</td>
+</tr>
+<tr>
+<td>D-08</td>
+<td>Rotation/incident/reconciliation case — trust/operations</td>
+<td>case ID, trigger, intended/observed states, dependencies, owner, approvals, original external refs, next safe action, evidence and closure</td>
+<td>Restricted operations record; full history, no secret payload; case closure requires evidenced outcome.</td>
+</tr>
+<tr>
+<td>D-09</td>
+<td>Audit event — security audit owner</td>
+<td>actor/workload, scope, action, reason, request/operation ID, policy/material refs, source/result/time, evidence with sensitive values removed ref</td>
+<td>Tamper-evident and access controlled; retention/hold policy separate from application logs.</td>
+</tr>
+</tbody>
+</table>
+<h3>5 Proposed payload examples</h3>
+<p>These are illustrative logical payloads for discussion; names and types are <strong>not an approved API</strong>. Identifiers are synthetic and contain no customer data.</p>
+<pre><code class="language-json">{
+  &quot;interaction&quot;: &quot;INT-05&quot;,
+  &quot;requestId&quot;: &quot;req-synthetic-01&quot;,
+  &quot;environment&quot;: &quot;TEST&quot;,
+  &quot;legalSubjectRef&quot;: &quot;subject-synthetic-01&quot;,
+  &quot;capability&quot;: &quot;SUBMIT_INVOICE&quot;,
+  &quot;routeProfileRef&quot;: &quot;profile-synthetic-01&quot;,
+  &quot;actorMode&quot;: &quot;AUTHORISED_DELEGATE&quot;,
+  &quot;purpose&quot;: &quot;DELEGATED_SIGNING&quot;,
+  &quot;atTime&quot;: &quot;2026-10-05T12:00:00Z&quot;
+}
+</code></pre>
+<pre><code class="language-json">{
+  &quot;decisionRef&quot;: &quot;decision-synthetic-01&quot;,
+  &quot;result&quot;: &quot;ACTION_REQUIRED&quot;,
+  &quot;reason&quot;: &quot;AUTHORITY_EXPIRED&quot;,
+  &quot;materialVersionRef&quot;: &quot;material-version-synthetic-01&quot;,
+  &quot;policyVersionRef&quot;: &quot;policy-synthetic-01&quot;,
+  &quot;authorityDecisionRef&quot;: &quot;authority-synthetic-01&quot;,
+  &quot;checkedAt&quot;: &quot;2026-10-05T12:00:00Z&quot;,
+  &quot;nextRecheckAt&quot;: null,
+  &quot;remediationOwner&quot;: &quot;ACCOUNTANT_OR_CUSTOMER&quot;
+}
+</code></pre>
+<p>The response deliberately has no private key, raw mandate or claim that the customer is registered with an external platform. <code>ACTION_REQUIRED</code> affects only the named capability/scope.</p>
+<h3>6 Contract decisions before physical design</h3>
+<p>The Business Identity/trust owner and architecture must select the actual service boundary and physical API/event transport. Security/Legal must approve custody and signer/seal policies. The Spain technical owner must provide issuer/trust-list/status, public-authentication and format/signature profiles. Custodians/providers must prove lookup/idempotency and returned evidence for each protected mutation. Privacy/records owners must approve retention, access and residency by record class. Performance/error budgets require measured volume and service commitments. Until those decisions are recorded, the fields above are a design proposal and the external adapters remain abstract.</p>
+<h2>Part 4 Assurance and Traceability View</h2>
+<p>This part shows how requirements connect to activities, interfaces, data and acceptance checks. The scenarios describe evidence still needed; they are not a claim that implementation tests have passed.</p>
+<h3>1 Review purpose and status</h3>
+<p>This view links the <a href="#part-1-feature-solution-summary">Part 1</a>, <a href="#part-2-logical-feature-specification">Part 2</a> and <a href="#part-3-logical-service-interactions-and-data-inventory">Part 3</a> to observable verification. This document is a <strong>reviewable logical proposal</strong>. All scenarios below are proposed acceptance tests; their external certificates, profiles, legal permissions and service objectives must be selected and evidenced before a design for implementation is approved.</p>
+<h3>2 Lifecycle coverage</h3>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Requirements</th>
+<th>Interactions / records</th>
+<th>Acceptance and evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CERT-01 Classify</td>
+<td>CM-R01</td>
+<td>INT-01; D-01, D-02</td>
+<td>CM-AC01, CM-AC02; approved policy catalogue and negative policy fixtures</td>
+</tr>
+<tr>
+<td>CERT-02 Authorise</td>
+<td>CM-R04, CM-R11</td>
+<td>INT-02; D-04, D-09</td>
+<td>CM-AC03, CM-AC04; authority decision matrix and revocation test</td>
+</tr>
+<tr>
+<td>CERT-03 Establish custody</td>
+<td>CM-R02, CM-R03</td>
+<td>INT-03; D-03, D-09</td>
+<td>CM-AC05; custody/attestation and secret-leak tests</td>
+</tr>
+<tr>
+<td>CERT-04 Validate</td>
+<td>CM-R05</td>
+<td>INT-04; D-01–D-03</td>
+<td>CM-AC06, CM-AC07; chain/status/profile corpus</td>
+</tr>
+<tr>
+<td>CERT-05 Decide readiness</td>
+<td>CM-R01, CM-R05, CM-R11</td>
+<td>INT-05; D-02, EVT-02</td>
+<td>CM-AC02, CM-AC08; per-scope projections</td>
+</tr>
+<tr>
+<td>CERT-06 Bind and use</td>
+<td>CM-R04, CM-R06, CM-R07</td>
+<td>INT-06, INT-09; D-06</td>
+<td>CM-AC09, CM-AC10, CM-AC11; custodian idempotency/lookup proof</td>
+</tr>
+<tr>
+<td>CERT-07 Preserve</td>
+<td>CM-R10, CM-R12</td>
+<td>INT-07, INT-12; D-07, D-09</td>
+<td>CM-AC12; signed-object and evidence integrity checks</td>
+</tr>
+<tr>
+<td>CERT-08 Rotate</td>
+<td>CM-R08</td>
+<td>INT-08; D-03, D-05, D-08; EVT-03/04</td>
+<td>CM-AC13; counterpart and in-flight cutover test</td>
+</tr>
+<tr>
+<td>CERT-09 Contain</td>
+<td>CM-R05, CM-R07, CM-R09</td>
+<td>INT-09; D-05, D-08; EVT-05/06</td>
+<td>CM-AC07, CM-AC10, CM-AC14; scoped incident drill</td>
+</tr>
+<tr>
+<td>CERT-10 Retire</td>
+<td>CM-R10</td>
+<td>INT-10, INT-12; D-03, D-07</td>
+<td>CM-AC15; destruction proof and historic revalidation</td>
+</tr>
+</tbody>
+</table>
+<p>CM-AC16 also checks the country-policy boundary for CERT-01/02/04/06, CM-R01/04/05/06, INT-01/02/04/06 and D-01/D-02/D-06.</p>
+<p>Every <code>CM-R</code> appears in the matrix. <code>INT-11</code> is the safe operational projection used across CERT-05, CERT-08 and CERT-09; its authorisation/redaction is covered by CM-AC08 and CM-AC14. <code>EVT-01</code> supports CERT-03, <code>EVT-07</code> supports CERT-10. Detailed event delivery and replay tests remain part of the architecture and integration gate.</p>
+<h3>3 Acceptance scenarios</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Given / when</th>
+<th>Required result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CM-AC01</td>
+<td>A route/profile has approved <code>NOT_REQUIRED</code> policy; onboarding asks for readiness</td>
+<td>It receives a versioned, reasoned no-certificate decision and no upload/provisioning step.</td>
+</tr>
+<tr>
+<td>CM-AC02</td>
+<td>The policy is missing, conflicting or not effective for the requested actor/route</td>
+<td>Readiness is <code>UNDETERMINED</code>, dependent activation is blocked and a named policy owner/action is returned.</td>
+</tr>
+<tr>
+<td>CM-AC03</td>
+<td>An accountant holds a valid certificate but lacks effective authority for one client/capability</td>
+<td>Only that client/capability is blocked; other authorised client items continue without data leakage.</td>
+</tr>
+<tr>
+<td>CM-AC04</td>
+<td>A prior grant is revoked after onboarding was ready</td>
+<td>Future dependent use fails at runtime; old decision and previously signed evidence stay unchanged.</td>
+</tr>
+<tr>
+<td>CM-AC05</td>
+<td>An approved custody flow provisions material</td>
+<td>Inventory records one immutable version and public metadata; product responses, logs, events and audit contain no private key or reusable secret.</td>
+</tr>
+<tr>
+<td>CM-AC06</td>
+<td>A valid workload or transport certificate is offered for invoice signing</td>
+<td>The request fails for wrong purpose even though transport authentication could independently remain ready.</td>
+</tr>
+<tr>
+<td>CM-AC07</td>
+<td>Chain, revocation, status freshness, owner or environment fails/is unknown</td>
+<td>New affected use is blocked or undetermined with the exact safe reason; no automatic pass/fallback occurs.</td>
+</tr>
+<tr>
+<td>CM-AC08</td>
+<td>Two onboarding items share a delegate material reference but have different principals/grants</td>
+<td>Each gets its own scoped decision and remediation; a support query cannot enumerate the other item without authority.</td>
+</tr>
+<tr>
+<td>CM-AC09</td>
+<td>A remote-signing request passes preflight, then its authority/material changes before key use</td>
+<td>Use-time recheck prevents the operation or requires a new approved binding; no stale signature is reported.</td>
+</tr>
+<tr>
+<td>CM-AC10</td>
+<td>Custody times out after possible signing/provisioning</td>
+<td>Original operation enters <code>OUTCOME_UNKNOWN</code>; reconciliation queries original reference and does not issue a fresh mutation blindly.</td>
+</tr>
+<tr>
+<td>CM-AC11</td>
+<td>A caller repeats the same operation ID with identical digest, then with a changed input hash</td>
+<td>Identical request deduplicates under proven contract; changed input conflicts and requires a new authorised operation.</td>
+</tr>
+<tr>
+<td>CM-AC12</td>
+<td>An outbound representation is signed/sealed successfully</td>
+<td>Exact bytes/hash, actor, material/policy/authority versions, validation/time and provenance are durable before success is exposed.</td>
+</tr>
+<tr>
+<td>CM-AC13</td>
+<td>A material version approaches expiry and replacement is cut over</td>
+<td>Replacement is validated and accepted by affected counterpart; new work uses the effective version while in-flight attempts retain their frozen binding.</td>
+</tr>
+<tr>
+<td>CM-AC14</td>
+<td>One material version is compromised</td>
+<td>Affected new use stops, dependencies and forensic evidence are visible to authorised operators, unaffected isolated scopes continue where safe, and resumption requires reapproval.</td>
+</tr>
+<tr>
+<td>CM-AC15</td>
+<td>A retired private key is destroyed and its certificate later expires</td>
+<td>Authorised historic verification uses retained signed bytes, chain, status/time/policy and preservation evidence; destruction and current expiry alone do not erase the past result.</td>
+</tr>
+<tr>
+<td>CM-AC16</td>
+<td>The same trust capability is evaluated for Spain and another country with different approved policies</td>
+<td>CM-R01/04/05/06: CERT-01/02/04/06 and INT-01/02/04/06 select the correct policy and actor. D-01/D-02/D-06 retain each decision and operation version. Changing one country’s policy does not change the other country’s readiness or earlier evidence.</td>
+</tr>
+</tbody>
+</table>
+<p>Additional negative tests must cover tenant and TEST/production crossover, revoked signer versus valid transport, seal substitution, unauthorised approval/destroy, out-of-order events, duplicate event delivery, stale cache, lost evidence write after key use, invalid inbound trust, replay and provider exit. They are grouped into the corresponding scenarios above; test fixtures and exact expected codes require approved physical contracts.</p>
+<h3>4 Security and operational assurance</h3>
+<table>
+<thead>
+<tr>
+<th>Control claim</th>
+<th>Evidence required before pilot or production</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Material cannot cross tenant, legal-subject, operator or environment boundaries</td>
+<td>Negative authorisation tests at every interaction; trusted context enforcement; audit of blocked attempts</td>
+<td>Security and engineering</td>
+</tr>
+<tr>
+<td>Key operations are protected and attributable</td>
+<td>Custodian/HSM or remote-service design review, access policy, non-exportability/backup proof as applicable, dual-control and key-use audit</td>
+<td>Trust owner and Security</td>
+</tr>
+<tr>
+<td>A signer, delegate and operator seal are not confused</td>
+<td>Approved legal/authority matrix, policy fixtures, API labels, actor evidence and negative substitution tests</td>
+<td>Spain Legal, Business Identity and Product</td>
+</tr>
+<tr>
+<td>Rotation does not cause outage or change in-flight work silently</td>
+<td>Dependency inventory, expiry alerts, counterpart conformance, cutover/rollback and queue tests</td>
+<td>Operations and exchange owner</td>
+</tr>
+<tr>
+<td>Unknown outcomes are recoverable without duplicate use</td>
+<td>Custodian lookup/idempotency contract, fault-injection, reconciliation runbook and unresolved-case dashboard</td>
+<td>Trust owner and Operations</td>
+</tr>
+<tr>
+<td>Historical proof survives expiry, key destruction and provider exit</td>
+<td>Evidence-package completeness test, restore/export test, independent verification and retention/hold policy</td>
+<td>Records, Legal and Security</td>
+</tr>
+<tr>
+<td>Service can operate at launch scale</td>
+<td>Measured class/provider volumes, latency, queue/backlog, alert and recovery baselines; approved target and capacity test</td>
+<td>Product and Operations</td>
+</tr>
+</tbody>
+</table>
+<h3>5 Decision and evidence gates</h3>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Decision or missing evidence</th>
+<th>Accountable owner</th>
+<th>Effect if unresolved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G1 Trust owner</td>
+<td>Which Sage Business Identity/service team owns inventory, key operations, validation and preservation?</td>
+<td>Business Identity and architecture</td>
+<td>Blocks service boundary, API ownership and delivery plan</td>
+</tr>
+<tr>
+<td>G2 Legal actor</td>
+<td>Which direct/delegated/Sage-managed signing and operator-seal modes are permitted for each Spain route/profile?</td>
+<td>Spain Legal, Compliance and Security</td>
+<td>Blocks trust-policy activation and signing design</td>
+</tr>
+<tr>
+<td>G3 Custody</td>
+<td>Which key classes may be customer/provider/Sage held; what import/export and dual-control rules apply?</td>
+<td>Security and trust owner</td>
+<td>Blocks provisioning implementation</td>
+</tr>
+<tr>
+<td>G4 External profiles</td>
+<td>Official public/AS2/AS4/signature profiles, accepted issuers/trust lists, status source and freshness</td>
+<td>Spain technical owner and external parties</td>
+<td>Blocks conformance and production validation</td>
+</tr>
+<tr>
+<td>G5 Failure contract</td>
+<td>Custodian/provider idempotency or authoritative lookup for each protected mutation</td>
+<td>Trust owner and supplier</td>
+<td>Blocks automatic retry and recovery automation</td>
+</tr>
+<tr>
+<td>G6 Retention</td>
+<td>Evidence, key destruction, residency, legal hold and access schedules by class</td>
+<td>Legal, Privacy and Records</td>
+<td>Blocks production data handling and exit</td>
+</tr>
+<tr>
+<td>G7 Operations</td>
+<td>Per-class warning/overlap thresholds, owners, coverage, RTO/RPO and response commitments</td>
+<td>Security, Product and Operations</td>
+<td>Blocks production runbooks and service objectives</td>
+</tr>
+<tr>
+<td>G8 Regulatory/public</td>
+<td>Public-solution authentication/representation technical contract and exact certificate requirement</td>
+<td>Spain regulatory/technical owner</td>
+<td>Blocks public-route certificate-dependent activation</td>
+</tr>
+</tbody>
+</table>
+<p>These gates are drawn from the open questions in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-226-security-trust-identity-data-audit.md">PRD-SEI-226</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-101-public-platform-onboarding.md">PRD-SEI-101</a> and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/021bcc7cadfccfe93d2388de4616efebe17558fb/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>. The source PRDs remain the authoritative open-question records until approved ADRs replace individual decisions.</p>
+<h3>6 Readiness judgement</h3>
+<p>This document is ready for a Product, Business Identity, Security, Legal, Spain technical and Operations solution review. It is <strong>not approved for implementation or external activation</strong>. The first review should resolve G1–G3 and select one concrete certificate class/route as the reference slice; G4–G8 then determine conformance, pilot and production gates. No document status or Confluence publication is changed by this review view.</p><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>
