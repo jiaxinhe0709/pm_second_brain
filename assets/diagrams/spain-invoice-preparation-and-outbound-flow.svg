@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3180 1380" role="img" aria-labelledby="title desc"><title id="title">Spain invoice preparation and outbound exchange</title><desc id="desc">Four horizontal responsibility lanes. ERP submits complete draft data for service validation, issues and submits final data. The service resolves the recipient route, uses the public platform when no private entry point exists, and tracks recipient delivery and any required public copy independently.</desc><rect width="3180" height="1380" fill="white"/>
+<text x="35" y="43" text-anchor="start" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#222">Spain invoice preparation and outbound exchange</text>
+<text x="35" y="77" text-anchor="start" font-family="Arial,sans-serif" font-size="17" font-weight="400" fill="#222">Complete draft data before issuance; final issued data before exchange. Public default applies when lookup proves no private entry point.</text>
+<rect x="280" y="98" width="690" height="30" fill="#d0d0d0" stroke="#aaa"/>
+<text x="625.0" y="119" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#222">DRAFT PREPARATION</text>
+<rect x="990" y="98" width="710" height="30" fill="#d0d0d0" stroke="#aaa"/>
+<text x="1345.0" y="119" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#222">ERP ISSUANCE &amp; FINAL CHECKS</text>
+<rect x="1720" y="98" width="900" height="30" fill="#d0d0d0" stroke="#aaa"/>
+<text x="2170.0" y="119" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#222">ROUTING &amp; EXCHANGE</text>
+<rect x="2640" y="98" width="510" height="30" fill="#d0d0d0" stroke="#aaa"/>
+<text x="2895.0" y="119" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#222">OUTCOMES</text>
+<rect x="30" y="140" width="3120" height="240" fill="#fafafa" stroke="#aaa"/>
+<rect x="30" y="140" width="230" height="240" fill="#e5e5e5" stroke="#aaa"/>
+<text x="145" y="185" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#222">ERP / ISSUER</text>
+<rect x="30" y="395" width="3120" height="220" fill="#f1f1f1" stroke="#aaa"/>
+<rect x="30" y="395" width="230" height="220" fill="#e5e5e5" stroke="#aaa"/>
+<text x="145" y="440" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#222">E-INVOICING</text>
+<text x="145" y="462" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#222">DOMAIN SERVICE</text>
+<rect x="30" y="630" width="3120" height="190" fill="#fafafa" stroke="#aaa"/>
+<rect x="30" y="630" width="230" height="190" fill="#e5e5e5" stroke="#aaa"/>
+<text x="145" y="675" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#222">POLICY / TRUST /</text>
+<text x="145" y="697" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#222">OPERATIONS</text>
+<rect x="30" y="835" width="3120" height="450" fill="#f1f1f1" stroke="#aaa"/>
+<rect x="30" y="835" width="230" height="450" fill="#e5e5e5" stroke="#aaa"/>
+<text x="145" y="880" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#222">EXTERNAL</text>
+<text x="145" y="902" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#222">DESTINATIONS</text>
+<ellipse cx="400.0" cy="220.0" rx="100.0" ry="40.0" fill="#ffffff" stroke="#444" stroke-width="2"/>
+<text x="400.0" y="207.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">01 Create draft</text>
+<text x="400.0" y="228.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Complete invoice data</text>
+<path d="M558 180 H750 L732 260 H540 Z" fill="#ffffff" stroke="#444" stroke-width="2"/>
+<text x="645.0" y="207.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">02 Submit draft data</text>
+<text x="645.0" y="228.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Preparation request</text>
+<path d="M808 290 H980 L962 355 H790 Z" fill="#ffffff" stroke="#444" stroke-width="2"/>
+<text x="885.0" y="309.5" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Correct draft</text>
+<text x="885.0" y="330.5" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">New revision</text>
+<path d="M1038 180 H1230 L1212 260 H1020 Z" fill="#ffffff" stroke="#444" stroke-width="2"/>
+<text x="1125.0" y="207.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">05 Review ready draft</text>
+<text x="1125.0" y="228.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Issues and route status</text>
+<rect x="1270" y="180" width="190" height="80" rx="10" fill="#ededed" stroke="#444" stroke-width="2"/>
+<text x="1365.0" y="207.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">06 Issue invoice</text>
+<text x="1365.0" y="228.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">ERP owns issuance</text>
+<path d="M1518 180 H1710 L1692 260 H1500 Z" fill="#ffffff" stroke="#444" stroke-width="2"/>
+<text x="1605.0" y="207.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">07 Submit final data</text>
+<text x="1605.0" y="228.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Issued ID and revision</text>
+<path d="M1518 300 H1710 L1692 365 H1500 Z" fill="#ffffff" stroke="#444" stroke-width="2"/>
+<text x="1605.0" y="319.5" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Resolve issued issue</text>
+<text x="1605.0" y="340.5" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Applicable correction process</text>
+<rect x="540" y="440" width="210" height="100" rx="10" fill="#ededed" stroke="#444" stroke-width="2"/>
+<text x="645.0" y="477.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">03 Authorise &amp; prepare</text>
+<text x="645.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Apply Spain rules; validate</text>
+<text x="645.0" y="516.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">complete draft data</text>
+<path d="M885.0 430 L980 490.0 L885.0 550 L790 490.0 Z" fill="#ededed" stroke="#444" stroke-width="2"/>
+<text x="885.0" y="495.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">04 Draft valid?</text>
+<rect x="1500" y="440" width="210" height="100" rx="10" fill="#ededed" stroke="#444" stroke-width="2"/>
+<text x="1605.0" y="477.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">08 Final checks</text>
+<text x="1605.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Authorise; validate exact</text>
+<text x="1605.0" y="516.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">issued data and revision</text>
+<path d="M1865.0 430 L1970 490.0 L1865.0 550 L1760 490.0 Z" fill="#ededed" stroke="#444" stroke-width="2"/>
+<text x="1865.0" y="477.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">09 Recipient lookup</text>
+<text x="1865.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Current authoritative result</text>
+<path d="M2030 440 H2240 V528 Q2187.5 515 2135.0 528 Q2082.5 541 2030 528 Z" fill="#ffffff" stroke="#444" stroke-width="2"/>
+<text x="2135.0" y="477.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">10 Exchange plan</text>
+<text x="2135.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Freeze route, trust and legs</text>
+<rect x="2290" y="440" width="210" height="100" rx="10" fill="#ededed" stroke="#444" stroke-width="2"/>
+<text x="2395.0" y="477.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">11 Prepare &amp; dispatch</text>
+<text x="2395.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Validate final format; sign</text>
+<text x="2395.0" y="516.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">if required; persist operation</text>
+<path d="M2710 448 C2710 431 2910 431 2910 448 V532 C2910 549 2710 549 2710 532 Z M2710 448 C2710 465 2910 465 2910 448" fill="#ffffff" stroke="#444" stroke-width="2"/>
+<text x="2810.0" y="477.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">13 Outcome ledger</text>
+<text x="2810.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Separate raw results per leg</text>
+<rect x="2950" y="440" width="170" height="100" rx="10" fill="#ededed" stroke="#444" stroke-width="2"/>
+<text x="3035.0" y="477.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">14 Derive views</text>
+<text x="3035.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Evidence and next action</text>
+<path d="M2908 180 H3120 L3102 260 H2890 Z" fill="#ffffff" stroke="#444" stroke-width="2"/>
+<text x="3005.0" y="207.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">15 View outcomes</text>
+<text x="3005.0" y="228.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Delivery and copy separately</text>
+<path d="M540 675 H750 V763 Q697.5 750 645.0 763 Q592.5 776 540 763 Z" fill="#ffffff" stroke="#444" stroke-width="2"/>
+<text x="645.0" y="712.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Spain rule pack</text>
+<text x="645.0" y="733.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Identity, data and applicability</text>
+<path d="M1020 675 H1230 V763 Q1177.5 750 1125.0 763 Q1072.5 776 1020 763 Z" fill="#ffffff" stroke="#444" stroke-width="2"/>
+<text x="1125.0" y="712.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Early route check</text>
+<text x="1125.0" y="733.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Included in preparation;</text>
+<text x="1125.0" y="751.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">confirm again before dispatch</text>
+<path d="M1782 675 H1948 L1970 725.0 L1948 775 H1782 L1760 725.0 Z" fill="#ffffff" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1865.0" y="712.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Recover lookup</text>
+<text x="1865.0" y="733.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Failure is not absence</text>
+<path d="M2290 675 H2500 V763 Q2447.5 750 2395.0 763 Q2342.5 776 2290 763 Z" fill="#ffffff" stroke="#444" stroke-width="2"/>
+<text x="2395.0" y="712.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Format &amp; trust rules</text>
+<text x="2395.0" y="733.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Versioned representation</text>
+<text x="2395.0" y="751.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">and signing requirements</text>
+<path d="M2732 675 H2938 L2960 725.0 L2938 775 H2732 L2710 725.0 Z" fill="#ffffff" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="2835.0" y="712.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Outcome unknown</text>
+<text x="2835.0" y="733.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Reconcile original leg</text>
+<text x="2835.0" y="751.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">before a mutating retry</text>
+<rect x="2240" y="865" width="450" height="395" fill="#ffffff" stroke="#aaa"/>
+<text x="2465" y="892" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">12  Independent external obligations</text>
+<path d="M2460.0 915 L2570 957.5 L2460.0 1000 L2350 957.5 Z" fill="#ededed" stroke="#444" stroke-width="2"/>
+<text x="2460.0" y="962.5" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Recipient route?</text>
+<path d="M2280 1040 H2430 L2450 1120 H2260 Z" fill="#ffffff" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="2355.0" y="1067.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Resolved route</text>
+<text x="2355.0" y="1088.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Sage / other private platform</text>
+<path d="M2500 1040 H2650 L2670 1120 H2480 Z" fill="#ffffff" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="2575.0" y="1067.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Public delivery</text>
+<text x="2575.0" y="1088.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Default or planned bridge</text>
+<path d="M2330 1170 H2600 L2620 1240 H2310 Z" fill="#ffffff" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="2465.0" y="1192.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Faithful public copy</text>
+<text x="2465.0" y="1213.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Separate leg only if required</text>
+<path d="M500 220 L540 220" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="540.0,220.0 530.0,216.0 530.0,224.0" fill="#444"/>
+<path d="M645 260 L645 440" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="645.0,440.0 649.0,430.0 641.0,430.0" fill="#444"/>
+<path d="M750 490 L790 490" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="790.0,490.0 780.0,486.0 780.0,494.0" fill="#444"/>
+<path d="M885 430 L885 355" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
+<polygon points="885.0,355.0 881.0,365.0 889.0,365.0" fill="#444"/>
+<text x="920" y="403" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">invalid</text>
+<path d="M790 322 L400 322 L400 260" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
+<polygon points="400.0,260.0 396.0,270.0 404.0,270.0" fill="#444"/>
+<path d="M980 490 L1000 490 L1000 220 L1020 220" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="1020.0,220.0 1010.0,216.0 1010.0,224.0" fill="#444"/>
+<text x="1030" y="420" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">valid</text>
+<path d="M1230 220 L1270 220" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="1270.0,220.0 1260.0,216.0 1260.0,224.0" fill="#444"/>
+<path d="M1460 220 L1500 220" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="1500.0,220.0 1490.0,216.0 1490.0,224.0" fill="#444"/>
+<path d="M1500 240 L1480 240 L1480 490 L1500 490" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="1500.0,490.0 1490.0,486.0 1490.0,494.0" fill="#444"/>
+<path d="M1605 440 L1605 365" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
+<polygon points="1605.0,365.0 1601.0,375.0 1609.0,375.0" fill="#444"/>
+<text x="1650" y="411" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">invalid</text>
+<path d="M1710 490 L1760 490" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="1760.0,490.0 1750.0,486.0 1750.0,494.0" fill="#444"/>
+<text x="1735" y="467" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">valid</text>
+<path d="M1865 430 L1865 410 L2135 410 L2135 440" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="2135.0,440.0 2139.0,430.0 2131.0,430.0" fill="#444"/>
+<text x="2100" y="398" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">private entry point found: resolved route</text>
+<path d="M1970 490 L2030 490" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="2030.0,490.0 2020.0,486.0 2020.0,494.0" fill="#444"/>
+<text x="2070" y="570" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">none: public default</text>
+<path d="M1865 550 L1865 675" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
+<polygon points="1865.0,675.0 1869.0,665.0 1861.0,665.0" fill="#444"/>
+<text x="1990" y="603" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">failed / stale / ambiguous</text>
+<path d="M2240 490 L2290 490" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="2290.0,490.0 2280.0,486.0 2280.0,494.0" fill="#444"/>
+<path d="M2290 460 L2265 460 L2265 325 L1710 325" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
+<polygon points="1710.0,325.0 1720.0,329.0 1720.0,321.0" fill="#444"/>
+<text x="2020" y="313" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">preparation issue</text>
+<path d="M2500 490 L2530 490 L2530 855 L2465 855 L2465 865" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="2465.0,865.0 2469.0,855.0 2461.0,855.0" fill="#444"/>
+<path d="M2465 900 L2465 915" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="2465.0,915.0 2469.0,905.0 2461.0,905.0" fill="#444"/>
+<path d="M2350 957 L2355 957 L2355 1040" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="2355.0,1040.0 2359.0,1030.0 2351.0,1030.0" fill="#444"/>
+<text x="2300" y="1018" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">resolved</text>
+<path d="M2570 957 L2575 957 L2575 1040" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="2575.0,1040.0 2579.0,1030.0 2571.0,1030.0" fill="#444"/>
+<text x="2630" y="1018" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">public</text>
+<path d="M2465 900 L2675 900 L2675 1150 L2465 1150 L2465 1170" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="2465.0,1170.0 2469.0,1160.0 2461.0,1160.0" fill="#444"/>
+<text x="2720" y="1138" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">if required</text>
+<path d="M2690 1080 L2700 1080 L2700 500 L2710 500" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="2710.0,500.0 2700.0,496.0 2700.0,504.0" fill="#444"/>
+<path d="M2910 490 L2950 490" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="2950.0,490.0 2940.0,486.0 2940.0,494.0" fill="#444"/>
+<path d="M3035 440 L3035 260" fill="none" stroke="#444" stroke-width="2"/>
+<polygon points="3035.0,260.0 3031.0,270.0 3039.0,270.0" fill="#444"/>
+<path d="M2810 545 L2810 675" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
+<polygon points="2810.0,675.0 2814.0,665.0 2806.0,665.0" fill="#444"/>
+<text x="2860" y="603" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">unknown</text>
+<text x="1050" y="570" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Draft validation includes the early destination check.</text>
+<text x="2900" y="840" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Record each leg asynchronously;</text>
+<text x="2900" y="866" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">acknowledgement is not buyer acceptance.</text>
+<text x="1880" y="802" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">After recovery, repeat recipient lookup.</text>
+<text x="2810" y="802" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Preserve completed legs; append new evidence.</text>
+<text x="2465" y="1278" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Alternatives for delivery; copy is a separate conditional duty.</text>
+<text x="35" y="1320" text-anchor="start" font-family="Arial,sans-serif" font-size="16" font-weight="400" fill="#222">Reading key: ellipse = start · parallelogram = ERP data/action · rounded rectangle = task · diamond = decision · document = rule/plan</text>
+<text x="35" y="1347" text-anchor="start" font-family="Arial,sans-serif" font-size="16" font-weight="400" fill="#222">Cylinder = evidence · dashed trapezoid = external party · dashed hexagon = hold/recovery · solid arrow = flow · dashed arrow = exception</text>
+</svg>
