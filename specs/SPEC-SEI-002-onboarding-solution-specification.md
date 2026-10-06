@@ -9,6 +9,7 @@ created: 2026-10-06
 updated: 2026-10-06
 reviewers: []
 related:
+  - GLO-SEI-001
   - PRD-SEI-101
   - PRD-SEI-104
   - PRD-SEI-107
@@ -28,6 +29,8 @@ confluence:
 
 # Customer Onboarding Solution Specification
 
+Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
+
 ## Part 1 Feature Solution Summary
 
 ### Reader guide
@@ -38,7 +41,7 @@ The design remains a draft. **Proposed** choices still need review; **open** dec
 
 ### 1 Purpose, authority and boundaries
 
-This is a **proposed logical design** for setting up one Spanish business to use e-invoicing. It covers two stages with separate checks and approvals. **Phase 1** checks readiness for functions that use the public solution. **Later phases** configure a private platform, check the published receiving destination, and activate or change the route.
+This is a **proposed logical design** for setting up one Spanish business to use e-invoicing. It covers two stages with separate checks and approvals. **Phase 1** checks readiness for functions that use the public platform. **Later phases** configure a private platform, check the published receiving destination, and activate or change the route.
 
 Public readiness alone does not mean that the business is registered externally, a private route is active, or invoices can be exchanged. The source requirements are [public onboarding](../prds/PRD-SEI-101-public-platform-onboarding.md), [direct and accountant onboarding](../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [recovery](../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), and [private onboarding and migration](../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md). The [certificate spec](SPEC-SEI-001-certificate-management-solution-specification.md) supplies the conditional trust-readiness contract.
 
@@ -64,22 +67,22 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 | Legal entity / legal subject | The business to which the invoice or action belongs. Technical fields use `legalSubject` for this business. |
 | Authority | Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission. |
 | Capability | A supported function, such as receiving invoices or signing them. |
-| Route | The platform and connection used to send or receive an invoice. |
-| Idempotency | A repeat of the same request has no additional effect. The contract must define how the system recognises that request. |
+| Route | The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans. |
+| Idempotency | Repeating the same logical request adds no effect within the contract’s defined scope and retention window. The contract binds request identity and input and defines conflict handling. |
 | Reconciliation | Check the original operation against a reliable source to establish what actually happened before deciding the next action. |
 | Gate | A condition, decision or evidence check that must pass before the next step can proceed. |
 | Tenant | The customer account boundary used to keep one customer’s data and access separate from another’s. |
-| Immutable / append-only | A saved item cannot be changed; new information is added as a new record instead of overwriting earlier records. |
+| Immutable / append-only | Immutable means a saved record cannot be changed. Append-only means later information is added as another record. Neither means indefinite retention. |
 | Provenance | The record of where data came from and which versions, checks and changes produced the result. |
 | Contract | The agreed inputs, outputs, behaviour and responsibilities between services or parties. |
-| Durable | Saved so the record remains available after a service restart. |
-| Readiness | Evidence that the required checks for a specific function have passed. The result may expire or have limitations. |
-| Entry point | The published address or destination used to reach a business for invoice receipt. |
-| Cutover / rollback | Switch new work to a different route; or make a controlled change back. Earlier invoices keep their actual route history. |
+| Durable | Saved through the agreed recovery boundary so the record survives a process restart or worker failure. Long-term retention is a separate policy. |
+| Readiness | The current result of capability checks for a stated legal entity, actor, environment and route/profile, with evidence, limitations and a recheck condition. Readiness is separate from authority, route activation and invoice outcomes. |
+| Entry point | The published receiving destination for a legal entity. It need not be a raw URL. Publication does not by itself prove operational eligibility for a particular invoice. |
+| Cutover / rollback | Cutover changes future work to a qualified route at an agreed boundary. Rollback is a controlled change back, with its own checks and evidence. Earlier invoices keep their actual route history. |
 | Portfolio | An accountant’s set of client businesses. Each client is checked separately. |
 | Input digest / hash | A calculated fingerprint used to detect a change in the submitted data. |
 
-### 2 Endpoints and handoffs
+### 2 Outcomes and handoffs
 
 | Outcome | Observable result | Boundary |
 |---|---|---|
@@ -110,7 +113,7 @@ ONB-05 records the chosen legal entity, direction, scope, operator and commercia
 | Activity | Trigger and required result | Owner / consumer |
 |---|---|---|
 | ONB-01 Open work item | Authenticated request creates one scoped, versioned work item; duplicate key returns same result | Product → onboarding |
-| ONB-02 Establish subject and authority | Verified entity, principal/delegate, action and validity; missing grant is visible | Identity/authority → onboarding |
+| ONB-02 Establish subject and authority | Verified entity, represented party/delegate, action and validity; missing grant is visible | Identity/authority → onboarding |
 | ONB-03 Assess prerequisites | Applicability, environment, external checks and conditional trust assessed separately | Onboarding → identity/trust/external |
 | ONB-04 Publish public readiness | Result for each capability, evidence and recheck; no route mutation | Onboarding → product |
 | ONB-05 Configure private choice | Explicit option, subscription/connection intent and scope stored without new traffic | Customer/product → onboarding/route |

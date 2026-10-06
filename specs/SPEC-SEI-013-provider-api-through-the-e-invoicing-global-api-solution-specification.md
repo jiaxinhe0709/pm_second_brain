@@ -9,6 +9,7 @@ created: 2026-10-06
 updated: 2026-10-06
 reviewers: []
 related:
+  - GLO-SEI-001
   - PRD-SEI-213
   - PRD-SEI-214
   - PRD-SEI-215
@@ -33,6 +34,8 @@ confluence:
 ---
 
 # Provider API through the E-Invoicing Global API Solution Specification
+
+Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -87,15 +90,17 @@ Out of scope: building or deploying the API; defining provider-specific endpoint
 
 | Term | Plain-language meaning |
 |---|---|
-| Consumer / principal | A product application or partner service calling the API; the principal is its trusted identity. |
+| Consumer / authenticated principal | A product application or partner service calling the API; its authenticated principal is the trusted caller identity, separate from the represented party. |
 | Provider / partner | Provider operates an invoice-network capability. Other partners may act as delegates or product integrators; partner status alone does not give provider execution rights. |
-| Authority grant | Recorded permission for a named principal to perform a capability for a legal entity, scope and time. Login or a certificate does not supply this permission. |
+| Authority grant | Recorded permission for a named actor, bound to its authenticated principal, to perform a capability for a legal entity, scope and time. Login or a certificate does not supply this permission. |
 | Connection / registration / route | Configuration to communicate; external enrolment/reachability; and the time-bound selection used for new invoice work. |
-| Delivery leg | One independently tracked recipient delivery, public copy or reporting action. |
-| Idempotency / reconciliation | Repeating the same logical request adds no effect; checking authoritative evidence to find what happened after an uncertain result. |
+| Exchange leg (delivery leg in this feature) | One independently tracked recipient-delivery, public-copy or reporting action. Qualify the leg type; each has its own outcome. |
+| Idempotency / reconciliation | Repeating the same logical request adds no effect within the defined scope and retention window; checking authoritative evidence for the original operation before deciding the next action. |
 | Work item / execution owner | An assigned external action and the party allowed to execute it. Retrieval of an invoice is not permission to transmit it. |
 | Representation / provenance | A specific invoice file or data form; evidence of its source, transformations and versions. |
 | Durable receipt | Confirmation that Sage saved the operation for recovery; it does not prove delivery or buyer acceptance. |
+
+Here, **authenticated principal** means the trusted caller identity. The represented party is the separately verified legal entity or client. Existing logical records retain `principal` wording pending Identity/API owner confirmation of actual field mappings; this wording does not rename them.
 
 | Observable outcome | Meaning and boundary |
 |---|---|
@@ -108,14 +113,16 @@ Out of scope: building or deploying the API; defining provider-specific endpoint
 
 ### 4 Spain use and reuse qualification
 
+Reuse labels follow the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary). **Reusable unchanged** describes a design pattern; **Unknown** records unverified implementation fitness. Scope exclusions are marked **Out of scope**.
+
 | Capability/source | Intended Spain use | Reuse classification and local changes | Gap, owner and activation evidence |
 |---|---|---|---|
-| Global API | Products and approved partners share resources and operation semantics. | Existing implementation reuse candidate; coverage unknown. Add partner permissions/operations only where actual gaps exist. | API owner + Architecture: deployed contract/build, current consumers, identity model, compatibility and external exposure proof. |
-| Receipts, authority, audit and event recovery | Isolate consumers/entities and recover repeats or missed outcomes. | Reusable proposed design pattern; no deployed coverage claimed. | Service owners + Security: actual store/outbox, concurrency, revoke-race, replay and isolation tests. |
-| [Outbound SPEC-SEI-007](SPEC-SEI-007-spain-invoice-preparation-and-outbound-solution-specification.md), [inbound SPEC-SEI-006](SPEC-SEI-006-inbound-invoice-receiving-solution-specification.md), [lifecycle SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) | Reuse the proposed invoice, leg, representation and evidence boundaries. | Shared design patterns requiring country/provider binding. API delegates to these owners. | Domain owners: actual contracts/builds and gaps; qualify profile, execution owner, mapping and acknowledgement meaning. |
-| Existing DTS; [SPEC-SEI-008](SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) | Preferred transformation candidate when an authorised exchange needs a supported source/target representation. | Existing implementation candidate plus proposed Spain mapper migration pattern. No blanket inbound, four-syntax or signed-document support assumed. | DTS + Spain mapping owners: build, input/output contracts, mappings, rule packs, semantic preservation, custody, limits and on-call evidence for each selected pair. |
-| Provider adapters and public connector | Execute capabilities not owned by a partner through the shared API. | Implementation coverage unknown; each provider/network needs its own adapter or contract qualification. | Provider owners + [SPEC-SEI-011](SPEC-SEI-011-public-platform-connector-solution-specification.md): exact interface, initiator, credentials, registration, query/replay and operations evidence. |
-| Identity, routing and lifecycle/reporting policy | Apply approved Spain rules for the selected entity, network and capability. | Shared services with country rules; Spain-specific identifiers, route/public-copy/reporting duties and interconnection calendar remain local. | Spain Product/Compliance: approved rule/version and applicability evidence; no Spain default in another country. |
+| Global API | Products and approved partners share resources and operation semantics. | Unknown; existing implementation reuse candidate. Add partner permissions/operations only where actual gaps exist. | API owner + Architecture: deployed contract/build, current consumers, identity model, compatibility and external exposure proof. |
+| Receipts, authority, audit and event recovery | Isolate consumers/entities and recover repeats or missed outcomes. | Reusable unchanged; proposed design pattern; no deployed coverage claimed. | Service owners + Security: actual store/outbox, concurrency, revoke-race, replay and isolation tests. |
+| [Outbound SPEC-SEI-007](SPEC-SEI-007-spain-invoice-preparation-and-outbound-solution-specification.md), [inbound SPEC-SEI-006](SPEC-SEI-006-inbound-invoice-receiving-solution-specification.md), [lifecycle SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) | Reuse the proposed invoice, leg, representation and evidence boundaries. | Reusable with country binding; proposed design patterns. API delegates to these owners. | Domain owners: actual contracts/builds and gaps; qualify profile, execution owner, mapping and acknowledgement meaning. |
+| Existing DTS; [SPEC-SEI-008](SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) | Preferred transformation candidate when an authorised exchange needs a supported source/target representation. | Unknown; existing DTS implementation reuse candidate plus proposed Spain mapper migration pattern. No blanket inbound, four-syntax or signed-document support assumed. | DTS + Spain mapping owners: build, input/output contracts, mappings, rule packs, semantic preservation, custody, limits and on-call evidence for each selected pair. |
+| Provider adapters and public connector | Execute capabilities not owned by a partner through the shared API. | Unknown; each provider/network needs its own adapter or contract qualification. | Provider owners + [SPEC-SEI-011](SPEC-SEI-011-public-platform-connector-solution-specification.md): exact interface, initiator, credentials, registration, query/replay and operations evidence. |
+| Identity, routing and lifecycle/reporting policy | Apply approved Spain rules for the selected entity, network and capability. | Reusable with country binding; Spain-specific identifiers, route/public-copy/reporting duties and interconnection calendar remain local. | Spain Product/Compliance: approved rule/version and applicability evidence; no Spain default in another country. |
 
 A reusable design pattern is not an existing implementation. Every candidate needs the actual source capability/build, local changes, missing coverage, accountable owner and acceptance evidence before activation. GPA-A17/A18 test country isolation and reuse qualification.
 
@@ -137,7 +144,7 @@ Text equivalent: GPA-03 checks trusted identity and current authority → GPA-04
 |---|---|---|
 | GPA-01 Consumer administrator requests access | Contract, identity, environment and capability reviewed; save qualification and consumer state. | API/Security: incomplete or incompatible consumer stays action-required; no route activation. |
 | GPA-02 Customer/product/delegate associates provider | Existing legal subject and authority verified; store connection and independent readiness evidence. | Identity/provider owner: missing grant or profile holds only the affected capability. |
-| GPA-03 Product/partner calls API | Trusted principal, current grant, country/environment, action and object scope checked. | API/Identity: deny and audit without exposing another entity or provider. |
+| GPA-03 Product/partner calls API | Trusted authenticated principal, current grant, country/environment, action and object scope checked. | API/Identity: deny and audit without exposing another entity or provider. |
 | GPA-04 Caller submits invoice(s) | Declared intent, exact revision/source, scope and repeat identity validated; durable per-item acceptance or rejection. | API/intake: changed-key conflict, invalid input or incomplete durable acceptance; recover original receipt. |
 | GPA-05 Domain executes accepted intent | Receiving ingests; outbound fixes final route/profile/legs; exactly one executor selected per external leg. | Domain/executor: blocked readiness, unknown result or conflicting claim held; no fallback send. |
 | GPA-06 Provider/adapter supplies outcome | Correlate authorised evidence to original invoice/leg; append raw event and derive views. | Lifecycle: unknown reference quarantined for reconciliation; duplicates/reordering do not regress state. |
@@ -158,7 +165,7 @@ The main risks are role confusion, exposing another customer's data, duplicate t
 
 ### 1 Shared contract and permission model
 
-**Proposed:** one API contract catalogue, shared resource identities, error vocabulary and version policy. Products and partners call only operations permitted to their principal and current customer grant. Separate credentials, quotas, access policies and documentation views may be needed. A common contract does not make all consumers trusted equally.
+**Proposed:** one API contract catalogue, shared resource identities, error vocabulary and version policy. Products and partners call only operations permitted to their authenticated principal and current customer grant. Separate credentials, quotas, access policies and documentation views may be needed. A common contract does not make all consumers trusted equally.
 
 | Capability | Product application | Delegated partner | Qualified provider executor |
 |---|---|---|---|
@@ -182,7 +189,7 @@ Direction is relative to the represented legal entity: OUTBOUND means the entity
 | ID | Required rule |
 |---|---|
 | GPA-R01 | A provider-facing capability belongs to the proposed Global API contract; any separate API needs a recorded justification and decision. |
-| GPA-R02 | Authenticate principal/environment and independently authorise customer, action, direction, object and effective time on every protected operation. |
+| GPA-R02 | Authenticate the caller in the selected environment and independently authorise customer, action, direction, object and effective time on every protected operation. |
 | GPA-R03 | Consumer readiness, grant, connection, registration and route are separate records; no general CONNECTED flag or implicit route switch. |
 | GPA-R04 | Same scoped request identity and digest resume one logical operation; changed content/intent conflicts; no duplicate effect across execution paths. |
 | GPA-R05 | Acceptance, validation, recipient delivery, public copy, buyer acceptance, payment and notification acknowledgement have separate outcomes. |
@@ -268,9 +275,9 @@ Logical error categories are proposed; exact HTTP mapping, public codes and mess
 
 ### 5 Security, service quality and audit
 
-**Required:** least privilege; encrypted approved transport/storage; separate sandbox/production principals, credentials, data and subscriptions; qualified secret custody; tenant/entity/provider/country isolation; protected original/derived documents; audit access that omits secrets and unnecessary business data. Work claims are bound to principal, operation and generation. Download references and callbacks cannot bypass current authority. Apply bounded upload/parser checks and quarantine unsafe content under the receiving owner; exact file/profile/security controls require qualification. Provider administrators cannot create customer grants or promote their own production readiness.
+**Required:** least privilege; encrypted approved transport/storage; separate sandbox/production principals, credentials, data and subscriptions; qualified secret custody; tenant/entity/provider/country isolation; protected original/derived documents; audit access that omits secrets and unnecessary business data. Work claims are bound to authenticated principal, operation and generation. Download references and callbacks cannot bypass current authority. Apply bounded upload/parser checks and quarantine unsafe content under the receiving owner; exact file/profile/security controls require qualification. Provider administrators cannot create customer grants or promote their own production readiness.
 
-Audit actor/principal, action/scope, source/expected/new version, safe outcome, reason, policy/contract version, event/operation/leg correlation and recovery evidence. Keep authoritative invoice/evidence stores as their systems of record; API caches and notifications are views. Legal retention, deletion, audit and idempotency/event recovery windows are separate policies and require GPA-Q10. Loss of retained bytes/versions under an approved policy means recovery may become unavailable; do not promise permanent replay.
+Audit actor/authenticated principal, action/scope, source/expected/new version, safe outcome, reason, policy/contract version, event/operation/leg correlation and recovery evidence. Keep authoritative invoice/evidence stores as their systems of record; API caches and notifications are views. Legal retention, deletion, audit and idempotency/event recovery windows are separate policies and require GPA-Q10. Loss of retained bytes/versions under an approved policy means recovery may become unavailable; do not promise permanent replay.
 
 | Measure / control | Definition and approval gate |
 |---|---|
@@ -309,7 +316,7 @@ These are capability names for contract review, not invented production URL path
 | GPA-INT-16 / GPA-11/12 | Security/domain/release administrator → relevant control owner; revoke/suspend/exit/version action, expected version, reason/evidence → independent result and continuity actions. | Separate administrative permissions; idempotent/versioned; unresolved work remains owned and audited. |
 | GPA-INT-17 / GPA-12 | Authorised consumer/Operations → Audit/Health; permitted consumer/entity/capability and operation scope → safe audit, health, limits, unknown/pending age and freshness. | Scope-specific audit/health entitlement; no mutation, secret, restricted diagnostic or cross-consumer data; stale/unavailable health is explicit. |
 
-All protected interactions carry trusted principal/environment context and safe correlation. The API façade routes to the existing owning service where qualified; the logical inventory does not prescribe separate services.
+All protected interactions carry trusted authenticated principal/environment context and safe correlation. The API façade routes to the existing owning service where qualified; the logical inventory does not prescribe separate services.
 
 ### 2 Shared request, receipt and event semantics
 
@@ -366,7 +373,7 @@ These are **future acceptance scenarios**, not claims that implementation tests 
 | GPA-A18 Implementation reuse qualification | PRD-SEI-223/227; R07/12/14 | 01/02/05/12; INT-01/03/05/06/16; D01/03/05/12 | Actual API/domain/DTS build/contracts and gaps recorded; selected mapping/profile/operations pass; absent inbound/four-syntax/signing coverage is explicit and cannot activate by assumption. |
 | GPA-A19 Scoped route/discovery access | PA-FR16; 213 FR26/27; R02/03/10/12 | 03/09; INT-02/03/14; D02/03/10/12 | Authorised route/connection reads expose no secrets; lookup retains rule/source/time/freshness and unresolved outcomes; an advisory result cannot authorise final dispatch or expand provider access. |
 
-Security evidence also covers principal/role tampering, provider self-grant, forged work claim, callback endpoint abuse, unsafe file/reference input, evidence replay, unrestricted audit access and sandbox/production crossover under GPA-A02/06/07/09/14/16. Findings need owners and closure evidence before production.
+Security evidence also covers authenticated principal/role tampering, provider self-grant, forged work claim, callback endpoint abuse, unsafe file/reference input, evidence replay, unrestricted audit access and sandbox/production crossover under GPA-A02/06/07/09/14/16. Findings need owners and closure evidence before production.
 
 ### 2 Open decisions and accountable gates
 

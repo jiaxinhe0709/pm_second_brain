@@ -12,6 +12,8 @@ Git is the system of record for product documents. Confluence is the publishing 
 ## Repository map
 
 - `prds/` — one file per product requirements document
+- `specs/` — feature solution specifications, linked to the
+  [shared e-invoicing glossary](context/GLO-SEI-001-e-invoicing-terminology.md)
 - `feature-proposals/` — one file per feature proposal
 - `decisions/` — durable product and architecture decisions
 - `research/` — customer and market evidence

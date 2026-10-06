@@ -9,6 +9,7 @@ created: 2026-10-06
 updated: 2026-10-06
 reviewers: []
 related:
+  - GLO-SEI-001
   - PRD-SEI-211
   - PRD-SEI-223
   - PRD-SEI-226
@@ -27,6 +28,8 @@ confluence:
 ---
 
 # Public Platform Invoice Retrieval, Storage and Download Solution Specification
+
+Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -61,13 +64,15 @@ The [final Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028),
 
 ### Spain use and reuse boundaries
 
+Reuse labels follow the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary). **Reusable unchanged** describes a design pattern; **Unknown** records unverified implementation fitness. Scope exclusions are marked **Out of scope**.
+
 | Area | Intended use in Spain | Reuse classification | Condition and owner |
 |---|---|---|---|
-| Queue fairness, resumable progress, durable capture, access audit | Support reliable public retrieval and downloads. | Reusable design pattern | Actual shared implementation coverage is unknown. Platform Owner must demonstrate contracts, isolation, failure behaviour and operational readiness. |
+| Queue fairness, resumable progress, durable capture, access audit | Support reliable public retrieval and downloads. | Reusable unchanged; proposed design pattern | Actual shared implementation coverage is unknown. Platform Owner must demonstrate contracts, isolation, failure behaviour and operational readiness. |
 | Stored-file roles, hashing, conservation access | Keep recovered UBL distinct from copies and derived files. | Reusable with country binding | Records/Security Owners must bind retention, authority, safe-file rules and deletion policy to each country. |
-| AEAT adapter and registered representation | Retrieve for the correct represented Spanish entity. | Spain-specific | Spain Technical Owner and Compliance must supply the exact API and power-of-attorney procedure. |
-| Public invoice code, copy indicator and UBL profile | Preserve Spanish identity and public-source classification. | Spain-specific | Format Owner must bind final annexes to the published technical schema. No default for other countries. |
-| DTS transformation/validation | Produce or validate a derived representation where required by receiving. | Existing reuse candidate, coverage unknown | DTS Owner must prove the exact inbound profile and lossless mapping. DTS temporary staging is not the permanent invoice archive. |
+| AEAT adapter and registered representation | Retrieve for the correct represented Spanish entity. | Country-specific | Spain Technical Owner and Compliance must supply the exact API and power-of-attorney procedure. |
+| Public invoice code, copy indicator and UBL profile | Preserve Spanish identity and public-source classification. | Country-specific | Format Owner must bind final annexes to the published technical schema. No default for other countries. |
+| DTS transformation/validation | Produce or validate a derived representation where required by receiving. | Unknown; existing implementation reuse candidate | DTS Owner must prove the exact inbound profile and lossless mapping. DTS temporary staging is not the permanent invoice archive. |
 | France collection or download implementation | Possible source of platform patterns. | Unknown | Record capability, required local changes, gaps, owner and test evidence before activation. Do not infer Spain availability from France. |
 
 ### Actors and responsibility

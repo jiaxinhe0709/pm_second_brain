@@ -9,6 +9,7 @@ created: 2026-10-06
 updated: 2026-10-06
 reviewers: []
 related:
+  - GLO-SEI-001
   - PRD-SEI-223
   - PRD-SEI-226
   - PRD-SEI-227
@@ -24,6 +25,8 @@ confluence:
 ---
 
 # UBL Validation and Correction Solution Specification
+
+Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -61,23 +64,23 @@ The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-in
 | Legal entity / legal subject | The business to which the invoice or action belongs. Technical fields use `legalSubject` for this business. |
 | Authority | Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission. |
 | Capability | A supported function, such as receiving invoices or signing them. |
-| Route | The platform and connection used to send or receive an invoice. |
-| Idempotency | A repeat of the same request has no additional effect. The contract must define how the system recognises that request. |
+| Route | The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans. |
+| Idempotency | Repeating the same logical request adds no effect within the contract’s defined scope and retention window. The contract binds request identity and input and defines conflict handling. |
 | Reconciliation | Check the original operation against a reliable source to establish what actually happened before deciding the next action. |
 | Gate | A condition, decision or evidence check that must pass before the next step can proceed. |
 | Tenant | The customer account boundary used to keep one customer’s data and access separate from another’s. |
-| Immutable / append-only | A saved item cannot be changed; new information is added as a new record instead of overwriting earlier records. |
+| Immutable / append-only | Immutable means a saved record cannot be changed. Append-only means later information is added as another record. Neither means indefinite retention. |
 | Provenance | The record of where data came from and which versions, checks and changes produced the result. |
 | Contract | The agreed inputs, outputs, behaviour and responsibilities between services or parties. |
-| Durable | Saved so the record remains available after a service restart. |
+| Durable | Saved through the agreed recovery boundary so the record survives a process restart or worker failure. Long-term retention is a separate policy. |
 | UBL / ERP | Universal Business Language, a structured electronic document format; the business software that owns the invoice data. |
 | Profile / rule pack | The precise rules approved for a country, route and document type; the versioned resources used to check those rules. |
 | Preflight / final check | A preview check before sending; and a new check of the exact final file and current rules before dispatch. |
 | Representation / semantic preservation | A specific file or form of invoice data; keeping its required business meaning when converting it. |
 | XSD / EN 16931 / BIS / CIUS | XML Schema Definition checks XML structure. EN 16931 defines a European invoice model. Business Interoperability Specifications and Core Invoice Usage Specifications add more specific rules. |
-| AP / DTS | Access point; and Document Transformation Service. Their responsibilities remain separate from local validation. |
+| AP / DTS | Access point; and Document Transformation Service, the preferred transformation reuse candidate. Exact mapping and validation coverage still need qualification. |
 
-### 2 Input, output and endpoints
+### 2 Input, output and outcomes
 
 | Entry | Expected result | Limitation |
 |---|---|---|

@@ -9,6 +9,7 @@ created: 2026-10-06
 updated: 2026-10-06
 reviewers: []
 related:
+  - GLO-SEI-001
   - PRD-SEI-101
   - PRD-SEI-105
   - PRD-SEI-214
@@ -26,6 +27,8 @@ confluence:
 ---
 
 # Public Platform Recipient Lookup Solution Specification
+
+Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -73,13 +76,15 @@ ERP/preparation requests the early indication; exchange requests final evidence.
 
 ### Spain use and reuse boundaries
 
+Reuse labels follow the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary). **Reusable unchanged** describes a design pattern; **Unknown** records unverified implementation fitness. Scope exclusions are marked **Out of scope**.
+
 | Area | Intended Spain use | Reuse classification | Condition and owner |
 |---|---|---|---|
-| Observation, cache and decision evidence | Keep source scope, timestamp, freshness and conflict history. | Reusable proposed design pattern | Lookup/Architecture: qualify actual store, isolation, concurrency and invalidation. |
-| Identity, source precedence and destination selection | Resolve exact party and document/receiving capability. | Shared capability requiring country/network binding | Identity/Routing: bind scheme, lookup key, agreements, profiles and interconnection evidence. |
-| Public/private receipt policy | Apply Spain's approved publication/default and coverage rules. | Spain-specific | Compliance/Spain technical owner: evidence sufficient for public-route decision, multi-point selection and applicability. |
-| Existing recipient discovery or AEAT directory | Assess available Sage/source implementation. | Coverage unknown | Record exact source/build/contract, gaps, owner and tests; no central directory is proven here. |
-| DTS | No transformation performed by lookup. | Out of scope here | Exchange uses DTS as preferred qualified transformation candidate when needed. A mapper cannot establish directory or destination support. |
+| Observation, cache and decision evidence | Keep source scope, timestamp, freshness and conflict history. | Reusable unchanged; proposed design pattern | Lookup/Architecture: qualify actual store, isolation, concurrency and invalidation. |
+| Identity, source precedence and destination selection | Resolve exact party and document/receiving capability. | Reusable with country binding | Identity/Routing: bind scheme, lookup key, agreements, profiles and interconnection evidence. |
+| Public/private receipt policy | Apply Spain's approved publication/default and coverage rules. | Country-specific | Compliance/Spain technical owner: evidence sufficient for public-route decision, multi-point selection and applicability. |
+| Existing recipient discovery or AEAT directory | Assess available Sage/source implementation. | Unknown; implementation coverage | Record exact source/build/contract, gaps, owner and tests; no central directory is proven here. |
+| DTS | No transformation performed by lookup. | Out of scope | Exchange uses DTS as preferred qualified transformation candidate when needed. A mapper cannot establish directory or destination support. |
 
 ### 3 Process and lifecycle
 

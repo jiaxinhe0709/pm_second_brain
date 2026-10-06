@@ -9,6 +9,7 @@ created: 2026-10-06
 updated: 2026-10-06
 reviewers: []
 related:
+  - GLO-SEI-001
   - PRD-SEI-101
   - PRD-SEI-105
   - PRD-SEI-211
@@ -31,6 +32,8 @@ confluence:
 ---
 
 # Public Platform Connector Solution Specification
+
+Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -75,17 +78,19 @@ The connector does not issue invoices, change customer routes, interpret absence
 | Outcome unknown | External effect may have happened; original operation must be reconciled. | Permission to create a fresh operation or switch environment. |
 | Denied/unsupported | Scope, authority, capability or contract is insufficient; no new external effect is initiated. | Permanent business ineligibility. |
 
-A **connection** is configuration for communication. A **capability** is one qualified operation. A **contract profile** binds operation, protocol/schema, environment and safety rules. **Idempotency** means repetition has no additional effect within a proven scope. **Reconciliation** checks what happened to the original operation. A **durable intent** is a saved request identity and immutable payload reference before a possible external effect. A **circuit breaker** temporarily stops calls after defined failures; it cannot change invoice routing.
+A **connection** is configuration for communication. A **capability** is a supported function; the connector qualifies each operation used to provide it. A **contract profile** binds operation, protocol/schema, environment and safety rules. **Idempotency** means repetition has no additional effect within a proven scope. **Reconciliation** checks what happened to the original operation. A **durable intent** is a saved request identity and immutable payload reference before a possible external effect. A **circuit breaker** temporarily stops calls after defined failures; it cannot change invoice routing.
 
 ### Spain use and reuse boundaries
 
+Reuse labels follow the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary). **Reusable unchanged** describes a design pattern; **Unknown** records unverified implementation fitness. Scope exclusions are marked **Out of scope**.
+
 | Area | Intended Spain use | Reuse classification | Condition and owner |
 |---|---|---|---|
-| Operation ledger, correlation and recovery | Preserve intent, evidence and safe retries for public operations. | Reusable proposed design pattern | Connector/Architecture: qualify actual implementation and crash recovery. |
-| Environment, credentials, capacity and diagnostics | Isolate operations and protect material. | Shared capability with country/provider binding | Security/Operations: bind endpoint, trust, quotas, error catalogue and retention policy. |
-| AEAT protocol and representation | Call the selected SPFE service for the authorised business/action. | Spain-specific adapter and rules | Spain technical/Compliance owners: final contract, registered authority and conformance evidence. |
-| Existing public adapter | Reuse any proven Sage connector functions. | Existing implementation coverage unknown | Record build, contracts, gaps and build/run owner before activation. |
-| DTS | No invoice transformation within connector. | Out of scope here; preferred candidate upstream where transformation is required | Outbound/Receiving and DTS owners qualify exact mapping under [SPEC-SEI-008](SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) or the owning feature. DTS is not the public transport or archive. |
+| Operation ledger, correlation and recovery | Preserve intent, evidence and safe retries for public operations. | Reusable unchanged; proposed design pattern | Connector/Architecture: qualify actual implementation and crash recovery. |
+| Environment, credentials, capacity and diagnostics | Isolate operations and protect material. | Reusable with country binding | Security/Operations: bind endpoint, trust, quotas, error catalogue and retention policy. |
+| AEAT protocol and representation | Call the selected SPFE service for the authorised business/action. | Country-specific; adapter and rules | Spain technical/Compliance owners: final contract, registered authority and conformance evidence. |
+| Existing public adapter | Reuse any proven Sage connector functions. | Unknown; existing implementation coverage | Record build, contracts, gaps and build/run owner before activation. |
+| DTS | No invoice transformation within connector. | Out of scope; preferred candidate upstream where transformation is required | Outbound/Receiving and DTS owners qualify exact mapping under [SPEC-SEI-008](SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) or the owning feature. DTS is not the public transport or archive. |
 
 ### 3 Process and ordered lifecycle
 
@@ -137,7 +142,7 @@ Logical operation identity includes tenant, legal entity, country, environment, 
 
 **PCN-02 Resolve scope.** Compare caller scope with the connection's legal entity, country and trusted deployment/account environment. Resolve environment profile and governed destination from protected configuration. Reject missing, cross-tenant or conflicting scope before secret access. Simulation uses labelled synthetic fixtures; official TEST is enabled only against its confirmed contract. Neither produces production readiness or public acceptance evidence.
 
-**PCN-03 Check authority and credentials.** Verify local permission and external represented-business authority for the exact action. Article 9/10 access uses its own registered-authority checks; other actions use their approved authority matrix. Retrieve protected credential handles through SPEC-SEI-001. Validate purpose, environment, expiry/status and represented principal under current policy. Recheck before external execution if authority/credential version changed while queued. Unavailability of required authority evidence holds new calls; certificate possession cannot resolve it. No private-key export is required.
+**PCN-03 Check authority and credentials.** Verify local permission and external represented-business authority for the exact action. Article 9/10 access uses its own registered-authority checks; other actions use their approved authority matrix. Retrieve protected credential handles through SPEC-SEI-001. Validate purpose, environment, expiry/status and represented party under current policy. Recheck before external execution if authority/credential version changed while queued. Unavailability of required authority evidence holds new calls; certificate possession cannot resolve it. No private-key export is required.
 
 **PCN-04 Select qualified capability.** Resolve an activated registry entry for logical action, country, environment and cohort. It names protocol/schema versions, allowed destination, request/response limits, response semantics, side-effect class, provider idempotency/query support, timeout/retry policy and evidence owner. Unknown fields block activation rather than inherit an unrelated AEAT service. SII, VERI*FACTU and FACe contracts are not substitutes for SPFE evidence.
 
@@ -159,7 +164,7 @@ Streamed files/results need a verified durable capture handoff before temporary 
 
 **PCN-08 Return and notify.** The owning feature can query the saved connector result under its scope. Notifications carry connector/feature IDs, event ID, version, known/pending/unknown state and safe evidence references. Delivery is at least once; consumer deduplication and version checks prevent regression. Feature services interpret admission, source freshness, checkpoints, lifecycle and customer messaging. The connector cannot advance a retrieval checkpoint or mark a buyer accepted.
 
-**PCN-09 Recover.** One owner applies SAFE_RETRY, IDEMPOTENT_RESUME, RECONCILE_FIRST or MANUAL_ONLY according to evidence, not error-name heuristics. Reconciliation queries the original operation/reference, payload digest and contract/environment. A query failure leaves outcome unknown. Proven absence permits resubmission only under the approved contract. Changed route or credential cannot make an old outcome disappear; a replacement credential may be used only through an approved recovery binding to the original principal/action/environment, with the new attempt evidenced.
+**PCN-09 Recover.** One owner applies SAFE_RETRY, IDEMPOTENT_RESUME, RECONCILE_FIRST or MANUAL_ONLY according to evidence, not error-name heuristics. Reconciliation queries the original operation/reference, payload digest and contract/environment. A query failure leaves outcome unknown. Proven absence permits resubmission only under the approved contract. Changed route or credential cannot make an old outcome disappear; a replacement credential may be used only through an approved recovery binding to the original represented party/action/environment, with the new attempt evidenced.
 
 If no outcome query or proven idempotency contract exists, open an owned manual case and hold unsafe repeats. A feature request to resume the same key cannot bypass this hold. Operations inspection, recovery and profile activation are distinct audited permissions. Cancellation after transmission is a separate externally qualified operation, if supported, owned by the feature.
 
@@ -247,7 +252,7 @@ These scenarios specify evidence to obtain; they are not executed implementation
 
 | ID / decision | Owner | Effect, evidence and gate |
 |---|---|---|
-| PCN-Q01 Exact SPFE operation catalogue, protocol, destinations, schemas and official TEST support | Spain Technical/Integration owners | Blocks physical adapter design/activation; obtain official AEAT artifacts separately per operation. Recipient directory support is not assumed. |
+| PCN-Q01 Exact SPFE operation catalogue, protocol, destinations, schemas and official TEST support | Spain Technical/Integration owners | Blocks physical adapter design/activation; obtain official AEAT artefacts separately per operation. Recipient directory support is not assumed. |
 | PCN-Q02 Action authority and accepted credential contracts | Compliance/Identity/Security | Blocks represented-business calls; bind procedure, verification/revocation and credential purpose/principal to every capability. |
 | PCN-Q03 Side effects, idempotency scope/window, outcome queries and cancellation | Adapter/Operations/feature owners | Blocks automatic retry/reconciliation rules; absent evidence means manual-only after possible effect. |
 | PCN-Q04 Ledger/evidence/capture durability, retention/holds and consumer replay windows | Architecture/Records/Security | Blocks implementation baseline/production; prove crash recovery and custody, especially external success with local save failure. |

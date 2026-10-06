@@ -9,6 +9,7 @@ created: 2026-10-06
 updated: 2026-10-06
 reviewers: []
 related:
+  - GLO-SEI-001
   - PRD-SEI-222
   - PRD-SEI-224
   - PRD-SEI-225
@@ -27,6 +28,8 @@ confluence:
 ---
 
 # Invoice Lifecycle Status Solution Specification
+
+Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -49,11 +52,11 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 | Spain lifecycle and historical follow-up | Resolve Spain Article 10/12 events, public reporting and post-switch actors/channels. | Country-specific | Codes, calendar, presumed acceptance and reporting contracts remain evidence gates. Do not reuse French codes or another country’s legal meaning for Spain. Spain Legal/Tax and technical owner. |
 | Existing lifecycle implementation | Assess event capture, projection, reporting and provider feedback support. | Unknown | No complete deployed lifecycle implementation is proven here. Peppol signals are source-specific inputs, not proof of the Spain reporting contract. Architecture and lifecycle/provider owners. |
 
-### 2 Outcome dimensions and endpoints
+### 2 Outcome dimensions and handoffs
 
 The underlying projection keeps **technical processing, document validation, recipient delivery, commercial decision, payment information and reporting** independently queryable. Product UX may group the first three as “exchange”, then show commercial and payment separately; reporting progress and pending actions remain visible. One event may affect zero, one or several dimensions under a versioned rule. A technical acknowledgement never sets commercial acceptance or payment. An absent response is not an explicit approval; a presumed view, where approved, is labelled derived.
 
-| Endpoint | Observable outcome | Boundary |
+| Outcome | Observable result | Boundary |
 |---|---|---|
 | Event accepted | Authenticated source fact is durable with raw code/term, actor, route and version | Current customer status may still be unresolved |
 | View derived | Independent dimensions, evidence age/source, conflicts and next actions are available | View is rebuildable, not the legal raw event record |
@@ -138,7 +141,7 @@ The proposed aggregate key is (tenant, legalSubject, environment, invoiceBusines
 
 **LCS-08 Create independent obligations.** Persist one obligation per (source business event, destination, rule version, purpose) with stable identity, payload version, historical route, deadline, expected authority and state. A full rejection or full payment can therefore create issuer/counterparty and public obligations without creating a second commercial/payment event. State is proposed PENDING, READY, SUBMITTED, ACKNOWLEDGED, COMPLETED, REJECTED_CORRECTABLE, RETRY_PENDING, OUTCOME_UNKNOWN, RECONCILING, BLOCKED or SUPERSEDED. A duplicate source event cannot create duplicate obligations. Correcting an already reported event creates a new supersession event and its own obligations under the approved external contract.
 
-**LCS-09 Deliver and observe.** Before each external mutation, persist operation ID, exact event/payload hash, destination, adapter/contract version, idempotency scope and correlation. Execute only when actor/channel/capability and required data are approved. Record raw acknowledgement/reference and normalized delivery result at its actual evidence level. One destination's success cannot complete another. A definite validation rejection gives a correction owner; safe retry follows proved idempotency/read semantics and a versioned budget. Reporting acceptance is separate from invoice business status. Monitor approaching/missed deadline risk per obligation.
+**LCS-09 Deliver and observe.** Before each external mutation, persist operation ID, exact event/payload hash, destination, adapter/contract version, idempotency scope and correlation. Execute only when actor/channel/capability and required data are approved. Record raw acknowledgement/reference and normalised delivery result at its actual evidence level. One destination's success cannot complete another. A definite validation rejection gives a correction owner; safe retry follows proved idempotency/read semantics and a versioned budget. Reporting acceptance is separate from invoice business status. Monitor approaching/missed deadline risk per obligation.
 
 **LCS-10 Reconcile.** A timeout after possible mutation marks only that obligation OUTCOME_UNKNOWN; query authoritative state using original correlation before retry. Proven success commits once; proven absence permits retry only if the provider contract makes it safe. Unresolved/unsupported query opens a manual operations case. Unknown, late, conflicting or regressive source events also open a case where authority, chronology or mapping cannot be decided automatically. Preserve all observations; append resolution/correction evidence. After route switch, reconcile through the original invoice/provider context, retaining purpose-bound access under [offboarding controls](SPEC-SEI-003-offboarding-solution-specification.md).
 

@@ -28,6 +28,14 @@ Read `schema/DOCUMENT_RULES.md` before creating or changing managed documents.
   public-copy and reporting rules must not become defaults for another country.
   Include acceptance coverage for country-rule isolation and reuse qualification.
 
+## Shared specification terminology
+
+- Use [the e-invoicing glossary](context/GLO-SEI-001-e-invoicing-terminology.md)
+  when creating or reviewing e-invoicing specs. Keep local definitions aligned.
+- Qualify represented-party identity, authenticated-caller identity and outcome
+  meanings. Preserve exact contract fields, state values and source codes.
+- Add or clarify shared terms in the glossary when a spec introduces a new meaning.
+
 ## Context and chat lifecycle
 
 - Treat each chat as one primary outcome. Continue in the same chat while refining

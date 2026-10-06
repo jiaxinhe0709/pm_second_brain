@@ -9,6 +9,7 @@ created: 2026-10-06
 updated: 2026-10-06
 reviewers: []
 related:
+  - GLO-SEI-001
   - PRD-SEI-212
   - PRD-SEI-223
   - PRD-SEI-224
@@ -29,6 +30,8 @@ confluence:
 ---
 
 # Spain Invoice Preparation and Outbound Solution Specification
+
+Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -70,22 +73,22 @@ The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-in
 | Legal entity / legal subject | The business to which the invoice or action belongs. Technical fields use `legalSubject` for this business. |
 | Authority | Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission. |
 | Capability | A supported function, such as receiving invoices or signing them. |
-| Route | The platform and connection used to send or receive an invoice. |
-| Idempotency | A repeat of the same request has no additional effect. The contract must define how the system recognises that request. |
+| Route | The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans. |
+| Idempotency | Repeating the same logical request adds no effect within the contract’s defined scope and retention window. The contract binds request identity and input and defines conflict handling. |
 | Reconciliation | Check the original operation against a reliable source to establish what actually happened before deciding the next action. |
 | Gate | A condition, decision or evidence check that must pass before the next step can proceed. |
 | Tenant | The customer account boundary used to keep one customer’s data and access separate from another’s. |
-| Immutable / append-only | A saved item cannot be changed; new information is added as a new record instead of overwriting earlier records. |
+| Immutable / append-only | Immutable means a saved record cannot be changed. Append-only means later information is added as another record. Neither means indefinite retention. |
 | Provenance | The record of where data came from and which versions, checks and changes produced the result. |
 | Contract | The agreed inputs, outputs, behaviour and responsibilities between services or parties. |
-| Durable | Saved so the record remains available after a service restart. |
+| Durable | Saved through the agreed recovery boundary so the record survives a process restart or worker failure. Long-term retention is a separate policy. |
 | ERP / Domain Service | The business software that issues the invoice; and the Sage service that prepares, validates and coordinates its exchange. |
 | Preflight | A draft check. It cannot replace checking the final issued invoice before sending. |
-| Leg / faithful public copy | One separately tracked delivery or reporting operation; a copy for the public solution when the applicable policy requires it. |
+| Exchange leg / faithful public copy | One independently tracked recipient-delivery, public-copy or reporting action; a separately classified public-platform copy required by the applicable Spain policy. Each leg has its own outcome. |
 | Representation / hash | A specific file or form of invoice data; its calculated content fingerprint. |
-| Entry point / evidence level | The published receiving destination; and what a result actually proves, such as platform receipt rather than buyer acceptance. |
+| Entry point / evidence level | The published receiving destination, which need not be a raw URL; and what a result actually proves, such as platform receipt rather than buyer acceptance. |
 
-### 2 Endpoints and outcomes
+### 2 Outcomes and handoffs
 
 | Outcome | Observable result | Must remain distinct from |
 |---|---|---|
@@ -97,7 +100,7 @@ The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-in
 | Outcome unknown | One original external leg is reconciled under its original route/correlation | Permission to repeat all legs |
 | Customer view | Separate preparation, issuance, submission, delivery, copy/reporting and later buyer states | One global “sent” flag |
 
-Actors are issuer/ERP; Domain Service preparation and exchange orchestration; legal-subject/authority and country policy; route/entry-point evidence owner; format/transformation, validation and trust services; private platform or public solution; operations; and product/lifecycle consumers. One legal entity, invoice and final revision are in scope per logical exchange; batch orchestration is outside this spec.
+Actors are issuer/ERP; Domain Service preparation and exchange orchestration; legal-subject/authority and country policy; route/entry-point evidence owner; format/transformation, validation and trust services; private platform or public platform; operations; and product/lifecycle consumers. One legal entity, invoice and final revision are in scope per logical exchange; batch orchestration is outside this spec.
 
 ### 3 Process diagrams and text equivalent
 
@@ -178,7 +181,7 @@ Cancellation before issuance closes safe preparation work; cancellation after is
 
 **OUT-07 Final-data intake.** ERP sends exact issued facts or approved immutable representation reference, issued identity/revision, issuer authority, route intent and idempotency identity. The service verifies that source revision, issued identity and hash are internally consistent and that no conflicting final submission already owns this invoice/revision. Persist final intent and operation identity before possible external mutation. Same final identity/hash resumes the existing exchange; changed bytes or issuer identity under the same key conflict and require an authorised correction/revision decision.
 
-**OUT-08 Final checks.** Re-evaluate effective applicability, legal subject, actor/delegate authority, product entitlement, invoice identity and current profile. The exact final representation is generated or accepted, then validated under versioned syntax, semantic, country/route and attachment rules. A draft result cannot substitute for this gate. The selected signer/seal creator and represented principal, protected material, purpose and policy are resolved through [certificate management](SPEC-SEI-001-certificate-management-solution-specification.md).
+**OUT-08 Final checks.** Re-evaluate effective applicability, legal subject, actor/delegate authority, product entitlement, invoice identity and current profile. The exact final representation is generated or accepted, then validated under versioned syntax, semantic, country/route and attachment rules. A draft result cannot substitute for this gate. The selected signer/seal creator and represented party, protected material, purpose and policy are resolved through [certificate management](SPEC-SEI-001-certificate-management-solution-specification.md).
 
 Invalid or unknown policy/trust blocks the affected operation. Issues in issued content return an issued-invoice resolution state with owner; the service must not amend the invoice.
 

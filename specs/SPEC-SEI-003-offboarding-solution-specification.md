@@ -9,6 +9,7 @@ created: 2026-10-06
 updated: 2026-10-06
 reviewers: []
 related:
+  - GLO-SEI-001
   - PRD-SEI-222
   - PRD-SEI-224
   - PRD-SEI-225
@@ -26,6 +27,8 @@ confluence:
 ---
 
 # Customer Offboarding Solution Specification
+
+Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -65,22 +68,22 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 | Legal entity / legal subject | The business to which the invoice or action belongs. Technical fields use `legalSubject` for this business. |
 | Authority | Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission. |
 | Capability | A supported function, such as receiving invoices or signing them. |
-| Route | The platform and connection used to send or receive an invoice. |
-| Idempotency | A repeat of the same request has no additional effect. The contract must define how the system recognises that request. |
+| Route | The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans. |
+| Idempotency | Repeating the same logical request adds no effect within the contract’s defined scope and retention window. The contract binds request identity and input and defines conflict handling. |
 | Reconciliation | Check the original operation against a reliable source to establish what actually happened before deciding the next action. |
 | Gate | A condition, decision or evidence check that must pass before the next step can proceed. |
 | Tenant | The customer account boundary used to keep one customer’s data and access separate from another’s. |
-| Immutable / append-only | A saved item cannot be changed; new information is added as a new record instead of overwriting earlier records. |
+| Immutable / append-only | Immutable means a saved record cannot be changed. Append-only means later information is added as another record. Neither means indefinite retention. |
 | Provenance | The record of where data came from and which versions, checks and changes produced the result. |
 | Contract | The agreed inputs, outputs, behaviour and responsibilities between services or parties. |
-| Durable | Saved so the record remains available after a service restart. |
+| Durable | Saved through the agreed recovery boundary so the record survives a process restart or worker failure. Long-term retention is a separate policy. |
 | Offboarding | Leaving the service or moving a defined part of invoice traffic to another platform. |
-| Cutover | The agreed point when new invoices start using the destination route. |
+| Cutover | The agreed boundary when future work starts using a qualified destination route or capability. Earlier work keeps its actual history. |
 | Historical continuity | Keep the access and responsible parties needed to complete work on earlier invoices. |
 | Disposition / legal hold | The approved treatment of data, including retention or deletion; a legal hold prevents deletion where required. |
 | RACI | A table showing who is responsible, accountable, consulted and informed. |
 
-### 2 Endpoints and responsibilities
+### 2 Outcomes and responsibilities
 
 | Outcome | Customer and operations result | Constraint |
 |---|---|---|
