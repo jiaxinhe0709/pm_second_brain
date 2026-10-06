@@ -22,6 +22,7 @@ related:
   - PRD-SEI-244
   - SPEC-SEI-001
   - SPEC-SEI-005
+  - SPEC-SEI-009
 confluence:
   publish: false
   space_key: DNBU
@@ -40,11 +41,26 @@ The design remains a draft. **Proposed** choices still need review; **open** dec
 
 ### 1 Purpose, authority and boundary
 
-This **proposed logical design** explains how Sage could receive invoices through an approved private platform or retrieve them from the public platform. The service checks the source, recipient and original file, recognises duplicates, and makes one invoice available to the correct Sage product. [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns exchange/routing requirements; [PRD-SEI-102](../prds/PRD-SEI-102-public-platform-invoice-consultation-retrieval.md) owns scheduled public discovery, checkpoints and freshness; [PRD-SEI-244](../prds/PRD-SEI-244-e-invoicing-process-flow-specification.md) supplies the inbound process boundary. [SPEC-SEI-005](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) owns the outbound UBL validation/correction contract; this spec calls an activated inbound validation profile with separate trust and quarantine policy.
+This **proposed logical design** explains how Sage could receive invoices through an approved private platform or retrieve them from the public platform. The service checks the source, recipient and original file, recognises duplicates, and makes one invoice available to the correct Sage product. [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns exchange/routing requirements; [PRD-SEI-102](../prds/PRD-SEI-102-public-platform-invoice-consultation-retrieval.md) owns scheduled public discovery, checkpoints and freshness; [PRD-SEI-244](../prds/PRD-SEI-244-e-invoicing-process-flow-specification.md) supplies the inbound process boundary. [SPEC-SEI-005](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) owns the outbound UBL validation/correction contract; this spec calls an activated inbound validation profile with separate trust and quarantine policy. [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns lifecycle interpretation after durable receipt.
 
 The service starts when an external invoice is available. Public consultation decides **whether and when to fetch it**. Receiving decides **what to do with the fetched invoice**.
 
 Transport, download, technical acknowledgement, product availability, buyer acceptance and payment or rejection reporting have separate results. The exact operations, response codes, acknowledgement meaning, accepted profiles, retention and deadlines still need confirmation.
+
+### Spain use and reuse boundaries
+
+This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
+
+This follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
+
+| Area | Intended use in Spain | Reuse classification | Condition and owner |
+|---|---|---|---|
+| Intake, evidence and one business invoice | Preserve source observations, identify repeats, quarantine problems and deliver one invoice to the permitted product. | Reusable unchanged | Reuse receipt, audit and repeat-handling patterns. Receiving, Records and Product. |
+| Recipient, trust, mapping and acknowledgement | Check the Spain recipient and route interval, approved inbound rules and source contract. | Reusable with country binding | Bind local identity, invoice-key rules, trust/profile packs and provider acknowledgement timing. Routing, Security and integration owner. |
+| Spain receipt channels | Join public-platform retrieval and approved private receipt, preserving original/copy classification and source history. | Country-specific | Public checkpoints, bridge behaviour and Spain invoice identity need their own evidence. Do not assume the same topology elsewhere. Spain technical owner and consultation owner. |
+| Existing receiving and transformation services | Assess adapters, receiving storage, product delivery and DTS mapping/validation functions. | Unknown | No complete reusable receiving implementation is proven here. DTS is a transformation candidate, not proof of retrieval or delivery support. Architecture and receiving/DTS owners. |
+
+The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md). It identifies a preferred candidate; it does not certify a deployed build or Spain acceptance.
 
 ### Plain-language terms
 
@@ -191,6 +207,12 @@ Protect source documents, credentials and recipient data with encryption, least 
 
 This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.
 
+### Spain and reuse boundary in contracts
+
+Keep the source-observation, original-file, duplicate and product-delivery contracts shared. Country/route policies determine recipient identity, business duplicate keys, accepted profiles, trust and acknowledgements. Public consultation stays a separate source adapter with its own checkpoint rules. Qualify any reused DTS mapping or validation function for the exact inbound contract; it does not own receipt or buyer workflow.
+
+The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.
+
 ### 1 Interaction contracts
 
 These are logical operations, not approved endpoints. Each command/event carries tenant/entity/environment, source, external reference, observationId, correlationId, payload hash, route/profile version and expected record version where applicable.
@@ -243,5 +265,6 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | RCV-A08 Product outage | R04/07 → RCV-07/09, INT-07/10, D06/07 | Durable invoice/outbox; one business event after recovery. |
 | RCV-A09 Ack timeout | R07/09 → RCV-08/09, INT-08, D08/09 | Unknown result reconciled; no repeated acknowledgement without checking the original outcome. |
 | RCV-A10 Public gap or late item | R07/08 → RCV-09, INT-09, D01/D10 | Revisit window without duplicate invoice; freshness truthful. |
+| RCV-A11 Country-bound receipt and identity | R01–03/05/06/09 → RCV-02–06/08, INT-02–06/08, D02–05/08 | Shared intake uses the selected country’s recipient, invoice-key, trust, profile and acknowledgement rules. Spain bridge observations do not define another country’s receipt model. Missing local policy quarantines or blocks the affected item without changing another country’s records. |
 
 **Review gate:** confirm inbound operator/source contracts, recipient identity, duplicate keys, accepted profiles, trust and acknowledgement policy. **Pilot gate:** direct/private and public retrieval flows, cross-tenant denial, signature/file failures, mixed-route duplicate, conflicting hash, incomplete public page, product outage and unknown acknowledgement drills. **Production gate:** conformance evidence, retention/portability, support runbook, monitoring baselines and measured service objectives. Unsupported or unverified routes remain disabled or manually gated.

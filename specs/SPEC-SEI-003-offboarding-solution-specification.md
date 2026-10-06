@@ -15,6 +15,7 @@ related:
   - PRD-SEI-226
   - PRD-SEI-231
   - PRD-SEI-243
+  - SPEC-SEI-009
   - SPEC-SEI-001
   - SPEC-SEI-002
   - ADR-SEI-001
@@ -43,6 +44,19 @@ The [onboarding spec](SPEC-SEI-002-onboarding-solution-specification.md) covers 
 An exit request may cover receiving invoices, sending invoices, one business or the full service. Ending a subscription, stopping new traffic, changing the receiving entry point, deregistering a provider, revoking credentials, exporting evidence and disposing of data are **separate operations**.
 
 New traffic can switch successfully while work on earlier invoices or data remains open. Legal permissions, provider interfaces and retention periods still need evidence; a template or another country’s experience cannot establish them.
+
+### Spain use and reuse boundaries
+
+This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
+
+This follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
+
+| Area | Intended use in Spain | Reuse classification | Condition and owner |
+|---|---|---|---|
+| Exit case, inventory and audit | Track requested scope, dependencies, unfinished work and separate release decisions. | Reusable unchanged | Reuse the case and evidence patterns, including preserving actual invoice history. Exit coordinator and Records. |
+| Destination checks and release gates | Prove the new route and retain access needed for earlier invoices before release. | Reusable with country binding | Bind provider capabilities, legal authority, historical-work channels, contract and retention rules. Operations, Legal and provider owner. |
+| Spain exit obligations | Resolve the actor/channel for post-switch Article 10/12 work and the Spain receiving-point change sequence. | Country-specific | These remain open decisions in this spec. Do not apply Spanish reporting or withdrawal rules to another country. Spain Compliance and providers. |
+| Existing exit implementation or experience | Assess route, export and recovery services; use France lessons as discovery input. | Unknown | No reusable exit implementation or verified France incident record is established here. Validate contracts and lessons before claiming fitness. Architecture, Operations and France service owner. |
 
 ### Plain-language terms
 
@@ -157,7 +171,7 @@ Before approving the plan, the customer sees the effect on sending, receiving, s
 
 Do not tell the customer cutover is complete until observed external and internal state match. An earlier invoice still uses its original adapter and correlation; no replay through the destination.
 
-**OFF-05 Historical continuity (G5).** For every unfinished obligation, resolve the legally permitted actor, route/channel, credentials, evidence and due date. Confirmed old-provider work retains access limited to the approved purpose even if new traffic moved. If post-switch Article 10/12 actor or cross-provider handling is unconfirmed, keep a visible case and block dependent release; escalate before deadlines. A new rectifying invoice is evaluated under the then-current confirmed rule, with an explicit link to the original invoice; it is not automatically moved to the old or new route.
+**OFF-05 Historical continuity (G5).** For every unfinished obligation, resolve the legally permitted actor, route/channel, credentials, evidence and due date. [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns the event and per-destination obligation contract. Confirmed old-provider work retains access limited to the approved purpose even if new traffic moved. If post-switch Article 10/12 actor or cross-provider handling is unconfirmed, keep a visible case and block dependent release; escalate before deadlines. A new rectifying invoice is evaluated under the then-current confirmed rule, with an explicit link to the original invoice; it is not automatically moved to the old or new route.
 
 Export and customer access must explain both current and historical contexts.
 
@@ -193,6 +207,12 @@ Every mutation or override records actor, legal entity, direction/scope, request
 ## Part 3 Logical Service Interactions and Data Inventory
 
 This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.
+
+### Spain and reuse boundary in contracts
+
+Keep the exit case and gate model shared, while selecting local destination, historical-obligation, provider-withdrawal and data-disposition policies. Article 10/12 obligations remain Spain policy decisions, not universal exit steps. Every provider action needs its own supported contract and evidence; another country’s exit experience cannot approve the Spain sequence.
+
+The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.
 
 ### 1 Interaction contracts
 
@@ -246,6 +266,7 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | OFF-A07 Full termination/export | R06/09 → OFF-06/07 / INT-07/08, D07/08 | Route, commercial and disposition actions each evidenced; manifest shows omissions and receipt. |
 | OFF-A08 Post-cutover reversal | R04/10 → OFF-08 / INT-05/09, D03/05/09 | New transition has authority and observed state; invoice origin/history stays factual. |
 | OFF-A09 Urgent provider outage | R05/07/10 → OFF-05/08 / INT-03/06/09, D03/06/09 | Queue and deadlines are visible; only approved prospective fallback is used. |
+| OFF-A10 Country-bound exit reuse | R01/03/05/06 → OFF-01/03/05–07, INT-02/04/06–08, D02/04/06–08 | Shared exit gates select the correct local obligations, provider actions and retention policy. Spain Article 10/12 steps are not imposed on another country. Unknown local rules block only the dependent cutover or release gate. |
 
 ### 2 Threat, conformance and release gates
 

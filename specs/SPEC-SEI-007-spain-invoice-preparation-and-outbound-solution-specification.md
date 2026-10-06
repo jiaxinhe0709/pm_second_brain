@@ -21,6 +21,7 @@ related:
   - PRD-SEI-246
   - SPEC-SEI-001
   - SPEC-SEI-005
+  - SPEC-SEI-009
 confluence:
   publish: false
   space_key: DNBU
@@ -46,6 +47,21 @@ This spec orchestrates those contracts for one issued outbound invoice.
 The diagram and PRD-SEI-246 are draft proposals. They do not approve external APIs, fields, format or profile versions, route update rules, who may sign, public-copy timing or legal correction procedures. These decisions remain open.
 
 The ERP owns invoice issuance. The Domain Service may prepare and check a draft, but it cannot issue the invoice or silently change the final business data. A successful draft check cannot authorise sending changed final data.
+
+### Spain use and reuse boundaries
+
+This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
+
+This follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
+
+| Area | Intended use in Spain | Reuse classification | Condition and owner |
+|---|---|---|---|
+| Invoice revisions, plans and independent results | Keep ERP issuance separate from preparation; save final-file evidence and recover each external leg independently. | Reusable unchanged | Reuse versioned intent, audit and independent-leg safety patterns. ERP, exchange and lifecycle owners. |
+| Applicability, routing, transformation and trust | Prepare the final issued invoice using the selected Spain route, approved format and signer/seal policy. | Reusable with country binding | Bind local applicability, directory evidence, profiles, mapping, trust and provider contracts. Assess DTS for transformation rather than assume native ERP support. Country, exchange and DTS owners. |
+| Spain recipient route and public copy | Use the Spain private/public route decision and any separate faithful public-copy obligation described in this draft. | Country-specific | Proven absence, copy duty/timing and correction rules still need the named Spain evidence gates. Do not make this route/copy topology a default elsewhere. Spain Compliance and technical owner. |
+| Existing end-to-end outbound implementation | Assess ERP-native functions, shared Sage services and provider-owned operations for the selected journey. | Unknown | This flow does not prove deployed end-to-end coverage. Record the actual execution owner, build, adapter and gaps for each step. Product, Architecture and service/provider owners. |
+
+The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md). It identifies a preferred candidate; it does not certify a deployed build or Spain acceptance.
 
 ### Plain-language terms
 
@@ -190,7 +206,7 @@ A timeout after a possible external change produces OUTCOME_UNKNOWN for that leg
 
 Do not repeat successful recipient delivery because the public-copy result is uncertain. If external success occurs but local saving fails, rebuild the ledger from the saved intent and reliable external observation.
 
-**OUT-14/15 Derive and present status.** Show separate states for draft preparation, issuance, planning, each leg’s submission or acknowledgement, delivery, public copy or reporting, and later buyer actions. Each leg can be submitted, acknowledged, rejected or unknown.
+**OUT-14/15 Derive and present status.** [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns the source-preserving lifecycle event and derived-view contract after exchange handoff. Show separate states for draft preparation, issuance, planning, each leg’s submission or acknowledgement, delivery, public copy or reporting, and later buyer actions. Each leg can be submitted, acknowledged, rejected or unknown.
 
 Include the evidence source, time and freshness, affected leg, safe next action and owner. A status event may arrive later or out of order. Link it to the original invoice and leg; do not infer success without evidence. Limit product and support views to the permitted tenant and business, and remove confidential provider content.
 
@@ -218,6 +234,12 @@ Quantitative objectives and retention are design gates based on approved volumes
 ## Part 3 Logical Service Interactions and Data Inventory
 
 This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.
+
+### Spain and reuse boundary in contracts
+
+Keep the issued-invoice, exchange-plan and per-leg outcome models shared. Country policy must select delivery and reporting obligations; Spain’s public recipient default and faithful-copy leg must not be hard-coded as universal rules. Record whether each operation is ERP-native, shared-service or provider-owned. DTS is a preferred transformation candidate subject to qualification, while ERP issuance and external dispatch remain separate responsibilities.
+
+The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.
 
 ### 1 Interaction contracts
 
@@ -271,5 +293,6 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | OUT-A08 Lost response after mutation | R08/09 → OUT-12/13, INT-08/09, D07/D08 | Original leg queried; no resend or success claim before checking the original outcome. |
 | OUT-A09 Issued-content correction | R02/03 → OUT-06–08, INT-04, D02/D03 | Issued original retained; ERP/Legal correction path named, no automatic draft rollback. |
 | OUT-A10 Ack versus buyer status | R09/10 → OUT-13–15, INT-10, D07/D09 | Views that state what the evidence proves keep admission, recipient and buyer states separate. |
+| OUT-A11 Country-bound routes and leg plans | R03–07/09/10 → OUT-08–12/14, INT-02/03/05–08/10, D03–07/09 | Spain policy selects the evidenced recipient route and required copy legs. Another country uses its own approved plan without inheriting Spain public fallback or copy duties. Execution owners and reused transformation evidence are recorded; a country-policy change leaves earlier plans unchanged. |
 
 **Review gate:** validate PRD-SEI-246's six open decisions, complete draft/final contracts, route source, representation ownership, trust model and vocabulary for each leg’s outcome. **Pilot gate:** test preflight/final mismatch, issued correction, private route, proven-none public default, failed lookup, conditional copy, loss of business meaning, signature failure, duplicate final request, partial leg result and unknown mutation against selected providers. **Production gate:** approved Spanish profiles/public interfaces and operator terms, conformance evidence, security/retention review, operations runbooks, measured service objectives and end-to-end pilot results. The existing Draw.io is the process basis; this draft does not convert it into an approved external API design.

@@ -41,6 +41,21 @@ The migration must cover how the mapper runs, the accepted input, the consumer c
 
 Read Part 1 for the scope, handoffs and decisions; [Part 2](#part-2-logical-feature-specification) for runtime and migration behaviour; [Part 3](#part-3-logical-service-interactions-and-data-inventory) for contracts and records; and [Part 4](#part-4-assurance-and-traceability-view) for acceptance and release gates. `UM-*` identifiers belong to this migration; `UV-*` identifiers remain owned by [SPEC-SEI-005](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md).
 
+### Spain use and reuse boundaries
+
+This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
+
+This follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
+
+| Area | Intended use in Spain | Reuse classification | Condition and owner |
+|---|---|---|---|
+| Operation identity, evidence and migration control | Keep fixed versions, one final result, comparison evidence and controlled consumer cutover. | Reusable unchanged | Reuse these design patterns, subject to the task, worker and recovery checks in this spec. DTS and consumer owners. |
+| Existing DTS platform and common UBL code | Prefer DTS ownership, processing and common transformation resources where they meet the selected Spain contract. | Reusable with country binding | Confirm the deployed build; qualify source/XML contracts, runtime, completion, capacity and Spain rules. UM-Q01–Q07; DTS and Spain technical owner. |
+| Spain mapper and UBL/profile rules | Move the reported Spain Java mapper into DTS ownership and qualify its selected UBL 2.5 mapping. | Country-specific | Shared ownership does not make Spain mapping rules valid for another country. Keep mappings and packs separate; each route needs activation evidence. Spain mapping owner and DTS. |
+| Exact integration and future-country coverage | Establish the real mapper source contract, reusable functions and remaining implementation gaps. | Unknown | Code/deployment were not inspected for this spec. Other countries and general conversion pairs remain outside scope; contribution guidance is only a stretch deliverable. DTS Architecture and Product. |
+
+The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md). It identifies a preferred candidate; it does not certify a deployed build or Spain acceptance.
+
 ### Plain-language terms
 
 | Term | Meaning |
@@ -297,6 +312,12 @@ Alert thresholds, availability/recovery objectives and retention are open under 
 
 This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.
 
+### Spain and reuse boundary in contracts
+
+Reuse assessment must identify which functions come from the existing DTS platform, which Spain-specific mappings/rules are retained, and which gaps need extension. Version these separately in the capability bundle. A shared library does not automatically approve a new country, format pair, source contract or route. Preserve existing France and UBL 2.1 workload contracts while enabling only the qualified Spain capability.
+
+The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.
+
 ### 1 Contract shape and version boundaries
 
 The four documented DTS API paths are a baseline to extend or adapt, not new endpoint approvals. **Proposed logical generation input:** authorized dataset/owner context, request/idempotency identity, source invoice/revision and immutable document reference(s), explicit input contract/document type, target syntax/country/profile capability and optional application correlation. Country/profile selectors may resolve server-side; their exact message fields are open. A mapper accepting invoice facts must have a qualified source adapter; the supplied DTS contract does not establish an ERP JSON API.
@@ -359,6 +380,8 @@ Temporary object removal, idempotency expiry, package retention and historical r
 This part shows how requirements connect to activities, interfaces, data and acceptance checks. The scenarios describe evidence still needed; they are not a claim that implementation tests have passed.
 
 ### 1 Acceptance and evidence matrix
+
+UM-A03 checks that generation does not imply Spain route activation. UM-A18 checks country-pack isolation and existing-workload compatibility. UM-A22 checks ownership and migration readiness. These provide the acceptance coverage for the reuse boundary above.
 
 The following are **required future acceptance scenarios**, not tests claimed to have run against DTS. Activity/interaction/data IDs reference the definitions above; `R`, `INT` and `D` columns use the `UM-` prefix.
 

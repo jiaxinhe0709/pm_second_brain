@@ -44,6 +44,19 @@ Public readiness alone does not mean that the business is registered externally,
 
 The logical services, state names, interaction shapes and records below are **proposed**. The PRDs establish customer outcomes and safety constraints. Spanish external interfaces, entry-point publication sequence, representation rules, operator model, signing policy, measurable service targets and ownership of the implemented services remain **open**. This document is one canonical Markdown source and one intended Confluence page; it is unpublished.
 
+### Spain use and reuse boundaries
+
+This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
+
+This follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
+
+| Area | Intended use in Spain | Reuse classification | Condition and owner |
+|---|---|---|---|
+| Work items and portfolio isolation | Track each Spanish business separately, recognise repeated requests and show partial portfolio results. | Reusable unchanged | Reuse the work-item, version and independent-client patterns. Validate tenant and client isolation. Onboarding and Product. |
+| Readiness and route transition | Assess public readiness, then separately configure and activate a private route where supported. | Reusable with country binding | Bind the local identity, authority, entitlement, provider and entry-point policies. Product, Identity and route owner. |
+| Spain onboarding rules | Use Spain identity/representation checks and the confirmed public/private entry-point and migration sequence. | Country-specific | Do not make Spanish NIF/NIE rules or the public/private sequence defaults for other countries. Spain technical owner and Compliance. |
+| Existing onboarding implementation | Assess identity, trust, work-item, connection and routing services for the Spain journey. | Unknown | No deployed end-to-end onboarding implementation is established here. Record existing owners, contracts and gaps first. Architecture and service owners. |
+
 ### Plain-language terms
 
 | Term | Meaning |
@@ -192,6 +205,12 @@ Authorisation uses least privilege and delegation limited to the approved purpos
 
 This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.
 
+### Spain and reuse boundary in contracts
+
+Reuse one work-item and readiness contract while resolving country rules through versioned policies and provider adapters. The Spain public-readiness result must remain separate from private-route activation. Another country needs its own identity, representation, certificate and receiving-address evidence; it cannot inherit Spain’s readiness or transition sequence.
+
+The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.
+
 ### 1 Interaction contracts
 
 These are logical contracts, not approved endpoints or physical service allocations. Every command carries requestId, correlationId, actor, tenant, legalSubject, environment, action, scope, expectedVersion and inputDigest as applicable. An error includes stable category, affected scope, safe retry class and responsible action; never a credential.
@@ -242,6 +261,7 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | ONB-A06 Publication timeout | R08/10 → ONB-08 / INT-08, D06/09 | Outcome unknown is visible; no second mutation until observed or manually resolved. |
 | ONB-A07 Overlapping transitions | R07 → ONB-07 / INT-07, D07 | Only one transition passes the expected-version check. The other receives a conflict or waits in the queue; both cannot activate overlapping routes. |
 | ONB-A08 Rollback after live invoices | R07–10 → ONB-08/09 / INT-07–09, D07–09 | Restoration has new evidence; invoices on each side keep actual route. |
+| ONB-A09 Country-bound onboarding reuse | R01–03/06/10 → ONB-02/03/06, INT-02–04/06, D02/03/06 | The same workflow selects separate approved country policies. Spain identity and entry-point rules do not run for another country; missing local policy blocks readiness or activation. Existing Spain evidence remains unchanged. |
 
 ### 2 Review and release gates
 

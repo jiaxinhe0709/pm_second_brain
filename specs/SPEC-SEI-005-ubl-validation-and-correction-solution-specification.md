@@ -39,6 +39,21 @@ This **proposed logical design** gives Sage products a consistent way to check a
 
 A validation PASS means that one identified representation passed one identified local rule set at one time. It does not prove that an access point or public platform accepted it, that a buyer received it, or that the invoice is legally settled. A customer correction before dispatch creates a new source revision. A correction after issuance is a separate governed invoice/credit-note lifecycle decision; the validation service must not rewrite a sent original.
 
+### Spain use and reuse boundaries
+
+This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
+
+This follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
+
+| Area | Intended use in Spain | Reuse classification | Condition and owner |
+|---|---|---|---|
+| Source versions, issues and final-file evidence | Preserve exact inputs, explain problems and link final validation to the intended send. | Reusable unchanged | Reuse the version, issue and evidence patterns. Validation owner and ERP Product. |
+| Validation and transformation services | Run the exact enabled rules and qualified mapper for the selected Spain route. | Reusable with country binding | Assess DTS as the preferred existing candidate for transformation and relevant validation functions; isolate country packs and qualify gaps. DTS and country/standards owner. |
+| Spain UBL profiles and corrections | Select approved Spain syntax/profile, extensions and rules; use the approved issued-invoice correction process. | Country-specific | Neither UBL 2.5 nor a France or Peppol profile is automatically approved for Spain. Spain technical owner, Legal and ERP Product. |
+| Exact deployed validation coverage | Establish which DTS/validation build supports the selected input, profile, direction and final-file checks. | Unknown | Existing-service direction does not prove this complete contract. Record build, rule resources, interfaces, ownership and missing functions before activation. Architecture and DTS. |
+
+The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md). It identifies a preferred candidate; it does not certify a deployed build or Spain acceptance.
+
 ### Plain-language terms
 
 | Term | Meaning |
@@ -177,6 +192,12 @@ Tenant/entity/delegate access controls apply to files, results and evidence. Dia
 
 This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.
 
+### Spain and reuse boundary in contracts
+
+Keep one issue and result model, but independently version the runtime, mapper, syntax resources and country/route rule packs. Assess existing DTS functions before adding a new implementation. A France pack or a parser’s UBL support cannot establish Spain acceptance. A reusable UBL capability also does not establish support for other syntaxes, inbound use or another country.
+
+The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.
+
 ### 1 Interaction contracts
 
 The operations below are logical, not approved HTTP endpoints. Commands carry requestId, tenant/entity/environment, actor, source invoice/revision, direction/route/document type, input mode, expectedVersion and idempotency key where relevant.
@@ -224,5 +245,6 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | UV-A07 Rule pack missing | R02/06 → UV-02/07, INT-02/06, D02/03 | UNDETERMINED and Sage-owned action; no external mutation. |
 | UV-A08 Duplicate send identity | R08 → UV-08, INT-07, D07 | Same binding returned or conflict; no second send intent. |
 | UV-A09 Historical pack upgrade | R02/04 → UV-02/04, INT-02/04, D03/05 | Old result reproducible; new work selects approved effective pack. |
+| UV-A10 Country-pack and reused-service qualification | R02–04/06 → UV-02–04/07, INT-02–04/06, D02–05/07 | Recorded DTS/validation build and rule-pack evidence prove the selected Spain contract. France and Spain packs remain separate; changing one does not change the other or rewrite historical results. Missing Spain resources block the final check. |
 
 **Review gate:** agree reference ERP/input modes, precise country-route profile and correction ownership. **Pilot gate:** approved rule artefacts and corpus, mapper semantic tests, cross-tenant/delegate tests, stale-preview/final-check tests, user comprehension and AP/provider conformance comparison. **Production gate:** country/profile activation evidence, trust/signing boundary, measured capacity objectives, retention/privacy and support runbook. This draft does not activate a Spanish UBL or BIS version.

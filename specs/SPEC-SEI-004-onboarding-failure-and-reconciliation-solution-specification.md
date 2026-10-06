@@ -43,6 +43,19 @@ Each business and capability gets an accurate status and a clear next action. A 
 
 If an external change may have happened, the result stays unresolved until a reliable source confirms it or an authorised person makes an approved decision supported by evidence.
 
+### Spain use and reuse boundaries
+
+This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
+
+This follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
+
+| Area | Intended use in Spain | Reuse classification | Condition and owner |
+|---|---|---|---|
+| Capture, classify and hold unknown results | Record the original attempt, separate problem category from retry safety, and show each client’s actual result. | Reusable unchanged | Reuse the evidence and safety patterns; an unknown external effect stays unresolved. Recovery owner and Operations. |
+| Retry and reconciliation | Retry safe Spain onboarding operations or check the original external result before repeating a change. | Reusable with country binding | Bind the exact provider operation, idempotency guarantee, query support, budgets and approved error mapping. Integration owner and Operations. |
+| Spain public-platform recovery | Map the confirmed public-solution errors, authority corrections and cancellation rules. | Country-specific | Official operation and response semantics remain an evidence gate. Spain technical owner, Compliance and Product. |
+| Existing recovery implementation | Assess scheduler, error catalogue, case handling and adapter observation support. | Unknown | This spec establishes logical behaviour, not a proven deployed recovery service. Check interfaces and failure evidence first. Architecture and integration owner. |
+
 ### Plain-language terms
 
 | Term | Meaning |
@@ -171,6 +184,12 @@ Durable intent and idempotency records must survive restart and cover the approv
 
 This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.
 
+### Spain and reuse boundary in contracts
+
+Share the error categories, original-operation record and recovery-state model. Select retry safety, code mapping, budgets and observation support by the approved external contract, country and environment. A read or mutation proven safe for one provider does not establish safety for another. Keep an unverified operation on hold or under a named manual gate.
+
+The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.
+
 ### 1 Interaction contracts
 
 These are logical operations, not approved endpoints. Commands carry caseId, itemId, tenant/entity/environment, actor, inputRevision, operationId, idempotencyKey, expectedVersion and correlation as applicable. Results include stable category, safety class, state, owner, next action, evidence reference and mapping/policy version.
@@ -217,5 +236,6 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | OFR-A07 Mixed accountant portfolio | R06/08 → OFR-08, INT-07, D01/08 | Independent child outcomes and accurate aggregate. |
 | OFR-A08 Cancel while unknown | R03/06 → OFR-05/06/08, INT-03/05, D01/05 | Safe queued work stops; case remains reconcilable. |
 | OFR-A09 Manual retry and redaction | R07/08 → OFR-07/08, INT-06/07, D03/07 | Authority/environment enforced; support view lacks raw identity/secrets. |
+| OFR-A10 Provider and country safety isolation | R01–03/07/08 → OFR-02/04–06, INT-02/04/05, D02–05 | A safe retry class for one approved contract is not inherited by another country or provider. Missing local safety evidence prevents automatic repeat; the original operation remains traceable and the next action has an owner. |
 
 **Review gate:** confirm operation inventory, safety classes, external state-query evidence and error catalogue. **Pilot gate:** prove correction, safe retry, uncertain mutation, persistence loss, cancellation, partial portfolio and manual-action drills against the selected integration. **Production gate:** approved budgets, monitoring/ownership, redaction, retention and measurable recovery objectives. Until official semantics are proven, mutation automation stays disabled or uses a named manual gate.

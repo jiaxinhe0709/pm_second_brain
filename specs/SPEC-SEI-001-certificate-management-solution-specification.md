@@ -49,6 +49,19 @@ The four views below form one canonical document and one intended Confluence pag
 
 This document is for Product, Business Identity, Security, Legal, Spain Compliance, engineering, operations and integration teams. Start with Part 1 for the scope and decisions. Part 2 explains behaviour, Part 3 describes interfaces and data, and Part 4 shows how to verify the design. Open questions remain in the source PRDs until an approved decision record replaces them.
 
+### Spain use and reuse boundaries
+
+This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
+
+This follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
+
+| Area | Intended use in Spain | Reuse classification | Condition and owner |
+|---|---|---|---|
+| Versioned inventory and evidence | Keep certificate versions, operation references and historical proof for Spain. | Reusable unchanged | Reuse the record and audit pattern; check storage, access and recovery fitness. Trust owner and Records. |
+| Readiness, protected use and rotation | Check the purpose, actor, route/profile and current authority before Spain operations. | Reusable with country binding | Bind approved Spain certificate, signer/seal, trust-source, custody and retention policies. Business Identity, Security and Spain Legal. |
+| Spain trust requirements | Resolve public-solution authentication, representation and signing requirements for each supported Spain route. | Country-specific | Keep these rules in the Spain policy. Do not carry them into another country by default. Spain technical owner and Legal. |
+| Existing trust-service implementation | Assess which inventory, custody, validation and signing functions can serve Spain. | Unknown | This spec does not establish a deployed service or approved custodian. Confirm owner, build, interfaces and gaps before committing reuse. Business Identity and Architecture. |
+
 ### Plain-language terms
 
 | Term | Meaning |
@@ -360,11 +373,17 @@ Disaster recovery must preserve inventory/evidence integrity and reconcile possi
 | CM-R11 | Onboarding receives readiness for each client and capability and remediation without key data; later use rechecks current state. | PRD-101 FR39–50 |
 | CM-R12 | All protected actions emit audit that identifies the actor, hides sensitive values and shows signs of tampering with operation/policy/material version and outcome. | PRD-226 FR17/18 |
 
-Acceptance scenarios `CM-AC01`–`CM-AC15` and evidence gates are in [Part 4](#part-4-assurance-and-traceability-view). No feature is production-ready until the decisions there are resolved and test evidence exists.
+Acceptance scenarios `CM-AC01`–`CM-AC16` and evidence gates are in [Part 4](#part-4-assurance-and-traceability-view). No feature is production-ready until the decisions there are resolved and test evidence exists.
 
 ## Part 3 Logical Service Interactions and Data Inventory
 
 This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.
+
+### Spain and reuse boundary in contracts
+
+Keep the shared operation and evidence model separate from Spain trust policy. Each decision must retain the selected country/route/profile policy version and actual signer or seal actor. A shared service must not apply another country’s certificate or signing defaults to Spain. The implementation owner remains open under G1; Security and Legal must approve each policy before activation.
+
+The relevant country and policy context may be resolved from trusted context or versioned references. Exact field names, service placement and physical APIs remain proposed. Reuse assessment must record the source implementation or design pattern, retained behaviour, local changes, missing functions, owner and qualification evidence before its dependent release gate passes.
 
 ### 1 Contract status and common envelope
 
@@ -482,6 +501,8 @@ This view links the [Part 1](#part-1-feature-solution-summary), [Part 2](#part-2
 | CERT-09 Contain | CM-R05, CM-R07, CM-R09 | INT-09; D-05, D-08; EVT-05/06 | CM-AC07, CM-AC10, CM-AC14; scoped incident drill |
 | CERT-10 Retire | CM-R10 | INT-10, INT-12; D-03, D-07 | CM-AC15; destruction proof and historic revalidation |
 
+CM-AC16 also checks the country-policy boundary for CERT-01/02/04/06, CM-R01/04/05/06, INT-01/02/04/06 and D-01/D-02/D-06.
+
 Every `CM-R` appears in the matrix. `INT-11` is the safe operational projection used across CERT-05, CERT-08 and CERT-09; its authorisation/redaction is covered by CM-AC08 and CM-AC14. `EVT-01` supports CERT-03, `EVT-07` supports CERT-10. Detailed event delivery and replay tests remain part of the architecture and integration gate.
 
 ### 3 Acceptance scenarios
@@ -503,6 +524,7 @@ Every `CM-R` appears in the matrix. `INT-11` is the safe operational projection 
 | CM-AC13 | A material version approaches expiry and replacement is cut over | Replacement is validated and accepted by affected counterpart; new work uses the effective version while in-flight attempts retain their frozen binding. |
 | CM-AC14 | One material version is compromised | Affected new use stops, dependencies and forensic evidence are visible to authorised operators, unaffected isolated scopes continue where safe, and resumption requires reapproval. |
 | CM-AC15 | A retired private key is destroyed and its certificate later expires | Authorised historic verification uses retained signed bytes, chain, status/time/policy and preservation evidence; destruction and current expiry alone do not erase the past result. |
+| CM-AC16 | The same trust capability is evaluated for Spain and another country with different approved policies | CM-R01/04/05/06: CERT-01/02/04/06 and INT-01/02/04/06 select the correct policy and actor. D-01/D-02/D-06 retain each decision and operation version. Changing one country’s policy does not change the other country’s readiness or earlier evidence. |
 
 Additional negative tests must cover tenant and TEST/production crossover, revoked signer versus valid transport, seal substitution, unauthorised approval/destroy, out-of-order events, duplicate event delivery, stale cache, lost evidence write after key use, invalid inbound trust, replay and provider exit. They are grouped into the corresponding scenarios above; test fixtures and exact expected codes require approved physical contracts.
 
