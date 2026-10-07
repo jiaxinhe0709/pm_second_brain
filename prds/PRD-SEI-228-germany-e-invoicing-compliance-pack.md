@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-10
-updated: 2026-08-11
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-227
@@ -21,6 +21,8 @@ confluence:
 ---
 
 # Germany E-Invoicing Compliance Pack
+
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
 
 ## Decision summary
 
@@ -134,7 +136,7 @@ The Germany pack creates a precise boundary: shared services handle invoice sema
 | DE-S4 | Seller and buyer agree API rather than email | Same invoice compliance applies; channel-specific delivery evidence differs | Configuration change affects only new work |
 | DE-S5 | Hybrid visual and structured contents differ | Structured data is treated as leading and discrepancy is surfaced/audited | Do not silently derive legal values from PDF view |
 | DE-S6 | Channel times out after send | Outcome becomes unknown and is reconciled/corroborated before resend | No blind duplicate invoice |
-| DE-S7 | Future reporting law activates | New approved policy creates a separate reporting leg | Earlier invoices are not retroactively reported without legal decision |
+| DE-S7 | Future reporting law activates | New approved policy creates a separate reporting action | Earlier invoices are not retroactively reported without legal decision |
 
 ## Business rules
 
@@ -147,7 +149,7 @@ The Germany pack creates a precise boundary: shared services handle invoice sema
 | DE-BR5 | Transmission route is selected | The tax rules do not impose one route; parties agree the practical route | Confirmed BMF |
 | DE-BR6 | Business receives e-invoice | Receiving capability applies from 2025-01-01, including small businesses; email mailbox can be sufficient under tax rules | Confirmed BMF |
 | DE-BR7 | B2G invoice is involved | Apply separate public-procurement requirements; do not infer B2B route/threshold behaviour | Confirmed BMF distinction |
-| DE-BR8 | Reporting is considered | Current pack records no active government transaction-report leg until new approved evidence activates it | Confirmed current gap |
+| DE-BR8 | Reporting is considered | Current pack records no active government transaction-report action until new approved evidence activates it | Confirmed current gap |
 
 ## Scope and capability evidence
 
@@ -202,7 +204,7 @@ The Germany pack creates a precise boundary: shared services handle invoice sema
 | DE-FR8 | Channel readiness validation must not activate or change an existing route without authorised confirmation. |
 | DE-FR9 | Each outbound delivery must record format/profile, destination, route/channel, message identity, integrity evidence, times and observed outcome. |
 | DE-FR10 | Lifecycle must distinguish validation, dispatch, delivery/availability, technical rejection, business correction and outcome unknown without inventing unsupported mandated statuses. |
-| DE-FR11 | No government-reporting mutation may occur unless a future approved German policy version explicitly activates and defines a separate reporting leg. |
+| DE-FR11 | No government-reporting mutation may occur unless a future approved German policy version explicitly activates and defines a separate reporting action. |
 | DE-FR12 | B2G intent must be rejected or routed to a separately approved capability; the B2B pack must not claim B2G compliance. |
 
 ### Recovery and operations

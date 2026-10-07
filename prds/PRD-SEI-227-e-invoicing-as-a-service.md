@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-10
-updated: 2026-09-23
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-223
@@ -31,6 +31,8 @@ confluence:
 ---
 
 # E-Invoicing as a Service — Shared Platform and Country Packs
+
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
 
 ## Decision summary
 
@@ -74,7 +76,7 @@ Commonality is derived **after** the source terms are visible. A shared name nev
 | Analysis order | Actual terms retained in | Reusable result derived afterwards |
 |---|---|---|
 | 1 — Identify the subject | [PRD-SEI-231](PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md): SIREN, SIRET, French VAT ID, entity/DNI/NIE/NIF-M-derived Spanish NIF, W-IdNr, TRN, UTR and scheme-qualified address bindings | Legal entity, establishment, external identifier, network address and delegated-authority records |
-| 2 — Classify the transaction | [PRD-SEI-234](PRD-SEI-234-cross-border-and-reusable-country-capabilities.md): country wording for B2B/B2C/B2G, domestic/foreign, presence, exemption, cohort, receipt, issue and reporting | Effective-dated applicability decision with independent document, delivery and reporting legs |
+| 2 — Classify the transaction | [PRD-SEI-234](PRD-SEI-234-cross-border-and-reusable-country-capabilities.md): country wording for B2B/B2C/B2G, domestic/foreign, presence, exemption, cohort, receipt, issue and reporting | Effective-dated applicability decision with independent document, delivery and reporting actions |
 | 3 — Resolve the destination | [PRD-SEI-233](PRD-SEI-233-peppol-multi-address-and-endpoint-routing.md): actual Peppol scheme IDs, participant forms, document/process capability, SMP endpoints and provider roles | Versioned recipient discovery and immutable route-evidence contract |
 | 4 — Interpret outcomes | [PRD-SEI-232](PRD-SEI-232-country-lifecycle-status-mapping.md): French named statuses, Spanish statutory event categories/variants and explicit unknown country catalogues | Raw-event preservation plus shared technical, document, delivery, commercial, payment and reporting dimensions |
 | 5 — Assess reuse | This parent and the child evidence tables | Mark each capability `reusable unchanged`, `reusable with country binding`, `country-specific` or `unknown`; calculate a percentage only from a named inventory |
@@ -94,9 +96,9 @@ The following is a product-capability disposition, not a claim that Spain code i
 | Format and transformation | Reuse registry, semantic provenance, validation packs, DTS qualification and transform-before-trust sequencing | EN 16931 confirmed; syntax, CIUS and reporting representation remain open | Final UK/Peppol invoice profile and versions remain open | Country schemas, rules, extensions and accepted versions |
 | Recipient discovery and route planning | Reuse immutable route evidence and no-guess behaviour | Network/directory model is not yet confirmed | Peppol is confirmed direction; UK participant schemes/process rules remain open | Authoritative directory, freshness and route precedence |
 | Provider connection and change | Reuse connection lifecycle without repeating legal-entity onboarding; preserve invoice-origin context | Provider/network model and switching contract open | Sending Access Point connection can change independently from participant/legal-entity evidence where policy permits | Registration transfer, notice, portability and exit rules |
-| Exchange and reporting legs | Reuse independent idempotency, correlation, status and reconciliation per leg | Buyer delivery and Revenue reporting are confirmed separate obligations | No HMRC reporting leg until separately evidenced | Authority payload, timing, acknowledgement and correction rules |
+| Exchange and reporting actions | Reuse independent idempotency, correlation, status and reconciliation per action | Buyer delivery and Revenue reporting are confirmed separate obligations | No HMRC reporting action until separately evidenced | Authority payload, timing, acknowledgement and correction rules |
 | Send, receive, retrieve and download | Reuse operation-level capability model and original/canonical/rendering distinction | All-business inbound readiness is a Phase One priority | Inbound/outbound and historical access require final UK policy/AP evidence | Country retention, legal-original and lifecycle semantics |
-| Operations and evidence | Reuse outcome-unknown, deduplication, redacted diagnostics, kill controls and historical continuity | Dual-leg backlog and report rejection operations | Discovery/AP/provider faults and participant migration operations | Country escalation, deadlines, enforcement and support ownership |
+| Operations and evidence | Reuse outcome-unknown, deduplication, redacted diagnostics, kill controls and historical continuity | Separate delivery and reporting backlogs and report rejection operations | Discovery/AP/provider faults and participant migration operations | Country escalation, deadlines, enforcement and support ownership |
 
 **Recommended focus:** Ireland is the first delivery-depth country because Phase One is earlier and its issue/receive/report asymmetry is confirmed. The UK runs in parallel as a Peppol, participant-onboarding and product-readiness track until the remaining legal and technical gates close.
 
@@ -126,7 +128,7 @@ The following is a product-capability disposition, not a claim that Spain code i
     <path d="M477 117 H517" class="path"/><polygon points="517,117 507,111 507,123" class="arrow"/>
     <rect x="519" y="70" width="190" height="94" rx="10" class="main"/><text x="539" y="97" class="title">Scope and policy decision</text><text x="539" y="118" class="copy">Jurisdiction • transaction • effective date</text><text x="539" y="137" class="copy">document • delivery • reporting duties</text>
     <path d="M709 117 H749" class="path"/><polygon points="749,117 739,111 739,123" class="arrow"/>
-    <rect x="751" y="70" width="210" height="94" rx="10" class="main"/><text x="771" y="97" class="title">Execute compliance plan</text><text x="771" y="118" class="copy">Validate • transform • resolve • route</text><text x="771" y="137" class="copy">report • correlate each external leg</text>
+    <rect x="751" y="70" width="210" height="94" rx="10" class="main"/><text x="771" y="97" class="title">Execute compliance plan</text><text x="771" y="118" class="copy">Validate • transform • resolve • route</text><text x="771" y="137" class="copy">report • correlate each external action</text>
     <path d="M961 117 H1025 V245" class="path"/><polygon points="1025,245 1019,235 1031,235" class="arrow"/>
     <rect x="888" y="247" width="174" height="108" rx="10" class="main"/><text x="908" y="275" class="title">External destinations</text><text x="908" y="296" class="copy">Buyer / supplier network</text><text x="908" y="315" class="copy">platform / authority</text><text x="908" y="334" class="copy">acknowledgements and events</text>
     <path d="M888 310 H812" class="path"/><polygon points="812,310 822,304 822,316" class="arrow"/>
@@ -333,7 +335,7 @@ The strategic, route-model and compliance visuals above plus the atlas below con
     <rect x="120" y="530" width="180" height="54" rx="8" class="main"/><text x="165" y="554" class="title">EN 16931 invoice</text><text x="158" y="570" class="copy">Phase One cohort and date apply</text><path d="M300 557 H500" class="path"/><polygon points="500,557 490,551 490,563" class="arrow"/><rect x="502" y="530" width="160" height="54" rx="27" class="finish"/><text x="532" y="562" class="title">Business buyer</text><path d="M300 557 H370 V615 H722" class="path-opt"/><polygon points="722,615 712,609 712,621" class="arrow-g"/><rect x="724" y="590" width="208" height="50" rx="8" class="optional"/><text x="790" y="613" class="title">Revenue</text><text x="756" y="629" class="copy">required subset • interface detail gated</text>
     <text x="954" y="388" class="country">UK</text><rect x="944" y="406" width="122" height="54" rx="8" class="optional"/><text x="972" y="430" class="title">Peppol core</text><text x="957" y="446" class="copy">see UK child PRD</text>
   </svg>
-  <div class="notes"><div class="note"><strong>Document ≠ route</strong>The same semantic invoice can travel through different approved topologies.</div><div class="note"><strong>Delivery ≠ reporting</strong>Buyer and authority legs keep separate evidence and recovery.</div><div class="note"><strong>Country pack owns delta</strong>Topology, identifiers, formats, reports and statuses are policy-specific.</div></div>
+  <div class="notes"><div class="note"><strong>Document ≠ route</strong>The same semantic invoice can travel through different approved topologies.</div><div class="note"><strong>Delivery ≠ reporting</strong>Buyer and authority reporting actions keep separate evidence and recovery.</div><div class="note"><strong>Country pack owns delta</strong>Topology, identifiers, formats, reports and statuses are policy-specific.</div></div>
 </div>
 <!-- confluence-html-macro:end -->
 
@@ -359,7 +361,7 @@ The strategic, route-model and compliance visuals above plus the atlas below con
     <rect x="56" y="440" width="180" height="58" rx="8" class="finish"/><text x="74" y="464" class="title">Identity and time</text><text x="74" y="483" class="copy">invoiceId • event/effective timestamp</text>
     <rect x="256" y="440" width="180" height="58" rx="8" class="finish"/><text x="274" y="464" class="title">Source context</text><text x="274" y="483" class="copy">actor • country • network • provider</text>
     <rect x="456" y="440" width="180" height="58" rx="8" class="finish"/><text x="474" y="464" class="title">Status evidence</text><text x="474" y="483" class="copy">externalStatus • canonicalStatus</text>
-    <rect x="656" y="440" width="180" height="58" rx="8" class="finish"/><text x="674" y="464" class="title">Business detail</text><text x="674" y="483" class="copy">reasonCode • amount • document leg</text>
+    <rect x="656" y="440" width="180" height="58" rx="8" class="finish"/><text x="674" y="464" class="title">Business detail</text><text x="674" y="483" class="copy">reasonCode • amount • document action</text>
     <rect x="856" y="440" width="180" height="58" rx="8" class="finish"/><text x="874" y="464" class="title">Provenance</text><text x="874" y="483" class="copy">mapping version • metadata • evidence</text>
   </svg>
   <div class="notes"><div class="note"><strong>Build once</strong>A shared lifecycle service handles durable events and derived views.</div><div class="note"><strong>Do not erase language</strong>Raw country/provider status remains available beside its mapping.</div><div class="note"><strong>Optional states stay optional</strong>Acceptance, payment or clearance activate only where evidence requires them.</div></div>
@@ -585,7 +587,7 @@ The strategic, route-model and compliance visuals above plus the atlas below con
 | S1 | Customer/accountant | Creates an invoice for a supported legal entity | Applicability and required data are explained before external mutation | Out-of-scope invoices return a reason, not a false compliance success |
 | S2 | Sage product/API consumer | Submits the same intent twice | One logical invoice/operation is produced | Duplicate response is stable and auditable |
 | S3 | Country compliance owner | Activates a future policy version | Only eligible transactions at/after the effective boundary use it | Historical invoices retain original version/context |
-| S4 | Platform | Sends to recipient and separately reports to authority | Each leg has independent correlation, outcome and recovery | One successful leg does not imply another succeeded |
+| S4 | Platform | Sends to recipient and separately reports to authority | Each action has independent correlation, outcome and recovery | One successful action does not imply another succeeded |
 | S5 | Customer | Corrects a validation rejection | Corrected version is re-evaluated with traceable lineage | Rejected representation and reasons remain available |
 | S6 | Platform/operations | Times out after an external mutation may have occurred | Outcome becomes unknown and is reconciled before resubmission | No blind duplicate invoice/report |
 | S7 | Recipient/Sage product | Provides or receives lifecycle events | External vocabulary is preserved and mapped to explainable canonical events | Unknown/out-of-order events are retained for reconciliation |
@@ -664,7 +666,7 @@ The atlas is a **proposed model**, not approved architecture. Its minimum durabl
 | Readiness and connection | Independent issue/receive/report/download readiness; provider/network connections; purpose-specific credentials and trust | Readiness is effective-dated by capability; a new provider does not imply full re-onboarding |
 | Policy and plan | Scope result, country-policy version, obligations and dependencies | Original inputs, reasons and effective policy remain immutable |
 | Format and trust | Format/profile registry, validation/transformation packs, trust policy and certificate/credential references | Exact representation, mapping, policy and trust versions are frozen per operation |
-| Boundary execution | Representations plus independent recipient/authority exchange legs; each route binds network/channel, provider role, technical adapter and recipient destination separately | Each leg retains profile, provider/adapter versions, route, correlation and recovery evidence |
+| Boundary execution | Representations plus independent recipient/authority exchange actions; each route binds network/channel, provider role, technical adapter and recipient destination separately | Each action retains profile, provider/adapter versions, route, correlation and recovery evidence |
 | Lifecycle and governance | Raw/canonical events, pack owner/version, approval and rollback | Events append; later policy/configuration does not rewrite history |
 
 Every country-pack capability is explicitly `confirmed`, `proposed`, `unsupported`, `not applicable` or `unknown`; the capability-map visual is the discovery checklist.
@@ -677,9 +679,9 @@ Proposed canonical events describe business meaning, not a universal linear stat
 |---|---|
 | Missing/invalid data | Reject before external mutation with field/rule/policy version and correction guidance |
 | No applicable country policy | Return unsupported/decision-required; do not silently send a non-compliant representation |
-| Transformation loss or invalid output | Stop the affected leg and retain mapping/validation evidence |
+| Transformation loss or invalid output | Stop the affected action and retain mapping/validation evidence |
 | No eligible recipient route | Hold before dispatch, explain missing resolution evidence and permit authorised correction |
-| Authentication/consent/certificate failure | Stop affected leg; do not expose secret material; show owner/action |
+| Authentication/consent/certificate failure | Stop affected action; do not expose secret material; show owner/action |
 | Provider/authority unavailable before send | Retry only within approved policy and idempotency boundary |
 | Timeout after possible mutation | Mark outcome unknown and reconcile using external identity/correlation before retry |
 | Duplicate/out-of-order event | Deduplicate by source identity; retain sequence evidence; recompute view without erasing history |
@@ -715,7 +717,7 @@ Proposed canonical events describe business meaning, not a universal linear stat
 | ID | Requirement |
 |---|---|
 | FR9 | Recipient resolution must be pluggable by country and return the recipient scheme/identifier, supported network or channel, destination/capability, source/evidence time and confidence/authority without silently selecting Sage's provider connection. |
-| FR10 | The service must create independent exchange legs for recipient delivery and each required authority report, with separate correlation, idempotency, status and recovery. |
+| FR10 | The service must create independent exchange actions for recipient delivery and each required authority report, with separate correlation, idempotency, status and recovery. |
 | FR11 | A country pack must be able to select an approved network/channel without changing the product contract; before execution, the route plan must separately bind the provider legal entity and role, applicable certification/authority evidence, technical adapter/configuration, credential reference and recipient destination. Four-corner routes must allow sender and recipient providers to differ. |
 | FR12 | Inbound invoice handling must verify tenant/recipient, deduplicate, preserve the original representation and provenance, map to canonical semantics and expose validation/trust failures without silently delivering unsafe content. |
 
@@ -726,7 +728,7 @@ Proposed canonical events describe business meaning, not a universal linear stat
 | FR13 | External events must retain raw value/reason/source and map through a versioned country mapping to canonical event meaning. |
 | FR14 | The current invoice view must be derived from durable events and must not discard conflicting, duplicate, unknown or out-of-order evidence. |
 | FR15 | A timeout after a mutation may have reached an external party must enter outcome-unknown and reconcile before resubmission unless end-to-end idempotency is proven. |
-| FR16 | Operations must see intended plan, each observed external leg, evidence freshness, safe next actions and customer-safe status without direct database correction. |
+| FR16 | Operations must see intended plan, each observed external action, evidence freshness, safe next actions and customer-safe status without direct database correction. |
 | FR17 | Route, provider, credential or policy changes must apply only to eligible new work; historical invoices retain origin context and supported follow-up/retrieval paths. |
 | FR18 | The platform must support scoped suspension/kill control by country, pack version, provider, credential, direction or environment with authorised audit and recovery. |
 
@@ -766,7 +768,7 @@ Proposed canonical events describe business meaning, not a universal linear stat
 | AC1 | Given the same valid business invoice intent evaluated for two supported countries, when policy is applied, then the product contract remains stable while the service records distinct country policy, representations and routes. |
 | AC2 | Given a transaction is outside a mandate, when scope is evaluated, then the result identifies the policy and reason and does not claim compliant external delivery. |
 | AC3 | Given a correctable country validation failure, when the product receives the result, then it includes stable rule/field/version guidance and no external mutation occurred. |
-| AC4 | Given recipient delivery succeeds but authority reporting fails, when status is requested, then delivery and reporting show independent outcomes and only the failed safe leg is recovered. |
+| AC4 | Given recipient delivery succeeds but authority reporting fails, when status is requested, then delivery and reporting show independent outcomes and only the failed safe action is recovered. |
 | AC5 | Given a dispatch times out after bytes may have reached a network, when retry policy executes, then no second mutation occurs until reconciliation establishes safety. |
 | AC6 | Given a policy or route changes after an invoice is sent, when the invoice is retrieved or updated, then its original policy, representation, route and external references remain unchanged. |
 | AC7 | Given an inbound external event is duplicated or arrives out of order, when processed, then one durable source event identity is retained, history remains explainable and the current view is deterministic. |
@@ -823,7 +825,7 @@ Dependencies include country legal/compliance owners, Sage product teams, existi
 | Canonical model loses country/source meaning | Non-compliance or irreconcilable evidence | Extensions, provenance, round-trip/loss analysis and country-owner approval |
 | Policy-as-code is treated as ungoverned configuration | Incorrect obligations activate silently | Approval, signed artefact, tests, effective interval, rollback and audit |
 | UK/Ireland open policy becomes invented requirements | Rework and false commitment | Explicit unknown states and production gates |
-| Delivery/reporting outcomes collapse into one status | False success and unsafe retry | Independent exchange legs and acceptance tests |
+| Delivery/reporting outcomes collapse into one status | False success and unsafe retry | Independent exchange actions and acceptance tests |
 | Reuse target drives premature coupling | Platform complexity without proven value | Measure capability fitness and onboarding outcomes, not code percentage |
 | External outage/timeout duplicates legal documents | Customer/compliance harm | Durable intent, idempotency, outcome-unknown and reconciliation |
 | Local accountability becomes unclear | Slow decisions and regulatory exposure | Named pack owner/RACI and evidence provenance |

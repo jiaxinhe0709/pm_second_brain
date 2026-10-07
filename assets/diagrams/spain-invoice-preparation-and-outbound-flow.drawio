@@ -73,13 +73,13 @@
         <mxCell id="24" value="09 Recipient lookup&lt;br&gt;Current authoritative result" style="shape=rhombus;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ededed;strokeColor=#444444;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="1760" y="430" width="210" height="120" />
         </mxCell>
-        <mxCell id="25" value="10 Exchange plan&lt;br&gt;Freeze route, trust and logs" style="shape=document;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ffffff;strokeColor=#444444;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="25" value="10 Exchange plan&lt;br&gt;Freeze route, trust and actions" style="shape=document;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ffffff;strokeColor=#444444;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="2030" y="440" width="210" height="100" />
         </mxCell>
         <mxCell id="26" value="11 Prepare &amp; dispatch&lt;br&gt;Validate final format; sign&lt;br&gt;if required; persist operation" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ededed;strokeColor=#444444;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="2290" y="440" width="210" height="100" />
         </mxCell>
-        <mxCell id="27" value="13 Outcome ledger&lt;br&gt;Separate raw results per log" style="shape=cylinder;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ffffff;strokeColor=#444444;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="27" value="13 Outcome ledger&lt;br&gt;Separate raw results per action" style="shape=cylinder;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ffffff;strokeColor=#444444;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="2710" y="435" width="200" height="110" />
         </mxCell>
         <mxCell id="28" value="14 Derive views&lt;br&gt;Evidence and next action" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ededed;strokeColor=#444444;strokeWidth=2;" vertex="1" parent="1">
@@ -100,7 +100,7 @@
         <mxCell id="33" value="Format &amp; trust rules&lt;br&gt;Versioned representation&lt;br&gt;and signing requirements" style="shape=document;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ffffff;strokeColor=#444444;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="2290" y="675" width="210" height="100" />
         </mxCell>
-        <mxCell id="34" value="Outcome unknown&lt;br&gt;Reconcile original log&lt;br&gt;before a mutating retry" style="shape=hexagon;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ffffff;strokeColor=#444444;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+        <mxCell id="34" value="Outcome unknown&lt;br&gt;Reconcile original action&lt;br&gt;before a mutating retry" style="shape=hexagon;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ffffff;strokeColor=#444444;strokeWidth=2;dashed=1;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="2710" y="675" width="250" height="100" />
         </mxCell>
         <mxCell id="35" value="" style="fillColor=#ffffff;strokeColor=#aaaaaa;" vertex="1" parent="1">
@@ -115,7 +115,7 @@
         <mxCell id="38" value="Public delivery&lt;br&gt;Default or planned bridge" style="shape=trapezoid;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ffffff;strokeColor=#444444;strokeWidth=2;dashed=1;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="2480" y="1040" width="190" height="80" />
         </mxCell>
-        <mxCell id="39" value="Faithful public copy&lt;br&gt;Separate log only if required" style="shape=trapezoid;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ffffff;strokeColor=#444444;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+        <mxCell id="39" value="Faithful public copy&lt;br&gt;Separate submission only if required" style="shape=trapezoid;html=1;whiteSpace=wrap;fontFamily=Arial;fontSize=17;fillColor=#ffffff;strokeColor=#444444;strokeWidth=2;dashed=1;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="2310" y="1170" width="310" height="70" />
         </mxCell>
         <mxCell id="40" value="" style="endArrow=block;html=1;strokeColor=#444444;strokeWidth=2;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;" edge="1" parent="1" source="14" target="15">

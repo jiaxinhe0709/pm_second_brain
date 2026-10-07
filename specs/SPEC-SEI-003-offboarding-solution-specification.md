@@ -21,9 +21,12 @@ related:
   - SPEC-SEI-002
   - ADR-SEI-001
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
+  parent_page_id: "918651071"
   page_id: ""
+  layout: two_left_sidebar
+  toc: true
 ---
 
 # Customer Offboarding Solution Specification

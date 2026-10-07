@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-09-11
-updated: 2026-09-11
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-201
@@ -32,6 +32,8 @@ confluence:
 ---
 
 # Provider API for e-Invoicing Service
+
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
 
 ## Decision summary
 
@@ -225,7 +227,7 @@ No single `CONNECTED` flag is sufficient. Readiness must be represented independ
 | G6 — Service | Capacity, service levels, support, monitoring, incident and BCP/DR evidence | Production |
 | G7 — Exit/change | Revocation, deprecation, offboarding, historical access and migration tests | Production expansion |
 
-Metrics should include provider onboarding lead time, conformance pass rate, unique implementation effort, exchange success by independent leg, duplicate prevention, event/reconciliation age and customer interoperability. Baselines and targets remain open.
+Metrics should include provider onboarding lead time, conformance pass rate, unique implementation effort, exchange success by independent action, duplicate prevention, event/reconciliation age and customer interoperability. Baselines and targets remain open.
 
 ## Relationship to provider-specific PRDs
 

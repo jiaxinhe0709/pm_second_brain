@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-10
-updated: 2026-09-23
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-227
@@ -24,6 +24,8 @@ confluence:
 ---
 
 # UK E-Invoicing Compliance Pack
+
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
 
 ## Decision summary
 
@@ -53,7 +55,7 @@ Spain discovery provides reusable controls but not UK policy: capability-specifi
 | 2026 | HMRC/DBT co-creation and implementation-roadmap work; Peppol announced as core interoperability network | Participate in consultation; assess Peppol capability and product data/onboarding gaps |
 | By end 2027–28 | HMRC roadmap says full guidance, standards, technical specification and legislation will be published | Convert official artefacts into a governed UK policy/profile/adapter and close delivery gates |
 | April 2029 | VAT e-invoicing mandate planned for B2B/B2G transactions/all VAT invoices as defined by final regime | Activate only for confirmed scope/cohorts and approved transition rules |
-| Future/unknown | Any HMRC transaction-reporting, status, payment or additional tax-data obligation | No reporting leg unless official evidence later defines it |
+| Future/unknown | Any HMRC transaction-reporting, status, payment or additional tax-data obligation | No reporting action unless official evidence later defines it |
 
 ## Spain-informed UK capability decomposition
 
@@ -109,7 +111,7 @@ Spain discovery provides reusable controls but not UK policy: capability-specifi
     <path d="M708 574 H673 V512" class="path-warn"/><polygon points="673,512 667,522 679,522" class="arrow-a"/>
     <rect x="36" y="434" width="230" height="82" rx="10" class="optional"/><text x="56" y="463" class="title">Legacy-system route</text><text x="56" y="484" class="copy">Role remains under stakeholder engagement</text><text x="56" y="501" class="copy">No permanent exception assumed</text>
     <path d="M266 475 H318" class="path-opt"/><polygon points="318,475 308,469 308,481" class="arrow-g"/>
-    <rect x="320" y="434" width="228" height="82" rx="10" class="optional"/><text x="340" y="463" class="title">HMRC reporting leg</text><text x="340" y="484" class="copy">Inactive: no obligation inferred from</text><text x="340" y="501" class="copy">the e-invoice mandate announcement</text>
+    <rect x="320" y="434" width="228" height="82" rx="10" class="optional"/><text x="340" y="463" class="title">HMRC reporting action</text><text x="340" y="484" class="copy">Inactive: no obligation inferred from</text><text x="340" y="501" class="copy">the e-invoice mandate announcement</text>
     <path d="M548 475 H568" class="path-opt"/><polygon points="568,475 558,469 558,481" class="arrow-g"/>
     <text x="30" y="642" class="phase">ROADMAP</text>
     <rect x="86" y="654" width="230" height="36" rx="10" class="main"/><text x="106" y="669" class="title">2026 • co-create + roadmap</text><text x="106" y="684" class="copy">Peppol core announced</text>
@@ -188,7 +190,7 @@ Sage needs two speeds: begin shared data/Peppol/product-readiness discovery now,
 | UK-BR2 | Invoice is represented as compliant e-invoice | It must be structured as required by the final UK standard; PDF/Word/images/HTML/OCR alone are not sufficient under consultation definition | Confirmed consultation direction; final legal definition open |
 | UK-BR3 | Network route is selected | Peppol is the core interoperability network, not the provider; bind Sage's approved sending Access Point separately and allow the buyer's receiving Access Point provider to differ | Four-corner distinction confirmed by OpenPeppol; detailed UK model open |
 | UK-BR4 | Legacy system cannot interoperate | Apply no exception/fallback unless final policy explicitly permits it | Official engagement ongoing |
-| UK-BR5 | Reporting is considered | Create no HMRC report leg without a separate official obligation/specification | Confirmed evidence boundary |
+| UK-BR5 | Reporting is considered | Create no HMRC report action without a separate official obligation/specification | Confirmed evidence boundary |
 | UK-BR6 | Draft/final policy changes | Use approved effective-dated pack versions and preserve original invoice/route evidence | Proposed shared continuity rule |
 | UK-BR7 | Product offers voluntary pre-mandate e-invoicing | Clearly distinguish network delivery from future statutory compliance and use only approved contracts | Proposed; legal/product approval required |
 | UK-BR8 | A UK entity is prepared | Record legal subject, authority, participant, issue/receive/download and Access Point readiness separately | Spain learning adopted through PRD-SEI-227 |
@@ -209,7 +211,7 @@ Sage needs two speeds: begin shared data/Peppol/product-readiness discovery now,
 | Inbound/outbound symmetry | Direction, not complete law | Government response describes issuing/receiving electronically; final requirements open |
 | Recipient identity/discovery | Unknown | Must be supplied by official UK Peppol model |
 | Validation/profile | Unknown | Shared framework ready; live pack disabled |
-| Reporting to HMRC | Unknown/not currently evidenced | No report leg |
+| Reporting to HMRC | Unknown/not currently evidenced | No report action |
 | Lifecycle/status/payment | Unknown | Do not import France/Spain statuses |
 | Legacy transition | Open | Explicit consultation/decision gate |
 | GB/Northern Ireland applicability | Open for the future mandate | Existing VAT invoicing/identifier distinctions must be preserved as inputs; final e-invoicing treatment requires HMRC evidence |
@@ -340,7 +342,7 @@ This is a consultation model, not an approved HMRC/UK Peppol interface or provid
 | UK-FR9 | Every delivery must record representation/profile, participant/service, Peppol as network, the selected sending Access Point provider and observed receiving Access Point provider, adapter/configuration version, message/correlation identity, acknowledgements and outcome. |
 | UK-FR10 | Unstructured-only PDF/Word/image/HTML/OCR content must not be represented as compliant unless final law explicitly defines an eligible structured wrapper/profile. |
 | UK-FR11 | A legacy-system route or exception must remain disabled unless final policy explicitly permits it, and must be effective-dated and auditable. |
-| UK-FR12 | The pack must create no HMRC reporting/payment-status leg without a separate approved official obligation. |
+| UK-FR12 | The pack must create no HMRC reporting/payment-status action without a separate approved official obligation. |
 
 ### Resilience, continuity and operations
 
@@ -395,7 +397,7 @@ This is a consultation model, not an approved HMRC/UK Peppol interface or provid
 | UK-AC4 | Given a PDF-only invoice, when classified under current policy direction, then it is not labelled a compliant structured UK e-invoice. |
 | UK-AC5 | Given recipient discovery returns no eligible UK service, when dispatch is requested, then no network mutation occurs and actionable readiness evidence is returned. |
 | UK-AC6 | Given the access point times out after possible send, when recovery runs, then the outcome reconciles before retry and no preventable duplicate is produced. |
-| UK-AC7 | Given no approved HMRC reporting obligation exists, when an invoice is delivered, then the service creates no authority-report leg or reporting-success claim. |
+| UK-AC7 | Given no approved HMRC reporting obligation exists, when an invoice is delivered, then the service creates no authority-report action or reporting-success claim. |
 | UK-AC8 | Given a later UK pack version changes scope/profile, when an older invoice is inspected, then its original policy, profile, participant, route and acknowledgement evidence remain unchanged. |
 | UK-AC9 | Given a UK legal entity has been verified but no participant or Access Point connection exists, when readiness is displayed, then identity readiness is visible while issue/receive remain action-required rather than generically onboarded. |
 | UK-AC10 | Given an accountant portfolio contains clients with different participant authority, when onboarding runs, then only authorised client/capability combinations progress and no firm-wide participant authority is inferred. |
@@ -455,7 +457,7 @@ Rollout gates:
 | What participant identifier, discovery and process rules apply? | Determines onboarding/routing | UK Peppol governance | Blocks adapter |
 | Who contracts and pays for sending/receiving Access Point service, and who owns participant/capability registration and migration? | Commercial, onboarding, switching and continuity model | Product/legal/procurement | Blocks proposition |
 | What role is allowed for legacy systems? | Migration and exclusions | HMRC/DBT | Blocks transition design |
-| Is any HMRC reporting required beyond the invoice exchange? | Prevents missing or invented tax flow | HMRC | Blocks reporting only; current hypothesis is no leg |
+| Is any HMRC reporting required beyond the invoice exchange? | Prevents missing or invented tax flow | HMRC | Blocks reporting only; current hypothesis is no action |
 | What lifecycle/acknowledgement/correction/cancellation semantics are mandated? | Product status and recovery | HMRC/Peppol governance | Blocks lifecycle mapping |
 | How does the future regime apply across Great Britain and Northern Ireland, including goods/services and GB/XI identifiers? | Prevents one UK rule from masking existing VAT distinctions | HMRC/UK compliance | Blocks applicability/profile design; preserve facts until answered |
 | Which operations may an accountant/delegate perform for participant registration, issue, receive and evidence access, and how is authority verified/revoked? | Prevents firm relationship or certificate possession becoming universal authority | HMRC/UK legal/product | Blocks accountant production onboarding |

@@ -15,9 +15,12 @@ related:
   - PRD-SEI-241
   - SPEC-SEI-005
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
+  parent_page_id: "899154457"
   page_id: ""
+  layout: two_left_sidebar
+  toc: true
 ---
 
 # Spain UBL Mapper Migration to DTS Solution Specification

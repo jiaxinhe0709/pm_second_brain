@@ -1,12 +1,12 @@
 ---
 id: SPEC-SEI-010
-title: Public Platform Invoice Retrieval, Storage and Download Solution Specification
+title: Consult and download UBL from public platform for einvoices received
 type: solution-spec
 status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-07
 reviewers: []
 related:
   - GLO-SEI-001
@@ -27,23 +27,25 @@ confluence:
   toc: true
 ---
 
-# Public Platform Invoice Retrieval, Storage and Download Solution Specification
+# Consult and download UBL from public platform for einvoices received
 
 Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
-### Reader guide and design status
+### Reader guide
 
-This is a **proposed logical design**, ready for review of its boundaries and decisions. Part 1 explains the outcome and scope. Part 2 describes behaviour. Part 3 describes the information and service contracts. Part 4 links requirements to acceptance checks and production gates.
+Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. [Part 2](#part-2-logical-feature-specification) gives the detailed behaviour and rules. [Part 3](#part-3-logical-service-interactions-and-data-inventory) describes service interactions and data. [Part 4](#part-4-assurance-and-traceability-view) links requirements to the checks and evidence needed before release.
 
-**Confirmed** means supported by the source evidence. **Proposed** means a design choice still needing approval. **Open** means information or a decision is missing. **Out of scope** means excluded from this initial proposal. Service names and record names below are logical responsibilities, not approved deployments or public API endpoints.
+The design remains a draft. **Confirmed** means supported by the cited source, within its stated limits. **Proposed** choices still need review. **Open** decisions still need an owner’s recorded answer. **Out of scope** identifies work excluded from this proposal or handled by another feature. Service names describe logical responsibilities; they do not establish deployed services or approved API endpoints. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.
 
-### Outcome and authority
+### 1 Purpose, authority and boundaries
 
-Sage should find invoices received through AEAT/SPFE, preserve the exact recovered file, make it available to the authorised customer for conservation, and pass a stable source reference to inbound processing. A later mapping or ERP failure must not lose the source invoice or force public retrieval to start again.
+This **proposed logical design** explains how Sage finds invoices received through Spain’s public platform (SPFE), operated by AEAT. Sage saves the exact file returned by the platform and makes it available to an authorised customer for the required records period. It also passes a stable reference to the receiving service for further processing.
 
-[PRD-SEI-211](../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md), FR1–FR55, is the current product authority. [SPEC-SEI-006](SPEC-SEI-006-inbound-invoice-receiving-solution-specification.md) owns validation, business duplicates, transformation and product distribution after capture. [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns commercial/payment status interpretation. File access is not an acceptance event.
+The saved source file remains available if later mapping or ERP delivery fails. Those failures must not lose the file or force retrieval to start again. ERP means the business software that owns invoice data and accounting work.
+
+[PRD-SEI-211](../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md), FR1–FR55, defines the product requirements. [SPEC-SEI-006](SPEC-SEI-006-invoice-receiving-solution.md) owns validation, duplicate-invoice checks, transformation and delivery to Sage products after the source file has been saved. [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns the interpretation of buyer decisions and payment status. Viewing or downloading a file does not mean that the buyer accepts the invoice.
 
 The [final Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028), Articles 9–11, confirms automated recovery, immediate availability for conservation, consultation/download channels and third-party representation requirements. The [source snapshot and evidence note](../research/spain-public-platform-order-evidence.md) records provenance and limits. The order does not provide the complete new-invoice discovery API or establish UBL 2.5 acceptance.
 
@@ -60,11 +62,33 @@ The [final Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028),
 | Rendering or canonical representation | Optional derived artefacts linked to their generator/version. | No derived file is labelled as the recovered original. |
 | Business processing and lifecycle reporting | Delegated to SPEC-SEI-006 and SPEC-SEI-009. | Download does not imply technical validation, ERP delivery, commercial acceptance or payment. |
 
-**Conservation** means keeping invoices available for the required records period. **Durable** means saved so the information survives a process restart or worker failure. A **canonical representation** is a shared internal format used for processing; it does not replace the source file. A **faithful copy** is the public UBL copy of an invoice exchanged through another route. Preserve its retrieved bytes as a source artefact with role `PUBLIC_COPY`; do not call it the original invoice from the private route. A **checkpoint** is saved retrieval progress. A **quarantine** is restricted storage for a file requiring investigation. A **lease** gives one worker temporary authority to handle a scope; a replacement worker must reject the old worker's commits.
+### Plain-language terms
+
+| Term | Meaning |
+|---|---|
+| Legal entity / legal subject | The business to which the invoice or action belongs. Technical fields use `legalSubject` for this business. |
+| Authority | Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission. |
+| Capability | A supported function, such as receiving invoices or signing them. |
+| Route | The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans. |
+| Idempotency | Repeating the same logical request adds no effect within the contract’s defined scope and retention window. The contract binds request identity and input and defines conflict handling. |
+| Reconciliation | Check the original operation against a reliable source to establish what actually happened before deciding the next action. |
+| Gate | A condition, decision or evidence check that must pass before the next step can proceed. |
+| Tenant | The customer account boundary used to keep one customer’s data and access separate from another’s. |
+| Immutable / append-only | Immutable means a saved record cannot be changed. Append-only means later information is added as another record. Neither means indefinite retention. |
+| Provenance | The record of where data came from and which versions, checks and changes produced the result. |
+| Contract | The agreed inputs, outputs, behaviour and responsibilities between services or parties. |
+| Durable | Saved through the agreed recovery boundary so the record survives a process restart or worker failure. Long-term retention is a separate policy. |
+| Public platform / SPFE / AEAT | SPFE is the Spain public e-invoicing platform. AEAT is the authority operating it. Other AEAT services do not automatically have the same contract. |
+| Conservation | Keeping invoices available for the required records period. A download alone does not prove the customer has kept the file. |
+| Recovered source file / faithful public copy | The exact file returned by the source; a separately classified public-platform copy of an invoice exchanged through another route. A public copy keeps role `PUBLIC_COPY` and does not replace the private-route original. |
+| Canonical representation / ERP | A shared internal form derived from the source invoice; the business software receiving or processing it. The derived form does not replace the source file. |
+| Checkpoint / coverage | Saved retrieval progress; evidence of which source range and items have been accounted for. A failed item cannot be skipped when progress is saved. |
+| Quarantine / lease | Restricted storage for a file requiring investigation; temporary permission for one worker to handle a defined scope. A replacement worker must prevent the previous worker from saving stale results. |
+| Scope / classification / capture receipt | The customer, legal entity, environment and action covered by work; the saved outcome for an item, such as duplicate or quarantined; confirmation that source bytes and metadata have been saved and verified. |
 
 ### Spain use and reuse boundaries
 
-Reuse labels follow the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary). **Reusable unchanged** describes a design pattern; **Unknown** records unverified implementation fitness. Scope exclusions are marked **Out of scope**.
+This is a **Spain reference design**. **Reusable unchanged** means the proposed design pattern can stay the same. **Reusable with country binding** means shared behaviour needs approved country rules or adapters. **Country-specific** rules stay in the Spain country pack. **Unknown** means that the existing implementation’s suitability or coverage still needs evidence. These labels do not prove production readiness. Another country needs its own assessment. See the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary).
 
 | Area | Intended use in Spain | Reuse classification | Condition and owner |
 |---|---|---|---|
@@ -77,7 +101,9 @@ Reuse labels follow the [shared e-invoicing glossary](../context/GLO-SEI-001-e-i
 
 ### Actors and responsibility
 
-Customer/product initiates a refresh or file read. Retrieval Owner owns eligibility, scheduling, provider calls and progress. Records Owner owns durable file capture, integrity, retention and retrieval after route changes. Receiving Owner owns classification and downstream processing. Security owns file-access enforcement and unsafe-file handling. Compliance owns legal representation, conservation duties and applicability. Operations owns bounded recovery and incident evidence. Named individuals and support targets remain open.
+A customer or Sage product can request a refresh or read a saved file. The Retrieval Owner checks eligibility, schedules calls and tracks progress. The Records Owner saves the source files, checks their integrity and manages retention and historical access. The Receiving Owner classifies invoices and manages later processing.
+
+Security owns file-access checks and safe handling of unsafe content. Compliance owns representation, record-keeping duties and applicability rules. Operations owns recovery and incident evidence. Named individuals and support targets remain open.
 
 ### Process and continuity
 
@@ -85,25 +111,27 @@ Customer/product initiates a refresh or file read. Retrieval Owner owns eligibil
 
 [Editable Draw.io](../assets/diagrams/e-invoicing-public-consultation-reconciliation.drawio) · [PNG preview](../assets/diagrams/e-invoicing-public-consultation-reconciliation.png). This existing process diagram is reused. Its “check scope”, “schedule and lease”, “query”, “classify and persist”, “boundary durable” and “commit progress” steps map to RSD-01, RSD-02, RSD-03, RSD-04/05 and RSD-06 below. “Publish availability” separates conservation file access from the later business-invoice view. Download activity RSD-07 reads saved files without starting another public query.
 
-The proposed sequence is: check scope → collect a bounded page → recover and save each source → record each item's durable outcome → commit covered progress. Customer file access becomes possible after safe durable capture. Receiving and ERP delivery continue independently. An incomplete page resumes from saved evidence; it never resets progress to the current time.
+The proposed sequence is: check permission and scope → request a page within approved limits → save each source file → save each item’s processing outcome → update the checkpoint only for the range fully accounted for. The saved file can become available to the customer before mapping or ERP delivery completes.
+
+If a page is incomplete, the worker resumes from the saved files and outcomes. It must not reset the checkpoint to the current time or skip missing items.
 
 ## Part 2 Logical Feature Specification
 
 ### Activity lifecycle
 
-All activities use the tenant, represented legal entity, country, environment, route/version and correlation context. Missing authority blocks new public calls. Stored-file reads have their own records entitlement; onboarding suspension does not automatically settle historical access rights.
+Every activity records the tenant, represented legal entity, country, environment, route/version and correlation context. Missing authority stops new calls to the public platform. Reading a previously stored file needs a separate check of current records-access permission. Suspending onboarding does not by itself decide whether the customer may still access historical files.
 
 | ID / trigger and actor | Preconditions and decision inputs | Operation and postcondition | Error and recovery owner |
 |---|---|---|---|
-| RSD-01 Check eligibility / scheduler, refresh or recovery request | Active inbound public scope; accepted credential reference; registered authority for entity/action; effective policy. | Record eligible scope and policy version, or hold it with an actionable reason. Recheck before calls and commit if scope changed. | Retrieval/Authority Owners: expired credentials, absent/revoked authority or suspension hold new calls; preserve history and checkpoint. |
-| RSD-02 Schedule / eligible due scope | RSD-01 passes; provider/tenant capacity available; no current effective lease. | Coalesce triggers; take a lease with a generation number; save run ID, trigger, bounds and policy. Fair scheduling prevents one backlog taking all capacity. | Retrieval/Operations: busy scope returns current operation; worker loss permits takeover after lease expiry; stale generation cannot commit. |
-| RSD-03 Discover and fetch / worker with current lease | Confirmed adapter contract and authority; saved checkpoint or approved initial bounds. | Query a bounded page/window; save provider correlation and continuation evidence. Fetch exact files if discovery and file recovery are separate. No result is distinct from failure. | Adapter Owner: throttle/backoff per contract; invalid cursor opens bounded gap recovery; uncertain provider-side read/ack effect requires reconciliation before repeat. |
-| RSD-04 Capture source / each recovered item | Scope matches expected entity/environment; size/type policy; source identity and available classification. | Persist exact bytes or approved immutable reference, hash, file role, media/profile, source and retrieval time. Publish a recoverable capture receipt only after file and metadata agree. Safe source can become available for conservation before business processing. | Records/Security: partial write, mismatch or unsafe content cannot become an ordinary downloadable file. Preserve restricted evidence and retry from saved item identity; do not advance past missing capture. |
-| RSD-05 Register durable outcome / captured item | RSD-04 receipt; stable observation key/hash; intake service available or durable handoff intent. | Save intake receipt/classification or an owned pending handoff. Receiving returns ingested, duplicate, approved ignored or quarantined outcome. A pending handoff is retriable but is not a completed page classification. | Receiving/Records: same key/hash returns prior receipt; changed content or ambiguous original/copy relation enters quarantine. A mapping/ERP error after durable classification does not undo capture. |
-| RSD-06 Commit covered progress / completed boundary | Current lease generation; every covered item has saved source and durable classification, or approved ignore evidence; no unresolved hole. | Atomically or through a proven recoverable protocol commit page/item outcome coverage and checkpoint. Save successful consultation time. ERP delivery acknowledgement is not a checkpoint condition. | Retrieval Owner: a crash before/after commit replays saved receipts; stale worker commit rejected; incomplete page retains prior committed boundary. |
-| RSD-07 Read stored file / customer, authorised ERP or operator | Current subject/action entitlement; invoice and file role match scope; retention and safe-access policy permit read. | Return the selected labelled file with safe content handling; audit actor, role, purpose, result and correlation. A download attempt is not proof that the customer conserved the file. | Access/Records Owners: deny unauthorised or unsafe ordinary read; missing/hash-mismatched file opens integrity incident. Controlled quarantine export requires approved elevated policy and audit. |
-| RSD-08 Reconcile gaps / authorised operations or recovery policy | Bounded entity/time scope; authority; separate recovery progress; approved limits. | Re-scan via RSD-03–06, reuse capture/intake identities, compare coverage and record resolved/remaining gaps. Preserve routine checkpoint. | Operations/Adapter: data outside provider retention requires an explicit recovery case and customer impact assessment; never silently report completeness. |
-| RSD-09 Retain, transfer or delete / records policy event | Versioned policy, retention basis, applicable hold, ownership and approved action. | Preserve historical downloads through route/provider changes when entitled. Verify export before exit; record deletion evidence only when allowed. | Records/Compliance: hold blocks deletion; incomplete export blocks disposal; restoration and integrity failures open a records incident. |
+| RSD-01 Check eligibility / scheduler, refresh or recovery request | The public inbound scope is active. Credential references and registered authority are valid for the legal entity/action; the policy is effective. | Save the eligible scope and policy version, or a reason and next action. Recheck before calls and before saving progress if the scope changed. | Retrieval/Authority Owners: expired credentials, missing/revoked authority or suspension stop new calls. Keep history and the checkpoint. |
+| RSD-02 Schedule / eligible due scope | RSD-01 passes; provider and tenant capacity is available; no worker holds a valid lease. | Combine identical triggers into one run. Take a numbered lease and save the run ID, trigger, limits and policy. Give other tenants a fair share of capacity. | Retrieval/Operations: return the current run for a busy scope. After worker loss, take over only under lease-expiry rules; the previous worker cannot save stale progress. |
+| RSD-03 Discover and fetch / worker with current lease | The adapter contract and authority are confirmed. Use the saved checkpoint or approved starting limits. | Query a page or time window within approved limits. Save the provider correlation and continuation evidence. Fetch exact files separately if the contract requires it. An empty result is different from a failed request. | Adapter Owner: follow approved throttling and retry waits. An invalid cursor opens a limited gap-recovery case. Check uncertain read/ack effects before repeating the call. |
+| RSD-04 Capture source / each recovered item | The entity and environment match the requested scope. Check size/type policy, source identity and available file classification. | Save exact bytes or an approved immutable reference, hash, role, media/profile, source and retrieval time. Return a capture receipt only after the file and metadata agree. A safe saved file can become available for conservation before business processing. | Records/Security: incomplete writes, mismatches and unsafe content cannot be offered as ordinary downloads. Keep restricted evidence and retry using the saved item identity. Do not skip an item whose source has not been saved. |
+| RSD-05 Register durable outcome / captured item | RSD-04 returned a receipt. The observation key/hash is stable. Receiving is available, or a recoverable handoff request can be saved. | Save the receiving receipt and classification, or a pending handoff with an owner. Receiving classifies the item as ingested, duplicate, approved ignored or quarantined. A pending handoff can be retried but does not complete the page. | Receiving/Records: the same key/hash returns the previous receipt. Changed content or an uncertain original/copy relationship enters quarantine. Later mapping or ERP failure does not undo saved capture and classification. |
+| RSD-06 Commit covered progress / completed boundary | The worker still owns the current lease. Every covered item has a saved source and classification, or approved evidence explaining why it was ignored. No item is missing. | Save page/item coverage and the checkpoint together, or use a proven recovery protocol. Record the successful consultation time. ERP acknowledgement is not required to advance this retrieval checkpoint. | Retrieval Owner: after a crash, reuse saved receipts and check whether the save completed. Reject an old worker’s update. An incomplete page keeps the previous checkpoint. |
+| RSD-07 Read stored file / customer, authorised ERP or operator | Current permission covers the legal entity, action, invoice and file role. Retention and safe-access rules permit the read. | Return the selected, clearly labelled file with safe content handling. Audit actor, role, purpose, result and correlation. A download attempt does not prove the customer kept the file. | Access/Records Owners: deny unauthorised or unsafe ordinary reads. A missing file or hash mismatch opens an integrity incident. Quarantine export needs approved elevated permission and audit. |
+| RSD-08 Reconcile gaps / authorised operations or recovery policy | The entity/time range, authority and recovery limits are approved. Recovery has separate progress from routine retrieval. | Repeat RSD-03–06 for that range. Reuse capture and receiving identities, compare covered items and record resolved or remaining gaps. Keep the routine checkpoint. | Operations/Adapter: unavailable provider history needs an explicit recovery case and customer-impact assessment. Do not claim completeness without evidence. |
+| RSD-09 Retain, transfer or delete / records policy event | Check the policy version, retention basis, holds, record owner and permission for the action. | Keep authorised historical downloads available through route/provider changes. Verify export before exit. Record deletion evidence only when deletion is allowed. | Records/Compliance: a hold prevents deletion; incomplete export prevents disposal. Restore or integrity failures open a records incident. |
 
 ### Invariants and state separation
 
@@ -121,7 +149,7 @@ All activities use the tenant, represented legal entity, country, environment, r
 | ID | Observable requirement | Source |
 |---|---|---|
 | RSD-R01 | Automated retrieval checks entity/action authority separately from valid transport credentials. | PRD211 FR1–6, FR54; order Article 11. |
-| RSD-R02 | Scheduled baseline and coalesced refresh use bounded, fair, resumable work with stale-worker protection. | FR7–20. |
+| RSD-R02 | Scheduled retrieval and combined refresh requests use approved limits, fair capacity and saved progress. Old workers cannot save stale results. | FR7–20. |
 | RSD-R03 | Exact recovered source and context are durable before advancing progress; original/copy/derived roles remain explicit. | FR21–28, FR43–46. |
 | RSD-R04 | Every committed boundary has durable item classification and recoverable coverage evidence. | FR17–18, FR23, FR36–38. |
 | RSD-R05 | Safe source-file conservation access remains independent of ERP success; download enforces current authority and records audit. | FR47–53; order Article 9. |
@@ -133,6 +161,7 @@ All activities use the tenant, represented legal entity, country, environment, r
 | Failure | Required saved outcome and safe action |
 |---|---|
 | Public API timeout, throttle or unavailability | Run failure class and provider correlation; bounded backoff. No fabricated empty result or freshness success. |
+| Recovery call may change provider state and its response is lost | Preserve the original connector operation as outcome unknown. Check its authoritative result before a repeat, unless the qualified contract proves that repeating the same request is safe. Keep the prior checkpoint until every covered item has a saved outcome; an unknown call does not prove an empty page or completed recovery. |
 | File recovered but storage failed | Item remains incomplete; retry capture or refetch under confirmed read semantics. Prior checkpoint remains. |
 | Metadata saved but object absent, or orphan object | Recover using capture identity/hash and incomplete receipt; object is not downloadable until verified. Records Owner reconciles/cleans orphans under policy. |
 | Receiving service unavailable | Durable pending handoff; retry without refetching source. Do not claim final item classification or completed page. |
@@ -147,7 +176,7 @@ All activities use the tenant, represented legal entity, country, environment, r
 
 ### Contracts
 
-These are proposed logical contracts. Physical endpoints, payload schemas, transaction boundaries and service ownership require architecture review. Each result carries scope, correlation, version and safe outcome/error categories. Credentials remain protected references, never request logs.
+These contracts describe the information services exchange and the expected behaviour. They are **proposed**. Architecture must still agree the API endpoints, payload schemas, how related records are saved together, and service ownership. Each result identifies its scope, correlation, version and safe outcome or error. Pass protected credential references; never put credentials in request logs.
 
 | ID / direction | Request and result | Activity |
 |---|---|---|
@@ -155,7 +184,7 @@ These are proposed logical contracts. Physical endpoints, payload schemas, trans
 | RSD-INT02 Retrieval → Authority/Credentials | Entity/action/environment, credential and authority references; returns effective eligibility/version. Provider representation is separate from local subscription. | RSD-01/03/06 |
 | RSD-INT03 Retrieval → AEAT adapter | Explicit represented scope, bounds and continuation evidence; returns discovery items/files and provider correlation or classified failure. Exact contract open. | RSD-03/08 |
 | RSD-INT04 Retrieval → Records | Capture identity, exact bytes or approved reference, classification and context; returns durable verified receipt or incomplete capture. | RSD-04 |
-| RSD-INT05 Retrieval → Receiving | Durable source reference/hash, observation and public-route/page context; returns stable intake receipt and durable classification, or pending/error. | RSD-05/06 |
+| RSD-INT05 Retrieval → Receiving | Durable source reference/hash, observation and public-route/page context; returns stable intake receipt and saved item classification, or pending/error. | RSD-05/06 |
 | RSD-INT06 Worker → Progress store | Lease generation, scope version and complete item-outcome coverage; returns committed boundary or conflict. Idempotent commit/recovery required. | RSD-06 |
 | RSD-INT07 Product/ERP → File access → Records | Actor, invoice, entity, artefact role and purpose; returns authorised labelled bytes or safe denial. If temporary access links are chosen, restrict scope/expiry and redact bearer values. | RSD-07 |
 | RSD-INT08 Records → Audit/Operations | Capture, access, gap, integrity, export and deletion outcomes with evidence references; durable/auditable notification and recovery ownership. | RSD-04/07/08/09 |
@@ -170,16 +199,16 @@ All invoice and identity data is sensitive. Audit uses identifiers/references ra
 | RSD-D02 Run / Retrieval | Run/operation ID, trigger/actor, scope, lease generation/expiry, bounds, provider correlation, attempts and safe failure class. | Operational retention open. RSD-02/03/08. |
 | RSD-D03 Coverage/checkpoint / Retrieval | Committed bounds/continuation evidence, page identity, item-outcome references, scope/policy version, last successful query and recovery gap state. | Never silently overwritten by rescan. RSD-03/06/08. |
 | RSD-D04 Source artefact / Records | Immutable object/reference, capture ID, hash algorithm/value, bytes/size, media type, source and retrieval time, public identity, invoice components, role/copy indicator, profile and integrity evidence. | Sensitive immutable source; approved role/country retention and holds. RSD-04/05/07/09. |
-| RSD-D05 Observation/intake link / Receiving with Retrieval reference | Observation key/hash, artefact ID, page/item identity, intake receipt, business link if known, durable classification, rule version and quarantine owner. | Receiving owns business deduplication; Retrieval owns coverage. RSD-05/06/08. |
+| RSD-D05 Observation/intake link / Receiving with Retrieval reference | Observation key/hash, artefact ID, page/item identity, intake receipt, business link if known, saved item classification, rule version and quarantine owner. | Receiving owns business deduplication; Retrieval owns coverage. RSD-05/06/08. |
 | RSD-D06 Derived artefact / Receiving or rendering owner | Source link, canonical/rendered role, generator/mapping/profile version, hash and creation time. | Separate retention and access; cannot replace D04. RSD-07/09. |
 | RSD-D07 File access audit / Audit | Actor, represented entity, invoice/artefact role, purpose, time, policy version, correlation and allowed/denied/read outcome. | No credentials, bearer links or raw invoice bodies. RSD-07. |
 | RSD-D08 Recovery/records case / Operations and Records | Gap/integrity evidence, affected scope, hold/retention/export decision, owner, permitted actions and resolution references. | Preserve until approved resolution and retention action. RSD-08/09. |
 
 ### Spain and reuse boundary in contracts
 
-Shared contracts carry country and environment explicitly. Adapter policy supplies AEAT representation, public identity encoding, copy classification, schema and recovery semantics. Records policy supplies country/role retention and historical-access rules. An aggregate query, if confirmed later, must return entity-bound results; ambiguous entity attribution is quarantined rather than distributed.
+Shared contracts explicitly identify the country and environment. The Spain adapter rules define AEAT representation, public invoice identity, copy classification, schema and recovery behaviour. Records rules define retention and historical access for each country and file role. If a future API can query several entities at once, every result must still identify the represented entity. Quarantine results whose entity cannot be established.
 
-Qualify reused implementations with a record of existing capability, Spain changes, missing controls, accountable owner and acceptance evidence. DTS is a candidate for derived-file transformation/validation only; its staging lifetime must not define invoice conservation. Physical storage, file streaming versus protected links, and cross-service commit protocols remain open decisions.
+Before using an existing implementation, record the source capability, Spain changes, missing controls, accountable owner and acceptance evidence. DTS is a candidate only for creating or validating derived files; its temporary storage lifetime does not determine invoice conservation. The physical storage service, file streaming versus protected download links, and the protocol for saving related records across services remain open.
 
 ## Part 4 Assurance and Traceability View
 
@@ -201,6 +230,8 @@ Qualify reused implementations with a record of existing capability, Spain chang
 | RSD-A12 | No multi-entity API and no ZIP feature exist: automated collection still retrieves multiple invoices with independent entity authority and progress. | R08 |
 | RSD-A13 | Another country uses the shared collector/store: Spain identity, UBL/copy rules and representation are selected only for Spain; missing country binding blocks activation. | R09 |
 | RSD-A14 | Object is missing or hash mismatch is detected during file read: no corrupted file is served; integrity incident and restore/reconciliation evidence are recorded. | R03/R07 |
+| RSD-A15 | For each reused collector, records, file-access or selected DTS capability, record the source build, Spain changes, gaps, owner and qualification evidence. Prove capture/checkpoint recovery, retained-file access and any selected inbound mapping for the actual Spain scope. Missing evidence blocks the dependent capability; France support or a proposed pattern does not prove Spain readiness. | R03–R07/R09; G06/G08 |
+| RSD-A16 | A qualified recovery operation may change provider state, and its response is lost after possible transmission: the original connector operation is held for reconciliation. No unsafe repeat, successful freshness claim or checkpoint advance occurs. A repeat requires authoritative evidence or the contract's proven repeat-safety guarantee. | R02–R04; G01/G06 |
 
 ### Open decisions and production gates
 
@@ -222,4 +253,4 @@ Track successful consultation age separately from the age of recovered files and
 
 Operations may request bounded retry, rescan or restore through audited workflows. They cannot edit a checkpoint directly, overwrite original bytes, bypass registered authority, or release an unsafe file through an ordinary product read. Escalation follows the owner named for the affected gate and record.
 
-**Readiness:** reviewable logical proposal with the final-order evidence incorporated. Physical adapter contracts, records policy, measurable conservation-access target and reuse evidence remain production gates. Intended future Confluence location is a child of **Public Platform - Invoice Consultation and Retrieval** (page `837610662`), with links from the UBL Download and inbound-receiving topics. Publication is authorised for this single draft pilot page. The other solution specs remain unpublished pending validation of this page.
+**Readiness:** reviewable logical proposal with the final-order evidence incorporated. Physical adapter contracts, records policy, measurable conservation-access target and reuse evidence remain production gates. The Confluence page is a child of **Public Platform - Invoice Consultation and Retrieval** (page `837610662`), with links from the UBL Download and inbound-receiving topics. Publication is authorised for the validated Spain solution-spec set. Publication keeps this design in draft status and does not approve implementation or activation.

@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-10-05
-updated: 2026-10-05
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-101
@@ -39,6 +39,8 @@ confluence:
 
 # E-Invoicing Process Flow Specification
 
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
+
 ## Purpose and review state
 
 This is a **solution-design working draft** for a consistent family of business and technical process flows. It translates existing PRD behaviour into reviewable actor handoffs, decisions, evidence and exception paths. The referenced PRDs remain authoritative for product requirements and country rules. The diagrams do not approve an architecture, network route, provider, legal interpretation or production release.
@@ -58,7 +60,7 @@ The outbound pilot established the visual convention through review. The remaini
 | Domain 5a | Recovery and reconciliation | Unknown outcomes, incidents and safe recovery |
 | Domain 5b | Route transition and offboarding | Prospective cutover and historical continuity |
 
-Country and network differences are overlays on these flows. A separate variant is warranted when the actual process differs, such as an independent tax-reporting leg, not merely because a country or provider has its own PRD.
+Country and network differences are overlays on these flows. A separate variant is warranted when the actual process differs, such as an independent tax-reporting action, not merely because a country or provider has its own PRD.
 
 ## Diagram index
 
@@ -101,13 +103,13 @@ Customer selects legal entity and capability
   → receives invoice intent
   → applies effective country policy and validation
   → plans and executes an eligible exchange
-  → uses the selected network/recipient and any required authority leg
+  → uses the selected network/recipient and any required authority reporting action
   → preserves raw outcomes and source evidence
   → derives a customer-safe view and next action
-  ↳ if an external outcome is uncertain: reconcile its original leg
+  ↳ if an external outcome is uncertain: reconcile its original action
 ```
 
-This is a **navigation diagram**, not a single synchronous transaction. Inbound receipt, buyer decisions and reporting can occur later and independently. Country policy selects which legs exist; a product cannot infer delivery or buyer approval from local intake. Sources: [shared service](PRD-SEI-227-e-invoicing-as-a-service.md), [identity and authority](PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md), [exchange](PRD-SEI-223-interoperability-routing-transformation.md), [lifecycle](PRD-SEI-224-lifecycle-rejection-payment-reporting.md).
+This is a **navigation diagram**, not a single synchronous transaction. Inbound receipt, buyer decisions and reporting can occur later and independently. Country policy selects which actions exist; a product cannot infer delivery or buyer approval from local intake. Sources: [shared service](PRD-SEI-227-e-invoicing-as-a-service.md), [identity and authority](PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md), [exchange](PRD-SEI-223-interoperability-routing-transformation.md), [lifecycle](PRD-SEI-224-lifecycle-rejection-payment-reporting.md).
 
 ## Domain 1: customer and service readiness
 
@@ -135,13 +137,13 @@ Batch intake repeats the per-client path and isolates each result; the diagram r
 
 **Business outcome:** An authorised issuer can submit an invoice once and see an explainable delivery result and any separate required reporting result. The product must not claim recipient delivery, buyer acceptance or reporting completion from an earlier technical acknowledgement.
 
-**Scope:** One logical outbound invoice. The pilot includes correction, no eligible route, separate external legs and an uncertain result. Batch orchestration, inbound processing, buyer rejection/payment and detailed provider protocol are separate flows.
+**Scope:** One logical outbound invoice. The pilot includes correction, no eligible route, separate external actions and an uncertain result. Batch orchestration, inbound processing, buyer rejection/payment and detailed provider protocol are separate flows.
 
 ![Outbound invoice exchange pilot flow](../assets/diagrams/e-invoicing-outbound-exchange-pilot.svg)
 
 **Editable source:** [Outbound invoice exchange Draw.io diagram](../assets/diagrams/e-invoicing-outbound-exchange-pilot.drawio). The SVG is a review preview; the `.drawio` file contains native editable nodes and connectors.
 
-**Presentation convention:** The pilot uses horizontal swimlanes, four phase bands and one left-to-right main path. The palette is black, white and grey. Shape carries meaning: an ellipse starts the journey; rounded rectangles are service tasks; a diamond is a route decision; documents hold rules or the frozen plan; cylinders hold route or outcome evidence; parallelograms are customer input/output; trapezoids are external exchange legs; a dashed hexagon is a hold or recovery action. Policy cards sit below the steps they inform without flow arrows. The two external obligations sit inside one subprocess with one incoming and one outgoing connection. Exception branches stop at a named action instead of looping across the page. The lanes identify responsibility rather than a physical deployment architecture.
+**Presentation convention:** The pilot uses horizontal swimlanes, four phase bands and one left-to-right main path. The palette is black, white and grey. Shape carries meaning: an ellipse starts the journey; rounded rectangles are service tasks; a diamond is a route decision; documents hold rules or the frozen plan; cylinders hold route or outcome evidence; parallelograms are customer input/output; trapezoids are external exchange actions; a dashed hexagon is a hold or recovery action. Policy cards sit below the steps they inform without flow arrows. The two external obligations sit inside one subprocess with one incoming and one outgoing connection. Exception branches stop at a named action instead of looping across the page. The lanes identify responsibility rather than a physical deployment architecture.
 
 Draw.io connector ports are fixed on the intended sides of each shape. Straight progression arrows have no label; only the three exception branches are labelled (`invalid`, `no route`, `unknown`).
 
@@ -156,13 +158,13 @@ Issuer / ERP submits invoice intent
       └─ policy evidence absent → hold with named action
   → Service resolves recipient address, capability and eligible route
       └─ no proven route → hold with named action
-  → Service freezes exchange plan: route, representation, trust and legs
+  → Service freezes exchange plan: route, representation, trust and actions
   → Service transforms, validates and signs/seals if approved policy requires it
   → Service persists a correlated send operation
-      ├─ recipient delivery leg → public, private or Peppol destination
-      └─ required copy/reporting leg → authority or public solution
-  → Service records raw result for each leg separately
-      └─ uncertain external mutation → reconcile original leg before retry
+      ├─ recipient delivery action → public, private or Peppol destination
+      └─ required copy/reporting action → authority or public solution
+  → Service records raw result for each action separately
+      └─ uncertain external mutation → reconcile original action before retry
   → Service derives separate technical, delivery, reporting and buyer views
   → ERP shows status, evidence freshness and next action
 ```
@@ -175,7 +177,7 @@ Issuer / ERP submits invoice intent
 | 3 | Country policy | Effective policy classifies the transaction and identifies document, delivery and reporting duties independently. Unknown applicability is held. |
 | 4 | Sage service → ERP | Versioned identity, syntax/profile and rule checks return actionable issues. Correction creates a new revision without rewriting prior evidence. |
 | 5 | Sage service and route policy | Recipient address, supported document/process, entry point, environment, connection and freshness are evaluated. An unsupported or ambiguous destination is not guessed. |
-| 6–7 | Sage service, governed by trust policy | The exchange plan freezes route, representation, trust rule, required legs and versioned evidence. Any transformation preserves required meaning and is validated before the applicable signature or seal. Signer, seal and transport credential remain distinct. |
+| 6–7 | Sage service, governed by trust policy | The exchange plan freezes route, representation, trust rule, required actions and versioned evidence. Any transformation preserves required meaning and is validated before the applicable signature or seal. Signer, seal and transport credential remain distinct. |
 | 8 | Sage service | An idempotent send operation and external correlation are recorded before a potentially mutating handoff. |
 | 9, with 9a/9b inside | External recipient and authority/public solution | One external subprocess contains recipient delivery and any required copy or reporting as distinct obligations, attempts and outcomes. The country pack determines whether 9b exists. |
 | 10–12 | Sage service → ERP | Raw observations are preserved; unknown outcomes reconcile; derived views expose evidence level and next action. Technical acknowledgement does not prove buyer approval. |
@@ -187,15 +189,15 @@ Issuer / ERP submits invoice intent
 | Applicability or policy evidence unavailable | Hold before external mutation and show an owner/action | Define the actual country policy and authoritative evidence per pack |
 | Input fails validation | Return issue and correction owner; new revision re-enters validation | Confirm product UX and the point at which draft preview becomes final validation |
 | Recipient route cannot be proven | Hold rather than invent a destination | Confirm country route authority, discovery freshness and fallback policy |
-| External legs differ | Track recipient and reporting/copy legs independently | Confirm each country obligation and whether the leg is simultaneous or sequenced |
-| One external mutation times out | Preserve known leg results; reconcile only the uncertain original leg | Confirm provider/public query, idempotency and manual escalation contracts |
+| External actions differ | Track recipient and reporting/copy submissions independently | Confirm each country obligation and whether the action is simultaneous or sequenced |
+| One external mutation times out | Preserve known action results; reconcile only the uncertain original action | Confirm provider/public query, idempotency and manual escalation contracts |
 | Status is shown to the customer | Show evidence level and source age; keep buyer-processing separate | Confirm the product vocabulary and source-event mapping |
 
 ### Pilot acceptance checks
 
 1. A reviewer can identify the business actor, Sage owner and external party at every mutating handoff.
 2. A validation failure or unproven route stops dispatch and gives a responsible next action.
-3. A recipient delivery success cannot mark a separate copy/reporting leg complete.
+3. A recipient delivery success cannot mark a separate copy/reporting action complete.
 4. A timeout after a possible external mutation enters reconciliation before any resend or route change.
 5. The diagram and text distinguish intake, network acknowledgement, recipient delivery and buyer decision.
 6. The Draw.io source opens with editable shapes and connectors; the SVG preview remains readable in GitHub Markdown.
@@ -256,7 +258,7 @@ The diagram represents one consultation or reconciliation run, not a fixed polli
 
 ```text
 Buyer, ERP or external platform produces an event
-  → Sage authenticates and correlates it to the original invoice/leg
+  → Sage authenticates and correlates it to the original invoice/action
   → preserves raw code, reason, source and times
   → maps meaning with the effective country/network rule version
   → creates any required counterparty or authority obligations
@@ -264,10 +266,10 @@ Buyer, ERP or external platform produces an event
   → derives technical, delivery, commercial, payment and reporting views
   → shows source, freshness and the next action to the product
   ↳ unmatched or conflicting event: retain and investigate
-  ↳ one reporting leg times out: reconcile that leg only
+  ↳ one reporting action times out: reconcile that action only
 ```
 
-External obligation outcomes re-enter as new observations and are correlated to the original leg; the diagram shows that loop through the event-start and tracking nodes without a long return connector. It does not collapse a transport acknowledgement into buyer approval or a payment report into settlement evidence. Later events on an older invoice follow its original route and policy context. Sources: [Spain rejection/payment](PRD-SEI-224-lifecycle-rejection-payment-reporting.md), [country status mapping](PRD-SEI-232-country-lifecycle-status-mapping.md), [Peppol feedback](PRD-SEI-242-peppol-lifecycle-feedback.md).
+External obligation outcomes re-enter as new observations and are correlated to the original action; the diagram shows that loop through the event-start and tracking nodes without a long return connector. It does not collapse a transport acknowledgement into buyer approval or a payment report into settlement evidence. Later events on an older invoice follow its original route and policy context. Sources: [Spain rejection/payment](PRD-SEI-224-lifecycle-rejection-payment-reporting.md), [country status mapping](PRD-SEI-232-country-lifecycle-status-mapping.md), [Peppol feedback](PRD-SEI-242-peppol-lifecycle-feedback.md).
 
 ## Domain 5a: recovery and reconciliation
 
@@ -277,7 +279,7 @@ External obligation outcomes re-enter as new observations and are correlated to 
 
 ```text
 Customer, telemetry or partner reports a failure or mismatch
-  → Sage opens a case for the affected entity, invoice and leg
+  → Sage opens a case for the affected entity, invoice and action
   → contains only unsafe new work in that scope
   → classifies the operation as read-safe, idempotent or reconcile-first
   → compares intended state with observed external evidence
@@ -288,7 +290,7 @@ Customer, telemetry or partner reports a failure or mismatch
   ↳ still unknown: keep the case open and escalate; do not blind-resend
 ```
 
-The recovery-action group is one subprocess: classify mutation safety, select one permitted action, then verify the actual outcome. Its original-operation evidence card anchors reconciliation to the affected route and leg. Completed legs remain completed. Recovery never silently switches an in-flight invoice to a new route. Sources: [private-platform resilience](PRD-SEI-203-private-platform-resilience-operations.md), [operations](PRD-SEI-225-operations-resilience-support-reconciliation.md), [shared failure model](PRD-SEI-227-e-invoicing-as-a-service.md).
+The recovery-action group is one subprocess: classify mutation safety, select one permitted action, then verify the actual outcome. Its original-operation evidence card anchors reconciliation to the affected route and action. Completed actions remain completed. Recovery never silently switches an in-flight invoice to a new route. Sources: [private-platform resilience](PRD-SEI-203-private-platform-resilience-operations.md), [operations](PRD-SEI-225-operations-resilience-support-reconciliation.md), [shared failure model](PRD-SEI-227-e-invoicing-as-a-service.md).
 
 ## Domain 5b: route transition and offboarding
 
@@ -321,14 +323,14 @@ Each rail now has a visible failure action: an unproven destination keeps the ol
 | Identity, actor authority, route readiness and invoice applicability are separate decisions | Main, readiness, outbound, inbound |
 | Connection or route changes apply prospectively; existing invoices retain origin context | Readiness, lifecycle, recovery, transition |
 | Recipient delivery, copy/reporting and buyer-processing outcomes have separate evidence | Main, outbound, lifecycle, recovery |
-| External outcome unknown triggers original-leg reconciliation before a mutating retry | All exchange, readiness, reporting and transition flows |
+| External outcome unknown triggers original-action reconciliation before a mutating retry | All exchange, readiness, reporting and transition flows |
 | Country packs decide effective scope, syntax/profile, directory, reporting and status meaning | Every flow; the shared shape does not approve a country-specific rule |
 
 | Country overlay | Process change that needs a later evidenced variant |
 |---|---|
 | Spain | Public baseline, optional private entry point, public bridge and faithful-copy duty; confirm exact technical sequence before a country diagram is delivery-ready |
-| Germany | Structured invoice and agreed delivery path; do not infer a universal network or central reporting leg |
-| Ireland | Phase-specific issue/receive readiness and separate buyer-delivery versus Revenue-reporting legs |
+| Germany | Structured invoice and agreed delivery path; do not infer a universal network or central reporting action |
+| Ireland | Phase-specific issue/receive readiness and separate buyer-delivery versus Revenue-reporting actions |
 | UK | Effective policy before Peppol activation; participant, AP and process readiness remain separate from buyer response |
 
 ## Evidence and maturity

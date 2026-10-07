@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-10-05
-updated: 2026-10-05
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-244
@@ -18,6 +18,8 @@ confluence:
 ---
 
 # Spain Invoice Preparation and Outbound Flow
+
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
 
 ## Revision overview
 
@@ -36,7 +38,7 @@ The original process-flow specification and its diagrams remain unchanged. PRD-S
 **Presentation:** Grey and white, horizontal responsibility lanes and four phase bands, following the existing outbound pilot. Shapes distinguish ERP input/output, service tasks, decisions, rule/plan documents, retained evidence, external parties and hold/recovery actions. Short exception branches identify correction or recovery; they do not imply automatic reissuance.
 
 
-The recipient branches are alternatives. The public-copy branch is a separate conditional obligation, not another recipient delivery. Observation arrows into the result step do not represent a synchronous join: each leg may produce an acknowledgement or later outcome independently. A known result remains visible while another leg is pending or uncertain.
+The recipient branches are alternatives. The public-copy branch is a separate conditional obligation, not another recipient delivery. Observation arrows into the result step do not represent a synchronous join: each action may produce an acknowledgement or later outcome independently. A known result remains visible while another action is pending or uncertain.
 
 ## Agreed business boundaries
 
@@ -49,9 +51,9 @@ The recipient branches are alternatives. The public-copy branch is a separate co
 | Issuance | ERP owns the issuance action and submits the final issued identity and exact revision. A successful draft check does not prove the final revision is valid. |
 | Recipient lookup | Check during preparation and confirm before dispatch. A successful lookup showing no private receipt entry point selects public-platform delivery automatically. |
 | Lookup failure | Failed, stale or ambiguous evidence does not establish absence of a destination. Recover or refresh before selecting the route. |
-| Public delivery versus copy | Public recipient delivery and a faithful public copy are distinct purposes. The exchange plan determines the required legs and tracks them independently. |
+| Public delivery versus copy | Public recipient delivery and a faithful public copy are distinct purposes. The exchange plan determines the required actions and tracks them independently. |
 | Completion | Draft validation, ERP issuance, dispatch, platform acknowledgement, recipient delivery and buyer acceptance remain distinct states. |
-| Recovery | Reconcile an uncertain external operation against its original route and leg before retry. Do not repeat a completed leg. |
+| Recovery | Reconcile an uncertain external operation against its original route and action before retry. Do not repeat a completed action. |
 
 ## Decisions still to validate
 
@@ -69,7 +71,7 @@ The recipient branches are alternatives. The public-copy branch is a separate co
 - Valid final data and an eligible private recipient route: deliver on that route and execute any independently required faithful-copy obligation.
 - Successful authoritative lookup finds no private receipt entry point: automatically plan recipient delivery through the Spain public platform.
 - Recipient lookup times out: recover lookup; do not select public fallback solely because of the timeout.
-- Recipient delivery succeeds but public-copy outcome is unknown: retain delivery success and reconcile the copy leg only.
+- Recipient delivery succeeds but public-copy outcome is unknown: retain delivery success and reconcile the copy submission only.
 - Public platform acknowledges submission: display the supported evidence level; do not infer recipient retrieval or buyer acceptance.
 
 ## Repository references

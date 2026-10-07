@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-09-22
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-210
@@ -37,11 +37,13 @@ confluence:
 
 # Exchange — Interoperability, Routing and Transformation
 
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
+
 ## Decision summary
 
 Phase 3 must exchange an invoice from a Sage customer to the recipient's authoritative entry point—Sage private platform, another private platform or the public solution—while preserving business meaning, authenticity/integrity evidence, immutable route context and the required public copy.
 
-Routing, transformation, signing and public-copy submission are related but distinct decisions. The platform should establish an immutable exchange plan before the first external mutation, then execute each required leg idempotently and reconcile ambiguous outcomes.
+Routing, transformation, signing and public-copy submission are related but distinct decisions. The platform should establish an immutable exchange plan before the first external mutation, then execute each required action idempotently and reconcile ambiguous outcomes.
 
 “Sage signing” must never be a generic exchange option. The plan must distinguish a customer/direct signature, an accountant or other authorised delegated signature, a Sage-operated remote-signing service acting for that identified principal/delegate, provider signing/sealing, a Sage operator seal, and Sage workload/transport authentication. PRD-SEI-226 owns the trust-material lifecycle; this PRD freezes and executes the approved purpose-specific choice for each representation.
 
@@ -106,7 +108,7 @@ Failure risks include:
 
 ### Objective
 
-Define a product-neutral exchange capability that plans, validates, transforms, signs/seals, submits, receives, acknowledges and reconciles every required exchange leg with stable identities, evidence and operational control.
+Define a product-neutral exchange capability that plans, validates, transforms, signs/seals, submits, receives, acknowledges and reconciles every required exchange action with stable identities, evidence and operational control.
 
 ## Scope and non-goals
 
@@ -137,7 +139,7 @@ Define a product-neutral exchange capability that plans, validates, transforms, 
 |---|---|---|
 | Business invoice identity | Stable identity of the commercial invoice across representations | One provider's transmission ID |
 | Representation | Versioned syntax/profile instance of the invoice | A new commercial invoice |
-| Exchange plan | Immutable decision record for required route, transformations, trust and public-copy legs | Current customer route configuration |
+| Exchange plan | Immutable decision record for required route, transformations, trust and public-copy submissions | Current customer route configuration |
 | Entry-point evidence | Authoritative observed information used to determine receipt destination | A cached preference without freshness/provenance |
 | Direct interconnection | Exchange between qualifying private platforms | A customer-specific ERP API |
 | Public bridge | Use of the public solution as the transport/interconnection route | The faithful copy alone |
@@ -166,10 +168,10 @@ Define a product-neutral exchange capability that plans, validates, transforms, 
   <style>
     .p3xchg-visual *{box-sizing:border-box}.p3xchg-visual h2{margin:0;color:#172b4d;font-size:18px}.p3xchg-visual .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.p3xchg-visual svg{display:block;width:1080px;height:520px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.p3xchg-visual .sage{fill:#e3fcef;stroke:#36b37e;stroke-width:1.5}.p3xchg-visual .decision{fill:#fff7d6;stroke:#ffab00;stroke-width:1.5}.p3xchg-visual .private{fill:#eae6ff;stroke:#6554c0;stroke-width:1.5}.p3xchg-visual .public{fill:#deebff;stroke:#4c9aff;stroke-width:1.5}.p3xchg-visual .error{fill:#ffebe6;stroke:#ff5630;stroke-width:1.5}.p3xchg-visual .title{fill:#172b4d;font-size:11px;font-weight:700}.p3xchg-visual .copy{fill:#42526e;font-size:9px}.p3xchg-visual .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.p3xchg-visual .path{fill:none;stroke:#00875a;stroke-width:2}.p3xchg-visual .private-path{fill:none;stroke:#6554c0;stroke-width:1.8}.p3xchg-visual .public-path{fill:none;stroke:#0052cc;stroke-width:1.8}.p3xchg-visual .retry{fill:none;stroke:#de350b;stroke-width:1.5;stroke-dasharray:6 4}.p3xchg-visual .arrow{fill:#00875a}.p3xchg-visual .arrow-p{fill:#6554c0}.p3xchg-visual .arrow-b{fill:#0052cc}.p3xchg-visual .arrow-r{fill:#de350b}.p3xchg-visual .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1080px;margin-top:12px}.p3xchg-visual .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px;line-height:1.4}.p3xchg-visual .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <h2>One exchange plan, multiple evidenced legs</h2>
+  <h2>One exchange plan, multiple evidenced actions</h2>
   <p class="sub">The recipient route and public-copy duty are planned once. Direct private delivery and public bridging remain traceable to the same invoice identity.</p>
   <svg viewBox="0 0 1080 520" role="img" aria-label="A Sage product creates invoice intent. The shared platform validates and establishes an immutable exchange plan, transforms to the agreed syntax before applying signature or seal, then routes either directly to another private platform, through the public solution as a bridge, or to a Sage recipient. A separate correlated faithful UBL copy is sent to the public solution where required. Ambiguous outcomes enter reconciliation rather than blind retry.">
-    <text x="34" y="34" class="label">PRODUCT INTENT</text><text x="235" y="34" class="label">SHARED EXCHANGE CORE</text><text x="710" y="34" class="label">NETWORK LEGS</text>
+    <text x="34" y="34" class="label">PRODUCT INTENT</text><text x="235" y="34" class="label">SHARED EXCHANGE CORE</text><text x="710" y="34" class="label">NETWORK ACTIONS</text>
     <rect x="34" y="82" width="166" height="84" rx="9" class="sage"/><text x="52" y="109" class="title">Invoice intent</text><text x="52" y="130" class="copy">Legal entity • recipient</text><text x="52" y="147" class="copy">canonical business data</text>
     <path d="M200 124 H232" class="path"/><polygon points="232,124 222,118 222,130" class="arrow"/>
     <rect x="234" y="72" width="184" height="104" rx="9" class="sage"/><text x="252" y="99" class="title">Validate and identify</text><text x="252" y="120" class="copy">Business rules • unique identity</text><text x="252" y="138" class="copy">route snapshot inputs</text><text x="252" y="156" class="copy">reject before mutation if invalid</text>
@@ -187,10 +189,10 @@ Define a product-neutral exchange capability that plans, validates, transforms, 
     <path d="M975 112 V278 H720 V328" class="private-path"/><polygon points="720,328 714,318 726,318" class="arrow-p"/>
     <path d="M975 260 V278" class="public-path"/>
     <path d="M975 352 V400 H720" class="public-path"/><polygon points="720,400 730,394 730,406" class="arrow-b"/>
-    <rect x="452" y="392" width="268" height="82" rx="9" class="error"/><text x="470" y="419" class="title">Outcome unknown / conflicting evidence</text><text x="470" y="440" class="copy">Freeze unsafe retry • reconcile each external leg</text><text x="470" y="458" class="copy">resume, quarantine or escalate with redacted evidence</text>
+    <rect x="452" y="392" width="268" height="82" rx="9" class="error"/><text x="470" y="419" class="title">Outcome unknown / conflicting evidence</text><text x="470" y="440" class="copy">Freeze unsafe retry • reconcile each external action</text><text x="470" y="458" class="copy">resume, quarantine or escalate with redacted evidence</text>
     <path d="M586 370 V384" class="retry"/><polygon points="586,384 580,374 592,374" class="arrow-r"/>
   </svg>
-  <div class="notes"><div class="note"><strong>Route and copy differ</strong>The recipient delivery leg and required public copy are independently evidenced.</div><div class="note"><strong>Transform before signing</strong>Every representation records mapping, validation and trust provenance.</div><div class="note"><strong>Reconcile by leg</strong>A successful private delivery does not imply that the public copy succeeded, or vice versa.</div></div>
+  <div class="notes"><div class="note"><strong>Route and copy differ</strong>The recipient delivery action and required public copy are independently evidenced.</div><div class="note"><strong>Transform before signing</strong>Every representation records mapping, validation and trust provenance.</div><div class="note"><strong>Reconcile by action</strong>A successful private delivery does not imply that the public copy succeeded, or vice versa.</div></div>
 </div>
 <!-- confluence-html-macro:end -->
 
@@ -203,7 +205,7 @@ Define a product-neutral exchange capability that plans, validates, transforms, 
 | Sage private-platform operator | Perform or govern external ingress/egress, transformation, trust and interconnection |
 | Sender/recipient platform | Exchange invoice and required statuses using agreed/required syntax |
 | Public solution | Public receipt route, bridge and repository/copy services according to regulation/specification |
-| Operations/support | Diagnose each exchange leg and perform only safe recovery |
+| Operations/support | Diagnose each exchange action and perform only safe recovery |
 | Security/compliance | Approve protocols, certificates, transformations, evidence and data controls |
 
 ## Business scenarios
@@ -211,7 +213,7 @@ Define a product-neutral exchange capability that plans, validates, transforms, 
 | ID | Scenario | Expected route/behaviour | Exception/continuity |
 |---|---|---|---|
 | S1 | Sage sender and Sage private recipient | Internal/operator exchange using the approved representation | Still produce required public copy and evidence |
-| S2 | Sage sender to another private platform with direct interconnection | Deliver through direct platform route in agreed syntax | Public copy remains a separate correlated leg |
+| S2 | Sage sender to another private platform with direct interconnection | Deliver through direct platform route in agreed syntax | Public copy remains a separate correlated action |
 | S3 | Direct interconnection not yet operational | Deposit/deliver through public solution bridging according to approved rules | Recipient platform must retrieve; history records bridge route |
 | S4 | Recipient has no public private entry point | Use public solution as default receipt route | Do not assume a private destination from stale data |
 | S5 | Input syntax differs from recipient syntax | Transform before applicable signature and validate semantic preservation | Quarantine on material loss/invalid mapping |
@@ -231,7 +233,7 @@ Define a product-neutral exchange capability that plans, validates, transforms, 
 | BR6 | Transformation is required between private platforms | Sender-side platform transforms before the invoice is signed for exchange | RD 238/2026 Article 7; legal/technical review required |
 | BR7 | Invoice is not emitted through the public solution | Send the required faithful UBL copy simultaneously as defined by the approved specification | RD 238/2026 Article 6; exact transaction semantics open |
 | BR8 | Direct interconnection is unavailable during setup | Use the public solution bridge according to the statutory process | RD 238/2026 Article 9 |
-| BR9 | One external leg succeeds and another is unknown | Preserve successful evidence and reconcile only the unknown leg | Proposed resilience rule |
+| BR9 | One external action succeeds and another is unknown | Preserve successful evidence and reconcile only the unknown action | Proposed resilience rule |
 | BR10 | Representation changes | Preserve business identity plus input/output syntax, mapping and trust provenance | Proposed audit rule |
 | BR11 | Private-platform invoice is signed under Article 7.3 | Use the approved direct or authorised-delegated signer model and preserve who is represented, who signs and who operates the service | RD 238/2026 Article 7.3; implementation profile open |
 | BR12 | Sage operates remote signing | Treat Sage as service operator/custodian while preserving the approved customer/delegate as signer; never substitute a workload certificate | PRD-SEI-226 |
@@ -266,8 +268,8 @@ Define a product-neutral exchange capability that plans, validates, transforms, 
 | Business invoice | Legal parties, invoice number/series/date, canonical content/version and internal identity |
 | Representation | Syntax/profile/version, payload hash, source, transform mapping, validation result and trust evidence |
 | Entry-point observation | Recipient, direction/scope, destination, source, observed time, validity/freshness and evidence |
-| Exchange plan | Immutable recipient route, legs, representation plan, trust actor, copy duty, rule versions and created time |
-| Exchange leg | Type (`PRIVATE_DIRECT`, `PUBLIC_BRIDGE`, `PUBLIC_COPY`, `INTERNAL`), destination, request/idempotency ID and state |
+| Exchange plan | Immutable recipient route, actions, representation plan, trust actor, copy duty, rule versions and created time |
+| Exchange action | Type (`PRIVATE_DIRECT`, `PUBLIC_BRIDGE`, `PUBLIC_COPY`, `INTERNAL`), destination, request/idempotency ID and state |
 | External evidence | Platform reference, acknowledgement, timestamp, protocol/certificate evidence and redacted diagnostic |
 | Reconciliation case | Intended/observed state, safe actions, owner, attempts, result and audit |
 | Format profile | Format, syntax version, profile/CIUS, extension set, direction, route, effective period and activation state |
@@ -275,7 +277,7 @@ Define a product-neutral exchange capability that plans, validates, transforms, 
 | Signature/seal profile | Route/format, trust mode (`DIRECT_SIGNATURE`, `DELEGATED_SIGNATURE`, `SAGE_MANAGED_SIGNATURE`, `PROVIDER_SIGNATURE_OR_SEAL`, `SAGE_OPERATOR_SEAL`), represented principal, actual signer/delegate or seal creator, service operator/custodian, authority reference, certificate purpose/version, signed object/container, algorithm/policy constraints, timestamp/status/validation/preservation rules and effective period |
 | Representation set | Original, canonical, delivery, public-copy and rendering artefacts correlated to one business invoice |
 
-### Proposed exchange-leg states
+### Proposed exchange-action states
 
 `PLANNED → VALIDATED → READY_TO_SEND → SUBMITTED → ACKNOWLEDGED → COMPLETED`
 
@@ -289,9 +291,9 @@ Transport acknowledgement and business lifecycle state remain separate.
 
 1. Product submits canonical invoice intent with legal entity and recipient.
 2. Sage validates business identity and resolves current authoritative entry-point evidence.
-3. An immutable exchange plan selects direct private delivery and required public-copy leg.
+3. An immutable exchange plan selects direct private delivery and required public-copy submission.
 4. Sage transforms to the agreed admitted syntax, validates semantics, resolves purpose-specific PRD-SEI-226 readiness and applies the approved direct/delegated/Sage-managed/provider signature or explicitly approved seal process to the final bytes.
-5. Direct delivery and public copy execute as separately correlated idempotent legs.
+5. Direct delivery and public copy execute as separately correlated idempotent actions.
 6. Evidence and lifecycle handoff are persisted before success is reported.
 
 ### J2 — Outbound through public bridge
@@ -300,7 +302,7 @@ Transport acknowledgement and business lifecycle state remain separate.
 2. Exchange plan identifies public bridge/recipient behaviour and UBL representation.
 3. Sage validates and submits once using a stable idempotency identity.
 4. The receiving platform/customer retrieves through the public route.
-5. Sage correlates transport and later lifecycle evidence without creating a duplicate copy leg.
+5. Sage correlates transport and later lifecycle evidence without creating a duplicate copy submission.
 
 ### J3 — Correct a transformation failure
 
@@ -313,7 +315,7 @@ Transport acknowledgement and business lifecycle state remain separate.
 ### J4 — Reconcile a partial/ambiguous outcome
 
 1. Direct private delivery is acknowledged, but public-copy submission times out.
-2. Sage records direct success and marks only the copy leg `OUTCOME_UNKNOWN`.
+2. Sage records direct success and marks only the copy submission `OUTCOME_UNKNOWN`.
 3. Reconciliation queries the public solution using stable correlation/identity.
 4. If present, copy succeeds; if absent and resubmission is safe, the same logical copy resumes.
 5. The private recipient delivery is never repeated because of copy uncertainty.
@@ -343,7 +345,7 @@ Transport acknowledgement and business lifecycle state remain separate.
 | FR1 | Resolve recipient route from approved authoritative evidence with source, freshness and scope. |
 | FR2 | Create an immutable exchange plan before any external mutation. |
 | FR3 | Record the exact route/rule version and effective observation used for the decision. |
-| FR4 | Support direct private, public bridge, public copy and internal Sage legs without merging their outcomes. |
+| FR4 | Support direct private, public bridge, public copy and internal Sage actions without merging their outcomes. |
 | FR5 | Refuse or quarantine exchange when no eligible, explainable route exists. |
 
 ### Identity, validation and transformation
@@ -361,11 +363,11 @@ Transport acknowledgement and business lifecycle state remain separate.
 
 | ID | Requirement |
 |---|---|
-| FR12 | Execute every mutating exchange leg with a stable logical idempotency/correlation identity. |
+| FR12 | Execute every mutating exchange action with a stable logical idempotency/correlation identity. |
 | FR13 | Generate and submit the faithful UBL public copy where required, marked and correlated as a copy. |
 | FR14 | Persist internal invoice/plan state before external mutation or provide a proven recovery mechanism for external-first success. |
-| FR15 | Treat each leg's acknowledgement, rejection and unknown outcome independently. |
-| FR16 | Never repeat a completed recipient-delivery leg solely because another leg is incomplete. |
+| FR15 | Treat each action's acknowledgement, rejection and unknown outcome independently. |
+| FR16 | Never repeat a completed recipient delivery action solely because another action is incomplete. |
 
 ### Inbound and interconnection
 
@@ -382,10 +384,10 @@ Transport acknowledgement and business lifecycle state remain separate.
 | ID | Requirement |
 |---|---|
 | FR22 | Classify operations as safe retry, idempotent resume, reconcile-first or manual-only. |
-| FR23 | Reconcile `OUTCOME_UNKNOWN` against the relevant external leg before retransmission. |
+| FR23 | Reconcile `OUTCOME_UNKNOWN` against the relevant external action before retransmission. |
 | FR24 | Quarantine invalid, untrusted, conflicting or unrouteable inbound content with redacted operational evidence. |
-| FR25 | Expose intended/observed state, correlation, representation, external reference, safe action and owner per leg. |
-| FR26 | Preserve a complete audit chain from product intent through every representation, route leg and outcome. |
+| FR25 | Expose intended/observed state, correlation, representation, external reference, safe action and owner per action. |
+| FR26 | Preserve a complete audit chain from product intent through every representation, route action and outcome. |
 
 ### Format portfolio and representation governance
 
@@ -446,7 +448,7 @@ Names and payloads are proposed boundaries, not approved endpoints.
 | Capability | Minimum contract behaviour |
 |---|---|
 | Submit invoice intent | Accept canonical identity/content plus legal entity; return stable request/invoice identity and asynchronous state |
-| Get exchange plan/outcome | Return route snapshot, representation/leg states and customer-safe failure information |
+| Get exchange plan/outcome | Return route snapshot, representation/action states and customer-safe failure information |
 | Receive invoice event | Notify product after durable canonical persistence with source network context |
 | Retrieve original/evidence | Authorised retrieval of original representation and redacted exchange evidence |
 | Correct/resubmit | Create a new attempt/representation without changing the original failed evidence |
@@ -463,7 +465,7 @@ Names and payloads are proposed boundaries, not approved endpoints.
 | NFR5 | Encrypt invoice content/evidence and minimise sensitive data in logs, metrics and support artefacts. |
 | NFR6 | Isolate tenant, operator, environment and certificate contexts. |
 | NFR7 | Version schemas, profiles, mappings and route rules with backward/rollout controls. |
-| NFR8 | Provide end-to-end correlation and immutable audit sufficient to reconstruct each exchange plan and leg. |
+| NFR8 | Provide end-to-end correlation and immutable audit sufficient to reconstruct each exchange plan and action. |
 | NFR9 | Make customer/product status accessible and distinguish transport, validation and business outcomes. |
 
 ## Failure and recovery matrix
@@ -480,8 +482,8 @@ Names and payloads are proposed boundaries, not approved endpoints.
 | Signing request times out after possible key use | Record outcome unknown and reconcile the immutable signing-operation reference before any retry |
 | Recipient validation rejection | Preserve rejection evidence; allow corrected new attempt according to business rules |
 | Throttle/transient outage before mutation | Backoff/resume safely according to contract |
-| Timeout after mutation | Mark only affected leg outcome unknown; reconcile first |
-| Internal persistence failure after external success | Recover via correlation and external evidence; prevent duplicate leg |
+| Timeout after mutation | Mark only affected action outcome unknown; reconcile first |
+| Internal persistence failure after external success | Recover via correlation and external evidence; prevent duplicate action |
 | Duplicate direct/public inbound | Merge to one business invoice; retain all delivery evidence |
 | Out-of-order status before invoice | Buffer/reconcile; never invent invoice state |
 | Direct interconnection unavailable | Apply approved public bridge without rewriting route history |
@@ -489,7 +491,7 @@ Names and payloads are proposed boundaries, not approved endpoints.
 
 ## Acceptance criteria
 
-- Given a recipient with an observed-ready private entry point and direct interconnection, when a valid invoice is submitted, then the exchange plan records direct delivery plus any required public-copy leg before transmission.
+- Given a recipient with an observed-ready private entry point and direct interconnection, when a valid invoice is submitted, then the exchange plan records direct delivery plus any required public-copy submission before transmission.
 - Given no published private entry point, when route resolution runs, then the public solution is selected and the decision source/time is auditable.
 - Given transformation from EDIFACT to UBL, when conformance runs, then required semantic content, business identity and provenance are preserved before signing.
 - Given direct delivery succeeds and the public copy is outcome-unknown, when reconciliation runs, then the copy is resolved independently and direct delivery is not repeated.
@@ -514,10 +516,10 @@ Names and payloads are proposed boundaries, not approved endpoints.
 
 | Measure | Purpose | Owner |
 |---|---|---|
-| Exchange success by route/leg/syntax | Reliability and coverage | Product/operations |
+| Exchange success by route/action/syntax | Reliability and coverage | Product/operations |
 | Transformation rejection and semantic-loss cases | Mapping quality | Engineering/local compliance |
 | Duplicate rate and dedupe conflicts | Identity quality | Engineering |
-| Outcome-unknown count/age by external leg | Reconciliation health | Operations |
+| Outcome-unknown count/age by external action | Reconciliation health | Operations |
 | Route-resolution failures/stale observations | Entry-point health | Platform operations |
 | Public-copy completeness/correlation | Regulatory evidence | Compliance/operations |
 | End-to-end and queue latency percentiles | Capacity/customer experience | Engineering/product |
@@ -538,10 +540,10 @@ Names and payloads are proposed boundaries, not approved endpoints.
 
 | Risk | Mitigation |
 |---|---|
-| One invoice becomes multiple business records | Stable identity, representation/leg model and cross-route dedupe |
+| One invoice becomes multiple business records | Stable identity, representation/action model and cross-route dedupe |
 | Transformation corrupts business meaning | Versioned mappings, semantic comparison and quarantine |
 | Signature applied at wrong point | Exchange-plan trust sequence and conformance tests |
-| Public copy and delivery become coupled retries | Independent leg state and reconciliation |
+| Public copy and delivery become coupled retries | Independent action state and reconciliation |
 | Generic “Sage certificate/signature” hides the legal actor | Purpose-specific modes, explicit represented principal/signer/seal creator and PRD-SEI-226 policy |
 | Certificate expiry breaks future exchange or historic proof | Dependency monitoring, runtime recheck, frozen trust versions and retained validation/preservation evidence |
 | Stale directory data misroutes invoices | Source/freshness evidence, refresh and no-guess rule |

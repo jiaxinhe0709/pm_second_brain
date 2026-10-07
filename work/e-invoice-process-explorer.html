@@ -997,7 +997,7 @@
 
           <div class="exp-map-section">
             <div class="exp-map-section-head">
-              <div class="exp-map-section-title"><i data-lucide="send" aria-hidden="true"></i><div><h4>Repeat for every invoice</h4><p>Validate the invoice, resolve the recipient and execute the applicable exchange legs.</p></div></div>
+              <div class="exp-map-section-title"><i data-lucide="send" aria-hidden="true"></i><div><h4>Repeat for every invoice</h4><p>Validate the invoice, resolve the recipient and execute the applicable exchange actions.</p></div></div>
               <span class="exp-map-label">INVOICE EXCHANGE</span>
             </div>
             <div class="exp-map-sequence">
@@ -1023,7 +1023,7 @@
                 </button>
                 <span class="exp-down"><i data-lucide="arrow-down" aria-hidden="true"></i></span>
                 <button class="exp-node" type="button" data-stage="deliver" data-kind="outcome" data-path="" aria-expanded="false" aria-controls="exp-deep-dive">
-                  <span class="exp-node-mark"><i data-lucide="copy-check" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Send faithful public copy when required</strong><span>Independent compliance leg</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+                  <span class="exp-node-mark"><i data-lucide="copy-check" aria-hidden="true"></i></span><span class="exp-node-copy"><strong>Send faithful public copy when required</strong><span>Independent compliance action</span></span><i data-lucide="chevron-down" aria-hidden="true"></i>
                 </button>
               </div>
               <div class="exp-branch is-public">
@@ -1122,11 +1122,11 @@
       const scenarios = {
         'public-first': {
           summary: 'The customer completes one business onboarding and starts on the public route. A later private provider is added as a new connection and route transition—not as another customer onboarding.',
-          context: 'Public-first: the public connection and routes are created first. When the public solution is the transport path, no duplicate public-copy leg is needed.'
+          context: 'Public-first: the public connection and routes are created first. When the public solution is the transport path, no duplicate public-copy submission is needed.'
         },
         'add-private': {
           summary: 'The existing Phase 1 customer keeps its identity, authority and public history. The supported private provider is connected, validated and published before it can become the route for future invoices.',
-          context: 'Public to private: reuse the existing customer profile, keep the current route live during validation, and add the faithful public-copy leg after private activation.'
+          context: 'Public to private: reuse the existing customer profile, keep the current route live during validation, and add the faithful public-copy submission after private activation.'
         },
         'private-first': {
           summary: 'The customer is onboarded once and chooses a supported private provider. Public compliance capability is provisioned behind the scenes; there is no separate public customer journey.',
@@ -1207,15 +1207,15 @@
         },
         deliver: {
           title: 'Deliver and report',
-          outcome: 'Execute the recipient delivery and any required public compliance leg as one traceable exchange plan.',
-          process: ['Freeze the exchange plan', 'Send the recipient delivery leg', 'Send the public copy when required', 'Correlate acknowledgements'],
-          customer: ['See the active sending platform', 'See the resolved recipient route', 'Send the invoice', 'Track each delivery leg'],
+          outcome: 'Execute the recipient delivery and any required public compliance action as one traceable exchange plan.',
+          process: ['Freeze the exchange plan', 'Send the recipient delivery action', 'Send the public copy when required', 'Correlate acknowledgements'],
+          customer: ['See the active sending platform', 'See the resolved recipient route', 'Send the invoice', 'Track each delivery action'],
           technical: ['Persist immutable exchange_plan', 'Execute delivery_leg and public_copy_leg', 'Create the faithful UBL copy', 'Use correlation IDs, retry and idempotency'],
-          controls: ['Public-copy rule reflects the transport route', 'One leg failure does not erase another', 'Retries cannot duplicate the invoice', 'Every acknowledgement retains evidence'],
+          controls: ['Public-copy rule reflects the transport route', 'One action failure does not erase another', 'Retries cannot duplicate the invoice', 'Every acknowledgement retains evidence'],
           notes: {
-            process: 'A private-origin invoice normally creates a recipient leg and a faithful public UBL copy; the copy is not duplicated when the public solution is itself the transport.',
+            process: 'A private-origin invoice normally creates a recipient delivery action and a faithful public UBL copy; the copy is not duplicated when the public solution is itself the transport.',
             customer: 'The send screen should separate “sending through”, “recipient route” and “public copy” so users do not confuse them.',
-            technical: 'Freeze routing, transformation and leg decisions before the first transmission; manage each leg with independent status.',
+            technical: 'Freeze routing, transformation and action decisions before the first transmission; manage each action with independent status.',
             controls: 'Partial success is a recoverable exchange state, not permission to resend the whole invoice blindly.'
           }
         },

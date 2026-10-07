@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2620 1100" role="img" aria-labelledby="t d">
 <title id="t">Outbound invoice exchange</title>
-<desc id="d">One left-to-right service path with short business and policy branches and a contained split to recipient delivery and a separate required copy or reporting leg.</desc>
+<desc id="d">One left-to-right service path with short business and policy branches and a contained split to recipient delivery and a separate required copy or reporting action.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#444"/></marker></defs>
 <rect width="2620" height="1100" fill="#fff"/>
 <text x="35" y="44" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#111">Outbound invoice exchange</text>
@@ -28,7 +28,7 @@
 <rect x="2010" y="96" width="580" height="28" rx="7" fill="#d0d0d0"/>
 <text x="2300.0" y="115" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#222">OUTCOME</text>
 <rect x="1710" y="810" width="310" height="225" rx="12" fill="#f8f8f8" stroke="#555" stroke-width="2"/>
-<text x="1865" y="838" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">09  External legs</text>
+<text x="1865" y="838" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">09  External actions</text>
 <path d="M435 256 V388" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
 <path d="M560 435 H590" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
 <path d="M840 435 H870" fill="none" stroke="#444" stroke-width="2.2" marker-end="url(#arrow)"/>
@@ -83,7 +83,7 @@
 <path d="M2050 401 V469 C2050 485 2300 485 2300 469 V401 Z" fill="#e0e0e0" stroke="#333333" stroke-width="2.2"/>
 <ellipse cx="2175.0" cy="401" rx="125.0" ry="13" fill="#e0e0e0" stroke="#333333" stroke-width="2.2"/>
 <text x="2175.0" y="439" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">10  Evidence ledger</text>
-<text x="2175.0" y="462" text-anchor="middle" font-family="Arial,sans-serif" font-size="11.5" fill="#333">Raw result for each independent leg</text>
+<text x="2175.0" y="462" text-anchor="middle" font-family="Arial,sans-serif" font-size="11.5" fill="#333">Raw result for each independent action</text>
 <rect x="2330" y="388" width="250" height="94" rx="9" fill="#e8e8e8" stroke="#333333" stroke-width="2.2"/>
 <text x="2455.0" y="421" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">11  Derive lifecycle view</text>
 <text x="2455.0" y="445" text-anchor="middle" font-family="Arial,sans-serif" font-size="11.5" fill="#333">Technical, delivery, report, buyer</text>
@@ -106,7 +106,7 @@
 <text x="1275.0" y="698" text-anchor="middle" font-family="Arial,sans-serif" font-size="11.5" fill="#333">versions</text>
 <polygon points="2074,625 2276,625 2300,672.5 2276,720 2074,720 2050,672.5" fill="#f4f4f4" stroke="#222222" stroke-width="2.2" stroke-dasharray="6 4"/>
 <text x="2175.0" y="658" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Outcome unknown?</text>
-<text x="2175.0" y="682" text-anchor="middle" font-family="Arial,sans-serif" font-size="11.5" fill="#333">Reconcile original leg before</text>
+<text x="2175.0" y="682" text-anchor="middle" font-family="Arial,sans-serif" font-size="11.5" fill="#333">Reconcile original action before</text>
 <text x="2175.0" y="698" text-anchor="middle" font-family="Arial,sans-serif" font-size="11.5" fill="#333">any retry</text>
 <polygon points="1752,858 1978,858 2000,922 1730,922" fill="#ffffff" stroke="#555555" stroke-width="2.2" stroke-dasharray="6 4"/>
 <text x="1865.0" y="891" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Recipient delivery</text>
@@ -114,5 +114,5 @@
 <polygon points="1752,948 1978,948 2000,1012 1730,1012" fill="#ffffff" stroke="#555555" stroke-width="2.2" stroke-dasharray="6 4"/>
 <text x="1865.0" y="981" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Required copy / report</text>
 <text x="1865.0" y="1005" text-anchor="middle" font-family="Arial,sans-serif" font-size="11.5" fill="#333">Separate country-policy duty</text>
-<text x="35" y="1080" font-family="Arial,sans-serif" font-size="13" fill="#444">Shapes: ellipse = start, diamond = decision, document = plan/rule, cylinder = evidence. One external subprocess contains two independently tracked legs.</text>
+<text x="35" y="1080" font-family="Arial,sans-serif" font-size="13" fill="#444">Shapes: ellipse = start, diamond = decision, document = plan/rule, cylinder = evidence. One external subprocess contains two independently tracked actions.</text>
 </svg>

@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-10-02
-updated: 2026-10-05
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-227
@@ -26,6 +26,8 @@ confluence:
 ---
 
 # E-Invoicing — Peppol Lifecycle Feedback
+
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
 
 ## Decision summary
 
@@ -70,7 +72,7 @@ This PRD does not specify UBL validation rules, SMP route selection, AP certific
 | Invoice Response, if used | Buyer-to-seller business feedback about processing of a particular invoice | Network delivery or legal settlement by itself |
 | Country/authority event | Separate obligation and outcome under a country pack | Peppol buyer response or network delivery |
 
-**Code namespaces matter.** MLS `AP` describes confirmed delivery towards C4 under the MLS specification. Invoice Response `AP` describes buyer approval in the Invoice Response process. MLS `AB` describes forwarding without confirmation of delivery. A response code is meaningful only with source, message type, profile/version, producer and invoice/leg correlation.
+**Code namespaces matter.** MLS `AP` describes confirmed delivery towards C4 under the MLS specification. Invoice Response `AP` describes buyer approval in the Invoice Response process. MLS `AB` describes forwarding without confirmation of delivery. A response code is meaningful only with source, message type, profile/version, producer and invoice/action correlation.
 
 ### Peppol feedback code list
 
@@ -169,7 +171,7 @@ This is a **conceptual product contract**, not an approved event schema or endpo
 | What happened in transport? | No evidence, hop acknowledged, hop failed, unknown | AP/protocol observation |
 | What happened towards recipient C4? | No evidence, rejected/failed, forwarded without confirmation, delivered with confirmation, unknown | Qualified MLS/other approved delivery evidence |
 | What did buyer decide? | Not expected, awaiting, in process/query, rejected, approved, paid-reported, unknown | Qualified Invoice Response or other approved buyer source |
-| What does country reporting show? | Not applicable, pending, accepted, rejected, unknown | Separate country-pack reporting leg |
+| What does country reporting show? | Not applicable, pending, accepted, rejected, unknown | Separate country-pack reporting action |
 
 These are **proposed view meanings**, not a universal Peppol state machine. The service must retain actual external vocabulary, effective mapping version and evidence for each derived answer. A buyer's `PD` response indicates the buyer has reported payment initiation under its process; it is not independent bank settlement evidence.
 
@@ -178,7 +180,7 @@ These are **proposed view meanings**, not a universal Peppol state machine. The 
 | Object | Minimum information |
 |---|---|
 | Send context | Tenant/legal entity, invoice and revision identity, product, participant/process/document IDs, original provider/route, exact sent representation reference/hash, message/operation IDs |
-| Raw observation | Source namespace, message type/profile/version, producer, raw code/reason and payload reference, occurred/observed times, authentication, original message/leg correlation |
+| Raw observation | Source namespace, message type/profile/version, producer, raw code/reason and payload reference, occurred/observed times, authentication, original message/action correlation |
 | Mapping result | Effective mapping version, independent dimension effects, confidence, customer-safe meaning, next action and unresolved/conflict flag |
 | Current view | Each dimension, source/evidence age, response expectation, latest relevant event IDs and reconciliation state |
 | History | Append-only observed events, superseding/resolution events, original versions and authorised audit access |

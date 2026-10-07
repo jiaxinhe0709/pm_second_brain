@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-210
@@ -29,6 +29,8 @@ confluence:
 
 # Operations — Resilience, Support and Reconciliation
 
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
+
 ## Decision summary
 
 Phase 3 requires an operator-grade service model that can detect degradation, protect invoices, reconcile ambiguous external outcomes, coordinate Sage and partner recovery, and communicate customer impact across public, private and historical routes.
@@ -49,12 +51,12 @@ The operating model must be designed around safe outcomes rather than generic re
 
 ### Problem
 
-Private-platform operation spans Sage products, shared services, an operator edge, the public solution, counterparties and potentially an underlying partner. A failure may occur before a mutation, after an external success, during internal persistence, or after one of several required delivery legs completes. Customers see one Sage proposition, but support must identify the actual fault and safe action.
+Private-platform operation spans Sage products, shared services, an operator edge, the public solution, counterparties and potentially an underlying partner. A failure may occur before a mutation, after an external success, during internal persistence, or after one of several required delivery actions completes. Customers see one Sage proposition, but support must identify the actual fault and safe action.
 
 Without a shared operating model:
 
 - blind retries may duplicate invoices, registrations or lifecycle reports;
-- a successful private delivery may be repeated because its public-copy leg failed;
+- a successful private delivery may be repeated because its public-copy submission failed;
 - backlog may conceal statutory or commercial deadline exposure;
 - support may tell a customer “failed” while the external platform accepted the mutation;
 - Sage and a partner may each wait for the other to lead an incident;
@@ -117,7 +119,7 @@ Provide one operational control plane and service model for health, cases, recon
     <rect x="34" y="177" width="190" height="74" rx="9" class="external"/><text x="52" y="204" class="title">Queues and deadlines</text><text x="52" y="225" class="copy">Backlog • age • capacity • expiry</text>
     <rect x="34" y="286" width="190" height="74" rx="9" class="external"/><text x="52" y="313" class="title">Customer/support signals</text><text x="52" y="334" class="copy">Cases • complaints • route mismatch</text>
     <path d="M224 105 H260 V203" class="path"/><path d="M224 214 H260" class="path"/><path d="M224 323 H260 V225" class="path"/><polygon points="260,214 250,208 250,220" class="arrow"/>
-    <rect x="262" y="151" width="188" height="126" rx="9" class="main"/><text x="280" y="178" class="title">Detect and contain</text><text x="280" y="199" class="copy">Identify affected route/leg/scope</text><text x="280" y="217" class="copy">Protect queues and historical work</text><text x="280" y="235" class="copy">Stop only unsafe new mutations</text><text x="280" y="253" class="copy">create correlated case</text>
+    <rect x="262" y="151" width="188" height="126" rx="9" class="main"/><text x="280" y="178" class="title">Detect and contain</text><text x="280" y="199" class="copy">Identify affected route/action/scope</text><text x="280" y="217" class="copy">Protect queues and historical work</text><text x="280" y="235" class="copy">Stop only unsafe new mutations</text><text x="280" y="253" class="copy">create correlated case</text>
     <path d="M450 214 H486" class="path"/><polygon points="486,214 476,208 476,220" class="arrow"/>
     <rect x="488" y="141" width="216" height="146" rx="9" class="gate"/><text x="506" y="168" class="title">Classify safety and truth</text><text x="506" y="190" class="copy">Safe retry • idempotent resume</text><text x="506" y="208" class="copy">reconcile-first • manual-only</text><text x="506" y="230" class="copy">Compare intended vs observed</text><text x="506" y="248" class="copy">assign fault domain and owner</text><text x="506" y="266" class="copy">assess deadline/customer exposure</text>
     <path d="M704 180 H750" class="path"/><polygon points="750,180 740,174 740,186" class="arrow"/>
@@ -150,8 +152,8 @@ Provide one operational control plane and service model for health, cases, recon
 | ID | Trigger | Expected operational outcome | Continuity rule |
 |---|---|---|---|
 | S1 | Provider unavailable before submission | Queue/back off according to safety and capacity policy | No duplicate; customer sees delayed state |
-| S2 | Timeout after invoice/public-copy mutation | Mark only affected leg outcome unknown and reconcile | Completed legs are not repeated |
-| S3 | Internal persistence fails after external success | Recover from correlation and external evidence | Do not create a second invoice/leg |
+| S2 | Timeout after invoice/public-copy mutation | Mark only affected action outcome unknown and reconcile | Completed actions are not repeated |
+| S3 | Internal persistence fails after external success | Recover from correlation and external evidence | Do not create a second invoice/action |
 | S4 | Entry-point intent differs from observed state | Block activation/new unsafe routing and open reconciliation case | Last known safe route remains |
 | S5 | Lifecycle backlog approaches reporting deadline | Prioritise by approved deadline/risk policy and escalate capacity | Source events/history remain durable |
 | S6 | Counterparty/public outage affects one route | Degrade that route/scope, preserve unaffected routes | Historical and reconciliation work continues |
@@ -164,7 +166,7 @@ Provide one operational control plane and service model for health, cases, recon
 | ID | Condition | Rule | Evidence/status |
 |---|---|---|---|
 | BR1 | An external mutation times out after transmission | Treat as outcome unknown; reconcile before repeating | Confirmed shared resilience principle |
-| BR2 | Multiple delivery/reporting legs exist | Track and recover each leg independently | PRD-SEI-223/224 |
+| BR2 | Multiple delivery/reporting actions exist | Track and recover each action independently | PRD-SEI-223/224 |
 | BR3 | Control/route is degraded | Stop only affected unsafe new activity; retain safe read, history and reconciliation where possible | Proposed safety rule |
 | BR4 | Manual recovery is proposed | Require authorised runbook action, safety precondition, correlation, reason and audit | Proposed control |
 | BR5 | Sage presents the proposition | Sage owns coherent customer communication even when a partner restores the service | ADR-SEI-001 accountability principle |
@@ -225,7 +227,7 @@ Branches: `WAITING_EXTERNAL`, `MANUAL_APPROVAL`, `SUSPENDED`, `KNOWN_LIMITATION`
 ### J1 — Detect and triage degradation
 
 1. Health, backlog, discrepancy, deadline or support signal triggers a correlated alert.
-2. Platform identifies affected operator, route, direction, leg, cohort and customer outcomes.
+2. Platform identifies affected operator, route, direction, action, cohort and customer outcomes.
 3. Unsafe new mutations are contained at the narrowest reliable scope.
 4. A case is created with intended/observed state, evidence freshness and preliminary fault domain.
 5. The case receives an accountable Sage owner and any partner escalation.
@@ -233,18 +235,18 @@ Branches: `WAITING_EXTERNAL`, `MANUAL_APPROVAL`, `SUSPENDED`, `KNOWN_LIMITATION`
 ### J2 — Reconcile an outcome-unknown mutation
 
 1. A mutating operation times out after transmission.
-2. The operation/leg becomes `OUTCOME_UNKNOWN`; duplicates are prevented.
+2. The operation/action becomes `OUTCOME_UNKNOWN`; duplicates are prevented.
 3. Reconciliation queries or obtains external evidence using stable correlation.
 4. If success is confirmed, Sage persists/repairs internal state; if absent and safe, the same logical mutation resumes.
 5. Unresolved/high-risk cases require authorised manual handling and customer-safe messaging.
 
-### J3 — Recover a partial multi-leg failure
+### J3 — Recover when only some exchange actions fail
 
 1. Recipient delivery succeeds while public-copy or lifecycle reporting fails.
-2. Completed leg evidence is frozen and excluded from retry.
-3. Failed/unknown leg is handled according to its safety class and deadline.
+2. Completed action evidence is frozen and excluded from retry.
+3. Failed/unknown action is handled according to its safety class and deadline.
 4. Derived customer state shows partial progress without claiming end-to-end completion.
-5. Case closes only after every required leg is complete, terminally resolved or explicitly accepted as a known exception.
+5. Case closes only after every required action is complete, terminally resolved or explicitly accepted as a known exception.
 
 ### J4 — Coordinate a partner incident
 
@@ -276,7 +278,7 @@ Branches: `WAITING_EXTERNAL`, `MANUAL_APPROVAL`, `SUSPENDED`, `KNOWN_LIMITATION`
 
 | ID | Requirement |
 |---|---|
-| FR1 | Correlate health and operations across legal entity, invoice, route, connection, exchange leg, lifecycle obligation, external reference and environment. |
+| FR1 | Correlate health and operations across legal entity, invoice, route, connection, exchange action, lifecycle obligation, external reference and environment. |
 | FR2 | Expose intended and observed state with evidence source, timestamp and freshness. |
 | FR3 | Monitor availability, errors, latency, queues, age, capacity, deadlines, control expiry and reconciliation outcomes by route/operator. |
 | FR4 | Distinguish customer, Sage, partner, public, counterparty, trust/network and unknown fault domains. |
@@ -290,7 +292,7 @@ Branches: `WAITING_EXTERNAL`, `MANUAL_APPROVAL`, `SUSPENDED`, `KNOWN_LIMITATION`
 | FR7 | Assign every case one accountable Sage owner, responsible technical/partner owners and escalation state. |
 | FR8 | Store operation safety class and permitted actions before automated/manual recovery. |
 | FR9 | Reconcile every outcome-unknown mutation before unsafe retransmission. |
-| FR10 | Recover each multi-leg operation independently without repeating completed legs. |
+| FR10 | Recover each failed or uncertain exchange action independently without repeating completed actions. |
 | FR11 | Prevent concurrent recovery actions from producing conflicting route/invoice/lifecycle state. |
 | FR12 | Permit manual action only through approved role, runbook, precondition, reason, correlation and audit. |
 | FR13 | Validate external/customer outcome and backlog before resolving/closing a case. |
@@ -350,7 +352,7 @@ Branches: `WAITING_EXTERNAL`, `MANUAL_APPROVAL`, `SUSPENDED`, `KNOWN_LIMITATION`
 ## Acceptance criteria
 
 - Given a timeout after a private invoice submission, when operations reviews the case, then intended/observed state, safety class, correlation, affected customer and safe next action are visible before retry.
-- Given private delivery succeeds and public-copy reporting fails, when recovery runs, then the completed private leg is not repeated.
+- Given private delivery succeeds and public-copy reporting fails, when recovery runs, then the completed private action is not repeated.
 - Given an outage affects one operator route, when degradation is activated, then unaffected routes and required historical lifecycle remain available where safe.
 - Given a partner-led incident, when customer impact occurs, then one Sage incident owner coordinates evidence, customer communication and recovery validation.
 - Given a manual reconcile/replay action, when it is invoked, then permission, runbook, precondition, reason, correlation and result are auditable.
