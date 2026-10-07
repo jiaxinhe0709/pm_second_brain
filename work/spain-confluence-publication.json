@@ -1,0 +1,356 @@
+{
+  "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+  "pages": [
+    {
+      "id": "SPEC-SEI-001",
+      "file": "specs/SPEC-SEI-001-certificate-management-solution-specification.md",
+      "title": "Certificate Management Solution Specification",
+      "page_id": "923861389",
+      "parent_page_id": "837610651",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861389",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 3,
+      "verified_attachments": [
+        "certificate-protected-use-process",
+        "certificate-protected-use-process.png",
+        "certificate-renewal-recovery-process",
+        "certificate-renewal-recovery-process.png",
+        "certificate-setup-onboarding-process",
+        "certificate-setup-onboarding-process.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 1
+    },
+    {
+      "id": "SPEC-SEI-002",
+      "file": "specs/SPEC-SEI-002-onboarding-solution-specification.md",
+      "title": "Customer Onboarding Solution Specification",
+      "page_id": "923861390",
+      "parent_page_id": "837610648",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861390",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 2,
+      "verified_attachments": [
+        "onboarding-private-route-process",
+        "onboarding-private-route-process.png",
+        "onboarding-public-readiness-process",
+        "onboarding-public-readiness-process.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 4
+    },
+    {
+      "id": "SPEC-SEI-003",
+      "file": "specs/SPEC-SEI-003-offboarding-solution-specification.md",
+      "title": "Customer Offboarding Solution Specification",
+      "page_id": "923861391",
+      "parent_page_id": "918651071",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861391",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 2,
+      "verified_attachments": [
+        "offboarding-planned-exit-process",
+        "offboarding-planned-exit-process.png",
+        "offboarding-recovery-process",
+        "offboarding-recovery-process.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 2
+    },
+    {
+      "id": "SPEC-SEI-004",
+      "file": "specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md",
+      "title": "Onboarding Failure and Reconciliation Solution Specification",
+      "page_id": "923861392",
+      "parent_page_id": "848078012",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861392",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 2,
+      "verified_attachments": [
+        "onboarding-failure-classification-process",
+        "onboarding-failure-classification-process.png",
+        "onboarding-uncertain-outcome-process",
+        "onboarding-uncertain-outcome-process.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 1
+    },
+    {
+      "id": "SPEC-SEI-005",
+      "file": "specs/SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md",
+      "title": "UBL Validation and Correction Solution Specification",
+      "page_id": "923861393",
+      "parent_page_id": "918651070",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861393",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 2,
+      "verified_attachments": [
+        "ubl-final-validation-process",
+        "ubl-final-validation-process.png",
+        "ubl-preflight-correction-process",
+        "ubl-preflight-correction-process.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 2
+    },
+    {
+      "id": "SPEC-SEI-006",
+      "file": "specs/SPEC-SEI-006-invoice-receiving-solution.md",
+      "title": "Invoice receiving solution",
+      "page_id": "923861394",
+      "parent_page_id": "918651328",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861394",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 2,
+      "verified_attachments": [
+        "e-invoicing-public-consultation-reconciliation",
+        "e-invoicing-public-consultation-reconciliation.png",
+        "receiving-intake-and-delivery-process",
+        "receiving-intake-and-delivery-process.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 6
+    },
+    {
+      "id": "SPEC-SEI-007",
+      "file": "specs/SPEC-SEI-007-invoice-sending-solution.md",
+      "title": "Invoice sending solution",
+      "page_id": "923861395",
+      "parent_page_id": "837610656",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861395",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 2,
+      "verified_attachments": [
+        "e-invoicing-outbound-exchange-pilot",
+        "e-invoicing-outbound-exchange-pilot.png",
+        "spain-invoice-preparation-and-outbound-flow",
+        "spain-invoice-preparation-and-outbound-flow.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 5
+    },
+    {
+      "id": "SPEC-SEI-008",
+      "file": "specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md",
+      "title": "Spain UBL Mapper Migration to DTS Solution Specification",
+      "page_id": "923861396",
+      "parent_page_id": "899154457",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861396",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 2,
+      "verified_attachments": [
+        "spain-ubl-dts-generation-process",
+        "spain-ubl-dts-generation-process.png",
+        "spain-ubl-dts-migration-process",
+        "spain-ubl-dts-migration-process.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 2
+    },
+    {
+      "id": "SPEC-SEI-009",
+      "file": "specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md",
+      "title": "Invoice Lifecycle Status Solution Specification",
+      "page_id": "923861398",
+      "parent_page_id": "837610664",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861398",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 2,
+      "verified_attachments": [
+        "lifecycle-event-derivation-process",
+        "lifecycle-event-derivation-process.png",
+        "lifecycle-reporting-reconciliation-process",
+        "lifecycle-reporting-reconciliation-process.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 3
+    },
+    {
+      "id": "SPEC-SEI-010",
+      "file": "specs/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md",
+      "title": "Consult and download UBL from public platform for einvoices received",
+      "page_id": "912540298",
+      "parent_page_id": "837610662",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=912540298",
+      "state": "published; storage, parent and attachments verified",
+      "version": 3,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 1,
+      "verified_attachments": [
+        "e-invoicing-public-consultation-reconciliation",
+        "e-invoicing-public-consultation-reconciliation.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 2
+    },
+    {
+      "id": "SPEC-SEI-011",
+      "file": "specs/SPEC-SEI-011-public-platform-connector-solution-specification.md",
+      "title": "Public Platform Connector Solution Specification",
+      "page_id": "923861399",
+      "parent_page_id": "902988120",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861399",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 1,
+      "verified_attachments": [
+        "public-platform-connector-process",
+        "public-platform-connector-process.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 7
+    },
+    {
+      "id": "SPEC-SEI-012",
+      "file": "specs/SPEC-SEI-012-consult-public-platform-for-recipient-information.md",
+      "title": "Consult public platform for recipient information",
+      "page_id": "923861400",
+      "parent_page_id": "866148656",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861400",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 1,
+      "verified_attachments": [
+        "public-platform-recipient-lookup-process",
+        "public-platform-recipient-lookup-process.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 2
+    },
+    {
+      "id": "SPEC-SEI-013",
+      "file": "specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md",
+      "title": "Provider API through the E-Invoicing Global API Solution Specification",
+      "page_id": "923861402",
+      "parent_page_id": "899154047",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861402",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "diagram_count": 2,
+      "verified_attachments": [
+        "global-api-access-and-route-process",
+        "global-api-access-and-route-process.png",
+        "global-api-exchange-and-reconciliation-process",
+        "global-api-exchange-and-reconciliation-process.png"
+      ],
+      "native_macros": [
+        "toc",
+        "drawio",
+        "change-history",
+        "anchor"
+      ],
+      "server_view_available": true,
+      "sibling_links": 6
+    }
+  ],
+  "verification": {
+    "date": "2026-10-07",
+    "page_count": 13,
+    "new_pages": 12,
+    "existing_page_updated": "912540298",
+    "diagram_placements": 24,
+    "checks": [
+      "Saved storage matches generated content",
+      "Owning parent and page title match",
+      "Editable Draw.io source and PNG attachments present",
+      "Native contents, change history and anchors present",
+      "Reader-guide anchors resolve in server-rendered markup",
+      "Server-rendered markup reports no macro errors"
+    ],
+    "lifecycle_status": "draft",
+    "implementation_approval": false
+  }
+}
