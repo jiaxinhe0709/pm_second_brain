@@ -9,7 +9,7 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / 'assets/diagrams/spain-end-to-end-responsibility-overview'
-LANES = ['Customer / accountant', 'ERP / product', 'Domain Service', 'Shared services / Operations', 'Public / private platforms']
+LANES = ['Customer / accountant', 'ERP / product', 'Domain Service - E-Invoice Service', 'Domain Service - Other Services', 'Public / private platforms']
 NODES = []
 EDGES = []
 PHASES = []
@@ -23,7 +23,9 @@ else:
 assert host == 'github.com'
 repo = repo.removesuffix('.git')
 branch = subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip()
-remote_paths = set(subprocess.check_output(['git','ls-tree','-r','--name-only',f'origin/{branch}','specs'],cwd=ROOT,text=True).splitlines())
+published_ref = subprocess.check_output(['git','symbolic-ref','refs/remotes/origin/HEAD'],cwd=ROOT,text=True).strip()
+remote_paths = set(subprocess.check_output(['git','ls-tree','-r','--name-only',published_ref,'specs'],cwd=ROOT,text=True).splitlines())
+published_revision = subprocess.check_output(['git','rev-parse',published_ref],cwd=ROOT,text=True).strip()
 
 def phase(title, note, rows):
     global ROW
@@ -39,7 +41,7 @@ def node(id, lane, row, title, spec, note=''):
     published_path = canonical_path if canonical_path in remote_paths else published_paths[0]
     NODES.append(dict(id=id, lane=lane, row=row, title=title, spec=f'SPEC-SEI-{spec:03}',
                       path=str(p), relative='../../' + canonical_path, note=note,
-                      url=f'https://github.com/{repo}/blob/{quote(branch,safe="/")}/{published_path}'))
+                      url=f'https://github.com/{repo}/blob/{published_revision}/{published_path}'))
 
 def edge(source, target, kind='flow', label=''):
     EDGES.append(dict(source=source, target=target, kind=kind, label=label))
