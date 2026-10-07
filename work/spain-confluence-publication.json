@@ -1,5 +1,5 @@
 {
-  "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+  "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
   "pages": [
     {
       "id": "SPEC-SEI-001",
@@ -9,8 +9,8 @@
       "parent_page_id": "837610651",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861389",
       "state": "published; storage, parent and attachments verified",
-      "version": 2,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 3,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 3,
       "verified_attachments": [
         "certificate-protected-use-process",
@@ -27,7 +27,15 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 1
+      "sibling_links": 1,
+      "attachment_sha256": {
+        "certificate-setup-onboarding-process": "1ba1104fbb8a13a9dc3f0eb632a008d9588924c0eab32d2d3dd177474882e4c7",
+        "certificate-setup-onboarding-process.png": "45a1199ac1dbf190edf5dcf68f52c713d7fe8f5e9c1a19f40c9cc1d6819e1749",
+        "certificate-protected-use-process": "2aeb749545cb261cb1102e7a576f8a9a2fa2cebf9a1f6a0e65ea08c0046331d3",
+        "certificate-protected-use-process.png": "a45f9aae7a536467c2d1d8a6d2351eebadf397bec40940cee843dbec6cb7d717",
+        "certificate-renewal-recovery-process": "2ddeaef68126d3d5ab434f0c61b23589b8b0e867d9262eaf889cfd4e0c6a7804",
+        "certificate-renewal-recovery-process.png": "a85e7dbea37f4e44f1577b5fcdd1eb3c18c8b8c9879324cbab3672dfc660cac1"
+      }
     },
     {
       "id": "SPEC-SEI-002",
@@ -37,8 +45,8 @@
       "parent_page_id": "837610648",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861390",
       "state": "published; storage, parent and attachments verified",
-      "version": 2,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 3,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 2,
       "verified_attachments": [
         "onboarding-private-route-process",
@@ -53,7 +61,13 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 4
+      "sibling_links": 4,
+      "attachment_sha256": {
+        "onboarding-public-readiness-process": "abd3604f84138dc11b46b5a449bea99ff33be89fb095b765bf98b6d8809c03a0",
+        "onboarding-public-readiness-process.png": "ff8ac620a76032aa64da591fe99a165ef99abaee125f3d3977a5b522b34dbe14",
+        "onboarding-private-route-process": "4e091806aae345e7f992a4df6cb84927b1329dce0c4463972c64bb0efa704c25",
+        "onboarding-private-route-process.png": "0726a749c554f31e1012cf146a8c45642bc283734b7a61fff2b3a863cb4888fd"
+      }
     },
     {
       "id": "SPEC-SEI-003",
@@ -63,8 +77,8 @@
       "parent_page_id": "918651071",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861391",
       "state": "published; storage, parent and attachments verified",
-      "version": 2,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 3,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 2,
       "verified_attachments": [
         "offboarding-planned-exit-process",
@@ -79,7 +93,13 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 2
+      "sibling_links": 2,
+      "attachment_sha256": {
+        "offboarding-planned-exit-process": "e3979499adb967bbe339d2d5310a9a943ef537fe140aa53ffab9746c0675497b",
+        "offboarding-planned-exit-process.png": "559de2b0ccdf87df5ed74f4931d648e9b3064755bca880fdb1841095665c4a48",
+        "offboarding-recovery-process": "78e13d3f30a9e88a634546d5e622ffdee707a742f7b21f0e94275c9350e6c1ba",
+        "offboarding-recovery-process.png": "a359300167b70f66d1b179629a824ea3e4be2397d6d9b8cfbc3a7aff06e55be0"
+      }
     },
     {
       "id": "SPEC-SEI-004",
@@ -89,8 +109,8 @@
       "parent_page_id": "848078012",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861392",
       "state": "published; storage, parent and attachments verified",
-      "version": 2,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 3,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 2,
       "verified_attachments": [
         "onboarding-failure-classification-process",
@@ -105,7 +125,13 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 1
+      "sibling_links": 1,
+      "attachment_sha256": {
+        "onboarding-failure-classification-process": "8071e6bd59a38b542aa54e7e0b6a5841321b853ea0adc2d14e0edcea0bf0707a",
+        "onboarding-failure-classification-process.png": "fddae4995796ffbc259180a305fa0dfc71dbf7b4c975249e4c71739864c8f491",
+        "onboarding-uncertain-outcome-process": "110824775fd5c2846f2a203ca51382cbcfcda21c70e9195e53e5ade7cee3d97c",
+        "onboarding-uncertain-outcome-process.png": "e440680eb4d48ef1bc3cd247e48678245b316c151fae9010453948591bd58352"
+      }
     },
     {
       "id": "SPEC-SEI-005",
@@ -115,8 +141,8 @@
       "parent_page_id": "918651070",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861393",
       "state": "published; storage, parent and attachments verified",
-      "version": 2,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 3,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 2,
       "verified_attachments": [
         "ubl-final-validation-process",
@@ -131,7 +157,13 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 2
+      "sibling_links": 2,
+      "attachment_sha256": {
+        "ubl-preflight-correction-process": "8575291bb8edaa5d7b6f60e9261686d8330a364fafc806dc43fd629155362b8b",
+        "ubl-preflight-correction-process.png": "bc44f5556726081f835ad485115d2fa4ca9c1e3fed98b89ee67efc5a4849cb89",
+        "ubl-final-validation-process": "df191bc4fd15d662e9c15b91d4432286e7051a94cacd83b2944790494ef7aa20",
+        "ubl-final-validation-process.png": "9dc7716744ea74a21712ed322c4edca528b6fc3a1d090651eb203265d8ceb294"
+      }
     },
     {
       "id": "SPEC-SEI-006",
@@ -141,8 +173,8 @@
       "parent_page_id": "918651328",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861394",
       "state": "published; storage, parent and attachments verified",
-      "version": 2,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 3,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 2,
       "verified_attachments": [
         "e-invoicing-public-consultation-reconciliation",
@@ -157,7 +189,13 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 6
+      "sibling_links": 6,
+      "attachment_sha256": {
+        "receiving-intake-and-delivery-process": "497796435d9373c70eef8833aa5a508a4a03ce2b603c3017ce144b9a46da3978",
+        "receiving-intake-and-delivery-process.png": "4650dd0ad7fd8d90317d46c1c8e0e76f5ddfdb018de884e4b79b175b7f0d720c",
+        "e-invoicing-public-consultation-reconciliation": "de02074d7610d4bd88a15fe61a8e681352186d755191286df5136b223cfacae8",
+        "e-invoicing-public-consultation-reconciliation.png": "c62c2019bdfc72a1c22770fa5c6b7d7bfd3e5de820d0358718b34e252c3a428a"
+      }
     },
     {
       "id": "SPEC-SEI-007",
@@ -167,8 +205,8 @@
       "parent_page_id": "837610656",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861395",
       "state": "published; storage, parent and attachments verified",
-      "version": 2,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 3,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 2,
       "verified_attachments": [
         "e-invoicing-outbound-exchange-pilot",
@@ -183,7 +221,13 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 5
+      "sibling_links": 5,
+      "attachment_sha256": {
+        "spain-invoice-preparation-and-outbound-flow": "069d6a8c76e59b549f2770ecfc65ed17a60c2c92113db603f3b5c2848f557dfd",
+        "spain-invoice-preparation-and-outbound-flow.png": "076823d4a5fab4d2247ad1ab2b111025e287a05c9d650a9259a24ffd7cc344a6",
+        "e-invoicing-outbound-exchange-pilot": "b85c9665e560699c0cefbe8b04ddd7beb7f543eb1a1f1ab83f65d011d8bac5fb",
+        "e-invoicing-outbound-exchange-pilot.png": "7ca9bc76480e76c8d2e041a4811f2a8551c9d9618ccc3c46bfec7c4145c13727"
+      }
     },
     {
       "id": "SPEC-SEI-008",
@@ -193,8 +237,8 @@
       "parent_page_id": "899154457",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861396",
       "state": "published; storage, parent and attachments verified",
-      "version": 2,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 3,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 2,
       "verified_attachments": [
         "spain-ubl-dts-generation-process",
@@ -209,7 +253,13 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 2
+      "sibling_links": 2,
+      "attachment_sha256": {
+        "spain-ubl-dts-generation-process": "dcc7b880484def7d722c345b41057ea79a6a30dc80e636cd1383cd7669db7453",
+        "spain-ubl-dts-generation-process.png": "665c5fc2bf1ab28a9bc73a4e539c7023d393e1e10939f767896a8876293aceef",
+        "spain-ubl-dts-migration-process": "27b98c742daf0d4f7d1c7586bbba31851131066071f6c9035a73f59396e255c1",
+        "spain-ubl-dts-migration-process.png": "c86120cd6f5db8b0d7115903cad7c934796f51c57d618dd2e045c46434df2d3c"
+      }
     },
     {
       "id": "SPEC-SEI-009",
@@ -219,8 +269,8 @@
       "parent_page_id": "837610664",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861398",
       "state": "published; storage, parent and attachments verified",
-      "version": 2,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 3,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 2,
       "verified_attachments": [
         "lifecycle-event-derivation-process",
@@ -235,7 +285,13 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 3
+      "sibling_links": 3,
+      "attachment_sha256": {
+        "lifecycle-event-derivation-process": "31e3283645c37515bdce03e67e83b0062e312a2727bdc1b61f49ef6032372999",
+        "lifecycle-event-derivation-process.png": "af6bfc0bf929f4c3d842f9214a4b5c7620e515d74698b15fd0674dbf3a8a5e0b",
+        "lifecycle-reporting-reconciliation-process": "e0d3c88827d6a1a6c1ee7242e3a4b418ffa2e7a1b863fef10fa79cc2cd47a6a5",
+        "lifecycle-reporting-reconciliation-process.png": "8d6299d3b5b43a38e91be51ac1580d75aa88ce206c981c0affa2fe0c9017ccd9"
+      }
     },
     {
       "id": "SPEC-SEI-010",
@@ -245,8 +301,8 @@
       "parent_page_id": "837610662",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=912540298",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 4,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 1,
       "verified_attachments": [
         "e-invoicing-public-consultation-reconciliation",
@@ -259,7 +315,11 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 2
+      "sibling_links": 2,
+      "attachment_sha256": {
+        "e-invoicing-public-consultation-reconciliation": "de02074d7610d4bd88a15fe61a8e681352186d755191286df5136b223cfacae8",
+        "e-invoicing-public-consultation-reconciliation.png": "c62c2019bdfc72a1c22770fa5c6b7d7bfd3e5de820d0358718b34e252c3a428a"
+      }
     },
     {
       "id": "SPEC-SEI-011",
@@ -269,8 +329,8 @@
       "parent_page_id": "902988120",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861399",
       "state": "published; storage, parent and attachments verified",
-      "version": 2,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 3,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 1,
       "verified_attachments": [
         "public-platform-connector-process",
@@ -283,7 +343,11 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 7
+      "sibling_links": 7,
+      "attachment_sha256": {
+        "public-platform-connector-process": "89fd95cfe14a1cc035571149d65bef46c1ac19f2675820a03d11c6c2d6939790",
+        "public-platform-connector-process.png": "8a4e05db26fc769a1f38c1ee990abdd60cd05c69ae00f1629bc8d4e59d8f70ce"
+      }
     },
     {
       "id": "SPEC-SEI-012",
@@ -293,8 +357,8 @@
       "parent_page_id": "866148656",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861400",
       "state": "published; storage, parent and attachments verified",
-      "version": 2,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 3,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 1,
       "verified_attachments": [
         "public-platform-recipient-lookup-process",
@@ -307,7 +371,11 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 2
+      "sibling_links": 2,
+      "attachment_sha256": {
+        "public-platform-recipient-lookup-process": "b94560e5a1a931089d8dfcee4e57a31fa8d3c31ea6d804b997805e960b3b5fb3",
+        "public-platform-recipient-lookup-process.png": "9d8359f6f78b03253d9816ce72622719f9be9aa03d104b8aafa6e45ebab30854"
+      }
     },
     {
       "id": "SPEC-SEI-013",
@@ -317,8 +385,8 @@
       "parent_page_id": "899154047",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861402",
       "state": "published; storage, parent and attachments verified",
-      "version": 2,
-      "source_revision": "aaa4e50c052b2973dc62d2f2a0800293bbb7bb82",
+      "version": 3,
+      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
       "diagram_count": 2,
       "verified_attachments": [
         "global-api-access-and-route-process",
@@ -333,7 +401,13 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 6
+      "sibling_links": 6,
+      "attachment_sha256": {
+        "global-api-access-and-route-process": "a564cb682f3e6114e124b5c7199f64d0788bbd68df6315015f8af72a4c1f85d6",
+        "global-api-access-and-route-process.png": "e315efc101f7b8575ce9763d6aa76ab5316649e2d1c0a6ce847b3a6821aa13ef",
+        "global-api-exchange-and-reconciliation-process": "e7189adfaf9050f772bf8c4a73d0812ea1e87dd2f02eee9b350b7031b7bdb86f",
+        "global-api-exchange-and-reconciliation-process.png": "abcecc4c14753a36df60b33b775124f36eb7df99b0a64e2dc51c66b0a005ffaa"
+      }
     }
   ],
   "verification": {
@@ -348,9 +422,28 @@
       "Editable Draw.io source and PNG attachments present",
       "Native contents, change history and anchors present",
       "Reader-guide anchors resolve in server-rendered markup",
-      "Server-rendered markup reports no macro errors"
+      "Server-rendered markup reports no macro errors",
+      "Uploaded diagram sources and PNG downloads match local SHA-256 hashes",
+      "24 authoring diagram sets use 86 explicit standard lane headers, including the overview",
+      "No duplicate Draw.io IDs or missing workflow endpoints",
+      "All 24 local previews render without clipped text"
     ],
     "lifecycle_status": "draft",
-    "implementation_approval": false
+    "implementation_approval": false,
+    "responsibility_groups": [
+      "Customer / accountant",
+      "ERP / product",
+      "Domain Service - E-Invoice Service",
+      "Domain Service - Other Services",
+      "Operations / support",
+      "Public / private platforms"
+    ],
+    "swimlane_authoring_checks": {
+      "diagrams": 24,
+      "activity_boxes": 235,
+      "connectors": 222,
+      "explicit_lane_labels": 86
+    },
+    "verified_attachment_downloads": 48
   }
 }
