@@ -81,7 +81,7 @@ ALL = dict(DETAIL,
     phases=DETAIL['phases'][:4]+[
         dict(title='5 · Change route',note='Optional route change; preserve earlier invoice obligations.'),
         dict(title='6 · Offboarding',note='Optional full service exit; preserve required records and permitted historical access.')],
-    lanes=['Customer / accountant','ERP / product','E-Invoice Service','Other Domain Services','Operations / support','Public / private platforms'],
+    lanes=['Customer / accountant','ERP / product','Domain Service - E-Invoice Service','Domain Service - Other Services','Operations / support','Public / private platforms'],
     nodes=[dict(n,title=TITLES[n['id']],note=SUMMARY_NOTES.get(n['id'],n['note']),
                 lane=4 if n['id']=='SET-08' else 5 if n['lane']==4 else n['lane'])
            for n in DETAIL['nodes'] if n['id'] in TITLES],
@@ -253,7 +253,9 @@ for panel in [COMBINED]:
     def cell(id,label,style,x,y,cw,ch):
         c=ET.SubElement(root,'mxCell',{'id':id,'value':label,'style':style,'parent':'1','vertex':'1'});ET.SubElement(c,'mxGeometry',{'x':str(x),'y':str(y),'width':str(cw),'height':str(ch),'as':'geometry'})
     cell('title','Spain e-invoicing · '+panel['title']+'\n'+panel['note'],'text;html=0;align=left;fontSize=20;',30,14,w-60,100)
-    for i,lane in enumerate(ALL['lanes']):cell(f'lane-{i}',lane,f'swimlane;horizontal=0;startSize={view["left"]-29};fillColor={"#fafafa" if i%2==0 else "#f1f1f1"};swimlaneFillColor={"#fafafa" if i%2==0 else "#f1f1f1"};strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;',25,view['tops'][i],w-50,view['heights'][i])
+    for i,lane in enumerate(ALL['lanes']):
+        cell(f'lane-{i}',lane,f'swimlane;horizontal=0;noLabel=1;startSize={view["left"]-29};fillColor={"#fafafa" if i%2==0 else "#f1f1f1"};swimlaneFillColor={"#fafafa" if i%2==0 else "#f1f1f1"};strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;',25,view['tops'][i],w-50,view['heights'][i])
+        cell(f'lane-{i}-label','\n'.join(textwrap.wrap(lane,22)),'text;html=0;align=left;verticalAlign=top;fontSize=15;whiteSpace=wrap;spacing=0;',38,view['tops'][i]+14,view['left']-54,96)
     for i,(phase,(px,pw)) in enumerate(zip(panel['phases'],view['phase_bounds'])):
         if i:cell(f'journey-gap-{i}','','rounded=0;fillColor=#ffffff;strokeColor=none;',px-view['journey_gap'],118,view['journey_gap'],h-148)
         cell(f'journey-frame-{i}','','rounded=0;fillColor=none;strokeColor=#888888;strokeWidth=1.6;',px,118,pw,h-162)

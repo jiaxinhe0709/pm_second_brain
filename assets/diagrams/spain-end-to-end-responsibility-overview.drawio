@@ -8,23 +8,41 @@
         <mxCell id="title" value="Spain e-invoicing · End-to-end responsibility overview&#10;Setup → outbound → inbound → lifecycle → route change → offboarding is a reading order; sending and receiving are independent, and later journeys are optional." style="text;html=0;align=left;fontSize=20;" parent="1" vertex="1">
           <mxGeometry x="30" y="14" width="5770" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="lane-0" value="Customer / accountant" style="swimlane;horizontal=0;startSize=191;fillColor=#fafafa;swimlaneFillColor=#fafafa;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
+        <mxCell id="lane-0" value="Customer / accountant" style="swimlane;horizontal=0;noLabel=1;startSize=191;fillColor=#fafafa;swimlaneFillColor=#fafafa;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
           <mxGeometry x="25" y="226" width="5780" height="139" as="geometry" />
         </mxCell>
-        <mxCell id="lane-1" value="ERP / product" style="swimlane;horizontal=0;startSize=191;fillColor=#f1f1f1;swimlaneFillColor=#f1f1f1;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
+        <mxCell id="lane-0-label" value="Customer / accountant" style="text;html=0;align=left;verticalAlign=top;fontSize=15;whiteSpace=wrap;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="38" y="240" width="166" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-1" value="ERP / product" style="swimlane;horizontal=0;noLabel=1;startSize=191;fillColor=#f1f1f1;swimlaneFillColor=#f1f1f1;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
           <mxGeometry x="25" y="365" width="5780" height="139" as="geometry" />
         </mxCell>
-        <mxCell id="lane-2" value="E-Invoice Service" style="swimlane;horizontal=0;startSize=191;fillColor=#fafafa;swimlaneFillColor=#fafafa;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
+        <mxCell id="lane-1-label" value="ERP / product" style="text;html=0;align=left;verticalAlign=top;fontSize=15;whiteSpace=wrap;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="38" y="379" width="166" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-2" value="Domain Service - E-Invoice Service" style="swimlane;horizontal=0;noLabel=1;startSize=191;fillColor=#fafafa;swimlaneFillColor=#fafafa;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
           <mxGeometry x="25" y="504" width="5780" height="139" as="geometry" />
         </mxCell>
-        <mxCell id="lane-3" value="Other Domain Services" style="swimlane;horizontal=0;startSize=191;fillColor=#f1f1f1;swimlaneFillColor=#f1f1f1;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
+        <mxCell id="lane-2-label" value="Domain Service -&#10;E-Invoice Service" style="text;html=0;align=left;verticalAlign=top;fontSize=15;whiteSpace=wrap;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="38" y="518" width="166" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-3" value="Domain Service - Other Services" style="swimlane;horizontal=0;noLabel=1;startSize=191;fillColor=#f1f1f1;swimlaneFillColor=#f1f1f1;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
           <mxGeometry x="25" y="643" width="5780" height="347" as="geometry" />
         </mxCell>
-        <mxCell id="lane-4" value="Operations / support" style="swimlane;horizontal=0;startSize=191;fillColor=#fafafa;swimlaneFillColor=#fafafa;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
+        <mxCell id="lane-3-label" value="Domain Service - Other&#10;Services" style="text;html=0;align=left;verticalAlign=top;fontSize=15;whiteSpace=wrap;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="38" y="657" width="166" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-4" value="Operations / support" style="swimlane;horizontal=0;noLabel=1;startSize=191;fillColor=#fafafa;swimlaneFillColor=#fafafa;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
           <mxGeometry x="25" y="990" width="5780" height="139" as="geometry" />
         </mxCell>
-        <mxCell id="lane-5" value="Public / private platforms" style="swimlane;horizontal=0;startSize=191;fillColor=#f1f1f1;swimlaneFillColor=#f1f1f1;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
+        <mxCell id="lane-4-label" value="Operations / support" style="text;html=0;align=left;verticalAlign=top;fontSize=15;whiteSpace=wrap;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="38" y="1004" width="166" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-5" value="Public / private platforms" style="swimlane;horizontal=0;noLabel=1;startSize=191;fillColor=#f1f1f1;swimlaneFillColor=#f1f1f1;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
           <mxGeometry x="25" y="1129" width="5780" height="243" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-5-label" value="Public / private&#10;platforms" style="text;html=0;align=left;verticalAlign=top;fontSize=15;whiteSpace=wrap;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="38" y="1143" width="166" height="96" as="geometry" />
         </mxCell>
         <mxCell id="journey-frame-0" value="" style="rounded=0;fillColor=none;strokeColor=#888888;strokeWidth=1.6;" parent="1" vertex="1">
           <mxGeometry x="220.0" y="118" width="855.0" height="1254" as="geometry" />
@@ -44,10 +62,10 @@
         <mxCell id="phase-0-lane-1" value="ERP / product" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="232.0" y="366" width="831.0" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="phase-0-lane-2" value="E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-0-lane-2" value="Domain Service - E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="232.0" y="505" width="831.0" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="phase-0-lane-3" value="Other Domain Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-0-lane-3" value="Domain Service - Other Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="232.0" y="644" width="831.0" height="18" as="geometry" />
         </mxCell>
         <mxCell id="phase-0-lane-4" value="Operations / support" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
@@ -77,10 +95,10 @@
         <mxCell id="phase-1-lane-1" value="ERP / product" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="1177.0" y="366" width="831.0" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="phase-1-lane-2" value="E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-1-lane-2" value="Domain Service - E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="1177.0" y="505" width="831.0" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="phase-1-lane-3" value="Other Domain Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-1-lane-3" value="Domain Service - Other Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="1177.0" y="644" width="831.0" height="18" as="geometry" />
         </mxCell>
         <mxCell id="phase-1-lane-4" value="Operations / support" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
@@ -110,10 +128,10 @@
         <mxCell id="phase-2-lane-1" value="ERP / product" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="2122.0" y="366" width="831.0" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="phase-2-lane-2" value="E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-2-lane-2" value="Domain Service - E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="2122.0" y="505" width="831.0" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="phase-2-lane-3" value="Other Domain Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-2-lane-3" value="Domain Service - Other Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="2122.0" y="644" width="831.0" height="18" as="geometry" />
         </mxCell>
         <mxCell id="phase-2-lane-4" value="Operations / support" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
@@ -143,10 +161,10 @@
         <mxCell id="phase-3-lane-1" value="ERP / product" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="3067.0" y="366" width="831.0" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="phase-3-lane-2" value="E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-3-lane-2" value="Domain Service - E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="3067.0" y="505" width="831.0" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="phase-3-lane-3" value="Other Domain Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-3-lane-3" value="Domain Service - Other Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="3067.0" y="644" width="831.0" height="18" as="geometry" />
         </mxCell>
         <mxCell id="phase-3-lane-4" value="Operations / support" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
@@ -176,10 +194,10 @@
         <mxCell id="phase-4-lane-1" value="ERP / product" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="4012.0" y="366" width="831.0" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="phase-4-lane-2" value="E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-4-lane-2" value="Domain Service - E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="4012.0" y="505" width="831.0" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="phase-4-lane-3" value="Other Domain Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-4-lane-3" value="Domain Service - Other Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="4012.0" y="644" width="831.0" height="18" as="geometry" />
         </mxCell>
         <mxCell id="phase-4-lane-4" value="Operations / support" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
@@ -209,10 +227,10 @@
         <mxCell id="phase-5-lane-1" value="ERP / product" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="4957.0" y="366" width="831.0" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="phase-5-lane-2" value="E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-5-lane-2" value="Domain Service - E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="4957.0" y="505" width="831.0" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="phase-5-lane-3" value="Other Domain Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-5-lane-3" value="Domain Service - Other Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="4957.0" y="644" width="831.0" height="18" as="geometry" />
         </mxCell>
         <mxCell id="phase-5-lane-4" value="Operations / support" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
