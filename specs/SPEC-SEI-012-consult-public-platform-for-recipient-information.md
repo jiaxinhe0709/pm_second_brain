@@ -1,12 +1,12 @@
 ---
 id: SPEC-SEI-012
-title: Public Platform Recipient Lookup Solution Specification
+title: Consult public platform for recipient information
 type: solution-spec
 status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-07
 reviewers: []
 related:
   - GLO-SEI-001
@@ -21,26 +21,33 @@ related:
   - SPEC-SEI-007
   - SPEC-SEI-011
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
+  parent_page_id: "866148656"
   page_id: ""
+  layout: two_left_sidebar
+  toc: true
 ---
 
-# Public Platform Recipient Lookup Solution Specification
+# Consult public platform for recipient information
 
 Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
+An **exchange action** is one separately tracked action to deliver an invoice, submit a public copy, or report an invoice event. Each action has its own result. For example, invoice delivery can succeed while public-copy submission still needs attention.
+
 ## Part 1 Feature Solution Summary
 
-### Reader guide and design status
+### Reader guide
 
-This **proposed logical design** answers where a recipient should receive an invoice in Spain's public/private invoicing model. It supplies evidence to outbound preparation and final exchange planning. The title describes the intended public-platform lookup use; it does not assert that AEAT currently provides a central recipient-directory API.
+Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. [Part 2](#part-2-logical-feature-specification) gives the detailed behaviour and rules. [Part 3](#part-3-logical-service-interactions-and-data-inventory) describes service interactions and data. [Part 4](#part-4-assurance-and-traceability-view) links requirements to the checks and evidence needed before release.
 
-**Confirmed** identifies source-supported requirements. **Proposed** identifies behaviour, states and logical contracts needing design approval. **Open** identifies missing sources, access or decisions. **Out of scope** identifies another owner's responsibility. [Part 2](#part-2-logical-feature-specification) defines behaviour; [Part 3](#part-3-logical-service-interactions-and-data-inventory) defines contracts/data; [Part 4](#part-4-assurance-and-traceability-view) defines acceptance and gates. No endpoint or numeric cache lifetime is approved here.
+The design remains a draft. **Confirmed** means supported by the cited source, within its stated limits. **Proposed** choices still need review. **Open** decisions still need an owner’s recorded answer. **Out of scope** identifies work excluded from this proposal or handled by another feature. Service names describe logical responsibilities; they do not establish deployed services or approved API endpoints. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.
 
-### 1 Purpose, source authority and boundary
+### 1 Purpose, authority and boundaries
 
-[PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md), FR1/3/5/29, requires explainable recipient-route evidence and an eligible representation. [SPEC-SEI-007](SPEC-SEI-007-spain-invoice-preparation-and-outbound-solution-specification.md), OUT-03/09/10, consumes an early indication and fresh final route evidence. [PRD-SEI-214](../prds/PRD-SEI-214-connections-registration-routing-structured-review.md) separately governs the issuer's own connections and routes. The issuer's connection does not reveal the recipient's destination.
+This **proposed logical design** helps Sage establish where an invoice recipient can receive an invoice. It provides an early indication during preparation and current evidence when the final exchange plan is created. It does not establish that AEAT provides a central recipient-directory API.
+
+[PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md), FR1/3/5/29, requires evidence explaining the recipient route and an invoice representation supported by that route. [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md), OUT-03/09/10, uses the early indication and checks current route evidence before final dispatch. [PRD-SEI-214](../prds/PRD-SEI-214-connections-registration-routing-structured-review.md) separately governs the issuer's own connections and routes. The issuer's connection does not reveal the recipient's destination.
 
 | Evidence | Confirmed basis | Limit and consequence |
 |---|---|---|
@@ -55,12 +62,37 @@ The proposed public-route decision follows OUT-09's safety rule: failed, stale, 
 | Exact recipient identity, action scope and source selection | Lookup with Identity/Spain policy owners. |
 | Lookup execution, source observations and freshness | Lookup; [SPEC-SEI-011 connector](SPEC-SEI-011-public-platform-connector-solution-specification.md) only for qualified public-platform operations. Other operator sources use their own approved adapters. |
 | Published destination candidates, private operational eligibility and public/unresolved classification | Lookup supplies versioned evidence; route/exchange services own final selection and plan. |
-| Cache/coalescing, evidence refresh, conflicting results and controlled manual evidence | Lookup/Operations under source and country rules. |
+| Reuse of cached results, combining identical refresh requests, conflicts and controlled manual evidence | Lookup/Operations under source and country rules. |
 | Draft versus final usage and historical evidence | Early result is advisory; final dispatch requires evidence meeting the current planning policy. |
 
 **Out of scope:** invoice discovery/download; NIF/name census verification; onboarding or publishing/changing a recipient's entry point; customer route transitions; invoice validation/mapping/signing; dispatch, public-copy duties and buyer status. Tax identity matching does not establish receiving capability. This initial feature handles exact scoped lookup, not an unrestricted recipient search or directory export.
 
-### 2 Outcomes, terms and actors
+### Plain-language terms
+
+| Term | Meaning |
+|---|---|
+| Legal entity / legal subject | The business to which the invoice or action belongs. Technical fields use `legalSubject` for this business. |
+| Authority | Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission. |
+| Capability | A supported function, such as receiving invoices or signing them. |
+| Route | The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans. |
+| Idempotency | Repeating the same logical request adds no effect within the contract’s defined scope and retention window. The contract binds request identity and input and defines conflict handling. |
+| Reconciliation | Check the original operation against a reliable source to establish what actually happened before deciding the next action. |
+| Gate | A condition, decision or evidence check that must pass before the next step can proceed. |
+| Tenant | The customer account boundary used to keep one customer’s data and access separate from another’s. |
+| Immutable / append-only | Immutable means a saved record cannot be changed. Append-only means later information is added as another record. Neither means indefinite retention. |
+| Provenance | The record of where data came from and which versions, checks and changes produced the result. |
+| Contract | The agreed inputs, outputs, behaviour and responsibilities between services or parties. |
+| Durable | Saved through the agreed recovery boundary so the record survives a process restart or worker failure. Long-term retention is a separate policy. |
+| Entry point | The published receiving destination for a legal entity. It need not be a raw URL. Publication does not by itself prove operational eligibility for a particular invoice. |
+| Recipient / candidate | The buyer or legal party receiving the invoice; a receiving destination observed in a source but not yet approved for this operation. |
+| Freshness / coverage | Whether evidence is current enough for the intended use; what the source’s positive or negative answer actually covers. |
+| Snapshot / negative caching | Saved source, time, scope and policy for one decision; temporarily reusing a prior absence observation under the same coverage and freshness rules. |
+| Source precedence / proven absence | The approved rule for choosing between source evidence; sufficient evidence that no applicable private entry point exists under the selected Spain policy. A failed lookup does not prove absence. |
+| EARLY / FINAL | An advisory result for preparation; evidence checked for final exchange planning. An old EARLY result cannot simply be renamed FINAL. |
+| Cache / refresh generation / TTL | Previously saved results reused under policy; the version of a refresh used to reject stale worker results; time to live, the permitted cache lifetime. Exact TTL values remain open. |
+| Scope / qualification | The recipient, customer, environment and invoice capability covered by the lookup; evidence that the selected source or destination supports that use. |
+
+### 2 Outcomes and handoffs
 
 | Proposed outcome | Required evidence | Consumer behaviour |
 |---|---|---|
@@ -70,13 +102,11 @@ The proposed public-route decision follows OUT-09's safety rule: failed, stale, 
 | UNRESOLVED | Lookup FAILED, STALE, AMBIGUOUS, PARTIAL, UNSUPPORTED or EVIDENCE_INSUFFICIENT. | Hold final dispatch; provide safe reason, owner and next action. |
 | DENIED / INVALID_REQUEST | Actor, scope or qualified identity is invalid. | No unauthorised external lookup or destination disclosure. |
 
-A **recipient** is the invoice buyer/legal party. An **entry point** is the published receiving destination; it need not be a raw URL. A **candidate** is an observed point not yet approved for this operation. **Freshness** means whether evidence is current enough for a defined use. **Coverage** explains what a source's positive or negative answer actually covers. A **snapshot** preserves the source, time, scope and policy used for one decision. **Negative caching** means temporarily reusing a prior absence observation under the same coverage/freshness rules.
-
 ERP/preparation requests the early indication; exchange requests final evidence. Identity validates qualified recipient keys. Lookup/source adapters collect observations. Routing/Interoperability qualifies destination capability. Compliance owns Spain public-default and source precedence rules. Operations resolves source/conflict incidents without overriding authority or forging absence evidence.
 
 ### Spain use and reuse boundaries
 
-Reuse labels follow the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary). **Reusable unchanged** describes a design pattern; **Unknown** records unverified implementation fitness. Scope exclusions are marked **Out of scope**.
+This is a **Spain reference design**. **Reusable unchanged** means the proposed design pattern can stay the same. **Reusable with country binding** means shared behaviour needs approved country rules or adapters. **Country-specific** rules stay in the Spain country pack. **Unknown** means that the existing implementation’s suitability or coverage still needs evidence. These labels do not prove production readiness. Another country needs its own assessment. See the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary).
 
 | Area | Intended Spain use | Reuse classification | Condition and owner |
 |---|---|---|---|
@@ -92,22 +122,22 @@ Reuse labels follow the [shared e-invoicing glossary](../context/GLO-SEI-001-e-i
 
 [Editable Draw.io](../assets/diagrams/public-platform-recipient-lookup-process.drawio) · [PNG preview](../assets/diagrams/public-platform-recipient-lookup-process.png).
 
-Text equivalent: RLU-01 accepts early/final intent → RLU-02 checks identity/authority → RLU-03 fixes source/coverage/freshness policy → RLU-04 reuses qualifying evidence or coalesces refresh → RLU-05 queries approved sources → RLU-06 saves candidates and conflicts → RLU-07 checks capability and approved selection → RLU-08 saves private/public-supported/unresolved decision → RLU-09 hands evidence to the consumer. Failure, incomplete negative evidence and competing points remain held; RLU-10 performs bounded recovery/version changes without rewriting earlier plans.
+Text equivalent: RLU-01 accepts early/final intent → RLU-02 checks identity/authority → RLU-03 fixes source/coverage/freshness policy → RLU-04 reuses qualifying evidence or combines identical refresh requests → RLU-05 queries approved sources → RLU-06 saves candidates and conflicts → RLU-07 checks capability and approved selection → RLU-08 saves private/public-supported/unresolved decision → RLU-09 hands evidence to the consumer. Failure, incomplete negative evidence and competing points remain held; RLU-10 performs bounded recovery/version changes without rewriting earlier plans.
 
 | Activity / trigger | Preconditions, operation and result | Owner/error recovery |
 |---|---|---|
-| RLU-01 Lookup request / ERP or exchange | Workload scope, request/operation identity and use EARLY or FINAL; save request digest/correlation. | Lookup: same key/digest returns result; changed request conflicts. |
-| RLU-02 Identity/authority / accepted request | Qualified recipient key and permitted actor/purpose; separate recipient from issuer/delegate. | Identity/Security: invalid or cross-tenant context denied. |
-| RLU-03 Source policy / valid scope | Activated country/environment/capability and approved source, precedence, coverage and freshness versions. | Spain/Routing: missing policy leaves unsupported. |
-| RLU-04 Cache/refresh / source policy selected | Reuse exact compatible evidence or acquire generation-controlled refresh. | Lookup: stale/negative evidence cannot qualify by default. |
-| RLU-05 Query / authorised refresh | Approved read contract, bounds and source access; save correlation/results or classified failure. | Adapter: timeout does not prove absence; side effects follow original-operation safety. |
-| RLU-06 Interpret / source responses | Preserve all candidates, applicable scope, coverage and conflicts without arbitrary selection. | Lookup/Compliance: contradictory/incomplete evidence held. |
-| RLU-07 Qualify destination / candidates | Check exact receiving/interconnection/format capability and approved multi-point selection. | Routing/provider owner: published but unsupported point held. |
-| RLU-08 Decide / sufficient evidence | Commit immutable decision/ref/version or owned unresolved result. | Lookup: changed generation/policy prevents stale commit. |
-| RLU-09 Consumer handoff / decision saved | Return reason/source/time/freshness, evidence limitations and expiry/recheck condition. | Exchange: final plan retains snapshot; early result cannot authorise send. |
-| RLU-10 Recover/change / owner action or invalidation | Refresh same scope, attach authorised manual evidence, or change policy prospectively with audit. | Operations/Lookup: no silent historical reroute or forged success. |
+| RLU-01 Lookup request / ERP or exchange | Save permitted workload scope, request/operation identity, EARLY or FINAL use, digest and correlation. | Lookup: the same key/digest returns the current result; changed input conflicts. |
+| RLU-02 Identity/authority / accepted request | Check recipient identity, actor and purpose. Keep recipient, issuer and delegate separate. | Identity/Security: deny invalid or cross-tenant context. |
+| RLU-03 Source policy / valid scope | Select enabled country/environment/capability rules and approved source, precedence, coverage and freshness versions. | Spain/Routing: without a policy, keep the operation unsupported. |
+| RLU-04 Cache/refresh / source policy selected | Reuse evidence valid for this use, or start a numbered refresh that rejects stale worker results. | Lookup: stale or negative evidence does not qualify by default. |
+| RLU-05 Query / authorised refresh | Read through the approved source contract within limits. Save correlation, results or the failure category. | Adapter: timeout does not prove absence. Check uncertain external effects before a repeat. |
+| RLU-06 Interpret / source responses | Keep every candidate, its scope, coverage and conflicts. Do not choose arbitrarily. | Lookup/Compliance: hold contradictory or incomplete evidence. |
+| RLU-07 Qualify destination / candidates | Check receiving, interconnection and format support. Apply the approved rule for selecting among several points. | Routing/provider owner: hold a published point that lacks support. |
+| RLU-08 Decide / sufficient evidence | Save the fixed decision reference/version, or an unresolved result with an owner. | Lookup: changed refresh generation or policy prevents a stale save. |
+| RLU-09 Consumer handoff / decision saved | Return reason, source/time, freshness, limits and recheck condition. | Exchange: retain the final snapshot. An early result cannot authorise a send. |
+| RLU-10 Recover/change / owner action or invalidation | Refresh the same scope, add authorised manual evidence, or audit rule changes for future work. | Operations/Lookup: keep historical routes and source truth intact. |
 
-### 4 Risks and decision surface
+### 4 Key decisions and risks
 
 The largest risks are assuming a central directory exists, treating a local negative response as global absence, selecting an arbitrary point, confusing identity match with capability, or dispatching on stale evidence. RLU-Q01–Q08 name owners and gates for these matters in Part 4.
 
@@ -115,7 +145,7 @@ The largest risks are assuming a central directory exists, treating a local nega
 
 ### 1 Model and invariants
 
-Proposed request scope includes tenant, issuer legal entity, recipient identifier scheme/value, country, environment, invoice document/process capability, direction, decision time, use EARLY/FINAL and any evidenced agreement reference. Exact physical fields remain open. A country-qualified identifier is not a Sage tenant ID. The initial implementation needs only dimensions supported by the selected sources and use case; unsupported granularity must be explicit.
+Proposed request scope includes tenant, issuer legal entity, recipient identifier scheme/value, country, environment, invoice document/process capability, direction, decision time, use EARLY/FINAL and any evidenced agreement reference. Exact physical fields remain open. A country-qualified identifier is not a Sage tenant ID. The initial implementation needs only dimensions supported by the selected sources and use case; state clearly when the source cannot support the requested level of detail.
 
 | ID | Rule that must always hold |
 |---|---|
@@ -132,41 +162,49 @@ Proposed request scope includes tenant, issuer legal entity, recipient identifie
 
 ### 2 Detailed behaviour
 
-**RLU-01 Accept early or final intent.** Authenticate caller and action. Save exact request scope, consumer operation, digest, use and idempotency identity. Same request identity/digest resumes current result; changed recipient/scope/use conflicts. EARLY requests support preparation and report limitations. FINAL requests must satisfy the current exchange planning policy; an old EARLY result cannot merely be relabelled FINAL. Cancellation ends unsent local work or suppresses the requested handoff while preserving observations; a network call already started cannot be assumed cancelled.
+**RLU-01 Accept an early or final lookup request.** Authenticate the caller and check the action it may perform. Save the exact scope, consumer operation, digest, EARLY/FINAL use and idempotency identity. A repeat with the same identity and digest returns the current result. A changed recipient, scope or use returns a conflict.
 
-**RLU-02 Check identity and authority.** Resolve scheme-qualified party identity under the approved country rules, including normalisation that preserves meaning. Reject ambiguous/missing identifiers without inventing substitutions from names, user IDs or free text. PRD-SEI-101/231 own structural identity checks; a census match is not a destination lookup. Verify workload/tenant and actor purpose separately from external source access permission. Directory access may be open or authenticated under its confirmed source contract. Do not require a recipient's invoice-access power of attorney merely because invoice consultation uses one; RLU-Q02 establishes the correct lookup authority.
+EARLY results support preparation and state their limitations. FINAL results must meet the current exchange-planning policy. An old EARLY result cannot simply be relabelled FINAL. Cancellation can stop unsent local work or suppress the handoff, while retaining observations. It cannot assume that a network call already started has been cancelled.
 
-**RLU-03 Select source and coverage policy.** Resolve a versioned source registry by country/environment/use. It identifies approved source type, operation/schema, supported identifier and capability scope, freshness/invalidation, coverage/completeness meaning, precedence and evidence ownership. A public-platform lookup uses SPEC-SEI-011 only if that capability is qualified. The initial outbound public-route path is the approved absence path in OUT-09; any additional public-selection basis requires a recorded decision and aligned outbound contract before activation. Operator consultation or evidenced recipient publication uses its own approved access path. No scraping arbitrary sites or following caller-supplied URLs is introduced. A sanctioned manual source requires explicit provenance and reviewer controls.
+**RLU-02 Check recipient identity and lookup permission.** Resolve the recipient using the approved identifier scheme and country rules. Any normalisation must preserve its meaning. Reject missing or ambiguous identifiers; do not substitute a name, user ID or free text. PRD-SEI-101/231 own structural identity checks. A tax census match does not establish a receiving destination.
 
-The source policy must explain why a result is authoritative for this recipient and invoice scope. A single operator's “not registered here” normally establishes only that operator's result. Do not convert it to absence across the network. Policy must also account for express receiving arrangements; “no record found” cannot override an applicable evidenced private agreement by convenience.
+Check workload/tenant and the actor’s purpose separately from permission to access an external source. A directory may be open or require authentication under its confirmed contract. Do not impose invoice-access power of attorney on recipient lookup just because invoice consultation needs it. RLU-Q02 must establish the authority needed for each lookup source.
 
-**RLU-04 Reuse or refresh evidence.** Cache keys include trusted tenant/access scope, recipient scheme/key, country, environment, document/process capability, source/coverage policy and result version. The conservative proposed default keeps responses tenant-scoped. Any shared cache for genuinely public data requires separate Security/Privacy approval and cannot share private authority evidence or business relationships.
+**RLU-03 Select approved sources and evidence rules.** Select the versioned source rules for country, environment and EARLY/FINAL use. These rules identify the approved source type and operation/schema, supported identifiers and capabilities, freshness, invalidation, coverage, source precedence and evidence owner. Use SPEC-SEI-011 for a public-platform lookup only after that operation is qualified.
 
-Check freshness for the requested use, source validity and invalidation before reuse. Expired negative evidence requires refresh; a failed refresh cannot extend its validity. Coalesce identical active queries with one scoped refresh generation while preserving consumer requests. Timeout for one waiter does not grant it permission to overwrite another worker's newer observation. Preserve prior successful evidence with its actual age and current degraded status. Numeric TTL, final-use freshness and invalidation mechanisms are RLU-Q04 decisions.
+The initial public-route path follows the absence rule in OUT-09. Any other basis for choosing the public route needs a recorded decision and an aligned outbound contract before activation. Consult an operator source or evidenced recipient publication through its approved access path. Do not scrape arbitrary sites or follow caller-supplied URLs. Manual evidence needs an approved source, provenance and reviewer controls.
 
-**RLU-05 Query selected sources.** Execute bounded reads using the approved contract and explicit scope. Save request/source correlation, observation time and continuation/completeness evidence. Apply access, transport, payload/resource and destination controls. Throttle or unavailable source returns classified failure; no false empty response. If result pages exist, incomplete pages cannot establish absence. A source call with possible side effects follows SPEC-SEI-011 or the source adapter's equivalent reconciliation rules before unsafe repeat.
+The policy must explain why the evidence is sufficient for this recipient and invoice. One operator’s “not registered here” usually establishes only that operator’s result; it does not prove absence across the network. Account for evidenced receiving agreements. An empty lookup cannot override an applicable private receiving agreement for convenience.
 
-Final lookup refresh uses fair bounded capacity; no unlimited fan-out over all platforms. RLU-Q01/Q03 defines selected sources and the sufficiency of their combined evidence. Physical request aggregation is unproven and not required.
+**RLU-04 Reuse a valid result or refresh it.** Cache keys identify trusted tenant/access scope, recipient scheme/key, country, environment, document/process capability, source/coverage policy and result version. The proposed default keeps results within one tenant. Sharing genuinely public data across tenants needs separate Security/Privacy approval and must not share private authority evidence or business relationships.
 
-**RLU-06 Preserve and interpret candidates.** Store each source observation and every returned entry point with its scheme/operator/reference, declared direction, supported document/process/profile scope, effective interval and source evidence. Where fields are absent, retain UNKNOWN rather than assume support. Duplicate observations may share an evidence link while retaining source history. An address is data, not authorisation to transmit or fetch from it.
+Before reuse, check freshness for the requested use, source validity and invalidation. Refresh expired absence evidence; a failed refresh cannot extend its validity. Combine identical active queries into one numbered refresh while retaining each consumer request. A waiting consumer that times out cannot overwrite a newer worker result. Keep earlier successful evidence with its actual age and current degraded status. Exact TTL, final-use freshness and invalidation rules remain RLU-Q04 decisions.
 
-Apply approved source precedence only within its proven scope. Two valid points may coexist; neither record order nor last response wins. Conflicting party ownership, publication/withdrawal or effective intervals remain AMBIGUOUS until approved evidence resolves them. Do not erase earlier conflicting observations. A partial positive result can identify a candidate, but must not claim a complete destination set or prove the absence of competing points.
+**RLU-05 Query the selected sources.** Read within the approved contract, scope and limits. Save source/request correlation, observation time and evidence of which results or pages were returned. Enforce access, transport, resource and destination controls. Throttling or an unavailable source returns a failure category, never a false empty result. Incomplete pages cannot prove absence.
 
-**RLU-07 Qualify operational eligibility and selection.** Check the candidate's receiving direction/process, environment, format/profile compatibility and direct/interconnection or bridge capability using qualified provider/capability evidence. Published address, reachable website and TLS success are insufficient. Format conversion is owned by exchange; lookup may reference an activated conversion path but cannot infer that an existing mapper supports this route. Source facts and Sage capability decisions remain separately labelled.
+If a query may change external state, apply SPEC-SEI-011 or equivalent source-adapter reconciliation rules before an unsafe repeat. Final lookup refresh must share capacity fairly and stay within approved limits. It must not query every platform without limits. RLU-Q01/Q03 define the selected sources and whether their combined evidence is sufficient. A multi-recipient request is not proven or required.
 
-For multiple eligible points, use a documented receiving arrangement or approved deterministic selection rule whose coverage matches the invoice. An invalid caller preference cannot override this rule. Missing precedence or unsupported required scope yields AMBIGUOUS/UNSUPPORTED. A private destination whose operation is temporarily unavailable is PRIVATE_OBSERVED_NOT_READY; no automatic public fallback is added.
+**RLU-06 Save observations and candidate destinations.** Save each source observation and every returned entry point. Preserve scheme/operator/reference, declared direction, supported document/process/profile, effective period and source evidence. Missing fields remain UNKNOWN; they do not mean support. Repeated observations may share an evidence reference while preserving source history. An address alone gives no authority to send an invoice or fetch content from it.
 
-**RLU-08 Commit decision evidence.** Persist request, candidate/absence observations, selected policy, eligibility/selection evidence, outcome/reason and immutable decisionRef/version. PRIVATE_READY requires the qualified point. PUBLIC_ROUTE_SUPPORTED requires the approved public-receipt basis; its absence path provides the PROVEN_NONE evidence expected by OUT-09. Otherwise persist UNRESOLVED with explicit reason and owner. No external destination query result is silently mapped to a universal boolean “is registered”.
+Apply approved precedence only within the source’s proven coverage. Two valid points may coexist. List order and last response time do not decide between them. Conflicting ownership, publication/withdrawal or effective periods remain AMBIGUOUS until approved evidence resolves them; keep earlier conflicting observations. A partial positive result can identify a candidate but cannot prove that all destinations are known or that none compete with it.
 
-Commit checks active refresh generation and policy version. A stale worker cannot overwrite a newer observation; a concurrent source/selection change is reevaluated or held. Failed commit recovers from saved source observations rather than treating an uncommitted result as authoritative. Country policy cannot change past evidence.
+**RLU-07 Check destination support and selection.** Check receiving direction/process, environment, format/profile compatibility and direct/interconnection or bridge support against qualified provider evidence. A published address, reachable website or successful TLS connection is insufficient. Exchange owns format conversion. Lookup may reference an enabled conversion path but cannot assume an existing mapper supports this route. Label source observations separately from Sage’s capability decisions.
 
-**RLU-09 Handoff to preparation/exchange.** Return decisionRef, outcome, qualified destination reference if any, exact scope, source/time, freshness/recheck condition, evidence limits, safe next action and owner. Include the version expected at plan creation. Exchange checks that final evidence still meets its applicability/freshness and execution policy immediately before freezing the plan; material change before the first external effect causes revalidation/replanning. Lookup cannot promise an atomic transaction with an external directory. The accepted final-use freshness window and residual change risk need RLU-Q04 approval.
+If several points are eligible, use an evidenced receiving arrangement or an approved deterministic selection rule for this invoice scope. An invalid caller preference cannot override that rule. Missing precedence or unsupported required scope returns AMBIGUOUS/UNSUPPORTED. A known private destination that is temporarily unavailable returns PRIVATE_OBSERVED_NOT_READY. It does not trigger automatic public fallback.
 
-After a leg is sent, any new lookup is additional evidence; it cannot change the original destination or reconciliation identity. Customer output says “destination unresolved” with a safe cause rather than “recipient cannot invoice”. Internal events carry evidence references without unrestricted endpoint URLs or full tax identifiers.
+**RLU-08 Save the decision and its evidence.** Save the request, candidate/absence observations, selected policy, support/selection evidence, outcome/reason and immutable decisionRef/version. PRIVATE_READY requires a qualified point. PUBLIC_ROUTE_SUPPORTED requires the approved public-receipt basis; the absence path must provide the PROVEN_NONE evidence required by OUT-09. Otherwise save UNRESOLVED with a reason and owner. Do not reduce every source result to one “is registered” flag.
 
-**RLU-10 Recover and evolve safely.** Refresh bounded scope after a transient outage, source invalidation or approved conflict resolution. Operations may inspect safe metadata or attach authorised manual evidence with provenance, verifier, applicability, expiry/recheck condition and audit. They cannot declare global absence from an unsupported source, overwrite source results or grant a missing business authority. Source withdrawal/revocation invalidates new use according to the agreed mechanism while preserving earlier observations.
+Before saving, check the active refresh generation and policy version. An old worker cannot overwrite a newer observation. A simultaneous source or selection-rule change requires a new check or a hold. If saving fails, recover the saved source observations; an unsaved result cannot be treated as authoritative. New country rules must not change past evidence.
 
-Profile/source rollout is inactive-first and cohort-bound. Rollback restores a qualified source/policy for eligible new decisions, preserves operation identities and does not rewrite sent plans. Suspension stops new affected queries/handoffs where required; historical lookup evidence remains available to permitted support/reconciliation users under retention policy.
+**RLU-09 Return evidence to preparation or exchange.** Return decisionRef, outcome, qualified destination if available, exact scope, source/time, freshness/recheck condition, evidence limits, safe next action and owner. Include the version expected when the exchange plan is created.
+
+Immediately before fixing the plan, exchange checks final evidence against its current applicability, freshness and execution rules. A material change before the first external effect requires validation and planning again. Lookup cannot save a Sage plan and freeze an external directory as one transaction. RLU-Q04 must approve the final-use freshness window and the remaining risk of a source change.
+
+After an action has been sent, a later lookup adds evidence but cannot change the original destination or reconciliation identity. Customer wording should say “destination unresolved” with a safe reason, rather than “recipient cannot invoice”. Internal events use protected evidence references without unrestricted endpoint URLs or full tax identifiers.
+
+**RLU-10 Recover and change rules safely.** Refresh only the approved scope after an outage, source invalidation or approved conflict resolution. Operations may inspect safe metadata or attach authorised manual evidence. Record its source, verifier, applicability, expiry/recheck condition and audit. Operations cannot invent global absence, replace source results or grant missing authority.
+
+Withdrawn or revoked source evidence prevents new use under the agreed invalidation rules; earlier observations remain. Deploy source/profile changes disabled and enable only an approved consumer group after qualification. Rollback restores a qualified source/policy for eligible future decisions and keeps original operation identities and sent plans. Suspension stops new affected queries or handoffs where required. Permitted users retain historical evidence under the retention policy.
 
 ### 3 Requirements and operational controls
 
@@ -239,7 +277,7 @@ Assess existing Sage recipient/discovery/cache services before creating a new ph
 | RLU-A08 Multiple points/contradictory sources | R03/05/06 → RLU-06–08, INT-04–06, D05–D07 | Approved agreement/selection evidence or AMBIGUOUS; no first-row/latest-response selection. |
 | RLU-A09 Published point lacks eligible capability | R05/06 → RLU-07/08, INT-05/06, D05–D07 | PRIVATE_OBSERVED_NOT_READY or unresolved; reachable URL/mapper alone insufficient; no public outage fallback. |
 | RLU-A10 Early result differs before final plan | R04/07 → RLU-04/08/09, INT-01/03/06, D04/D07/D08 | Final-use policy reevaluated; stale EARLY result cannot authorise send; new plan references qualified snapshot. |
-| RLU-A11 Concurrent refresh and stale worker | R04/08 → RLU-04/08/10, INT-03/06/07, D04/D05/D07 | One scoped refresh coalesced; old generation cannot overwrite new result; crash recovers saved observations. |
+| RLU-A11 Concurrent refresh and stale worker | R04/08 → RLU-04/08/10, INT-03/06/07, D04/D05/D07 | Identical requests share one scoped refresh; old generation cannot overwrite new result; crash recovers saved observations. |
 | RLU-A12 Source changes after sending | R07/09 → RLU-09/10, INT-06/07, D05–D09 | New evidence/invalidation recorded; original sent plan/destination and reconciliation identity unchanged. |
 | RLU-A13 Cache isolation/enumeration/manual evidence | R01/09 → RLU-02/04/10, INT-02/03/07, D02/D04/D09 | Cross-tenant/private sharing and unauthorised enumeration/recovery denied; manual evidence retains verifier/provenance without forged absence. |
 | RLU-A14 Country reuse and source rollback | R02/08/10 → RLU-03/08/10, INT-03/06/07, D03–D07/D09 | Actual source/build and country packs qualified; rollback preserves history; Spain public-default rules cannot apply to another country. |

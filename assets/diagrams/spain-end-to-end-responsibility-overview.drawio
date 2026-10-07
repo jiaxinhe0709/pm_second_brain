@@ -1,0 +1,619 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="spain-end-to-end-responsibility-overview" name="End-to-end responsibility overview">
+    <mxGraphModel page="1" pageWidth="5830" pageHeight="1416" grid="1" gridSize="10">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Spain e-invoicing · End-to-end responsibility overview&#10;Setup → outbound → inbound → lifecycle → route change → offboarding is a reading order; sending and receiving are independent, and later journeys are optional." style="text;html=0;align=left;fontSize=20;" parent="1" vertex="1">
+          <mxGeometry x="30" y="14" width="5770" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-0" value="Customer / accountant" style="swimlane;horizontal=0;startSize=191;fillColor=#fafafa;swimlaneFillColor=#fafafa;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
+          <mxGeometry x="25" y="226" width="5780" height="139" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-1" value="ERP / product" style="swimlane;horizontal=0;startSize=191;fillColor=#f1f1f1;swimlaneFillColor=#f1f1f1;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
+          <mxGeometry x="25" y="365" width="5780" height="139" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-2" value="E-Invoice Service" style="swimlane;horizontal=0;startSize=191;fillColor=#fafafa;swimlaneFillColor=#fafafa;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
+          <mxGeometry x="25" y="504" width="5780" height="139" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-3" value="Other Domain Services" style="swimlane;horizontal=0;startSize=191;fillColor=#f1f1f1;swimlaneFillColor=#f1f1f1;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
+          <mxGeometry x="25" y="643" width="5780" height="347" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-4" value="Operations / support" style="swimlane;horizontal=0;startSize=191;fillColor=#fafafa;swimlaneFillColor=#fafafa;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
+          <mxGeometry x="25" y="990" width="5780" height="139" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-5" value="Public / private platforms" style="swimlane;horizontal=0;startSize=191;fillColor=#f1f1f1;swimlaneFillColor=#f1f1f1;strokeColor=#c7c7c7;fontSize=15;whiteSpace=wrap;html=0;" parent="1" vertex="1">
+          <mxGeometry x="25" y="1129" width="5780" height="243" as="geometry" />
+        </mxCell>
+        <mxCell id="journey-frame-0" value="" style="rounded=0;fillColor=none;strokeColor=#888888;strokeWidth=1.6;" parent="1" vertex="1">
+          <mxGeometry x="220.0" y="118" width="855.0" height="1254" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-0" value="" style="rounded=0;fillColor=#444444;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="220.0" y="118" width="855.0" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-0-title" value="1 · Set up and connect" style="text;html=0;align=left;fontColor=#ffffff;fontSize=23;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="236.0" y="126" width="823.0" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-0-note" value="Authorise a business and establish readiness for the selected capability." style="text;html=0;align=left;fontColor=#ffffff;fontSize=15;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="236.0" y="157" width="823.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-0-lane-0" value="Customer / accountant" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="232.0" y="227" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-0-lane-1" value="ERP / product" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="232.0" y="366" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-0-lane-2" value="E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="232.0" y="505" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-0-lane-3" value="Other Domain Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="232.0" y="644" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-0-lane-4" value="Operations / support" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="232.0" y="991" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-0-lane-5" value="Public / private platforms" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="232.0" y="1130" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="journey-gap-1" value="" style="rounded=0;fillColor=#ffffff;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="1075.0" y="118" width="90" height="1268" as="geometry" />
+        </mxCell>
+        <mxCell id="journey-frame-1" value="" style="rounded=0;fillColor=none;strokeColor=#888888;strokeWidth=1.6;" parent="1" vertex="1">
+          <mxGeometry x="1165.0" y="118" width="855.0" height="1254" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-1" value="" style="rounded=0;fillColor=#444444;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="1165.0" y="118" width="855.0" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-1-title" value="2 · Prepare and send" style="text;html=0;align=left;fontColor=#ffffff;fontSize=23;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="1181.0" y="126" width="823.0" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-1-note" value="ERP owns issuance. Recipient delivery and a required public copy have separate results." style="text;html=0;align=left;fontColor=#ffffff;fontSize=15;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="1181.0" y="157" width="823.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-1-lane-0" value="Customer / accountant" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="1177.0" y="227" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-1-lane-1" value="ERP / product" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="1177.0" y="366" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-1-lane-2" value="E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="1177.0" y="505" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-1-lane-3" value="Other Domain Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="1177.0" y="644" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-1-lane-4" value="Operations / support" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="1177.0" y="991" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-1-lane-5" value="Public / private platforms" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="1177.0" y="1130" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="journey-gap-2" value="" style="rounded=0;fillColor=#ffffff;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="2020.0" y="118" width="90" height="1268" as="geometry" />
+        </mxCell>
+        <mxCell id="journey-frame-2" value="" style="rounded=0;fillColor=none;strokeColor=#888888;strokeWidth=1.6;" parent="1" vertex="1">
+          <mxGeometry x="2110.0" y="118" width="855.0" height="1254" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-2" value="" style="rounded=0;fillColor=#444444;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="2110.0" y="118" width="855.0" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-2-title" value="3 · Retrieve and receive" style="text;html=0;align=left;fontColor=#ffffff;fontSize=23;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="2126.0" y="126" width="823.0" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-2-note" value="Public and private sources converge. Saved-file download does not wait for ERP processing." style="text;html=0;align=left;fontColor=#ffffff;fontSize=15;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="2126.0" y="157" width="823.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-2-lane-0" value="Customer / accountant" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="2122.0" y="227" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-2-lane-1" value="ERP / product" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="2122.0" y="366" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-2-lane-2" value="E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="2122.0" y="505" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-2-lane-3" value="Other Domain Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="2122.0" y="644" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-2-lane-4" value="Operations / support" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="2122.0" y="991" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-2-lane-5" value="Public / private platforms" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="2122.0" y="1130" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="journey-gap-3" value="" style="rounded=0;fillColor=#ffffff;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="2965.0" y="118" width="90" height="1268" as="geometry" />
+        </mxCell>
+        <mxCell id="journey-frame-3" value="" style="rounded=0;fillColor=none;strokeColor=#888888;strokeWidth=1.6;" parent="1" vertex="1">
+          <mxGeometry x="3055.0" y="118" width="855.0" height="1254" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-3" value="" style="rounded=0;fillColor=#444444;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="3055.0" y="118" width="855.0" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-3-title" value="4 · Lifecycle and reporting" style="text;html=0;align=left;fontColor=#ffffff;fontSize=23;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="3071.0" y="126" width="823.0" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-3-note" value="Track evidence and buyer actions. Technical acknowledgement does not mean buyer acceptance." style="text;html=0;align=left;fontColor=#ffffff;fontSize=15;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="3071.0" y="157" width="823.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-3-lane-0" value="Customer / accountant" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="3067.0" y="227" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-3-lane-1" value="ERP / product" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="3067.0" y="366" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-3-lane-2" value="E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="3067.0" y="505" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-3-lane-3" value="Other Domain Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="3067.0" y="644" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-3-lane-4" value="Operations / support" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="3067.0" y="991" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-3-lane-5" value="Public / private platforms" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="3067.0" y="1130" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="journey-gap-4" value="" style="rounded=0;fillColor=#ffffff;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="3910.0" y="118" width="90" height="1268" as="geometry" />
+        </mxCell>
+        <mxCell id="journey-frame-4" value="" style="rounded=0;fillColor=none;strokeColor=#888888;strokeWidth=1.6;" parent="1" vertex="1">
+          <mxGeometry x="4000.0" y="118" width="855.0" height="1254" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-4" value="" style="rounded=0;fillColor=#444444;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="4000.0" y="118" width="855.0" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-4-title" value="5 · Change route" style="text;html=0;align=left;fontColor=#ffffff;fontSize=23;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4016.0" y="126" width="823.0" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-4-note" value="Change future traffic while preserving permitted work and records for earlier invoices." style="text;html=0;align=left;fontColor=#ffffff;fontSize=15;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4016.0" y="157" width="823.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-4-lane-0" value="Customer / accountant" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4012.0" y="227" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-4-lane-1" value="ERP / product" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4012.0" y="366" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-4-lane-2" value="E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4012.0" y="505" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-4-lane-3" value="Other Domain Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4012.0" y="644" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-4-lane-4" value="Operations / support" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4012.0" y="991" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-4-lane-5" value="Public / private platforms" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4012.0" y="1130" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="journey-gap-5" value="" style="rounded=0;fillColor=#ffffff;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="4855.0" y="118" width="90" height="1268" as="geometry" />
+        </mxCell>
+        <mxCell id="journey-frame-5" value="" style="rounded=0;fillColor=none;strokeColor=#888888;strokeWidth=1.6;" parent="1" vertex="1">
+          <mxGeometry x="4945.0" y="118" width="855.0" height="1254" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-5" value="" style="rounded=0;fillColor=#444444;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="4945.0" y="118" width="855.0" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-5-title" value="6 · Offboarding" style="text;html=0;align=left;fontColor=#ffffff;fontSize=23;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4961.0" y="126" width="823.0" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-5-note" value="Leave the service safely. Export and retention are separate from closing access." style="text;html=0;align=left;fontColor=#ffffff;fontSize=15;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4961.0" y="157" width="823.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-5-lane-0" value="Customer / accountant" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4957.0" y="227" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-5-lane-1" value="ERP / product" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4957.0" y="366" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-5-lane-2" value="E-Invoice Service" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4957.0" y="505" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-5-lane-3" value="Other Domain Services" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4957.0" y="644" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-5-lane-4" value="Operations / support" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4957.0" y="991" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-5-lane-5" value="Public / private platforms" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="4957.0" y="1130" width="831.0" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="column-0" value="Business request" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="220.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-1" value="Readiness and service checks" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="505.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-2" value="Result / support" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="790.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-3" value="ERP owns issuance" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="1165.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-4" value="Coordinate the exchange" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="1450.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-5" value="Independent results" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="1735.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-6" value="Invoice sources" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="2110.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-7" value="Receive and process" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="2395.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-8" value="ERP / customer access" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="2680.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-9" value="Buyer action" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="3055.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-10" value="Lifecycle coordination" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="3340.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-11" value="Customer view" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="3625.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-12" value="Customer request" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="4000.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-13" value="Controlled change" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="4285.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-14" value="Historical continuity" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="4570.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-15" value="Exit request" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="4945.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-16" value="Continuity and records" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="5230.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="column-17" value="Controlled closure" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+          <mxGeometry x="5515.0" y="195" width="285.0" height="26" as="geometry" />
+        </mxCell>
+        <object id="SET-01" label="Authorise the business&#10;SPEC-SEI-002" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" tooltip="">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="236.0" y="264" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="SET-02" label="Request setup through Global API&#10;SPEC-SEI-013" link="../../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md" tooltip="">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="236.0" y="403" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="SET-03" label="Establish capability readiness&#10;SPEC-SEI-002" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" tooltip="">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="521.0" y="542" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="SET-04" label="Trust and certificate checks&#10;SPEC-SEI-001" link="../../specs/SPEC-SEI-001-certificate-management-solution-specification.md" tooltip="Only for the selected purpose; certificate possession does not confer authority.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="521.0" y="681" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="SET-05" label="Public platform connection&#10;SPEC-SEI-011" link="../../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md" tooltip="The connector handles protocol and evidence, not business interpretation.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="521.0" y="785" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="SET-07" label="Return readiness and next action&#10;SPEC-SEI-002" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" tooltip="Registration, readiness and route activation remain separate.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="806.0" y="542" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="SET-08" label="Setup recovery, when needed&#10;SPEC-SEI-004" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" tooltip="Conditional exception. Check authoritative external state before unsafe retry.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;dashed=1;">
+            <mxGeometry x="806.0" y="1028" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="OUT-01" label="Prepare, review and issue invoice&#10;SPEC-SEI-007" link="../../specs/SPEC-SEI-007-invoice-sending-solution.md" tooltip="The ERP owns draft review and invoice issuance. Detailed preparation and final checks remain in SPEC-SEI-007.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="1181.0" y="403" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="OUT-08" label="Recipient destination lookup&#10;SPEC-SEI-012" link="../../specs/SPEC-SEI-012-consult-public-platform-for-recipient-information.md" tooltip="No central AEAT directory is assumed. Failed lookup does not establish public routing.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="1466.0" y="681" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="OUT-10" label="Spain UBL conversion&#10;SPEC-SEI-008" link="../../specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md" tooltip="Reuse candidate: qualify the Spain mapper migration, DTS contract, profile and operations before use.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="1466.0" y="785" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="OUT-11" label="UBL validation&#10;SPEC-SEI-005" link="../../specs/SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md" tooltip="">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="1466.0" y="889" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="OUT-13" label="Coordinate sending the invoice&#10;SPEC-SEI-007" link="../../specs/SPEC-SEI-007-invoice-sending-solution.md" tooltip="Use a qualified recipient route. Track recipient delivery and any required public copy separately. The owning spec explains checks and recovery.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="1466.0" y="542" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="OUT-14" label="Recipient delivery&#10;SPEC-SEI-007" link="../../specs/SPEC-SEI-007-invoice-sending-solution.md" tooltip="Deliver through the qualified public or private recipient route. This does not establish buyer acceptance.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="1751.0" y="1167" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="OUT-15" label="Public copy, only if required&#10;SPEC-SEI-007" link="../../specs/SPEC-SEI-007-invoice-sending-solution.md" tooltip="Conditional obligation; not another recipient delivery or a universal country default.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;dashed=1;">
+            <mxGeometry x="1751.0" y="1271" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="RCV-04" label="Retrieve and preserve public file&#10;SPEC-SEI-010" link="../../specs/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md" tooltip="Preserve original, public-copy and derived-file roles; safe storage is not dependent on mapping success.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="2126.0" y="681" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="RCV-05" label="Private invoice arrival&#10;SPEC-SEI-006" link="../../specs/SPEC-SEI-006-invoice-receiving-solution.md" tooltip="Alternative ingress with independent private-route readiness; not a consequence of public retrieval.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="2126.0" y="1167" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="RCV-06" label="Download stored public file&#10;SPEC-SEI-010" link="../../specs/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md" tooltip="Independent read branch. Apply current authority and safe-file controls; download is not acceptance.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="2696.0" y="264" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="RCV-07" label="Process received invoice&#10;SPEC-SEI-006" link="../../specs/SPEC-SEI-006-invoice-receiving-solution.md" tooltip="">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="2411.0" y="542" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="RCV-11" label="Invoice available in ERP&#10;SPEC-SEI-006" link="../../specs/SPEC-SEI-006-invoice-receiving-solution.md" tooltip="">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="2696.0" y="403" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="LIF-03" label="Record buyer decision&#10;SPEC-SEI-009" link="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md" tooltip="">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="3071.0" y="264" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="LIF-07" label="Track outcomes and reporting&#10;SPEC-SEI-009" link="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md" tooltip="Preserve separate delivery, public-copy, buyer-action and reporting evidence. Technical acknowledgement does not establish buyer acceptance.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="3356.0" y="542" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="LIF-09" label="Show status and next action&#10;SPEC-SEI-009" link="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md" tooltip="">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="3641.0" y="403" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="EXT-01" label="Request route change&#10;SPEC-SEI-003" link="../../specs/SPEC-SEI-003-offboarding-solution-specification.md" tooltip="Optional request to change the receiving or sending route. Full service exit is covered in the separate offboarding journey.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="4016.0" y="264" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="EXT-02" label="Switch future traffic safely&#10;SPEC-SEI-003" link="../../specs/SPEC-SEI-003-offboarding-solution-specification.md" tooltip="Check destination readiness and apply an approved boundary for future traffic. Earlier invoices retain their actual route and obligations.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="4301.0" y="542" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="EXT-05" label="Keep earlier records accessible&#10;SPEC-SEI-003" link="../../specs/SPEC-SEI-003-offboarding-solution-specification.md" tooltip="Preserve permitted records and access needed for earlier invoices after a route change.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="4586.0" y="681" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="END-01" label="Request service exit&#10;SPEC-SEI-003" link="../../specs/SPEC-SEI-003-offboarding-solution-specification.md" tooltip="">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="4961.0" y="264" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="END-02" label="Coordinate exit and earlier obligations&#10;SPEC-SEI-003" link="../../specs/SPEC-SEI-003-offboarding-solution-specification.md" tooltip="Check the authorised exit scope and assign each unfinished invoice obligation a permitted owner and channel before dependent access is released.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="5246.0" y="542" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="END-03" label="Export records and apply retention&#10;SPEC-SEI-003" link="../../specs/SPEC-SEI-003-offboarding-solution-specification.md" tooltip="Provide an authorised export and apply approved retention and legal holds. Ending the service does not automatically delete invoice records.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="5246.0" y="681" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="END-04" label="Confirm required disconnection&#10;SPEC-SEI-003" link="../../specs/SPEC-SEI-003-offboarding-solution-specification.md" tooltip="Only perform applicable, qualified external withdrawal or deregistration actions after the relevant continuity checks. Reconcile uncertain results before declaring completion.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="5531.0" y="1167" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="END-05" label="Return exit result and access terms&#10;SPEC-SEI-003" link="../../specs/SPEC-SEI-003-offboarding-solution-specification.md" tooltip="Report completion only when the exit checks are satisfied. Explain the approved historical-access and retention arrangements; unresolved work remains visible.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="5531.0" y="542" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="edge-0" source="SET-01" target="SET-02" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-1" source="SET-02" target="SET-03" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="499.0" y="445.0" />
+              <mxPoint x="499.0" y="584.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-2" source="SET-04" target="SET-03" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;dashPattern=6 4;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" source="SET-05" target="SET-03" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;dashPattern=6 4;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="647.5" y="775" />
+              <mxPoint x="511.0" y="775" />
+              <mxPoint x="511.0" y="636" />
+              <mxPoint x="647.5" y="636" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-4" source="SET-03" target="SET-07" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-5" source="SET-03" target="SET-08" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;dashPattern=6 4;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="784.0" y="584.0" />
+              <mxPoint x="784.0" y="1070.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-6" source="OUT-01" target="OUT-13" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1444.0" y="445.0" />
+              <mxPoint x="1444.0" y="584.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-7" source="OUT-08" target="OUT-13" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;dashPattern=6 4;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-8" source="OUT-10" target="OUT-13" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;dashPattern=6 4;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1592.5" y="775" />
+              <mxPoint x="1456.0" y="775" />
+              <mxPoint x="1456.0" y="636" />
+              <mxPoint x="1592.5" y="636" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-9" source="OUT-11" target="OUT-13" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;dashPattern=6 4;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1592.5" y="879" />
+              <mxPoint x="1456.0" y="879" />
+              <mxPoint x="1456.0" y="636" />
+              <mxPoint x="1592.5" y="636" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-10" source="OUT-13" target="OUT-14" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1729.0" y="584.0" />
+              <mxPoint x="1729.0" y="1209.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-11" source="OUT-13" target="OUT-15" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;dashPattern=6 4;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1729.0" y="584.0" />
+              <mxPoint x="1729.0" y="1313.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-12" source="RCV-04" target="RCV-07" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2389.0" y="723.0" />
+              <mxPoint x="2389.0" y="584.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-13" source="RCV-05" target="RCV-07" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2389.0" y="1209.0" />
+              <mxPoint x="2389.0" y="584.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-14" source="RCV-07" target="RCV-11" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2674.0" y="584.0" />
+              <mxPoint x="2674.0" y="445.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-15" source="RCV-04" target="RCV-06" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;dashPattern=2 4;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2389.0" y="723.0" />
+              <mxPoint x="2389.0" y="306.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-16" source="LIF-03" target="LIF-07" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3334.0" y="306.0" />
+              <mxPoint x="3334.0" y="584.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-17" source="LIF-07" target="LIF-09" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3619.0" y="584.0" />
+              <mxPoint x="3619.0" y="445.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-18" source="EXT-01" target="EXT-02" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="4279.0" y="306.0" />
+              <mxPoint x="4279.0" y="584.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-19" source="EXT-02" target="EXT-05" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="4564.0" y="584.0" />
+              <mxPoint x="4564.0" y="723.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-20" source="END-01" target="END-02" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="5224.0" y="306.0" />
+              <mxPoint x="5224.0" y="584.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-21" source="END-02" target="END-03" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-22" source="END-03" target="END-05" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="5509.0" y="723.0" />
+              <mxPoint x="5509.0" y="584.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-23" source="END-03" target="END-04" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;dashPattern=6 4;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="5509.0" y="723.0" />
+              <mxPoint x="5509.0" y="1209.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-24" source="END-04" target="END-05" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;dashPattern=6 4;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

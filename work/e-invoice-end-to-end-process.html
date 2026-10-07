@@ -264,7 +264,7 @@
     #spain-einvoice-end-to-end .e2e-route-node strong { font-size: .79rem; line-height: 1.35; font-weight: 500; }
     #spain-einvoice-end-to-end .e2e-route-node span { color: var(--e2e-muted); font-size: .69rem; }
     #spain-einvoice-end-to-end .e2e-route-arrow { color: var(--e2e-muted); }
-    #spain-einvoice-end-to-end .e2e-public-leg {
+    #spain-einvoice-end-to-end .e2e-public-action {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto minmax(0, 2fr);
       align-items: center;
@@ -277,8 +277,8 @@
       font-size: .76rem;
       line-height: 1.4;
     }
-    #spain-einvoice-end-to-end .e2e-public-leg-label { display: flex; align-items: center; gap: 7px; }
-    #spain-einvoice-end-to-end .e2e-public-leg strong { font-weight: 500; }
+    #spain-einvoice-end-to-end .e2e-public-action-label { display: flex; align-items: center; gap: 7px; }
+    #spain-einvoice-end-to-end .e2e-public-action strong { font-weight: 500; }
     #spain-einvoice-end-to-end .e2e-principle {
       margin-top: 14px;
       padding: 11px 12px;
@@ -316,9 +316,9 @@
       #spain-einvoice-end-to-end .e2e-route { grid-template-columns: 1fr; justify-items: stretch; }
       #spain-einvoice-end-to-end .e2e-route-node { min-height: 88px; }
       #spain-einvoice-end-to-end .e2e-route-arrow { justify-self: center; transform: rotate(90deg); }
-      #spain-einvoice-end-to-end .e2e-public-leg { grid-template-columns: 1fr; margin-left: 0; text-align: center; }
-      #spain-einvoice-end-to-end .e2e-public-leg-label { justify-content: center; }
-      #spain-einvoice-end-to-end .e2e-public-leg > i { justify-self: center; transform: rotate(90deg); }
+      #spain-einvoice-end-to-end .e2e-public-action { grid-template-columns: 1fr; margin-left: 0; text-align: center; }
+      #spain-einvoice-end-to-end .e2e-public-action-label { justify-content: center; }
+      #spain-einvoice-end-to-end .e2e-public-action > i { justify-self: center; transform: rotate(90deg); }
     }
     @media (max-width: 420px) {
       #spain-einvoice-end-to-end .e2e-topbar,
@@ -433,8 +433,8 @@
       <i class="e2e-route-arrow" data-lucide="arrow-right" aria-hidden="true"></i>
       <div class="e2e-route-node"><i data-lucide="inbox" aria-hidden="true"></i><strong id="e2e-route-recipient"></strong><span>Delivery destination</span></div>
     </div>
-    <div class="e2e-public-leg">
-      <span class="e2e-public-leg-label"><i data-lucide="git-branch" aria-hidden="true"></i>Public compliance leg</span>
+    <div class="e2e-public-action">
+      <span class="e2e-public-action-label"><i data-lucide="git-branch" aria-hidden="true"></i>Public compliance action</span>
       <i data-lucide="arrow-right" aria-hidden="true"></i>
       <strong id="e2e-public-copy"></strong>
     </div>
@@ -472,7 +472,7 @@
           'Pass readiness gates, persist entry-point evidence, then create the inbound/outbound route with scope, status and effective time; prevent overlapping active routes.',
           'Persist invoice_intent, apply the jurisdiction rule pack, format and tax checks, then allocate an idempotency key before submission.',
           'Resolve from fresh entry-point observations across open provider lookups; record source, timestamp and confidence, then use the public default if unresolved.',
-          'Freeze an immutable exchange_plan with recipient delivery leg, public-copy leg when required, transformation decisions, correlation IDs and retry policy.',
+          'Freeze an immutable exchange_plan with recipient delivery action, public-copy submission when required, transformation decisions, correlation IDs and retry policy.',
           'Store origin context and status events for delivery, acceptance, rejection and payment; platform transitions version routes without rewriting prior invoice history.'
         ]
       };
@@ -508,7 +508,7 @@
         },
         'private-first': {
           customerSummary: 'The customer is onboarded once, chooses a supported private provider, and does not complete a separate public customer journey. Public compliance capability is provisioned behind the scenes.',
-          technicalSummary: 'Create the subject and authority, connect and validate EDICOM, provision the public compliance leg, publish the private entry point, and activate the private route only after all gates pass.',
+          technicalSummary: 'Create the subject and authority, connect and validate EDICOM, provision the public compliance action, publish the private entry point, and activate the private route only after all gates pass.',
           source: 'New customer account',
           senderCustomer: 'EDICOM · connected',
           senderTechnical: 'connection: EDICOM · route: active',

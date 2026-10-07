@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-09-11
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-202
@@ -32,13 +32,15 @@ confluence:
 
 # Foundation — Connections, Registration and Routing — Structured Review
 
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
+
 ## Revision overview
 
 | Area | Summary |
 |---|---|
 | Predecessor | Based on PRD-SEI-202, which remains unchanged as the predecessor document. |
 | Reason for this successor | Provide an individually readable successor that publishes through a native Confluence two-column layout with a left-sidebar Table of Contents. |
-| Material changes | Assigns permanent ID PRD-SEI-214, adds Confluence layout/navigation metadata, and clarifies that connection readiness is measured independently for Provider API, adapter, event and reconciliation legs. |
+| Material changes | Assigns permanent ID PRD-SEI-214, adds Confluence layout/navigation metadata, and clarifies that connection readiness is measured independently for Provider API, adapter, event and reconciliation paths. |
 | Unchanged areas | Existing business analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks and route model remain based on PRD-SEI-202. |
 | Decisions still open | Integration mode and readiness evidence remain open per provider capability; existing regulatory and routing decisions remain as recorded. |
 
@@ -50,7 +52,7 @@ Phase 1 establishes public-platform onboarding. Phase 2 adds private-provider co
 
 > **Connect a platform once, prove that it is ready, and activate it only for the invoice scope the customer intends to change.**
 
-The connection and route model is neutral to network initiation. A private-platform capability may use the Sage-owned Provider API, a Sage-managed provider adapter, or an explicitly approved hybrid. Connection readiness must therefore be recorded separately for provider-to-Sage calls, Sage-to-provider calls, asynchronous events and reconciliation; one successful leg must not imply that every required leg is ready.
+The connection and route model is neutral to network initiation. A private-platform capability may use the Sage-owned Provider API, a Sage-managed provider adapter, or an explicitly approved hybrid. Connection readiness must therefore be recorded separately for provider-to-Sage calls, Sage-to-provider calls, asynchronous events and reconciliation; one successful action must not imply that every required action is ready.
 
 ### Delivery context
 

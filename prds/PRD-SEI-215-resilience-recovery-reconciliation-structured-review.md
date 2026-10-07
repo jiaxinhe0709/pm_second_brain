@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-09-11
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-203
@@ -31,13 +31,15 @@ confluence:
 
 # Operations — Resilience, Recovery and Reconciliation — Structured Review
 
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
+
 ## Revision overview
 
 | Area | Summary |
 |---|---|
 | Predecessor | Based on PRD-SEI-203, which remains unchanged as the predecessor document. |
 | Reason for this successor | Provide an individually readable successor that publishes through a native Confluence two-column layout with a left-sidebar Table of Contents. |
-| Material changes | Assigns permanent ID PRD-SEI-215, adds Confluence layout/navigation metadata, and applies the resilience model to Provider API, adapter, event and reconciliation legs without creating competing mutation owners. |
+| Material changes | Assigns permanent ID PRD-SEI-215, adds Confluence layout/navigation metadata, and applies the resilience model to Provider API, adapter, event and reconciliation paths without creating competing mutation owners. |
 | Unchanged areas | Existing failure analysis, research evidence, scenarios, requirements, visuals, acceptance criteria, risks and recovery principles remain based on PRD-SEI-203. |
 | Decisions still open | Exact integration mode, recovery capability, limits and service targets remain open per provider capability. |
 

@@ -19,9 +19,12 @@ related:
   - SPEC-SEI-001
   - SPEC-SEI-007
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
+  parent_page_id: "918651070"
   page_id: ""
+  layout: two_left_sidebar
+  toc: true
 ---
 
 # UBL Validation and Correction Solution Specification
@@ -38,7 +41,7 @@ The design remains a draft. **Proposed** choices still need review; **open** dec
 
 ### 1 Purpose, authority and boundary
 
-This **proposed logical design** gives Sage products a consistent way to check a UBL Invoice or CreditNote and explain how to correct problems. Checks use the rules explicitly approved and enabled for the selected country, direction, route, document type and profile. [PRD-SEI-241](../prds/PRD-SEI-241-ubl-validation-service.md) owns the product handoff; [PRD-SEI-236](../prds/PRD-SEI-236-ubl-format-profile.md) owns versioned UBL profile capability; [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns transformation and exchange. This spec covers non-mutating preflight, final validation of exact dispatch bytes, structured issues and correction lineage. [SPEC-SEI-007](SPEC-SEI-007-spain-invoice-preparation-and-outbound-solution-specification.md) owns Spain outbound orchestration, actual send and external acknowledgement; lifecycle owners handle subsequent feedback.
+This **proposed logical design** gives Sage products a consistent way to check a UBL Invoice or CreditNote and explain how to correct problems. Checks use the rules explicitly approved and enabled for the selected country, direction, route, document type and profile. [PRD-SEI-241](../prds/PRD-SEI-241-ubl-validation-service.md) owns the product handoff; [PRD-SEI-236](../prds/PRD-SEI-236-ubl-format-profile.md) owns versioned UBL profile capability; [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns transformation and exchange. This spec covers non-mutating preflight, final validation of exact dispatch bytes, structured issues and correction lineage. [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md) owns Spain outbound orchestration, actual send and external acknowledgement; lifecycle owners handle subsequent feedback.
 
 A validation PASS means that one identified representation passed one identified local rule set at one time. It does not prove that an access point or public platform accepted it, that a buyer received it, or that the invoice is legally settled. A customer correction before dispatch creates a new source revision. A correction after issuance is a separate governed invoice/credit-note lifecycle decision; the validation service must not rewrite a sent original.
 

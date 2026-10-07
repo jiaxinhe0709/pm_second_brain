@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-12
-updated: 2026-09-11
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-227
@@ -27,6 +27,8 @@ confluence:
 ---
 
 # E-Invoicing — Cross-Border Applicability and Reusable Country Capabilities
+
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
 
 ## Decision summary
 
@@ -99,7 +101,7 @@ Sources: [BOE — RD 238/2026 Article 3 scope, Article 7 formats and final provi
 | Goods/services, tax-on-collection, reverse charge and exemptions | Supply/tax-result inputs; applicability consumes rather than recalculates tax |
 | Invoice, qualified/simplified invoice, credit/correction or self-billing | Document classification plus principal and performing actor |
 | Cohort, threshold, transition and effective date | Effective-dated policy version and explicit `required`, `permitted`, `not_applicable`, `exempt` or `undetermined` result |
-| E-invoice, recipient delivery, public copy and authority reporting | Independent document, delivery and reporting obligation legs |
+| E-invoice, recipient delivery, public copy and authority reporting | Independent document, delivery and reporting obligation actions |
 | Country route/profile/status terminology | Country-owned binding to shared validation, routing, lifecycle, evidence and recovery frameworks |
 
 ## Applicability first; reusable modules second
@@ -114,7 +116,7 @@ Sources: [BOE — RD 238/2026 Article 3 scope, Article 7 formats and final provi
     <text x="32" y="30" class="label">FACTS</text><text x="312" y="30" class="label">COUNTRY POLICY</text><text x="744" y="30" class="label">COMPLIANCE PLAN</text>
     <rect x="32" y="62" width="230" height="174" rx="10" class="main"/><text x="52" y="91" class="title">Transaction context</text><text x="52" y="114" class="copy">seller legal entity + establishment</text><text x="52" y="136" class="copy">buyer legal entity + establishment</text><text x="52" y="158" class="copy">VAT registrations + tax treatment</text><text x="52" y="180" class="copy">B2B/B2C/B2G • domestic/cross-border</text><text x="52" y="202" class="copy">document type • supply • effective time</text><text x="52" y="224" class="copy">evidence/confidence for missing facts</text>
     <path d="M262 149 H310" class="path"/><polygon points="310,149 300,143 300,155" class="arrow"/>
-    <rect x="312" y="62" width="244" height="174" rx="10" class="finish"/><text x="332" y="91" class="title">Applicability engine</text><text x="332" y="114" class="copy">identify relevant jurisdictions</text><text x="332" y="136" class="copy">select effective country policy versions</text><text x="332" y="158" class="copy">evaluate scope / exemption / dependency</text><text x="332" y="180" class="copy">return reasons + evidence + unknowns</text><text x="332" y="202" class="copy">create independent obligation legs</text><text x="332" y="224" class="copy">never default unknown to compliant</text>
+    <rect x="312" y="62" width="244" height="174" rx="10" class="finish"/><text x="332" y="91" class="title">Applicability engine</text><text x="332" y="114" class="copy">identify relevant jurisdictions</text><text x="332" y="136" class="copy">select effective country policy versions</text><text x="332" y="158" class="copy">evaluate scope / exemption / dependency</text><text x="332" y="180" class="copy">return reasons + evidence + unknowns</text><text x="332" y="202" class="copy">create independent obligation actions</text><text x="332" y="224" class="copy">never default unknown to compliant</text>
     <path d="M556 149 H604 V94 H652" class="path"/><polygon points="652,94 642,88 642,100" class="arrow"/>
     <path d="M556 149 H604 V214 H652" class="path"/><polygon points="652,214 642,208 642,220" class="arrow"/>
     <path d="M556 149 H604 V334 H652" class="path-opt"/><polygon points="652,334 642,328 642,340" class="arrow-g"/>
@@ -122,7 +124,7 @@ Sources: [BOE — RD 238/2026 Article 3 scope, Article 7 formats and final provi
     <rect x="654" y="172" width="412" height="84" rx="10" class="main"/><text x="674" y="200" class="title">Spain pack example</text><text x="674" y="221" class="copy">Recipient Spanish seat/PE/residence in scope → mandatory B2B route</text><text x="674" y="240" class="copy">Otherwise → outside this test; continue other applicable evaluations</text>
     <rect x="654" y="292" width="412" height="84" rx="10" class="optional"/><text x="674" y="320" class="title">Germany • Ireland • UK packs</text><text x="674" y="341" class="copy">Activate only official, effective rules; unknown details remain gates</text><text x="674" y="360" class="copy">ViDA compatibility does not erase national policy versions</text>
     <text x="32" y="310" class="label">REUSABLE CAPABILITY LIBRARY — FRAMEWORKS, NOT COUNTRY RULES</text>
-    <rect x="32" y="336" width="174" height="72" rx="10" class="optional"/><text x="52" y="365" class="title">Reporting leg</text><text x="52" y="386" class="copy">schedule • transform • ack</text>
+    <rect x="32" y="336" width="174" height="72" rx="10" class="optional"/><text x="52" y="365" class="title">Reporting action</text><text x="52" y="386" class="copy">schedule • transform • ack</text>
     <rect x="224" y="336" width="174" height="72" rx="10" class="optional"/><text x="244" y="365" class="title">Peppol delivery</text><text x="244" y="386" class="copy">discover • route • reconcile</text>
     <rect x="416" y="336" width="174" height="72" rx="10" class="optional"/><text x="436" y="365" class="title">Lifecycle mapping</text><text x="436" y="386" class="copy">raw event → dimensions</text>
     <rect x="32" y="430" width="174" height="72" rx="10" class="optional"/><text x="52" y="459" class="title">Public copy</text><text x="52" y="480" class="copy">submit • retrieve • evidence</text>
@@ -141,7 +143,7 @@ Sources: [BOE — RD 238/2026 Article 3 scope, Article 7 formats and final provi
 | Reusable framework | Must remain country-specific |
 |---|---|
 | Applicability engine and explainable decision envelope | Scope tests, exemptions, establishments, dates and legal source |
-| Reporting-leg orchestration | Required data, aggregation, deadline, authority route and acknowledgement |
+| Reporting-action orchestration | Required data, aggregation, deadline, authority route and acknowledgement |
 | Peppol discovery/transport framework | Participant schemes, BIS/process, onboarding and national governance |
 | Validation/transformation engine | CIUS/profile, mandatory fields, code lists and semantic exceptions |
 | Lifecycle event ledger/mapping engine | Raw status catalog, mapping, precedence and customer wording |
@@ -152,11 +154,11 @@ Sources: [BOE — RD 238/2026 Article 3 scope, Article 7 formats and final provi
 | ID | Requirement / acceptance |
 |---|---|
 | CB-FR1 | Evaluate seller, buyer, relevant establishments, VAT/tax context, transaction type, supply, document and effective time before selecting obligations. |
-| CB-FR2 | Return each relevant country-policy result with applied version, evidence, reason, obligation legs, exemption and unresolved facts. |
+| CB-FR2 | Return each relevant country-policy result with applied version, evidence, reason, obligation actions, exemption and unresolved facts. |
 | CB-FR3 | Treat `outside this mandate` separately from `no obligation applies`; continue all configured country/tax/reporting evaluations. |
 | CB-FR4 | Activate a reusable module only through an approved country binding with schema/profile, route, statuses, dates, exceptions, owner and tests. |
 | CB-FR5 | Keep Spanish B2B e-invoicing, Spanish VERI*FACTU/SII and French e-reporting as separate policy domains even when they reuse orchestration. |
-| CB-FR6 | Preserve the country policy and module versions selected for every invoice/reporting leg; later reuse or policy changes do not rewrite history. |
+| CB-FR6 | Preserve the country policy and module versions selected for every invoice/reporting action; later reuse or policy changes do not rewrite history. |
 | CB-FR7 | Preserve the official country scope term, source/version, decisive facts, exemption and result before mapping it to a common relationship/geography classification. |
 | CB-FR8 | Evaluate issuance, receipt, recipient delivery, public-copy and authority-reporting obligations independently, including cohort asymmetry. |
 | CB-FR9 | Classify counterparty relationship and geography independently from legal applicability, format/profile, route and optional service recommendation. |
@@ -165,7 +167,7 @@ Sources: [BOE — RD 238/2026 Article 3 scope, Article 7 formats and final provi
 | CB-FR12 | Select syntax family, version, CIUS/profile, validation artefacts and route from the applicable country/public-sector/destination binding rather than from `B2B`, `B2G`, `B2C`, `EU` or `ROW` labels alone. |
 | CB-AC1 | Given a French seller invoices a business established abroad, then the French pack evaluates transaction e-reporting and does not route it as French domestic B2B e-invoicing. |
 | CB-AC2 | Given a Spanish seller invoices a foreign recipient with no relevant Spanish seat/establishment, then the RD 238/2026 recipient test is out of scope and the engine continues other applicable evaluations. |
-| CB-AC3 | Given Ireland later requires a reporting leg similar in shape to Spain, then the shared reporting framework is reused but Ireland supplies its own rule, schema, dates, route, statuses and evidence. |
+| CB-AC3 | Given Ireland later requires a reporting action similar in shape to Spain, then the shared reporting framework is reused but Ireland supplies its own rule, schema, dates, route, statuses and evidence. |
 | CB-AC4 | Given a German sale to a private consumer or a qualifying small-value invoice, then the German domestic B2B rule is not activated merely because both parties or the currency are German. |
 | CB-AC5 | Given an Irish business must receive from 1 November 2028 but is not in the large-corporate issuing cohort, then receipt readiness can be required while issuance remains not applicable for that cohort. |
 | CB-AC6 | Given a UK VAT invoice dated before final legislation and technical rules are approved, then the future Peppol direction remains a planning input and the production applicability result is not guessed. |

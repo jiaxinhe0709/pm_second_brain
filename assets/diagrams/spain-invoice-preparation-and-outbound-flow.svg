@@ -60,14 +60,14 @@
 <text x="1865.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Current authoritative result</text>
 <path d="M2030 440 H2240 V528 Q2187.5 515 2135.0 528 Q2082.5 541 2030 528 Z" fill="#ffffff" stroke="#444" stroke-width="2"/>
 <text x="2135.0" y="477.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">10 Exchange plan</text>
-<text x="2135.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Freeze route, trust and legs</text>
+<text x="2135.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Freeze route, trust and actions</text>
 <rect x="2290" y="440" width="210" height="100" rx="10" fill="#ededed" stroke="#444" stroke-width="2"/>
 <text x="2395.0" y="477.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">11 Prepare &amp; dispatch</text>
 <text x="2395.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Validate final format; sign</text>
 <text x="2395.0" y="516.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">if required; persist operation</text>
 <path d="M2710 448 C2710 431 2910 431 2910 448 V532 C2910 549 2710 549 2710 532 Z M2710 448 C2710 465 2910 465 2910 448" fill="#ffffff" stroke="#444" stroke-width="2"/>
 <text x="2810.0" y="477.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">13 Outcome ledger</text>
-<text x="2810.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Separate raw results per leg</text>
+<text x="2810.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Separate raw results per action</text>
 <rect x="2950" y="440" width="170" height="100" rx="10" fill="#ededed" stroke="#444" stroke-width="2"/>
 <text x="3035.0" y="477.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">14 Derive views</text>
 <text x="3035.0" y="498.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Evidence and next action</text>
@@ -90,7 +90,7 @@
 <text x="2395.0" y="751.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">and signing requirements</text>
 <path d="M2732 675 H2938 L2960 725.0 L2938 775 H2732 L2710 725.0 Z" fill="#ffffff" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
 <text x="2835.0" y="712.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Outcome unknown</text>
-<text x="2835.0" y="733.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Reconcile original leg</text>
+<text x="2835.0" y="733.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Reconcile original action</text>
 <text x="2835.0" y="751.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">before a mutating retry</text>
 <rect x="2240" y="865" width="450" height="395" fill="#ffffff" stroke="#aaa"/>
 <text x="2465" y="892" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">12  Independent external obligations</text>
@@ -104,7 +104,7 @@
 <text x="2575.0" y="1088.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Default or planned bridge</text>
 <path d="M2330 1170 H2600 L2620 1240 H2310 Z" fill="#ffffff" stroke="#444" stroke-width="2" stroke-dasharray="7 5"/>
 <text x="2465.0" y="1192.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#222">Faithful public copy</text>
-<text x="2465.0" y="1213.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Separate leg only if required</text>
+<text x="2465.0" y="1213.0" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Separate submission only if required</text>
 <path d="M500 220 L540 220" fill="none" stroke="#444" stroke-width="2"/>
 <polygon points="540.0,220.0 530.0,216.0 530.0,224.0" fill="#444"/>
 <path d="M645 260 L645 440" fill="none" stroke="#444" stroke-width="2"/>
@@ -168,10 +168,10 @@
 <polygon points="2810.0,675.0 2814.0,665.0 2806.0,665.0" fill="#444"/>
 <text x="2860" y="603" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">unknown</text>
 <text x="1050" y="570" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Draft validation includes the early destination check.</text>
-<text x="2900" y="840" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Record each leg asynchronously;</text>
+<text x="2900" y="840" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Record each action asynchronously;</text>
 <text x="2900" y="866" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">acknowledgement is not buyer acceptance.</text>
 <text x="1880" y="802" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">After recovery, repeat recipient lookup.</text>
-<text x="2810" y="802" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Preserve completed legs; append new evidence.</text>
+<text x="2810" y="802" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Preserve completed actions; append new evidence.</text>
 <text x="2465" y="1278" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="400" fill="#222">Alternatives for delivery; copy is a separate conditional duty.</text>
 <text x="35" y="1320" text-anchor="start" font-family="Arial,sans-serif" font-size="16" font-weight="400" fill="#222">Reading key: ellipse = start · parallelogram = ERP data/action · rounded rectangle = task · diamond = decision · document = rule/plan</text>
 <text x="35" y="1347" text-anchor="start" font-family="Arial,sans-serif" font-size="16" font-weight="400" fill="#222">Cylinder = evidence · dashed trapezoid = external party · dashed hexagon = hold/recovery · solid arrow = flow · dashed arrow = exception</text>

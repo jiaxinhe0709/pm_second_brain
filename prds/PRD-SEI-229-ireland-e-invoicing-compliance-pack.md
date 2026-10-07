@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-10
-updated: 2026-09-23
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-227
@@ -25,13 +25,15 @@ confluence:
 
 # Ireland E-Invoicing Compliance Pack
 
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
+
 ## Decision summary
 
 Define Ireland as a phased country pack on PRD-SEI-227. Phase One begins on 1 November 2028: Irish VAT-registered large corporates in Revenue's defined cohort issue EN 16931 e-invoices for domestic B2B transactions and report a subset of invoice data to Revenue, while all Irish businesses must be able to receive structured e-invoices.
 
 The product must model invoice delivery and Revenue reporting as separate correlated obligations. It must not invent the transport network, detailed syntax/profile, reporting payload, timing, acknowledgement, correction, identity or lifecycle rules that Revenue has not yet published.
 
-Spain discovery provides reusable product controls but not Irish policy: capability-specific onboarding, client-scoped accountant authority, purpose-specific credentials, governed format/transformation packs, provider connection without recreating the legal entity, independent external legs and reconcile-before-retry. Ireland must bind those controls to its own Revenue cohort, identity, delivery, reporting, format and trust evidence.
+Spain discovery provides reusable product controls but not Irish policy: capability-specific onboarding, client-scoped accountant authority, purpose-specific credentials, governed format/transformation packs, provider connection without recreating the legal entity, independent external actions and reconcile-before-retry. Ireland must bind those controls to its own Revenue cohort, identity, delivery, reporting, format and trust evidence.
 
 > **Country principle:** Build early around confirmed phase, scope and semantic requirements; activate delivery and reporting details only through approved official specifications.
 
@@ -66,7 +68,7 @@ Spain discovery provides reusable product controls but not Irish policy: capabil
 | Format and transformation | Govern syntax/version/profile/rules/mapping by effective route | EN 16931 confirmed; Irish syntax, CIUS, extensions and report representation open | Partial |
 | Credentials and trust | Purpose-specific custody, expiry, rotation, revocation and historic evidence | Delivery authentication, Revenue authentication and any invoice signature/seal are separate policies | Open; Spanish signature requirements do not apply by inference |
 | Provider change | Reuse still-valid identity/authority; recheck only affected connection/capabilities | Registration transfer, notice, portability, overlap, exit and historical access | Open |
-| Exchange lifecycle | Independent idempotency, correlation and recovery per external leg | Buyer delivery and Revenue report never inherit each other's result | Product requirement proposed from confirmed dual obligation |
+| Exchange lifecycle | Independent idempotency, correlation and recovery per external action | Buyer delivery and Revenue report never inherit each other's result | Product requirement proposed from confirmed dual obligation |
 
 **Delivery-depth priority:** first prove receive readiness across the selected Irish product estate, then prove issue plus reporting for a bounded Phase One large-corporate cohort. The shared model must support both without a universal `ONBOARDED` state.
 
@@ -78,7 +80,7 @@ Spain discovery provides reusable product controls but not Irish policy: capabil
     .ie-pack *{box-sizing:border-box}.ie-pack h2{margin:0;color:#172b4d;font-size:18px}.ie-pack .sub{margin:6px 0 16px;color:#6b778c;font-size:12px}.ie-pack svg{display:block;width:1080px;height:560px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.ie-pack .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.6}.ie-pack .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.8}.ie-pack .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.ie-pack .bad{fill:#ffebe6;stroke:#de350b;stroke-width:1.6}.ie-pack .warn{fill:#fff7d6;stroke:#ffab00;stroke-width:1.6}.ie-pack .title{fill:#172b4d;font-size:11px;font-weight:700}.ie-pack .copy{fill:#42526e;font-size:9px}.ie-pack .phase{fill:#172b4d;font-size:10px;font-weight:700;letter-spacing:.05em}.ie-pack .path{fill:none;stroke:#00875a;stroke-width:2}.ie-pack .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.ie-pack .path-alert{fill:none;stroke:#de350b;stroke-width:1.8;stroke-dasharray:6 4}.ie-pack .path-warn{fill:none;stroke:#ff8b00;stroke-width:1.8;stroke-dasharray:6 4}.ie-pack .arrow{fill:#00875a}.ie-pack .arrow-g{fill:#6b778c}.ie-pack .arrow-r{fill:#de350b}.ie-pack .arrow-a{fill:#ff8b00}.ie-pack .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;min-width:1080px;margin-top:12px}.ie-pack .note{padding:10px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px;line-height:1.4}.ie-pack .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
   <p class="sub">Both obligations use one invoice context but have independent validation, correlation, acknowledgement and recovery. Later phases widen policy; they do not rewrite earlier evidence.</p>
-  <svg viewBox="0 0 1080 560" role="img" aria-label="In Ireland Phase One, a large corporate Sage product submits domestic B2B invoice intent. The Ireland pack checks cohort and scope, validates an EN 16931 representation, then creates separate buyer-delivery and Revenue-reporting legs. Each leg records an independent outcome. Validation failure loops to the product. A timeout after a possible external mutation reconciles only the affected leg. A lower phased timeline shows November 2028 Phase One, November 2029 Phase Two and July 2030 ViDA Phase Three.">
+  <svg viewBox="0 0 1080 560" role="img" aria-label="In Ireland Phase One, a large corporate Sage product submits domestic B2B invoice intent. The Ireland pack checks cohort and scope, validates an EN 16931 representation, then creates separate buyer-delivery and Revenue-reporting actions. Each action records an independent outcome. Validation failure loops to the product. A timeout after a possible external mutation reconciles only the affected action. A lower phased timeline shows November 2028 Phase One, November 2029 Phase Two and July 2030 ViDA Phase Three.">
     <text x="32" y="32" class="phase">PHASE ONE JOURNEY — 1 NOVEMBER 2028</text>
     <rect x="32" y="78" width="178" height="84" rx="10" class="main"/><text x="52" y="108" class="title">Large corporate product</text><text x="52" y="129" class="copy">Domestic B2B invoice intent</text><text x="52" y="146" class="copy">verified Irish entity context</text>
     <path d="M210 120 H260" class="path"/><polygon points="260,120 250,114 250,126" class="arrow"/>
@@ -90,11 +92,11 @@ Spain discovery provides reusable product controls but not Irish policy: capabil
     <rect x="768" y="43" width="220" height="78" rx="10" class="main"/><text x="788" y="72" class="title">Deliver structured e-invoice</text><text x="788" y="93" class="copy">Irish business recipient • transport TBD</text>
     <rect x="768" y="157" width="220" height="78" rx="10" class="main"/><text x="788" y="186" class="title">Report required subset</text><text x="788" y="207" class="copy">Revenue • data/timing/interface TBD</text>
     <path d="M988 82 H1030 V286 H696" class="path"/><path d="M988 196 H1010 V286 H696" class="path"/><polygon points="696,286 706,280 706,292" class="arrow"/>
-    <rect x="488" y="247" width="206" height="80" rx="40" class="finish"/><text x="513" y="278" class="title">Return two leg outcomes</text><text x="513" y="299" class="copy">Delivery and reporting remain independent</text>
+    <rect x="488" y="247" width="206" height="80" rx="40" class="finish"/><text x="513" y="278" class="title">Return two action outcomes</text><text x="513" y="299" class="copy">Delivery and reporting remain independent</text>
     <polygon points="356,204 394,242 356,280 318,242" class="bad"/><text x="329" y="238" class="title">Invalid</text><text x="326" y="254" class="copy">correct data</text>
     <path d="M356 204 V168" class="path-alert"/><polygon points="356,168 350,178 362,178" class="arrow-r"/>
     <path d="M318 242 H210 V162" class="path-alert"/><polygon points="210,162 204,172 216,172" class="arrow-r"/>
-    <polygon points="875,260 913,276 929,314 913,352 875,368 837,352 821,314 837,276" class="warn"/><text x="846" y="309" class="title">Unknown</text><text x="842" y="325" class="copy">reconcile one leg</text>
+    <polygon points="875,260 913,276 929,314 913,352 875,368 837,352 821,314 837,276" class="warn"/><text x="846" y="309" class="title">Unknown</text><text x="842" y="325" class="copy">reconcile one action</text>
     <path d="M875 235 V260" class="path-warn"/><polygon points="875,260 869,250 881,250" class="arrow-a"/>
     <path d="M821 314 H694" class="path-warn"/><polygon points="694,314 704,308 704,320" class="arrow-a"/>
     <text x="32" y="407" class="phase">EFFECTIVE-DATED POLICY EXPANSION</text>
@@ -112,7 +114,7 @@ Spain discovery provides reusable product controls but not Irish policy: capabil
 
 Ireland has confirmed enough direction to begin product and data readiness, but not enough technical detail to implement production exchange. Waiting for a final API would leave products with insufficient invoice data and no cohort/inbound plan. Inventing a network, payload or status model now would create false certainty and rework.
 
-The country pack therefore separates confirmed behaviour from specification-dependent adapters. Sage can assess EN 16931 data coverage, legal-entity/cohort identity, inbound readiness, dual-leg lifecycle and operations before activating external endpoints.
+The country pack therefore separates confirmed behaviour from specification-dependent adapters. Sage can assess EN 16931 data coverage, legal-entity/cohort identity, inbound readiness, separate delivery and reporting results and operations before activating external endpoints.
 
 ## Goals
 
@@ -120,7 +122,7 @@ The country pack therefore separates confirmed behaviour from specification-depe
 |---|---|
 | IE-G1 | Make all selected Irish Sage products able to receive, validate and import structured invoices for verified Irish entities by the applicable phase. |
 | IE-G2 | Enable Phase One in-scope large corporates to issue EN 16931-compliant domestic B2B invoices. |
-| IE-G3 | Report the officially required subset to Revenue through a separate, correlated and safely recoverable leg once specifications are approved. |
+| IE-G3 | Report the officially required subset to Revenue through a separate, correlated and safely recoverable action once specifications are approved. |
 | IE-G4 | Expand eligibility by effective phase without changing the product contract or historical evidence. |
 | IE-G5 | Prepare semantic/reporting compatibility for ViDA cross-border obligations from 2030. |
 
@@ -139,10 +141,10 @@ The country pack therefore separates confirmed behaviour from specification-depe
 |---|---|
 | Structured e-invoice | Issued, transmitted and received in a structured format supporting automated processing; Phase One must comply with EN 16931 |
 | Large corporate | Phase One definition requires VAT registration, management by Revenue Large Corporates Division and Irish establishment/fixed establishment |
-| Invoice delivery leg | Exchange of the structured invoice with the business recipient |
-| Revenue report leg | Required subset of invoice data reported separately to Revenue |
+| Invoice delivery action | Exchange of the structured invoice with the business recipient |
+| Revenue report action | Required subset of invoice data reported separately to Revenue |
 | Sage customer/accountant | Maintains business facts, entity identity, corrections and authorised configuration |
-| Sage product | Captures invoice intent, inbound experience and two-leg outcomes |
+| Sage product | Captures invoice intent, inbound experience and separate delivery and reporting results |
 | Ireland pack owner | Owns source evidence, phase/scope policy, official artefacts and release approval |
 | Revenue | Defines mandate, cohort, reporting and official technical/legal behaviour |
 | Operations/support | Reconciles buyer/Revenue outcomes independently and communicates safe actions |
@@ -152,10 +154,10 @@ The country pack therefore separates confirmed behaviour from specification-depe
 | ID | Scenario | Expected outcome | Exception/continuity |
 |---|---|---|---|
 | IE-S1 | Any Irish business in a selected product receives a Phase One e-invoice | Original structured invoice is validated, deduplicated and imported/displayed safely | Unsupported syntax/identity/trust failure is quarantined |
-| IE-S2 | Phase One large corporate issues domestic B2B invoice | Scope and EN 16931 validation pass; invoice and required report are created as separate legs | Missing official adapter blocks production but not local validation |
+| IE-S2 | Phase One large corporate issues domestic B2B invoice | Scope and EN 16931 validation pass; invoice and required report are created as separate actions | Missing official adapter blocks production but not local validation |
 | IE-S3 | Irish business is not in Phase One issuer cohort | Scope explains no Phase One issue/report obligation while inbound readiness remains active | Voluntary issuance policy, if offered, needs explicit evidence/product decision |
 | IE-S4 | Buyer accepts invoice; Revenue rejects report | Delivery remains successful; report shows rejection/correction path | Do not resend buyer invoice solely due to report failure |
-| IE-S5 | Revenue report times out after possible acceptance | Only report leg enters outcome-unknown and reconciles before retry | Buyer delivery history remains unchanged |
+| IE-S5 | Revenue report times out after possible acceptance | Only report action enters outcome-unknown and reconciles before retry | Buyer delivery history remains unchanged |
 | IE-S6 | Phase Two activates | Newly eligible transactions use Phase Two policy | Phase One invoices retain original cohort/policy/report evidence |
 | IE-S7 | ViDA cross-border phase activates | Approved EU/national pack version creates required cross-border behaviour | Domestic historical work is not reclassified silently |
 | IE-S8 | Accountant submits a mixed portfolio | Each client/capability is evaluated independently and authorised items continue | No batch-wide cohort, authority or credential inference |
@@ -170,7 +172,7 @@ The country pack therefore separates confirmed behaviour from specification-depe
 | IE-BR1 | Date is 2028-11-01 or later and issuer meets official Phase One definition | Domestic B2B e-invoice issuance and reporting subset apply, subject to final legislation/specifications | Confirmed Revenue direction; detailed legal rule gate |
 | IE-BR2 | Phase One begins | All Irish businesses must be able to receive structured e-invoices | Confirmed Revenue |
 | IE-BR3 | Phase One invoice is created | Representation must comply with EN 16931; PDF/scanned paper alone is excluded | Confirmed Revenue |
-| IE-BR4 | Report is required | Delivery and report are independent legs sharing invoice/policy context | Proposed product rule derived from official dual obligation |
+| IE-BR4 | Report is required | Delivery and report are independent actions sharing invoice/policy context | Proposed product rule derived from official dual obligation |
 | IE-BR5 | Technical detail is absent | Mark capability unknown and block live mutation rather than inventing syntax, route, deadline or acknowledgement | Confirmed evidence discipline |
 | IE-BR6 | Phase policy changes | Use effective-dated policy and preserve original invoice/report context | Proposed shared continuity rule |
 | IE-BR7 | Cross-border ViDA date arrives | Apply approved EU/national implementation version; do not assume domestic rules are identical | Official EU direction; implementation open |
@@ -219,8 +221,8 @@ This is a product model for consultation, not an approved Revenue interface or a
 | Delivery connection | Network/channel, provider legal entity/role, external participant/account, adapter, credential reference, environment and health | Separate from the Revenue reporting connection |
 | Revenue reporting connection | Revenue account/registration if required, adapter, authentication/authority reference, environment, schema version and health | Separate from buyer delivery and invoice format readiness |
 | Format policy | EN 16931 binding, syntax/version, Irish CIUS/extensions, validation artefacts, mapping and effective period | EN 16931 alone does not select a syntax or live profile |
-| Invoice compliance plan | Immutable scope result, representation, delivery leg, Revenue-report leg, policy/connection/trust versions and correlations | Frozen per invoice attempt; later configuration does not rewrite it |
-| External-leg evidence | Intended/observed state, request/idempotency ID, raw acknowledgement/reason, timestamps and safe next action | Delivery and reporting evidence remain independent |
+| Invoice compliance plan | Immutable scope result, representation, delivery action, Revenue-report action, policy/connection/trust versions and correlations | Frozen per invoice attempt; later configuration does not rewrite it |
+| External-action evidence | Intended/observed state, request/idempotency ID, raw acknowledgement/reason, timestamps and safe next action | Delivery and reporting evidence remain independent |
 
 ### Proposed readiness and execution states
 
@@ -228,7 +230,7 @@ This is a product model for consultation, not an approved Revenue interface or a
 |---|---|---|
 | Capability readiness | `NOT_REQUESTED`, `EVIDENCE_REQUIRED`, `READY_WITH_LIMITATIONS`, `READY`, `SUSPENDED` | Per legal entity and capability |
 | Connection | `NOT_CONFIGURED`, `CONFIGURING`, `TESTING`, `READY`, `EXPIRING`, `DEGRADED`, `SUSPENDED`, `RETIRED` | Separate delivery and Revenue connections |
-| External leg | `PLANNED`, `VALIDATED`, `SUBMITTED`, `ACKNOWLEDGED`, `COMPLETED`, `REJECTED`, `OUTCOME_UNKNOWN`, `RECONCILING`, `FAILED_TERMINAL` | Independent state for buyer delivery and Revenue reporting |
+| External action | `PLANNED`, `VALIDATED`, `SUBMITTED`, `ACKNOWLEDGED`, `COMPLETED`, `REJECTED`, `OUTCOME_UNKNOWN`, `RECONCILING`, `FAILED_TERMINAL` | Independent state for buyer delivery and Revenue reporting |
 
 ## Detailed journeys
 
@@ -255,8 +257,8 @@ This is a product model for consultation, not an approved Revenue interface or a
 1. The effective policy confirms the issuer cohort and domestic B2B scope.
 2. The active format policy validates the final Irish representation before external mutation.
 3. An immutable plan freezes the delivery connection, Revenue connection, representation and trust/evidence versions.
-4. Buyer delivery and Revenue reporting execute as separately correlated, idempotent legs.
-5. The product displays both outcomes; failure or uncertainty on one leg never repeats or overwrites the other.
+4. Buyer delivery and Revenue reporting execute as separately correlated, idempotent actions.
+5. The product displays both outcomes; failure or uncertainty on one action never repeats or overwrites the other.
 
 ### J4 — Receive an invoice for a non-issuer business
 
@@ -269,7 +271,7 @@ This is a product model for consultation, not an approved Revenue interface or a
 
 1. An authorised actor configures a replacement connection without creating a new legal subject.
 2. Sage reuses still-valid identity and authority evidence, then rechecks only provider registration, credential, environment, format and operational readiness affected by the change.
-3. Existing invoices and in-flight legs retain their original connection/context; ambiguous old-provider operations reconcile before cutover completion.
+3. Existing invoices and in-flight actions retain their original connection/context; ambiguous old-provider operations reconcile before cutover completion.
 4. The new connection activates prospectively at an effective boundary with rollback and historical-access controls.
 
 ### J6 — Credential expiry or revocation
@@ -284,8 +286,8 @@ This is a product model for consultation, not an approved Revenue interface or a
 | Journey | Spine | Required exception/continuity |
 |---|---|---|
 | Prepare | Map EN 16931 data → capture entity/cohort evidence → assess inbound and issue/report readiness | Live adapters remain disabled until official artefacts and approval |
-| Phase One | Submit → confirm cohort/scope → validate EN 16931 → create buyer and Revenue legs → record both outcomes | Delivery and report never inherit or overwrite each other's result |
-| Correct/recover/change | Correct before send; reject or timeout affects one leg → reconcile before retry | Later phase/route/rule changes affect new work; original context remains |
+| Phase One | Submit → confirm cohort/scope → validate EN 16931 → create buyer and Revenue actions → record both outcomes | Delivery and report never inherit or overwrite each other's result |
+| Correct/recover/change | Correct before send; reject or timeout affects one action → reconcile before retry | Later phase/route/rule changes affect new work; original context remains |
 
 ## Failure and recovery matrix
 
@@ -296,7 +298,7 @@ This is a product model for consultation, not an approved Revenue interface or a
 | Delivery ready but Revenue connection unavailable | Preserve receive/readiness and any safe pre-send work; block the dependent Phase One issue/report plan with separate action | Reporting failure represented as buyer-delivery failure |
 | Profile or mapping cannot preserve required meaning | Stop before signing/submission, retain diagnostics and require corrected data/mapping | Silent field loss or fallback to PDF |
 | Credential expired/revoked/wrong-purpose | Block only dependent connection/capability and require renewal/reselection | Reuse through another purpose or secret exposure |
-| Timeout after possible delivery/report mutation | Mark only that leg outcome unknown and reconcile by stable identity before retry | Repeating both legs or duplicating the invoice/report |
+| Timeout after possible delivery/report mutation | Mark only that action outcome unknown and reconcile by stable identity before retry | Repeating both actions or duplicating the invoice/report |
 | Provider change while invoice is in flight | Freeze old connection for that plan, reconcile ambiguity and activate replacement only for eligible new work | Moving an in-flight invoice silently |
 | Internal persistence failure after external success | Recover using durable plan/correlation and external evidence | Creating a second invoice/report operation |
 | Later phase/profile becomes effective | Apply to eligible new work after approval and tests | Reclassifying or regenerating historical invoices |
@@ -319,10 +321,10 @@ This is a product model for consultation, not an approved Revenue interface or a
 | ID | Requirement |
 |---|---|
 | IE-FR7 | The service must not activate an Irish delivery route until official/approved transport, recipient-resolution, identity and acknowledgement behaviour are configured and tested. |
-| IE-FR8 | For every in-scope Phase One outbound invoice, the platform must create independent buyer-delivery and Revenue-report legs linked to the same immutable invoice/scope context. |
-| IE-FR9 | The report leg must contain only the officially required subset and version once specified; the platform must not infer the payload from the full invoice. |
-| IE-FR10 | Delivery/report status, rejection, correction, cancellation and retry must remain leg-specific and preserve official raw reason/evidence. |
-| IE-FR11 | Success of one leg must not complete, retry or overwrite the other leg. |
+| IE-FR8 | For every in-scope Phase One outbound invoice, the platform must create independent buyer-delivery and Revenue-report actions linked to the same immutable invoice/scope context. |
+| IE-FR9 | The report action must contain only the officially required subset and version once specified; the platform must not infer the payload from the full invoice. |
+| IE-FR10 | Delivery/report status, rejection, correction, cancellation and retry must remain action-specific and preserve official raw reason/evidence. |
+| IE-FR11 | Success of one action must not complete, retry or overwrite the other action. |
 | IE-FR12 | Phase Two/Three behaviour must remain disabled until the corresponding official policy/specification version is approved and effective. |
 
 ### Resilience, continuity and operations
@@ -330,8 +332,8 @@ This is a product model for consultation, not an approved Revenue interface or a
 | ID | Requirement |
 |---|---|
 | IE-FR13 | Duplicate invoice/report requests and inbound events must be idempotent within their defined identity scope. |
-| IE-FR14 | A timeout after possible buyer or Revenue mutation must enter outcome-unknown and reconcile only that leg before retry. |
-| IE-FR15 | Operations must see scope/cohort evidence, representation validation, each intended/observed leg, evidence freshness and permitted recovery action. |
+| IE-FR14 | A timeout after possible buyer or Revenue mutation must enter outcome-unknown and reconcile only that action before retry. |
+| IE-FR15 | Operations must see scope/cohort evidence, representation validation, each intended/observed action, evidence freshness and permitted recovery action. |
 | IE-FR16 | Policy, cohort, route or adapter changes must apply to new eligible work and must not rewrite historical invoice/report evidence. |
 | IE-FR17 | Pack activation/suspension must be controllable by phase, direction, adapter, cohort and environment with authorised audit. |
 
@@ -371,8 +373,8 @@ This is a product model for consultation, not an approved Revenue interface or a
 | ID | Given / when / then |
 |---|---|
 | IE-AC1 | Given an Irish business outside the Phase One issuer cohort, when scope is evaluated after 2028-11-01, then inbound readiness is required while issue/report obligations are not falsely applied. |
-| IE-AC2 | Given a Phase One large corporate domestic B2B invoice, when valid official artefacts are configured, then EN 16931 validation passes before separate delivery/report legs are created. |
-| IE-AC3 | Given required invoice data is invalid, when submitted, then no external leg is mutated and rule/field/version correction guidance is returned. |
+| IE-AC2 | Given a Phase One large corporate domestic B2B invoice, when valid official artefacts are configured, then EN 16931 validation passes before separate delivery/report actions are created. |
+| IE-AC3 | Given required invoice data is invalid, when submitted, then no external action is mutated and rule/field/version correction guidance is returned. |
 | IE-AC4 | Given buyer delivery succeeds and Revenue rejects the report, when status is viewed, then delivery remains successful and only the report exposes correction/recovery. |
 | IE-AC5 | Given the Revenue report times out after possible acceptance, when recovery runs, then the report reconciles before retry and the buyer invoice is not resent. |
 | IE-AC6 | Given the technical transport/report specification is not approved, when live activation is attempted, then external mutation is blocked with the named decision gate. |
@@ -420,7 +422,7 @@ Rollout gates:
 5. Obtain and approve Irish legal text, CIUS/syntax/schema/code lists, transport/directory, identity, authority and Revenue reporting specifications.
 6. Confirm separate delivery/Revenue connection contracts, credentials, environments, report trigger/timing, corrections/cancellations, acknowledgements, idempotency, switching/exit, retention and support/SLA.
 7. Qualify DTS/other shared transformation and validation capability against the exact Irish profile and semantic-loss corpus.
-8. Demonstrate direct/accountant onboarding, inbound, dual-leg success/failure, credential expiry, provider change, unknown outcome, phase change and historical continuity in sandbox.
+8. Demonstrate direct/accountant onboarding, inbound, separate delivery and reporting success/failure, credential expiry, provider change, unknown outcome, phase change and historical continuity in sandbox.
 9. Complete security/privacy/operations/customer communication and kill/rollback readiness.
 10. Pilot an approved Phase One cohort before expansion.
 
@@ -446,7 +448,7 @@ Rollout gates:
 | Decision | Status | Owner/date |
 |---|---|---|
 | Ireland is a child country pack of PRD-SEI-227 | Confirmed by user request | 2026-08-10 |
-| Model buyer delivery and Revenue reporting as independent legs | Proposed product requirement from confirmed dual obligation | TBD |
+| Model buyer delivery and Revenue reporting as independent actions | Proposed product requirement from confirmed dual obligation | TBD |
 | Use EN 16931 as confirmed Phase One semantic basis | Confirmed Revenue evidence | 2026-08-10 |
 | Keep technical adapters disabled until official artefacts and approvals exist | Confirmed discovery boundary | 2026-08-10 |
 | Use capability-specific onboarding and keep delivery and Revenue connections separate until official evidence proves a combined contract | Proposed from Spain reuse and Ireland's dual obligation | 2026-09-23 |
@@ -456,7 +458,7 @@ Rollout gates:
 
 | Date | Change | Evidence/decision | Pull request |
 |---|---|---|---|
-| 2026-08-10 | Initial discovery child PRD with Confluence-safe phased dual-leg visual | User request, Revenue and EU official sources | |
+| 2026-08-10 | Initial discovery child PRD with Confluence-safe phased delivery and reporting visual | User request, Revenue and EU official sources | |
 | 2026-08-10 | Linked the consolidated parent visual atlas and compressed journey prose for research-stage readability | User direction | |
 | 2026-08-10 | Approved for publication to existing page `866140021`; existing hierarchy preserved | User approval | |
 | 2026-08-11 | Removed the embedded HTML heading and promoted the diagram title to a native Confluence heading | Confluence rendering feedback | |

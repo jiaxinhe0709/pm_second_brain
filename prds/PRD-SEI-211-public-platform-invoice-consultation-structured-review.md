@@ -351,7 +351,7 @@ The objective is to deliver an automated, incremental, idempotent and observable
 
 Automated collection of many invoices is part of required recovery. A user requesting a ZIP of several stored invoices is a separate product option, proposed outside initial scope until usage and cost evidence justify it. France's feature coverage and expected Spanish usage do not remove the automated-recovery requirement.
 
-The proposed [retrieval, storage and download spec](../specs/SPEC-SEI-010-public-platform-invoice-retrieval-storage-and-download-solution-specification.md) owns this boundary. [SPEC-SEI-006](../specs/SPEC-SEI-006-inbound-invoice-receiving-solution-specification.md) owns validation, duplicate handling and product distribution after capture.
+The proposed [retrieval, storage and download spec](../specs/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md) owns this boundary. [SPEC-SEI-006](../specs/SPEC-SEI-006-invoice-receiving-solution.md) owns validation, duplicate handling and product distribution after capture.
 
 ### Working hypotheses
 

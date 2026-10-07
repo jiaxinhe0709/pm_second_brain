@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-10-05
-updated: 2026-10-05
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-240
@@ -24,6 +24,8 @@ confluence:
 ---
 
 # E-Invoicing — Peppol Access Point Validation and Certification
+
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
 
 ## Revision overview
 
@@ -107,7 +109,7 @@ Official sources reviewed 2026-10-05:
 | APV-FR3 | Production routing shall remain disabled until the required agreement, accepted test report, valid production AP PKI credential, approved HTTPS endpoint, security/operations sign-off and country-specific eligibility are evidenced. |
 | APV-FR4 | Test and production traffic, endpoints, discovery metadata, keys and credentials shall be isolated; an AP test credential shall never authorise a production exchange. |
 | APV-FR5 | The AP shall validate or obtain trustworthy evidence of validation of the exact outbound Peppol BIS document and version before accepting it for transport; a validation pass shall not imply delivery. |
-| APV-FR6 | A send/receive leg shall retain AP entity/role, participant, document/process, endpoint, certificate fingerprint/reference, configuration/version, message correlation and qualified acknowledgements. |
+| APV-FR6 | A send/receive action shall retain AP entity/role, participant, document/process, endpoint, certificate fingerprint/reference, configuration/version, message correlation and qualified acknowledgements. |
 | APV-FR7 | A timeout after possible transmission shall produce an outcome-unknown case and block blind resend or provider/endpoint switch until the original message is reconciled. |
 | APV-FR8 | Operations shall monitor certificate expiry, revocation, endpoint health, failed conformance checks and message failures, with named response owners and evidence-preserving recovery. |
 | APV-FR9 | Certificate rotation and AP rollback shall verify new connectivity before cutover, retain access to historic evidence, and disable only affected new routes when trust fails. |

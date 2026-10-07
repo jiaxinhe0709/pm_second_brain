@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-12
-updated: 2026-08-25
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-227
@@ -23,6 +23,8 @@ confluence:
 ---
 
 # E-Invoicing — Peppol Multi-Address and Endpoint Routing
+
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
 
 ## Decision summary
 
@@ -43,7 +45,7 @@ The platform must support multiple participant addresses and one or more discove
   <style>
     .eip-route *{box-sizing:border-box}.eip-route .sub{margin:0 0 14px;color:#6b778c;font-size:12px}.eip-route svg{display:block;width:100%;max-width:1100px;height:auto;min-width:760px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eip-route .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.6}.eip-route .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.8}.eip-route .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eip-route .warn{fill:#fff7d6;stroke:#ffab00;stroke-width:1.6}.eip-route .title{fill:#172b4d;font-size:10px;font-weight:700}.eip-route .copy{fill:#42526e;font-size:8.5px}.eip-route .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.eip-route .path{fill:none;stroke:#00875a;stroke-width:2}.eip-route .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eip-route .arrow{fill:#00875a}.eip-route .arrow-g{fill:#6b778c}.eip-route .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;min-width:0;margin-top:10px}.eip-route .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px;line-height:1.4}.eip-route .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <p class="sub">Resolve the receiver from a scheme-qualified participant address and capability metadata; then freeze the selected execution route with the invoice leg.</p>
+  <p class="sub">Resolve the receiver from a scheme-qualified participant address and capability metadata; then freeze the selected execution route with the invoice exchange action.</p>
   <svg viewBox="0 0 1100 570" role="img" aria-label="A buyer legal entity has zero or more Peppol participant addresses, each with a scheme, value, country, purpose and validity. A sending system selects the intended participant address, document type and process, then performs DNS/SML and SMP discovery. SMP returns one or more technical endpoints with transport profile, certificate, service availability and effective metadata. A governed selection policy chooses an eligible endpoint and binds the sending Access Point provider, Peppol network, recipient participant, receiving endpoint and evidence version into an immutable execution route. Failed or ambiguous delivery is reconciled before trying another endpoint.">
     <text x="32" y="30" class="label">BUSINESS DESTINATION</text><text x="338" y="30" class="label">PEPPOL DISCOVERY</text><text x="748" y="30" class="label">EXECUTION</text>
     <rect x="32" y="62" width="240" height="92" rx="10" class="main"/><text x="52" y="91" class="title">Buyer legal entity / establishment</text><text x="52" y="112" class="copy">country identity and business role</text><text x="52" y="132" class="copy">not itself the Access Point or SMP URL</text>
@@ -60,7 +62,7 @@ The platform must support multiple participant addresses and one or more discove
     <path d="M1003 346 V404" class="path-opt"/><polygon points="1003,404 997,394 1009,394" class="arrow-g"/>
     <rect x="618" y="404" width="448" height="92" rx="10" class="warn"/><text x="638" y="433" class="title">Ambiguous delivery / endpoint change</text><text x="638" y="454" class="copy">Reconcile the selected route and external message identity first.</text><text x="638" y="474" class="copy">Another discovered endpoint is not an automatic retry target.</text>
     <rect x="32" y="404" width="526" height="92" rx="10" class="optional"/><text x="52" y="433" class="title">Immutable route evidence</text><text x="52" y="454" class="copy">participant address • document/process • SMP source/freshness • endpoint/certificate</text><text x="52" y="474" class="copy">sending/receiving provider roles • adapter/config • correlation • selection reason</text>
-    <rect x="204" y="526" width="692" height="28" rx="14" class="finish"/><text x="303" y="545" class="title">New metadata affects eligible new work; historical invoice legs retain the route used</text>
+    <rect x="204" y="526" width="692" height="28" rx="14" class="finish"/><text x="303" y="545" class="title">New metadata affects eligible new work; historical invoice exchange actions retain the route used</text>
   </svg>
   <div class="notes"><div class="note"><strong>Multiple addresses are valid input</strong>Purpose, country, document/process capability and validity determine which address is eligible.</div><div class="note"><strong>SMP may return multiple endpoints</strong>Each is a technical URL for a transport profile—not the participant identifier or provider name.</div><div class="note"><strong>Fallback is a mutation decision</strong>After a possible send, reconcile before selecting another endpoint to prevent duplicates.</div></div>
 </div>
@@ -114,7 +116,7 @@ The reusable routing contract begins only after those source terms are retained:
 | PA-FR3 | Resolve capability using participant, document type, process, environment and effective time; retain authoritative discovery source and freshness. |
 | PA-FR4 | Parse one or more SMP service endpoints and validate transport profile, certificate, activation/expiry and country/BIS eligibility before selection. |
 | PA-FR5 | Produce a deterministic, explainable selected route that binds network, sending/receiving provider roles, Sage adapter/config, participant and technical endpoint. |
-| PA-FR6 | Freeze the selected route with the invoice exchange leg; metadata refresh changes only eligible new work. |
+| PA-FR6 | Freeze the selected route with the invoice exchange action; metadata refresh changes only eligible new work. |
 | PA-FR7 | Following a timeout after possible transmission, reconcile by external identity before switching endpoints or providers. |
 | PA-FR8 | Load participant schemes from a versioned OpenPeppol code list and apply country/profile eligibility separately; deprecated or removed entries affect eligible new work without rewriting history. |
 | PA-AC1 | Given two participant addresses where only one supports the required invoice document/process, then discovery selects that address and records why. |

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-07
 reviewers: []
 related:
   - GLO-SEI-001
@@ -26,63 +26,108 @@ related:
   - SPEC-SEI-010
   - SPEC-SEI-012
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
+  parent_page_id: "902988120"
   page_id: ""
+  layout: two_left_sidebar
+  toc: true
 ---
 
 # Public Platform Connector Solution Specification
 
 Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
+An **exchange action** is one separately tracked action to deliver an invoice, submit a public copy, or report an invoice event. Each action has its own result. For example, invoice delivery can succeed while public-copy submission still needs attention.
+
 ## Part 1 Feature Solution Summary
 
-### Reader guide and design status
+### Reader guide
 
-This **proposed logical design** defines a connector to Spain's public electronic invoicing platform, AEAT/SPFE. The connector gives Sage feature services a controlled way to call the platform, record what happened and recover uncertain results. It is separate from the invoice-consultation feature and from recipient discovery.
+Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. [Part 2](#part-2-logical-feature-specification) gives the detailed behaviour and rules. [Part 3](#part-3-logical-service-interactions-and-data-inventory) describes service interactions and data. [Part 4](#part-4-assurance-and-traceability-view) links requirements to the checks and evidence needed before release.
 
-Part 1 covers purpose and boundaries. [Part 2](#part-2-logical-feature-specification) gives behaviour; [Part 3](#part-3-logical-service-interactions-and-data-inventory) defines contracts and records; [Part 4](#part-4-assurance-and-traceability-view) gives acceptance and release gates.
+The design remains a draft. **Confirmed** means supported by the cited source, within its stated limits. **Proposed** choices still need review. **Open** decisions still need an owner’s recorded answer. **Out of scope** identifies work excluded from this proposal or handled by another feature. Service names describe logical responsibilities; they do not establish deployed services or approved API endpoints. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.
 
-**Confirmed** identifies a cited source requirement within its limits. **Proposed** identifies design choices, including service boundaries, states and logical fields. **Open** identifies missing decisions or contracts. **Out of scope** identifies another feature's responsibility. No physical endpoint, authentication protocol, timeout or deployed implementation is approved here.
+### 1 Purpose, authority and boundaries
 
-### 1 Purpose, sources and boundary
+This **proposed logical design** gives Sage services a controlled way to call Spain’s public platform (SPFE), operated by AEAT. The connector handles the platform’s communication protocol. It is separate from invoice retrieval and recipient lookup.
 
-The connector owns public-platform protocol access: select an approved environment and contract; enforce caller and represented-business scope; obtain purpose-bound credentials; execute only an activated operation; preserve request/response evidence; and expose a safe known, pending or unknown result.
+For each call, it checks the customer, represented legal entity, permitted action and environment. It selects an approved contract and credentials for that purpose, then performs only an enabled operation. It saves the request and response evidence and returns a result that clearly says whether the outcome is known, pending or unknown. The service that requested the call decides what that result means for its feature.
+
+The supplied PRD describes the wider integration. The capability mapping below shows how this connector supports it and where related services retain responsibility.
 
 [PRD-SEI-214](../prds/PRD-SEI-214-connections-registration-routing-structured-review.md), FR2–6/19–23/27, separates connections, registration, capability readiness and routes. [PRD-SEI-105](../prds/PRD-SEI-105-public-platform-environment-isolation.md), FR1–18, owns environment isolation. [PRD-SEI-211](../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md) and [PRD-SEI-212](../prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md) supply retrieval and submission safety requirements. These are canonical product requirements, not evidence of a deployed public adapter.
 
 | Evidence | Supported fact | Limit |
 |---|---|---|
+| [User-supplied Public Platform API Integration PRD](https://confluence.sage.com/spaces/DNBU/pages/902988120/Spain+Public+Platform+API+Integration+AEAT+Public+Electronic+Invoicing+Solution) | Defines the requested integration capabilities: connectivity, faithful-copy submission, invoice identification, status/payment communication, retrieval, authentication, monitoring and audit. | Refers to a draft ministerial order. Its exact timing, attachment restrictions, event labels, certificate requirements and SLA need current evidence and the relevant owners' approval. It is product context, rather than proof of an available AEAT API or approved technical design. |
 | [Order HAC/1028/2026, Articles 9–11](https://www.boe.es/eli/es/o/2026/10/02/hac1028), checked 6 October 2026 | Public recovery/consultation access and authentication/representation requirements exist. Third-party recovery and Article 10 consultation require registered representation. | Exact operations, credential profiles, limits and technical access are governed by AEAT specifications. Do not extend one action's authority automatically to another. |
 | [Existing evidence note](../research/spain-public-platform-order-evidence.md) | Records the supplied order snapshot and limits of the retrieval evidence. | Does not supply a production transport contract or prove a central recipient directory. |
 | SPEC-SEI-001/002/004 | Trust, onboarding and uncertain onboarding-operation designs. | Draft logical contracts; qualification and external evidence remain necessary. |
+
+### How the connector supports the supplied PRD
+
+The PRD describes the full public-platform integration in the **Sage Global e-Invoicing Platform**. This spec describes the connector within that integration. The platform contains the shared invoicing capabilities; the Global API is the contract through which products and partners access them. The connector supports the business capabilities below without taking over invoice issuance, transformation or lifecycle decisions from their responsible services.
+
+| PRD capability | Connector responsibility | Related feature and evidence needed |
+|---|---|---|
+| Submit faithful invoice copies | Transmit the exact prepared file through a supported public operation. Save acknowledgement, rejection and error evidence separately from recipient delivery. | SPEC-SEI-007 owns the copy obligation and issuance trigger. SPEC-SEI-005/008 own qualified validation/transformation; SPEC-SEI-001 owns protected signing where required. Exact timing, UBL profile, metadata and attachment restrictions remain contract/country-rule checks. |
+| Generate and store the Spain invoice identifier | Carry the approved identifier and preserve the supplied invoice identity in requests and responses. Do not invent its encoding. | The PRD lists supplier NIF, number, series and date. Format/Spain owners must confirm the final encoding and contract; invoice and records services own generation and storage. |
+| Communicate invoice and payment status | Send an authorised report and save its independent response. Preserve raw external codes rather than assigning business meaning in the connector. | SPEC-SEI-009 owns actor authority, lifecycle interpretation and reporting rules. The PRD's Rejected, Fully Paid, Collected, Not Paid/Non-Payment and cancellation labels need an approved external mapping. Accepted applies only if the AEAT contract exposes it. |
+| Retrieve invoices, messages and statuses | Execute supported discovery/read calls and return source files, messages and evidence within the correct entity scope. Distinguish an empty result from an outage. | SPEC-SEI-010 owns automated retrieval, file storage and progress. SPEC-SEI-006 owns delivery to products; SPEC-SEI-009 owns status interpretation. Keep the link to the original source and prevent duplicate business processing. |
+| Authenticate and use credentials | Apply the selected AEAT authentication contract using protected credential references for the approved action and environment. | SPEC-SEI-001 owns credential custody and qualification. Customer certificate procurement remains out of scope. One accepted certificate does not establish authority for every operation. |
+| Handle cancellation requests | Execute cancellation only where the confirmed contract supports the specific action and the responsible feature authorises it. Save request and result evidence. | PCN-Q01/Q03 must distinguish invoice cancellation, communication cancellation and cancellation of unsent local work. None automatically deletes an issued invoice or undoes an external effect. |
+| Monitor, audit and recover failures | Record timestamps, acknowledgements, rejections, errors and retrieval activity. Detect uncertain outcomes and assign recovery to an owner. | Operations and feature owners agree service targets, retry safety, retention and support. Schema, authentication, duplicate/already-existing invoice, status and availability errors retain their actual source meaning. |
 
 | Responsibility | Owner and handoff |
 |---|---|
 | Customer identity, authority and readiness | [Onboarding](SPEC-SEI-002-onboarding-solution-specification.md) and identity/authority services; connector checks effective evidence before each operation. |
 | Certificate custody and purpose-specific use | [Certificate management](SPEC-SEI-001-certificate-management-solution-specification.md); connector receives protected references and results, not private keys. |
-| Public discovery, polling, source archive and checkpoint | [Retrieval/storage/download](SPEC-SEI-010-public-platform-invoice-retrieval-storage-and-download-solution-specification.md); connector returns correlated source responses and files. |
-| Issued invoice, validation, exchange plan and independent legs | [Outbound](SPEC-SEI-007-spain-invoice-preparation-and-outbound-solution-specification.md) and PRD-SEI-212; connector executes one approved public operation. |
+| Public discovery, polling, source archive and checkpoint | [Retrieval/storage/download](SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md); connector returns correlated source responses and files. |
+| Issued invoice, validation, exchange plan and independent actions | [Outbound](SPEC-SEI-007-invoice-sending-solution.md) and PRD-SEI-212; connector executes one approved public operation. |
 | Commercial/payment interpretation | [Lifecycle](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md); connector preserves source observations without deriving buyer acceptance. |
-| Recipient receiving destination | [Recipient lookup](SPEC-SEI-012-public-platform-recipient-lookup-solution-specification.md); uses this connector only if an approved public lookup contract exists. |
+| Recipient receiving destination | [Recipient lookup](SPEC-SEI-012-consult-public-platform-for-recipient-information.md); uses this connector only if an approved public lookup contract exists. |
 
 The connector does not issue invoices, change customer routes, interpret absence of a private destination, create public-copy duties, own statutory archive retention, or provide a generic proxy to arbitrary URLs. Onboarding/registration mutations, if required by the final contract, remain owned by their feature service and must use this same operation-safety boundary.
 
-### 2 Outcomes and terms
+### Plain-language terms
+
+| Term | Meaning |
+|---|---|
+| Legal entity / legal subject | The business to which the invoice or action belongs. Technical fields use `legalSubject` for this business. |
+| Authority | Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission. |
+| Capability | A supported function, such as receiving invoices or signing them. |
+| Route | The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans. |
+| Idempotency | Repeating the same logical request adds no effect within the contract’s defined scope and retention window. The contract binds request identity and input and defines conflict handling. |
+| Reconciliation | Check the original operation against a reliable source to establish what actually happened before deciding the next action. |
+| Gate | A condition, decision or evidence check that must pass before the next step can proceed. |
+| Tenant | The customer account boundary used to keep one customer’s data and access separate from another’s. |
+| Immutable / append-only | Immutable means a saved record cannot be changed. Append-only means later information is added as another record. Neither means indefinite retention. |
+| Provenance | The record of where data came from and which versions, checks and changes produced the result. |
+| Contract | The agreed inputs, outputs, behaviour and responsibilities between services or parties. |
+| Durable | Saved through the agreed recovery boundary so the record survives a process restart or worker failure. Long-term retention is a separate policy. |
+| Readiness | The current result of capability checks for a stated legal entity, actor, environment and route/profile, with evidence, limitations and a recheck condition. Readiness is separate from authority, route activation and invoice outcomes. |
+| Public platform / SPFE / AEAT | SPFE is the Spain public e-invoicing platform. AEAT is the authority operating it. Each platform operation needs its own approved contract. |
+| Connection / contract profile | Configuration for communication; the selected operation, protocol and schema, environment and safety rules. A connection does not activate a route. |
+| Durable intent / execution claim | A saved request identity and fixed input before a possible external effect; permission for one worker to execute that work. An expired claim does not prove the earlier worker did nothing. |
+| External effect / outcome unknown | A change in the public platform; a result for which that change may have happened but reliable evidence is missing. Check the original operation before repeating it. |
+| Lease generation / version check | A number identifying the current worker’s claim; a check that a record still has the version expected by the caller. These prevent old workers or stale updates from replacing newer work. |
+| Outbox / circuit breaker | A saved event waiting to be delivered; a control that temporarily stops calls after defined failures. Neither changes the invoice route. |
+| Scope / evidence / cohort | The customer, legal entity, environment and action covered by a call; saved facts and references showing what happened; the group of consumers selected for activation. |
+
+### 2 Outcomes and handoffs
 
 | Outcome | Meaning | Does not prove |
 |---|---|---|
 | Capability qualified | Exact operation, environment, contract and evidence are enabled for a defined cohort. | Every public function is supported or a customer route is active. |
-| Known result | Correlated response/evidence durably recorded at its actual meaning. | Buyer acceptance, ERP consumption or completion of unrelated invoice legs. |
+| Known result | Correlated response/evidence durably recorded at its actual meaning. | Buyer acceptance, ERP consumption or completion of unrelated invoice exchange actions. |
 | Pending | Work is saved and waiting for capacity, a response, local evidence recovery or owner action. | External success or invoice absence. |
 | Outcome unknown | External effect may have happened; original operation must be reconciled. | Permission to create a fresh operation or switch environment. |
 | Denied/unsupported | Scope, authority, capability or contract is insufficient; no new external effect is initiated. | Permanent business ineligibility. |
 
-A **connection** is configuration for communication. A **capability** is a supported function; the connector qualifies each operation used to provide it. A **contract profile** binds operation, protocol/schema, environment and safety rules. **Idempotency** means repetition has no additional effect within a proven scope. **Reconciliation** checks what happened to the original operation. A **durable intent** is a saved request identity and immutable payload reference before a possible external effect. A **circuit breaker** temporarily stops calls after defined failures; it cannot change invoice routing.
-
 ### Spain use and reuse boundaries
 
-Reuse labels follow the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary). **Reusable unchanged** describes a design pattern; **Unknown** records unverified implementation fitness. Scope exclusions are marked **Out of scope**.
+This is a **Spain reference design**. **Reusable unchanged** means the proposed design pattern can stay the same. **Reusable with country binding** means shared behaviour needs approved country rules or adapters. **Country-specific** rules stay in the Spain country pack. **Unknown** means that the existing implementation’s suitability or coverage still needs evidence. These labels do not prove production readiness. Another country needs its own assessment. See the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary).
 
 | Area | Intended Spain use | Reuse classification | Condition and owner |
 |---|---|---|---|
@@ -98,20 +143,20 @@ Reuse labels follow the [shared e-invoicing glossary](../context/GLO-SEI-001-e-i
 
 [Editable Draw.io](../assets/diagrams/public-platform-connector-process.drawio) · [PNG preview](../assets/diagrams/public-platform-connector-process.png).
 
-Text equivalent: PCN-01 accepts feature intent → PCN-02 resolves trusted scope → PCN-03 checks authority/credentials → PCN-04 checks the activated capability and contract → PCN-05 saves operation/attempt intent → PCN-06 executes the bounded public call → PCN-07 commits response evidence → PCN-08 returns/notifies the owning feature. Denied checks return a safe hold without sending. Unknown external effects or evidence gaps enter PCN-09 recovery using the original identity. PCN-10 manages prospective configuration/disablement without deleting history.
+Text equivalent: PCN-01 accepts feature intent → PCN-02 resolves trusted scope → PCN-03 checks authority/credentials → PCN-04 checks the activated capability and contract → PCN-05 saves operation/attempt intent → PCN-06 executes the bounded public call → PCN-07 commits response evidence → PCN-08 returns/notifies the owning feature. Denied checks return a safe hold without sending. Unknown external effects or evidence gaps enter PCN-09 recovery using the original identity. PCN-10 manages configuration or disablement for future work without deleting history.
 
 | Activity / trigger and actor | Required result | Failure owner and safe handoff |
 |---|---|---|
-| PCN-01 Feature request / owning feature service | Stable feature operation, payload reference/digest and correlation registered. | Connector/feature: changed input under same key conflicts. |
-| PCN-02 Scope resolution / connector | Tenant, represented entity, country and environment resolved from trusted bindings. | Identity/Security: ambiguous context denied before access. |
-| PCN-03 Authority/trust / connector and specialist services | Effective action authority and purpose/environment-bound credential references. | Authority/Trust: missing/revoked permission holds new calls. |
-| PCN-04 Capability selection / connector | Activated operation and exact contract/version, safety class and readiness evidence. | Integration owner: unsupported combination disabled. |
-| PCN-05 Intent/attempt / connector | Durable ledger plus unique execution claim; immutable input and target context. | Connector/Records: persistence failure prevents new external mutation. |
-| PCN-06 External execution / adapter | Bounded request under correct credential, contract and quota. | Adapter/Operations: record transmission boundary; uncertain effect reconciles. |
-| PCN-07 Evidence commit / connector | Raw protected evidence, safe normalised result and item correlations saved. | Records/connector: recover external response without a fresh mutation. |
-| PCN-08 Handoff / connector | Scoped result/query and recoverable notification to owning feature. | Feature/connector: repeated notification deduplicated. |
-| PCN-09 Recovery / operations or approved policy | Original-operation outcome established, or owned unresolved hold. | Operations/adapter: manual-only where safe query/retry is unproven. |
-| PCN-10 Configuration event / authorised integration owner | New prospective profile/cohort state, impact evidence and audit. | Integration/Security: preserve in-flight/history and unrelated environments. |
+| PCN-01 Feature request / owning feature service | Save a stable feature operation, input reference/digest and correlation. | Connector/feature: the same key with changed input returns a conflict. |
+| PCN-02 Scope resolution / connector | Resolve tenant, represented entity, country and environment from trusted records. | Identity/Security: deny ambiguous context before any access. |
+| PCN-03 Authority/trust / connector and specialist services | Check current authority for the action and credentials for its purpose and environment. | Authority/Trust: missing or revoked permission holds new calls. |
+| PCN-04 Capability selection / connector | Select the enabled operation, exact contract/version, retry-safety class and readiness evidence. | Integration owner: keep unsupported combinations disabled. |
+| PCN-05 Intent/attempt / connector | Save the request and claim execution once, with fixed input and target context. | Connector/Records: a failed save prevents a new external change. |
+| PCN-06 External execution / adapter | Call within approved limits using the correct credential, contract and quota. | Adapter/Operations: record whether transmission may have happened. Check uncertain outcomes before repeat. |
+| PCN-07 Evidence commit / connector | Save protected raw evidence, a safe normalised result and links to each item. | Records/connector: recover the original response without making a fresh external change. |
+| PCN-08 Handoff / connector | Return a result within scope and send a recoverable notification to the requesting feature. | Feature/connector: recognise repeated notifications and do not apply them twice. |
+| PCN-09 Recovery / operations or approved policy | Establish the original outcome, or keep an unresolved case with a responsible owner. | Operations/adapter: use manual recovery when safe query or retry is unproven. |
+| PCN-10 Configuration event / authorised integration owner | Record profile/group changes for future work, their impact and audit evidence. | Integration/Security: keep current work/history and other environments separate. |
 
 ### 4 Material decisions
 
@@ -130,45 +175,57 @@ Logical operation identity includes tenant, legal entity, country, environment, 
 | PCN-I03 | Only a qualified operation/profile may execute; one successful call does not qualify all capabilities. |
 | PCN-I04 | Same scoped key and digest returns/resumes the original operation; changed input conflicts. |
 | PCN-I05 | Save immutable intent before any possible external effect; uncertainty uses original identity and context. |
-| PCN-I06 | Transport success and request-level success do not establish missing per-item business results. |
+| PCN-I06 | Successful transport or a successful request does not supply missing business results for individual items. |
 | PCN-I07 | Evidence and notification follow a recoverable commit; local save failure cannot justify fresh submission. |
-| PCN-I08 | Contract/credential changes preserve historical context and apply prospectively to eligible work. |
+| PCN-I08 | Contract/credential changes keep historical context and apply only to eligible future work. |
 | PCN-I09 | Retry is controlled at one external execution owner; feature and connector retries cannot multiply public effects. |
 | PCN-I10 | Credentials, raw invoices and bearer access values never appear in client events or diagnostic logs. |
 
 ### 2 Behaviour by activity
 
-**PCN-01 Accept feature intent.** Authenticate the calling workload and check its permitted capability. Accept the feature operation reference, scoped entity, requested logical action, immutable payload/query reference, digest and idempotency key. Requests are not caller-selected URL/protocol commands. Save a stable connector operation; identical repeats return current saved state, while changed digest/context conflicts. Feature cancellation before execution may close pending work; after possible external effect it cannot erase history or undo that effect.
+**PCN-01 Accept the feature request.** The calling Sage service asks the connector to perform a named platform action. Authenticate that service and check its permitted capability. Accept the feature operation reference, legal entity and action, fixed payload or query reference, digest and idempotency key. The caller cannot choose an arbitrary URL or protocol command.
 
-**PCN-02 Resolve scope.** Compare caller scope with the connection's legal entity, country and trusted deployment/account environment. Resolve environment profile and governed destination from protected configuration. Reject missing, cross-tenant or conflicting scope before secret access. Simulation uses labelled synthetic fixtures; official TEST is enabled only against its confirmed contract. Neither produces production readiness or public acceptance evidence.
+Save a stable connector operation. A repeat with the same identity and input returns its current saved state. Changed input or context returns a conflict. A feature may cancel work before execution. Once an external change may have happened, cancellation cannot erase the history or claim that the change was undone.
 
-**PCN-03 Check authority and credentials.** Verify local permission and external represented-business authority for the exact action. Article 9/10 access uses its own registered-authority checks; other actions use their approved authority matrix. Retrieve protected credential handles through SPEC-SEI-001. Validate purpose, environment, expiry/status and represented party under current policy. Recheck before external execution if authority/credential version changed while queued. Unavailability of required authority evidence holds new calls; certificate possession cannot resolve it. No private-key export is required.
+**PCN-02 Resolve the customer and environment.** Check that the caller’s scope matches the connection’s legal entity, country and trusted deployment/account environment. Select the environment profile and approved destination from protected configuration. Reject missing, cross-tenant or conflicting context before accessing credentials.
 
-**PCN-04 Select qualified capability.** Resolve an activated registry entry for logical action, country, environment and cohort. It names protocol/schema versions, allowed destination, request/response limits, response semantics, side-effect class, provider idempotency/query support, timeout/retry policy and evidence owner. Unknown fields block activation rather than inherit an unrelated AEAT service. SII, VERI*FACTU and FACe contracts are not substitutes for SPFE evidence.
+Simulation uses clearly labelled synthetic test data. Official TEST access requires its confirmed contract. Neither simulation nor a TEST response proves production readiness or acceptance by the live public platform.
 
-Use only approved non-mutating readiness checks or contract conformance evidence. Never send a real or empty invoice as a connectivity probe. DNS/TLS/network reachability proves transport only. Expose separate configuration, authentication/authority, operation qualification and current service health. Public registration remains UNKNOWN/NOT_APPLICABLE unless the confirmed operating model supplies a registration fact; do not invent an enrolment endpoint or claim registration from a ping.
+**PCN-03 Check authority and credentials.** Check local permission and external authority to act for the represented legal entity. Article 9/10 access uses its own registered-authority checks. Other actions use the authority rules approved for that action; one permission does not automatically cover another.
 
-**PCN-05 Save intent and acquire execution.** Persist the operation, immutable payload/query reference, exact scope/profile, feature correlation and safety classification. One execution owner acquires a lease/generation or equivalent concurrency control; stale workers cannot commit or initiate a later duplicate attempt. Save attempt identity and transmission boundary before sending. Queue acceptance and operation-ledger writes use a recoverable outbox or equivalent protocol. Missing payload/object/hash prevents execution.
+Obtain protected credential references through SPEC-SEI-001. Check purpose, environment, expiry/status and represented party under the current policy. If authority or credential versions change while the request waits, check again before execution. Hold new calls when required authority evidence is unavailable. A certificate alone cannot supply that authority, and the connector does not require private-key export.
 
-A lease alone does not prove that a previous worker stopped transmitting. After lease loss or worker takeover around a possible external effect, hold the original operation for reconciliation or proven provider idempotent resume. Do not start another mutation merely because a local lease expired. Claim checks immediately before transmission and stale-generation commit protection must be tested together with external-operation safety.
+**PCN-04 Select the supported operation.** Select an enabled registry entry for the requested action, country, environment and consumer group. It must identify the protocol and schema version, approved destination, request/response limits and response meaning. It must also identify possible external changes, provider idempotency/query support, timeout/retry rules and the evidence owner. Missing information blocks activation; do not borrow assumptions from another AEAT service. SII, VERI*FACTU and FACe contracts do not prove SPFE support.
 
-Coalesce only identical operations under the approved consumer contract. Capacity admission is bounded and fair across tenants and capability classes; reconciliation and retrieval cannot be starved by submission backlog. Exact quotas and priorities are PCN-Q05 decisions.
+Use approved readiness checks that do not change external state, or conformance evidence for the selected contract. Never send a real or empty invoice to test a connection. DNS/TLS/network checks show only that communication is possible. Show configuration, authentication/authority, operation support and current service health separately. Registration remains UNKNOWN/NOT_APPLICABLE unless the confirmed operating model provides a registration fact. A successful ping does not establish enrolment, and this design does not invent an enrolment endpoint.
 
-**PCN-06 Execute public operation.** Build protocol data only from the qualified contract and validated feature intent. Use bounded resources, transport identity verification, safe XML handling and governed destinations; redirects or returned URLs cannot bypass destination/credential policy. Do not transform signed invoice bytes or repair invoice facts in the connector. Save whether failure happened before transmission, after possible transmission or after a correlated response.
+**PCN-05 Save the request and assign one worker.** Save the operation, fixed input reference, exact scope/profile, feature correlation and retry-safety class. One execution owner claims the work through a numbered lease or equivalent concurrency control. A stale worker cannot save a result or initiate another attempt. Before sending, save the attempt identity and the point at which transmission may begin. Save queue work and operation records through a recoverable outbox or equivalent protocol. Missing payload, object or hash prevents execution.
 
-An operation proven to have no external side effect can repeat under its read/retry contract; a name such as “consult” does not prove this. A mutating or potentially stateful operation with a lost response becomes OUTCOME_UNKNOWN. Provider throttling/unavailability does not fabricate an empty result or successful freshness. A circuit breaker holds affected work without switching route, environment or another invoice leg. No numeric wait/limit is asserted here.
+An expired lease does not prove that the previous worker stopped transmitting. If a worker loses its lease or another worker takes over after a possible external effect, hold the original operation for reconciliation or a provider-proven idempotent resume. Do not start another change just because the local lease expired. Test claim checks immediately before transmission, rejection of stale saves and external retry safety together.
 
-**PCN-07 Commit evidence.** Save protected response bytes/reference and digest, received time, external request/item references, contract/error catalogue version and evidence meaning. Match every item to its request; partial or missing item results remain explicit. A provider request success cannot mark all items admitted. Unknown error codes retain their external value in restricted evidence and create a maintenance signal; safe caller output carries a stable category and owner.
+Combine only identical operations under the approved consumer contract. Limit queued work and share capacity fairly across tenants and capabilities. Submission backlog must not prevent retrieval or reconciliation. Exact quotas and priorities remain PCN-Q05 decisions.
 
-Streamed files/results need a verified durable capture handoff before temporary data can expire. SPEC-SEI-010 owns permanent invoice capture; connector staging is not an archive. If external effect is known but evidence saving fails, record an evidence-recovery hold. Recover from the original response/operation or query rather than repeat a mutation. The deployment must prove how this state survives worker loss.
+**PCN-06 Call the public platform.** Build the request from the qualified contract and the checked feature request. Enforce resource limits, verify the remote transport identity, handle XML safely and use only approved destinations. Redirects or returned URLs cannot bypass destination or credential rules. The connector must not change signed invoice bytes or repair invoice facts.
 
-**PCN-08 Return and notify.** The owning feature can query the saved connector result under its scope. Notifications carry connector/feature IDs, event ID, version, known/pending/unknown state and safe evidence references. Delivery is at least once; consumer deduplication and version checks prevent regression. Feature services interpret admission, source freshness, checkpoints, lifecycle and customer messaging. The connector cannot advance a retrieval checkpoint or mark a buyer accepted.
+Record whether failure happened before transmission, after possible transmission or after a response matched to the request. A call proven to have no external effect may repeat under its approved read/retry contract; “consult” in its name is not proof. A lost response after a possible change becomes OUTCOME_UNKNOWN. Throttling or an outage must not appear as an empty result or successful freshness check. A circuit breaker pauses affected calls; it does not switch route, environment or invoice exchange action. Exact waits and limits remain open.
 
-**PCN-09 Recover.** One owner applies SAFE_RETRY, IDEMPOTENT_RESUME, RECONCILE_FIRST or MANUAL_ONLY according to evidence, not error-name heuristics. Reconciliation queries the original operation/reference, payload digest and contract/environment. A query failure leaves outcome unknown. Proven absence permits resubmission only under the approved contract. Changed route or credential cannot make an old outcome disappear; a replacement credential may be used only through an approved recovery binding to the original represented party/action/environment, with the new attempt evidenced.
+**PCN-07 Save response evidence.** Save the protected response bytes or reference, digest, received time, external request/item references, contract/error catalogue version and what the response proves. Match each item result to the request. Keep partial or missing results visible; request-level success does not mean every item was admitted. Preserve unknown external error codes in restricted evidence and notify the catalogue owner. The caller receives a safe category and responsible owner.
 
-If no outcome query or proven idempotency contract exists, open an owned manual case and hold unsafe repeats. A feature request to resume the same key cannot bypass this hold. Operations inspection, recovery and profile activation are distinct audited permissions. Cancellation after transmission is a separate externally qualified operation, if supported, owned by the feature.
+Before temporary streamed files expire, obtain confirmation that the responsible service saved and verified them. SPEC-SEI-010 owns permanent invoice capture; connector staging is temporary. If the external result is known but saving its evidence fails, hold the operation for evidence recovery. Recover the original response or query the original operation instead of repeating a change. The implementation must prove that this recovery survives worker loss.
 
-**PCN-10 Change configuration and capability.** Validate profile/endpoint changes with compare-and-set version controls and record actor, reason, impact and approval evidence. Deploy inactive, qualify in TEST/simulation with correct labels, then enable only the approved production cohort. Credential rotation does not rewrite old attempts. Disablement stops new affected execution and assesses queued/in-flight/reconciliation impacts; it preserves evidence and other capabilities/environments. Rollback restores a qualified profile for eligible new work, without replaying completed or unknown operations.
+**PCN-08 Return the result and notify the feature.** The service that requested the call can read the saved result within its authorised scope. Notifications include connector/feature IDs, event ID, version, known/pending/unknown state and safe evidence references. A notification may arrive more than once or out of order, so consumers check identity and version before applying it.
+
+The feature service decides what admission, freshness, retrieval progress, lifecycle status and customer wording mean. The connector cannot advance a retrieval checkpoint or mark the buyer as having accepted an invoice.
+
+**PCN-09 Establish the original outcome before retry.** One recovery owner selects SAFE_RETRY, IDEMPOTENT_RESUME, RECONCILE_FIRST or MANUAL_ONLY from evidence about the operation. Do not choose from the error name alone. Query the original operation/reference with its payload digest, contract and environment. A failed query leaves the outcome unknown. Repeat only when the approved contract and evidence of non-execution permit it.
+
+Changing a route or credential does not resolve an earlier outcome. A replacement credential needs an approved link to the original represented party, action and environment, with evidence for the new attempt. If neither reliable query nor proven idempotency is available, open a manual case with an owner and hold unsafe repeats. Reusing the same local key cannot bypass that hold.
+
+Inspection, recovery and profile activation require separate audited permissions. Cancellation after transmission is a separate external operation, if supported by a qualified contract, and remains the feature service’s responsibility.
+
+**PCN-10 Change configuration safely.** Check that the current profile/endpoint version matches the expected version before applying a change. Record the actor, reason, impact and approval evidence. Deploy the capability disabled, obtain correctly labelled TEST/simulation evidence, then enable only the approved production group.
+
+Credential rotation keeps earlier attempts unchanged. Disablement stops new affected calls and assesses queued work, work already running and unresolved operations. Keep their evidence and leave other capabilities/environments separate. Rollback restores a qualified profile for eligible future work; it must not repeat completed or outcome-unknown operations.
 
 ### 3 Requirements and operational controls
 
@@ -210,7 +267,7 @@ Proposed events: PUBLIC_CONNECTOR_RESULT_RECORDED, PUBLIC_CONNECTOR_RECOVERY_REQ
 
 | ID / record and owner | Minimum logical information and handling | Consumers |
 |---|---|---|
-| PCN-D01 Connection/capability profile / registry | Stable connection, country/environment, operation/protocol/schema, governed destination, activation/cohort, read/mutation semantics, idempotency/query rules, limits, source/effective version; restricted/versioned. | PCN-02/04–10 |
+| PCN-D01 Connection/capability profile / registry | Stable connection, country/environment, operation/protocol and schema, governed destination, activation/cohort, read/mutation semantics, idempotency/query rules, limits, source/effective version; restricted/versioned. | PCN-02/04–10 |
 | PCN-D02 Eligibility snapshot / authority/trust owners | Entity/action, actor/workload, policy/authority and credential references, principal/environment/purpose, validity/check time; restricted/append-only evidence. No credentials copied. | PCN-02/03/05/06/09 |
 | PCN-D03 Operation intent / connector | Scoped key, feature/connector IDs, digest, immutable payload/query reference, safety class, cancellation and current operation version; restricted, immutable input. | PCN-01/05–09 |
 | PCN-D04 Execution attempt / connector | Attempt/lease generation, fixed profile/destination/bindings, pre/post-transmission markers, correlation/times and safe result; append-only. | PCN-05–09 |
@@ -243,7 +300,7 @@ These scenarios specify evidence to obtain; they are not executed implementation
 | PCN-A07 Partial response/unknown error | R06 → PCN-07/08, INT-05/07, D04/D05/D08 | Missing items remain unresolved; protected source code retained; safe message does not claim blanket admission. |
 | PCN-A08 External success, local persistence failure | R05/07 → PCN-07/09, INT-06/07, D03–D07 | Original outcome/evidence reconstructed without fresh mutation; crash evidence proves recovery. |
 | PCN-A09 Capture/notification delayed | R07 → PCN-07–09, INT-07, D05/D06/D08 | Temporary file durably handed off before expiry; repeated/out-of-order events do not regress consumer state. |
-| PCN-A10 Throttle/outage and competing tenants | R08 → PCN-05/06/09, INT-05/08, D01/D03/D04/D07 | Bounded fair backlog and safe breaker; no false empty result, freshness or route switch. |
+| PCN-A10 Throttle/outage and competing tenants | R08 → PCN-05/06/09, INT-05/08, D01/D03/D04/D07 | Bounded fair backlog and circuit breaker with approved rules; no false empty result, freshness or route switch. |
 | PCN-A11 Rotation/disablement/rollback during work | R09 → PCN-03/05/09/10, INT-03/04/06/08, D01–D04/D07/D09 | Original context preserved; stale worker rejected; replacement authority checked; unaffected cohorts continue. |
 | PCN-A12 Unsafe content/destination and support access | R01/06/09 → PCN-02/06/09/10, INT-05/08, D04–D07/D09 | XML/resource and destination controls enforced; no credentials/raw bodies in errors/logs; unauthorised recovery denied. |
 | PCN-A13 Country isolation and reuse qualification | R10 → PCN-02–06/10, INT-02–05/08, D01/D02/D04/D09 | Selected build/contracts proved; missing country binding blocks activation; Spain authority/error rules do not affect another country. |

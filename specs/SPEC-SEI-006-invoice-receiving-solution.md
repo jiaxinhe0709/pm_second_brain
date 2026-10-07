@@ -1,12 +1,12 @@
 ---
 id: SPEC-SEI-006
-title: Inbound Invoice Receiving Solution Specification
+title: Invoice receiving solution
 type: solution-spec
 status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-07
 reviewers: []
 related:
   - GLO-SEI-001
@@ -27,12 +27,15 @@ related:
   - SPEC-SEI-009
   - SPEC-SEI-010
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
+  parent_page_id: "918651328"
   page_id: ""
+  layout: two_left_sidebar
+  toc: true
 ---
 
-# Inbound Invoice Receiving Solution Specification
+# Invoice receiving solution
 
 Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
@@ -40,7 +43,7 @@ Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-i
 
 ### Retrieval and storage handoff
 
-[SPEC-SEI-010](SPEC-SEI-010-public-platform-invoice-retrieval-storage-and-download-solution-specification.md) proposes public discovery, exact source capture, safe checkpointing and authorised conservation download. This receiving spec consumes the captured artefact reference and owns validation and product distribution. Recovered source availability does not wait for ERP processing; unsafe content follows the controlled quarantine-access policy. The retrieval service commits progress only after every covered item has a durable outcome.
+[SPEC-SEI-010](SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md) proposes public discovery, exact source capture, safe checkpointing and authorised conservation download. This receiving spec consumes the captured artefact reference and owns validation and product distribution. Recovered source availability does not wait for ERP processing; unsafe content follows the controlled quarantine-access policy. The retrieval service commits progress only after every covered item has a durable outcome.
 
 ### Reader guide
 
@@ -50,7 +53,7 @@ The design remains a draft. **Proposed** choices still need review; **open** dec
 
 ### Design depth and scope
 
-[SPEC-SEI-007](SPEC-SEI-007-spain-invoice-preparation-and-outbound-solution-specification.md) provides the comparison for version binding, durable operation intent, separate outcomes and recovery. Receiving needs equivalent control over source evidence, identity, mapping, product delivery and acknowledgements. ERP issuance, outbound signing and public-copy submission remain outside this receiving journey.
+[SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md) provides the comparison for version binding, durable operation intent, separate outcomes and recovery. Receiving needs equivalent control over source evidence, identity, mapping, product delivery and acknowledgements. ERP issuance, outbound signing and public-copy submission remain outside this receiving journey.
 
 All state names and contract details below are **proposed**. The source PRDs establish product requirements; they do not prove that a receiving implementation, provider acknowledgement contract or DTS inbound mapping is deployed and qualified.
 

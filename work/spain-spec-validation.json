@@ -1,0 +1,635 @@
+{
+  "scope": "Document and logical-design validation; no implementation, publication or external-contract certification",
+  "specs": [
+    {
+      "id": "SPEC-SEI-001",
+      "file": "specs/SPEC-SEI-001-certificate-management-solution-specification.md",
+      "title": "Certificate Management Solution Specification",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": true,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 40,
+      "diagram_sets": 3,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Custody and service ownership; legal signing/seal authority; actual Tax Service / Connections Service build and B2B qualification.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    },
+    {
+      "id": "SPEC-SEI-002",
+      "file": "specs/SPEC-SEI-002-onboarding-solution-specification.md",
+      "title": "Customer Onboarding Solution Specification",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": true,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 18,
+      "diagram_sets": 2,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Public/private registration contracts, receiving-point publication, authority and readiness; cutover and rollback evidence.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    },
+    {
+      "id": "SPEC-SEI-003",
+      "file": "specs/SPEC-SEI-003-offboarding-solution-specification.md",
+      "title": "Customer Offboarding Solution Specification",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": true,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 13,
+      "diagram_sets": 2,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Actors and channels for earlier invoices; external withdrawal sequence; retention, export, access and provider terms.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    },
+    {
+      "id": "SPEC-SEI-004",
+      "file": "specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md",
+      "title": "Onboarding Failure and Reconciliation Solution Specification",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": true,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 11,
+      "diagram_sets": 2,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Operation safety classes, error catalogue, original-operation queries, retry limits and qualified recovery build.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    },
+    {
+      "id": "SPEC-SEI-005",
+      "file": "specs/SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md",
+      "title": "UBL Validation and Correction Solution Specification",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": false,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 14,
+      "diagram_sets": 2,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Selected Spain route/profile and rule artefacts; correction ownership; qualified validation/transformation implementation.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    },
+    {
+      "id": "SPEC-SEI-006",
+      "file": "specs/SPEC-SEI-006-invoice-receiving-solution.md",
+      "title": "Invoice receiving solution",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": true,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 19,
+      "diagram_sets": 2,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Inbound identity and original/copy equivalence; trust and acknowledgement contracts; DTS inbound mapping and ERP receipt evidence.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    },
+    {
+      "id": "SPEC-SEI-007",
+      "file": "specs/SPEC-SEI-007-invoice-sending-solution.md",
+      "title": "Invoice sending solution",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": true,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 18,
+      "diagram_sets": 2,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Draft/final input contract, final route evidence, exact file/profile and trust plan; per-action provider execution and outcomes.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    },
+    {
+      "id": "SPEC-SEI-008",
+      "file": "specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md",
+      "title": "Spain UBL Mapper Migration to DTS Solution Specification",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": true,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 17,
+      "diagram_sets": 2,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Actual mapper and DTS builds/contracts; runtime choice, semantic parity and task completion; approved profiles, pilot and migration evidence.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    },
+    {
+      "id": "SPEC-SEI-009",
+      "file": "specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md",
+      "title": "Invoice Lifecycle Status Solution Specification",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": true,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 19,
+      "diagram_sets": 2,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Country/provider event meanings, actor authority, reporting calendar, historical actors and channels; mapping and reporting qualification.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    },
+    {
+      "id": "SPEC-SEI-010",
+      "file": "specs/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md",
+      "title": "Consult and download UBL from public platform for einvoices received",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": false,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 12,
+      "diagram_sets": 1,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Actual discovery/recovery API, registered authority, capture/checkpoint recovery, records policy and measurable file-access target.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    },
+    {
+      "id": "SPEC-SEI-011",
+      "file": "specs/SPEC-SEI-011-public-platform-connector-solution-specification.md",
+      "title": "Public Platform Connector Solution Specification",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": true,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 20,
+      "diagram_sets": 1,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Official operation catalogue, per-operation authority and side effects, outcome queries, custody and operational qualification.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    },
+    {
+      "id": "SPEC-SEI-012",
+      "file": "specs/SPEC-SEI-012-consult-public-platform-for-recipient-information.md",
+      "title": "Consult public platform for recipient information",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": false,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 14,
+      "diagram_sets": 1,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Supported lookup sources and coverage; sufficient absence evidence, multiple-destination selection and final-use freshness.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    },
+    {
+      "id": "SPEC-SEI-013",
+      "file": "specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md",
+      "title": "Provider API through the E-Invoicing Global API Solution Specification",
+      "status": "draft",
+      "publish": true,
+      "checks": {
+        "metadata": true,
+        "identity": true,
+        "four_parts": true,
+        "glossary": true,
+        "legacy_term_absent": true,
+        "reader_guide": true,
+        "local_terms": true,
+        "reuse_classes": true,
+        "logical_readiness": true,
+        "tables": true,
+        "links": true,
+        "diagram_companions": true,
+        "unique_inventory_ids": true
+      },
+      "coverage_signals": {
+        "tenant_and_environment": true,
+        "authority_separate_from_authentication": true,
+        "unknown_outcome_recovery": true,
+        "retention_and_ownership": true,
+        "country_isolation_acceptance": true,
+        "reuse_qualification_acceptance": true,
+        "open_decisions": true
+      },
+      "local_links": 24,
+      "diagram_sets": 2,
+      "issues": [],
+      "review_notes": [],
+      "main_open_gates": "Existing API and execution ownership; authentication, claims, replay, compatibility, limits and reference-consumer qualification.",
+      "document_validation": "pass",
+      "implementation_readiness": "open gates; not certified by document validation"
+    }
+  ],
+  "cross_spec": [],
+  "duplicate_document_ids": {},
+  "review_date": "2026-10-07",
+  "result": "All 13 pass document validation after corrections; reviewable logical proposals with implementation and activation gates still open.",
+  "verified_counts": {
+    "specs": 13,
+    "local_links_and_anchors": 239,
+    "unique_diagram_sets": 23,
+    "explicit_and_range_expanded_assurance_references": 877,
+    "overview_linked_nodes": 30,
+    "overview_journeys": 6,
+    "overview_specs_covered": 13
+  },
+  "corrections": [
+    {
+      "files": [
+        "SPEC-SEI-004",
+        "SPEC-SEI-009",
+        "SPEC-SEI-010"
+      ],
+      "change": "Added explicit acceptance evidence for reused implementations: source build, local changes, gaps, owner and qualification."
+    },
+    {
+      "files": [
+        "SPEC-SEI-009"
+      ],
+      "change": "Added the reader guide and plain-language terms used in the other specs."
+    },
+    {
+      "files": [
+        "SPEC-SEI-007"
+      ],
+      "change": "Clarified that each ready exchange action executes only its named delivery or public-copy submission."
+    },
+    {
+      "files": [
+        "SPEC-SEI-010"
+      ],
+      "change": "Made the lost-response rule explicit for recovery calls that may change provider state, with an acceptance scenario."
+    },
+    {
+      "files": [
+        "SPEC-SEI-012"
+      ],
+      "change": "Corrected the article in \u201can action\u201d after the terminology replacement."
+    },
+    {
+      "files": [
+        "GLO-SEI-001"
+      ],
+      "change": "Clarified Domain Services as the broader group containing E-Invoice Service, Tax Service and other domain services."
+    }
+  ],
+  "manual_handoff_review": [
+    {
+      "boundary": "Setup \u2192 qualified operations",
+      "owners": [
+        "SPEC-SEI-001",
+        "SPEC-SEI-002",
+        "SPEC-SEI-004",
+        "SPEC-SEI-011",
+        "SPEC-SEI-013"
+      ],
+      "result": "Authority, credentials, readiness and route activation remain separate; unqualified operations remain gated."
+    },
+    {
+      "boundary": "Preparation \u2192 issuance \u2192 sending",
+      "owners": [
+        "SPEC-SEI-005",
+        "SPEC-SEI-007",
+        "SPEC-SEI-008",
+        "SPEC-SEI-012"
+      ],
+      "result": "ERP owns issuance; final bytes/profile and route are checked again; mapping does not replace final validation."
+    },
+    {
+      "boundary": "Retrieval \u2192 receiving \u2192 ERP",
+      "owners": [
+        "SPEC-SEI-006",
+        "SPEC-SEI-010",
+        "SPEC-SEI-011"
+      ],
+      "result": "Exact source capture and permitted download remain separate from mapping/product success; retrieval progress requires durable item outcomes, not ERP acknowledgement."
+    },
+    {
+      "boundary": "Exchange evidence \u2192 lifecycle and reporting",
+      "owners": [
+        "SPEC-SEI-007",
+        "SPEC-SEI-009",
+        "SPEC-SEI-013"
+      ],
+      "result": "Raw evidence and independent outcomes are retained; a receipt, download or delivery result does not prove buyer acceptance or payment."
+    },
+    {
+      "boundary": "Route change \u2192 offboarding \u2192 historical follow-up",
+      "owners": [
+        "SPEC-SEI-002",
+        "SPEC-SEI-003",
+        "SPEC-SEI-009",
+        "SPEC-SEI-010",
+        "SPEC-SEI-013"
+      ],
+      "result": "Earlier work keeps its original context; current authority, approved actors, retention and exit checks govern continued access and closure."
+    }
+  ],
+  "coverage_signal_interpretation": {
+    "SPEC-SEI-005": "External unknown-outcome reconciliation is not this validator\u2019s dispatch responsibility. It blocks on missing/pending validation and delegates external sending to exchange.",
+    "SPEC-SEI-010": "The side-effecting recovery-call failure row and RSD-A16 explicitly cover lost responses, original-operation reconciliation and safe checkpoint handling. The text-search indicator misses their wording.",
+    "SPEC-SEI-012": "Stateful-query uncertainty and original-operation reconciliation are covered by RLU-A15; the text search indicator is narrower than that wording."
+  },
+  "limitations": [
+    "Acceptance scenarios describe evidence to obtain; they are not executed implementation tests.",
+    "Internal service sources, real builds, deployed environments and all provider contracts were not independently verified.",
+    "Primary-source spot-checks cover selected assumptions, not a complete legal or compliance review.",
+    "The repository document-validation workflow is currently a placeholder; this audit is not an established automated CI gate.",
+    "Saved Confluence export snapshots retain their historical wording; active specs and current diagram assets were reviewed.",
+    "Publication was authorised separately after validation. All 13 specs are selected for Confluence publication and remain draft designs; publication does not approve implementation."
+  ],
+  "overall_document_recommendation": "Keep the continuous diagram and its reading guide as the overall navigation. The existing specs own the reviewed handoffs; a further overall solution spec is not needed for this review.",
+  "sources_spot_checked": [
+    {
+      "title": "Royal Decree 238/2026",
+      "url": "https://www.boe.es/eli/es/rd/2026/03/25/238",
+      "scope": "Articles 6, 10\u201312: recipient/public-route basis, separate copy and lifecycle/reporting duties."
+    },
+    {
+      "title": "Order HAC/1028/2026",
+      "url": "https://www.boe.es/eli/es/o/2026/10/02/hac1028",
+      "scope": "Articles 9\u201311: automated recovery, conservation access, consultation/download and authentication/representation; technical operation details still need their published contracts."
+    },
+    {
+      "title": "OASIS UBL 2.5",
+      "url": "https://docs.oasis-open.org/ubl/os-UBL-2.5/UBL-2.5.html",
+      "scope": "Official standard exists. This does not establish that the selected Spain public route accepts that version."
+    }
+  ]
+}

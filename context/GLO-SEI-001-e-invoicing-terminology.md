@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-07
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -37,6 +37,11 @@ Definitions explain the current source documents. They do not approve an archite
 ## How to use and maintain the glossary
 
 - Use the preferred term in explanatory prose. Expand unfamiliar acronyms on first use, or include them in the local terms table.
+- Define **exchange action** on first use when a reader may open the document on its own. Use specific phrases such as **deliver the invoice**, **submit the public copy** or **report the payment** where possible. Use **action** after the meaning is clear.
+- Write a clear actor and action before naming an internal control. Use complete
+  sentences in behaviour and recovery explanations. Explain necessary terms such
+  as scope, commit, lease and outbox; avoid compressed chains of nouns or slashes.
+  A glossary link does not replace a readable explanation in the spec.
 - Qualify words with several meanings: **represented party** versus **authenticated principal**, **technical acknowledgement** versus **buyer acceptance**, and **API endpoint** versus **business outcome**.
 - Preserve exact technical fields, state values, event names, headers, URLs and permanent IDs. An editorial wording change is not permission to rename a contract field or translate a raw external code.
 - Add a new shared term here before copying a definition into another spec. Keep a specialised definition in the owning spec and link to it. Review both when a meaning changes.
@@ -69,9 +74,10 @@ Definitions explain the current source documents. They do not approve an archite
 | AEAT | The Spain tax authority identified in the source specs. AEAT names the authority; public platform names the e-invoicing service being used. Avoid using “AEAT API” without naming the qualified capability. |
 | Private platform | An invoice platform other than the public platform, used under its qualified capability, contract and customer authority. Its readiness does not remove independent public-copy or reporting requirements. |
 | E-Invoicing Global API / Global API | The proposed common API contract for products and authorised partners in SPEC-SEI-013. “Global API” is the short form. Existing implementation coverage remains unverified. |
+| Sage Global e-Invoicing Platform | The broader set of shared invoicing capabilities described in the supplied Public Platform API Integration PRD. The Global API is its access contract; the public platform connector is one integration responsibility within it. The names do not establish deployment boundaries or production readiness. |
 | API / contract profile | Application programming interface: the operations and data a service exposes to callers. A contract profile fixes the selected operation, protocol/schema, environment and safety rules; it is separate from an invoice or trust profile. |
 | Provider API | The Sage-owned provider-facing capabilities proposed within the Global API. Use **provider-owned API** for an external provider's own interface. The terms describe different contract owners. |
-| Domain Service | The logical Sage domain responsibility coordinating the relevant feature, such as preparation or exchange. The name does not establish one physical deployment or mean the Global API, DTS and trust service are the same component. |
+| Domain Services / E-Invoice Service | Domain Services is the broader group of business services, including an E-Invoice Service, Tax Service and other domain services. The E-Invoice Service coordinates invoice journeys and uses the capabilities assigned to other services. In these specs, the older singular label **Domain Service** describes the logical owner of the feature being discussed. Actual capability ownership, service contracts and deployment coverage remain design and qualification questions. |
 | DTS | Document Transformation Service, the existing Sage transformation reuse candidate. Each selected input/output pair, mapping, rule pack, build and operational path needs qualification. DTS does not by itself provide legal issuance, signing, invoice transport or permanent archiving. |
 | Tax Service / Tax Vault / Connections Service / AFL | Service names retained from certificate source evidence. AFL refers to the Spain anti-fraud implementation in that evidence. Do not treat the proposed Tax Vault and the described Connections Service/AFL credential path as one proven implementation; actual ownership and B2B fitness remain SPEC-SEI-001 qualification questions. |
 | Public platform connector | The logical protocol-access and operation-evidence responsibility in SPEC-SEI-011. It executes a qualified public operation; the feature service owns its business interpretation. |
@@ -98,7 +104,7 @@ Definitions explain the current source documents. They do not approve an archite
 | Faithful public copy / public copy | The separately classified public-platform copy of an invoice exchanged through another route, where the applicable Spain policy requires it. “Faithful copy” is a source short form. Exact syntax and acceptance still require the selected contract/profile evidence. Preserve role `PUBLIC_COPY`. |
 | Canonical representation | The shared internal data form used by Sage products. It is derived from a source invoice and does not replace its original bytes or become the legal system of record by its name alone. |
 | Canonical event | A Sage interpretation of a source fact under a versioned mapping. It is separate from the exact raw source event and from a derived customer status. |
-| Exchange leg | One independently tracked recipient-delivery, public-copy or reporting action. **Delivery leg** is used for this broader meaning in SPEC-SEI-013; qualify the leg type. Success of one leg does not complete another. |
+| Exchange action | One separately tracked action to deliver an invoice, submit a public copy, or report an invoice event. Each action has its own result. For example, invoice delivery can succeed while public-copy submission still needs attention. |
 | UBL / XML / CII | Universal Business Language; Extensible Markup Language, the file syntax used for UBL; Cross Industry Invoice, another structured invoice format. A standard's existence does not establish acceptance by a Spain route. |
 | Profile | The selected constraints for a syntax, country, route and document type. Qualify **invoice profile**, **trust profile** or **contract profile** where needed; these are not interchangeable. |
 | Rule pack | Versioned executable rules and resources used to apply or check a selected profile or policy. It is not the entire country pack or the deployed service build. |
@@ -141,6 +147,7 @@ Definitions explain the current source documents. They do not approve an archite
 | Conservation / retention / legal hold | Conservation keeps invoices available for the required records period. Retention is the policy for keeping a data class. A legal hold prevents deletion where required. DTS staging expiry is separate from invoice conservation. |
 | Gate / qualification | A gate is a condition, decision or evidence check required before proceeding. Qualification establishes that a selected capability meets its stated scope. Both require an owner and evidence; a candidate name is not a passed gate. |
 | Contract | The agreed inputs, outputs, behaviour and responsibilities between services or parties. A logical proposed contract is separate from an approved deployed interface. |
+| Scope / commit / conformance | Scope states which customer, legal entity, environment, capability, action and objects an operation covers. A commit finishes saving the related records through an agreed recovery boundary. Conformance is evidence that a consumer or service follows the selected contract. Explain the relevant scope and saved result in prose rather than using these words as unexplained shorthand. |
 
 ## Trust and operational abbreviations
 
@@ -184,14 +191,14 @@ The terminology review covers SPEC-SEI-001 through SPEC-SEI-013 in `specs/`. It 
 | [SPEC-SEI-003 — Offboarding](../specs/SPEC-SEI-003-offboarding-solution-specification.md) | Cutover, historical continuity and data disposition. |
 | [SPEC-SEI-004 — Onboarding recovery](../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md) | Unknown outcome, retry safety and reconciliation. |
 | [SPEC-SEI-005 — UBL validation](../specs/SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) | Profile versus rule pack; preflight versus final validation. |
-| [SPEC-SEI-006 — Inbound receiving](../specs/SPEC-SEI-006-inbound-invoice-receiving-solution-specification.md) | Source observation, canonical representation, product receipt and technical acknowledgement. |
-| [SPEC-SEI-007 — Preparation and outbound](../specs/SPEC-SEI-007-spain-invoice-preparation-and-outbound-solution-specification.md) | Issuance, exchange legs, faithful public copy and final route evidence. |
+| [SPEC-SEI-006 — Inbound receiving](../specs/SPEC-SEI-006-invoice-receiving-solution.md) | Source observation, canonical representation, product receipt and technical acknowledgement. |
+| [SPEC-SEI-007 — Preparation and outbound](../specs/SPEC-SEI-007-invoice-sending-solution.md) | Issuance, exchange actions, faithful public copy and final route evidence. |
 | [SPEC-SEI-008 — Mapper migration to DTS](../specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) | DTS, mapper, transformation, task, capability bundle and migration cutover. |
 | [SPEC-SEI-009 — Invoice lifecycle](../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) | Raw event, canonical event, derived status and independent outcome dimensions. |
-| [SPEC-SEI-010 — Retrieval, storage and download](../specs/SPEC-SEI-010-public-platform-invoice-retrieval-storage-and-download-solution-specification.md) | Source original versus public copy; checkpoint, conservation and reuse classification. |
+| [SPEC-SEI-010 — Retrieval, storage and download](../specs/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md) | Source original versus public copy; checkpoint, conservation and reuse classification. |
 | [SPEC-SEI-011 — Public connector](../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md) | Qualified operation, connection, contract profile and public transport responsibility. |
-| [SPEC-SEI-012 — Recipient lookup](../specs/SPEC-SEI-012-public-platform-recipient-lookup-solution-specification.md) | Recipient destination versus received-invoice discovery; coverage, freshness and unresolved absence. |
-| [SPEC-SEI-013 — Provider capabilities through Global API](../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md) | Authenticated principal, Provider API ownership, durable receipt and leg execution. |
+| [SPEC-SEI-012 — Recipient lookup](../specs/SPEC-SEI-012-consult-public-platform-for-recipient-information.md) | Recipient destination versus received-invoice discovery; coverage, freshness and unresolved absence. |
+| [SPEC-SEI-013 — Provider capabilities through Global API](../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md) | Authenticated principal, Provider API ownership, durable receipt and action execution. |
 
 | Remaining question | Owner and boundary |
 |---|---|

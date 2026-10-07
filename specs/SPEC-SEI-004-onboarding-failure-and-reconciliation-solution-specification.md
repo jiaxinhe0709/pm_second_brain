@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-07
 reviewers: []
 related:
   - GLO-SEI-001
@@ -19,9 +19,12 @@ related:
   - PRD-SEI-226
   - SPEC-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
+  parent_page_id: "848078012"
   page_id: ""
+  layout: two_left_sidebar
+  toc: true
 ---
 
 # Onboarding Failure and Reconciliation Solution Specification
@@ -240,5 +243,6 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | OFR-A08 Cancel while unknown | R03/06 → OFR-05/06/08, INT-03/05, D01/05 | Safe queued work stops; case remains reconcilable. |
 | OFR-A09 Manual retry and redaction | R07/08 → OFR-07/08, INT-06/07, D03/07 | Authority/environment enforced; support view lacks raw identity/secrets. |
 | OFR-A10 Provider and country safety isolation | R01–03/07/08 → OFR-02/04–06, INT-02/04/05, D02–05 | A safe retry class for one approved contract is not inherited by another country or provider. Missing local safety evidence prevents automatic repeat; the original operation remains traceable and the next action has an owner. |
+| OFR-A11 Reused recovery implementation | R01–05/07/08 → OFR-01–08, INT-01–07, D01–08 | Record the source recovery capability and build, Spain changes, gaps, owner and qualification evidence. Prove its saved-intent, error-mapping, safe-retry and original-operation query contracts for the selected provider. Missing evidence prevents automatic recovery; a proposed pattern alone is not proof that an existing implementation is ready. |
 
 **Review gate:** confirm operation inventory, safety classes, external state-query evidence and error catalogue. **Pilot gate:** prove correction, safe retry, uncertain mutation, persistence loss, cancellation, partial portfolio and manual-action drills against the selected integration. **Production gate:** approved budgets, monitoring/ownership, redaction, retention and measurable recovery objectives. Until official semantics are proven, mutation automation stays disabled or uses a named manual gate.

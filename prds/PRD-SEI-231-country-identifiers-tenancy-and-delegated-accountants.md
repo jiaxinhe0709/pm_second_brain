@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-08-12
-updated: 2026-08-25
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-227
@@ -26,6 +26,8 @@ confluence:
 ---
 
 # E-Invoicing — Country Identifiers, Tenancy and Delegated Accountants
+
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
 
 ## Decision summary
 
@@ -60,7 +62,7 @@ This discovery defines how Sage products, customers, accountants, platform servi
 
 | Term | Meaning in this PRD | Must not be confused with |
 |---|---|---|
-| Compliance delivery | Overall capability that evaluates policy, binds identity/authority, executes required compliance legs and retains evidence | Recipient delivery alone |
+| Compliance delivery | Overall capability that evaluates policy, binds identity/authority, executes required compliance actions and retains evidence | Recipient delivery alone |
 | Document compliance | Validity of the structured invoice representation under the applicable semantic, syntax/profile and business rules | Proof the recipient received it |
 | Delivery compliance | Successful and evidenced delivery to the intended recipient using an eligible address, route and provider/network context | Government reporting or commercial acceptance |
 | Reporting compliance | Successful and evidenced submission of required invoice, transaction, payment or status data to the competent authority | Delivery to the buyer |
@@ -81,7 +83,7 @@ This discovery defines how Sage products, customers, accountants, platform servi
 | Authority | Evaluate principal, delegate, user, capability, direction and validity | Legally accepted mandate/agent evidence and operation scope | Country-specific confirmation required |
 | Document | Bind invoice parties/establishments and validate representation | Required invoice identifiers, profiles, fields and validation rules | Country/profile evidence required |
 | Delivery | Resolve recipient and execute an eligible route | Directory key, participant scheme, routing qualifier, network and acknowledgement | Country/network evidence required |
-| Reporting | Create independent authority legs and reconcile outcomes | Reporter identity, authority schema, deadlines and acknowledgements | France/Spain examples; other country details gated |
+| Reporting | Create independent authority reporting actions and reconcile outcomes | Reporter identity, authority schema, deadlines and acknowledgements | France/Spain examples; other country details gated |
 | Evidence | Retain immutable decision, identity snapshot and outcome history | Retention, disclosure and legal-evidence requirements | Shared concept; policy and security approval required |
 
 ## Identity-driven compliance delivery
@@ -91,7 +93,7 @@ This discovery defines how Sage products, customers, accountants, platform servi
   <style>
     .eii-compliance-map *{box-sizing:border-box}.eii-compliance-map .sub{margin:0 0 14px;color:#6b778c;font-size:12px}.eii-compliance-map svg{display:block;width:1100px;height:700px;border:1px solid #dfe1e6;border-radius:8px;background:#fcfcfd}.eii-compliance-map .main{fill:#e3fcef;stroke:#36b37e;stroke-width:1.7}.eii-compliance-map .finish{fill:#abf5d1;stroke:#00875a;stroke-width:1.8}.eii-compliance-map .optional{fill:#f4f5f7;stroke:#6b778c;stroke-width:1.5;stroke-dasharray:7 5}.eii-compliance-map .warn{fill:#fff7d6;stroke:#ffab00;stroke-width:1.6}.eii-compliance-map .title{fill:#172b4d;font-size:11px;font-weight:700}.eii-compliance-map .copy{fill:#42526e;font-size:8.8px}.eii-compliance-map .label{fill:#6b778c;font-size:9px;font-weight:700;letter-spacing:.08em}.eii-compliance-map .path{fill:none;stroke:#00875a;stroke-width:2}.eii-compliance-map .path-opt{fill:none;stroke:#6b778c;stroke-width:1.7;stroke-dasharray:7 5}.eii-compliance-map .path-warn{fill:none;stroke:#ff991f;stroke-width:1.8;stroke-dasharray:6 4}.eii-compliance-map .arrow{fill:#00875a}.eii-compliance-map .arrow-g{fill:#6b778c}.eii-compliance-map .arrow-w{fill:#ff991f}.eii-compliance-map .notes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;min-width:1100px;margin-top:10px}.eii-compliance-map .note{padding:9px;border:1px solid #dfe1e6;border-radius:6px;color:#42526e;font-size:10px;line-height:1.4}.eii-compliance-map .note strong{display:block;color:#172b4d;margin-bottom:2px}
   </style>
-  <p class="sub">Compliance delivery binds one policy and identity snapshot, then manages document, recipient-delivery and authority-reporting obligations as separate outcome legs.</p>
+  <p class="sub">Compliance delivery binds one policy and identity snapshot, then manages document, recipient-delivery and authority-reporting obligations as separate outcome actions.</p>
   <svg viewBox="0 0 1100 700" role="img" aria-label="Invoice intent and actor enter a country-policy decision. Policy creates one immutable compliance context containing tenant, legal entities, establishments, identifier snapshots, delegated authority, policy version and effective time. The context activates three independent branches: document compliance using legal, establishment and tax identities; delivery compliance using participant, directory and routing identities; and optional reporting compliance using taxpayer, reporter, delegate and authority identifiers. Each branch has its own state, correlation, acknowledgement and evidence. A derived compliance summary never replaces the three outcomes. Identity or mandate changes apply only to eligible new actions while historical context remains unchanged.">
     <text x="32" y="30" class="label">REQUEST AND POLICY</text><text x="318" y="30" class="label">ONE IMMUTABLE CONTEXT</text><text x="692" y="30" class="label">THREE INDEPENDENT OUTCOMES</text>
     <rect x="32" y="66" width="220" height="92" rx="10" class="main"/><text x="52" y="96" class="title">Invoice intent + actor</text><text x="52" y="118" class="copy">tenant • product • direction • transaction</text><text x="52" y="138" class="copy">direct user or delegated accountant</text>
@@ -157,7 +159,7 @@ This discovery defines how Sage products, customers, accountants, platform servi
 | Sage product or API consumer | Submit stable business intent and receive separate document, delivery and reporting outcomes without encoding country identifier rules. |
 | Identity/country-policy owner | Maintain official schemes, issuer evidence, validation rules, role eligibility, effective dates and deprecations. |
 | Platform service | Bind tenant, legal subject, identity snapshot, authority decision and obligations before external mutation. |
-| Provider/network/authority | Validate, route, receive or acknowledge one defined external leg; it is not the owner of the other outcomes by implication. |
+| Provider/network/authority | Validate, route, receive or acknowledge one defined external action; it is not the owner of the other outcomes by implication. |
 | Operations/support | See intended and observed state, evidence freshness, fault domain and safe next action without exposing restricted identifiers. |
 | Security/privacy/legal | Approve credential custody, identifier classification, delegated-authority evidence, retention and disclosure. |
 
@@ -203,7 +205,7 @@ The same character sequence can legitimately appear in more than one role. The p
 | Document compliance | Supplier/buyer legal/tax IDs, establishment IDs, invoice/self-billing party IDs | Which identity belongs in each semantic/profile field? Is it valid for the issue date and role? | Identifier snapshots, field mapping/profile version, rule results and representation integrity reference |
 | Delivery compliance | Sender/recipient participant ID, directory key, routing qualifier, endpoint/capability ID, provider account reference | Is the intended recipient discoverable and capable? Which eligible network/route and provider roles apply? | Lookup source/time, participant scheme/value, route plan, correlations and acknowledgements |
 | Reporting compliance | Taxpayer ID, establishment/reporting-unit ID, reporter/delegate ID, authority account/registration ID | Who is legally obliged to report? Who may submit? Which authority destination/schema/deadline applies? | Authority decision, reporter identity, mandate evidence, payload/schema reference, correlation and acknowledgement |
-| Support/reconciliation | Sage context IDs plus redacted external references | Can support correlate all legs without exposing unnecessary official identifiers or secrets? | Redacted diagnostic view, audit actor, fault domain, safe-next-action decision |
+| Support/reconciliation | Sage context IDs plus redacted external references | Can support correlate all actions without exposing unnecessary official identifiers or secrets? | Redacted diagnostic view, audit actor, fault domain, safe-next-action decision |
 
 ### Important asymmetries
 
@@ -546,7 +548,7 @@ Expected result: partial success is safe and no item inherits another client's a
 |---|---|
 | ID-FR13 | Document compliance must record selected party/establishment/tax identifiers, representation/profile/mapping versions, validation results and integrity reference before dispatch. |
 | ID-FR14 | Delivery compliance must record intended recipient, participant/directory scheme/value, lookup evidence, network/channel, provider roles, route, correlation and acknowledgement semantics separately from document/reporting state. |
-| ID-FR15 | Reporting compliance must create one independent leg per required authority obligation with taxpayer/reporter/delegate identity, schema/version, deadline, correlation, acknowledgement and recovery state. |
+| ID-FR15 | Reporting compliance must create one independent action per required authority obligation with taxpayer/reporter/delegate identity, schema/version, deadline, correlation, acknowledgement and recovery state. |
 | ID-FR16 | A branch marked not applicable must retain the policy/version and reason; absence of a row or event must not mean not applicable. |
 | ID-FR17 | A derived summary must be computed from required branch states and must expose which branch blocks completion; it must not overwrite branch events. |
 | ID-FR18 | A timeout after possible mutation must enter outcome-unknown and reconcile before resend unless the end-to-end operation is proven idempotent. |
@@ -579,10 +581,10 @@ Expected result: partial success is safe and no item inherits another client's a
 | Profile validation fails | Document | No dispatch; return stable rule/field/version guidance | Mark delivery/reporting pending as if mutation occurred |
 | Delegate lacks one capability | Requested branch | Deny that operation with audit; preserve unrelated valid grants | Deny all clients/capabilities or widen permission automatically |
 | Grant revoked during batch | Per item/branch | Evaluate at each item's protected decision point; stop newly unauthorised work | Treat batch acceptance time as permanent authority |
-| Provider timeout after send | Delivery/reporting leg | Mark that leg outcome-unknown and reconcile by correlation | Blind resend or change other successful legs |
+| Provider timeout after send | Delivery/reporting action | Mark that action outcome-unknown and reconcile by correlation | Blind resend or change other successful actions |
 | Authority rejects report after buyer delivery | Reporting | Preserve delivery success; correct/retry reporting under country rule | Resend invoice to buyer solely due to report rejection |
-| Internal persistence fails after external success | Affected leg | Recover external evidence and append durable outcome before new mutation | Repeat external call without reconciliation |
-| Duplicate/out-of-order acknowledgement | Affected leg | Deduplicate by source identity; retain raw evidence and deterministic derived view | Drop contradictory evidence or regress terminal state silently |
+| Internal persistence fails after external success | Affected action | Recover external evidence and append durable outcome before new mutation | Repeat external call without reconciliation |
+| Duplicate/out-of-order acknowledgement | Affected action | Deduplicate by source identity; retain raw evidence and deterministic derived view | Drop contradictory evidence or regress terminal state silently |
 | Scheme/director/registry data changes | Future contexts | Reverify/replace current record; link predecessor/successor | Rewrite historical snapshot |
 | Restricted identifier appears in diagnostic path | Security/privacy | Redact, alert and correct telemetry/control | Persist it in logs, URLs or metrics labels |
 
@@ -654,7 +656,7 @@ The 83% figure is a discovery hypothesis for reusable **design surface**. It mus
 | France/Peppol design leaks into other countries | Country forks and incorrect routing | Germany/Ireland/UK counter-examples and country-owned bindings |
 | Restricted identifiers leak through telemetry/support | Privacy/security incident | Classification, masking, purpose-based views and telemetry tests |
 | Dynamic scheme/directory data becomes stale | Delivery failure or wrong recipient | Version/freshness evidence, reverification and deprecation workflow |
-| Aggregate retry duplicates a successful branch | Duplicate invoice or report | Per-leg idempotency/correlation and outcome-unknown reconciliation |
+| Aggregate retry duplicates a successful branch | Duplicate invoice or report | Per-action idempotency/correlation and outcome-unknown reconciliation |
 | Reuse percentage becomes a delivery commitment | Underestimated country work | Keep design estimate labelled; require implementation inventory |
 
 ## Evidence register
@@ -683,7 +685,7 @@ The 83% figure is a discovery hypothesis for reusable **design surface**. It mus
 | What official verification sources and freshness rules are available? | Determines identity trust and stale-route risk | Identity/country owner | Production onboarding | Format-only validation is insufficient where registry checks exist |
 | Which accountant capabilities are legally delegable and how is evidence revoked? | Controls portfolio access and mutations | Country legal/security/product | Delegated launch | Grants are client/capability/branch specific |
 | Who owns credential/certificate custody per provider/authority? | Authentication, rotation and support boundary | Security/architecture/operations | External integration | Credentials remain separate references |
-| What are acknowledgement semantics and operation-safety rules per leg? | Determines success and retry | Provider/authority integration owner | Production resilience | No success without defined evidence; unknown reconciles first |
+| What are acknowledgement semantics and operation-safety rules per action? | Determines success and retry | Provider/authority integration owner | Production resilience | No success without defined evidence; unknown reconciles first |
 | What retention/masking rules apply to official IDs and mandates? | Privacy, tax evidence and support | Legal/privacy/security | Production data handling | Classify per scheme/evidence, not one universal period |
 | Which real services/code are reusable against the 24 slices? | Converts design estimate into delivery evidence | Architecture/current France/Spain teams | Delivery estimate | 83% remains a hypothesis until inventory/tests |
 | What exact dimensions can scope Spain's "total or partial" private receipt, and what authoritative rule resolves several eligible entry points? | Determines deterministic recipient resolution and prevents misdelivery | Spain regulatory/technical owner | Production private routing | Model effective scope extensibly; do not activate a dimension or priority without approved evidence |

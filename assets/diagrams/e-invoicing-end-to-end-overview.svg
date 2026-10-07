@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 950" role="img" aria-labelledby="title desc">
 <title id="title">E-invoicing end-to-end journey</title>
-<desc id="desc">Readiness, exchange and evidence are related outcomes; country policy chooses each required leg</desc>
+<desc id="desc">Readiness, exchange and evidence are related outcomes; country policy chooses each required action</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#444"/></marker></defs>
 <rect width="2500" height="950" fill="#fff"/>
 <text x="35" y="44" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#111">E-invoicing end-to-end journey</text>
-<text x="35" y="76" font-family="Arial,sans-serif" font-size="15" fill="#444">Readiness, exchange and evidence are related outcomes; country policy chooses each required leg</text>
+<text x="35" y="76" font-family="Arial,sans-serif" font-size="15" fill="#444">Readiness, exchange and evidence are related outcomes; country policy chooses each required action</text>
 <rect x="30" y="130" width="2440" height="200" fill="#fafafa" stroke="#aaa"/>
 <rect x="30" y="130" width="245" height="200" fill="#e5e5e5" stroke="#aaa"/>
 <text x="152" y="174" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#222">CUSTOMER / SAGE</text>
@@ -59,7 +59,7 @@
 <text x="1725.0" y="753" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Recipient / network</text>
 <text x="1725.0" y="777" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Approved send or receive path</text>
 <polygon points="1922,720 2128,720 2150,815 1900,815" fill="#fff" stroke="#555" stroke-width="2.2" stroke-dasharray="6 4"/>
-<text x="2025.0" y="753" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Authority leg</text>
+<text x="2025.0" y="753" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#111">Authority reporting action</text>
 <text x="2025.0" y="777" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="#333">Only if country policy requires</text>
 <text x="35" y="930" font-family="Arial,sans-serif" font-size="13" fill="#444">Solid arrows = process; dashed arrows = hold or correction. Country and provider details require source evidence.</text>
 </svg>

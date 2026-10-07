@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-10-06
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-210
@@ -28,6 +28,8 @@ confluence:
 ---
 
 # Lifecycle — Status, Rejection and Payment Reporting
+
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
 
 ## Decision summary
 
@@ -171,7 +173,7 @@ Before a capability enters pilot, its ownership record must name the Domain Serv
 | S6 | Same event arrives from ERP and platform | Dedupe by business event identity/provenance | Preserve both observations if not provably identical |
 | S7 | Payment event arrives before delivery acknowledgement | Store source event; derive cautiously and reconcile order | Do not discard valid late/out-of-order facts |
 | S8 | Customer switches provider | Older invoice events follow original invoice network obligations | Current route is used only where policy explicitly says so |
-| S9 | Public reporting times out after counterparty success | Counterparty success remains; public leg reconciles independently | No duplicate counterparty event |
+| S9 | Public reporting times out after counterparty success | Counterparty success remains; public-platform action reconciles independently | No duplicate counterparty event |
 
 ## Business rules
 
@@ -260,7 +262,7 @@ Branches: `REJECTED_CORRECTABLE`, `RETRY_PENDING`, `OUTCOME_UNKNOWN`, `RECONCILI
 1. Issuer/counterparty delivery succeeds; public reporting times out after transmission.
 2. Only the public obligation becomes `OUTCOME_UNKNOWN`.
 3. Sage queries/consults public state when supported or uses the approved reconciliation process.
-4. The public leg resumes only if absence and retry safety are established.
+4. The public-platform action resumes only if absence and retry safety are established.
 5. Counterparty delivery is not repeated.
 
 ### J5 — Reconcile duplicate or conflicting events

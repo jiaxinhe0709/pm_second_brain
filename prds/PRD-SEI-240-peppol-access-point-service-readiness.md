@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: multi-country-e-invoicing
 created: 2026-09-30
-updated: 2026-09-30
+updated: 2026-10-07
 reviewers: []
 related:
   - PRD-SEI-227
@@ -24,6 +24,8 @@ confluence:
 ---
 
 # E-Invoicing as a Service - Peppol Access Point Readiness
+
+An **exchange action** is one separately tracked action, such as delivering an invoice, submitting a public copy or reporting an invoice event. Each action has its own result. See the [shared definition](../context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules).
 
 ## Decision summary
 
@@ -65,7 +67,7 @@ The shared service currently models a selected sending AP provider and an indepe
 | AP-FR2 | Separate Sage-operated AP, contracted AP, Peppol network, SMP service, participant registration and country policy in configuration, customer communication and exchange evidence. |
 | AP-FR3 | For each exchange, evaluate country-pack eligibility, participant scheme/value, document type, process, profile/version, direction and environment before dispatch or receipt. Block when any required authority or capability is unknown. |
 | AP-FR4 | Support governed outbound and inbound transport, recipient discovery and acknowledgements under the applicable certified AP specifications; record raw and canonical outcomes without treating transport acceptance as commercial acceptance. |
-| AP-FR5 | Bind the sending and receiving provider roles, participant, discovered endpoint, metadata freshness, trust material, representation and correlation identities to an immutable invoice leg. |
+| AP-FR5 | Bind the sending and receiving provider roles, participant, discovered endpoint, metadata freshness, trust material, representation and correlation identities to an immutable invoice exchange action. |
 | AP-FR6 | Reconcile timeouts and outcome-unknown deliveries against network evidence before retrying, changing endpoints or switching providers. Preserve access to historic evidence after a switch. |
 | AP-FR7 | Maintain purpose-specific certificate/key custody, renewal, revocation, incident response, continuity, support and monitoring for each approved environment and service domain. |
 | AP-FR8 | Keep AP operation separate from optional SMP operation; if Sage publishes metadata or manages participants, obtain separately evidenced authority, ownership, migration and recovery controls. |
