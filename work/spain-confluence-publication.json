@@ -205,8 +205,8 @@
       "parent_page_id": "837610656",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861395",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 4,
+      "source_revision": "e78696b99590dca081e7a9c7056feeb45081c2e8",
       "diagram_count": 2,
       "verified_attachments": [
         "e-invoicing-outbound-exchange-pilot",
@@ -269,8 +269,8 @@
       "parent_page_id": "837610664",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861398",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 6,
+      "source_revision": "e78696b99590dca081e7a9c7056feeb45081c2e8",
       "diagram_count": 2,
       "verified_attachments": [
         "lifecycle-event-derivation-process",
@@ -285,12 +285,12 @@
         "anchor"
       ],
       "server_view_available": true,
-      "sibling_links": 3,
+      "sibling_links": 4,
       "attachment_sha256": {
-        "lifecycle-event-derivation-process": "31e3283645c37515bdce03e67e83b0062e312a2727bdc1b61f49ef6032372999",
-        "lifecycle-event-derivation-process.png": "af6bfc0bf929f4c3d842f9214a4b5c7620e515d74698b15fd0674dbf3a8a5e0b",
-        "lifecycle-reporting-reconciliation-process": "e0d3c88827d6a1a6c1ee7242e3a4b418ffa2e7a1b863fef10fa79cc2cd47a6a5",
-        "lifecycle-reporting-reconciliation-process.png": "8d6299d3b5b43a38e91be51ac1580d75aa88ce206c981c0affa2fe0c9017ccd9"
+        "lifecycle-event-derivation-process": "732f6f1fd66acf309311d2a8d1d6a0bd1436a54c92abb8b3d89ca4c55d81cea2",
+        "lifecycle-event-derivation-process.png": "973e19e5fe1ce8471d6558e34a23a99479cafce2d19e3be2752b7fae47246a70",
+        "lifecycle-reporting-reconciliation-process": "0a4ac85da3176781ce883b1dffb0fba17987924e525c472ac6e56fb1acc2969c",
+        "lifecycle-reporting-reconciliation-process.png": "9bfd587d1d615947ab443cbe481aeb86e0e32bd4c2cec590d0469352a70c083b"
       }
     },
     {
@@ -301,8 +301,8 @@
       "parent_page_id": "837610662",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=912540298",
       "state": "published; storage, parent and attachments verified",
-      "version": 4,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 5,
+      "source_revision": "e78696b99590dca081e7a9c7056feeb45081c2e8",
       "diagram_count": 1,
       "verified_attachments": [
         "e-invoicing-public-consultation-reconciliation",
@@ -329,8 +329,8 @@
       "parent_page_id": "902988120",
       "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861399",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 4,
+      "source_revision": "e78696b99590dca081e7a9c7056feeb45081c2e8",
       "diagram_count": 1,
       "verified_attachments": [
         "public-platform-connector-process",
@@ -445,5 +445,26 @@
       "explicit_lane_labels": 86
     },
     "verified_attachment_downloads": 48
+  },
+  "latest_update": {
+    "date": "2026-10-08",
+    "source_revision": "e78696b99590dca081e7a9c7056feeb45081c2e8",
+    "spec_ids": [
+      "SPEC-SEI-007",
+      "SPEC-SEI-009",
+      "SPEC-SEI-010",
+      "SPEC-SEI-011"
+    ],
+    "reason": "Official AEAT evidence and explicit incoming lifecycle status flows",
+    "page_count": 4,
+    "verified_attachments": 12,
+    "checks": [
+      "Saved storage matches merged source",
+      "Existing page IDs, titles and owning parents retained",
+      "Native headings/reader-guide anchors resolve",
+      "Server-rendered view has no macro errors",
+      "Downloaded Draw.io sources and PNG previews match Git SHA-256 hashes"
+    ],
+    "lifecycle_status": "draft"
   }
 }
