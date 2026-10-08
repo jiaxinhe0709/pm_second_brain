@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-07
+updated: 2026-10-08
 reviewers: []
 related:
   - GLO-SEI-001
@@ -215,7 +215,7 @@ Do not repeat successful recipient delivery because the public-copy result is un
 
 **OUT-14/15 Derive and present status.** [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns the source-preserving lifecycle event and derived-view contract after exchange handoff. Show separate states for draft preparation, issuance, planning, each action’s submission or acknowledgement, delivery, public copy or reporting, and later buyer actions. Each action can be submitted, acknowledged, rejected or unknown.
 
-Include the evidence source, time and freshness, affected action, safe next action and owner. A status event may arrive later or out of order. Link it to the original invoice and action; do not infer success without evidence. Limit product and support views to the permitted tenant and business, and remove confidential provider content.
+Include the evidence source, time and freshness, affected action, safe next action and owner. Status information can arrive later or out of order from the public/private platform through a qualified query or supported notification. SPEC-SEI-009 owns this intake and interpretation; it also accepts separate authorised customer/ERP events. Link it to the original invoice and action; do not infer success without evidence. Limit product and support views to the permitted tenant and business, and remove confidential provider content.
 
 Keep the original sent bytes, route, profile and trust versions, and evidence for each action under the approved retention policy.
 

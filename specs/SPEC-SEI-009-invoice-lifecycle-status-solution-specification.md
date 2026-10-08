@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-07
+updated: 2026-10-08
 reviewers: []
 related:
   - GLO-SEI-001
@@ -21,6 +21,7 @@ related:
   - SPEC-SEI-003
   - SPEC-SEI-006
   - SPEC-SEI-007
+  - SPEC-SEI-011
 confluence:
   publish: true
   space_key: DNBU
@@ -61,6 +62,22 @@ This **proposed logical design** turns authenticated invoice and network observa
 
 The design distinguishes raw external vocabulary from Sage canonical events, derived status and ERP workflow state. It does not approve provider APIs, Spanish technical status codes, a universal status sequence, a statutory calendar implementation, Peppol signal availability, payment authority, post-switch actor or retention period. Country pack, provider binding, endpoint and payload choices remain review gates.
 
+### Where status information comes from
+
+The **E-Invoice Service receives status information from public or private platforms**, and also receives authorised business events from the customer, ERP or a supporting payment service. These inputs have different sources and meanings.
+
+| Journey | Direction and responsibility |
+|---|---|
+| Receive platform status information | Public/private platform → qualified connector or adapter → E-Invoice Service → ERP/customer. Save the original response, match it to the invoice and update only the status dimensions supported by that evidence. |
+| Record a customer or ERP event | Customer/ERP → E-Invoice Service. Check authority and save the decision or payment fact. A supporting payment service can supply evidence under the approved payment rules. |
+| Report an event when required | E-Invoice Service → required platform destinations → reporting result back to the E-Invoice Service. Track each report separately from the original business event. |
+
+**Official evidence, checked 8 October 2026:** [AEAT's SPFE guidance](https://sede.agenciatributaria.gob.es/Sede/iva/factura-electronica/cuestiones-generales/solucion-publica-facturacion-electronica.html) confirms that invoices and their states are made available. [Order HAC/1028/2026, Article 10.2–10.3](https://www.boe.es/eli/es/o/2026/10/02/hac1028) provides status and payment consultation through web services or a form; technical conditions remain with AEAT. [AEAT's private-platform guidance](https://sede.agenciatributaria.gob.es/Sede/iva/factura-electronica/cuestiones-generales/plataformas-privadas-intercambio.html) includes payment-state communication in interconnection. This establishes the information flow, without approving a particular provider API.
+
+For the public platform, the proposed integration includes authorised **status queries** through [SPEC-SEI-011](SPEC-SEI-011-public-platform-connector-solution-specification.md). Automatic platform notifications are used only if a confirmed contract supports them. Private-platform queries or notifications depend on the selected provider contract. Query cadence, filters, pagination, source freshness and supported status meanings need qualification. File retrieval under SPEC-SEI-010 and status consultation are separate activities; downloading an invoice is not a status update or buyer decision.
+
+For example, a delivery update changes delivery information; it does not establish buyer acceptance or payment. A platform's acceptance of a payment report confirms that reporting action, while the payment fact retains its original actor and evidence. Receiving an already reported fact must not automatically report it again.
+
 ### Spain use and reuse boundaries
 
 This is a **Spain reference design**. Reuse classifications describe proposed behaviour, not proof that existing code is ready. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
@@ -88,13 +105,13 @@ The underlying projection keeps **technical processing, document validation, rec
 
 ### 3 Process diagrams and text equivalent
 
-**Capture, map and derive:** ![Lifecycle event capture and status derivation](../assets/diagrams/lifecycle-event-derivation-process.svg)
+**Receive status information, interpret and update the view:** ![Lifecycle event capture and status derivation](../assets/diagrams/lifecycle-event-derivation-process.svg)
 
-[Editable Draw.io](../assets/diagrams/lifecycle-event-derivation-process.drawio) · [PNG preview](../assets/diagrams/lifecycle-event-derivation-process.png). Text equivalent: LCS-01 receives a platform/ERP/buyer/payment observation → LCS-02 authenticates actor, invoice and source namespace → LCS-03 appends the exact raw fact and duplicate/conflict link → LCS-04 applies the effective country/provider catalogue → LCS-05 derives independent dimensions with explicit source and rule evidence → LCS-06 notifies product after commit. Unknown code, unmatched invoice or conflict is preserved for LCS-10 rather than mapped to a guessed success.
+[Editable Draw.io](../assets/diagrams/lifecycle-event-derivation-process.drawio) · [PNG preview](../assets/diagrams/lifecycle-event-derivation-process.png). Text equivalent: a public/private platform supplies a status-query response or a supported notification; separately, a customer/ERP supplies an authorised business event → LCS-01 receives either input → LCS-02 authenticates actor, invoice and source namespace → LCS-03 appends the exact raw fact and duplicate/conflict link → LCS-04 applies the effective country/provider catalogue → LCS-05 derives independent dimensions with explicit source and rule evidence → LCS-06 notifies product after commit. Unknown code, unmatched invoice or conflict is preserved for LCS-10 rather than mapped to a guessed success.
 
 **Report and reconcile obligations:** ![Lifecycle reporting and reconciliation](../assets/diagrams/lifecycle-reporting-reconciliation-process.svg)
 
-[Editable Draw.io](../assets/diagrams/lifecycle-reporting-reconciliation-process.drawio) · [PNG preview](../assets/diagrams/lifecycle-reporting-reconciliation-process.png). Text equivalent: an authorised rejection/payment fact passes LCS-02/04 → LCS-07 calculates applicable historical-route destinations and approved deadline → LCS-08 creates one durable obligation per destination → LCS-09 transmits each independently with stable identity → a possible external effect with no known result enters LCS-10, which observes the original operation before any repeat → LCS-05/06 update the view with per-destination evidence.
+[Editable Draw.io](../assets/diagrams/lifecycle-reporting-reconciliation-process.drawio) · [PNG preview](../assets/diagrams/lifecycle-reporting-reconciliation-process.png). Text equivalent: a customer/ERP supplies an authorised rejection/payment fact → LCS-02/04 verifies it → LCS-07 calculates applicable historical-route destinations and approved deadline → LCS-08 creates one durable obligation per destination → LCS-09 transmits each independently with stable identity → the public/private destination returns its reporting result when available; a missing or uncertain result after a possible external effect enters LCS-10, which observes the original operation before any repeat → LCS-05/06 update the view with per-destination evidence.
 
 The existing [lifecycle and reporting overview](../assets/diagrams/e-invoicing-lifecycle-reporting.drawio) shows the cross-service relationship among technical, commercial and payment information. These two process diagrams show the detailed handoffs and exception paths.
 
@@ -102,7 +119,7 @@ The existing [lifecycle and reporting overview](../assets/diagrams/e-invoicing-l
 
 | Activity | Trigger and postcondition | Owner |
 |---|---|---|
-| LCS-01 Receive | Raw external or authorised product fact enters durable intake with source identity | Adapter / product |
+| LCS-01 Receive | Public/private status-query response or supported notification, or a separate authorised product fact, enters saved intake with its source identity | Connector/adapter or product → E-Invoice Service |
 | LCS-02 Verify | Invoice, tenant/entity, actor/role, source namespace and historical route correlate | Identity / lifecycle |
 | LCS-03 Preserve | Immutable raw event and provenance/duplicate/conflict relation commit | Event ledger |
 | LCS-04 Interpret | Effective country pack and provider binding yield canonical effects or unknown | Country pack / lifecycle |
@@ -118,7 +135,7 @@ The existing [lifecycle and reporting overview](../assets/diagrams/e-invoicing-l
 | Decision / impact | Owner and gate |
 |---|---|
 | Spain event catalogue, optional variants, technical codes, applicability and statutory deadline calendar | Spain Legal/Tax + local technical owner; country-pack approval |
-| Public rejection/payment reporting and authoritative query/idempotency contract | Public-platform technical owner + Operations; external integration |
+| Public status-query contract and rejection/payment reporting, including query/idempotency semantics | Public-platform technical owner + Operations; external integration |
 | Authority for recipient events and payment facts, including ERP/bank/operator conflict precedence | Product, Accounting, Legal, Banking Domain Service; design/pilot |
 | Presumed acceptance rule and wording | Spain Legal + Product UX; design |
 | Peppol process and actual MLR/MLS/Invoice Response signals by AP/provider | AP owner + Product; pilot |
@@ -147,7 +164,9 @@ The proposed aggregate key is (tenant, legalSubject, environment, invoiceBusines
 
 ### 2 Detailed behaviour
 
-**LCS-01 Receive.** Accept an external adapter observation, authorised recipient/customer action, ERP accounting fact, or qualified banking/payment observation. Capture source network/producer, message type and profile/version, raw code/term/reason, exact payload reference/hash, occurredAt and observedAt, invoice and action references, actor role, environment and idempotency key. A bank observation is evidence for the banking service; it does not independently decide legal invoice payment status. Persist ingress intent before downstream mapping; retries with same identity/hash return the existing observation. A lost callback is recovered through authorised history/query where the source supports it.
+**LCS-01 Receive.** Receive status information from the public platform through an authorised query via SPEC-SEI-011, or from a private platform through its qualified adapter. A supported platform notification is another intake path; automatic public notifications are not established by the official sources reviewed here. The E-Invoice Service owns status-refresh work for the authorised invoice scope and its original exchange context. Query scheduling, limits and progress follow the confirmed source contract. Preserve the query identity and observation time; a repeated unchanged query result does not create a new business event. A query failure or missing result leaves the last evidenced view with its freshness and next action; it does not imply success, buyer acceptance or payment.
+
+Separately accept an authorised recipient/customer action, ERP accounting fact, or qualified banking/payment observation. Capture source network/producer, message type and profile/version, raw code/term/reason, exact payload reference/hash, occurredAt and observedAt, invoice and action references, actor role, environment and idempotency key. A bank observation is evidence for the banking service; it does not independently decide legal invoice payment status. Persist ingress intent before downstream mapping; retries with same identity/hash return the existing observation. A missed platform notification is recovered through a qualified source query where supported. A missed product notification is recovered by reading Sage lifecycle history; reading that history alone cannot discover an external update Sage has never received.
 
 **LCS-02 Verify and correlate.** Authenticate source or user, then check legal entity, actor authority, event type, producer role, invoice identity, original route/process/action and applicable country-pack capability. For a customer command, authority and required data are rechecked before any external reporting. For an external observation, preserve even an unmatched or unrecognised event in restricted quarantine with source evidence; no arbitrary invoice is chosen. Cross-tenant and wrong-environment attempts are denied and audited. If a provider omits a signal type, record that capability gap; absence of a signal cannot be mapped to a positive outcome.
 
@@ -161,7 +180,7 @@ The proposed aggregate key is (tenant, legalSubject, environment, invoiceBusines
 
 **LCS-07 Calculate obligation.** For an authorised event, country pack determines which issuer/counterparty, provider and public-solution destinations apply; it also calculates the approved deadline from event occurrence, country calendar/version and applicable rule. The invoice's original route/provider and access path are inputs. If the post-switch execution actor or technical channel is unconfirmed, create a blocked obligation with owner; do not send via the customer's current route by default. Optional event types are disabled until Product/Legal and provider capability approve them. Deadline calculation is versioned and auditable; no fixed delay is invented in this spec.
 
-**LCS-08 Create independent obligations.** Persist one obligation per (source business event, destination, rule version, purpose) with stable identity, payload version, historical route, deadline, expected authority and state. A full rejection or full payment can therefore create issuer/counterparty and public obligations without creating a second commercial/payment event. State is proposed PENDING, READY, SUBMITTED, ACKNOWLEDGED, COMPLETED, REJECTED_CORRECTABLE, RETRY_PENDING, OUTCOME_UNKNOWN, RECONCILING, BLOCKED or SUPERSEDED. A duplicate source event cannot create duplicate obligations. Correcting an already reported event creates a new supersession event and its own obligations under the approved external contract.
+**LCS-08 Create independent obligations.** Persist one obligation per (source business event, destination, rule version, purpose) with stable identity, payload version, historical route, deadline, expected authority and state. A full rejection or full payment can therefore create issuer/counterparty and public obligations without creating a second commercial/payment event. An incoming platform update or repeated query result must not create another report merely because it was received. The approved source, actor and reporting rule determine whether a new obligation is needed. State is proposed PENDING, READY, SUBMITTED, ACKNOWLEDGED, COMPLETED, REJECTED_CORRECTABLE, RETRY_PENDING, OUTCOME_UNKNOWN, RECONCILING, BLOCKED or SUPERSEDED. A duplicate source event cannot create duplicate obligations. Correcting an already reported event creates a new supersession event and its own obligations under the approved external contract.
 
 **LCS-09 Deliver and observe.** Before each external mutation, persist operation ID, exact event/payload hash, destination, adapter/contract version, idempotency scope and correlation. Execute only when actor/channel/capability and required data are approved. Record raw acknowledgement/reference and normalised delivery result at its actual evidence level. One destination's success cannot complete another. A definite validation rejection gives a correction owner; safe retry follows proved idempotency/read semantics and a versioned budget. Reporting acceptance is separate from invoice business status. Monitor approaching/missed deadline risk per obligation.
 
@@ -181,6 +200,7 @@ The proposed aggregate key is (tenant, legalSubject, environment, invoiceBusines
 | LCS-R08 | Expose current view, full authorised history, pending actions, obligation outcomes and missed-notification recovery; PRD-SEI-224 FR18–23, PRD-SEI-242 PEP-FR9. |
 | LCS-R09 | Interpret Peppol transport, MLR, MLS and Invoice Response only in their qualified namespaces; PRD-SEI-242 PEP-FR2–6. |
 | LCS-R10 | Retain original route/process/mapping context after provider change; PRD-SEI-224 FR9 and PRD-SEI-242 PEP-FR10. |
+| LCS-R11 | Receive public/private platform status evidence through qualified queries or supported notifications. Separate source refresh from Sage history reads, file retrieval and outgoing reports; Order HAC/1028/2026 Article 10 and PRD-SEI-242. |
 
 Encrypt sensitive invoice, payment and authority evidence; enforce tenant/legal-entity/environment and delegated-access checks on commands, reads, subscriptions and operations actions. Logs and broad metrics use redacted references, never raw bank/payment payloads or credentials. Version mapping, calendar, provider binding and derivation rules for historical reproduction. Monitor source lag, event-to-product lag, unknown mapping, duplicate/conflict rate, obligation age/deadline risk, missed notification recovery, unknown outcome and historical-route failures. Targets require approved volumes and baselines.
 
@@ -198,7 +218,7 @@ These are proposed logical operations, not approved endpoints. Each command/obse
 
 | ID | Caller → owner | Contract and failure semantics |
 |---|---|---|
-| LCS-INT-01 | Exchange/receiving/provider/ERP → lifecycle ingress | Submit raw event or authorised fact; immutable receipt, duplicate-safe; unmatched/conflicting retained for review. |
+| LCS-INT-01 | Public connector/private adapter/exchange/receiving/product → E-Invoice Service lifecycle intake | Submit a source status-query result, supported platform notification or authorised fact; immutable receipt, duplicate-safe; unmatched/conflicting retained for review. |
 | LCS-INT-02 | Lifecycle → identity/invoice registry | Resolve invoice, legal entity, actor/producer role, original route/process and access; unknown/denied blocks action. |
 | LCS-INT-03 | Lifecycle → country pack/provider binding | Interpret namespaced source event with effective versions; returns dimension effects/obligation candidates or RAW_UNKNOWN. |
 | LCS-INT-04 | Lifecycle → projection | Rebuild dimensions and source-qualified current view from ledger/version; returns view ID/version and conflicts. |
@@ -208,6 +228,7 @@ These are proposed logical operations, not approved endpoints. Each command/obse
 | LCS-INT-08 | Operations → adapter/lifecycle | Reconcile original external operation or resolve conflict with source evidence/approval; no blind replay. |
 | LCS-INT-09 | Product/operations → lifecycle | Read current dimensions, history and obligations with pagination/version and redacted role-specific fields. |
 | LCS-INT-10 | Lifecycle → product | Publish committed view/obligation change at least once; consumer deduplicates and can recover missed events by authoritative read. |
+| LCS-INT-11 | E-Invoice Service → public connector/private adapter → platform | Query supported invoice status/payment information within authorised entity, environment and original invoice context. Return raw source evidence, query correlation and observation time; an unsupported query or failed read leaves status freshness visible. Exact APIs, cadence and limits remain open. |
 
 Proposed notifications are LIFECYCLE_EVENT_RECORDED, LIFECYCLE_VIEW_CHANGED, LIFECYCLE_OBLIGATION_CHANGED and LIFECYCLE_RECONCILIATION_REQUIRED. They contain stable IDs, versions and safe status, not raw invoice/payment content. Provider callbacks may arrive out of order; the ledger is authoritative.
 
@@ -215,7 +236,7 @@ Proposed notifications are LIFECYCLE_EVENT_RECORDED, LIFECYCLE_VIEW_CHANGED, LIF
 
 | ID | Record / owner | Essential fields and handling | Consumer |
 |---|---|---|---|
-| LCS-D01 | Raw lifecycle event / lifecycle ledger | External term/code/reason, namespace/message/profile, producer/actor, occurred/observed time, invoice/action, route, payload hash/ref, binding version; immutable/restricted | LCS-01–06/10 |
+| LCS-D01 | Raw lifecycle event / lifecycle ledger | External term/code/reason, namespace/message/profile, producer/actor, query/notification correlation, occurred/observed time, invoice/action, route, payload hash/ref, binding version; immutable/restricted | LCS-01–06/10 |
 | LCS-D02 | Event relationship / lifecycle | Duplicate-of, corrects/supersedes, disputes, derives-from, conflict group and resolution; append-only | LCS-03–06/10 |
 | LCS-D03 | Invoice network context / exchange/receiving | Original route/operator/provider, message IDs, issue/receipt identity, direction, process/profile and versions; immutable | LCS-02/07–10 |
 | LCS-D04 | Country catalogue/binding / country owner + adapter | Source namespace, raw vocabulary, actor/phase, effective period, mapping effects, obligations, deadline/calendar rules and approved version | LCS-04/05/07 |
@@ -241,10 +262,12 @@ Payment facts and authority evidence have tighter access than generic technical 
 | LCS-A07 Late or out-of-order event | R07 → LCS-03–05/10, INT-03/04/08, D01/05/06 | Raw chronology retained; governed projection, no silent regression. |
 | LCS-A08 One reporting action times out | R06 → LCS-08–10, INT-07/08, D07–09 | Known action stays complete; only unknown original action reconciles. |
 | LCS-A09 Provider switch | R05/10 → LCS-02/07–10, INT-02/06–08, D03/07/08 | Old invoice uses original actor/channel; current new-invoice route does not overwrite. |
-| LCS-A10 Missed callback/notification | R08 → LCS-01/06, INT-09/10, D01/06/10 | Authorised history read recovers current view without duplicate business event. |
+| LCS-A10 Missed platform or product notification | R08/11 → LCS-01/06, INT-01/09–11, D01/06/10 | A missed platform update is recovered from a qualified source query. A missed product notification is recovered from Sage history. Neither path duplicates the business event or its reports. |
 | LCS-A11 Unknown Spain/provider code | R02/07 → LCS-03/04/10, INT-03/08, D01/04/09 | Raw code preserved, projection not falsely advanced, mapping review owned. |
 | LCS-A12 Superseding payment/rejection | R07 → LCS-03/07–09, INT-05–07, D01/02/07 | Original event remains; approved new event and obligations carry correction link. |
 | LCS-A13 Country mapping and reporting isolation | R01–05/09/10 → LCS-03–05/07, INT-03/04/06, D01/03–07 | The shared ledger preserves source vocabulary while each country uses its own approved mapping, actor, calendar and reporting rules. France or Peppol labels do not imply Spain equivalence. A pack change does not affect another country or overwrite earlier source events. |
 | LCS-A14 Reused lifecycle implementation | R01–03/06–09 → LCS-03–10, INT-03–10, D01/D04–D10 | Record the selected source capability and build, Spain changes, gaps, owner and qualification evidence. Prove the selected event capture, mapping, reporting and recovery contracts before enabling them. An unavailable or unqualified capability remains blocked; reuse of a proposed design pattern is separate from reuse of a tested implementation. |
+| LCS-A15 Public status consultation | R01–03/11 → LCS-01–06, INT-01–04/09/11, D01/03–06 | An authorised public query returns source status/payment evidence for the correct invoice. Preserve the response and update the qualified dimensions. A denied or failed query leaves evidence age visible without inventing a status. |
+| LCS-A16 Incoming update versus outgoing report | R01/03/06/11 → LCS-01–09, INT-01/05–07/11, D01/05–08 | Public/private updates and customer/ERP events enter separately. Repeated source evidence cannot trigger duplicate reports. A report acknowledgement updates reporting progress without fabricating buyer acceptance or payment. |
 
 **Review gate:** agree country event catalogue, actor authority, mapping namespaces/precedence, deadline calendar, optional scope and response expectations. **Pilot gate:** prove source authenticity, duplicate/out-of-order/conflict, full rejection/payment, independently failing destinations, unknown mutation, missed callback and historical-route cases with actual provider/public contracts. **Production gate:** approved Spain technical rules and external APIs, named e-invoicing and banking domain owners where relevant, support/operations runbooks, measurable monitoring/deadline headroom, privacy/retention and conformance evidence. Until the open decisions in Part 1 are resolved, affected reporting or derived acceptance paths remain disabled or visibly manual.
