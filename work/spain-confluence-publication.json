@@ -1,5 +1,6 @@
 {
-  "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+  "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
+  "published_on": "2026-10-08",
   "pages": [
     {
       "id": "SPEC-SEI-001",
@@ -7,10 +8,10 @@
       "title": "Certificate Management Solution Specification",
       "page_id": "923861389",
       "parent_page_id": "837610651",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861389",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/923861389/Certificate+Management+Solution+Specification",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 4,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 3,
       "verified_attachments": [
         "certificate-protected-use-process",
@@ -22,20 +23,33 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 1,
       "attachment_sha256": {
-        "certificate-setup-onboarding-process": "1ba1104fbb8a13a9dc3f0eb632a008d9588924c0eab32d2d3dd177474882e4c7",
-        "certificate-setup-onboarding-process.png": "45a1199ac1dbf190edf5dcf68f52c713d7fe8f5e9c1a19f40c9cc1d6819e1749",
-        "certificate-protected-use-process": "2aeb749545cb261cb1102e7a576f8a9a2fa2cebf9a1f6a0e65ea08c0046331d3",
-        "certificate-protected-use-process.png": "a45f9aae7a536467c2d1d8a6d2351eebadf397bec40940cee843dbec6cb7d717",
-        "certificate-renewal-recovery-process": "2ddeaef68126d3d5ab434f0c61b23589b8b0e867d9262eaf889cfd4e0c6a7804",
-        "certificate-renewal-recovery-process.png": "a85e7dbea37f4e44f1577b5fcdd1eb3c18c8b8c9879324cbab3672dfc660cac1"
-      }
+        "certificate-setup-onboarding-process": "36577db2c2ff35c67b746941c72347de16bd0be4dd1dde827eadea0792ccf6b1",
+        "certificate-setup-onboarding-process.png": "bb333b799dbec4de5a5ffc27221dcc7e0116a04062ff45c07e0d782e9832f942",
+        "certificate-protected-use-process": "297874f512d729ad9720655db55f306a03db739e607c7761a6ad1f3c909f5981",
+        "certificate-protected-use-process.png": "dd92b89d3f9369777b308636359ed3eea3afc59a4fa7f23bfe1504ae21b7f5b6",
+        "certificate-renewal-recovery-process": "e8784fa26cc538e9ae6837f1e392e2e1147483230342cf31589118cbd6e6d8ed",
+        "certificate-renewal-recovery-process.png": "3f7cc5d90a54f663689b8a02c4ace8d929491a96e567ee75dbec77df3fa43749"
+      },
+      "version_comment": "SPEC-SEI-001 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     },
     {
       "id": "SPEC-SEI-002",
@@ -43,10 +57,10 @@
       "title": "Customer Onboarding Solution Specification",
       "page_id": "923861390",
       "parent_page_id": "837610648",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861390",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/923861390/Customer+Onboarding+Solution+Specification",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 4,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 2,
       "verified_attachments": [
         "onboarding-private-route-process",
@@ -56,18 +70,31 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 4,
       "attachment_sha256": {
-        "onboarding-public-readiness-process": "abd3604f84138dc11b46b5a449bea99ff33be89fb095b765bf98b6d8809c03a0",
-        "onboarding-public-readiness-process.png": "ff8ac620a76032aa64da591fe99a165ef99abaee125f3d3977a5b522b34dbe14",
-        "onboarding-private-route-process": "4e091806aae345e7f992a4df6cb84927b1329dce0c4463972c64bb0efa704c25",
-        "onboarding-private-route-process.png": "0726a749c554f31e1012cf146a8c45642bc283734b7a61fff2b3a863cb4888fd"
-      }
+        "onboarding-public-readiness-process": "4c501c9d05e9ac604b7fb98716953054f72abdaaab61fe21db0776604e7f7cc5",
+        "onboarding-public-readiness-process.png": "3c28907754ff31527189792b750a267acf517fc4882f2158d773b78c6238acd9",
+        "onboarding-private-route-process": "25674aea98b939ebaa9120c1edde072c88785b1383b1a008c9b2239db9b1358b",
+        "onboarding-private-route-process.png": "ac29650d04d88791e5c4c3a1c390bddd21b8a86028ea7a1fafc2cb385a1dd1c4"
+      },
+      "version_comment": "SPEC-SEI-002 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     },
     {
       "id": "SPEC-SEI-003",
@@ -75,10 +102,10 @@
       "title": "Customer Offboarding Solution Specification",
       "page_id": "923861391",
       "parent_page_id": "918651071",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861391",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/923861391/Customer+Offboarding+Solution+Specification",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 4,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 2,
       "verified_attachments": [
         "offboarding-planned-exit-process",
@@ -88,18 +115,31 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 2,
       "attachment_sha256": {
-        "offboarding-planned-exit-process": "e3979499adb967bbe339d2d5310a9a943ef537fe140aa53ffab9746c0675497b",
-        "offboarding-planned-exit-process.png": "559de2b0ccdf87df5ed74f4931d648e9b3064755bca880fdb1841095665c4a48",
-        "offboarding-recovery-process": "78e13d3f30a9e88a634546d5e622ffdee707a742f7b21f0e94275c9350e6c1ba",
-        "offboarding-recovery-process.png": "a359300167b70f66d1b179629a824ea3e4be2397d6d9b8cfbc3a7aff06e55be0"
-      }
+        "offboarding-planned-exit-process": "ca158f9f68bf2002078bcdffce23bded7634d1c2db4e2ed3a6aaf1f70bc0cd53",
+        "offboarding-planned-exit-process.png": "dc11e397633a958a55f06bcaed0bffdef1cee284098136c7e7d41cb305ca7cfa",
+        "offboarding-recovery-process": "daa853598e946423052786c18b49d5e86861940dd029c68fbfc4834ccf3f8973",
+        "offboarding-recovery-process.png": "06221d9dd2a9ec9bea671b0a60f06a0fbc7d7f1572aca0d540a10dbf9dc7aefa"
+      },
+      "version_comment": "SPEC-SEI-003 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     },
     {
       "id": "SPEC-SEI-004",
@@ -107,10 +147,10 @@
       "title": "Onboarding Failure and Reconciliation Solution Specification",
       "page_id": "923861392",
       "parent_page_id": "848078012",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861392",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/923861392/Onboarding+Failure+and+Reconciliation+Solution+Specification",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 4,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 2,
       "verified_attachments": [
         "onboarding-failure-classification-process",
@@ -120,18 +160,31 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 1,
       "attachment_sha256": {
-        "onboarding-failure-classification-process": "8071e6bd59a38b542aa54e7e0b6a5841321b853ea0adc2d14e0edcea0bf0707a",
-        "onboarding-failure-classification-process.png": "fddae4995796ffbc259180a305fa0dfc71dbf7b4c975249e4c71739864c8f491",
-        "onboarding-uncertain-outcome-process": "110824775fd5c2846f2a203ca51382cbcfcda21c70e9195e53e5ade7cee3d97c",
-        "onboarding-uncertain-outcome-process.png": "e440680eb4d48ef1bc3cd247e48678245b316c151fae9010453948591bd58352"
-      }
+        "onboarding-failure-classification-process": "b72e64bc73d101fd20db23c3271efae7194d33b60487d57a0f41032ccfc2d8c7",
+        "onboarding-failure-classification-process.png": "5c66e96cdfa7561e77857d9b784797286199865c70a51c9968ad5599b8f461f3",
+        "onboarding-uncertain-outcome-process": "f49e26d5f4151cfd802ce68a559afd5bc19abc13666da032c98d78b3ec7b4849",
+        "onboarding-uncertain-outcome-process.png": "b7e33a093e3a521631ccbdab1dc7d8578533d789c4a8e334bed79ee30ec88457"
+      },
+      "version_comment": "SPEC-SEI-004 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     },
     {
       "id": "SPEC-SEI-005",
@@ -139,10 +192,10 @@
       "title": "UBL Validation and Correction Solution Specification",
       "page_id": "923861393",
       "parent_page_id": "918651070",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861393",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/923861393/UBL+Validation+and+Correction+Solution+Specification",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 4,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 2,
       "verified_attachments": [
         "ubl-final-validation-process",
@@ -152,18 +205,31 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 2,
       "attachment_sha256": {
-        "ubl-preflight-correction-process": "8575291bb8edaa5d7b6f60e9261686d8330a364fafc806dc43fd629155362b8b",
-        "ubl-preflight-correction-process.png": "bc44f5556726081f835ad485115d2fa4ca9c1e3fed98b89ee67efc5a4849cb89",
-        "ubl-final-validation-process": "df191bc4fd15d662e9c15b91d4432286e7051a94cacd83b2944790494ef7aa20",
-        "ubl-final-validation-process.png": "9dc7716744ea74a21712ed322c4edca528b6fc3a1d090651eb203265d8ceb294"
-      }
+        "ubl-preflight-correction-process": "697da3b045e798e084e13d369e187699ef87d376f26cf3d6141b98823471a963",
+        "ubl-preflight-correction-process.png": "2c7c29f1783a428961abb8645d23af7748fb3c89a7d345eb3cf39ee863c89374",
+        "ubl-final-validation-process": "5c4c3ef8ae1fef1113184e13504b5e43e10ac48fe64578f39f1cf0fcfc3c001d",
+        "ubl-final-validation-process.png": "559a851e493c5e7e6192617a1bc3f6ab9a1de03d7b0df656ea8c7f724f1ffea7"
+      },
+      "version_comment": "SPEC-SEI-005 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     },
     {
       "id": "SPEC-SEI-006",
@@ -171,10 +237,10 @@
       "title": "Invoice receiving solution",
       "page_id": "923861394",
       "parent_page_id": "918651328",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861394",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/923861394/Invoice+receiving+solution",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 4,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 2,
       "verified_attachments": [
         "e-invoicing-public-consultation-reconciliation",
@@ -184,18 +250,31 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 6,
       "attachment_sha256": {
-        "receiving-intake-and-delivery-process": "497796435d9373c70eef8833aa5a508a4a03ce2b603c3017ce144b9a46da3978",
-        "receiving-intake-and-delivery-process.png": "4650dd0ad7fd8d90317d46c1c8e0e76f5ddfdb018de884e4b79b175b7f0d720c",
-        "e-invoicing-public-consultation-reconciliation": "de02074d7610d4bd88a15fe61a8e681352186d755191286df5136b223cfacae8",
-        "e-invoicing-public-consultation-reconciliation.png": "c62c2019bdfc72a1c22770fa5c6b7d7bfd3e5de820d0358718b34e252c3a428a"
-      }
+        "receiving-intake-and-delivery-process": "00f0c998c649150b40c49969ab2b19e48ea32b58d1913d8975d8663a6dfcfbe6",
+        "receiving-intake-and-delivery-process.png": "4a728237161b6a8cf08596c2118ba33cf834bb183ae7dc83ab9e57ee3147a979",
+        "e-invoicing-public-consultation-reconciliation": "21bf721632917145093dcc83450508864f5eb157ab89b4d1f14036e22fbf98a5",
+        "e-invoicing-public-consultation-reconciliation.png": "fdecc4a77c622a04dd5c0eeae6e5684653a562d756a4eac2dbea55766b0cea02"
+      },
+      "version_comment": "SPEC-SEI-006 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     },
     {
       "id": "SPEC-SEI-007",
@@ -203,10 +282,10 @@
       "title": "Invoice sending solution",
       "page_id": "923861395",
       "parent_page_id": "837610656",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861395",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/923861395/Invoice+sending+solution",
       "state": "published; storage, parent and attachments verified",
-      "version": 4,
-      "source_revision": "e78696b99590dca081e7a9c7056feeb45081c2e8",
+      "version": 5,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 2,
       "verified_attachments": [
         "e-invoicing-outbound-exchange-pilot",
@@ -216,18 +295,31 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 5,
       "attachment_sha256": {
-        "spain-invoice-preparation-and-outbound-flow": "069d6a8c76e59b549f2770ecfc65ed17a60c2c92113db603f3b5c2848f557dfd",
-        "spain-invoice-preparation-and-outbound-flow.png": "076823d4a5fab4d2247ad1ab2b111025e287a05c9d650a9259a24ffd7cc344a6",
-        "e-invoicing-outbound-exchange-pilot": "b85c9665e560699c0cefbe8b04ddd7beb7f543eb1a1f1ab83f65d011d8bac5fb",
-        "e-invoicing-outbound-exchange-pilot.png": "7ca9bc76480e76c8d2e041a4811f2a8551c9d9618ccc3c46bfec7c4145c13727"
-      }
+        "spain-invoice-preparation-and-outbound-flow": "5355292a4b20814e06a86c134f6b77f76c069595c8410a56f5f830126170d8e2",
+        "spain-invoice-preparation-and-outbound-flow.png": "66b12b5a2697f6268a597a23e84c451277008df76d3863e0885fc37a85c14f41",
+        "e-invoicing-outbound-exchange-pilot": "493ee29b5d7df9ed0975db8363d2592ca68b289a8e1e63d97ab1e261d9b25722",
+        "e-invoicing-outbound-exchange-pilot.png": "f6e653f48860225fcbe0916ff110d91b42b61486b8fa74efbbf89ab26356ab79"
+      },
+      "version_comment": "SPEC-SEI-007 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     },
     {
       "id": "SPEC-SEI-008",
@@ -235,10 +327,10 @@
       "title": "Spain UBL Mapper Migration to DTS Solution Specification",
       "page_id": "923861396",
       "parent_page_id": "899154457",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861396",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/923861396/Spain+UBL+Mapper+Migration+to+DTS+Solution+Specification",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 4,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 2,
       "verified_attachments": [
         "spain-ubl-dts-generation-process",
@@ -248,18 +340,31 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 2,
       "attachment_sha256": {
-        "spain-ubl-dts-generation-process": "dcc7b880484def7d722c345b41057ea79a6a30dc80e636cd1383cd7669db7453",
-        "spain-ubl-dts-generation-process.png": "665c5fc2bf1ab28a9bc73a4e539c7023d393e1e10939f767896a8876293aceef",
-        "spain-ubl-dts-migration-process": "27b98c742daf0d4f7d1c7586bbba31851131066071f6c9035a73f59396e255c1",
-        "spain-ubl-dts-migration-process.png": "c86120cd6f5db8b0d7115903cad7c934796f51c57d618dd2e045c46434df2d3c"
-      }
+        "spain-ubl-dts-generation-process": "b6ca097ed4afe662b7025adc70a0d2b95e39f1671ead09c3f532a8c8c09b9680",
+        "spain-ubl-dts-generation-process.png": "dd3b6a82f0c271e58072f550f11447b60f0631b3a71f5685f19f2b786f1e7685",
+        "spain-ubl-dts-migration-process": "77d72cff7a9a023fb4b4fb2bb6b7ec89d13245076b04c237232e0e7d58186080",
+        "spain-ubl-dts-migration-process.png": "a55c3fb5d0d3f381537f906b226645fbf113d54bf4a8c135b494eba37a57bd71"
+      },
+      "version_comment": "SPEC-SEI-008 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     },
     {
       "id": "SPEC-SEI-009",
@@ -267,10 +372,10 @@
       "title": "Invoice Lifecycle Status Solution Specification",
       "page_id": "923861398",
       "parent_page_id": "837610664",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861398",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/923861398/Invoice+Lifecycle+Status+Solution+Specification",
       "state": "published; storage, parent and attachments verified",
-      "version": 6,
-      "source_revision": "e78696b99590dca081e7a9c7056feeb45081c2e8",
+      "version": 7,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 2,
       "verified_attachments": [
         "lifecycle-event-derivation-process",
@@ -280,18 +385,31 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 4,
       "attachment_sha256": {
-        "lifecycle-event-derivation-process": "732f6f1fd66acf309311d2a8d1d6a0bd1436a54c92abb8b3d89ca4c55d81cea2",
-        "lifecycle-event-derivation-process.png": "973e19e5fe1ce8471d6558e34a23a99479cafce2d19e3be2752b7fae47246a70",
-        "lifecycle-reporting-reconciliation-process": "0a4ac85da3176781ce883b1dffb0fba17987924e525c472ac6e56fb1acc2969c",
-        "lifecycle-reporting-reconciliation-process.png": "9bfd587d1d615947ab443cbe481aeb86e0e32bd4c2cec590d0469352a70c083b"
-      }
+        "lifecycle-event-derivation-process": "b019e40879a687e16113ccb6d42ee9f7125352a79cf2f28d17a79477868e27fb",
+        "lifecycle-event-derivation-process.png": "afc9b774671414d968e6cb29d12b093788279877f3142686da55649531ce27d7",
+        "lifecycle-reporting-reconciliation-process": "1a830c77a61f74c20a4ce68cffd048eda666d1630029908f19b10cd2ab7541fb",
+        "lifecycle-reporting-reconciliation-process.png": "4da238fb18120f031a2657e2a0e4a2e9b8ca18a0b1c9bedda7a90adf37c40c9a"
+      },
+      "version_comment": "SPEC-SEI-009 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     },
     {
       "id": "SPEC-SEI-010",
@@ -299,10 +417,10 @@
       "title": "Consult and download UBL from public platform for einvoices received",
       "page_id": "912540298",
       "parent_page_id": "837610662",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=912540298",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/912540298/Consult+and+download+UBL+from+public+platform+for+einvoices+received",
       "state": "published; storage, parent and attachments verified",
-      "version": 5,
-      "source_revision": "e78696b99590dca081e7a9c7056feeb45081c2e8",
+      "version": 6,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 1,
       "verified_attachments": [
         "e-invoicing-public-consultation-reconciliation",
@@ -310,16 +428,29 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 2,
       "attachment_sha256": {
-        "e-invoicing-public-consultation-reconciliation": "de02074d7610d4bd88a15fe61a8e681352186d755191286df5136b223cfacae8",
-        "e-invoicing-public-consultation-reconciliation.png": "c62c2019bdfc72a1c22770fa5c6b7d7bfd3e5de820d0358718b34e252c3a428a"
-      }
+        "e-invoicing-public-consultation-reconciliation": "21bf721632917145093dcc83450508864f5eb157ab89b4d1f14036e22fbf98a5",
+        "e-invoicing-public-consultation-reconciliation.png": "fdecc4a77c622a04dd5c0eeae6e5684653a562d756a4eac2dbea55766b0cea02"
+      },
+      "version_comment": "SPEC-SEI-010 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     },
     {
       "id": "SPEC-SEI-011",
@@ -327,10 +458,10 @@
       "title": "Public Platform Connector Solution Specification",
       "page_id": "923861399",
       "parent_page_id": "902988120",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861399",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/923861399/Public+Platform+Connector+Solution+Specification",
       "state": "published; storage, parent and attachments verified",
-      "version": 4,
-      "source_revision": "e78696b99590dca081e7a9c7056feeb45081c2e8",
+      "version": 5,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 1,
       "verified_attachments": [
         "public-platform-connector-process",
@@ -338,16 +469,29 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 7,
       "attachment_sha256": {
-        "public-platform-connector-process": "89fd95cfe14a1cc035571149d65bef46c1ac19f2675820a03d11c6c2d6939790",
-        "public-platform-connector-process.png": "8a4e05db26fc769a1f38c1ee990abdd60cd05c69ae00f1629bc8d4e59d8f70ce"
-      }
+        "public-platform-connector-process": "9ece7faa59eb67da516577b39e1b9b34e4d57539db00c18e58d00e274576215c",
+        "public-platform-connector-process.png": "424b4bedfa06814f2deec47c676151e8f3a1114939aa3a865ea584f27c82dc3a"
+      },
+      "version_comment": "SPEC-SEI-011 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     },
     {
       "id": "SPEC-SEI-012",
@@ -355,10 +499,10 @@
       "title": "Consult public platform for recipient information",
       "page_id": "923861400",
       "parent_page_id": "866148656",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861400",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/923861400/Consult+public+platform+for+recipient+information",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 4,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 1,
       "verified_attachments": [
         "public-platform-recipient-lookup-process",
@@ -366,16 +510,29 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 2,
       "attachment_sha256": {
-        "public-platform-recipient-lookup-process": "b94560e5a1a931089d8dfcee4e57a31fa8d3c31ea6d804b997805e960b3b5fb3",
-        "public-platform-recipient-lookup-process.png": "9d8359f6f78b03253d9816ce72622719f9be9aa03d104b8aafa6e45ebab30854"
-      }
+        "public-platform-recipient-lookup-process": "6b5089a923f81e0a502ce574cc2309e5442935c19e595a83f248b2467499238b",
+        "public-platform-recipient-lookup-process.png": "d2fad120636b7976b6c0a4889c692f78faa678e891d42c02982e2325fe1cf261"
+      },
+      "version_comment": "SPEC-SEI-012 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     },
     {
       "id": "SPEC-SEI-013",
@@ -383,10 +540,10 @@
       "title": "Provider API through the E-Invoicing Global API Solution Specification",
       "page_id": "923861402",
       "parent_page_id": "899154047",
-      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861402",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/923861402/Provider+API+through+the+E-Invoicing+Global+API+Solution+Specification",
       "state": "published; storage, parent and attachments verified",
-      "version": 3,
-      "source_revision": "d87243a7c110a2505cde1c1e9bc360e66a95298b",
+      "version": 4,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
       "diagram_count": 2,
       "verified_attachments": [
         "global-api-access-and-route-process",
@@ -396,75 +553,90 @@
       ],
       "native_macros": [
         "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
         "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
         "change-history",
-        "anchor"
+        "limit"
       ],
       "server_view_available": true,
-      "sibling_links": 6,
       "attachment_sha256": {
-        "global-api-access-and-route-process": "a564cb682f3e6114e124b5c7199f64d0788bbd68df6315015f8af72a4c1f85d6",
-        "global-api-access-and-route-process.png": "e315efc101f7b8575ce9763d6aa76ab5316649e2d1c0a6ce847b3a6821aa13ef",
-        "global-api-exchange-and-reconciliation-process": "e7189adfaf9050f772bf8c4a73d0812ea1e87dd2f02eee9b350b7031b7bdb86f",
-        "global-api-exchange-and-reconciliation-process.png": "abcecc4c14753a36df60b33b775124f36eb7df99b0a64e2dc51c66b0a005ffaa"
-      }
+        "global-api-access-and-route-process": "7580c89b8ec471375701a13f886aeec80d4a793b7ed10ffa8334c386011fa4cb",
+        "global-api-access-and-route-process.png": "702530bac67dad65834a8bf0e832640ca44609175684d558201d7dafc7495319",
+        "global-api-exchange-and-reconciliation-process": "cb0b76b847ca062da23ccf23c6395bb6e4065794589206c71654e802dd9b3fcd",
+        "global-api-exchange-and-reconciliation-process.png": "4142b209b19ea1968d86e041f2ceb98274ee5d80346c4fba274632171cf4d3ef"
+      },
+      "version_comment": "SPEC-SEI-013 published from Git 4c7ebb235424 (document updated 2026-10-08)"
+    },
+    {
+      "id": "SPEC-SEI-014",
+      "file": "specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md",
+      "title": "Shared Platform Connectivity and Routing Solution Specification",
+      "page_id": "925631670",
+      "parent_page_id": "902988120",
+      "url": "https://confluence.sage.com/spaces/DNBU/pages/925631670/Shared+Platform+Connectivity+and+Routing+Solution+Specification",
+      "state": "published; storage, parent and attachments verified",
+      "version": 2,
+      "source_revision": "4c7ebb235424792cec2aa8b0318490757f90cf7a",
+      "diagram_count": 2,
+      "verified_attachments": [
+        "shared-platform-connection-qualification-process",
+        "shared-platform-connection-qualification-process.png",
+        "shared-platform-route-and-continuity-process",
+        "shared-platform-route-and-continuity-process.png"
+      ],
+      "native_macros": [
+        "toc",
+        "minLevel",
+        "maxLevel",
+        "style",
+        "printable",
+        "drawio",
+        "border",
+        "diagramName",
+        "simpleViewer",
+        "width",
+        "tbstyle",
+        "lbox",
+        "diagramWidth",
+        "height",
+        "revision",
+        "change-history",
+        "limit"
+      ],
+      "server_view_available": true,
+      "attachment_sha256": {
+        "shared-platform-connection-qualification-process": "5dda2ee7ff6bbfe18a98e0a393756d6810d925ab15474c20eba78fa7a0a1b3f2",
+        "shared-platform-connection-qualification-process.png": "cc484bcda2cfc051e75f974ec95d7c7fda2c4f69a4f93d09c543437c01d55f56",
+        "shared-platform-route-and-continuity-process": "bdc8f26c3457b0514f680cc2c79c2c5cd977824d5b470101e682d5130708fd7e",
+        "shared-platform-route-and-continuity-process.png": "e9a9f59547c986f9313738842b04807ba80f72c3f86244dad5fa2c0ef818a84c"
+      },
+      "version_comment": "SPEC-SEI-014 published from Git 4c7ebb235424 (document updated 2026-10-08)"
     }
   ],
   "verification": {
-    "date": "2026-10-07",
-    "page_count": 13,
-    "new_pages": 12,
-    "existing_page_updated": "912540298",
-    "diagram_placements": 24,
-    "checks": [
-      "Saved storage matches generated content",
-      "Owning parent and page title match",
-      "Editable Draw.io source and PNG attachments present",
-      "Native contents, change history and anchors present",
-      "Reader-guide anchors resolve in server-rendered markup",
-      "Server-rendered markup reports no macro errors",
-      "Uploaded diagram sources and PNG downloads match local SHA-256 hashes",
-      "24 authoring diagram sets use 86 explicit standard lane headers, including the overview",
-      "No duplicate Draw.io IDs or missing workflow endpoints",
-      "All 24 local previews render without clipped text"
-    ],
-    "lifecycle_status": "draft",
-    "implementation_approval": false,
-    "responsibility_groups": [
-      "Customer / accountant",
-      "ERP / product",
-      "Domain Service - E-Invoice Service",
-      "Domain Service - Other Services",
-      "Operations / support",
-      "Public / private platforms"
-    ],
-    "swimlane_authoring_checks": {
-      "diagrams": 24,
-      "activity_boxes": 235,
-      "connectors": 222,
-      "explicit_lane_labels": 86
-    },
-    "verified_attachment_downloads": 48
+    "pages": 14,
+    "diagram_placements": 26,
+    "attachments": 52,
+    "storage_and_parents_match": true,
+    "attachment_hashes_match": true,
+    "change_history_present": true,
+    "server_macro_errors": false
   },
   "latest_update": {
-    "date": "2026-10-08",
-    "source_revision": "e78696b99590dca081e7a9c7056feeb45081c2e8",
-    "spec_ids": [
-      "SPEC-SEI-007",
-      "SPEC-SEI-009",
-      "SPEC-SEI-010",
-      "SPEC-SEI-011"
-    ],
-    "reason": "Official AEAT evidence and explicit incoming lifecycle status flows",
-    "page_count": 4,
-    "verified_attachments": 12,
-    "checks": [
-      "Saved storage matches merged source",
-      "Existing page IDs, titles and owning parents retained",
-      "Native headings/reader-guide anchors resolve",
-      "Server-rendered view has no macro errors",
-      "Downloaded Draw.io sources and PNG previews match Git SHA-256 hashes"
-    ],
-    "lifecycle_status": "draft"
+    "description": "Human-readable diagram labels and shared platform connectivity draft published following explicit user approval.",
+    "pull_request": "https://github.com/jiaxinhe0709/pm_second_brain/pull/14",
+    "new_page_id": "925631670"
   }
 }
