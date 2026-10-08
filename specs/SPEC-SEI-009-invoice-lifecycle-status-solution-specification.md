@@ -22,6 +22,7 @@ related:
   - SPEC-SEI-006
   - SPEC-SEI-007
   - SPEC-SEI-011
+  - SPEC-SEI-014
 confluence:
   publish: true
   space_key: DNBU
@@ -78,6 +79,14 @@ For the public platform, the proposed integration includes authorised **status q
 
 For example, a delivery update changes delivery information; it does not establish buyer acceptance or payment. A platform's acceptance of a payment report confirms that reporting action, while the payment fact retains its original actor and evidence. Receiving an already reported fact must not automatically report it again.
 
+### Overview handoffs and historical context
+
+The [responsibility overview](../assets/diagrams/spain-end-to-end-responsibility-overview.drawio) separates receiving facts, updating invoice status, sending required reports and recording each reporting result. Platform delivery information, buyer acceptance/rejection and payment facts keep their distinct actor, source and meaning. The E-Invoice Service updates the customer view from saved evidence and identifies applicable obligations; qualified adapters transmit each report and return its own result. A report can remain pending or outcome-unknown while the original business fact and supported invoice status are already visible. Receiving an already reported fact does not trigger another report.
+
+The overview's LIF nodes are navigation IDs; LCS-01–10 remain this spec's activity IDs. LIF-01/03 map to LCS-01–04; LIF-07 maps to LCS-05/07/08; LIF-10/06/11 map to LCS-09/10 and per-destination evidence; LIF-09 maps to LCS-06. Reporting outcomes update the view independently and do not change buyer or payment facts.
+
+The [shared connectivity and routing spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) supplies qualified current/historical connection and executor context (SPC-06–08). This spec retains authority, interpretation and reporting ownership. After a platform change, resolve each earlier invoice's recorded operator and approved current actor/channel; do not send its reports through the new customer route by default.
+
 ### Spain use and reuse boundaries
 
 This is a **Spain reference design**. Reuse classifications describe proposed behaviour, not proof that existing code is ready. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
@@ -105,13 +114,15 @@ The underlying projection keeps **technical processing, document validation, rec
 
 ### 3 Process diagrams and text equivalent
 
-**Receive status information, interpret and update the view:** ![Lifecycle event capture and status derivation](../assets/diagrams/lifecycle-event-derivation-process.svg)
+Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
 
-[Editable Draw.io](../assets/diagrams/lifecycle-event-derivation-process.drawio) · [PNG preview](../assets/diagrams/lifecycle-event-derivation-process.png). Text equivalent: a public/private platform supplies a status-query response or a supported notification; separately, a customer/ERP supplies an authorised business event → LCS-01 receives either input → LCS-02 authenticates actor, invoice and source namespace → LCS-03 appends the exact raw fact and duplicate/conflict link → LCS-04 applies the effective country/provider catalogue → LCS-05 derives independent dimensions with explicit source and rule evidence → LCS-06 notifies product after commit. Unknown code, unmatched invoice or conflict is preserved for LCS-10 rather than mapped to a guessed success.
+**Receive status information, interpret and update the view:** ![Receive events and update invoice status](../assets/diagrams/lifecycle-event-derivation-process.svg)
 
-**Report and reconcile obligations:** ![Lifecycle reporting and reconciliation](../assets/diagrams/lifecycle-reporting-reconciliation-process.svg)
+[Editable Draw.io](../assets/diagrams/lifecycle-event-derivation-process.drawio) · [PNG preview](../assets/diagrams/lifecycle-event-derivation-process.png). Text equivalent: a public/private platform supplies a status-query response or a supported notification; separately, a customer/ERP supplies an authorised business event → LCS-01 receives either input → LCS-02 authenticates actor, invoice and source namespace → LCS-03 adds the exact original fact to the record and duplicate/conflict link → LCS-04 applies the effective country/provider catalogue → LCS-05 derives independent dimensions with explicit source and rule evidence → LCS-06 notifies product after commit. Unknown code, unmatched invoice or conflict is preserved for LCS-10 rather than mapped to a guessed success.
 
-[Editable Draw.io](../assets/diagrams/lifecycle-reporting-reconciliation-process.drawio) · [PNG preview](../assets/diagrams/lifecycle-reporting-reconciliation-process.png). Text equivalent: a customer/ERP supplies an authorised rejection/payment fact → LCS-02/04 verifies it → LCS-07 calculates applicable historical-route destinations and approved deadline → LCS-08 creates one durable obligation per destination → LCS-09 transmits each independently with stable identity → the public/private destination returns its reporting result when available; a missing or uncertain result after a possible external effect enters LCS-10, which observes the original operation before any repeat → LCS-05/06 update the view with per-destination evidence.
+**Report and reconcile obligations:** ![Send required reports and check uncertain results](../assets/diagrams/lifecycle-reporting-reconciliation-process.svg)
+
+[Editable Draw.io](../assets/diagrams/lifecycle-reporting-reconciliation-process.drawio) · [PNG preview](../assets/diagrams/lifecycle-reporting-reconciliation-process.png). Text equivalent: a customer/ERP supplies an authorised rejection/payment fact → LCS-02/04 verifies it → LCS-07 calculates applicable historical-route destinations and approved deadline → LCS-08 creates one saved reporting obligation per destination → LCS-09 transmits each independently with stable identity → the public/private destination returns its reporting result when available; a missing or uncertain result after a possible external effect enters LCS-10, which observes the original operation before any repeat → LCS-05/06 update the view with per-destination evidence.
 
 The existing [lifecycle and reporting overview](../assets/diagrams/e-invoicing-lifecycle-reporting.drawio) shows the cross-service relationship among technical, commercial and payment information. These two process diagrams show the detailed handoffs and exception paths.
 
@@ -269,5 +280,6 @@ Payment facts and authority evidence have tighter access than generic technical 
 | LCS-A14 Reused lifecycle implementation | R01–03/06–09 → LCS-03–10, INT-03–10, D01/D04–D10 | Record the selected source capability and build, Spain changes, gaps, owner and qualification evidence. Prove the selected event capture, mapping, reporting and recovery contracts before enabling them. An unavailable or unqualified capability remains blocked; reuse of a proposed design pattern is separate from reuse of a tested implementation. |
 | LCS-A15 Public status consultation | R01–03/11 → LCS-01–06, INT-01–04/09/11, D01/03–06 | An authorised public query returns source status/payment evidence for the correct invoice. Preserve the response and update the qualified dimensions. A denied or failed query leaves evidence age visible without inventing a status. |
 | LCS-A16 Incoming update versus outgoing report | R01/03/06/11 → LCS-01–09, INT-01/05–07/11, D01/05–08 | Public/private updates and customer/ERP events enter separately. Repeated source evidence cannot trigger duplicate reports. A report acknowledgement updates reporting progress without fabricating buyer acceptance or payment. |
+| LCS-A17 Overview status and reporting separation | R01–06/08; SPEC-SEI-014 SPC-06–08; LCS-01–10 | Platform delivery evidence cannot set buyer acceptance/payment. An authorised business fact updates supported status while its separate report is pending; per-destination success/failure/unknown is visible without reporting the incoming fact again or switching an earlier invoice to the new route. |
 
 **Review gate:** agree country event catalogue, actor authority, mapping namespaces/precedence, deadline calendar, optional scope and response expectations. **Pilot gate:** prove source authenticity, duplicate/out-of-order/conflict, full rejection/payment, independently failing destinations, unknown mutation, missed callback and historical-route cases with actual provider/public contracts. **Production gate:** approved Spain technical rules and external APIs, named e-invoicing and banking domain owners where relevant, support/operations runbooks, measurable monitoring/deadline headroom, privacy/retention and conformance evidence. Until the open decisions in Part 1 are resolved, affected reporting or derived acceptance paths remain disabled or visibly manual.

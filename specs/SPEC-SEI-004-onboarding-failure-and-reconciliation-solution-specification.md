@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-07
+updated: 2026-10-08
 reviewers: []
 related:
   - GLO-SEI-001
@@ -96,11 +96,13 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 
 ### 3 Process diagrams
 
-**Classify and recover:** ![Onboarding failure classification process](../assets/diagrams/onboarding-failure-classification-process.svg)
+Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
 
-[Editable Draw.io](../assets/diagrams/onboarding-failure-classification-process.drawio) · [PNG](../assets/diagrams/onboarding-failure-classification-process.png). Text equivalent: OFR-01 records the failed operation and durable intent → OFR-02 classifies fault and operation safety separately → correctable findings go to OFR-03, approved safe retries to OFR-04, uncertain mutations to OFR-05, and security violations to an incident. Exhausted safe retries go to an owned escalation, never to a false permanent rejection.
+**Classify and recover:** ![Identify setup failures and choose a safe recovery](../assets/diagrams/onboarding-failure-classification-process.svg)
 
-**Reconcile an uncertain effect:** ![Onboarding reconciliation process](../assets/diagrams/onboarding-uncertain-outcome-process.svg)
+[Editable Draw.io](../assets/diagrams/onboarding-failure-classification-process.drawio) · [PNG](../assets/diagrams/onboarding-failure-classification-process.png). Text equivalent: OFR-01 records the failed operation and saved request intent → OFR-02 classifies fault and operation safety separately → correctable findings go to OFR-03, approved safe retries to OFR-04, uncertain mutations to OFR-05, and security violations to an incident. Exhausted safe retries go to an owned escalation, never to a false permanent rejection.
+
+**Reconcile an uncertain effect:** ![Check an uncertain setup result before retrying](../assets/diagrams/onboarding-uncertain-outcome-process.svg)
 
 [Editable Draw.io](../assets/diagrams/onboarding-uncertain-outcome-process.drawio) · [PNG](../assets/diagrams/onboarding-uncertain-outcome-process.png). Text equivalent: OFR-05 freezes the original operation and blocks repeats → OFR-06 queries an authoritative source using the original correlation and environment → proven success is committed once, proven absence may permit OFR-04 under the approved contract, and unresolved state becomes OFR-07 with owner, evidence and deadline → OFR-08 updates only the affected client/capability and the portfolio aggregate.
 

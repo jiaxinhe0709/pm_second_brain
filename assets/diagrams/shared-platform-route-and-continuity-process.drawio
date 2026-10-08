@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="shared-platform-route-and-continuity-process" name="Change the platform for future invoices; keep earlier invoice context">
+    <mxGraphModel page="1" pageWidth="2340" pageHeight="1090">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Change the platform for future invoices; keep earlier invoice context&#10;Only an explicit authorised change activates a qualified route. Resolve and bind new work through the shared foundation; retain permitted historical actors and channels." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="28" y="12" width="2284" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="Solid: main handoff · Dashed: qualification, conditional work or recovery · Darker grey cards: recovery" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="28" y="104" width="2284" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-0" value="Customer / accountant" style="swimlane;horizontal=0;noLabel=1;startSize=200;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry x="20" y="160" width="2300" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-0-label" value="Customer / accountant" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="160" width="180" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-1" value="ERP / product" style="swimlane;horizontal=0;noLabel=1;startSize=200;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry x="20" y="295" width="2300" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-1-label" value="ERP / product" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="295" width="180" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-2" value="Domain Service - E-Invoice Service" style="swimlane;horizontal=0;noLabel=1;startSize=200;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry x="20" y="430" width="2300" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-2-label" value="Domain Service -&#10;E-Invoice Service" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="430" width="180" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-3" value="Domain Service - Other Services" style="swimlane;horizontal=0;noLabel=1;startSize=200;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry x="20" y="565" width="2300" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-3-label" value="Domain Service - Other&#10;Services" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="565" width="180" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-4" value="Operations / support" style="swimlane;horizontal=0;noLabel=1;startSize=200;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry x="20" y="700" width="2300" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-4-label" value="Operations / support" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="700" width="180" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-5" value="Public / private platforms" style="swimlane;horizontal=0;noLabel=1;startSize=200;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry x="20" y="835" width="2300" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-5-label" value="Public / private&#10;platforms" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="835" width="180" height="135" as="geometry" />
+        </mxCell>
+        <object id="request" label="Request an invoicing platform change&#10;SPC-04" tooltip="" link="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="240" y="186" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="intent" label="Confirm direction and effective time&#10;SPC-04" tooltip="" link="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="535" y="321" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="prepare" label="Coordinate the authorised platform change&#10;SPC-04" tooltip="" link="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="830" y="456" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="checks" label="Recheck settings, permission and readiness&#10;SPC-03" tooltip="" link="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="830" y="591" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="external" label="Confirm required external changes&#10;SPC-04" tooltip="" link="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="830" y="861" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="commit" label="Save the approved route version&#10;SPC-04" tooltip="" link="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="1125" y="591" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="resolve" label="Select one route for new work&#10;SPC-05" tooltip="" link="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="1420" y="591" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="bind" label="Save invoice context and the action owner&#10;SPC-06" tooltip="" link="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="1715" y="456" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="execute" label="Perform each approved invoice action&#10;SPC-06" tooltip="Invoice delivery, public copy and reports retain independent outcomes." link="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="1715" y="861" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="history" label="Keep permitted earlier invoice context&#10;SPC-08" tooltip="Earlier invoices retain their original route/operator and current permitted actor/channel." link="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="2010" y="591" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="recover" label="Check uncertain outcomes before retrying&#10;SPC-07" tooltip="" link="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="1125" y="726" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="edge-0" source="request" target="intent" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="228.0" />
+              <mxPoint x="510" y="363.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-1" source="intent" target="prepare" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="805" y="363.0" />
+              <mxPoint x="805" y="498.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-2" source="prepare" target="checks" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" source="checks" target="external" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-4" source="external" target="commit" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1100" y="903.0" />
+              <mxPoint x="1100" y="633.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-5" source="commit" target="resolve" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-6" source="resolve" target="bind" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1690" y="633.0" />
+              <mxPoint x="1690" y="498.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-7" source="bind" target="execute" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-8" source="commit" target="history" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1395" y="633.0" />
+              <mxPoint x="1395" y="581" />
+              <mxPoint x="2000" y="581" />
+              <mxPoint x="2000" y="633.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-9" source="external" target="recover" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1100" y="903.0" />
+              <mxPoint x="1100" y="768.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-10" source="resolve" target="recover" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.0;exitY=0.5;entryX=1.0;entryY=0.5;dashed=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1410" y="633.0" />
+              <mxPoint x="1410" y="768.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-11" source="recover" target="prepare" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.0;exitY=0.5;entryX=1.0;entryY=0.5;dashed=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1115" y="768.0" />
+              <mxPoint x="1115" y="498.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="boundary" value="Proposed logical responsibilities. Readiness does not activate a route; preserve original history and current permitted access." style="text;whiteSpace=wrap;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="28" y="990" width="2284" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

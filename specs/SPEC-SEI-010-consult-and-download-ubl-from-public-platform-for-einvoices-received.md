@@ -107,7 +107,9 @@ Security owns file-access checks and safe handling of unsafe content. Compliance
 
 ### Process and continuity
 
-![Public consultation and reconciliation](../assets/diagrams/e-invoicing-public-consultation-reconciliation.svg)
+Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
+
+![Retrieve public invoices and check for missing items](../assets/diagrams/e-invoicing-public-consultation-reconciliation.svg)
 
 [Editable Draw.io](../assets/diagrams/e-invoicing-public-consultation-reconciliation.drawio) · [PNG preview](../assets/diagrams/e-invoicing-public-consultation-reconciliation.png). This existing process diagram is reused. Its “check scope”, “schedule and lease”, “query”, “classify and persist”, “boundary durable” and “commit progress” steps map to RSD-01, RSD-02, RSD-03, RSD-04/05 and RSD-06 below. “Publish availability” separates conservation file access from the later business-invoice view. Download activity RSD-07 reads saved files without starting another public query.
 

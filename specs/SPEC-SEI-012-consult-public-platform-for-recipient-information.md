@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-07
+updated: 2026-10-08
 reviewers: []
 related:
   - GLO-SEI-001
@@ -118,11 +118,13 @@ This is a **Spain reference design**. **Reusable unchanged** means the proposed 
 
 ### 3 Process and lifecycle
 
-![Recipient lookup process](../assets/diagrams/public-platform-recipient-lookup-process.svg)
+Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
+
+![Find and check the recipient's receiving destination](../assets/diagrams/public-platform-recipient-lookup-process.svg)
 
 [Editable Draw.io](../assets/diagrams/public-platform-recipient-lookup-process.drawio) · [PNG preview](../assets/diagrams/public-platform-recipient-lookup-process.png).
 
-Text equivalent: RLU-01 accepts early/final intent → RLU-02 checks identity/authority → RLU-03 fixes source/coverage/freshness policy → RLU-04 reuses qualifying evidence or combines identical refresh requests → RLU-05 queries approved sources → RLU-06 saves candidates and conflicts → RLU-07 checks capability and approved selection → RLU-08 saves private/public-supported/unresolved decision → RLU-09 hands evidence to the consumer. Failure, incomplete negative evidence and competing points remain held; RLU-10 performs bounded recovery/version changes without rewriting earlier plans.
+Text equivalent: RLU-01 accepts early/final intent → RLU-02 checks identity/authority → RLU-03 fixes source/coverage/freshness policy → RLU-04 reuses qualifying evidence or combines identical refresh requests → RLU-05 queries approved sources → RLU-06 saves candidates and conflicts → RLU-07 checks capability and approved selection → RLU-08 saves private/public-supported/unresolved decision → RLU-09 hands evidence to the consumer. Failure, incomplete negative evidence and competing points remain held; RLU-10 performs bounded recovery/version changes while keeping earlier plans unchanged.
 
 | Activity / trigger | Preconditions, operation and result | Owner/error recovery |
 |---|---|---|

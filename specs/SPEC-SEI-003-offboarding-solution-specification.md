@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-08
 reviewers: []
 related:
   - GLO-SEI-001
@@ -20,6 +20,7 @@ related:
   - SPEC-SEI-001
   - SPEC-SEI-002
   - ADR-SEI-001
+  - SPEC-SEI-014
 confluence:
   publish: true
   space_key: DNBU
@@ -50,6 +51,12 @@ The [onboarding spec](SPEC-SEI-002-onboarding-solution-specification.md) covers 
 An exit request may cover receiving invoices, sending invoices, one business or the full service. Ending a subscription, stopping new traffic, changing the receiving entry point, deregistering a provider, revoking credentials, exporting evidence and disposing of data are **separate operations**.
 
 New traffic can switch successfully while work on earlier invoices or data remains open. Legal permissions, provider interfaces and retention periods still need evidence; a template or another country’s experience cannot establish them.
+
+### Changing platform and leaving the service
+
+The responsibility overview uses **Change e-invoicing platform** for changing where future invoices are sent or received. This is separate from **Offboarding**, which ends a defined Sage service scope and coordinates its release controls. A platform change does not automatically end subscriptions, deregister a connection, revoke credentials or delete records.
+
+The [shared connectivity and routing spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) supplies the common route-change and historical-context controls (SPC-04/07/08). Onboarding owns adoption/migration; this spec owns leaving an active Sage scope and releasing dependencies. Both use one Routing owner for the actual route commit. Present the affected direction, effective boundary, result, remaining historical obligations and permitted access terms in plain language. Keep existing technical fields and OFF activity IDs unchanged.
 
 ### Spain use and reuse boundaries
 
@@ -101,13 +108,15 @@ The customer administrator or validated accountant delegate requests and approve
 
 ### 3 Process diagrams and text equivalent
 
-**Planned switch-out and release:** ![Planned offboarding process](../assets/diagrams/offboarding-planned-exit-process.svg)
+Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
+
+**Planned switch-out and release:** ![Leave the service safely and preserve earlier work](../assets/diagrams/offboarding-planned-exit-process.svg)
 
 [Editable Draw.io source](../assets/diagrams/offboarding-planned-exit-process.drawio) · [PNG preview](../assets/diagrams/offboarding-planned-exit-process.png). The existing [route transition and offboarding overview](../assets/diagrams/e-invoicing-route-transition-offboarding.drawio) shows the wider customer lifecycle.
 
 OFF-01 verifies one legal entity, direction/scope, actor and destination → OFF-02 inventories in-flight invoices, external mutations, obligations, registration, credentials and archive → OFF-03 proves the destination without disturbing live Sage traffic → OFF-04 commits an authorised effective cutover and observes external state → OFF-05 assigns each historical obligation to a permitted actor/channel → OFF-06 withdraws old route/registration and revokes credentials only when dependencies clear → OFF-07 exports evidence and schedules approved disposition. Failure or unknown result diverts to OFF-08; it does not jump to release.
 
-**Recovery and urgent provider exit:** ![Offboarding recovery process](../assets/diagrams/offboarding-recovery-process.svg)
+**Recovery and urgent provider exit:** ![Recover an exit problem and protect earlier work](../assets/diagrams/offboarding-recovery-process.svg)
 
 [Editable Draw.io source](../assets/diagrams/offboarding-recovery-process.drawio) · [PNG preview](../assets/diagrams/offboarding-recovery-process.png).
 
@@ -273,6 +282,7 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | OFF-A08 Post-cutover reversal | R04/10 → OFF-08 / INT-05/09, D03/05/09 | New transition has authority and observed state; invoice origin/history stays factual. |
 | OFF-A09 Urgent provider outage | R05/07/10 → OFF-05/08 / INT-03/06/09, D03/06/09 | Queue and deadlines are visible; only approved prospective fallback is used. |
 | OFF-A10 Country-bound exit reuse | R01/03/05/06 → OFF-01/03/05–07, INT-02/04/06–08, D02/04/06–08 | Shared exit gates select the correct local obligations, provider actions and retention policy. Spain Article 10/12 steps are not imposed on another country. Unknown local rules block only the dependent cutover or release gate. |
+| OFF-A11 Shared platform change versus full exit | R03–06/08 → OFF-03–06; SPEC-SEI-014 SPC-04/08, SPC-A05/09 | Scoped platform change uses the shared route commit and preserves earlier obligations; no automatic deregistration, credential release or deletion occurs. Full exit reports its independent release checks and permitted access terms. |
 
 ### 2 Threat, conformance and release gates
 

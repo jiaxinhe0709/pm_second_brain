@@ -25,6 +25,7 @@ related:
   - SPEC-SEI-009
   - SPEC-SEI-010
   - SPEC-SEI-012
+  - SPEC-SEI-014
 confluence:
   publish: true
   space_key: DNBU
@@ -64,6 +65,10 @@ The supplied PRD describes the wider integration. The capability mapping below s
 | [Order HAC/1028/2026, Articles 9–11](https://www.boe.es/eli/es/o/2026/10/02/hac1028), checked 6 October 2026 | Public recovery/consultation access and authentication/representation requirements exist. Third-party recovery and Article 10 consultation require registered representation. | Exact operations, credential profiles, limits and technical access are governed by AEAT specifications. Do not extend one action's authority automatically to another. |
 | [Existing evidence note](../research/spain-public-platform-order-evidence.md) | Records the supplied order snapshot and limits of the retrieval evidence. | Does not supply a production transport contract or prove a central recipient directory. |
 | SPEC-SEI-001/002/004 | Trust, onboarding and uncertain onboarding-operation designs. | Draft logical contracts; qualification and external evidence remain necessary. |
+
+### Shared foundation and public protocol boundary
+
+The [shared connectivity and routing spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns the shared connection/profile qualification and route context across customer-provider integration and Sage platform interconnection. This connector remains the public-platform protocol and operation-evidence owner. It consumes a qualified connection/profile and owning feature action; it cannot activate a route, create invoice/reporting obligations or replace the shared route engine. Reuse public execution controls where proven, while checking exact role, represented-party authority, credential purpose and operation contract independently. Shared foundation reuse does not imply that public and private platforms expose the same interface.
 
 ### How the connector supports the supplied PRD
 
@@ -143,20 +148,22 @@ This is a **Spain reference design**. **Reusable unchanged** means the proposed 
 
 [Editable Draw.io](../assets/diagrams/public-platform-connector-process.drawio) · [PNG preview](../assets/diagrams/public-platform-connector-process.png).
 
-Text equivalent: PCN-01 accepts feature intent → PCN-02 resolves trusted scope → PCN-03 checks authority/credentials → PCN-04 checks the activated capability and contract → PCN-05 saves operation/attempt intent → PCN-06 executes the bounded public call → PCN-07 commits response evidence → PCN-08 returns/notifies the owning feature. Denied checks return a safe hold without sending. Unknown external effects or evidence gaps enter PCN-09 recovery using the original identity. PCN-10 manages configuration or disablement for future work without deleting history.
+Step names describe the action in plain language. The smaller PCN references link each step to the detailed behaviour and acceptance checks below.
+
+Text equivalent: Receive the service request (PCN-01) → Check customer and environment (PCN-02) → Check permission and credentials (PCN-03) → Check platform support (PCN-04) → Save the request before sending (PCN-05) → Call the public platform (PCN-06) → Save the response and evidence (PCN-07) → Return the result to the service (PCN-08). If permission is denied or the action is unsupported, hold the request without sending a call. If the external outcome is unknown or evidence is missing, check what happened before retrying (PCN-09), using the original request identity and context. Update settings for future requests (PCN-10) while preserving pending work and history.
 
 | Activity / trigger and actor | Required result | Failure owner and safe handoff |
 |---|---|---|
-| PCN-01 Feature request / owning feature service | Save a stable feature operation, input reference/digest and correlation. | Connector/feature: the same key with changed input returns a conflict. |
-| PCN-02 Scope resolution / connector | Resolve tenant, represented entity, country and environment from trusted records. | Identity/Security: deny ambiguous context before any access. |
-| PCN-03 Authority/trust / connector and specialist services | Check current authority for the action and credentials for its purpose and environment. | Authority/Trust: missing or revoked permission holds new calls. |
-| PCN-04 Capability selection / connector | Select the enabled operation, exact contract/version, retry-safety class and readiness evidence. | Integration owner: keep unsupported combinations disabled. |
-| PCN-05 Intent/attempt / connector | Save the request and claim execution once, with fixed input and target context. | Connector/Records: a failed save prevents a new external change. |
-| PCN-06 External execution / adapter | Call within approved limits using the correct credential, contract and quota. | Adapter/Operations: record whether transmission may have happened. Check uncertain outcomes before repeat. |
-| PCN-07 Evidence commit / connector | Save protected raw evidence, a safe normalised result and links to each item. | Records/connector: recover the original response without making a fresh external change. |
-| PCN-08 Handoff / connector | Return a result within scope and send a recoverable notification to the requesting feature. | Feature/connector: recognise repeated notifications and do not apply them twice. |
-| PCN-09 Recovery / operations or approved policy | Establish the original outcome, or keep an unresolved case with a responsible owner. | Operations/adapter: use manual recovery when safe query or retry is unproven. |
-| PCN-10 Configuration event / authorised integration owner | Record profile/group changes for future work, their impact and audit evidence. | Integration/Security: keep current work/history and other environments separate. |
+| PCN-01 Receive the service request / owning feature service | Save a stable feature operation, input reference/digest and correlation. | Connector/feature: the same key with changed input returns a conflict. |
+| PCN-02 Check customer and environment / connector | Resolve tenant, represented entity, country and environment from trusted records. | Identity/Security: deny ambiguous context before any access. |
+| PCN-03 Check permission and credentials / connector and specialist services | Check current authority for the action and credentials for its purpose and environment. | Authority/Trust: missing or revoked permission holds new calls. |
+| PCN-04 Check platform support / connector | Select the enabled operation, exact contract/version, retry-safety class and readiness evidence. | Integration owner: keep unsupported combinations disabled. |
+| PCN-05 Save the request before sending / connector | Save the request and claim execution once, with fixed input and target context. | Connector/Records: a failed save prevents a new external change. |
+| PCN-06 Call the public platform / adapter | Call within approved limits using the correct credential, contract and quota. | Adapter/Operations: record whether transmission may have happened. Check uncertain outcomes before repeat. |
+| PCN-07 Save the response and evidence / connector | Save protected raw evidence, a safe normalised result and links to each item. | Records/connector: recover the original response without making a fresh external change. |
+| PCN-08 Return the result to the service / connector | Return a result within scope and send a recoverable notification to the requesting feature. | Feature/connector: recognise repeated notifications and do not apply them twice. |
+| PCN-09 Check what happened before retrying / operations or approved policy | Establish the original outcome, or keep an unresolved case with a responsible owner. | Operations/adapter: use manual recovery when safe query or retry is unproven. |
+| PCN-10 Update settings for future requests / authorised integration owner | Record profile/group changes for future work, their impact and audit evidence. | Integration/Security: keep current work/history and other environments separate. |
 
 ### 4 Material decisions
 
@@ -304,6 +311,7 @@ These scenarios specify evidence to obtain; they are not executed implementation
 | PCN-A11 Rotation/disablement/rollback during work | R09 → PCN-03/05/09/10, INT-03/04/06/08, D01–D04/D07/D09 | Original context preserved; stale worker rejected; replacement authority checked; unaffected cohorts continue. |
 | PCN-A12 Unsafe content/destination and support access | R01/06/09 → PCN-02/06/09/10, INT-05/08, D04–D07/D09 | XML/resource and destination controls enforced; no credentials/raw bodies in errors/logs; unauthorised recovery denied. |
 | PCN-A13 Country isolation and reuse qualification | R10 → PCN-02–06/10, INT-02–05/08, D01/D02/D04/D09 | Selected build/contracts proved; missing country binding blocks activation; Spain authority/error rules do not affect another country. |
+| PCN-A14 Shared foundation handoff | R01–03/10 → PCN-02–06/09; SPEC-SEI-014 SPC-02/03/06/07, SPC-A02/08 | Public operations consume the qualified role/profile and original action, retain one execution owner and cannot activate routes or inherit private-interface readiness. |
 
 ### Open decisions and release gates
 

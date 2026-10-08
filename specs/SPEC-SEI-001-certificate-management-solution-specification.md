@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-05
-updated: 2026-10-06
+updated: 2026-10-08
 reviewers: []
 related:
   - GLO-SEI-001
@@ -205,7 +205,9 @@ Three process diagrams cover setup, protected use and lifecycle control. Each us
 
 #### Process 1 Certificate setup and onboarding readiness
 
-![Certificate setup and onboarding readiness process](../assets/diagrams/certificate-setup-onboarding-process.svg)
+Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
+
+![Certificate setup: check permission and readiness](../assets/diagrams/certificate-setup-onboarding-process.svg)
 
 **Editable source:** [Certificate setup and onboarding Draw.io](../assets/diagrams/certificate-setup-onboarding-process.drawio). **Preview:** [PNG](../assets/diagrams/certificate-setup-onboarding-process.png). This is the certificate-specific detail of the broader [customer and service readiness Draw.io](../assets/diagrams/e-invoicing-customer-service-readiness.drawio). The broader diagram's route activation belongs to Phase 2/3; Phase 1 public onboarding returns capability readiness without activating a private route.
 
@@ -230,7 +232,7 @@ For the Tax Vault slice, CERT-02 verifies the client and any delegation; INT-13 
 
 #### Process 2 Protected use and evidence
 
-![Protected certificate use and evidence process](../assets/diagrams/certificate-protected-use-process.svg)
+![Use a certificate safely and save evidence](../assets/diagrams/certificate-protected-use-process.svg)
 
 **Editable source:** [Protected use Draw.io](../assets/diagrams/certificate-protected-use-process.drawio). **Preview:** [PNG](../assets/diagrams/certificate-protected-use-process.png).
 
@@ -253,7 +255,7 @@ For the bridge slice, the server resolves and freezes the dataset/client/connect
 
 #### Process 3 Renewal, containment and retirement
 
-![Certificate renewal, containment and retirement process](../assets/diagrams/certificate-renewal-recovery-process.svg)
+![Replace a certificate and protect earlier evidence](../assets/diagrams/certificate-renewal-recovery-process.svg)
 
 **Editable source:** [Renewal and recovery Draw.io](../assets/diagrams/certificate-renewal-recovery-process.drawio). **Preview:** [PNG](../assets/diagrams/certificate-renewal-recovery-process.png).
 
