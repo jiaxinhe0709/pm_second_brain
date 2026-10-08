@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-08
 reviewers: []
 related:
   - GLO-SEI-001
@@ -21,6 +21,7 @@ related:
   - SPEC-SEI-001
   - SPEC-SEI-004
   - ADR-SEI-001
+  - SPEC-SEI-014
 confluence:
   publish: true
   space_key: DNBU
@@ -49,6 +50,16 @@ This is a **proposed logical design** for setting up one Spanish business to use
 Public readiness alone does not mean that the business is registered externally, a private route is active, or invoices can be exchanged. The source requirements are [public onboarding](../prds/PRD-SEI-101-public-platform-onboarding.md), [direct and accountant onboarding](../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [recovery](../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), and [private onboarding and migration](../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md). The [certificate spec](SPEC-SEI-001-certificate-management-solution-specification.md) supplies the conditional trust-readiness contract.
 
 The logical services, state names, interaction shapes and records below are **proposed**. The PRDs establish customer outcomes and safety constraints. Spanish external interfaces, entry-point publication sequence, representation rules, operator model, signing policy, measurable service targets and ownership of the implemented services remain **open**. This document is one canonical Markdown source and one intended Confluence page; it is unpublished.
+
+### Setup result and changing the e-invoicing platform
+
+The overview's **Check e-invoicing setup requirements** step checks business identity and authority, applicable certificate/trust requirements and the selected platform connection. It coordinates ONB-02–04/06 and their supporting services, recording passed checks and limitations. Keep **readiness** as the defined technical term in states, evidence and contracts; the diagram uses plain language to explain the work. Passing these checks does not itself activate sending or receiving.
+
+In the responsibility overview, **Return setup result and required actions** means returning which checks passed, which failed or remain unknown, any limitations, and what must happen next with a named action owner. It is the ONB-04/06 result, not confirmation that sending or receiving has been activated. The product displays the result in plain language; preserve the exact technical states and evidence internally.
+
+**Change e-invoicing platform** means changing the platform selected for future sending or receiving within an authorised scope and boundary. The customer sees the current and proposed platform, affected direction, remaining steps and result. Keep **route** as the technical term. Earlier invoices retain their actual history and permitted follow-up channels.
+
+This spec owns customer intent, setup and migration coordination. The [shared connectivity and routing spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns the common connection/profile qualification, route-version commit and historical-context contract (SPC-01–08). ONB-06/07 call that foundation rather than create a second route engine. Adding the Sage operator role requires separate qualification and does not migrate existing customers or change their active platforms.
 
 ### Spain use and reuse boundaries
 
@@ -99,13 +110,15 @@ Actors are the customer administrator or validated delegate; Sage product/API; o
 
 ### 3 Process diagrams and text equivalent
 
-**Public readiness:** ![Public onboarding readiness process](../assets/diagrams/onboarding-public-readiness-process.svg)
+Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
+
+**Public readiness:** ![Check public-platform setup requirements](../assets/diagrams/onboarding-public-readiness-process.svg)
 
 [Editable Draw.io source](../assets/diagrams/onboarding-public-readiness-process.drawio) · [PNG preview](../assets/diagrams/onboarding-public-readiness-process.png). The existing [customer and service readiness overview](../assets/diagrams/e-invoicing-customer-service-readiness.drawio) provides cross-service context; this diagram isolates the Phase 1 process.
 
 Customer/delegate starts ONB-01 for one entity/capability → ONB-02 resolves legal subject and authority → ONB-03 checks applicable external identity/representation evidence and conditional certificate readiness → ONB-04 records readiness for each required check. Missing authority or uncertain policy yields an owned action; an ambiguous external mutation yields ONB-08 reconciliation. For a portfolio, repeat per client and return partial outcomes without promoting failed clients.
 
-**Private onboarding and migration:** ![Private onboarding and migration process](../assets/diagrams/onboarding-private-route-process.svg)
+**Private onboarding and migration:** ![Set up a private platform and switch future traffic](../assets/diagrams/onboarding-private-route-process.svg)
 
 [Editable Draw.io source](../assets/diagrams/onboarding-private-route-process.drawio) · [PNG preview](../assets/diagrams/onboarding-private-route-process.png). The existing [route transition and offboarding overview](../assets/diagrams/e-invoicing-route-transition-offboarding.drawio) gives the wider lifecycle.
 
@@ -268,6 +281,7 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | ONB-A07 Overlapping transitions | R07 → ONB-07 / INT-07, D07 | Only one transition passes the expected-version check. The other receives a conflict or waits in the queue; both cannot activate overlapping routes. |
 | ONB-A08 Rollback after live invoices | R07–10 → ONB-08/09 / INT-07–09, D07–09 | Restoration has new evidence; invoices on each side keep actual route. |
 | ONB-A09 Country-bound onboarding reuse | R01–03/06/10 → ONB-02/03/06, INT-02–04/06, D02/03/06 | The same workflow selects separate approved country policies. Spain identity and entry-point rules do not run for another country; missing local policy blocks readiness or activation. Existing Spain evidence remains unchanged. |
+| ONB-A10 Shared foundation and understandable results | R03/05–09 → ONB-04/06/07/09; SPEC-SEI-014 SPC-03/04/08, SPC-A01/03/05/09 | Setup returns passed/failed/unknown checks and named required actions without activating a route. Platform change states direction and boundary, uses one Routing owner, and preserves existing provider connections and historical context when an operator role is added. |
 
 ### 2 Review and release gates
 

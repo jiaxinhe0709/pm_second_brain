@@ -24,6 +24,9 @@ NOTE = 'Logical responsibility groups; exact service owners and implementation r
 
 # Customer, ERP, E-Invoice Service, other services, Operations, platforms.
 GROUPS = {
+ 'e-invoicing-customer-service-readiness': ['B1 B2 C1 C2', 'B3', 'J1 S3 S5', 'S1 S2 S4 P1 P2 P3 P4', '', 'X1 X2'],
+ 'e-invoicing-inbound-exchange': ['', 'B3', 'J1 S1 S3 S5 Q2', 'S2 S4 Q1 Q3', '', 'X1 X2'],
+ 'e-invoicing-route-transition-offboarding': ['B1', 'B3', 'C1 N3 N4 H1 H2 H3 H4 C2 B4 C3 C4', 'N1 N2', '', ''],
  'certificate-setup-onboarding-process': ['a1 ah2', 'a8', '', 'a2 a3 a4 a5 a6 a7', 'ah1 ah3', ''],
  'certificate-protected-use-process': ['', '', 'b1 b8', 'b2 b3 b4 b5 b6 b7 bh1 bh2', '', ''],
  'certificate-renewal-recovery-process': ['', '', '', 'c2 c3 c4 c6 c7 c8 ch1', 'c1 c5 ch2', ''],
@@ -142,7 +145,7 @@ def rebuild(name, assignments):
     nested = {id for ids in children.values() for id in ids}
     nodes = {id: copy.deepcopy(cells[id]) for id in selected}
     if name=='spain-invoice-preparation-and-outbound-flow':
-        nodes['35'].set('value', '12  Independent external obligations')
+        nodes['35'].set('value', '<b>Track separate external duties</b><br><span style="font-size:11px;color:#555">12</span>')
         set_style(nodes['35'], verticalAlign='top', spacingTop='10', fontSize='14', html='1', whiteSpace='wrap')
         for e in original_edges:
             if not e.get('source'): e.set('source', '35')
@@ -196,7 +199,7 @@ def rebuild(name, assignments):
     html_text(svg,25,58,width-50,30,escape(NOTE),14,'left',0)
     phases = [copy.deepcopy(c) for id,c in cells.items() if id.startswith('phase') and c.get('vertex')=='1']
     if name=='spain-invoice-preparation-and-outbound-flow':
-        phase_names=['DRAFT PREPARATION','ERP ISSUANCE & FINAL CHECKS','ROUTING & EXCHANGE','OUTCOMES']
+        phase_names=['PREPARE THE DRAFT','ERP ISSUES & FINAL FILE IS CHECKED','SELECT ROUTE & SEND','TRACK SEPARATE RESULTS']
         phases=[copy.deepcopy(cells[str(i)]) for i in range(2,6)]
         for c,label in zip(phases,phase_names): c.set('value',label)
     for c in phases:

@@ -23,6 +23,7 @@ related:
   - SPEC-SEI-001
   - SPEC-SEI-005
   - SPEC-SEI-009
+  - SPEC-SEI-014
 confluence:
   publish: true
   space_key: DNBU
@@ -53,6 +54,10 @@ This spec orchestrates those contracts for one issued outbound invoice.
 The diagram and PRD-SEI-246 are draft proposals. They do not approve external APIs, fields, format or profile versions, route update rules, who may sign, public-copy timing or legal correction procedures. These decisions remain open.
 
 The ERP owns invoice issuance. The Domain Service may prepare and check a draft, but it cannot issue the invoice or silently change the final business data. A successful draft check cannot authorise sending changed final data.
+
+### Shared connection and route handoff
+
+The [shared connectivity and routing spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) supplies the qualified customer connection, route version, contract profile and permitted executor (SPC-03/05/06). Recipient destination evidence still comes from SPEC-SEI-012 and is a separate selection. This outbound spec owns the immutable exchange plan, representations and independent delivery/public-copy actions. Use the same foundation for external-provider integration and the proposed Sage operator role; adding that role cannot rewrite a frozen invoice plan or introduce a second executor for an uncertain action. Public protocol execution remains with SPEC-SEI-011.
 
 ### Spain use and reuse boundaries
 
@@ -108,13 +113,15 @@ Actors are issuer/ERP; Domain Service preparation and exchange orchestration; le
 
 ### 3 Process diagrams and text equivalent
 
-**Primary Spain flow:** ![Spain invoice preparation and outbound exchange](../assets/diagrams/spain-invoice-preparation-and-outbound-flow.svg)
+Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
+
+**Primary Spain flow:** ![Spain invoice preparation, issuance and sending](../assets/diagrams/spain-invoice-preparation-and-outbound-flow.svg)
 
 [Editable Draw.io](../assets/diagrams/spain-invoice-preparation-and-outbound-flow.drawio) · [PNG preview](../assets/diagrams/spain-invoice-preparation-and-outbound-flow.png). The diagram's numbered nodes 01–15 correspond to OUT-01–OUT-15 below. Its public recipient route and resolved private route are alternatives; the faithful public copy is a separate conditional obligation. Observation arrows into the outcome ledger do not require a synchronous join.
 
 Text equivalent: OUT-01/02 submit complete draft data → OUT-03 applies authority and Spain policy, validates and makes an early route check → OUT-04 returns draft issues or ready result → ERP reviews and issues at OUT-05/06 → OUT-07 submits exact final issued data/revision → OUT-08 rechecks final data, authority, profile and trust → OUT-09 confirms current authoritative recipient lookup. A proven absence of a private receipt entry point selects the public recipient route; failed, stale or ambiguous lookup is held for recovery. OUT-10 freezes the exchange plan → OUT-11 creates the final representation, validates after transformation, obtains approved signature/seal if required and records send intent → OUT-12 executes recipient delivery and any separate required public-copy submission with independent identities → OUT-13 records raw results and reconciles only unknown actions → OUT-14/15 derive and show views that state what the evidence proves. An issued-invoice problem follows an approved correction process, never a silent loop back to draft.
 
-**Outbound exchange and exception detail:** ![Outbound invoice exchange pilot process](../assets/diagrams/e-invoicing-outbound-exchange-pilot.svg)
+**Sending and recovery detail:** ![Prepare and send invoices; track each action](../assets/diagrams/e-invoicing-outbound-exchange-pilot.svg)
 
 [Editable Draw.io](../assets/diagrams/e-invoicing-outbound-exchange-pilot.drawio) · [PNG preview](../assets/diagrams/e-invoicing-outbound-exchange-pilot.png). This existing process makes validation correction, no-proven-route hold and outcome-unknown reconciliation explicit. It is a companion to the primary flow, not a second route policy.
 
@@ -301,5 +308,6 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | OUT-A09 Issued-content correction | R02/03 → OUT-06–08, INT-04, D02/D03 | Issued original retained; ERP/Legal correction path named, no automatic draft rollback. |
 | OUT-A10 Ack versus buyer status | R09/10 → OUT-13–15, INT-10, D07/D09 | Views that state what the evidence proves keep admission, recipient and buyer states separate. |
 | OUT-A11 Country-bound routes and exchange actions | R03–07/09/10 → OUT-08–12/14, INT-02/03/05–08/10, D03–07/09 | Spain policy selects the evidenced recipient route and required copy submissions. Another country uses its own approved plan without inheriting Spain public fallback or copy duties. Execution owners and reused transformation evidence are recorded; a country-policy change leaves earlier plans unchanged. |
+| OUT-A12 Shared route and executor handoff | R03/07–09; SPEC-SEI-014 SPC-R01/05/06 → SPC-05/06; SPC-A01/07/08 | Both integration roles use the same route/context contract; recipient lookup remains separate; a new operator profile cannot rewrite a saved invoice plan or assign a second executor after possible transmission. |
 
 **Review gate:** validate PRD-SEI-246's six open decisions, complete draft/final contracts, route source, representation ownership, trust model and vocabulary for each action’s outcome. **Pilot gate:** test preflight/final mismatch, issued correction, private route, proven-none public default, failed lookup, conditional copy, loss of business meaning, signature failure, duplicate final request, partial action result and unknown mutation against selected providers. **Production gate:** approved Spanish profiles/public interfaces and operator terms, conformance evidence, security/retention review, operations runbooks, measured service objectives and end-to-end pilot results. The existing Draw.io is the process basis; this draft does not convert it into an approved external API design.

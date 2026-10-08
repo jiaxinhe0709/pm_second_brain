@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-07
+updated: 2026-10-08
 reviewers: []
 related:
   - GLO-SEI-001
@@ -26,6 +26,7 @@ related:
   - SPEC-SEI-008
   - SPEC-SEI-009
   - SPEC-SEI-010
+  - SPEC-SEI-014
 confluence:
   publish: true
   space_key: DNBU
@@ -64,6 +65,10 @@ This **proposed logical design** explains how Sage could receive invoices throug
 The service starts when an external invoice is available. Public consultation decides **whether and when to fetch it**. Receiving decides **what to do with the fetched invoice**.
 
 Transport, download, technical acknowledgement, product availability, buyer acceptance and payment or rejection reporting have separate results. The exact operations, response codes, acknowledgement meaning, accepted profiles, retention and deadlines still need confirmation.
+
+### Shared connection and route handoff
+
+The [shared connectivity and routing spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns role-qualified source connections, receiving-route context and permitted historical bindings (SPC-03/05/06/08). Use that context for RCV-02 recipient matching and RCV-03 trust checks; do not create a second connection registry or route engine when Sage adds its private-platform role. This receiving spec continues to own source validation, duplicate/conflict handling, original files and product delivery. A new operator profile does not qualify an existing customer-provider interface for interconnection or authorise late delivery by itself.
 
 ### Spain use and reuse boundaries
 
@@ -118,13 +123,15 @@ External operator/public adapter supplies source evidence; receiving owns source
 
 ### 3 Process diagrams
 
-**Inbound intake and delivery:** ![Inbound receiving process](../assets/diagrams/receiving-intake-and-delivery-process.svg)
+Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
+
+**Inbound intake and delivery:** ![Receive, check and deliver an invoice to the product](../assets/diagrams/receiving-intake-and-delivery-process.svg)
 
 [Editable Draw.io](../assets/diagrams/receiving-intake-and-delivery-process.drawio) · [PNG](../assets/diagrams/receiving-intake-and-delivery-process.png). The existing [inbound exchange overview](../assets/diagrams/e-invoicing-inbound-exchange.drawio) shows the same cross-service route at a broader level.
 
-Text equivalent: RCV-01 accepts one public-retrieved or private-arrived item with durable source reference → RCV-02 authenticates channel and resolves the exact recipient/route interval → RCV-03 verifies file safety, trust, integrity and replay → RCV-04 claims identity and classifies exact repeat/conflict or a candidate for equivalence checks → RCV-05 validates activated syntax/profile and preserves exact original → RCV-06 maps approved canonical semantics → RCV-07 commits one business invoice and publishes to the authorised product → RCV-08 issues only the acknowledgement allowed by the confirmed source contract. Wrong recipient, untrusted, invalid or conflicting content is quarantined with an owner; qualified duplicate observations are linked without a second business invoice. A candidate link is finalised only after the required validation and equivalence checks. Product consumption and any conditional acknowledgement have separate evidence; RCV-08 uses the approved source milestone, not a universal after-delivery rule.
+Text equivalent: RCV-01 accepts one public-retrieved or private-arrived item with saved source reference → RCV-02 authenticates channel and resolves the exact recipient/route interval → RCV-03 verifies file safety, trust, integrity and replay → RCV-04 claims identity and classifies exact repeat/conflict or a candidate for equivalence checks → RCV-05 validates activated syntax/profile and preserves exact original → RCV-06 maps approved canonical semantics → RCV-07 saves one business invoice and publishes to the authorised product → RCV-08 issues only the acknowledgement allowed by the confirmed source contract. Wrong recipient, untrusted, invalid or conflicting content is quarantined with an owner; qualified duplicate observations are linked without a second business invoice. A candidate link is finalised only after the required validation and equivalence checks. Product consumption and any conditional acknowledgement have separate evidence; RCV-08 uses the approved source milestone, not a universal after-delivery rule.
 
-**Public discovery and gap recovery:** ![Public consultation and reconciliation](../assets/diagrams/e-invoicing-public-consultation-reconciliation.svg)
+**Retrieve public invoices and check for missing items:** ![Retrieve public invoices and check for missing items](../assets/diagrams/e-invoicing-public-consultation-reconciliation.svg)
 
 [Editable Draw.io](../assets/diagrams/e-invoicing-public-consultation-reconciliation.drawio) · [PNG](../assets/diagrams/e-invoicing-public-consultation-reconciliation.png). This existing process is owned by PRD-SEI-211. The intake handoff occurs only after a retrieved item and source context are durable. A public cursor advances under that PRD's committed-page rule, not merely because RCV-01 accepted a notification.
 
@@ -390,6 +397,7 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | RCV-A22 Reuse activation and version rollback | R05/10/14 → RCV-03–07/09, INT-03/05–07/10, D03/D05/D06/D12 | Actual build, inbound mapping and country packs qualified; outbound generation alone insufficient. Missing country binding blocks activation. Rollout/rollback preserves historical and pending attempt identities. |
 | RCV-A23 Conservation independent of processing | R05/06/08/11 → RCV-01/05–07/09, INT-01/09, D01/D05/D09/D10 | Saved source remains available under SPEC-SEI-010 access policy during mapping/product failure. Unsafe source follows controlled access. Receiving classification and public checkpoint remain distinct from ERP consumption. |
 | RCV-A24 Retention hold and provider exit | R05/13 → RCV-01/09, INT-10/11, D01/D05/D06/D11 | Approved role/country retention and hold protect source/provenance; export/restore checks keep historic identities and access policy. No disposal based solely on route suspension. |
+| RCV-A25 Shared source qualification across roles | R01/02/13/14; SPEC-SEI-014 SPC-R01–03/05/08 → SPC-03/05/06/08; RCV-02/03; SPC-A01/02/09 | Adding an operator role preserves existing receiving connections and invoice history; incoming trust/recipient checks use the qualified role and historical interval, with no inherited interconnection readiness or widened authority. |
 
 ### Readiness and release evidence
 

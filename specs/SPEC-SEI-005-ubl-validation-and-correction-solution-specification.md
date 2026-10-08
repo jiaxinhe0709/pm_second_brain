@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-08
 reviewers: []
 related:
   - GLO-SEI-001
@@ -97,11 +97,13 @@ The ERP owns business-data edits and presentation. The Domain Service owns profi
 
 ### 3 Process diagrams
 
-**Preflight and correction:** ![UBL preflight and correction process](../assets/diagrams/ubl-preflight-correction-process.svg)
+Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
+
+**Preparation checks and correction:** ![Check and correct invoice data before issuance](../assets/diagrams/ubl-preflight-correction-process.svg)
 
 [Editable Draw.io](../assets/diagrams/ubl-preflight-correction-process.drawio) · [PNG](../assets/diagrams/ubl-preflight-correction-process.png). Text equivalent: UV-01 accepts source facts or exact UBL → UV-02 resolves an activated profile → UV-03 creates a distinct derived file only if approved → UV-04 runs ordered rule layers → UV-05 returns stable issues and correction owner. Customer correction creates UV-06 as a new revision and loops to profile/validation; missing rule evidence yields UNDETERMINED, not PASS.
 
-**Final dispatch gate:** ![UBL final validation process](../assets/diagrams/ubl-final-validation-process.svg)
+**Final check before sending:** ![Validate the final invoice file before sending](../assets/diagrams/ubl-final-validation-process.svg)
 
 [Editable Draw.io](../assets/diagrams/ubl-final-validation-process.drawio) · [PNG](../assets/diagrams/ubl-final-validation-process.png). Text equivalent: outbound exchange requests UV-07 with final bytes, route and source revision → UV-02/04 reevaluate the exact selected profile/rules and representation → UV-08 binds PASS to the final hash, route, trust plan and one send intent. Any changed bytes, stale preview, loss of business meaning or unavailable pack blocks dispatch and returns an owned issue. Delivery and feedback are separate outcomes.
 

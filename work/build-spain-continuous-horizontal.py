@@ -20,10 +20,10 @@ for new_id,source_id in [('END-01','EXT-01'),('END-02','EXT-02'),('END-03','EXT-
 TITLES = {
     'SET-01':'Authorise the business',
     'SET-02':'Request setup through Global API',
-    'SET-03':'Establish capability readiness',
+    'SET-03':'Check e-invoicing setup requirements',
     'SET-04':'Trust and certificate checks',
     'SET-05':'Public platform connection',
-    'SET-07':'Return readiness and next action',
+    'SET-07':'Return setup result and required actions',
     'SET-08':'Setup recovery, when needed',
     'OUT-01':'Prepare, review and issue invoice',
     'OUT-08':'Recipient destination lookup',
@@ -37,11 +37,14 @@ TITLES = {
     'RCV-06':'Download stored public file',
     'RCV-07':'Process received invoice',
     'RCV-11':'Invoice available in ERP',
-    'LIF-01':'Provide invoice status information',
-    'LIF-03':'Record buyer decision or payment',
-    'LIF-07':'Update status and required reporting',
-    'LIF-09':'Show status and next action',
-    'EXT-01':'Request route change',
+    'LIF-01':'Provide platform delivery and status facts',
+    'LIF-03':'Record acceptance, rejection or payment',
+    'LIF-07':'Update status and identify required reports',
+    'LIF-10':'Send each required report',
+    'LIF-06':'Return each reporting result',
+    'LIF-11':'Record each reporting result',
+    'LIF-09':'Show invoice status and outstanding actions',
+    'EXT-01':'Request e-invoicing platform change',
     'EXT-02':'Switch future traffic safely',
     'EXT-05':'Keep earlier records accessible',
     'END-01':'Request service exit',
@@ -60,18 +63,22 @@ SUMMARY_EDGES = [
     ('RCV-04','RCV-07','flow'),('RCV-05','RCV-07','flow'),
     ('RCV-07','RCV-11','flow'),('RCV-04','RCV-06','access'),
     ('LIF-01','LIF-07','flow'),('LIF-03','LIF-07','flow'),('LIF-07','LIF-09','flow'),
+    ('LIF-07','LIF-10','conditional'),('LIF-10','LIF-06','flow'),
+    ('LIF-06','LIF-11','flow'),('LIF-11','LIF-09','flow'),
     ('EXT-01','EXT-02','flow'),('EXT-02','EXT-05','flow'),
     ('END-01','END-02','flow'),('END-02','END-03','flow'),
     ('END-03','END-05','flow'),('END-03','END-04','conditional'),
     ('END-04','END-05','conditional'),
 ]
 SUMMARY_NOTES = {
+    'SET-03':'Check business identity and authority, applicable certificate/trust requirements and the selected platform connection. Record which checks passed and any limitations; this does not activate sending or receiving.',
     'OUT-01':'The ERP owns draft review and invoice issuance. Detailed preparation and final checks remain in SPEC-SEI-007.',
     'OUT-13':'Use a qualified recipient route. Track recipient delivery and any required public copy separately. The owning spec explains checks and recovery.',
     'OUT-14':'Deliver through the qualified public or private recipient route. This does not establish buyer acceptance.',
     'LIF-01':'Receive public-platform status-query results or private-platform evidence through a qualified interface. Use platform notifications only where a confirmed contract supports them.',
     'LIF-03':'Separate authorised customer/ERP decisions and payment facts from incoming platform status information. Report a fact only when the applicable rule requires it.',
-    'LIF-07':'Preserve platform evidence and customer/ERP facts. Update independent status dimensions and track required reports separately; receiving an update does not automatically report it again.',
+    'LIF-07':'Preserve platform evidence and authorised acceptance/rejection/payment facts; derive independent status dimensions and identify reports under the applicable rule. The fact and supported status can be visible while a separate report is pending. Incoming already reported facts are not reported again.',
+    'LIF-09':'Show evidence-based invoice status and outstanding actions, including separate reporting progress. Delivery evidence does not establish buyer acceptance or payment.',
     'EXT-01':'Optional request to change the receiving or sending route. Full service exit is covered in the separate offboarding journey.',
     'EXT-02':'Check destination readiness and apply an approved boundary for future traffic. Earlier invoices retain their actual route and obligations.',
     'EXT-05':'Preserve permitted records and access needed for earlier invoices after a route change.',
@@ -82,7 +89,7 @@ SUMMARY_NOTES = {
 }
 ALL = dict(DETAIL,
     phases=DETAIL['phases'][:4]+[
-        dict(title='5 · Change route',note='Optional route change; preserve earlier invoice obligations.'),
+        dict(title='5 · Change e-invoicing platform',note='Change the platform for future sending or receiving; preserve earlier invoice obligations.'),
         dict(title='6 · Offboarding',note='Optional full service exit; preserve required records and permitted historical access.')],
     lanes=['Customer / accountant','ERP / product','Domain Service - E-Invoice Service','Domain Service - Other Services','Operations / support','Public / private platforms'],
     nodes=[dict(n,title=TITLES[n['id']],note=SUMMARY_NOTES.get(n['id'],n['note']),
@@ -90,14 +97,14 @@ ALL = dict(DETAIL,
            for n in DETAIL['nodes'] if n['id'] in TITLES],
     edges=[dict(source=a,target=b,kind=k,label='') for a,b,k in SUMMARY_EDGES])
 GROUPS = [
-    ('setup',['Business request','Readiness and service checks','Result / support'],[
+    ('setup',['Business request','Setup and service checks','Result / support'],[
         ['SET-01','SET-02'],['SET-03','SET-04','SET-05'],['SET-07','SET-08']]),
     ('outbound',['ERP owns issuance','Coordinate the exchange','Independent results'],[
         ['OUT-01'],['OUT-08','OUT-10','OUT-11','OUT-13'],['OUT-14','OUT-15']]),
     ('inbound',['Invoice sources','Receive and process','ERP / customer access'],[
         ['RCV-04','RCV-05'],['RCV-07'],['RCV-06','RCV-11']]),
-    ('lifecycle',['Platform / business inputs','Lifecycle coordination','Customer view'],[
-        ['LIF-01','LIF-03'],['LIF-07'],['LIF-09']]),
+    ('lifecycle',['Platform / business inputs','Status and separate reports','Results / customer view'],[
+        ['LIF-01','LIF-03'],['LIF-07','LIF-10','LIF-06'],['LIF-11','LIF-09']]),
     ('route-change',['Customer request','Controlled change','Historical continuity'],[
         ['EXT-01'],['EXT-02'],['EXT-05']]),
     ('offboarding',['Exit request','Continuity and records','Controlled closure'],[
@@ -110,7 +117,7 @@ for i,(slug,columns,groups) in enumerate(GROUPS):
     nodes=[dict(n,col=next(j for j,g in enumerate(groups) if n['id'] in g)) for n in ALL['nodes'] if n['id'] in ids]
     edges=[e for e in ALL['edges'] if e['source'] in ids and e['target'] in ids]
     PANELS.append(dict(slug=slug,title=phase['title'],note=phase['note'],columns=columns,nodes=nodes,edges=edges))
-assert len({n['id'] for p in PANELS for n in p['nodes']})==31
+assert len({n['id'] for p in PANELS for n in p['nodes']})==34
 assert {n['spec'] for n in ALL['nodes']}=={f'SPEC-SEI-{i:03}' for i in range(1,14)}
 
 def layout(panel,width=1660):
@@ -139,6 +146,12 @@ def ports(source,target):
     return (sx+sw/2,sy),(sx+sw/2,sy-10),(tx+tw/2,ty+th+10),(tx+tw/2,ty+th)
 
 def route(edge,view):
+    # Keep publishing the invoice view separate from the reporting-result path.
+    # Sharing their connector would imply a report result exists before a report.
+    if (edge['source'],edge['target']) == ('LIF-07','LIF-09'):
+        sx,sy,sw,sh=view['pos'][edge['source']]
+        tx,ty,tw,th=view['pos'][edge['target']]
+        return [(sx+sw/2,sy),(sx+sw/2,sy-14),(tx+tw/2,sy-14),(tx+tw/2,ty+th)]
     positions=view['pos'];a,start,end,b=ports(positions[edge['source']],positions[edge['target']])
     obstacles=[(x-5,y-5,x+w+5,y+h+5) for x,y,w,h in positions.values()]
     xs=sorted({view['left']+4,view['width']-12,start[0],end[0]} | {q for x,y,w,h in positions.values() for q in [x-10,x+w/2,x+w+10]})
@@ -188,7 +201,7 @@ COMBINED = dict(slug='overview', title='End-to-end responsibility overview', not
 for panel in PANELS:
     offset=len(COMBINED['columns'])
     phase_notes = [
-        'Authorise a business and establish readiness for the selected capability.',
+        'Authorise a business and check setup requirements for the selected service.',
         'ERP owns issuance. Recipient delivery and a required public copy have separate results.',
         'Public and private sources converge. Saved-file download does not wait for ERP processing.',
         'Receive platform status and business events; track required reports separately.',

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-08
 reviewers: []
 related:
   - GLO-SEI-001
@@ -138,19 +138,21 @@ Generation success is distinct from final dispatch validation, external acceptan
 
 **Generation, retrieval and recovery**
 
-![Spain UBL generation and recovery](../assets/diagrams/spain-ubl-dts-generation-process.svg)
+Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
+
+![Spain UBL: generate, retrieve and recover invoice files](../assets/diagrams/spain-ubl-dts-generation-process.svg)
 
 [Editable Draw.io](../assets/diagrams/spain-ubl-dts-generation-process.drawio) · [PNG](../assets/diagrams/spain-ubl-dts-generation-process.png).
 
-Text equivalent: UM-01 captures an immutable source revision → UM-02 authenticates, authorises and checks the agreed contract → UM-03 binds a stable operation to a capability and durably dispatches work → UM-04 generates distinct XML → UM-05 checks applicable rules and preservation of business meaning → UM-06 commits one terminal outcome → UM-07 exposes authorised task/result access → UM-08 hands exact bytes and provenance to consumer-owned storage/downstream processing. UM-09 reconciles uncertain acceptance or technical failure; correctable input creates a new UM-01 revision. Unsupported contracts are rejected; missing rules, loss of business meaning or invalid output prevent successful generation. No external invoice send occurs.
+Text equivalent: UM-01 saves a fixed source revision → UM-02 authenticates, authorises and checks the agreed contract → UM-03 saves a stable operation identity and selected capability, then queues the work → UM-04 generates distinct XML → UM-05 checks applicable rules and preservation of business meaning → UM-06 saves one final result → UM-07 exposes authorised task/result access → UM-08 hands exact bytes and provenance to consumer-owned storage/downstream processing. UM-09 checks uncertain request acceptance or technical failure; correctable input creates a new UM-01 revision. Unsupported contracts are rejected; missing rules, loss of business meaning or invalid output prevent successful generation. No external invoice send occurs.
 
 **Mapper qualification, consumer cutover and rollback**
 
-![Spain UBL mapper migration and rollback](../assets/diagrams/spain-ubl-dts-migration-process.svg)
+![Spain UBL: move the mapper to DTS and switch users safely](../assets/diagrams/spain-ubl-dts-migration-process.svg)
 
 [Editable Draw.io](../assets/diagrams/spain-ubl-dts-migration-process.drawio) · [PNG](../assets/diagrams/spain-ubl-dts-migration-process.png).
 
-Text equivalent: UM-10 inventories the legacy mapper and consumers → UM-11 selects and integrates the runtime/library boundary → UM-12 qualifies contracts, mapping parity, existing workloads and recovery → UM-13 runs comparison without downstream invoice submission, then switches an approved consumer cohort → UM-14 monitors and either expands or stops new admissions and rolls back new work after reconciling in-flight operations → UM-15 closes the ownership handover; legacy retirement requires a separate decision. Failed qualification returns to UM-11, rather than enabling a partially compatible mapper.
+Text equivalent: UM-10 records the existing mapper and its consumers → UM-11 selects and integrates the runtime/library boundary → UM-12 qualifies contracts, mapping parity, existing workloads and recovery → UM-13 runs comparison without downstream invoice submission, then switches an approved group of consumers → UM-14 monitors and either expands or stops new admissions and rolls back new work after reconciling pending operations → UM-15 closes the ownership handover; legacy retirement requires a separate decision. Failed qualification returns to UM-11, rather than enabling a partially compatible mapper.
 
 | Activity | Trigger and required result | Primary owner |
 |---|---|---|

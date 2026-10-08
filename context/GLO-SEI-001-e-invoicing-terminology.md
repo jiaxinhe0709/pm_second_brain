@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-07
+updated: 2026-10-08
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -22,6 +22,7 @@ related:
   - SPEC-SEI-011
   - SPEC-SEI-012
   - SPEC-SEI-013
+  - SPEC-SEI-014
 confluence:
   publish: false
   space_key: DNBU
@@ -30,7 +31,7 @@ confluence:
 
 # E-Invoicing Terminology
 
-This is the shared writing reference for the 13 Spain solution specs listed below. Keep it in Git with the specs, under `context/`, so reviewers and future authors use the same definitions. Short definitions inside individual specs support readers who open only one document; they must agree with this glossary.
+This is the shared writing reference for the 14 Spain solution specs listed below. Keep it in Git with the specs, under `context/`, so reviewers and future authors use the same definitions. Short definitions inside individual specs support readers who open only one document; they must agree with this glossary.
 
 Definitions explain the current source documents. They do not approve an architecture, legal interpretation, external API, state model or production capability. Feature-specific behaviour, evidence and open decisions remain in the owning PRD and spec. Shared terms can be used across countries; Spain rules require a separate country binding.
 
@@ -84,6 +85,7 @@ Definitions explain the current source documents. They do not approve an archite
 | Public platform connector | The logical protocol-access and operation-evidence responsibility in SPEC-SEI-011. It executes a qualified public operation; the feature service owns its business interpretation. |
 | Recipient lookup | Finding and qualifying evidence of a recipient's receiving destination. It is separate from discovering invoices already received, validating tax identity or changing a customer's route. No central AEAT recipient-directory API is proven by this name. |
 | Capability | A supported function, such as receiving invoices or signing them. Each operation used to provide it needs qualification for the selected scope. |
+| Integration role | The capacity in which Sage uses an interface: customer-provider integration or platform interconnection. The role selects qualified contracts and controls; it does not grant customer authority. A capability qualified for one role is not automatically ready for the other. |
 | Connection | Configuration for communicating with a platform or provider. A configured connection is separate from external registration, readiness and route activation. |
 | Registration | External enrolment or recorded configuration under the selected provider contract. A local connection record does not prove registration or receiving reachability. |
 | Readiness | The current result of capability checks for a stated legal entity, actor, environment and route/profile, with evidence, limitations and a recheck condition. Readiness is separate from authority, route activation and invoice outcomes. |
@@ -183,7 +185,7 @@ An **existing implementation reuse candidate** is an identified service or build
 
 ## Review coverage and remaining contract questions
 
-The terminology review covers SPEC-SEI-001 through SPEC-SEI-013 in `specs/`. It checks repeated definitions, service names, roles, outcome wording, reuse labels and terms used in behaviour, contracts and acceptance coverage. It is not an implementation test or a new regulatory validation.
+The terminology review covers SPEC-SEI-001 through SPEC-SEI-014 in `specs/`. It checks repeated definitions, service names, roles, outcome wording, reuse labels and terms used in behaviour, contracts and acceptance coverage. It is not an implementation test or a new regulatory validation.
 
 | Source spec | Terminology focus |
 |---|---|
@@ -200,6 +202,8 @@ The terminology review covers SPEC-SEI-001 through SPEC-SEI-013 in `specs/`. It 
 | [SPEC-SEI-011 — Public connector](../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md) | Qualified operation, connection, contract profile and public transport responsibility. |
 | [SPEC-SEI-012 — Recipient lookup](../specs/SPEC-SEI-012-consult-public-platform-for-recipient-information.md) | Recipient destination versus received-invoice discovery; coverage, freshness and unresolved absence. |
 | [SPEC-SEI-013 — Provider capabilities through Global API](../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md) | Authenticated principal, Provider API ownership, durable receipt and action execution. |
+
+| [SPEC-SEI-014 — Shared connectivity and routing](../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) | Integration role, contract qualification, setup result, scoped platform change and historical continuity. |
 
 | Remaining question | Owner and boundary |
 |---|---|

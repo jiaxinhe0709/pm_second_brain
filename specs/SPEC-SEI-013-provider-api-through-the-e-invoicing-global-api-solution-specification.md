@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-07
+updated: 2026-10-08
 reviewers: []
 related:
   - GLO-SEI-001
@@ -27,6 +27,7 @@ related:
   - SPEC-SEI-009
   - SPEC-SEI-011
   - SPEC-SEI-012
+  - SPEC-SEI-014
 confluence:
   publish: true
   space_key: DNBU
@@ -64,6 +65,12 @@ The purpose is to reduce duplicated development and maintenance. The design keep
 | [Connection/routing review](../prds/PRD-SEI-214-connections-registration-routing-structured-review.md), [resilience review](../prds/PRD-SEI-215-resilience-recovery-reconciliation-structured-review.md) | Owning domains for route transitions and provider recovery. | This API exposes those capabilities; it does not introduce a second route engine. |
 
 No existing Global API contract, deployed build, partner-access policy or conformance results were supplied or identified in these sources. Design review must compare the proposal with the actual service contract. Spain legal claims, time limits, permitted formats and external technical codes remain evidence checks with named owners; this document does not establish new regulatory facts.
+
+### Shared connectivity across the two integration roles
+
+The [shared connectivity and routing spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) is the logical owner of connection/profile qualification, deterministic route selection, platform-change commit and historical-context handoffs (SPC-01–08). This Global API exposes those capabilities to authorised products and partners. It does not create another connection registry, route engine or invoice store for Sage's operator role.
+
+`PROVIDER_API`, `SAGE_ADAPTER` and `HYBRID` remain integration modes per capability; customer-provider integration and platform interconnection are separately qualified roles. The same common API/domain contracts can serve both roles, while an external provider may require another interface, account or trust binding. GPA-02/09 use the shared foundation. GPA-05 keeps one executor per exchange action. GPA-10 records an interconnection case, which neither grants operator eligibility nor proves technical readiness. Existing provider connections and invoice history remain intact when the new role is added.
 
 ### 2 Proposed API decision and alternatives
 
@@ -147,17 +154,19 @@ A reusable design pattern is not an existing implementation. Every candidate nee
 
 ### 5 Process diagrams and lifecycle
 
-![Global API access, connection and route control](../assets/diagrams/global-api-access-and-route-process.svg)
+Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
+
+![Global API: check access, connections and route changes](../assets/diagrams/global-api-access-and-route-process.svg)
 
 [Editable Draw.io](../assets/diagrams/global-api-access-and-route-process.drawio) · [PNG preview](../assets/diagrams/global-api-access-and-route-process.png).
 
-Text equivalent: GPA-01 qualifies the product or partner consumer → GPA-02 associates existing legal-entity authority and tests a connection by capability → GPA-03 authorises each request through the common API. Ready connection leaves current routes unchanged. A separate GPA-09 transition checks authority, direction, conflicts and effective time; uncertain external activation reconciles before commit. GPA-10 records an interconnection case where required. GPA-11 independently controls suspension, grants, routes and continuity; GPA-12 owns recovery/version changes.
+Text equivalent: GPA-01 qualifies the product or partner consumer → GPA-02 associates existing legal-entity authority and tests a connection by capability → GPA-03 authorises each request through the common API. Ready connection leaves current routes unchanged. A separate GPA-09 transition checks authority, direction, conflicts and effective time; uncertain external activation checks the original result before saving the change. GPA-10 records an interconnection case where required. GPA-11 independently controls suspension, grants, routes and continuity; GPA-12 owns recovery/version changes.
 
-![Global API invoice exchange and reconciliation](../assets/diagrams/global-api-exchange-and-reconciliation-process.svg)
+![Global API: send and receive invoices; record separate results](../assets/diagrams/global-api-exchange-and-reconciliation-process.svg)
 
 [Editable Draw.io](../assets/diagrams/global-api-exchange-and-reconciliation-process.drawio) · [PNG preview](../assets/diagrams/global-api-exchange-and-reconciliation-process.png).
 
-Text equivalent: GPA-03 checks trusted identity and current authority → GPA-04 validates operation intent and saves one durable receipt per accepted invoice/item → GPA-05 delegates customer send or inbound receipt to its owning service. A final exchange plan assigns each action to an adapter or partner executor. GPA-06 records source evidence and independent outcomes. A possible external mutation with no result is held for GPA-08 reconciliation before replay. GPA-07 supplies authorised retrieval/history and separate acknowledgements. GPA-08 publishes durable events and supports missed-event recovery. GPA-12 resolves faults without changing original route or business data.
+Text equivalent: GPA-03 checks trusted identity and current authority → GPA-04 validates operation intent and saves one saved receipt per accepted invoice/item → GPA-05 delegates customer send or inbound receipt to its owning service. A final exchange plan assigns each action to an adapter or partner executor. GPA-06 records source evidence and independent outcomes. A possible external mutation with no result is held for GPA-08 reconciliation before repeating the action. GPA-07 supplies authorised retrieval/history and separate acknowledgements. GPA-08 publishes saved events and supports missed-event recovery. GPA-12 resolves faults without changing original route or business data.
 
 | Activity / actor and trigger | Preconditions, operation and postcondition | Exception and recovery owner |
 |---|---|---|
@@ -431,6 +440,7 @@ These are **future acceptance scenarios**, not claims that implementation tests 
 | GPA-A17 Country-rule isolation | Shared-platform direction; R11/12 | 02–06/09/10; INT-02–06/09/14/15; D02/03/05/07/10/11 | Synthetic second-country binding cannot inherit Spain identity, public-route/copy/reporting or deadline rules; missing country policy holds work; Spain change leaves other binding unaffected. |
 | GPA-A18 Implementation reuse qualification | PRD-SEI-223/227; R07/12/14 | 01/02/05/12; INT-01/03/05/06/16; D01/03/05/12 | Actual API/domain/DTS build/contracts and gaps recorded; selected mapping/profile/operations pass; absent inbound/four-syntax/signing coverage is explicit and cannot activate by assumption. |
 | GPA-A19 Scoped route/discovery access | PA-FR16; 213 FR26/27; R02/03/10/12 | 03/09; INT-02/03/14; D02/03/10/12 | Authorised route/connection reads expose no secrets; lookup retains rule/source/time/freshness and unresolved outcomes; an advisory result cannot authorise final dispatch or expand provider access. |
+| GPA-A20 Shared foundation across customer and operator roles | R03/05/06/10/12/14 | GPA-02/05/09/10; D01/03/05/06/10/11; SPEC-SEI-014 SPC-A01/02/05/08/11 | Products and partners use the same connection/route contract. New operator qualification preserves existing connections/history and does not activate routes, close an interconnection gate or assign a second executor. |
 
 Security evidence also covers authenticated principal/role tampering, provider self-grant, forged work claim, callback endpoint abuse, unsafe file/reference input, evidence replay, unrestricted audit access and sandbox/production crossover under GPA-A02/06/07/09/14/16. Findings need owners and closure evidence before production.
 
