@@ -37,8 +37,9 @@ TITLES = {
     'RCV-06':'Download stored public file',
     'RCV-07':'Process received invoice',
     'RCV-11':'Invoice available in ERP',
-    'LIF-03':'Record buyer decision',
-    'LIF-07':'Track outcomes and reporting',
+    'LIF-01':'Provide invoice status information',
+    'LIF-03':'Record buyer decision or payment',
+    'LIF-07':'Update status and required reporting',
     'LIF-09':'Show status and next action',
     'EXT-01':'Request route change',
     'EXT-02':'Switch future traffic safely',
@@ -58,7 +59,7 @@ SUMMARY_EDGES = [
     ('OUT-13','OUT-14','flow'),('OUT-13','OUT-15','conditional'),
     ('RCV-04','RCV-07','flow'),('RCV-05','RCV-07','flow'),
     ('RCV-07','RCV-11','flow'),('RCV-04','RCV-06','access'),
-    ('LIF-03','LIF-07','flow'),('LIF-07','LIF-09','flow'),
+    ('LIF-01','LIF-07','flow'),('LIF-03','LIF-07','flow'),('LIF-07','LIF-09','flow'),
     ('EXT-01','EXT-02','flow'),('EXT-02','EXT-05','flow'),
     ('END-01','END-02','flow'),('END-02','END-03','flow'),
     ('END-03','END-05','flow'),('END-03','END-04','conditional'),
@@ -68,7 +69,9 @@ SUMMARY_NOTES = {
     'OUT-01':'The ERP owns draft review and invoice issuance. Detailed preparation and final checks remain in SPEC-SEI-007.',
     'OUT-13':'Use a qualified recipient route. Track recipient delivery and any required public copy separately. The owning spec explains checks and recovery.',
     'OUT-14':'Deliver through the qualified public or private recipient route. This does not establish buyer acceptance.',
-    'LIF-07':'Preserve separate delivery, public-copy, buyer-action and reporting evidence. Technical acknowledgement does not establish buyer acceptance.',
+    'LIF-01':'Receive public-platform status-query results or private-platform evidence through a qualified interface. Use platform notifications only where a confirmed contract supports them.',
+    'LIF-03':'Separate authorised customer/ERP decisions and payment facts from incoming platform status information. Report a fact only when the applicable rule requires it.',
+    'LIF-07':'Preserve platform evidence and customer/ERP facts. Update independent status dimensions and track required reports separately; receiving an update does not automatically report it again.',
     'EXT-01':'Optional request to change the receiving or sending route. Full service exit is covered in the separate offboarding journey.',
     'EXT-02':'Check destination readiness and apply an approved boundary for future traffic. Earlier invoices retain their actual route and obligations.',
     'EXT-05':'Preserve permitted records and access needed for earlier invoices after a route change.',
@@ -93,8 +96,8 @@ GROUPS = [
         ['OUT-01'],['OUT-08','OUT-10','OUT-11','OUT-13'],['OUT-14','OUT-15']]),
     ('inbound',['Invoice sources','Receive and process','ERP / customer access'],[
         ['RCV-04','RCV-05'],['RCV-07'],['RCV-06','RCV-11']]),
-    ('lifecycle',['Buyer action','Lifecycle coordination','Customer view'],[
-        ['LIF-03'],['LIF-07'],['LIF-09']]),
+    ('lifecycle',['Platform / business inputs','Lifecycle coordination','Customer view'],[
+        ['LIF-01','LIF-03'],['LIF-07'],['LIF-09']]),
     ('route-change',['Customer request','Controlled change','Historical continuity'],[
         ['EXT-01'],['EXT-02'],['EXT-05']]),
     ('offboarding',['Exit request','Continuity and records','Controlled closure'],[
@@ -107,7 +110,7 @@ for i,(slug,columns,groups) in enumerate(GROUPS):
     nodes=[dict(n,col=next(j for j,g in enumerate(groups) if n['id'] in g)) for n in ALL['nodes'] if n['id'] in ids]
     edges=[e for e in ALL['edges'] if e['source'] in ids and e['target'] in ids]
     PANELS.append(dict(slug=slug,title=phase['title'],note=phase['note'],columns=columns,nodes=nodes,edges=edges))
-assert len({n['id'] for p in PANELS for n in p['nodes']})==30
+assert len({n['id'] for p in PANELS for n in p['nodes']})==31
 assert {n['spec'] for n in ALL['nodes']}=={f'SPEC-SEI-{i:03}' for i in range(1,14)}
 
 def layout(panel,width=1660):
@@ -188,7 +191,7 @@ for panel in PANELS:
         'Authorise a business and establish readiness for the selected capability.',
         'ERP owns issuance. Recipient delivery and a required public copy have separate results.',
         'Public and private sources converge. Saved-file download does not wait for ERP processing.',
-        'Track evidence and buyer actions. Technical acknowledgement does not mean buyer acceptance.',
+        'Receive platform status and business events; track required reports separately.',
         'Change future traffic while preserving permitted work and records for earlier invoices.',
         'Leave the service safely. Export and retention are separate from closing access.',
     ]

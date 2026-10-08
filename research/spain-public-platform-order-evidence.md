@@ -5,7 +5,7 @@ type: research
 status: draft
 owner: TBD — Spain Compliance and Public Platform Technical Owners
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-08
 ---
 
 # Spain public platform order — retrieval and download evidence
@@ -32,6 +32,17 @@ This supporting evidence note records the supplied **Order HAC/1028/2026**, date
 | E-06 | Article 6 defines the invoice code using issuer NIF, series, number and issue date. | Preserve the provider identity and these business identity elements. | Exact encoding, separators, normalisation and collision handling in the published technical contract. |
 | E-07 | Article 7.1 provides presumed acceptance where there is no rejection or later rectifying invoice. | Show this as a derived legal view. File download, technical receipt and an explicit customer acceptance remain distinct. | Lifecycle precedence and the approved country rule pack. This is not a four-day automatic-acceptance timer. |
 | E-08 | Article 5 defines validation, admitted/rejected results, receipt evidence, duplicate cases and a technical-outage provision for sending. | Submission must follow the final order, with reconciliation before unsafe repeat or copy withdrawal. | Technical schemas/error catalogue and operational interpretation. Sending outage rules must not become retrieval deadlines. |
+
+## Official check for lifecycle status intake
+
+Checked against live official sources on **8 October 2026**:
+
+- [AEAT SPFE guidance](https://sede.agenciatributaria.gob.es/Sede/iva/factura-electronica/cuestiones-generales/solucion-publica-facturacion-electronica.html) confirms availability of invoices and their states, alongside payment monitoring.
+- [AEAT participant obligations](https://sede.agenciatributaria.gob.es/Sede/iva/factura-electronica/cuestiones-generales/obligaciones-intervinientes-sistema-factura-electronica.html) distinguishes recipient reports to the issuer from payment information sent to SPFE.
+- [AEAT private-platform guidance](https://sede.agenciatributaria.gob.es/Sede/iva/factura-electronica/cuestiones-generales/plataformas-privadas-intercambio.html) includes payment-state communication in platform interconnection.
+- [Published order, Articles 8 and 10–11](https://www.boe.es/eli/es/o/2026/10/02/hac1028) distinguishes reporting responses from status/payment consultation and requires authorised access.
+
+**Design conclusion:** SPEC-SEI-009 must show incoming platform status information separately from customer/ERP events and outgoing reports. Public status queries have official functional support. The reviewed sources do not establish an automatic public notification API. Exact query contracts, private-provider interfaces, refresh frequency, mapping and activation evidence remain open. A failure to refresh cannot establish acceptance or payment; Sage history reads cannot recover external information never captured by Sage.
 
 ## What “bulk download” could mean
 

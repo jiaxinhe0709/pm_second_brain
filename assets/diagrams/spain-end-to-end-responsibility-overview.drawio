@@ -152,7 +152,7 @@
         <mxCell id="phase-3-title" value="4 · Lifecycle and reporting" style="text;html=0;align=left;fontColor=#ffffff;fontSize=23;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="3071.0" y="126" width="823.0" height="32" as="geometry" />
         </mxCell>
-        <mxCell id="phase-3-note" value="Track evidence and buyer actions. Technical acknowledgement does not mean buyer acceptance." style="text;html=0;align=left;fontColor=#ffffff;fontSize=15;spacing=0;" parent="1" vertex="1">
+        <mxCell id="phase-3-note" value="Receive platform status and business events; track required reports separately." style="text;html=0;align=left;fontColor=#ffffff;fontSize=15;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="3071.0" y="157" width="823.0" height="26" as="geometry" />
         </mxCell>
         <mxCell id="phase-3-lane-0" value="Customer / accountant" style="text;html=0;align=left;fontColor=#555555;fontSize=12;spacing=0;" parent="1" vertex="1">
@@ -266,7 +266,7 @@
         <mxCell id="column-8" value="ERP / customer access" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
           <mxGeometry x="2680.0" y="195" width="285.0" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="column-9" value="Buyer action" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
+        <mxCell id="column-9" value="Platform / business inputs" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
           <mxGeometry x="3055.0" y="195" width="285.0" height="26" as="geometry" />
         </mxCell>
         <mxCell id="column-10" value="Lifecycle coordination" style="text;html=0;align=center;fontSize=15;" parent="1" vertex="1">
@@ -388,12 +388,17 @@
             <mxGeometry x="2696.0" y="403" width="253.0" height="84" as="geometry" />
           </mxCell>
         </object>
-        <object id="LIF-03" label="Record buyer decision&#10;SPEC-SEI-009" link="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md" tooltip="">
+        <object id="LIF-01" label="Provide invoice status information&#10;SPEC-SEI-009" link="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md" tooltip="Receive public-platform status-query results or private-platform evidence through a qualified interface. Use platform notifications only where a confirmed contract supports them.">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
+            <mxGeometry x="3071.0" y="1167" width="253.0" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="LIF-03" label="Record buyer decision or payment&#10;SPEC-SEI-009" link="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md" tooltip="Separate authorised customer/ERP decisions and payment facts from incoming platform status information. Report a fact only when the applicable rule requires it.">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
             <mxGeometry x="3071.0" y="264" width="253.0" height="84" as="geometry" />
           </mxCell>
         </object>
-        <object id="LIF-07" label="Track outcomes and reporting&#10;SPEC-SEI-009" link="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md" tooltip="Preserve separate delivery, public-copy, buyer-action and reporting evidence. Technical acknowledgement does not establish buyer acceptance.">
+        <object id="LIF-07" label="Update status and required reporting&#10;SPEC-SEI-009" link="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md" tooltip="Preserve platform evidence and customer/ERP facts. Update independent status dimensions and track required reports separately; receiving an update does not automatically report it again.">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
             <mxGeometry x="3356.0" y="542" width="253.0" height="84" as="geometry" />
           </mxCell>
@@ -565,7 +570,15 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-16" source="LIF-03" target="LIF-07" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+        <mxCell id="edge-16" source="LIF-01" target="LIF-07" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3334.0" y="1209.0" />
+              <mxPoint x="3334.0" y="584.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-17" source="LIF-03" target="LIF-07" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="3334.0" y="306.0" />
@@ -573,7 +586,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-17" source="LIF-07" target="LIF-09" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+        <mxCell id="edge-18" source="LIF-07" target="LIF-09" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="3619.0" y="584.0" />
@@ -581,7 +594,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-18" source="EXT-01" target="EXT-02" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+        <mxCell id="edge-19" source="EXT-01" target="EXT-02" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="4279.0" y="306.0" />
@@ -589,7 +602,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-19" source="EXT-02" target="EXT-05" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+        <mxCell id="edge-20" source="EXT-02" target="EXT-05" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="4564.0" y="584.0" />
@@ -597,7 +610,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-20" source="END-01" target="END-02" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+        <mxCell id="edge-21" source="END-01" target="END-02" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="5224.0" y="306.0" />
@@ -605,12 +618,12 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-21" source="END-02" target="END-03" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+        <mxCell id="edge-22" source="END-02" target="END-03" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-22" source="END-03" target="END-05" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+        <mxCell id="edge-23" source="END-03" target="END-05" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="5509.0" y="723.0" />
@@ -618,7 +631,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-23" source="END-03" target="END-04" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;dashPattern=6 4;">
+        <mxCell id="edge-24" source="END-03" target="END-04" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;dashPattern=6 4;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="5509.0" y="723.0" />
@@ -626,7 +639,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-24" source="END-04" target="END-05" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;dashPattern=6 4;">
+        <mxCell id="edge-25" source="END-04" target="END-05" edge="1" parent="1" style="edgeStyle=none;rounded=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;dashPattern=6 4;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points" />
           </mxGeometry>

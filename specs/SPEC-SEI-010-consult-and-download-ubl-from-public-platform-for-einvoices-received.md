@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-07
+updated: 2026-10-08
 reviewers: []
 related:
   - GLO-SEI-001
@@ -45,7 +45,7 @@ This **proposed logical design** explains how Sage finds invoices received throu
 
 The saved source file remains available if later mapping or ERP delivery fails. Those failures must not lose the file or force retrieval to start again. ERP means the business software that owns invoice data and accounting work.
 
-[PRD-SEI-211](../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md), FR1–FR55, defines the product requirements. [SPEC-SEI-006](SPEC-SEI-006-invoice-receiving-solution.md) owns validation, duplicate-invoice checks, transformation and delivery to Sage products after the source file has been saved. [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns the interpretation of buyer decisions and payment status. Viewing or downloading a file does not mean that the buyer accepts the invoice.
+[PRD-SEI-211](../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md), FR1–FR55, defines the product requirements. [SPEC-SEI-006](SPEC-SEI-006-invoice-receiving-solution.md) owns validation, duplicate-invoice checks, transformation and delivery to Sage products after the source file has been saved. [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns public/private status consultation and interpretation, plus separate authorised buyer decisions and payment facts. A status query refreshes source information; a saved-file download reads stored bytes. These are distinct operations, even when one connector supports both. Viewing or downloading a file does not mean that the buyer accepts the invoice.
 
 The [final Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028), Articles 9–11, confirms automated recovery, immediate availability for conservation, consultation/download channels and third-party representation requirements. The [source snapshot and evidence note](../research/spain-public-platform-order-evidence.md) records provenance and limits. The order does not provide the complete new-invoice discovery API or establish UBL 2.5 acceptance.
 
