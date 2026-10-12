@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="onboarding-service-continuity-recovery-process" name="Recover the affected function and preserve valid services">
+    <mxGraphModel page="1" pageWidth="2340" pageHeight="1120">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Recover the affected function and preserve valid services&#10;All ONB-S01–08 journeys use one recovery model. Before external effects keep the previous safe arrangement; possible receiving-point changes require observation and a scoped hold if unsafe." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="12" width="2284" height="95" />
+        </mxCell>
+        <mxCell id="legend" value="Proposed design · Solid: shared handoff · Dashed: conditional work or recovery · Diamond: decision · Darker grey: recovery" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="104" width="2284" height="36" />
+        </mxCell>
+        <mxCell id="lane-0" value="Customer / accountant" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="160" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-0" value="Customer / accountant" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="160" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-1" value="ERP / product" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="300" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-1" value="ERP / product" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="300" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-2" value="Domain Service - E-Invoice Service" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="440" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-2" value="Domain Service -&#10;E-Invoice Service" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="440" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-3" value="Domain Service - Other Services" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="580" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-3" value="Domain Service - Other&#10;Services" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="580" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-4" value="Operations / support" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="720" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-4" value="Operations / support" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="720" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-5" value="Public / private platforms" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="860" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-5" value="Public / private&#10;platforms" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="860" width="180" height="140" />
+        </mxCell>
+        <object id="capture" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Capture operation and pre-state&#10;Parent scenario and checkpoint&#10;OFR-01" tooltip="Parent scenario and checkpoint">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="240" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="classify" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Classify fault and repeat safety&#10;Exact provider, role and scope&#10;OFR-02" tooltip="Exact provider, role and scope">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="535" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="scope" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Preserve or hold affected scope&#10;Connection/Routing decides&#10;OFR-02/INT-08" tooltip="Connection/Routing decides">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="830" y="598" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="correct" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Correct only affected evidence&#10;New input or plan revision&#10;OFR-03" tooltip="New input or plan revision">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1125" y="178" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="safe" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Retry only proven safe work&#10;Original identity and budget&#10;OFR-04" tooltip="Original identity and budget">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1125" y="598" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="hold" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Hold possible external effect&#10;No conflicting repeat&#10;OFR-05" tooltip="No conflicting repeat">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1125" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="observe" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Observe the original effect&#10;Reliable source and evidence&#10;OFR-06" tooltip="Reliable source and evidence">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1420" y="878" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="escalate" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Own unresolved or unsafe work&#10;Evidence and next action&#10;OFR-07" tooltip="Evidence and next action">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1420" y="738" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="resume" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Recheck parent after resolution&#10;Activation stays separate&#10;OFR-08" tooltip="Activation stays separate">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1715" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="result" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Show per-function ERP results&#10;Readiness and activation apart&#10;ONB-11" tooltip="Readiness and activation apart">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="2010" y="318" width="260" height="104" />
+          </mxCell>
+        </object>
+        <mxCell id="edge-0" source="capture" target="classify" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-1" source="classify" target="scope" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="805" y="510.0" />
+              <mxPoint x="805" y="650.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-2" source="scope" target="correct" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1100" y="650.0" />
+              <mxPoint x="1100" y="230.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" source="scope" target="safe" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-4" source="scope" target="hold" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1100" y="650.0" />
+              <mxPoint x="1100" y="510.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-5" source="correct" target="resume" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1700" y="230" />
+              <mxPoint x="1700" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-6" source="safe" target="resume" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1700" y="650" />
+              <mxPoint x="1700" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-7" source="hold" target="observe" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1395" y="510" />
+              <mxPoint x="1395" y="860" />
+              <mxPoint x="1550" y="860" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-8" source="observe" target="resume" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1695" y="930" />
+              <mxPoint x="1695" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-9" source="observe" target="escalate" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-10" source="escalate" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1690" y="790.0" />
+              <mxPoint x="1690" y="370.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-11" source="resume" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1985" y="510.0" />
+              <mxPoint x="1985" y="370.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="boundary" value="Logical responsibility groups; actual service ownership, API fields and provider interfaces require qualification.&#10;Connection checks and readiness do not activate a route. Phase gates and supported scope apply to every branch.&#10;Preserve valid unaffected services. Reconcile possible external effects before repeating a change or reporting activation." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="1010" width="2284" height="96" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

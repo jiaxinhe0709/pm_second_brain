@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="onboarding-existing-provider-connection-process" name="Connect the current private provider to Sage">
+    <mxGraphModel page="1" pageWidth="2340" pageHeight="1120">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Connect the current private provider to Sage&#10;ONB-S03 keeps the existing provider. Bind the authorised account and qualify each function; initial Sage route activation may still be needed. ONB-S01 adds only contract-required new enrolment." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="12" width="2284" height="95" />
+        </mxCell>
+        <mxCell id="legend" value="Proposed design · Solid: shared handoff · Dashed: conditional work or recovery · Diamond: decision · Darker grey: recovery" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="104" width="2284" height="36" />
+        </mxCell>
+        <mxCell id="lane-0" value="Customer / accountant" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="160" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-0" value="Customer / accountant" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="160" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-1" value="ERP / product" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="300" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-1" value="ERP / product" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="300" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-2" value="Domain Service - E-Invoice Service" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="440" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-2" value="Domain Service -&#10;E-Invoice Service" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="440" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-3" value="Domain Service - Other Services" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="580" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-3" value="Domain Service - Other&#10;Services" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="580" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-4" value="Operations / support" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="720" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-4" value="Operations / support" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="720" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-5" value="Public / private platforms" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="860" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-5" value="Public / private&#10;platforms" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="860" width="180" height="140" />
+        </mxCell>
+        <object id="request" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Keep provider and connect Sage&#10;Selected sending or receiving&#10;ONB-01" tooltip="Selected sending or receiving">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="240" y="178" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="api" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Submit the connection request&#10;Common Global API contract&#10;ONB-01" tooltip="Common Global API contract">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="535" y="318" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="identity" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check business and permission&#10;Per function and environment&#10;ONB-02" tooltip="Per function and environment">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="535" y="598" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="assess" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Identify existing account&#10;Observe setup and gaps&#10;ONB-10" tooltip="Observe setup and gaps">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="830" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="configure" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Bind missing Sage settings&#10;No duplicate enrolment&#10;ONB-05" tooltip="No duplicate enrolment">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1125" y="598" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="qualify" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check each selected function&#10;Transport, authority, profile&#10;ONB-06" tooltip="Transport, authority, profile">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1420" y="598" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="external" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Observe required provider state&#10;Publish only if required&#10;ONB-06" tooltip="Publish only if required">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1420" y="878" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="activate" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Confirm or activate Sage route&#10;Explicit authority if needed&#10;ONB-07" tooltip="Explicit authority if needed">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1715" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="result" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Show per-function ERP results&#10;Current provider retained&#10;ONB-11" tooltip="Current provider retained">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="2010" y="318" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="recover" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Resolve the affected setup&#10;No provider substitution&#10;ONB-08" tooltip="No provider substitution">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1715" y="738" width="260" height="104" />
+          </mxCell>
+        </object>
+        <mxCell id="edge-0" source="request" target="api" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="510" y="230.0" />
+              <mxPoint x="510" y="370.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-1" source="api" target="identity" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-2" source="identity" target="assess" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="805" y="650.0" />
+              <mxPoint x="805" y="510.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" source="assess" target="configure" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1100" y="510.0" />
+              <mxPoint x="1100" y="650.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-4" source="configure" target="qualify" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-5" source="qualify" target="external" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-6" source="external" target="qualify" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-7" source="qualify" target="activate" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1690" y="650.0" />
+              <mxPoint x="1690" y="510.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-8" source="activate" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1985" y="510.0" />
+              <mxPoint x="1985" y="370.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-9" source="qualify" target="recover" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1690" y="650.0" />
+              <mxPoint x="1690" y="790.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-10" source="recover" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1985" y="790.0" />
+              <mxPoint x="1985" y="370.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="boundary" value="Logical responsibility groups; actual service ownership, API fields and provider interfaces require qualification.&#10;Connection checks and readiness do not activate a route. Phase gates and supported scope apply to every branch.&#10;Preserve valid unaffected services. Reconcile possible external effects before repeating a change or reporting activation." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="1010" width="2284" height="96" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

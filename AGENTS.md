@@ -15,6 +15,14 @@ Read `schema/DOCUMENT_RULES.md` before creating or changing managed documents.
 - Write specs for engineering and stakeholders who use English as a second
   language. Use plain language, explain necessary technical terms, and preserve
   precise behaviour, technical IDs, controls and open decisions.
+- Target controlled text that is "80% of the way to ASD-STE100". Treat this as
+  a practical writing preference, not a measured compliance score. Use short,
+  active sentences, one main idea per sentence and one term per concept. Name
+  the actor, action, condition and result; remove filler without losing meaning.
+- Preserve the current spec format, section order, tables and diagram layout
+  unless a structural change is requested. Support each process diagram with
+  concise wording that explains its purpose, key decisions, outcomes and recovery
+  behaviour. Keep IDs and terms aligned between the text and diagram.
 - For each Spain spec, explicitly identify intended Spain use, reusable design
   patterns, shared capabilities needing country rules or adapters, Spain-specific
   behaviour, and unknown implementation coverage.

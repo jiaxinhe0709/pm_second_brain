@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-08
+updated: 2026-10-09
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -87,6 +87,7 @@ Definitions explain the current source documents. They do not approve an archite
 | Capability | A supported function, such as receiving invoices or signing them. Each operation used to provide it needs qualification for the selected scope. |
 | Integration role | The capacity in which Sage uses an interface: customer-provider integration or platform interconnection. The role selects qualified contracts and controls; it does not grant customer authority. A capability qualified for one role is not automatically ready for the other. |
 | Connection | Configuration for communicating with a platform or provider. A configured connection is separate from external registration, readiness and route activation. |
+| Onboarding | Establishing or confirming the setup needed for a business to use selected functions through Sage. It can connect an existing service, add a function or coordinate an authorised platform change; it does not imply first-time external registration or active invoice exchange. |
 | Registration | External enrolment or recorded configuration under the selected provider contract. A local connection record does not prove registration or receiving reachability. |
 | Readiness | The current result of capability checks for a stated legal entity, actor, environment and route/profile, with evidence, limitations and a recheck condition. Readiness is separate from authority, route activation and invoice outcomes. |
 | Route | The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans. |
@@ -166,7 +167,7 @@ Definitions explain the current source documents. They do not approve an archite
 | SQS / DLQ / redrive | Amazon Simple Queue Service; dead-letter queue for messages that could not be processed; controlled replay of those messages. Redrive keeps original identity and safe execution rules. |
 | NAS / JWT / IAM | The authorisation service named NAS in the DTS sources; JSON Web Token; identity and access management. The NAS name does not establish its complete protocol. |
 | CDK / MIME type | Cloud Development Kit for deployment; a label identifying a file format. Neither proves the content or capability is valid. |
-| B2B / B2G | Business-to-business; business-to-government. Different scope or network rules may apply. A tax-submission capability is not automatically a qualified B2B invoice-exchange capability. |
+| B2B / B2G / B2C | Business to business; business to government; business to consumer. Different transaction scope and service/network rules apply. International trade between businesses is still B2B, but the label alone does not establish inclusion in a domestic mandate. B2G or tax-submission capability is not automatically qualified B2B invoice exchange. |
 | SLA / RTO / RPO | Service-level agreement; target time to restore service; maximum acceptable loss of recent data. Exact targets require approval and measurement. |
 | RACI / LFS | Responsible, accountable, consulted and informed; Logical Feature Specification, Part 2 of these specs. |
 
