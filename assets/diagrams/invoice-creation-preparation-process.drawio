@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="invoice-creation-preparation-process" name="Prepare invoice data, generate UBL and hand off the issued revision">
+    <mxGraphModel page="1" pageWidth="2670" pageHeight="1090">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Prepare invoice data, generate UBL and hand off the issued revision&#10;Check the business scenario and exact profile. Return issues or a checked representation. ERP issuance and sending remain separate." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="28" y="12" width="2614" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="Solid: main handoff · Dashed: qualification, conditional work or recovery · Darker grey cards: recovery" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="28" y="104" width="2614" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-0" value="Customer / accountant" style="swimlane;horizontal=0;noLabel=1;startSize=200;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry x="20" y="160" width="2630" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-0-label" value="Customer / accountant" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="160" width="180" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-1" value="ERP / product" style="swimlane;horizontal=0;noLabel=1;startSize=200;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry x="20" y="295" width="2630" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-1-label" value="ERP / product" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="295" width="180" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-2" value="Domain Service - E-Invoice Service" style="swimlane;horizontal=0;noLabel=1;startSize=200;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry x="20" y="430" width="2630" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-2-label" value="Domain Service -&#10;E-Invoice Service" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="430" width="180" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-3" value="Domain Service - Other Services" style="swimlane;horizontal=0;noLabel=1;startSize=200;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry x="20" y="565" width="2630" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-3-label" value="Domain Service - Other&#10;Services" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="565" width="180" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-4" value="Operations / support" style="swimlane;horizontal=0;noLabel=1;startSize=200;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry x="20" y="700" width="2630" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-4-label" value="Operations / support" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="700" width="180" height="135" as="geometry" />
+        </mxCell>
+        <object id="scenario" label="Select the business scenario&#10;IC-04" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="240" y="186" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="source" label="Submit an invoice revision&#10;IC-01" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="240" y="321" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="authority" label="Check business authority and issuer roles&#10;IC-02" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="535" y="456" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="bundle" label="Select qualified mapper and rules&#10;IC-03" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="830" y="591" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="checks" label="Check type, links, identity and amounts&#10;IC-04–06" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="1125" y="456" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="valid" label="Checks pass?&#10;IC-06" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="1420" y="456" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="generate" label="Generate a separate UBL file&#10;IC-07" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="1420" y="591" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="output" label="Validate exact bytes and business meaning&#10;IC-08" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="1715" y="591" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="result" label="Save and return result and next action&#10;IC-09" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="2010" y="456" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="issue" label="Review the result; issue in ERP&#10;IC-10" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="2010" y="321" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="handoff" label="Bind final revision; hand to Sending&#10;IC-10" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="2305" y="456" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="recover" label="Read original task; resume only pending work&#10;IC-11" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="1420" y="726" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="send_recover" label="Read original Sending receipt; resume owned work&#10;IC-11" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="2305" y="726" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="edit" label="Correct the draft in a new revision&#10;IC-12" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry x="1125" y="321" width="260" height="84" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="edge-0" source="scenario" target="source" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;fontSize=14;labelBackgroundColor=#ffffff;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-1" source="source" target="authority" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;fontSize=14;labelBackgroundColor=#ffffff;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="363.0" />
+              <mxPoint x="510" y="498.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-2" source="authority" target="bundle" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;fontSize=14;labelBackgroundColor=#ffffff;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="805" y="498.0" />
+              <mxPoint x="805" y="633.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" source="bundle" target="checks" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;fontSize=14;labelBackgroundColor=#ffffff;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1100" y="633.0" />
+              <mxPoint x="1100" y="498.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-4" source="checks" target="valid" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;fontSize=14;labelBackgroundColor=#ffffff;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-5" source="valid" target="generate" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;fontSize=14;labelBackgroundColor=#ffffff;" value="Facts pass">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-6" source="valid" target="output" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;fontSize=14;labelBackgroundColor=#ffffff;dashed=1;" value="UBL passes">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1550" y="558" />
+              <mxPoint x="1845" y="558" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-7" source="valid" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;fontSize=14;labelBackgroundColor=#ffffff;dashed=1;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-8" source="generate" target="output" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;fontSize=14;labelBackgroundColor=#ffffff;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-9" source="output" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;fontSize=14;labelBackgroundColor=#ffffff;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1985" y="633.0" />
+              <mxPoint x="1985" y="498.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-10" source="result" target="issue" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;fontSize=14;labelBackgroundColor=#ffffff;dashed=1;" value="Eligible">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-11" source="issue" target="handoff" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;fontSize=14;labelBackgroundColor=#ffffff;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2280" y="363.0" />
+              <mxPoint x="2280" y="498.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-12" source="result" target="edit" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.0;exitY=0.5;entryX=1.0;entryY=0.5;fontSize=14;labelBackgroundColor=#ffffff;dashed=1;" value="Issues">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1990" y="498" />
+              <mxPoint x="1990" y="420" />
+              <mxPoint x="1402" y="420" />
+              <mxPoint x="1402" y="363" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-13" source="edit" target="source" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.0;exitY=0.5;entryX=1.0;entryY=0.5;fontSize=14;labelBackgroundColor=#ffffff;dashed=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-14" source="generate" target="recover" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;fontSize=14;labelBackgroundColor=#ffffff;dashed=1;" value="Unknown">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-15" source="recover" target="generate" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.0;exitY=0.5;entryX=0.0;entryY=0.5;fontSize=14;labelBackgroundColor=#ffffff;dashed=1;" value="Resume">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1404" y="768" />
+              <mxPoint x="1404" y="633" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-16" source="handoff" target="send_recover" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;fontSize=14;labelBackgroundColor=#ffffff;dashed=1;" value="Unknown">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-17" source="send_recover" target="handoff" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.0;exitY=0.5;entryX=0.0;entryY=0.7619047619047619;fontSize=14;labelBackgroundColor=#ffffff;dashed=1;" value="Resume">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2287" y="768" />
+              <mxPoint x="2287" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="boundary" value="Prebuilt UBL bypasses generation. Changed final data returns to IC-03–09. Missing authority or profile evidence blocks.&#10;ERP owns numbering and issuance. Sending owns final route, trust, dispatch checks and independent public-copy actions.&#10;SPEC-SEI-015 · Reconcile before resume. Return existing completed results; never repeat completed generation or sending." style="text;whiteSpace=wrap;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="28" y="990" width="2614" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,2 +1,166 @@
 <?xml version='1.0' encoding='utf-8'?>
-<mxfile host="app.diagrams.net" agent="Codex" version="24.7.17" type="device"><diagram id="onboarding-public-readiness-process" name="Public onboarding: capability readiness"><mxGraphModel dx="2800" dy="1126" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2800" pageHeight="1126" math="0" shadow="0"><root><mxCell id="0" /><mxCell id="1" parent="0" /><mxCell id="title" value="Check public-platform setup requirements" style="text;html=1;align=left;fontSize=26;fontStyle=1;" vertex="1" parent="1"><mxGeometry as="geometry" x="25" y="15" width="2750" height="42" /></mxCell><mxCell id="subtitle" value="Logical responsibility groups; exact service owners and implementation remain open in the owning spec." style="text;html=1;align=left;fontSize=14;" vertex="1" parent="1"><mxGeometry as="geometry" x="25" y="58" width="2750" height="30" /></mxCell><mxCell id="phase0" value="CONFIRM THE REQUEST" style="rounded=1;fillColor=#d7d7d7;strokeColor=none;fontColor=#333333;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;html=1;" vertex="1" parent="1"><mxGeometry x="285" y="98" width="585" height="28" as="geometry" /></mxCell><mxCell id="phase1" value="CHECK &amp; PREPARE" style="rounded=1;fillColor=#d7d7d7;strokeColor=none;fontColor=#333333;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;html=1;" vertex="1" parent="1"><mxGeometry x="880" y="98" width="585" height="28" as="geometry" /></mxCell><mxCell id="phase2" value="APPLY &amp; CONFIRM THE CHANGE" style="rounded=1;fillColor=#d7d7d7;strokeColor=none;fontColor=#333333;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;html=1;" vertex="1" parent="1"><mxGeometry x="1475" y="98" width="605" height="28" as="geometry" /></mxCell><mxCell id="phase3" value="KEEP HISTORY &amp; CLOSE SAFELY" style="rounded=1;fillColor=#d7d7d7;strokeColor=none;fontColor=#333333;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;html=1;" vertex="1" parent="1"><mxGeometry x="2090" y="98" width="680" height="28" as="geometry" /></mxCell><mxCell id="lane-0" value="Customer / accountant" style="shape=swimlane;horizontal=0;startSize=250;noLabel=1;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1"><mxGeometry as="geometry" x="25" y="170" width="2750" height="164" /></mxCell><mxCell id="lane-0-label" value="&lt;b&gt;Customer / accountant&lt;/b&gt;" style="text;html=1;fontSize=15;align=center;verticalAlign=middle;whiteSpace=wrap;spacing=16;strokeColor=none;fillColor=none;" vertex="1" parent="1"><mxGeometry as="geometry" x="25" y="170" width="250" height="164" /></mxCell><mxCell id="lane-1" value="ERP / product" style="shape=swimlane;horizontal=0;startSize=250;noLabel=1;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1"><mxGeometry as="geometry" x="25" y="348" width="2750" height="164" /></mxCell><mxCell id="lane-1-label" value="&lt;b&gt;ERP / product&lt;/b&gt;" style="text;html=1;fontSize=15;align=center;verticalAlign=middle;whiteSpace=wrap;spacing=16;strokeColor=none;fillColor=none;" vertex="1" parent="1"><mxGeometry as="geometry" x="25" y="348" width="250" height="164" /></mxCell><mxCell id="lane-2" value="Domain Service - E-Invoice Service" style="shape=swimlane;horizontal=0;startSize=250;noLabel=1;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1"><mxGeometry as="geometry" x="25" y="526" width="2750" height="304" /></mxCell><mxCell id="lane-2-label" value="&lt;b&gt;Domain Service -&lt;br&gt;E-Invoice Service&lt;/b&gt;" style="text;html=1;fontSize=15;align=center;verticalAlign=middle;whiteSpace=wrap;spacing=16;strokeColor=none;fillColor=none;" vertex="1" parent="1"><mxGeometry as="geometry" x="25" y="526" width="250" height="304" /></mxCell><mxCell id="lane-3" value="Domain Service - Other Services" style="shape=swimlane;horizontal=0;startSize=250;noLabel=1;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1"><mxGeometry as="geometry" x="25" y="844" width="2750" height="164" /></mxCell><mxCell id="lane-3-label" value="&lt;b&gt;Domain Service -&lt;br&gt;Other Services&lt;/b&gt;" style="text;html=1;fontSize=15;align=center;verticalAlign=middle;whiteSpace=wrap;spacing=16;strokeColor=none;fillColor=none;" vertex="1" parent="1"><mxGeometry as="geometry" x="25" y="844" width="250" height="164" /></mxCell><mxCell id="e1" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#555555;strokeWidth=2.2;fontColor=#333333;fontSize=11;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="550" y="608" /><mxPoint x="550" y="926" /></Array></mxGeometry></mxCell><mxCell id="e2" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#555555;strokeWidth=2.2;fontColor=#333333;fontSize=11;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="a2" target="a3"><mxGeometry relative="1" as="geometry"><Array as="points" /></mxGeometry></mxCell><mxCell id="e3" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#555555;strokeWidth=2.2;fontColor=#333333;fontSize=11;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1250" y="926" /><mxPoint x="1250" y="613" /></Array></mxGeometry></mxCell><mxCell id="e4" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#555555;strokeWidth=2.2;fontColor=#333333;fontSize=11;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="a4" target="a5" workflowLabel="sufficient"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1610" y="613" /><mxPoint x="1610" y="608" /></Array></mxGeometry></mxCell><mxCell id="label-e4" value="sufficient" style="text;html=1;fontSize=11;align=center;verticalAlign=middle;whiteSpace=wrap;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="1"><mxGeometry as="geometry" x="1628.5" y="581" width="63" height="22" /></mxCell><mxCell id="e5" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#555555;strokeWidth=2.2;fontColor=#333333;fontSize=11;labelBackgroundColor=#ffffff;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1950" y="608" /><mxPoint x="1950" y="430" /></Array></mxGeometry></mxCell><mxCell id="e6" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#555555;strokeWidth=2.2;fontColor=#333333;fontSize=11;labelBackgroundColor=#ffffff;dashed=1;dashPattern=7 5;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="a2" target="a8" workflowLabel="missing grant"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="900" y="926" /><mxPoint x="900" y="252" /></Array></mxGeometry></mxCell><mxCell id="label-e6" value="missing grant" style="text;html=1;fontSize=11;align=center;verticalAlign=middle;whiteSpace=wrap;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="1"><mxGeometry as="geometry" x="907" y="578" width="79.5" height="22" /></mxCell><mxCell id="e7" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#555555;strokeWidth=2.2;fontColor=#333333;fontSize=11;labelBackgroundColor=#ffffff;dashed=1;dashPattern=7 5;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="a4" target="a7" workflowLabel="unknown"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1610" y="613" /><mxPoint x="1610" y="748" /></Array></mxGeometry></mxCell><mxCell id="label-e7" value="unknown" style="text;html=1;fontSize=11;align=center;verticalAlign=middle;whiteSpace=wrap;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="1"><mxGeometry as="geometry" x="1617" y="669.5" width="46.5" height="22" /></mxCell><mxCell id="a8" value="&lt;b&gt;Correct the affected client item&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;Obtain permission or missing evidence&lt;/span&gt;" style="shape=hexagon;dashed=1;dashPattern=7 5;fillColor=#f6f6f6;whiteSpace=wrap;html=1;strokeColor=#333333;strokeWidth=2;fontColor=#111111;fontSize=14;align=center;verticalAlign=middle;spacing=8;fontFamily=Arial;" vertex="1" parent="1"><mxGeometry x="1010" y="202" width="230" height="100" as="geometry" /></mxCell><mxCell id="a6" value="&lt;b&gt;Show the result and next steps&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;This does not activate an invoice route&lt;/span&gt;" style="ellipse;fillColor=#ffffff;whiteSpace=wrap;html=1;strokeColor=#333333;strokeWidth=2;fontColor=#111111;fontSize=14;align=center;verticalAlign=middle;spacing=8;fontFamily=Arial;" vertex="1" parent="1"><mxGeometry x="2060" y="380" width="230" height="100" as="geometry" /></mxCell><mxCell id="a1" value="&lt;b&gt;Start setup for one business&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;Selected function and environment&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#555&quot;&gt;ONB-01&lt;/span&gt;" style="ellipse;fillColor=#ffffff;whiteSpace=wrap;html=1;strokeColor=#333333;strokeWidth=2;fontColor=#111111;fontSize=14;align=center;verticalAlign=middle;spacing=8;fontFamily=Arial;" vertex="1" parent="1"><mxGeometry x="310" y="558" width="230" height="100" as="geometry" /></mxCell><mxCell id="a4" value="&lt;b&gt;Are the required checks complete?&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;Ready, limited or still unknown&lt;/span&gt;" style="rhombus;fillColor=#d7d7d7;whiteSpace=wrap;html=1;strokeColor=#333333;strokeWidth=2;fontColor=#111111;fontSize=14;align=center;verticalAlign=middle;spacing=8;fontFamily=Arial;" vertex="1" parent="1"><mxGeometry x="1360" y="558" width="240" height="110" as="geometry" /></mxCell><mxCell id="a5" value="&lt;b&gt;Record the setup result&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;Keep each function and check separate&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#555&quot;&gt;ONB-04&lt;/span&gt;" style="rounded=1;fillColor=#e8e8e8;whiteSpace=wrap;html=1;strokeColor=#333333;strokeWidth=2;fontColor=#111111;fontSize=14;align=center;verticalAlign=middle;spacing=8;fontFamily=Arial;" vertex="1" parent="1"><mxGeometry x="1710" y="558" width="230" height="100" as="geometry" /></mxCell><mxCell id="a7" value="&lt;b&gt;Check the original setup operation&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;Use the original external request&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#555&quot;&gt;ONB-08&lt;/span&gt;" style="shape=hexagon;dashed=1;dashPattern=7 5;fillColor=#f6f6f6;whiteSpace=wrap;html=1;strokeColor=#333333;strokeWidth=2;fontColor=#111111;fontSize=14;align=center;verticalAlign=middle;spacing=8;fontFamily=Arial;" vertex="1" parent="1"><mxGeometry x="1710" y="698" width="230" height="100" as="geometry" /></mxCell><mxCell id="a2" value="&lt;b&gt;Check business identity and permission&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;Verify the represented business and action&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#555&quot;&gt;ONB-02&lt;/span&gt;" style="rounded=1;fillColor=#e8e8e8;whiteSpace=wrap;html=1;strokeColor=#333333;strokeWidth=2;fontColor=#111111;fontSize=14;align=center;verticalAlign=middle;spacing=8;fontFamily=Arial;" vertex="1" parent="1"><mxGeometry x="660" y="876" width="230" height="100" as="geometry" /></mxCell><mxCell id="a3" value="&lt;b&gt;Check the setup requirements&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:12px&quot;&gt;External evidence and certificate rules&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px;color:#555&quot;&gt;ONB-03&lt;/span&gt;" style="rounded=1;fillColor=#e8e8e8;whiteSpace=wrap;html=1;strokeColor=#333333;strokeWidth=2;fontColor=#111111;fontSize=14;align=center;verticalAlign=middle;spacing=8;fontFamily=Arial;" vertex="1" parent="1"><mxGeometry x="1010" y="876" width="230" height="100" as="geometry" /></mxCell><mxCell id="footer" value="Per legal subject and capability; direct and accountant work items use the same isolated gates. A portfolio returns independent child outcomes. READY is capability readiness, not invoice compliance, external registration or private route activation." style="text;html=1;fontSize=13;align=left;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry as="geometry" x="25" y="1051" width="2750" height="58" /></mxCell></root></mxGraphModel></diagram></mxfile>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="onboarding-public-readiness-process" name="Check public setup and return the readiness result">
+    <mxGraphModel page="1" pageWidth="2340" pageHeight="980">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Check public setup and return the readiness result&#10;Public detail for ONB-S01/02/04/05/07. Run only missing or stale checks from the assessed plan. Public readiness does not activate invoice exchange." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="12" width="2284" height="95" />
+        </mxCell>
+        <mxCell id="legend" value="Proposed design · Solid: shared handoff · Dashed: conditional work or recovery · Diamond: decision · Darker grey: recovery" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="104" width="2284" height="22" />
+        </mxCell>
+        <mxCell id="behaviour-legend" value="Common: shared behaviour · Scenario-specific: selected path · Conditional: only when required" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="130" width="2284" height="24" />
+        </mxCell>
+        <mxCell id="lane-0" value="ERP / product" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="160" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-0" value="ERP / product" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="160" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-1" value="Domain Service - E-Invoice Service" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="300" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-1" value="Domain Service -&#10;E-Invoice Service" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="300" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-2" value="Domain Service - Other Services" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="440" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-2" value="Domain Service - Other&#10;Services" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="440" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-3" value="Operations / support" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="580" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-3" value="Operations / support" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="580" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-4" value="Public / private platforms" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="720" width="2300" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-4" value="Public / private&#10;platforms" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="720" width="180" height="140" />
+        </mxCell>
+        <object id="plan" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Use the assessed public setup plan&#10;Common ONB-01/02 already complete&#10;ONB-10 · Common" tooltip="Common ONB-01/02 already complete">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="240" y="318" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="evidence" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check business identity and authority&#10;Recheck affected ONB-02 evidence&#10;ONB-03 · Common" tooltip="Recheck affected ONB-02 evidence">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="535" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="trust" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check access and trust requirements&#10;Certificate readiness or NOT_REQUIRED&#10;ONB-03 · Common" tooltip="Certificate readiness or NOT_REQUIRED">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="830" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="connector" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check the public connection&#10;Qualified capability and environment&#10;ONB-03 · Scenario-specific" tooltip="Qualified capability and environment">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1125" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="external" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Observe required public evidence&#10;Only approved external operations&#10;ONB-03 · Conditional" tooltip="Only approved external operations">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1125" y="738" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="ready" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Required checks passed?&#10;&#10;ONB-03 · Common" tooltip="">
+          <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1420" y="318" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="record" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Record public check results&#10;Readiness and recheck conditions&#10;ONB-04 · Scenario-specific" tooltip="Readiness and recheck conditions">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1715" y="318" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="action" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Own missing or unknown checks&#10;Reconcile possible external effects&#10;ONB-08/11 · Conditional" tooltip="Reconcile possible external effects">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1420" y="598" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="result" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Return results and required actions&#10;Each client and function separate&#10;ONB-11 · Common" tooltip="Each client and function separate">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="2010" y="178" width="260" height="104" />
+          </mxCell>
+        </object>
+        <mxCell id="edge-0" source="plan" target="evidence" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="510" y="370.0" />
+              <mxPoint x="510" y="510.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-1" source="evidence" target="trust" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-2" source="trust" target="connector" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" source="connector" target="external" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-4" source="external" target="connector" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-5" source="connector" target="ready" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1395" y="510.0" />
+              <mxPoint x="1395" y="370.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-6" source="ready" target="record" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-6" value="Yes" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1690" y="333" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-7" source="ready" target="action" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-7" value="No / unknown" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1570" y="558" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-8" source="action" target="record" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1690" y="650.0" />
+              <mxPoint x="1690" y="370.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-9" source="record" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1985" y="370.0" />
+              <mxPoint x="1985" y="230.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="boundary" value="ONB-01/02/10 establish the request, authority and current setup. Existing public or B2G use does not prove Sage B2B access.&#10;Keep exact readiness states. Return failed and unknown checks with actions; an uncertain external effect uses SPEC-SEI-004.&#10;Check certificate policy, then required readiness through qualified Tax/certificate references. Unknown lookup does not mean missing." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="870" width="2284" height="96" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-09
+updated: 2026-10-12
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -23,6 +23,7 @@ related:
   - SPEC-SEI-012
   - SPEC-SEI-013
   - SPEC-SEI-014
+  - SPEC-SEI-015
 confluence:
   publish: false
   space_key: DNBU
@@ -31,7 +32,7 @@ confluence:
 
 # E-Invoicing Terminology
 
-This is the shared writing reference for the 14 Spain solution specs listed below. Keep it in Git with the specs, under `context/`, so reviewers and future authors use the same definitions. Short definitions inside individual specs support readers who open only one document; they must agree with this glossary.
+This is the shared writing reference for the 15 Spain solution specs listed below. Keep it in Git with the specs, under `context/`, so reviewers and future authors use the same definitions. Short definitions inside individual specs support readers who open only one document; they must agree with this glossary.
 
 Definitions explain the current source documents. They do not approve an architecture, legal interpretation, external API, state model or production capability. Feature-specific behaviour, evidence and open decisions remain in the owning PRD and spec. Shared terms can be used across countries; Spain rules require a separate country binding.
 
@@ -87,7 +88,9 @@ Definitions explain the current source documents. They do not approve an archite
 | Capability | A supported function, such as receiving invoices or signing them. Each operation used to provide it needs qualification for the selected scope. |
 | Integration role | The capacity in which Sage uses an interface: customer-provider integration or platform interconnection. The role selects qualified contracts and controls; it does not grant customer authority. A capability qualified for one role is not automatically ready for the other. |
 | Connection | Configuration for communicating with a platform or provider. A configured connection is separate from external registration, readiness and route activation. |
-| Onboarding | Establishing or confirming the setup needed for a business to use selected functions through Sage. It can connect an existing service, add a function or coordinate an authorised platform change; it does not imply first-time external registration or active invoice exchange. |
+| Onboarding | The setup workflow owned by the E-Invoice Service. It establishes or confirms selected functions through Sage. It can connect an existing service, add a function or coordinate an authorised platform change. It does not imply a separate onboarding service, first-time external registration or active invoice exchange. |
+| Onboarding component | A proposed internal component of the E-Invoice Service that could implement setup and recovery coordination. Its need and implementation remain open. The term does not establish a separate API or deployment. |
+| Common / scenario-specific / conditional behaviour | Diagram and specification labels. Common names shared behaviour; scenario-specific names work selected for the customer's situation and requested outcome; conditional names work performed only when required and permitted. Common checks can return no further work. These labels do not prove implementation reuse or replace country/provider rules. |
 | Registration | External enrolment or recorded configuration under the selected provider contract. A local connection record does not prove registration or receiving reachability. |
 | Readiness | The current result of capability checks for a stated legal entity, actor, environment and route/profile, with evidence, limitations and a recheck condition. Readiness is separate from authority, route activation and invoice outcomes. |
 | Route | The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans. |
@@ -103,6 +106,12 @@ Definitions explain the current source documents. They do not approve an archite
 |---|---|
 | ERP | Enterprise resource planning or business software that owns invoice data and issuance. Domain services may prepare a representation but do not silently issue or change the legal invoice. |
 | Issued invoice | The invoice whose business identity and final revision have been recorded by the issuing product under its controls. A successful draft check does not establish issuance. |
+| Business invoice creation / representation generation | The ERP prepares and issues the business invoice. Representation generation creates an electronic file from an identified source revision. A generated file or validation pass does not establish issuance. SPEC-SEI-015 owns the Spain creation handoff. |
+| Seller / buyer / material issuer | Seller supplies the goods or services; buyer receives the supply; material issuer prepares and issues the document in practice. Buyer-issued invoices preserve seller and buyer in their normal invoice fields. Material issuer, legally obligated supplier and authenticated caller are separate roles; country rules qualify their authority and identifier binding. |
+| Corrective invoice / correction method | A separate invoice that rectifies earlier invoice facts. In the selected Spain public profile, method `I` means correction by difference and `S` means correction by substitution. New document amounts and referenced original amounts have different meanings. Exact field bindings and permitted procedures belong to SPEC-SEI-015 and its qualified country pack. |
+| Replacement of simplified invoices | Spain type `388` in the final public-platform order's L1 list. This scenario is separate from corrective substitution method `S`; do not use “replacement” alone when both meanings are possible. |
+| Unique invoice code | Spain composite invoice identity using the qualified issuer NIF, series/number and issue date. Encoding and issuer-role mapping require the selected country contract. It is separate from a Sage invoice ID, request-idempotency key, operation ID and DTS task ID. Knowledge of a code does not grant access. |
+| REGI | Fixed property code identifying a Spain invoice-line regime entry. The entry's value contains the regime code; REGI is not itself the regime value. Cardinality, national tax qualifier and permitted codes belong to the selected Spain profile. |
 | Representation | A specific file or data form of an invoice. Preserve its role, source, version and integrity evidence. Different representations may carry the same business meaning without having identical bytes. |
 | Recovered source file / original | The exact bytes obtained from a source, kept with their source and role. “Original” must identify which source it refers to. A retrieved public copy is not relabelled as the private-route original. |
 | Faithful public copy / public copy | The separately classified public-platform copy of an invoice exchanged through another route, where the applicable Spain policy requires it. “Faithful copy” is a source short form. Exact syntax and acceptance still require the selected contract/profile evidence. Preserve role `PUBLIC_COPY`. |
@@ -186,7 +195,7 @@ An **existing implementation reuse candidate** is an identified service or build
 
 ## Review coverage and remaining contract questions
 
-The terminology review covers SPEC-SEI-001 through SPEC-SEI-014 in `specs/`. It checks repeated definitions, service names, roles, outcome wording, reuse labels and terms used in behaviour, contracts and acceptance coverage. It is not an implementation test or a new regulatory validation.
+The terminology review covers SPEC-SEI-001 through SPEC-SEI-015 in `specs/`. It checks repeated definitions, service names, roles, outcome wording, reuse labels and terms used in behaviour, contracts and acceptance coverage. It is not an implementation test or a new regulatory validation.
 
 | Source spec | Terminology focus |
 |---|---|
@@ -205,6 +214,7 @@ The terminology review covers SPEC-SEI-001 through SPEC-SEI-014 in `specs/`. It 
 | [SPEC-SEI-013 — Provider capabilities through Global API](../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md) | Authenticated principal, Provider API ownership, durable receipt and action execution. |
 
 | [SPEC-SEI-014 — Shared connectivity and routing](../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) | Integration role, contract qualification, setup result, scoped platform change and historical continuity. |
+| [SPEC-SEI-015 — Invoice creation](../specs/SPEC-SEI-015-invoice-creation-solution-specification.md) | Business creation versus representation generation; material issuer; corrective method versus simplified-invoice replacement; qualified unique invoice code and regime entries. |
 
 | Remaining question | Owner and boundary |
 |---|---|

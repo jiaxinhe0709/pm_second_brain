@@ -9,7 +9,10 @@
           <mxGeometry as="geometry" x="28" y="12" width="2284" height="95" />
         </mxCell>
         <mxCell id="legend" value="Proposed design · Solid: shared handoff · Dashed: conditional work or recovery · Diamond: decision · Darker grey: recovery" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="28" y="104" width="2284" height="36" />
+          <mxGeometry as="geometry" x="28" y="104" width="2284" height="22" />
+        </mxCell>
+        <mxCell id="behaviour-legend" value="Common: shared behaviour · Scenario-specific: selected path · Conditional: only when required" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="130" width="2284" height="24" />
         </mxCell>
         <mxCell id="lane-0" value="Customer / accountant" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="20" y="160" width="2300" height="140" />
@@ -47,52 +50,52 @@
         <mxCell id="lane-label-5" value="Public / private&#10;platforms" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="30" y="860" width="180" height="140" />
         </mxCell>
-        <object id="capture" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Capture operation and pre-state&#10;Parent scenario and checkpoint&#10;OFR-01" tooltip="Parent scenario and checkpoint">
+        <object id="capture" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Capture operation and pre-state&#10;Parent scenario and checkpoint&#10;OFR-01 · Common" tooltip="Parent scenario and checkpoint">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="240" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="classify" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Classify fault and repeat safety&#10;Exact provider, role and scope&#10;OFR-02" tooltip="Exact provider, role and scope">
+        <object id="classify" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Classify fault and repeat safety&#10;NIF, certificate and grant separate&#10;OFR-02 · Common" tooltip="NIF, certificate and grant separate">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="535" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="scope" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Preserve or hold affected scope&#10;Connection/Routing decides&#10;OFR-02/INT-08" tooltip="Connection/Routing decides">
+        <object id="scope" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Preserve or hold affected scope&#10;Connection/Routing decides&#10;OFR-02/INT-08 · Common" tooltip="Connection/Routing decides">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="830" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="correct" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Correct only affected evidence&#10;New input or plan revision&#10;OFR-03" tooltip="New input or plan revision">
+        <object id="correct" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Correct only affected evidence&#10;SPEC-001 owns certificate correction&#10;OFR-03 · Conditional" tooltip="SPEC-001 owns certificate correction">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1125" y="178" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="safe" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Retry only proven safe work&#10;Original identity and budget&#10;OFR-04" tooltip="Original identity and budget">
+        <object id="safe" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Retry only proven safe work&#10;Original identity and budget&#10;OFR-04 · Conditional" tooltip="Original identity and budget">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1125" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="hold" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Hold possible external effect&#10;No conflicting repeat&#10;OFR-05" tooltip="No conflicting repeat">
+        <object id="hold" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Hold possible external effect&#10;No conflicting repeat&#10;OFR-05 · Conditional" tooltip="No conflicting repeat">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1125" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="observe" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Observe the original effect&#10;Reliable source and evidence&#10;OFR-06" tooltip="Reliable source and evidence">
+        <object id="observe" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Observe the original effect&#10;Reliable source and evidence&#10;OFR-06 · Conditional" tooltip="Reliable source and evidence">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1420" y="878" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="escalate" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Own unresolved or unsafe work&#10;Evidence and next action&#10;OFR-07" tooltip="Evidence and next action">
+        <object id="escalate" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Own unresolved or unsafe work&#10;Evidence and next action&#10;OFR-07 · Conditional" tooltip="Evidence and next action">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1420" y="738" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="resume" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Recheck parent after resolution&#10;Activation stays separate&#10;OFR-08" tooltip="Activation stays separate">
+        <object id="resume" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Recheck parent after resolution&#10;Exact ONB-02/03/05/06/07/10 gate&#10;OFR-08 · Common" tooltip="Exact ONB-02/03/05/06/07/10 gate">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1715" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="result" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Show per-function ERP results&#10;Readiness and activation apart&#10;ONB-11" tooltip="Readiness and activation apart">
+        <object id="result" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" label="Return results and required actions&#10;Readiness and activation apart&#10;ONB-11 · Common" tooltip="Readiness and activation apart">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2010" y="318" width="260" height="104" />
           </mxCell>
