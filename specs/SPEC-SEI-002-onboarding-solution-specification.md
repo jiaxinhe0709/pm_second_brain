@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-08
+updated: 2026-10-12
 reviewers: []
 related:
   - GLO-SEI-001
@@ -22,6 +22,11 @@ related:
   - SPEC-SEI-004
   - ADR-SEI-001
   - SPEC-SEI-014
+  - SPEC-SEI-013
+  - SPEC-SEI-011
+  - SPEC-SEI-006
+  - SPEC-SEI-007
+  - SPEC-SEI-009
 confluence:
   publish: true
   space_key: DNBU
@@ -33,7 +38,7 @@ confluence:
 
 # Customer Onboarding Solution Specification
 
-Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
+Use the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local definitions explain this feature. Technical IDs, fields and source codes retain their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -41,38 +46,67 @@ Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-i
 
 Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. Part 2 gives the detailed behaviour and rules. Part 3 describes service interactions and data. Part 4 links requirements to the checks and evidence needed before release.
 
-The design remains a draft. **Proposed** choices still need review; **open** decisions still need an owner’s recorded answer. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.
+The design remains a draft. **Proposed** choices need review. **Open** decisions need an owner's recorded answer. Technical IDs and state names give all readers the same references.
 
 ### 1 Purpose, authority and boundaries
 
-This is a **proposed logical design** for setting up one Spanish business to use e-invoicing. It covers two stages with separate checks and approvals. **Phase 1** checks readiness for functions that use the public platform. **Later phases** configure a private platform, check the published receiving destination, and activate or change the route.
+This **proposed logical design** helps a Spanish business set up, connect, confirm or extend e-invoicing through a Sage ERP or product. It covers new customers and customers who already use public services, private services or both. It also covers customers already connected through Sage. Onboarding checks the current setup and requested outcome first. External registration or a platform change is required only where the selected journey needs it.
 
-Public readiness alone does not mean that the business is registered externally, a private route is active, or invoices can be exchanged. The source requirements are [public onboarding](../prds/PRD-SEI-101-public-platform-onboarding.md), [direct and accountant onboarding](../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [recovery](../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), and [private onboarding and migration](../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md). The [certificate spec](SPEC-SEI-001-certificate-management-solution-specification.md) supplies the conditional trust-readiness contract.
+The intended outcome is access to selected, supported functions from the Sage ERP through the **E-Invoicing Global API**. Connection, readiness and activation are separate results. The API contract, adapters and implemented capabilities still need qualification. **Phase 1** checks readiness for supported public functions. **Later phases** may configure private connections and activate or change a qualified route. Each scenario retains these phase gates.
 
-The logical services, state names, interaction shapes and records below are **proposed**. The PRDs establish customer outcomes and safety constraints. Spanish external interfaces, entry-point publication sequence, representation rules, operator model, signing policy, measurable service targets and ownership of the implemented services remain **open**. This document is one canonical Markdown source and one intended Confluence page; it is unpublished.
+Public readiness alone does not prove external registration, private-route activation or invoice exchange. Requirements come from [public onboarding](../prds/PRD-SEI-101-public-platform-onboarding.md), [direct and accountant onboarding](../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [recovery](../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), and [private onboarding and migration](../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md). The [certificate spec](SPEC-SEI-001-certificate-management-solution-specification.md) defines trust-readiness checks where policy requires them.
+
+The services, state names, interactions and records below are **proposed**. The PRDs define customer outcomes and safety constraints. Applying official Spain rules to each selected interface remains **open**. Representation and signing need qualification for each action. The provider entry-point sequence, operator model, measurable service targets and implemented service ownership also remain **open**. This file is the canonical Markdown source for onboarding.
+
+### Customer entry journeys and scope
+
+Scenario IDs identify entry journeys. They do not define a technical state for the whole customer. A direct customer or validated accountant can use each supported journey. For a portfolio, onboarding checks each business separately. It compares the existing setup with the requested Sage functions. Customer statements inform this check but do not prove Sage's authority or integration.
+
+| Scenario | Current situation and desired outcome | Work required | Result and boundary |
+|---|---|---|---|
+| ONB-S01 First-time setup | Customer has no e-invoicing setup and wants to start through Sage. | Establish the business and authority. Present supported options. Configure missing prerequisites and check each selected function. | Return public readiness under ONB-04 or later-phase private activation under ONB-05–07. Do not select a platform without customer choice. |
+| ONB-S02 Connect existing public service | Customer uses the public B2B service outside Sage and wants supported functions in the ERP. | Identify the service and environment. Check Sage access, represented-party authority and required trust. Reuse valid evidence and complete missing checks. | Return evidenced public readiness through the Global API. ONB-04 alone cannot establish active invoice exchange or publish a receiving destination. |
+| ONB-S03 Connect existing private provider | Customer wants to keep the current private provider and use it from the ERP. | Qualify the integration. Bind the existing account with permission. Configure the Sage connection. Check sending and receiving separately. | Retain the provider. Establish the Sage route explicitly if required. Duplicate commercial enrolment or receiving-point publication requires a contract requirement. |
+| ONB-S04 Connect public and private services | Customer uses both services and wants Sage to support the selected combination. | Record each function, direction and execution owner. Qualify public and private connections separately. Record unchanged and changed setup. | Return a result for each function. Public reporting or copy capability is not a second delivery route. Prevent duplicate delivery and unsupported overlapping selection. |
+| ONB-S05 Confirm or extend Sage setup | Customer already connects through Sage and wants confirmation or an additional function. | Read authoritative configuration. Check current permissions and evidence. Recheck stale dependencies. Set up only missing functions. | Confirm valid unchanged setup without external mutation, or add only the requested supported function. Failed checks cannot renew readiness. |
+| ONB-S06 Change platform | Customer wants to move an authorised future sending or receiving scope to another supported platform. | Record the current route and earlier obligations. Qualify the new connection. Obtain change authority. Observe required external changes and commit the boundary. | Change new traffic only through ONB-07. Keep earlier invoice context. Private A → Private B remains gated by SPEC-SEI-014 and its source product decision. |
+| ONB-S07 Add B2B after B2G use | Customer uses government invoicing, such as FACe, and now needs supported B2B functions. | Record the existing B2G service. Assess B2B identity, authority, connection and capability requirements separately. | Set up B2B without changing B2G. B2G support through this API needs a separate scope and adapter decision. |
+| ONB-S08 Unsupported or uncertain setup | Requested provider, function or combination is unsupported, or current setup is unknown. | Explain the missing integration or evidence. Name the owner. Offer only qualified options. Reconcile any possible external effect. | Return a limitation, action required or unresolved case. Do not force migration, substitute a platform or report connected. |
+
+**Confirmed source context, checked 9 October 2026:** [FACe](https://www.facturae.gob.es/face) is a B2G submission service. [Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028) governs the B2B public solution. These are separate services. The published rules do not prove an implemented Sage connector or customer production access. The [AEAT scope guidance](https://sede.agenciatributaria.gob.es/Sede/iva/factura-electronica/cuestiones-generales/quienes-estan-obligados-que-operaciones-incluyen.html) excludes B2C and international B2B with a business not established in Spain. A transaction addressed to a Spanish permanent establishment can fall within scope. Onboarding records business context. The owning invoice feature checks applicability for each transaction. B2G use or an international invoice does not establish readiness or exemption for the whole business.
+
+### ERP and API responsibility boundary
+
+The proposed handoff is **Sage ERP / product → Global API → E-Invoice Service → shared identity, trust and connection services → qualified public connector or provider integration**. Responses use the same product-facing contract. This flow identifies responsibilities. It does not approve endpoints or deployment boundaries. The [Global API spec](SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md) owns common API exposure. The [public connector](SPEC-SEI-011-public-platform-connector-solution-specification.md) owns public execution. [Shared connectivity](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns connection and route records.
+
+This spec owns current-setup assessment, customer intent, journey selection and setup results. [Sending](SPEC-SEI-007-invoice-sending-solution.md), [receiving](SPEC-SEI-006-invoice-receiving-solution.md) and [lifecycle status](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) own invoice operations and outcomes. Onboarding does not issue an invoice or treat a test as delivery. Platforms can support different functions. The API must not promise every provider or function.
+
+Customer-facing actions are **Set up e-invoicing**, **Connect your existing service**, **Review or extend your setup**, and **Change your e-invoicing platform**. All use one work-item model and shared controls. A completed assessment can still return required actions. Report sending or receiving as active only when the owning feature and required route evidence confirm activation.
 
 ### Setup result and changing the e-invoicing platform
 
-The overview's **Check e-invoicing setup requirements** step checks business identity and authority, applicable certificate/trust requirements and the selected platform connection. It coordinates ONB-02–04/06 and their supporting services, recording passed checks and limitations. Keep **readiness** as the defined technical term in states, evidence and contracts; the diagram uses plain language to explain the work. Passing these checks does not itself activate sending or receiving.
+In **Check public setup requirements** and **Configure and check private setup**, onboarding checks business identity, authority, required certificates and trust, and the selected connection. ONB-02–04/06 coordinate these checks and record limitations. Use **readiness** in technical states, evidence and contracts. The diagram explains the work in plain language. Passed checks do not activate sending or receiving.
 
-In the responsibility overview, **Return setup result and required actions** means returning which checks passed, which failed or remain unknown, any limitations, and what must happen next with a named action owner. It is the ONB-04/06 result, not confirmation that sending or receiving has been activated. The product displays the result in plain language; preserve the exact technical states and evidence internally.
+In **Return results and required actions**, onboarding returns passed, failed and unknown checks, limitations, next actions and action owners. ONB-04/06 supply the check results. ONB-11 returns them through the Global API. Passed checks alone do not confirm sending or receiving activation. Activation results need evidence from the owning feature. The product shows plain-language results and retains exact technical states and evidence internally.
 
-**Change e-invoicing platform** means changing the platform selected for future sending or receiving within an authorised scope and boundary. The customer sees the current and proposed platform, affected direction, remaining steps and result. Keep **route** as the technical term. Earlier invoices retain their actual history and permitted follow-up channels.
+**Change e-invoicing platform** changes the selected platform for future sending or receiving within an authorised scope and boundary. Show the customer the current and proposed platform, affected direction, remaining steps and result. Use **route** as the technical term. Earlier invoices retain their history and permitted follow-up channels.
 
-This spec owns customer intent, setup and migration coordination. The [shared connectivity and routing spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns the common connection/profile qualification, route-version commit and historical-context contract (SPC-01–08). ONB-06/07 call that foundation rather than create a second route engine. Adding the Sage operator role requires separate qualification and does not migrate existing customers or change their active platforms.
+This spec coordinates customer intent, setup and migration. The [shared connectivity and routing spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns connection and profile qualification, route-version commit and historical context (SPC-01–08). ONB-06/07 use that foundation. They do not create another route engine. The Sage operator role needs separate qualification. Adding that role does not migrate customers or change their active platforms.
 
 ### Spain use and reuse boundaries
 
-This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
+This is a **Spain reference design**. Reuse classifications describe proposed behaviour. They do not prove that existing code is ready. **Reusable unchanged** keeps the design pattern. **Reusable with country binding** needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** needs implementation evidence.
 
-This follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
+The design follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot and production use require this spec's approval and evidence gates. Another country needs its own reuse assessment.
 
 | Area | Intended use in Spain | Reuse classification | Condition and owner |
 |---|---|---|---|
-| Work items and portfolio isolation | Track each Spanish business separately, recognise repeated requests and show partial portfolio results. | Reusable unchanged | Reuse the work-item, version and independent-client patterns. Validate tenant and client isolation. Onboarding and Product. |
-| Readiness and route transition | Assess public readiness, then separately configure and activate a private route where supported. | Reusable with country binding | Bind the local identity, authority, entitlement, provider and entry-point policies. Product, Identity and route owner. |
-| Spain onboarding rules | Use Spain identity/representation checks and the confirmed public/private entry-point and migration sequence. | Country-specific | Do not make Spanish NIF/NIE rules or the public/private sequence defaults for other countries. Spain technical owner and Compliance. |
-| Existing onboarding implementation | Assess identity, trust, work-item, connection and routing services for the Spain journey. | Unknown | No deployed end-to-end onboarding implementation is established here. Record existing owners, contracts and gaps first. Architecture and service owners. |
+| Work items and portfolio isolation | Track each Spanish business separately. Recognise repeated requests and show partial portfolio results. | Reusable unchanged | Onboarding and Product validate the work-item and version patterns. They verify tenant and client isolation. |
+| Current setup, readiness and route transition | Assess existing public and private use. Reuse qualified evidence. Configure or activate missing supported functions separately. | Reusable with country binding | Product, Identity and the route owner bind local identity, authority, entitlement, provider and entry-point policies. They preserve phase gates. |
+| Spain onboarding rules | Apply Spain identity and representation checks. Use the confirmed public and private entry-point and migration sequence. | Country-specific | The Spain technical owner and Compliance keep NIF/NIE rules and platform sequences separate from other countries' defaults. |
+| Existing onboarding implementation | Assess identity, trust, work-item, connection and routing services for Spain. | Unknown | Architecture and service owners must identify the existing owners, contracts and gaps. This spec does not establish a deployed end-to-end implementation. |
+| Existing customer setup evidence | Reuse checks only for their proven business, purpose, role, environment and validity. This includes identity, mandate, trust and connection checks. | Reusable with country/provider binding | Identity, Trust and Integration record the source, versions, retained checks, gaps, owner and recheck conditions. External use does not prove Sage access. |
+| ERP/API integration and representation checks | Return consistent scenario results. The owning exchange features qualify required formats. | Unknown implementation coverage | The API owner qualifies the actual contract and build. Existing DTS is the preferred transformation reuse candidate where relevant. Qualify its selected contracts, mappings, rule packs and operations under SPEC-SEI-008. Setup alone does not prove DTS readiness. |
 
 ### Plain-language terms
 
@@ -81,6 +115,9 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 | Legal entity / legal subject | The business to which the invoice or action belongs. Technical fields use `legalSubject` for this business. |
 | Authority | Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission. |
 | Capability | A supported function, such as receiving invoices or signing them. |
+| Onboarding | Establish or confirm the setup for selected functions through Sage. This can connect an existing service, add a function or coordinate an authorised platform change. |
+| Global API | The proposed common e-invoicing API contract used by Sage products and authorised partners. It does not establish that an integration is implemented or active. |
+| B2B / B2G / B2C | Business to business; business to government; business to consumer. Each transaction and service has its own scope and controls. |
 | Route | The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans. |
 | Idempotency | Repeating the same logical request adds no effect within the contract’s defined scope and retention window. The contract binds request identity and input and defines conflict handling. |
 | Reconciliation | Check the original operation against a reliable source to establish what actually happened before deciding the next action. |
@@ -90,7 +127,7 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 | Provenance | The record of where data came from and which versions, checks and changes produced the result. |
 | Contract | The agreed inputs, outputs, behaviour and responsibilities between services or parties. |
 | Durable | Saved through the agreed recovery boundary so the record survives a process restart or worker failure. Long-term retention is a separate policy. |
-| Readiness | The current result of capability checks for a stated legal entity, actor, environment and route/profile, with evidence, limitations and a recheck condition. Readiness is separate from authority, route activation and invoice outcomes. |
+| Readiness | The current capability-check result for a stated legal entity, actor, environment and route/profile. It includes evidence, limitations and a recheck condition. It is separate from authority, route activation and invoice outcomes. |
 | Entry point | The published receiving destination for a legal entity. It need not be a raw URL. Publication does not by itself prove operational eligibility for a particular invoice. |
 | Cutover / rollback | Cutover changes future work to a qualified route at an agreed boundary. Rollback is a controlled change back, with its own checks and evidence. Earlier invoices keep their actual route history. |
 | Portfolio | An accountant’s set of client businesses. Each client is checked separately. |
@@ -100,58 +137,101 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 
 | Outcome | Observable result | Boundary |
 |---|---|---|
-| Public capability ready | Entity/capability is ready or ready with stated limitations, with evidence, expiry/recheck and next action | No claim of external registration, invoice compliance, delivery or private route activation |
-| Private route active | Explicitly authorised direction/scope has matching intended and observed external readiness and an effective new-traffic boundary | Earlier invoices retain original route and operator |
-| Action required / blocked | Exact entity, capability or direction is held with stable reason and owner | Other portfolio items and unaffected directions continue |
-| Cancelled before activation | Pending work is closed under policy and live routing is unchanged | Externally completed actions still require reconciliation and separate reversal |
-| Recovery or rollback case | Actual external and invoice state is preserved; restoration is a new evidenced transition | No silent state reset or historical rewrite |
+| Public capability ready | Return readiness for the entity and capability. Include limitations, evidence, expiry or recheck, and next action. | Do not claim external registration, invoice compliance, delivery or private-route activation. |
+| Private route active | Intended and observed readiness match for the authorised direction and scope. Record the effective boundary for new traffic. | Earlier invoices retain their original route and operator. |
+| Existing setup confirmed | Requested functions have current evidence. Return unchanged route and configuration through the API without new external work. | Do not renew stale evidence or grant missing permission. |
+| Setup extended | Requested additional functions pass their own gates. Unchanged functions retain their context. | Do not report all functions active from new readiness alone. |
+| Unsupported connection or function | Tell the ERP which provider, function or combination is unsupported. Return the available next action. | Do not substitute a provider, force migration or report connected. |
+| Action required / blocked | Hold the affected entity, capability or direction. Return a stable reason and owner. | Other portfolio items and unaffected directions continue. |
+| Cancelled before activation | Close pending work under policy. Keep live routing unchanged. | Reconcile completed external actions. Reverse them separately where required. |
+| Recovery or rollback case | Preserve actual external and invoice state. Restoration is a new transition with evidence. | Do not reset state silently or rewrite history. |
 
-Actors are the customer administrator or validated delegate; Sage product/API; onboarding orchestration; legal-subject and authority services; conditional trust service; operator/connection and route services; external public platform or provider; evidence store; and operations. Each performs only its authorised action for one tenant, legal entity, environment, capability, direction and route scope. An accountant portfolio is a collection of isolated client work items, not one shared mandate or credential.
+Actors include the customer administrator or validated delegate, Sage product/API, onboarding, and legal-subject and authority services. Supporting actors include trust, operator, connection and route services, the external platform or provider, the evidence store, and operations. Each actor performs only authorised actions for the stated tenant, legal entity, environment, capability, direction and route scope. Each accountant client has an isolated work item. Portfolio membership does not share a mandate or credential.
 
 ### 3 Process diagrams and text equivalent
 
-Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
+Start with the overview. Use the two detail diagrams to review the public checks or private setup and activation. The table below maps entry journeys to these paths. The [entry-journey table](#customer-entry-journeys-and-scope) defines their scope.
 
-**Public readiness:** ![Check public-platform setup requirements](../assets/diagrams/onboarding-public-readiness-process.svg)
+The overview shows **work paths**, not service responsibility lanes. The detail diagrams use the shared responsibility lane names and omit groups with no activity. All three use the same activity IDs. The common sequence is **request → identity and authority → current setup → only required work → results and actions**. ONB-01–11 retain their meanings.
 
-[Editable Draw.io source](../assets/diagrams/onboarding-public-readiness-process.drawio) · [PNG preview](../assets/diagrams/onboarding-public-readiness-process.png). The existing [customer and service readiness overview](../assets/diagrams/e-invoicing-customer-service-readiness.drawio) provides cross-service context; this diagram isolates the Phase 1 process.
+**Onboarding overview:** ![Set up, connect or review e-invoicing through Sage](../assets/diagrams/onboarding-scenario-selection-process.svg)
 
-Customer/delegate starts ONB-01 for one entity/capability → ONB-02 resolves legal subject and authority → ONB-03 checks applicable external identity/representation evidence and conditional certificate readiness → ONB-04 records readiness for each required check. Missing authority or uncertain policy yields an owned action; an ambiguous external mutation yields ONB-08 reconciliation. For a portfolio, repeat per client and return partial outcomes without promoting failed clients.
+[Editable Draw.io](../assets/diagrams/onboarding-scenario-selection-process.drawio) · [PNG](../assets/diagrams/onboarding-scenario-selection-process.png).
 
-**Private onboarding and migration:** ![Set up a private platform and switch future traffic](../assets/diagrams/onboarding-private-route-process.svg)
+ONB-01 captures the requested functions and outcome. ONB-02 checks the caller, represented business and action authority. ONB-10 compares the request with current setup and valid evidence. For each function, confirm valid unchanged setup or run the required public or private work. Both branches can apply to the same business. They do not require a platform change.
 
-[Editable Draw.io source](../assets/diagrams/onboarding-private-route-process.drawio) · [PNG preview](../assets/diagrams/onboarding-private-route-process.png). The existing [route transition and offboarding overview](../assets/diagrams/e-invoicing-route-transition-offboarding.drawio) gives the wider lifecycle.
+Public work uses ONB-03/04 to check prerequisites and record readiness. Private work uses ONB-05/06 to configure only missing settings and check each selected function. Activate or change a private route through ONB-07 only when required, supported and explicitly authorised. Keep earlier invoice context under ONB-09. A requested change still requires qualified setup before activation. If the route is valid and unchanged, return its current evidence without a route commit.
 
-ONB-05 records the chosen legal entity, direction, scope, operator and commercial/authority terms while existing traffic continues → ONB-06 validates connection and publishes/observes any required entry point → ONB-07 activates only after readiness, authorisation and effective boundary are recorded → ONB-09 preserves prior-route in-flight/history and releases dependencies at separate gates. Failure before cutover leaves the old route. Unknown external outcome goes to ONB-08. A post-cutover failure opens a controlled restoration case that keeps each invoice's actual origin.
+ONB-11 returns setup, readiness and activation separately for each function through the Global API. Include failed and unknown checks, limitations, required actions and their owners. A completed request or passed setup check does not prove active sending or receiving. Unsupported work returns a limitation. A possible external effect uses ONB-08 and the shared recovery spec before an unsafe repeat or an activation claim. Return partial results and preserve independently valid functions.
+
+| Work path | Entry journeys | How to read it |
+|---|---|---|
+| Public checks | Public functions in ONB-S01/02/04/05/07 | Use the public detail. Existing public or B2G use does not prove Sage B2B authority or access. |
+| Private setup | Private functions in ONB-S01/03/04/05/06/07 | Use the private detail. Bind an existing account where selected. Keep the provider unless the customer requests a supported change. |
+| Confirm unchanged setup | ONB-S05 and valid unchanged functions in other journeys | Use the overview shortcut. Return current evidence without external mutation or a new route version. |
+| Activate or change a route | ONB-S06 or required initial activation for a selected private function | Use the private detail after qualification. Change only authorised future traffic and keep earlier invoice context. |
+| Limitation or recovery | ONB-S08 or affected work in any journey | Return a precise limitation or owned action. Preserve independently valid functions. |
+
+ONB-S01 requires explicit customer choice. ONB-S04 can use both setup paths. ONB-S05 adds only requested supported functions and rechecks affected stale evidence. ONB-S07 keeps existing B2G use separate from B2B setup; B2G support through this API remains a separate scope and adapter decision.
+
+For ONB-S04, public and private checks remain independent. A public failure does not revoke an unaffected private capability. The owning invoice feature still enforces required public-copy and reporting dependencies before dependent invoice actions. Unsupported overlapping selections remain blocked. The branches do not create two delivery routes for the same action.
+
+**Public setup checks — detail:** ![Check public setup and return the readiness result](../assets/diagrams/onboarding-public-readiness-process.svg)
+
+[Editable Draw.io](../assets/diagrams/onboarding-public-readiness-process.drawio) · [PNG](../assets/diagrams/onboarding-public-readiness-process.png).
+
+This Phase 1 path starts after ONB-01/02/10 establish the request, authority and assessed plan. ONB-03 checks only missing or stale identity and representation evidence, the public connection and required trust. The selected policy determines whether certificates are required. Record NOT_REQUIRED only with policy evidence; UNDETERMINED blocks affected progress. Use only qualified public operations and the correct business, capability and environment.
+
+ONB-04 records each check, readiness result, evidence and recheck condition. Missing authority or uncertain policy returns an action owner. A possible external mutation uses ONB-08. ONB-11 returns the result through the Global API. Public readiness does not establish external registration, route activation or active exchange. Portfolio clients retain independent results, including failures.
+
+**Private connection and activation — detail:** ![Connect a private provider and activate or change only when required](../assets/diagrams/onboarding-private-route-process.svg)
+
+[Editable Draw.io](../assets/diagrams/onboarding-private-route-process.drawio) · [PNG](../assets/diagrams/onboarding-private-route-process.png).
+
+This later-phase path starts after ONB-01/02/10 establish the request, authority and assessed plan. ONB-05 records the explicit provider choice, business, direction, scope, commercial terms and authority. Bind the existing account where selected. Configure only missing settings. Create an enrolment or subscription only where the contract requires it. Keep connection configuration separate from active route state.
+
+ONB-06 checks sending, receiving and status functions separately. It observes required external state. Publish or change a receiving point only where the selected plan and contract require it. A configured connection does not prove readiness. Missing or unknown evidence returns an owned action; a possible external effect uses ONB-08. Recovered external success does not itself activate a route.
+
+After qualification, decide whether a route change is required. A valid unchanged route returns its current evidence without a commit. An initial Sage activation or supported platform change uses ONB-07 only after current readiness, action authority, the expected route version and the effective boundary are confirmed. ONB-09 preserves earlier and in-flight invoice context. Release old dependencies at separate approved gates. ONB-11 returns the observed result for each function.
+
+Before an external change, failure leaves the old route. A possible external effect can require a hold on affected traffic until reachability is established. After cutover, failure opens a controlled restoration case. Each invoice retains its actual origin. Private A → Private B and unsupported coexistence remain disabled until their decisions and contracts are approved.
+
+**Shared failure and recovery:** all journeys use [SPEC-SEI-004](SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md#3-process-diagrams). It owns classification, safe retry and uncertain-effect reconciliation. Resume the exact parent check after resolution. Preserve unaffected services and hold only unsafe dependent work. These steps do not add another retry engine or an activation shortcut.
 
 ### 4 Ordered lifecycle
 
 | Activity | Trigger and required result | Owner / consumer |
 |---|---|---|
-| ONB-01 Open work item | Authenticated request creates one scoped, versioned work item; duplicate key returns same result | Product → onboarding |
-| ONB-02 Establish subject and authority | Verified entity, represented party/delegate, action and validity; missing grant is visible | Identity/authority → onboarding |
-| ONB-03 Assess prerequisites | Applicability, environment, external checks and conditional trust assessed separately | Onboarding → identity/trust/external |
-| ONB-04 Publish public readiness | Result for each capability, evidence and recheck; no route mutation | Onboarding → product |
-| ONB-05 Configure private choice | Explicit option, subscription/connection intent and scope stored without new traffic | Customer/product → onboarding/route |
-| ONB-06 Prove private readiness | Operator, transport, profile and required external entry point observed ready | Connection/adapter → onboarding |
-| ONB-07 Cut over new traffic | Serialised scope transition records authorised effective boundary | Route service → exchange/product |
-| ONB-08 Reconcile/recover | Unknown result or discrepancy has owner, observed state and safe next action | Operations/external adapter |
-| ONB-09 Preserve and release | Original invoice context persists; previous dependencies released only after approved gates | Route/records/operations |
+| ONB-01 Open work item | Create one scoped, versioned item from an authenticated request. For a duplicate key, return the same result. | Product → onboarding |
+| ONB-02 Establish subject and authority | Verify the entity, represented party or delegate, action and validity. Show any missing grant. | Identity/authority → onboarding |
+| ONB-10 Assess current setup and intent | Read public, private and Sage setup evidence. Compare requested functions. Preserve unchanged selections without mutation. | Onboarding → connection/route/adapters |
+| ONB-03 Assess prerequisites | Assess applicability, environment, external checks and required trust separately. | Onboarding → identity/trust/external |
+| ONB-04 Publish public readiness | Return each capability's result, evidence and recheck condition. Do not change a route. | Onboarding → product |
+| ONB-05 Configure private choice | Save the explicit option, subscription and connection intent, and scope. Do not activate new traffic. | Customer/product → onboarding/route |
+| ONB-06 Prove private readiness | Establish observed readiness for the operator, transport, profile and required external entry point. | Connection/adapter → onboarding |
+| ONB-07 Cut over new traffic | Process overlapping scope changes one at a time. Record the authorised effective boundary. | Route service → exchange/product |
+| ONB-08 Reconcile/recover | Assign an owner to each unknown or inconsistent result. Record observed state and a safe next action. | Operations/external adapter |
+| ONB-09 Preserve and release | Preserve original invoice context. Release previous dependencies only after approved gates pass. | Route/records/operations |
+| ONB-11 Return ERP capability result | Return setup, readiness and activation separately for each selected function through the Global API. Include limitations, evidence and required actions. | Onboarding → Global API → ERP/product |
 
 ### 5 Key decisions and risks
 
 | Decision | Design impact | Owner and gate |
 |---|---|---|
-| Official public-solution identity, representation, certificate and API contract | Determines which ONB-03 checks or mutations are real | Spain regulatory/technical owner; public pilot |
-| Private operator, supported directions/scope granularity and activation mechanism | Determines ONB-05–07 command and lock key | Product, architecture, operator; design |
-| Entry-point publish/observe/withdraw order and propagation evidence | Determines inbound cutover and rollback safety | Local technical/regulatory owner, provider; pilot |
-| Post-switch historical status/reporting actor and route | Determines how prior-provider access is retained | Compliance/Tax, provider; migration pilot |
-| Provider idempotency, state query and correction support | Determines whether automation or manual reconciliation is safe | Provider owner, operations; integration |
-| Trust/signature and retention policies | Determines conditional readiness and expiry/record schedules | Security, Legal/Tax; design |
+| Official public-solution identity, representation, certificate and API contract | Establish which ONB-03 checks and mutations the contract supports. | Spain regulatory/technical owner; public pilot |
+| Private operator, supported directions/scope granularity and activation mechanism | Define the ONB-05–07 command and lock key. | Product, architecture, operator; design |
+| Entry-point publish/observe/withdraw order and propagation evidence | Establish safe inbound cutover and rollback. | Local technical/regulatory owner, provider; pilot |
+| Post-switch historical status/reporting actor and route | Define retained access to the previous provider. | Compliance/Tax, provider; migration pilot |
+| Provider idempotency, state query and correction support | Establish whether automated or manual reconciliation is safe. | Provider owner, operations; integration |
+| Trust/signature and retention policies | Define required readiness, expiry checks and record schedules. | Security, Legal/Tax; design |
+| ONB-Q01 Provider/account discovery and existing-evidence reuse | Define permitted observations, account binding and evidence freshness. Do not inherit evidence from another role or environment. | Integration, Identity and Trust owners; selected provider pilot |
+| ONB-Q02 Public/private combinations and executor ownership | Define supported functions, directions and dependencies. Prevent overlapping routes and duplicate delivery. | Product, Connection/Routing and Exchange owners; design and pilot |
+| ONB-Q03 B2G, B2C and international product coverage | Decide coverage beyond this B2B onboarding scope. Qualify the separate service and adapter before expanding scope. | Spain Product and Compliance, API/Integration owners; before enabling that capability |
+| ONB-Q04 ERP result and public-operation enablement | Qualify actual Global API fields and evidence for each function. Keep Phase 1 readiness separate from later activation. | API, Onboarding, Sending/Receiving and public connector owners; API design and public pilot |
 
-The main risks are an accountant acting without the required client permission, treating public readiness as route activation, losing inbound reachability, repeating an external change after a timeout, or losing access needed for earlier invoices.
+An accountant could act without client permission. A service could treat public readiness as activation or repeat an external change after a timeout. A transition could lose inbound reachability or access needed for earlier invoices. These are the main risks.
 
-The controls below pause the affected scope, show the intended and observed states, and keep the last safe route until the required checks pass.
+The controls below pause affected work, show intended and observed states, and preserve unaffected routes. Continue the previous route only while evidence confirms its safety and reachability. A possible external change can require a hold before local activation.
 
 ## Part 2 Logical Feature Specification
 
@@ -167,58 +247,90 @@ Changes affecting the same business, direction and scope run one at a time. Inde
 |---|---|
 | ONB-I01 | Authentication, legal-subject identity, representation authority, credential possession, commercial entitlement, external registration and active route are independent facts. |
 | ONB-I02 | Public readiness is per entity and capability, with limitations and evidence. It cannot activate a private route or prove invoice compliance. |
-| ONB-I03 | An accountant grant is checked per client, capability, action and effective time; portfolio batch success cannot mask a failed item. |
-| ONB-I04 | New eligible traffic changes route only after an explicit authorised cutover; every invoice freezes its actual origin route, operator and identifiers. |
-| ONB-I05 | An unknown external mutation is neither success nor safe retry. Observe/reconcile the original operation before repeating it. |
+| ONB-I03 | Check the accountant grant for each client, capability, action and effective time. Portfolio success must not hide a failed item. |
+| ONB-I04 | Change the route for new eligible traffic only after an explicitly authorised cutover. Each invoice retains its actual origin route, operator and identifiers. |
+| ONB-I05 | An unknown external mutation is not success or permission to retry. Observe and reconcile the original operation before repeating it. |
 | ONB-I06 | Subscription, connection, entry-point registration, route, transition and historical access have separate state and separate release gates. |
 | ONB-I07 | No private key or reusable secret enters a product response, work item, audit event or support view. |
+| ONB-I08 | Reuse evidence only for its proven subject, authority, purpose, role, provider/profile, country and environment. Check versions and validity. Record the source and missing checks. |
+| ONB-I09 | An entry scenario or customer statement cannot prove external registration, Sage access, B2B readiness or active exchange. Unknown current setup is visible. |
+| ONB-I10 | Setup failure affects only dependent functions and scopes. Preserve unaffected selections. The owning invoice feature enforces dependencies between functions. |
+| ONB-I11 | No-change confirmation performs no external enrolment, publication, subscription creation or route commit. Extending setup changes only explicitly requested supported functions. |
 
 ### 2 Activities and state transitions
 
-**ONB-01 Intake.** The product submits the business reference, requested capabilities and directions, actor, environment and any portfolio batch reference. Onboarding checks the request format, tenant access and whether the requested capability is supported, then saves a work item.
+**ONB-01 Intake.** The product submits the business reference, requested capabilities and directions, actor, environment and any portfolio batch reference. Onboarding checks the request format, tenant access and capability support. It then saves a work item.
 
-The same key and input fingerprint return the existing item. Reusing the key with different content returns a conflict. Cancellation stops pending steps but does not erase an external change that may already have happened. A portfolio parent shows overall progress; each client item keeps its own permission, state and error.
+For the same key and input fingerprint, onboarding returns the existing item. For the same key with different content, it returns a conflict. Cancellation stops pending steps. It does not erase a possible completed external change. The portfolio parent shows overall progress. Each client item retains its own permission, state and error.
 
-**ONB-02 Identity and authority.** The legal-subject service resolves Spanish identity and product/tenant mapping without treating a user login as the legal entity. Authority evaluates direct administrator or delegate/mandate for the exact capability, direction, action and time. Missing, expired, revoked or ambiguous authority blocks that child item. Grant correction creates a new decision snapshot; an in-flight external operation retains the snapshot used at submission and is reconciled before replacement. Recheck authority immediately before ONB-07 and other external mutations.
+Record the desired outcome: first setup, connection of an existing service, setup confirmation or extension, or platform change. These descriptions are proposed intent labels. They are not approved API enum values. ONB-10 derives the scenario without replacing the requested capability, direction or scope. For an unsupported request, return a precise limitation without an external operation.
 
-**ONB-03 Prerequisites.** Resolve a versioned capability policy for phase, operator, environment, route, direction and effective date. Check required legal identity/representation evidence, product entitlement, external verification where an approved contract exists, and certificate readiness only when the policy says it is required. Record NOT_REQUIRED as an evidenced policy result; UNDETERMINED is a policy block. The trust service returns readiness for the specific purpose and evidence reference per [SPEC-SEI-001](SPEC-SEI-001-certificate-management-solution-specification.md), without exposing key material.
+**ONB-02 Identity and authority.** The legal-subject service resolves Spanish identity and its product and tenant mapping. It does not treat a user login as the legal entity. The authority service checks the direct administrator or delegate mandate for the exact capability, direction, action and time. Missing, expired, revoked or ambiguous authority blocks the affected child item. Grant correction creates a new decision snapshot. An in-flight external operation retains the snapshot used at submission. Reconcile that operation before replacement. Recheck authority immediately before ONB-07 and other external mutations.
 
-External reads may be retried under a bounded policy; an external mutation requires operation safety classification and reconciliation support. Onboarding does not invent a registration call where no official interface is confirmed.
+**ONB-10 Current setup and intent.** After access to the tenant and entity is established, onboarding reads authoritative connection, route and readiness records. If a qualified external read exists, it inspects the named provider, account or service without changing it. Record customer-declared facts separately from observed evidence. Include the source, time, environment and version. Do not assume a universal platform directory or query an unrelated business. A failed or empty lookup does not prove that the business has no setup.
 
-**ONB-04 Public readiness.** Save the result and evidence source for each required check before calculating the overall capability result. Proposed states are NOT_STARTED, CHECKING, ACTION_REQUIRED, READY_WITH_LIMITATIONS, READY, SUSPENDED and OUTCOME_UNKNOWN.
+Compare selected functions with current public and private connections, routes and obligations for earlier invoices. Record a plan for each function. The plan confirms unchanged setup, refreshes a stale check, configures a missing connection, requests supported activation, or returns an unsupported or unknown result. ONB-S04 can contain several plans. Create a new subscription for an existing account only if the commercial contract requires it. Keep B2G and B2B service contexts separate. Scenario correction creates a new plan revision. Do not repeat completed or uncertain operations.
 
-READY means the approved Phase 1 checks for that capability passed at the recorded time. Expired or revoked dependencies can change the result; show the reason and when to check again. Product and support receive a result with sensitive values removed. The user sees who must act next. A public-readiness event cannot activate a route.
+Reuse a passed check only when all qualification conditions hold. The original subject, authority, purpose, role, provider/profile, country and environment must match. Relevant input, policy and credential versions must remain valid. Expiry and recheck conditions must be satisfied. Record retained evidence, omitted work, missing checks and the responsible owner. If evidence is stale, changed, revoked or unproven, recheck affected dependencies. Never copy protected secrets or transfer TEST evidence into production. If the plan becomes stale before mutation, refresh it and require the expected route version. ONB-08 owns the original uncertain effect.
 
-**ONB-05 Private choice/configuration.** Present supported public/current-provider/Sage options with operator, direction, supported scope, price and support boundary. Record explicit customer/delegate choice and action authority. Create proposed subscription and connection configurations independently from active route state. If there is an existing provider or public route, inventory current directions and historical obligations. A configuration failure or cancellation before cutover leaves the old route. Unsupported mixed-scope combinations are blocked with a product explanation rather than silently widened.
+**ONB-03 Prerequisites.** Onboarding resolves a versioned capability policy for the phase, operator, environment, route, direction and effective date. It checks required legal identity and representation evidence, and product entitlement. It performs external verification only under an approved contract. Check certificate readiness only where policy requires it. Record NOT_REQUIRED with policy evidence. UNDETERMINED blocks progress under that policy. The trust service returns purpose-specific readiness and an evidence reference under [SPEC-SEI-001](SPEC-SEI-001-certificate-management-solution-specification.md). It does not expose key material.
 
-**ONB-06 Private readiness.** Validate operator/contract/cohort approval, credentials and conditional trust, transport/profile conformance, external-provider capabilities and (for inbound) required entry-point publication/discoverability. Store intended value, external operation ID, independently observed value, source, observed time and freshness. Connection configured is distinct from external observed ready. If publication times out, mark OUTCOME_UNKNOWN and invoke ONB-08. A provider without reliable observation requires a documented manual gate with named evidence and approver. Existing route remains selected throughout.
+External reads may retry under a bounded policy. An external mutation requires a safety classification and reconciliation support. Onboarding must not create a registration call without a confirmed official interface.
 
-**ONB-07 Activation/cutover.** Check the actor’s permission again and confirm that readiness evidence is still current. Lock the affected scope and record the expected current route version. The cutover plan records the approved time and sequence, entry-point publication evidence, rollback trigger and customer notice.
+For public functions, use the qualified public connector and required shared connection and profile checks. An existing public login or FACe use does not establish Sage access. Run only missing or invalidated checks identified by ONB-10. The country and effective policy determine required capabilities. Onboarding must not make a permanent B2B/B2C or international applicability decision for every invoice.
 
-Change the route only if its current version still matches the expected version (compare-and-set). The change applies only to the authorised direction and scope, for invoices accepted after the agreed boundary. If the external and internal states do not match, do not report ACTIVE; open ONB-08.
+**ONB-04 Public readiness.** Onboarding saves each required check's result and evidence source before it calculates the capability result. Proposed states are NOT_STARTED, CHECKING, ACTION_REQUIRED, READY_WITH_LIMITATIONS, READY, SUSPENDED and OUTCOME_UNKNOWN.
 
-When accepting an invoice, the exchange service saves its route version so the provider cannot change while that invoice is being processed. After success, save the actual cutover time and return status for each direction. A single ONBOARDED flag must not hide different route states.
+READY means the approved Phase 1 checks passed for that capability at the recorded time. Expired or revoked dependencies can change the result. Show the reason and recheck time. Remove sensitive values from product and support results. Show the user who must act next. A public-readiness event cannot activate a route.
 
-**ONB-08 Recovery.** Onboarding owns the affected capability and route outcome; [SPEC-SEI-004](SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md) owns the detailed failure classification, retry, correction, cancellation and reconciliation contract. Reconcile unknown external effects using the original correlation/operation ID before repeating a mutation or claiming readiness. A mismatch keeps the transition blocked and opens an owned case. After cutover, restoration is a new authorised transition, subject to current external state and inbound discoverability; invoice origins remain unchanged.
+**ONB-05 Private choice/configuration.** The product presents supported public, current-provider and Sage options. Show the operator, direction, supported scope, price and support boundary. Onboarding records explicit customer or delegate choice and action authority. It creates missing proposed subscription and connection configurations separately from active route state. For an existing provider or public route, record current directions and historical obligations. Before any external change, configuration failure or cancellation leaves the old route. A possible external effect requires ONB-08. Block unsupported mixed-scope combinations and explain the limitation. Do not widen scope silently.
 
-**ONB-09 Continuity and release.** Keep old-route access for in-flight delivery, statuses, rejection/payment reporting, corrections and audit according to confirmed actor/channel rules. Release old entry point, registration, credentials and commercial relationship at independent approved gates. [Offboarding SPEC-SEI-003](SPEC-SEI-003-offboarding-solution-specification.md) governs a later full exit. Lack of a confirmed historical execution path blocks release, not the already evidenced new-traffic cutover.
+For ONB-S03, bind the existing provider account and create only missing Sage configuration. Reuse a matching connection under its current version. Reopening ERP setup must not cause re-enrolment, credential replacement or receiving-destination publication. A required external change needs separate authority and a durable operation record. For ONB-S05, retain unchanged functions and configure only the requested addition. Before external mutation, return a limitation for unsupported provider interfaces or gated platform changes.
+
+**ONB-06 Private readiness.** Onboarding validates approval for the operator, contract and customer group. It checks credentials, required trust, transport and profile conformance, and provider capabilities. For inbound functions, check required entry-point publication and discoverability. Store the intended value, external operation ID, independently observed value, source, observation time and freshness. A configured connection does not prove external readiness. If publication times out, record OUTCOME_UNKNOWN and invoke ONB-08. If reliable provider observation is unavailable, require a documented manual gate with named evidence and approver. The existing route remains selected.
+
+Inspect current receiving-point evidence and reuse it where valid. Publish or change the receiving point only when the selected plan and contract require it. Qualify sending, receiving and status functions independently. ONB-S04 keeps public and private results separate and records each execution owner. Successful private transport does not prove readiness for public copies or reporting. A possible external change can invalidate reachability before local route commit. Hold that scope under ONB-08. Do not assume the old route remains safe.
+
+**ONB-07 Activation/cutover.** Onboarding rechecks the actor's permission and current readiness evidence. The route service locks the affected scope and records the expected route version. The cutover plan records the approved time and sequence, entry-point publication evidence, rollback trigger and customer notice.
+
+The route service changes the route only if its current version matches the expected version. This check is **compare-and-set**. The change applies only to the authorised direction and scope, for invoices accepted after the agreed boundary. If external and internal states differ, do not report ACTIVE. Open ONB-08.
+
+When the exchange service accepts an invoice, it saves that invoice's route version. The selected provider cannot change during processing of that invoice. After successful cutover, save the actual cutover time and return status for each direction. A single ONBOARDED flag must not hide different route states.
+
+If ONB-10 proves the selected Sage route is valid and unchanged, omit route commit. Connecting an existing external provider can still require an explicitly selected initial Sage route. The provider can remain unchanged. Route activation requires separate customer authority. Phase 1 still prohibits route mutation. Private A → Private B remains disabled until the shared-foundation gate is approved.
+
+**ONB-08 Recovery.** Onboarding owns the affected capability and route outcome. [SPEC-SEI-004](SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md) defines failure classification, retry, correction, cancellation and reconciliation. Before repeating a mutation or claiming readiness, reconcile unknown effects with the original correlation or operation ID. If states differ, keep the transition blocked and assign a recovery case owner. After cutover, restoration is a new authorised transition. It requires current external-state and inbound-discoverability checks. Invoice origins remain unchanged.
+
+**ONB-09 Continuity and release.** Onboarding retains old-route access for in-flight delivery, statuses, rejection and payment reporting, corrections, and audit. Apply confirmed actor and channel rules. Release the old entry point, registration, credentials and commercial relationship at separate approved gates. [Offboarding SPEC-SEI-003](SPEC-SEI-003-offboarding-solution-specification.md) governs a later full exit. If the historical execution path is unconfirmed, block release. This does not block a new-traffic cutover already supported by evidence.
+
+**ONB-11 ERP result.** After decisions are durable, onboarding returns the authoritative work-item version through the Global API. For each requested function, include the business, environment, platform or service, and integration role. Include the connection reference and version, readiness and recheck evidence. Where applicable, include the selected route, version and effective boundary. Return activation evidence from the owning feature, limitations, next action and action owner. Keep request completion separate from setup and activation. Exact API fields require ONB-Q04. Do not introduce a state for the whole customer or rename readiness values.
+
+The ERP can show **ready for supported public operations**, **sending active**, **receiving pending**, **existing setup confirmed**, or **connection unavailable**, as evidence permits. These are illustrative messages, not new technical states. If activation evidence is missing, report pending or unknown even when connection checks passed. Keep public-copy and reporting results separate from delivery and receiving. A setup result must not claim invoice acceptance, payment or completion of a legal report.
+
+For unchanged setup, return valid existing references. Do not create a subscription, publish an entry point or commit a route. Notify the product and owning runtime feature when readiness changes. A failed recheck must not leave a misleading ready result. After a lost notification, read the authoritative version.
 
 ### 3 Logical requirements and quality controls
 
 | ID | Requirement and PRD source |
 |---|---|
-| ONB-R01 | Resolve legal subject, tenant, environment and exact capability before any mutation; PRD-SEI-101/222. |
-| ONB-R02 | Verify direct or per-client delegate authority for each action and recheck before activation; PRD-SEI-104/231. |
-| ONB-R03 | Maintain independent, evidenced readiness dimensions; conditional certificate need follows policy; PRD-SEI-101/226. |
-| ONB-R04 | Return partial portfolio results and isolate correction, cancellation and failure per client; PRD-SEI-104/107. |
-| ONB-R05 | Allow private configuration and tests while live route stays unchanged; PRD-SEI-222. |
-| ONB-R06 | Require observed external inbound readiness and explicit scope-specific authority before cutover; PRD-SEI-222. |
-| ONB-R07 | Serialise overlapping cutovers and freeze route origin for each invoice; PRD-SEI-222/202. |
-| ONB-R08 | Reconcile outcome-unknown external mutations before retry or success; PRD-SEI-107/222/225. |
-| ONB-R09 | Preserve historical actor, route and evidence; release previous dependencies separately; PRD-SEI-222/224. |
-| ONB-R10 | Audit intent, decision, mutation, observation, correction and override with actor, scope, time and source; PRD-SEI-225/226. |
+| ONB-R01 | Before mutation, resolve the legal subject, tenant, environment and exact capability. Source: PRD-SEI-101/222. |
+| ONB-R02 | Verify direct or per-client delegate authority for each action. Recheck before activation. Source: PRD-SEI-104/231. |
+| ONB-R03 | Maintain separate readiness dimensions with evidence. Check certificates only where policy requires them. Source: PRD-SEI-101/226. |
+| ONB-R04 | Return partial portfolio results. Isolate correction, cancellation and failure for each client. Source: PRD-SEI-104/107. |
+| ONB-R05 | Allow private configuration and tests without changing the live route. Source: PRD-SEI-222. |
+| ONB-R06 | Before cutover, require observed external inbound readiness and explicit authority for the scope. Source: PRD-SEI-222. |
+| ONB-R07 | Process overlapping cutovers one at a time. Preserve the origin route for each invoice. Source: PRD-SEI-222/202. |
+| ONB-R08 | Before retry or success, reconcile external mutations whose outcome is unknown. Source: PRD-SEI-107/222/225. |
+| ONB-R09 | Preserve the historical actor, route and evidence. Release previous dependencies separately. Source: PRD-SEI-222/224. |
+| ONB-R10 | Audit intent, decisions, mutations, observations, corrections and overrides. Include actor, scope, time and source. Source: PRD-SEI-225/226. |
+| ONB-R11 | Assess existing services and requested outcome before planning missing work. Separate declared and observed facts. Use ONB-S01–08. Proposed refinement of PRD-SEI-101/222. |
+| ONB-R12 | Reuse only qualified evidence. Confirm unchanged setup without external mutation. Extend only requested functions. Sources: PRD-SEI-101 readiness/recheck and PRD-SEI-222 continuity. This scenario refinement remains proposed. |
+| ONB-R13 | Return setup, readiness and evidenced activation for each function through the common API. Do not use a global ONBOARDED flag. Sources: SPEC-SEI-013/014 and PRD-SEI-101/222. |
+| ONB-R14 | Keep B2G/B2B service contexts, phase gates, unsupported providers and gated platform changes explicit. The owning invoice feature checks transaction applicability. Sources: scope boundaries and ONB-Q02–04. |
 
-Authorisation uses least privilege and delegation limited to the approved purpose; support override must be attributable and cannot bypass external-observation or legal-policy gates. Encrypt sensitive evidence, isolate tenant/entity/environment, redact diagnostics, and use reference-only credentials. Define service objectives after volumes, external propagation and recovery baselines are measured. Monitor age/count of pending, blocked, unknown and discrepant items, expiring grants/trust, stale entry points and failed cutovers; each alert has an operations owner.
+Grant only the permissions needed for the approved purpose. Limit delegation to that purpose. Record who makes each support override. Overrides must not bypass external-observation or legal-policy gates. Encrypt sensitive evidence. Isolate tenants, entities and environments. Redact diagnostics and store credentials by reference only.
+
+Define service objectives after measuring volumes, external propagation and recovery baselines. Monitor the age and count of pending, blocked, unknown and inconsistent items. Also monitor expiring grants and trust, stale entry points and failed cutovers. Assign an operations owner to each alert.
 
 ## Part 3 Logical Service Interactions and Data Inventory
 
@@ -245,6 +357,8 @@ These are logical contracts, not approved endpoints or physical service allocati
 | ONB-INT-07 | Onboarding → route/exchange | Compare-and-set cutover for exact direction/scope and effective boundary; route version returned and bound to new invoices. |
 | ONB-INT-08 | Operations/onboarding → adapter | Query/reconcile original external operation; returns confirmed, absent-safe-to-retry or unresolved with evidence; no duplicate mutation. |
 | ONB-INT-09 | Onboarding → product/operations | Emit state-changed/case-opened notification after durable commit; consumers deduplicate by eventId and version. |
+| ONB-INT-10 | Onboarding → connection/route and qualified adapters | Read current setup for an authorised business/environment and requested functions; return versioned configuration, observations, source/freshness and limitations; no external mutation or universal directory assumption. Consumed by ONB-10. |
+| ONB-INT-11 | Onboarding → Global API → ERP/product | Return per-function setup/readiness and independently evidenced activation, selected references, limitations and owned actions; query by item/version after a lost notification. Consumed by ONB-11; exact field mapping requires ONB-Q04. |
 
 Events are proposed ONBOARDING_ITEM_CHANGED, PUBLIC_READINESS_CHANGED, PRIVATE_READINESS_CHANGED, ROUTE_CUTOVER_OBSERVED and ONBOARDING_RECOVERY_OPENED. Delivery is at least once, so the same event may arrive again; consumers recognise repeats and read the authoritative work-item version. A notification is never the sole proof of an external side effect. External adapter capabilities (query, idempotency, publication, revocation, acknowledgement) are registered per provider and environment; unsupported operations become explicit manual gates.
 
@@ -261,6 +375,8 @@ Events are proposed ONBOARDING_ITEM_CHANGED, PUBLIC_READINESS_CHANGED, PRIVATE_R
 | ONB-D07 | Route transition / route | From/to route, expected version, effective boundary, approval, observed state, rollback case and outcome | ONB-07/09 |
 | ONB-D08 | Invoice origin / exchange/records | Invoice ID, original operator/route/profile, route version, accepted time and external correlations; immutable | ONB-07/09, offboarding |
 | ONB-D09 | Recovery/evidence case / operations | Fault class, original operation, intended/observed state, owner, safe action, evidence with sensitive values removed and audit timeline | ONB-08 |
+| ONB-D10 | Current-setup assessment and plan / onboarding | Scenario/intent, requested functions, declared versus observed facts, source/time, configuration versions, retained evidence, missing checks and per-function plan; restricted/versioned; authoritative connection/route records stay with their owners | ONB-10, ONB-03–08/11 |
+| ONB-D11 | ERP capability result / onboarding | Work-item version, per-function connection/readiness/activation references, effective boundary, limitations, next action and owner; derived from committed evidence, access controlled and rebuildable | ONB-11, Global API, ERP/product, support |
 
 Retention and deletion periods are set by approved legal, privacy, contract and evidence policy per data class; none are inferred here. D02/D04/D05 references are access controlled. D08 remains available to explain later statuses and reports after route change. All records include tenant/entity/environment partition keys and audit attribution.
 
@@ -282,9 +398,21 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | ONB-A08 Rollback after live invoices | R07–10 → ONB-08/09 / INT-07–09, D07–09 | Restoration has new evidence; invoices on each side keep actual route. |
 | ONB-A09 Country-bound onboarding reuse | R01–03/06/10 → ONB-02/03/06, INT-02–04/06, D02/03/06 | The same workflow selects separate approved country policies. Spain identity and entry-point rules do not run for another country; missing local policy blocks readiness or activation. Existing Spain evidence remains unchanged. |
 | ONB-A10 Shared foundation and understandable results | R03/05–09 → ONB-04/06/07/09; SPEC-SEI-014 SPC-03/04/08, SPC-A01/03/05/09 | Setup returns passed/failed/unknown checks and named required actions without activating a route. Platform change states direction and boundary, uses one Routing owner, and preserves existing provider connections and historical context when an operator role is added. |
+| ONB-A11 First-time public/private choices, S01 | R01–03/05/06/11/13 → ONB-01–07/10/11, INT-01–07/10/11, D01–07/10/11 | Supported public choice returns readiness without route mutation; private choice uses separate activation gates. ERP can distinguish ready from active; no silent selection. |
+| ONB-A12 Existing public service, S02 | R02/03/11–14 → ONB-02–04/10/11, INT-02–04/10/11, D02–04/10/11 | External public use without Sage authority returns the missing action. With valid matching evidence, omit repeated work; do not infer registration or active exchange. |
+| ONB-A13 Existing private provider, S03 | R05/06/11–13 → ONB-05–07/10/11, INT-05–07/10/11, D05–07/10/11 | Retain the current provider, bind its account and check functions; no duplicate enrolment/subscription/publication. Initial Sage route requires explicit authority even when provider is unchanged. |
+| ONB-A14 Public/private combination, S04 | R03/06/08/11/13/14 → ONB-03–08/10/11, INT-03–08/10/11, D03/05–07/09–11 | Independently qualify public and private functions; partial failure preserves unaffected selection but dependent invoice actions remain gated. Reject overlapping unsupported routes and prove one executor per delivery action. |
+| ONB-A15 Confirm/extend Sage setup, S05 | R03/11–13 → ONB-03–07/10/11, INT-03/05–07/10/11, D03–07/10/11 | Valid unchanged setup returns existing references with zero external mutation and no new route version. Extension adds only requested supported functions; stale evidence is rechecked. |
+| ONB-A16 Gated or supported migration, S06 | R06–09/11/14 → ONB-05–11, INT-05–11, D05–11 | Supported change preserves actual historical context. Private A → Private B remains blocked before approval; a diagram cannot enable it. |
+| ONB-A17 B2G and transaction boundaries, S07 | R11/14 → ONB-03/10/11, INT-03/10/11, D03/10/11 | FACe/B2G use cannot satisfy B2B service readiness. B2C/international context is retained without a business-wide exemption or blanket applicability decision; owning invoice features evaluate individual transactions. |
+| ONB-A18 Unsupported/unknown setup, S08 | R08/11/13/14 → ONB-01/08/10/11, INT-01/08/10/11, D01/09–11 | Unsupported provider/function returns a precise limitation without substitution or mutation. Failed lookup is unknown, not absent; a possible effect uses SPEC-SEI-004. |
+| ONB-A19 Evidence and implementation reuse | R03/11/12/14 → ONB-03/06/10, INT-03/04/10, D03–05/10 | Changed country, role, purpose, environment, policy or credential version prevents unsupported evidence reuse. Record source build/contracts, local changes, gaps and owner before activating reused components; qualify relevant DTS coverage in its owning spec. |
+| ONB-A20 ERP result and concurrent setup | R07/08/10–13 → ONB-07/08/10/11, INT-07–11, D07/09–11 | Stale setup/route versions cannot overwrite a concurrent change. Repeated result reads and lost/duplicate notifications return the authoritative version; readiness or a recovered external operation alone never claims active exchange. |
 
 ### 2 Review and release gates
 
 **Reviewable now:** logical separation, lifecycle, failure model and proposed contracts. **Public pilot gate:** approved capability/representation and external API policy; authority and conditional trust policy; per-client isolation, cancellation and unknown-outcome drills. **Private pilot gate:** selected operator and provider capability matrix; verified entry-point mechanism/sequence; observed readiness and scoped route granularity; historical obligations decision table; rollback and concurrent-cutover drills. **Production gate:** approved legal/operator terms, threat review, conformance evidence, support runbooks and ownership, measured service objectives and monitoring, retention policy, and passed end-to-end pilot evidence.
 
 Open decisions in Part 1 must be recorded with owner, source, date and accepted outcome before their dependent paths are enabled. Where the official interface or legal actor is unknown, the product exposes a blocked/manual gate and does not assert that onboarding is complete.
+
+**Scenario/API pilot evidence:** exercise ONB-S01–08 against qualified contracts and actual API/result mappings, including existing account binding, zero-mutation confirmation, stale-evidence refresh, mixed public/private partial results and scenario correction. Reconcile failures under SPEC-SEI-004 before resuming the precise parent gate. ONB-Q01–04 remain release gates; this scenario expansion does not establish broader B2G/B2C/international support, a deployed API or a newly approved migration mode.
