@@ -106,12 +106,12 @@
             <mxGeometry x="2305" y="456" width="260" height="84" as="geometry" />
           </mxCell>
         </object>
-        <object id="issue" label="Issue the new invoice in ERP&#10;IC-10" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+        <object id="issue" label="Review the new candidate in ERP&#10;IC-10" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry x="2305" y="321" width="260" height="84" as="geometry" />
           </mxCell>
         </object>
-        <object id="handoff" label="Bind final revision; hand to Sending&#10;IC-10" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+        <object id="handoff" label="Hand final candidate to Sending&#10;IC-10" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry x="2010" y="456" width="260" height="84" as="geometry" />
           </mxCell>
@@ -248,7 +248,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="boundary" value="388 replaces simplified invoices. S is a corrective substitution. These are different scenarios.&#10;384/471 use qualified BG-24 and BT-ES-27/28/29. Third-party BG-ES-1 is a separate condition.&#10;SPEC-SEI-015 · Original data stays unchanged. Blocked results require a new draft revision or another governed invoice." style="text;whiteSpace=wrap;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="boundary" value="388 replaces simplified invoices. S is a corrective substitution. These are different scenarios.&#10;384/471 use qualified BG-24 and BT-ES-27/28/29. Third-party BG-ES-1 is a separate condition.&#10;SPEC-SEI-015 · Sending coordinates required copy with ERP issuance. Original data stays unchanged; actual coordination remains gated." style="text;whiteSpace=wrap;html=0;align=left;fontSize=14;" vertex="1" parent="1">
           <mxGeometry x="28" y="990" width="2614" height="70" as="geometry" />
         </mxCell>
       </root>

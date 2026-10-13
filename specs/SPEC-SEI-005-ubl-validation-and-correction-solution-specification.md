@@ -132,7 +132,7 @@ Diagram step names use plain-language actions. The smaller activity references l
 | Decision / effect | Owner and gate |
 |---|---|
 | Reference ERP, input mode and pilot scope: public UBL 2.5 Invoice; any other document family requires its separately qualified route/profile | Product + Domain Service; pilot selection |
-| Exact Spanish public/private UBL, EN 16931, BIS/CIUS and extension versions | Country/standards owner; profile activation |
+| Public UBL 2.5 Invoice is selected by supplied formats. Exact compatible business schemas, EN 16931/Spain extended rules and separate bilateral/private profiles still need qualification | Country/standards owner; profile activation |
 | DTS or other mapper qualification and treatment of source fields/extensions that cannot map | Architecture + country technical lead; conformance |
 | Whether a generated representation is returned as bytes or reference, and validation/send transport | Architecture; design |
 | Correction ownership and customer wording for each rule/fault class | ERP Product/UX + Domain Service; pilot usability |
@@ -204,6 +204,8 @@ Exchange and lifecycle owners record external rejection or Peppol feedback. That
 Tenant/entity/delegate access controls apply to files, results and evidence. Diagnostics and logs redact invoice content and personal data; no private key appears in validation. Rule, mapper and profile versions coexist to reproduce historical results. Pilot measures first-pass pass rate, correction completion, preventable external rejection, undetermined/stale-preview rate, latency, processing rate, payload size and issue volume; owners approve targets after baseline measurement.
 
 ### SPFE source contract binding
+
+Use the [complete Annex I traceability table in SPEC-SEI-015](SPEC-SEI-015-invoice-creation-solution-specification.md#annex-i-invoice-field-traceability) and its [source-field ledger](../assets/regulatory/spain/spfe/field-traceability.json) when qualifying validation and DTS. Every applicable row and controlled-value domain needs an actual mapping/rule binding and positive/negative evidence. A mapper success or syntax pass cannot close this coverage gate.
 
 The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through UV-02–04, UV-07–08. Source conflicts stay open under profile activation; SPFE-Q03/Q04/Q05/Q13/Q14; they are not resolved by a local default.
 
@@ -285,6 +287,8 @@ These are required evidence scenarios, not executed implementation tests. The so
 | UV-SPFE-A03 | PRE validation succeeds, then production dispatch is requested | Run the qualified exact-file validation; PRE success cannot establish registration, production acceptance or a permitted size limit. | UV-SPFE-R03; UV-02–04, UV-07–08; [REF](#ref-source-references). |
 
 ## REF Source references
+
+For public-platform legal and external-contract facts, the original official sources below take precedence over earlier assumptions in linked PRDs and internal notes. PRDs retain product scope and are unchanged by this review. A source conflict remains an explicit gate; this spec cannot approve a local substitute.
 
 Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
 

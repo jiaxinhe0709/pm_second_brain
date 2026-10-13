@@ -50,7 +50,7 @@ Give Sage products one controlled way to prepare Spain invoice data, select the 
 
 **Creation has two separate meanings.** The ERP creates and issues the business invoice. Domain Services creates a derived electronic representation and checks it. A generated file or a validation `PASS` does not establish legal issuance, submission, recipient delivery, buyer acceptance or payment.
 
-In scope: product type selection, explicit issuer roles, versioned source intake, profile selection, type-driven validation, original-invoice references, corrective methods, regime keys, monetary reconciliation, unique-code inputs, qualified UBL generation, safe issues, immutable evidence and the handoff of issued data to sending.
+In scope: product type selection, explicit issuer roles, versioned source intake, profile selection, type-driven validation, original-invoice references, corrective methods, regime keys, monetary reconciliation, unique-code inputs, qualified UBL generation, safe issues, immutable evidence and the handoff of a final candidate for coordinated issuance, or issued data for a qualified already-issued path, to sending.
 
 Out of scope: ERP numbering allocation, approval of legal issuance, external submission, recipient-directory implementation, signing implementation, public-copy dispatch, buyer status decisions, payment reporting, cancellation of an issued invoice and a new invoice archive. Creation supplies facts to those owners. It does not implement their operations.
 
@@ -116,7 +116,7 @@ The Word compliance guide linked inside IC-E01 was not supplied. Its full conten
 | Public-profile and country-rule approval | Spain technical and Compliance owners. Own applicability, field meaning, code lists, exceptions and technical-contract evidence. |
 | UBL transformation | Existing DTS is the preferred implementation reuse candidate. [SPEC-SEI-008](SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) owns migration and qualification. |
 | Validation and issues | [SPEC-SEI-005](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md). Reuse its result semantics and layered checks. |
-| Signing, recipient delivery and public-copy actions | [SPEC-SEI-001](SPEC-SEI-001-certificate-management-solution-specification.md) and [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md). Creation supplies exact issued source and representation evidence. |
+| Signing, recipient delivery and public-copy actions | [SPEC-SEI-001](SPEC-SEI-001-certificate-management-solution-specification.md) and [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md). Creation supplies exact final source and representation evidence; bind actual ERP issuance proof through the qualified sending boundary. |
 | Later correction relationships and payment/reporting interpretation | ERP and [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md). A creation result alone never changes payment or commercial status. |
 | Durable invoice conservation | Existing product/records owner. DTS temporary output is not an archive. Exact custody and retention need IC-Q09. |
 
@@ -134,17 +134,17 @@ Qualify each source-to-target pair independently. The supplied formats select pu
 
 ### 5 Process diagrams and lifecycle
 
-![Prepare invoice data, generate UBL and hand off the issued revision](../assets/diagrams/invoice-creation-preparation-process.svg)
+![Prepare invoice data, generate UBL and hand off the final candidate](../assets/diagrams/invoice-creation-preparation-process.svg)
 
 [Editable Draw.io](../assets/diagrams/invoice-creation-preparation-process.drawio) · [PNG preview](../assets/diagrams/invoice-creation-preparation-process.png).
 
-Text equivalent: the customer provides a business scenario; the ERP sends IC-01 source data. The service checks scope in IC-02 and selects the exact bundle in IC-03. IC-04–06 check type, references, identity, lines and amounts. A blocked check returns IC-09 issues. Valid data enters IC-07 qualified generation and IC-08 validation of the generated file. IC-09 returns the representation and evidence. The ERP decides whether to issue. IC-10 binds the actual issued revision and hands it to sending, which performs its own final checks. IC-11 reconciles uncertain operation or handoff results before repetition. No public-platform mutation occurs in creation.
+Text equivalent: the customer provides a business scenario; the ERP sends IC-01 source data. The service checks scope in IC-02 and selects the exact bundle in IC-03. IC-04–06 check type, references, identity, lines and amounts. A blocked check returns IC-09 issues. Valid data enters IC-07 qualified generation and IC-08 validation of the generated file. IC-09 returns the representation and evidence. The ERP decides whether to issue. IC-10 hands the final candidate to sending for its final checks before dependent Article 4 issuance, then binds actual ERP issuance proof. Qualified already-issued public paths keep their distinct context. IC-11 reconciles uncertain operation or handoff results before repetition. No public-platform mutation occurs in creation.
 
 ![Prepare a correction or replacement and preserve the original invoice](../assets/diagrams/invoice-creation-correction-process.svg)
 
 [Editable Draw.io](../assets/diagrams/invoice-creation-correction-process.drawio) · [PNG preview](../assets/diagrams/invoice-creation-correction-process.png).
 
-Text equivalent: the ERP identifies whether the source is an unissued draft, an individual issued invoice to correct, or a simplified invoice to replace. Draft edits create a new source revision through IC-12. An issued correction uses 384 or 471 and selects `I` or `S` in IC-04; an eligible simplified-invoice replacement uses 388. IC-05 checks references and the unchanged seller/buyer roles. IC-06 checks the selected amounts. IC-07/08 produce and validate a separate representation. IC-09 returns issues or evidence; IC-10 accepts ERP issuance evidence for the new invoice. The original remains unchanged. Unsupported aggregate exceptions and uncertain original outcomes return to IC-11 for owned resolution.
+Text equivalent: the ERP identifies whether the source is an unissued draft, an individual issued invoice to correct, or a simplified invoice to replace. Draft edits create a new source revision through IC-12. An issued correction uses 384 or 471 and selects `I` or `S` in IC-04; an eligible simplified-invoice replacement uses 388. IC-05 checks references and the unchanged seller/buyer roles. IC-06 checks the selected amounts. IC-07/08 produce and validate a separate representation. IC-09 returns issues or evidence; IC-10 hands the new final candidate to sending before dependent Article 4 issuance, then binds ERP issuance evidence. The original remains unchanged. Unsupported aggregate exceptions and uncertain original outcomes return to IC-11 for owned resolution.
 
 | Activity ID | Trigger, precondition and result | Logical owner |
 |---|---|---|
@@ -157,7 +157,7 @@ Text equivalent: the ERP identifies whether the source is an unissued draft, an 
 | IC-07 Generate target representation | Use the qualified mapper and pinned input/bundle. Save separate exact target bytes and provenance. Prebuilt input bypasses generation. | DTS / E-Invoice |
 | IC-08 Validate generated representation | Run safety, schema, compatible core and country/profile checks on exact bytes. Verify preservation of business meaning. | Validation |
 | IC-09 Return evidence and next action | Persist result and safe issues before notification. ERP displays correction actions, qualification gaps or a checked representation. | E-Invoice / ERP |
-| IC-10 Bind ERP-issued revision and hand off | ERP supplies final issued identity/revision. Reject changed or unverified evidence; reuse IC-03–09 where needed. Save handoff intent for SPEC-SEI-007. | ERP / E-Invoice / Sending |
+| IC-10 Bind final candidate and actual issuance evidence | Hand the checked final candidate to SPEC-SEI-007 before dependent Article 4 issuance. Bind later ERP-issued proof to the same facts. Qualified already-issued paths retain their own evidence. Reject changed or unverified bindings; reuse IC-03–09. | ERP / E-Invoice / Sending |
 | IC-11 Reconcile uncertain work | On timeout, partial persistence, ambiguous original status or lost handoff response, query the original operation/evidence before retry. | Owning service / Operations |
 | IC-12 Correct draft or start new invoice | Before issuance, create a linked source revision. After issuance, start a separate correction/replacement under applicable rules. | ERP / authorised user |
 
@@ -291,9 +291,11 @@ Save candidate bytes, digest, media type, source/bundle lineage and comparison o
 
 ### 6 Issuance, correction and recovery
 
-**IC-10 — Issued handoff.** The ERP records issuance under its controls and supplies final BT-1, BT-2, type, parties, source revision/digest and issue evidence. Recheck current authority and identity. Compare the actual issued source with the checked draft. Any relevant change requires new generation/check evidence for the final revision. A preview with missing identity can never be promoted by changing a status label.
+**IC-10 — Final candidate and issued evidence handoff.** For an Article 4 journey, Creation hands the exact final candidate and its checked evidence to SPEC-SEI-007 before dependent ERP issuance. Sending qualifies the final route, required files, trust and operation readiness. OUT-06/12 coordinates required copy submission with issuance; OUT-Q03 qualifies its physical contract. The ERP must supply stable final identity/date/revision, then actual issuance proof for the same facts. A material change invalidates the prepared plan before issuance. Creation cannot independently issue and queue a later copy as the compliant normal path.
 
-Prepare a durable handoff record before calling sending. SPEC-SEI-007 receives final issued facts, exact representation evidence, qualified identity and reference lineage. It selects the final route, trust and required independent actions, then validates exact dispatch bytes under current rules. Creation's profile or preview destination cannot freeze that exchange plan. Sending owns final public-copy classification and cross-representation identity checks. Later payment reports use the same invoice identity under SPEC-SEI-009; creation does not mark them reported.
+For a qualified already-issued public-original path, The ERP records issuance under its controls and supplies final BT-1, BT-2, type, parties, source revision/digest and issue evidence. Recheck current authority and identity. Compare the actual issued source with the checked draft. Any relevant change requires new generation/check evidence for the final revision. A preview with missing identity can never be promoted by changing a status label.
+
+Prepare a durable handoff record before calling sending. SPEC-SEI-007 receives the final candidate or eligible issued facts, exact representation evidence, qualified identity and reference lineage. The handoff records which path applies. It selects the final route, trust and required independent actions, then validates exact dispatch bytes under current rules. Creation's profile or preview destination cannot freeze that exchange plan. Sending owns final public-copy classification and cross-representation identity checks. Later payment reports use the same invoice identity under SPEC-SEI-009; creation does not mark them reported.
 
 **IC-12 — Correction.** Before issuance, an authorised ERP edit creates a new immutable source revision linked to the earlier check. Recheck it; preserve old bytes and results. A final invoice-number collision or stale draft update requires an explicit conflict. After issuance, reject an attempted overwrite. The ERP starts a separately numbered corrective invoice or an eligible simplified-invoice replacement. Selecting a type does not itself update the original's lifecycle. Later relationship events are handled by the owning product/lifecycle service using issued evidence.
 
@@ -335,7 +337,7 @@ The requirements below define the proposed solution. Regulatory identifiers and 
 | IC-R10 | Generate and persist qualified composite invoice identity; keep it distinct from request/service IDs and consistent across representations and lifecycle handoffs. |
 | IC-R11 | Use a qualified mapper; preserve required business meaning and exact target-byte provenance; prebuilt bytes remain unchanged. |
 | IC-R12 | Validate exact output through all applicable layers and return the SPEC-SEI-005 outcomes with safe owned issues. |
-| IC-R13 | Bind the actual ERP-issued revision; perform necessary renewed checks and hand off through the existing sending owner. |
+| IC-R13 | Hand the checked final candidate to sending before dependent Article 4 issuance; bind actual ERP-issued evidence to the same facts. Eligible already-issued paths keep distinct evidence and renewed checks. |
 | IC-R14 | Correct a draft by new revision; after issuance create a separate governed invoice and never overwrite the original. |
 | IC-R15 | Make acceptance, generation and handoff recoverable; enforce request conflict, concurrency, cancellation and reconciliation controls. |
 | IC-R16 | Protect invoice data and file references; deny unauthorised cross-party/tenant/environment access and unsafe XML or file retrieval. |
@@ -372,7 +374,7 @@ These are proposed logical handoffs. IC-Q07 selects actual components, operation
 | IC-INT-06 / IC-07/11 | E-Invoice → DTS; generate and inspect work | Immutable source reference, supported pair, bundle and operation identity → existing task/transformation result, target reference/digest or classified fault. | Qualify actual DTS contract under SPEC-SEI-008. Timeout reads the same task; no automatic new transformation. |
 | IC-INT-07 / IC-01/07/09/11/12 | Owning service → Records/state; save evidence | Input, candidate, result, request binding and expected version → committed record/receipt. | Scoped writes/reads, conditional commit, protected bytes. Repair partial persistence before completion. |
 | IC-INT-08 / IC-09/11 | ERP → E-Invoice; read result / optional notification | Authorised operation identity → current result and protected retained artefact access. | Repeated read safe. Notification is advisory; renew eligible access to the same bytes without regeneration. |
-| IC-INT-09 / IC-10/11 | ERP/E-Invoice → Sending; bind and hand off issued revision | ERP issuance evidence, exact final revision, representation/identity/references → durable sending receipt. | Recheck current authority. Sending owns final route, validation, trust and exchange actions. Reconcile lost receipt before repeat. |
+| IC-INT-09 / IC-10/11 | ERP/E-Invoice → Sending; bind final candidate and issued proof | Exact final candidate, representation/identity/references and selected path; later ERP issuance evidence, or eligible already-issued source → durable sending receipt. | Recheck current authority. Sending owns final route, validation, trust and exchange actions. Reconcile lost receipt before repeat. |
 | IC-INT-10 / IC-11/12 | ERP/Operations → owning service; cancel/reconcile | Original operation, permitted action and evidence → audited repair, cancellation or explicit next action. | Separate support rights from customer business decisions. Cancellation cannot undo issuance or external effects. |
 
 ### 2 Events and cross-feature handoffs
@@ -399,6 +401,210 @@ These are logical records, not a proposed second invoice ledger. Use qualified e
 | IC-D10 | Recovery, qualification and operational evidence / service owners | Safe failure categories, attempts, cancellations, claim/commit evidence, synthetic conformance and support/runbook references. Internal/restricted. | IC-03/07–12 and release gates; audit support actions, redact business data and preserve approved continuity. |
 
 Temporary access expiry, object deletion, deduplication expiry, records conservation and mapper/rule retention have separate policies. Renew only authorised access to retained identical bytes. If policy has removed required input or artefacts, return unavailable recovery explicitly; do not regenerate and claim the old file. Metrics and notifications cannot substitute for custody evidence.
+
+### Annex I invoice field traceability
+
+The table records all 176 source field/group occurrences for this feature. Each trace ID identifies one row in the [field ledger](../assets/regulatory/spain/spfe/field-traceability.json). The ledger retains the original Spanish description, conditional rules, semantic type, literal UBL path and exact BOE XML row locator. Repeated source IDs remain separate occurrences. English names aid reading; the Spanish source controls the meaning.
+
+Each listed requirement applies the source meaning, type, presence conditions, cardinality and controlled values through IC-03–08. Cardinality is evaluated within its selected parent group, not as a universal invoice requirement. Preserve applicable content and reject unsupported mappings. For each row, the positive case uses an approved applicable fixture and tests valid content and permitted absence. The negative case violates an applicable source condition, type, cardinality or controlled value and must fail safely. These are specified acceptance cases, not executed tests. Actual ERP/API bindings, business schemas, executable rules and DTS coverage remain unqualified under IC-Q01/Q02/Q04/Q05/Q06 and SPFE-Q04/Q14. A recorded source path is not proof of a valid implementation path.
+
+| Trace / source ID | Logical fact or group | Source cardinality | Requirement | Acceptance: positive / negative |
+|---|---|---|---|---|
+| `AXI-001` / `BT-1` | Invoice series and number | `1..1` | `IC-AXI-R001` | `IC-AXI-A001P` / `IC-AXI-A001N` |
+| `AXI-002` / `BT-ES-1` | Public-copy indicator | `0..1` | `IC-AXI-R002` | `IC-AXI-A002P` / `IC-AXI-A002N` |
+| `AXI-003` / `BT-2` | Invoice issue date | `1..1` | `IC-AXI-R003` | `IC-AXI-A003P` / `IC-AXI-A003N` |
+| `AXI-004` / `BT-166` | Invoice issue time | `0..1` | `IC-AXI-R004` | `IC-AXI-A004P` / `IC-AXI-A004N` |
+| `AXI-005` / `BT-3` | Invoice type code | `1..1` | `IC-AXI-R005` | `IC-AXI-A005P` / `IC-AXI-A005N` |
+| `AXI-006` / `BT-5` | Invoice currency | `1..1` | `IC-AXI-R006` | `IC-AXI-A006P` / `IC-AXI-A006N` |
+| `AXI-007` / `BT-6` | VAT accounting currency | `0..1` | `IC-AXI-R007` | `IC-AXI-A007P` / `IC-AXI-A007N` |
+| `AXI-008` / `BT-167` | VAT accounting exchange rate | `0..1` | `IC-AXI-R008` | `IC-AXI-A008P` / `IC-AXI-A008N` |
+| `AXI-009` / `BT-7` | Operation date | `0..1` | `IC-AXI-R009` | `IC-AXI-A009P` / `IC-AXI-A009N` |
+| `AXI-010` / `BT-9` | Payment due date | `0..1` | `IC-AXI-R010` | `IC-AXI-A010P` / `IC-AXI-A010N` |
+| `AXI-011` / `BT-ES-2` | Effective payment date | `0..1` | `IC-AXI-R011` | `IC-AXI-A011P` / `IC-AXI-A011N` |
+| `AXI-012` / `BT-10` | Buyer reference | `0..n` | `IC-AXI-R012` | `IC-AXI-A012P` / `IC-AXI-A012N` |
+| `AXI-013` / `BG-1` | Invoice notes | `0..n` | `IC-AXI-R013` | `IC-AXI-A013P` / `IC-AXI-A013N` |
+| `AXI-014` / `BT-21` | Invoice note code — within Invoice notes [AXI-013] | `0..1` | `IC-AXI-R014` | `IC-AXI-A014P` / `IC-AXI-A014N` |
+| `AXI-015` / `BT-22` | Invoice note — within Invoice notes [AXI-013] | `1..1` | `IC-AXI-R015` | `IC-AXI-A015P` / `IC-AXI-A015N` |
+| `AXI-016` / `BG-2` | Process control | `1..1` | `IC-AXI-R016` | `IC-AXI-A016P` / `IC-AXI-A016N` |
+| `AXI-017` / `BT-23` | Business process identifier — within Process control [AXI-016] | `1..1` | `IC-AXI-R017` | `IC-AXI-A017P` / `IC-AXI-A017N` |
+| `AXI-018` / `BT-24` | Specification identifier — within Process control [AXI-016] | `1..1` | `IC-AXI-R018` | `IC-AXI-A018P` / `IC-AXI-A018N` |
+| `AXI-019` / `BG-3` | Previous invoice references | `0..n` | `IC-AXI-R019` | `IC-AXI-A019P` / `IC-AXI-A019N` |
+| `AXI-020` / `BT-25` | Previous invoice series and number — within Previous invoice references [AXI-019] | `1..1` | `IC-AXI-R020` | `IC-AXI-A020P` / `IC-AXI-A020N` |
+| `AXI-021` / `BT-26` | Previous invoice issue date — within Previous invoice references [AXI-019] | `1..1` | `IC-AXI-R021` | `IC-AXI-A021P` / `IC-AXI-A021N` |
+| `AXI-022` / `BG-4` | Seller | `1..1` | `IC-AXI-R022` | `IC-AXI-A022P` / `IC-AXI-A022N` |
+| `AXI-023` / `BT-27` | Seller name — within Seller [AXI-022] | `1..1` | `IC-AXI-R023` | `IC-AXI-A023P` / `IC-AXI-A023N` |
+| `AXI-024` / `BT-31` | Seller VAT identifier — within Seller [AXI-022] | `0..1` | `IC-AXI-R024` | `IC-AXI-A024P` / `IC-AXI-A024N` |
+| `AXI-025` / `BT-32` | Seller tax identifier — within Seller [AXI-022] | `0..1` | `IC-AXI-R025` | `IC-AXI-A025P` / `IC-AXI-A025N` |
+| `AXI-026` / `BT-30` | Seller legal registration identifier — within Seller [AXI-022] | `0..1` | `IC-AXI-R026` | `IC-AXI-A026P` / `IC-AXI-A026N` |
+| `AXI-027` / `BT-33` | Seller legal information — within Seller [AXI-022] | `0..1` | `IC-AXI-R027` | `IC-AXI-A027P` / `IC-AXI-A027N` |
+| `AXI-028` / `BG-5` | Seller address — within Seller [AXI-022] | `1..1` | `IC-AXI-R028` | `IC-AXI-A028P` / `IC-AXI-A028N` |
+| `AXI-029` / `BT-35` | Seller address — within Seller [AXI-022] / Seller address [AXI-028] | `1..1` | `IC-AXI-R029` | `IC-AXI-A029P` / `IC-AXI-A029N` |
+| `AXI-030` / `BT-37` | Seller municipality — within Seller [AXI-022] / Seller address [AXI-028] | `0..1` | `IC-AXI-R030` | `IC-AXI-A030P` / `IC-AXI-A030N` |
+| `AXI-031` / `BT-38` | Seller postal code — within Seller [AXI-022] / Seller address [AXI-028] | `0..1` | `IC-AXI-R031` | `IC-AXI-A031P` / `IC-AXI-A031N` |
+| `AXI-032` / `BT-39` | Seller province — within Seller [AXI-022] / Seller address [AXI-028] | `0..1` | `IC-AXI-R032` | `IC-AXI-A032P` / `IC-AXI-A032N` |
+| `AXI-033` / `BT-40` | Seller country code — within Seller [AXI-022] / Seller address [AXI-028] | `1..1` | `IC-AXI-R033` | `IC-AXI-A033P` / `IC-AXI-A033N` |
+| `AXI-034` / `BG-6` | Seller contact — within Seller [AXI-022] | `0..1` | `IC-AXI-R034` | `IC-AXI-A034P` / `IC-AXI-A034N` |
+| `AXI-035` / `BT-42` | Seller contact telephone — within Seller [AXI-022] / Seller contact [AXI-034] | `0..1` | `IC-AXI-R035` | `IC-AXI-A035P` / `IC-AXI-A035N` |
+| `AXI-036` / `BT-43` | Seller contact email — within Seller [AXI-022] / Seller contact [AXI-034] | `0..1` | `IC-AXI-R036` | `IC-AXI-A036P` / `IC-AXI-A036N` |
+| `AXI-037` / `BG-7` | Buyer | `1..1` | `IC-AXI-R037` | `IC-AXI-A037P` / `IC-AXI-A037N` |
+| `AXI-038` / `BT-44` | Buyer name — within Buyer [AXI-037] | `1..1` | `IC-AXI-R038` | `IC-AXI-A038P` / `IC-AXI-A038N` |
+| `AXI-039` / `BT-47` | Buyer tax identifier — within Buyer [AXI-037] | `0..1` | `IC-AXI-R039` | `IC-AXI-A039P` / `IC-AXI-A039N` |
+| `AXI-040` / `BT-48` | Buyer VAT identifier — within Buyer [AXI-037] | `0..1` | `IC-AXI-R040` | `IC-AXI-A040P` / `IC-AXI-A040N` |
+| `AXI-041` / `BG-8` | Buyer address — within Buyer [AXI-037] | `1..1` | `IC-AXI-R041` | `IC-AXI-A041P` / `IC-AXI-A041N` |
+| `AXI-042` / `BT-50` | Buyer address — within Buyer [AXI-037] / Buyer address [AXI-041] | `1..1` | `IC-AXI-R042` | `IC-AXI-A042P` / `IC-AXI-A042N` |
+| `AXI-043` / `BT-52` | Buyer municipality — within Buyer [AXI-037] / Buyer address [AXI-041] | `0..1` | `IC-AXI-R043` | `IC-AXI-A043P` / `IC-AXI-A043N` |
+| `AXI-044` / `BT-53` | Buyer postal code — within Buyer [AXI-037] / Buyer address [AXI-041] | `0..1` | `IC-AXI-R044` | `IC-AXI-A044P` / `IC-AXI-A044N` |
+| `AXI-045` / `BT-54` | Buyer province — within Buyer [AXI-037] / Buyer address [AXI-041] | `0..1` | `IC-AXI-R045` | `IC-AXI-A045P` / `IC-AXI-A045N` |
+| `AXI-046` / `BT-55` | Buyer country code — within Buyer [AXI-037] / Buyer address [AXI-041] | `1..1` | `IC-AXI-R046` | `IC-AXI-A046P` / `IC-AXI-A046N` |
+| `AXI-047` / `BG-9` | Buyer contact — within Buyer [AXI-037] | `0..1` | `IC-AXI-R047` | `IC-AXI-A047P` / `IC-AXI-A047N` |
+| `AXI-048` / `BT-57` | Buyer contact telephone — within Buyer [AXI-037] / Buyer contact [AXI-047] | `0..1` | `IC-AXI-R048` | `IC-AXI-A048P` / `IC-AXI-A048N` |
+| `AXI-049` / `BT-58` | Buyer contact email — within Buyer [AXI-037] / Buyer contact [AXI-047] | `0..1` | `IC-AXI-R049` | `IC-AXI-A049P` / `IC-AXI-A049N` |
+| `AXI-050` / `BG-ES-1` | Third parties | `0..n` | `IC-AXI-R050` | `IC-AXI-A050P` / `IC-AXI-A050N` |
+| `AXI-051` / `BT-ES-3` | Third-party name — within Third parties [AXI-050] | `1..1` | `IC-AXI-R051` | `IC-AXI-A051P` / `IC-AXI-A051N` |
+| `AXI-052` / `BT-ES-4` | Third-party NIF — within Third parties [AXI-050] | `1..1` | `IC-AXI-R052` | `IC-AXI-A052P` / `IC-AXI-A052N` |
+| `AXI-053` / `BT-ES-5` | Third-party role code — within Third parties [AXI-050] | `1..1` | `IC-AXI-R053` | `IC-AXI-A053P` / `IC-AXI-A053N` |
+| `AXI-054` / `BG-14` | Summary-invoice period | `0..1` | `IC-AXI-R054` | `IC-AXI-A054P` / `IC-AXI-A054N` |
+| `AXI-055` / `BT-73` | Billing period start — within Summary-invoice period [AXI-054] | `0..1` | `IC-AXI-R055` | `IC-AXI-A055P` / `IC-AXI-A055N` |
+| `AXI-056` / `BT-74` | Billing period end — within Summary-invoice period [AXI-054] | `0..1` | `IC-AXI-R056` | `IC-AXI-A056P` / `IC-AXI-A056N` |
+| `AXI-057` / `BG-20` | Document allowances | `0..n` | `IC-AXI-R057` | `IC-AXI-A057P` / `IC-AXI-A057N` |
+| `AXI-058` / `BT-92` | Document allowance amount — within Document allowances [AXI-057] | `1..1` | `IC-AXI-R058` | `IC-AXI-A058P` / `IC-AXI-A058N` |
+| `AXI-059` / `BT-95` | Document allowance VAT category — within Document allowances [AXI-057] | `1..1` | `IC-AXI-R059` | `IC-AXI-A059P` / `IC-AXI-A059N` |
+| `AXI-060` / `BT-96` | Document allowance VAT rate — within Document allowances [AXI-057] | `0..1` | `IC-AXI-R060` | `IC-AXI-A060P` / `IC-AXI-A060N` |
+| `AXI-061` / `BT-97` | Document allowance reason — within Document allowances [AXI-057] | `1..1` | `IC-AXI-R061` | `IC-AXI-A061P` / `IC-AXI-A061N` |
+| `AXI-062` / `BG-21` | Document charges | `0..n` | `IC-AXI-R062` | `IC-AXI-A062P` / `IC-AXI-A062N` |
+| `AXI-063` / `BT-99` | Document charge amount — within Document charges [AXI-062] | `1..1` | `IC-AXI-R063` | `IC-AXI-A063P` / `IC-AXI-A063N` |
+| `AXI-064` / `BT-102` | Document charge VAT category — within Document charges [AXI-062] | `1..1` | `IC-AXI-R064` | `IC-AXI-A064P` / `IC-AXI-A064N` |
+| `AXI-065` / `BT-103` | Document charge VAT rate — within Document charges [AXI-062] | `0..1` | `IC-AXI-R065` | `IC-AXI-A065P` / `IC-AXI-A065N` |
+| `AXI-066` / `BT-104` | Document charge reason — within Document charges [AXI-062] | `1..1` | `IC-AXI-R066` | `IC-AXI-A066P` / `IC-AXI-A066N` |
+| `AXI-067` / `BG-ES-2` | Document tax/fee details — within Document charges [AXI-062] | `0..n` | `IC-AXI-R067` | `IC-AXI-A067P` / `IC-AXI-A067N` |
+| `AXI-068` / `BT-ES-6` | Document tax/fee base — within Document charges [AXI-062] / Document tax/fee details [AXI-067] | `0..1` | `IC-AXI-R068` | `IC-AXI-A068P` / `IC-AXI-A068N` |
+| `AXI-069` / `BT-ES-7` | Document tax/fee rate — within Document charges [AXI-062] / Document tax/fee details [AXI-067] | `0..1` | `IC-AXI-R069` | `IC-AXI-A069P` / `IC-AXI-A069N` |
+| `AXI-070` / `BT-ES-8` | Document tax/fee amount — within Document charges [AXI-062] / Document tax/fee details [AXI-067] | `1..1` | `IC-AXI-R070` | `IC-AXI-A070P` / `IC-AXI-A070N` |
+| `AXI-071` / `BT-ES-9` | Document non-VAT tax/fee code — within Document charges [AXI-062] / Document tax/fee details [AXI-067] | `1..1` | `IC-AXI-R071` | `IC-AXI-A071P` / `IC-AXI-A071N` |
+| `AXI-072` / `BG-22` | Invoice totals | `1..1` | `IC-AXI-R072` | `IC-AXI-A072P` / `IC-AXI-A072N` |
+| `AXI-073` / `BT-106` | Sum of invoice line net amounts — within Invoice totals [AXI-072] | `1..1` | `IC-AXI-R073` | `IC-AXI-A073P` / `IC-AXI-A073N` |
+| `AXI-074` / `BT-107` | Sum of document allowances — within Invoice totals [AXI-072] | `0..1` | `IC-AXI-R074` | `IC-AXI-A074P` / `IC-AXI-A074N` |
+| `AXI-075` / `BT-108` | Sum of document charges — within Invoice totals [AXI-072] | `0..1` | `IC-AXI-R075` | `IC-AXI-A075P` / `IC-AXI-A075N` |
+| `AXI-076` / `BT-109` | Invoice total excluding VAT — within Invoice totals [AXI-072] | `1..1` | `IC-AXI-R076` | `IC-AXI-A076P` / `IC-AXI-A076N` |
+| `AXI-077` / `BT-110` | Invoice VAT total — within Invoice totals [AXI-072] | `1..1` | `IC-AXI-R077` | `IC-AXI-A077P` / `IC-AXI-A077N` |
+| `AXI-078` / `BT-111` | VAT total in accounting currency — within Invoice totals [AXI-072] | `0..1` | `IC-AXI-R078` | `IC-AXI-A078P` / `IC-AXI-A078N` |
+| `AXI-079` / `BT-112` | Invoice total including VAT — within Invoice totals [AXI-072] | `1..1` | `IC-AXI-R079` | `IC-AXI-A079P` / `IC-AXI-A079N` |
+| `AXI-080` / `BT-113` | Paid amount — within Invoice totals [AXI-072] | `0..1` | `IC-AXI-R080` | `IC-AXI-A080P` / `IC-AXI-A080N` |
+| `AXI-081` / `BT-114` | Rounding amount — within Invoice totals [AXI-072] | `0..1` | `IC-AXI-R081` | `IC-AXI-A081P` / `IC-AXI-A081N` |
+| `AXI-082` / `BT-115` | Amount due — within Invoice totals [AXI-072] | `1..1` | `IC-AXI-R082` | `IC-AXI-A082P` / `IC-AXI-A082N` |
+| `AXI-083` / `BG-34` | Context-specific third-party collections/deductions — within Invoice totals [AXI-072] | `0..n` | `IC-AXI-R083` | `IC-AXI-A083P` / `IC-AXI-A083N` |
+| `AXI-084` / `BT-179` | Third-party charge amount — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-083] | `1..1` | `IC-AXI-R084` | `IC-AXI-A084P` / `IC-AXI-A084N` |
+| `AXI-085` / `BT-180` | Context-specific collection/deduction description — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-083] | `1..1` | `IC-AXI-R085` | `IC-AXI-A085P` / `IC-AXI-A085N` |
+| `AXI-086` / `BT-ES-10` | Third-party charge identifier — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-083] | `1..1` | `IC-AXI-R086` | `IC-AXI-A086P` / `IC-AXI-A086N` |
+| `AXI-087` / `BG-34` | Context-specific third-party collections/deductions — within Invoice totals [AXI-072] | `0..n` | `IC-AXI-R087` | `IC-AXI-A087P` / `IC-AXI-A087N` |
+| `AXI-088` / `BT-179` | Tax/fee total in collection group — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087] | `1..1` | `IC-AXI-R088` | `IC-AXI-A088P` / `IC-AXI-A088N` |
+| `AXI-089` / `BT-180` | Context-specific collection/deduction description — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087] | `1..1` | `IC-AXI-R089` | `IC-AXI-A089P` / `IC-AXI-A089N` |
+| `AXI-090` / `BT-ES-11` | Tax/fee identifier — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087] | `1..1` | `IC-AXI-R090` | `IC-AXI-A090P` / `IC-AXI-A090N` |
+| `AXI-091` / `BG-ES-3` | Third-party tax/fee breakdown — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087] | `0..n` | `IC-AXI-R091` | `IC-AXI-A091P` / `IC-AXI-A091N` |
+| `AXI-092` / `BT-ES-12` | Third-party tax/fee base — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087] / Third-party tax/fee breakdown [AXI-091] | `0..1` | `IC-AXI-R092` | `IC-AXI-A092P` / `IC-AXI-A092N` |
+| `AXI-093` / `BT-ES-13` | Third-party tax/fee rate — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087] / Third-party tax/fee breakdown [AXI-091] | `0..1` | `IC-AXI-R093` | `IC-AXI-A093P` / `IC-AXI-A093N` |
+| `AXI-094` / `BT-ES-14` | Third-party tax/fee total — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087] / Third-party tax/fee breakdown [AXI-091] | `1..1` | `IC-AXI-R094` | `IC-AXI-A094P` / `IC-AXI-A094N` |
+| `AXI-095` / `BG-34` | Context-specific third-party collections/deductions — within Invoice totals [AXI-072] | `0..n` | `IC-AXI-R095` | `IC-AXI-A095P` / `IC-AXI-A095N` |
+| `AXI-096` / `BT-179` | Third-party deduction amount — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-095] | `1..1` | `IC-AXI-R096` | `IC-AXI-A096P` / `IC-AXI-A096N` |
+| `AXI-097` / `BT-180` | Context-specific collection/deduction description — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-095] | `1..1` | `IC-AXI-R097` | `IC-AXI-A097P` / `IC-AXI-A097N` |
+| `AXI-098` / `BT-ES-15` | Third-party deduction identifier — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-095] | `1..1` | `IC-AXI-R098` | `IC-AXI-A098P` / `IC-AXI-A098N` |
+| `AXI-099` / `BG-34` | Context-specific third-party collections/deductions — within Invoice totals [AXI-072] | `0..1` | `IC-AXI-R099` | `IC-AXI-A099P` / `IC-AXI-A099N` |
+| `AXI-100` / `BT-179` | Total withholding in collection group — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] | `1..1` | `IC-AXI-R100` | `IC-AXI-A100P` / `IC-AXI-A100N` |
+| `AXI-101` / `BT-180` | Context-specific collection/deduction description — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] | `1..1` | `IC-AXI-R101` | `IC-AXI-A101P` / `IC-AXI-A101N` |
+| `AXI-102` / `BT-ES-16` | Withholding identifier — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] | `1..1` | `IC-AXI-R102` | `IC-AXI-A102P` / `IC-AXI-A102N` |
+| `AXI-103` / `BT-ES-17` | Total withholding — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] | `1..1` | `IC-AXI-R103` | `IC-AXI-A103P` / `IC-AXI-A103N` |
+| `AXI-104` / `BG-ES-4` | Withholding details — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] | `0..n` | `IC-AXI-R104` | `IC-AXI-A104P` / `IC-AXI-A104N` |
+| `AXI-105` / `BT-ES-18` | Withholding base — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] / Withholding details [AXI-104] | `1..1` | `IC-AXI-R105` | `IC-AXI-A105P` / `IC-AXI-A105N` |
+| `AXI-106` / `BT-ES-19` | Withholding amount — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] / Withholding details [AXI-104] | `1..1` | `IC-AXI-R106` | `IC-AXI-A106P` / `IC-AXI-A106N` |
+| `AXI-107` / `BT-ES-20` | Withholding rate — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] / Withholding details [AXI-104] | `1..1` | `IC-AXI-R107` | `IC-AXI-A107P` / `IC-AXI-A107N` |
+| `AXI-108` / `BT-ES-21` | Withholding concept code — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] / Withholding details [AXI-104] | `1..1` | `IC-AXI-R108` | `IC-AXI-A108P` / `IC-AXI-A108N` |
+| `AXI-109` / `BG-25` | Invoice lines | `1..n` | `IC-AXI-R109` | `IC-AXI-A109P` / `IC-AXI-A109N` |
+| `AXI-110` / `BT-126` | Invoice line identifier — within Invoice lines [AXI-109] | `1..1` | `IC-AXI-R110` | `IC-AXI-A110P` / `IC-AXI-A110N` |
+| `AXI-111` / `BT-129` | Invoiced quantity — within Invoice lines [AXI-109] | `1..1` | `IC-AXI-R111` | `IC-AXI-A111P` / `IC-AXI-A111N` |
+| `AXI-112` / `BT-130` | Quantity unit code — within Invoice lines [AXI-109] | `1..1` | `IC-AXI-R112` | `IC-AXI-A112P` / `IC-AXI-A112N` |
+| `AXI-113` / `BT-131` | Invoice line net amount — within Invoice lines [AXI-109] | `1..1` | `IC-AXI-R113` | `IC-AXI-A113P` / `IC-AXI-A113N` |
+| `AXI-114` / `BG-27` | Line allowances — within Invoice lines [AXI-109] | `0..n` | `IC-AXI-R114` | `IC-AXI-A114P` / `IC-AXI-A114N` |
+| `AXI-115` / `BT-136` | Line allowance amount — within Invoice lines [AXI-109] / Line allowances [AXI-114] | `1..1` | `IC-AXI-R115` | `IC-AXI-A115P` / `IC-AXI-A115N` |
+| `AXI-116` / `BT-139` | Line allowance reason — within Invoice lines [AXI-109] / Line allowances [AXI-114] | `1..1` | `IC-AXI-R116` | `IC-AXI-A116P` / `IC-AXI-A116N` |
+| `AXI-117` / `BG-28` | Line charges — within Invoice lines [AXI-109] | `0..n` | `IC-AXI-R117` | `IC-AXI-A117P` / `IC-AXI-A117N` |
+| `AXI-118` / `BT-141` | Line charge amount — within Invoice lines [AXI-109] / Line charges [AXI-117] | `1..1` | `IC-AXI-R118` | `IC-AXI-A118P` / `IC-AXI-A118N` |
+| `AXI-119` / `BT-142` | Line charge base — within Invoice lines [AXI-109] / Line charges [AXI-117] | `0..1` | `IC-AXI-R119` | `IC-AXI-A119P` / `IC-AXI-A119N` |
+| `AXI-120` / `BT-143` | Line charge rate — within Invoice lines [AXI-109] / Line charges [AXI-117] | `0..1` | `IC-AXI-R120` | `IC-AXI-A120P` / `IC-AXI-A120N` |
+| `AXI-121` / `BT-ES-22` | Line non-VAT tax/fee code — within Invoice lines [AXI-109] / Line charges [AXI-117] | `1..1` | `IC-AXI-R121` | `IC-AXI-A121P` / `IC-AXI-A121N` |
+| `AXI-122` / `BT-144` | Line charge reason — within Invoice lines [AXI-109] / Line charges [AXI-117] | `1..1` | `IC-AXI-R122` | `IC-AXI-A122P` / `IC-AXI-A122N` |
+| `AXI-123` / `BG-29` | Item price details — within Invoice lines [AXI-109] | `1..1` | `IC-AXI-R123` | `IC-AXI-A123P` / `IC-AXI-A123N` |
+| `AXI-124` / `BT-146` | Item net price — within Invoice lines [AXI-109] / Item price details [AXI-123] | `1..1` | `IC-AXI-R124` | `IC-AXI-A124P` / `IC-AXI-A124N` |
+| `AXI-125` / `BT-149` | Item price base quantity — within Invoice lines [AXI-109] | `0..1` | `IC-AXI-R125` | `IC-AXI-A125P` / `IC-AXI-A125N` |
+| `AXI-126` / `BG-30` | Line VAT information — within Invoice lines [AXI-109] | `1..1` | `IC-AXI-R126` | `IC-AXI-A126P` / `IC-AXI-A126N` |
+| `AXI-127` / `BT-151` | Item VAT category — within Invoice lines [AXI-109] / Line VAT information [AXI-126] | `1..1` | `IC-AXI-R127` | `IC-AXI-A127P` / `IC-AXI-A127N` |
+| `AXI-128` / `BT-152` | Item VAT rate — within Invoice lines [AXI-109] / Line VAT information [AXI-126] | `0..1` | `IC-AXI-R128` | `IC-AXI-A128P` / `IC-AXI-A128N` |
+| `AXI-129` / `BT-195` | Item VAT exemption code — within Invoice lines [AXI-109] / Line VAT information [AXI-126] | `0..1` | `IC-AXI-R129` | `IC-AXI-A129P` / `IC-AXI-A129N` |
+| `AXI-130` / `BG-31` | Item information — within Invoice lines [AXI-109] | `1..1` | `IC-AXI-R130` | `IC-AXI-A130P` / `IC-AXI-A130N` |
+| `AXI-131` / `BT-153` | Item name — within Invoice lines [AXI-109] / Item information [AXI-130] | `1..1` | `IC-AXI-R131` | `IC-AXI-A131P` / `IC-AXI-A131N` |
+| `AXI-132` / `BT-154` | Item description — within Invoice lines [AXI-109] / Item information [AXI-130] | `0..1` | `IC-AXI-R132` | `IC-AXI-A132P` / `IC-AXI-A132N` |
+| `AXI-133` / `BG-32` | Context-specific additional line properties — within Invoice lines [AXI-109] / Item information [AXI-130] | `0..n` | `IC-AXI-R133` | `IC-AXI-A133P` / `IC-AXI-A133N` |
+| `AXI-134` / `BT-160` | Additional property code — within Invoice lines [AXI-109] / Item information [AXI-130] | `1..1` | `IC-AXI-R134` | `IC-AXI-A134P` / `IC-AXI-A134N` |
+| `AXI-135` / `BT-161` | Additional property value — within Invoice lines [AXI-109] / Item information [AXI-130] | `1..1` | `IC-AXI-R135` | `IC-AXI-A135P` / `IC-AXI-A135N` |
+| `AXI-136` / `BG-32` | Context-specific additional line properties — within Invoice lines [AXI-109] / Item information [AXI-130] | `0..1` | `IC-AXI-R136` | `IC-AXI-A136P` / `IC-AXI-A136N` |
+| `AXI-137` / `BT-160` | Additional property code — within Invoice lines [AXI-109] / Item information [AXI-130] / Context-specific additional line properties [AXI-136] | `1..1` | `IC-AXI-R137` | `IC-AXI-A137P` / `IC-AXI-A137N` |
+| `AXI-138` / `BT-161` | Additional property value — within Invoice lines [AXI-109] / Item information [AXI-130] | `1..1` | `IC-AXI-R138` | `IC-AXI-A138P` / `IC-AXI-A138N` |
+| `AXI-139` / `BT-ES-23` | Property location code — within Invoice lines [AXI-109] / Item information [AXI-130] | `1..1` | `IC-AXI-R139` | `IC-AXI-A139P` / `IC-AXI-A139N` |
+| `AXI-140` / `BG-32` | Context-specific additional line properties — within Invoice lines [AXI-109] / Item information [AXI-130] | `1..2` | `IC-AXI-R140` | `IC-AXI-A140P` / `IC-AXI-A140N` |
+| `AXI-141` / `BT-160` | Additional property code — within Invoice lines [AXI-109] / Item information [AXI-130] / Context-specific additional line properties [AXI-140] | `1..1` | `IC-AXI-R141` | `IC-AXI-A141P` / `IC-AXI-A141N` |
+| `AXI-142` / `BT-161` | Additional property value — within Invoice lines [AXI-109] / Item information [AXI-130] / Context-specific additional line properties [AXI-140] | `1..1` | `IC-AXI-R142` | `IC-AXI-A142P` / `IC-AXI-A142N` |
+| `AXI-143` / `BT-ES-24` | National tax qualifier — within Invoice lines [AXI-109] / Item information [AXI-130] / Context-specific additional line properties [AXI-140] | `1..1` | `IC-AXI-R143` | `IC-AXI-A143P` / `IC-AXI-A143N` |
+| `AXI-144` / `BG-23` | VAT breakdown | `1..n` | `IC-AXI-R144` | `IC-AXI-A144P` / `IC-AXI-A144N` |
+| `AXI-145` / `BT-116` | Taxable amount by VAT category — within VAT breakdown [AXI-144] | `1..1` | `IC-AXI-R145` | `IC-AXI-A145P` / `IC-AXI-A145N` |
+| `AXI-146` / `BT-117` | Tax amount by VAT category — within VAT breakdown [AXI-144] | `1..1` | `IC-AXI-R146` | `IC-AXI-A146P` / `IC-AXI-A146N` |
+| `AXI-147` / `BT-118` | VAT category code — within VAT breakdown [AXI-144] | `1..1` | `IC-AXI-R147` | `IC-AXI-A147P` / `IC-AXI-A147N` |
+| `AXI-148` / `BT-119` | VAT category rate — within VAT breakdown [AXI-144] | `1..1` | `IC-AXI-R148` | `IC-AXI-A148P` / `IC-AXI-A148N` |
+| `AXI-149` / `BT-120` | VAT exemption reason — within VAT breakdown [AXI-144] | `0..1` | `IC-AXI-R149` | `IC-AXI-A149P` / `IC-AXI-A149N` |
+| `AXI-150` / `BT-121` | VAT exemption code — within VAT breakdown [AXI-144] | `0..1` | `IC-AXI-R150` | `IC-AXI-A150P` / `IC-AXI-A150N` |
+| `AXI-151` / `BG-33` | Payment terms | `0..n` | `IC-AXI-R151` | `IC-AXI-A151P` / `IC-AXI-A151N` |
+| `AXI-152` / `BT-20` | Payment terms description — within Payment terms [AXI-151] | `0..1` | `IC-AXI-R152` | `IC-AXI-A152P` / `IC-AXI-A152N` |
+| `AXI-153` / `BG-16` | Payment instructions | `0..1` | `IC-AXI-R153` | `IC-AXI-A153P` / `IC-AXI-A153N` |
+| `AXI-154` / `BT-81` | Payment means code — within Payment instructions [AXI-153] | `1..1` | `IC-AXI-R154` | `IC-AXI-A154P` / `IC-AXI-A154N` |
+| `AXI-155` / `BG-17` | Bank transfer — within Payment instructions [AXI-153] | `0..n` | `IC-AXI-R155` | `IC-AXI-A155P` / `IC-AXI-A155N` |
+| `AXI-156` / `BT-84` | Payment account identifier — within Payment instructions [AXI-153] / Bank transfer [AXI-155] | `1..1` | `IC-AXI-R156` | `IC-AXI-A156P` / `IC-AXI-A156N` |
+| `AXI-157` / `BG-24` | Context-specific supporting references | `0..1` | `IC-AXI-R157` | `IC-AXI-A157P` / `IC-AXI-A157N` |
+| `AXI-158` / `BT-122` | Supporting document reference identifier — within Context-specific supporting references [AXI-157] | `1..1` | `IC-AXI-R158` | `IC-AXI-A158P` / `IC-AXI-A158N` |
+| `AXI-159` / `BT-123` | Supporting document description/value — within Context-specific supporting references [AXI-157] | `0..1` | `IC-AXI-R159` | `IC-AXI-A159P` / `IC-AXI-A159N` |
+| `AXI-160` / `BT-ES-25` | Fiscal QR URL reference — within Context-specific supporting references [AXI-157] | `1..1` | `IC-AXI-R160` | `IC-AXI-A160P` / `IC-AXI-A160N` |
+| `AXI-161` / `BG-24` | Context-specific supporting references | `0..n` | `IC-AXI-R161` | `IC-AXI-A161P` / `IC-AXI-A161N` |
+| `AXI-162` / `BT-122` | Supporting document reference identifier — within Context-specific supporting references [AXI-161] | `1..1` | `IC-AXI-R162` | `IC-AXI-A162P` / `IC-AXI-A162N` |
+| `AXI-163` / `BT-123` | Supporting document description/value — within Context-specific supporting references [AXI-161] | `0..1` | `IC-AXI-R163` | `IC-AXI-A163P` / `IC-AXI-A163N` |
+| `AXI-164` / `BT-ES-26` | Billing authorization reference — within Context-specific supporting references [AXI-161] | `1..1` | `IC-AXI-R164` | `IC-AXI-A164P` / `IC-AXI-A164N` |
+| `AXI-165` / `BG-24` | Context-specific supporting references | `0..1` | `IC-AXI-R165` | `IC-AXI-A165P` / `IC-AXI-A165N` |
+| `AXI-166` / `BT-122` | Supporting document reference identifier — within Context-specific supporting references [AXI-165] | `1..1` | `IC-AXI-R166` | `IC-AXI-A166P` / `IC-AXI-A166N` |
+| `AXI-167` / `BT-123` | Supporting document description/value — within Context-specific supporting references [AXI-165] | `0..1` | `IC-AXI-R167` | `IC-AXI-A167P` / `IC-AXI-A167N` |
+| `AXI-168` / `BT-ES-27` | Corrective invoice reason code — within Context-specific supporting references [AXI-165] | `1..1` | `IC-AXI-R168` | `IC-AXI-A168P` / `IC-AXI-A168N` |
+| `AXI-169` / `BG-24` | Context-specific supporting references | `0..1` | `IC-AXI-R169` | `IC-AXI-A169P` / `IC-AXI-A169N` |
+| `AXI-170` / `BT-122` | Supporting document reference identifier — within Context-specific supporting references [AXI-169] | `1..1` | `IC-AXI-R170` | `IC-AXI-A170P` / `IC-AXI-A170N` |
+| `AXI-171` / `BT-123` | Supporting document description/value — within Context-specific supporting references [AXI-169] | `0..1` | `IC-AXI-R171` | `IC-AXI-A171P` / `IC-AXI-A171N` |
+| `AXI-172` / `BT-ES-28` | Corrective invoice method code — within Context-specific supporting references [AXI-169] | `1..1` | `IC-AXI-R172` | `IC-AXI-A172P` / `IC-AXI-A172N` |
+| `AXI-173` / `BG-24` | Context-specific supporting references | `0..5` | `IC-AXI-R173` | `IC-AXI-A173P` / `IC-AXI-A173N` |
+| `AXI-174` / `BT-122` | Supporting document reference identifier — within Context-specific supporting references [AXI-173] | `1..1` | `IC-AXI-R174` | `IC-AXI-A174P` / `IC-AXI-A174N` |
+| `AXI-175` / `BT-123` | Supporting document description/value — within Context-specific supporting references [AXI-173] | `1..1` | `IC-AXI-R175` | `IC-AXI-A175P` / `IC-AXI-A175N` |
+| `AXI-176` / `BT-ES-29` | Rectified original amount code — within Context-specific supporting references [AXI-173] | `1..1` | `IC-AXI-R176` | `IC-AXI-A176P` / `IC-AXI-A176N` |
+
+Each code-table occurrence has a separate domain. The linked ledger preserves every source code and description. The listed requirement accepts only values in the applicable source domain; its positive/negative cases test a valid value and a value outside that domain. Identical code text in another domain does not grant validity. Namespace and executable rule bindings remain open.
+
+| Code-table trace | Source context | Requirement | Acceptance: positive / negative |
+|---|---|---|---|
+| `AX-CODE-01` | L1 – Tipo de factura | `IC-CODE-R01` | `IC-CODE-A01P` / `IC-CODE-A01N` |
+| `AX-CODE-02` | L2.A – Tipo de factura rectificativa | `IC-CODE-R02` | `IC-CODE-A02P` / `IC-CODE-A02N` |
+| `AX-CODE-03` | L2.B – Modalidad de factura rectificativa | `IC-CODE-R03` | `IC-CODE-A03P` / `IC-CODE-A03N` |
+| `AX-CODE-04` | L2.C – Importes rectificados | `IC-CODE-R04` | `IC-CODE-A04P` / `IC-CODE-A04N` |
+| `AX-CODE-05` | L3A – Clave de régimen-IVA | `IC-CODE-R05` | `IC-CODE-A05P` / `IC-CODE-A05N` |
+| `AX-CODE-06` | L3B – Clave de régimen-IGIC | `IC-CODE-R06` | `IC-CODE-A06P` / `IC-CODE-A06N` |
+| `AX-CODE-07` | L3C – Clave de régimen-IPSI | `IC-CODE-R07` | `IC-CODE-A07P` / `IC-CODE-A07N` |
+| `AX-CODE-08` | L4 – Código de tipo de operación | `IC-CODE-R08` | `IC-CODE-A08P` / `IC-CODE-A08N` |
+| `AX-CODE-09` | L5 – Tipo de retención | `IC-CODE-R09` | `IC-CODE-A09P` / `IC-CODE-A09N` |
+| `AX-CODE-10` | L6 – Situación del inmueble | `IC-CODE-R10` | `IC-CODE-A10P` / `IC-CODE-A10N` |
+| `AX-CODE-11` | L7 – Tipo de cargo o minoración | `IC-CODE-R11` | `IC-CODE-A11P` / `IC-CODE-A11N` |
+| `AX-CODE-12` | L8 – Tipo de propiedad | `IC-CODE-R12` | `IC-CODE-A12P` / `IC-CODE-A12N` |
+| `AX-CODE-13` | L9 – Impuestos y cargos a nivel de línea o documento | `IC-CODE-R13` | `IC-CODE-A13P` / `IC-CODE-A13N` |
+| `AX-CODE-14` | L10 – Documentos justificativos adicionales | `IC-CODE-R14` | `IC-CODE-A14P` / `IC-CODE-A14N` |
 
 ## Part 4 Assurance and Traceability View
 
@@ -462,6 +668,8 @@ Current readiness: **reviewable logical proposal**. The spec and diagrams define
 
 ### SPFE evidence acceptance
 
+The field and code-table acceptance IDs in Part 3 also form required evidence coverage. Execute them with approved fixtures and pinned rules before activation. The ledger records their current status as not executed; row coverage alone does not close implementation qualification.
+
 These are required evidence scenarios, not executed implementation tests. The source-binding gate is IC-Q01/Q02/Q04/Q05/Q06; SPFE-Q03/Q04/Q13/Q14. A source-backed review does not establish that this feature is ready for production.
 
 | ID | Scenario | Required result | Requirement coverage |
@@ -471,6 +679,8 @@ These are required evidence scenarios, not executed implementation tests. The so
 | IC-SPFE-A03 | Applicable Spain extension, repeated conditional group or monetary rule is unqualified | Return unsupported/undetermined with the correct owner; no success or lost fields. Retain field-to-rule and country-isolation evidence. | IC-SPFE-R03; IC-03–08, IC-11; [REF](#ref-source-references). |
 
 ## REF Source references
+
+For public-platform legal and external-contract facts, the original official sources below take precedence over earlier assumptions in linked PRDs and internal notes. PRDs retain product scope and are unchanged by this review. A source conflict remains an explicit gate; this spec cannot approve a local substitute.
 
 Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
 
@@ -482,4 +692,5 @@ Use the original files for the claims they establish. Final published regulation
 | SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | section 6.2, pp. 10–11 | Validation layers, identity components and disputed size. |
 | SPFE-S09 | [factura.xml](<../context/Ejemplos/20261013/factura.xml>); Supplied 13 October 2026; SHA-256 in source manifest. | ProfileID, CustomizationID and InvoiceTypeCode | Original example ProfileID omits ubl:; not a passing public conformance case. |
 | REF-PRD | [PRD-SEI-236 — UBL profile](../prds/PRD-SEI-236-ubl-format-profile.md); [PRD-SEI-241 — Validation](../prds/PRD-SEI-241-ubl-validation-service.md); [PRD-SEI-246 — Preparation and outbound](../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-FIELDS | [Complete source-field ledger](../assets/regulatory/spain/spfe/field-traceability.json); [original BOE XML](../assets/regulatory/spain/BOE-A-2026-20587.xml). | Exact XML row locators and original cells in the ledger; trace IDs in Part 3. | Complete source-row inventory, logical controls and required acceptance cases. Actual wire/ERP mappings and execution remain unqualified. |
 | REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

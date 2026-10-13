@@ -145,7 +145,7 @@ def rebuild(name, assignments):
     nested = {id for ids in children.values() for id in ids}
     nodes = {id: copy.deepcopy(cells[id]) for id in selected}
     if name=='spain-invoice-preparation-and-outbound-flow':
-        nodes['35'].set('value', '<b>Track separate external duties</b><br><span style="font-size:11px;color:#555">12</span>')
+        nodes['35'].set('value', '<b>Execute qualified issue boundary</b><br><span style="font-size:11px;color:#555">12</span>')
         set_style(nodes['35'], verticalAlign='top', spacingTop='10', fontSize='14', html='1', whiteSpace='wrap')
         for e in original_edges:
             if not e.get('source'): e.set('source', '35')
@@ -199,7 +199,7 @@ def rebuild(name, assignments):
     html_text(svg,25,58,width-50,30,escape(NOTE),14,'left',0)
     phases = [copy.deepcopy(c) for id,c in cells.items() if id.startswith('phase') and c.get('vertex')=='1']
     if name=='spain-invoice-preparation-and-outbound-flow':
-        phase_names=['PREPARE THE DRAFT','ERP ISSUES & FINAL FILE IS CHECKED','SELECT ROUTE & SEND','TRACK SEPARATE RESULTS']
+        phase_names=['PREPARE THE DRAFT','CHECK FINAL CANDIDATE','PLAN, PREPARE & ISSUE','TRACK SEPARATE RESULTS']
         phases=[copy.deepcopy(cells[str(i)]) for i in range(2,6)]
         for c,label in zip(phases,phase_names): c.set('value',label)
     for c in phases:
@@ -293,7 +293,7 @@ def rebuild(name, assignments):
     footer=cells.get('footer')
     footer_text=footer.get('value','') if footer is not None else (desc.text if desc is not None else '')
     if name=='spain-invoice-preparation-and-outbound-flow':
-        footer_text='Record each action asynchronously; acknowledgement is not buyer acceptance. Alternatives for delivery; copy is a separate conditional duty.'
+        footer_text='Prepare final facts before issuance. Coordinate an Article 4 copy with ERP issuance; retain separate delivery and copy results. Physical coordination stays gated.'
     cell(root,'footer',footer_text,25,height-75,width-50,58,'text;html=1;fontSize=13;align=left;whiteSpace=wrap;')
     html_text(svg,25,height-75,width-50,58,escape(plain(footer_text)),13,'left',0)
     ET.register_namespace('xhtml',XHTML)

@@ -131,7 +131,7 @@ def build(slug, title, description, nodes, edges, decisions, footer):
 
 def build_all():
     p = build('invoice-creation-preparation-process',
-      'Prepare invoice data, generate UBL and hand off the issued revision',
+      'Prepare invoice data, generate UBL and hand off the final candidate',
       'Check the business scenario and exact profile. Return issues or a checked representation. ERP issuance and sending remain separate.', [
         N('scenario',0,0,'Select the business scenario','IC-04'),
         N('source',0,1,'Submit an invoice revision','IC-01'),
@@ -142,8 +142,8 @@ def build_all():
         N('generate',4,3,'Generate a separate UBL file','IC-07'),
         N('output',5,3,'Validate exact bytes and business meaning','IC-08'),
         N('result',6,2,'Save and return result and next action','IC-09'),
-        N('issue',6,1,'Review the result; issue in ERP','IC-10'),
-        N('handoff',7,2,'Bind final revision; hand to Sending','IC-10'),
+        N('issue',6,1,'Review the final candidate in ERP','IC-10'),
+        N('handoff',7,2,'Hand final candidate to Sending','IC-10'),
         N('recover',4,4,'Read original task; resume only pending work','IC-11',kind='recovery'),
         N('send_recover',7,4,'Read original Sending receipt; resume owned work','IC-11',kind='recovery'),
         N('edit',3,1,'Correct the draft in a new revision','IC-12'),
@@ -158,7 +158,7 @@ def build_all():
         edge('handoff','send_recover','Unknown',True),edge('send_recover','handoff','Resume',True),
       ], {'valid'}, [
         'Prebuilt UBL bypasses generation. Changed final data returns to IC-03–09. Missing authority or profile evidence blocks.',
-        'ERP owns numbering and issuance. Sending owns final route, trust, dispatch checks and independent public-copy actions.',
+        'ERP owns issuance. Sending qualifies the final plan before the Article 4 issue/copy boundary; bind actual issue proof.',
         'SPEC-SEI-015 · Reconcile before resume. Return existing completed results; never repeat completed generation or sending.'])
     q = build('invoice-creation-correction-process',
       'Prepare a correction or replacement and preserve the original invoice',
@@ -176,8 +176,8 @@ def build_all():
         N('references',5,2,'Check original links and invoice identity','IC-05'),
         N('validate',6,3,'Generate and validate the new revision','IC-03–08'),
         N('result',7,2,'Return issues or checked evidence','IC-09'),
-        N('issue',7,1,'Issue the new invoice in ERP','IC-10'),
-        N('handoff',6,2,'Bind final revision; hand to Sending','IC-10'),
+        N('issue',7,1,'Review the new candidate in ERP','IC-10'),
+        N('handoff',6,2,'Hand final candidate to Sending','IC-10'),
         N('recover',5,4,'Resolve evidence; repeat IC-05 only when safe','IC-11',kind='recovery'),
       ], [
         edge('change','issued'),edge('issued','draft','No'),
@@ -193,7 +193,7 @@ def build_all():
       ], {'issued','simplified','method'}, [
         '388 replaces simplified invoices. S is a corrective substitution. These are different scenarios.',
         '384/471 use qualified BG-24 and BT-ES-27/28/29. Third-party BG-ES-1 is a separate condition.',
-        'SPEC-SEI-015 · Original data stays unchanged. Blocked results require a new draft revision or another governed invoice.'])
+        'SPEC-SEI-015 · Sending coordinates required copy with ERP issuance. Original data stays unchanged; actual coordination remains gated.'])
     return [p,q]
 
 

@@ -291,6 +291,73 @@ Proposed notifications are LIFECYCLE_EVENT_RECORDED, LIFECYCLE_VIEW_CHANGED, LIF
 
 Payment facts and authority evidence have tighter access than generic technical status. Exact retention is an approved legal/privacy policy by country and data class; route exit cannot delete an unfinished obligation's required evidence. A projection can be rebuilt, but D01/D03/D07/D08 preserve the historic interpretation and external outcome.
 
+### Annex II event field traceability
+
+The table records all 52 source field/group occurrences for this feature. Each trace ID identifies one row in the [field ledger](../assets/regulatory/spain/spfe/field-traceability.json). The ledger retains the original Spanish description, conditional rules, semantic type, literal UBL path and exact BOE XML row locator. Repeated source IDs remain separate occurrences. English names aid reading; the Spanish source controls the meaning.
+
+Each listed requirement applies the source meaning, type, presence conditions, cardinality and controlled values through the selected customer/supplier event path. Cardinality is evaluated within its selected parent group, not as a universal invoice requirement. Preserve applicable content and reject unsupported mappings. For each row, the positive case uses an approved applicable fixture and tests valid content and permitted absence. The negative case violates an applicable source condition, type, cardinality or controlled value and must fail safely. These are specified acceptance cases, not executed tests. Actual ERP/API bindings, business schemas, executable rules and DTS coverage remain unqualified under SPFE-Q04/Q16 and the event/authority qualification gates. A recorded source path is not proof of a valid implementation path.
+
+| Trace / source ID | Logical fact or group | Source cardinality | Requirement | Acceptance: positive / negative |
+|---|---|---|---|---|
+| `AXII-PAYMENT-01` / `PAYMENT` | Effective payment date | `1..1` | `LCS-AXII-PAYMENT-R01` | `LCS-AXII-PAYMENT-A01P` / `LCS-AXII-PAYMENT-A01N` |
+| `AXII-PAYMENT-02` / `PAYMENT` | Payment due date | `1..1` | `LCS-AXII-PAYMENT-R02` | `LCS-AXII-PAYMENT-A02P` / `LCS-AXII-PAYMENT-A02N` |
+| `AXII-PAYMENT-03` / `PAYMENT` | Goods/services receipt date | `0..1` | `LCS-AXII-PAYMENT-R03` | `LCS-AXII-PAYMENT-A03P` / `LCS-AXII-PAYMENT-A03N` |
+| `AXII-PAYMENT-04` / `PAYMENT` | Invoice receipt date | `0..1` | `LCS-AXII-PAYMENT-R04` | `LCS-AXII-PAYMENT-A04P` / `LCS-AXII-PAYMENT-A04N` |
+| `AXII-PAYMENT-05` / `PAYMENT` | Corrected invoice indicator | `0..1` | `LCS-AXII-PAYMENT-R05` | `LCS-AXII-PAYMENT-A05P` / `LCS-AXII-PAYMENT-A05N` |
+| `AXII-PAYMENT-06` / `PAYMENT` | Negative corrective invoice indicator | `0..1` | `LCS-AXII-PAYMENT-R06` | `LCS-AXII-PAYMENT-A06P` / `LCS-AXII-PAYMENT-A06N` |
+| `AXII-PAYMENT-07` / `PAYMENT` | Referenced invoice group | `1..1` | `LCS-AXII-PAYMENT-R07` | `LCS-AXII-PAYMENT-A07P` / `LCS-AXII-PAYMENT-A07N` |
+| `AXII-PAYMENT-08` / `PAYMENT` | Invoice series and number | `1..1` | `LCS-AXII-PAYMENT-R08` | `LCS-AXII-PAYMENT-A08P` / `LCS-AXII-PAYMENT-A08N` |
+| `AXII-PAYMENT-09` / `PAYMENT` | Invoice issue date | `1..1` | `LCS-AXII-PAYMENT-R09` | `LCS-AXII-PAYMENT-A09P` / `LCS-AXII-PAYMENT-A09N` |
+| `AXII-PAYMENT-10` / `PAYMENT` | Seller NIF in the invoice reference | `1..1` | `LCS-AXII-PAYMENT-R10` | `LCS-AXII-PAYMENT-A10P` / `LCS-AXII-PAYMENT-A10N` |
+| `AXII-PAYMENT-11` / `PAYMENT` | Seller name | `1..1` | `LCS-AXII-PAYMENT-R11` | `LCS-AXII-PAYMENT-A11P` / `LCS-AXII-PAYMENT-A11N` |
+| `AXII-CANCELPAYMENT-01` / `CANCELPAYMENT` | Invoice series and number | `1..1` | `LCS-AXII-CANCELPAYMENT-R01` | `LCS-AXII-CANCELPAYMENT-A01P` / `LCS-AXII-CANCELPAYMENT-A01N` |
+| `AXII-CANCELPAYMENT-02` / `CANCELPAYMENT` | Invoice issue date | `1..1` | `LCS-AXII-CANCELPAYMENT-R02` | `LCS-AXII-CANCELPAYMENT-A02P` / `LCS-AXII-CANCELPAYMENT-A02N` |
+| `AXII-CANCELPAYMENT-03` / `CANCELPAYMENT` | Seller NIF in the invoice reference | `1..1` | `LCS-AXII-CANCELPAYMENT-R03` | `LCS-AXII-CANCELPAYMENT-A03P` / `LCS-AXII-CANCELPAYMENT-A03N` |
+| `AXII-CANCELPAYMENT-04` / `CANCELPAYMENT` | Seller name | `1..1` | `LCS-AXII-CANCELPAYMENT-R04` | `LCS-AXII-CANCELPAYMENT-A04P` / `LCS-AXII-CANCELPAYMENT-A04N` |
+| `AXII-REJECTION-01` / `REJECTION` | Rejection date | `1..1` | `LCS-AXII-REJECTION-R01` | `LCS-AXII-REJECTION-A01P` / `LCS-AXII-REJECTION-A01N` |
+| `AXII-REJECTION-02` / `REJECTION` | Rejection reason code | `1..1` | `LCS-AXII-REJECTION-R02` | `LCS-AXII-REJECTION-A02P` / `LCS-AXII-REJECTION-A02N` |
+| `AXII-REJECTION-03` / `REJECTION` | Referenced invoice group | `1..1` | `LCS-AXII-REJECTION-R03` | `LCS-AXII-REJECTION-A03P` / `LCS-AXII-REJECTION-A03N` |
+| `AXII-REJECTION-04` / `REJECTION` | Invoice series and number | `1..1` | `LCS-AXII-REJECTION-R04` | `LCS-AXII-REJECTION-A04P` / `LCS-AXII-REJECTION-A04N` |
+| `AXII-REJECTION-05` / `REJECTION` | Invoice issue date | `1..1` | `LCS-AXII-REJECTION-R05` | `LCS-AXII-REJECTION-A05P` / `LCS-AXII-REJECTION-A05N` |
+| `AXII-REJECTION-06` / `REJECTION` | Seller NIF in the invoice reference | `1..1` | `LCS-AXII-REJECTION-R06` | `LCS-AXII-REJECTION-A06P` / `LCS-AXII-REJECTION-A06N` |
+| `AXII-REJECTION-07` / `REJECTION` | Seller name | `1..1` | `LCS-AXII-REJECTION-R07` | `LCS-AXII-REJECTION-A07P` / `LCS-AXII-REJECTION-A07N` |
+| `AXII-CANCELREJECTION-01` / `CANCELREJECTION` | Invoice series and number | `1..1` | `LCS-AXII-CANCELREJECTION-R01` | `LCS-AXII-CANCELREJECTION-A01P` / `LCS-AXII-CANCELREJECTION-A01N` |
+| `AXII-CANCELREJECTION-02` / `CANCELREJECTION` | Invoice issue date | `1..1` | `LCS-AXII-CANCELREJECTION-R02` | `LCS-AXII-CANCELREJECTION-A02P` / `LCS-AXII-CANCELREJECTION-A02N` |
+| `AXII-CANCELREJECTION-03` / `CANCELREJECTION` | Seller NIF in the invoice reference | `1..1` | `LCS-AXII-CANCELREJECTION-R03` | `LCS-AXII-CANCELREJECTION-A03P` / `LCS-AXII-CANCELREJECTION-A03N` |
+| `AXII-CANCELREJECTION-04` / `CANCELREJECTION` | Seller name | `1..1` | `LCS-AXII-CANCELREJECTION-R04` | `LCS-AXII-CANCELREJECTION-A04P` / `LCS-AXII-CANCELREJECTION-A04N` |
+| `AXII-SETTLEMENT-01` / `SETTLEMENT` | Effective collection date | `1..1` | `LCS-AXII-SETTLEMENT-R01` | `LCS-AXII-SETTLEMENT-A01P` / `LCS-AXII-SETTLEMENT-A01N` |
+| `AXII-SETTLEMENT-02` / `SETTLEMENT` | Payment due date | `0..1` | `LCS-AXII-SETTLEMENT-R02` | `LCS-AXII-SETTLEMENT-A02P` / `LCS-AXII-SETTLEMENT-A02N` |
+| `AXII-SETTLEMENT-03` / `SETTLEMENT` | Financing arrangement indicator | `0..1` | `LCS-AXII-SETTLEMENT-R03` | `LCS-AXII-SETTLEMENT-A03P` / `LCS-AXII-SETTLEMENT-A03N` |
+| `AXII-SETTLEMENT-04` / `SETTLEMENT` | Goods/services receipt date | `0..1` | `LCS-AXII-SETTLEMENT-R04` | `LCS-AXII-SETTLEMENT-A04P` / `LCS-AXII-SETTLEMENT-A04N` |
+| `AXII-SETTLEMENT-05` / `SETTLEMENT` | Invoice receipt date | `0..1` | `LCS-AXII-SETTLEMENT-R05` | `LCS-AXII-SETTLEMENT-A05P` / `LCS-AXII-SETTLEMENT-A05N` |
+| `AXII-SETTLEMENT-06` / `SETTLEMENT` | Referenced invoice group | `1..1` | `LCS-AXII-SETTLEMENT-R06` | `LCS-AXII-SETTLEMENT-A06P` / `LCS-AXII-SETTLEMENT-A06N` |
+| `AXII-SETTLEMENT-07` / `SETTLEMENT` | Invoice series and number | `1..1` | `LCS-AXII-SETTLEMENT-R07` | `LCS-AXII-SETTLEMENT-A07P` / `LCS-AXII-SETTLEMENT-A07N` |
+| `AXII-SETTLEMENT-08` / `SETTLEMENT` | Invoice issue date | `1..1` | `LCS-AXII-SETTLEMENT-R08` | `LCS-AXII-SETTLEMENT-A08P` / `LCS-AXII-SETTLEMENT-A08N` |
+| `AXII-SETTLEMENT-09` / `SETTLEMENT` | Seller NIF in the invoice reference | `1..1` | `LCS-AXII-SETTLEMENT-R09` | `LCS-AXII-SETTLEMENT-A09P` / `LCS-AXII-SETTLEMENT-A09N` |
+| `AXII-SETTLEMENT-10` / `SETTLEMENT` | Seller name | `1..1` | `LCS-AXII-SETTLEMENT-R10` | `LCS-AXII-SETTLEMENT-A10P` / `LCS-AXII-SETTLEMENT-A10N` |
+| `AXII-CANCELSETTLEMENT-01` / `CANCELSETTLEMENT` | Invoice series and number | `1..1` | `LCS-AXII-CANCELSETTLEMENT-R01` | `LCS-AXII-CANCELSETTLEMENT-A01P` / `LCS-AXII-CANCELSETTLEMENT-A01N` |
+| `AXII-CANCELSETTLEMENT-02` / `CANCELSETTLEMENT` | Invoice issue date | `1..1` | `LCS-AXII-CANCELSETTLEMENT-R02` | `LCS-AXII-CANCELSETTLEMENT-A02P` / `LCS-AXII-CANCELSETTLEMENT-A02N` |
+| `AXII-CANCELSETTLEMENT-03` / `CANCELSETTLEMENT` | Seller NIF in the invoice reference | `1..1` | `LCS-AXII-CANCELSETTLEMENT-R03` | `LCS-AXII-CANCELSETTLEMENT-A03P` / `LCS-AXII-CANCELSETTLEMENT-A03N` |
+| `AXII-CANCELSETTLEMENT-04` / `CANCELSETTLEMENT` | Seller name | `1..1` | `LCS-AXII-CANCELSETTLEMENT-R04` | `LCS-AXII-CANCELSETTLEMENT-A04P` / `LCS-AXII-CANCELSETTLEMENT-A04N` |
+| `AXII-DEFAULT-01` / `DEFAULT` | Payment due date | `1..1` | `LCS-AXII-DEFAULT-R01` | `LCS-AXII-DEFAULT-A01P` / `LCS-AXII-DEFAULT-A01N` |
+| `AXII-DEFAULT-02` / `DEFAULT` | Goods/services receipt date | `0..1` | `LCS-AXII-DEFAULT-R02` | `LCS-AXII-DEFAULT-A02P` / `LCS-AXII-DEFAULT-A02N` |
+| `AXII-DEFAULT-03` / `DEFAULT` | Invoice receipt date | `0..1` | `LCS-AXII-DEFAULT-R03` | `LCS-AXII-DEFAULT-A03P` / `LCS-AXII-DEFAULT-A03N` |
+| `AXII-DEFAULT-04` / `DEFAULT` | Referenced invoice group | `1..1` | `LCS-AXII-DEFAULT-R04` | `LCS-AXII-DEFAULT-A04P` / `LCS-AXII-DEFAULT-A04N` |
+| `AXII-DEFAULT-05` / `DEFAULT` | Invoice series and number | `1..1` | `LCS-AXII-DEFAULT-R05` | `LCS-AXII-DEFAULT-A05P` / `LCS-AXII-DEFAULT-A05N` |
+| `AXII-DEFAULT-06` / `DEFAULT` | Invoice issue date | `1..1` | `LCS-AXII-DEFAULT-R06` | `LCS-AXII-DEFAULT-A06P` / `LCS-AXII-DEFAULT-A06N` |
+| `AXII-DEFAULT-07` / `DEFAULT` | Seller NIF in the invoice reference | `1..1` | `LCS-AXII-DEFAULT-R07` | `LCS-AXII-DEFAULT-A07P` / `LCS-AXII-DEFAULT-A07N` |
+| `AXII-DEFAULT-08` / `DEFAULT` | Seller name | `1..1` | `LCS-AXII-DEFAULT-R08` | `LCS-AXII-DEFAULT-A08P` / `LCS-AXII-DEFAULT-A08N` |
+| `AXII-CANCELDEFAULT-01` / `CANCELDEFAULT` | Invoice series and number | `1..1` | `LCS-AXII-CANCELDEFAULT-R01` | `LCS-AXII-CANCELDEFAULT-A01P` / `LCS-AXII-CANCELDEFAULT-A01N` |
+| `AXII-CANCELDEFAULT-02` / `CANCELDEFAULT` | Invoice issue date | `1..1` | `LCS-AXII-CANCELDEFAULT-R02` | `LCS-AXII-CANCELDEFAULT-A02P` / `LCS-AXII-CANCELDEFAULT-A02N` |
+| `AXII-CANCELDEFAULT-03` / `CANCELDEFAULT` | Seller NIF in the invoice reference | `1..1` | `LCS-AXII-CANCELDEFAULT-R03` | `LCS-AXII-CANCELDEFAULT-A03P` / `LCS-AXII-CANCELDEFAULT-A03N` |
+| `AXII-CANCELDEFAULT-04` / `CANCELDEFAULT` | Seller name | `1..1` | `LCS-AXII-CANCELDEFAULT-R04` | `LCS-AXII-CANCELDEFAULT-A04P` / `LCS-AXII-CANCELDEFAULT-A04N` |
+
+Each code-table occurrence has a separate domain. The linked ledger preserves every source code and description. The listed requirement accepts only values in the applicable source domain; its positive/negative cases test a valid value and a value outside that domain. Identical code text in another domain does not grant validity. Namespace and executable rule bindings remain open.
+
+| Code-table trace | Source context | Requirement | Acceptance: positive / negative |
+|---|---|---|---|
+| `AX-CODE-15` | L1 – Motivos de rechazo | `LCS-CODE-R15` | `LCS-CODE-A15P` / `LCS-CODE-A15N` |
+
 ## Part 4 Assurance and Traceability View
 
 | Scenario | Requirement → activity / interaction / data | Expected evidence |
@@ -317,6 +384,8 @@ Payment facts and authority evidence have tighter access than generic technical 
 
 ### SPFE evidence acceptance
 
+The field and code-table acceptance IDs in Part 3 also form required evidence coverage. Execute them with approved fixtures and pinned rules before activation. The ledger records their current status as not executed; row coverage alone does not close implementation qualification.
+
 These are required evidence scenarios, not executed implementation tests. The source-binding gate is country event/field/calendar and correction gates; SPFE-Q07/Q13/Q15/Q16/Q17/Q18. A source-backed review does not establish that this feature is ready for production.
 
 | ID | Scenario | Required result | Requirement coverage |
@@ -327,6 +396,8 @@ These are required evidence scenarios, not executed implementation tests. The so
 | LCS-SPFE-A04 | Small natural person, legal entity and prepaid invoice during an incident | Apply the correct rollout group and qualified prepaid exception; keep invoice and reporting dates separate and require evidence before the exceptional extension. | LCS-SPFE-R04; LCS-01–05, LCS-07–10; [REF](#ref-source-references). |
 
 ## REF Source references
+
+For public-platform legal and external-contract facts, the original official sources below take precedence over earlier assumptions in linked PRDs and internal notes. PRDs retain product scope and are unchanged by this review. A source conflict remains an explicit gate; this spec cannot approve a local substitute.
 
 Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
 
@@ -339,4 +410,5 @@ Use the original files for the claims they establish. Final published regulation
 | SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | response description p. 14 and pending event formats pp. 14–15 | Structured request/item meanings and missing complete wire formats. |
 | REF-CAL | [AEAT implementation calendar](https://sede.agenciatributaria.gob.es/Sede/iva/factura-electronica/calendario-implantacion.html); checked 13 October 2026. | Invoice, status/payment and private-platform dates; RD 238/2026 final provision 4 and transitional provision 3. | Invoice duties start 6 October 2027 or 2028 by customer group; reporting for remaining natural persons/income-attribution entities starts 6 October 2029. Customer classification and event deadlines remain separately governed. |
 | REF-PRD | [PRD-SEI-224](../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md); [PRD-SEI-232](../prds/PRD-SEI-232-country-lifecycle-status-mapping.md); [PRD-SEI-242](../prds/PRD-SEI-242-peppol-lifecycle-feedback.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md); [country lifecycle mapping](../prds/PRD-SEI-232-country-lifecycle-status-mapping.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-FIELDS | [Complete source-field ledger](../assets/regulatory/spain/spfe/field-traceability.json); [original BOE XML](../assets/regulatory/spain/BOE-A-2026-20587.xml). | Exact XML row locators and original cells in the ledger; trace IDs in Part 3. | Complete source-row inventory, logical controls and required acceptance cases. Actual wire/ERP mappings and execution remain unqualified. |
 | REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

@@ -1,0 +1,270 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="receiving-retrieval-and-download-intake-process" name="Receive and retrieve invoices; download the saved source independently">
+    <mxGraphModel page="1" pageWidth="2670" pageHeight="1170">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Receive and retrieve invoices; download the saved source independently&#10;One proposed feature. Qualify the source mode, preserve the actual file, and keep notification, capture, source progress, product receipt and customer download distinct." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="12" width="2614" height="95" />
+        </mxCell>
+        <mxCell id="legend" value="Proposed design · Solid: shared handoff · Dashed: conditional work or recovery · Diamond: decision · Darker grey: recovery" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="104" width="2614" height="22" />
+        </mxCell>
+        <mxCell id="behaviour-legend" value="Common: shared behaviour · Scenario-specific: selected path · Conditional: only when required" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="130" width="2614" height="24" />
+        </mxCell>
+        <mxCell id="lane-0" value="Customer / accountant" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="160" width="2630" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-0" value="Customer / accountant" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="160" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-1" value="ERP / product" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="300" width="2630" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-1" value="ERP / product" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="300" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-2" value="Domain Service - E-Invoice Service" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="440" width="2630" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-2" value="Domain Service -&#10;E-Invoice Service" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="440" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-3" value="Domain Service - Other Services" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="580" width="2630" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-3" value="Domain Service - Other&#10;Services" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="580" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-4" value="Operations / support" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="720" width="2630" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-4" value="Operations / support" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="720" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-5" value="Public / private platforms" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="860" width="2630" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-5" value="Public / private&#10;platforms" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="860" width="180" height="140" />
+        </mxCell>
+        <object id="source" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Source check or file arrival&#10;Selected public or private source&#10;RSD-01 / PRI-01 · Common" tooltip="Selected public or private source">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="240" y="878" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="authority" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Check source and authority&#10;Business, caller, route and mode&#10;RSD-01/02 / PRI-01 · Common" tooltip="Business, caller, route and mode">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="240" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="public_query" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Discover public invoices&#10;Qualified filters and continuation&#10;RSD-03 · Scenario-specific" tooltip="Qualified filters and continuation">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="565" y="878" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="public_fetch" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Download public source file&#10;Qualified locator or ID contract&#10;RSD-03 · Scenario-specific" tooltip="Qualified locator or ID contract">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="900" y="878" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="private_file" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Full file supplied?&#10;&#10;PRI-02 · Scenario-specific" tooltip="">
+          <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="900" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="private_fetch" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Fetch private source file&#10;Qualified provider file contract&#10;PRI-03 · Scenario-specific" tooltip="Qualified provider file contract">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1250" y="878" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="private_hold" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Recover pending file fetch&#10;Same item; safe resume or reconcile&#10;PRI-03/04 · Conditional" tooltip="Same item; safe resume or reconcile">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1250" y="738" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="capture" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Verify durable source capture&#10;Exact bytes, role, context and hash&#10;RSD-04 · Common" tooltip="Exact bytes, role, context and hash">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1595" y="598" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="receiving" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Register durable item outcome&#10;Saved state and recovery owner&#10;RCV-01 / RSD-05 · Common" tooltip="Saved state and recovery owner">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1935" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="processing" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Check, map and publish once&#10;One business invoice and delivery&#10;RCV-02–09 · Common" tooltip="One business invoice and delivery">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="2255" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="progress" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Commit covered source progress&#10;Every covered item accounted for&#10;RSD-06 / PRI-04 · Common" tooltip="Every covered item accounted for">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="2255" y="598" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="product" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Deliver to the product&#10;Stable identity; separate receipt&#10;RCV-07 · Conditional" tooltip="Stable identity; separate receipt">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="2255" y="318" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="file_read" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Read the saved source file&#10;Current permission; labelled bytes&#10;RSD-07/09 · Conditional" tooltip="Current permission; labelled bytes">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1935" y="598" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="customer_file" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Receive the downloaded file&#10;Separate from product delivery&#10;RSD-07 · Conditional" tooltip="Separate from product delivery">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="2255" y="178" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="restricted" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Hold or restrict the file&#10;Owned case; approved safe access&#10;RCV-09 / RSD-07/08 · Conditional" tooltip="Owned case; approved safe access">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1935" y="738" width="260" height="104" />
+          </mxCell>
+        </object>
+        <mxCell id="edge-0" source="source" target="authority" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-1" source="authority" target="public_query" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.6153846153846154;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="400" y="855" />
+              <mxPoint x="695" y="855" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-1" value="Public source" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="450" y="827" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-2" source="public_query" target="public_fetch" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" source="public_fetch" target="capture" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=1.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1030" y="1007" />
+              <mxPoint x="1725" y="1007" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-4" source="authority" target="private_file" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-4" value="Private source" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="590" y="477" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-5" source="private_file" target="capture" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1555" y="510" />
+              <mxPoint x="1555" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-5" value="File supplied" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1250" y="477" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-6" source="private_file" target="private_fetch" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1030" y="577" />
+              <mxPoint x="1200" y="577" />
+              <mxPoint x="1200" y="930" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-6" value="Fetch needed" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1220" y="849" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-7" source="private_fetch" target="capture" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.7307692307692307;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1550" y="930" />
+              <mxPoint x="1550" y="674" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-8" source="private_fetch" target="private_hold" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-8" value="Failure / unknown" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1400" y="849" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-9" source="capture" target="receiving" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.25961538461538464;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1895" y="625" />
+              <mxPoint x="1895" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-10" source="receiving" target="processing" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-11" source="receiving" target="progress" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="2065" y="579" />
+              <mxPoint x="2385" y="579" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-12" source="processing" target="product" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-12" value="Qualified" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2400" y="428" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-13" source="capture" target="file_read" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-14" source="file_read" target="customer_file" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=1.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="2220" y="650" />
+              <mxPoint x="2220" y="713" />
+              <mxPoint x="2600" y="713" />
+              <mxPoint x="2600" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-15" source="capture" target="restricted" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.7307692307692307;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1880" y="674" />
+              <mxPoint x="1880" y="790" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-16" source="file_read" target="restricted" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-16" value="Unsafe / missing" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2080" y="713" width="260" height="22" />
+        </mxCell>
+        <mxCell id="boundary" value="Missing source authority stops protected calls. A notification or query result cannot prove file capture or complete source coverage.&#10;Covered progress needs durable item outcomes; mapping and product receipt may finish later. Unsafe files retain an approved controlled-access path.&#10;The saved-file read starts with an authorised request and does not refetch externally. Buyer acceptance and payment reporting belong to SPEC-SEI-009." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="1060" width="2614" height="96" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

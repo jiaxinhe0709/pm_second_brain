@@ -372,6 +372,8 @@ These are required evidence scenarios, not executed implementation tests. The so
 
 ## REF Source references
 
+For public-platform legal and external-contract facts, the original official sources below take precedence over earlier assumptions in linked PRDs and internal notes. PRDs retain product scope and are unchanged by this review. A source conflict remains an explicit gate; this spec cannot approve a local substitute.
+
 Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
 
 | REF ID | Source and version | Exact location | Supported information and limit |

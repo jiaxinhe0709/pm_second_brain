@@ -50,11 +50,11 @@ The design remains a draft. **Proposed** choices still need review; **open** dec
 
 ### 1 Purpose, source authority and scope
 
-This **proposed logical design** explains the Spain outbound invoice journey. The ERP submits a draft for checks, reviews the result and issues the invoice. Sage then checks the final issued data, confirms the recipient route, prepares the required files and sends them. Recipient delivery and any required public copy have separate results. The primary business-flow source is the review draft [PRD-SEI-246](../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md) and its [combined Draw.io diagram](../assets/diagrams/spain-invoice-preparation-and-outbound-flow.drawio). [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns shared route, transformation, trust and action principles; [PRD-SEI-212](../prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md) owns the public submission boundary. [SPEC-SEI-005](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) owns the UBL result and correction contract; [SPEC-SEI-001](SPEC-SEI-001-certificate-management-solution-specification.md) owns protected trust-material use.
+This **proposed logical design** explains the Spain outbound invoice journey. The ERP submits a draft for checks and reviews the result. Sage qualifies the exact final candidate, recipient route, required files and action plan before the dependent issuance. The ERP owns issuance. Where Article 4 applies, the proposed handoff coordinates required public-copy submission with issuance. Recipient delivery follows the qualified plan. Recipient delivery and any required public copy have separate results. The primary business-flow source is the review draft [PRD-SEI-246](../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md) and its [combined Draw.io diagram](../assets/diagrams/spain-invoice-preparation-and-outbound-flow.drawio). [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns shared route, transformation, trust and action principles; [PRD-SEI-212](../prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md) owns the public submission boundary. [SPEC-SEI-005](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) owns the UBL result and correction contract; [SPEC-SEI-001](SPEC-SEI-001-certificate-management-solution-specification.md) owns protected trust-material use.
 
 This spec orchestrates those contracts for one issued outbound invoice.
 
-The diagram and PRD-SEI-246 are draft proposals. They do not approve external APIs, fields, format or profile versions, route update rules, who may sign, public-copy timing or legal correction procedures. These decisions remain open.
+The diagram and PRD-SEI-246 are draft proposals. They do not approve external APIs, fields, format or profile versions, route update rules, who may sign, public-copy timing or legal correction procedures. The official public UBL version and legal copy timing are now known. Physical contracts, profile activation, route evidence and legal correction implementation remain open.
 
 The ERP owns invoice issuance. The Domain Service may prepare and check a draft, but it cannot issue the invoice or silently change the final business data. A successful draft check cannot authorise sending changed final data.
 
@@ -78,7 +78,7 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 |---|---|---|---|
 | Invoice revisions, plans and independent results | Keep ERP issuance separate from preparation; save final-file evidence and recover each external action independently. | Reusable unchanged | Reuse versioned intent, audit and independent-action safety patterns. ERP, exchange and lifecycle owners. |
 | Actor, approval and portfolio controls | Apply the same invoice flow to a direct business, an accountant for one client and each permitted portfolio item. | Reusable design pattern with country binding; implementation unknown | Reuse the request/evidence and client-item patterns in SPEC-SEI-002 ONB-12/13. Bind invoice revisions, staff permissions and Spain authority separately. Product, Identity and Architecture must qualify the actual implementation, gaps and owners. |
-| Applicability, routing, transformation and trust | Prepare the final issued invoice using the selected Spain route, approved format and signer/seal policy. | Reusable with country binding | Bind local applicability, directory evidence, profiles, mapping, trust and provider contracts. Assess DTS for transformation rather than assume native ERP support. Country, exchange and DTS owners. |
+| Applicability, routing, transformation and trust | Prepare the final candidate or qualified issued invoice using the selected Spain route, approved format and signer/seal policy. | Reusable with country binding | Bind local applicability, directory evidence, profiles, mapping, trust and provider contracts. Assess DTS for transformation rather than assume native ERP support. Country, exchange and DTS owners. |
 | Spain recipient route and public copy | Use the Spain private/public route decision and any separate faithful public-copy obligation described in this draft. | Country-specific | Proven absence, copy duty/timing and correction rules still need the named Spain evidence gates. Do not make this route/copy topology a default elsewhere. Spain Compliance and technical owner. |
 | Existing end-to-end outbound implementation | Assess ERP-native functions, shared Sage services and provider-owned operations for the selected journey. | Unknown | This flow does not prove deployed end-to-end coverage. Record the actual execution owner, build, adapter and gaps for each step. Product, Architecture and service/provider owners. |
 
@@ -104,7 +104,7 @@ The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-in
 | Contract | The agreed inputs, outputs, behaviour and responsibilities between services or parties. |
 | Durable | Saved through the agreed recovery boundary so the record survives a process restart or worker failure. Long-term retention is a separate policy. |
 | ERP / Domain Service | The business software that issues the invoice; and the Sage service that prepares, validates and coordinates its exchange. |
-| Preflight | A draft check. It cannot replace checking the final issued invoice before sending. |
+| Preflight | A draft check. It cannot replace checking the exact final candidate or eligible issued invoice before sending. |
 | Exchange action | One separately tracked action to deliver an invoice, submit a public copy, or report an invoice event. Each action has its own result. For example, invoice delivery can succeed while public-copy submission still needs attention. |
 | Faithful public copy | A separate copy submitted to the public platform when the applicable Spain policy requires it. |
 | Representation / hash | A specific file or form of invoice data; its calculated content fingerprint. |
@@ -147,7 +147,7 @@ Diagram step names use plain-language actions. The smaller activity references l
 
 [Editable Draw.io](../assets/diagrams/spain-invoice-preparation-and-outbound-flow.drawio) · [PNG preview](../assets/diagrams/spain-invoice-preparation-and-outbound-flow.png). The diagram's numbered nodes 01–15 correspond to OUT-01–OUT-15 below. Its public recipient route and resolved private route are alternatives; the faithful public copy is a separate conditional obligation. Observation arrows into the outcome ledger do not require a synchronous join.
 
-Text equivalent: OUT-01/02 submit complete draft data → OUT-03 applies authority and Spain policy, validates and makes an early route check → OUT-04 returns draft issues or ready result → ERP reviews and issues at OUT-05/06 → OUT-07 submits exact final issued data/revision → OUT-08 rechecks final data, authority, profile and trust → OUT-09 confirms current authoritative recipient lookup. A proven absence of a private receipt entry point selects the public recipient route; failed, stale or ambiguous lookup is held for recovery. OUT-10 freezes the exchange plan → OUT-11 creates the final representation, validates after transformation, obtains approved signature/seal if required and records send intent → OUT-12 executes recipient delivery and any separate required public-copy submission with independent identities → OUT-13 records raw results and reconciles only unknown actions → OUT-14/15 derive and show views that state what the evidence proves. An issued-invoice problem follows an approved correction process, never a silent loop back to draft.
+Text equivalent: OUT-01/02 submit draft data → OUT-03/04 return checked draft evidence → OUT-05 ERP review → OUT-07 supplies the exact final candidate → OUT-08 rechecks facts and authority → OUT-09 confirms recipient evidence → OUT-10 freezes the plan → OUT-11 prepares and validates required files and saves intent. Only then does OUT-06 ERP issuance proceed through the qualified OUT-12 boundary. Where Article 4 applies, that boundary submits the faithful public copy simultaneously with issuance. Public issuance/interconnection has no extra copy. OUT-13 records each action's raw result and reconciles unknown effects; OUT-14/15 show separate issuance, delivery and copy outcomes. Failed preparation holds the candidate before issuance. Already-issued public-original intake and late-copy recovery retain their distinct source context; they do not justify delayed copies in the normal Article 4 journey.
 
 The diagrams show the common single-invoice process used by all three journeys. OUT-03/08 cover authority and missing approval evidence; OUT-05 covers the ERP's internal invoice decision. Portfolio coordination surrounds these steps without changing their meaning. Pending approval holds only its dependent step. Refusal is a business outcome; an uncertain submitted action follows OUT-13.
 
@@ -164,12 +164,12 @@ The diagrams show the common single-invoice process used by all three journeys. 
 | OUT-03 Prepare | Entity, actor, policy, data, profile and early route indication evaluated | Domain Service + policy |
 | OUT-04 Decide draft | PASS/limitations/issues with correction owner returned; no issuance/send | Validation → ERP |
 | OUT-05 Review | Eligible customer/delegate reviews preparation and business content; records the required invoice decision and policy | ERP/customer or authorised accountant |
-| OUT-06 Issue | ERP assigns issued identity and freezes business revision | ERP |
-| OUT-07 Submit final | Exact issued data, identity and revision bound to one dispatch intent | ERP → Domain Service |
+| OUT-07 Submit final candidate | Stable planned identity and exact revision bound before dependent issuance; qualified already-issued paths retain actual evidence | ERP → Domain Service |
 | OUT-08 Final checks | Current authority, required approval for the exact final revision, data/representation, policy and trust checked | Exchange + Identity/validation/trust |
 | OUT-09 Lookup | Current authoritative recipient evidence classifies private, proven-none/public or unresolved | Route service |
 | OUT-10 Plan | Immutable route, representation, trust mode and independent actions recorded | Exchange |
 | OUT-11 Prepare/send intent | Final bytes validated, trust applied if required, durable operation created | Exchange/transform/trust |
+| OUT-06 ERP issuance | ERP issues only through the qualified boundary after final preparation; Article 4 copy is coordinated with issuance | ERP / exchange |
 | OUT-12 Execute actions | Recipient delivery and conditional copy have separate identities for operations that change external state | Adapter/operator |
 | OUT-13 Record outcomes | Each action's raw/normalised result, unknown state and reconciliation evidence retained | Exchange/operations |
 | OUT-14 Derive views | Evidence-qualified technical, delivery, copy and later lifecycle statuses calculated | Lifecycle service |
@@ -184,10 +184,11 @@ The diagrams show the common single-invoice process used by all three journeys. 
 | Whether early lookup failure blocks ERP issuance; final route must always block dispatch when unresolved | Product/Compliance; design |
 | Legal/ERP process for correcting an already issued invoice | Spain Legal/Tax + ERP Product; pilot |
 | Authoritative recipient entry-point source, freshness, eligibility, bridging and observed “none” semantics | Local technical/regulatory owner + provider; route pilot |
-| Public-copy obligation, representation, timing and outcome vocabulary | Spain Compliance/technical owner; external conformance |
+| Public-copy representation, proof of simultaneous submission and outcome vocabulary | Spain Compliance/technical owner; external conformance |
 | Signature/seal actor, trust profile and provider handoff | Legal/Security/Business Identity; trust gate |
 | External idempotency, query and acknowledgement semantics per action | Provider/public owner + Operations; integration |
 | OUT-Q01 Invoice approval policy: eligible customer/accountant roles, manual or automatic approval, purpose, revision binding and withdrawal rules | ERP Product + Identity + Spain Compliance; design and delegated pilot. Do not infer universal manual approval or accountant eligibility from a product login. |
+| OUT-Q03 ERP issuance/public-copy coordination: final identity stability, approval, authority, trust completion, actual simultaneous submission and race/partial-failure recovery | ERP + E-Invoice + Spain Compliance; design and end-to-end release gate. Article 4 timing is fixed; no invented tolerance, reservation API or atomic distributed transaction is approved. |
 | OUT-Q02 Portfolio coordinator and accounting handoff: supported client/invoice scope, limits, permission-safe progress, receipt/replay contract and implementation ownership | Product/Global API + Architecture + Operations; portfolio pilot. Qualify source design or build, Spain changes, gaps and owners before enabling bulk execution or accountant distribution. |
 
 ## Part 2 Logical Feature Specification
@@ -224,9 +225,9 @@ Resolve the direct business actor or accountant's firm, authenticated actor and 
 
 It is not frozen as the final route. Return precise blocking issues, owner and next action. A corrected draft creates a new revision; the prior result remains. Any generated electronic file is a distinct derived artefact, not a silently edited ERP source. No external invoice mutation occurs.
 
-**OUT-05/06 ERP review and issuance.** The ERP decides whether and when to issue and records the final business invoice identity, issue time and revision under its own legal/product controls. A preparation PASS cannot issue on behalf of the ERP. The Domain Service does not infer that a changed draft or final invoice is still valid. Issued content is frozen for exchange; later content correction follows the approved legal/ERP process, potentially a new invoice or credit note, not automatic reversion to draft.
+**OUT-05 ERP review; OUT-06 coordinated issuance.** The ERP decides whether and when to issue and records the final business invoice identity, issue time and revision under its own legal/product controls. A preparation PASS cannot issue on behalf of the ERP. The Domain Service does not infer that a changed draft or final invoice is still valid. Issued content is frozen for exchange; later content correction follows the approved legal/ERP process, potentially a new invoice or credit note, not automatic reversion to draft.
 
-For the public profile, the supplied formats select `Invoice`, including a rectifying invoice. Where Article 4 requires a faithful copy, the ERP issuance boundary must coordinate that copy with issuance, using qualified final identity, representation, authority and readiness. Do not treat the later private-delivery result as its trigger. Prepare the required copy prerequisites before the dependent issuance handoff; bind the final issued facts and independent public operation at that handoff. The exact ERP/service coordination and permissible timing need the copy/issuance gate in OUT-SPFE-R01. The lifecycle overview shows responsibilities; it does not approve a delayed copy after issuance or claim that the current ERP handoff already satisfies the rule.
+For the public profile, the supplied formats select `Invoice`, including a rectifying invoice. Where Article 4 requires a faithful copy, the ERP issuance boundary must coordinate that copy with issuance, using qualified final identity, representation, authority and readiness. Do not treat the later private-delivery result as its trigger. Prepare the required copy prerequisites before the dependent issuance handoff; bind the final issued facts and independent public operation at that handoff. The exact ERP/service coordination and proof of simultaneous submission need the copy/issuance gate in OUT-SPFE-R01. The lifecycle overview shows responsibilities; it does not approve a delayed copy after issuance or claim that the current ERP handoff already satisfies the rule.
 
 Cancellation before issuance closes safe preparation work; cancellation after issuance cannot erase the issued record.
 
@@ -234,7 +235,7 @@ The ERP applies the policy selected under OUT-Q01. Where internal invoice approv
 
 Reuse the request/evidence pattern in SPEC-SEI-002 ONB-12 where a decision is missing. Runtime invoice work remains owned here and by the ERP; it does not repeat onboarding automatically. Save the request before notification. Verify response eligibility, purpose, expected version and current authority before resuming the same invoice. A duplicate response returns its recorded result; refusal, expiry or a stale/conflicting response cannot release the hold. A material invoice change requires fresh evaluation of whether the decision still covers it. An authorised automatic rule records the eligible business actor who authorised it, executing service, rule/policy version and decision evidence; it cannot bypass authority, validation or trust.
 
-**OUT-07 Final-data intake.** ERP sends exact issued facts or approved immutable representation reference, issued identity/revision, issuer authority, route intent and idempotency identity. The service verifies that source revision, issued identity and hash are internally consistent and that no conflicting final submission already owns this invoice/revision. Persist final intent and operation identity before possible external mutation. Same final identity/hash resumes the existing exchange; changed bytes or issuer identity under the same key conflict and require an authorised correction/revision decision.
+**OUT-07 Final candidate or issued-data intake.** For the coordinated Article 4 journey, the ERP supplies exact final candidate facts, planned final identity/date, revision, issuer authority, route intent and request identity before issuance. The ERP and service must prove that these are the facts that will be issued. Any change invalidates the plan and affected validation/trust evidence before issuance. If the ERP allocates or changes material facts only at issuance, the journey stays gated under OUT-Q03 until its actual contract supports compliant coordination. For an already-issued public original, retain actual issuance evidence and apply its distinct interconnection rules. A late Article 4 copy is an owned nonconformance/recovery case, not the normal compliant journey. The service verifies that source revision, issued identity and hash are internally consistent and that no conflicting final submission already owns this invoice/revision. Persist final intent and operation identity before possible external mutation. Same final identity/hash resumes the existing exchange; changed bytes or issuer identity under the same key conflict and require an authorised correction/revision decision.
 
 **OUT-08 Final checks.** Re-evaluate effective applicability, legal subject, actor/delegate authority, product entitlement, invoice identity and current profile. The exact final representation is generated or accepted, then validated under versioned syntax, semantic, country/route and attachment rules. A draft result cannot substitute for this gate. The selected signer/seal creator and represented party, protected material, purpose and policy are resolved through [certificate management](SPEC-SEI-001-certificate-management-solution-specification.md).
 
@@ -254,7 +255,9 @@ An unproven eligibility or format/signature combination cannot produce READY_TO_
 
 The provider adapter receives only references and authorised protocol inputs; private keys do not enter invoice events or logs. A preparation or trust failure leaves all external actions unsubmitted.
 
-**OUT-12 Execute independent obligations.** For each ready exchange action, the adapter performs only the action named in the plan: deliver the invoice to the recipient (private/direct or public), or submit a required faithful public copy. Use that action's stable operation ID. Persist an attempt with payload hash, target, adapter/contract version and correlation before transmission, or use an approved recoverable external-first design. A public bridge or copy cannot be inferred simply from a private delivery result.
+**OUT-06/12 Issue and execute independent obligations.** ERP issuance and required Article 4 copy submission share the qualified logical boundary. A saved queue intent alone does not prove that the copy duty was met. AEAT admission is a later independent fact; this design does not require admission before ERP issuance. Record actual issuance evidence against the same final identity/revision/hash and public operation. Check authority and readiness before releasing the boundary. A race, lost response or partial failure retains the issued record and reconciles the affected original action; it cannot automatically withdraw, reissue or repeat successful delivery. OUT-Q03 must qualify the physical coordination and failure handling.
+
+For each ready exchange action, the adapter performs only the action named in the plan: deliver the invoice to the recipient (private/direct or public), or submit a required faithful public copy. Use that action's stable operation ID. Persist an attempt with payload hash, target, adapter/contract version and correlation before transmission, or use an approved recoverable external-first design. A public bridge or copy cannot be inferred simply from a private delivery result.
 
 Before each new protected execution, recheck the effective actor/client relationship, action authority and required approval against the saved plan and final revision. Record the decision snapshot. If authority was withdrawn after planning, hold the affected unsent action and return its eligible owner. A completed action is retained. An uncertain action uses OUT-13 through an authorised client or operational path; a new actor cannot inherit the former accountant's grant.
 
@@ -327,7 +330,7 @@ These are logical operations, not approved endpoints. Commands use requestId, te
 | OUT-INT-01 | ERP → preparation | Submit/get/cancel draft revision; returns preparation case, stable issues and early route indication; no external invoice mutation. |
 | OUT-INT-02 | Preparation → identity/country policy | Resolve legal subject, actor authority, applicability, required delivery/copy duties and activated capability; unknown blocks. |
 | OUT-INT-03 | Preparation/exchange → validation/format | Validate source/candidate/final target bytes under exact activated pack; returns layered result and immutable evidence. |
-| OUT-INT-04 | ERP → exchange | Submit exact final issued data/revision and identity; duplicate-safe, changed digest conflicts; returns exchange ID/state. |
+| OUT-INT-04 | ERP → exchange | Submit final candidate before coordinated issuance, or actual issued evidence for a qualified already-issued path. Bind exact identity/revision/hash and later ERP issuance proof. Changed content conflicts; returns exchange reference/state. Physical coordination remains OUT-Q03. |
 | OUT-INT-05 | Exchange → recipient discovery | Query authoritative entry point and operational eligibility; returns observed private, proven-none/public or unresolved with source/freshness. |
 | OUT-INT-06 | Exchange → route/plan store | Compare-and-set immutable plan/version with route, representations, trust mode and action set; rejects stale route/policy. |
 | OUT-INT-07 | Exchange → transform/trust | Produce final representation with comparison of business meaning; validate then sign/seal under protected operation; returns exact bytes/hash/evidence or hold. |
@@ -343,7 +346,7 @@ Proposed events are OUTBOUND_PREPARATION_CHANGED, OUTBOUND_PLAN_FROZEN, OUTBOUND
 | ID | Record / owner | Essential fields, handling and consumers |
 |---|---|---|
 | OUT-D01 | Draft preparation / ERP + preparation | Source draft ID/revision, complete-data reference/hash, actor/entity, policy/check results, early route source/time; restricted/versioned; OUT-01–05. |
-| OUT-D02 | Issued invoice snapshot / ERP | Business identity, final revision/hash, issue time, issuer authority and correction lineage; immutable issued revision; OUT-06–15. |
+| OUT-D02 | Final candidate and issued snapshot / ERP | Planned identity/date/revision/hash plus actual issue time and proof when issued. Keep candidate and issued facts distinct; changes invalidate preparation. Preserve immutable issued content and correction lineage; OUT-06–15. |
 | OUT-D03 | Validation/profile result / validation | Exact input/target hash, rule/profile versions, issues, status and evidence; append-only; OUT-03/04/08/11. |
 | OUT-D04 | Recipient route observation / discovery | Qualified recipient, lookup source/value/time/freshness, private eligibility, proven-none or unresolved reason; versioned; OUT-03/09/10. |
 | OUT-D05 | Exchange plan / exchange | Invoice/revision, selected route, representations, mapping/trust policy, action set, authoriser, effective version; immutable; OUT-10–15. |
@@ -357,6 +360,22 @@ Proposed events are OUTBOUND_PREPARATION_CHANGED, OUTBOUND_PLAN_FROZEN, OUTBOUND
 
 D02 is ERP-owned; D05/D07 are exchange-owned; D03 and trust evidence are owned by their specialist services. A plan references immutable records rather than copying credentials. Exact retention, archival and data-disposition periods are not asserted here; Legal/Privacy/Records approve them by data class.
 
+### Annex I withdrawal field traceability
+
+The table records all 7 source field/group occurrences for this feature. Each trace ID identifies one row in the [field ledger](../assets/regulatory/spain/spfe/field-traceability.json). The ledger retains the original Spanish description, conditional rules, semantic type, literal UBL path and exact BOE XML row locator. Repeated source IDs remain separate occurrences. English names aid reading; the Spanish source controls the meaning.
+
+Each listed requirement applies the source meaning, type, presence conditions, cardinality and controlled values through OUT-10–13. Cardinality is evaluated within its selected parent group, not as a universal invoice requirement. Preserve applicable content and reject unsupported mappings. For each row, the positive case uses an approved applicable fixture and tests valid content and permitted absence. The negative case violates an applicable source condition, type, cardinality or controlled value and must fail safely. These are specified acceptance cases, not executed tests. Actual ERP/API bindings, business schemas, executable rules and DTS coverage remain unqualified under SPFE-Q04/Q08/Q14 and the governed withdrawal policy. A recorded source path is not proof of a valid implementation path.
+
+| Trace / source ID | Logical fact or group | Source cardinality | Requirement | Acceptance: positive / negative |
+|---|---|---|---|---|
+| `AXC-01` / `CANCELINVOICE` | Withdrawal date | `1..1` | `OUT-AXC-R01` | `OUT-AXC-A01P` / `OUT-AXC-A01N` |
+| `AXC-02` / `CANCELINVOICE` | Withdrawn invoice group | `1..n` | `OUT-AXC-R02` | `OUT-AXC-A02P` / `OUT-AXC-A02N` |
+| `AXC-03` / `CANCELINVOICE` | Invoice series and number | `1..1` | `OUT-AXC-R03` | `OUT-AXC-A03P` / `OUT-AXC-A03N` |
+| `AXC-04` / `CANCELINVOICE` | Invoice issue date | `1..1` | `OUT-AXC-R04` | `OUT-AXC-A04P` / `OUT-AXC-A04N` |
+| `AXC-05` / `CANCELINVOICE` | Seller group | `1..1` | `OUT-AXC-R05` | `OUT-AXC-A05P` / `OUT-AXC-A05N` |
+| `AXC-06` / `CANCELINVOICE` | Seller NIF | `1..1` | `OUT-AXC-R06` | `OUT-AXC-A06P` / `OUT-AXC-A06N` |
+| `AXC-07` / `CANCELINVOICE` | Seller name | `1..1` | `OUT-AXC-R07` | `OUT-AXC-A07P` / `OUT-AXC-A07N` |
+
 ## Part 4 Assurance and Traceability View
 
 This part shows how requirements connect to activities, interfaces, data and acceptance checks. The scenarios describe evidence still needed; they are not a claim that implementation tests have passed.
@@ -364,7 +383,7 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | Scenario | Requirement → activities / interactions / data | Evidence and expected result |
 |---|---|---|
 | OUT-A01 Invalid draft | R01 → OUT-01–04, INT-01–03, D01/D03 | Customer-correctable issues; no ERP issuance or external invoice transmission by this flow. |
-| OUT-A02 Final differs from preview | R02/03 → OUT-06–08, INT-04/03, D01–03 | Exact final revision rechecked; stale preview cannot authorise dispatch. |
+| OUT-A02 Final differs from preview | R02/03 → OUT-07–11/06, INT-04/03, D01–03 | Changed candidate invalidates the plan before issuance. Recheck exact final facts; stale preview cannot authorise the issue/copy boundary. If already issued, use the owned correction path. |
 | OUT-A03 Private route eligible | R04–07 → OUT-09–12, INT-05–08, D04–07 | Private delivery selected from observed readiness; copy submission only if required; plan frozen before mutation. |
 | OUT-A04 Proven no private entry point | R04/10 → OUT-09/10/12, INT-05/06/08, D04–07 | Successful authoritative absence selects Spain public recipient delivery with source/time. |
 | OUT-A05 Lookup timeout or stale result | R04 → OUT-09, INT-05, D04 | Route unresolved and dispatch held; no public fallback by inference. |
@@ -387,16 +406,20 @@ This part shows how requirements connect to activities, interfaces, data and acc
 
 ### SPFE evidence acceptance
 
+The field and code-table acceptance IDs in Part 3 also form required evidence coverage. Execute them with approved fixtures and pinned rules before activation. The ledger records their current status as not executed; row coverage alone does not close implementation qualification.
+
 These are required evidence scenarios, not executed implementation tests. The source-binding gate is copy/issuance and correction policy; SPFE-Q03/Q07/Q08/Q13/Q15/Q18. A source-backed review does not establish that this feature is ready for production.
 
 | ID | Scenario | Required result | Requirement coverage |
 |---|---|---|---|
-| OUT-SPFE-A01 | Private issuance, public interconnection and recipient-issued invoice | Prove the required copy sender and issuance handoff for each case; no extra public copy after public use and no dependence on private delivery success. | OUT-SPFE-R01; OUT-05–08, OUT-10–13; [REF](#ref-source-references). |
+| OUT-SPFE-A01 | Private issuance, public interconnection and recipient-issued invoice | Prove final preparation before issuance and simultaneous required copy submission at the qualified ERP boundary. Exercise identity changes, authority loss and partial/lost results. Preserve issued evidence without blind replay. No extra copy after public use and no dependence on private delivery success. | OUT-SPFE-R01; OUT-05–08, OUT-10–13; [REF](#ref-source-references). |
 | OUT-SPFE-A02 | Existing copy, existing original or uncertain prior send | Classify the legal case and reconcile source evidence; no automatic withdrawal or fresh send as duplicate recovery. | OUT-SPFE-R02; OUT-05–08, OUT-10–13; [REF](#ref-source-references). |
 | OUT-SPFE-A03 | Rejected public copy with a valid versus defective private original | Use the correct distinct correction branch, preserving correspondence and all issued/sent evidence. | OUT-SPFE-R03; OUT-05–08, OUT-10–13; [REF](#ref-source-references). |
 | OUT-SPFE-A04 | Partial batch admission or ordinary outage versus qualifying SPFE incident | Keep item results independent and missing CSV mapping open. Apply only the qualified exceptional calendar; a failed item cannot repeat admitted items. | OUT-SPFE-R04; OUT-05–08, OUT-10–13; [REF](#ref-source-references). |
 
 ## REF Source references
+
+For public-platform legal and external-contract facts, the original official sources below take precedence over earlier assumptions in linked PRDs and internal notes. PRDs retain product scope and are unchanged by this review. A source conflict remains an explicit gate; this spec cannot approve a local substitute.
 
 Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
 
@@ -409,4 +432,5 @@ Use the original files for the claims they establish. Final published regulation
 | SPFE-S10 | [CancelInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/CancelInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | CancelInvoice operation and payload documentation | Withdrawal transport; not a general legal cancellation or retry mechanism. |
 | SPFE-S06 | [RespuestaAltaFacturas.xml](<../context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/RespuestaAltaFacturas.xml>); Supplied 13 October 2026; SHA-256 in source manifest. | DocumentResponse and DocumentReference | Example request/item result, locator and response ID; CSV mapping is unconfirmed. |
 | REF-PRD | [PRD-SEI-246](../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md); [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-212](../prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-FIELDS | [Complete source-field ledger](../assets/regulatory/spain/spfe/field-traceability.json); [original BOE XML](../assets/regulatory/spain/BOE-A-2026-20587.xml). | Exact XML row locators and original cells in the ledger; trace IDs in Part 3. | Complete source-row inventory, logical controls and required acceptance cases. Actual wire/ERP mappings and execution remain unqualified. |
 | REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

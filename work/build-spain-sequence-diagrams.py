@@ -336,15 +336,15 @@ def onboarding_private():
 def sending():
     s = Sequence('spain-invoice-sending-independent-actions-sequence',
         'Spain sending · Recipient delivery and required public copy',
-        'One issued invoice · Eligible private recipient route · Example: recipient delivery confirmed; public-copy response lost.',
+        'One final candidate · Article 4 private-issuance case · ERP issuance and required public-copy submission share a qualified boundary.',
         '../../specs/SPEC-SEI-007-invoice-sending-solution.md', [
-        'ERP / product\nOwns issued invoice', 'Global API\nProduct-facing contract', 'Domain Service -\nE-Invoice Service\nExchange responsibility',
+        'ERP / product\nOwns invoice issuance', 'Global API\nProduct-facing contract', 'Domain Service -\nE-Invoice Service\nExchange responsibility',
         'Domain Service -\nOther Services\nPolicy / lookup / prepare', 'Domain Service -\nOther Services\nQualified adapters',
         'Public / private platforms\nPrivate recipient platform', 'Public / private platforms\nPublic platform'])
-    s.note(0, 3, 'Precondition: the ERP has issued the invoice and frozen its business identity and revision. A draft check cannot authorise sending changed final data.', 'OUT-05/06 · Draft preparation is outside this sequence')
-    s.band('1 · Accept exact issued data; qualify the final route and representation')
-    s.msg(0, 1, 'Submit exact issued invoice revision', 'OUT-07 · OUT-INT-04')
-    s.msg(1, 2, 'Pass scoped final submission', 'Issued identity, revision, input digest and key')
+    s.note(0, 3, 'Precondition: ERP supplies stable final candidate facts and planned identity before issuance. Any change invalidates preparation. Actual coordination needs OUT-Q03 evidence.', 'OUT-05/07 · Draft preparation is outside this sequence')
+    s.band('1 · Accept exact final candidate; qualify route and representation before issuance')
+    s.msg(0, 1, 'Submit exact final candidate revision', 'OUT-07 · OUT-INT-04')
+    s.msg(1, 2, 'Pass scoped final submission', 'Planned final identity, revision, input digest and key')
     s.note(2, 3, 'Save final intent and stable exchange identity. Same key and input resume the existing exchange; changed input conflicts. Request receipt is not delivery.', 'OUT-07 · OUT-D01 / OUT-D02')
     s.msg(2, 1, 'Return saved exchange reference', 'Logical intake receipt; not external success', 'reply')
     s.msg(1, 0, 'Return exchange reference and state', 'API transport and exact fields remain open', 'reply')
@@ -352,26 +352,29 @@ def sending():
     s.msg(3, 2, 'Return current checks and obligations', 'Includes conditional public-copy requirement', 'reply')
     s.msg(2, 3, 'Confirm recipient destination', 'OUT-09 · OUT-INT-05')
     s.msg(3, 2, 'Return PRIVATE_READY with evidence', 'Selected scenario; current eligible route', 'reply')
-    s.note(2, 4, 'Failed, stale or ambiguous lookup holds dispatch. It cannot select the public recipient route. Final validation or policy failure also stops external actions.', 'OUT-08/09 · Issued-content issues go to ERP resolution', 'exception')
+    s.note(2, 4, 'Failed, stale or ambiguous lookup holds dispatch. It cannot select the public recipient route. Final validation or policy failure also stops external actions.', 'OUT-08/09 · Hold the unissued candidate for ERP resolution', 'exception')
     s.note(2, 4, 'Freeze the qualified plan and route version. Record delivery and PUBLIC_COPY as separate actions, with their own destinations, identities and dependencies.', 'OUT-10 · OUT-INT-06 · Copy exists only if Spain policy requires it')
     s.msg(2, 3, 'Prepare final action representations', 'OUT-11 · OUT-INT-07')
     s.note(3, 4, 'Qualify DTS where transformation is needed. Validate final bytes after transformation; sign or seal only when required. Protected-operation uncertainty must reconcile before repetition.', 'OUT-11 · DTS is a reuse candidate, not proven coverage')
     s.msg(3, 2, 'Return exact bytes, hashes and evidence', 'Preparation failure leaves actions unsubmitted', 'reply')
     s.note(2, 4, 'Save final artefact references and send intent. Before each transmission, save its attempt, payload hash, target, contract version and original correlation.', 'OUT-11/12 · OUT-D06 / OUT-D07')
-    s.band('2 · Execute separate actions; expose each result without waiting for the other')
-    f = s.start_frame('par · Eligible independent actions; recorded plan dependencies govern dispatch; no assumed order or synchronous join')
-    s.msg(2, 4, 'Dispatch recipient delivery action', 'OUT-12 · OUT-INT-08 · Delivery operation ID')
+    s.band('2 · Coordinate issuance and required copy; retain separate action results')
+    f = s.start_frame('critical · Proposed ERP issue/copy boundary; actual protocol and failure handling require OUT-Q03 qualification')
+    s.msg(0, 1, 'Authorise issue/copy boundary', 'OUT-06/12 · Same prepared identity, revision and hash')
+    s.msg(1, 2, 'Coordinate issue and copy', 'Logical handoff; no physical endpoint is approved')
+    s.note(0, 4, 'ERP owns actual issuance. Required copy submission is simultaneous under Article 4. A durable intent alone does not prove compliance. AEAT admission is a later independent fact.', 'OUT-06/12 · Final changes block the boundary before issuance')
+    s.msg(2, 4, 'Submit copy at issuance', 'OUT-12 · OUT-INT-08 · Separate operation ID')
+    s.msg(4, 6, 'Submit prepared public copy', 'Qualified SendInvoice contract and authority')
+    s.note(4, 6, 'Example exception: no reliable response arrives after possible transmission. Preserve actual ERP issue evidence. Copy outcome is unknown, not confirmed rejection.', 'OUT-13 · Lost-response scenario', 'exception')
+    s.msg(4, 2, 'Return OUTCOME_UNKNOWN for copy', 'Preserve original operation and correlation', 'reply')
+    s.note(2, 4, 'Physical coordination must qualify races and partial failures. An issued invoice cannot be rolled back automatically, withdrawn or reissued to recover a lost copy response.', 'OUT-Q03 · Owned recovery; no blind replay', 'exception')
+    s.end_frame(f)
+    s.divider('Separate recipient action · Public-copy submission never waits for successful private delivery')
+    s.msg(2, 4, 'Dispatch planned recipient delivery', 'OUT-12 · OUT-INT-08 · Delivery operation ID')
     s.msg(4, 5, 'Deliver planned invoice representation', 'Qualified private-recipient contract')
     s.msg(5, 4, 'Return confirmed delivery evidence', 'Meaning must match this contract milestone', 'reply')
     s.msg(4, 2, 'Return delivery evidence', 'OUT-13 · Delivery action only', 'reply')
-    s.note(2, 4, 'Save the recipient result and publish the committed change. Recipient delivery can be visible while the separate public copy is still pending.', 'OUT-13/14 · OUT-INT-10')
-    s.divider('Separate operand · Required public-copy action; diagram position does not impose a dependency on delivery')
-    s.msg(2, 4, 'Dispatch required PUBLIC_COPY action', 'OUT-12 · OUT-INT-08 · Separate operation ID')
-    s.msg(4, 6, 'Submit planned public-copy representation', 'Qualified public-copy contract')
-    s.note(4, 6, 'Example exception: no reliable response arrives after possible transmission. The public-copy outcome is unknown; this is not confirmed rejection.', 'OUT-13 · Lost-response scenario', 'exception')
-    s.msg(4, 2, 'Return OUTCOME_UNKNOWN for copy', 'Preserve original operation and correlation', 'reply')
-    s.note(2, 4, 'Save the unknown copy outcome and publish the partial result. Keep confirmed recipient delivery. Do not resend it or blindly repeat the copy.', 'OUT-13 · OUT-A07 / OUT-A08', 'exception')
-    s.end_frame(f)
+    s.note(2, 4, 'Save and expose independent results. Keep confirmed recipient delivery while copy outcome is unknown. Do not repeat the delivery or blindly resubmit the copy.', 'OUT-13/14 · OUT-A07 / OUT-A08')
     s.band('3 · Reconcile only the unknown action; keep independent evidence visible')
     s.msg(2, 4, 'Reconcile original public-copy action', 'OUT-13 · OUT-INT-09')
     s.msg(4, 6, 'Query original operation outcome', 'Only where the selected contract supports it')
@@ -383,9 +386,9 @@ def sending():
     s.note(0, 2, 'Show recipient delivery and public-copy progress separately, with evidence and required actions. API receipt, transport acknowledgement and buyer acceptance have different meanings.', 'OUT-14/15 · Lifecycle spec owns later business outcomes')
     return s.write([
         'Selected logical scenario: private recipient delivery plus a required public copy. Public recipient delivery is another scenario.',
-        'The par frame shows independent work, not proof of simultaneous transport. The plan defines permitted dependencies and timing.',
-        'Spain route and copy rules require qualification. No endpoints, provider query support, deployment boundaries or deadlines are approved.',
-        'Source: SPEC-SEI-007; Global API handoff: SPEC-SEI-013. Reconcile an unknown action without repeating a completed action.'])
+        'Article 4 requires simultaneous copy submission at issuance. The critical frame is a logical proposal; qualify actual timing and failure recovery.',
+        'Official legal timing is fixed. Actual ERP contracts, route evidence, business schemas and public replay/query support remain qualification gates.',
+        'Source: SPEC-SEI-007; product-facing handoff is logical. SPEC-SEI-013 private/provider design remains deferred. Reconcile an unknown action without repeating a completed action.'])
 
 
 def render(paths):

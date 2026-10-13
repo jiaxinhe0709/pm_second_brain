@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="app.diagrams.net" type="device" version="24.7.17">
-  <diagram id="invoice-creation-preparation-process" name="Prepare invoice data, generate UBL and hand off the issued revision">
+  <diagram id="invoice-creation-preparation-process" name="Prepare invoice data, generate UBL and hand off the final candidate">
     <mxGraphModel page="1" pageWidth="2670" pageHeight="1090">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="Prepare invoice data, generate UBL and hand off the issued revision&#10;Check the business scenario and exact profile. Return issues or a checked representation. ERP issuance and sending remain separate." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+        <mxCell id="title" value="Prepare invoice data, generate UBL and hand off the final candidate&#10;Check the business scenario and exact profile. Return issues or a checked representation. ERP issuance and sending remain separate." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
           <mxGeometry x="28" y="12" width="2614" height="95" as="geometry" />
         </mxCell>
         <mxCell id="legend" value="Solid: main handoff · Dashed: qualification, conditional work or recovery · Darker grey cards: recovery" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
@@ -86,12 +86,12 @@
             <mxGeometry x="2010" y="456" width="260" height="84" as="geometry" />
           </mxCell>
         </object>
-        <object id="issue" label="Review the result; issue in ERP&#10;IC-10" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+        <object id="issue" label="Review the final candidate in ERP&#10;IC-10" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry x="2010" y="321" width="260" height="84" as="geometry" />
           </mxCell>
         </object>
-        <object id="handoff" label="Bind final revision; hand to Sending&#10;IC-10" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
+        <object id="handoff" label="Hand final candidate to Sending&#10;IC-10" tooltip="" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry x="2305" y="456" width="260" height="84" as="geometry" />
           </mxCell>
@@ -230,7 +230,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="boundary" value="Prebuilt UBL bypasses generation. Changed final data returns to IC-03–09. Missing authority or profile evidence blocks.&#10;ERP owns numbering and issuance. Sending owns final route, trust, dispatch checks and independent public-copy actions.&#10;SPEC-SEI-015 · Reconcile before resume. Return existing completed results; never repeat completed generation or sending." style="text;whiteSpace=wrap;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="boundary" value="Prebuilt UBL bypasses generation. Changed final data returns to IC-03–09. Missing authority or profile evidence blocks.&#10;ERP owns issuance. Sending qualifies the final plan before the Article 4 issue/copy boundary; bind actual issue proof.&#10;SPEC-SEI-015 · Reconcile before resume. Return existing completed results; never repeat completed generation or sending." style="text;whiteSpace=wrap;html=0;align=left;fontSize=14;" vertex="1" parent="1">
           <mxGeometry x="28" y="990" width="2614" height="70" as="geometry" />
         </mxCell>
       </root>

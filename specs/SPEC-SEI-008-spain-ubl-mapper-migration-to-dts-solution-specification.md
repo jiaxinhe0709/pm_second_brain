@@ -325,6 +325,8 @@ Alert thresholds, availability/recovery objectives and retention are open under 
 
 ### SPFE source contract binding
 
+Use the [complete Annex I traceability table in SPEC-SEI-015](SPEC-SEI-015-invoice-creation-solution-specification.md#annex-i-invoice-field-traceability) and its [source-field ledger](../assets/regulatory/spain/spfe/field-traceability.json) when qualifying validation and DTS. Every applicable row and controlled-value domain needs an actual mapping/rule binding and positive/negative evidence. A mapper success or syntax pass cannot close this coverage gate.
+
 The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through UM-03–05, UM-10–13. Source conflicts stay open under UM-Q01/Q03/Q04/Q09; SPFE-Q04/Q13/Q14; they are not resolved by a local default.
 
 | ID | Constraint and required behaviour | Source reference |
@@ -473,6 +475,8 @@ These are required evidence scenarios, not executed implementation tests. The so
 | UM-SPFE-A03 | One public mapping is qualified alongside existing UBL 2.1 and another country | Retain old contracts and results; Spain identifiers and extensions do not become cross-country defaults. Actual build/operation evidence remains required. | UM-SPFE-R03; UM-03–05, UM-10–13; [REF](#ref-source-references). |
 
 ## REF Source references
+
+For public-platform legal and external-contract facts, the original official sources below take precedence over earlier assumptions in linked PRDs and internal notes. PRDs retain product scope and are unchanged by this review. A source conflict remains an explicit gate; this spec cannot approve a local substitute.
 
 Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
 

@@ -24,6 +24,7 @@ related:
   - SPEC-SEI-013
   - SPEC-SEI-014
   - SPEC-SEI-015
+  - SPEC-SEI-016
 confluence:
   publish: false
   space_key: DNBU
@@ -129,6 +130,9 @@ Definitions explain the current source documents. They do not approve an archite
 | REGI | Fixed property code identifying a Spain invoice-line regime entry. The entry's value contains the regime code; REGI is not itself the regime value. Cardinality, national tax qualifier and permitted codes belong to the selected Spain profile. |
 | Representation | A specific file or data form of an invoice. Preserve its role, source, version and integrity evidence. Different representations may carry the same business meaning without having identical bytes. |
 | Recovered source file / original | The exact bytes obtained from a source, kept with their source and role. “Original” must identify which source it refers to. A retrieved public copy is not relabelled as the private-route original. |
+| Retrieval / file acquisition | Obtaining the actual invoice file from its source. Discovery, a query result or a notification records availability but does not by itself establish durable source-file capture. A qualified source can deliver the complete file or require a separate fetch. |
+| Source-file download / stored-file download | A source-file download transfers a file from an external source. A stored-file download returns already captured bytes to an authorised actor. Qualify which operation is meant. Neither operation alone proves product receipt, buyer acceptance or completed conservation. |
+| Notification-only intake | A saved source event, metadata or file reference that requires later file acquisition. It cannot stand in for the actual invoice bytes, a verified capture receipt or business delivery. Acknowledgement meaning follows the qualified source contract. |
 | Faithful public copy / public copy | The separately classified public-platform copy of an invoice exchanged through another route, where the applicable Spain policy requires it. “Faithful copy” is a source short form. Exact syntax and acceptance still require the selected contract/profile evidence. Preserve role `PUBLIC_COPY`. |
 | Canonical representation | The shared internal data form used by Sage products. It is derived from a source invoice and does not replace its original bytes or become the legal system of record by its name alone. |
 | Canonical event | A Sage interpretation of a source fact under a versioned mapping. It is separate from the exact raw source event and from a derived customer status. |
@@ -230,6 +234,7 @@ The terminology review covers SPEC-SEI-001 through SPEC-SEI-015 in `specs/`. It 
 
 | [SPEC-SEI-014 — Shared connectivity and routing](../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) | Integration role, contract qualification, setup result, scoped platform change and historical continuity. |
 | [SPEC-SEI-015 — Invoice creation](../specs/SPEC-SEI-015-invoice-creation-solution-specification.md) | Business creation versus representation generation; material issuer; corrective method versus simplified-invoice replacement; qualified unique invoice code and regime entries. |
+| [SPEC-SEI-016 — Receiving, retrieval and download](../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) | One receiving feature; file acquisition versus notification-only intake; source-file download versus authorised stored-file download; qualified provider and country reuse. |
 
 | Remaining question | Owner and boundary |
 |---|---|
