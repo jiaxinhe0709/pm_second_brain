@@ -6,10 +6,12 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-08
+updated: 2026-10-13
 reviewers: []
 related:
+  - RES-SEI-002
   - GLO-SEI-001
+  - PRD-SEI-104
   - PRD-SEI-212
   - PRD-SEI-223
   - PRD-SEI-224
@@ -21,6 +23,7 @@ related:
   - PRD-SEI-244
   - PRD-SEI-246
   - SPEC-SEI-001
+  - SPEC-SEI-002
   - SPEC-SEI-005
   - SPEC-SEI-009
   - SPEC-SEI-014
@@ -55,6 +58,12 @@ The diagram and PRD-SEI-246 are draft proposals. They do not approve external AP
 
 The ERP owns invoice issuance. The Domain Service may prepare and check a draft, but it cannot issue the invoice or silently change the final business data. A successful draft check cannot authorise sending changed final data.
 
+### Public source baseline
+
+Final Articles 3–5 now govern the public action plan: a qualifying private issuance requires a simultaneous faithful copy, while public issuance/interconnection requires no extra copy. Duplicate, copy-to-original and rejected-copy cases have distinct legal branches. The supplied SendInvoice contract confirms the operation shape; limits and profiles still require qualification.
+
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
+
 ### Shared connection and route handoff
 
 The [shared connectivity and routing spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) supplies the qualified customer connection, route version, contract profile and permitted executor (SPC-03/05/06). Recipient destination evidence still comes from SPEC-SEI-012 and is a separate selection. This outbound spec owns the immutable exchange plan, representations and independent delivery/public-copy actions. Use the same foundation for external-provider integration and the proposed Sage operator role; adding that role cannot rewrite a frozen invoice plan or introduce a second executor for an uncertain action. Public protocol execution remains with SPEC-SEI-011.
@@ -68,6 +77,7 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 | Area | Intended use in Spain | Reuse classification | Condition and owner |
 |---|---|---|---|
 | Invoice revisions, plans and independent results | Keep ERP issuance separate from preparation; save final-file evidence and recover each external action independently. | Reusable unchanged | Reuse versioned intent, audit and independent-action safety patterns. ERP, exchange and lifecycle owners. |
+| Actor, approval and portfolio controls | Apply the same invoice flow to a direct business, an accountant for one client and each permitted portfolio item. | Reusable design pattern with country binding; implementation unknown | Reuse the request/evidence and client-item patterns in SPEC-SEI-002 ONB-12/13. Bind invoice revisions, staff permissions and Spain authority separately. Product, Identity and Architecture must qualify the actual implementation, gaps and owners. |
 | Applicability, routing, transformation and trust | Prepare the final issued invoice using the selected Spain route, approved format and signer/seal policy. | Reusable with country binding | Bind local applicability, directory evidence, profiles, mapping, trust and provider contracts. Assess DTS for transformation rather than assume native ERP support. Country, exchange and DTS owners. |
 | Spain recipient route and public copy | Use the Spain private/public route decision and any separate faithful public-copy obligation described in this draft. | Country-specific | Proven absence, copy duty/timing and correction rules still need the named Spain evidence gates. Do not make this route/copy topology a default elsewhere. Spain Compliance and technical owner. |
 | Existing end-to-end outbound implementation | Assess ERP-native functions, shared Sage services and provider-owned operations for the selected journey. | Unknown | This flow does not prove deployed end-to-end coverage. Record the actual execution owner, build, adapter and gaps for each step. Product, Architecture and service/provider owners. |
@@ -80,6 +90,9 @@ The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-in
 |---|---|
 | Legal entity / legal subject | The business to which the invoice or action belongs. Technical fields use `legalSubject` for this business. |
 | Authority | Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission. |
+| Internal invoice approval | A business decision that permits the specified next step for an exact invoice revision. An eligible customer or delegate may approve. Product policy decides whether manual approval or an authorised automatic rule is permitted. |
+| Portfolio | An accountant's set of independently scoped client businesses. Membership does not grant sending or signing authority. |
+| Accounting handoff | A separate authorised transfer of invoice information to the accountant or accounting software, with its own result. |
 | Capability | A supported function, such as receiving invoices or signing them. |
 | Route | The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans. |
 | Idempotency | Repeating the same logical request adds no effect within the contract’s defined scope and retention window. The contract binds request identity and input and defines conflict handling. |
@@ -102,6 +115,7 @@ The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-in
 | Outcome | Observable result | Must remain distinct from |
 |---|---|---|
 | Draft ready for ERP review | Scoped preparation result, issues, route indication and possible generated draft representation | Issued invoice |
+| Approval action required | A named business decision or authority check is missing, with the eligible approver and affected invoice/action identified | Permission to issue, sign or dispatch |
 | Issued, dispatch blocked | ERP-issued identity/revision retained with an actionable validation, route, trust or policy hold | Automatic return to draft |
 | Planned for dispatch | An immutable plan records the route, files, trust requirements and exchange actions; the send request is saved for recovery | External transmission success |
 | Recipient delivery result known | Accepted, rejected or completed outcome for each action with evidence level | Buyer acceptance or separate public-copy completion |
@@ -109,7 +123,21 @@ The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-in
 | Outcome unknown | One original external action is reconciled under its original route/correlation | Permission to repeat all actions |
 | Customer view | Separate preparation, issuance, submission, delivery, copy/reporting and later buyer states | One global “sent” flag |
 
-Actors are issuer/ERP; Domain Service preparation and exchange orchestration; legal-subject/authority and country policy; route/entry-point evidence owner; format/transformation, validation and trust services; private platform or public platform; operations; and product/lifecycle consumers. One legal entity, invoice and final revision are in scope per logical exchange; batch orchestration is outside this spec.
+Actors are issuer/ERP; Domain Service preparation and exchange orchestration; legal-subject/authority and country policy; route/entry-point evidence owner; format/transformation, validation and trust services; private platform or public platform; operations; and product/lifecycle consumers. One legal entity, invoice and final revision are in scope per logical exchange. A portfolio coordinator invokes this flow separately for each permitted client/invoice item. This spec defines item controls and results; a new batch execution API and its physical owner remain open under OUT-Q02.
+
+**Three operating journeys — proposed:** the client business remains the represented party. The invoice's seller, buyer and any material issuer retain their defined roles. The authenticated caller, invoice preparer, approver and signer are separately identified. An accountant can work for one client without a portfolio batch.
+
+| Journey | Access and authority | Approval and processing | Result |
+|---|---|---|---|
+| Direct business customer | Bind the business user or service to the business and permitted action. | Check current authority at OUT-03/08/12. An eligible actor or authorised rule supplies any internal invoice approval at OUT-05 and the dispatch gate. | One invoice result with a named approval or correction owner. |
+| Accountant for one client | Bind the firm, authenticated staff member or service, current client relationship and exact grant. | The accountant may prepare, approve, send or sign only for separately permitted actions. Missing approval returns a client action; qualified existing authority does not require a new invitation for every invoice. | The same invoice result, with client, delegate and approver separately recorded. |
+| Accountant portfolio | Check the same access, authority and approval evidence for every client/invoice item. | Run independent safe items. Hold only affected items for approval, correction or reconciliation. One client's grant or decision cannot cover another client by default. | Permitted item results and aggregate progress; no portfolio-wide “sent” or “approved” result. |
+
+**Approval boundary:** all three journeys evaluate the required approval purposes. Permission to work for a business is separate from approval of invoice content, issuance, dispatch and signing. An eligible accountant may make an internal invoice decision for the client. Permission to view or prepare invoices does not establish that eligibility. Product and Compliance must decide whether every invoice needs a manual approval, whether a qualified rule can approve automatically, and which actions the decision covers; OUT-Q01 keeps this open.
+
+The ERP owns the invoice decision and issuance at OUT-05/06. The exchange gate at OUT-08 checks that any required dispatch approval still covers the exact final revision. OUT-12 checks current authority before each new external action. Missing evidence blocks that action and identifies the eligible customer or delegate. It does not turn an issued invoice back into a draft.
+
+**Evidence and reuse limit:** [B2Brouter's eAccounting guide](https://docs.b2brouter.net/es/user-guide/account-settings/setting-up-your-company/) describes an accepted client connection and separate account roles. [Banqup's role guide](https://help.banqup.com/es/articles/406417-permisos-de-los-usuarios-que-hace-cada-rol) distinguishes viewing, creating and sending. These are operating-pattern references, not proof of Sage implementation or Spain legal authority. [RD 238/2026, Article 7.3](https://www.boe.es/eli/es/rd/2026/03/25/238/con) separately requires the issuer or an authorised delegate to sign invoices issued through private platforms. Qualify the actual signer, executor and representation evidence for each selected interface.
 
 ### 3 Process diagrams and text equivalent
 
@@ -120,6 +148,8 @@ Diagram step names use plain-language actions. The smaller activity references l
 [Editable Draw.io](../assets/diagrams/spain-invoice-preparation-and-outbound-flow.drawio) · [PNG preview](../assets/diagrams/spain-invoice-preparation-and-outbound-flow.png). The diagram's numbered nodes 01–15 correspond to OUT-01–OUT-15 below. Its public recipient route and resolved private route are alternatives; the faithful public copy is a separate conditional obligation. Observation arrows into the outcome ledger do not require a synchronous join.
 
 Text equivalent: OUT-01/02 submit complete draft data → OUT-03 applies authority and Spain policy, validates and makes an early route check → OUT-04 returns draft issues or ready result → ERP reviews and issues at OUT-05/06 → OUT-07 submits exact final issued data/revision → OUT-08 rechecks final data, authority, profile and trust → OUT-09 confirms current authoritative recipient lookup. A proven absence of a private receipt entry point selects the public recipient route; failed, stale or ambiguous lookup is held for recovery. OUT-10 freezes the exchange plan → OUT-11 creates the final representation, validates after transformation, obtains approved signature/seal if required and records send intent → OUT-12 executes recipient delivery and any separate required public-copy submission with independent identities → OUT-13 records raw results and reconciles only unknown actions → OUT-14/15 derive and show views that state what the evidence proves. An issued-invoice problem follows an approved correction process, never a silent loop back to draft.
+
+The diagrams show the common single-invoice process used by all three journeys. OUT-03/08 cover authority and missing approval evidence; OUT-05 covers the ERP's internal invoice decision. Portfolio coordination surrounds these steps without changing their meaning. Pending approval holds only its dependent step. Refusal is a business outcome; an uncertain submitted action follows OUT-13.
 
 **Sending and recovery detail:** ![Prepare and send invoices; track each action](../assets/diagrams/e-invoicing-outbound-exchange-pilot.svg)
 
@@ -133,10 +163,10 @@ Text equivalent: OUT-01/02 submit complete draft data → OUT-03 applies authori
 | OUT-02 Submit draft | Authorised preparation request and input digest accepted idempotently | ERP → Domain Service |
 | OUT-03 Prepare | Entity, actor, policy, data, profile and early route indication evaluated | Domain Service + policy |
 | OUT-04 Decide draft | PASS/limitations/issues with correction owner returned; no issuance/send | Validation → ERP |
-| OUT-05 Review | ERP user reviews preparation and business content | ERP/customer |
+| OUT-05 Review | Eligible customer/delegate reviews preparation and business content; records the required invoice decision and policy | ERP/customer or authorised accountant |
 | OUT-06 Issue | ERP assigns issued identity and freezes business revision | ERP |
 | OUT-07 Submit final | Exact issued data, identity and revision bound to one dispatch intent | ERP → Domain Service |
-| OUT-08 Final checks | Current authority, final data/representation, policy and trust checked | Exchange + validation/trust |
+| OUT-08 Final checks | Current authority, required approval for the exact final revision, data/representation, policy and trust checked | Exchange + Identity/validation/trust |
 | OUT-09 Lookup | Current authoritative recipient evidence classifies private, proven-none/public or unresolved | Route service |
 | OUT-10 Plan | Immutable route, representation, trust mode and independent actions recorded | Exchange |
 | OUT-11 Prepare/send intent | Final bytes validated, trust applied if required, durable operation created | Exchange/transform/trust |
@@ -157,6 +187,8 @@ Text equivalent: OUT-01/02 submit complete draft data → OUT-03 applies authori
 | Public-copy obligation, representation, timing and outcome vocabulary | Spain Compliance/technical owner; external conformance |
 | Signature/seal actor, trust profile and provider handoff | Legal/Security/Business Identity; trust gate |
 | External idempotency, query and acknowledgement semantics per action | Provider/public owner + Operations; integration |
+| OUT-Q01 Invoice approval policy: eligible customer/accountant roles, manual or automatic approval, purpose, revision binding and withdrawal rules | ERP Product + Identity + Spain Compliance; design and delegated pilot. Do not infer universal manual approval or accountant eligibility from a product login. |
+| OUT-Q02 Portfolio coordinator and accounting handoff: supported client/invoice scope, limits, permission-safe progress, receipt/replay contract and implementation ownership | Product/Global API + Architecture + Operations; portfolio pilot. Qualify source design or build, Spain changes, gaps and owners before enabling bulk execution or accountant distribution. |
 
 ## Part 2 Logical Feature Specification
 
@@ -164,7 +196,7 @@ This part explains the proposed behaviour step by step. An invariant is a rule t
 
 ### 1 Aggregate model and invariants
 
-The proposed aggregate key is (tenant, legalSubject, environment, businessInvoiceId, issuedRevision). Preparation work is keyed separately by draftRevision. A final submission includes a stable idempotency key and fingerprint of the input in its agreed standard form; the same key/digest returns the existing exchange, while the same key with changed data conflicts. Every external action has its own operation ID, idempotency scope and result. No endpoint or exact message schema is approved by this draft.
+The proposed aggregate key is (tenant, legalSubject, environment, businessInvoiceId, issuedRevision). Preparation work is keyed separately by draftRevision. A final submission includes a stable idempotency key and fingerprint of the input in its agreed standard form; the same key/digest returns the existing exchange, while the same key with changed data conflicts. Every external action has its own operation ID, idempotency scope and result. The supplied SendInvoice and CancelInvoice WSDLs establish public PRE transport contracts. Sage-facing endpoints and records remain proposed; full public business schemas, replay safety and live activation remain gated.
 
 | ID | Rule that must always hold |
 |---|---|
@@ -177,10 +209,16 @@ The proposed aggregate key is (tenant, legalSubject, environment, businessInvoic
 | OUT-I07 | Recipient delivery and faithful public copy have independent attempts and outcomes. One action's failure cannot repeat or erase another completed action. |
 | OUT-I08 | Unknown mutation remains action-specific and reconciles against original route, payload hash and operation identity before retry. |
 | OUT-I09 | Every representation and result retains source, hash, profile, mapping/trust version and external evidence; later route changes cannot rewrite original context. |
+| OUT-I10 | Represented business, authenticated caller, firm/client relationship, approver and signer remain distinct. Authority is checked for each protected action. |
+| OUT-I11 | Required internal invoice approval binds its purpose, business, invoice revision/hash, approver and policy. A stale or out-of-scope decision cannot authorise issuance or dispatch. |
+| OUT-I12 | Portfolio items retain client-scoped authority, idempotency, approval and outcomes. Current access checks also protect item detail and aggregate counts. |
+| OUT-I13 | Withdrawal or relationship loss stops affected new protected work. It preserves issued invoices, completed actions and the original evidence needed for authorised reconciliation. |
 
 ### 2 Detailed behaviour
 
 **OUT-01/02 Draft intake.** The ERP submits complete invoice facts: issuer and recipient, type, dates, lines, quantities/prices, tax, totals, payment and applicable references/attachments, plus tenant/entity, actor, environment, source invoice/draft revision and request identity. The exact field contract is an open design item. A durable request record stores input reference/hash and authority context. The service rejects cross-tenant or unsupported cohort/capability before preparation. Duplicate request identity with same digest returns its existing result; changed digest conflicts. Intake is neither invoice issuance nor external transmission.
+
+Resolve the direct business actor or accountant's firm, authenticated actor and current client relationship from trusted context. Check preparation permission separately from issuance, approval, submission, public-copy execution and signing. A supplied client ID or portfolio reference is not authority. Unknown and unlinked client references return a safe denial without revealing client existence.
 
 **OUT-03/04 Prepare and decide draft.** Resolve legal subject and action-specific authority independently of login or certificate possession. Country policy evaluates applicability, selected document type, required delivery/copy duties, activated profile and supported representation path. Apply [UBL validation/correction](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) when UBL is selected; other syntax profiles require their own activated packs. An early recipient lookup may report private, proven no-private/public, or unknown; its source/time and limitations are displayed.
 
@@ -188,7 +226,13 @@ It is not frozen as the final route. Return precise blocking issues, owner and n
 
 **OUT-05/06 ERP review and issuance.** The ERP decides whether and when to issue and records the final business invoice identity, issue time and revision under its own legal/product controls. A preparation PASS cannot issue on behalf of the ERP. The Domain Service does not infer that a changed draft or final invoice is still valid. Issued content is frozen for exchange; later content correction follows the approved legal/ERP process, potentially a new invoice or credit note, not automatic reversion to draft.
 
+For the public profile, the supplied formats select `Invoice`, including a rectifying invoice. Where Article 4 requires a faithful copy, the ERP issuance boundary must coordinate that copy with issuance, using qualified final identity, representation, authority and readiness. Do not treat the later private-delivery result as its trigger. Prepare the required copy prerequisites before the dependent issuance handoff; bind the final issued facts and independent public operation at that handoff. The exact ERP/service coordination and permissible timing need the copy/issuance gate in OUT-SPFE-R01. The lifecycle overview shows responsibilities; it does not approve a delayed copy after issuance or claim that the current ERP handoff already satisfies the rule.
+
 Cancellation before issuance closes safe preparation work; cancellation after issuance cannot erase the issued record.
+
+The ERP applies the policy selected under OUT-Q01. Where internal invoice approval is required, save its business, invoice revision/hash, purpose, eligible approver, decision, policy version and evidence reference before the dependent step. The same actor may prepare and approve only where the qualified role permits both. An accountant without approval authority requests the eligible client's decision; the Domain Service cannot approve on the client's behalf.
+
+Reuse the request/evidence pattern in SPEC-SEI-002 ONB-12 where a decision is missing. Runtime invoice work remains owned here and by the ERP; it does not repeat onboarding automatically. Save the request before notification. Verify response eligibility, purpose, expected version and current authority before resuming the same invoice. A duplicate response returns its recorded result; refusal, expiry or a stale/conflicting response cannot release the hold. A material invoice change requires fresh evaluation of whether the decision still covers it. An authorised automatic rule records the eligible business actor who authorised it, executing service, rule/policy version and decision evidence; it cannot bypass authority, validation or trust.
 
 **OUT-07 Final-data intake.** ERP sends exact issued facts or approved immutable representation reference, issued identity/revision, issuer authority, route intent and idempotency identity. The service verifies that source revision, issued identity and hash are internally consistent and that no conflicting final submission already owns this invoice/revision. Persist final intent and operation identity before possible external mutation. Same final identity/hash resumes the existing exchange; changed bytes or issuer identity under the same key conflict and require an authorised correction/revision decision.
 
@@ -212,6 +256,8 @@ The provider adapter receives only references and authorised protocol inputs; pr
 
 **OUT-12 Execute independent obligations.** For each ready exchange action, the adapter performs only the action named in the plan: deliver the invoice to the recipient (private/direct or public), or submit a required faithful public copy. Use that action's stable operation ID. Persist an attempt with payload hash, target, adapter/contract version and correlation before transmission, or use an approved recoverable external-first design. A public bridge or copy cannot be inferred simply from a private delivery result.
 
+Before each new protected execution, recheck the effective actor/client relationship, action authority and required approval against the saved plan and final revision. Record the decision snapshot. If authority was withdrawn after planning, hold the affected unsent action and return its eligible owner. A completed action is retained. An uncertain action uses OUT-13 through an authorised client or operational path; a new actor cannot inherit the former accountant's grant.
+
 One action may finish while another remains pending, rejected or unknown. Provider acknowledgement is recorded at its actual evidence level; no customer claim of recipient retrieval, buyer acceptance or public-copy completion is derived solely from transport success.
 
 **OUT-13 Reconcile and retain outcomes.** For each action, add the raw provider or public-platform response, external references and normalised technical state to the record. A definite validation rejection returns a safe issue; correction follows the rules for an issued invoice. Temporary failures before any external change can retry under the versioned policy.
@@ -225,6 +271,8 @@ Do not repeat successful recipient delivery because the public-copy result is un
 Include the evidence source, time and freshness, affected action, safe next action and owner. Status information can arrive later or out of order from the public/private platform through a qualified query or supported notification. SPEC-SEI-009 owns this intake and interpretation; it also accepts separate authorised customer/ERP events. Link it to the original invoice and action; do not infer success without evidence. Limit product and support views to the permitted tenant and business, and remove confidential provider content.
 
 Keep the original sent bytes, route, profile and trust versions, and evidence for each action under the approved retention policy.
+
+For a portfolio, recheck current staff/client access before reads, changes and execution. Each item uses its existing invoice, revision, action and idempotency identities. A selected correction or cancellation cannot repeat another completed item. Progress and counts disclose only permitted clients; when the full aggregate would reveal inaccessible work, show a visibility limitation. An accounting handoff is a separate product operation under OUT-Q02. Its failure cannot trigger another recipient delivery, and its receipt cannot establish buyer acceptance or bookkeeping completion.
 
 ### 3 Requirements and operational controls
 
@@ -240,10 +288,25 @@ Keep the original sent bytes, route, profile and trust versions, and evidence fo
 | OUT-R08 | Reconcile uncertain external effects on the original action before retry; FR22–23. |
 | OUT-R09 | Preserve original/derived/sent representations and raw evidence, then derive qualified views; FR25–26/30. |
 | OUT-R10 | Keep public recipient delivery, public copy, technical acknowledgement and buyer lifecycle distinct; PRD-SEI-212/223/246. |
+| OUT-R11 | Bind direct or delegated actor context and recheck client/action authority before protected reads and new execution; PRD-SEI-104/231 and SPEC-SEI-002. |
+| OUT-R12 | Enforce the qualified internal invoice approval policy for exact revisions and purposes; save eligible decisions and safely handle missing, stale, refused or withdrawn evidence; proposed policy under OUT-Q01. |
+| OUT-R13 | Isolate portfolio item authority, request identity, outcomes, recovery and permitted progress; do not infer authority or completion from batch receipt; PRD-SEI-104/231. |
+| OUT-R14 | Stop affected new work on authority/relationship loss, preserve prior outcomes and separate accountant distribution from recipient delivery; PRD-SEI-231 and proposed handoff under OUT-Q02. |
 
 Authorisation, tenant/legal-entity and TEST/production isolation apply at draft, final, plan and adapter gates. Restrict invoice payloads and authority evidence; no secrets, private keys or full tax identifiers in logs or errors safe to show to the customer. Enforce compare-and-set or equivalent lock on final invoice/revision and each action to prevent concurrent duplicate dispatch. Monitor preparation failures, stale/failing route lookup, final-check mismatches, plan conflicts, backlog and time spent in an unknown state for each action, copy lag, signature failures and evidence gaps.
 
 Quantitative objectives and retention are design gates based on approved volumes, law/contract and pilot baselines.
+
+### SPFE source contract binding
+
+The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through OUT-05–08, OUT-10–13. Source conflicts stay open under copy/issuance and correction policy; SPFE-Q03/Q07/Q08/Q13/Q15/Q18; they are not resolved by a local default.
+
+| ID | Constraint and required behaviour | Source reference |
+|---|---|---|
+| OUT-SPFE-R01 Bind a required copy to actual issuance | Before enabling a private-issuance journey, the ERP and E-Invoice owners qualify its copy handoff at the actual issuance boundary. Article 4 requires simultaneous copy submission; waiting for successful private recipient delivery is not the rule. Record issuer/recipient/third-party material issuance and the responsible copy sender. Public issuance/interconnection produces no redundant copy. Exact operational timing and coordination remain a Compliance/ERP release gate. | SPFE-S02 Articles 3.4 and 4.1–4.3; [REF](#ref-source-references). |
+| OUT-SPFE-R02 Keep legal duplicate and withdrawal cases distinct | Preserve original/copy identity and source classification. Apply Article 5.5 rejection cases; a public original following a stored copy needs a separately authorized, traceable copy-withdrawal procedure. CancelInvoice is not used to clear a duplicate or unknown send by default. Retain the previous source, operation and legal-case evidence. | SPFE-S02 Article 5.5; SPFE-S03/SPFE-S10; [REF](#ref-source-references). |
+| OUT-SPFE-R03 Correct the right representation | If the copy alone is defective, correct it while preserving correspondence to the issued original; its rejection does not invalidate that original. If the original is defective, route to the applicable governed issuance/rectification branch, including the distinct Article 5.6 cases. Never silently repair issued content or resend successful private delivery merely because public submission failed. | SPFE-S02 Article 5.6; [REF](#ref-source-references). |
+| OUT-SPFE-R04 Record batch outcomes and exceptional outage evidence | SendInvoice uses the exact validated Invoice attachments and selected credential port. Enforce the qualified 1–100 batch and per-invoice authority, with the disputed size held for clarification. Save request/item results, locator and receipt evidence separately. Any Article 5.7 extension requires an SPFE-attributable outage over 24 hours and four working days after resolution; ordinary failures do not acquire that extension. | SPFE-S02 Articles 5.4/5.7; SPFE-S03/SPFE-S16; SPFE-Q03/Q15; [REF](#ref-source-references). |
 
 ## Part 3 Logical Service Interactions and Data Inventory
 
@@ -271,6 +334,7 @@ These are logical operations, not approved endpoints. Commands use requestId, te
 | OUT-INT-08 | Exchange → external adapter | Submit one specified action with stable operation ID/hash/route; returns definitive response or outcome unknown; do not repeat other actions. |
 | OUT-INT-09 | Operations/exchange → adapter | Reconcile original action by correlation/external reference; returns observed state/evidence or unresolved. |
 | OUT-INT-10 | Exchange → lifecycle/product | Publish committed action/result changes at least once; consumer deduplicates by eventId/version and reads authoritative ledger. |
+| OUT-INT-11 | ERP/product ↔ Identity/approval owner → exchange | Resolve current actor/client permissions and required invoice decision by business, purpose, revision/hash, policy and expected version. Return qualified evidence or a scoped pending/denied/conflict result with eligible owner. A notification or recorded approval response alone does not establish effective authority. |
 
 Proposed events are OUTBOUND_PREPARATION_CHANGED, OUTBOUND_PLAN_FROZEN, OUTBOUND_LEG_STATE_CHANGED, OUTBOUND_RECONCILIATION_REQUIRED and OUTBOUND_VIEW_CHANGED. They contain IDs, scope, state, versions and safe evidence references, not invoice XML or secrets. An event cannot prove external completion without the corresponding ledger observation.
 
@@ -288,6 +352,8 @@ Proposed events are OUTBOUND_PREPARATION_CHANGED, OUTBOUND_PLAN_FROZEN, OUTBOUND
 | OUT-D08 | Reconciliation case / operations | Original action, intended/observed state, last query, owner, unsafe actions, deadline and manual approval; restricted; OUT-13. |
 | OUT-D09 | Product/lifecycle projection / lifecycle | Separate derived preparation, issuance, delivery, copy/reporting and buyer dimensions with evidence freshness/next action; rebuildable; OUT-14/15. |
 | OUT-D10 | Audit/retention policy reference / records | Actor, action, scope, time, policy version, evidence location and retention/hold class; restricted; all activities. |
+| OUT-D11 | Actor and approval context / Identity + ERP decision owner | Represented business, authenticated actor, firm/client relationship and grant refs, action scope, request/version, approver, invoice revision/hash, purpose, policy, decision/effective-time evidence; restricted/versioned; OUT-02/03/05/08/12/15 and INT-11. |
+| OUT-D12 | Portfolio item correlation / product coordinator | Parent/submitted item refs, client-scoped invoice/action identities, result versions and visibility policy; references existing exchanges without shared authority or credentials; OUT-02/12–15. Physical coordinator and aggregate contract remain OUT-Q02. |
 
 D02 is ERP-owned; D05/D07 are exchange-owned; D03 and trust evidence are owned by their specialist services. A plan references immutable records rather than copying credentials. Exact retention, archival and data-disposition periods are not asserted here; Legal/Privacy/Records approve them by data class.
 
@@ -309,5 +375,38 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | OUT-A10 Ack versus buyer status | R09/10 → OUT-13–15, INT-10, D07/D09 | Views that state what the evidence proves keep admission, recipient and buyer states separate. |
 | OUT-A11 Country-bound routes and exchange actions | R03–07/09/10 → OUT-08–12/14, INT-02/03/05–08/10, D03–07/09 | Spain policy selects the evidenced recipient route and required copy submissions. Another country uses its own approved plan without inheriting Spain public fallback or copy duties. Execution owners and reused transformation evidence are recorded; a country-policy change leaves earlier plans unchanged. |
 | OUT-A12 Shared route and executor handoff | R03/07–09; SPEC-SEI-014 SPC-R01/05/06 → SPC-05/06; SPC-A01/07/08 | Both integration roles use the same route/context contract; recipient lookup remains separate; a new operator profile cannot rewrite a saved invoice plan or assign a second executor after possible transmission. |
+| OUT-A13 Direct business approval | R11/12 → OUT-03/05–08/12, INT-02/04/11, D02/D11; Q01 | Current business authority and the selected approval policy pass for the exact revision. A changed revision, foreign client decision or ineligible approver cannot release issuance/dispatch. |
+| OUT-A14 Accountant for one client | R11/12 → OUT-02/03/05/08/12/15, INT-01/02/11, D01/D11 | A permitted accountant may prepare and, where separately authorised, approve/send for the client. View-only or preparation-only permission cannot approve, sign or send. Missing approval returns an eligible client action; verified existing evidence avoids an unnecessary new request. |
+| OUT-A15 Mixed portfolio | R11–14 → OUT-02/08/12–15, INT-04/08/10/11, D07/D11/D12; Q02 | One item succeeds, another waits for approval and an unlinked client is denied. Safe items continue. Duplicate/restarted coordination retains original item/action identities; current detail and counts cannot reveal inaccessible clients. |
+| OUT-A16 Withdrawal before or after transmission | R11/12/14 → OUT-08/12/13/15, INT-08/09/11, D07/D08/D11 | Withdrawal before execution blocks new use. After possible transmission, preserve the original action and reconcile through a currently authorised owner. Refusal is not retried as a technical fault; prior success is retained. |
+| OUT-A17 Approval and accounting reuse boundary | R12–14 → OUT-05/08/12/15, INT-10/11, D09/D11/D12; Q01/02 | Qualify the actual approval/coordinator/handoff build, contracts, gaps and owners. Missing country approval policy holds dependent work; Spain grants do not authorise another country. Failed accountant transfer cannot resend the buyer invoice or establish buyer acceptance. |
+
+**Actor and approval release evidence:** close OUT-Q01/02 for the selected scope. Exercise all three journeys, staff-role and client-relationship loss, revision changes, conflicting responses, mixed portfolio results and authorised reconciliation. Confirm that each required approval purpose has an eligible actor and evidence. Manual approval of every invoice remains open until Product/Compliance records the policy.
 
 **Review gate:** validate PRD-SEI-246's six open decisions, complete draft/final contracts, route source, representation ownership, trust model and vocabulary for each action’s outcome. **Pilot gate:** test preflight/final mismatch, issued correction, private route, proven-none public default, failed lookup, conditional copy, loss of business meaning, signature failure, duplicate final request, partial action result and unknown mutation against selected providers. **Production gate:** approved Spanish profiles/public interfaces and operator terms, conformance evidence, security/retention review, operations runbooks, measured service objectives and end-to-end pilot results. The existing Draw.io is the process basis; this draft does not convert it into an approved external API design.
+
+### SPFE evidence acceptance
+
+These are required evidence scenarios, not executed implementation tests. The source-binding gate is copy/issuance and correction policy; SPFE-Q03/Q07/Q08/Q13/Q15/Q18. A source-backed review does not establish that this feature is ready for production.
+
+| ID | Scenario | Required result | Requirement coverage |
+|---|---|---|---|
+| OUT-SPFE-A01 | Private issuance, public interconnection and recipient-issued invoice | Prove the required copy sender and issuance handoff for each case; no extra public copy after public use and no dependence on private delivery success. | OUT-SPFE-R01; OUT-05–08, OUT-10–13; [REF](#ref-source-references). |
+| OUT-SPFE-A02 | Existing copy, existing original or uncertain prior send | Classify the legal case and reconcile source evidence; no automatic withdrawal or fresh send as duplicate recovery. | OUT-SPFE-R02; OUT-05–08, OUT-10–13; [REF](#ref-source-references). |
+| OUT-SPFE-A03 | Rejected public copy with a valid versus defective private original | Use the correct distinct correction branch, preserving correspondence and all issued/sent evidence. | OUT-SPFE-R03; OUT-05–08, OUT-10–13; [REF](#ref-source-references). |
+| OUT-SPFE-A04 | Partial batch admission or ordinary outage versus qualifying SPFE incident | Keep item results independent and missing CSV mapping open. Apply only the qualified exceptional calendar; a failed item cannot repeat admitted items. | OUT-SPFE-R04; OUT-05–08, OUT-10–13; [REF](#ref-source-references). |
+
+## REF Source references
+
+Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
+
+| REF ID | Source and version | Exact location | Supported information and limit |
+|---|---|---|---|
+| SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 3.4–3.6, 4.1–4.4 and 5.4–5.7 | Public-copy timing, duplicate/withdrawal/correction branches, admission/CSV and exceptional outage window. |
+| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.2–6.3; pp. 10–12 | Submission batch, per-issuer authority, disputed size and limited withdrawal. |
+| SPFE-S01 | [Anexo-1-Proyecto-OM-FE.pdf](<../context/Anexo I/20261013/Anexo-1-Proyecto-OM-FE.pdf>); Supplied 13 October 2026; SHA-256 in source manifest. | BT-ES-1 p. 4; withdrawal pp. 26–27 | CopyIndicator and invoice-reference withdrawal content. |
+| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SendInvoice operation, SOAP binding and service ports | PRE submission transport and opaque business attachments. |
+| SPFE-S10 | [CancelInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/CancelInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | CancelInvoice operation and payload documentation | Withdrawal transport; not a general legal cancellation or retry mechanism. |
+| SPFE-S06 | [RespuestaAltaFacturas.xml](<../context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/RespuestaAltaFacturas.xml>); Supplied 13 October 2026; SHA-256 in source manifest. | DocumentResponse and DocumentReference | Example request/item result, locator and response ID; CSV mapping is unconfirmed. |
+| REF-PRD | [PRD-SEI-246](../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md); [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-212](../prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

@@ -6,9 +6,10 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-05
-updated: 2026-10-08
+updated: 2026-10-13
 reviewers: []
 related:
+  - RES-SEI-002
   - GLO-SEI-001
   - PRD-SEI-226
   - PRD-SEI-101
@@ -55,6 +56,12 @@ The four views below form one canonical document and one intended Confluence pag
 4. [Part 4 Assurance and Traceability View](#part-4-assurance-and-traceability-view): requirement coverage, verification and unresolved gates.
 
 This document is for Product, Business Identity, Security, Legal, Spain Compliance, engineering, operations and integration teams. Start with Part 1 for the scope and decisions. Part 2 explains behaviour, Part 3 describes interfaces and data, and Part 4 shows how to verify the design. Open questions remain in the source PRDs until an approved decision record replaces them.
+
+### Public source baseline
+
+The supplied public contracts distinguish electronic-certificate and electronic-seal access. These ports establish transport choices; they do not establish invoice-signing authority or a compatible Tax Service implementation. Public web-service authentication still needs a qualified certificate and effective authority for the selected operation.
+
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 ### Spain certificate bridge direction and evidence
 
@@ -491,6 +498,16 @@ Disaster recovery must preserve inventory/evidence integrity and reconcile possi
 
 Acceptance scenarios `CM-AC01`–`CM-AC25` and evidence gates are in [Part 4](#part-4-assurance-and-traceability-view). No feature is production-ready until the decisions there are resolved and test evidence exists.
 
+### SPFE source contract binding
+
+The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through CERT-02, CERT-04–07. Source conflicts stay open under G4/G8/G10/G11; SPFE-Q01/Q09/Q12; they are not resolved by a local default.
+
+| ID | Constraint and required behaviour | Source reference |
+|---|---|---|
+| CM-SPFE-R01 Select a public credential port | For an SPFE web-service call, the Trust owner binds the actual certificate class, protected material version and environment to the selected WSDL port. A seal uses the seal port; another electronic certificate uses its certificate port. Missing acceptance or authority evidence blocks the call. A generic NOT_REQUIRED decision cannot bypass public web-service authentication. | SPFE-S02/SPFE-S03/SPFE-S16; [REF](#ref-source-references). |
+| CM-SPFE-R02 Preserve caller and represented party | The Trust and Identity owners keep the certificate caller separate from the supplier, recipient and represented business. Verify the action-specific grant. Submission, consultation and locator download cannot inherit one another's authority. Catalogue shortcuts remain gated until reconciled with Article 11. | SPFE-S02/SPFE-S03; [REF](#ref-source-references). |
+| CM-SPFE-R03 Separate transport from invoice signing | The connector's minimal ebMS transport description does not remove or create an invoice-signature duty. Exchange selects any required invoice signature under the qualified route/profile. Verify actual protected-operation support before reusing Tax Service or AFL. | SPFE-S08; proposed reuse control under G10; [REF](#ref-source-references). |
+
 ## Part 3 Logical Service Interactions and Data Inventory
 
 This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.
@@ -705,3 +722,26 @@ G9–G12 turn the supplied blueprint's reuse claims and dependencies into review
 ### 6 Readiness judgement
 
 This document is ready for a Product, Tax Service, Connections Service, AFL, Domain Services, Business Identity, Security, Legal, Spain technical and Operations solution review. It is **not approved for implementation or external activation**. The reference slice is one eligible Spain dataset/client, one qualified protected source and one approved authentication or signing purpose. Resolve G1–G3 with G9 to establish ownership/custody, legal seal authority and the actual reuse contract; G4–G8 and G10–G12 determine conformance, delegated-use, pilot and production gates. No document status or Confluence publication is changed by this review view.
+
+### SPFE evidence acceptance
+
+These are required evidence scenarios, not executed implementation tests. The source-binding gate is G4/G8/G10/G11; SPFE-Q01/Q09/Q12. A source-backed review does not establish that this feature is ready for production.
+
+| ID | Scenario | Required result | Requirement coverage |
+|---|---|---|---|
+| CM-SPFE-A01 | Certificate class or environment does not match its selected PRE port | Deny protected use before calling SPFE; preserve source port, material version and required remediation. | CM-SPFE-R01; CERT-02, CERT-04–07; [REF](#ref-source-references). |
+| CM-SPFE-A02 | Valid seal, missing customer consultation grant | Hold only the affected represented-party call; no inference from certificate possession or prior submission. | CM-SPFE-R02; CERT-02, CERT-04–07; [REF](#ref-source-references). |
+| CM-SPFE-A03 | Minimal ebMS message with an independently required invoice signature | Apply the qualified invoice trust plan; do not treat unsigned transport as an invoice-signature exemption or claim AFL conformance. | CM-SPFE-R03; CERT-02, CERT-04–07; [REF](#ref-source-references). |
+
+## REF Source references
+
+Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
+
+| REF ID | Source and version | Exact location | Supported information and limit |
+|---|---|---|---|
+| SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Article 11 | Authentication and operation-specific representation; no custody or signing implementation. |
+| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 4.1–4.3, 6.4–6.7; pp. 7–8, 12–15 | Qualified certificate and operation-specific authorization; locator and social-collaboration paths require legal reconciliation. |
+| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SendInvoiceCertPort, SendInvoiceSealPort and soap:address | Exact PRE certificate/seal destinations; no live access or accepted issuer list. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | sections 4.3 and 5.1.2; pp. 7–9 | Certificate authentication and minimal message transport; draft wording does not settle invoice-signature duties. |
+| REF-PRD | [PRD-SEI-226](../prds/PRD-SEI-226-security-trust-identity-data-audit.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md); [PRD-SEI-101](../prds/PRD-SEI-101-public-platform-onboarding.md); [PRD-SEI-231](../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md); [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-225](../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md); [PRD-SEI-236](../prds/PRD-SEI-236-ubl-format-profile.md); [237](../prds/PRD-SEI-237-cii-format-profile.md); [238](../prds/PRD-SEI-238-un-edifact-format-profile.md); [239](../prds/PRD-SEI-239-facturae-format-profile.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

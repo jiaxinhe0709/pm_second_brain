@@ -18,6 +18,7 @@ Git is the system of record for product documents. Confluence is the publishing 
 - `decisions/` — durable product and architecture decisions
 - `research/` — customer and market evidence
 - `context/` — personas, metrics, principles, glossary, and product context
+  - [Spain public platform technical evidence guide](context/RES-SEI-002-spain-public-platform-technical-evidence.md) — English findings, all supplied SPFE contracts, searchable Spanish sources, and open POC gates
 - `inbox/` — ideas and feedback awaiting triage
 - `assets/` — diagrams, screenshots, and attachments
 - `templates/` — document starters

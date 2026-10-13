@@ -6,9 +6,10 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-12
+updated: 2026-10-13
 reviewers: []
 related:
+  - RES-SEI-002
   - GLO-SEI-001
   - PRD-SEI-101
   - PRD-SEI-104
@@ -60,6 +61,12 @@ Private-provider operations need the same contract-specific qualification. Unsup
 Each business and capability gets an accurate status and a clear next action. A network or HTTP status alone cannot prove success, failure or whether retry is safe. An accountant’s portfolio shows mixed results, while each client recovers independently.
 
 If an external change may have happened, the result stays unresolved until a reliable source confirms it or an authorised person makes an approved decision supported by evidence.
+
+### Public source baseline
+
+The new public catalogue and WSDLs provide operation evidence, but they do not supply a safe public onboarding-mutation or universal resend contract. This feature continues to recover the failed setup check. Invoice submission and event recovery remain with their owning features and the public connector.
+
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 ### Recovery across the entry journeys
 
@@ -277,6 +284,15 @@ Return each NIF, certificate and authority finding with its evidence, limitation
 
 Durable intent and idempotency records must survive restart and cover the approved duplicate window. Monitoring covers unknown age, retries, reconciliation lag, partial batches and missing owners without high-cardinality personal identifiers. Targets and retention follow approved operational/legal policy and measured pilot baselines.
 
+### SPFE source contract binding
+
+The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through OFR-02–08. Source conflicts stay open under OFR-Q01/Q04 and retry-safety decision; SPFE-Q01/Q07/Q12; they are not resolved by a local default.
+
+| ID | Constraint and required behaviour | Source reference |
+|---|---|---|
+| OFR-SPFE-R01 Recover the setup check without submitting an invoice | OFR-02 names the actual failed contract and its owner. Recover a public credential, authority or readiness observation through the qualified read/check path. Do not call SendInvoice or CancelInvoice as an onboarding probe, rollback or registration repair. | SPFE-S03/SPFE-S16; proposed non-mutating setup control; [REF](#ref-source-references). |
+| OFR-SPFE-R02 Classify source failures before retry | Keep HTTP result, SOAP fault, structured request result and per-item result distinct. The catalogue's generic resend instruction is insufficient after a possible external effect. Resume the original operation only with proven repeat safety or authoritative reconciliation; otherwise retain an owned hold. | SPFE-S03/SPFE-S08; [REF](#ref-source-references). |
+
 ## Part 3 Logical Service Interactions and Data Inventory
 
 This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.
@@ -361,3 +377,24 @@ This part shows how requirements connect to activities, interfaces, data and acc
 **Scenario extension gate:** qualify OFR-Q01/02, provider-specific operation identities, affected dependencies and parent resume mapping across ONB-S01–08. Include failed existing-service observation, no-change confirmation, partial combined setup, unsupported functions, receiving-point uncertainty and recovered-effect-without-activation drills. Public recovery evidence alone does not qualify private-provider or migration recovery.
 
 **Component and certificate recovery gate:** resolve OFR-Q03/04 with the E-Invoice Service and certificate owners. Prove internal workflow recovery, independent NIF/certificate/authority results, safe source lookup and correction lineage. Prove original-effect reconciliation for any supported protected mutation. Feedback-only source coverage cannot enable an unqualified protected operation.
+
+### SPFE evidence acceptance
+
+These are required evidence scenarios, not executed implementation tests. The source-binding gate is OFR-Q01/Q04 and retry-safety decision; SPFE-Q01/Q07/Q12. A source-backed review does not establish that this feature is ready for production.
+
+| ID | Scenario | Required result | Requirement coverage |
+|---|---|---|---|
+| OFR-SPFE-A01 | A public readiness check fails and the catalogue says resend | Retry only a qualified repeat-safe check; no invoice submission, withdrawal or route mutation is introduced. | OFR-SPFE-R01/OFR-SPFE-R02; OFR-02–08; [REF](#ref-source-references). |
+| OFR-SPFE-A02 | A lost response follows a possibly executed owning-feature mutation | Return the original connector/feature operation to its recovery owner. Do not fabricate setup success or start a new public operation. | OFR-SPFE-R02; OFR-02–08; [REF](#ref-source-references). |
+
+## REF Source references
+
+Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
+
+| REF ID | Source and version | Exact location | Supported information and limit |
+|---|---|---|---|
+| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | section 5.1, p. 9; sections 6.1–6.10 | Legacy fault/resend guidance and public operations; no automatic safe-retry guarantee. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | sections 4.3 and 5.2–5.9; pp. 7, 12–15 | Protocol conflict, response levels and pending formats. |
+| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SOAP binding, fault and service ports | Operation-specific SOAP 1.2 contract; no onboarding mutation. |
+| REF-PRD | [PRD-SEI-107](../prds/PRD-SEI-107-public-onboarding-failure-recovery.md); [PRD-SEI-222](../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md); [PRD-SEI-225](../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

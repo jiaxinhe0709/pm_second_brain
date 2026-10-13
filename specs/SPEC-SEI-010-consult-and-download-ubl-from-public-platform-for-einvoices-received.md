@@ -6,9 +6,10 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-08
+updated: 2026-10-13
 reviewers: []
 related:
+  - RES-SEI-002
   - GLO-SEI-001
   - PRD-SEI-211
   - PRD-SEI-223
@@ -47,13 +48,19 @@ The saved source file remains available if later mapping or ERP delivery fails. 
 
 [PRD-SEI-211](../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md), FR1–FR55, defines the product requirements. [SPEC-SEI-006](SPEC-SEI-006-invoice-receiving-solution.md) owns validation, duplicate-invoice checks, transformation and delivery to Sage products after the source file has been saved. [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns public/private status consultation and interpretation, plus separate authorised buyer decisions and payment facts. A status query refreshes source information; a saved-file download reads stored bytes. These are distinct operations, even when one connector supports both. Viewing or downloading a file does not mean that the buyer accepts the invoice.
 
-The [final Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028), Articles 9–11, confirms automated recovery, immediate availability for conservation, consultation/download channels and third-party representation requirements. The [source snapshot and evidence note](../research/spain-public-platform-order-evidence.md) records provenance and limits. The order does not provide the complete new-invoice discovery API or establish UBL 2.5 acceptance.
+The [final Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028), Articles 9–11, confirms automated recovery, immediate availability for conservation, consultation/download channels and third-party representation requirements. The [source snapshot and evidence note](../research/spain-public-platform-order-evidence.md) records provenance and limits. The order does not define the complete discovery wire contract. The supplied catalogue now describes date-filter discovery through GetRegisteredInvoice and distinct identity/query/download operations. The formats select UBL 2.5 Invoice; exact schemas, authority, pagination and profile conflicts remain open.
+
+### Public source baseline
+
+The supplied catalogue separates date-based discovery, identity/status consultation and actual invoice downloads. Retrieval must use those distinct contracts. Locator download is the preferred platform path, while pagination, authority, history coverage and complete response formats still need qualification.
+
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 ### Scope and important distinctions
 
 | Capability | Initial proposed scope | Evidence or limit |
 |---|---|---|
-| Automatic discovery and retrieval | Scheduled collection for every active, authorised public receiving scope; manual refresh joins the same queue. | Required recovery in the applicable operating model; cadence and API mechanics open. |
+| Automatic discovery and retrieval | Scheduled collection for every active, authorised public receiving scope; manual refresh joins the same queue. | Required recovery in the applicable operating model; GetRegisteredInvoice supplies presentation-date discovery; cadence, exact filters and continuation mechanics remain open. |
 | Source storage | Exact recovered bytes, identity, classification, hash and source context in durable protected storage. | Physical storage service and retention values open. An external immutable reference is acceptable only after its access, integrity, retention and exit guarantees are approved. |
 | Customer conservation access | Authorised download of a stored structured invoice or faithful copy, clearly labelled. | Available independently of mapping/ERP completion; unsafe content follows a separately approved controlled access path. |
 | Multiple recovered invoices | Collect multiple results safely over successive requests/pages. | Automated collection is distinct from a user export feature. |
@@ -174,6 +181,16 @@ Every activity records the tenant, represented legal entity, country, environmen
 | Product distribution fails | SPEC-SEI-006 retries its existing distribution identity. Retrieval/source file remains available under its policy. |
 | Expired provider history or storage loss | Records/Operations recovery case; restore/reconcile against trustworthy evidence where available. Mark the gap until proved repaired. |
 
+### SPFE source contract binding
+
+The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through RSD-01, RSD-03–06, RSD-08. Source conflicts stay open under RSD-G01/G02/G05/G06; SPFE-Q06/Q09/Q12/Q17; they are not resolved by a local default.
+
+| ID | Constraint and required behaviour | Source reference |
+|---|---|---|
+| RSD-SPFE-R01 Discover by presentation date and consult by identity | RSD-03 uses GetRegisteredInvoice/QUERYBYFILTER for presentation-date discovery and GetInvoices/QUERYBYID for identity/final-status consultation. Do not use issue date as presentation date. Catalogue maxima are 1000 results/identifiers respectively; preserve raw SECUENCE_ID spelling until wire semantics are qualified. Missing filters, page ordering or continuation evidence blocks a completeness claim. | SPFE-S03/SPFE-S15/SPFE-S14; [REF](#ref-source-references). |
+| RSD-SPFE-R02 Fetch the exact file through a separate download | Prefer DownloadInvoicesByLOC/DOWNLOADBYLOC where its authority contract is qualified. Retain locator separately from invoice code and MessageId. DownloadInvoicesByID/DOWNLOADBYID is the qualified alternative, with catalogue maximum 100 invoices. Do not invent a locator limit or infer file bytes from query success. Missing/failed items remain incomplete. | SPFE-S03/SPFE-S12/SPFE-S13; [REF](#ref-source-references). |
+| RSD-SPFE-R03 Preserve authority, capture and complete progress | Recheck the selected issuer/recipient role and represented entity before each call. Locator/certificate and social-collaboration authorization need Article 11 reconciliation. Save exact files and item outcomes before advancing progress; no page, locator or batch shares another entity's authority or hides a failed item. | SPFE-S02/SPFE-S03; proposed durable-progress control; [REF](#ref-source-references). |
+
 ## Part 3 Logical Service Interactions and Data Inventory
 
 ### Contracts
@@ -184,7 +201,7 @@ These contracts describe the information services exchange and the expected beha
 |---|---|---|
 | RSD-INT01 Product/Operations → Retrieval | Refresh/recovery scope and actor; returns saved current freshness plus stable queued operation or actionable denial. No synchronous AEAT dependency. | RSD-01/02/08 |
 | RSD-INT02 Retrieval → Authority/Credentials | Entity/action/environment, credential and authority references; returns effective eligibility/version. Provider representation is separate from local subscription. | RSD-01/03/06 |
-| RSD-INT03 Retrieval → AEAT adapter | Explicit represented scope, bounds and continuation evidence; returns discovery items/files and provider correlation or classified failure. Exact contract open. | RSD-03/08 |
+| RSD-INT03 Retrieval → AEAT adapter | Explicit represented scope, bounds and continuation evidence; returns discovery items/files and provider correlation or classified failure. Bind GetRegisteredInvoice/GetInvoices and the distinct download operation; exact filter, continuation and response shapes remain open. | RSD-03/08 |
 | RSD-INT04 Retrieval → Records | Capture identity, exact bytes or approved reference, classification and context; returns durable verified receipt or incomplete capture. | RSD-04 |
 | RSD-INT05 Retrieval → Receiving | Durable source reference/hash, observation and public-route/page context; returns stable intake receipt and saved item classification, or pending/error. | RSD-05/06 |
 | RSD-INT06 Worker → Progress store | Lease generation, scope version and complete item-outcome coverage; returns committed boundary or conflict. Idempotent commit/recovery required. | RSD-06 |
@@ -239,7 +256,7 @@ Before using an existing implementation, record the source capability, Spain cha
 
 | ID | Decision/evidence needed | Owner | Effect and required gate |
 |---|---|---|---|
-| RSD-G01 | New-invoice discovery, request-per-entity or aggregation, filters, ordering, pagination, notification capability, identifiers, history and read/ack side effects. | Spain Public Platform Technical Owner | Blocks physical adapter design and complete recovery tests. Obtain official AEAT artefacts; SII/VERI*FACTU APIs are not substitutes. |
+| RSD-G01 | GetRegisteredInvoice date discovery, GetInvoices identity/status query and separate downloads are documented. Qualify exact request-per-entity filters, ordering, SECUENCE_ID continuation, history, notifications and read/ack side effects. | Spain Public Platform Technical Owner | Blocks physical adapter design and complete recovery tests. Obtain official AEAT artefacts; SII/VERI*FACTU APIs are not substitutes. |
 | RSD-G02 | Accepted certificate contract and registered representation procedure/code, verification, expiry/revocation and action scope. | Compliance, Security and Spain Technical Owner | Blocks live customer retrieval; integrate onboarding/certificates. |
 | RSD-G03 | Meaning and measurable target for immediate availability; safe conservation access for failed/unsafe files. | Compliance, Product, Security and Records Owner | Blocks production availability promise. Cannot defer access until ERP success by default. |
 | RSD-G04 | Durable storage implementation or approved immutable reference, retention by role/country, holds, historic access, deletion, restore and provider exit. | Records Owner, Legal and Security | Blocks production storage/access. No retention duration invented. |
@@ -256,3 +273,29 @@ Track successful consultation age separately from the age of recovered files and
 Operations may request bounded retry, rescan or restore through audited workflows. They cannot edit a checkpoint directly, overwrite original bytes, bypass registered authority, or release an unsafe file through an ordinary product read. Escalation follows the owner named for the affected gate and record.
 
 **Readiness:** reviewable logical proposal with the final-order evidence incorporated. Physical adapter contracts, records policy, measurable conservation-access target and reuse evidence remain production gates. The Confluence page is a child of **Public Platform - Invoice Consultation and Retrieval** (page `837610662`), with links from the UBL Download and inbound-receiving topics. Publication is authorised for the validated Spain solution-spec set. Publication keeps this design in draft status and does not approve implementation or activation.
+
+### SPFE evidence acceptance
+
+These are required evidence scenarios, not executed implementation tests. The source-binding gate is RSD-G01/G02/G05/G06; SPFE-Q06/Q09/Q12/Q17. A source-backed review does not establish that this feature is ready for production.
+
+| ID | Scenario | Required result | Requirement coverage |
+|---|---|---|---|
+| RSD-SPFE-A01 | Issue date differs from SPFE presentation date and the result is paginated | Use presentation-date selection, the exact qualified continuation contract and all-item coverage. Do not guess a filter field or skip page boundaries. | RSD-SPFE-R01; RSD-01, RSD-03–06, RSD-08; [REF](#ref-source-references). |
+| RSD-SPFE-A02 | Query success followed by partial ID/locator downloads | Only downloaded, verified items gain capture receipts. No query-only invoice file, borrowed LOC limit or all-success result is fabricated. | RSD-SPFE-R02/RSD-SPFE-R03; RSD-01, RSD-03–06, RSD-08; [REF](#ref-source-references). |
+| RSD-SPFE-A03 | A valid locator or submitter certificate lacks the recipient's qualified authority | Hold the affected download and checkpoint; independently authorized entity runs retain their own progress. | RSD-SPFE-R03; RSD-01, RSD-03–06, RSD-08; [REF](#ref-source-references). |
+
+## REF Source references
+
+Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
+
+| REF ID | Source and version | Exact location | Supported information and limit |
+|---|---|---|---|
+| SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 9–11 | Automated recovery, conservation availability and registered third-party access. |
+| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.4–6.7; pp. 12–15 | GetInvoices by identity, GetRegisteredInvoice by presentation-date filter and two download paths. |
+| SPFE-S15 | [GetRegisteredInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/GetRegisteredInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetRegisteredInvoice operation, binding and payload documentation | Exact singular operation name and PRE addresses; generic payload description does not complete the filter contract. |
+| SPFE-S14 | [GetInvoices.wsdl](<../context/WSDL servicios web - PRE/20261013/GetInvoices.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetInvoices operation and service ports | Identity/status-query transport. |
+| SPFE-S12 | [DownloadInvoicesByID.wsdl](<../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByID.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | DownloadInvoicesByID operation | Invoice-file download by identity. |
+| SPFE-S13 | [DownloadInvoicesByLOC.wsdl](<../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByLOC.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | DownloadInvoicesByLOC operation | Locator-based file download. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | sections 5.4–5.7; pp. 14–15 | Query/download format sections remain pending. |
+| REF-PRD | [PRD-SEI-211](../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

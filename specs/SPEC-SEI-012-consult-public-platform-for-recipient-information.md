@@ -6,9 +6,10 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-08
+updated: 2026-10-13
 reviewers: []
 related:
+  - RES-SEI-002
   - GLO-SEI-001
   - PRD-SEI-101
   - PRD-SEI-105
@@ -66,6 +67,12 @@ The proposed public-route decision follows OUT-09's safety rule: failed, stale, 
 | Draft versus final usage and historical evidence | Early result is advisory; final dispatch requires evidence meeting the current planning policy. |
 
 **Out of scope:** invoice discovery/download; NIF/name census verification; onboarding or publishing/changing a recipient's entry point; customer route transitions; invoice validation/mapping/signing; dispatch, public-copy duties and buyer status. Tax identity matching does not establish receiving capability. This initial feature handles exact scoped lookup, not an unrestricted recipient search or directory export.
+
+### Public source baseline
+
+The supplied public operations query invoices already held by SPFE. They do not identify a recipient's chosen private receiving platform. The recipient-directory capability therefore remains unsupported by this bundle, while the invoice-query contracts are now known within their documented limits.
+
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 ### Plain-language terms
 
@@ -225,6 +232,15 @@ Withdrawn or revoked source evidence prevents new use under the agreed invalidat
 
 Least privilege, encryption and data minimisation protect party keys, addresses and business relationships. Restrict exact-recipient queries; enumeration/rate controls, safe errors and purpose checks reduce directory abuse. Mask personal identifiers in ordinary logs and metrics. Track source availability, latency, cache reuse by use, aged negative evidence, ambiguous/multi-point results, unresolved final plans, invalidations and manual cases. Product/Operations agree volume/freshness/capacity and retry targets under RLU-Q04/Q08; no numeric objective is asserted here.
 
+### SPFE source contract binding
+
+The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through RLU-02–07. Source conflicts stay open under RLU-Q01/Q03/Q05; source adapter remains unqualified; they are not resolved by a local default.
+
+| ID | Constraint and required behaviour | Source reference |
+|---|---|---|
+| RLU-SPFE-R01 Keep invoice consultation out of directory lookup | Do not bind GetInvoices, GetRegisteredInvoice or either download operation to recipient entry-point discovery. Their response, empty result, denial or outage cannot establish PROVEN_NONE or PRIVATE_READY. Record the exact purpose and coverage of any separately qualified directory source. | SPFE-S03/SPFE-S14/SPFE-S15; [REF](#ref-source-references). |
+| RLU-SPFE-R02 Keep final routing held without sufficient evidence | Use only a qualified recipient source or approved evidence path under RLU-Q01/Q03. The public technical bundle does not close the receiving-agreement, multiple-entry-point or source-precedence decision. A public API address or known taxpayer identifier is insufficient routing evidence. | SPFE-S03; proposed source-coverage control; [REF](#ref-source-references). |
+
 ## Part 3 Logical Service Interactions and Data Inventory
 
 ### 1 Logical contracts
@@ -300,3 +316,24 @@ Assess existing Sage recipient/discovery/cache services before creating a new ph
 | RLU-Q08 What quotas, recovery limits, alert/service targets and on-call ownership apply? | Product/Operations/source owners | Blocks production capacity/support promise; baseline volumes, runbooks and source outage/conflict drills. |
 
 **Design review:** establish Q01–Q06 and source/decision boundaries with outbound. **Pilot:** qualify selected sources and exercise A01–A16, especially incomplete absence, multiple points, stale negatives and final-use changes. **Production:** resolve Q07/Q08 and outstanding scope-specific contracts; require source/capability conformance, isolation, recovery/rollback evidence and named operations. The readiness is **reviewable logical proposal**; central-directory availability, production readiness and implementation tests are not claimed.
+
+### SPFE evidence acceptance
+
+These are required evidence scenarios, not executed implementation tests. The source-binding gate is RLU-Q01/Q03/Q05; source adapter remains unqualified. A source-backed review does not establish that this feature is ready for production.
+
+| ID | Scenario | Required result | Requirement coverage |
+|---|---|---|---|
+| RLU-SPFE-A01 | Invoice query returns no results for a known recipient | Retain recipient-route uncertainty; no automatic public fallback or false proof that no private receiving point exists. | RLU-SPFE-R01; RLU-02–07; [REF](#ref-source-references). |
+| RLU-SPFE-A02 | A contract registry attempts to classify an invoice query as a recipient directory | Reject activation for that purpose and name the missing source/coverage evidence. | RLU-SPFE-R02; RLU-02–07; [REF](#ref-source-references). |
+
+## REF Source references
+
+Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
+
+| REF ID | Source and version | Exact location | Supported information and limit |
+|---|---|---|---|
+| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.1, 6.4–6.7; pp. 10, 12–15 | Invoice queries and downloads; no receiving-platform directory operation. |
+| SPFE-S14 | [GetInvoices.wsdl](<../context/WSDL servicios web - PRE/20261013/GetInvoices.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetInvoices operation and service ports | Invoice identity/status query, not recipient routing. |
+| SPFE-S15 | [GetRegisteredInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/GetRegisteredInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetRegisteredInvoice operation and service ports | Presentation-date invoice discovery, not a recipient directory. |
+| REF-PRD | [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-214](../prds/PRD-SEI-214-connections-registration-routing-structured-review.md); [Identity/tenancy PRD](../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md); [addressing PRD](../prds/PRD-SEI-233-peppol-multi-address-and-endpoint-routing.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

@@ -5,12 +5,14 @@ type: research
 status: draft
 owner: TBD — Spain Compliance and Public Platform Technical Owners
 created: 2026-10-06
-updated: 2026-10-08
+updated: 2026-10-13
 ---
 
 # Spain public platform order — retrieval and download evidence
 
 This supporting evidence note records the supplied **Order HAC/1028/2026**, dated 2 October and published on 5 October 2026. Its identity and publication details were checked against the [official BOE publication](https://www.boe.es/eli/es/o/2026/10/02/hac1028) on 6 October 2026. This is the final published order, replacing the April draft as the regulatory source for the affected requirements. It is not a complete production API contract.
+
+The [Spain public platform technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) records the technical bundle supplied on 13 October 2026 and the confirmed AEAT implementation calendar. Consult it alongside this legal note when reviewing the technical gaps below. It provides eight PRE WSDLs, a catalogue with a ninth PRE-only validation service and initial format evidence for UBL 2.5. The formats document is marked draft, seven service-format sections remain pending, and PRE availability is unverified. The technical material does not approve the existing product or solution documents.
 
 ## Source and provenance
 

@@ -36,6 +36,23 @@ Read `schema/DOCUMENT_RULES.md` before creating or changing managed documents.
   public-copy and reporting rules must not become defaults for another country.
   Include acceptance coverage for country-rule isolation and reuse qualification.
 
+## Spain source evidence and references
+
+- Use the original BOE, AEAT catalogue, formats, WSDL, XSD and example files listed
+  in `context/RES-SEI-002-spain-public-platform-technical-evidence.md` as the
+  source evidence baseline for Spain public-platform requirements and contracts.
+- Use the final published regulation for legal requirements. Use each technical
+  file only for the fields and behaviour it establishes. An example is not a
+  complete contract. Record conflicting or missing evidence as an open gate.
+- When creating or substantively reviewing a Spain solution spec, include a
+  `REF Source references` section. Give
+  source IDs, original-file links, version/date, exact article, section, page or
+  contract element, supported claims and limits. Cite these IDs beside material
+  source-dependent behaviour and acceptance checks. Distinguish canonical product
+  requirements and proposed design controls from external requirements.
+- Treat the English guide and text extracts as reading aids. Source inventory
+  completeness does not prove field-mapping completeness or implementation readiness.
+
 ## Shared specification terminology
 
 - Use [the e-invoicing glossary](context/GLO-SEI-001-e-invoicing-terminology.md)

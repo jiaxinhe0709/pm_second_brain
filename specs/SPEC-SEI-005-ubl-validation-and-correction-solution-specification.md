@@ -6,9 +6,10 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-08
+updated: 2026-10-13
 reviewers: []
 related:
+  - RES-SEI-002
   - GLO-SEI-001
   - PRD-SEI-223
   - PRD-SEI-226
@@ -41,9 +42,15 @@ The design remains a draft. **Proposed** choices still need review; **open** dec
 
 ### 1 Purpose, authority and boundary
 
-This **proposed logical design** gives Sage products a consistent way to check a UBL Invoice or CreditNote and explain how to correct problems. Checks use the rules explicitly approved and enabled for the selected country, direction, route, document type and profile. [PRD-SEI-241](../prds/PRD-SEI-241-ubl-validation-service.md) owns the product handoff; [PRD-SEI-236](../prds/PRD-SEI-236-ubl-format-profile.md) owns versioned UBL profile capability; [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns transformation and exchange. This spec covers non-mutating preflight, final validation of exact dispatch bytes, structured issues and correction lineage. [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md) owns Spain outbound orchestration, actual send and external acknowledgement; lifecycle owners handle subsequent feedback.
+This **proposed logical design** gives Sage products a consistent way to check a UBL document and explain how to correct problems. The supplied SPFE formats select UBL 2.5 Invoice for public invoices, including corrections. CreditNote is permitted only for another separately qualified route/profile. Checks use the rules explicitly approved and enabled for the selected country, direction, route, document type and profile. [PRD-SEI-241](../prds/PRD-SEI-241-ubl-validation-service.md) owns the product handoff; [PRD-SEI-236](../prds/PRD-SEI-236-ubl-format-profile.md) owns versioned UBL profile capability; [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns transformation and exchange. This spec covers non-mutating preflight, final validation of exact dispatch bytes, structured issues and correction lineage. [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md) owns Spain outbound orchestration, actual send and external acknowledgement; lifecycle owners handle subsequent feedback.
 
-A validation PASS means that one identified representation passed one identified local rule set at one time. It does not prove that an access point or public platform accepted it, that a buyer received it, or that the invoice is legally settled. A customer correction before dispatch creates a new source revision. A correction after issuance is a separate governed invoice/credit-note lifecycle decision; the validation service must not rewrite a sent original.
+A validation PASS means that one identified representation passed one identified local rule set at one time. It does not prove that an access point or public platform accepted it, that a buyer received it, or that the invoice is legally settled. A customer correction before dispatch creates a new source revision. A correction after issuance uses the governed issued-invoice correction process. The supplied SPFE representation remains Invoice; another route may use its separately qualified document family. The validation service must not rewrite a sent original.
+
+### Public source baseline
+
+The supplied formats document explicitly selects UBL 2.5 Invoice for SPFE, including corrective invoices. This replaces the earlier absence of technical version evidence. Actual schemas, extended rules, profile conflicts and implemented validation coverage still gate activation. Bilateral/private CreditNote support remains a separate profile decision.
+
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 ### Spain use and reuse boundaries
 
@@ -55,7 +62,7 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 |---|---|---|---|
 | Source versions, issues and final-file evidence | Preserve exact inputs, explain problems and link final validation to the intended send. | Reusable unchanged | Reuse the version, issue and evidence patterns. Validation owner and ERP Product. |
 | Validation and transformation services | Run the exact enabled rules and qualified mapper for the selected Spain route. | Reusable with country binding | Assess DTS as the preferred existing candidate for transformation and relevant validation functions; isolate country packs and qualify gaps. DTS and country/standards owner. |
-| Spain UBL profiles and corrections | Select approved Spain syntax/profile, extensions and rules; use the approved issued-invoice correction process. | Country-specific | Neither UBL 2.5 nor a France or Peppol profile is automatically approved for Spain. Spain technical owner, Legal and ERP Product. |
+| Spain UBL profiles and corrections | Select approved Spain syntax/profile, extensions and rules; use the approved issued-invoice correction process. | Country-specific | The supplied SPFE formats select UBL 2.5 Invoice. Exact public schemas/rules and activation remain gated; France or Peppol profiles cannot substitute for the Spain public pack. Spain technical owner, Legal and ERP Product. |
 | Exact deployed validation coverage | Establish which DTS/validation build supports the selected input, profile, direction and final-file checks. | Unknown | Existing-service direction does not prove this complete contract. Record build, rule resources, interfaces, ownership and missing functions before activation. Architecture and DTS. |
 
 The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md). It identifies a preferred candidate; it does not certify a deployed build or Spain acceptance.
@@ -124,7 +131,7 @@ Diagram step names use plain-language actions. The smaller activity references l
 
 | Decision / effect | Owner and gate |
 |---|---|
-| Reference ERP, input mode, selected country/route and Invoice/CreditNote pilot scope | Product + Domain Service; pilot selection |
+| Reference ERP, input mode and pilot scope: public UBL 2.5 Invoice; any other document family requires its separately qualified route/profile | Product + Domain Service; pilot selection |
 | Exact Spanish public/private UBL, EN 16931, BIS/CIUS and extension versions | Country/standards owner; profile activation |
 | DTS or other mapper qualification and treatment of source fields/extensions that cannot map | Architecture + country technical lead; conformance |
 | Whether a generated representation is returned as bytes or reference, and validation/send transport | Architecture; design |
@@ -139,7 +146,7 @@ This part explains the proposed behaviour step by step. An invariant is a rule t
 
 ### 1 Scope and invariants
 
-The validation context is (tenant, legalSubject, actor, country, direction, route, documentType, sourceInvoiceId, sourceRevision, inputMode). The capability registry selects exact syntax version, profile/CIUS/BIS version, extension set, effective period and validation artefact hashes. Invoice and CreditNote, preflight and final, and outbound and inbound are separately activated. Inbound use is a separate trust/quarantine policy; it is not implied by this outbound reference design.
+The validation context is (tenant, legalSubject, actor, country, direction, route, documentType, sourceInvoiceId, sourceRevision, inputMode). The capability registry selects exact syntax version, profile/CIUS/BIS version, extension set, effective period and validation artefact hashes. The supplied public target is UBL 2.5 Invoice, including corrections. CreditNote belongs only to a separately qualified non-public profile. Preflight/final and outbound/inbound capabilities remain separately activated. Inbound use is a separate trust/quarantine policy; it is not implied by this outbound reference design.
 
 | ID | Rule that must always hold |
 |---|---|
@@ -161,7 +168,7 @@ Duplicate key plus same digest returns the prior validation; changed content und
 
 Select the exact XSD, code-list, EN 16931, BIS/CIUS, country and route packs, including their hashes and effective versions. An unsupported choice returns UNSUPPORTED with safe alternatives where known. A missing pack or conflicting choice returns UNDETERMINED and an action for Sage.
 
-Peppol BIS is a specific UBL/EN 16931 profile, rather than a separate syntax. The existence of the UBL 2.5 standard does not establish that Spain accepts it.
+Peppol BIS is a specific UBL/EN 16931 profile, rather than a separate syntax. The supplied SPFE formats explicitly select UBL 2.5 Invoice. That establishes the documented public target; exact business schemas, extended rules, contradictory examples and implementation conformance still need qualification.
 
 **UV-03 Generate candidate.** Facts mode invokes only an approved mapper/generator for the selected target profile. Store mapper version, source relation, target bytes/hash and comparison of business meaning (party identities, invoice type/references, lines, amounts/tax, payment and required extensions as applicable). Any mandatory loss or unsupported extension blocks the candidate. A permitted normalisation is documented as a new derived representation; a supplied UBL source is never overwritten. If generation fails, return a service/mapping issue rather than a false customer data error.
 
@@ -171,7 +178,7 @@ Peppol BIS is a specific UBL/EN 16931 profile, rather than a separate syntax. Th
 
 Use a consistent issue order. Limit the visible list only under an approved user-experience contract; keep the complete result available to authorised users. Show whether the customer, developer, country policy owner or Sage operations must act next. PASS proves only that the local checks passed at the recorded time.
 
-**UV-06 Correct.** An authorised ERP edit produces a new source revision and new validation request with lineage to the failed result. A customer may fix facts or replace a prebuilt file; the service does not patch XML invisibly. If the invoice has already been sent/issued, route to the approved correction/credit-note lifecycle and preserve the original signed/sent representation. Do not use a pre-send edit operation to rewrite a post-send invoice. Support can inspect prior hashes and issue versions subject to permissions.
+**UV-06 Correct.** An authorised ERP edit produces a new source revision and new validation request with lineage to the failed result. A customer may fix facts or replace a prebuilt file; the service does not patch XML invisibly. If the invoice has already been sent/issued, route to the approved issued-invoice correction lifecycle; the public representation remains Invoice where the SPFE profile applies and preserve the original signed/sent representation. Do not use a pre-send edit operation to rewrite a post-send invoice. Support can inspect prior hashes and issue versions subject to permissions.
 
 **UV-07 Final check.** Outbound exchange passes the exact final representation reference/hash, frozen route choice, actor/trust plan, source revision and proposed send identity. Resolve current effective profile/rules and confirm the selected representation is the one to be signed/sent. Re-run applicable validation even if preflight PASS exists; changed bytes, route, pack or capability can change the result. If the final target file changes through mapping, validate after mapping and before signing. Failure or UNDETERMINED returns no dispatch authorisation.
 
@@ -195,6 +202,16 @@ Exchange and lifecycle owners record external rejection or Peppol feedback. That
 | UV-R08 | Deduplicate final send identity and conflict on changed digest; UVAL-FR11. |
 
 Tenant/entity/delegate access controls apply to files, results and evidence. Diagnostics and logs redact invoice content and personal data; no private key appears in validation. Rule, mapper and profile versions coexist to reproduce historical results. Pilot measures first-pass pass rate, correction completion, preventable external rejection, undetermined/stale-preview rate, latency, processing rate, payload size and issue volume; owners approve targets after baseline measurement.
+
+### SPFE source contract binding
+
+The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through UV-02–04, UV-07–08. Source conflicts stay open under profile activation; SPFE-Q03/Q04/Q05/Q13/Q14; they are not resolved by a local default.
+
+| ID | Constraint and required behaviour | Source reference |
+|---|---|---|
+| UV-SPFE-R01 Bind the public document type and profile | UV-02 selects the supplied UBL 2.5 Invoice family for the Spain public route. Validate the applicable 380/384/388/389/471 code and fields; do not send a public CreditNote by generic correction logic. Preserve final Annex I ProfileID with ubl:. A conflicting sample remains a conflict, not an alternate approved value. | SPFE-S02/SPFE-S01/SPFE-S08/SPFE-S09; [REF](#ref-source-references). |
+| UV-SPFE-R02 Require the actual business validation resources | UV-04 records the exact UBL business schemas and EN 16931/Spain extended rule versions. The supplied ebMS/envelope XSDs and an XML parse do not prove invoice validation. Missing compatible resources produce UNDETERMINED or UNSUPPORTED, with the owning action held. | SPFE-S03/SPFE-S08; SPFE-Q04/Q14; [REF](#ref-source-references). |
+| UV-SPFE-R03 Keep PRE validation optional and bounded | Any qualified InvoiceValidation call is a separate PRE-only conformance aid, for one direct Invoice XML. It neither registers the invoice nor replaces Sage final-file checks. Do not make production validation depend on this service. Treat the 5120-byte limit as disputed until clarified. | SPFE-S03; SPFE-Q03/Q05; [REF](#ref-source-references). |
 
 ## Part 3 Logical Service Interactions and Data Inventory
 
@@ -256,3 +273,31 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | UV-A10 Country-pack and reused-service qualification | R02–04/06 → UV-02–04/07, INT-02–04/06, D02–05/07 | Recorded DTS/validation build and rule-pack evidence prove the selected Spain contract. France and Spain packs remain separate; changing one does not change the other or rewrite historical results. Missing Spain resources block the final check. |
 
 **Review gate:** agree reference ERP/input modes, precise country-route profile and correction ownership. **Pilot gate:** approved rule artefacts and corpus, mapper semantic tests, cross-tenant/delegate tests, stale-preview/final-check tests, user comprehension and AP/provider conformance comparison. **Production gate:** country/profile activation evidence, trust/signing boundary, measured capacity objectives, retention/privacy and support runbook. This draft does not activate a Spanish UBL or BIS version.
+
+### SPFE evidence acceptance
+
+These are required evidence scenarios, not executed implementation tests. The source-binding gate is profile activation; SPFE-Q03/Q04/Q05/Q13/Q14. A source-backed review does not establish that this feature is ready for production.
+
+| ID | Scenario | Required result | Requirement coverage |
+|---|---|---|---|
+| UV-SPFE-A01 | Public corrective Invoice, public CreditNote, and the supplied sample ProfileID | Qualify the Invoice/type rules; reject unsupported CreditNote for this public profile and hold the conflicting sample declaration. Preserve source bytes and issue provenance. | UV-SPFE-R01; UV-02–04, UV-07–08; [REF](#ref-source-references). |
+| UV-SPFE-A02 | Only the four transport XSDs are available | Return no invoice PASS. Identify the missing business schemas or rule pack and keep final dispatch blocked. | UV-SPFE-R02; UV-02–04, UV-07–08; [REF](#ref-source-references). |
+| UV-SPFE-A03 | PRE validation succeeds, then production dispatch is requested | Run the qualified exact-file validation; PRE success cannot establish registration, production acceptance or a permitted size limit. | UV-SPFE-R03; UV-02–04, UV-07–08; [REF](#ref-source-references). |
+
+## REF Source references
+
+Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
+
+| REF ID | Source and version | Exact location | Supported information and limit |
+|---|---|---|---|
+| SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 3–4; Annex I BT-23/24, p. 14 | Final public invoice/copy fields and exact profile identifiers. |
+| SPFE-S01 | [Anexo-1-Proyecto-OM-FE.pdf](<../context/Anexo I/20261013/Anexo-1-Proyecto-OM-FE.pdf>); Supplied 13 October 2026; SHA-256 in source manifest. | pp. 4–6 and 25–34 | Copy indicator, profile identifiers, corrective groups and code lists; compare against final Annex I. |
+| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.2 and 6.10; pp. 10–11, 19–20 | Layered validation, disputed size and PRE-only validation service. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | section 5.1.1, p. 8 | UBL 2.5 InvoiceType, not CreditNote, for public invoice submission. |
+| SPFE-S09 | [factura.xml](<../context/Ejemplos/20261013/factura.xml>); Supplied 13 October 2026; SHA-256 in source manifest. | cbc:ProfileID, cbc:CustomizationID and cbc:CopyIndicator | Example profile conflicts with Annex I; not conformance evidence. |
+| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/ebms/ebms-header-3_0-200704.xsd>); supplied PRE snapshot. | xsd:schema targetNamespace `http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/`; imports/types. | Messaging or SOAP/XML transport schema. Not a UBL Invoice, ApplicationResponse or DocumentStatus business schema; no country rule validation. |
+| SPFE-S19 | [soap-envelope.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/w3/soap-envelope.xsd>); supplied PRE snapshot. | xsd:schema targetNamespace `http://www.w3.org/2003/05/soap-envelope`; imports/types. | Messaging or SOAP/XML transport schema. Not a UBL Invoice, ApplicationResponse or DocumentStatus business schema; no country rule validation. |
+| SPFE-S20 | [xml.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/w3/xml.xsd>); supplied PRE snapshot. | xsd:schema targetNamespace `http://www.w3.org/XML/1998/namespace`; imports/types. | Messaging or SOAP/XML transport schema. Not a UBL Invoice, ApplicationResponse or DocumentStatus business schema; no country rule validation. |
+| SPFE-S21 | [envelope.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/xmlsoap/envelope.xsd>); supplied PRE snapshot. | xsd:schema targetNamespace `http://schemas.xmlsoap.org/soap/envelope/`; imports/types. | Messaging or SOAP/XML transport schema. Not a UBL Invoice, ApplicationResponse or DocumentStatus business schema; no country rule validation. |
+| REF-PRD | [PRD-SEI-241](../prds/PRD-SEI-241-ubl-validation-service.md); [PRD-SEI-236](../prds/PRD-SEI-236-ubl-format-profile.md); [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

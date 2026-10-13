@@ -6,9 +6,10 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-08
-updated: 2026-10-08
+updated: 2026-10-13
 reviewers: []
 related:
+  - RES-SEI-002
   - GLO-SEI-001
   - PRD-SEI-210
   - PRD-SEI-213
@@ -63,6 +64,12 @@ Implement one shared connection and routing foundation for two uses in Spain: Sa
 In scope: role-qualified connection profiles, separate registration observations and capability checks, controlled activation, deterministic route selection, adapter handoffs, suspension, migration qualification and historical dependencies. **Open/gated expansion:** operator interconnection, direct private exchange and a public bridge use the same model only after applicable evidence and approval. Connecting to providers first is a delivery sequence, not a technical prerequisite to operating a platform.
 
 Out of scope: legal invoice issuance, a new Global API product, a new invoice store, provider endpoint design, approval of operator launch, general routing optimisation, per-invoice caller override, automatic failover, approval of Private A → Private B customer switching, signing/transformation implementation and final retention/deletion. Platform-to-platform invoice exchange is different from changing a customer's selected platform.
+
+### Public source baseline
+
+The supplied public WSDLs can qualify the SPFE adapter portion of a connection profile. They do not qualify private-provider interfaces, operator accreditation, customer enrolment or receiving-point publication. This review changes only the public binding of the shared model.
+
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 ### 2 Terms, roles and responsibility
 
@@ -184,6 +191,15 @@ Prepare any required external receiving-point change with durable request identi
 
 Encrypt protected records and transport under approved policy; return credential handles, never secrets. Restrict endpoints and parser/file access in the owning adapter/receiving service. Audit actor, reason, before/after version, correlation and evidence reference without raw invoice content. Operations views require separate permission. Measure qualification freshness, transition age, conflicting/unknown operations, historical dependencies, backlog and provider health without business identifiers in metric labels. SPC-Q06 gates quotas, expiry/recheck, retention, retry budgets and service targets; no numeric commitment is invented.
 
+### SPFE source contract binding
+
+The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through SPC-02–03, SPC-06–07. Source conflicts stay open under SPC-Q02/Q03/Q04; SPFE-Q09/Q12; they are not resolved by a local default.
+
+| ID | Constraint and required behaviour | Source reference |
+|---|---|---|
+| SPC-SPFE-R01 Qualify only the evidenced public profile | SPC-02/03 records the exact SPFE operation, WSDL version/port, certificate class, represented-party authority and environment. Public readiness cannot qualify a private provider or operator role, publish an entry point or activate a customer route. PRE addresses remain separate from production evidence. | SPFE-S03/SPFE-S16; [REF](#ref-source-references). |
+| SPC-SPFE-R02 Preserve owning-feature public action rules | SPC-06 passes the frozen action to one public executor. OUT owns the Article 3/4 copy decision and LCS owns reporting. Public interconnection must not create a redundant faithful copy. Invoice-query absence cannot become recipient-routing evidence or permission to switch routes. | SPFE-S02/SPFE-S03; proposed execution boundary; [REF](#ref-source-references). |
+
 ## Part 3 Logical Service Interactions and Data Inventory
 
 ### 1 Interaction contracts
@@ -253,3 +269,24 @@ The scenarios below are checks to run, not claims that they passed on a deployed
 ### 3 Readiness
 
 **Reviewable logical proposal.** Design review can assess one foundation and its separate role/country bindings. Pilot requires SPC-Q01/Q02/Q04 plus applicable SPC-Q03 decisions, isolation/concurrency/unknown-outcome acceptance and continuity owners. Production and operator expansion additionally require actual operator approval, implementation qualification, measured operating controls and supported historical/exit paths. No publication, status change, operator investment or live activation is implied.
+
+### SPFE evidence acceptance
+
+These are required evidence scenarios, not executed implementation tests. The source-binding gate is SPC-Q02/Q03/Q04; SPFE-Q09/Q12. A source-backed review does not establish that this feature is ready for production.
+
+| ID | Scenario | Required result | Requirement coverage |
+|---|---|---|---|
+| SPC-SPFE-A01 | A public SendInvoice profile passes checks while private/operator profiles are unknown | Enable only the independently qualified public capability; no registration, publication, route activation or private readiness is fabricated. | SPC-SPFE-R01; SPC-02–03, SPC-06–07; [REF](#ref-source-references). |
+| SPC-SPFE-A02 | Public interconnection or an empty public invoice query enters the shared routing model | Retain the owning feature's exact action set; no extra copy, recipient absence inference or automatic route switch. | SPC-SPFE-R02; SPC-02–03, SPC-06–07; [REF](#ref-source-references). |
+
+## REF Source references
+
+Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
+
+| REF ID | Source and version | Exact location | Supported information and limit |
+|---|---|---|---|
+| SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 3.4, 4 and 11 | Public-copy distinction and public action authority; no private adapter implementation. |
+| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 4.3 and 6.1–6.10; pp. 8, 10–20 | Public operations and limits, not a recipient directory or private service contract. |
+| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | certificate/seal service ports and PRE addresses | Public environment/credential-class binding. |
+| REF-PRD | [PRD-SEI-214 — Connections, registration and routing](../prds/PRD-SEI-214-connections-registration-routing-structured-review.md); [PRD-SEI-213 — Private connectivity](../prds/PRD-SEI-213-private-platform-connectivity-structured-review.md); [PRD-SEI-235 — Provider API](../prds/PRD-SEI-235-provider-api-for-e-invoicing-service.md); [PRD-SEI-210 — Sage as a private platform](../prds/PRD-SEI-210-sage-private-platform-reuse-and-operator-expansion.md); [PRD-SEI-223 — Exchange](../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-221 — Operator readiness](../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md); [PRD-SEI-215 — Recovery](../prds/PRD-SEI-215-resilience-recovery-reconciliation-structured-review.md); [PRD-SEI-227 — Shared platform](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

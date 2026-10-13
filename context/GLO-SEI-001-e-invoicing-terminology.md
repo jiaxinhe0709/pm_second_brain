@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-12
+updated: 2026-10-13
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -50,6 +50,14 @@ Definitions explain the current source documents. They do not approve an archite
 - Identify the country, source and version when a term carries legal or network meaning. A Spain term or code must not become another country's default.
 - The glossary owner coordinates wording. Domain owners decide contract meaning and resolve the open mappings below. A substantive meaning change needs the repository's normal review; document status and publication require explicit approval.
 
+## Evidence and references
+
+| Preferred term | Definition and usage boundary |
+|---|---|
+| Source evidence baseline | The original files used to establish external requirements and contract facts for a stated scope/version. For the Spain public platform, use the original sources in [RES-SEI-002](RES-SEI-002-spain-public-platform-technical-evidence.md#ref-source-references). The final published regulation governs legal requirements; technical files establish only their stated facts. Missing or conflicting evidence remains an open gate. |
+| REF source reference | A source ID with its original-file link, version/date, exact article/section/page or contract element, supported claims and limits. Product requirements and proposed Sage controls retain separate authority. An English summary or extraction is a reading aid, not a replacement source. |
+| Confirmed in supplied evidence | A fact stated in a supplied source, within that source's status and limits. This does not mean that an implementation supports it or that a live service accepted it. Source, field-mapping and implementation coverage are separate checks. |
+
 ## Identity, access and authority
 
 | Preferred term | Definition and usage boundary |
@@ -61,8 +69,15 @@ Definitions explain the current source documents. They do not approve an archite
 | Actor / delegate | An actor performs an action. A delegate is an actor authorised to act for a represented party within a stated scope and period. A delegate and its authenticated application may have different identities. |
 | Authentication | Checking the identity of the caller or communicating service. A successful login or certificate check does not establish customer authority. |
 | Authority / authority grant | Permission to perform a specific action for a represented party within a defined scope and period, supported by effective evidence. An API permission alone does not establish legal representation. |
+| Direct customer | The represented business acting through its authorised owner, administrator or service. Use this term for the business pathway; **consumer** identifies an application using the API. |
+| Client relationship | The current link between an accountant firm and a client workspace or business for approved product access. It is checked separately from the actor's firm role and delegated authority. |
+| Approval evidence / approver | Approval evidence records an eligible actor's decision for a named business, purpose, scope and request or plan version. The approver is the actor permitted to make that decision. A recorded approval is separate from verified effective authority; terms acceptance, delegation, route change and signing remain distinct purposes. |
+| Internal invoice approval | A business workflow decision that permits a specified next step for a named invoice revision. An authorised business actor or delegate may make the decision. It is separate from effective authority, issuance, technical receipt, buyer acceptance and statutory reporting. Product policy defines whether a manual decision or an authorised automatic rule is permitted. |
+| Accounting handoff | An authorised transfer of invoice information or files to an accountant or accounting software. Its result is separate from supplier-to-buyer delivery, source capture, technical acknowledgement, buyer acceptance and bookkeeping completion. |
+| Consent | Qualify the specific decision and evidence when this word appears in a source or user journey. Do not use a generic consent flag as service-terms acceptance, effective delegated authority, route-change approval or signing permission. Country policy defines the accepted mechanism for each purpose. |
 | Entitlement | Commercial or product permission to use a feature. It is checked separately from identity, authority and technical readiness. |
 | Portfolio / portfolio item | An accountant's set of client businesses; one client's separately scoped work item. Clients do not share authority, credentials or outcomes merely because they belong to one portfolio. |
+| Batch / batch receipt | A batch groups separately scoped requests for processing. A batch receipt confirms durable acceptance of its request manifest. Batch coordination states do not establish item authority, readiness or activation. |
 | Consumer | A product application or partner service using an API or service contract. Consumer readiness does not grant access to every customer or operation. |
 | Provider / partner / operator | A provider supplies an invoice-network capability. A partner may instead be a delegate or product integrator. An operator operates a platform or network capability. Identify the actual role; these labels do not confer authority or execution rights. |
 | Environment | The separately controlled context, such as test or production, in which an operation runs. Credentials, records, authority bindings and readiness must match it. |

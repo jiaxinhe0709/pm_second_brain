@@ -6,9 +6,10 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-08
+updated: 2026-10-13
 reviewers: []
 related:
+  - RES-SEI-002
   - GLO-SEI-001
   - PRD-SEI-222
   - PRD-SEI-224
@@ -61,7 +62,13 @@ This is a proposed design. The acceptance scenarios describe checks still to run
 
 This **proposed logical design** turns authenticated invoice and network observations into an explainable lifecycle history and current customer view. It also coordinates any independent issuer/counterparty or public reporting obligations created by an authorised commercial or payment event. [PRD-SEI-224](../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md) owns the Spain lifecycle outcome; [PRD-SEI-232](../prds/PRD-SEI-232-country-lifecycle-status-mapping.md) owns source-preserving country mapping; [PRD-SEI-242](../prds/PRD-SEI-242-peppol-lifecycle-feedback.md) supplies a source-specific Peppol feedback contract. [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md) hands off outbound action evidence; [SPEC-SEI-006](SPEC-SEI-006-invoice-receiving-solution.md) hands off inbound receipt evidence. This spec owns the resulting event history, interpretation, obligations, recovery and product views.
 
-The design distinguishes raw external vocabulary from Sage canonical events, derived status and ERP workflow state. It does not approve provider APIs, Spanish technical status codes, a universal status sequence, a statutory calendar implementation, Peppol signal availability, payment authority, post-switch actor or retention period. Country pack, provider binding, endpoint and payload choices remain review gates.
+The design distinguishes raw external vocabulary from Sage canonical events, derived status and ERP workflow state. Final Annex II and the supplied public catalogue now establish eight public communication codes. Their fields, local mapping and implemented calendar still need qualification. This design does not approve private-provider APIs, a universal status sequence, Peppol signal availability, payment authority, post-switch actor or retention period. Country pack, provider binding, endpoint and payload choices remain review gates.
+
+### Public source baseline
+
+The public catalogue and final Annex II now supply eight exact event codes and actor-specific fields. The lifecycle pack must use those meanings rather than earlier logical labels. Legal rollout dates, prepaid exception and source-date meanings remain separate from local payment facts and successful reporting.
+
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 ### Where status information comes from
 
@@ -97,7 +104,7 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 |---|---|---|---|
 | Raw history and independent views | Keep original source events, versions, duplicate/conflict links and separate status dimensions. | Reusable unchanged | Reuse the event-ledger, audit and derived-view patterns. Lifecycle, Records and Product. |
 | Mapping and reporting orchestration | Interpret source events and create independently tracked reporting obligations. | Reusable with country binding | Bind local event catalogues, provider namespaces, actor authority, destination, calendar and deadline rules. Country owner, lifecycle and adapters. |
-| Spain lifecycle and historical follow-up | Resolve Spain Article 10/12 events, public reporting and post-switch actors/channels. | Country-specific | Codes, calendar, presumed acceptance and reporting contracts remain evidence gates. Do not reuse French codes or another country’s legal meaning for Spain. Spain Legal/Tax and technical owner. |
+| Spain lifecycle and historical follow-up | Resolve Spain Article 10/12 events, public reporting and post-switch actors/channels. | Country-specific | Public raw codes and rollout dates now have source evidence. Field/authority binding, presumed-view policy, correction/replay, event deadlines and implementation conformance remain gates. Do not reuse French codes or another country’s legal meaning for Spain. Spain Legal/Tax and technical owner. |
 | Existing lifecycle implementation | Assess event capture, projection, reporting and provider feedback support. | Unknown | No complete deployed lifecycle implementation is proven here. Peppol signals are source-specific inputs, not proof of the Spain reporting contract. Architecture and lifecycle/provider owners. |
 
 ### 2 Outcome dimensions and handoffs
@@ -215,6 +222,30 @@ Separately accept an authorised recipient/customer action, ERP accounting fact, 
 
 Encrypt sensitive invoice, payment and authority evidence; enforce tenant/legal-entity/environment and delegated-access checks on commands, reads, subscriptions and operations actions. Logs and broad metrics use redacted references, never raw bank/payment payloads or credentials. Version mapping, calendar, provider binding and derivation rules for historical reproduction. Monitor source lag, event-to-product lag, unknown mapping, duplicate/conflict rate, obligation age/deadline risk, missed notification recovery, unknown outcome and historical-route failures. Targets require approved volumes and baselines.
 
+### SPFE source contract binding
+
+The following raw codes and field meanings come from final Annex II and the public catalogue. Each report also carries the stated invoice series/number, issue date, seller NIF and seller-name fields. Keep these separate from the authenticated caller and local event/obligation IDs. The table defines source meaning; executable mapping and ambiguous wire fields still require qualification.
+
+| Actor / raw `ResponseCode` | Meaning and required content | Conditional content or correction rule | REF |
+|---|---|---|---|
+| Recipient / `PAYMENT` | Effective payment in full. `cbc:EffectiveDate` is payment date; `DueDate` is required. No public partial-payment amount. | Relevant `ShipmentDate`/`ReceptionDate`; source `CorrectedInvoice`/`NegativeAmountInvoice` indicators. Article 7.4 prepaid exception is a separate obligation rule. | SPFE-S02 pp. 36–37; SPFE-S03 pp. 16–17. |
+| Recipient / `CANCELPAYMENT` | Cancels the earlier payment communication for the referenced invoice. | Qualify cancellation before corrected reporting; preserve the payment fact and cancellation lineage separately. | SPFE-S02 p. 37; SPFE-S03 p. 17. |
+| Recipient / `REJECTION` | Rejection date and `ConditionCode`: `01` commercial rejection; `02` private consumption or not related to business activity. | Mutually exclusive with recipient PAYMENT. Rejection reason is a source value, not a free-form replacement code. | SPFE-S02 pp. 38–39/42; SPFE-S03 pp. 16–17. |
+| Recipient / `CANCELREJECTION` | Cancels the earlier commercial rejection communication. | Return only the supported presumed/source view; do not fabricate explicit buyer acceptance. | SPFE-S02 pp. 38–39; SPFE-S03 p. 17. |
+| Issuer / `SETTLEMENT` | Effective collection in full; `cbc:EffectiveDate` is collection date. | Due date, relevant receipt dates and `FinancingArrangement` under the stated conditions; exact indicator serialization remains open. | SPFE-S02 pp. 39–40; SPFE-S03 pp. 18–19. |
+| Issuer / `CANCELSETTLEMENT` | Cancels the earlier collection communication. | Reconcile cancellation before a corrected collection report. | SPFE-S02 p. 40; SPFE-S03 pp. 18–19. |
+| Issuer / `DEFAULT` | Non-payment information; `cbc:EffectiveDate` means the payment due date. | Relevant receipt dates; mutually exclusive with issuer SETTLEMENT. A local observation time is not the due date. | SPFE-S02 pp. 41–42; SPFE-S03 pp. 18–19. |
+| Issuer / `CANCELDEFAULT` | Cancels the earlier non-payment communication. | Retain historical report and current business facts; no invoice withdrawal. | SPFE-S02 p. 42; SPFE-S03 p. 19. |
+
+The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through LCS-01–05, LCS-07–10. Source conflicts stay open under country event/field/calendar and correction gates; SPFE-Q07/Q13/Q15/Q16/Q17/Q18; they are not resolved by a local default.
+
+| ID | Constraint and required behaviour | Source reference |
+|---|---|---|
+| LCS-SPFE-R01 Preserve the eight external codes and their actors | The Spain public binding uses recipient PAYMENT/CANCELPAYMENT/REJECTION/CANCELREJECTION and issuer SETTLEMENT/CANCELSETTLEMENT/DEFAULT/CANCELDEFAULT. Preserve the raw code and source; never use a cancellation code to withdraw the invoice or infer a new buyer/payment fact from report admission. | SPFE-S02 Annex II; SPFE-S03 sections 6.8–6.9; [REF](#ref-source-references). |
+| LCS-SPFE-R02 Bind each event field to its source meaning | LCS-02/04 require the Annex II invoice references and each communication's fields. PAYMENT requires payment and due dates; REJECTION requires date and reason 01/02; SETTLEMENT requires collection date; DEFAULT EffectiveDate means due date. Preserve conditional receipt/financing and correction/negative-invoice indicators. An absent or conflicting wire binding holds the report with its owner. | SPFE-S02 Annex II; SPFE-Q16; [REF](#ref-source-references). |
+| LCS-SPFE-R03 Correct reports without collapsing business facts | PAYMENT and REJECTION are mutually exclusive; SETTLEMENT and DEFAULT are mutually exclusive within the issuer view. Report only full payment/collection to these public actions, while retaining internal partial-payment facts. Qualify prior-report cancellation before its correction/replacement; reconcile an uncertain cancellation before sending another mutation. | SPFE-S03 sections 6.8–6.9; proposed recovery control; [REF](#ref-source-references). |
+| LCS-SPFE-R04 Apply the correct obligation and calendar | LCS-07 selects the source-backed recipient reporting obligation, optional issuer information, Article 7.4 prepaid exception and customer transition separately. Keep the 2027/2028/2029 rollout dates distinct from event deadlines. Article 8.4 exceptional outage handling needs attributed SPFE incident evidence and its working-day calendar. A prepaid field alone or a later app connection change cannot close the duty. | SPFE-S02 Articles 7.2/7.4/8.4; REF-CAL; [REF](#ref-source-references). |
+
 ## Part 3 Logical Service Interactions and Data Inventory
 
 ### Spain and reuse boundary in contracts
@@ -283,3 +314,29 @@ Payment facts and authority evidence have tighter access than generic technical 
 | LCS-A17 Overview status and reporting separation | R01–06/08; SPEC-SEI-014 SPC-06–08; LCS-01–10 | Platform delivery evidence cannot set buyer acceptance/payment. An authorised business fact updates supported status while its separate report is pending; per-destination success/failure/unknown is visible without reporting the incoming fact again or switching an earlier invoice to the new route. |
 
 **Review gate:** agree country event catalogue, actor authority, mapping namespaces/precedence, deadline calendar, optional scope and response expectations. **Pilot gate:** prove source authenticity, duplicate/out-of-order/conflict, full rejection/payment, independently failing destinations, unknown mutation, missed callback and historical-route cases with actual provider/public contracts. **Production gate:** approved Spain technical rules and external APIs, named e-invoicing and banking domain owners where relevant, support/operations runbooks, measurable monitoring/deadline headroom, privacy/retention and conformance evidence. Until the open decisions in Part 1 are resolved, affected reporting or derived acceptance paths remain disabled or visibly manual.
+
+### SPFE evidence acceptance
+
+These are required evidence scenarios, not executed implementation tests. The source-binding gate is country event/field/calendar and correction gates; SPFE-Q07/Q13/Q15/Q16/Q17/Q18. A source-backed review does not establish that this feature is ready for production.
+
+| ID | Scenario | Required result | Requirement coverage |
+|---|---|---|---|
+| LCS-SPFE-A01 | All eight codes plus an unknown code or wrong actor | Preserve source vocabulary and field requirements; hold unknown/wrong-role reports. No invoice withdrawal or fabricated payment from technical response. | LCS-SPFE-R01/LCS-SPFE-R02; LCS-01–05, LCS-07–10; [REF](#ref-source-references). |
+| LCS-SPFE-A02 | PAYMENT, REJECTION, SETTLEMENT and DEFAULT dates and reasons | Check the distinct mandatory fields and meanings, including DEFAULT due date, 01/02 reasons and no public partial-payment report. Conflicting optional bindings stay held. | LCS-SPFE-R02/LCS-SPFE-R03; LCS-01–05, LCS-07–10; [REF](#ref-source-references). |
+| LCS-SPFE-A03 | A correction cancellation times out | Retain the original reporting operation for reconciliation; no fresh replacement or deletion of the business fact/history. | LCS-SPFE-R03; LCS-01–05, LCS-07–10; [REF](#ref-source-references). |
+| LCS-SPFE-A04 | Small natural person, legal entity and prepaid invoice during an incident | Apply the correct rollout group and qualified prepaid exception; keep invoice and reporting dates separate and require evidence before the exceptional extension. | LCS-SPFE-R04; LCS-01–05, LCS-07–10; [REF](#ref-source-references). |
+
+## REF Source references
+
+Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
+
+| REF ID | Source and version | Exact location | Supported information and limit |
+|---|---|---|---|
+| SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 7–8 and Annex II, pp. 36–42 | Exact communication fields/codes, rejection reasons, prepaid exception, CSV and exceptional outage rule. |
+| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.4–6.5 and 6.8–6.9; pp. 12–14, 16–19 | Status consultation, event exclusivity, full-payment/collection and communication correction. |
+| SPFE-S11 | [CustomerInvoiceEvents.wsdl](<../context/WSDL servicios web - PRE/20261013/CustomerInvoiceEvents.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | CustomerInvoiceEvents operation and service ports | Recipient report transport, not a proven complete business schema. |
+| SPFE-S17 | [SupplierInvoiceEvents.wsdl](<../context/WSDL servicios web - PRE/20261013/SupplierInvoiceEvents.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SupplierInvoiceEvents operation and service ports | Issuer report transport; numeric batch limit not stated. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | response description p. 14 and pending event formats pp. 14–15 | Structured request/item meanings and missing complete wire formats. |
+| REF-CAL | [AEAT implementation calendar](https://sede.agenciatributaria.gob.es/Sede/iva/factura-electronica/calendario-implantacion.html); checked 13 October 2026. | Invoice, status/payment and private-platform dates; RD 238/2026 final provision 4 and transitional provision 3. | Invoice duties start 6 October 2027 or 2028 by customer group; reporting for remaining natural persons/income-attribution entities starts 6 October 2029. Customer classification and event deadlines remain separately governed. |
+| REF-PRD | [PRD-SEI-224](../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md); [PRD-SEI-232](../prds/PRD-SEI-232-country-lifecycle-status-mapping.md); [PRD-SEI-242](../prds/PRD-SEI-242-peppol-lifecycle-feedback.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md); [country lifecycle mapping](../prds/PRD-SEI-232-country-lifecycle-status-mapping.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

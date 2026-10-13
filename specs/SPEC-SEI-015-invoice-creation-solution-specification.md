@@ -6,9 +6,10 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-12
-updated: 2026-10-12
+updated: 2026-10-13
 reviewers: []
 related:
+  - RES-SEI-002
   - GLO-SEI-001
   - PRD-SEI-212
   - PRD-SEI-223
@@ -52,6 +53,12 @@ Give Sage products one controlled way to prepare Spain invoice data, select the 
 In scope: product type selection, explicit issuer roles, versioned source intake, profile selection, type-driven validation, original-invoice references, corrective methods, regime keys, monetary reconciliation, unique-code inputs, qualified UBL generation, safe issues, immutable evidence and the handoff of issued data to sending.
 
 Out of scope: ERP numbering allocation, approval of legal issuance, external submission, recipient-directory implementation, signing implementation, public-copy dispatch, buyer status decisions, payment reporting, cancellation of an issued invoice and a new invoice archive. Creation supplies facts to those owners. It does not implement their operations.
+
+### Public source baseline
+
+The new technical formats document selects public UBL 2.5 Invoice, including the five invoice type codes. Final Annex I still governs field meanings and fixed identifiers. Both supplied invoice examples conflict with its ProfileID, so example presence cannot close profile or mapper qualification.
+
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 ### 2 Evidence, authority and source differences
 
@@ -123,7 +130,7 @@ The Word compliance guide linked inside IC-E01 was not supplied. Its full conten
 | Global API, identity and records capabilities | Expose scoped creation/check/read operations; retain approved evidence. | Unknown implementation coverage; shared capabilities need contract and country bindings. | API/Identity/Records owners: actual builds, authority, isolation, input/read safety, recoverable acceptance and custody. |
 | Type codes, correction references, national tax/regime rules and composite identity | Apply the approved Spain public or bilateral profile. | Country-specific. | Spain Product/Compliance/technical owners: final-order mapping, permitted exceptions, code encoding and public-copy/reporting continuity. These rules cannot become another country's defaults. |
 
-Qualify each source-to-target pair independently. UBL 2.1 in an existing DTS path and the existence of UBL 2.5 do not prove public-profile acceptance. The final-order BT-24 value also does not by itself qualify a particular EN 16931 executable rule release. Keep identity, routing, public-copy and reporting country rules outside shared orchestration.
+Qualify each source-to-target pair independently. The supplied formats select public UBL 2.5 Invoice. That target and UBL 2.1 in an existing DTS path do not prove the deployed public mapping or its complete rule coverage. The final-order BT-24 value also does not by itself qualify a particular EN 16931 executable rule release. Keep identity, routing, public-copy and reporting country rules outside shared orchestration.
 
 ### 5 Process diagrams and lifecycle
 
@@ -272,7 +279,7 @@ Absent optional amounts are treated according to the selected rule, not through 
 
 For the final public extended profile, group-specific collection amounts, deductions and withholding can affect BT-115 without changing the taxable base. Annex I repeats BT-179 across these groups. IC-Q06 must bind each group, sign, surcharge and rounding rule to the qualified executable pack and examples. Never add normal document charges twice. Never subtract withholding twice through both the collection group and its detailed breakdown. The core formula above is not claimed as sufficient for invoices with these extensions.
 
-Negative, positive and zero values require type, method, field and tax-rule context. A negative amount due does not by itself prove a corrective invoice. Do not apply an absolute value, reverse the parties or turn a negative Invoice into a CreditNote automatically. Invoice/CreditNote root selection is independently qualified under IC-Q01/02. Corrective scenarios retain original and adjustment amounts separately.
+Negative, positive and zero values require type, method, field and tax-rule context. A negative amount due does not by itself prove a corrective invoice. Do not apply an absolute value, reverse the parties or turn a negative Invoice into a CreditNote automatically. The supplied public formats select Invoice, including corrections. CreditNote root selection is independently qualified only for another route/profile under IC-Q01/02. Corrective scenarios retain original and adjustment amounts separately.
 
 **IC-07 — Generation.** Preserve source bytes/facts and select only the qualified pinned mapper. Submit the original operation identity to DTS. Correlate its task/transformation references without replacing the invoice ID. Prebuilt UBL follows the same validation path but bypasses generation. A required extension, type or source field without a qualified mapping returns unsupported. Do not silently remove it, lower the syntax version or fall back to an old mapper.
 
@@ -338,6 +345,16 @@ The requirements below define the proposed solution. Regulatory identifiers and 
 Classify invoice payloads, names, tax IDs, amounts and original references as sensitive business data. Authorise every source, task, result and original-reference read. Restrict access to approved storage references; do not fetch caller-provided URLs. Protect against oversized input, unsafe XML and resource exhaustion under approved limits. Logs and metrics contain opaque correlation and safe issue codes, not invoice XML, access URLs or personal data. Production samples cannot enter this repository.
 
 Measure generation and validation latency by qualified input/type/bundle, processing failure rates, issue rates by rule, time waiting for reconciliation, lost handoffs, semantic-loss failures and scoped duplicate conflicts. Track eventual external rejection separately through Sending; a local pass rate is not an SPFE acceptance rate. High-volume work needs per-item progress and measured capacity. IC-Q09 sets actual limits, retention, latency/capacity, recovery and support targets; none are invented here.
+
+### SPFE source contract binding
+
+The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through IC-03–08, IC-11. Source conflicts stay open under IC-Q01/Q02/Q04/Q05/Q06; SPFE-Q03/Q04/Q13/Q14; they are not resolved by a local default.
+
+| ID | Constraint and required behaviour | Source reference |
+|---|---|---|
+| IC-SPFE-R01 Select the public Invoice family from supplied evidence | For the SPFE target, IC-03 binds UBL 2.5 Invoice and the qualified 380/384/388/389/471 fields. Corrections do not switch to CreditNote by generic UBL assumptions. Bilateral/private document families remain separately qualified. This source version selection does not prove a deployed mapper. | SPFE-S02/SPFE-S08; [REF](#ref-source-references). |
+| IC-SPFE-R02 Use the final identifiers and preserve conflicting examples | Final Annex I BT-23 requires ProfileID urn:aeat:names:specification:ubl:schema:profile:B2B. BT-24 uses the exact extended CustomizationID already listed in IC-C01. The example omits ubl:; preserve its bytes and report the conflict. Generate a separate candidate only under a qualified mapping; never silently repair a supplied file. | SPFE-S02/SPFE-S01/SPFE-S09; [REF](#ref-source-references). |
+| IC-SPFE-R03 Complete applicable field coverage before activation | The Creation/Format owners record every supported core and Spain field/group, presence condition, source row, code list, target path, rule and positive/negative case. Include BT-ES-1–29 and distinguish repeated group uses. Keep cardinality, identity wording and extended monetary conflicts open. Unsupported applicable content prevents generation rather than disappearing from the result. | SPFE-S02/SPFE-S01; proposed coverage gate IC-Q01/Q02/Q04/Q06; [REF](#ref-source-references). |
 
 ## Part 3 Logical Service Interactions and Data Inventory
 
@@ -422,7 +439,7 @@ Owners below are responsible roles, not named approvals. Record the approved dec
 
 | Decision ID | Open decision | Responsible role / gate | Impact and proposed holding position |
 |---|---|---|---|
-| IC-Q01 | Exact public and bilateral UBL versions, Invoice/CreditNote support, input schemas, compatible core/extended validation artefacts and complete Annex I coverage? | Spain technical/profile + DTS/Validation owners / design and activation | Determines accepted inputs, output root/version and unsupported fields. Fixed public URNs are known; exact technical artefacts/build fitness are unproven. No automatic UBL 2.5 or old-core qualification. |
+| IC-Q01 | Exact public and bilateral UBL versions, Invoice/CreditNote support, input schemas, compatible core/extended validation artefacts and complete Annex I coverage? | Spain technical/profile + DTS/Validation owners / design and activation | Determines accepted inputs, output root/version and unsupported fields. Fixed public URNs and the supplied UBL 2.5 Invoice target are known. Resolve the conflicting sample ProfileID; business schemas, compatible extended rules and build fitness remain unproven. No old-core or production qualification is inferred. |
 | IC-Q02 | Corrective-group binding, amount lexical form, required original amounts and the three-versus-five cardinality discrepancy? | Spain Compliance/technical + Validation owners / corrective activation | Determines safe `I`/`S` mapping and acceptance corpus. Obtain official schema/rules or clarification. Hold affected capabilities; do not select the convenient limit. |
 | IC-Q03 | Required original references and permitted aggregate/date exceptions, correction chains and multi-original simplified replacements? | Spain Compliance + ERP Product / reference-policy activation | Determines evidence, local/external verification and supported scenarios. Initially qualify individually identified originals; do not promise all legal exceptions. |
 | IC-Q04 | Legal/material issuer role mapping for 389/471; code issuer NIF; self-billing/third-party authority and BG-ES-1; buyer identity wording discrepancy? | Spain Compliance/Identity + ERP/Sending/Lifecycle owners / buyer-issued and delegation activation | Determines scope and cross-message identity. Preserve seller/buyer fields; never derive the invoice issuer from the caller/certificate. Require role-specific approved examples and authority evidence. |
@@ -442,3 +459,27 @@ Owners below are responsible roles, not named approvals. Record the approved dec
 **Production:** approve IC-Q09 policies and measured service targets. Verify durable custody, recovery, cancellation, access revocation, old-result lookup, bundle rollback and cross-feature identity continuity. All applicable scenarios in IC-A01–A24 require recorded evidence. Additional profiles, country rules and permitted legal exceptions need independent qualification.
 
 Current readiness: **reviewable logical proposal**. The spec and diagrams define the requested creation design. They do not approve a lifecycle status change, publish to Confluence, qualify a live external API or activate an implementation.
+
+### SPFE evidence acceptance
+
+These are required evidence scenarios, not executed implementation tests. The source-binding gate is IC-Q01/Q02/Q04/Q05/Q06; SPFE-Q03/Q04/Q13/Q14. A source-backed review does not establish that this feature is ready for production.
+
+| ID | Scenario | Required result | Requirement coverage |
+|---|---|---|---|
+| IC-SPFE-A01 | Five public invoice types, generic CreditNote and an old public declaration | Qualify the Invoice/type cases with final fields; hold unsupported root or profile. Old/private profiles retain their separate contracts. | IC-SPFE-R01; IC-03–08, IC-11; [REF](#ref-source-references). |
+| IC-SPFE-A02 | Generate from facts and validate the unchanged supplied invoice example | Generated candidates use the qualified final declaration; the source example remains unchanged and its conflicting declaration is visible. | IC-SPFE-R02; IC-03–08, IC-11; [REF](#ref-source-references). |
+| IC-SPFE-A03 | Applicable Spain extension, repeated conditional group or monetary rule is unqualified | Return unsupported/undetermined with the correct owner; no success or lost fields. Retain field-to-rule and country-isolation evidence. | IC-SPFE-R03; IC-03–08, IC-11; [REF](#ref-source-references). |
+
+## REF Source references
+
+Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
+
+| REF ID | Source and version | Exact location | Supported information and limit |
+|---|---|---|---|
+| SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 3–6; Annex I pp. 13–34, BT-23/24 p. 14 | Final invoice fields, fixed identifiers, five types, copy and unique-code components. |
+| SPFE-S01 | [Anexo-1-Proyecto-OM-FE.pdf](<../context/Anexo I/20261013/Anexo-1-Proyecto-OM-FE.pdf>); Supplied 13 October 2026; SHA-256 in source manifest. | pp. 4–34, especially pp. 6 and 25–28 | Separate invoice field table and codes; exact binding and discrepancies need qualification. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | section 5.1.1, p. 8 | UBL 2.5 InvoiceType, not CreditNote, for public invoice submission. |
+| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | section 6.2, pp. 10–11 | Validation layers, identity components and disputed size. |
+| SPFE-S09 | [factura.xml](<../context/Ejemplos/20261013/factura.xml>); Supplied 13 October 2026; SHA-256 in source manifest. | ProfileID, CustomizationID and InvoiceTypeCode | Original example ProfileID omits ubl:; not a passing public conformance case. |
+| REF-PRD | [PRD-SEI-236 — UBL profile](../prds/PRD-SEI-236-ubl-format-profile.md); [PRD-SEI-241 — Validation](../prds/PRD-SEI-241-ubl-validation-service.md); [PRD-SEI-246 — Preparation and outbound](../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

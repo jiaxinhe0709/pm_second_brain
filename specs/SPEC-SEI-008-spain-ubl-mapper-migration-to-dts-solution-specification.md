@@ -6,9 +6,10 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-08
+updated: 2026-10-13
 reviewers: []
 related:
+  - RES-SEI-002
   - GLO-SEI-001
   - PRD-SEI-223
   - PRD-SEI-236
@@ -46,6 +47,12 @@ The feature plan reports that the Spain team developed a Java mapper outside the
 The migration must cover how the mapper runs, the accepted input, the consumer contract, XML retrieval, completion reporting, ownership and consumer migration.
 
 Read Part 1 for the scope, handoffs and decisions; [Part 2](#part-2-logical-feature-specification) for runtime and migration behaviour; [Part 3](#part-3-logical-service-interactions-and-data-inventory) for contracts and records; and [Part 4](#part-4-assurance-and-traceability-view) for acceptance and release gates. `UM-*` identifiers belong to this migration; `UV-*` identifiers remain owned by [SPEC-SEI-005](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md).
+
+### Public source baseline
+
+UBL 2.5 is now specified in the supplied public formats document, as well as the migration brief. The migration must bind its public output to final Annex I and preserve all applicable Spain fields. This new target evidence does not prove that the Java mapper or DTS build implements it.
+
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 ### Spain use and reuse boundaries
 
@@ -316,6 +323,16 @@ Separate non-production comparison from production traffic. Migration artefacts 
 
 Alert thresholds, availability/recovery objectives and retention are open under UM-Q07/08. No numeric rate or latency target is inferred from documented gateway settings.
 
+### SPFE source contract binding
+
+The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through UM-03–05, UM-10–13. Source conflicts stay open under UM-Q01/Q03/Q04/Q09; SPFE-Q04/Q13/Q14; they are not resolved by a local default.
+
+| ID | Constraint and required behaviour | Source reference |
+|---|---|---|
+| UM-SPFE-R01 Bind the mapper to the final public output | For the SPFE target, UM-03 pins UBL 2.5 Invoice, exact Annex I profile identifiers, code lists, country extensions and compatible business schemas/rules. The sample ProfileID conflict cannot become the mapper default. Private/bilateral and old UBL outputs retain separate capabilities. | SPFE-S02/SPFE-S01/SPFE-S08/SPFE-S09; [REF](#ref-source-references). |
+| UM-SPFE-R02 Prove field and scenario preservation | UM-05 and UM-12 retain a source-to-target coverage matrix for all applicable Annex I core groups and BT-ES-1–29, including copy, third parties, rectifications, regime qualifiers, collection/deduction amounts and withholding. A required unsupported field blocks that target; do not drop it or rewrite source facts. | SPFE-S02/SPFE-S01; proposed qualification control; [REF](#ref-source-references). |
+| UM-SPFE-R03 Separate source target evidence from build readiness | Assess existing DTS first. Qualify the actual mapper build, request/task/output contracts, resources and operations for the selected public scope. A published UBL version or PRE validator cannot close implementation, parity or production-conformance gates. | SPFE-S08; UM-Q01/Q03/Q04/Q09; [REF](#ref-source-references). |
+
 ## Part 3 Logical Service Interactions and Data Inventory
 
 This part describes what each service asks for, returns and stores. The technical field names support design review; they do not by themselves define an approved API.
@@ -444,3 +461,30 @@ These are requested decisions, not recorded approvals. Owners are proposed respo
 **Production and handover:** require measured reliability/performance/capacity, custody/retention and operational objectives (UM-Q07), consumer migration readiness, exact profile activation evidence, exercised DLQ/reconciliation/rollback and DTS support acceptance. Historical records retain their original identifiers and bundle. Additional countries, cancellation or legacy retirement need their own explicit scope and decision gates.
 
 The present readiness is **reviewable logical proposal**. No DTS code migration, environment activation, consumer cutover, document approval or Confluence publication has been performed by creating this specification.
+
+### SPFE evidence acceptance
+
+These are required evidence scenarios, not executed implementation tests. The source-binding gate is UM-Q01/Q03/Q04/Q09; SPFE-Q04/Q13/Q14. A source-backed review does not establish that this feature is ready for production.
+
+| ID | Scenario | Required result | Requirement coverage |
+|---|---|---|---|
+| UM-SPFE-A01 | Generate public standard and corrective scenarios with the sample profile conflict | Use the final Annex I declaration in a separately generated candidate; preserve supplied examples and hold unresolved profile/schema acceptance. No automatic public CreditNote or downgrade. | UM-SPFE-R01; UM-03–05, UM-10–13; [REF](#ref-source-references). |
+| UM-SPFE-A02 | Applicable withholding, regime, third-party or correction data has no mapping | Return unsupported/blocked with the mapping owner; no SUCCEEDED output that silently loses the required meaning. | UM-SPFE-R02; UM-03–05, UM-10–13; [REF](#ref-source-references). |
+| UM-SPFE-A03 | One public mapping is qualified alongside existing UBL 2.1 and another country | Retain old contracts and results; Spain identifiers and extensions do not become cross-country defaults. Actual build/operation evidence remains required. | UM-SPFE-R03; UM-03–05, UM-10–13; [REF](#ref-source-references). |
+
+## REF Source references
+
+Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.
+
+| REF ID | Source and version | Exact location | Supported information and limit |
+|---|---|---|---|
+| SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 3–4; Annex I, especially BT-23/24 | Final public profile and applicable field meanings. |
+| SPFE-S01 | [Anexo-1-Proyecto-OM-FE.pdf](<../context/Anexo I/20261013/Anexo-1-Proyecto-OM-FE.pdf>); Supplied 13 October 2026; SHA-256 in source manifest. | pp. 4–34 | Core/Spain fields, conditional groups and code lists; compare each mapping with the final annex. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | section 5.1.1, p. 8 | UBL 2.5 InvoiceType for public invoices, including corrections. |
+| SPFE-S09 | [factura.xml](<../context/Ejemplos/20261013/factura.xml>); Supplied 13 October 2026; SHA-256 in source manifest. | cbc:ProfileID, CustomizationID and CopyIndicator | Example declaration conflict; not proof of an accepted mapping. |
+| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/ebms/ebms-header-3_0-200704.xsd>); supplied PRE snapshot. | xsd:schema targetNamespace `http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/`; imports/types. | Messaging or SOAP/XML transport schema. Not a UBL Invoice, ApplicationResponse or DocumentStatus business schema; no country rule validation. |
+| SPFE-S19 | [soap-envelope.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/w3/soap-envelope.xsd>); supplied PRE snapshot. | xsd:schema targetNamespace `http://www.w3.org/2003/05/soap-envelope`; imports/types. | Messaging or SOAP/XML transport schema. Not a UBL Invoice, ApplicationResponse or DocumentStatus business schema; no country rule validation. |
+| SPFE-S20 | [xml.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/w3/xml.xsd>); supplied PRE snapshot. | xsd:schema targetNamespace `http://www.w3.org/XML/1998/namespace`; imports/types. | Messaging or SOAP/XML transport schema. Not a UBL Invoice, ApplicationResponse or DocumentStatus business schema; no country rule validation. |
+| SPFE-S21 | [envelope.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/xmlsoap/envelope.xsd>); supplied PRE snapshot. | xsd:schema targetNamespace `http://schemas.xmlsoap.org/soap/envelope/`; imports/types. | Messaging or SOAP/XML transport schema. Not a UBL Invoice, ApplicationResponse or DocumentStatus business schema; no country rule validation. |
+| REF-PRD | [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md); [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-236](../prds/PRD-SEI-236-ubl-format-profile.md); [PRD-SEI-241](../prds/PRD-SEI-241-ubl-validation-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |
