@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="b2b-router-adapter-binding-process" name="B2B Router adapter binding and recovery">
+    <mxGraphModel page="1" pageWidth="1800" pageHeight="900" grid="1" gridSize="10">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="B2B Router adapter binding and recovery&#10;The shared platform owns authority, route and invoice context. The adapter binds one approved provider contract and reconciles uncertain outcomes before repeat." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="20" width="1720" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend" value="Solid arrows: main processing · Dashed arrows: asynchronous evidence or recovery · Dark card: held recovery" style="text;whiteSpace=wrap;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="30" y="90" width="1720" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane1" value="" style="swimlane;horizontal=0;noLabel=1;fillColor=#e8edf5;swimlaneFillColor=#f8f9fb;strokeColor=#8090a0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="140" width="1760" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane1label" value="Shared Sage platform" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="140" width="150" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane2" value="" style="swimlane;horizontal=0;noLabel=1;fillColor=#e9f3eb;swimlaneFillColor=#fbfdfb;strokeColor=#7b987f;" vertex="1" parent="1">
+          <mxGeometry x="20" y="320" width="1760" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane2label" value="B2B Router adapter" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="320" width="150" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane3" value="" style="swimlane;horizontal=0;noLabel=1;fillColor=#f5eee5;swimlaneFillColor=#fffdf9;strokeColor=#a58a69;" vertex="1" parent="1">
+          <mxGeometry x="20" y="540" width="1760" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane3label" value="B2B Router" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="540" width="150" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="qualify" value="Qualify account, capability,&#10;environment and version&#10;B2BR-01" style="rounded=1;whiteSpace=wrap;html=0;fontSize=14;fillColor=#ffffff;strokeColor=#40566f;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="220" y="185" width="230" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="prepare" value="Freeze route, action, profile&#10;and representation&#10;B2BR-02" style="rounded=1;whiteSpace=wrap;html=0;fontSize=14;fillColor=#ffffff;strokeColor=#40566f;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="500" y="185" width="230" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="execute" value="Save intent and execute once&#10;with explicit API version&#10;B2BR-03" style="rounded=1;whiteSpace=wrap;html=0;fontSize=14;fillColor=#ffffff;strokeColor=#47734d;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="780" y="365" width="230" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="provider" value="Create/import, list/get or&#10;deliver signed webhook" style="rounded=1;whiteSpace=wrap;html=0;fontSize=14;fillColor=#ffffff;strokeColor=#8a6845;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="580" width="230" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="record" value="Record provider identity, actual&#10;values and raw result&#10;B2BR-04 / B2BR-05" style="rounded=1;whiteSpace=wrap;html=0;fontSize=14;fillColor=#ffffff;strokeColor=#47734d;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="365" width="230" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="publish" value="Append lifecycle/source evidence;&#10;preserve historical context&#10;B2BR-08" style="rounded=1;whiteSpace=wrap;html=0;fontSize=14;fillColor=#ffffff;strokeColor=#40566f;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1510" y="185" width="230" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="unknown" value="Hold possible external effect&#10;OUTCOME_UNKNOWN" style="rounded=1;whiteSpace=wrap;html=0;fontSize=14;fillColor=#d7dde5;strokeColor=#40566f;spacing=8;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="465" width="230" height="58" as="geometry"/>
+        </mxCell>
+        <mxCell id="reconcile" value="Read bounded overlap or search&#10;original context; reconcile&#10;B2BR-06 / B2BR-07" style="rounded=1;whiteSpace=wrap;html=0;fontSize=14;fillColor=#d7dde5;strokeColor=#40566f;spacing=8;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="465" width="230" height="58" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" source="qualify" target="prepare" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#4b5563;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" source="prepare" target="execute" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#4b5563;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" source="execute" target="provider" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#4b5563;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" source="provider" target="record" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#4b5563;dashed=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" source="record" target="publish" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#4b5563;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" source="execute" target="unknown" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#596879;dashed=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" source="unknown" target="reconcile" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#596879;dashed=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" source="reconcile" target="provider" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#596879;dashed=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e9" source="reconcile" target="record" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=block;strokeColor=#596879;dashed=1;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="note" value="Provider API acceptance is not recipient delivery. Invalid or uncertain evidence cannot activate fallback, repeat a mutation or rewrite the original route." style="text;whiteSpace=wrap;html=0;align=left;fontSize=14;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="30" y="735" width="1720" height="55" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

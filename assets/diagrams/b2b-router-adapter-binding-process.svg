@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="820" viewBox="0 0 1800 820" role="img" aria-labelledby="title desc">
+  <title id="title">B2B Router adapter binding and recovery</title>
+  <desc id="desc">The shared Sage platform qualifies and freezes an action. The adapter executes one approved provider operation. It records authenticated results or reconciles an unknown outcome before repeat.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#4b5563"/></marker>
+    <style>
+      text{font-family:Arial,sans-serif;fill:#17202a}.title{font-size:25px;font-weight:700}.sub{font-size:15px}.lane{font-size:16px;font-weight:700}.box{fill:#fff;stroke-width:2}.bt{font-size:15px;text-anchor:middle}.id{font-size:14px;font-weight:700;text-anchor:middle}.edge{fill:none;stroke:#4b5563;stroke-width:2.2;marker-end:url(#arrow)}.dash{stroke-dasharray:8 6}.note{font-size:15px;font-style:italic}
+    </style>
+  </defs>
+  <rect width="1800" height="820" fill="#fff"/>
+  <text x="30" y="42" class="title">B2B Router adapter binding and recovery</text>
+  <text x="30" y="70" class="sub">The shared platform owns authority, route and invoice context. The adapter binds one approved provider contract and reconciles uncertain outcomes before repeat.</text>
+  <text x="30" y="103" class="sub">Solid arrows: main processing · Dashed arrows: asynchronous evidence or recovery · Dark card: held recovery</text>
+  <rect x="20" y="130" width="1760" height="180" fill="#f8f9fb" stroke="#8090a0"/>
+  <rect x="20" y="310" width="1760" height="220" fill="#fbfdfb" stroke="#7b987f"/>
+  <rect x="20" y="530" width="1760" height="170" fill="#fffdf9" stroke="#a58a69"/>
+  <rect x="20" y="130" width="160" height="180" fill="#e8edf5" stroke="#8090a0"/><text x="100" y="220" class="lane" text-anchor="middle">Shared Sage</text><text x="100" y="242" class="lane" text-anchor="middle">platform</text>
+  <rect x="20" y="310" width="160" height="220" fill="#e9f3eb" stroke="#7b987f"/><text x="100" y="410" class="lane" text-anchor="middle">B2B Router</text><text x="100" y="432" class="lane" text-anchor="middle">adapter</text>
+  <rect x="20" y="530" width="160" height="170" fill="#f5eee5" stroke="#a58a69"/><text x="100" y="620" class="lane" text-anchor="middle">B2B Router</text>
+  <rect x="220" y="175" width="230" height="90" rx="10" class="box" stroke="#40566f"/><text x="335" y="204" class="bt"><tspan x="335">Qualify account, capability,</tspan><tspan x="335" dy="20">environment and version</tspan></text><text x="335" y="252" class="id">B2BR-01</text>
+  <rect x="500" y="175" width="230" height="90" rx="10" class="box" stroke="#40566f"/><text x="615" y="204" class="bt"><tspan x="615">Freeze route, action, profile</tspan><tspan x="615" dy="20">and representation</tspan></text><text x="615" y="252" class="id">B2BR-02</text>
+  <rect x="780" y="355" width="230" height="90" rx="10" class="box" stroke="#47734d"/><text x="895" y="384" class="bt"><tspan x="895">Save intent and execute once</tspan><tspan x="895" dy="20">with explicit API version</tspan></text><text x="895" y="432" class="id">B2BR-03</text>
+  <rect x="1060" y="570" width="230" height="90" rx="10" class="box" stroke="#8a6845"/><text x="1175" y="604" class="bt"><tspan x="1175">Create/import, list/get or</tspan><tspan x="1175" dy="20">deliver signed webhook</tspan></text>
+  <rect x="1340" y="355" width="230" height="90" rx="10" class="box" stroke="#47734d"/><text x="1455" y="384" class="bt"><tspan x="1455">Record provider identity, actual</tspan><tspan x="1455" dy="20">values and raw result</tspan></text><text x="1455" y="432" class="id">B2BR-04 / B2BR-05</text>
+  <rect x="1510" y="175" width="230" height="90" rx="10" class="box" stroke="#40566f"/><text x="1625" y="204" class="bt"><tspan x="1625">Append lifecycle/source evidence;</tspan><tspan x="1625" dy="20">preserve historical context</tspan></text><text x="1625" y="252" class="id">B2BR-08</text>
+  <rect x="780" y="465" width="230" height="58" rx="10" fill="#d7dde5" stroke="#40566f" stroke-width="2"/><text x="895" y="490" class="bt"><tspan x="895">Hold possible external effect</tspan></text><text x="895" y="512" class="id">OUTCOME_UNKNOWN</text>
+  <rect x="1060" y="465" width="230" height="58" rx="10" fill="#d7dde5" stroke="#40566f" stroke-width="2"/><text x="1175" y="489" class="bt"><tspan x="1175">Read bounded overlap or search</tspan></text><text x="1175" y="512" class="id">B2BR-06 / B2BR-07</text>
+  <path d="M450 220 H500" class="edge"/><path d="M730 220 H755 V400 H780" class="edge"/><path d="M1010 400 H1035 V615 H1060" class="edge"/>
+  <path d="M1290 615 H1315 V400 H1340" class="edge dash"/><path d="M1570 400 H1590 V290 H1625 V265" class="edge"/>
+  <path d="M895 445 V465" class="edge dash"/><path d="M1010 494 H1060" class="edge dash"/><path d="M1175 523 V570" class="edge dash"/><path d="M1290 494 H1340" class="edge dash"/>
+  <text x="30" y="752" class="note">Provider API acceptance is not recipient delivery. Invalid or uncertain evidence cannot activate fallback, repeat a mutation or rewrite the original route.</text>
+</svg>
