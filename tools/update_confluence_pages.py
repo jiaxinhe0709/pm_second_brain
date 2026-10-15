@@ -46,7 +46,7 @@ import re
 import subprocess
 import sys
 from typing import Any
-from urllib.parse import urljoin
+from urllib.parse import quote, urljoin
 import uuid
 from xml.etree import ElementTree
 
@@ -150,9 +150,18 @@ def storage_with_drawio(
         body = body.replace(asset.markdown_image, f"\n\n{token}\n\n", 1)
         macros.append((token, drawio_macro(metadata, asset, attachment_revisions.get(asset.name, 1))))
     if source_url:
+        def source_link(match: re.Match[str]) -> str:
+            target = match.group(2)
+            if target.startswith("<") and target.endswith(">"):
+                target = target[1:-1]
+            resolved = quote(
+                urljoin(source_url, target), safe=":/?#[]@!$&'()*+,;=%"
+            )
+            return f"[{match.group(1)}]({resolved})"
+
         body = re.sub(
-            r"(?<!!)\[([^\]]+)\]\((?!https?://|#)([^)]+)\)",
-            lambda match: f"[{match.group(1)}]({urljoin(source_url, match.group(2))})",
+            r"(?<!!)\[([^\]]+)\]\((?!<?(?:https?://|#))([^)]+)\)",
+            source_link,
             body,
         )
     storage = markdown_to_storage(

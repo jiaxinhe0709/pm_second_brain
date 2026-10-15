@@ -78,6 +78,31 @@ class ConfluenceChangeHistoryTests(unittest.TestCase):
 
         self.assertNotIn('ac:name="change-history"', storage)
 
+    def test_source_links_resolve_angle_brackets_spaces_and_unicode(self) -> None:
+        storage = publisher.storage_with_drawio(
+            self.metadata(),
+            "[Source](<../context/source file.pdf>)\n\n"
+            "[Unicode](<../context/café.pdf>)\n\n"
+            "[Plain](../specs/plain.md)\n\n"
+            "[Anchor](<#section>)\n\n"
+            "[External](<https://example.com/source>)",
+            "abcdef",
+            "https://github.example/repo/blob/abcdef/specs/spec.md",
+            [],
+            {},
+        )
+
+        for target in (
+            "https://github.example/repo/blob/abcdef/context/source%20file.pdf",
+            "https://github.example/repo/blob/abcdef/context/caf%C3%A9.pdf",
+            "https://github.example/repo/blob/abcdef/specs/plain.md",
+            "#section",
+            "https://example.com/source",
+        ):
+            with self.subTest(target=target):
+                self.assertIn(f'href="{target}"', storage)
+        self.assertNotIn("&lt;../context/", storage)
+
     def test_storage_rejects_invalid_change_history_limit(self) -> None:
         with self.assertRaisesRegex(ValueError, "positive integer"):
             publisher.markdown_to_storage(
