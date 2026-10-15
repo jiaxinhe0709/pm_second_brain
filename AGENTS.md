@@ -10,6 +10,30 @@ Read `schema/DOCUMENT_RULES.md` before creating or changing managed documents.
 - Never add secrets, tokens, customer personal data, or confidential raw exports.
 - Do not publish to Confluence or change document status without explicit user approval.
 
+## Requirement-led analysis and concise writing
+
+- Start from the business problem, actors and observable outcomes. Use scenarios to
+  cover the main path, alternative cases, failures and recovery before proposing
+  components or service boundaries.
+- Write requirements from the requirement perspective. State the actor, condition,
+  required behaviour, outcome and safe next action. Do not assign a requirement to
+  an adapter, worker, service, data store or endpoint unless an approved decision or
+  external contract requires that allocation.
+- Keep business and functional requirements separate from technical analysis. Put
+  proposed component ownership, service decomposition, interaction design, storage
+  allocation and deployment choices in a clearly labelled solution or architecture
+  section. Do not present them as approved requirements.
+- Use one scenario or requirement as the authoritative statement. Other sections
+  should reference it or add a different concern; they must not restate it in prose.
+- Remove narrative that does not add a requirement, rule, decision, exception,
+  consequence, owner, evidence need or acceptance check. Prefer a compact table when
+  it makes conditions, outcomes and error paths easier to compare.
+- Use detail in proportion to the decision being made. Do not add sections, IDs,
+  diagrams, data inventories or edge cases only to make a document appear complete.
+- Before handoff, perform a deletion pass. Shorten or remove repeated context,
+  generic introductions, self-evident transitions and conclusions that repeat the
+  preceding section. Preserve precision, evidence and meaningful exceptions.
+
 ## Solution spec language and reuse
 
 - Write specs for engineering and stakeholders who use English as a second
