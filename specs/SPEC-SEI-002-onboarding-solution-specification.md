@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-13
+updated: 2026-10-15
 reviewers: []
 related:
   - RES-SEI-002
@@ -351,6 +351,7 @@ ONB-13 validates the batch envelope and persists its receipt and item manifest. 
 | ONB-Q06 Existing Tax/certificate contract and execution owner | Confirm the actual protected source, lookup/readiness contract, safe metadata and supported authentication/signing operations. Status feedback alone cannot qualify protected execution. | Tax Service, Connections Service, AFL, E-Invoice Service and Security owners; selected-function pilot under SPEC-SEI-001 |
 | ONB-Q07 Approval purpose, approver and evidence mechanism | Qualify eligible approvers, accepted Spain representation evidence, current-evidence reuse, terms acceptance, request authentication, expiry, response/withdrawal and notification channels. Establish which existing capability stores each decision. Local approval cannot replace an official representation process. | Spain Compliance/Legal, Product, Identity, Security and contract owners; approval design before build and delegated pilot |
 | ONB-Q08 Portfolio contract, roles and capacity | Qualify firm/user/client mappings, permitted batch operations, stable item references, limits, scheduling, aggregate visibility, pagination and role reassignment. Confirm existing batch implementation and gaps. Targets need measured demand and approved external limits. | Accountant Product, API, E-Invoice Service, Identity, Security and Operations; batch design before build and portfolio pilot |
+| ONB-Q09 ERP fields and start boundary | Map the Part 3 logical fields to actual ERP settings, API fields and evidence owners. Confirm prefill coverage, required customer input, supported scheduling, timezone rules, activation boundary and initial retrieval coverage. Measure prior e-invoicing use for the selected cohort. | ERP Product, API, Identity, Routing and Receiving owners; ERP contract review and selected-cohort pilot |
 
 An accountant could act without client permission. A service could treat public readiness as activation or repeat an external change after a timeout. A transition could lose inbound reachability or access needed for earlier invoices. These are the main risks.
 
@@ -531,6 +532,8 @@ An authorised correction resumes selected client items at the affected gate with
 | ONB-R21 | Version approval requests and evidence. Reject expired, stale or conflicting responses. Withdrawal blocks affected new use and preserves earlier snapshots and uncertain-operation recovery. Sources: PRD-SEI-104 FR13/16 and PRD-SEI-231 ID-FR11; request mechanics remain proposed under ONB-Q07. |
 | ONB-R22 | Persist batch receipt and item mapping. Isolate envelope failure, item failure and aggregate coordination. Suppress duplicate commands and resume processing after restart. Sources: PRD-SEI-104 FR4–8/15/19 and NFR4. |
 | ONB-R23 | Expose permitted aggregate/item results and owned actions. Correct or cancel selected authorised work without repeating independent completed work or hiding uncertain effects. Sources: PRD-SEI-104 FR7/14/16/17/20 and PRD-SEI-107. |
+| ONB-R24 | For a customer or accountant preparing setup, prefill qualified existing information and request only missing, changed or unverified fields needed by the selected functions. Return the affected function, reason and correction owner for a missing or conflicting value. Independent permitted work can continue. Proposed field-level refinement of R11–13 and the customer review; Part 3 defines fields and scenario applicability. |
+| ONB-R25 | For a new or changed function, distinguish the customer's requested start from its confirmed effective boundary. Retain the existing boundary and retrieval progress for unchanged setup. An unknown original service start must not be invented or used to reset progress. Sources: PRD-SEI-101 FR32, PRD-SEI-222 continuity and R07/09; date fields remain proposed under ONB-Q09. |
 
 Grant only the permissions needed for the approved purpose. Limit delegation to that purpose. Record who makes each support override. Overrides must not bypass external-observation or legal-policy gates. Encrypt sensitive evidence. Isolate tenants, entities and environments. Redact diagnostics and store credentials by reference only.
 
@@ -606,6 +609,126 @@ Retention and deletion periods are set by approved legal, privacy, contract and 
 
 D12 approval evidence and D13 manifests have separate retention and disclosure policies. The batch parent uses its submitting boundary; each child retains its own tenant/entity/environment keys. Firm users cannot read another client through a manifest or approval link. Audit the requester, approver, represented business, purpose, versions, effective times and outcome without copying credentials or raw restricted evidence into logs.
 
+### 3 Customer and accountant fields by scenario
+
+This **proposed field model** expands D01–05/07/10–13 and INT-01–03/10–13 under R24/25. It adds data detail to ONB-S01–08; it does not change their workflow or phase gates. Labels, types and choices support review. ONB-Q04/09 must qualify the actual API schema, ERP mappings and supported options. These fields span setup, account linking and approval interactions; they are not one flat submission form.
+
+**Required** means that a value must be available at the stated gate. Trusted context or an existing reference can supply it. It does not mean that the customer must enter it again. Many customers may already use e-invoicing; this is a cohort assumption to measure, not proof of field availability or current authority. The field set is derived from the Spain journeys, ERP context and cited SPFE evidence.
+
+#### Fields the customer or accountant may see
+
+| Logical field | Customer-facing label | Type or proposed choices | Source, required condition and correction |
+|---|---|---|---|
+| `productCompanyRef` | Business / company | Opaque ERP company reference | Required for each case. Use the company currently open or the authorised accountant's client selection. Resolve its legal-subject mapping; reject a foreign tenant/company reference. |
+| `legalName` | Legal business name | Text | Required for identity readiness. Prefill from the business record. Confirm or correct through the owning company/identity process; recheck a mismatch. |
+| `identifierScheme` | Tax identification type | Approved Spain scheme | Required with the identifier. Prefill; ask only if missing or ambiguous. Use the qualified NIF/NIE binding, not a free-text scheme. |
+| `identifierValue` | NIF / NIE | Identifier text | Required for identity readiness. Prefill and verify for the represented business. A certificate caller's identifier cannot replace it. |
+| `subjectType` | Business type | Legal entity / individual / other supported classification | Required where the selected identity or country policy needs it. Reuse the business record; obtain missing material facts. |
+| `onboardingIntent` | What would you like to do? | Start / connect existing / review or extend / change platform | Required for planning. Take from the entry action or ask the user. ONB-10 resolves the scenario from intent and observed setup. |
+| `existingServices[]` | Which services do you currently use? | SPFE / named private provider / B2G service / unknown | Needed for existing-use assessment. Prefill known connections; permit multiple entries. Keep declarations separate from observed facts. Unknown selects investigation, not absence. |
+| `selectedServices[]` | Service to use through Sage | Supported service references | Required for each requested function. Prefill the retained service or ask the customer to select a supported option. Record the function-to-service association for combined use. |
+| `providerId` | Provider | Supported provider reference | Required for each selected private connection. Prefill an existing provider or select a supported one. An unsupported provider uses ONB-S08. |
+| `providerAccountRef` | Provider account / organisation | Provider-defined reference | Required only where the selected provider contract needs it. Prefer the account-linking result; allow manual entry only where supported. Verify its business association. No public account number is established by SPFE-S03/S16. |
+| `requestedFunctions[]` | What do you want to use through Sage? | Supported sending, receiving/retrieval and other available functions | Required for planning. Show only qualified choices for the selected service. Derive mandatory public-copy/reporting dependencies from approved policy; do not offer them as optional compliance checkboxes. Bind each function to its service, direction and scope. |
+| `targetService` | New e-invoicing service | Supported public or private service | Required for ONB-S06. Display the current service separately. Unsupported or gated transitions remain blocked. |
+| `targetProviderId` | New provider | Supported provider reference | Required when ONB-S06 targets a private provider. Link the target account separately from the existing account. Not applicable to a public target. |
+| `targetProviderAccountRef` | New provider account / organisation | Provider-defined reference | Required only where the target private contract needs it. Obtain from qualified target-account linking. Keep it separate from the current `providerAccountRef`; not applicable to a public target. |
+| `affectedFunctions[]` | What should move? | Supported subset of functions and directions | Required for ONB-S06. Bind to the transition plan. A receiving change does not imply a sending change. |
+| `startChoice` | When would you like to start? | As soon as ready / scheduled | For new activation or a platform change, where supported. Unchanged setup does not need a new start choice. Scheduling support remains ONB-Q09. |
+| `requestedStartAt` | Requested start date | Date/time with timezone | Required only for a supported scheduled start. Derive from the user's date/time and agreed timezone rule. A date alone must not silently become UTC midnight. |
+| `historyChoice` | Do you need earlier received invoices? | New invoices only / include earlier invoices | For initial receiving/retrieval only where these options are supported. Assess existing coverage and obligations before presenting a choice. Do not reset a saved checkpoint. |
+| `retrievalStartProposal` | Retrieve invoices from | Date with qualified source-date meaning | Required when the selected history option needs a lower boundary. Receiving confirms available history, authority, date semantics and overlap handling under SPEC-SEI-006. |
+| `credentialSelection` | Certificate / access method | Selection of suitable protected reference, or complete setup action | Only where the function requires protected access. Display permitted metadata. Resolve the reference/version through SPEC-SEI-001; missing, unsuitable or unknown evidence follows ONB-03/08. No passwords, key bytes or certificate containers enter this field. |
+| `approvalResponse` | Review and approve | Purpose-specific decision bound to request/version | Only when ONB-12 requires a decision. Show business, functions, delegate and proposed change. Record approval or refusal for that exact purpose. Identity still verifies authority; a response is not a generic grant. |
+
+Invoice lines, tax breakdowns, totals, buyer details and payment events belong to the owning invoice-operation contracts. Address, contact or other company fields enter onboarding only where a selected identity, terms or provider check requires them. Obtain missing fields through that qualified flow; do not make them universal setup questions.
+
+#### Scenario applicability and customer actions
+
+The field table above defines meaning and handling. This table adds applicability to the existing scenarios. Common company/identity fields are prefilled where available. Required identity confirmation and any purpose-specific approval still apply when existing evidence is insufficient.
+
+| Scenario | Prefill or display | Customer or accountant supplies | Conditional client action |
+|---|---|---|---|
+| ONB-S01 First-time setup | Common business fields; supported service options | `selectedServices[]`; `requestedFunctions[]`; private `providerId` if applicable; start/history choices where supported | Missing credential setup, applicable terms or action authority |
+| ONB-S02 Existing SPFE use | Common fields; known public connection and existing Sage evidence | Confirm SPFE in `existingServices[]`; `requestedFunctions[]`; start/history choices only for new Sage functions | Missing Sage access or authority; no invented SPFE account-number question |
+| ONB-S03 Keep existing private provider | Known `providerId`, account and connection | Select provider if missing; link `providerAccountRef`; `requestedFunctions[]`; applicable start/history choices | Provider-specific access or missing purpose-specific approval |
+| ONB-S04 Public and private use | Known services and the functions each handles | Confirm `existingServices[]`; associate `requestedFunctions[]` with `selectedServices[]` | Missing permission for the affected service; no second delivery choice inferred from public-copy handling |
+| ONB-S05 Review or extend Sage setup | Current service, account, functions and per-function status | No new setup input for valid unchanged configuration; select added `requestedFunctions[]` and their conditional fields | Only missing, changed or invalidated permissions/access |
+| ONB-S06 Change platform | Current platform, affected functions and earlier-work obligations | `targetService`; conditional `targetProviderId`/`targetProviderAccountRef`; `affectedFunctions[]`; supported start choice/date | Approve the bound change after reviewing scope and continuity arrangements. Existing transition gates remain in force |
+| ONB-S07 Add B2B after B2G use | Common fields and known B2G service | B2B `selectedServices[]` and `requestedFunctions[]`; applicable start/history choices | Missing B2B access or authority; retain B2G setup |
+| ONB-S08 Unsupported or uncertain setup | Known facts and the specific gap | Existing service/provider name and account reference only where useful for investigation | Named correction or support action; skip irrelevant setup fields |
+
+#### Accountant and client-action fields
+
+These fields add the actor dimension to each scenario. They do not create a different client setup contract. Selection of an approver, an invitation or a firm-client relationship cannot establish effective authority.
+
+| Logical field | Type / source | Accountant or client action and condition |
+|---|---|---|
+| `firmRef`, `actorRef` | Trusted identity references | Supplied by the authenticated session; no manual entry. Recheck current access under R19. |
+| `clientCompanyRefs[]` | Authorised ERP company references | Accountant selects one or several clients. Resolve each to a separate `productCompanyRef` and legal subject. A batch is optional. |
+| `clientRelationshipRef` | Versioned relationship reference | Resolve existing records. Correct a missing or invalid relationship before protected client work. |
+| `authorityEvidenceRef` | Protected evidence reference | Reuse verified evidence for the exact action/scope/period. Return the gap where client or official action is needed. |
+| `clientApproverRef` | Eligible client identity reference | Select an eligible approver only when required and permitted. Resolve eligibility through ONB-12; contact details alone are not an approver identity. |
+| `approvalRequestRef` | Generated request/version reference | Accountant tracks the outstanding action. The client supplies the bound `approvalResponse` through the qualified channel. |
+
+### 4 System fields, dates and ERP results
+
+#### Context resolved or generated by Sage
+
+The customer does not type these technical fields. Use trusted context and versioned owner records; customer declarations cannot overwrite them.
+
+| Logical fields | Source and use |
+|---|---|
+| `tenant`, `productId`, `legalSubject`, `environment` | Authenticated product context and authorised identity mapping; scope every case and result. |
+| `direction`, `scope`, `countryPolicyRef`, `policyVersion`, `establishmentFactsRef` | Resolve selected functions and required business/policy evidence. Obtain missing material facts through the qualified identity flow; invoice applicability remains transaction-specific. |
+| `connectionRef`, `connectionVersion`, `credentialRef`, `credentialVersion`, `credentialPurpose` | Qualified connection/trust owners. Resolve `credentialSelection` to safe references and current checks, not copied credentials. |
+| `authorityDecisionRef`, `approvalEvidenceRefs[]`, `termsVersion` | Identity and decision-evidence owners. Resolve independent decisions for operation authority, terms, route change and signing. |
+| `expectedRouteVersion`, `transitionPlanRef` | Route owner and authorised plan for a change. Bind current and target service/account references separately. |
+| `capabilityProfileRef`, `productMappingVersion` | API, format and exchange owners qualify actual ERP input/output and selected Spain profile. Existing DTS remains the preferred transformation reuse candidate where relevant; qualification stays in SPEC-SEI-008. |
+| `requestId`, `correlationId`, `idempotencyKey`, `inputDigest`, `expectedVersion`, conditional `batchId`/`itemRef` | Product/API and work-item records under INT-01/13. Generate or bind under the qualified contract. These are setup references, not public invoice identifiers. |
+
+#### Dates and continuity
+
+| Logical field | Meaning and handling |
+|---|---|
+| `existingServiceStartedAt` | Optional historical date/time with source and precision. Unknown original start alone does not block an otherwise qualified unchanged setup. |
+| `requestedStartAt` | Requested future boundary from the conditional customer input. It is not activation evidence. As-soon-as-ready requests need no invented scheduled date. |
+| `effectiveFrom`, `effectiveUntil` | Confirmed interval for the exact function/direction/scope from the owning activation or route record. Pending activation has no confirmed new start. Qualify the cutover rule for new work; do not reassign earlier/in-flight invoices by issue date alone. |
+| `retrievalCoverageRef`, `retrievalStartAt` | Receiving-owned coverage/checkpoint and confirmed initial query boundary under SPEC-SEI-006. It can differ from sending activation. An unchanged connection retains progress; unknown coverage needs an owned action, not a default to today or full history. |
+| `checkedAt`, `validUntil`, `nextRecheckAt` | Evidence freshness and expiry/recheck times. Authority and credentials retain their own validity intervals. These times do not substitute for activation or statutory applicability dates. |
+
+#### Onboarding → ERP through the Global API
+
+Return per-function results under ONB-11. All names remain logical proposals subject to ONB-Q04/09. Preserve the existing readiness values; customer-facing labels are not new technical states.
+
+| Logical fields | ERP use and result meaning |
+|---|---|
+| `workItemId`, `workItemVersion`, `requestId`, `caseState`, conditional `batchId`/`itemRef` | Reopen/query/correct the saved setup. Case completion does not mean all functions are active. |
+| `productCompanyRef`, `legalSubject`, `environment`, `function`, `direction`, `scope` | Apply each result to the authorised company and exact function. |
+| `identityResult`, `authorityResult`, `credentialReadiness`, `capabilityReadiness` | Keep independent decisions and limitations. One passed check cannot enable every function. |
+| `platformId`, `integrationRole`, `connectionRef`, `connectionVersion`, `capabilityProfileRef` | Identify the qualified connection and supported role/profile. Return provider account metadata only where access permits. |
+| `activationResult`, `activationEvidenceRef`, conditional `routeRef`/`routeVersion` | Distinguish readiness from active use. Missing evidence cannot produce an active label. Omit inapplicable route fields. |
+| Confirmed date/coverage fields above | Show requested and confirmed start separately. Preserve agreed retrieval coverage and earlier invoice context. |
+| `policyVersion`, `evidenceRefs[]`, `checkedAt`, `validUntil`, `nextRecheckAt` | Explain freshness and recheck conditions through permitted summaries/references. No protected credential material is returned. |
+| `reasonCode`, `limitationCode`, `affectedFunction`, `nextAction`, `actionOwner`, conditional `approvalRequestRef`/`recoveryCaseRef` | Explain missing input, correction, approval, temporary unavailability or outcome unknown. Give the permitted action and owner. |
+
+### 5 Sage → SPFE field boundary
+
+ONB-SPFE-R02 applies: **the supplied bundle does not define a separate customer-onboarding payload or onboarding `effectiveDate`**. Keep the ERP company mapping, requested start, terms, work-item state and readiness results in Sage unless a qualified external operation requires them. SPFE-S03 sections 6.1–6.10 and SPFE-S16 describe invoice operations, not an enrolment command. No test invoice or invented registration field is added by this model.
+
+For a later authorised operation, the public connector builds these transport fields. They are not customer form questions or a complete invoice/event field map.
+
+| Exact public contract element | Source and handling |
+|---|---|
+| Certificate-class service port | SPFE-S16 `service/port`: select the qualified environment and certificate/seal port. Protected authentication remains with the trust owner; a Sage `credentialRef` is internal. Live access remains SPFE-Q12. |
+| `MessageInfo/Timestamp`, `MessageInfo/MessageId`, conditional `MessageInfo/RefToMessageId` | SPFE-S18 `MessageInfo`: message time, trace identity and response correlation. These do not establish replay safety; retain SPFE-Q07. |
+| `PartyInfo/From/PartyId`, `PartyInfo/From/Role` | SPFE-S08 section 5.1.2, p. 9, and SPFE-S18 `From`: bind the certificate caller separately from the represented business. |
+| `PartyInfo/To/PartyId`, `PartyInfo/To/Role` | SPFE-S08 p. 9 and SPFE-S18 `To`: qualified destination identity/role from connector configuration. SPFE-S04 illustrates one submission only; do not turn it into a customer question or production configuration. |
+| `CollaborationInfo/Service`, `CollaborationInfo/Action`, `CollaborationInfo/ConversationId` | SPFE-S18 `CollaborationInfo` and SPFE-S08 pp. 9–12: qualified operation binding and conversation context. A supplied submission action does not define an onboarding action. |
+| `PayloadInfo/PartInfo/@href` and matching MIME `Content-ID` | SPFE-S16 request/binding documentation and SPFE-S08 pp. 10–11: refer to the actual business-document parts. Pending query/event formats remain SPFE-Q02; invoice contents belong to their owning contract. |
+
+Public responses belong to the operation that produced them. Keep transport/SOAP, request-level and per-document results separate. SPFE-S08 section 5.2, p. 14, does not make technical admission an onboarding, receiving or payment result. Registered third-party retrieval/consultation authority follows SPFE-S02 Article 11 and ONB-SPFE-R03. Exact API mapping and implemented coverage remain open.
+
 ## Part 4 Assurance and Traceability View
 
 This part shows how requirements connect to activities, interfaces, data and acceptance checks. The scenarios describe evidence still needed; they are not a claim that implementation tests have passed.
@@ -651,6 +774,11 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | ONB-A35 Mixed portfolio and selected recovery | R04/08/20/22/23 → ONB-13/01–04/08/11/12, INT-01–03/08/11–13, D01–03/09/11–13 | Ready, approval-pending, invalid and outcome-unknown clients retain independent results and action owners. PARTIAL shows permitted counts while safe items continue. Correcting one item does not repeat completed items. Selected cancellation preserves completed results, does not cancel the whole batch and remains unresolved while an external effect is unknown. |
 | ONB-A36 Current aggregate visibility | R19/23 → ONB-02/11/13, INT-02/11/13, D02/11/13 | Relationship loss removes current item detail and progress from the former accountant's projection. Receipt counts describe submitted requests only. A parent state that would reveal withheld client progress is replaced by a visibility limitation. Pagination, notification and filter responses cannot restore access or disclose another client. |
 | ONB-A37 Approval and portfolio reuse isolation | R19–23 → ONB-02/12/13, INT-02/12/13, D02/12/13; Q07/08 | Shared request/batch patterns use the selected country's approver, representation and disclosure policy. Missing policy blocks the dependent path; Spain evidence cannot authorise another country. Qualify actual existing implementations, contracts, gaps and owners before enabling the paths. Supporting diagrams preserve the existing ONB-01–11 meanings. |
+| ONB-A38 Customer fields by scenario | R11/12/24 → ONB-02/03/10/11, INT-01–03/10/11, D02–05/10/11; Q04/09 | Exercise the Part 3 applicability table for S01–08 against the selected ERP's actual fields. Prefill current matching values. Missing/conflicting input returns only the affected function's owned action. S05 unchanged setup needs no new fields or mutation. Unsupported choices retain phase gates. |
+| ONB-A39 Accountant fields and client action | R19–24 → ONB-02/11–13, INT-02/11–13, D02/11–13; Q07–09 | Firm/actor context cannot be supplied as trusted manual input. Each selected company retains its own checks. Reuse matching authority or request client action. An ineligible approver, invitation or approved response with missing official evidence cannot enable execution. |
+| ONB-A40 Requested and confirmed start | R07/09/25 → ONB-07/09–11, INT-07/10/11, D07/08/10/11; Q09 | Unchanged setup retains the route/version with an unknown historical start. New immediate/scheduled starts remain pending until evidenced. Test agreed timezone conversion and work on both sides of cutover. Distinguish current/target services and preserve earlier/in-flight context. |
+| ONB-A41 Receiving history choice | R09/24/25 → ONB-09/11, INT-11, D08/11; SPEC-SEI-006; Q09 | Offer only qualified history options. Validate source date meaning and access. Preserve saved checkpoints and suppress duplicate product intake during overlap. Unknown coverage returns an owned action; no silent omission or full-history import. |
+| ONB-A42 ERP and public field boundaries | R13/18/24, ONB-SPFE-R02/03 → ONB-02–04/11, INT-02–04/11, D02–04/11 | ERP receives company/function/version, independent readiness/activation and owned actions without credentials. Setup emits no invented SPFE enrolment or `effectiveDate` and no test invoice. Later calls bind caller and represented party separately. Evidence: SPFE-S02 Article 11; SPFE-S03 sections 6.1–6.10; SPFE-S08 sections 5.1.2–5.2; SPFE-S16 request/binding; SPFE-S18 named types. |
 
 ### 2 Review and release gates
 
@@ -663,6 +791,8 @@ Open decisions in Part 1 must be recorded with owner, source, date and accepted 
 **Scenario/API pilot evidence:** exercise ONB-S01–08 against qualified contracts and actual API/result mappings, including existing account binding, zero-mutation confirmation, stale-evidence refresh, mixed public/private partial results and scenario correction. Reconcile failures under SPEC-SEI-004 before resuming the precise parent gate. ONB-Q01–04 remain release gates; this scenario expansion does not establish broader B2G/B2C/international support, a deployed API or a newly approved migration mode.
 
 **Delegated and portfolio pilot evidence:** close ONB-Q07/08 for the selected scope. Exercise single-client delegation, qualified evidence reuse, missing approval, eligible/ineligible responses, refusal, expiry, withdrawal and relationship/staff-role loss. Prove durable receipt, restart-safe decomposition, mixed outcomes, selected correction/cancellation and permitted aggregate visibility. Record the actual approval, relationship and batch implementations and gaps. Local approval does not qualify official representation, and batch completion does not qualify client readiness or activation.
+
+**ERP field qualification:** close ONB-Q04/09 for each selected ERP and cohort. Record actual field paths, source owner, required condition, reuse/freshness rule, validation, missing-value action and return mapping for Part 3. Exercise ONB-A38–42, including supported scheduling and retrieval boundaries. Logical names and prior e-invoicing use do not establish implementation readiness.
 
 ### SPFE evidence acceptance
 
@@ -685,6 +815,8 @@ Use the original files for the claims they establish. Final published regulation
 | SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Article 11 | Accepted certificates and registered third-party recovery/consultation authority. |
 | SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 4.1–4.3 and 6.1–6.10; pp. 7–20 | Operation-specific public capabilities and authorization; no customer registration contract. |
 | SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | service ports and soap:address | Two certificate-class PRE addresses; no environment availability evidence. |
-| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | cover and sections 5.3–5.9; pp. 1, 14–15 | Draft status and pending service formats limit what readiness can prove. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | Cover; sections 5.1.2–5.2, pp. 8–14; sections 5.3–5.9, pp. 14–15. | Message identity, caller/destination, service/action, payload references and request/item response meaning. Draft status, pending service formats and transport conflicts limit qualification; no onboarding payload is defined. |
+| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/ebms/ebms-header-3_0-200704.xsd>); supplied 13 October 2026; schema identity in filename. | Named types `MessageInfo`, `PartyInfo`, `From`, `To`, `CollaborationInfo`, `PayloadInfo`, `PartInfo`. | Exact header names and structure. Generic schema does not establish SPFE business values, authority, replay safety or live acceptance. |
+| SPFE-S04 | [Peticion_ebXML- SUBMITINVOICE.xml](<../context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/PETICIÓN/Peticion_ebXML- SUBMITINVOICE.xml>); supplied 13 October 2026; undated example. | `Messaging/UserMessage/PartyInfo`, `CollaborationInfo`, `PayloadInfo`. | One illustrative submission header; not a complete contract, production configuration or onboarding request. |
 | REF-PRD | [public onboarding](../prds/PRD-SEI-101-public-platform-onboarding.md); [direct and accountant onboarding](../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md); [recovery](../prds/PRD-SEI-107-public-onboarding-failure-recovery.md); [private onboarding and migration](../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
 | REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |
