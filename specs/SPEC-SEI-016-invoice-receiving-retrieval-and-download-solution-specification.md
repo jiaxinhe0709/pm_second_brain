@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-13
-updated: 2026-10-13
+updated: 2026-10-19
 reviewers: []
 related:
   - RES-SEI-002
@@ -34,9 +34,9 @@ related:
   - PRD-SEI-216
   - SPEC-SEI-014
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "837610662"
   page_id: ""
   layout: two_left_sidebar
   toc: true
@@ -54,9 +54,9 @@ This draft combines the current repository versions of [SPEC-SEI-006 — Invoice
 
 **Preserved:** the RCV and RSD technical IDs, public evidence, tenant/entity isolation, source roles, duplicate controls, durable progress, validation, DTS assessment, product delivery, actor authority, accountant journeys, internal approval, recovery and records controls retain their meanings. Common controls are joined through references to one source record. No second archive or product invoice is introduced.
 
-**Open:** provider file contracts, selected source formats, build coverage, acknowledgement effects, operating targets, records policies, DTS inbound mappings, rollout scope and future publication selection still require recorded decisions. This draft does not approve implementation, activation or publication.
+**Open:** provider file contracts, selected source formats, build coverage, acknowledgement effects, operating targets, records policies, DTS inbound mappings and rollout scope still require recorded decisions. This draft does not approve implementation or activation.
 
-The new draft has no Confluence page ID. The current publishing configuration still selects SPEC-SEI-006 for receiving page `923861394` and SPEC-SEI-010 for public retrieval page `912540298`. After explicit publication approval, the combined draft can be selected for the stable receiving topic page. The owner must agree how the existing public detail page links to it. No additional page is requested by this draft, and neither predecessor is marked superseded.
+On 19 October 2026, the owner approved publication of this combined draft as a child of [Public Platform - Invoice Consultation and Retrieval](https://confluence.sage.com/pages/viewpage.action?pageId=837610662). This is an explicit exception to the original plan to reuse the receiving page. The existing pages retain SPEC-SEI-006 for receiving page `923861394` and SPEC-SEI-010 for public retrieval page `912540298`. Neither predecessor is marked superseded. Publication does not approve implementation or activation.
 
 Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Exact contract fields, source codes and existing activity IDs retain their meanings.
 
