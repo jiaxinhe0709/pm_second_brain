@@ -19,7 +19,7 @@ shared.WIDTH, shared.HEIGHT = WIDTH, HEIGHT
 LANES = shared.LANES
 LEGEND = 'Solid: shared handoff · Dashed: conditional work or recovery · Diamond: decision · Darker grey: recovery'
 ONB = '../../specs/SPEC-SEI-002-onboarding-solution-specification.md'
-OFR = '../../specs/SPEC-SEI-002-onboarding-solution-specification.md#4-onboarding-recovery-behaviour'
+OFR = '../../specs/SPEC-SEI-002-onboarding-solution-specification.md#onb-08-recovery'
 
 
 def node(key, col, lane, title, activity, note='', kind='flow'):

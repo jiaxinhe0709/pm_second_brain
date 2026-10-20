@@ -34,7 +34,7 @@ confluence:
 
 # Onboarding Failure and Reconciliation Solution Specification
 
-> **Historical specification.** Recovery is now included in [SPEC-SEI-002 — Customer Onboarding](../SPEC-SEI-002-onboarding-solution-specification.md#4-onboarding-recovery-behaviour). The earlier requirements and permanent IDs remain available here. Publication is disabled; lifecycle status and the historical Confluence page ID are unchanged.
+> **Historical specification.** Recovery is now included in [SPEC-SEI-002 — Customer Onboarding](../SPEC-SEI-002-onboarding-solution-specification.md#onb-08-recovery). The earlier requirements and permanent IDs remain available here. Publication is disabled; lifecycle status and the historical Confluence page ID are unchanged.
 
 Terminology follows the [shared e-invoicing glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 

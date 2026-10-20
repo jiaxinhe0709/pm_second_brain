@@ -4,7 +4,7 @@ Use [SPEC-SEI-002 — Customer Onboarding](../SPEC-SEI-002-onboarding-solution-s
 
 | Preserved predecessor | Current coverage |
 |---|---|
-| [SPEC-SEI-004 — Onboarding failure and reconciliation](SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md) | OFR controls are now included in [SPEC-SEI-002 — Customer Onboarding](../SPEC-SEI-002-onboarding-solution-specification.md#4-onboarding-recovery-behaviour). |
+| [SPEC-SEI-004 — Onboarding failure and reconciliation](SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md) | OFR controls are now included in [SPEC-SEI-002 — Customer Onboarding](../SPEC-SEI-002-onboarding-solution-specification.md#onb-08-recovery). |
 | [SPEC-SEI-006 — Invoice receiving](SPEC-SEI-006-invoice-receiving-solution.md) | RCV receiving, validation, duplicate handling, product delivery and recovery controls. |
 | [SPEC-SEI-010 — Public retrieval and download](SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md) | RSD public discovery, source capture, covered progress, stored-file access and records controls. |
 

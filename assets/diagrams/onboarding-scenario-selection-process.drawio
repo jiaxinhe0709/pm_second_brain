@@ -59,7 +59,7 @@
             <mxGeometry as="geometry" x="720" y="670" width="280" height="104" />
           </mxCell>
         </object>
-        <object id="hold" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md#4-onboarding-recovery-behaviour" label="Explain limitation or uncertainty&#10;S08 and affected work; owned action&#10;ONB-08/11 · Conditional" tooltip="S08 and affected work; owned action">
+        <object id="hold" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md#onb-08-recovery" label="Explain limitation or uncertainty&#10;S08 and affected work; owned action&#10;ONB-08/11 · Conditional" tooltip="S08 and affected work; owned action">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1060" y="510" width="280" height="104" />
           </mxCell>
