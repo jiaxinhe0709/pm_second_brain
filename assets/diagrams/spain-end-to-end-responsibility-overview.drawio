@@ -363,27 +363,27 @@
             <mxGeometry x="1751.0" y="1271" width="253.0" height="84" as="geometry" />
           </mxCell>
         </object>
-        <object id="RCV-04" label="Retrieve and preserve public file&#10;SPEC-SEI-010" link="../../specs/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md" tooltip="Preserve original, public-copy and derived-file roles; safe storage is not dependent on mapping success.">
+        <object id="RCV-04" label="Retrieve and preserve public file&#10;SPEC-SEI-016" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" tooltip="Preserve original, public-copy and derived-file roles; safe storage is not dependent on mapping success.">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
             <mxGeometry x="2126.0" y="681" width="253.0" height="84" as="geometry" />
           </mxCell>
         </object>
-        <object id="RCV-05" label="Private invoice arrival&#10;SPEC-SEI-006" link="../../specs/SPEC-SEI-006-invoice-receiving-solution.md" tooltip="Alternative ingress with independent private-route readiness; not a consequence of public retrieval.">
+        <object id="RCV-05" label="Private invoice arrival&#10;SPEC-SEI-016" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" tooltip="Alternative ingress with independent private-route readiness; not a consequence of public retrieval.">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
             <mxGeometry x="2126.0" y="1167" width="253.0" height="84" as="geometry" />
           </mxCell>
         </object>
-        <object id="RCV-06" label="Download stored public file&#10;SPEC-SEI-010" link="../../specs/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md" tooltip="Independent read branch. Apply current authority and safe-file controls; download is not acceptance.">
+        <object id="RCV-06" label="Download stored public file&#10;SPEC-SEI-016" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" tooltip="Independent read branch. Apply current authority and safe-file controls; download is not acceptance.">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
             <mxGeometry x="2696.0" y="264" width="253.0" height="84" as="geometry" />
           </mxCell>
         </object>
-        <object id="RCV-07" label="Process received invoice&#10;SPEC-SEI-006" link="../../specs/SPEC-SEI-006-invoice-receiving-solution.md" tooltip="">
+        <object id="RCV-07" label="Process received invoice&#10;SPEC-SEI-016" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" tooltip="">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
             <mxGeometry x="2411.0" y="542" width="253.0" height="84" as="geometry" />
           </mxCell>
         </object>
-        <object id="RCV-11" label="Invoice available in ERP&#10;SPEC-SEI-006" link="../../specs/SPEC-SEI-006-invoice-receiving-solution.md" tooltip="">
+        <object id="RCV-11" label="Invoice available in ERP&#10;SPEC-SEI-016" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" tooltip="">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;">
             <mxGeometry x="2696.0" y="403" width="253.0" height="84" as="geometry" />
           </mxCell>

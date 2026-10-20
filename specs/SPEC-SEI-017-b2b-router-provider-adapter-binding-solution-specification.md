@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-14
-updated: 2026-10-14
+updated: 2026-10-20
 reviewers: []
 related:
   - GLO-SEI-001
@@ -22,13 +22,12 @@ related:
   - SPEC-SEI-002
   - SPEC-SEI-003
   - SPEC-SEI-004
-  - SPEC-SEI-006
+  - SPEC-SEI-016
   - SPEC-SEI-007
   - SPEC-SEI-008
   - SPEC-SEI-009
   - SPEC-SEI-013
   - SPEC-SEI-014
-  - SPEC-SEI-016
 confluence:
   publish: false
   space_key: DNBU
@@ -66,7 +65,7 @@ The labels in this document have these meanings:
 | [PRD-SEI-216](../prds/PRD-SEI-216-b2b-router-integration-structured-review.md) | Product outcomes, provider discovery requirements, business rules, acceptance expectations and gates. | Consultation-ready, not delivery-ready. Public documentation does not prove Sage entitlement or Spain production eligibility. |
 | [SPEC-SEI-014](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) | Connection/profile qualification, route selection, handoff, recovery and historical continuity. | Logical proposal. Actual services and record mappings remain open. |
 | [SPEC-SEI-013](SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md) | Global API access, authority, durable receipts, executor assignment and partner/adapter separation. | Does not define the provider-owned API. |
-| [SPEC-SEI-006](SPEC-SEI-006-invoice-receiving-solution.md), [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md), [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) and [SPEC-SEI-016](SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) | Invoice ownership, source capture, action evidence, lifecycle interpretation and retrieval. | This binding supplies B2B Router observations. It does not create parallel invoice or lifecycle stores. |
+| [SPEC-SEI-016](SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md) and [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) | Invoice ownership, source capture, action evidence, lifecycle interpretation and retrieval. | This binding supplies B2B Router observations. It does not create parallel invoice or lifecycle stores. |
 | B2B Router public documentation, rechecked 14 October 2026 | Public API operations, versioning, environments, import behaviour, webhooks, invoice listing and error examples. | Public behaviour can change and can exceed Sage's contracted subscription. It is not a Spain private-platform approval or SLA. |
 | Spain final regulation and public-platform technical evidence | Spain legal/public-platform rules where material to route separation and public-copy actions. | No cited public source defines the B2B Router private contract. Provider and local-team evidence remain required. |
 
@@ -105,7 +104,7 @@ Out of scope: VeriFactu and other tax-report operations; provider commercial con
 | Connection/profile qualification | Shared Connection owner with the B2B Router adapter owner. |
 | Provider credential protection | Trust/credential owner under SPEC-SEI-001. Adapter contracts use a credential reference only. |
 | Outbound invoice/action | SPEC-SEI-007 owner. The adapter executes only its assigned exchange action. |
-| Inbound source capture | SPEC-SEI-006/016 owner. The adapter supplies authenticated source bytes and metadata. |
+| Inbound source capture | SPEC-SEI-016 owner. The adapter supplies authenticated source bytes and metadata. |
 | Raw event and derived lifecycle | SPEC-SEI-009 owner. The adapter preserves provider facts and does not define customer meaning alone. |
 | Unknown outcome and missed event recovery | Adapter + shared resilience/Operations owners. One operation has one reconciliation owner. |
 | Spain product scope and provider acceptance | Spain Product/Compliance plus provider owner. Public API availability is insufficient. |

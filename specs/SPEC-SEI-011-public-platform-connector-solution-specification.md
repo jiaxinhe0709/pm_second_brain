@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-13
+updated: 2026-10-20
 reviewers: []
 related:
   - RES-SEI-002
@@ -24,7 +24,7 @@ related:
   - SPEC-SEI-007
   - SPEC-SEI-008
   - SPEC-SEI-009
-  - SPEC-SEI-010
+  - SPEC-SEI-016
   - SPEC-SEI-012
   - SPEC-SEI-014
 confluence:
@@ -86,7 +86,7 @@ The PRD describes the full public-platform integration in the **Sage Global e-In
 | Submit faithful invoice copies | Transmit the exact prepared file through a supported public operation. Save acknowledgement, rejection and error evidence separately from recipient delivery. | SPEC-SEI-007 owns the copy obligation and issuance trigger. SPEC-SEI-005/008 own qualified validation/transformation; SPEC-SEI-001 owns protected signing where required. Exact timing, UBL profile, metadata and attachment restrictions remain contract/country-rule checks. |
 | Generate and store the Spain invoice identifier | Carry the approved identifier and preserve the supplied invoice identity in requests and responses. Do not invent its encoding. | The PRD lists supplier NIF, number, series and date. Format/Spain owners must confirm the final encoding and contract; invoice and records services own generation and storage. |
 | Communicate invoice and payment status | Send an authorised report and save its independent response. Preserve raw external codes rather than assigning business meaning in the connector. | SPEC-SEI-009 owns actor authority, lifecycle interpretation and reporting rules. The PRD's Rejected, Fully Paid, Collected, Not Paid/Non-Payment and cancellation labels need an approved external mapping. Accepted applies only if the AEAT contract exposes it. |
-| Retrieve invoices, messages and statuses | Execute supported discovery/read calls, including authorised status/payment queries, and return raw source responses within the correct entity scope. Distinguish an empty result from an outage. | SPEC-SEI-010 owns automated retrieval, file storage and progress. SPEC-SEI-006 owns delivery to products; SPEC-SEI-009 owns status interpretation. Article 10 establishes status/payment consultation; GetRegisteredInvoice, GetInvoices and the two downloads now have supplied operation evidence. Exact filter/continuation/business shapes remain incomplete; no automatic public notification interface is supplied. Keep source correlation and observation time, distinguish status consultation from file download, and prevent duplicate business processing. |
+| Retrieve invoices, messages and statuses | Execute supported discovery/read calls, including authorised status/payment queries, and return raw source responses within the correct entity scope. Distinguish an empty result from an outage. | SPEC-SEI-016 owns automated retrieval, source-file capture, covered progress and delivery to products; SPEC-SEI-009 owns status interpretation. Article 10 establishes status/payment consultation; GetRegisteredInvoice, GetInvoices and the two downloads now have supplied operation evidence. Exact filter/continuation/business shapes remain incomplete; no automatic public notification interface is supplied. Keep source correlation and observation time, distinguish status consultation from file download, and prevent duplicate business processing. |
 | Authenticate and use credentials | Apply the selected AEAT authentication contract using protected credential references for the approved action and environment. | SPEC-SEI-001 owns credential custody and qualification. Customer certificate procurement remains out of scope. One accepted certificate does not establish authority for every operation. |
 | Handle cancellation requests | Execute cancellation only where the confirmed contract supports the specific action and the responsible feature authorises it. Save request and result evidence. | PCN-Q01/Q03 must distinguish invoice cancellation, communication cancellation and cancellation of unsent local work. None automatically deletes an issued invoice or undoes an external effect. |
 | Monitor, audit and recover failures | Record timestamps, acknowledgements, rejections, errors and retrieval activity. Detect uncertain outcomes and assign recovery to an owner. | Operations and feature owners agree service targets, retry safety, retention and support. Schema, authentication, duplicate/already-existing invoice, status and availability errors retain their actual source meaning. |
@@ -95,7 +95,7 @@ The PRD describes the full public-platform integration in the **Sage Global e-In
 |---|---|
 | Customer identity, authority and readiness | [Onboarding](SPEC-SEI-002-onboarding-solution-specification.md) and identity/authority services; connector checks effective evidence before each operation. |
 | Certificate custody and purpose-specific use | [Certificate management](SPEC-SEI-001-certificate-management-solution-specification.md); connector receives protected references and results, not private keys. |
-| Public discovery, polling, source archive and checkpoint | [Retrieval/storage/download](SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md); connector returns correlated source responses and files. |
+| Public discovery, polling, source archive and checkpoint | [Receiving, retrieval and download](SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md); connector returns correlated source responses and files. |
 | Issued invoice, validation, exchange plan and independent actions | [Outbound](SPEC-SEI-007-invoice-sending-solution.md) and PRD-SEI-212; connector executes one approved public operation. |
 | Status consultation and commercial/payment interpretation | [Lifecycle](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md); lifecycle requests source refresh and interprets the result; connector executes qualified public queries and preserves source observations without deriving buyer acceptance. |
 | Recipient receiving destination | [Recipient lookup](SPEC-SEI-012-consult-public-platform-for-recipient-information.md); uses this connector only if an approved public lookup contract exists. |
@@ -225,7 +225,7 @@ Record whether failure happened before transmission, after possible transmission
 
 **PCN-07 Save response evidence.** Save the protected response bytes or reference, digest, received time, external request/item references, contract/error catalogue version and what the response proves. Match each item result to the request. Keep partial or missing results visible; request-level success does not mean every item was admitted. Preserve unknown external error codes in restricted evidence and notify the catalogue owner. The caller receives a safe category and responsible owner.
 
-Before temporary streamed files expire, obtain confirmation that the responsible service saved and verified them. SPEC-SEI-010 owns permanent invoice capture; connector staging is temporary. If the external result is known but saving its evidence fails, hold the operation for evidence recovery. Recover the original response or query the original operation instead of repeating a change. The implementation must prove that this recovery survives worker loss.
+Before temporary streamed files expire, obtain confirmation that the responsible service saved and verified them. SPEC-SEI-016 owns permanent invoice capture; connector staging is temporary. If the external result is known but saving its evidence fails, hold the operation for evidence recovery. Recover the original response or query the original operation instead of repeating a change. The implementation must prove that this recovery survives worker loss.
 
 **PCN-08 Return the result and notify the feature.** The service that requested the call can read the saved result within its authorised scope. Notifications include connector/feature IDs, event ID, version, known/pending/unknown state and safe evidence references. A notification may arrive more than once or out of order, so consumers check identity and version before applying it.
 

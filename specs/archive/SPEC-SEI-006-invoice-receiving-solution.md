@@ -41,7 +41,7 @@ confluence:
 
 # Invoice receiving solution
 
-Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
+Terminology follows the [shared e-invoicing glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -57,13 +57,13 @@ The design remains a draft. **Proposed** choices still need review; **open** dec
 
 ### Design depth and scope
 
-[SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md) provides the comparison for version binding, durable operation intent, separate outcomes and recovery. Receiving needs equivalent control over source evidence, identity, mapping, product delivery and acknowledgements. ERP issuance, outbound signing and public-copy submission remain outside this receiving journey.
+[SPEC-SEI-007](../SPEC-SEI-007-invoice-sending-solution.md) provides the comparison for version binding, durable operation intent, separate outcomes and recovery. Receiving needs equivalent control over source evidence, identity, mapping, product delivery and acknowledgements. ERP issuance, outbound signing and public-copy submission remain outside this receiving journey.
 
 All state names and contract details below are **proposed**. The source PRDs establish product requirements; they do not prove that a receiving implementation, provider acknowledgement contract or DTS inbound mapping is deployed and qualified.
 
 ### 1 Purpose, authority and boundary
 
-This **proposed logical design** explains how Sage could receive invoices through an approved private platform or retrieve them from the public platform. The service checks the source, recipient and original file, recognises duplicates, and makes one invoice available to the correct Sage product. [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns exchange/routing requirements; [PRD-SEI-211](../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md) owns scheduled public discovery, checkpoints and freshness; [PRD-SEI-244](../prds/PRD-SEI-244-e-invoicing-process-flow-specification.md) supplies the inbound process boundary. [SPEC-SEI-005](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) owns the outbound UBL validation/correction contract; this spec calls an activated inbound validation profile with separate trust and quarantine policy. [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns lifecycle interpretation after durable receipt.
+This **proposed logical design** explains how Sage could receive invoices through an approved private platform or retrieve them from the public platform. The service checks the source, recipient and original file, recognises duplicates, and makes one invoice available to the correct Sage product. [PRD-SEI-223](../../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns exchange/routing requirements; [PRD-SEI-211](../../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md) owns scheduled public discovery, checkpoints and freshness; [PRD-SEI-244](../../prds/PRD-SEI-244-e-invoicing-process-flow-specification.md) supplies the inbound process boundary. [SPEC-SEI-005](../SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) owns the outbound UBL validation/correction contract; this spec calls an activated inbound validation profile with separate trust and quarantine policy. [SPEC-SEI-009](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns lifecycle interpretation after durable receipt.
 
 The service starts when an external invoice is available. Public consultation decides **whether and when to fetch it**. Receiving decides **what to do with the fetched invoice**.
 
@@ -73,17 +73,17 @@ Transport, download, technical acknowledgement, product availability, buyer acce
 
 Public discovery, consultation and file download now have distinct supplied operations. Retrieval owns the public calls and durable source capture. Receiving uses those captured bytes, profile and copy classification without treating a query result or download as buyer acceptance.
 
-See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 ### Shared connection and route handoff
 
-The [shared connectivity and routing spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns role-qualified source connections, receiving-route context and permitted historical bindings (SPC-03/05/06/08). Use that context for RCV-02 recipient matching and RCV-03 trust checks; do not create a second connection registry or route engine when Sage adds its private-platform role. This receiving spec continues to own source validation, duplicate/conflict handling, original files and product delivery. A new operator profile does not qualify an existing customer-provider interface for interconnection or authorise late delivery by itself.
+The [shared connectivity and routing spec](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns role-qualified source connections, receiving-route context and permitted historical bindings (SPC-03/05/06/08). Use that context for RCV-02 recipient matching and RCV-03 trust checks; do not create a second connection registry or route engine when Sage adds its private-platform role. This receiving spec continues to own source validation, duplicate/conflict handling, original files and product delivery. A new operator profile does not qualify an existing customer-provider interface for interconnection or authorise late delivery by itself.
 
 ### Spain use and reuse boundaries
 
 This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
 
-This follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
+This follows the [shared platform and country-pack direction](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
 
 | Area | Intended use in Spain | Reuse classification | Condition and owner |
 |---|---|---|---|
@@ -93,7 +93,7 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 | Spain receipt channels | Join public-platform retrieval and approved private receipt, preserving original/copy classification and source history. | Country-specific | Public checkpoints, bridge behaviour and Spain invoice identity need their own evidence. Do not assume the same topology elsewhere. Spain technical owner and consultation owner. |
 | Existing receiving and transformation services | Assess adapters, receiving storage, product delivery and DTS mapping/validation functions. | Unknown | No complete reusable receiving implementation is proven here. DTS is a transformation candidate, not proof of retrieval or delivery support. Architecture and receiving/DTS owners. |
 
-The existing DTS reuse direction comes from [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md). It identifies a preferred candidate; it does not certify a deployed build or Spain acceptance.
+The existing DTS reuse direction comes from [PRD-SEI-223](../../prds/PRD-SEI-223-interoperability-routing-transformation.md). It identifies a preferred candidate; it does not certify a deployed build or Spain acceptance.
 
 ### Plain-language terms
 
@@ -162,17 +162,17 @@ External operator/public adapter supplies source evidence; receiving owns source
 
 Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
 
-**Inbound intake and delivery:** ![Receive, check and deliver an invoice to the product](../assets/diagrams/receiving-intake-and-delivery-process.svg)
+**Inbound intake and delivery:** ![Receive, check and deliver an invoice to the product](../../assets/diagrams/receiving-intake-and-delivery-process.svg)
 
-[Editable Draw.io](../assets/diagrams/receiving-intake-and-delivery-process.drawio) · [PNG](../assets/diagrams/receiving-intake-and-delivery-process.png). The existing [inbound exchange overview](../assets/diagrams/e-invoicing-inbound-exchange.drawio) shows the same cross-service route at a broader level.
+[Editable Draw.io](../../assets/diagrams/receiving-intake-and-delivery-process.drawio) · [PNG](../../assets/diagrams/receiving-intake-and-delivery-process.png). The existing [inbound exchange overview](../../assets/diagrams/e-invoicing-inbound-exchange.drawio) shows the same cross-service route at a broader level.
 
 Text equivalent: RCV-01 accepts one public-retrieved or private-arrived item with saved source reference → RCV-02 authenticates channel and resolves the exact recipient/route interval → RCV-03 verifies file safety, trust, integrity and replay → RCV-04 claims identity and classifies exact repeat/conflict or a candidate for equivalence checks → RCV-05 validates activated syntax/profile and preserves exact original → RCV-06 maps approved canonical semantics → RCV-07 saves one business invoice and publishes to the authorised product → RCV-08 issues only the acknowledgement allowed by the confirmed source contract. Wrong recipient, untrusted, invalid or conflicting content is quarantined with an owner; qualified duplicate observations are linked without a second business invoice. A candidate link is finalised only after the required validation and equivalence checks. Product consumption and any conditional acknowledgement have separate evidence; RCV-08 uses the approved source milestone, not a universal after-delivery rule.
 
 All three operating journeys use this technical receipt process. Actor access checks apply at RCV-02/07/09 and at the protected product/file operation. Internal invoice approval belongs to the product's later business workflow; it does not introduce a manual wait before RCV-01. Missing accountant authority holds that actor's access or handoff. It cannot stop a separate, valid client receiving path or turn RCV-08 into buyer acceptance.
 
-**Retrieve public invoices and check for missing items:** ![Retrieve public invoices and check for missing items](../assets/diagrams/e-invoicing-public-consultation-reconciliation.svg)
+**Retrieve public invoices and check for missing items:** ![Retrieve public invoices and check for missing items](../../assets/diagrams/e-invoicing-public-consultation-reconciliation.svg)
 
-[Editable Draw.io](../assets/diagrams/e-invoicing-public-consultation-reconciliation.drawio) · [PNG](../assets/diagrams/e-invoicing-public-consultation-reconciliation.png). This existing process is owned by PRD-SEI-211. The intake handoff occurs only after a retrieved item and source context are durable. A public cursor advances under that PRD's committed-page rule, not merely because RCV-01 accepted a notification.
+[Editable Draw.io](../../assets/diagrams/e-invoicing-public-consultation-reconciliation.drawio) · [PNG](../../assets/diagrams/e-invoicing-public-consultation-reconciliation.png). This existing process is owned by PRD-SEI-211. The intake handoff occurs only after a retrieved item and source context are durable. A public cursor advances under that PRD's committed-page rule, not merely because RCV-01 accepted a notification.
 
 ### 4 Ordered lifecycle
 
@@ -263,7 +263,7 @@ Resolve the actual service caller and its client/action authority separately fro
 
 Keep claimed recipient and resolved recipient separate. Check trusted adapter context against invoice identifiers; disagreement opens a restricted case. Select the owning product under an explicit binding. Do not broadcast to all products with the same tax identifier. Recheck effective binding before product commit; a concurrent route/product change creates a version conflict for Routing/Product to resolve. Suspension or offboarding preserves history but does not automatically authorise new late delivery or historical file access.
 
-**RCV-03 Assess safety and trust.** Apply file/content-type/size/attachment safety, transport identity, signature or seal/integrity policy, status/time evidence and replay checks according to route/profile. [Certificate management](SPEC-SEI-001-certificate-management-solution-specification.md) owns purpose-specific trust validation. A failed or undetermined required check quarantines the item; no product event or trusted acknowledgement is issued. Retain safe evidence of the original and exact trust policy version, not private keys or raw confidential content in logs.
+**RCV-03 Assess safety and trust.** Apply file/content-type/size/attachment safety, transport identity, signature or seal/integrity policy, status/time evidence and replay checks according to route/profile. [Certificate management](../SPEC-SEI-001-certificate-management-solution-specification.md) owns purpose-specific trust validation. A failed or undetermined required check quarantines the item; no product event or trusted acknowledgement is issued. Retain safe evidence of the original and exact trust policy version, not private keys or raw confidential content in logs.
 
 XML parsing disables external entity and network resolution and enforces approved resource limits. Reject or quarantine unsafe attachments, expansion attacks and misleading content types under Security policy. Evaluate exact received bytes before mapping; a derived representation cannot inherit the source signature. Distinguish an unavailable trust service from a definite invalid signature while preventing trusted product availability in both cases. Restricted technical receipt evidence is allowed only under a source contract that does not imply trusted acceptance.
 
@@ -433,7 +433,7 @@ Retention and deletion follow approved legal/privacy/contract policy. The origin
 
 ### 3 Reuse qualification and historical continuity
 
-Assess existing DTS first where transformation or validation is needed. [SPEC-SEI-008](SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) proposes migration of Spain UBL generation; it does not establish an inbound UBL-to-canonical contract. An outbound mapping cannot simply be reversed. No actual receiving/DTS deployment has been inspected for this spec.
+Assess existing DTS first where transformation or validation is needed. [SPEC-SEI-008](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) proposes migration of Spain UBL generation; it does not establish an inbound UBL-to-canonical contract. An outbound mapping cannot simply be reversed. No actual receiving/DTS deployment has been inspected for this spec.
 
 | Source capability / reuse type | Retained behaviour and Spain changes | Gap, owner and evidence before activation |
 |---|---|---|
@@ -514,10 +514,10 @@ Use the original files for the claims they establish. Final published regulation
 
 | REF ID | Source and version | Exact location | Supported information and limit |
 |---|---|---|---|
-| SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 3–4 and 9–11; Annex I BT-23/24 | Conservation access, authority and original/copy/profile meaning. |
-| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.4–6.7; pp. 12–15 | Status queries versus invoice downloads; locator download is preferred for platforms. |
-| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | section 5.1.1 and response description; pp. 8, 14 | Invoice attachments and structured response meanings; incomplete formats. |
-| SPFE-S13 | [DownloadInvoicesByLOC.wsdl](<../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByLOC.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | DownloadInvoicesByLOC operation and payload documentation | Downloaded invoice attachments; no automatic business or ERP completion. |
-| SPFE-S09 | [factura.xml](<../context/Ejemplos/20261013/factura.xml>); Supplied 13 October 2026; SHA-256 in source manifest. | cbc:ProfileID and cbc:CopyIndicator | Original example and profile conflict; no faithful-copy conformance example. |
-| REF-PRD | [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-211](../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md); [PRD-SEI-244](../prds/PRD-SEI-244-e-invoicing-process-flow-specification.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
-| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |
+| SPFE-S02 | [BOE-A-2026-20587.pdf](<../../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 3–4 and 9–11; Annex I BT-23/24 | Conservation access, authority and original/copy/profile meaning. |
+| SPFE-S03 | [CatalogoServicios.pdf](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.4–6.7; pp. 12–15 | Status queries versus invoice downloads; locator download is preferred for platforms. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | section 5.1.1 and response description; pp. 8, 14 | Invoice attachments and structured response meanings; incomplete formats. |
+| SPFE-S13 | [DownloadInvoicesByLOC.wsdl](<../../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByLOC.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | DownloadInvoicesByLOC operation and payload documentation | Downloaded invoice attachments; no automatic business or ERP completion. |
+| SPFE-S09 | [factura.xml](<../../context/Ejemplos/20261013/factura.xml>); Supplied 13 October 2026; SHA-256 in source manifest. | cbc:ProfileID and cbc:CopyIndicator | Original example and profile conflict; no faithful-copy conformance example. |
+| REF-PRD | [PRD-SEI-223](../../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-211](../../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md); [PRD-SEI-244](../../prds/PRD-SEI-244-e-invoicing-process-flow-specification.md); [shared platform and country-pack direction](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

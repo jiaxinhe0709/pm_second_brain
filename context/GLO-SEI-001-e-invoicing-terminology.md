@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-13
+updated: 2026-10-20
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -33,7 +33,7 @@ confluence:
 
 # E-Invoicing Terminology
 
-This is the shared writing reference for the 15 Spain solution specs listed below. Keep it in Git with the specs, under `context/`, so reviewers and future authors use the same definitions. Short definitions inside individual specs support readers who open only one document; they must agree with this glossary.
+This is the shared writing reference for the Spain solution specs listed below. Keep it in Git with the specs, under `context/`, so reviewers and future authors use the same definitions. Short definitions inside individual specs support readers who open only one document; they must agree with this glossary.
 
 Definitions explain the current source documents. They do not approve an architecture, legal interpretation, external API, state model or production capability. Feature-specific behaviour, evidence and open decisions remain in the owning PRD and spec. Shared terms can be used across countries; Spain rules require a separate country binding.
 
@@ -214,7 +214,7 @@ An **existing implementation reuse candidate** is an identified service or build
 
 ## Review coverage and remaining contract questions
 
-The terminology review covers SPEC-SEI-001 through SPEC-SEI-015 in `specs/`. It checks repeated definitions, service names, roles, outcome wording, reuse labels and terms used in behaviour, contracts and acceptance coverage. It is not an implementation test or a new regulatory validation.
+The terminology review covers SPEC-SEI-001 through SPEC-SEI-016, including archived predecessors. Use [SPEC-SEI-016](../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) for current receiving, retrieval and download design. SPEC-SEI-006 and SPEC-SEI-010 remain linked below as historical review sources. The review checks repeated definitions, service names, roles, outcome wording, reuse labels and terms used in behaviour, contracts and acceptance coverage. It is not an implementation test or a new regulatory validation.
 
 | Source spec | Terminology focus |
 |---|---|
@@ -223,11 +223,11 @@ The terminology review covers SPEC-SEI-001 through SPEC-SEI-015 in `specs/`. It 
 | [SPEC-SEI-003 — Offboarding](../specs/SPEC-SEI-003-offboarding-solution-specification.md) | Cutover, historical continuity and data disposition. |
 | [SPEC-SEI-004 — Onboarding recovery](../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md) | Unknown outcome, retry safety and reconciliation. |
 | [SPEC-SEI-005 — UBL validation](../specs/SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) | Profile versus rule pack; preflight versus final validation. |
-| [SPEC-SEI-006 — Inbound receiving](../specs/SPEC-SEI-006-invoice-receiving-solution.md) | Source observation, canonical representation, product receipt and technical acknowledgement. |
+| [SPEC-SEI-006 — Inbound receiving](../specs/archive/SPEC-SEI-006-invoice-receiving-solution.md) | Source observation, canonical representation, product receipt and technical acknowledgement. |
 | [SPEC-SEI-007 — Preparation and outbound](../specs/SPEC-SEI-007-invoice-sending-solution.md) | Issuance, exchange actions, faithful public copy and final route evidence. |
 | [SPEC-SEI-008 — Mapper migration to DTS](../specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) | DTS, mapper, transformation, task, capability bundle and migration cutover. |
 | [SPEC-SEI-009 — Invoice lifecycle](../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) | Raw event, canonical event, derived status and independent outcome dimensions. |
-| [SPEC-SEI-010 — Retrieval, storage and download](../specs/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md) | Source original versus public copy; checkpoint, conservation and reuse classification. |
+| [SPEC-SEI-010 — Retrieval, storage and download](../specs/archive/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md) | Source original versus public copy; checkpoint, conservation and reuse classification. |
 | [SPEC-SEI-011 — Public connector](../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md) | Qualified operation, connection, contract profile and public transport responsibility. |
 | [SPEC-SEI-012 — Recipient lookup](../specs/SPEC-SEI-012-consult-public-platform-for-recipient-information.md) | Recipient destination versus received-invoice discovery; coverage, freshness and unresolved absence. |
 | [SPEC-SEI-013 — Provider capabilities through Global API](../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md) | Authenticated principal, Provider API ownership, durable receipt and action execution. |

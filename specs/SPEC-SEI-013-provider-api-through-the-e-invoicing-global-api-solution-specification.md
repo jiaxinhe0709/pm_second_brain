@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-08
+updated: 2026-10-20
 reviewers: []
 related:
   - GLO-SEI-001
@@ -21,7 +21,7 @@ related:
   - SPEC-SEI-001
   - SPEC-SEI-002
   - SPEC-SEI-003
-  - SPEC-SEI-006
+  - SPEC-SEI-016
   - SPEC-SEI-007
   - SPEC-SEI-008
   - SPEC-SEI-009
@@ -145,7 +145,7 @@ This is a **Spain reference design**. **Reusable unchanged** means the proposed 
 |---|---|---|---|
 | Global API | Products and approved partners share resources and operation behaviour. | Unknown; existing implementation reuse candidate. Add partner permissions/operations only where actual gaps exist. | API owner + Architecture: deployed contract/build, current consumers, identity model, compatibility and external exposure proof. |
 | Receipts, authority, audit and event recovery | Isolate consumers/entities and recover repeats or missed outcomes. | Reusable unchanged; proposed design pattern; no deployed coverage claimed. | Service owners + Security: actual store/outbox, concurrency, revocation during work, replay and isolation tests. |
-| [Outbound SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md), [inbound SPEC-SEI-006](SPEC-SEI-006-invoice-receiving-solution.md), [lifecycle SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) | Reuse the proposed invoice, action, representation and evidence boundaries. | Reusable with country binding; proposed design patterns. API delegates to these owners. | Domain owners: actual contracts/builds and gaps; qualify profile, execution owner, mapping and acknowledgement meaning. |
+| [Outbound SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md), [inbound SPEC-SEI-016](SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), [lifecycle SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) | Reuse the proposed invoice, action, representation and evidence boundaries. | Reusable with country binding; proposed design patterns. API delegates to these owners. | Domain owners: actual contracts/builds and gaps; qualify profile, execution owner, mapping and acknowledgement meaning. |
 | Existing DTS; [SPEC-SEI-008](SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) | Preferred transformation candidate when an authorised exchange needs a supported source/target representation. | Unknown; existing DTS implementation reuse candidate plus proposed Spain mapper migration pattern. No blanket inbound, four-syntax or signed-document support assumed. | DTS + Spain mapping owners: build, input/output contracts, mappings, rule packs, semantic preservation, custody, limits and on-call evidence for each selected pair. |
 | Provider adapters and public connector | Execute capabilities not owned by a partner through the shared API. | Unknown; each provider/network needs its own adapter or contract qualification. | Provider owners + [SPEC-SEI-011](SPEC-SEI-011-public-platform-connector-solution-specification.md): exact interface, initiator, credentials, registration, query/replay and operations evidence. |
 | Identity, routing and lifecycle/reporting policy | Apply approved Spain rules for the selected entity, network and capability. | Reusable with country binding; Spain-specific identifiers, route/public-copy/reporting duties and interconnection calendar remain local. | Spain Product/Compliance: approved rule/version and applicability evidence; no Spain default in another country. |
@@ -263,7 +263,7 @@ Save the accepted operation, idempotency result and work/event request together,
 
 Batch limits remain GPA-Q09. Invalid batch structure may reject the whole batch. A valid batch request gives each item its own authority check, digest, receipt and outcome, so some items may succeed while others fail. Replaying the batch resumes accepted items and keeps failed-item evidence. Correct a rejected item through a new linked request/revision. Do not replace accepted input under its original key.
 
-**GPA-05 Process the request and assign one executor.** SPEC-SEI-006 handles received invoices, keeping original/source evidence, identity, duplicate/quarantine outcome and product-delivery context. SPEC-SEI-007 handles final issued sends, including final validation, recipient evidence from SPEC-SEI-012, trust checks and a fixed exchange plan.
+**GPA-05 Process the request and assign one executor.** SPEC-SEI-016 handles received invoices, keeping original/source evidence, identity, duplicate/quarantine outcome and product-delivery context. SPEC-SEI-007 handles final issued sends, including final validation, recipient evidence from SPEC-SEI-012, trust checks and a fixed exchange plan.
 
 The plan records route/connection/provider/direction, rule/profile/mapping versions, exact file references and separate recipient/public-copy/reporting actions where applicable. The Global API does not add a transformation or signing engine. Qualify DTS and Trust for the selected use.
 

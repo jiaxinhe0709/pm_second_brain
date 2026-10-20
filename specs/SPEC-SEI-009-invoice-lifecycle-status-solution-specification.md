@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-15
+updated: 2026-10-20
 reviewers: []
 related:
   - RES-SEI-002
@@ -25,7 +25,7 @@ related:
   - PRD-SEI-243
   - PRD-SEI-244
   - SPEC-SEI-003
-  - SPEC-SEI-006
+  - SPEC-SEI-016
   - SPEC-SEI-007
   - SPEC-SEI-011
   - SPEC-SEI-014
@@ -66,7 +66,7 @@ This is a proposed design. The acceptance scenarios describe checks still to run
 
 ### 1 Purpose, authority and scope
 
-This **proposed logical design** turns authenticated invoice and network observations into an explainable lifecycle history and current customer view. It also coordinates any independent issuer/counterparty or public reporting obligations created by an authorised commercial or payment event. [PRD-SEI-224](../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md) owns the Spain lifecycle outcome; [PRD-SEI-232](../prds/PRD-SEI-232-country-lifecycle-status-mapping.md) owns source-preserving country mapping; [PRD-SEI-242](../prds/PRD-SEI-242-peppol-lifecycle-feedback.md) supplies a source-specific Peppol feedback contract. [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md) hands off outbound action evidence; [SPEC-SEI-006](SPEC-SEI-006-invoice-receiving-solution.md) hands off inbound receipt evidence. This spec owns the resulting event history, interpretation, obligations, recovery and product views.
+This **proposed logical design** turns authenticated invoice and network observations into an explainable lifecycle history and current customer view. It also coordinates any independent issuer/counterparty or public reporting obligations created by an authorised commercial or payment event. [PRD-SEI-224](../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md) owns the Spain lifecycle outcome; [PRD-SEI-232](../prds/PRD-SEI-232-country-lifecycle-status-mapping.md) owns source-preserving country mapping; [PRD-SEI-242](../prds/PRD-SEI-242-peppol-lifecycle-feedback.md) supplies a source-specific Peppol feedback contract. [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md) hands off outbound action evidence; [SPEC-SEI-016](SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) hands off inbound receipt evidence. This spec owns the resulting event history, interpretation, obligations, recovery and product views.
 
 The design distinguishes raw external vocabulary from Sage canonical events, derived status and ERP workflow state. Final Annex II and the supplied public catalogue now establish eight public communication codes. Their fields, local mapping and implemented calendar still need qualification. This design does not approve private-provider APIs, a universal status sequence, Peppol signal availability, payment authority, post-switch actor or retention period. Country rules, provider status mappings, endpoints and payloads remain review gates.
 
@@ -88,7 +88,7 @@ The **E-Invoice Service receives status information from public or private platf
 
 **Official evidence, checked 8 October 2026:** [AEAT's SPFE guidance](https://sede.agenciatributaria.gob.es/Sede/iva/factura-electronica/cuestiones-generales/solucion-publica-facturacion-electronica.html) confirms that invoices and their states are made available. [Order HAC/1028/2026, Article 10.2–10.3](https://www.boe.es/eli/es/o/2026/10/02/hac1028) provides status and payment consultation through web services or a form; technical conditions remain with AEAT. [AEAT's private-platform guidance](https://sede.agenciatributaria.gob.es/Sede/iva/factura-electronica/cuestiones-generales/plataformas-privadas-intercambio.html) includes payment-state communication in interconnection. This establishes the information flow, without approving a particular provider API.
 
-For the public platform, the proposed integration includes authorised **status queries** through [SPEC-SEI-011](SPEC-SEI-011-public-platform-connector-solution-specification.md). Automatic platform notifications are used only if a confirmed contract supports them. Private-platform queries or notifications depend on the selected provider contract. Query cadence, filters, pagination, source freshness and supported status meanings need qualification. File retrieval under SPEC-SEI-010 and status consultation are separate activities; downloading an invoice is not a status update or buyer decision.
+For the public platform, the proposed integration includes authorised **status queries** through [SPEC-SEI-011](SPEC-SEI-011-public-platform-connector-solution-specification.md). Automatic platform notifications are used only if a confirmed contract supports them. Private-platform queries or notifications depend on the selected provider contract. Query cadence, filters, pagination, source freshness and supported status meanings need qualification. File retrieval under SPEC-SEI-016 and status consultation are separate activities; downloading an invoice is not a status update or buyer decision.
 
 For example, a delivery update changes delivery information; it does not establish buyer acceptance or payment. A platform's acceptance of a payment report confirms that reporting action, while the payment fact retains its original actor and evidence. Receiving an already reported fact must not automatically report it again.
 

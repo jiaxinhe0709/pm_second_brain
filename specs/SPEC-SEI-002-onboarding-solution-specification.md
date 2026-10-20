@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-15
+updated: 2026-10-20
 reviewers: []
 related:
   - RES-SEI-002
@@ -25,7 +25,7 @@ related:
   - SPEC-SEI-014
   - SPEC-SEI-013
   - SPEC-SEI-011
-  - SPEC-SEI-006
+  - SPEC-SEI-016
   - SPEC-SEI-007
   - SPEC-SEI-009
 confluence:
@@ -116,7 +116,7 @@ Keep three facts separate: **represented business identity**, **authenticated ca
 
 For covered B2B invoices issued through private platforms, [RD 238/2026, Article 7(3)](https://www.boe.es/eli/es/rd/2026/03/25/238/con) requires an advanced electronic signature by the issuer or an authorised delegate. This is separate from connection authentication. For receiving, assess access and retrieval requirements separately from signing. Receiving a signed invoice is not a request to sign it. Private-provider access follows its qualified contract. None of these rules establishes a universal customer certificate-upload step.
 
-This spec owns current-setup assessment, customer intent, journey selection and setup results. [Sending](SPEC-SEI-007-invoice-sending-solution.md), [receiving](SPEC-SEI-006-invoice-receiving-solution.md) and [lifecycle status](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) own invoice operations and outcomes. The E-Invoice Service does not issue an invoice or treat a test as delivery. Platforms can support different functions. The API must not promise every provider or function.
+This spec owns current-setup assessment, customer intent, journey selection and setup results. [Sending](SPEC-SEI-007-invoice-sending-solution.md), [receiving](SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) and [lifecycle status](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) own invoice operations and outcomes. The E-Invoice Service does not issue an invoice or treat a test as delivery. Platforms can support different functions. The API must not promise every provider or function.
 
 Customer-facing actions are **Set up e-invoicing**, **Connect your existing service**, **Review or extend your setup**, and **Change your e-invoicing platform**. All use one work-item model and shared controls. A completed assessment can still return required actions. Report sending or receiving as active only when the owning feature and required route evidence confirm activation.
 
@@ -637,7 +637,7 @@ This **proposed field model** expands D01–05/07/10–13 and INT-01–03/10–1
 | `startChoice` | When would you like to start? | As soon as ready / scheduled | For new activation or a platform change, where supported. Unchanged setup does not need a new start choice. Scheduling support remains ONB-Q09. |
 | `requestedStartAt` | Requested start date | Date/time with timezone | Required only for a supported scheduled start. Derive from the user's date/time and agreed timezone rule. A date alone must not silently become UTC midnight. |
 | `historyChoice` | Do you need earlier received invoices? | New invoices only / include earlier invoices | For initial receiving/retrieval only where these options are supported. Assess existing coverage and obligations before presenting a choice. Do not reset a saved checkpoint. |
-| `retrievalStartProposal` | Retrieve invoices from | Date with qualified source-date meaning | Required when the selected history option needs a lower boundary. Receiving confirms available history, authority, date semantics and overlap handling under SPEC-SEI-006. |
+| `retrievalStartProposal` | Retrieve invoices from | Date with qualified source-date meaning | Required when the selected history option needs a lower boundary. Receiving confirms available history, authority, date semantics and overlap handling under SPEC-SEI-016. |
 | `credentialSelection` | Certificate / access method | Selection of suitable protected reference, or complete setup action | Only where the function requires protected access. Display permitted metadata. Resolve the reference/version through SPEC-SEI-001; missing, unsuitable or unknown evidence follows ONB-03/08. No passwords, key bytes or certificate containers enter this field. |
 | `approvalResponse` | Review and approve | Purpose-specific decision bound to request/version | Only when ONB-12 requires a decision. Show business, functions, delegate and proposed change. Record approval or refusal for that exact purpose. Identity still verifies authority; a response is not a generic grant. |
 
@@ -694,7 +694,7 @@ The customer does not type these technical fields. Use trusted context and versi
 | `existingServiceStartedAt` | Optional historical date/time with source and precision. Unknown original start alone does not block an otherwise qualified unchanged setup. |
 | `requestedStartAt` | Requested future boundary from the conditional customer input. It is not activation evidence. As-soon-as-ready requests need no invented scheduled date. |
 | `effectiveFrom`, `effectiveUntil` | Confirmed interval for the exact function/direction/scope from the owning activation or route record. Pending activation has no confirmed new start. Qualify the cutover rule for new work; do not reassign earlier/in-flight invoices by issue date alone. |
-| `retrievalCoverageRef`, `retrievalStartAt` | Receiving-owned coverage/checkpoint and confirmed initial query boundary under SPEC-SEI-006. It can differ from sending activation. An unchanged connection retains progress; unknown coverage needs an owned action, not a default to today or full history. |
+| `retrievalCoverageRef`, `retrievalStartAt` | Receiving-owned coverage/checkpoint and confirmed initial query boundary under SPEC-SEI-016. It can differ from sending activation. An unchanged connection retains progress; unknown coverage needs an owned action, not a default to today or full history. |
 | `checkedAt`, `validUntil`, `nextRecheckAt` | Evidence freshness and expiry/recheck times. Authority and credentials retain their own validity intervals. These times do not substitute for activation or statutory applicability dates. |
 
 #### Onboarding → ERP through the Global API
@@ -777,7 +777,7 @@ This part shows how requirements connect to activities, interfaces, data and acc
 | ONB-A38 Customer fields by scenario | R11/12/24 → ONB-02/03/10/11, INT-01–03/10/11, D02–05/10/11; Q04/09 | Exercise the Part 3 applicability table for S01–08 against the selected ERP's actual fields. Prefill current matching values. Missing/conflicting input returns only the affected function's owned action. S05 unchanged setup needs no new fields or mutation. Unsupported choices retain phase gates. |
 | ONB-A39 Accountant fields and client action | R19–24 → ONB-02/11–13, INT-02/11–13, D02/11–13; Q07–09 | Firm/actor context cannot be supplied as trusted manual input. Each selected company retains its own checks. Reuse matching authority or request client action. An ineligible approver, invitation or approved response with missing official evidence cannot enable execution. |
 | ONB-A40 Requested and confirmed start | R07/09/25 → ONB-07/09–11, INT-07/10/11, D07/08/10/11; Q09 | Unchanged setup retains the route/version with an unknown historical start. New immediate/scheduled starts remain pending until evidenced. Test agreed timezone conversion and work on both sides of cutover. Distinguish current/target services and preserve earlier/in-flight context. |
-| ONB-A41 Receiving history choice | R09/24/25 → ONB-09/11, INT-11, D08/11; SPEC-SEI-006; Q09 | Offer only qualified history options. Validate source date meaning and access. Preserve saved checkpoints and suppress duplicate product intake during overlap. Unknown coverage returns an owned action; no silent omission or full-history import. |
+| ONB-A41 Receiving history choice | R09/24/25 → ONB-09/11, INT-11, D08/11; SPEC-SEI-016; Q09 | Offer only qualified history options. Validate source date meaning and access. Preserve saved checkpoints and suppress duplicate product intake during overlap. Unknown coverage returns an owned action; no silent omission or full-history import. |
 | ONB-A42 ERP and public field boundaries | R13/18/24, ONB-SPFE-R02/03 → ONB-02–04/11, INT-02–04/11, D02–04/11 | ERP receives company/function/version, independent readiness/activation and owned actions without credentials. Setup emits no invented SPFE enrolment or `effectiveDate` and no test invoice. Later calls bind caller and represented party separately. Evidence: SPFE-S02 Article 11; SPFE-S03 sections 6.1–6.10; SPFE-S08 sections 5.1.2–5.2; SPFE-S16 request/binding; SPFE-S18 named types. |
 
 ### 2 Review and release gates

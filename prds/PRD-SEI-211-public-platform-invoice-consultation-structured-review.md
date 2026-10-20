@@ -7,7 +7,7 @@ version: 2
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-10-06
+updated: 2026-10-20
 reviewers:
   - dianna.hindle@sage.com
 related:
@@ -21,7 +21,7 @@ related:
   - PRD-SEI-223
   - PRD-SEI-226
   - PRD-SEI-236
-  - SPEC-SEI-010
+  - SPEC-SEI-016
 confluence:
   publish: true
   space_key: DNBU
@@ -351,7 +351,7 @@ The objective is to deliver an automated, incremental, idempotent and observable
 
 Automated collection of many invoices is part of required recovery. A user requesting a ZIP of several stored invoices is a separate product option, proposed outside initial scope until usage and cost evidence justify it. France's feature coverage and expected Spanish usage do not remove the automated-recovery requirement.
 
-The proposed [retrieval, storage and download spec](../specs/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md) owns this boundary. [SPEC-SEI-006](../specs/SPEC-SEI-006-invoice-receiving-solution.md) owns validation, duplicate handling and product distribution after capture.
+The proposed [combined receiving, retrieval and download specification](../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) owns this journey, including source capture, covered progress, validation, duplicate handling, product distribution and authorised stored-file access. Its public intake path implements this PRD; private intake retains its separate scope and activation gates.
 
 ### Working hypotheses
 

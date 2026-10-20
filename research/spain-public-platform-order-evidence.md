@@ -5,7 +5,7 @@ type: research
 status: draft
 owner: TBD — Spain Compliance and Public Platform Technical Owners
 created: 2026-10-06
-updated: 2026-10-13
+updated: 2026-10-20
 ---
 
 # Spain public platform order — retrieval and download evidence
@@ -56,6 +56,8 @@ The absence of a France feature and the expected size of Spanish customers are s
 
 ## Targeted consistency review
 
+The rows below retain the original review record. SPEC-SEI-006 and SPEC-SEI-010 are archived predecessors; use [SPEC-SEI-016](../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) for current combined receiving, retrieval and download design.
+
 | Canonical document | Update in this pass | Remaining gate / owner |
 |---|---|---|
 | [PRD-SEI-211](../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md) | Final evidence, automated recovery, conservation availability, authority and distinct bulk questions. | Discovery/API contract, availability target and records policy / Spain Technical Owner, Compliance, Product and Records Owner. |
@@ -64,7 +66,7 @@ The absence of a France feature and the expected size of Spanish customers are s
 | [PRD-SEI-226](../prds/PRD-SEI-226-security-trust-identity-data-audit.md) | Adds Article 11 authority requirements for recovery/consultation. | Carry authority scope into onboarding and certificate implementation contracts / Security and Spain Technical Owner. |
 | [PRD-SEI-236](../prds/PRD-SEI-236-ubl-format-profile.md) | Adds final public UBL and copy evidence without declaring version acceptance. | Annex mapping and exact active profile / Format Owner. |
 | [PRD-SEI-224](../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md), [PRD-SEI-232](../prds/PRD-SEI-232-country-lifecycle-status-mapping.md) | Clarifies presumed acceptance and final-order status catalogue dependency. | Annex II mapping, timing and country rule approval / Lifecycle Owner and Compliance. |
-| [SPEC-SEI-006](../specs/SPEC-SEI-006-invoice-receiving-solution.md) | Uses PRD-SEI-211 as current retrieval authority; links the separate retrieval/storage/download design. | Final integration contracts / Receiving and Retrieval Owners. |
-| [SPEC-SEI-010](../specs/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md) | New logical proposal for retrieval, source storage and authorised file access. | Named design gates in Part 4. |
+| [SPEC-SEI-006](../specs/archive/SPEC-SEI-006-invoice-receiving-solution.md) | Uses PRD-SEI-211 as current retrieval authority; links the separate retrieval/storage/download design. | Final integration contracts / Receiving and Retrieval Owners. |
+| [SPEC-SEI-010](../specs/archive/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md) | New logical proposal for retrieval, source storage and authorised file access. | Named design gates in Part 4. |
 
 PRD-SEI-102 and PRD-SEI-103 are preserved predecessors. This targeted pass is not a full legal review of every Spain document or an approval of the existing specs. Onboarding, certificates, outbound and lifecycle designs must consume the approved country contracts before production.

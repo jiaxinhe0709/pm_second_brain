@@ -30,7 +30,7 @@ confluence:
 
 # Consult and download UBL from public platform for einvoices received
 
-Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
+Terminology follows the [shared e-invoicing glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -46,15 +46,15 @@ This **proposed logical design** explains how Sage finds invoices received throu
 
 The saved source file remains available if later mapping or ERP delivery fails. Those failures must not lose the file or force retrieval to start again. ERP means the business software that owns invoice data and accounting work.
 
-[PRD-SEI-211](../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md), FR1–FR55, defines the product requirements. [SPEC-SEI-006](SPEC-SEI-006-invoice-receiving-solution.md) owns validation, duplicate-invoice checks, transformation and delivery to Sage products after the source file has been saved. [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns public/private status consultation and interpretation, plus separate authorised buyer decisions and payment facts. A status query refreshes source information; a saved-file download reads stored bytes. These are distinct operations, even when one connector supports both. Viewing or downloading a file does not mean that the buyer accepts the invoice.
+[PRD-SEI-211](../../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md), FR1–FR55, defines the product requirements. [SPEC-SEI-006](SPEC-SEI-006-invoice-receiving-solution.md) owns validation, duplicate-invoice checks, transformation and delivery to Sage products after the source file has been saved. [SPEC-SEI-009](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns public/private status consultation and interpretation, plus separate authorised buyer decisions and payment facts. A status query refreshes source information; a saved-file download reads stored bytes. These are distinct operations, even when one connector supports both. Viewing or downloading a file does not mean that the buyer accepts the invoice.
 
-The [final Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028), Articles 9–11, confirms automated recovery, immediate availability for conservation, consultation/download channels and third-party representation requirements. The [source snapshot and evidence note](../research/spain-public-platform-order-evidence.md) records provenance and limits. The order does not define the complete discovery wire contract. The supplied catalogue now describes date-filter discovery through GetRegisteredInvoice and distinct identity/query/download operations. The formats select UBL 2.5 Invoice; exact schemas, authority, pagination and profile conflicts remain open.
+The [final Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028), Articles 9–11, confirms automated recovery, immediate availability for conservation, consultation/download channels and third-party representation requirements. The [source snapshot and evidence note](../../research/spain-public-platform-order-evidence.md) records provenance and limits. The order does not define the complete discovery wire contract. The supplied catalogue now describes date-filter discovery through GetRegisteredInvoice and distinct identity/query/download operations. The formats select UBL 2.5 Invoice; exact schemas, authority, pagination and profile conflicts remain open.
 
 ### Public source baseline
 
 The supplied catalogue separates date-based discovery, identity/status consultation and actual invoice downloads. Retrieval must use those distinct contracts. Locator download is the preferred platform path, while pagination, authority, history coverage and complete response formats still need qualification.
 
-See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 ### Scope and important distinctions
 
@@ -95,7 +95,7 @@ See [REF Source references](#ref-source-references) for the original files, exac
 
 ### Spain use and reuse boundaries
 
-This is a **Spain reference design**. **Reusable unchanged** means the proposed design pattern can stay the same. **Reusable with country binding** means shared behaviour needs approved country rules or adapters. **Country-specific** rules stay in the Spain country pack. **Unknown** means that the existing implementation’s suitability or coverage still needs evidence. These labels do not prove production readiness. Another country needs its own assessment. See the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary).
+This is a **Spain reference design**. **Reusable unchanged** means the proposed design pattern can stay the same. **Reusable with country binding** means shared behaviour needs approved country rules or adapters. **Country-specific** rules stay in the Spain country pack. **Unknown** means that the existing implementation’s suitability or coverage still needs evidence. These labels do not prove production readiness. Another country needs its own assessment. See the [shared e-invoicing glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary).
 
 | Area | Intended use in Spain | Reuse classification | Condition and owner |
 |---|---|---|---|
@@ -116,9 +116,9 @@ Security owns file-access checks and safe handling of unsafe content. Compliance
 
 Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
 
-![Retrieve public invoices and check for missing items](../assets/diagrams/e-invoicing-public-consultation-reconciliation.svg)
+![Retrieve public invoices and check for missing items](../../assets/diagrams/e-invoicing-public-consultation-reconciliation.svg)
 
-[Editable Draw.io](../assets/diagrams/e-invoicing-public-consultation-reconciliation.drawio) · [PNG preview](../assets/diagrams/e-invoicing-public-consultation-reconciliation.png). This existing process diagram is reused. Its “check scope”, “schedule and lease”, “query”, “classify and persist”, “boundary durable” and “commit progress” steps map to RSD-01, RSD-02, RSD-03, RSD-04/05 and RSD-06 below. “Publish availability” separates conservation file access from the later business-invoice view. Download activity RSD-07 reads saved files without starting another public query.
+[Editable Draw.io](../../assets/diagrams/e-invoicing-public-consultation-reconciliation.drawio) · [PNG preview](../../assets/diagrams/e-invoicing-public-consultation-reconciliation.png). This existing process diagram is reused. Its “check scope”, “schedule and lease”, “query”, “classify and persist”, “boundary durable” and “commit progress” steps map to RSD-01, RSD-02, RSD-03, RSD-04/05 and RSD-06 below. “Publish availability” separates conservation file access from the later business-invoice view. Download activity RSD-07 reads saved files without starting another public query.
 
 The proposed sequence is: check permission and scope → request a page within approved limits → save each source file → save each item’s processing outcome → update the checkpoint only for the range fully accounted for. The saved file can become available to the customer before mapping or ERP delivery completes.
 
@@ -292,12 +292,12 @@ Use the original files for the claims they establish. Final published regulation
 
 | REF ID | Source and version | Exact location | Supported information and limit |
 |---|---|---|---|
-| SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 9–11 | Automated recovery, conservation availability and registered third-party access. |
-| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.4–6.7; pp. 12–15 | GetInvoices by identity, GetRegisteredInvoice by presentation-date filter and two download paths. |
-| SPFE-S15 | [GetRegisteredInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/GetRegisteredInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetRegisteredInvoice operation, binding and payload documentation | Exact singular operation name and PRE addresses; generic payload description does not complete the filter contract. |
-| SPFE-S14 | [GetInvoices.wsdl](<../context/WSDL servicios web - PRE/20261013/GetInvoices.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetInvoices operation and service ports | Identity/status-query transport. |
-| SPFE-S12 | [DownloadInvoicesByID.wsdl](<../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByID.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | DownloadInvoicesByID operation | Invoice-file download by identity. |
-| SPFE-S13 | [DownloadInvoicesByLOC.wsdl](<../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByLOC.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | DownloadInvoicesByLOC operation | Locator-based file download. |
-| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | sections 5.4–5.7; pp. 14–15 | Query/download format sections remain pending. |
-| REF-PRD | [PRD-SEI-211](../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
-| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |
+| SPFE-S02 | [BOE-A-2026-20587.pdf](<../../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 9–11 | Automated recovery, conservation availability and registered third-party access. |
+| SPFE-S03 | [CatalogoServicios.pdf](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.4–6.7; pp. 12–15 | GetInvoices by identity, GetRegisteredInvoice by presentation-date filter and two download paths. |
+| SPFE-S15 | [GetRegisteredInvoice.wsdl](<../../context/WSDL servicios web - PRE/20261013/GetRegisteredInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetRegisteredInvoice operation, binding and payload documentation | Exact singular operation name and PRE addresses; generic payload description does not complete the filter contract. |
+| SPFE-S14 | [GetInvoices.wsdl](<../../context/WSDL servicios web - PRE/20261013/GetInvoices.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetInvoices operation and service ports | Identity/status-query transport. |
+| SPFE-S12 | [DownloadInvoicesByID.wsdl](<../../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByID.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | DownloadInvoicesByID operation | Invoice-file download by identity. |
+| SPFE-S13 | [DownloadInvoicesByLOC.wsdl](<../../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByLOC.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | DownloadInvoicesByLOC operation | Locator-based file download. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | sections 5.4–5.7; pp. 14–15 | Query/download format sections remain pending. |
+| REF-PRD | [PRD-SEI-211](../../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |
