@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-05
-updated: 2026-10-13
+updated: 2026-10-20
 reviewers: []
 related:
   - RES-SEI-002
@@ -747,3 +747,4 @@ Use the original files for the claims they establish. Final published regulation
 | SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | sections 4.3 and 5.1.2; pp. 7–9 | Certificate authentication and minimal message transport; draft wording does not settle invoice-signature duties. |
 | REF-PRD | [PRD-SEI-226](../prds/PRD-SEI-226-security-trust-identity-data-audit.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md); [PRD-SEI-101](../prds/PRD-SEI-101-public-platform-onboarding.md); [PRD-SEI-231](../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md); [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-225](../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md); [PRD-SEI-236](../prds/PRD-SEI-236-ubl-format-profile.md); [237](../prds/PRD-SEI-237-cii-format-profile.md); [238](../prds/PRD-SEI-238-un-edifact-format-profile.md); [239](../prds/PRD-SEI-239-facturae-format-profile.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
 | REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |
+| REF-SAGE-CERT | [Sage certificate management](https://confluence.sage.com/spaces/CCLD/pages/759615024/Sage+certificate+management); internal Confluence page; version/date not verified. | CCLD space; page ID 759615024. | Internal certificate-management reference. Content not verified in this review; does not establish Spain legal or external-contract requirements. |
