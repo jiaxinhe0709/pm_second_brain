@@ -17,6 +17,7 @@ Git is the system of record for product documents. Confluence is the publishing 
 - `feature-proposals/` — one file per feature proposal
 - `decisions/` — durable product and architecture decisions
 - `research/` — customer and market evidence
+  - [Peppol global and UK research](research/peppol/README.md) — official sources, country comparisons, customer scenarios, and readiness decisions
 - `context/` — personas, metrics, principles, glossary, and product context
   - [Spain public platform technical evidence guide](context/RES-SEI-002-spain-public-platform-technical-evidence.md) — English findings, all supplied SPFE contracts, searchable Spanish sources, and open POC gates
 - `inbox/` — ideas and feedback awaiting triage

@@ -578,6 +578,7 @@
       <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-journey" data-view="journey">Journey</button>
       <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-onboarding" data-view="onboarding">Onboarding</button>
       <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-exchange" data-view="exchange">Invoice exchange</button>
+      <button class="hub-nav-button" id="hub-tab-example" type="button" role="tab" aria-selected="false" aria-controls="hub-view-example" data-view="example">Multi-platform example</button>
       <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-switch" data-view="switch">Private connections</button>
       <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-fields" data-view="fields">Field catalogue</button>
     </nav>
@@ -877,6 +878,248 @@
         </div>
       </section>
 
+      <section class="hub-view" id="hub-view-example" role="tabpanel" aria-labelledby="hub-tab-example" hidden>
+        <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">Worked example · public + private coexistence</p><h1>One business, several invoice routes.</h1><p>Costa Retail receives stock from Olivo Supplies and sells welcome kits to Hotel Mar Azul. Follow its invoices through public and private platforms.</p></div></div>
+        <div class="hub-reference-strip"><span>Fictional sample</span>Business names, tax ID placeholders, agreements, receipt times and provider routes are illustrative. No live lookup or invoice submission occurs.</div>
+<div id="spain-invoice-example">
+  <style>
+    #spain-invoice-example { color:var(--hub-text); }
+    #spain-invoice-example .steps { margin-bottom:18px; }
+    #spain-invoice-example .choice { margin:14px 0 10px; max-width:420px; }
+    #spain-invoice-example .invoice { margin:18px 0 8px; }
+    #spain-invoice-example .invoice-heading { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+    #spain-invoice-example .invoice-parties { margin-bottom:12px; }
+    #spain-invoice-example .invoice-meta { display:flex; flex-wrap:wrap; gap:8px 18px; margin:10px 0; }
+    #spain-invoice-example .drawing { width:100%; display:block; }
+    #spain-invoice-example .drawing text { fill:var(--hub-text); font-size:12px; font-weight:400; }
+    #spain-invoice-example .drawing .node-title { font-weight:500; }
+    #spain-invoice-example .drawing .node-fill { fill:var(--hub-soft); stroke:var(--hub-line-soft); stroke-width:1; }
+    #spain-invoice-example .drawing .selected-fill { fill:color-mix(in srgb,var(--hub-blue) 12%,var(--hub-surface)); stroke:var(--hub-line-soft); stroke-width:1; }
+    #spain-invoice-example .drawing .edge { fill:none; stroke:var(--hub-line-soft); stroke-width:1.5; }
+    #spain-invoice-example .drawing .active-edge { stroke:var(--hub-blue); stroke-width:2; }
+    #spain-invoice-example .detail { min-height:44px; margin:4px 0 16px; }
+    #spain-invoice-example .identity { display:flex; gap:14px; flex-wrap:wrap; align-items:baseline; padding:14px 0; border-top:1px solid var(--hub-line-soft); }
+    #spain-invoice-example .identity code { overflow-wrap:anywhere; }
+    #spain-invoice-example .source-links { display:flex; flex-wrap:wrap; gap:14px; margin-top:8px; }
+
+    #spain-invoice-example { font-size:13px; line-height:20px; }
+    #spain-invoice-example strong { font-weight:500; }
+    #spain-invoice-example .hub-example-secondary { color:var(--hub-secondary); font-size:12px; line-height:18px; }
+    #spain-invoice-example .hub-example-table-wrap { max-width:100%; }
+    #spain-invoice-example .hub-example-table { width:100%; border-collapse:collapse; table-layout:fixed; }
+    #spain-invoice-example .hub-example-table th,
+    #spain-invoice-example .hub-example-table td { padding:10px 8px; border-bottom:1px solid var(--hub-line-soft); text-align:left; overflow-wrap:anywhere; }
+    #spain-invoice-example .hub-example-table th { color:var(--hub-secondary); font-weight:500; }
+    #spain-invoice-example .hub-example-table th:first-child { width:40%; }
+    #spain-invoice-example .hub-example-table .hub-example-money { text-align:right; font-variant-numeric:tabular-nums; }
+    #spain-invoice-example .source-links a { color:var(--hub-blue); }
+    #spain-invoice-example .identity code { font-size:12px; }
+    @media(max-width:500px) {
+      #spain-invoice-example .hub-example-table { font-size:12px; line-height:18px; }
+      #spain-invoice-example .hub-example-table th,
+      #spain-invoice-example .hub-example-table td { padding:8px 3px; }
+      #spain-invoice-example .hub-example-table th:first-child { width:34%; }
+    }
+  </style>
+  <div class="hub-segmented steps" aria-label="Example view">
+    <button type="button" class="cursor-interaction" data-step="routes" aria-pressed="true">1 · Choose a route</button>
+    <button type="button" class="cursor-interaction" data-step="send" aria-pressed="false">2 · Send an invoice</button>
+    <button type="button" class="cursor-interaction" data-step="receive" aria-pressed="false">3 · Match receipts</button>
+  </div>
+  <div class="invoice">
+    <div class="invoice-heading"><strong id="sie-invoice-number">OL-2027/1042</strong><span class="hub-example-secondary">Issue: 15 Oct 2027 · Due: 14 Nov 2027</span></div>
+    <div class="invoice-parties" id="sie-parties">Olivo Supplies SL → Costa Retail SL</div>
+    <div class="hub-example-table-wrap">
+      <table class="hub-example-table" aria-label="Sample invoice line items">
+        <thead><tr><th>Item</th><th class="hub-example-money">Net</th><th class="hub-example-money">VAT · 21%</th><th class="hub-example-money">Total</th></tr></thead>
+        <tbody><tr><td id="sie-item">10 display stands × €85</td><td class="hub-example-money" id="sie-net">€850.00</td><td class="hub-example-money" id="sie-vat">€178.50</td><td class="hub-example-money" id="sie-total">€1,028.50</td></tr></tbody>
+      </table>
+    </div>
+    <div class="invoice-meta hub-example-secondary"><span id="sie-seller-id">Seller NIF placeholder: DEMO-OLIVO</span><span id="sie-buyer-id">Buyer NIF placeholder: DEMO-COSTA</span></div>
+  </div>
+  <div class="choice" id="sie-choice">
+    <label class="hub-field" for="sie-route">Supplier’s agreement with buyer Costa Retail
+    <select  id="sie-route">
+      <option value="a">Receive through EDICOM · example</option>
+      <option value="b">Receive through SERES · example</option>
+      <option value="public">No private receiving agreement</option>
+    </select></label>
+  </div>
+  <div class="choice" id="sie-send-choice" hidden>
+    <label class="hub-field" for="sie-send-route">Costa Retail sends this invoice using
+    <select  id="sie-send-route">
+      <option value="b">SERES · example</option>
+      <option value="a">EDICOM · example</option>
+      <option value="public">Public solution · SPFE</option>
+    </select></label>
+  </div>
+  <svg class="drawing" id="sie-diagram" role="img" aria-labelledby="sie-title sie-desc"></svg>
+  <div class="detail" id="sie-detail" aria-live="polite"></div>
+  <div class="identity hub-example-secondary">
+    <span class="hub-example-secondary">Matching key · demo tax IDs are placeholders</span>
+    <code>DEMO-OLIVO + OL-2027/1042 + 2027-10-15</code>
+  </div>
+  <div class="source-links hub-example-secondary">
+    <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295#art6" target="_blank" rel="noopener noreferrer">Receiving routes & public copy · Art. 6</a>
+    <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295#art7" target="_blank" rel="noopener noreferrer">Invoice identity · Art. 7.5</a>
+  </div>
+  <script>
+    (() => {
+      const root = document.getElementById('spain-invoice-example');
+      const svg = root.querySelector('#sie-diagram');
+      const select = root.querySelector('#sie-route');
+      const choice = root.querySelector('#sie-choice');
+      const sendChoice = root.querySelector('#sie-send-choice');
+      const sendSelect = root.querySelector('#sie-send-route');
+      const detail = root.querySelector('#sie-detail');
+      const buttons = [...root.querySelectorAll('[data-step]')];
+      let state = {step:'routes',route:'a',sendRoute:'b'};
+      const invoices = {
+        incoming: {number:'OL-2027/1042',seller:'Olivo Supplies SL',buyer:'Costa Retail SL',sellerId:'DEMO-OLIVO',buyerId:'DEMO-COSTA',item:'10 display stands × €85',net:850,vat:178.5,total:1028.5},
+        outgoing: {number:'CR-2027/2087',seller:'Costa Retail SL',buyer:'Hotel Mar Azul SL',sellerId:'DEMO-COSTA',buyerId:'DEMO-MAR',item:'20 welcome kits × €25',net:500,vat:105,total:605}
+      };
+      const euro = value => new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR'}).format(value);
+      const ns = 'http://www.w3.org/2000/svg';
+      const make = (tag, attrs, content) => {
+        const el = document.createElementNS(ns,tag);
+        Object.entries(attrs || {}).forEach(([k,v]) => el.setAttribute(k,v));
+        if(content !== undefined) el.textContent = content;
+        return el;
+      };
+      function restore(value) {
+        const saved = value && value.modelContent && value.modelContent.example;
+        if(saved && ['routes','send','receive'].includes(saved.step)) state.step=saved.step;
+        if(saved && ['a','b','public'].includes(saved.route)) state.route=saved.route;
+        if(saved && ['a','b','public'].includes(saved.sendRoute)) state.sendRoute=saved.sendRoute;
+      }
+      restore(window.openai && window.openai.widgetState);
+      root.exampleState = {...state};
+      function save() {
+        root.exampleState = {...state};
+        root.dispatchEvent(new CustomEvent('example-state-changed',{bubbles:true}));
+      }
+      function draw() {
+        buttons.forEach(b => b.setAttribute('aria-pressed',String(b.dataset.step===state.step)));
+        select.value=state.route;
+        choice.hidden=state.step!=='routes';
+        sendChoice.hidden=state.step!=='send';
+        sendSelect.value=state.sendRoute;
+        const invoice=state.step==='send'?invoices.outgoing:invoices.incoming;
+        const put=(selector,value)=>root.querySelector(selector).textContent=value;
+        put('#sie-invoice-number',invoice.number);
+        put('#sie-parties',invoice.seller+' → '+invoice.buyer);
+        put('#sie-item',invoice.item);
+        put('#sie-net',euro(invoice.net));
+        put('#sie-vat',euro(invoice.vat));
+        put('#sie-total',euro(invoice.total));
+        put('#sie-seller-id','Seller NIF placeholder: '+invoice.sellerId);
+        put('#sie-buyer-id','Buyer NIF placeholder: '+invoice.buyerId);
+        const width = Math.max(280,Math.round(root.getBoundingClientRect().width));
+        const narrow=width<600;
+        let nodes, edges, summary, title;
+        if(state.step==='routes') {
+          title='Choose one receiving route for this supplier relationship';
+          nodes=[
+            {id:'seller',level:0,lines:['Olivo Supplies SL',invoice.number,euro(invoice.total)]},
+            {id:'a',level:1,lines:['EDICOM · example',state.route==='a'?'Agreed receiving route':'Other entry point'],active:state.route==='a'},
+            {id:'b',level:1,lines:['SERES · example',state.route==='b'?'Agreed receiving route':'Other entry point'],active:state.route==='b'},
+            {id:'public',level:1,lines:['Public solution · SPFE',state.route==='public'?'Default receiving route':'Public access also exists'],active:state.route==='public'},
+            {id:'buyer',level:2,lines:['Costa Retail SL','Buyer: DEMO-COSTA']}
+          ];
+          edges=['a','b','public'].flatMap(id=>[{from:'seller',to:id,active:id===state.route},{from:id,to:'buyer',active:id===state.route}]);
+          summary=state.route==='public'?'No express private agreement → use the public default.':`Costa Retail publishes EDICOM and SERES entry points. Olivo’s agreement selects ${state.route==='a'?'EDICOM':'SERES'} for this invoice.`;
+        } else if(state.step==='send') {
+          title='The same business sends one invoice through a private platform';
+          if(state.sendRoute==='public') {
+            title='Costa Retail sends through the public solution';
+            nodes=[
+              {id:'seller',level:0,lines:['Costa Retail SL',invoice.number,euro(invoice.total)]},
+              {id:'spfe',level:1,lines:['Public solution · SPFE','One original invoice'],active:true},
+              {id:'recipient',level:2,lines:['Hotel Mar Azul SL','Authorized retrieval',euro(invoice.total)],active:true}
+            ];
+            edges=[{from:'seller',to:'spfe',active:true},{from:'spfe',to:'recipient',active:true}];
+            summary='Public issuance → one original in SPFE, available to the buyer or its authorized platform. No extra public copy.';
+          } else {
+            nodes=[
+              {id:'seller',level:0,lines:['Costa Retail SL',invoice.number,euro(invoice.total)]},
+              {id:'a',level:1,lines:[state.sendRoute==='a'?'EDICOM · example':'SERES · example','Issue one invoice'],active:true},
+              {id:'recipient',level:2,lines:['Hotel Mar Azul SL','Original · agreed route',euro(invoice.total)],active:true},
+              {id:'spfe',level:2,lines:['Public solution · SPFE','Faithful UBL copy',euro(invoice.total)],active:true}
+            ];
+            edges=[{from:'seller',to:'a',active:true},{from:'a',to:'recipient',active:true},{from:'a',to:'spfe',active:true}];
+            summary='09:00 · Original to Hotel Mar Azul’s agreed route + simultaneous faithful copy to SPFE. One €605 invoice.';
+          }
+        } else {
+          title='Two received representations become one payable invoice';
+          nodes=[
+            {id:'private',level:0,lines:[state.route==='public'?'SPFE · first retrieval':state.route==='a'?'EDICOM · example':'SERES · example',state.route==='public'?'09:00 · original':'09:00 · original received',euro(invoice.total)],active:true},
+            {id:'spfe',level:0,lines:['Public solution · SPFE',state.route==='public'?'09:02 · same original':'09:02 · copy retrieved',euro(invoice.total)],active:true},
+            {id:'match',level:1,lines:['Sage · check both receipts','Identity + content match'],active:true},
+            {id:'payable',level:2,lines:['Costa Retail SL','1 payable · 2 receipts',euro(invoice.total)+' due'],active:true}
+          ];
+          edges=[{from:'private',to:'match',active:true},{from:'spfe',to:'match',active:true},{from:'match',to:'payable',active:true}];
+          summary=state.route==='public'?'Proposed Sage control: two retrievals of the same original → one €1,028.50 payable. Keep both retrieval records.':'Proposed Sage control: private original + public copy → one €1,028.50 payable. Keep both receipts; conflicting data goes to review.';
+        }
+        root.querySelector('.identity code').textContent = invoice.sellerId+' + '+invoice.number+' + 2027-10-15';
+        detail.textContent=summary;
+        const nodeWidth=narrow?Math.min(width-68,300):Math.min(196,(width-68)/3);
+        const nodeHeight=84;
+        const groups=[0,1,2].map(level=>nodes.filter(n=>n.level===level));
+        let height;
+        if(narrow) {
+          let y=48;
+          groups.forEach(group=>{
+            group.forEach(n=>{ n.x=width/2;n.y=y;y+=102; });
+            y+=14;
+          });
+          height=y-42;
+        } else {
+          height=332;
+          groups.forEach((group,level)=>group.forEach((n,i)=>{
+            n.x=18+nodeWidth/2+level*(width-nodeWidth-36)/2;
+            n.y=height/2+(i-(group.length-1)/2)*98;
+          }));
+        }
+        svg.setAttribute('viewBox',`0 0 ${width} ${height}`);
+        svg.setAttribute('height',height);
+        svg.replaceChildren(make('title',{id:'sie-title'},title),make('desc',{id:'sie-desc'},summary));
+        const byId=Object.fromEntries(nodes.map(n=>[n.id,n]));
+        edges.forEach(edge=>{
+          const a=byId[edge.from],b=byId[edge.to];
+          let d;
+          if(narrow) {
+            // Side lanes avoid running connectors through other platform nodes.
+            const side= edge.from==='seller'?20:width-20;
+            const direct= b.y-a.y<145;
+            d=direct?`M ${a.x} ${a.y+42} L ${b.x} ${b.y-42}`:`M ${a.x+(side<width/2?-nodeWidth/2:nodeWidth/2)} ${a.y} H ${side} V ${b.y} H ${b.x+(side<width/2?-nodeWidth/2:nodeWidth/2)}`;
+          } else {
+            const x1=a.x+nodeWidth/2,x2=b.x-nodeWidth/2,mid=(x1+x2)/2;
+            d=`M ${x1} ${a.y} C ${mid} ${a.y}, ${mid} ${b.y}, ${x2} ${b.y}`;
+          }
+          svg.append(make('path',{d,class:edge.active?'edge active-edge':'edge',opacity:edge.active?'1':'.6'}));
+        });
+        nodes.forEach(n=>{
+          const group=make('g',{'aria-label':n.lines.join('. ')});
+          group.append(make('rect',{x:n.x-nodeWidth/2,y:n.y-nodeHeight/2,width:nodeWidth,height:nodeHeight,rx:9,class:n.active?'selected-fill':'node-fill'}));
+          n.lines.forEach((line,i)=>group.append(make('text',{x:n.x,y:n.y+4+(i-(n.lines.length-1)/2)*22,'text-anchor':'middle',class:i===0?'node-title':''},line)));
+          svg.append(group);
+        });
+      }
+      buttons.forEach(button=>button.addEventListener('click',()=>{state.step=button.dataset.step;draw();save();}));
+      select.addEventListener('change',()=>{state.route=select.value;draw();save();});
+      sendSelect.addEventListener('change',()=>{state.sendRoute=sendSelect.value;draw();save();});
+      window.addEventListener('openai:set_globals',event=>{
+        const value=event.detail && event.detail.globals && event.detail.globals.widgetState;
+        if(value){restore(value);root.exampleState={...state};draw();}
+      });
+      new ResizeObserver(draw).observe(root);
+      draw();
+    })();
+  </script>
+</div>
+
+      </section>
+
       <section class="hub-view" id="hub-view-switch" role="tabpanel" hidden>
         <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">Provider-specific preparation</p><h1>Connect a private platform without onboarding the company again.</h1><p>Reuse the verified legal entity and authority. A connection makes a provider available; it does not change the effective invoice route.</p></div></div>
         <div class="hub-reference-strip" aria-label="Detailed Confluence references"><span>Detailed Confluence</span><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866126304" target="_blank" rel="noopener noreferrer">Connections, registration &amp; routing ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148655" target="_blank" rel="noopener noreferrer">Customer onboarding &amp; migration ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=899154047" target="_blank" rel="noopener noreferrer">Provider API &amp; adapter boundary ↗</a></div>
@@ -1001,7 +1244,7 @@
 
       const saved = window.openai && window.openai.widgetState && window.openai.widgetState.modelContent;
       const state = {
-        view: saved && ['map','journey','onboarding','exchange','switch','fields'].includes(saved.view) ? saved.view : 'map',
+        view: saved && ['map','journey','onboarding','exchange','example','switch','fields'].includes(saved.view) ? saved.view : 'map',
         mapRoute: saved && ['public','private','accountant'].includes(saved.mapRoute) ? saved.mapRoute : 'public',
         journeyStage: saved && journey[saved.journeyStage] ? saved.journeyStage : 'identify',
         onboardMode: saved && ['single','batch'].includes(saved.onboardMode) ? saved.onboardMode : 'single',
@@ -1250,7 +1493,7 @@
 
       function persist() {
         if (!window.openai || !window.openai.setWidgetState) return;
-        window.openai.setWidgetState({ modelContent: { view: state.view, mapRoute: state.mapRoute, journeyStage: state.journeyStage, onboardMode: state.onboardMode, exchangeMode: state.exchangeMode, fieldStage: state.fieldStage }, privateContent: null }).catch(() => {});
+        window.openai.setWidgetState({ modelContent: { view: state.view, mapRoute: state.mapRoute, journeyStage: state.journeyStage, onboardMode: state.onboardMode, exchangeMode: state.exchangeMode, fieldStage: state.fieldStage, example: root.querySelector('#spain-invoice-example').exampleState }, privateContent: null }).catch(() => {});
       }
 
       function renderView() {
@@ -1422,10 +1665,12 @@
         }
       });
 
+      root.addEventListener('example-state-changed', persist);
+
       window.addEventListener('openai:set_globals', event => {
         const incoming = event.detail && event.detail.globals && event.detail.globals.widgetState && event.detail.globals.widgetState.modelContent;
         if (!incoming) return;
-        if (['map','journey','onboarding','exchange','switch','fields'].includes(incoming.view)) state.view = incoming.view;
+        if (['map','journey','onboarding','exchange','example','switch','fields'].includes(incoming.view)) state.view = incoming.view;
         if (['public','private','accountant'].includes(incoming.mapRoute)) state.mapRoute = incoming.mapRoute;
         if (journey[incoming.journeyStage]) state.journeyStage = incoming.journeyStage;
         if (['single','batch'].includes(incoming.onboardMode)) state.onboardMode = incoming.onboardMode;
