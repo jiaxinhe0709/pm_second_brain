@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-13
+updated: 2026-10-20
 reviewers: []
 related:
   - RES-SEI-002
@@ -31,7 +31,7 @@ related:
   - SPEC-SEI-010
   - SPEC-SEI-014
 confluence:
-  publish: true
+  publish: false
   space_key: DNBU
   parent_page_id: "918651328"
   page_id: "923861394"
@@ -40,6 +40,8 @@ confluence:
 ---
 
 # Invoice receiving solution
+
+> **Historical specification.** This document is retained for historical reference. For the current combined receiving, retrieval and download design, use [SPEC-SEI-016](../SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md). Earlier content and history are preserved. Publication is disabled; this notice does not approve implementation or activation.
 
 Terminology follows the [shared e-invoicing glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
