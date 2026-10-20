@@ -323,7 +323,7 @@
             <mxGeometry x="806.0" y="542" width="253.0" height="84" as="geometry" />
           </mxCell>
         </object>
-        <object id="SET-08" label="Setup recovery, when needed&#10;SPEC-SEI-004" link="../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md" tooltip="Conditional exception. Check authoritative external state before unsafe retry.">
+        <object id="SET-08" label="Setup recovery, when needed&#10;SPEC-SEI-002" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md#4-onboarding-recovery-behaviour" tooltip="Conditional exception. Check authoritative external state before unsafe retry.">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#ffffff;strokeColor=#555555;fontSize=15;spacing=8;dashed=1;">
             <mxGeometry x="806.0" y="1028" width="253.0" height="84" as="geometry" />
           </mxCell>

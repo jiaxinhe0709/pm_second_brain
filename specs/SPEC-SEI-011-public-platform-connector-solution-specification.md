@@ -20,7 +20,6 @@ related:
   - PRD-SEI-226
   - SPEC-SEI-001
   - SPEC-SEI-002
-  - SPEC-SEI-004
   - SPEC-SEI-007
   - SPEC-SEI-008
   - SPEC-SEI-009
@@ -65,7 +64,7 @@ The supplied PRD describes the wider integration. The capability mapping below s
 | [User-supplied Public Platform API Integration PRD](https://confluence.sage.com/spaces/DNBU/pages/902988120/Spain+Public+Platform+API+Integration+AEAT+Public+Electronic+Invoicing+Solution) | Defines the requested integration capabilities: connectivity, faithful-copy submission, invoice identification, status/payment communication, retrieval, authentication, monitoring and audit. | Refers to a draft ministerial order. Its exact timing, attachment restrictions, event labels, certificate requirements and SLA need current evidence and the relevant owners' approval. It is product context, rather than proof of an available AEAT API or approved technical design. |
 | [Order HAC/1028/2026, Articles 9–11](https://www.boe.es/eli/es/o/2026/10/02/hac1028), checked 6 October 2026 | Public recovery/consultation access and authentication/representation requirements exist. Third-party recovery and Article 10 consultation require registered representation. | Exact operations, credential profiles, limits and technical access are governed by AEAT specifications. Do not extend one action's authority automatically to another. |
 | [Existing evidence note](../research/spain-public-platform-order-evidence.md) | Records the supplied order snapshot and limits of the retrieval evidence. | Does not supply a production transport contract or prove a central recipient directory. |
-| SPEC-SEI-001/002/004 | Trust, onboarding and uncertain onboarding-operation designs. | Draft logical contracts; qualification and external evidence remain necessary. |
+| SPEC-SEI-001/002 | Trust, onboarding and uncertain onboarding-operation designs. | Draft logical contracts; qualification and external evidence remain necessary. |
 
 ### Public source baseline
 

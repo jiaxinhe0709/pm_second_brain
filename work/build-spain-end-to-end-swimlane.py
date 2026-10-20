@@ -54,7 +54,7 @@ node('SET-04',3,r+4,'Check required certificates and trust',1,'Only for the sele
 node('SET-05',3,r+5,'Test the enabled public operation',11,'The connector handles protocol and evidence, not business interpretation.')
 node('SET-06',4,r+5,'Return public-operation evidence',11,'Exact public interfaces remain qualification gates.')
 node('SET-07',2,r+6,'Return setup result and required actions',2,'Explain which setup checks passed, which failed or remain unknown, what remains to be done and who must act. This result does not activate sending or receiving.')
-node('SET-08',3,r+7,'Recover uncertain onboarding',4,'Conditional exception. Check authoritative external state before unsafe retry.')
+node('SET-08',3,r+7,'Recover uncertain onboarding',2,'Conditional exception. Check authoritative external state before unsafe retry.')
 for a,b in [('SET-01','SET-02'),('SET-02','SET-03'),('SET-03','SET-04'),('SET-04','SET-05'),('SET-05','SET-06'),('SET-06','SET-07')]:edge(a,b)
 edge('SET-03','SET-08','support','If setup fails or is uncertain')
 

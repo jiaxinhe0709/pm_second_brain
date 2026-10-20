@@ -21,7 +21,6 @@ related:
   - SPEC-SEI-001
   - SPEC-SEI-002
   - SPEC-SEI-003
-  - SPEC-SEI-004
   - SPEC-SEI-016
   - SPEC-SEI-007
   - SPEC-SEI-008

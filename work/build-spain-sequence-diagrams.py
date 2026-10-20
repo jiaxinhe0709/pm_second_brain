@@ -288,7 +288,7 @@ def onboarding():
     return s.write([
         'Logical asynchronous example for external checks; direct requests may finish synchronously when every check is local.',
         'This example uses qualified reads. It creates no external registration, receiving-point publication or route activation.',
-        'If another qualified journey can cause an external effect, ONB-08 / SPEC-SEI-004 reconcile the original operation first.',
+        'If another qualified journey can cause an external effect, ONB-08 / OFR-01–08 reconcile the original operation first.',
         'Source: SPEC-SEI-002; timing pattern: PRD-SEI-101/104. Actual API mapping, policy and service ownership remain open.'])
 
 
@@ -330,7 +330,7 @@ def onboarding_private():
         'Logical responsibility groups; connector, certificate, records and Routing allocations require owner qualification.',
         'Shared behaviour does not prove implementation reuse. Provider and Spain rules remain selected contract bindings.',
         'Readiness, route activation and invoice outcomes are separate. Signing and use-time rechecks belong to runtime features.',
-        'Source: SPEC-SEI-002; recovery: SPEC-SEI-004; protected-source readiness: SPEC-SEI-001. No endpoint is approved here.'])
+        'Source: SPEC-SEI-002; recovery: OFR-01–08; protected-source readiness: SPEC-SEI-001. No endpoint is approved here.'])
 
 
 def sending():

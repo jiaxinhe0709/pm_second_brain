@@ -187,7 +187,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="boundary" value="ONB-12 binds business, delegate, purpose, scope and request/plan version. Identity verifies effective authority separately.&#10;Pending, declined, expired or stale responses keep dependent work at ACTION_REQUIRED. Other permitted functions continue.&#10;Withdrawal stops affected new use. Reconcile uncertain effects under SPEC-SEI-004; retain historical snapshots and client continuity." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="boundary" value="ONB-12 binds business, delegate, purpose, scope and request/plan version. Identity verifies effective authority separately.&#10;Pending, declined, expired or stale responses keep dependent work at ACTION_REQUIRED. Other permitted functions continue.&#10;Withdrawal stops affected new use. Reconcile uncertain effects under OFR-01–08; retain historical snapshots and client continuity." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="28" y="780" width="2284" height="96" />
         </mxCell>
       </root>

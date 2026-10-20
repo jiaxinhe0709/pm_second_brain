@@ -666,7 +666,7 @@
         <mxCell id="cell-179" value="This example uses qualified reads. It creates no external registration, receiving-point publication or route activation." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
           <mxGeometry as="geometry" x="40" y="5313" width="1056.0" height="25" />
         </mxCell>
-        <mxCell id="cell-180" value="If another qualified journey can cause an external effect, ONB-08 / SPEC-SEI-004 reconcile the original operation first." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
+        <mxCell id="cell-180" value="If another qualified journey can cause an external effect, ONB-08 / OFR-01–08 reconcile the original operation first." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
           <mxGeometry as="geometry" x="40" y="5337" width="1056.0" height="25" />
         </mxCell>
         <mxCell id="cell-181" value="Source: SPEC-SEI-002; timing pattern: PRD-SEI-101/104. Actual API mapping, policy and service ownership remain open." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">

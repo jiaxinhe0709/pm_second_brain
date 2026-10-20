@@ -860,7 +860,7 @@
         <mxCell id="cell-233" value="Readiness, route activation and invoice outcomes are separate. Signing and use-time rechecks belong to runtime features." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
           <mxGeometry as="geometry" x="40" y="7150" width="1056.0" height="25" />
         </mxCell>
-        <mxCell id="cell-234" value="Source: SPEC-SEI-002; recovery: SPEC-SEI-004; protected-source readiness: SPEC-SEI-001. No endpoint is approved here." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
+        <mxCell id="cell-234" value="Source: SPEC-SEI-002; recovery: OFR-01–08; protected-source readiness: SPEC-SEI-001. No endpoint is approved here." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
           <mxGeometry as="geometry" x="40" y="7174" width="1029.9" height="25" />
         </mxCell>
         <object id="cell-235" label="Source specification" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md">

@@ -157,7 +157,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="boundary" value="ONB-01/02/10 establish the request, authority and current setup. Existing public or B2G use does not prove Sage B2B access.&#10;Keep exact readiness states. Return failed and unknown checks with actions; an uncertain external effect uses SPEC-SEI-004.&#10;Check certificate policy, then required readiness through qualified Tax/certificate references. Unknown lookup does not mean missing." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="boundary" value="ONB-01/02/10 establish the request, authority and current setup. Existing public or B2G use does not prove Sage B2B access.&#10;Keep exact readiness states. Return failed and unknown checks with actions; an uncertain external effect uses OFR-01–08.&#10;Check certificate policy, then required readiness through qualified Tax/certificate references. Unknown lookup does not mean missing." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="28" y="870" width="2284" height="96" />
         </mxCell>
       </root>

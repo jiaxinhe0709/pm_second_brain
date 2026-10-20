@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-13
+updated: 2026-10-20
 reviewers: []
 related:
   - RES-SEI-002
@@ -24,7 +24,7 @@ related:
   - SPEC-SEI-013
   - SPEC-SEI-001
 confluence:
-  publish: true
+  publish: false
   space_key: DNBU
   parent_page_id: "848078012"
   page_id: "923861392"
@@ -34,7 +34,9 @@ confluence:
 
 # Onboarding Failure and Reconciliation Solution Specification
 
-Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
+> **Historical specification.** Recovery is now included in [SPEC-SEI-002 — Customer Onboarding](../SPEC-SEI-002-onboarding-solution-specification.md#4-onboarding-recovery-behaviour). The earlier requirements and permanent IDs remain available here. Publication is disabled; lifecycle status and the historical Confluence page ID are unchanged.
+
+Terminology follows the [shared e-invoicing glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -46,13 +48,13 @@ The design remains a draft. **Proposed** choices still need review; **open** dec
 
 ### 1 Purpose and design status
 
-This **proposed logical design** defines failure handling for the ONB-S01–08 journeys in [SPEC-SEI-002](SPEC-SEI-002-onboarding-solution-specification.md). It covers first setup, existing public or private services, combined setup, confirmation or extension, and supported platform changes. The E-Invoice Service classifies failures, coordinates correction, retries safely and reconciles uncertain effects. SPEC-SEI-002 defines the parent journey, readiness and final ERP result. [PRD-SEI-107](../prds/PRD-SEI-107-public-onboarding-failure-recovery.md) owns public recovery requirements. [PRD-SEI-222](../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) supplies private setup and transition constraints. [PRD-SEI-225](../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md) supplies shared operations principles.
+This **proposed logical design** defines failure handling for the ONB-S01–08 journeys in [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md). It covers first setup, existing public or private services, combined setup, confirmation or extension, and supported platform changes. The E-Invoice Service classifies failures, coordinates correction, retries safely and reconciles uncertain effects. SPEC-SEI-002 defines the parent journey, readiness and final ERP result. [PRD-SEI-107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md) owns public recovery requirements. [PRD-SEI-222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) supplies private setup and transition constraints. [PRD-SEI-225](../../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md) supplies shared operations principles.
 
 **Confirmed ownership direction:** the E-Invoice Service owns setup and recovery coordination. **Onboarding** and **recovery** name workflow responsibilities within that service. They do not name separate services. **Proposed:** an internal onboarding component could implement setup and recovery coordination. Its need and implementation remain open. Existing scheduling, saved-operation and case capabilities must be assessed before new component work is agreed. Operations owns assigned manual cases; adapters and dependency services execute their qualified operations.
 
-Use the existing Tax/certificate capability under [SPEC-SEI-001](SPEC-SEI-001-certificate-management-solution-specification.md) where its contract supports the selected purpose. The E-Invoice Service retains protected references and safe results. Certificate material, validation, protected use and lifecycle controls stay with the qualified certificate owner. The actual Tax Service, Connections Service or AFL source and supported operations still need owner confirmation. Status feedback does not establish authentication or signing capability.
+Use the existing Tax/certificate capability under [SPEC-SEI-001](../SPEC-SEI-001-certificate-management-solution-specification.md) where its contract supports the selected purpose. The E-Invoice Service retains protected references and safe results. Certificate material, validation, protected use and lifecycle controls stay with the qualified certificate owner. The actual Tax Service, Connections Service or AFL source and supported operations still need owner confirmation. Status feedback does not establish authentication or signing capability.
 
-The [shared connectivity spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns connection/route discrepancy handling and route commit. This recovery model supplies operation classification, safe retry, correction and original-effect observations to that owner; it does not create a second route engine or automatically activate, switch or restore a platform. [The Global API](SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md) exposes committed recovery results to the ERP.
+The [shared connectivity spec](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns connection/route discrepancy handling and route commit. This recovery model supplies operation classification, safe retry, correction and original-effect observations to that owner; it does not create a second route engine or automatically activate, switch or restore a platform. [The Global API](../SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md) exposes committed recovery results to the ERP.
 
 This design does not assign any unverified public-platform operation a safe retry class or assert an external endpoint, timeout, rate limit or retry count.
 
@@ -66,7 +68,7 @@ If an external change may have happened, the result stays unresolved until a rel
 
 The new public catalogue and WSDLs provide operation evidence, but they do not supply a safe public onboarding-mutation or universal resend contract. This feature continues to recover the failed setup check. Invoice submission and event recovery remain with their owning features and the public connector.
 
-See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 ### Recovery across the entry journeys
 
@@ -93,7 +95,7 @@ The previous route may continue only when it is still evidenced safe. A possible
 
 This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
 
-This follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
+This follows the [shared platform and country-pack direction](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
 
 | Area | Intended use in Spain | Reuse classification | Condition and owner |
 |---|---|---|---|
@@ -143,23 +145,23 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 
 Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
 
-Use the Common, Scenario-specific and Conditional meanings in [SPEC-SEI-002's diagram guide](SPEC-SEI-002-onboarding-solution-specification.md#3-process-diagrams-and-text-equivalent). Capture, classification, scope protection and result publication are common recovery behaviour. The failed operation selects its source and parent checkpoint. Correction, safe retry, original-effect observation and escalation are conditional. Shared behaviour does not qualify a provider contract or an existing implementation.
+Use the Common, Scenario-specific and Conditional meanings in [SPEC-SEI-002's diagram guide](../SPEC-SEI-002-onboarding-solution-specification.md#3-process-diagrams-and-text-equivalent). Capture, classification, scope protection and result publication are common recovery behaviour. The failed operation selects its source and parent checkpoint. Correction, safe retry, original-effect observation and escalation are conditional. Shared behaviour does not qualify a provider contract or an existing implementation.
 
 The **Domain Service - E-Invoice Service** lane owns setup and recovery coordination. The proposed internal onboarding component stays within that lane. Other Services covers qualified certificate, identity and connection dependencies. Operations handles manual cases. The diagrams keep their existing layouts; their labels do not imply separate onboarding or recovery services.
 
-**Classify and recover:** ![Identify setup failures and choose a safe recovery](../assets/diagrams/onboarding-failure-classification-process.svg)
+**Classify and recover:** ![Identify setup failures and choose a safe recovery](../../assets/diagrams/onboarding-failure-classification-process.svg)
 
-[Editable Draw.io](../assets/diagrams/onboarding-failure-classification-process.drawio) · [PNG](../assets/diagrams/onboarding-failure-classification-process.png). Text equivalent: OFR-01 records the failed operation and saved request intent → OFR-02 classifies fault and operation safety separately → correctable findings go to OFR-03, approved safe retries to OFR-04, uncertain mutations to OFR-05, and security violations to an incident. Exhausted safe retries go to an owned escalation, never to a false permanent rejection.
+[Editable Draw.io](../../assets/diagrams/onboarding-failure-classification-process.drawio) · [PNG](../../assets/diagrams/onboarding-failure-classification-process.png). Text equivalent: OFR-01 records the failed operation and saved request intent → OFR-02 classifies fault and operation safety separately → correctable findings go to OFR-03, approved safe retries to OFR-04, uncertain mutations to OFR-05, and security violations to an incident. Exhausted safe retries go to an owned escalation, never to a false permanent rejection.
 
-**Reconcile an uncertain effect:** ![Check an uncertain setup result before retrying](../assets/diagrams/onboarding-uncertain-outcome-process.svg)
+**Reconcile an uncertain effect:** ![Check an uncertain setup result before retrying](../../assets/diagrams/onboarding-uncertain-outcome-process.svg)
 
-[Editable Draw.io](../assets/diagrams/onboarding-uncertain-outcome-process.drawio) · [PNG](../assets/diagrams/onboarding-uncertain-outcome-process.png). Text equivalent: OFR-05 freezes the original operation and blocks repeats → OFR-06 queries an authoritative source using the original correlation and environment → proven success is committed once, proven absence may permit OFR-04 under the approved contract, and unresolved state becomes OFR-07 with owner, evidence and deadline → OFR-08 updates only the affected client/capability and the portfolio aggregate.
+[Editable Draw.io](../../assets/diagrams/onboarding-uncertain-outcome-process.drawio) · [PNG](../../assets/diagrams/onboarding-uncertain-outcome-process.png). Text equivalent: OFR-05 freezes the original operation and blocks repeats → OFR-06 queries an authoritative source using the original correlation and environment → proven success is committed once, proven absence may permit OFR-04 under the approved contract, and unresolved state becomes OFR-07 with owner, evidence and deadline → OFR-08 updates only the affected client/capability and the portfolio aggregate.
 
-**Preserve services and resume the parent journey:** ![Recover the affected function and preserve valid services](../assets/diagrams/onboarding-service-continuity-recovery-process.svg)
+**Preserve services and resume the parent journey:** ![Recover the affected function and preserve valid services](../../assets/diagrams/onboarding-service-continuity-recovery-process.svg)
 
-[Editable Draw.io](../assets/diagrams/onboarding-service-continuity-recovery-process.drawio) · [PNG](../assets/diagrams/onboarding-service-continuity-recovery-process.png). Text equivalent: OFR-01/02 capture original scenario, operation and pre-state → determine which functions depend on the failure → preserve independently valid functions, and send invalid/uncertain scope to its Connection/Routing owner → OFR-03/04 handles correction or approved safe retry, while possible effects use OFR-05/06 and unresolved work uses OFR-07 → OFR-08 returns the result to the exact parent ONB gate → parent ONB-11 returns per-function ERP results. Recovered external success does not itself mean an active route; supported activation still requires ONB-07/SPC-04.
+[Editable Draw.io](../../assets/diagrams/onboarding-service-continuity-recovery-process.drawio) · [PNG](../../assets/diagrams/onboarding-service-continuity-recovery-process.png). Text equivalent: OFR-01/02 capture original scenario, operation and pre-state → determine which functions depend on the failure → preserve independently valid functions, and send invalid/uncertain scope to its Connection/Routing owner → OFR-03/04 handles correction or approved safe retry, while possible effects use OFR-05/06 and unresolved work uses OFR-07 → OFR-08 returns the result to the exact parent ONB gate → parent ONB-11 returns per-function ERP results. Recovered external success does not itself mean an active route; supported activation still requires ONB-07/SPC-04.
 
-The [public sequence](SPEC-SEI-002-onboarding-solution-specification.md#3-process-diagrams-and-text-equivalent) shows certificate reuse, correction and unavailable-evidence alternatives under ONB-03. The private sequence uses the same alternatives under ONB-06. The table below maps their findings to recovery. It is a checkpoint map, not a new error catalogue or state model.
+The [public sequence](../SPEC-SEI-002-onboarding-solution-specification.md#3-process-diagrams-and-text-equivalent) shows certificate reuse, correction and unavailable-evidence alternatives under ONB-03. The private sequence uses the same alternatives under ONB-06. The table below maps their findings to recovery. It is a checkpoint map, not a new error catalogue or state model.
 
 | Finding or operation | Recovery action and owner | Parent checkpoint after resolution |
 |---|---|---|
@@ -395,8 +397,8 @@ Use the original files for the claims they establish. Final published regulation
 
 | REF ID | Source and version | Exact location | Supported information and limit |
 |---|---|---|---|
-| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | section 5.1, p. 9; sections 6.1–6.10 | Legacy fault/resend guidance and public operations; no automatic safe-retry guarantee. |
-| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | sections 4.3 and 5.2–5.9; pp. 7, 12–15 | Protocol conflict, response levels and pending formats. |
-| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SOAP binding, fault and service ports | Operation-specific SOAP 1.2 contract; no onboarding mutation. |
-| REF-PRD | [PRD-SEI-107](../prds/PRD-SEI-107-public-onboarding-failure-recovery.md); [PRD-SEI-222](../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md); [PRD-SEI-225](../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
-| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |
+| SPFE-S03 | [CatalogoServicios.pdf](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | section 5.1, p. 9; sections 6.1–6.10 | Legacy fault/resend guidance and public operations; no automatic safe-retry guarantee. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | sections 4.3 and 5.2–5.9; pp. 7, 12–15 | Protocol conflict, response levels and pending formats. |
+| SPFE-S16 | [SendInvoice.wsdl](<../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SOAP binding, fault and service ports | Operation-specific SOAP 1.2 contract; no onboarding mutation. |
+| REF-PRD | [PRD-SEI-107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md); [PRD-SEI-222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md); [PRD-SEI-225](../../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md); [shared platform and country-pack direction](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
+| REF-CONTEXT | [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

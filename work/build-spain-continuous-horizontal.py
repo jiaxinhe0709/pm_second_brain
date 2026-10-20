@@ -118,7 +118,7 @@ for i,(slug,columns,groups) in enumerate(GROUPS):
     edges=[e for e in ALL['edges'] if e['source'] in ids and e['target'] in ids]
     PANELS.append(dict(slug=slug,title=phase['title'],note=phase['note'],columns=columns,nodes=nodes,edges=edges))
 assert len({n['id'] for p in PANELS for n in p['nodes']})==34
-assert {n['spec'] for n in ALL['nodes']} == {f'SPEC-SEI-{i:03}' for i in (*range(1, 6), *range(7, 10), *range(11, 14), 16)}
+assert {n['spec'] for n in ALL['nodes']} == {f'SPEC-SEI-{i:03}' for i in (*range(1, 4), 5, *range(7, 10), *range(11, 14), 16)}
 
 def layout(panel,width=1660):
     label=190;left=label+30;journey_gap=90

@@ -54,7 +54,7 @@ def build_all():
         ], lanes=LANES[:4], height=890, boundaries=[
             'ONB-12 binds business, delegate, purpose, scope and request/plan version. Identity verifies effective authority separately.',
             'Pending, declined, expired or stale responses keep dependent work at ACTION_REQUIRED. Other permitted functions continue.',
-            'Withdrawal stops affected new use. Reconcile uncertain effects under SPEC-SEI-004; retain historical snapshots and client continuity.',
+            'Withdrawal stops affected new use. Reconcile uncertain effects under OFR-01–08; retain historical snapshots and client continuity.',
         ])
 
     portfolio_nodes = [

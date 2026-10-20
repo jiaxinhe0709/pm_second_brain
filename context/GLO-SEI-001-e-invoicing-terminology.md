@@ -214,14 +214,14 @@ An **existing implementation reuse candidate** is an identified service or build
 
 ## Review coverage and remaining contract questions
 
-The terminology review covers SPEC-SEI-001 through SPEC-SEI-016, including archived predecessors. Use [SPEC-SEI-016](../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) for current receiving, retrieval and download design. SPEC-SEI-006 and SPEC-SEI-010 remain linked below as historical review sources. The review checks repeated definitions, service names, roles, outcome wording, reuse labels and terms used in behaviour, contracts and acceptance coverage. It is not an implementation test or a new regulatory validation.
+The terminology review covers SPEC-SEI-001 through SPEC-SEI-016, including archived predecessors. Use [SPEC-SEI-016](../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) for current receiving, retrieval and download design. SPEC-SEI-006 and SPEC-SEI-010 remain linked below as historical review sources. Current onboarding and recovery design is in [SPEC-SEI-002](../specs/SPEC-SEI-002-onboarding-solution-specification.md); the SPEC-SEI-004 row is also an archived review source. The review checks repeated definitions, service names, roles, outcome wording, reuse labels and terms used in behaviour, contracts and acceptance coverage. It is not an implementation test or a new regulatory validation.
 
 | Source spec | Terminology focus |
 |---|---|
 | [SPEC-SEI-001 — Certificate management](../specs/SPEC-SEI-001-certificate-management-solution-specification.md) | Represented party versus authenticated principal; trust readiness, custody, rotation and source aliases. |
 | [SPEC-SEI-002 — Onboarding](../specs/SPEC-SEI-002-onboarding-solution-specification.md) | Readiness versus registration and activation; connection, entry point and cutover. |
 | [SPEC-SEI-003 — Offboarding](../specs/SPEC-SEI-003-offboarding-solution-specification.md) | Cutover, historical continuity and data disposition. |
-| [SPEC-SEI-004 — Onboarding recovery](../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md) | Unknown outcome, retry safety and reconciliation. |
+| [SPEC-SEI-004 — Onboarding recovery](../specs/archive/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md) | Unknown outcome, retry safety and reconciliation. |
 | [SPEC-SEI-005 — UBL validation](../specs/SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) | Profile versus rule pack; preflight versus final validation. |
 | [SPEC-SEI-006 — Inbound receiving](../specs/archive/SPEC-SEI-006-invoice-receiving-solution.md) | Source observation, canonical representation, product receipt and technical acknowledgement. |
 | [SPEC-SEI-007 — Preparation and outbound](../specs/SPEC-SEI-007-invoice-sending-solution.md) | Issuance, exchange actions, faithful public copy and final route evidence. |

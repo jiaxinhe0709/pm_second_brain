@@ -19,7 +19,7 @@ shared.WIDTH, shared.HEIGHT = WIDTH, HEIGHT
 LANES = shared.LANES
 LEGEND = 'Solid: shared handoff · Dashed: conditional work or recovery · Diamond: decision · Darker grey: recovery'
 ONB = '../../specs/SPEC-SEI-002-onboarding-solution-specification.md'
-OFR = '../../specs/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md'
+OFR = '../../specs/SPEC-SEI-002-onboarding-solution-specification.md#4-onboarding-recovery-behaviour'
 
 
 def node(key, col, lane, title, activity, note='', kind='flow'):
@@ -296,7 +296,7 @@ def build_all():
         lanes=detail_lanes, height=980,
         boundaries=[
             'ONB-01/02/10 establish the request, authority and current setup. Existing public or B2G use does not prove Sage B2B access.',
-            'Keep exact readiness states. Return failed and unknown checks with actions; an uncertain external effect uses SPEC-SEI-004.',
+            'Keep exact readiness states. Return failed and unknown checks with actions; an uncertain external effect uses OFR-01–08.',
             'Check certificate policy, then required readiness through qualified Tax/certificate references. Unknown lookup does not mean missing.']))
 
     private_nodes = [
