@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><base href="../specs/"><title>Onboarding diagrams and introductions</title><style>body{font:16px/1.55 Arial;color:#172b4d;margin:24px auto;max-width:1400px;padding:0 20px}img{display:block;max-width:100%;height:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid #ccd1d8;padding:10px;text-align:left;vertical-align:top}th{background:#f4f5f7}a{color:#0052cc}.table-scroll{overflow:auto}nav{position:sticky;top:0;background:white;padding:12px;border-bottom:1px solid #ccd1d8}h2{border-top:2px solid #ccd1d8;padding-top:20px}h2,h3,h4,a[id]{scroll-margin-top:70px}.limit{background:#fff7d6;padding:12px}</style></head><body><h1 id="onboarding-diagrams-and-introductions">Onboarding diagrams and introductions</h1>
+<p><strong>Onboarding overview</strong></p>
+<p>Record the request, verify authority and assess current setup (ONB-01/02/10). Follow the public or private path for each selected function. Return results and required actions through ONB-11; recovery returns to the affected check.</p>
+<p><img alt="Set up, connect or review e-invoicing through Sage" src="../assets/diagrams/onboarding-scenario-selection-process.svg" /></p>
+<p><a href="../assets/diagrams/onboarding-scenario-selection-process.drawio">Editable Draw.io</a> · <a href="../assets/diagrams/onboarding-scenario-selection-process.png">PNG</a>.</p>
+<p><strong>Public setup checks — detail</strong></p>
+<p>Check identity, authority, required credentials and the public connection for each selected function (ONB-02–04). Correct or recover failed checks at the affected step. Return readiness and required actions through ONB-11. Public readiness does not activate invoice exchange.</p>
+<p><img alt="Check public setup and return readiness — landscape responsibility lanes" src="../assets/diagrams/onboarding-public-readiness-process.svg" /></p>
+<p><a href="../assets/diagrams/onboarding-public-readiness-process.svg">Open full-size SVG</a> · <a href="../assets/diagrams/onboarding-public-readiness-process.drawio">Editable Draw.io</a> · <a href="../assets/diagrams/onboarding-public-readiness-process.png">PNG</a>.</p>
+<p><strong>Private connection and activation — detail</strong></p>
+<p>Connect the selected provider and check each function (ONB-05/06). Activate a route only when the plan requires an authorised change (ONB-07). Return failed or unknown work to its affected check. Preserve earlier invoice context and return separate function results (ONB-09/11).</p>
+<p><img alt="Connect a private provider; activate only when required — landscape responsibility lanes" src="../assets/diagrams/onboarding-private-route-process.svg" /></p>
+<p><a href="../assets/diagrams/onboarding-private-route-process.svg">Open full-size SVG</a> · <a href="../assets/diagrams/onboarding-private-route-process.drawio">Editable Draw.io</a> · <a href="../assets/diagrams/onboarding-private-route-process.png">PNG</a>.</p>
+<p><strong>Client approval and evidence — conditional detail</strong></p>
+<p>Reuse current evidence or request a missing decision from an eligible approver (ONB-12). Verify the response and required official evidence before resuming covered work. Refusal, expiry or withdrawal keeps dependent work blocked; reconcile any unknown submitted operation.</p>
+<p><img alt="Request client approval, verify evidence and resume only authorised work" src="../assets/diagrams/onboarding-client-approval-process.svg" /></p>
+<p><a href="../assets/diagrams/onboarding-client-approval-process.drawio">Editable Draw.io</a> · <a href="../assets/diagrams/onboarding-client-approval-process.png">PNG</a>.</p>
+<p><strong>Accountant portfolio — process clients separately</strong></p>
+<p>Save a batch receipt, then check and process each client independently (ONB-13). Receipt does not prove readiness. Correct or cancel selected items while other safe items continue; an unresolved external effect prevents final cancellation.</p>
+<p><img alt="Receive a portfolio batch and process independently authorised client items" src="../assets/diagrams/onboarding-portfolio-batch-process.svg" /></p>
+<p><a href="../assets/diagrams/onboarding-portfolio-batch-process.drawio">Editable Draw.io</a> · <a href="../assets/diagrams/onboarding-portfolio-batch-process.png">PNG</a>.</p>
+<p><strong>Public setup — sequence</strong></p>
+<p>This ONB-S02 example uses a saved asynchronous request; local checks can finish synchronously. ONB-03/04 perform qualified reads and save readiness without registration, receiving-point publication or route activation. ONB-11 notifies the product; after a lost notification, read the current authorised result.</p>
+<p><img alt="Connect an existing public service: shared checks and certificate readiness" src="../assets/diagrams/spain-onboarding-public-setup-sequence.svg" /></p>
+<p><a href="../assets/diagrams/spain-onboarding-public-setup-sequence.drawio">Editable Draw.io</a> · <a href="../assets/diagrams/spain-onboarding-public-setup-sequence.png">PNG</a>.</p>
+<p><strong>Private setup and activation — sequence</strong></p>
+<p>This ONB-S03 example adds only missing configuration. ONB-06 checks each function and required provider state; save intent before any separately approved external change. ONB-07/08 confirm an unchanged route, activate an authorised change or return blocked work to its exact check. ONB-11 returns results; runtime owners retain authentication, signing and validity checks.</p>
+<p><img alt="Connect a private provider: shared trust checks and conditional activation" src="../assets/diagrams/spain-onboarding-private-setup-sequence.svg" /></p>
+<p><a href="../assets/diagrams/spain-onboarding-private-setup-sequence.drawio">Editable Draw.io</a> · <a href="../assets/diagrams/spain-onboarding-private-setup-sequence.png">PNG</a>.</p></body></html>

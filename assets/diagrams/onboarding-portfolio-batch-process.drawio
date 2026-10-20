@@ -109,9 +109,9 @@
             <mxGeometry as="geometry" x="240" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="recover" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Resolve assigned uncertainty&#10;Original operation; no blind retry&#10;ONB-08 · Conditional" tooltip="Original operation; no blind retry">
+        <object id="recover" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check original effect; keep hold&#10;Query owner; manual case if needed&#10;ONB-08 / OFR-05/06/07 · Conditional" tooltip="Query owner; manual case if needed">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
-            <mxGeometry as="geometry" x="830" y="738" width="260" height="104" />
+            <mxGeometry as="geometry" x="830" y="598" width="260" height="104" />
           </mxCell>
         </object>
         <mxCell id="edge-0" source="submit" target="envelope" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
@@ -214,24 +214,26 @@
         <mxCell id="edge-13" source="hold" target="recover" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.0;entryY=0.5;dashed=1;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points">
-              <mxPoint x="370" y="600" />
-              <mxPoint x="520" y="600" />
-              <mxPoint x="520" y="790" />
+              <mxPoint x="370" y="650" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="edge-label-13" value="Possible external effect" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="530" y="684" width="260" height="22" />
+          <mxGeometry as="geometry" x="530" y="622" width="260" height="22" />
         </mxCell>
-        <mxCell id="edge-14" source="recover" target="aggregate" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=1.0;entryY=0.5;dashed=1;">
+        <mxCell id="edge-14" source="recover" target="aggregate" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=1.0;entryY=0.5;dashed=1;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points">
-              <mxPoint x="2320" y="790" />
+              <mxPoint x="960" y="715" />
+              <mxPoint x="2320" y="715" />
               <mxPoint x="2320" y="370" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="boundary" value="Persist the manifest before receipt. Suppress duplicate batch/item effects. Resume decomposition after a restart.&#10;Each client needs current access, authority and evidence. One blocked client cannot fail or disclose another.&#10;Correct or cancel only authorised items. Preserve completed work and invoice origins; hide inaccessible current progress." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="edge-label-14" value="Report current item result" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1100" y="689" width="260" height="22" />
+        </mxCell>
+        <mxCell id="boundary" value="Persist the manifest before receipt. Suppress duplicate batch/item effects. Resume decomposition after a restart.&#10;Each client needs current access, authority and evidence. One blocked client cannot fail or disclose another.&#10;Correct or cancel only authorised items. Preserve completed work and invoice origins; hide inaccessible current progress.&#10;Unresolved effects keep cancellation incomplete. Report the current item result; assignment is not resolution." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="28" y="920" width="2284" height="96" />
         </mxCell>
       </root>

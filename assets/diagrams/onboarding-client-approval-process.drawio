@@ -38,7 +38,7 @@
         <mxCell id="lane-label-3" value="Domain Service - Other&#10;Services" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="30" y="580" width="180" height="140" />
         </mxCell>
-        <object id="evidence" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Evidence covers decision?&#10;&#10;ONB-02 · Common" tooltip="">
+        <object id="evidence" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Current evidence covers decision?&#10;&#10;ONB-02 · Common" tooltip="">
           <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="240" y="598" width="260" height="104" />
           </mxCell>
@@ -88,7 +88,7 @@
             <mxGeometry as="geometry" x="1125" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="recover" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Stop use; coordinate recovery&#10;Preserve original evidence&#10;ONB-12/08 · Conditional" tooltip="Preserve original evidence">
+        <object id="recover" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Stop affected new use&#10;Reconcile only possible unknown effects&#10;ONB-12/08 / OFR-05/06/07 · Conditional" tooltip="Reconcile only possible unknown effects">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1420" y="458" width="260" height="104" />
           </mxCell>
@@ -124,7 +124,18 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-3" source="present" target="respond" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+        <mxCell id="edge-3" source="present" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="960" y="305" />
+              <mxPoint x="2140" y="305" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-3" value="Pending: return required action" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1450" y="269" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-4" source="present" target="respond" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points">
               <mxPoint x="1100" y="370.0" />
@@ -132,7 +143,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-4" source="respond" target="verify" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+        <mxCell id="edge-5" source="respond" target="verify" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points">
               <mxPoint x="1395" y="230.0" />
@@ -140,12 +151,12 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-5" source="verify" target="effective" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+        <mxCell id="edge-6" source="verify" target="effective" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-6" source="effective" target="resume" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+        <mxCell id="edge-7" source="effective" target="resume" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points">
               <mxPoint x="1985" y="650.0" />
@@ -153,33 +164,44 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-label-6" value="Yes" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+        <mxCell id="edge-label-7" value="Yes" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="1990" y="616" width="260" height="22" />
         </mxCell>
-        <mxCell id="edge-7" source="effective" target="blocked" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;">
+        <mxCell id="edge-8" source="effective" target="blocked" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;dashed=1;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-label-7" value="No / undetermined" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+        <mxCell id="edge-label-8" value="No / undetermined" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="1858" y="434" width="260" height="22" />
         </mxCell>
-        <mxCell id="edge-8" source="resume" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;">
+        <mxCell id="edge-9" source="resume" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=1.0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-9" source="blocked" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+        <mxCell id="edge-10" source="blocked" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-10" source="withdraw" target="recover" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+        <mxCell id="edge-11" source="blocked" target="request" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=0.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1845" y="295" />
+              <mxPoint x="665" y="295" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-11" value="Permitted new request after correction" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="264" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-12" source="withdraw" target="recover" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-11" source="recover" target="blocked" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+        <mxCell id="edge-13" source="recover" target="blocked" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points">
               <mxPoint x="1690" y="510.0" />

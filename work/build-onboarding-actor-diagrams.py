@@ -1,6 +1,6 @@
 """Build the approval and portfolio details for SPEC-SEI-002 locally.
 
-Reuse the existing renderer and visual system. Existing diagrams stay unchanged.
+Reuse the existing renderer and visual system. Recovery stays within the approval and portfolio journeys.
 Each description creates an editable Draw.io source, SVG and checked PNG.
 """
 from pathlib import Path
@@ -18,7 +18,7 @@ LANES = diagrams.LANES[:5]
 
 def build_all():
     approval_nodes = [
-        node('evidence', 0, 3, 'Evidence covers decision?', 'ONB-02', kind='decision'),
+        node('evidence', 0, 3, 'Current evidence covers decision?', 'ONB-02', kind='decision'),
         node('request', 1, 2, 'Save scoped approval request', 'ONB-12', 'Requester, purpose and version'),
         node('present', 2, 1, 'Present the client action', 'ONB-12/11', 'Eligible approver; exact scope'),
         node('respond', 3, 0, 'Approve or decline request', 'ONB-12', 'Current eligibility and version'),
@@ -28,7 +28,7 @@ def build_all():
         node('blocked', 5, 1, 'Keep dependent work blocked', 'ONB-12/11', 'Refusal, expiry or missing evidence', 'conditional'),
         node('result', 6, 1, 'Return result and action owner', 'ONB-11', 'Approval is separate from readiness', 'outcome'),
         node('withdraw', 3, 2, 'Approval or relationship ends', 'ONB-12/02', 'Effective withdrawal or role loss', 'conditional'),
-        node('recover', 4, 2, 'Stop use; coordinate recovery', 'ONB-12/08', 'Preserve original evidence', 'recovery'),
+        node('recover', 4, 2, 'Stop affected new use', 'ONB-12/08 / OFR-05/06/07', 'Reconcile only possible unknown effects', 'recovery'),
     ]
     diagrams.classify(approval_nodes, {
         n['key']: ('Common' if n['key'] in ('evidence', 'effective', 'result')
@@ -42,6 +42,9 @@ def build_all():
             edge('evidence', 'resume', points=[(370, 702), (370, 735), (2310, 735), (2310, 510), (2270, 510)],
                  label='Valid evidence: omit a new request', label_pos=(960, 760)),
             edge('request', 'present', 'conditional'),
+            edge('present', 'result', 'conditional',
+                 points=[(960,318),(960,305),(2140,305),(2140,318)],
+                 label='Pending: return required action', label_pos=(1450,285)),
             edge('present', 'respond', 'conditional'),
             edge('respond', 'verify', 'conditional'),
             edge('verify', 'effective'),
@@ -49,6 +52,9 @@ def build_all():
             edge('effective', 'blocked', 'conditional', label='No / undetermined', label_pos=(1858, 450)),
             edge('resume', 'result'),
             edge('blocked', 'result'),
+            edge('blocked', 'request', 'conditional',
+                 points=[(1845,318),(1845,295),(665,295),(665,458)],
+                 label='Permitted new request after correction', label_pos=(730,280)),
             edge('withdraw', 'recover', 'recovery'),
             edge('recover', 'blocked', 'recovery'),
         ], lanes=LANES[:4], height=890, boundaries=[
@@ -71,7 +77,7 @@ def build_all():
         node('correct', 4, 0, 'Correct selected client items', 'ONB-13/12', 'Same case; new evidence version', 'conditional'),
         node('cancel', 2, 0, 'Cancel selected pending work', 'ONB-13', 'Recheck each item permission', 'conditional'),
         node('hold', 0, 2, 'Stop selected pending steps', 'ONB-13', 'Keep completed item results', 'conditional'),
-        node('recover', 2, 4, 'Resolve assigned uncertainty', 'ONB-08', 'Original operation; no blind retry', 'recovery'),
+        node('recover', 2, 3, 'Check original effect; keep hold', 'ONB-08 / OFR-05/06/07', 'Query owner; manual case if needed', 'recovery'),
     ]
     diagrams.classify(portfolio_nodes, {
         n['key']: ('Conditional' if n['key'] in ('correct', 'cancel', 'hold', 'recover', 'blocked')
@@ -95,13 +101,15 @@ def build_all():
             edge('cancel', 'hold', 'conditional', points=[(960, 282), (960, 300), (230, 300), (230, 510), (240, 510)]),
             edge('hold', 'aggregate', 'conditional', points=[(370, 562), (370, 730), (2310, 730), (2310, 370), (2270, 370)],
                  label='No uncertain effect', label_pos=(1250, 750)),
-            edge('hold', 'recover', 'recovery', points=[(370, 562), (370, 600), (520, 600), (520, 790), (830, 790)],
-                 label='Possible external effect', label_pos=(530, 700)),
-            edge('recover', 'aggregate', 'recovery', points=[(1090, 790), (2320, 790), (2320, 370), (2270, 370)]),
+            edge('hold', 'recover', 'recovery', points=[(370,562),(370,650),(830,650)],
+                 label='Possible external effect', label_pos=(530,638)),
+            edge('recover', 'aggregate', 'recovery', points=[(960,702),(960,715),(2320,715),(2320,370),(2270,370)],
+                 label='Report current item result', label_pos=(1100,705)),
         ], lanes=LANES, height=1030, boundaries=[
             'Persist the manifest before receipt. Suppress duplicate batch/item effects. Resume decomposition after a restart.',
             'Each client needs current access, authority and evidence. One blocked client cannot fail or disclose another.',
             'Correct or cancel only authorised items. Preserve completed work and invoice origins; hide inaccessible current progress.',
+            'Unresolved effects keep cancellation incomplete. Report the current item result; assignment is not resolution.',
         ])
     return [approval, portfolio]
 
