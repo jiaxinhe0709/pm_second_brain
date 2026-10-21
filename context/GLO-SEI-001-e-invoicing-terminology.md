@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-20
+updated: 2026-10-21
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -25,6 +25,9 @@ related:
   - SPEC-SEI-014
   - SPEC-SEI-015
   - SPEC-SEI-016
+  - SPEC-SEI-018
+  - SPEC-SEI-019
+  - SPEC-SEI-020
 confluence:
   publish: false
   space_key: DNBU
@@ -104,6 +107,8 @@ Definitions explain the current source documents. They do not approve an archite
 | Capability | A supported function, such as receiving invoices or signing them. Each operation used to provide it needs qualification for the selected scope. |
 | Integration role | The capacity in which Sage uses an interface: customer-provider integration or platform interconnection. The role selects qualified contracts and controls; it does not grant customer authority. A capability qualified for one role is not automatically ready for the other. |
 | Connection | Configuration for communicating with a platform or provider. A configured connection is separate from external registration, readiness and route activation. |
+| FR API dataset | A resource scope identified by `datasetId` in the [supplied FR onboarding contracts](<FR API/Onboarding/get-dataset-accesspoints.md>). Its mapping to a tenant, ERP company, represented business or environment needs qualification. Do not infer a one-to-one mapping from its name. |
+| FR API access point and connection | Source API resources identified by `accessPointId` and `connectionId`. The [dataset listing](<FR API/Onboarding/get-dataset-accesspoints.md>) and [connection detail](<FR API/Onboarding/get-accesspoint-connection.md>) expose different status scopes. Their CONNECTED value is not, by itself, per-function readiness, effective authority or route activation. Preserve raw source states and qualify the mapping in SPEC-SEI-020. |
 | Onboarding | The setup workflow owned by the E-Invoice Service. It establishes or confirms selected functions through Sage. It can connect an existing service, add a function or coordinate an authorised platform change. It does not imply a separate onboarding service, first-time external registration or active invoice exchange. |
 | Onboarding component | A proposed internal component of the E-Invoice Service that could implement setup and recovery coordination. Its need and implementation remain open. The term does not establish a separate API or deployment. |
 | Common / scenario-specific / conditional behaviour | Diagram and specification labels. Common names shared behaviour; scenario-specific names work selected for the customer's situation and requested outcome; conditional names work performed only when required and permitted. Common checks can return no further work. These labels do not prove implementation reuse or replace country/provider rules. |

@@ -1,0 +1,557 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-020<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> local-review<br /><strong>Last updated:</strong> 2026-10-21</p></div><h1>Customer Onboarding API Design and Reuse Assessment</h1>
+<p><ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Solution Summary"/><ac:plain-text-link-body><![CDATA[Solution Summary]]></ac:plain-text-link-body></ac:link> · <ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Logical Feature Specification"/><ac:plain-text-link-body><![CDATA[Logical Feature Specification]]></ac:plain-text-link-body></ac:link> · <a href="README.md">Feature landing page</a></p>
+<h2>Revision overview</h2>
+<p>This engineering companion is based on <a href="../SPEC-SEI-002-onboarding-solution-specification.md">SPEC-SEI-002</a>, the split onboarding documents and the five supplied FR onboarding contracts. It presents the same activities through API calls and assesses reuse for Spain. The original specification and diagrams remain unchanged.</p>
+<p>Business requirements, phase gates and ONB/OFR meanings stay in SPEC-SEI-019. This file adds operation mappings, API sequence views, contract differences and evidence gates. It does not approve new endpoints, implementation reuse, a country rule or production activation. FR implementation coverage, missing shared contracts and the final Spain API surface remain open. Publication selection is unchanged.</p>
+<h2>1 Engineering decision summary</h2>
+<p>The supplied contracts support a <strong>reuse assessment of discovery and connection management</strong>. They do not establish a complete Spain onboarding API. Start with read-only discovery and inspection. Qualify country-specific changes and repeat safety before enabling connection mutations.</p>
+<p><strong>Confirmed in supplied contract</strong> means the field or operation appears in FR-01–05. <strong>Proposed</strong> describes its Spain mapping or internal handoff. <strong>Open</strong> means an owner must qualify the contract or implementation. A production server URL in a document does not prove a deployed build or Spain support.</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>Documented operation</th>
+<th>Proposed onboarding use</th>
+<th>Reuse assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#api-01-list-available-access-points">API-01</a></td>
+<td>GET <code>/accesspoints</code></td>
+<td>Discover supported choices; ONB-10/05.</td>
+<td>Candidate for shared discovery. Signature inconsistency and Spain service coverage remain open. FR-01.</td>
+</tr>
+<tr>
+<td><a href="#api-02-list-dataset-access-points">API-02</a></td>
+<td>GET <code>/datasets/{datasetId}/accesspoints</code></td>
+<td>Inspect known dataset connections; ONB-10/11.</td>
+<td>Candidate with qualified dataset/business binding and richer result mapping. FR-02.</td>
+</tr>
+<tr>
+<td><a href="#api-03-create-access-point-connection">API-03</a></td>
+<td>POST <code>/connectors/{accessPointId}/datasets/{datasetId}/connect</code></td>
+<td>Configure a missing supported private connection; ONB-05/06.</td>
+<td>Adaptation candidate. France address/usage/date rules cannot be reused as Spain defaults. FR-03.</td>
+</tr>
+<tr>
+<td><a href="#api-04-retrieve-access-point-connection">API-04</a></td>
+<td>GET <code>/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/</code></td>
+<td>Inspect an authorised connection; possible recovery observation; ONB-06/08/10/11.</td>
+<td>Candidate with qualified freshness, authority and observation semantics. Not an authoritative operation-status contract by default. FR-04.</td>
+</tr>
+<tr>
+<td><a href="#api-05-update-access-point-connection">API-05</a></td>
+<td>PUT <code>/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/</code></td>
+<td>Add an address or change supported dates; ONB-05/06.</td>
+<td>Adaptation candidate. Country rules, concurrent changes and uncertain-outcome recovery remain open. FR-05.</td>
+</tr>
+</tbody>
+</table>
+<p>No operation is classified as a qualified unchanged implementation. The API owner must identify the build, actual contracts, supported provider/environment, retained code, local changes, gaps and tests before activation (GAP-08).</p>
+<h2>2 Shared contract boundaries</h2>
+<h3>Identity and terminology</h3>
+<p>Use the <a href="../../context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>. In these supplied contracts, <code>datasetId</code>, <code>accessPointId</code> and <code>connectionId</code> are UUID resource references. Their mapping to a Sage tenant, ERP company, represented business, provider and environment is not established by their names. Identity and the API owner must qualify that mapping (GAP-01).</p>
+<p>The authenticated M2M application, the user named in a request, the represented business and the eligible approver are separate actors. An address entry is not proof of a separately authorised client item. A connection is not a whole-customer onboarding case.</p>
+<h3>Request and response conventions</h3>
+<p>FR-01–05 declare M2M bearer authentication and optional <code>traceparent</code>/<code>tracestate</code>. Response bodies use <code>application/vnd.api+json</code>. FR-03/05 use that media type for request bodies. Access control for direct customers, accountants, portfolios and protected evidence must still satisfy ONB-R01/02/19 and ONB-NFR01 in SPEC-SEI-019; JWT authentication alone does not establish those permissions.</p>
+<table>
+<thead>
+<tr>
+<th>Contract observation</th>
+<th>Spain design consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-03 requires <code>Idempotency-Key</code>; FR-05 declares no equivalent header.</td>
+<td>Qualify duplicate scope, payload binding, retention, in-flight replay and recovery independently for create/update. Do not infer safety from HTTP method names (GAP-04).</td>
+</tr>
+<tr>
+<td>Common responses include 400/401/403/404/405/413/415/429/500/502/503/504. <code>429</code> documents <code>Retry-After</code> seconds.</td>
+<td>Preserve the original reason and classify the operation separately. Provider guidance informs approved retry budgets; it does not authorise repeating an uncertain change.</td>
+</tr>
+<tr>
+<td>Dataset listing exposes CONNECTED/DISCONNECTED; address details expose IN_PROGRESS/RETRYING/CONNECTED/DISCONNECTED/ERROR.</td>
+<td>Preserve raw source status and map it explicitly. Neither source scope supplies the independent identity, authority, trust, readiness and activation results in ONB-11 (GAP-05).</td>
+</tr>
+<tr>
+<td>The supplied five operations show no <code>If-Match</code> or other expected-version parameter.</td>
+<td>ONB-R07 and OFR-R05 still require conflict-safe changes. Qualify actual version/serialisation support; do not invent a header (GAP-04).</td>
+</tr>
+</tbody>
+</table>
+<h3>Handling protected information</h3>
+<p>Retain connection references, source status, error mapping version and observation time where qualified. Minimise and protect company/user information and address identifiers. Runtime credentials and private keys stay with the qualified trust owner. Do not copy request examples, personal information, bearer tokens or raw provider errors into logs, notifications or diagrams. Retention follows the approved class-specific policy in ONB-NFR03.</p>
+<h2>3 API catalogue and sequence views</h2>
+<p>These are <strong>proposed Spain call sequences using documented FR operations</strong>. The participant names show logical responsibilities, not deployed service boundaries. API-01–05 identify real supplied method/path pairs. GAP labels identify missing evidence or an unbound handoff; they are not endpoint names. Diagram activity IDs refer to SPEC-SEI-019.</p>
+<p>Solid filled arrows show requests, dashed open arrows show replies and solid open arrows show notifications. Time runs down. <strong>opt</strong> groups conditional work. Each diagram has an editable Draw.io source and full-size preview.</p>
+<h3>API 01 List available access points</h3>
+<p><strong>FR-01:</strong> <code>Get-AccessPoints</code> — GET <code>/accesspoints</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Contract and proposed use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Purpose and caller</td>
+<td>ERP/product obtains available options through the Global API. Candidate input to ONB-10/05; a listing cannot select a platform or prove a function supported for this business.</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>Authenticated M2M context and optional trace headers. <strong>Conflict:</strong> the operation references a required path <code>datasetId</code>, but its path contains no <code>{datasetId}</code> placeholder. Confirm the canonical signature before generating a client.</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>200 with AccessPoint resources: <code>id</code> and <code>attributes.name</code>. No country, operation capabilities, qualified execution role, pricing or readiness evidence is defined by this response.</td>
+</tr>
+<tr>
+<td>Failure and recovery</td>
+<td>Deny unauthorised reads. Classify unavailable listing separately from no supported option. An approved bounded read retry may be appropriate; an empty result cannot prove that an external business has no setup.</td>
+</tr>
+<tr>
+<td>Reuse and gate</td>
+<td>Shared discovery candidate; confirm filtering, public/private scope and signature. API owner and Product; GAP-01/03/07/08, ONB-Q01/02/04.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="d12301ff-8452-5e02-a7c0-7139a9f87921"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-api-discovery-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1800</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p>Figure 1. Discover choices, list existing dataset connections and inspect a known connection. Unchanged valid setup needs no mutation. <a href="../../assets/diagrams/onboarding-api-discovery-sequence.svg">Full-size SVG</a> · <a href="../../assets/diagrams/onboarding-api-discovery-sequence.drawio">Draw.io</a> · <a href="../../assets/diagrams/onboarding-api-discovery-sequence.png">PNG</a>.</p>
+<h3>API 02 List dataset access points</h3>
+<p><strong>FR-02:</strong> <code>Get-Dataset-AccessPoints</code> — GET <code>/datasets/{datasetId}/accesspoints</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Contract and proposed use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Purpose and caller</td>
+<td>ERP/product inspects connections for an authorised dataset. Input to ONB-10; connection facts can contribute to ONB-11. Sequence: Figure 1.</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>Required UUID <code>datasetId</code>, M2M context and optional trace headers. Resolve trusted dataset/business/environment mapping before the read.</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>200 with AccessPoint resources and <code>name</code>, <code>status</code> (CONNECTED/DISCONNECTED), nullable <code>connectionId</code>. A null ID is not an operation result or proof of external absence.</td>
+</tr>
+<tr>
+<td>Failure and recovery</td>
+<td>Preserve earlier observations when lookup fails. Recheck current client access for results and aggregates. List discovery is not a proven way to correlate a lost create response to its original operation.</td>
+</tr>
+<tr>
+<td>Reuse and gate</td>
+<td>Candidate for setup assessment. Qualify freshness, source authority, cross-client access and status scope. API/Identity owners; GAP-01/03/04/05/08, ONB-Q01/04/08.</td>
+</tr>
+</tbody>
+</table>
+<h3>API 03 Create access point connection</h3>
+<p><strong>FR-03:</strong> <code>New-AccessPoint-Connection</code> — POST <code>/connectors/{accessPointId}/datasets/{datasetId}/connect</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Contract and proposed use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Purpose and caller</td>
+<td>ERP/product requests a missing private connection after ONB-10 assessment and ONB-02/03/05/12 gates. Qualify the selected provider and execution owner. This is not a Spain public registration command.</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>Required UUID <code>accessPointId</code>/<code>datasetId</code>, <code>Idempotency-Key</code> and JSON:API <code>data</code> with <code>type: AccessPointConnection</code> and <code>attributes</code>. The attributes require company name/address/postal code/country, <code>user</code> and at least one <code>accessPointAddresses</code> entry. <code>user</code> requires first/last name, job title, email and IP property; job title permits null.</td>
+</tr>
+<tr>
+<td>Country binding</td>
+<td>Address types are <code>fr.siren</code>, <code>fr.sirensiret</code>, <code>fr.siren_suffix</code>, <code>fr.sirensiret_routing</code>. Optional date fields use <code>YYYY/MM/DD</code>; the described effective-date minimum is today plus one day. These are supplied FR constraints, not Spain requirements.</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>201 with an AccessPointConnection resource whose <code>data.id</code> is described as the onboarding transaction/connection ID. Address results can still be pending or error. Record resource creation separately from readiness/activation.</td>
+</tr>
+<tr>
+<td>Failure and recovery</td>
+<td>Save original input and key before dispatch (OFR-01). After a possible effect, hold dependent work (OFR-05). Use a qualified observation or same-key recovery contract. If the response is lost, <code>connectionId</code> may be unknown; API-02 alone is insufficient original-operation evidence. Do not submit a new key to bypass uncertainty.</td>
+</tr>
+<tr>
+<td>Reuse and gate</td>
+<td>Adaptation candidate for connection creation. Qualify country payload, local-vs-external effects, idempotency guarantees, actor/terms evidence and recovery correlation. API/Integration, Identity, Product and Operations; GAP-01–05/07/08.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="02af95e7-0b1c-5ed0-ab1a-7e18708eed3c"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-api-private-connection-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1800</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p>Figure 2. Conditional create, inspection and separately gated activation. The sequence retains ONB-05/06/07/08/09/11 and exposes the missing authority, trust and route contracts. <a href="../../assets/diagrams/onboarding-api-private-connection-sequence.svg">Full-size SVG</a> · <a href="../../assets/diagrams/onboarding-api-private-connection-sequence.drawio">Draw.io</a> · <a href="../../assets/diagrams/onboarding-api-private-connection-sequence.png">PNG</a>.</p>
+<h3>API 04 Retrieve access point connection</h3>
+<p><strong>FR-04:</strong> <code>Get-AccessPoint-Connection</code> — GET <code>/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Contract and proposed use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Purpose and caller</td>
+<td>ERP/product inspects one authorised connection for ONB-10/06/11. Recovery may consume it only after the owner qualifies what it observes. Used in Figures 1–3.</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>Required UUID <code>accessPointId</code>, <code>datasetId</code>, <code>connectionId</code>; M2M and optional trace headers. Keep resource hierarchy and represented-business checks separate.</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>200 with connection resource/meta and nullable <code>accessPointAddresses</code>. Address entries include type/value, dates, <code>mandateNumber</code>, <code>usage</code>, source status and <code>errorCode</code>. Metadata includes created/modified times and source/trace references. These are not necessarily external observation times or state versions.</td>
+</tr>
+<tr>
+<td>Failure and recovery</td>
+<td>Distinguish a failed read, missing/inaccessible resource and an unresolved external effect. A 404 cannot safely establish that a previous external mutation did not occur. Polling interval, freshness and authoritative observation support need owner agreement; no arbitrary interval is assigned.</td>
+</tr>
+<tr>
+<td>Reuse and gate</td>
+<td>Inspection candidate. Prove whether the result is local configuration, cached provider state or fresh external observation, and how it correlates to the original change. API/Integration and Operations; GAP-01/03/04/05/08, OFR-Q01/02/04.</td>
+</tr>
+</tbody>
+</table>
+<h3>API 05 Update access point connection</h3>
+<p><strong>FR-05:</strong> <code>Put-AccessPoint-Connection</code> — PUT <code>/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Contract and proposed use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Purpose and caller</td>
+<td>ERP/product submits a supported change to a known authorised connection. Candidate for missing configuration/extension under ONB-05/06; not proof of a route-switch command.</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>Required path UUIDs and JSON:API <code>data</code> with resource <code>type</code>. Optional attributes include company/user details and addresses. Address action is <code>add</code> or <code>update</code>; descriptions limit <code>update</code> to effective/end dates. <code>usage</code> is permitted only for <code>add</code>. The request groups addresses by the same base SIREN.</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>200 with resource and per-address action, status and <code>errorCode</code>. Treat HTTP completion and business outcomes separately. Determine partial-update/atomicity semantics before handling mixed address results.</td>
+</tr>
+<tr>
+<td>Failure and recovery</td>
+<td>No Idempotency-Key or expected-version parameter is declared in this operation. Establish repeat/conflict safety before dispatch; save original intent. A lost response remains uncertain until the qualified owner establishes actual state. API-04 helps only within its proven observation limits.</td>
+</tr>
+<tr>
+<td>Reuse and gate</td>
+<td>Adaptation candidate. Qualify country grouping, supported edits, operation identity, atomicity, deletion/disconnection and cancellation semantics. A date update cannot be treated as general rollback, mandate withdrawal or provider migration. API/Integration, Routing and Operations; GAP-02/04/05/07/08.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="07f0950c-1c67-50e9-9eec-b190c71a5623"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-api-update-recovery-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1800</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p>Figure 3. Read before change, conditionally update, then inspect/reconcile the original result. Resolved work resumes its parent check; route activation/restoration remains separate. <a href="../../assets/diagrams/onboarding-api-update-recovery-sequence.svg">Full-size SVG</a> · <a href="../../assets/diagrams/onboarding-api-update-recovery-sequence.drawio">Draw.io</a> · <a href="../../assets/diagrams/onboarding-api-update-recovery-sequence.png">PNG</a>.</p>
+<h2>4 Public readiness and API coverage</h2>
+<p>The business flow remains the <ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Logical Feature Specification"/><ac:plain-text-link-body><![CDATA[public sequence in SPEC-SEI-019]]></ac:plain-text-link-body></ac:link>. The supplied FR documents do not identify the actual identity, representation, certificate, public-check or per-function-readiness API contracts. Bind those existing owner contracts before enabling the path; do not infer a need to build new services from this limited evidence set.</p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="0a76b0a4-a36e-5eb1-a8a8-a286844aa5a5"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-api-public-readiness-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1800</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p>Figure 4. Public setup with explicit contract gaps. Optional FR discovery needs public-service qualification. Missing prerequisites remain owned findings; a possible effect uses original-operation recovery. No route activation or invented enrolment call is added. <a href="../../assets/diagrams/onboarding-api-public-readiness-sequence.svg">Full-size SVG</a> · <a href="../../assets/diagrams/onboarding-api-public-readiness-sequence.drawio">Draw.io</a> · <a href="../../assets/diagrams/onboarding-api-public-readiness-sequence.png">PNG</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Behaviour in SPEC-SEI-019</th>
+<th>Supplied coverage and safe design position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONB-01 request/case intake</td>
+<td>FR-03 creates a connection resource. It does not establish the pending multi-function case, plan/revision or cancellation contract. Bind the actual workflow contract.</td>
+</tr>
+<tr>
+<td>ONB-02/03 identity, authority and conditional trust</td>
+<td>M2M and <code>user</code> fields do not prove these decisions. Bind Identity and SPEC-SEI-001 contracts.</td>
+</tr>
+<tr>
+<td>ONB-04/11 per-function readiness/results</td>
+<td>FR connection status is insufficient by itself. Define a qualified mapping/composition with source evidence and owned actions.</td>
+</tr>
+<tr>
+<td>ONB-05/06 private configuration/readiness</td>
+<td>FR-03/04/05 are candidates; exact provider effects and country rules remain gates.</td>
+</tr>
+<tr>
+<td>ONB-07/09 route change and continuity</td>
+<td>No explicit route-version commit, restoration or earlier-invoice access contract is supplied. Retain SPEC-SEI-014 and the owning invoice features' gates.</td>
+</tr>
+<tr>
+<td>ONB-08/OFR-01–08 recovery</td>
+<td>FR create has a key; resource reads exist. No original-operation query, closure proof or complete retry policy is established.</td>
+</tr>
+<tr>
+<td>ONB-10 assessment</td>
+<td>FR-01/02/04 can contribute after dataset, access and observation qualification. Failed lookup cannot establish absence.</td>
+</tr>
+<tr>
+<td>ONB-12 approval; ONB-13 portfolio</td>
+<td>User attributes and address arrays do not establish eligible approval, client separation, durable batch receipt or current aggregate visibility. Find the actual owning contracts.</td>
+</tr>
+</tbody>
+</table>
+<p>The Spain public boundary follows ONB-SPFE-R02 and OFR-SPFE-R01 in SPEC-SEI-019: the supplied public service inventory does not define a customer-enrolment payload, and invoice submission/cancellation is not an onboarding probe. SPFE-S03/S08 establish that supplied snapshot; these controls do not prohibit separately qualified internal connection configuration.</p>
+<h2>5 Reuse differences and open gates</h2>
+<h3>Country and contract differences</h3>
+<table>
+<thead>
+<tr>
+<th>Source evidence</th>
+<th>Reuse decision needed</th>
+<th>Owner or gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-03/04/05 address type enums and FR-05 same-SIREN grouping</td>
+<td>Reuse connection patterns with explicit country rules. Do not relabel NIF as SIREN or infer a Spain address format, grouping rule or directory operation.</td>
+<td>Spain Product/Identity, API and Integration; GAP-02.</td>
+</tr>
+<tr>
+<td>FR-04/05 <code>mandateNumber</code> is described as generated per France opt-in form</td>
+<td>Keep it source-specific. Identify Spain action-authority evidence and its owner separately; a local connection field is not legal representation.</td>
+<td>Identity/Compliance; GAP-02/03.</td>
+</tr>
+<tr>
+<td>FR-03/04/05 <code>usage</code>: omitted/null permits all operations; maximum one explicit value, with SEND/EREPORTING values</td>
+<td>Do not import the default or treat absence as permission to receive, report or sign. Define exact country/function permissions and compatibility; preserve the raw FR semantics.</td>
+<td>API, Identity and Product; GAP-02/03/05.</td>
+</tr>
+<tr>
+<td>FR date format/minimum and end-date constraints</td>
+<td>Qualify business timezone, requested vs effective start and historical dates. France's next-day rule cannot define Spain activation or statutory dates.</td>
+<td>API/Routing/ERP Product; GAP-02/07, ONB-Q09.</td>
+</tr>
+<tr>
+<td>Create/update address input max length 114; response max length 50</td>
+<td>Resolve canonical lengths and test round-trip values before client/schema reuse.</td>
+<td>FR API owner; GAP-07.</td>
+</tr>
+<tr>
+<td>FR-05 prose limits updates to dates, but the schema exposes more optional properties; mixed address operations are possible</td>
+<td>Confirm validation, unsupported-edit response and partial/atomic effect semantics.</td>
+<td>API/Integration; GAP-04/07.</td>
+</tr>
+<tr>
+<td>FR dataset status is binary; detail states and errorCode have a different scope</td>
+<td>Preserve source status. Approve a mapping to per-function findings and activation evidence rather than a direct enum rename.</td>
+<td>API, connection and workflow owners; GAP-05.</td>
+</tr>
+</tbody>
+</table>
+<h3>Evidence gates</h3>
+<p>These are local engineering questions, not approved additions to the project decision register. Existing ONB-Q/OFR-Q records retain ownership and status. Each gate needs an owner's dated outcome and links to actual contracts/builds/tests before its scope is enabled.</p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Required evidence and impact</th>
+<th>Owner and existing reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GAP-01 Dataset and resource identity</td>
+<td>Prove tenant/company/business/environment and access-point/connection mappings, isolation and reference ownership. Blocks protected mapping and client access.</td>
+<td>API + Identity; ONB-Q01/04/08.</td>
+</tr>
+<tr>
+<td>GAP-02 Country binding</td>
+<td>Approve Spain service roles, identifier/address/usage/date rules and country-rule isolation. Blocks unmodified FR mutations for Spain.</td>
+<td>Spain Product, Compliance, API/Integration; ONB-Q02/03/09.</td>
+</tr>
+<tr>
+<td>GAP-03 Actor and authority</td>
+<td>Prove direct/delegated M2M access, current firm/client checks, terms and action evidence. Identify credential owner, caller and represented party separately.</td>
+<td>Identity, Security, Product; ONB-Q06/07/08.</td>
+</tr>
+<tr>
+<td>GAP-04 Mutation safety</td>
+<td>Prove create replay/retention/payload rules, update repeat safety, concurrency and atomicity, lost-response correlation and authoritative observation. Blocks automated uncertain-mutation repeat.</td>
+<td>API/Integration + Operations; OFR-Q01/02 and retry-safety decision.</td>
+</tr>
+<tr>
+<td>GAP-05 Result meanings</td>
+<td>Approve raw-to-logical status/error mapping, source freshness, external observation level and separate activation proof. Blocks a global ready/active label.</td>
+<td>API, E-Invoice Service, Routing; ONB-Q04/09.</td>
+</tr>
+<tr>
+<td>GAP-06 Companion APIs</td>
+<td>Locate existing case, Identity, trust, approval, batch, route and per-function-result contracts. Decide reuse/extension only after that inventory.</td>
+<td>E-Invoice Service, Architecture and dependency owners; ONB-Q04–08, OFR-Q03/04.</td>
+</tr>
+<tr>
+<td>GAP-07 Source inconsistencies</td>
+<td>Resolve FR-01 path parameter, length differences, date validation, supported edits and actual error semantics. Blocks final schema/client generation.</td>
+<td>FR API owner; selected-contract review before build.</td>
+</tr>
+<tr>
+<td>GAP-08 Implementation qualification</td>
+<td>Record repository/component/build, supported scope, operations/runbooks, test evidence, local changes and remaining gaps for each reused operation. Documentation alone cannot qualify a build.</td>
+<td>Architecture, E-Invoice Service, API/Integration + Operations; ONB-Q05, OFR-Q03.</td>
+</tr>
+</tbody>
+</table>
+<p>Existing DTS remains the preferred transformation reuse candidate where relevant. This API slice supplies no transformation contract. The DTS/exchange owners retain build, mapping, rule-pack and operational qualification under SPEC-SEI-008; connection creation cannot establish invoice-format readiness.</p>
+<h2>6 Design assurance</h2>
+<p>These are acceptance checks to obtain from the actual implementation. They supplement the existing ONB/OFR scenarios without restating the business requirements.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Evidence and expected result</th>
+<th>Trace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API-A01 Resource access</td>
+<td>Wrong tenant/client, removed relationship or mismatched dataset/connection cannot expose another business or perform protected work; response does not enumerate inaccessible clients.</td>
+<td>ONB-A29/33/36; GAP-01/03.</td>
+</tr>
+<tr>
+<td>API-A02 Unchanged setup</td>
+<td>Matching valid observations return the existing result with no create/update or new route version.</td>
+<td>ONB-A15; Figure 1.</td>
+</tr>
+<tr>
+<td>API-A03 Create duplicates</td>
+<td>Qualified same-key/same-input replay returns the original resource/effect; changed payload conflicts safely within the approved duplicate window. Test restart and in-flight replay.</td>
+<td>OFR-A04/06; GAP-04/08.</td>
+</tr>
+<tr>
+<td>API-A04 Lost create response</td>
+<td>A lost 201 result retains the original intent/key. If connection ID cannot be recovered authoritatively, dependent work stays held; no fresh-key POST.</td>
+<td>ONB-A06, OFR-A03/05; Figure 2.</td>
+</tr>
+<tr>
+<td>API-A05 Update concurrency and uncertainty</td>
+<td>Competing updates cannot overwrite stale plans. A lost result uses qualified observation or an owned unresolved case; no blind PUT or date-based rollback.</td>
+<td>ONB-A07/08, OFR-A15/17; Figure 3.</td>
+</tr>
+<tr>
+<td>API-A06 Status interpretation</td>
+<td>201/200, CONNECTED or RETRYING cannot become blanket readiness/activation. Preserve address/function distinctions and raw evidence.</td>
+<td>ONB-A20/24/42; GAP-05.</td>
+</tr>
+<tr>
+<td>API-A07 Country isolation</td>
+<td>France-specific identifiers, opt-in references, usage defaults and next-day dates do not run as Spain/other-country defaults. Missing local policy blocks dependent work. Test all FR address forms and maximum lengths.</td>
+<td>ONB-A09/19/37, OFR-A10; GAP-02/07.</td>
+</tr>
+<tr>
+<td>API-A08 Retry classification</td>
+<td>429 uses approved guidance/budget for a repeat-safe operation; 401/403, unclassified 5xx or 404 cannot silently authorise mutation retry or prove absence.</td>
+<td>OFR-A01/02/09/21; GAP-04.</td>
+</tr>
+<tr>
+<td>API-A09 Missing companion coverage</td>
+<td>Missing approval/trust/batch/route contracts produce owned limitations. An address array/user field cannot satisfy missing effective authority or portfolio isolation.</td>
+<td>ONB-A25/31/34/35; GAP-03/06.</td>
+</tr>
+<tr>
+<td>API-A10 Public boundary</td>
+<td>Qualified public readiness runs its actual checks; no invented external registration, test invoice, CancelInvoice repair or automatic route activation.</td>
+<td>ONB-SPFE-A01–03; OFR-SPFE-A01/02; Figure 4; SPFE-S03/S08.</td>
+</tr>
+<tr>
+<td>API-A11 API/diagram correlation</td>
+<td>All five method/path/operation-ID pairs match FR-01–05, including trailing slashes. Each GAP handoff is labelled unbound; sequence IDs map to the same ONB activities as 019.</td>
+<td>ONB-A28; source snapshots below.</td>
+</tr>
+<tr>
+<td>API-A12 Reuse and operations</td>
+<td>Record actual build/contracts, retained behaviour, country changes, gaps, monitoring and recovery evidence per enabled operation. Redact diagnostics and preserve approved retention.</td>
+<td>ONB-A19/21, OFR-A11/19; ONB-NFR01–04; GAP-08.</td>
+</tr>
+</tbody>
+</table>
+<h2>7 Confluence presentation</h2>
+<p>The proposed presentation uses three sibling pages under the existing onboarding feature/PRD page. The <a href="README.md#confluence-presentation">landing page</a> records source mapping and the current publication boundary. The local preview shows the reading routes, linked headings and full-size diagrams.</p>
+<p>Publish one engineering page with per-operation headings and contents links. Keep reusable schema detail in FR-01–05 and link it from each entry. The existing publisher can attach Draw.io sources and PNGs and use its full-screen viewer. A publication preview is not evidence of a live page update.</p>
+<h2>REF Source references</h2>
+<p>FR files are supplied OpenAPI 3.1.0 snapshots, each declaring <code>info.version: 1.0.0</code>, reviewed 21 October 2026. No contract publication date, actual build version or completeness of the wider service is established. Source files remain unchanged. JSON names and paths below are exact; review excludes generated code samples and sample personal data.</p>
+<table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>Original file</th>
+<th>Exact contract element</th>
+<th>Supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-01</td>
+<td><a href="../../context/FR API/Onboarding/get-accesspoints.md">get-accesspoints.md</a></td>
+<td><code>paths["/accesspoints"].get</code>, <code>GetAccessPointsResponse</code>, <code>AccessPointsResponse</code>, <code>parameters.datasetId</code></td>
+<td>Discovery path, response and signature inconsistency. No capability/readiness contract or Spain deployment proof.</td>
+</tr>
+<tr>
+<td>FR-02</td>
+<td><a href="../../context/FR API/Onboarding/get-dataset-accesspoints.md">get-dataset-accesspoints.md</a></td>
+<td><code>paths["/datasets/{datasetId}/accesspoints"].get</code>, <code>DatasetAccessPointsResponse</code></td>
+<td>Dataset listing, binary status and nullable connection reference; no proven original-operation recovery semantics.</td>
+</tr>
+<tr>
+<td>FR-03</td>
+<td><a href="../../context/FR API/Onboarding/new-accesspoint-connection.md">new-accesspoint-connection.md</a></td>
+<td><code>paths["/connectors/{accessPointId}/datasets/{datasetId}/connect"].post</code>; <code>Idempotency-Key</code> parameter; <code>AccessPointConnectionRequest/Response</code></td>
+<td>Create contract, required inputs, FR constraints and 201/address states. Key scope/retention/replay and external effects remain unqualified.</td>
+</tr>
+<tr>
+<td>FR-04</td>
+<td><a href="../../context/FR API/Onboarding/get-accesspoint-connection.md">get-accesspoint-connection.md</a></td>
+<td><code>paths["/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/"].get</code>; <code>AccessPointConnectionResponse</code>; <code>Assigned-Keys</code></td>
+<td>Detail read, address states/metadata and FR mandate description. Does not establish fresh authoritative external observation or authority.</td>
+</tr>
+<tr>
+<td>FR-05</td>
+<td><a href="../../context/FR API/Onboarding/put-accesspoint-connection.md">put-accesspoint-connection.md</a></td>
+<td>Same connection path <code>.put</code>; <code>PutAccessPointConnectionRequest</code>; <code>UpdateAccessPointConnectionRequest/Response</code></td>
+<td>Update actions, country grouping/date/usage rules and response shape. No supplied idempotency/version header; actual repeat/atomicity semantics need qualification.</td>
+</tr>
+<tr>
+<td>REF-LOGICAL</td>
+<td><ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Logical Feature Specification"/><ac:plain-text-link-body><![CDATA[SPEC-SEI-019]]></ac:plain-text-link-body></ac:link>, draft 21 October 2026</td>
+<td>ONB/OFR requirements, activity blocks, NFRs and acceptance</td>
+<td>Required behaviour baseline for this design proposal. API allocation here cannot change those requirements.</td>
+</tr>
+<tr>
+<td>REF-BASE</td>
+<td><a href="../SPEC-SEI-002-onboarding-solution-specification.md">SPEC-SEI-002</a>, updated 20 October 2026</td>
+<td>Interaction/data inventories and decision/release-gate record</td>
+<td>Original technical analysis and existing open decisions. Preserved unchanged; not implementation evidence.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf">Original public service catalogue</a>, 0.1.0, 9 October 2026</td>
+<td>Sections 5.1 and 6.1–6.10, pp. 9–20</td>
+<td>Public operation inventory and fault guidance; no supplied external onboarding registration command or blanket safe-retry guarantee.</td>
+</tr>
+<tr>
+<td>SPFE-S08</td>
+<td><a href="../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf">Original input/output formats</a>, 0.1.0, 9 October 2026, draft</td>
+<td>Sections 5.1–5.9, pp. 8–15</td>
+<td>Operation/request/item response distinctions and supplied formats; no onboarding payload. Pending formats/conflicts remain gates.</td>
+</tr>
+<tr>
+<td>REF-SPAIN</td>
+<td><ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Logical Feature Specification"/><ac:plain-text-link-body><![CDATA[SPEC-SEI-019 REF]]></ac:plain-text-link-body></ac:link>, <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a>, <a href="../../context/GLO-SEI-001-e-invoicing-terminology.md">glossary</a></td>
+<td>Original legal/contract locators, shared conflicts and qualified identity/outcome terms</td>
+<td>Existing Spain evidence route. This engineering assessment introduces no new legal rule; final BOE evidence retains its authority.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

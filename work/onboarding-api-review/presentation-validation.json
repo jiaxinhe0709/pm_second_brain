@@ -1,0 +1,11 @@
+{
+  "result": "pass",
+  "checks": [
+    "index: desktop navigation, layout and images pass",
+    "SPEC-SEI-018: desktop navigation, layout and images pass",
+    "SPEC-SEI-019: desktop navigation, layout and images pass",
+    "SPEC-SEI-020: desktop navigation, layout and images pass",
+    "API page: narrow viewport and diagram scroll pass"
+  ],
+  "live_confluence_verified": false
+}
