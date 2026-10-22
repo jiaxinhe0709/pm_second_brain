@@ -99,6 +99,7 @@ def prepare(revision):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--live', action='store_true')
+    parser.add_argument('--refresh', action='store_true', help='Update the recorded existing pages')
     parser.add_argument('--merged-pr', type=int)
     parser.add_argument('--env-from', type=Path)
     args = parser.parse_args()
@@ -120,13 +121,25 @@ def main():
     client = publisher.confluence_client()
     parent = client.get_page_by_id(PARENT, expand='version')
     assert parent['title'] == 'Public Platform - Onboarding'
-    summary = client.get_page_by_id('923861390', expand='version,body.storage,ancestors')
-    assert str(summary['ancestors'][-1]['id']) == PARENT
-    assert summary['version']['number'] == 10, 'Summary changed since preflight; reconcile first'
-    assert not re.search('manual[ -]discussion', summary['body']['storage']['value'], re.I)
-    for _, metadata, _ in documents:
-        found = client.get_page_by_title('DNBU', metadata['confluence']['title'])
-        assert not found, 'A target title already exists; reconcile its page ID first'
+    if args.refresh:
+        previous = json.loads((OUT / 'receipt.json').read_text())
+        versions = {item['page_id']: item['version'] for item in previous['results']}
+        for _, metadata, _ in documents:
+            pid = metadata['confluence']['page_id']
+            assert pid and pid in versions, 'Refresh requires a recorded page'
+            page = client.get_page_by_id(pid, expand='version,body.storage,ancestors')
+            assert str(page['ancestors'][-1]['id']) == PARENT
+            assert page['title'] == metadata['confluence']['title']
+            assert page['version']['number'] == versions[pid], 'Page changed since last verification; reconcile first'
+            assert not re.search('manual[ -]discussion', page['body']['storage']['value'], re.I)
+    else:
+        summary = client.get_page_by_id('923861390', expand='version,body.storage,ancestors')
+        assert str(summary['ancestors'][-1]['id']) == PARENT
+        assert summary['version']['number'] == 10, 'Summary changed since preflight; reconcile first'
+        assert not re.search('manual[ -]discussion', summary['body']['storage']['value'], re.I)
+        for _, metadata, _ in documents:
+            found = client.get_page_by_title('DNBU', metadata['confluence']['title'])
+            assert not found, 'A target title already exists; reconcile its page ID first'
     manifest['review'] = review
     manifest['parent_version_before'] = parent['version']['number']
     manifest['results'] = []
