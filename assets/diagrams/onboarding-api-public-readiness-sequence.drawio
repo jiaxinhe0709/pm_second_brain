@@ -141,7 +141,7 @@
         <mxCell id="cell-36" value="Internal connection setup may need API-03/05; no external enrolment is inferred. Detailed errors, recovery and contract questions stay in SPEC-SEI-020." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
           <mxGeometry as="geometry" x="40" y="895" width="1325.6999999999998" height="25" />
         </mxCell>
-        <object id="cell-37" label="Source specification" link="../../specs/onboarding/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md">
+        <object id="cell-37" label="Source specification" link="../../specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md">
           <mxCell parent="1" vertex="1" style="text;html=0;align=right;fontSize=12;">
             <mxGeometry as="geometry" x="1560" y="932" width="190" height="20" />
           </mxCell>

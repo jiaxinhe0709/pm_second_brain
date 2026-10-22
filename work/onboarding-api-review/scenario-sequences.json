@@ -1,0 +1,396 @@
+{
+  "scenarios": [
+    {
+      "scenario": "ONB-S01",
+      "anchor": "onb-s01-new-setup",
+      "svg": "assets/diagrams/onboarding-api-s01-new-setup-sequence.svg",
+      "drawio": "assets/diagrams/onboarding-api-s01-new-setup-sequence.drawio",
+      "png": "assets/diagrams/onboarding-api-s01-new-setup-sequence.png",
+      "interactions": 22,
+      "request_response_pairs": 11,
+      "activation_bars": 11,
+      "operations": [
+        {
+          "id": "API-01",
+          "method": "GET",
+          "path": "/accesspoints",
+          "code": "200",
+          "operation_id": "Get-AccessPoints"
+        },
+        {
+          "id": "API-03",
+          "method": "POST",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connect",
+          "code": "201",
+          "operation_id": "New-AccessPoint-Connection"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        }
+      ],
+      "pre_dispatch_gates": [
+        1111,
+        2122
+      ],
+      "conditional_effects": [
+        {
+          "label": "API-03",
+          "y": 2296
+        }
+      ],
+      "canvas_width": 1800,
+      "notation": "UML request/response with activation bars; logical handoffs explicitly unbound",
+      "status": "proposal; Spain contracts/build coverage unqualified"
+    },
+    {
+      "scenario": "ONB-S02",
+      "anchor": "onb-s02-existing-public",
+      "svg": "assets/diagrams/onboarding-api-s02-existing-public-sequence.svg",
+      "drawio": "assets/diagrams/onboarding-api-s02-existing-public-sequence.drawio",
+      "png": "assets/diagrams/onboarding-api-s02-existing-public-sequence.png",
+      "interactions": 14,
+      "request_response_pairs": 7,
+      "activation_bars": 7,
+      "operations": [
+        {
+          "id": "API-02",
+          "method": "GET",
+          "path": "/datasets/{datasetId}/accesspoints",
+          "code": "200",
+          "operation_id": "Get-Dataset-AccessPoints"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        }
+      ],
+      "pre_dispatch_gates": [
+        1522
+      ],
+      "conditional_effects": [],
+      "canvas_width": 1800,
+      "notation": "UML request/response with activation bars; logical handoffs explicitly unbound",
+      "status": "proposal; Spain contracts/build coverage unqualified"
+    },
+    {
+      "scenario": "ONB-S03",
+      "anchor": "onb-s03-retained-private",
+      "svg": "assets/diagrams/onboarding-api-s03-retained-private-sequence.svg",
+      "drawio": "assets/diagrams/onboarding-api-s03-retained-private-sequence.drawio",
+      "png": "assets/diagrams/onboarding-api-s03-retained-private-sequence.png",
+      "interactions": 18,
+      "request_response_pairs": 9,
+      "activation_bars": 9,
+      "operations": [
+        {
+          "id": "API-02",
+          "method": "GET",
+          "path": "/datasets/{datasetId}/accesspoints",
+          "code": "200",
+          "operation_id": "Get-Dataset-AccessPoints"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        },
+        {
+          "id": "API-03",
+          "method": "POST",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connect",
+          "code": "201",
+          "operation_id": "New-AccessPoint-Connection"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        }
+      ],
+      "pre_dispatch_gates": [
+        1522,
+        1636
+      ],
+      "conditional_effects": [
+        {
+          "label": "API-03",
+          "y": 1788
+        }
+      ],
+      "canvas_width": 1800,
+      "notation": "UML request/response with activation bars; logical handoffs explicitly unbound",
+      "status": "proposal; Spain contracts/build coverage unqualified"
+    },
+    {
+      "scenario": "ONB-S04",
+      "anchor": "onb-s04-combined",
+      "svg": "assets/diagrams/onboarding-api-s04-combined-sequence.svg",
+      "drawio": "assets/diagrams/onboarding-api-s04-combined-sequence.drawio",
+      "png": "assets/diagrams/onboarding-api-s04-combined-sequence.png",
+      "interactions": 24,
+      "request_response_pairs": 12,
+      "activation_bars": 12,
+      "operations": [
+        {
+          "id": "API-02",
+          "method": "GET",
+          "path": "/datasets/{datasetId}/accesspoints",
+          "code": "200",
+          "operation_id": "Get-Dataset-AccessPoints"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        },
+        {
+          "id": "API-03",
+          "method": "POST",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connect",
+          "code": "201",
+          "operation_id": "New-AccessPoint-Connection"
+        },
+        {
+          "id": "API-05",
+          "method": "PUT",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Put-AccessPoint-Connection"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        }
+      ],
+      "pre_dispatch_gates": [
+        1522,
+        1983
+      ],
+      "conditional_effects": [
+        {
+          "label": "API-03",
+          "y": 2157
+        },
+        {
+          "label": "API-05",
+          "y": 2455
+        }
+      ],
+      "canvas_width": 1800,
+      "notation": "UML request/response with activation bars; logical handoffs explicitly unbound",
+      "status": "proposal; Spain contracts/build coverage unqualified"
+    },
+    {
+      "scenario": "ONB-S05",
+      "anchor": "onb-s05-existing-sage",
+      "svg": "assets/diagrams/onboarding-api-s05-existing-sage-sequence.svg",
+      "drawio": "assets/diagrams/onboarding-api-s05-existing-sage-sequence.drawio",
+      "png": "assets/diagrams/onboarding-api-s05-existing-sage-sequence.png",
+      "interactions": 16,
+      "request_response_pairs": 8,
+      "activation_bars": 8,
+      "operations": [
+        {
+          "id": "API-02",
+          "method": "GET",
+          "path": "/datasets/{datasetId}/accesspoints",
+          "code": "200",
+          "operation_id": "Get-Dataset-AccessPoints"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        },
+        {
+          "id": "API-05",
+          "method": "PUT",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Put-AccessPoint-Connection"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        }
+      ],
+      "pre_dispatch_gates": [
+        1582,
+        1726
+      ],
+      "conditional_effects": [
+        {
+          "label": "API-05",
+          "y": 1900
+        }
+      ],
+      "canvas_width": 1415,
+      "notation": "UML request/response with activation bars; logical handoffs explicitly unbound",
+      "status": "proposal; Spain contracts/build coverage unqualified"
+    },
+    {
+      "scenario": "ONB-S06",
+      "anchor": "onb-s06-platform-change",
+      "svg": "assets/diagrams/onboarding-api-s06-platform-change-sequence.svg",
+      "drawio": "assets/diagrams/onboarding-api-s06-platform-change-sequence.drawio",
+      "png": "assets/diagrams/onboarding-api-s06-platform-change-sequence.png",
+      "interactions": 20,
+      "request_response_pairs": 10,
+      "activation_bars": 10,
+      "operations": [
+        {
+          "id": "API-02",
+          "method": "GET",
+          "path": "/datasets/{datasetId}/accesspoints",
+          "code": "200",
+          "operation_id": "Get-Dataset-AccessPoints"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        },
+        {
+          "id": "API-03",
+          "method": "POST",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connect",
+          "code": "201",
+          "operation_id": "New-AccessPoint-Connection"
+        },
+        {
+          "id": "API-05",
+          "method": "PUT",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Put-AccessPoint-Connection"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        }
+      ],
+      "pre_dispatch_gates": [
+        1522,
+        1636
+      ],
+      "conditional_effects": [
+        {
+          "label": "API-03",
+          "y": 1848
+        },
+        {
+          "label": "API-05",
+          "y": 2146
+        }
+      ],
+      "canvas_width": 1800,
+      "notation": "UML request/response with activation bars; logical handoffs explicitly unbound",
+      "status": "proposal; Spain contracts/build coverage unqualified"
+    },
+    {
+      "scenario": "ONB-S07",
+      "anchor": "onb-s07-existing-b2g",
+      "svg": "assets/diagrams/onboarding-api-s07-existing-b2g-sequence.svg",
+      "drawio": "assets/diagrams/onboarding-api-s07-existing-b2g-sequence.drawio",
+      "png": "assets/diagrams/onboarding-api-s07-existing-b2g-sequence.png",
+      "interactions": 16,
+      "request_response_pairs": 8,
+      "activation_bars": 8,
+      "operations": [
+        {
+          "id": "API-01",
+          "method": "GET",
+          "path": "/accesspoints",
+          "code": "200",
+          "operation_id": "Get-AccessPoints"
+        },
+        {
+          "id": "API-02",
+          "method": "GET",
+          "path": "/datasets/{datasetId}/accesspoints",
+          "code": "200",
+          "operation_id": "Get-Dataset-AccessPoints"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        }
+      ],
+      "pre_dispatch_gates": [
+        1707
+      ],
+      "conditional_effects": [],
+      "canvas_width": 1800,
+      "notation": "UML request/response with activation bars; logical handoffs explicitly unbound",
+      "status": "proposal; Spain contracts/build coverage unqualified"
+    },
+    {
+      "scenario": "ONB-S08",
+      "anchor": "onb-s08-unsupported-unknown",
+      "svg": "assets/diagrams/onboarding-api-s08-unsupported-unknown-sequence.svg",
+      "drawio": "assets/diagrams/onboarding-api-s08-unsupported-unknown-sequence.drawio",
+      "png": "assets/diagrams/onboarding-api-s08-unsupported-unknown-sequence.png",
+      "interactions": 10,
+      "request_response_pairs": 5,
+      "activation_bars": 5,
+      "operations": [
+        {
+          "id": "API-01",
+          "method": "GET",
+          "path": "/accesspoints",
+          "code": "200",
+          "operation_id": "Get-AccessPoints"
+        },
+        {
+          "id": "API-02",
+          "method": "GET",
+          "path": "/datasets/{datasetId}/accesspoints",
+          "code": "200",
+          "operation_id": "Get-Dataset-AccessPoints"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        }
+      ],
+      "pre_dispatch_gates": [],
+      "conditional_effects": [],
+      "canvas_width": 1030,
+      "notation": "UML request/response with activation bars; logical handoffs explicitly unbound",
+      "status": "proposal; Spain contracts/build coverage unqualified"
+    }
+  ],
+  "live_publication": false
+}

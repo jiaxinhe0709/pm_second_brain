@@ -30,13 +30,21 @@
       "publish_enabled": false
     },
     {
-      "source_id": "SPEC-SEI-020",
-      "source": "specs/onboarding/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md",
+      "source_id": "SPEC-SEI-021",
+      "source": "specs/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md",
       "title": "Onboarding API Reuse Assessment",
       "target_page_id": "",
-      "action": "create-sibling-after-title-check",
+      "action": "select-engineering-topic-source-after-title-check",
       "parent_page_id": "837610648",
       "publish_enabled": false
+    }
+  ],
+  "retained_references": [
+    {
+      "source_id": "SPEC-SEI-020",
+      "source": "specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md",
+      "publish_enabled": false,
+      "action": "retained-reference-no-page"
     }
   ]
 }

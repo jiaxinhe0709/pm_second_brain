@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Onboarding set validation</title>
+<style>
+body{font:16px/1.55 Arial,sans-serif;color:#263238;max-width:1100px;margin:32px auto;padding:0 24px}
+a{color:#075eaa}table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{border:1px solid #ccd3d9;padding:10px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+th{background:#f3f5f7}h2{margin-top:30px}
+</style>
+</head>
+<body>
+<h1>Onboarding set validation</h1>
+<p>Reviewed 22 October 2026. Local document review only.</p>
+<p><strong>Ready for engineering review. Archive cleanup complete.</strong> SPEC018, SPEC019 and SPEC021 are the primary review set. SPEC020 is retained in the archive. No substantive scope contradiction was found.</p>
+<table>
+<thead><tr><th>Check</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>Original business rules and acceptance</td><td>All 113 original ONB/OFR IDs retain definitions in SPEC019. Five grouped NFR IDs add no numeric service commitment.</td></tr>
+<tr><td>Scenarios and actors</td><td>All eight starting scenarios remain covered. Direct/delegated single-client, approval and portfolio behaviours remain in SPEC019.</td></tr>
+<tr><td>Identity and trust</td><td>Business NIF, caller, authority and conditional certificate readiness remain independent. Unavailable lookup does not force another upload.</td></tr>
+<tr><td>Public/private boundaries</td><td>Phase 1 is public readiness. Private setup and activation remain gated. Private A to Private B stays disabled. No public enrolment or test-invoice operation is invented.</td></tr>
+<tr><td>Dataset and country scope</td><td>Multiple addresses do not establish multiple legal entities. Spain mapping, cardinality, client isolation and channel linkage remain qualified decisions.</td></tr>
+<tr><td>API and source integrity</td><td>The five supplied OpenAPI snapshots remain unchanged. Methods, paths, operation IDs and success codes match the documented reuse calls. Guide-only and logical handoffs are labelled.</td></tr>
+<tr><td>Diagrams and presentation</td><td>All 18 referenced SVGs pass text-bound checks. All four previews load the expected diagrams and scroll at 1440px and 480px without page overflow. Editable companions, links, anchors and metadata pass validation.</td></tr>
+<tr><td>Product impact</td><td>SPEC021 covers public MVP, public nice-to-haves, private providers and shared changes, with possible platform changes, caller impact and affected APIs. Breaking changes remain unconfirmed.</td></tr>
+<tr><td>Engineering qualification</td><td>GAP-01–08 remain owned. Actual Spain/provider contracts, Tax fitness, build compatibility, events and operations need implementation evidence.</td></tr>
+</tbody>
+</table>
+<h2>SPEC020 archive completed</h2>
+<p>SPEC020 is retained in <code>specs/archive</code> for its detailed assurance definitions, source conflicts and earlier analysis. Its analysis is unchanged after normalising relative links and removing the archive notice for comparison.</p>
+<p>The approved cleanup preserved:</p>
+<ul>
+<li>Active navigation in SPEC018, SPEC019 and the onboarding README now points to SPEC021.</li>
+<li>SPEC021's API-A01–16, source-conflict and recorded-direction references resolve to archived SPEC020.</li>
+<li>Relative links, glossary references and 12 editable diagram source links were updated.</li>
+<li>Business rules and acceptance in SPEC018/019, permanent IDs and draft lifecycle statuses are retained.</li>
+</ul>
+<p>SPEC020 was archived with the user's approval. Nothing was published. Publication settings are unchanged; SPEC-SEI-002 remains selected for stable onboarding page 923861390.</p>
+<p>This validates documentation against stored evidence. It does not qualify live Spain/provider integration or production readiness.</p>
+<p><a href="set-validation.json">Detailed validation record</a> · <a href="SPEC-SEI-021.html">SPEC021 preview</a></p>
+</body>
+</html>

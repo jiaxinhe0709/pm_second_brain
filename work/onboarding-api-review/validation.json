@@ -2,6 +2,12 @@
   "result": "pass",
   "network_calls": 0,
   "live_publication": false,
+  "active_review_set": [
+    "SPEC-SEI-018",
+    "SPEC-SEI-019",
+    "SPEC-SEI-021"
+  ],
+  "retained_reference": "SPEC-SEI-020",
   "checks": [
     "Local links and anchors",
     "Table structure",
