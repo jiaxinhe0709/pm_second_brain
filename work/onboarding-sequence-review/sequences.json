@@ -1,0 +1,175 @@
+{
+  "views": [
+    {
+      "view": "shared-prerequisites",
+      "anchor": "21-shared-prerequisites",
+      "source_id": "SPEC-SEI-021",
+      "svg": "assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.svg",
+      "png": "assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.png",
+      "drawio": "assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.drawio",
+      "canvas_width": 1415,
+      "request_response_pairs": 5,
+      "activation_bars": 5,
+      "operations": [],
+      "references": [],
+      "pre_dispatch_gates": [],
+      "conditional_effects": [],
+      "status": "proposal; Spain implementation and logical contracts unqualified"
+    },
+    {
+      "view": "public-readiness",
+      "anchor": "22-public-readiness",
+      "source_id": "SPEC-SEI-021",
+      "svg": "assets/diagrams/onboarding-reuse-public-readiness-sequence.svg",
+      "png": "assets/diagrams/onboarding-reuse-public-readiness-sequence.png",
+      "drawio": "assets/diagrams/onboarding-reuse-public-readiness-sequence.drawio",
+      "canvas_width": 1030,
+      "request_response_pairs": 5,
+      "activation_bars": 5,
+      "operations": [
+        {
+          "id": "API-01",
+          "method": "GET",
+          "path": "/accesspoints",
+          "code": "200",
+          "operation_id": "Get-AccessPoints"
+        },
+        {
+          "id": "API-02",
+          "method": "GET",
+          "path": "/datasets/{datasetId}/accesspoints",
+          "code": "200",
+          "operation_id": "Get-Dataset-AccessPoints"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        }
+      ],
+      "references": [
+        "21-shared-prerequisites"
+      ],
+      "pre_dispatch_gates": [
+        356
+      ],
+      "conditional_effects": [],
+      "status": "proposal; Spain implementation and logical contracts unqualified"
+    },
+    {
+      "view": "private-setup",
+      "anchor": "23-private-setup",
+      "source_id": "SPEC-SEI-021",
+      "svg": "assets/diagrams/onboarding-reuse-private-setup-sequence.svg",
+      "png": "assets/diagrams/onboarding-reuse-private-setup-sequence.png",
+      "drawio": "assets/diagrams/onboarding-reuse-private-setup-sequence.drawio",
+      "canvas_width": 1030,
+      "request_response_pairs": 5,
+      "activation_bars": 5,
+      "operations": [
+        {
+          "id": "API-02",
+          "method": "GET",
+          "path": "/datasets/{datasetId}/accesspoints",
+          "code": "200",
+          "operation_id": "Get-Dataset-AccessPoints"
+        },
+        {
+          "id": "API-03",
+          "method": "POST",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connect",
+          "code": "201",
+          "operation_id": "New-AccessPoint-Connection"
+        },
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        }
+      ],
+      "references": [
+        "21-shared-prerequisites"
+      ],
+      "pre_dispatch_gates": [
+        356,
+        541
+      ],
+      "conditional_effects": [
+        {
+          "label": "API-03",
+          "y": 601
+        }
+      ],
+      "status": "proposal; Spain implementation and logical contracts unqualified"
+    },
+    {
+      "view": "supported-change",
+      "anchor": "24-supported-change",
+      "source_id": "SPEC-SEI-021",
+      "svg": "assets/diagrams/onboarding-reuse-supported-change-sequence.svg",
+      "png": "assets/diagrams/onboarding-reuse-supported-change-sequence.png",
+      "drawio": "assets/diagrams/onboarding-reuse-supported-change-sequence.drawio",
+      "canvas_width": 1030,
+      "request_response_pairs": 5,
+      "activation_bars": 5,
+      "operations": [
+        {
+          "id": "API-05",
+          "method": "PUT",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Put-AccessPoint-Connection"
+        }
+      ],
+      "references": [
+        "21-shared-prerequisites",
+        "23-private-setup"
+      ],
+      "pre_dispatch_gates": [
+        356,
+        770,
+        928
+      ],
+      "conditional_effects": [
+        {
+          "label": "API-05",
+          "y": 988
+        }
+      ],
+      "status": "proposal; Spain implementation and logical contracts unqualified"
+    },
+    {
+      "view": "uncertainty-recovery",
+      "anchor": "25-uncertainty-and-recovery",
+      "source_id": "SPEC-SEI-021",
+      "svg": "assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.svg",
+      "png": "assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.png",
+      "drawio": "assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.drawio",
+      "canvas_width": 1030,
+      "request_response_pairs": 3,
+      "activation_bars": 3,
+      "operations": [
+        {
+          "id": "API-04",
+          "method": "GET",
+          "path": "/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/",
+          "code": "200",
+          "operation_id": "Get-AccessPoint-Connection"
+        }
+      ],
+      "references": [
+        "21-shared-prerequisites"
+      ],
+      "pre_dispatch_gates": [
+        356
+      ],
+      "conditional_effects": [],
+      "status": "proposal; Spain implementation and logical contracts unqualified"
+    }
+  ],
+  "live_publication": false
+}

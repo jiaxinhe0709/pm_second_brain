@@ -2,6 +2,12 @@
   "result": "pass",
   "network_calls": 0,
   "live_publication": false,
+  "active_review_set": [
+    "SPEC-SEI-018",
+    "SPEC-SEI-019",
+    "SPEC-SEI-021"
+  ],
+  "retained_reference": "SPEC-SEI-020",
   "checks": [
     "Local links and anchors",
     "Table structure",
@@ -9,7 +15,7 @@
     "Draft/publication metadata",
     "All five supplied method/path/operation IDs",
     "FR source hashes unchanged",
-    "Four editable SVG/PNG diagram companions",
+    "Referenced editable SVG/PNG diagram companions",
     "Offline Confluence storage with native companion links",
     "Original specification and publication configuration unchanged"
   ]

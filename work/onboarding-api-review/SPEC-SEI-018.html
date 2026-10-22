@@ -10,7 +10,7 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 .diagram{width:100%;height:640px;overflow:auto;border:1px solid #b8c0c8;margin:16px 0;background:white}.diagram img{display:block;max-width:none}
 .meta{font-size:13px;color:#4e5963}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{padding:20px;border:1px solid #d8dde2;border-radius:6px}
 @media(max-width:800px){.layout{display:block}.outline{position:static;max-height:260px;margin-bottom:24px}.cards{grid-template-columns:1fr}main{padding:0 16px}}
-</style></head><body><header><p class="meta">Local Confluence presentation preview · Unpublished drafts · Live pages unchanged</p><nav><a href="index.html">Feature landing</a><a href="SPEC-SEI-018.html">Solution Summary</a><a href="SPEC-SEI-019.html">Logical Feature Specification</a><a href="SPEC-SEI-020.html">API Design and Reuse Assessment</a></nav></header><div class="layout"><aside class="outline"><strong>Contents</strong><div class="toc">
+</style></head><body><header><p class="meta">Local Confluence presentation preview · Unpublished drafts · Live pages unchanged</p><nav><a href="index.html">Feature landing</a><a href="SPEC-SEI-018.html">Solution Summary</a><a href="SPEC-SEI-019.html">Logical Feature Specification</a><a href="SPEC-SEI-021.html">API Reuse Assessment</a></nav></header><div class="layout"><aside class="outline"><strong>Contents</strong><div class="toc">
 <ul>
 <li><a href="#customer-onboarding-solution-summary">Customer Onboarding Solution Summary</a><ul>
 <li><a href="#revision-overview">Revision overview</a></li>
@@ -31,14 +31,14 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 </ul>
 </div>
 </aside><main><h1 id="customer-onboarding-solution-summary">Customer Onboarding Solution Summary</h1>
-<p><a href="SPEC-SEI-019.html">Logical Feature Specification</a> · <a href="SPEC-SEI-020.html">API Design and Reuse Assessment</a> · <a href="index.html">Feature landing page</a></p>
+<p><a href="SPEC-SEI-019.html">Logical Feature Specification</a> · <a href="SPEC-SEI-021.html">API Reuse Assessment</a> · <a href="index.html">Feature landing page</a></p>
 <h2 id="revision-overview">Revision overview</h2>
-<p>This is the summary companion to <a href="SPEC-SEI-019.html">SPEC-SEI-019</a>, based on <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-002-onboarding-solution-specification.md">SPEC-SEI-002</a>. The split gives stakeholders a shorter end-to-end view and gives Engineering and QA a separate behaviour specification. Detailed fields and technical analysis remain linked supporting material.</p>
-<p>The predecessor is unchanged. Business scope, phase boundaries, ONB/OFR IDs and safety controls are retained. The split does not approve implementation, close existing decisions or change the publication source. The stable onboarding page still selects SPEC-SEI-002. The <a href="index.html">proposed page hierarchy</a> keeps summary, logical behaviour and API design as separate views. Publication and the final delivery-feature breakdown remain pending.</p>
+<p>This stakeholder overview explains the onboarding outcome, scope and main decisions. <a href="SPEC-SEI-019.html">SEI019</a> shows the high-level journeys; <a href="SPEC-SEI-021.html">SEI021</a> assesses engineering reuse and Spain-specific changes. All are based on <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-002-onboarding-solution-specification.md">SPEC-SEI-002</a>.</p>
+<p>The predecessor, phase boundaries and ONB/OFR meanings remain unchanged. SPEC-SEI-002 remains the source for the stable Confluence page. Implementation approval, publication and delivery-feature breakdown remain open.</p>
 <h2 id="1-purpose">1 Purpose</h2>
 <p>Help a Spanish business set up, connect, confirm or extend supported e-invoicing functions through Sage. A direct customer or authorised accountant must understand what is ready, what is active and who must act next. An existing customer should complete only missing or invalidated work.</p>
-<p>Directors and Product can review the outcome, boundaries and material decisions here. Engineering and QA use the <a href="SPEC-SEI-019.html">logical specification</a> for activity requirements and acceptance, and the <a href="SPEC-SEI-020.html">API assessment</a> for call sequences and FR reuse. The <a href="index.html">feature landing page</a> links the canonical PRDs.</p>
-<p>Customer onboarding is the Master Feature journey for this review. This grouping does not establish new delivery-feature boundaries or a deployed capability. <strong>Confirmed</strong> identifies a sourced fact or recorded ownership direction. The solution behaviour remains <strong>proposed</strong>; <strong>open</strong> decisions require the named owner's evidence and approval.</p>
+<p><strong>Audience: local Product teams, directors and cross-functional stakeholders.</strong> Use this page for the business outcome, scope, responsibilities and decisions. Read <a href="SPEC-SEI-019.html">SEI019</a> for the main process paths and exceptions. Architects and engineers use <a href="SPEC-SEI-021.html">SEI021</a> for existing capabilities, public/private Spain tailoring and evidence gaps.</p>
+<p>Customer onboarding is the Master Feature journey. Behaviour remains proposed; a sourced fact or recorded decision does not prove implementation readiness.</p>
 <h2 id="2-terms-used">2 Terms used</h2>
 <p>Use the <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>. These distinctions are essential to the summary.</p>
 <table>
@@ -72,7 +72,7 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 </tbody>
 </table>
 <h2 id="3-master-feature-purpose-and-scope">3 Master Feature purpose and scope</h2>
-<p>The journey starts when an authorised actor requests a setup outcome for one business or a supported set of independent businesses. It ends with a recorded result for each requested function, including any remaining action and its owner. These entry situations share the activity model in section 7.</p>
+<p>An authorised customer or accountant requests setup for one business or independent client businesses. Return each function’s result, limitations and action owner. Existing setup needs only missing or invalidated work.</p>
 <table>
 <thead>
 <tr>
@@ -115,8 +115,8 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 </tr>
 </tbody>
 </table>
-<p>The logical specification defines these situations as ONB-S01–08. Actor choice is independent: a direct customer, an accountant for one client, or an accountant portfolio can use the applicable journey. A single delegated client does not require a batch.</p>
-<p><strong>Phase 1</strong> returns public readiness. <strong>Later phases</strong> may qualify private setup and route activation. Private A to Private B changes remain disabled pending the shared routing decision. A summary or diagram cannot enable them.</p>
+<p>SEI019 identifies these situations as ONB-S01–08. Each can apply to a direct customer, an accountant for one client or a portfolio. A single client does not require batch processing.</p>
+<p><strong>Phase 1</strong> returns public readiness. Private setup and activation need later-phase qualification. Private A to Private B remains gated.</p>
 <table>
 <thead>
 <tr>
@@ -143,7 +143,7 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 </tr>
 </tbody>
 </table>
-<p>Invoice creation, sending, retrieval, status reporting and full offboarding belong to their owning features. Their dependencies remain in scope for setup checks and handoffs. Physical APIs, deployment design and detailed field mappings are supporting engineering material.</p>
+<p>Invoice creation, sending, retrieval, reporting and full exit belong to their owning features. Onboarding supplies setup evidence and checks dependencies.</p>
 <h2 id="4-parties-and-responsibility-boundary">4 Parties and responsibility boundary</h2>
 <table>
 <thead>
@@ -184,7 +184,7 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 </tbody>
 </table>
 <h2 id="5-key-open-solution-decisions">5 Key open solution decisions</h2>
-<p>The full <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks">decision record in SPEC-SEI-002</a> remains the reference for existing wording, ownership and gates. These groups identify the decisions that can change the end-to-end journey.</p>
+<p>The <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks">existing decision record</a> retains owners and gates. These open decisions affect scope or delivery.</p>
 <table>
 <thead>
 <tr>
@@ -227,7 +227,7 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 </tbody>
 </table>
 <h2 id="6-end-to-end-workflow">6 End to end workflow</h2>
-<p>Capture the request, verify the represented business and acting party, then assess existing setup. Run the required public or private branch for each function. Missing approval enters ONB-12; supported portfolio intake enters ONB-13. Unknown effects enter ONB-08 and resume the exact affected check after resolution.</p>
+<p>Verify the business and actor, assess existing setup, and run the required public/private checks. Missing approval enters ONB-12; portfolio processing uses ONB-13. Uncertain effects enter ONB-08 and return to the affected check.</p>
 <p><div class="diagram"><img alt="Set up, connect or review e-invoicing through Sage" src="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/onboarding-scenario-selection-process.svg" /></div></p>
 <p>Figure 1. Onboarding paths for ONB-S01–08. <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/onboarding-scenario-selection-process.drawio">Editable Draw.io</a> · <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/onboarding-scenario-selection-process.png">PNG</a>.</p>
 <p>Solid arrows show work or a result. Dashed arrows show selected or conditional work. The columns identify paths, not service boundaries. A combined setup can use several branches. Recovery and approval remain conditional activities, not alternative delivery routes.</p>
@@ -308,10 +308,11 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 </tr>
 </tbody>
 </table>
-<p>The <a href="SPEC-SEI-019.html#6-feature-activities">logical activity blocks</a> are authoritative for behaviour. The order above is a reading route: approval and recovery can interrupt a check, and independent items can proceed separately.</p>
+<p>SEI019 defines these activities. Approval and recovery can interrupt a check; independent client work can continue.</p>
 <h2 id="8-cross-cutting-solution-considerations">8 Cross cutting solution considerations</h2>
-<p>This design is intended for Spain. Shared work-item, approval, portfolio and recovery patterns are reuse candidates. Identity, representation, trust, provider operations and route rules need country bindings. Spain rules must not become another country's defaults.</p>
-<p>Actual implementation coverage remains unknown. The E-Invoice Service, Identity, trust and Routing owners must identify the source build, retained behaviour, local changes, gaps and qualification evidence. Existing Tax/certificate capability is a selected-purpose reuse candidate. Existing DTS is the preferred transformation candidate where relevant; its build, contracts, mappings, rule packs and operations require qualification under <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md">SPEC-SEI-008</a>. Onboarding does not prove either capability ready.</p>
+<p>Spain identity, representation and provider rules remain country-specific. Reusable journey patterns need the selected country and provider evidence.</p>
+<p>Reuse the existing FR APIs with Spain country-pack tailoring. Public readiness and private-provider setup need different qualifications. Keep business mapping, traffic changes and unresolved dependencies visible; engineering detail stays in <a href="SPEC-SEI-021.html#1-engineering-direction">SEI021</a>.</p>
+<p>Existing Tax Service certificate capability is the intended reuse source; exact Spain fitness remains to qualify. DTS is the preferred transformation candidate for later invoice operations under <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md">SPEC-SEI-008</a>. Onboarding itself establishes neither implementation as ready.</p>
 <h2 id="9-dependencies-and-risks">9 Dependencies and risks</h2>
 <table>
 <thead>
@@ -344,11 +345,11 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 </tbody>
 </table>
 <h2 id="10-features-within-this-master-feature">10 Features within this Master Feature</h2>
-<p>For this pilot, one <a href="SPEC-SEI-019.html">Logical Feature Specification</a> covers ONB-01–13 and integrated OFR-01–08 recovery. Public setup, private setup, approval and portfolio processing are activity groups; this split does not approve them as separate delivery Features.</p>
-<p>Shared certificate, connection/routing, public-execution and invoice-operation specs retain their existing boundaries. Section 7 of the logical specification links those handoffs. Product and Engineering can agree a finer delivery-feature breakdown if independent review or ownership requires it.</p>
+<p>One <a href="SPEC-SEI-019.html">high-level logical journey</a> covers ONB-01–13 and OFR-01–08. Public/private setup, approval and portfolio work are activity groups; delivery-feature boundaries remain for Product and Engineering to agree.</p>
+<p>Certificate, connectivity/routing and invoice-operation features retain their existing responsibilities. SEI019 links their handoffs.</p>
 <h2 id="12-assurance-and-completion-checks">12 Assurance and completion checks</h2>
-<p>Before approval, confirm that ONB-S01–08 and each applicable actor path have acceptance coverage; each enabled function has qualified authority, trust and operation evidence; and each unresolved decision has an owner and gate. Test unknown effects, correction, cancellation, concurrent changes, portfolio visibility and historical continuity.</p>
-<p>The <a href="SPEC-SEI-019.html#7-traceability-and-supporting-artefacts">logical specification</a> defines the acceptance route. Neither document establishes production readiness.</p>
+<p>Before enabling a scope, confirm scenario/actor coverage, qualified business authority and access, safe recovery, historical continuity and an owner for each open gate.</p>
+<p>SEI019 holds the functional acceptance checks; SEI021 holds engineering qualification. Neither establishes production readiness.</p>
 <h2 id="ref-source-references">REF Source references</h2>
 <table>
 <thead>

@@ -1,0 +1,16 @@
+{
+  "archived_id": "SPEC-SEI-020",
+  "former_path": "specs/onboarding/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md",
+  "retained_path": "specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md",
+  "technical_body_normalized_sha256": "902169108d2083513c2d9f7f0a4d89cc1628b10a3ffbe1b0429036641683d57a",
+  "business_rows_sha256": {
+    "specs/onboarding/SPEC-SEI-018-customer-onboarding-solution-summary.md": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "specs/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md": "769e4b211936c5cd502ee31496c5e253a6026877f979e39e603cc7a3d5f8e422"
+  },
+  "immutable_sha256": {
+    "specs/SPEC-SEI-002-onboarding-solution-specification.md": "30d01d97be12d9122fee5715236ff8c6451a57bad34f6c2215a1a8b2495e4093",
+    "config/confluence.yml": "62bc03e3ff1203d85bf30d9f3ba9f6f967737abc5c4520a08ad2fcbafb9824d5",
+    "work/onboarding-sequence-renderer.py": "2bc2a36efbdd69dcff70f4e98b695b87af72f5b4a5097ecd43b5c8beda4ed342"
+  },
+  "approved_action": "User authorised archive and navigation cleanup on 22 October 2026; retain draft status and disable publication."
+}

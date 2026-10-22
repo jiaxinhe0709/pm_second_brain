@@ -25,8 +25,12 @@ SPECS = ROOT / 'specs/onboarding'
 DOCS = [
     ('SPEC-SEI-018', 'SPEC-SEI-018-customer-onboarding-solution-summary.md', 'Solution Summary'),
     ('SPEC-SEI-019', 'SPEC-SEI-019-customer-onboarding-logical-feature-specification.md', 'Logical Feature Specification'),
-    ('SPEC-SEI-020', 'SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md', 'API Design and Reuse Assessment'),
+    ('SPEC-SEI-021', 'SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md', 'API Reuse Assessment'),
 ]
+REFERENCES = [
+    ('SPEC-SEI-020', '../archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md', 'Archived API Reuse Assessment'),
+]
+ALL_DOCS = DOCS + REFERENCES
 TITLES = {name: 'Onboarding ' + title for _, name, title in DOCS}
 EXPECTED_FR = {
     'get-accesspoints.md': ('abd8cc2b4430ebca7ccbbf957acce8a8c26eb3d86f61e15b0f3fc00a1bb75e5f', 'GET', '/accesspoints'),
@@ -86,10 +90,15 @@ def prepare():
                 'Approved live publication scope', 'Reconcile existing child titles and IDs',
                 'Resolve native companion links and update selected sources atomically'],
             'pages': []}
+    plan['retained_references'] = [{'source_id': ident, 'source': str((SPECS / name).resolve().relative_to(ROOT)),
+                                   'publish_enabled': False, 'action': 'retained-reference-no-page'}
+                                  for ident, name, _ in REFERENCES]
     for ident, name, title in DOCS:
         plan['pages'].append({'source_id': ident, 'source': str((SPECS / name).relative_to(ROOT)),
             'title': TITLES[name], 'target_page_id': '923861390' if ident == 'SPEC-SEI-018' else '',
-            'action': 'reuse-existing-page' if ident == 'SPEC-SEI-018' else 'create-sibling-after-title-check',
+            'action': ('reuse-existing-page' if ident == 'SPEC-SEI-018' else
+                       'select-engineering-topic-source-after-title-check' if ident == 'SPEC-SEI-021' else
+                       'create-sibling-after-title-check'),
             'parent_page_id': '837610648', 'publish_enabled': False})
     (OUT / 'publication-plan.json').write_text(json.dumps(plan, indent=2) + '\n')
 
@@ -102,11 +111,13 @@ def prepare():
         snapshots.append({'file': str(p.relative_to(ROOT)), 'sha256': digest,
             'info_version': doc['info']['version'], 'reviewed': '2026-10-21',
             'method': method, 'path': route, 'operation_id': op['operationId'],
-            'response_codes': list(op['responses']), 'implementation_qualification': 'unknown'})
+            'response_codes': list(op['responses']),
+            'reuse_direction': 'reuse-fr-api-with-spain-country-pack',
+            'implementation_qualification': 'unknown'})
     (OUT / 'source-snapshots.json').write_text(json.dumps(snapshots, indent=2) + '\n')
 
-    preview_files = {name: ident + '.html' for ident, name, _ in DOCS}
-    for ident, name, title in DOCS:
+    preview_files = {(SPECS / name).resolve(): ident + '.html' for ident, name, _ in ALL_DOCS}
+    for ident, name, title in ALL_DOCS:
         p = SPECS / name
         metadata, body = publisher.load_document(p)
         assert metadata['id'] == ident and metadata['status'] == 'draft'
@@ -115,7 +126,8 @@ def prepare():
         assets = publisher.drawio_assets(p, body)
         storage = publisher.storage_with_drawio(metadata, body, 'local-review', None, assets, {})
         storage = re.sub(r'<a href="([^"]+)">(.*?)</a>', page_link, storage, flags=re.S)
-        assert '<ac:structured-macro ac:name="drawio"' in storage
+        if assets:
+            assert '<ac:structured-macro ac:name="drawio"' in storage
         assert '<ri:page ri:space-key="DNBU"' in storage
         assert 'change-history' in storage
         (OUT / f'{ident}.proposed.storage.xml').write_text(storage)
@@ -128,8 +140,8 @@ def prepare():
                 return m[0]
             relative, _, anchor = target.partition('#')
             dest = (p.parent / relative).resolve()
-            if dest.parent == SPECS and dest.name in preview_files:
-                target = preview_files[dest.name] + ('#' + anchor if anchor else '')
+            if dest in preview_files:
+                target = preview_files[dest] + ('#' + anchor if anchor else '')
             elif dest == SPECS / 'README.md':
                 target = 'index.html'
             else:
@@ -146,21 +158,22 @@ def prepare():
     cards = ''.join(f'<article class="card"><h2><a href="{ident}.html">{title}</a></h2><p>{ident}</p>'
                     + f'<p>{description}</p></article>'
                     for (ident, _, title), description in zip(DOCS, [
-                        'Outcome, scope, workflow and material decisions.',
-                        'Required behaviour, process diagrams and acceptance.',
-                        'Five FR operations, four API sequence views and reuse gates.']))
+                        'For Product teams and directors: outcome, scope and main decisions.',
+                        'For process reviewers: high-level journeys, decisions, outcomes and acceptance.',
+                        'For architects and engineers: SPEC021 sequences, existing APIs, Spain changes, product impact and reuse gaps.']))
     landing = ('<main><h1>Customer onboarding</h1><p>Three sibling views under the existing onboarding feature/PRD page. '
                'Choose a view for your review.</p><div class="cards">' + cards + '</div>'
                '<h2>Planned Confluence structure</h2><ul><li>Existing onboarding feature/PRD page (837610648)<ul>'
                '<li>Solution Summary — reuse page 923861390</li><li>Logical Feature Specification — new sibling</li>'
-               '<li>API Design and Reuse Assessment — new sibling</li></ul></li></ul>'
+               '<li>API Reuse Assessment — new sibling</li></ul></li></ul>'
                '<p>The original SPEC-SEI-002 file is unchanged and remains the selected live source. '
                'These local pages do not perform publication.</p><p><a href="publication-plan.json">Publication plan</a> · '
-               '<a href="source-snapshots.json">FR source snapshot identities</a></p></main>')
+               '<a href="source-snapshots.json">FR source snapshot identities</a> · '
+               '<a href="SPEC-SEI-020.html">Archived SPEC020 supporting reference</a></p></main>')
     (OUT / 'index.html').write_text(shell('Customer onboarding review', landing))
 
     issues = []
-    documents = [SPECS / 'README.md'] + [SPECS / name for _, name, _ in DOCS] + [ROOT / 'context/GLO-SEI-001-e-invoicing-terminology.md']
+    documents = [SPECS / 'README.md', ROOT / 'specs/archive/README.md'] + [SPECS / name for _, name, _ in ALL_DOCS] + [ROOT / 'context/GLO-SEI-001-e-invoicing-terminology.md']
     for p in documents:
         text = p.read_text()
         for line in text.splitlines():
@@ -194,8 +207,10 @@ def prepare():
         ('config/confluence.yml', '62bc03e3ff1203d85bf30d9f3ba9f6f967737abc5c4520a08ad2fcbafb9824d5')]:
         assert hashlib.sha256((ROOT / original).read_bytes()).hexdigest() == digest, original
     api_path = SPECS / DOCS[2][1]
-    assets = publisher.drawio_assets(api_path, publisher.load_document(api_path)[1])
-    assert len(assets) == 4
+    assets = []
+    for _, name, _ in ALL_DOCS:
+        document_path = SPECS / name
+        assets.extend(publisher.drawio_assets(document_path, publisher.load_document(document_path)[1]))
     for asset in assets:
         editable = ET.parse(asset.source)
         root = ET.parse(asset.source.with_suffix('.svg')).getroot()
@@ -207,9 +222,11 @@ def prepare():
         assert item['path'] in api_body and item['operation_id'] in api_body
     assert not issues, '\n'.join(issues)
     report = {'result': 'pass', 'network_calls': 0, 'live_publication': False,
+              'active_review_set': [ident for ident, _, _ in DOCS],
+              'retained_reference': 'SPEC-SEI-020',
               'checks': ['Local links and anchors', 'Table structure', 'Unique heading anchors',
                          'Draft/publication metadata', 'All five supplied method/path/operation IDs',
-                         'FR source hashes unchanged', 'Four editable SVG/PNG diagram companions',
+                         'FR source hashes unchanged', 'Referenced editable SVG/PNG diagram companions',
                          'Offline Confluence storage with native companion links',
                          'Original specification and publication configuration unchanged']}
     (OUT / 'validation.json').write_text(json.dumps(report, indent=2) + '\n')

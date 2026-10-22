@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-21
+updated: 2026-10-22
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -28,6 +28,7 @@ related:
   - SPEC-SEI-018
   - SPEC-SEI-019
   - SPEC-SEI-020
+  - SPEC-SEI-021
 confluence:
   publish: false
   space_key: DNBU
@@ -67,7 +68,7 @@ Definitions explain the current source documents. They do not approve an archite
 | Preferred term | Definition and usage boundary |
 |---|---|
 | Legal entity / legal subject | The business to which the invoice or action belongs. Technical fields use `legalSubject` for this business. The two terms describe the same business context in these specs; neither is a tenant ID or network address. |
-| Tenant | The customer account boundary used to keep one customer's data and access separate from another's. A tenant may contain several legal entities. |
+| Tenant | The customer account boundary used to keep one customer's data and access separate from another's. A tenant may contain several legal entities. The Network dataset guide uses the exact field `tenantId` as the subsequent `datasetId`; that API usage does not establish product-tenant or legal-entity cardinality. See **FR API dataset / Network dataset** below. |
 | Represented party | The business or person on whose behalf an action is performed; also called the **business principal** in delegation context. It is separate from the authenticated identity making the request. |
 | Authenticated principal | The trusted identity of a person, application or service making a request. Authentication establishes that identity; a separate authority check establishes what it may do for a represented party. Avoid unqualified “principal” in prose. |
 | Actor / delegate | An actor performs an action. A delegate is an actor authorised to act for a represented party within a stated scope and period. A delegate and its authenticated application may have different identities. |
@@ -85,7 +86,8 @@ Definitions explain the current source documents. They do not approve an archite
 | Consumer | A product application or partner service using an API or service contract. Consumer readiness does not grant access to every customer or operation. |
 | Provider / partner / operator | A provider supplies an invoice-network capability. A partner may instead be a delegate or product integrator. An operator operates a platform or network capability. Identify the actual role; these labels do not confer authority or execution rights. |
 | Environment | The separately controlled context, such as test or production, in which an operation runs. Credentials, records, authority bindings and readiness must match it. |
-| NIF / apoderamiento | Spain tax identifier; power of attorney. These are separate identity and representation concepts, governed by the selected Spain action and evidence. |
+| NIF / apoderamiento | Spain tax identifier; power of attorney. These are separate identity and representation concepts, governed by the selected Spain action and evidence. NIF does not encode a France-style establishment suffix. Separately identified permanent establishments and dataset mapping need the country rules and sources in [SPEC-SEI-020 section 4.4](../specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#44-spain-nif-establishments-and-dataset-mapping). |
+| SIREN / SIRET | French legal-unit and establishment identifiers. SIRET contains the legal unit’s SIREN plus an establishment identifier. Several addresses/establishments can therefore refer to the same legal unit. These meanings do not establish Sage dataset cardinality. See INSEE sources in [SPEC-SEI-020 REF](../specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#ref-source-references). |
 
 ## Services, connections and routing
 
@@ -107,8 +109,10 @@ Definitions explain the current source documents. They do not approve an archite
 | Capability | A supported function, such as receiving invoices or signing them. Each operation used to provide it needs qualification for the selected scope. |
 | Integration role | The capacity in which Sage uses an interface: customer-provider integration or platform interconnection. The role selects qualified contracts and controls; it does not grant customer authority. A capability qualified for one role is not automatically ready for the other. |
 | Connection | Configuration for communicating with a platform or provider. A configured connection is separate from external registration, readiness and route activation. |
-| FR API dataset | A resource scope identified by `datasetId` in the [supplied FR onboarding contracts](<FR API/Onboarding/get-dataset-accesspoints.md>). Its mapping to a tenant, ERP company, represented business or environment needs qualification. Do not infer a one-to-one mapping from its name. |
-| FR API access point and connection | Source API resources identified by `accessPointId` and `connectionId`. The [dataset listing](<FR API/Onboarding/get-dataset-accesspoints.md>) and [connection detail](<FR API/Onboarding/get-accesspoint-connection.md>) expose different status scopes. Their CONNECTED value is not, by itself, per-function readiness, effective authority or route activation. Preserve raw source states and qualify the mapping in SPEC-SEI-020. |
+| FR API dataset / Network dataset | A resource identified by `datasetId` in the [FR onboarding contracts](<FR API/Onboarding/get-dataset-accesspoints.md>). Connections can contain multiple addresses. Guides recommend one dataset/official registration per legal entity wherever possible; the integrating product owns intended mapping, subject to supported constraints. Enforced entity cardinality remains unverified. The [dataset guide](<FR API/Onboarding/network-onboarding-create-dataset-guide-extract.md#review-clarification-dataset-entity-and-address-scope>) uses returned `tenantId` as `datasetId`; its differing `data.id` needs clarification. Multiple addresses sharing one SIREN do not prove multiple legal entities. Distinct-SIREN/NIF, accountant, product/Tax and channel mappings remain SPEC-SEI-021 GAP-01. |
+| Network partner account | The account that owns API-created datasets in the supplied dataset guide. It can manage many legal-entity datasets with one M2M credential set; a different partner account receives `403 Forbidden`. This technical boundary does not establish an accountant firm's client relationships or authority. Native Sage channels are not automatically linked. See the [guide's ownership and channel statements](<FR API/Onboarding/network-onboarding-create-dataset-guide-extract.md#ownership-and-access>). |
+| FR API access point and connection | `accessPointId` identifies the service route; `connectionId` identifies the dataset’s connection. The [supplied guide](<FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap01-connect-and-channel-selection>) describes one connection per dataset/access point and several address entries within it. Dataset-level and address-level CONNECTED have different scopes; neither alone proves business authority or route activation. Preserve exact source results and qualify Spain mappings in SPEC-SEI-021. |
+| Address ownership (Network guide) | A technical assignment of an e-invoicing address to a product dataset or active provider route. The [ownership guide](<FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap04-address-ownership-transfer>) describes takeover through connect, subject to provider/version and conflict qualification. This is separate from legal ownership of the business and authority to act for it. The integrating product owns intended address/dataset/client mapping within supported platform and country constraints. |
 | Onboarding | The setup workflow owned by the E-Invoice Service. It establishes or confirms selected functions through Sage. It can connect an existing service, add a function or coordinate an authorised platform change. It does not imply a separate onboarding service, first-time external registration or active invoice exchange. |
 | Onboarding component | A proposed internal component of the E-Invoice Service that could implement setup and recovery coordination. Its need and implementation remain open. The term does not establish a separate API or deployment. |
 | Common / scenario-specific / conditional behaviour | Diagram and specification labels. Common names shared behaviour; scenario-specific names work selected for the customer's situation and requested outcome; conditional names work performed only when required and permitted. Common checks can return no further work. These labels do not prove implementation reuse or replace country/provider rules. |

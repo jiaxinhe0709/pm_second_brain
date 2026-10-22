@@ -1,0 +1,66 @@
+{
+  "result": "pass",
+  "source_id": "SPEC-SEI-021",
+  "reviewed": "2026-10-22",
+  "all_five_pngs_visually_inspected": true,
+  "svg_text_bounds_checked": true,
+  "editable_sources_checked": true,
+  "preview_viewports": [
+    {
+      "viewport_width": 1440,
+      "loaded_diagrams": 5,
+      "scroll_containers_checked": true,
+      "page_overflow": false
+    },
+    {
+      "viewport_width": 480,
+      "loaded_diagrams": 5,
+      "scroll_containers_checked": true,
+      "page_overflow": false
+    }
+  ],
+  "live_confluence_verified": false,
+  "live_publication": false,
+  "api_capability_table": {
+    "result": "pass",
+    "viewports": [
+      {
+        "width": 1440,
+        "rows": 10,
+        "columns": 4,
+        "page_overflow": false
+      },
+      {
+        "width": 480,
+        "rows": 10,
+        "columns": 4,
+        "page_overflow": false
+      }
+    ],
+    "guide_only_and_unconfirmed_candidates_labelled": true
+  },
+  "product_impact_summary": {
+    "result": "pass",
+    "viewports": [
+      {
+        "width": 1440,
+        "four_scope_rows": true,
+        "no_page_overflow": true
+      },
+      {
+        "width": 480,
+        "four_scope_rows": true,
+        "no_page_overflow": true
+      }
+    ],
+    "breaking_changes_explicitly_unconfirmed": true
+  },
+  "archive_cleanup": {
+    "result": "pass",
+    "main_engineering_view": "SPEC-SEI-021",
+    "retained_reference": "specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md",
+    "updated_editable_diagram_source_links": 12,
+    "no_stale_managed_source_paths": true,
+    "live_publication": false
+  }
+}

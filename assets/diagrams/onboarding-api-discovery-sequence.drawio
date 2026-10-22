@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="app.diagrams.net" type="device" version="24.7.17">
-  <diagram id="onboarding-api-discovery-sequence" name="Onboarding API view - Discover and inspect connections">
-    <mxGraphModel page="1" pageWidth="1800" pageHeight="2491">
+  <diagram id="onboarding-api-discovery-sequence" name="Onboarding API overview - Discover and inspect setup">
+    <mxGraphModel page="1" pageWidth="1800" pageHeight="1060">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="cell-1" value="Onboarding API view - Discover and inspect connections" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=28;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="28" y="14" width="888.9599999999999" height="38" />
+        <mxCell id="cell-1" value="Onboarding API overview - Discover and inspect setup" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=28;fontColor=#222222;spacing=0;">
+          <mxGeometry as="geometry" x="28" y="14" width="856.4799999999999" height="38" />
         </mxCell>
-        <mxCell id="cell-2" value="ONB-01/02/10/11 | Documented FR operations; proposed Spain reuse only." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="28" y="58" width="702.1999999999999" height="27" />
+        <mxCell id="cell-2" value="Authorised product and dataset | Key calls only; intermediate responses are omitted." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
+          <mxGeometry as="geometry" x="28" y="58" width="840.2399999999999" height="27" />
         </mxCell>
         <mxCell id="cell-3" value="Proposed logical sequence · Participants are responsibility groups; actual service placement and contracts remain open." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#555555;spacing=0;">
           <mxGeometry as="geometry" x="28" y="90" width="1047.3" height="25" />
@@ -17,335 +17,149 @@
         <mxCell id="cell-4" value="Solid filled arrow: request · Dashed open arrow: response · Solid open arrow: notification · Time runs down." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#555555;spacing=0;">
           <mxGeometry as="geometry" x="28" y="117" width="951.5999999999999" height="25" />
         </mxCell>
-        <mxCell id="cell-5" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=none;strokeColor=#777777;">
-          <mxGeometry as="geometry" x="24" y="1667" width="1752" height="450" />
-        </mxCell>
         <mxCell id="participant-0-lifeline" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=none;dashed=1;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint as="sourcePoint" x="140" y="246" />
-            <mxPoint as="targetPoint" x="140" y="2313" />
+            <mxPoint as="targetPoint" x="140" y="882" />
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="cell-7" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#e8e8e8;strokeColor=#555555;">
+        <mxCell id="cell-6" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#e8e8e8;strokeColor=#555555;">
           <mxGeometry as="geometry" x="27" y="158" width="226" height="88" />
         </mxCell>
-        <mxCell id="participant-0-label" value="ERP / product" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=15;fontColor=#222222;spacing=0;">
+        <mxCell id="participant-0-label" value="Product / ERP" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=15;fontColor=#222222;spacing=0;">
           <mxGeometry as="geometry" x="77.45" y="169" width="125.1" height="25" />
         </mxCell>
         <mxCell id="participant-1-lifeline" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=none;dashed=1;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint as="sourcePoint" x="750" y="246" />
-            <mxPoint as="targetPoint" x="750" y="2313" />
+            <mxPoint as="targetPoint" x="750" y="882" />
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="cell-10" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#e8e8e8;strokeColor=#555555;">
+        <mxCell id="cell-9" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#e8e8e8;strokeColor=#555555;">
           <mxGeometry as="geometry" x="637" y="158" width="226" height="88" />
         </mxCell>
-        <mxCell id="participant-1-label" value="Global API&#10;FR contract candidate" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=15;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="652.65" y="169" width="194.7" height="45" />
+        <mxCell id="participant-1-label" value="Existing FR API&#10;Reused for Spain" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=15;fontColor=#222222;spacing=0;">
+          <mxGeometry as="geometry" x="674.4" y="169" width="151.2" height="45" />
         </mxCell>
         <mxCell id="participant-2-lifeline" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=none;dashed=1;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="1090" y="246" />
-            <mxPoint as="targetPoint" x="1090" y="2313" />
+            <mxPoint as="sourcePoint" x="1490" y="246" />
+            <mxPoint as="targetPoint" x="1490" y="882" />
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="cell-13" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#e8e8e8;strokeColor=#555555;">
-          <mxGeometry as="geometry" x="977" y="158" width="226" height="88" />
+        <mxCell id="cell-12" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#e8e8e8;strokeColor=#555555;">
+          <mxGeometry as="geometry" x="1377" y="158" width="226" height="88" />
         </mxCell>
-        <mxCell id="participant-2-label" value="Domain Service -&#10;E-Invoice Service&#10;Proposed coordination" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=15;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="992.65" y="169" width="194.7" height="65" />
+        <mxCell id="participant-2-label" value="Spain country pack&#10;Rules and integrations" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=15;fontColor=#222222;spacing=0;">
+          <mxGeometry as="geometry" x="1388.3" y="169" width="203.39999999999998" height="45" />
         </mxCell>
-        <mxCell id="participant-3-lifeline" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=none;dashed=1;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="1390" y="246" />
-            <mxPoint as="targetPoint" x="1390" y="2313" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="cell-16" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#e8e8e8;strokeColor=#555555;">
-          <mxGeometry as="geometry" x="1277" y="158" width="226" height="88" />
-        </mxCell>
-        <mxCell id="participant-3-label" value="Domain Service -&#10;Other Services&#10;Identity / trust / routing" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=15;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="1270.9" y="169" width="238.2" height="65" />
-        </mxCell>
-        <mxCell id="participant-4-lifeline" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=none;dashed=1;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="1660" y="246" />
-            <mxPoint as="targetPoint" x="1660" y="2313" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="cell-19" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#e8e8e8;strokeColor=#555555;">
-          <mxGeometry as="geometry" x="1547" y="158" width="226" height="88" />
-        </mxCell>
-        <mxCell id="participant-4-label" value="Public / private platforms&#10;Qualified integration" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=15;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="1540.9" y="169" width="238.2" height="45" />
-        </mxCell>
-        <mxCell id="cell-21" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#f1f1f1;strokeColor=#777777;">
-          <mxGeometry as="geometry" x="24" y="1667" width="1752" height="31" />
-        </mxCell>
-        <mxCell id="cell-22" value="opt - A permitted connectionId is available" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="36" y="1674" width="386.09999999999997" height="25" />
-        </mxCell>
-        <mxCell id="cell-23" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#444444;strokeColor=#444444;">
+        <mxCell id="cell-14" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#444444;strokeColor=#444444;">
           <mxGeometry as="geometry" x="28" y="302" width="1744" height="36" />
         </mxCell>
-        <mxCell id="cell-24" value="1 - Bind the business and allowed access" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=18;fontColor=#ffffff;spacing=0;">
-          <mxGeometry as="geometry" x="40" y="309" width="429.59999999999997" height="28" />
+        <mxCell id="cell-15" value="Discover supported services and inspect existing setup" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=18;fontColor=#ffffff;spacing=0;">
+          <mxGeometry as="geometry" x="40" y="309" width="575.76" height="28" />
         </mxCell>
-        <mxCell id="cell-25" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#f7f7f7;strokeColor=#888888;">
-          <mxGeometry as="geometry" x="35" y="387" width="1460" height="92" />
+        <mxCell id="cell-16" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="148" y="374" width="594" height="43" />
         </mxCell>
-        <mxCell id="cell-26" value="Resolve the authenticated caller, represented business and dataset mapping before protected reads. M2M authentication alone does not establish delegated authority. No&#10;dataset-to-business equivalence is assumed." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="49" y="395" width="1648.76" height="49" />
+        <mxCell id="cell-17" value="01  API-01 GET /accesspoints" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
+          <mxGeometry as="geometry" x="300.96000000000004" y="375" width="288.08" height="27" />
         </mxCell>
-        <mxCell id="cell-27" value="GAP-01/03 | ONB-02 | ONB-R01/19" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="49" y="455" width="227.76" height="22" />
-        </mxCell>
-        <mxCell id="cell-28" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#444444;strokeColor=#444444;">
-          <mxGeometry as="geometry" x="28" y="586" width="1744" height="36" />
-        </mxCell>
-        <mxCell id="cell-29" value="2 - List available options and existing dataset connections" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=18;fontColor=#ffffff;spacing=0;">
-          <mxGeometry as="geometry" x="40" y="593" width="627.9599999999999" height="28" />
-        </mxCell>
-        <mxCell id="cell-30" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#f7f7f7;strokeColor=#888888;">
-          <mxGeometry as="geometry" x="35" y="1031" width="1160" height="92" />
-        </mxCell>
-        <mxCell id="cell-31" value="FR-01 declares datasetId as a path parameter but /accesspoints has no matching placeholder. Confirm the canonical signature before&#10;client generation. Listing is not selection, readiness or activation." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="49" y="1039" width="1293.8" height="49" />
-        </mxCell>
-        <mxCell id="cell-32" value="GAP-07 | FR-01" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="49" y="1099" width="109.44" height="22" />
-        </mxCell>
-        <mxCell id="cell-33" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#444444;strokeColor=#444444;">
-          <mxGeometry as="geometry" x="28" y="1590" width="1744" height="36" />
-        </mxCell>
-        <mxCell id="cell-34" value="3 - Inspect only a known authorised connection" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=18;fontColor=#ffffff;spacing=0;">
-          <mxGeometry as="geometry" x="40" y="1597" width="492.23999999999995" height="28" />
-        </mxCell>
-        <mxCell id="cell-35" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#f7f7f7;strokeColor=#888888;">
-          <mxGeometry as="geometry" x="35" y="2121" width="1460" height="92" />
-        </mxCell>
-        <mxCell id="cell-36" value="Compare requested functions with observed evidence. A failed read or 404 does not prove external absence. Valid unchanged setup uses no POST or PUT. Return missing&#10;checks and their owner." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="49" y="2129" width="1619.1799999999998" height="49" />
-        </mxCell>
-        <mxCell id="cell-37" value="ONB-S02/03/05/08 | ONB-R11/12/13" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="49" y="2189" width="234.71999999999997" height="22" />
-        </mxCell>
-        <mxCell id="cell-38" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="148" y="658" width="594" height="43" />
-        </mxCell>
-        <mxCell id="cell-39" value="01  API-01 GET /accesspoints" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="300.96000000000004" y="659" width="288.08" height="27" />
-        </mxCell>
-        <mxCell id="cell-40" value="FR-01 | ONB-10" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="390.28" y="687" width="109.44" height="22" />
+        <mxCell id="cell-18" value="FR-01 | Available services" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
+          <mxGeometry as="geometry" x="348.52" y="403" width="192.95999999999998" height="22" />
         </mxCell>
         <mxCell id="message-01" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=block;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="140" y="711" />
-            <mxPoint as="targetPoint" x="750" y="711" />
+            <mxPoint as="sourcePoint" x="140" y="427" />
+            <mxPoint as="targetPoint" x="750" y="427" />
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="cell-42" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="758" y="748" width="324" height="43" />
+        <mxCell id="cell-20" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="758" y="464" width="724" height="43" />
         </mxCell>
-        <mxCell id="cell-43" value="02  Dispatch scoped operation" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="771.03" y="749" width="297.94" height="27" />
+        <mxCell id="cell-21" value="02  Apply Spain service and access rules" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
+          <mxGeometry as="geometry" x="916.8" y="465" width="406.4" height="27" />
         </mxCell>
-        <mxCell id="cell-44" value="Proposed internal handoff" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="827.0" y="777" width="186.0" height="22" />
+        <mxCell id="cell-22" value="Country pack | GAP-01/02/03" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
+          <mxGeometry as="geometry" x="1020.04" y="493" width="199.92" height="22" />
         </mxCell>
         <mxCell id="message-02" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=block;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="750" y="801" />
-            <mxPoint as="targetPoint" x="1090" y="801" />
+            <mxPoint as="sourcePoint" x="750" y="517" />
+            <mxPoint as="targetPoint" x="1490" y="517" />
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="cell-46" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="758" y="838" width="324" height="43" />
+        <mxCell id="cell-24" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="148" y="554" width="594" height="43" />
         </mxCell>
-        <mxCell id="cell-47" value="03  200 - AccessPoint resources" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="761.1700000000001" y="839" width="317.65999999999997" height="27" />
+        <mxCell id="cell-25" value="03  API-02 GET /datasets/{datasetId}/accesspoints" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
+          <mxGeometry as="geometry" x="197.43" y="555" width="495.14" height="27" />
         </mxCell>
-        <mxCell id="cell-48" value="Documented FR response; Spain mapping open" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="767.84" y="867" width="304.32" height="22" />
+        <mxCell id="cell-26" value="FR-02 | Existing dataset connections" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
+          <mxGeometry as="geometry" x="313.72" y="583" width="262.55999999999995" height="22" />
         </mxCell>
-        <mxCell id="message-03" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=open;dashed=1;">
+        <mxCell id="message-03" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=block;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="1090" y="891" />
-            <mxPoint as="targetPoint" x="750" y="891" />
+            <mxPoint as="sourcePoint" x="140" y="607" />
+            <mxPoint as="targetPoint" x="750" y="607" />
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="cell-50" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="148" y="928" width="594" height="43" />
+        <mxCell id="cell-28" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="148" y="622" width="594" height="65" />
         </mxCell>
-        <mxCell id="cell-51" value="04  200 - AccessPoint resources" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="286.17" y="929" width="317.65999999999997" height="27" />
+        <mxCell id="cell-29" value="04  API-04 GET /connectors/{accessPointId}/datasets/{datasetId}/&#10;connections/{connectionId}/" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
+          <mxGeometry as="geometry" x="123.48000000000002" y="623" width="643.04" height="49" />
         </mxCell>
-        <mxCell id="cell-52" value="API-01" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="418.12" y="957" width="53.76" height="22" />
+        <mxCell id="cell-30" value="FR-04 | Only when connection detail is needed" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
+          <mxGeometry as="geometry" x="282.4" y="673" width="325.2" height="22" />
         </mxCell>
-        <mxCell id="message-04" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=open;dashed=1;">
+        <mxCell id="message-04" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=block;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="750" y="981" />
-            <mxPoint as="targetPoint" x="140" y="981" />
+            <mxPoint as="sourcePoint" x="140" y="697" />
+            <mxPoint as="targetPoint" x="750" y="697" />
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="cell-54" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="148" y="1165" width="594" height="43" />
+        <mxCell id="cell-32" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="148" y="734" width="594" height="43" />
         </mxCell>
-        <mxCell id="cell-55" value="05  API-02 GET /datasets/{datasetId}/accesspoints" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="197.43" y="1166" width="495.14" height="27" />
+        <mxCell id="cell-33" value="05  Return options and current setup" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
+          <mxGeometry as="geometry" x="261.52" y="735" width="366.96" height="27" />
         </mxCell>
-        <mxCell id="cell-56" value="FR-02 | ONB-10" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="390.28" y="1194" width="109.44" height="22" />
+        <mxCell id="cell-34" value="ONB-10/11 | No change for valid existing setup" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
+          <mxGeometry as="geometry" x="278.92" y="763" width="332.15999999999997" height="22" />
         </mxCell>
-        <mxCell id="message-05" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=block;">
+        <mxCell id="message-05" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=open;dashed=1;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="140" y="1218" />
-            <mxPoint as="targetPoint" x="750" y="1218" />
+            <mxPoint as="sourcePoint" x="750" y="787" />
+            <mxPoint as="targetPoint" x="140" y="787" />
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="cell-58" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="758" y="1255" width="324" height="43" />
+        <mxCell id="cell-36" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#f4f4f4;strokeColor=#aaaaaa;">
+          <mxGeometry as="geometry" x="24" y="900" width="1752" height="144" />
         </mxCell>
-        <mxCell id="cell-59" value="06  Dispatch scoped operation" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="771.03" y="1256" width="297.94" height="27" />
+        <mxCell id="cell-37" value="Scope and interpretation" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
+          <mxGeometry as="geometry" x="40" y="908" width="248.64" height="27" />
         </mxCell>
-        <mxCell id="cell-60" value="Proposed internal handoff" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="827.0" y="1284" width="186.0" height="22" />
+        <mxCell id="cell-38" value="Agreed direction: reuse the FR API and tailor Spain through a country pack. Logical boundaries only." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
+          <mxGeometry as="geometry" x="40" y="937" width="881.9999999999999" height="25" />
         </mxCell>
-        <mxCell id="message-06" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=block;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="750" y="1308" />
-            <mxPoint as="targetPoint" x="1090" y="1308" />
-            <Array as="points" />
-          </mxGeometry>
+        <mxCell id="cell-39" value="Activity mapping: ONB-02/05/10/11. API-04 uses a known authorised connectionId." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
+          <mxGeometry as="geometry" x="40" y="961" width="699.3" height="25" />
         </mxCell>
-        <mxCell id="cell-62" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="758" y="1323" width="324" height="65" />
+        <mxCell id="cell-40" value="Failed discovery cannot establish external absence. Detailed errors, recovery and contract questions stay in SPEC-SEI-020." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
+          <mxGeometry as="geometry" x="40" y="985" width="1073.3999999999999" height="25" />
         </mxCell>
-        <mxCell id="cell-63" value="07  200 - access points and&#10;connectionId" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="780.89" y="1324" width="278.21999999999997" height="49" />
-        </mxCell>
-        <mxCell id="cell-64" value="Documented FR response; Spain mapping open" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="767.84" y="1374" width="304.32" height="22" />
-        </mxCell>
-        <mxCell id="message-07" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=open;dashed=1;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="1090" y="1398" />
-            <mxPoint as="targetPoint" x="750" y="1398" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="cell-66" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="148" y="1435" width="594" height="43" />
-        </mxCell>
-        <mxCell id="cell-67" value="08  200 - access points and connectionId" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="241.8" y="1436" width="406.4" height="27" />
-        </mxCell>
-        <mxCell id="cell-68" value="API-02" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="418.12" y="1464" width="53.76" height="22" />
-        </mxCell>
-        <mxCell id="message-08" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=open;dashed=1;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="750" y="1488" />
-            <mxPoint as="targetPoint" x="140" y="1488" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="cell-70" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="148" y="1710" width="594" height="65" />
-        </mxCell>
-        <mxCell id="cell-71" value="09  API-04 GET /connectors/{accessPointId}/datasets/{datasetId}/&#10;connections/{connectionId}/" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="123.48000000000002" y="1711" width="643.04" height="49" />
-        </mxCell>
-        <mxCell id="cell-72" value="FR-04 | ONB-10/11" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="379.84000000000003" y="1761" width="130.32" height="22" />
-        </mxCell>
-        <mxCell id="message-09" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=block;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="140" y="1785" />
-            <mxPoint as="targetPoint" x="750" y="1785" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="cell-74" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="758" y="1822" width="324" height="43" />
-        </mxCell>
-        <mxCell id="cell-75" value="10  Dispatch scoped operation" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="771.03" y="1823" width="297.94" height="27" />
-        </mxCell>
-        <mxCell id="cell-76" value="Proposed internal handoff" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="827.0" y="1851" width="186.0" height="22" />
-        </mxCell>
-        <mxCell id="message-10" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=block;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="750" y="1875" />
-            <mxPoint as="targetPoint" x="1090" y="1875" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="cell-78" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="758" y="1890" width="324" height="65" />
-        </mxCell>
-        <mxCell id="cell-79" value="11  200 - address status and&#10;errorCode" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="775.96" y="1891" width="288.08" height="49" />
-        </mxCell>
-        <mxCell id="cell-80" value="Documented FR response; Spain mapping open" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="767.84" y="1941" width="304.32" height="22" />
-        </mxCell>
-        <mxCell id="message-11" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=open;dashed=1;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="1090" y="1965" />
-            <mxPoint as="targetPoint" x="750" y="1965" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="cell-82" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="148" y="2002" width="594" height="43" />
-        </mxCell>
-        <mxCell id="cell-83" value="12  200 - address status and errorCode" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="251.66000000000003" y="2003" width="386.67999999999995" height="27" />
-        </mxCell>
-        <mxCell id="cell-84" value="API-04" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=center;verticalAlign=top;fontSize=12;fontColor=#666666;spacing=0;">
-          <mxGeometry as="geometry" x="418.12" y="2031" width="53.76" height="22" />
-        </mxCell>
-        <mxCell id="message-12" edge="1" parent="1" style="edgeStyle=none;rounded=0;strokeColor=#555555;endArrow=open;dashed=1;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="750" y="2055" />
-            <mxPoint as="targetPoint" x="140" y="2055" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="cell-86" value="" parent="1" vertex="1" style="rounded=1;arcSize=6;fillColor=#f4f4f4;strokeColor=#aaaaaa;">
-          <mxGeometry as="geometry" x="24" y="2331" width="1752" height="144" />
-        </mxCell>
-        <mxCell id="cell-87" value="Scope and interpretation" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=17;fontColor=#222222;spacing=0;">
-          <mxGeometry as="geometry" x="40" y="2339" width="248.64" height="27" />
-        </mxCell>
-        <mxCell id="cell-88" value="Existing FR shapes are reuse candidates; deployment and Spain support remain unqualified." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
-          <mxGeometry as="geometry" x="40" y="2368" width="786.3" height="25" />
-        </mxCell>
-        <mxCell id="cell-89" value="CONNECTED is a connection observation, not proof of per-function readiness or route activation." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
-          <mxGeometry as="geometry" x="40" y="2392" width="838.4999999999999" height="25" />
-        </mxCell>
-        <mxCell id="cell-90" value="Related contract and identity gaps: GAP-01/03/05/07/08. No new endpoint is implied." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
-          <mxGeometry as="geometry" x="40" y="2416" width="734.0999999999999" height="25" />
-        </mxCell>
-        <object id="cell-91" label="Source specification" link="../../specs/onboarding/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md">
+        <object id="cell-41" label="Source specification" link="../../specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md">
           <mxCell parent="1" vertex="1" style="text;html=0;align=right;fontSize=12;">
-            <mxGeometry as="geometry" x="1560" y="2453" width="190" height="20" />
+            <mxGeometry as="geometry" x="1560" y="1022" width="190" height="20" />
           </mxCell>
         </object>
       </root>
