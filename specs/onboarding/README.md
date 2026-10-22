@@ -30,7 +30,7 @@ This is the onboarding pilot for a feature-folder structure. Shared diagrams sta
 
 SPEC-SEI-018, SPEC-SEI-019 and SPEC-SEI-021 are the primary review set. Archived SPEC-SEI-020 retains its permanent ID and detailed evidence. Existing ONB and OFR behaviour IDs retain their meanings. The [FR source contracts](<../../context/FR API/Onboarding/>) remain unchanged evidence inputs.
 
-The stable onboarding Confluence page `923861390` selects **SPEC-SEI-018** in [the publication configuration](../../config/confluence.yml). SPEC-SEI-019 and SPEC-SEI-021 are authorised as sibling pages under `837610648`; their returned page IDs must be recorded after creation. SPEC-SEI-002 remains unchanged in Git.
+The stable onboarding Confluence page `923861390` selects **SPEC-SEI-018** in [the publication configuration](../../config/confluence.yml). SPEC-SEI-019 and SPEC-SEI-021 are published as sibling pages under `837610648`: `936509725` and `936509735`. SPEC-SEI-002 remains unchanged in Git.
 
 ## Confluence presentation
 
@@ -38,10 +38,12 @@ Present three sibling pages under the existing onboarding feature/PRD page (`837
 
 | Confluence view | Git source | Authorised page handling |
 |---|---|---|
-| Onboarding Solution Summary | SPEC-SEI-018 | Reuse the existing specification page `923861390`, preserving its URL/history. |
-| Onboarding Logical Feature Specification | SPEC-SEI-019 | Create one sibling under the same parent; record its returned page ID. |
-| Onboarding API Reuse Assessment | SPEC-SEI-021 | Use the same engineering topic; reconcile any existing sibling before creation. No separate page for archived SPEC020. |
+| [Onboarding Solution Summary](https://confluence.sage.com/pages/viewpage.action?pageId=923861390) | SPEC-SEI-018 | Existing page updated; URL and history preserved. |
+| [Onboarding Logical Feature Specification](https://confluence.sage.com/pages/viewpage.action?pageId=936509725) | SPEC-SEI-019 | Sibling page `936509725`. |
+| [Onboarding API Reuse Assessment](https://confluence.sage.com/pages/viewpage.action?pageId=936509735) | SPEC-SEI-021 | Sibling page `936509735`; no page for archived SPEC020. |
 
 Each view links to the other two. High-level business journeys and process diagrams stay in 019; engineering sequences, reuse and product impact stay in 021. Its detailed assurance and source-analysis links continue to archived 020. No API design is added.
 
 The [local preview](../../work/onboarding-api-review/index.html) shows the review structure. The publication package uses the same three views with source revisions, editable diagrams and native companion links. Live targets were checked on 22 October 2026: page `923861390` exists under the parent; the two companion titles are absent. Sources must complete repository review and merge before the live update. Preserve SPEC-SEI-002 and the parent PRD content. Publication does not change lifecycle status.
+
+The [publication receipt](../../work/onboarding-publication/receipt.json) records the merged source revision and verified page versions. The rendered companion links resolve to all three pages, and all ten editable diagrams and PNG previews are attached. The parent page content is unchanged.

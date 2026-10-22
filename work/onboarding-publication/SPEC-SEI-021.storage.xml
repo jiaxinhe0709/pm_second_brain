@@ -1,5 +1,5 @@
-<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-021<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding API Reuse Assessment"/><ac:plain-text-link-body><![CDATA[ba92e25bf5ee1701061e2c2d49524fa844b765f6]]></ac:plain-text-link-body></ac:link><br /><strong>Last updated:</strong> 2026-10-22</p></div><h1>Customer Onboarding Sequence and Reuse Assessment</h1>
-<p><ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Solution Summary"/><ac:plain-text-link-body><![CDATA[Stakeholder summary — SEI018]]></ac:plain-text-link-body></ac:link> · <ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Logical Feature Specification"/><ac:plain-text-link-body><![CDATA[Business behaviour — SEI019]]></ac:plain-text-link-body></ac:link> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md">Predecessor — SEI020</a></p>
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-021<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding API Reuse Assessment"/><ac:plain-text-link-body><![CDATA[a72403041294cb801b75d115bfdaeb6139a5b0a7]]></ac:plain-text-link-body></ac:link><br /><strong>Last updated:</strong> 2026-10-22</p></div><h1>Customer Onboarding Sequence and Reuse Assessment</h1>
+<p><ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Solution Summary"/><ac:plain-text-link-body><![CDATA[Stakeholder summary — SEI018]]></ac:plain-text-link-body></ac:link> · <ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Logical Feature Specification"/><ac:plain-text-link-body><![CDATA[Business behaviour — SEI019]]></ac:plain-text-link-body></ac:link> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md">Predecessor — SEI020</a></p>
 <h2>Revision overview</h2>
 <p>This separate successor to <strong>SPEC-SEI-020</strong> provides the main sequence-led engineering view. Three core sequences and two change/recovery sequences replace eight repeated flows. Scenario, gap and acceptance IDs keep their meanings. Business scope, source contracts and open implementation decisions remain unchanged. SPEC020 is retained in the archive for detailed assurance and source analysis. This draft uses the same engineering topic, not another Confluence page; SPEC-SEI-018 is selected for the stable summary page after the authorised publication.</p>
 <h2>1 Engineering direction</h2>
@@ -45,32 +45,32 @@
 </table>
 <h2>2 Proposed reuse sequences</h2>
 <p><strong>Existing</strong> labels show supplied methods, full paths and success codes; wrapped paths retain every segment. <strong>To qualify</strong> labels describe logical requests/returns with no confirmed contract. Participants group responsibilities, not approved deployment boundaries. Solid arrows are requests; dashed arrows are responses; grey bars show handling intervals without timing promises. A <code>ref</code> box invokes another sequence conditionally; it is not an API call.</p>
-<p>All views assume authorised business access and the correct environment. HTTP success, setup, per-function readiness and route activation have separate meanings. Failed/unknown evidence holds dependent work and returns an owner. Terms follow the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>.</p>
+<p>All views assume authorised business access and the correct environment. HTTP success, setup, per-function readiness and route activation have separate meanings. Failed/unknown evidence holds dependent work and returns an owner. Terms follow the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>.</p>
 <h3>2.1 Shared prerequisites</h3>
 <ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="29504f9a-11bb-5991-adf4-16fbfdcc370a"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-reuse-shared-prerequisites-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1415</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
 <p>Use once per selected business/purpose. Reuse current evidence; check only missing/stale evidence. Keep represented-business NIF, establishment/routing references, authenticated caller and action authority separate. Certificate lookup returns readiness and a protected reference, never key material. Unavailable lookup does not prove that another upload is needed. REF-LOGICAL ONB-02/03; REF-TRUST.</p>
 <p>Dataset POSTs show the successful create/confirm path, conditional on the channel. Preserve identical input and <code>X-Idempotency-Key</code>; <code>202</code> supplies no ID. Retain confirmed <code>tenantId</code> as <code>datasetId</code>. Replay limits, differing example <code>data.id</code>, Spain inputs and native-product linkage remain gates. INT-DS01.</p>
-<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.svg">Full-size SVG</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.png">PNG</a></p>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.svg">Full-size SVG</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.png">PNG</a></p>
 <h3>2.2 Public readiness</h3>
 <ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="02b6f9bf-9af8-5380-9bb4-97c8b9308de4"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-reuse-public-readiness-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1030</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
 <p>The supplied AEAT contracts define HTTPS certificate/seal access, SOAP 1.2 bindings, ebMS headers and MIME attachments at PRE endpoints. They do not supply an enrolment operation. PRE access, production addresses and the SOAP-version conflict remain open. SPFE-S03/S08/S16; REF-SPAIN SPFE-Q01/Q12.</p>
 <p>Reuse valid public evidence; run only missing/stale checks under qualified contracts. Existing public access does not prove Sage access. The selected action's authority must be established; third-party recovery/consultation needs the registered-authority evidence in SPFE-S02 Article 11. No external enrolment or test-invoice probe is inferred. REF-LOGICAL ONB-03/04/11; SPFE-S02/S03/S08.</p>
-<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-public-readiness-sequence.svg">Full-size SVG</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-public-readiness-sequence.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-public-readiness-sequence.png">PNG</a></p>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-public-readiness-sequence.svg">Full-size SVG</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-public-readiness-sequence.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-public-readiness-sequence.png">PNG</a></p>
 <h3>2.3 Private setup</h3>
 <ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="7bea3b51-8b60-5778-9f73-fcb2e79dfbf0"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-reuse-private-setup-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1030</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
 <p>Inspect known Sage setup first. For a retained provider, keep its account and add only missing Sage setup. <strong>Connect may change address routing:</strong> qualify provider effects, route authority and historical continuity before dispatch. Skip connect when setup already matches. FR-02/03/04; INT-AP01/04/05; REF-LOGICAL ONB-05–09.</p>
 <p>Provider timing is unconfirmed; the drawn handoff does not promise synchronous completion after <code>201</code>. Use qualified per-address events/detail observations, then assess sending and receiving independently. Activation needs separate evidence. INT-AP01/06.</p>
 <p>The supplied connection APIs describe France/Sovos behaviour. No Spain private-provider contract is supplied. Qualify each provider's endpoints, protocol, API/UI eligibility, credentials/signing purpose, address/usage rules, environment and receiving destination. Customer-account setup and platform-to-platform interconnection need separate evidence. INT-AP01/06; REF-TRUST; REF-ROUTING.</p>
-<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-private-setup-sequence.svg">Full-size SVG</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-private-setup-sequence.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-private-setup-sequence.png">PNG</a></p>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-private-setup-sequence.svg">Full-size SVG</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-private-setup-sequence.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-private-setup-sequence.png">PNG</a></p>
 <h3>2.4 Supported change</h3>
 <ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="7eea88ae-8e0e-5f8b-99cc-5297c031125a"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-reuse-supported-change-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1030</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
 <p>Unchanged valid setup needs no mutation, new input or route version. Refresh only affected prerequisites. A requested extension uses qualified update semantics; a platform transition also needs its enabled scope, future-work boundary and earlier-invoice access confirmed before route-affecting calls. Private A to Private B stays disabled. REF-LOGICAL ONB-S05/S06, ONB-07/09; REF-ROUTING.</p>
-<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-supported-change-sequence.svg">Full-size SVG</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-supported-change-sequence.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-supported-change-sequence.png">PNG</a></p>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-supported-change-sequence.svg">Full-size SVG</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-supported-change-sequence.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-supported-change-sequence.png">PNG</a></p>
 <h3>2.5 Uncertainty and recovery</h3>
 <ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="fba20eae-90d8-59a2-929c-04a0da37e267"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-reuse-uncertainty-recovery-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1030</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
 <p>Use after a possible effect, conflicting observations or an unsupported/unknown setup. Preserve the original business, provider, environment and operation identity. A failed/empty read does not prove absence. Record confirmed success once; retry proven absence only under qualified semantics and current authority. Otherwise hold dependent work with an owner. Preserve valid independent functions. REF-LOGICAL ONB-08/11, OFR-01–08.</p>
 <p>Do not duplicate platform <code>RETRYING</code> work, force a provider switch or use delete/recreate recovery. INT-AP05/06.</p>
-<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.svg">Full-size SVG</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.png">PNG</a></p>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.svg">Full-size SVG</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.png">PNG</a></p>
 <h3>2.6 Existing API and capability reuse</h3>
 <p>Documented France behaviour and demo success do not prove Spain readiness. GAP IDs link to the owners/evidence in section 4; supporting capability rows identify candidates, not confirmed APIs.</p>
 <table>
@@ -129,7 +129,7 @@
 <td>Guide only: <code>DELETE /connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}</code>. INT-AP03.</td>
 <td>Legacy whole-connection disconnection; <code>202</code>.</td>
 <td>Private disconnection candidate; public support unproven.</td>
-<td>Current provider/build, removal scope and continuity. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/specs/SPEC-SEI-003-offboarding-solution-specification.md">SPEC003</a> owns full exit. GAP-04/07.</td>
+<td>Current provider/build, removal scope and continuity. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/specs/SPEC-SEI-003-offboarding-solution-specification.md">SPEC003</a> owns full exit. GAP-04/07.</td>
 </tr>
 <tr>
 <td>Identity / Tax candidates; APIs unconfirmed. REF-TRUST; REF-SAGE-CERT.</td>
@@ -242,9 +242,9 @@
 </tr>
 </tbody>
 </table>
-<p>Detailed conflicting source statements remain in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#5-common-spain-changes-and-open-evidence">SPEC020 section 5</a>. Invoice transformation remains outside these sequences; existing <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md">DTS</a> is the preferred reuse candidate when qualifying that scope.</p>
+<p>Detailed conflicting source statements remain in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#5-common-spain-changes-and-open-evidence">SPEC020 section 5</a>. Invoice transformation remains outside these sequences; existing <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md">DTS</a> is the preferred reuse candidate when qualifying that scope.</p>
 <h2>5 Acceptance coverage</h2>
-<p>Retain <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#6-reuse-assurance">API-A01–16</a> and SEI019 functional acceptance; this view changes their presentation only.</p>
+<p>Retain <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#6-reuse-assurance">API-A01–16</a> and SEI019 functional acceptance; this view changes their presentation only.</p>
 <table>
 <thead>
 <tr>
@@ -292,12 +292,12 @@
 <tbody>
 <tr>
 <td>REF-REUSE</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#1-engineering-decision-summary">SPEC020 section 1</a>, recorded direction, 22 October 2026.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#1-engineering-decision-summary">SPEC020 section 1</a>, recorded direction, 22 October 2026.</td>
 <td>FR reuse choice; no schema or deployment approval.</td>
 </tr>
 <tr>
 <td>REF-COUNTRY</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/prds/PRD-SEI-227-e-invoicing-as-a-service.md">PRD-SEI-227</a>, canonical proposal, FR11 / country-pack governance.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/prds/PRD-SEI-227-e-invoicing-as-a-service.md">PRD-SEI-227</a>, canonical proposal, FR11 / country-pack governance.</td>
 <td>Shared/country separation; broader proposal status unchanged.</td>
 </tr>
 <tr>
@@ -307,7 +307,7 @@
 </tr>
 <tr>
 <td>REF-TRUST</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/specs/SPEC-SEI-001-certificate-management-solution-specification.md">SPEC-SEI-001</a>, draft, updated 20 October 2026; CERT-04/05, G1/G9/G10.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/specs/SPEC-SEI-001-certificate-management-solution-specification.md">SPEC-SEI-001</a>, draft, updated 20 October 2026; CERT-04/05, G1/G9/G10.</td>
 <td>Proposed protected-reference/readiness controls; Tax/Connections/AFL ownership and B2B fitness remain open.</td>
 </tr>
 <tr>
@@ -317,92 +317,92 @@
 </tr>
 <tr>
 <td>REF-ROUTING</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">SPEC-SEI-014</a>, SPC-04/08; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a>, Shared connection and route handoff; drafts updated 20 October 2026.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">SPEC-SEI-014</a>, SPC-04/08; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a>, Shared connection and route handoff; drafts updated 20 October 2026.</td>
 <td>Proposed route/continuity boundary; no supplied mutation contract.</td>
 </tr>
 <tr>
 <td>INT-DS01</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/FR%20API/Onboarding/network-onboarding-create-dataset-guide-extract.md">Dataset guide extract</a>; ownership/channel sections, steps 1–2 and field reference.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/FR%20API/Onboarding/network-onboarding-create-dataset-guide-extract.md">Dataset guide extract</a>; ownership/channel sections, steps 1–2 and field reference.</td>
 <td>POST <code>202</code>/<code>200</code>, keys and <code>tenantId</code>; Spain availability, example ID and enforced cardinality unproven.</td>
 </tr>
 <tr>
 <td>INT-AP01</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md#int-ap01-connect-and-channel-selection">Connect extract</a>; connection model, channel selection, steps 0–5.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md#int-ap01-connect-and-channel-selection">Connect extract</a>; connection model, channel selection, steps 0–5.</td>
 <td>Connection, API/UI and observations; France coverage only.</td>
 </tr>
 <tr>
 <td>INT-AP02</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md#int-ap02-update-and-removal">Update extract</a>; steps 1–4; removal names v1.1.0.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md#int-ap02-update-and-removal">Update extract</a>; steps 1–4; removal names v1.1.0.</td>
 <td>Candidate update/remove; guide/OpenAPI differences unresolved.</td>
 </tr>
 <tr>
 <td>INT-AP03</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md#int-ap03-connection-disconnection">Disconnection extract</a>; remove/confirm, linked API 0.1.7.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md#int-ap03-connection-disconnection">Disconnection extract</a>; remove/confirm, linked API 0.1.7.</td>
 <td>Legacy DELETE/202 and observations; no generic rollback or full-exit proof.</td>
 </tr>
 <tr>
 <td>INT-AP04</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md#int-ap04-address-ownership-transfer">Ownership extract</a>; scenarios A/B, implementation/confirmation, linked API 0.1.9.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md#int-ap04-address-ownership-transfer">Ownership extract</a>; scenarios A/B, implementation/confirmation, linked API 0.1.9.</td>
 <td>Possible routing takeover; not universal linking or last-one-wins.</td>
 </tr>
 <tr>
 <td>INT-AP05</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md#int-ap05-error-handling-and-retry-ownership">Error extract</a>; retention/dictionary/ERR-PPL002-3; link contains 1.10.0.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md#int-ap05-error-handling-and-retry-ownership">Error extract</a>; retention/dictionary/ERR-PPL002-3; link contains 1.10.0.</td>
 <td>Retry scopes, seven-day observations and failed-absent addresses; build semantics need confirmation.</td>
 </tr>
 <tr>
 <td>INT-AP06</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md#int-ap06-catalogue-address-mapping-and-environments">Catalogue/status extract</a>; addresses, usage, retries, notifications and environments.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md#int-ap06-catalogue-address-mapping-and-environments">Catalogue/status extract</a>; addresses, usage, retries, notifications and environments.</td>
 <td>Partial events, mapping and real/demo limits; no Spain deployment proof.</td>
 </tr>
 <tr>
 <td>FR-01</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/FR%20API/Onboarding/get-accesspoints.md">Discovery contract</a>; operationId <code>Get-AccessPoints</code>, GET response.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/FR%20API/Onboarding/get-accesspoints.md">Discovery contract</a>; operationId <code>Get-AccessPoints</code>, GET response.</td>
 <td>API-01 IDs/names; no capability/readiness proof.</td>
 </tr>
 <tr>
 <td>FR-02</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/FR%20API/Onboarding/get-dataset-accesspoints.md">Dataset listing contract</a>; <code>Get-Dataset-AccessPoints</code>, GET response.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/FR%20API/Onboarding/get-dataset-accesspoints.md">Dataset listing contract</a>; <code>Get-Dataset-AccessPoints</code>, GET response.</td>
 <td>API-02 status/nullable <code>connectionId</code>; no external-absence proof.</td>
 </tr>
 <tr>
 <td>FR-03</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/FR%20API/Onboarding/new-accesspoint-connection.md">Connect contract</a>; <code>New-AccessPoint-Connection</code>, <code>Idempotency-Key</code>, <code>201</code> response.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/FR%20API/Onboarding/new-accesspoint-connection.md">Connect contract</a>; <code>New-AccessPoint-Connection</code>, <code>Idempotency-Key</code>, <code>201</code> response.</td>
 <td>API-03 inputs/address states; replay/effects unqualified.</td>
 </tr>
 <tr>
 <td>FR-04</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/FR%20API/Onboarding/get-accesspoint-connection.md">Detail contract</a>; <code>Get-AccessPoint-Connection</code>, GET response.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/FR%20API/Onboarding/get-accesspoint-connection.md">Detail contract</a>; <code>Get-AccessPoint-Connection</code>, GET response.</td>
 <td>API-04 address results; freshness/original-effect authority unproven.</td>
 </tr>
 <tr>
 <td>FR-05</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/FR%20API/Onboarding/put-accesspoint-connection.md">Update contract</a>; <code>Put-AccessPoint-Connection</code>, PUT response.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/FR%20API/Onboarding/put-accesspoint-connection.md">Update contract</a>; <code>Put-AccessPoint-Connection</code>, PUT response.</td>
 <td>API-05 actions/date/usage rules; no supplied repeat/version guarantee.</td>
 </tr>
 <tr>
 <td>SPFE-S02</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/BOE-A-2026-20587.pdf">Original BOE order</a>, HAC/1028/2026, published 5 October 2026; Article 11(1)–(2).</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/BOE-A-2026-20587.pdf">Original BOE order</a>, HAC/1028/2026, published 5 October 2026; Article 11(1)–(2).</td>
 <td>Certificate access and representation; no Sage implementation proof.</td>
 </tr>
 <tr>
 <td>SPFE-S03</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">Original service catalogue</a>, 0.1.0, 9 October 2026; sections 4.3, 5.1, 6.1–6.10, pp. 8–20.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">Original service catalogue</a>, 0.1.0, 9 October 2026; sections 4.3, 5.1, 6.1–6.10, pp. 8–20.</td>
 <td>Public access/operation inventory; no supplied onboarding enrolment command.</td>
 </tr>
 <tr>
 <td>SPFE-S08</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/Descripcio%CC%81n%20servicios%20web/Formatos%20entrada%20y%20salida/20261013/FormatosEntradaSalida.pdf">Original input/output formats</a>, draft 0.1.0, 9 October 2026; sections 5.1–5.9, pp. 8–15.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/Descripcio%CC%81n%20servicios%20web/Formatos%20entrada%20y%20salida/20261013/FormatosEntradaSalida.pdf">Original input/output formats</a>, draft 0.1.0, 9 October 2026; sections 5.1–5.9, pp. 8–15.</td>
 <td>Response distinctions; pending formats do not supply an onboarding payload.</td>
 </tr>
 <tr>
 <td>SPFE-S16</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/WSDL%20servicios%20web%20-%20PRE/20261013/SendInvoice.wsdl">Original SendInvoice WSDL</a>, supplied snapshot 13 October 2026; <code>SendInvoiceSoapBinding</code>, <code>SendInvoiceCertPort</code>, <code>SendInvoiceSealPort</code>.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/WSDL%20servicios%20web%20-%20PRE/20261013/SendInvoice.wsdl">Original SendInvoice WSDL</a>, supplied snapshot 13 October 2026; <code>SendInvoiceSoapBinding</code>, <code>SendInvoiceCertPort</code>, <code>SendInvoiceSealPort</code>.</td>
 <td>SOAP 1.2, ebMS/MIME packaging and PRE certificate/seal addresses; no proven connectivity or production endpoint.</td>
 </tr>
 <tr>
 <td>REF-SPAIN</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/ba92e25bf5ee1701061e2c2d49524fa844b765f6/context/RES-SEI-002-spain-public-platform-technical-evidence.md">Original-file evidence baseline</a>, updated 20 October 2026; source authority, file inventory and conflicts.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/a72403041294cb801b75d115bfdaeb6139a5b0a7/context/RES-SEI-002-spain-public-platform-technical-evidence.md">Original-file evidence baseline</a>, updated 20 October 2026; source authority, file inventory and conflicts.</td>
 <td>Routes legal/technical claims to original BOE/catalogue/WSDL/XSD files; inventory is not mapping completeness.</td>
 </tr>
 </tbody>

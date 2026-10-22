@@ -15,7 +15,7 @@ Git is the system of record for product documents. Confluence is the publishing 
 - `specs/` — feature solution specifications, linked to the
   [shared e-invoicing glossary](context/GLO-SEI-001-e-invoicing-terminology.md)
   - [Customer onboarding and recovery](specs/SPEC-SEI-002-onboarding-solution-specification.md) — onboarding journeys with integrated recovery controls
-  - [Onboarding feature folder](specs/onboarding/README.md) — unpublished summary, logical specification and API design/reuse views; the original spec remains unchanged
+  - [Onboarding feature folder](specs/onboarding/README.md) — published draft summary, logical specification and API reuse views; the original spec remains unchanged
   - [Onboarding consolidation validation](work/onboarding-consolidation-validation.html) — preservation, coverage and documented-outcome checks
   - [Receiving, retrieval and download](specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) — current combined feature specification
   - [Archived specifications](specs/archive/README.md) — preserved predecessors and their current reading route
