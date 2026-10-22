@@ -86,7 +86,7 @@ These scenarios are authoritative for entry selection. Apply actor and processin
 | ONB-S05 | Existing Sage setup confirmed or extended | Return valid unchanged references without mutation; recheck stale evidence or add only the requested functions. |
 | ONB-S06 | Supported platform change requested | Qualify the new plan and future-work boundary. Preserve earlier invoice context. Keep unapproved transitions blocked. |
 | ONB-S07 | B2G service used before B2B setup | Assess B2B access independently and retain the existing B2G service. |
-| ONB-S08 | Provider/function unsupported or setup unknown | Return the precise limitation, missing evidence and owner. Do not force a provider change or infer absence. |
+| ONB-S08 | Provider/function unsupported or setup unknown | Return the precise limitation, missing evidence and owner. An unlisted-provider option remains TBD; distinguish customer setup from operator interconnection under ONB-R25. Do not force a provider change or infer absence. |
 
 ### 3.2 Out of scope
 
@@ -113,6 +113,8 @@ Pending prerequisites, retry waits, unknown external effects and unresolved manu
 ### 3.5 Decisions and open questions
 
 The [existing decision record](../SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) retains ONB-Q01–09 and OFR-Q01–04. Missing qualification holds only dependent work; SEI021 identifies the engineering evidence needed.
+
+**Unlisted private provider — TBD.** Spain Product and the local technical lead must decide whether onboarding shows only enabled providers or also offers an “Other provider” request. Refine this decision as coverage develops. The provider portfolio is planning context; absence from it does not establish ineligibility. Check actual supported capability before enabling a connection, and do not promise an unqualified completion date. This open UI decision cannot remove an applicable operator interconnection duty. REF-PROVIDERS; REF-PRIVATE Articles 8–9.
 
 ## 4 Feature wide functional requirements and rules
 
@@ -292,12 +294,27 @@ Figure 3. ONB-05–09 private setup and activation. [Draw.io](../../assets/diagr
 
 Keep the selected provider and reuse valid setup. Do only missing authorised work; avoid duplicate enrolment, subscription or credential replacement. Possible external effects enter ONB-08.
 
+**ONB-R25 — Distinguish customer setup from operator interconnection.** Connecting a customer's ERP to its provider has no general one-month completion promise in the cited rule. Where Sage acts as a private platform operator within the applicable Spain scope, a qualifying request to interconnect with another participating private platform follows the operator process in PRD-SEI-221 FR20. Onboarding must hand off the case and expose its status without reporting the customer ready. REF-PRIVATE Articles 8–9; REF-OPERATOR.
+
+| Condition | Required behaviour and observable result |
+|---|---|
+| Qualifying peer-platform request received | The receiving operator records receipt evidence and makes the interconnection operational within **one month from receipt**. Supply the required specifications, test facility and resources. The clock does not start at a customer's provider selection or a Sage setup API call. Article 9(3). |
+| Additional requests cannot be handled simultaneously during that period | Apply strict receipt order. For each qualifying queued request, its one-month period starts when the immediately preceding interconnection becomes operational. Retain the original receipt, queue order, preceding completion and resulting clock start. This is the specific Article 9(4) exception, not a general pause. |
+| Interconnection is pending | The requesting operator deposits affected invoices in the public solution; the receiving operator receives them through that path. Invoice owners execute this interim exchange. It does not change the customer's selected provider or authorise a migration. Article 9(5). |
+| Completion is claimed | Retain operational evidence for invoice and mandatory-status exchange. A successful setup call or closed support case is insufficient. Articles 8(3), 9(3). |
+| Receipt, due date or progress is unknown, or completion is at risk/overdue | Keep an operator-owned escalation and show the limitation. Do not report readiness, reset the clock on retry or silently move the deadline. Exact calendar, month-end, timezone and alert rules require Spain Compliance and Operations qualification. Proposed Sage control. |
+
+Use **one month**, not a fixed 30-day timer. Record the receiving operator, request/receipt reference, receipt time, applicable queue basis, clock start, calculated deadline and operational completion evidence. These are evidence needs, not a proposed API payload. A customer-support request does not by itself establish receipt of a peer-platform interconnection request. REF-PRIVATE Article 9(3)–(4).
+
 If setup can redirect traffic, apply authority, supported-transition and continuity gates before that action. Provider operation/version details stay in SEI021. A setup label cannot bypass a gated Spain migration.
 
 | Acceptance ID | Acceptance check |
 |---|---|
 | ONB-A04 | Configuration/testing without activation, including local failure, leaves the active route unchanged. |
 | ONB-A13; OFR-A12 | For ONB-S03 recovery, retain provider and original operation; avoid another account/enrolment and resume ONB-05/06. |
+| ONB-A43 | Check actual support for an unlisted provider. Without a qualified path, return a limitation and owner under ONB-S08; the UI treatment stays TBD. Presence or absence in the portfolio cannot prove readiness, force a switch or promise a completion date. REF-PROVIDERS. |
+| ONB-A44 | For qualifying operator requests, verify receipt-based one-month timing and the exact additional-request/receipt-order exception. Customer selection, setup HTTP success, resubmission or internal case closure cannot start, reset or satisfy that clock. REF-PRIVATE Article 9(3)–(4); ONB-R25. |
+| ONB-A45 | While interconnection is pending, the operator handoff retains the required public interim path. Completion needs operational invoice/status evidence; deadline risk or unknown timing remains owned and cannot imply readiness. REF-PRIVATE Articles 8(3), 9(3)–(5); ONB-R25. |
 
 ### 6.8 ONB-06 Prove private readiness
 
@@ -494,7 +511,9 @@ Final published law establishes legal duties. A technical file establishes only 
 | INT-DS01 | [Supplied internal Network dataset guide extract](<../../context/FR API/Onboarding/network-onboarding-create-dataset-guide-extract.md>), received 22 October 2026; canonical URL/revision unknown | Partner tenancy model / Ownership and access; Multi-product and existing Sage channels; Steps 1–2 | Documents partner-owned datasets and create/confirm behaviour for an external partner channel. One-per-entity provisioning guidance is not a proven dataset constraint; France cardinality, Spain support, channel linkage and source inconsistencies remain open in SEI021. |
 | REF-PRODUCT | [PRD-SEI-101](../../prds/PRD-SEI-101-public-platform-onboarding.md), [104](../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), [222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md), [225](../../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md), [231](../../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md) | Product scope/FRs; PRD-104 FR2–8/13–20 and NFR4; PRD-107 FR1–20; PRD-231 ID-FR9–12. Individual source versions remain in their front matter. | Canonical product needs for readiness, authority, portfolio, recovery and continuity. Earlier external assumptions cannot override final sources. |
 | SPFE-S02 | [BOE-A-2026-20587.pdf](../../context/BOE-A-2026-20587.pdf); Order HAC/1028/2026, published 5 October 2026; [official original](https://www.boe.es/eli/es/o/2026/10/02/hac1028) checked 21 October 2026 | Article 11(1)–(2) | Certificate access, specified web-form options and representation rules including registered third-party recovery/consultation authority. Does not prove Sage API support. |
-| REF-PRIVATE | [RD 238/2026 official original](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), published 31 March 2026; checked 21 October 2026 | Article 7(3) | Signature boundary for covered private-platform invoices. Separate from connection authentication; no universal customer-upload requirement follows. |
+| REF-PRIVATE | [RD 238/2026 official original](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), published 31 March 2026; original and consolidated text checked 22 October 2026 | Articles 7(3), 8(1)–(3), 9(1)–(5) | Private-invoice signature boundary; participating-platform interconnection, invoice/status coverage, receiving-operator one-month period, specific receipt-order exception and interim public exchange. Not a 30-day customer ERP-onboarding SLA or evidence of a working provider integration. |
+| REF-PROVIDERS | [PRD-SEI-213](../../prds/PRD-SEI-213-private-platform-connectivity-structured-review.md), current draft | Phase 2 provider landscape; BR4; FR4 | Planned provider scope and qualification before readiness. Does not establish a live provider count or decide the unlisted-provider UI. |
+| REF-OPERATOR | [PRD-SEI-221](../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md), current draft | E7, BR11, FR20 | Canonical operator request, queue, deadline, testing, interim exchange and evidence process. This onboarding view supplies the handoff, not another operator workflow. |
 | SPFE-S03 | [CatalogoServicios.pdf](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026 | Sections 4.1–4.3, 5.1 and 6.1–6.10, pp. 7–20 | Operation inventory, authorisation and fault/resend guidance. No supplied onboarding enrolment contract; no blanket repeat-safety guarantee. |
 | SPFE-S08 | [FormatosEntradaSalida.pdf](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), 0.1.0, 9 October 2026, marked draft | Sections 4.3 and 5.1.2–5.9, pp. 7–15 | Caller/destination/message structure and distinct response levels. No onboarding payload; transport conflict and pending formats limit qualification. |
 | SPFE-S16 | [SendInvoice.wsdl](<../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>), supplied 13 October 2026 | Request documentation, SOAP binding, fault and service/port elements | Submission contract and certificate-class PRE ports; no onboarding mutation, live-availability evidence or guarantee that repetition is safe. |

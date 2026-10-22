@@ -93,6 +93,8 @@ Provider timing is unconfirmed; the drawn handoff does not promise synchronous c
 
 The supplied connection APIs describe France/Sovos behaviour. No Spain private-provider contract is supplied. Qualify each provider's endpoints, protocol, API/UI eligibility, credentials/signing purpose, address/usage rules, environment and receiving destination. Customer-account setup and platform-to-platform interconnection need separate evidence. INT-AP01/06; REF-TRUST; REF-ROUTING.
 
+Check actual support for an unlisted provider; without a qualified path, return the ONB-S08 limitation and owner. The customer option remains TBD. For qualifying operator interconnection, follow [SEI019 ONB-R25](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#67-onb-05-configure-private-choice): track the receiving operator's **one-month** clock, specific receipt-order exception, interim public exchange and operational evidence. Existing `/connect`, HTTP success and `CONNECTED` do not satisfy that process. Operator case/clock integration remains GAP-06/08. REF-LOGICAL; REF-INTERCONNECT.
+
 
 [Full-size SVG](../../assets/diagrams/onboarding-reuse-private-setup-sequence.svg) · [Editable Draw.io](../../assets/diagrams/onboarding-reuse-private-setup-sequence.drawio) · [PNG](../../assets/diagrams/onboarding-reuse-private-setup-sequence.png)
 
@@ -146,7 +148,7 @@ SEI019 remains authoritative for ONB-S01–08. These rows select the technical p
 | ONB-S05 Existing Sage setup | Confirm unchanged references; use supported change only for stale checks or requested extensions. |
 | ONB-S06 Platform change | Supported change, with private setup only where needed; retain earlier invoice context. |
 | ONB-S07 Existing B2G | Assess B2B through the selected path; preserve B2G configuration and references. |
-| ONB-S08 Unsupported/unknown | Return the precise limitation and owner. Use recovery only where earlier effects need observation. |
+| ONB-S08 Unsupported/unknown | Return the precise limitation and owner; unlisted-provider UI remains TBD. Distinguish the operator interconnection handoff in ONB-R25. Use recovery only where earlier effects need observation. |
 
 ## 4 Open engineering decisions
 
@@ -159,7 +161,7 @@ Existing GAP IDs retain SPEC020 meanings. Each owner must identify the actual re
 | GAP-03 Authority / all | Prove represented-business and direct/delegated action scope independently of M2M access, certificate possession or request `user`. SPFE-S02; REF-TRUST. | Identity, Security, Product. |
 | GAP-04 Mutation safety / shared, private, change, recovery | Qualify create/confirm replay, `X-Idempotency-Key` versus `Idempotency-Key`, duplicate windows, partial effects, update concurrency and original-effect observation. FR-03/05; INT-DS01. | API, Integration, Operations. |
 | GAP-05 Result meaning / public, private, change, recovery | Qualify partial/missing addresses, status-to-function mapping, event library, evidence freshness and independent activation. A `CONNECTED` resource or absent address is insufficient. FR-02/04; INT-AP05/06. | API, E-Invoice Service, Routing. |
-| GAP-06 Companion coverage / all | Prove NIF/Tax readiness, custody and selected-purpose fitness; qualify subscription/UI eligibility, approvals, case/batch and route capabilities. REF-TRUST; INT-AP01–03. | Architecture and dependency owners. |
+| GAP-06 Companion coverage / all | Prove NIF/Tax readiness, custody and selected-purpose fitness; qualify subscription/UI eligibility, approvals, case/batch and route capabilities. For operator interconnection, prove request/receipt and queue evidence, one-month deadline tracking, interim exchange and operational completion under ONB-R25. No supplied FR setup API proves this coverage. REF-TRUST; INT-AP01–03; REF-INTERCONNECT. | Architecture and dependency owners; operator process: Compliance/Operations. |
 | GAP-07 Source conflicts / all | Pin build/contract: `RECEIVE` enum, update/remove/DELETE, takeover/conflicts, dates/lengths/auth, statuses/events and header/version differences. Resolve 24-hour retry versus six-day escalation and seven-day error observations; the latter is not audit retention. INT-AP01–06. | FR API/dataset owners, Operations. |
 | GAP-08 Implementation qualification / all | Record retained behaviour, Spain changes, actual caller impact, regressions, monitoring, recovery and support ownership. Existing capability documentation is not production readiness. | Architecture, API, Integration, Operations. |
 
@@ -177,6 +179,7 @@ Retain [API-A01–16](../archive/SPEC-SEI-020-customer-onboarding-api-design-and
 | API-A09/12/16 | Missing capability stays owned; selected builds, guide conflicts, events and actual operations are qualified. INT-AP01–06. |
 | API-A10/14 | Public boundary, independent NIF/authority/certificate findings, protected-reference reuse and later-use rechecks. SPFE-S02/S03/S08; REF-TRUST. |
 | API-A15 | Conditional provisioning, retained identifiers/keys, multi-address scope and qualified native-channel mapping. INT-DS01. |
+| ONB-A43–45 | Unlisted-provider limitations, role-specific interconnection handoff, one-month receipt/queue timing and required interim exchange. Setup responses cannot imply process completion. REF-LOGICAL; REF-INTERCONNECT. |
 
 ## REF Source references
 
@@ -187,6 +190,7 @@ FR-01–05 are supplied OpenAPI 3.1.0 files declaring `info.version: 1.0.0`, rev
 | REF-REUSE | [SPEC020 section 1](../archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#1-engineering-decision-summary), recorded direction, 22 October 2026. | FR reuse choice; no schema or deployment approval. |
 | REF-COUNTRY | [PRD-SEI-227](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md), canonical proposal, FR11 / country-pack governance. | Shared/country separation; broader proposal status unchanged. |
 | REF-LOGICAL | [SPEC-SEI-019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md), draft, updated 22 October 2026; sections 3–7, ONB/OFR activities and acceptance. | Canonical business behaviour and phase gates; no deployed API proof. |
+| REF-INTERCONNECT | [RD 238/2026 official original](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), published 31 March 2026; checked 22 October 2026; Articles 8(1)–(3), 9(1)–(5). | Participating-platform operator duty, invoice/status exchange, one-month receipt-based period, specific receipt-order exception and public interim route. Not an ERP/customer setup SLA; no provider API or calendar implementation contract supplied. |
 | REF-TRUST | [SPEC-SEI-001](../SPEC-SEI-001-certificate-management-solution-specification.md), draft, updated 20 October 2026; CERT-04/05, G1/G9/G10. | Proposed protected-reference/readiness controls; Tax/Connections/AFL ownership and B2B fitness remain open. |
 | REF-SAGE-CERT | [Sage certificate management](https://confluence.sage.com/spaces/CCLD/pages/759615024/Sage+certificate+management), page 759615024; version/content unverified, access unavailable in predecessor review. | User-supplied supporting context; no independent proof of live Tax contracts or Spain acceptance. |
 | REF-ROUTING | [SPEC-SEI-014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), SPC-04/08; [SPEC-SEI-016](../SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), Shared connection and route handoff; drafts updated 20 October 2026. | Proposed route/continuity boundary; no supplied mutation contract. |
