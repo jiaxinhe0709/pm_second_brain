@@ -11,7 +11,6 @@ reviewers: []
 related:
   - SPEC-SEI-002
   - SPEC-SEI-018
-  - SPEC-SEI-020
   - PRD-SEI-101
   - PRD-SEI-104
   - PRD-SEI-107
@@ -37,8 +36,6 @@ confluence:
 ---
 
 # Customer Onboarding Logical Feature Specification
-
-[Solution Summary](SPEC-SEI-018-customer-onboarding-solution-summary.md) · [API Design and Reuse Assessment](SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) · [Feature landing page](README.md)
 
 ## Revision overview
 
@@ -162,8 +159,6 @@ These NFR IDs group existing controls; they introduce no numeric service commitm
 ## 6 Feature activities
 
 Activity references below also refer to the [summary lifecycle](SPEC-SEI-018-customer-onboarding-solution-summary.md#7-master-feature-lifecycle). Interaction and data IDs link to the [supporting inventories](#supporting-inventories); they preserve traceability without defining fields or storage here. Activity-specific requirements below remain proposed unless an external-source statement is explicitly identified.
-
-The [end-to-end sequence diagrams](#end-to-end-sequence-diagrams) show the full public and private setup journeys across these activities.
 
 ### 6.1 ONB-01 Capture requested functions
 
@@ -460,39 +455,18 @@ CANCELLING takes precedence during unresolved remaining-batch cancellation; othe
 
 ## 7 Traceability and supporting artefacts
 
-### End to end sequence diagrams
-
-These existing logical sequences show requests, responses, saved results and recovery across the full journey. Participant labels group responsibilities; physical service boundaries and contracts remain subject to qualification. Solid arrows show requests, dashed arrows show responses or notifications, and open arrows show notifications where marked. **opt** identifies conditional work; **alt** identifies alternative outcomes. Activity requirements in section 6 remain authoritative.
-
-#### Connect an existing public service
-
-The ONB-S02 example runs missing or stale checks, records public readiness and returns the saved result through ONB-11. Certificate and authority findings stay separate. Failed checks return to their owning correction or recovery gate; the sequence creates no external registration, receiving-point publication or route activation.
-
-![Full onboarding sequence for connecting an existing public service](../../assets/diagrams/spain-onboarding-public-setup-sequence.svg)
-
-Figure 5. Full public setup sequence. [Open full-size SVG](../../assets/diagrams/spain-onboarding-public-setup-sequence.svg) · [Editable Draw.io](../../assets/diagrams/spain-onboarding-public-setup-sequence.drawio) · [PNG](../../assets/diagrams/spain-onboarding-public-setup-sequence.png).
-
-#### Connect a private provider
-
-The ONB-S03 example binds the existing provider account and adds only missing setup. ONB-06 checks each function and required external state. ONB-07 confirms an unchanged route or applies a separately authorised change; uncertain effects use ONB-08 before the affected check resumes. ONB-09 preserves earlier invoice context and ONB-11 returns independent results. Later-phase and provider qualification gates still apply.
-
-![Full onboarding sequence for connecting a private provider and conditional activation](../../assets/diagrams/spain-onboarding-private-setup-sequence.svg)
-
-Figure 6. Full private setup and conditional activation sequence. [Open full-size SVG](../../assets/diagrams/spain-onboarding-private-setup-sequence.svg) · [Editable Draw.io](../../assets/diagrams/spain-onboarding-private-setup-sequence.drawio) · [PNG](../../assets/diagrams/spain-onboarding-private-setup-sequence.png).
-
 ### Supporting inventories
 
 | Reference | Purpose and authority |
 |---|---|
 | [Feature landing page](README.md) | Navigation to canonical PRDs, companions and unchanged predecessor. |
 | [Solution Summary](SPEC-SEI-018-customer-onboarding-solution-summary.md) | End-to-end outcome, workflow, boundaries and material decisions. |
-| [API Design and Reuse Assessment](SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) | Per-operation FR contract analysis, API-labelled versions of the journeys, proposed Spain reuse and missing implementation evidence. API allocation does not change the requirements here. |
 | [SPEC-SEI-002 interaction contracts](../SPEC-SEI-002-onboarding-solution-specification.md#1-interaction-contracts) | ONB-INT-01–13 and OFR-INT-01–09 logical/technical analysis. Proposed service allocations and field names require qualification. |
 | [SPEC-SEI-002 data inventory](../SPEC-SEI-002-onboarding-solution-specification.md#2-data-inventory) | ONB-D01–13 and OFR-D01–09 supporting records; no new duplicate stores are required by this split. |
 | [SPEC-SEI-002 customer fields](../SPEC-SEI-002-onboarding-solution-specification.md#3-customer-and-accountant-fields-by-scenario) and [system/results fields](../SPEC-SEI-002-onboarding-solution-specification.md#4-system-fields-dates-and-erp-results) | Proposed field-level analysis under ONB-Q04/09, including start dates and receiving history. |
 | [SPEC-SEI-002 public field boundary](../SPEC-SEI-002-onboarding-solution-specification.md#5-sage-spfe-field-boundary) | Exact transport elements and source limits. Does not define an onboarding payload. |
 | [SPEC-SEI-002 original verification matrix](../SPEC-SEI-002-onboarding-solution-specification.md#1-verification-matrix) | Detailed PRD-to-interaction/data mappings for existing acceptance IDs. The compact scenarios here retain their observable outcomes. |
-| [End-to-end sequence diagrams](#end-to-end-sequence-diagrams) | Full public/private journeys embedded above, using the unchanged diagram assets from SPEC-SEI-002. |
+| [SPEC-SEI-002 technical sequences](../SPEC-SEI-002-onboarding-solution-specification.md#onboarding-technical-sequences) | Supporting public/private sequence examples. Physical contracts and deployment remain unqualified. |
 | [SPEC-SEI-001](../SPEC-SEI-001-certificate-management-solution-specification.md), [013](../SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md), [014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), [011](../SPEC-SEI-011-public-platform-connector-solution-specification.md), [016](../SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), [003](../SPEC-SEI-003-offboarding-solution-specification.md) | Owning trust, API, route, public-execution, receiving and exit boundaries. |
 
 ### Solution ownership and reuse qualification

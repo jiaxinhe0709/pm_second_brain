@@ -3,74 +3,104 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Spain e-invoicing questions</title>
+<title>Spain e-invoicing questions and decisions</title>
 <style>
-body{font:16px/1.55 system-ui,sans-serif;color:#222;margin:0;background:#f5f5f5}main{max-width:1000px;margin:30px auto;padding:30px;background:white}h1{font-size:30px;line-height:1.2}h2{font-size:22px;margin-top:32px}.intro{font-size:18px}.question{font-weight:600;margin:8px 0}.details,.evidence{font-size:14px;color:#555;margin:8px 0 0}.answer,.ask{margin:8px 0}li{padding-left:6px;margin-bottom:28px}a{color:#155786}code{overflow-wrap:anywhere}.badge{display:inline-block;border-radius:4px;padding:2px 8px;font-size:13px;font-weight:650}.partial{background:#fff0c2;color:#604400}.proposed{background:#e8effa;color:#204a7a}.open{background:#fae6e6;color:#7a2929}.notice{border-left:4px solid #155786;background:#f0f5fa;padding:12px 16px}.counts{font-weight:600}footer{border-top:1px solid #ccc;padding-top:18px;margin-top:28px}.sources li{margin-bottom:14px}li[id],section[id]{scroll-margin-top:16px}.question-list{list-style:none;padding-left:0}.question-list>li{padding:18px 0;border-bottom:1px solid #ddd;margin-bottom:0}h3{font-size:18px;margin:10px 0 6px}.followup{font-size:14px;color:#555;margin:8px 0}details{margin-top:12px}summary{cursor:pointer;color:#155786;font-size:14px}@media(max-width:650px){main{margin:0;padding:18px}h1{font-size:25px}ol{padding-left:25px}}@media print{body{background:white}main{margin:0;padding:0}.badge{border:1px solid #aaa}li{break-inside:avoid}}
+body{font:16px/1.55 system-ui,sans-serif;color:#222;margin:0;background:#f5f5f5}main{max-width:1000px;margin:30px auto;padding:30px;background:white}h1{font-size:30px;line-height:1.2}h2{font-size:22px;margin-top:32px}.intro{font-size:18px}.question{font-weight:600;margin:8px 0}.details,.evidence{font-size:14px;color:#555;margin:8px 0 0}.answer,.ask{margin:8px 0}li{padding-left:6px;margin-bottom:28px}a{color:#155786}code{overflow-wrap:anywhere}.badge{display:inline-block;border-radius:4px;padding:2px 8px;font-size:13px;font-weight:650}.partial{background:#fff0c2;color:#604400}.proposed{background:#e8effa;color:#204a7a}.open{background:#fae6e6;color:#7a2929}.answered{background:#e4f2e7;color:#245d35}.decision{background:#f0f8f1;border-left:3px solid #42764c;padding:10px 12px}.question s,h3 s{color:#555;text-decoration-thickness:1.5px}.notice{border-left:4px solid #155786;background:#f0f5fa;padding:12px 16px}.counts{font-weight:600}.meeting{background:#f0f5fa;padding:10px 12px;margin:10px 0}.check{font-size:14px;border-left:3px solid #b58a2a;padding-left:12px}footer{border-top:1px solid #ccc;padding-top:18px;margin-top:28px}.sources li{margin-bottom:14px}li[id],section[id]{scroll-margin-top:16px}.question-list{list-style:none;padding-left:0}.question-list>li{padding:18px 0;border-bottom:1px solid #ddd;margin-bottom:0}h3{font-size:18px;margin:10px 0 6px}.followup{font-size:14px;color:#555;margin:8px 0}details{margin-top:12px}summary{cursor:pointer;color:#155786;font-size:14px}@media(max-width:650px){main{margin:0;padding:18px}h1{font-size:25px}ol{padding-left:25px}}@media print{body{background:white}main{margin:0;padding:0}.badge{border:1px solid #aaa}li{break-inside:avoid}}
 </style>
 </head>
 <body><main>
-<h1>Spain e-invoicing questions</h1>
-<p class="intro">Ask the Spain team first. Then agree the product scope and take the technical questions to our teams.</p>
-<p>Checked on <strong>16 October 2026</strong> using the repo documents, the supplied AEAT files and the final BOE rules. This checks the written sources. It does not prove that the software works or that a provider has agreed to a connection.</p>
-<p class="counts">25 questions: 11 partly answered · 9 draft answers · 5 with no answer yet.</p>
-<p><strong>Partly answered:</strong> some parts have supporting documents or a recorded decision. <strong>Draft answer:</strong> a proposed answer still needs agreement or testing. <strong>No answer yet:</strong> the required decision or information is missing. Each question still has something to resolve.</p>
+<h1>Spain e-invoicing questions and decisions</h1>
+<p class="intro">Keep each question as a record. Strike through an answered question and record the decision below it. Keep remaining questions and work visible.</p>
+<p>The earlier source review was on <strong>16 October 2026</strong>. The supplied meeting recap was compared with this list on <strong>22 October 2026</strong>. RD238 Article 6 and the PDF transition, and SPFE-S02 Articles 3–5, were also checked against the live BOE texts on 22 October. Other earlier source checks are unchanged.</p>
+<p class="notice"><strong>Confirmed answers:</strong> The user confirmed <a href="#q26">Q26 PDF</a>, <a href="#q11">Q11 directory direction</a> and <a href="#q27">Q27 connection strategy</a>, and clarified <a href="#q15">Q15 separate platform views</a>, on 22 October 2026. Their questions are struck through and retained. Each decision has its own follow-up. The combined invoice view under Q15 is still a local Product question. <a href="#q28">Q28 optional statuses</a>, <a href="#q29">Q29 accountant setup</a> and <a href="#q30">Q30 batch sending</a> remain open. <a href="#USER-01">User confirmation</a> · <a href="#MEETING-01">Original recap and limits</a>.</p>
+<p class="counts">25 retained entries: 4 decisions recorded · 9 partly answered · 8 draft answers · 4 with no answer yet.</p>
+<p><strong>Decision recorded:</strong> the user confirmed the direction; any remaining work is listed below it. <strong>Partly answered:</strong> some parts have supporting evidence or a recorded direction. Unconfirmed recap statements still need checking. <strong>Draft answer:</strong> the proposal needs agreement or testing. <strong>No answer yet:</strong> the required decision or information is missing. These labels do not change the lifecycle status of a PRD or spec.</p>
 <p>AEAT is Spain’s tax agency. SPFE is its public e-invoicing platform. ERP means the business software that sends or receives invoice data. DTS is Sage’s Document Transformation Service, which converts invoice formats. UBL is a structured invoice format. A faithful copy keeps the original invoice’s required meaning in the public-platform format.</p>
 <nav class="notice" aria-label="Question groups"><a href="#local-team">1. Spain team · 9</a> → <a href="#joint-decisions">2. Spain and central Product · 7</a> → <a href="#internal-teams">3. Our technical teams · 9</a></nav>
-<nav class="notice" aria-label="Your questions"><strong>Your four topics:</strong> <a href="#q15">Q15 · Public UBL copy and duplicates</a> · <a href="#q26">Q26 · PDF during the first 12 months</a> · <a href="#q11">Q11 · Recipient directory</a> · <a href="#q27">Q27 · Peppol</a>.<br><strong>Added:</strong> <a href="#q28">Q28 · Confirm our optional-status comparison</a> · <a href="#q29">Q29 · Accountant batch onboarding</a> · <a href="#q30">Q30 · Single and batch invoice sending</a>.</nav>
-<p>The first four entries cover your original topics. Q28 asks the Spain team to confirm the existing optional-status comparison. Q29 asks them to confirm the accountant batch onboarding draft. Q30 covers single and batch invoice sending, including month-end work for several clients. Known answers are visible under these entries; open “Sources” for the references. Record each new answer, the person responsible, the source and the due date. The listed teams are suggestions for who to ask.</p>
+<nav class="notice" aria-label="Your questions"><strong>Your four topics:</strong> <a href="#q15">Q15 · Private and public invoice views</a> · <a href="#q26">Q26 · PDF during the first 12 months</a> · <a href="#q11">Q11 · Recipient directory</a> · <a href="#q27">Q27 · Peppol</a>.<br><strong>Added:</strong> <a href="#q28">Q28 · Confirm our optional-status comparison</a> · <a href="#q29">Q29 · Accountant batch onboarding</a> · <a href="#q30">Q30 · Single and batch invoice sending</a>.</nav>
+<p>The first four entries cover your original topics. Q28 asks the Spain team to confirm the existing optional-status comparison. Q29 asks them to confirm the accountant batch onboarding draft. Q30 covers single and batch invoice sending, including month-end work for several clients. Confirmed decisions are visible under the struck-through questions. Open “Earlier notes and sources” for their supporting context. Record each new answer, the person responsible, the source and the due date. The listed teams are suggestions for who to ask.</p>
 
 <section id="local-team"><h2>1. Ask the Spain team first</h2>
 <p>Ask about Spain rules, current AEAT documents, existing product behaviour and provider plans. Ask the team to get missing answers from AEAT or the provider.</p>
 <ul class="question-list">
 <li id="q15">
-<span class="badge partial">Partly answered</span>
-<h3>Q15. Public UBL copy and duplicate invoices</h3>
-<p class="question">Has AEAT confirmed the exact invoice-code format and duplicate error codes? What should we do if the same invoice arrives through a private platform and SPFE?</p>
+<span class="badge answered">Decision recorded</span>
+<h3><s>Q15. Public UBL copy and duplicate invoices</s></h3>
+<p class="question"><s>Has AEAT confirmed the exact invoice-code format and duplicate error codes? How do we match a private-platform invoice to its public copy without creating a second ERP invoice?</s></p>
+<p class="decision"><strong>Confirmed decision — 22 October 2026:</strong> To view the actual invoice sent through a private platform, use that private platform. To view an invoice sent through SPFE, or a public copy, use SPFE. The private original and public copy remain in their separate platform views. This viewing approach does not create a second invoice. <a href="#USER-01">USER-01</a>.</p>
+<p class="ask"><strong>Still open:</strong> Should the local product also offer one view of all invoices, regardless of the platform? This is a local Product question.</p>
+<p class="details"><strong>Who follows up:</strong> Local Product team</p>
+<p class="followup"><strong>Next work:</strong> Product must confirm whether a combined view is needed. Engineering must use the correct source for each platform view. A combined view is not yet agreed.</p>
+<details><summary>Earlier notes and sources</summary>
+<p class="meeting"><strong>Earlier recap:</strong> The recap says the private platform handles the faithful UBL copy. The customer does not manage that step. For a private exchange, it says to use the private-platform invoice as the main working version. That invoice may have extra information or linked documents. Public-platform issuance or interconnection is a separate business route. <a href="#MEETING-01">MEETING-01</a>, Public UBL Copy And Invoice Retrieval.</p>
+<p class="check"><strong>Accuracy check:</strong> Use “faithful copy”, the term in the regulation. The copy must keep the required equivalent invoice data; “less information” is not permission to drop required content. Separate business routes do not prove that AEAT needs separate submission endpoints: SendInvoice accepts originals and copies. Retain both source files with their roles. See SPFE-S02 Articles 3–5 and SPFE-S03 §6.2.</p>
 <p class="details"><strong>Who to ask:</strong> Spain technical owner and AEAT contact, with Compliance</p>
 <p class="followup"><strong>Work for our teams:</strong> Receiving and Exchange teams must prevent a second ERP invoice when the same invoice arrives again. They must check conflicting files and lost responses.</p>
 <p class="answer"><strong>What we know:</strong> For a qualifying private exchange, the public copy is UBL. Field BT-ES-1, /in:Invoice/cbc:CopyIndicator, marks true as a copy and false or no value as an original. No extra copy is required if SPFE was used to issue or exchange the invoice. SendInvoice handles both originals and copies. Article 5.5 rejects a copy if the same identity already has a copy or public original. A stored copy must be withdrawn before sending a public original. The identity contains issuer NIF, invoice series and number, and issue date.</p>
-<details><summary>Sources</summary>
+
 <p class="evidence"><strong>Sources:</strong> <a href="#SPFE-S02">SPFE-S02</a> Articles 3.4, 4, 5.5–5.6, 6 and Annex I BT-ES-1; <a href="#SPFE-S03">SPFE-S03</a> §6.2; <a href="../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a> RCV-Q04/05; <a href="../specs/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> OUT-SPFE-R02; <a href="../specs/SPEC-SEI-015-invoice-creation-solution-specification.md">SPEC-SEI-015</a> IC-Q05. The copy flag alone does not prevent duplicate processing.</p>
 <p class="details"><strong>Related specs:</strong> <a href="../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a></p>
 </details>
 </li>
 <li id="q26">
-<span class="badge partial">Partly answered</span>
-<h3>Q26. PDF during the first 12 months</h3>
-<p class="question">Who produces, checks and sends the PDF during the first 12 months? Will Sage send it by email, as a private-platform attachment, or both? How do we record the recipient’s express agreement to receive only the original format?</p>
+<span class="badge answered">Decision recorded</span>
+<h3><s>Q26. PDF during the first 12 months</s></h3>
+<p class="question"><s>Which products already support this PDF and email flow? Which private platforms also support the PDF attachment? How will we record the recipient’s express agreement to receive only the original format and check that PDF delivery works?</s></p>
+<p class="decision"><strong>Confirmed decision — 22 October 2026:</strong> The product or application generates the customised PDF and sends it by email. It may also send the PDF as a private-platform attachment where supported. Do not send the PDF to SPFE. The application checks the destination before adding attachments. Domain services may add a second check. <a href="#USER-01">USER-01</a>.</p>
+<p class="ask"><strong>Still open:</strong> Confirm which private platforms support PDF attachments, which products need changes, how express acceptance is recorded and how PDF delivery is checked.</p>
+<p class="details"><strong>Who follows up:</strong> Product teams; Ronald for attachment requirements; Dianna and Xavier for PDF delivery support and checks</p>
+<p class="followup"><strong>Next work:</strong> Check the existing application PDF and email flows. Define supported private attachments, customer guidance and delivery checks. Keep the legal scope and express-acceptance exception in the source notes below.</p>
+<details><summary>Earlier notes and sources</summary>
+<p class="meeting"><strong>Earlier recap:</strong> The recap assigns customised PDF generation to the product or application. Email is the working delivery choice. A private-platform attachment may also be used where that provider supports it. The PDF must stay out of SPFE. The application should check the destination before adding a PDF to the invoice package. Domain services may add another check. <a href="#MEETING-01">MEETING-01</a>, PDF Delivery During The First Twelve Months.</p>
+<p class="check"><strong>Accuracy check:</strong> Keep the earlier legal scope: the readable-PDF transition concerns the group above the EUR 8 million threshold and has an express-acceptance exception. It is not a blanket 12-month duty for every customer. The PDF must not be sent to SPFE. The order prohibits embedded files; that is separate from the messaging envelope and the permitted accompanying signature for public interconnection. See RD238 transitional provision 2 and SPFE-S02 Articles 3.6/4.4.</p>
 <p class="details"><strong>Who to ask:</strong> Spain Product, Compliance and local provider contacts</p>
-<p class="followup"><strong>Work for our teams:</strong> ERP Product and provider teams must choose who makes and checks the PDF. They must support the agreed delivery methods and handle failed delivery.</p>
+<p class="followup"><strong>Work for our teams:</strong> Following the direction in the recap, product teams should assess their existing PDF generation and email flow. Ronald’s attachment task must define provider support and destination checks. Dianna and Xavier’s task must define customer support and delivery checks. Confirm these assignments before treating them as approved.</p>
 <p class="answer"><strong>What we know:</strong> The PDF rule applies for 12 months from the date the invoice duty starts for businesses above the EUR 8 million threshold. The threshold uses the previous year’s VAT volume of operations. The PDF is not required if the recipient voluntarily and expressly agrees to receive the original format. The PDF can reach the recipient by any means, including email. It must not go to SPFE. The structured invoice is still required.</p>
-<details><summary>Sources</summary>
+
 <p class="evidence"><strong>Sources:</strong> <a href="#RD238">RD238</a> transitional provision 2.1–2.2, checked 16 October 2026; <a href="../specs/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> PDF-generation decision. Teams to ask: ERP Product, Spain Compliance and provider/Exchange owners. We must still check supported delivery methods and proof of delivery. Do not embed the PDF in a public invoice or copy.</p>
 </details>
 </li>
 <li id="q11">
-<span class="badge partial">Partly answered</span>
-<h3>Q11. Recipient directory: central or Sage’s own?</h3>
-<p class="question">Is an official central directory available in addition to each operator’s search? What search must Sage provide as a private platform? Which directories can other platforms search, and what APIs and recipient details do they need?</p>
+<span class="badge answered">Decision recorded</span>
+<h3><s>Q11. Recipient directory: central or Sage’s own?</s></h3>
+<p class="question"><s>What does the B2B Router proof of concept prove about directory access and finding recipients on other platforms? Is a central AEAT directory API confirmed? What evidence permits public delivery when the application has no private platform recorded?</s></p>
+<p class="decision"><strong>Confirmed decision — 22 October 2026:</strong> Keep the recipient’s selected platform in the relevant application and onboarding data. Use the B2B Router proof of concept to check directory access and finding recipients on other private platforms. Central-directory availability and the exact cross-platform APIs remain unconfirmed. <a href="#USER-01">USER-01</a>.</p>
+<p class="ask"><strong>Still open:</strong> Ronald must confirm what the proof of concept establishes. The team must resolve directory access and the evidence needed before choosing public delivery when no private platform is recorded.</p>
+<p class="details"><strong>Who follows up:</strong> Ronald, with the Spain technical team and local Product</p>
+<p class="followup"><strong>Next work:</strong> Complete the directory proof of concept and define the recipient platform fields. A blank application field alone does not prove that a private receiving point is absent.</p>
+<details><summary>Earlier notes and sources</summary>
+<p class="meeting"><strong>Earlier recap:</strong> The recap proposes keeping the selected platform in customer, supplier, company and onboarding data. It names Ronald to test B2B Router directory access and cross-platform discovery in the proof of concept. It does not confirm a central directory or usable APIs for every private platform. <a href="#MEETING-01">MEETING-01</a>, Recipient Directory And Platform Identification.</p>
+<p class="check"><strong>Accuracy check:</strong> The recap’s public-directory claim has no confirmed API source. Article 6.4 requires an operator’s open consultation system; it does not prove a central AEAT API or a common directory API. A blank Sage field is not proof that the recipient has no private entry point. The proposed automatic public default must be checked against RLU-Q01/Q03 and RLU-R06 before it is used. Failed or incomplete lookup must not silently choose public delivery.</p>
 <p class="details"><strong>Who to ask:</strong> Spain technical owner and local operator contacts</p>
 <p class="followup"><strong>Work for our teams:</strong> The Routing team must decide which directory result to trust. It must handle old, missing or conflicting results. If Sage becomes an operator, it must also provide its own directory.</p>
 <p class="answer"><strong>What we know:</strong> Each private-platform operator must provide an open search for businesses that chose it to receive invoices. Sage must do this if it acts as a private-platform operator. The supplied AEAT invoice-query APIs do not prove that AEAT provides a central recipient directory.</p>
-<details><summary>Sources</summary>
+
 <p class="evidence"><strong>Sources:</strong> <a href="#RD238">RD238</a> Article 6.3–6.4; <a href="../specs/SPEC-SEI-012-consult-public-platform-for-recipient-information.md">SPEC-SEI-012</a> RLU-Q01–08 and SPFE-S03/S14/S15 limits.</p>
 <p class="details"><strong>Related specs:</strong> <a href="../specs/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> · <a href="../specs/SPEC-SEI-012-consult-public-platform-for-recipient-information.md">SPEC-SEI-012</a></p>
 </details>
 </li>
 <li id="q27">
-<span class="badge open">No answer yet</span>
-<h3>Q27. Will private platforms use Peppol?</h3>
-<p class="question">Which private platforms have decided to use Peppol for Spain? Which formats and status messages will each support? How will we connect to platforms that do not use Peppol?</p>
+<span class="badge answered">Decision recorded</span>
+<h3><s>Q27. Will private platforms use Peppol?</s></h3>
+<p class="question"><s>For the selected Spain platforms, which support a direct API, Peppol or both? Can the team confirm the API versions, invoice formats and status messages? The first-release provider list and dates remain under Q01.</s></p>
+<p class="decision"><strong>Confirmed decision — 22 October 2026:</strong> Prioritise direct provider APIs for Spain. Develop the Peppol access point in parallel for the wider Sage service and compatible connections. A Peppol access point alone does not cover every required Spain connection. <a href="#USER-01">USER-01</a>.</p>
+<p class="ask"><strong>Still open:</strong> Confirm the selected provider list, each provider’s direct API and Peppol support, API versions, formats, status messages and delivery dates. First-release scope and dates remain under Q01.</p>
+<p class="details"><strong>Who follows up:</strong> Spain Product, provider integration contacts and Architecture; Dianna for roadmap dates</p>
+<p class="followup"><strong>Next work:</strong> Check each selected provider’s actual Spain interface and agreement. Do not treat the general Peppol direction as a confirmed provider connection or delivery date.</p>
+<details><summary>Earlier notes and sources</summary>
+<p class="meeting"><strong>Earlier recap:</strong> The recap records a direction to prioritise direct provider APIs for Spain. A Peppol access point would be developed in parallel for the wider Sage service and compatible connections. It does not give confirmed Peppol commitments, selected API versions or delivery dates for individual Spain providers. <a href="#MEETING-01">MEETING-01</a>, Peppol Strategy For Spanish Private Platforms.</p>
+<p class="check"><strong>Accuracy check:</strong> The statement that larger platforms generally support Peppol is not a provider-by-provider confirmation. Check the selected Spain interface and agreement. The recap’s intended parallel access-point work is not an approved delivery date.</p>
 <p class="details"><strong>Who to ask:</strong> Local provider and commercial contacts and Spain technical owner</p>
 <p class="followup"><strong>Work for our teams:</strong> Architecture and Integration teams must check the Peppol connection, recipient search, supported messages, costs and test results for each provider.</p>
 <p class="answer"><strong>What we know:</strong> We found no confirmed Peppol decision for the selected providers in the reviewed sources. Support for Peppol BIS or UBL files does not prove that a provider uses the Peppol network. A reference to AS4 does not prove this either.</p>
-<details><summary>Sources</summary>
+
 <p class="evidence"><strong>Sources:</strong> <a href="#RD238">RD238</a> Article 7 and Articles 8–9 establish format/interconnection duties, but do not require every platform to use the Peppol network. <a href="../context/NAV-SEI-004-interconnection-interoperability.md">NAV-SEI-004</a>; <a href="../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a> open Peppol process decision; <a href="../specs/SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md">SPEC-SEI-017</a> B2BR-Q01/02/04. Teams to ask: provider integration/commercial owners, Architecture and Spain Compliance.</p>
 </details>
 </li>
 <li id="q28">
 <span class="badge partial">Partly answered</span>
 <h3>Q28. Can the Spain team confirm our optional-status comparison?</h3>
+<p class="meeting"><strong>Recap coverage:</strong> This question was not answered in the supplied recap. Keep the existing confirmation request open. <a href="#MEETING-01">MEETING-01</a>.</p>
 <p class="question">Can the Spain team confirm that our existing provider status tables are correct for the selected Spain products and API versions? Which optional statuses, codes or send/receive actions need correction? Can the team obtain the missing details from each provider?</p>
 <p class="details"><strong>Use the existing work:</strong> <a href="../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#lifecycle-statuses-and-actions-by-provider">SPEC-SEI-009 provider status tables</a>. Review the recorded names, meanings, API codes, required data and send/receive support. Confirm what is available in Spain and what happens if the other platform does not support an optional status. Record corrections, missing documents, provider contacts and the confirmation date.</p>
 <p class="details"><strong>Who to ask:</strong> Spain Compliance, Spain technical team and each provider contact</p>
@@ -83,6 +113,7 @@ body{font:16px/1.55 system-ui,sans-serif;color:#222;margin:0;background:#f5f5f5}
 <li id="q29">
 <span class="badge proposed">Draft answer</span>
 <h3>Q29. Can the Spain team confirm our batch onboarding flow for accountants?</h3>
+<p class="meeting"><strong>Recap coverage:</strong> This question was not answered in the supplied recap. Keep the existing confirmation request open. <a href="#MEETING-01">MEETING-01</a>.</p>
 <p class="question">Can the Spain team confirm that our proposed flow for setting up several clients at once matches how accountants work?</p>
 <p class="details"><strong>Please confirm:</strong><br>
 Which client data and valid permissions can we reuse? When must a client approve something new?<br>
@@ -100,6 +131,7 @@ How many clients would an accountant normally set up at once? What is the larges
 <li id="q30">
 <span class="badge proposed">Draft answer</span>
 <h3>Q30. Can the Spain team confirm how single and batch invoice sending should work?</h3>
+<p class="meeting"><strong>Recap coverage:</strong> This question was not answered in the supplied recap. Keep the existing confirmation request open. <a href="#MEETING-01">MEETING-01</a>.</p>
 <p class="question">Can the Spain team confirm these sending cases and the month-end working process?</p>
 <p class="details"><strong>Cases:</strong><br>
 1. A business sends one invoice.<br>
@@ -150,6 +182,7 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="q01">
 <span class="badge open">No answer yet</span>
 <h3>Q01. What is in the first release?</h3>
+<p class="meeting"><strong>Recap answer — please confirm:</strong> The recap gives the connection direction under Q27. It does not confirm the first-release products, customer groups, exact provider list or dates. It names Dianna to obtain the roadmap dates. <a href="#MEETING-01">MEETING-01</a>, Peppol Strategy For Spanish Private Platforms; Analysis Governance And Next Steps.</p>
 <p class="question">Which Spain products, customer groups and providers are included in the first release? Will each product support sending, receiving or both?</p>
 <p class="details"><strong>Who to ask:</strong> Spain Product and central Product, with Compliance</p>
 <details><summary>What we know and sources</summary>
@@ -194,6 +227,7 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="q23">
 <span class="badge open">No answer yet</span>
 <h3>Q23. Who will test the first release?</h3>
+<p class="meeting"><strong>Recap answer — please confirm:</strong> The B2B Router proof of concept has a directory task under Q11. The recap does not approve a complete pilot group, acceptance results, stop criteria or rollout dates. <a href="#MEETING-01">MEETING-01</a>, Recipient Directory And Platform Identification; Analysis Governance And Next Steps.</p>
 <p class="question">Which Spain products and providers will join the pilot? What must the tests prove? When should we stop the pilot? How can we return to the previous setup? Who approves the results?</p>
 <p class="details"><strong>Who to ask:</strong> Spain Product, central Product, Engineering, QA and provider owners</p>
 <details><summary>What we know and sources</summary>
@@ -216,6 +250,7 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="q25">
 <span class="badge open">No answer yet</span>
 <h3>Q25. Who will answer the remaining questions?</h3>
+<p class="meeting"><strong>Recap answer — please confirm:</strong> The recap names Dianna for roadmap dates and requirements review; Ronald for the directory proof of concept, recipient platform data and attachment requirements; and Dianna with Xavier for PDF delivery support and checks. These reported assignments need confirmation. No due dates are given. <a href="#MEETING-01">MEETING-01</a>, Follow-up tasks.</p>
 <p class="question">Who will provide each missing answer or document, and by what date? Does the missing answer stop design, pilot testing or live use?</p>
 <p class="details"><strong>Who to ask:</strong> People responsible for the local and central decisions</p>
 <details><summary>What we know and sources</summary>
@@ -231,6 +266,7 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="q03">
 <span class="badge partial">Partly answered</span>
 <h3>Q03. Which team is responsible for each task?</h3>
+<p class="meeting"><strong>Recap answer — please confirm:</strong> The recap places PDF work in the applications under Q26 and asks engineering to select the API calls. It does not settle all service owners, the legal platform operator or the split between Sage and a partner. <a href="#MEETING-01">MEETING-01</a>, Public UBL Copy And Invoice Retrieval; PDF Delivery During The First Twelve Months.</p>
 <p class="question">Which team builds and runs each part? Who owns each API and record? For the Sage private platform, what will Sage provide and what will a partner provide? Which legal entity operates the platform?</p>
 <p class="details"><strong>Who to ask:</strong> Architecture, service owners, Product and Legal</p>
 <details><summary>What we know and sources</summary>
@@ -273,9 +309,10 @@ What normal and peak batch sizes must we support at month end?</p>
 </details>
 </li>
 <li id="q09">
-<span class="badge proposed">Draft answer</span>
+<span class="badge partial">Partly answered</span>
 <h3>Q09. What must the ERP send?</h3>
-<p class="question">What data must the ERP send for the first check and for final sending? How do we detect a changed invoice? What happens if a field is missing or unsupported? Who corrects each error?</p>
+<p class="meeting"><strong>Recap answer — please confirm:</strong> The recap gives the application the first check for destination-dependent attachments. Domain services may add a safeguard. PDF generation and email delivery are recorded under Q26. Exact ERP fields, private attachment APIs and failure responses remain open. <a href="#MEETING-01">MEETING-01</a>, PDF Delivery During The First Twelve Months.</p>
+<p class="question">What data must the ERP send for the first check and final sending? Which attachment fields and destination checks are required? How do we handle a changed invoice, unsupported attachment or failed PDF email? Who corrects each error?</p>
 <p class="details"><strong>Who to ask:</strong> ERP Product, E-Invoice, Format and Validation owners</p>
 <details><summary>What we know and sources</summary>
 <p class="answer"><strong>What we know:</strong> The draft describes initial checks, final preparation and correction. We still need the actual ERP fields and the team responsible for each error type.</p>
@@ -286,6 +323,7 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="q14">
 <span class="badge partial">Partly answered</span>
 <h3>Q14. How do we find and retrieve invoices?</h3>
+<p class="meeting"><strong>Recap answer — please confirm:</strong> The recap gives a preferred working-file choice for private exchanges under Q15. It does not define public collection filters, complete retrieval coverage, private intake APIs or receipt side effects. <a href="#MEETING-01">MEETING-01</a>, Public UBL Copy And Invoice Retrieval.</p>
 <p class="question">How do we use the public APIs to select invoices and read all pages of results? What dates and earlier invoices are covered? Does reading change any status? For each private provider, how do we obtain the file and recover a missed notification?</p>
 <p class="details"><strong>Who to ask:</strong> Retrieval, Receiving, public connector and provider integration owners</p>
 <details><summary>What we know and sources</summary>
@@ -331,6 +369,10 @@ What normal and peak batch sizes must we support at month end?</p>
 <section aria-labelledby="references"><h2 id="references">Sources and what they confirm</h2>
 <p>Use the final regulation for legal rules. Use technical files for the messages and behaviour they define. Draft specs describe proposed Sage behaviour. Guides, text extracts and file lists do not prove that all fields are mapped or that the software works.</p>
 <ul class="sources">
+<li id="USER-01"><strong>USER-01:</strong> User confirmation in this chat, 22 October 2026. The user clarified that the private invoice is viewed on its private platform, while public invoices and public copies are viewed on SPFE. Whether the local product should also show all invoices in one view remains open. The user confirmed the recorded answers for Q26, Q11 and Q27 and requested a retained, struck-through decision record. This confirms the directions recorded above. It does not settle the listed follow-ups, prove provider/API availability or approve publication or deployment.</li>
+
+<li id="MEETING-01"><strong>MEETING-01:</strong> User-supplied attachment “Pasted text.txt”, headed “Generated by AI. Make sure to check for accuracy.” Received 22 October 2026; the meeting date is not stated. The relevant sections are Public UBL Copy And Invoice Retrieval; PDF Delivery During The First Twelve Months; Recipient Directory And Platform Identification; Peppol Strategy For Spanish Private Platforms; Analysis Governance And Next Steps; and Follow-up tasks. This source records reported statements and proposed assignments. It does not prove participant approval, legal correctness, API availability, provider commitments or passed tests. No transcript or recording was checked. The legal and technical sources below control external facts. Preserve “faithful copy” as the project term for the recap’s “trusted copy”.</li>
+
 <li id="RD238"><strong>RD238:</strong> <a href="https://www.boe.es/eli/es/rd/2026/03/25/238">Real Decreto 238/2026</a>, dated 25 March 2026; checked live 16 October 2026. Article 6: receipt points, UBL copies and operator lookup; Article 7: formats, transformation and signing; Articles 8–9: interconnection; transitional provision 2: PDF scope, exception and recipient channel. It does not prove that AEAT provides a central directory API or that a provider has chosen Peppol.</li>
 <li id="SPFE-S02"><strong>SPFE-S02:</strong> <a href="../context/BOE-A-2026-20587.pdf">Original final Order HAC/1028/2026 PDF</a>, published 5 October 2026; <a href="https://www.boe.es/eli/es/o/2026/10/02/hac1028">official BOE text</a> checked live 16 October 2026. Articles 3.4/4: copy duty and timing; Article 5.5–5.6: duplicate/withdrawal/correction branches; Article 6: identity; Articles 7–11: lifecycle, reporting, retrieval and authority; Annex I BT-ES-1: copy field; Annex II: actor/event codes. <a href="../assets/regulatory/spain/BOE-A-2026-20587.xml">Local BOE XML snapshot</a> also contains the exact BT-ES-1 path and values. The law does not prove that repeating an API request is safe or that tests have passed.</li>
 <li id="SPFE-S01"><strong>SPFE-S01:</strong> <a href="../context/Anexo%20I/20261013/Anexo-1-Proyecto-OM-FE.pdf#page=4">Original separate invoice Annex I</a>, supplied 13 October 2026; page 4, BT-ES-1. Shows the CopyIndicator field. No release version is given, and the filename still contains Proyecto, meaning draft. Use the final published annex if they differ.</li>
@@ -338,5 +380,5 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="SPFE-S08"><strong>SPFE-S08:</strong> <a href="../context/Descripcio%CC%81n%20servicios%20web/Formatos%20entrada%20y%20salida/20261013/FormatosEntradaSalida.pdf#page=8">Original AEAT input/output formats</a>, version 0.1.0, cover 9 October 2026, marked BORRADOR; §5.1.1 p. 8 selects UBL 2.5 InvoiceType. §§5.3–5.9 are pending. Its ebMS/AS4 description does not prove Peppol membership or successful testing.</li>
 <li><strong>API files:</strong> <a href="../context/WSDL%20servicios%20web%20-%20PRE/20261013/SendInvoice.wsdl">SendInvoice.wsdl</a> and the other seven WSDLs listed in <a href="../context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a>, supplied 13 October 2026. They define APIs and addresses for PRE, the test environment. They do not prove that access is available, permissions are valid, all message rules are present or live use is approved. The guide records file hashes and unresolved differences.</li>
 </ul></section>
-<footer>Existing question IDs are kept. The questions refer to the current repo documents. The specs, PRDs, publication settings and document statuses are unchanged. <a href="spain-spec-validation.html">Document validation</a> · <a href="../assets/diagrams/spain-end-to-end-responsibility-overview.svg">Overall journey diagram</a></footer>
+<footer>Existing question IDs are kept. The questions refer to the current repo documents and the supplied recap. The specs, PRDs, publication settings and document statuses are unchanged. <a href="spain-spec-validation.html">Document validation</a> · <a href="../assets/diagrams/spain-end-to-end-responsibility-overview.svg">Overall journey diagram</a></footer>
 </main></body></html>
