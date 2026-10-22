@@ -1,0 +1,91 @@
+{
+  "mode": "published",
+  "parent_page_id": "837610648",
+  "git_revision": "a72403041294cb801b75d115bfdaeb6139a5b0a7",
+  "lifecycle_status": "draft",
+  "pages": [
+    {
+      "source_id": "SPEC-SEI-018",
+      "file": "specs/onboarding/SPEC-SEI-018-customer-onboarding-solution-summary.md",
+      "sha256": "bb258d0674032385528eb4046d99bb8da8f9ac095f6f517b6223e0d8e62fac89",
+      "title": "Onboarding Solution Summary",
+      "target": {
+        "mode": "update",
+        "page_id": "923861390",
+        "parent_page_id": "837610648",
+        "space_key": "DNBU",
+        "title": "Onboarding Solution Summary"
+      },
+      "editable_diagrams": 1
+    },
+    {
+      "source_id": "SPEC-SEI-019",
+      "file": "specs/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md",
+      "sha256": "ae0f6fce234b4a73ed5ca33dd2dcdb46025c3b60e8dfb2faf6ae2af971aa1279",
+      "title": "Onboarding Logical Feature Specification",
+      "target": {
+        "mode": "create",
+        "page_id": "",
+        "parent_page_id": "837610648",
+        "space_key": "DNBU",
+        "title": "Onboarding Logical Feature Specification"
+      },
+      "editable_diagrams": 4
+    },
+    {
+      "source_id": "SPEC-SEI-021",
+      "file": "specs/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md",
+      "sha256": "9977c9e98eb79f2f87281e8ef3f8e395b6b2ce5b444ee4f32124078734f6ed39",
+      "title": "Onboarding API Reuse Assessment",
+      "target": {
+        "mode": "create",
+        "page_id": "",
+        "parent_page_id": "837610648",
+        "space_key": "DNBU",
+        "title": "Onboarding API Reuse Assessment"
+      },
+      "editable_diagrams": 5
+    }
+  ],
+  "retained_git_reference": "SPEC-SEI-020",
+  "live_publication": true,
+  "review": {
+    "mergeCommit": {
+      "oid": "054c57bd8d3b8aa71ed6fb170ab5f5c87a0dbd54"
+    },
+    "mergedAt": "2026-10-22T11:45:01Z",
+    "state": "MERGED",
+    "url": "https://github.com/jiaxinhe0709/pm_second_brain/pull/17"
+  },
+  "parent_version_before": 38,
+  "results": [
+    {
+      "source_id": "SPEC-SEI-018",
+      "page_id": "923861390",
+      "title": "Onboarding Solution Summary",
+      "version": 11,
+      "editable_diagrams": 1,
+      "verified": true,
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861390"
+    },
+    {
+      "source_id": "SPEC-SEI-019",
+      "page_id": "936509725",
+      "title": "Onboarding Logical Feature Specification",
+      "version": 2,
+      "editable_diagrams": 4,
+      "verified": true,
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=936509725"
+    },
+    {
+      "source_id": "SPEC-SEI-021",
+      "page_id": "936509735",
+      "title": "Onboarding API Reuse Assessment",
+      "version": 2,
+      "editable_diagrams": 5,
+      "verified": true,
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=936509735"
+    }
+  ],
+  "parent_content_unchanged": true
+}

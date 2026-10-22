@@ -1,0 +1,41 @@
+[
+  {
+    "source_id": "SPEC-SEI-018",
+    "page_id": "923861390",
+    "version": 11,
+    "rendered_macro_errors": [],
+    "resolved_companion_ids": [
+      "923861390",
+      "936509725",
+      "936509735"
+    ],
+    "editable_diagrams": 1,
+    "rendered_drawio_mentions": 5
+  },
+  {
+    "source_id": "SPEC-SEI-019",
+    "page_id": "936509725",
+    "version": 2,
+    "rendered_macro_errors": [],
+    "resolved_companion_ids": [
+      "923861390",
+      "936509725",
+      "936509735"
+    ],
+    "editable_diagrams": 4,
+    "rendered_drawio_mentions": 20
+  },
+  {
+    "source_id": "SPEC-SEI-021",
+    "page_id": "936509735",
+    "version": 2,
+    "rendered_macro_errors": [],
+    "resolved_companion_ids": [
+      "923861390",
+      "936509725",
+      "936509735"
+    ],
+    "editable_diagrams": 5,
+    "rendered_drawio_mentions": 25
+  }
+]
