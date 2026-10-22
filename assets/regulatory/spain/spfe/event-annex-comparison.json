@@ -1,0 +1,870 @@
+{
+  "source_id": "SPFE-S22",
+  "source_path": "context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf",
+  "source_sha256": "a28dc3dae7a8c149fff5bb7099305bfd1486554c2b505507cdd0ae0452bccf0b",
+  "pages": 15,
+  "baseline_source_id": "SPFE-S02",
+  "baseline_ledger": "assets/regulatory/spain/spfe/field-traceability.json",
+  "method": "Ordered table-cell comparison for all 52 field/group occurrences; shared description cells expanded. Whitespace and 7.ª/7ª typography normalized only.",
+  "limits": "Original PDFs govern. This compares source fields, not wire mappings, executable rules, legal publication status or implementation readiness.",
+  "counts_by_code": {
+    "PAYMENT": 11,
+    "CANCELPAYMENT": 4,
+    "REJECTION": 7,
+    "CANCELREJECTION": 4,
+    "SETTLEMENT": 10,
+    "CANCELSETTLEMENT": 4,
+    "DEFAULT": 8,
+    "CANCELDEFAULT": 4
+  },
+  "code_list": {
+    "trace_id": "AX-CODE-15",
+    "pdf_page": 15,
+    "source_rows": [
+      [
+        "01",
+        "Rechazo comercial"
+      ],
+      [
+        "02",
+        "Rechazo por ser un consumo particular o no estar afectado\na la actividad."
+      ]
+    ],
+    "matches_baseline": true
+  },
+  "rows_with_differences": [],
+  "rows": [
+    {
+      "message": "PAYMENT",
+      "pdf_page": 4,
+      "table_row": 3,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Fecha de efecto",
+        "Fecha de expedición del pago o situación del\npago.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Re\nsponse/cbc:EffectiveDate"
+      ],
+      "trace_id": "AXII-PAYMENT-01",
+      "baseline_locator": "(//texto)[2]/table[26]/tbody/tr[1]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "PAYMENT",
+      "pdf_page": 4,
+      "table_row": 4,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Fecha de vencimiento\ndel plazo de pago",
+        "Fecha de vencimiento del plazo de pago,\ncalculada de acuerdo con lo dispuesto en el\nartículo 4 de la Ley 3/2004, de 29 de diciembre,\npor la que se establecen medidas de lucha\ncontra la morosidad en las operaciones\ncomerciales o en la normativa específica que\nresulte de aplicación.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Re\nsponse/cac:Status/cbc:ReferenceDate\nApplicationResponse/cac:DocumentResponse/\ncac:Response/cac:Status/cac:Condition/cbc:AttributeI\nD=DueDate"
+      ],
+      "trace_id": "AXII-PAYMENT-02",
+      "baseline_locator": "(//texto)[2]/table[26]/tbody/tr[2]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "PAYMENT",
+      "pdf_page": 5,
+      "table_row": 3,
+      "source_cells": [
+        "+",
+        "0..1",
+        "Fecha de recepción de las mercancías o de los servicios prestados ",
+        "Campos opcionales, a informar si, de acuerdo\ncon el artículo 4 de la Ley 3/2004, de 29 de\ndiciembre, por la que se establecen medidas de\nlucha contra la morosidad en las operaciones\ncomerciales, esta información resulta relevante.\nSi no se informan, de acuerdo con lo dispuesto\nen la D.A. 7ª del Real Decreto 238/2026, de 25\nde marzo, por el que se desarrolla el sistema de\nfacturación electrónica obligatoria entre\nempresarios y profesionales y por el que se\nmodifica el Reglamento por el que se regulan las\nobligaciones de facturación, aprobado por el\nReal Decreto 1619/2012, de 30 de noviembre,\nse entenderá como fecha de inicio del plazo de\npago la fecha de expedición de la factura.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Response/cac:Status/cbc:ReferenceDateApplicationResponse/cac:DocumentResponsecac:Response//cac:Status/cac:Condition/cbc:AttributeID=ShipmentDate"
+      ],
+      "trace_id": "AXII-PAYMENT-03",
+      "baseline_locator": "(//texto)[2]/table[26]/tbody/tr[3]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "PAYMENT",
+      "pdf_page": 5,
+      "table_row": 3,
+      "source_cells": [
+        "+",
+        "0..1",
+        "Fecha de recepción de la factura",
+        "Campos opcionales, a informar si, de acuerdo\ncon el artículo 4 de la Ley 3/2004, de 29 de\ndiciembre, por la que se establecen medidas de\nlucha contra la morosidad en las operaciones\ncomerciales, esta información resulta relevante.\nSi no se informan, de acuerdo con lo dispuesto\nen la D.A. 7ª del Real Decreto 238/2026, de 25\nde marzo, por el que se desarrolla el sistema de\nfacturación electrónica obligatoria entre\nempresarios y profesionales y por el que se\nmodifica el Reglamento por el que se regulan las\nobligaciones de facturación, aprobado por el\nReal Decreto 1619/2012, de 30 de noviembre,\nse entenderá como fecha de inicio del plazo de\npago la fecha de expedición de la factura.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Response/cac:Status/cbc:ReferenceDateApplicationResponse/cac:DocumentResponse/cac:Response/cac:Status/cac:Condition/cbc:AttributeID=ReceptionDate"
+      ],
+      "trace_id": "AXII-PAYMENT-04",
+      "baseline_locator": "(//texto)[2]/table[26]/tbody/tr[4]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "PAYMENT",
+      "pdf_page": 5,
+      "table_row": 4,
+      "source_cells": [
+        "+",
+        "0..1",
+        "Factura rectificada",
+        "Factura que ha sido previamente rectificada (y la\nconfirmación no necesariamente será por el\nimporte de la factura original)",
+        "Indicador",
+        "ApplicationResponse/cac:DocumentResponse/\ncac:Response/cac:Status/cbc:StatusReason=Correcte\ndInvoice"
+      ],
+      "trace_id": "AXII-PAYMENT-05",
+      "baseline_locator": "(//texto)[2]/table[26]/tbody/tr[5]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "PAYMENT",
+      "pdf_page": 5,
+      "table_row": 5,
+      "source_cells": [
+        "+",
+        "0..1",
+        "Factura rectificativa",
+        "Factura sin pago asociado (factura rectificativa\nnegativa)",
+        "Indicador",
+        "ApplicationResponse/cac:DocumentResponse/\ncac:Response/cac:Status/cbc:StatusReason=Negativ\neAmountInvoice"
+      ],
+      "trace_id": "AXII-PAYMENT-06",
+      "baseline_locator": "(//texto)[2]/table[26]/tbody/tr[6]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "PAYMENT",
+      "pdf_page": 5,
+      "table_row": 6,
+      "source_cells": [
+        "+",
+        "1..1",
+        "FACTURA INFORMADA",
+        "Datos de la factura sobre la que se informa el pago",
+        "",
+        ""
+      ],
+      "trace_id": "AXII-PAYMENT-07",
+      "baseline_locator": "(//texto)[2]/table[26]/tbody/tr[7]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "PAYMENT",
+      "pdf_page": 5,
+      "table_row": 8,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Número de factura (ID)",
+        "Serie y número que identifican la factura\ninformada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:Do\ncumentReference/cbc:ID"
+      ],
+      "trace_id": "AXII-PAYMENT-08",
+      "baseline_locator": "(//texto)[2]/table[26]/tbody/tr[8]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "PAYMENT",
+      "pdf_page": 5,
+      "table_row": 9,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Fecha de expedición\nde la factura.",
+        "Fecha de expedición de la factura informada.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Do\ncumentReference/cbc:IssueDate"
+      ],
+      "trace_id": "AXII-PAYMENT-09",
+      "baseline_locator": "(//texto)[2]/table[26]/tbody/tr[9]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "PAYMENT",
+      "pdf_page": 5,
+      "table_row": 10,
+      "source_cells": [
+        "++",
+        "1..1",
+        "NIF emisor",
+        "Número de identificación fiscal (NIF) del\nvendedor en la factura informada.",
+        "Identificador",
+        "ApplicationResponse/cac:DocumentResponse/cac:Do\ncumentReference/cac:IssuerParty/cac:PartyTaxSche\nme/cbc:CompanyID"
+      ],
+      "trace_id": "AXII-PAYMENT-10",
+      "baseline_locator": "(//texto)[2]/table[26]/tbody/tr[10]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "PAYMENT",
+      "pdf_page": 6,
+      "table_row": 3,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Nombre / Razón social\nemisor",
+        "Nombre o razón social del vendedor en la\nfactura informada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:Do\ncumentReference/cac:IssuerParty/cac:PartyLegalEntit\ny/cbc:RegistrationName"
+      ],
+      "trace_id": "AXII-PAYMENT-11",
+      "baseline_locator": "(//texto)[2]/table[26]/tbody/tr[11]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELPAYMENT",
+      "pdf_page": 6,
+      "table_row": 3,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Número de factura (ID)",
+        "Serie y número que identifican la factura\ninformada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:Docu\nmentReference/cbc:ID"
+      ],
+      "trace_id": "AXII-CANCELPAYMENT-01",
+      "baseline_locator": "(//texto)[2]/table[28]/tbody/tr[1]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELPAYMENT",
+      "pdf_page": 6,
+      "table_row": 4,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Fecha de emisión factura",
+        "Fecha de expedición de la factura informada.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Docu\nmentReference/cbc:IssueDate"
+      ],
+      "trace_id": "AXII-CANCELPAYMENT-02",
+      "baseline_locator": "(//texto)[2]/table[28]/tbody/tr[2]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELPAYMENT",
+      "pdf_page": 6,
+      "table_row": 5,
+      "source_cells": [
+        "+",
+        "1..1",
+        "NIF emisor",
+        "Número de identificación fiscal (NIF) del vendedor\nen la factura informada.",
+        "Identificador",
+        "ApplicationResponse/cac:DocumentResponse/cac:Docu\nmentReference/cac:IssuerParty/cac:PartyTaxScheme/cb\nc:CompanyID"
+      ],
+      "trace_id": "AXII-CANCELPAYMENT-03",
+      "baseline_locator": "(//texto)[2]/table[28]/tbody/tr[3]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELPAYMENT",
+      "pdf_page": 6,
+      "table_row": 6,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Nombre / Razón social\nemisor",
+        "Nombre o razón social del vendedor en la factura\ninformada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:Docu\nmentReference/cac:IssuerParty/cac:PartyLegalEntity/cb\nc:RegistrationName"
+      ],
+      "trace_id": "AXII-CANCELPAYMENT-04",
+      "baseline_locator": "(//texto)[2]/table[28]/tbody/tr[4]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "REJECTION",
+      "pdf_page": 7,
+      "table_row": 3,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Fecha de\nrechazo",
+        "Fecha de rechazo por el destinatario.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Response/cbc:\nEffectiveDate"
+      ],
+      "trace_id": "AXII-REJECTION-01",
+      "baseline_locator": "(//texto)[2]/table[30]/tbody/tr[1]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "REJECTION",
+      "pdf_page": 7,
+      "table_row": 4,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Motivo de\nrechazo",
+        "Motivo por el que se rechaza la factura.\nAdmite dos valores posibles:\n- Rechazo comercial.\n- Rechazo por ser un consumo particular\no no estar afectado a la actividad.",
+        "Código (L1)",
+        "ApplicationResponse/cac:DocumentResponse/cac:Response/cac:\nStatus/cbc:ConditionCode"
+      ],
+      "trace_id": "AXII-REJECTION-02",
+      "baseline_locator": "(//texto)[2]/table[30]/tbody/tr[2]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "REJECTION",
+      "pdf_page": 7,
+      "table_row": 5,
+      "source_cells": [
+        "+",
+        "1..1",
+        "FACTURA INFORMADA",
+        "Datos de la factura sobre la que se informa el rechazo",
+        "",
+        ""
+      ],
+      "trace_id": "AXII-REJECTION-03",
+      "baseline_locator": "(//texto)[2]/table[30]/tbody/tr[3]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "REJECTION",
+      "pdf_page": 7,
+      "table_row": 7,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Número de\nfactura (ID)",
+        "Serie y número que identifican la factura\ninformada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:DocumentRefe\nrence/cbc:ID"
+      ],
+      "trace_id": "AXII-REJECTION-04",
+      "baseline_locator": "(//texto)[2]/table[30]/tbody/tr[4]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "REJECTION",
+      "pdf_page": 7,
+      "table_row": 8,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Fecha de\nemisión\nfactura",
+        "Fecha de expedición de la factura\ninformada.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:DocumentRefe\nrence/cbc:IssueDate"
+      ],
+      "trace_id": "AXII-REJECTION-05",
+      "baseline_locator": "(//texto)[2]/table[30]/tbody/tr[5]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "REJECTION",
+      "pdf_page": 7,
+      "table_row": 9,
+      "source_cells": [
+        "++",
+        "1..1",
+        "NIF emisor",
+        "Número de identificación fiscal (NIF) del\nvendedor en la factura informada.",
+        "Identificador",
+        "ApplicationResponse/cac:DocumentResponse/cac:DocumentRefe\nrence/cac:IssuerParty/cac:PartyTaxScheme/cbc:CompanyID"
+      ],
+      "trace_id": "AXII-REJECTION-06",
+      "baseline_locator": "(//texto)[2]/table[30]/tbody/tr[6]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "REJECTION",
+      "pdf_page": 7,
+      "table_row": 10,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Nombre /\nRazón social\nemisor",
+        "Nombre o razón social del vendedor en\nla factura informada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:DocumentRefe\nrence/cac:IssuerParty/cac:PartyLegalEntity/cbc:RegistrationName"
+      ],
+      "trace_id": "AXII-REJECTION-07",
+      "baseline_locator": "(//texto)[2]/table[30]/tbody/tr[7]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELREJECTION",
+      "pdf_page": 8,
+      "table_row": 3,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Número de\nfactura (ID)",
+        "Serie y número que identifican la factura\ninformada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:DocumentRef\nerence/cbc:ID"
+      ],
+      "trace_id": "AXII-CANCELREJECTION-01",
+      "baseline_locator": "(//texto)[2]/table[32]/tbody/tr[1]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELREJECTION",
+      "pdf_page": 8,
+      "table_row": 4,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Fecha de\nemisión factura",
+        "Fecha de expedición de la factura\ninformada.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:DocumentRef\nerence/cbc:IssueDate"
+      ],
+      "trace_id": "AXII-CANCELREJECTION-02",
+      "baseline_locator": "(//texto)[2]/table[32]/tbody/tr[2]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELREJECTION",
+      "pdf_page": 8,
+      "table_row": 5,
+      "source_cells": [
+        "+",
+        "1..1",
+        "NIF emisor",
+        "Número de identificación fiscal (NIF) del\nvendedor en la factura informada.",
+        "Identificador",
+        "ApplicationResponse/cac:DocumentResponse/cac:DocumentRef\nerence/cac:IssuerParty/cac:PartyTaxScheme/cbc:CompanyID"
+      ],
+      "trace_id": "AXII-CANCELREJECTION-03",
+      "baseline_locator": "(//texto)[2]/table[32]/tbody/tr[3]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELREJECTION",
+      "pdf_page": 8,
+      "table_row": 6,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Nombre / Razón\nsocial emisor",
+        "Nombre o razón social del vendedor en\nla factura informada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:DocumentRef\nerence/cac:IssuerParty/cac:PartyLegalEntity/cbc:RegistrationNa\nme"
+      ],
+      "trace_id": "AXII-CANCELREJECTION-04",
+      "baseline_locator": "(//texto)[2]/table[32]/tbody/tr[4]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "SETTLEMENT",
+      "pdf_page": 9,
+      "table_row": 4,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Fecha del cobro",
+        "Fecha de cobro por el emisor.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Respons\ne/cbc:EffectiveDate"
+      ],
+      "trace_id": "AXII-SETTLEMENT-01",
+      "baseline_locator": "(//texto)[2]/table[34]/tbody/tr[1]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "SETTLEMENT",
+      "pdf_page": 9,
+      "table_row": 5,
+      "source_cells": [
+        "+",
+        "0..1",
+        "Fecha de vencimiento del\npago",
+        "Fecha de vencimiento del pago,\ncalculada de acuerdo con lo dispuesto\nen el artículo 4 de la Ley 3/2004, de 29\nde diciembre, por la que se establecen\nmedidas de lucha contra la morosidad\nen las operaciones comerciales o en la\nnormativa específica que resulte de\naplicación.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/\ncac:Response/cac:Status/cbc:ReferenceDate\nApplicationResponse/cac:DocumentResponse/\ncac:Response/cac:Status/cac:Condition/cbc:AttributeID=Du\neDate"
+      ],
+      "trace_id": "AXII-SETTLEMENT-02",
+      "baseline_locator": "(//texto)[2]/table[34]/tbody/tr[2]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "SETTLEMENT",
+      "pdf_page": 9,
+      "table_row": 6,
+      "source_cells": [
+        "+",
+        "0..1",
+        "Mecanismo de financiación",
+        "Indicador de si el cobro se ha producido\na través de un mecanismo de\nfinanciación concertado por el emisor.",
+        "Indicador",
+        "ApplicationResponse/cac:DocumentResponse/cac:Respon\nse/cac:Status/cac:Condition/cbc:AttributeID=FinancingArran\ngement"
+      ],
+      "trace_id": "AXII-SETTLEMENT-03",
+      "baseline_locator": "(//texto)[2]/table[34]/tbody/tr[3]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "SETTLEMENT",
+      "pdf_page": 10,
+      "table_row": 4,
+      "source_cells": [
+        "+",
+        "0..1",
+        "Fecha de recepción de las mercancías o de los servicios prestados ",
+        "Campos opcionales, a informar si, de\nacuerdo con el artículo 4 de la Ley\n3/2004, de 29 de diciembre, por la que\nse establecen medidas de lucha contra\nla morosidad en las operaciones\ncomerciales, esta información resulta\nrelevante.\nSi no se informan, de acuerdo con lo\ndispuesto en la D.A. 7ª del Real Decreto\n238/2026, de 25 de marzo, por el que se\ndesarrolla el sistema de facturación\nelectrónica obligatoria entre empresarios\ny profesionales y por el que se modifica\nel Reglamento por el que se regulan las\nobligaciones de facturación, aprobado\npor el Real Decreto 1619/2012, de 30 de\nnoviembre, se entenderá como fecha de\ninicio del plazo de pago la fecha de\nexpedición de la factura.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Response/cac:Status/cbc:ReferenceDateApplicationResponse/cac:DocumentResponse/cac:Response/cac:Status/cac:Condition/cbc:AttributeID=ShipmentDate"
+      ],
+      "trace_id": "AXII-SETTLEMENT-04",
+      "baseline_locator": "(//texto)[2]/table[34]/tbody/tr[4]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "SETTLEMENT",
+      "pdf_page": 10,
+      "table_row": 4,
+      "source_cells": [
+        "+",
+        "0..1",
+        "Fecha de recepción de la factura",
+        "Campos opcionales, a informar si, de\nacuerdo con el artículo 4 de la Ley\n3/2004, de 29 de diciembre, por la que\nse establecen medidas de lucha contra\nla morosidad en las operaciones\ncomerciales, esta información resulta\nrelevante.\nSi no se informan, de acuerdo con lo\ndispuesto en la D.A. 7ª del Real Decreto\n238/2026, de 25 de marzo, por el que se\ndesarrolla el sistema de facturación\nelectrónica obligatoria entre empresarios\ny profesionales y por el que se modifica\nel Reglamento por el que se regulan las\nobligaciones de facturación, aprobado\npor el Real Decreto 1619/2012, de 30 de\nnoviembre, se entenderá como fecha de\ninicio del plazo de pago la fecha de\nexpedición de la factura.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Response/cac:Status/cbc:ReferenceDateApplicationResponse/cac:DocumentResponse/cac:Response/cac:Status/cac:Condition/cbc:AttributeID=ReceptionDate"
+      ],
+      "trace_id": "AXII-SETTLEMENT-05",
+      "baseline_locator": "(//texto)[2]/table[34]/tbody/tr[5]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "SETTLEMENT",
+      "pdf_page": 10,
+      "table_row": 5,
+      "source_cells": [
+        "+",
+        "1..1",
+        "FACTURA INFORMADA ",
+        "Datos de la factura sobre la que se informa el pago",
+        "",
+        ""
+      ],
+      "trace_id": "AXII-SETTLEMENT-06",
+      "baseline_locator": "(//texto)[2]/table[34]/tbody/tr[6]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "SETTLEMENT",
+      "pdf_page": 10,
+      "table_row": 7,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Número de factura (ID)",
+        "Serie y número que identifican la factura\ninformada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:Docume\nntReference/cbc:ID"
+      ],
+      "trace_id": "AXII-SETTLEMENT-07",
+      "baseline_locator": "(//texto)[2]/table[34]/tbody/tr[7]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "SETTLEMENT",
+      "pdf_page": 10,
+      "table_row": 8,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Fecha de emisión factura",
+        "Fecha de expedición de la factura\ninformada.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Docume\nntReference/cbc:IssueDate"
+      ],
+      "trace_id": "AXII-SETTLEMENT-08",
+      "baseline_locator": "(//texto)[2]/table[34]/tbody/tr[8]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "SETTLEMENT",
+      "pdf_page": 10,
+      "table_row": 9,
+      "source_cells": [
+        "++",
+        "1..1",
+        "NIF emisor",
+        "Número de identificación fiscal (NIF) del\nvendedor en la factura informada.",
+        "Identificador",
+        "ApplicationResponse/cac:DocumentResponse/cac:Docume\nntReference/cac:IssuerParty/cac:PartyTaxScheme/cbc:Com\npanyID"
+      ],
+      "trace_id": "AXII-SETTLEMENT-09",
+      "baseline_locator": "(//texto)[2]/table[34]/tbody/tr[9]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "SETTLEMENT",
+      "pdf_page": 10,
+      "table_row": 10,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Nombre / Razón social\nemisor",
+        "Nombre o razón social del vendedor en\nla factura informada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:Docume\nntReference/cac:IssuerParty/cac:PartyLegalEntity/cbc:Regis\ntrationName"
+      ],
+      "trace_id": "AXII-SETTLEMENT-10",
+      "baseline_locator": "(//texto)[2]/table[34]/tbody/tr[10]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELSETTLEMENT",
+      "pdf_page": 11,
+      "table_row": 4,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Número de factura (ID)",
+        "Serie y número que identifican la factura\ninformada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:Docume\nntReference/cbc:ID"
+      ],
+      "trace_id": "AXII-CANCELSETTLEMENT-01",
+      "baseline_locator": "(//texto)[2]/table[36]/tbody/tr[1]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELSETTLEMENT",
+      "pdf_page": 11,
+      "table_row": 5,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Fecha de emisión factura",
+        "Fecha de expedición de la factura\ninformada.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Docume\nntReference/cbc:IssueDate"
+      ],
+      "trace_id": "AXII-CANCELSETTLEMENT-02",
+      "baseline_locator": "(//texto)[2]/table[36]/tbody/tr[2]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELSETTLEMENT",
+      "pdf_page": 11,
+      "table_row": 6,
+      "source_cells": [
+        "+",
+        "1..1",
+        "NIF emisor",
+        "Número de identificación fiscal (NIF) del\nvendedor en la factura informada.",
+        "Identificador",
+        "ApplicationResponse/cac:DocumentResponse/cac:Docume\nntReference/cac:IssuerParty/cac:PartyTaxScheme/cbc:Com\npanyID"
+      ],
+      "trace_id": "AXII-CANCELSETTLEMENT-03",
+      "baseline_locator": "(//texto)[2]/table[36]/tbody/tr[3]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELSETTLEMENT",
+      "pdf_page": 11,
+      "table_row": 7,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Nombre / Razón social\nemisor",
+        "Nombre o razón social del vendedor en\nla factura informada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:Docume\nntReference/cac:IssuerParty/cac:PartyLegalEntity/cbc:Regis\ntrationName"
+      ],
+      "trace_id": "AXII-CANCELSETTLEMENT-04",
+      "baseline_locator": "(//texto)[2]/table[36]/tbody/tr[4]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "DEFAULT",
+      "pdf_page": 12,
+      "table_row": 3,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Fecha de vencimiento del\npago",
+        "Fecha de vencimiento del pago, calculada de\nacuerdo con lo dispuesto en el artículo 4 de la\nLey 3/2004, de 29 de diciembre, por la que se\nestablecen medidas de lucha contra la\nmorosidad en las operaciones comerciales o en\nla normativa específica que resulte de\naplicación.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:R\nesponse/cbc:EffectiveDate"
+      ],
+      "trace_id": "AXII-DEFAULT-01",
+      "baseline_locator": "(//texto)[2]/table[38]/tbody/tr[1]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "DEFAULT",
+      "pdf_page": 13,
+      "table_row": 3,
+      "source_cells": [
+        "+",
+        "0..1",
+        "Fecha de recepción de las mercancías o de los servicios prestados ",
+        "Campos opcionales, a informar si, de acuerdo\ncon el artículo 4 de la Ley 3/2004, de 29 de\ndiciembre, por la que se establecen medidas de\nlucha contra la morosidad en las operaciones\ncomerciales, esta información resulta relevante.\nSi no se informan, de acuerdo con lo dispuesto\nen la D.A. 7ª del Real Decreto 238/2026, de 25\nde marzo, por el que se desarrolla el sistema\nde facturación electrónica obligatoria entre\nempresarios y profesionales y por el que se\nmodifica el Reglamento por el que se regulan\nlas obligaciones de facturación, aprobado por el\nReal Decreto 1619/2012, de 30 de noviembre,\nse entenderá como fecha de inicio del plazo de\npago la fecha de expedición de la factura.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Response/cac:Status/cbc:ReferenceDateApplicationResponse/cac:DocumentResponse/cac:Response/cac:Status/cac:Condition/cbc:AttributeID=ShipmentDate"
+      ],
+      "trace_id": "AXII-DEFAULT-02",
+      "baseline_locator": "(//texto)[2]/table[38]/tbody/tr[2]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "DEFAULT",
+      "pdf_page": 13,
+      "table_row": 3,
+      "source_cells": [
+        "+",
+        "0..1",
+        "Fecha de recepción de la factura",
+        "Campos opcionales, a informar si, de acuerdo\ncon el artículo 4 de la Ley 3/2004, de 29 de\ndiciembre, por la que se establecen medidas de\nlucha contra la morosidad en las operaciones\ncomerciales, esta información resulta relevante.\nSi no se informan, de acuerdo con lo dispuesto\nen la D.A. 7ª del Real Decreto 238/2026, de 25\nde marzo, por el que se desarrolla el sistema\nde facturación electrónica obligatoria entre\nempresarios y profesionales y por el que se\nmodifica el Reglamento por el que se regulan\nlas obligaciones de facturación, aprobado por el\nReal Decreto 1619/2012, de 30 de noviembre,\nse entenderá como fecha de inicio del plazo de\npago la fecha de expedición de la factura.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:Response/cac:Status/cbc:ReferenceDateApplicationResponse/cac:DocumentResponse/cac:Response/cac:Status/cac:Condition/cbc:AttributeID=ReceptionDate"
+      ],
+      "trace_id": "AXII-DEFAULT-03",
+      "baseline_locator": "(//texto)[2]/table[38]/tbody/tr[3]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "DEFAULT",
+      "pdf_page": 13,
+      "table_row": 4,
+      "source_cells": [
+        "+",
+        "1..1",
+        "FACTURA INFORMADA ",
+        "Datos de la factura sobre la que se informa el pago",
+        "",
+        ""
+      ],
+      "trace_id": "AXII-DEFAULT-04",
+      "baseline_locator": "(//texto)[2]/table[38]/tbody/tr[4]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "DEFAULT",
+      "pdf_page": 13,
+      "table_row": 6,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Número de factura (ID)",
+        "Serie y número que identifican la factura\ninformada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:D\nocumentReference/cbc:ID"
+      ],
+      "trace_id": "AXII-DEFAULT-05",
+      "baseline_locator": "(//texto)[2]/table[38]/tbody/tr[5]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "DEFAULT",
+      "pdf_page": 13,
+      "table_row": 7,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Fecha de emisión factura",
+        "Fecha de expedición de la factura informada.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:D\nocumentReference/cbc:IssueDate"
+      ],
+      "trace_id": "AXII-DEFAULT-06",
+      "baseline_locator": "(//texto)[2]/table[38]/tbody/tr[6]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "DEFAULT",
+      "pdf_page": 13,
+      "table_row": 8,
+      "source_cells": [
+        "++",
+        "1..1",
+        "NIF emisor",
+        "Número de identificación fiscal (NIF) del\nvendedor en la factura informada.",
+        "Identificador",
+        "ApplicationResponse/cac:DocumentResponse/cac:D\nocumentReference/cac:IssuerParty/cac:PartyTaxSch\neme/cbc:CompanyID"
+      ],
+      "trace_id": "AXII-DEFAULT-07",
+      "baseline_locator": "(//texto)[2]/table[38]/tbody/tr[7]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "DEFAULT",
+      "pdf_page": 13,
+      "table_row": 9,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Nombre / Razón social\nemisor",
+        "Nombre o razón social del vendedor en la\nfactura informada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:D\nocumentReference/cac:IssuerParty/cac:PartyLegalE\nntity/cbc:RegistrationName"
+      ],
+      "trace_id": "AXII-DEFAULT-08",
+      "baseline_locator": "(//texto)[2]/table[38]/tbody/tr[8]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELDEFAULT",
+      "pdf_page": 14,
+      "table_row": 3,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Número de factura (ID)",
+        "Serie y número que identifican la factura\ninformada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:D\nocumentReference/cbc:ID"
+      ],
+      "trace_id": "AXII-CANCELDEFAULT-01",
+      "baseline_locator": "(//texto)[2]/table[40]/tbody/tr[1]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELDEFAULT",
+      "pdf_page": 14,
+      "table_row": 4,
+      "source_cells": [
+        "+",
+        "1..1",
+        "Fecha de emisión\nfactura",
+        "Fecha de expedición de la factura informada.",
+        "Fecha",
+        "ApplicationResponse/cac:DocumentResponse/cac:D\nocumentReference/cbc:IssueDate"
+      ],
+      "trace_id": "AXII-CANCELDEFAULT-02",
+      "baseline_locator": "(//texto)[2]/table[40]/tbody/tr[2]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELDEFAULT",
+      "pdf_page": 14,
+      "table_row": 5,
+      "source_cells": [
+        "+",
+        "1..1",
+        "NIF emisor",
+        "Número de identificación fiscal (NIF) del\nvendedor en la factura informada.",
+        "Identificador",
+        "ApplicationResponse/cac:DocumentResponse/cac:D\nocumentReference/cac:IssuerParty/cac:PartyTaxSch\neme/cbc:CompanyID"
+      ],
+      "trace_id": "AXII-CANCELDEFAULT-03",
+      "baseline_locator": "(//texto)[2]/table[40]/tbody/tr[3]",
+      "different_columns_after_whitespace_normalization": []
+    },
+    {
+      "message": "CANCELDEFAULT",
+      "pdf_page": 14,
+      "table_row": 6,
+      "source_cells": [
+        "++",
+        "1..1",
+        "Nombre / Razón social\nemisor",
+        "Nombre o razón social del vendedor en la\nfactura informada.",
+        "Texto",
+        "ApplicationResponse/cac:DocumentResponse/cac:D\nocumentReference/cac:IssuerParty/cac:PartyLegalE\nntity/cbc:RegistrationName"
+      ],
+      "trace_id": "AXII-CANCELDEFAULT-04",
+      "baseline_locator": "(//texto)[2]/table[40]/tbody/tr[4]",
+      "different_columns_after_whitespace_normalization": []
+    }
+  ]
+}

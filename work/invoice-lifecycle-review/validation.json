@@ -1,0 +1,24 @@
+{
+  "mode": "local-review-only",
+  "documents": [
+    "SPEC-SEI-028-invoice-lifecycle-solution-summary.md",
+    "SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md",
+    "SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md"
+  ],
+  "checks": [
+    "metadata and unique IDs",
+    "unpublished drafts",
+    "revision and source references",
+    "local links and anchors",
+    "table structure",
+    "SVG/Draw.io XML and PNG dimensions",
+    "source/config/field-ledger unchanged since task snapshot",
+    "Annex II 52-field source comparison"
+  ],
+  "source_hashes": {
+    "specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md": "296a77e85ef437be8b6555812b130a2c7591e9b8a21b068d882db7ffb8833c8e",
+    "config/confluence.yml": "b9c15daf80ae4acfb080156bbdaa70059518357143732d2622a3c98566013c5b"
+  },
+  "annex_field_group_count": 52,
+  "implementation_tests_executed": false
+}

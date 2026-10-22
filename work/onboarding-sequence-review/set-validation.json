@@ -1,0 +1,316 @@
+{
+  "reviewed": "2026-10-22",
+  "scope": "SPEC-SEI-018/019/020/021, onboarding navigation, glossary and supplied FR evidence",
+  "result": "documentation_ready_for_engineering_review",
+  "documents": [
+    {
+      "id": "SPEC-SEI-018",
+      "file": "specs/onboarding/SPEC-SEI-018-customer-onboarding-solution-summary.md",
+      "sha256": "9397f85006039a67851123cdca64484cf0476742cc8c0b60618055e9639fc8ad",
+      "diagrams": [
+        "assets/diagrams/onboarding-scenario-selection-process.svg"
+      ],
+      "preview": "work/onboarding-api-review/SPEC-SEI-018.html",
+      "review_role": "primary"
+    },
+    {
+      "id": "SPEC-SEI-019",
+      "file": "specs/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md",
+      "sha256": "f70a29e77f427ccd7feb1cef085b1b8296788f058bc4af8a57b1adca23fbf314",
+      "diagrams": [
+        "assets/diagrams/onboarding-client-approval-process.svg",
+        "assets/diagrams/onboarding-public-readiness-process.svg",
+        "assets/diagrams/onboarding-private-route-process.svg",
+        "assets/diagrams/onboarding-portfolio-batch-process.svg"
+      ],
+      "preview": "work/onboarding-api-review/SPEC-SEI-019.html",
+      "review_role": "primary"
+    },
+    {
+      "id": "SPEC-SEI-020",
+      "file": "specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md",
+      "sha256": "7cb1f77829d77ef7b4cff05d189c5fc3db773b66885d2c6b1656d3dfffbddf1f",
+      "diagrams": [
+        "assets/diagrams/onboarding-api-s01-new-setup-sequence.svg",
+        "assets/diagrams/onboarding-api-s02-existing-public-sequence.svg",
+        "assets/diagrams/onboarding-api-s03-retained-private-sequence.svg",
+        "assets/diagrams/onboarding-api-s04-combined-sequence.svg",
+        "assets/diagrams/onboarding-api-s05-existing-sage-sequence.svg",
+        "assets/diagrams/onboarding-api-s06-platform-change-sequence.svg",
+        "assets/diagrams/onboarding-api-s07-existing-b2g-sequence.svg",
+        "assets/diagrams/onboarding-api-s08-unsupported-unknown-sequence.svg"
+      ],
+      "preview": "work/onboarding-api-review/SPEC-SEI-020.html",
+      "review_role": "retained_reference"
+    },
+    {
+      "id": "SPEC-SEI-021",
+      "file": "specs/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md",
+      "sha256": "5bd68ab6f578974bff33425091b2d0ac559a5c96b69d77fb6864bfd936611b76",
+      "diagrams": [
+        "assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.svg",
+        "assets/diagrams/onboarding-reuse-public-readiness-sequence.svg",
+        "assets/diagrams/onboarding-reuse-private-setup-sequence.svg",
+        "assets/diagrams/onboarding-reuse-supported-change-sequence.svg",
+        "assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.svg"
+      ],
+      "preview": "work/onboarding-sequence-review/SPEC-SEI-021.html",
+      "review_role": "primary"
+    }
+  ],
+  "original_business_ids": 113,
+  "missing_business_ids": [],
+  "semantic_review": [
+    {
+      "area": "Audience and scope",
+      "finding": "018 is the stakeholder overview; 019 owns business behaviour; 021 covers engineering reuse and product impact.",
+      "result": "pass"
+    },
+    {
+      "area": "Business rule and acceptance preservation",
+      "finding": "All 113 original ONB/OFR requirement and acceptance IDs have definitions in 019. Five grouped NFR IDs add no numeric service commitment.",
+      "result": "pass"
+    },
+    {
+      "area": "Scenarios and actors",
+      "finding": "ONB-S01\u201308 cover new/existing public, retained private, combined, unchanged/extended Sage, supported change, prior B2G and unsupported/unknown setup. 019 covers direct/delegated single-client and portfolio work.",
+      "result": "pass"
+    },
+    {
+      "area": "Identity and trust",
+      "finding": "Business NIF, caller, action authority and conditional certificate suitability remain separate; unavailable lookup is unknown and does not force another upload.",
+      "result": "pass"
+    },
+    {
+      "area": "Country and dataset scope",
+      "finding": "Multiple addresses do not prove multiple legal entities. Spain mappings, multiple-NIF scope, partner/client isolation and native-channel mapping remain owned gates.",
+      "result": "pass"
+    },
+    {
+      "area": "Phase and public boundary",
+      "finding": "Public readiness is Phase 1; no invented enrolment/test invoice. Private setup/activation require later qualification; Private A to Private B remains disabled.",
+      "result": "pass"
+    },
+    {
+      "area": "Route and recovery safety",
+      "finding": "Connect takeover is gated before dispatch. Readiness is separate from activation; per-function results, original effects, safe retry and earlier-invoice access remain distinct.",
+      "result": "pass"
+    },
+    {
+      "area": "Product impact",
+      "finding": "021 opening table covers public MVP, public nice-to-haves, private providers and shared changes, with possible platform changes, product work and affected APIs. Breaking changes are unconfirmed.",
+      "result": "pass"
+    },
+    {
+      "area": "FR source and API integrity",
+      "finding": "Five supplied OpenAPI snapshots are unchanged; documented methods, complete paths, operation IDs and success codes match reuse diagrams. Guide-only and logical handoffs remain labelled.",
+      "result": "pass"
+    },
+    {
+      "area": "Engineering qualification",
+      "finding": "GAP-01\u201308 remain owned. Actual Spain/provider contracts, Tax coverage, rule/input/event compatibility and build/operations fitness require owner evidence. Documentation validation does not close those gates.",
+      "result": "open_implementation_gate"
+    },
+    {
+      "area": "Archive dependencies",
+      "finding": "SPEC020 is retained in specs/archive. Primary navigation uses 018/019/021. Detailed assurance/source references and diagram source links resolve to the archive.",
+      "result": "pass"
+    }
+  ],
+  "inbound_markdown_links_to_020": [
+    {
+      "file": "specs/archive/README.md",
+      "lines": [
+        10
+      ]
+    },
+    {
+      "file": "specs/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md",
+      "lines": [
+        449
+      ]
+    },
+    {
+      "file": "specs/onboarding/README.md",
+      "lines": [
+        11
+      ]
+    },
+    {
+      "file": "specs/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md",
+      "lines": [
+        34,
+        163,
+        167,
+        184
+      ]
+    },
+    {
+      "file": "context/GLO-SEI-001-e-invoicing-terminology.md",
+      "lines": [
+        89,
+        90
+      ]
+    }
+  ],
+  "live_publication": false,
+  "document_status_changes": false,
+  "stable_onboarding_page_source": "SPEC-SEI-002",
+  "layout_validation": {
+    "svg_text_bounds": [
+      {
+        "file": "assets/diagrams/onboarding-scenario-selection-process.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-client-approval-process.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-public-readiness-process.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-private-route-process.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-portfolio-batch-process.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-api-s01-new-setup-sequence.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-api-s02-existing-public-sequence.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-api-s03-retained-private-sequence.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-api-s04-combined-sequence.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-api-s05-existing-sage-sequence.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-api-s06-platform-change-sequence.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-api-s07-existing-b2g-sequence.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-api-s08-unsupported-unknown-sequence.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-reuse-public-readiness-sequence.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-reuse-private-setup-sequence.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-reuse-supported-change-sequence.svg",
+        "out_of_bounds_text": []
+      },
+      {
+        "file": "assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.svg",
+        "out_of_bounds_text": []
+      }
+    ],
+    "page_viewports": [
+      {
+        "id": "SPEC-SEI-018",
+        "viewport": 1440,
+        "loaded_diagrams": 1,
+        "scroll_containers_checked": true,
+        "page_overflow": false
+      },
+      {
+        "id": "SPEC-SEI-019",
+        "viewport": 1440,
+        "loaded_diagrams": 4,
+        "scroll_containers_checked": true,
+        "page_overflow": false
+      },
+      {
+        "id": "SPEC-SEI-020",
+        "viewport": 1440,
+        "loaded_diagrams": 8,
+        "scroll_containers_checked": true,
+        "page_overflow": false
+      },
+      {
+        "id": "SPEC-SEI-021",
+        "viewport": 1440,
+        "loaded_diagrams": 5,
+        "scroll_containers_checked": true,
+        "page_overflow": false
+      },
+      {
+        "id": "SPEC-SEI-018",
+        "viewport": 480,
+        "loaded_diagrams": 1,
+        "scroll_containers_checked": true,
+        "page_overflow": false
+      },
+      {
+        "id": "SPEC-SEI-019",
+        "viewport": 480,
+        "loaded_diagrams": 4,
+        "scroll_containers_checked": true,
+        "page_overflow": false
+      },
+      {
+        "id": "SPEC-SEI-020",
+        "viewport": 480,
+        "loaded_diagrams": 8,
+        "scroll_containers_checked": true,
+        "page_overflow": false
+      },
+      {
+        "id": "SPEC-SEI-021",
+        "viewport": 480,
+        "loaded_diagrams": 5,
+        "scroll_containers_checked": true,
+        "page_overflow": false
+      }
+    ],
+    "result": "pass"
+  },
+  "archive_action": {
+    "performed": true,
+    "authorised_by_user": true,
+    "archive_location": "specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md",
+    "archived_020_analysis_unchanged": true,
+    "business_rules_and_acceptance_018_019_unchanged": true,
+    "publication_configuration_unchanged": true,
+    "lifecycle_status_preserved": "draft",
+    "active_review_set": [
+      "SPEC-SEI-018",
+      "SPEC-SEI-019",
+      "SPEC-SEI-021"
+    ],
+    "immutable_sha256": {
+      "specs/SPEC-SEI-002-onboarding-solution-specification.md": "30d01d97be12d9122fee5715236ff8c6451a57bad34f6c2215a1a8b2495e4093",
+      "config/confluence.yml": "62bc03e3ff1203d85bf30d9f3ba9f6f967737abc5c4520a08ad2fcbafb9824d5",
+      "work/onboarding-sequence-renderer.py": "2bc2a36efbdd69dcff70f4e98b695b87af72f5b4a5097ecd43b5c8beda4ed342"
+    },
+    "updated_editable_diagram_source_links": 12,
+    "managed_link_validation": "pass"
+  },
+  "limitations": "Stored-source and documentation validation; actual Spain/provider contracts, Tax fitness, build compatibility and end-to-end behaviour remain engineering gates."
+}

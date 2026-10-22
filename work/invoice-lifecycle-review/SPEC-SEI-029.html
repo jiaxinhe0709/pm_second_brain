@@ -1,0 +1,444 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Invoice Lifecycle Logical Feature Specification</title><style>
+*{box-sizing:border-box}body{margin:0;color:#263238;background:#fff;font:16px/1.55 Arial,sans-serif}
+header{padding:18px 26px;background:#f5f7f8;border-bottom:1px solid #cdd3d8}nav{display:flex;gap:24px;flex-wrap:wrap}a{color:#075eaa}
+.layout{display:grid;grid-template-columns:220px minmax(0,1120px);gap:30px;max-width:1440px;margin:24px auto;padding:0 24px}
+main{min-width:0}.outline{position:sticky;top:12px;align-self:start;max-height:92vh;overflow:auto;font-size:13px}.outline ul{padding-left:18px}
+h1{font-size:30px}h2{margin-top:36px}h3{margin-top:30px}table{border-collapse:collapse;width:100%;margin:18px 0;font-size:14px}
+th,td{border:1px solid #cdd3d8;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f5f7}
+code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100%;max-height:720px;overflow:auto;border:1px solid #b8c0c8;margin:18px 0}
+.diagram img{display:block;max-width:none}p{max-width:1060px}
+@media(max-width:800px){.layout{display:block}.outline{position:static;max-height:200px;margin-bottom:24px}}
+</style></head><body><header><p>Invoice lifecycle · Unpublished draft · Local review</p><nav><a href="index.html">All lifecycle views</a><a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">Unchanged SPEC-SEI-009</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
+<ul>
+<li><a href="#invoice-lifecycle-logical-feature-specification">Invoice Lifecycle Logical Feature Specification</a><ul>
+<li><a href="#revision-overview">Revision overview</a></li>
+<li><a href="#1-purpose-terms-and-authority">1 Purpose, terms and authority</a></li>
+<li><a href="#2-scenarios-and-safe-next-actions">2 Scenarios and safe next actions</a></li>
+<li><a href="#3-activity-order-and-process-support">3 Activity order and process support</a></li>
+<li><a href="#4-functional-requirements-and-invariants">4 Functional requirements and invariants</a></li>
+<li><a href="#5-spain-rules-and-annex-ii">5 Spain rules and Annex II</a><ul>
+<li><a href="#51-destination-and-obligation-rules">5.1 Destination and obligation rules</a></li>
+<li><a href="#52-public-event-contract">5.2 Public event contract</a></li>
+<li><a href="#53-source-limits-and-country-isolation">5.3 Source limits and country isolation</a></li>
+</ul>
+</li>
+<li><a href="#6-functional-acceptance">6 Functional acceptance</a></li>
+<li><a href="#ref-source-references">REF Source references</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><main><h1 id="invoice-lifecycle-logical-feature-specification">Invoice Lifecycle Logical Feature Specification</h1>
+<p><a href="SPEC-SEI-028.html">Solution Summary</a> · <a href="SPEC-SEI-030.html">Sequence and Reuse Assessment</a></p>
+<h2 id="revision-overview">Revision overview</h2>
+<p>This separate functional view develops <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a>. The source remains unchanged. LCS-01–10, LCS-I01–09, LCS-R01–13, LCS-A01–25 and SPFE/AXII IDs keep their meanings. This view adds LCS-R14 and LCS-A26/27 for the supplied transition-outcome behaviour and reconciles the new Annex II snapshot. API fields and reuse gates belong to SPEC-SEI-030.</p>
+<p>Independent dimensions, actor authority, full versus partial payment, per-destination reporting and historical follow-up remain unchanged. Country mapping, calendar, optional scope, provider contracts and build readiness remain open. This is an unpublished draft; it does not enable new customer actions.</p>
+<h2 id="1-purpose-terms-and-authority">1 Purpose, terms and authority</h2>
+<p>The buyer, seller or authorised accountant must understand invoice facts, the outcome of each requested action and any outstanding report. The <a href="../../context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a> distinguishes raw events, derived status, reporting obligations and outcome unknown. A transition attempt is a request to change status; its result differs from the invoice's successful status and from each external report. REF-PRODUCT; INT-LCS05.</p>
+<p>An authenticated caller is the identity presenting the request. The represented party is the business for which it acts. Verify both, the actor role and the permitted invoice action. A dataset token or platform connection alone does not prove authority. SPFE-S02 Article 11; LCS-R04.</p>
+<h2 id="2-scenarios-and-safe-next-actions">2 Scenarios and safe next actions</h2>
+<table>
+<thead>
+<tr>
+<th>Actor and trigger</th>
+<th>Required observable outcome</th>
+<th>Failure or alternative and safe next action</th>
+<th>Existing controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Platform supplies delivery, validation or status evidence</td>
+<td>Save the source meaning and update supported dimensions.</td>
+<td>Unmatched invoice, unknown code or wrong namespace stays restricted for review; no guessed success.</td>
+<td>LCS-01–05; R01–03/09/11; A01/02/11/15</td>
+</tr>
+<tr>
+<td>Buyer records acceptance or rejection</td>
+<td>Retain the authorised decision and occurrence date; plan applicable issuer/public communications.</td>
+<td>Denied authority or missing required fields holds the command with correction guidance. Presumed acceptance remains derived.</td>
+<td>LCS-02/04/07–09; R04–06/12; A03/05/18</td>
+</tr>
+<tr>
+<td>Buyer records payment; seller records collection</td>
+<td>Keep actor, date, amounts and evidence; assess full-payment and each destination separately.</td>
+<td>Partial payment or bank observation alone cannot create public full-payment success. Conflicting facts require review.</td>
+<td>LCS-02–05/07–10; A04/06/20</td>
+</tr>
+<tr>
+<td>Product requests a status transition</td>
+<td>Make its processing result and latest successful invoice status separately visible.</td>
+<td>Failed transition remains in history; preserve the previous successful status and give a corrective action.</td>
+<td>R14; A26/27</td>
+</tr>
+<tr>
+<td>A report is sent to several required destinations</td>
+<td>Each destination has one execution owner and its own result.</td>
+<td>One failure cannot undo a known success. Reconcile only the uncertain original operation before repeating it.</td>
+<td>LCS-07–10; R05/06; A08/16/24</td>
+</tr>
+<tr>
+<td>Buyer/seller corrects an earlier report</td>
+<td>Keep cancellation and replacement lineage; retain original facts and reporting history.</td>
+<td>Unknown cancellation result blocks replacement until resolved. Cancellation does not withdraw the invoice.</td>
+<td>LCS-03/07–10; SPFE-R03; A12; SPFE-A03</td>
+</tr>
+<tr>
+<td>Product misses a notification</td>
+<td>Read the saved, authorised history and recover the latest view.</td>
+<td>If Sage has not received the external event, use qualified source consultation; a history read cannot discover it.</td>
+<td>R08/11; A10/15/23</td>
+</tr>
+<tr>
+<td>Evidence arrives late, conflicts or follows a provider switch</td>
+<td>Retain original chronology and invoice network context.</td>
+<td>Hold unsafe derivation/reporting. Resolve authority and original channel; do not use the new invoice route by default.</td>
+<td>R07/10; A06/07/09</td>
+</tr>
+<tr>
+<td>Customer requests an optional or provider-specific action</td>
+<td>Check enabled scope, direction, supported command and required fields.</td>
+<td>Keep valid incoming evidence even if the outgoing action is disabled. Missing catalogue is an evidence gap with an owner.</td>
+<td>R12/13; A19/21/22/25</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-activity-order-and-process-support">3 Activity order and process support</h2>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Required behaviour and outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCS-01 Receive</td>
+<td>Accept scoped platform evidence or a separate authorised business fact; retain source and query/notification identity.</td>
+</tr>
+<tr>
+<td>LCS-02 Verify</td>
+<td>Check invoice, represented party, caller, actor, environment and original route. Hold unmatched evidence; deny unauthorised commands.</td>
+</tr>
+<tr>
+<td>LCS-03 Preserve</td>
+<td>Save the raw observation and duplicate, correction or conflict relationship before interpreting it.</td>
+</tr>
+<tr>
+<td>LCS-04 Interpret</td>
+<td>Apply the effective country/provider rules. Unknown values remain raw and require an owner.</td>
+</tr>
+<tr>
+<td>LCS-05 Derive</td>
+<td>Calculate independent dimensions with source, rule version, evidence age and next action.</td>
+</tr>
+<tr>
+<td>LCS-06 Publish</td>
+<td>Make the saved view and authorised history readable; notify only after saving the change.</td>
+</tr>
+<tr>
+<td>LCS-07 Plan obligations</td>
+<td>Select each applicable destination, historical actor/channel, duty and deadline. Missing evidence blocks the affected action.</td>
+</tr>
+<tr>
+<td>LCS-08 Create obligations</td>
+<td>Save one obligation per event, destination and purpose under the selected rule version. Retain stable identity across recovery.</td>
+</tr>
+<tr>
+<td>LCS-09 Deliver</td>
+<td>Record each attempt and result at its actual evidence level. Prevent a second sender for a provider-owned report.</td>
+</tr>
+<tr>
+<td>LCS-10 Reconcile</td>
+<td>Establish the original uncertain result or resolve conflicting evidence before another unsafe action. Keep an owner and deadline visible.</td>
+</tr>
+</tbody>
+</table>
+<p><div class="diagram"><img alt="Reporting and reconciliation" src="../../assets/diagrams/lifecycle-reporting-reconciliation-process.svg" /></div></p>
+<p><a href="../../assets/diagrams/lifecycle-reporting-reconciliation-process.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/lifecycle-reporting-reconciliation-process.png">PNG</a>.</p>
+<p>The diagram separates the saved business fact from issuer/public reporting. Its rejection/payment examples use the destination rules in section 5. A successful destination remains complete when another needs recovery. Cancellation uncertainty follows the same reconciliation boundary. The <a href="../../assets/diagrams/lifecycle-event-derivation-process.svg">event-derivation diagram</a> supports LCS-01–06; the API sequences explain the French reuse candidate.</p>
+<h2 id="4-functional-requirements-and-invariants">4 Functional requirements and invariants</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Required behaviour</th>
+<th>Authority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCS-R01</td>
+<td>When evidence arrives, preserve its raw code, namespace, actor, times, identity and integrity/version references before mapping.</td>
+<td>PRD224 FR1–3; PRD232 LS-FR1/14</td>
+</tr>
+<tr>
+<td>LCS-R02</td>
+<td>Interpret only through effective country/provider rules. Keep unknown codes without advancing status.</td>
+<td>PRD232 LS-FR2/12/16</td>
+</tr>
+<tr>
+<td>LCS-R03</td>
+<td>Keep processing, validation, delivery, commercial, payment and reporting outcomes separately queryable. Distinguish explicit and derived facts.</td>
+<td>PRD224 FR3–4/18</td>
+</tr>
+<tr>
+<td>LCS-R04</td>
+<td>Before accepting a customer command or sending a report, verify actor authority, event applicability and required data.</td>
+<td>PRD224 FR1/5</td>
+</tr>
+<tr>
+<td>LCS-R05</td>
+<td>Determine reporting destinations and deadlines from approved rules and the invoice's historical context.</td>
+<td>PRD224 FR6–10</td>
+</tr>
+<tr>
+<td>LCS-R06</td>
+<td>Save and deliver each event/destination obligation independently. Repetition must not add a duplicate effect within its qualified contract.</td>
+<td>PRD224 FR8/11–13</td>
+</tr>
+<tr>
+<td>LCS-R07</td>
+<td>Retain duplicate, late, conflicting and superseding evidence. Hold unsafe interpretation/reporting for review.</td>
+<td>PRD224 FR14–17</td>
+</tr>
+<tr>
+<td>LCS-R08</td>
+<td>Let authorised callers read current views, history, pending actions and report results and recover missed product notifications.</td>
+<td>PRD224 FR18–23; PRD242 PEP-FR9</td>
+</tr>
+<tr>
+<td>LCS-R09</td>
+<td>Interpret Peppol transport, MLR, MLS and Invoice Response codes only in their qualified source namespaces.</td>
+<td>PRD242 PEP-FR2–6</td>
+</tr>
+<tr>
+<td>LCS-R10</td>
+<td>Preserve original route, process and mapping context after a provider change.</td>
+<td>PRD224 FR9; PRD242 PEP-FR10</td>
+</tr>
+<tr>
+<td>LCS-R11</td>
+<td>Receive platform evidence through a qualified query or supported notification. Distinguish source refresh, saved-history reads, file retrieval and outgoing reporting.</td>
+<td>SPFE-S02 Article 10; PRD242</td>
+</tr>
+<tr>
+<td>LCS-R12</td>
+<td>Record each event's mandatory, optional, correction or technical classification and applicable destinations. Keep legal applicability, provider support and enabled product scope separate.</td>
+<td>ES-RD10; SPFE-S02; proposed product control</td>
+</tr>
+<tr>
+<td>LCS-R13</td>
+<td>Qualify provider/version, direction, actor, fields, transition/correction procedure and automatic reporting effects before sending. Preserve valid incoming optional evidence; hold unqualified commands with an owner.</td>
+<td>PRD224 FR10; existing proposed control</td>
+</tr>
+<tr>
+<td>LCS-R14</td>
+<td>For a supported transition, expose the attempt result separately. While pending or after confirmed failure, retain the last successful status. Save a failed attempt in history with <code>operationStatus = ERROR</code>; advance the affected view only after qualified success.</td>
+<td>INT-LCS05; supplied behaviour applied as proposed Spain integration control</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#1-identity-dimensions-and-invariants">existing LCS-I01–09 invariants</a> remain binding to this draft: source immutability, independent dimensions/namespaces, evidence-level limits, derived labels, separate obligations, duplicate/conflict lineage, historical context and appended corrections. Their IDs are unchanged.</p>
+<p>Apply tenant, represented-entity, environment and delegated-access checks to commands, reads, subscriptions and operations. Protect invoice/payment evidence; keep raw payment payloads and credentials out of logs. Monitor unknown mappings, source lag, obligation age, deadline risk, conflicts and uncertain outcomes. Exact targets and retention policies remain open under the predecessor's quality controls.</p>
+<h2 id="5-spain-rules-and-annex-ii">5 Spain rules and Annex II</h2>
+<h3 id="51-destination-and-obligation-rules">5.1 Destination and obligation rules</h3>
+<p>The <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#spain-events-mandatory-and-optional-reporting-by-destination">predecessor's destination table</a> owns the unchanged mandatory/optional classifications under ES-RD10 Articles 10/12. Recipient full acceptance/rejection and effective full payment communications to the issuer differ from public reporting. Optional partial decisions, partial payments and assignment have no corresponding supplied public event code. Do not turn French mandatory labels into Spain duties. LCS-R12/13.</p>
+<p>SPFE-S02 Article 7.1 supplies a presumed public acceptance view under its conditions; no public explicit-acceptance report code is supplied. Article 7.4 defines the conditional prepaid exception. Article 8.4 defines exceptional handling for a qualifying SPFE outage. Article 8.5 retains cancellation traceability. The existing LCS-SPFE-R04 and country/calendar gates remain open; the new Annex II contains no revised deadlines or rollout dates.</p>
+<h3 id="52-public-event-contract">5.2 Public event contract</h3>
+<p>Each message requires the referenced invoice's series/number, issue date, seller NIF and seller name. These identify the invoice; they are separate from the authenticated caller and represented reporting actor. <code>ResponseCode</code> is under <code>ApplicationResponse/cac:DocumentResponse/cac:Response/cbc:ResponseCode</code>. SPFE-S02 Annex II; SPFE-S22 pp. 4–14.</p>
+<table>
+<thead>
+<tr>
+<th>Actor / exact code</th>
+<th>Required meaning and event fields</th>
+<th>Conditional fields / correction rule</th>
+<th>Source locator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Recipient <code>PAYMENT</code></td>
+<td>Full effective payment; <code>cbc:EffectiveDate</code> and <code>DueDate</code> are <code>1..1</code>.</td>
+<td><code>ShipmentDate</code>, <code>ReceptionDate</code>, <code>CorrectedInvoice</code>, <code>NegativeAmountInvoice</code> are <code>0..1</code>. Partial facts do not emit this public event.</td>
+<td>SPFE-S22 pp. 4–6; SPFE-S03 §6.8</td>
+</tr>
+<tr>
+<td>Recipient <code>CANCELPAYMENT</code></td>
+<td>Cancel the earlier payment communication; all four invoice-reference fields are required.</td>
+<td>Qualify cancellation before a changed report. Retain the payment fact.</td>
+<td>SPFE-S22 p. 6; SPFE-S03 §6.8</td>
+</tr>
+<tr>
+<td>Recipient <code>REJECTION</code></td>
+<td>Rejection date in <code>cbc:EffectiveDate</code>; <code>cac:Status/cbc:ConditionCode</code> is required.</td>
+<td>L1 <code>01</code> = commercial rejection; <code>02</code> = private consumption/not related to business activity. Mutually exclusive with recipient PAYMENT.</td>
+<td>SPFE-S22 p. 7 and L1 p. 15; SPFE-S03 §6.8</td>
+</tr>
+<tr>
+<td>Recipient <code>CANCELREJECTION</code></td>
+<td>Cancel the earlier rejection communication; four required invoice-reference fields.</td>
+<td>Do not fabricate explicit acceptance when cancellation restores a supported presumed view.</td>
+<td>SPFE-S22 p. 8; SPFE-S03 §6.8</td>
+</tr>
+<tr>
+<td>Issuer <code>SETTLEMENT</code></td>
+<td>Full collection date in <code>cbc:EffectiveDate</code>, <code>1..1</code>.</td>
+<td><code>DueDate</code>, <code>FinancingArrangement</code>, <code>ShipmentDate</code>, <code>ReceptionDate</code> are <code>0..1</code>. Collection differs from a recipient payment assertion.</td>
+<td>SPFE-S22 pp. 9–10; SPFE-S03 §6.9</td>
+</tr>
+<tr>
+<td>Issuer <code>CANCELSETTLEMENT</code></td>
+<td>Cancel earlier collection communication; four required invoice-reference fields.</td>
+<td>Reconcile cancellation before a changed report.</td>
+<td>SPFE-S22 p. 11; SPFE-S03 §6.9</td>
+</tr>
+<tr>
+<td>Issuer <code>DEFAULT</code></td>
+<td>Payment due date in <code>cbc:EffectiveDate</code>, <code>1..1</code>.</td>
+<td>Relevant <code>ShipmentDate</code>/<code>ReceptionDate</code>, <code>0..1</code>. Mutually exclusive with issuer SETTLEMENT. An observation timestamp is not the due date.</td>
+<td>SPFE-S22 pp. 12–13; SPFE-S03 §6.9</td>
+</tr>
+<tr>
+<td>Issuer <code>CANCELDEFAULT</code></td>
+<td>Cancel earlier non-payment communication; four required invoice-reference fields.</td>
+<td>Retain history and business facts; no invoice withdrawal.</td>
+<td>SPFE-S22 p. 14; SPFE-S03 §6.9</td>
+</tr>
+</tbody>
+</table>
+<p>LCS-SPFE-R01–04 and LCS-SPFE-A01–04 retain their <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#public-platform-lifecycle-events-and-reporting-requirements">existing detailed statements</a>. The table above applies the reviewed snapshot without changing those IDs. The <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#annex-ii-event-field-traceability">52-row field matrix</a> and <a href="../../assets/regulatory/spain/spfe/field-traceability.json">original ledger</a> retain each AXII requirement and positive/negative acceptance ID. The <a href="../../context/Anexo II/annex-ii-review.md">comparison</a> adds page evidence rather than duplicating that inventory.</p>
+<h3 id="53-source-limits-and-country-isolation">5.3 Source limits and country isolation</h3>
+<p>The new snapshot does not resolve the literal missing/double slash in PAYMENT's ShipmentDate path, indicator serialization, the declared hierarchy of seller-name rows in cancellation messages, complete event envelopes or response semantics. LIF-G04 and SPFE-Q16/17 remain open. Do not silently repair the source or map France <code>reasonCode</code> to Spain <code>ConditionCode</code>. SPFE-S22; SPFE-S08 §§5.8–5.9.</p>
+<p>Shared behaviour is source preservation, independent views, transition-attempt history and obligation recovery. Spain rules select event code, actor, fields, reporting classification and calendar. Existing DTS is the preferred transformation candidate where ApplicationResponse generation is required; build, mapping and operational support are unverified. Another country must select its own rules and preserve earlier history under the original versions. LCS-A13/14; LIF-API-A01/04/08.</p>
+<h2 id="6-functional-acceptance">6 Functional acceptance</h2>
+<p>These are required scenarios, not executed implementation tests. The <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#part-4-assurance-and-traceability-view">original assurance table</a> preserves detailed activity/data traceability.</p>
+<table>
+<thead>
+<tr>
+<th>Existing checks</th>
+<th>Coverage retained and required evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCS-A01/02/11/22</td>
+<td>Delivery does not set acceptance/payment; Peppol code collisions, unknown codes, manual/technical/payment-processing states retain their correct source and dimension.</td>
+</tr>
+<tr>
+<td>LCS-A03/04/05/18</td>
+<td>Authorised rejection/full payment; bank-observation limit; presumed versus explicit acceptance; no invented public acceptance code.</td>
+</tr>
+<tr>
+<td>LCS-A06/07/12</td>
+<td>Duplicate/conflicting/late evidence and corrections preserve lineage and hold unsafe progression.</td>
+</tr>
+<tr>
+<td>LCS-A08/09/24</td>
+<td>Independent destinations, timeout reconciliation, historical follow-up and provider-owned reports avoid duplicate execution.</td>
+</tr>
+<tr>
+<td>LCS-A10/15/16/17/23</td>
+<td>Separate source consultation from saved-history recovery; incoming reports cannot cause reporting loops; partial notifications cannot clear omitted facts.</td>
+</tr>
+<tr>
+<td>LCS-A13/14</td>
+<td>Country isolation and actual implementation qualification. Retain France behaviour while testing the selected Spain rules, mappings and recovery.</td>
+</tr>
+<tr>
+<td>LCS-A19/20/21/25</td>
+<td>Disabled optional actions, conditional fields, partial payments, corrected totals, assignment, provider evidence gaps and read/write asymmetry retain owned outcomes.</td>
+</tr>
+<tr>
+<td>LCS-SPFE-A01/02/03/04</td>
+<td>Eight codes/wrong actor/unknown code; event dates/reasons; uncertain cancellation; applicable rollout, prepaid and incident conditions. SPFE-S02/S03/S22.</td>
+</tr>
+<tr>
+<td>LCS-AXII-* acceptance pairs</td>
+<td>Every one of the 52 source field/group occurrences retains its existing valid/applicable and invalid-content check. Inventory matching does not prove those tests passed. REF-FIELDS.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Added check</th>
+<th>Trigger and required result</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCS-A26</td>
+<td>A supported transition is in progress, then fails. The invoice retains its last successful status throughout. History shows the failed attempt with <code>operationStatus = ERROR</code>, its correlation and owned next action. An earlier valid business fact remains saved if only its report failed.</td>
+<td>R03/06/08/14; INT-LCS05</td>
+</tr>
+<tr>
+<td>LCS-A27</td>
+<td>History contains lifecycle Completed (<code>209</code>), operational <code>COMPLETED</code>, operational <code>ERROR</code> and an unknown external outcome. Interpret each in its own domain. No technical completion can fabricate payment, buyer acceptance or AEAT admission.</td>
+<td>R02/03/07/14; INT-LCS03/05; SPFE-S02 Article 8</td>
+</tr>
+</tbody>
+</table>
+<p>Pilot evidence must exercise these cases with the selected build, country rules, approved fixtures and actual qualified source contracts. The API view adds contract compatibility and correlation tests; document validation alone cannot close a release gate.</p>
+<h2 id="ref-source-references">REF Source references</h2>
+<table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>Original source and version/date</th>
+<th>Exact locator</th>
+<th>Supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-BASE / REF-PRODUCT</td>
+<td><a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a>, updated 20 October; <a href="../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md">PRD224</a>, <a href="../../prds/PRD-SEI-232-country-lifecycle-status-mapping.md">PRD232</a>, <a href="../../prds/PRD-SEI-242-peppol-lifecycle-feedback.md">PRD242</a>, current repository drafts/discovery</td>
+<td>LCS requirements/invariants/acceptance; PRD FR1–23, LS-FR and PEP-FR</td>
+<td>Existing product/design baseline and preserved IDs; not approved architecture or runtime evidence.</td>
+</tr>
+<tr>
+<td>ES-RD10</td>
+<td><a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-7295">Original RD 238/2026</a>, published 31 March 2026; source identity retained from baseline</td>
+<td>Articles 8.3, 10 and 12</td>
+<td>Recipient/issuer and public duties remain separate; no private API catalogue supplied.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="../../context/BOE-A-2026-20587.pdf">Original final order</a>, published 5 October 2026; <a href="https://www.boe.es/eli/es/o/2026/10/02/hac1028">official publication</a>, checked 22 October</td>
+<td>Articles 7–11; Annex II pp. 36–42</td>
+<td>Legal duties, authority and event fields; not complete wire contract.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf">Original catalogue</a>, 0.1.0, 9 October 2026</td>
+<td>§§6.4–6.5 pp. 12–14; §§6.8–6.9 pp. 16–19</td>
+<td>Consultation, exclusivity, full payment/collection and cancellation; no tested integration.</td>
+</tr>
+<tr>
+<td>SPFE-S08</td>
+<td><a href="../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf">Original formats</a>, 0.1.0, 9 October, BORRADOR</td>
+<td>Response description p. 14; §§5.8–5.9 pp. 14–15</td>
+<td>Missing complete event formats remain a gate.</td>
+</tr>
+<tr>
+<td>SPFE-S22</td>
+<td><a href="../../context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf">New supplied Annex II</a>, filename dated 21 October, formal revision unknown</td>
+<td>I.1 pp. 4–6; I.2 pp. 7–8; I.3 pp. 9–11; I.4 pp. 12–14; II/L1 p. 15</td>
+<td>Same reviewed field semantics and codes as baseline; no legal amendment or implementation proof.</td>
+</tr>
+<tr>
+<td>REF-FIELDS</td>
+<td><a href="../../assets/regulatory/spain/spfe/field-traceability.json">Original field ledger</a>; <a href="../../context/Anexo II/annex-ii-review.md">new comparison note</a></td>
+<td>All AXII traces and their source locators</td>
+<td>Row inventory and unchanged source meaning; executable mapping and test results unverified.</td>
+</tr>
+<tr>
+<td>INT-LCS01–05</td>
+<td><a href="../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md">User-supplied lifecycle evidence</a>, received 22 October, revision unknown</td>
+<td>Named guide sections; especially INT-LCS05</td>
+<td>France documentation and supplied attempt-result rule. Application to Spain is a proposed control; build coverage is unknown.</td>
+</tr>
+</tbody>
+</table></main></div></body></html>

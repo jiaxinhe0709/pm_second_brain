@@ -157,7 +157,7 @@
         <mxCell id="cell-40" value="A failed observation does not permit blind PUT repetition. Detailed errors, recovery and contract questions stay in SPEC-SEI-020." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
           <mxGeometry as="geometry" x="40" y="985" width="1134.3" height="25" />
         </mxCell>
-        <object id="cell-41" label="Source specification" link="../../specs/onboarding/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md">
+        <object id="cell-41" label="Source specification" link="../../specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md">
           <mxCell parent="1" vertex="1" style="text;html=0;align=right;fontSize=12;">
             <mxGeometry as="geometry" x="1560" y="1022" width="190" height="20" />
           </mxCell>

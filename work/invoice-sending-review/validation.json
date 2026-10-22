@@ -1,0 +1,21 @@
+{
+  "mode": "local-review-only",
+  "documents": [
+    "SPEC-SEI-022-invoice-sending-solution-summary.md",
+    "SPEC-SEI-023-invoice-sending-logical-feature-specification.md",
+    "SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md"
+  ],
+  "checks": [
+    "metadata and unique IDs",
+    "unpublished drafts",
+    "revision and source references",
+    "local links and anchors",
+    "table structure",
+    "SVG/Draw.io XML and PNG dimensions"
+  ],
+  "source_hashes": {
+    "specs/SPEC-SEI-007-invoice-sending-solution.md": "d1a03806d88974cfdff39a6a02836c66f914a1b296c2f37caa6f8b1da1dc3068",
+    "config/confluence.yml": "b9c15daf80ae4acfb080156bbdaa70059518357143732d2622a3c98566013c5b"
+  },
+  "implementation_tests_executed": false
+}

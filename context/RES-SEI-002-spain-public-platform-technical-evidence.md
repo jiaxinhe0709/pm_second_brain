@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-13
-updated: 2026-10-20
+updated: 2026-10-22
 reviewers: []
 related:
   - RES-SEI-001
@@ -37,13 +37,13 @@ The supplied AEAT technical bundle supports initial offline work on the Spain pu
 
 The original supplied files are the **source evidence baseline** for external Spain public-platform behaviour. The final BOE order governs legal requirements. The catalogue, formats, WSDLs and XSDs govern the technical facts each establishes. Examples illustrate particular messages. Earlier product assumptions must be reconciled with this evidence. Sage architecture, internal states, recovery controls and product scope remain proposed choices. A conflict between source files remains an open gate; this guide does not resolve it by preference.
 
-This English guide links all 21 supplied files: four PDFs, eight WSDLs, four XSDs and five XML examples. The PDFs contain 112 pages. Their Spanish text is searchable in the [extracted source folder](../assets/regulatory/spain/spfe/). The original files remain authoritative. This guide translates key findings; it is not a complete or official English translation.
+This English guide links the original 21 supplied files plus the separate Annex II received on 22 October 2026: five PDFs, eight WSDLs, four XSDs and five XML examples. The PDFs contain 127 pages, including the 15-page supplement. Their Spanish text is searchable in the [extracted source folder](../assets/regulatory/spain/spfe/). The original files retain their stated authority. This guide translates key findings; it is not a complete or official English translation.
 
 Use the [existing legal evidence note](../research/spain-public-platform-order-evidence.md) for the published order and the [shared glossary](GLO-SEI-001-e-invoicing-terminology.md) for project terminology. The technical release adds evidence to those sources. It does not approve the current PRDs, solution specs, country rules or implementation.
 
 ## How to use this context
 
-Keep the complete sources in the repository. Start a Spain review with this guide, then read the pages and contracts relevant to that feature. Do not paste all 112 pages into every chat. Files in `context/` are persistent evidence; they are not automatically loaded into every conversation.
+Keep the complete sources in the repository. Start a Spain review with this guide, then read the pages and contracts relevant to that feature. Do not load the full source collection into every chat. Files in `context/` are persistent evidence; they are not automatically loaded into every conversation.
 
 | Task | Read next |
 |---|---|
@@ -51,7 +51,7 @@ Keep the complete sources in the repository. Start a Spain review with this guid
 | Connector or transport POC | Service catalogue sections 3–6; formats sections 4–5; the selected WSDL and its XSD imports. |
 | Invoice mapping or validation | Invoice Annex I; final BOE Annex I; formats section 5.1.1; the two invoice examples. |
 | Retrieval and download | Catalogue sections 6.4–6.7; `GetRegisteredInvoice`, `GetInvoices` and download WSDLs. |
-| Status and payment reporting | Final BOE Annex II; catalogue sections 6.8–6.9; both event WSDLs. |
+| Status and payment reporting | Final BOE Annex II; the [22 October supplement review](#annex-ii-supplement-reviewed-22-october-2026); catalogue sections 6.8–6.9; both event WSDLs. |
 | Credentials or delegated authority | Final order Articles 9–11; catalogue authorization text for the selected operation; the WSDL certificate ports. |
 
 **Confirmed in supplied evidence** means that a statement appears in the local source. It does not mean that the operation has been tested. **Confirmed legal evidence** means that the statement is supported by the published regulation. **Proposed** identifies a POC or review choice. **Open** identifies missing or conflicting evidence.
@@ -62,6 +62,7 @@ Keep the complete sources in the repository. Start a Spain review with this guid
 |---|---|---|
 | Final ministerial order | `BOE-A-2026-20587`, Order `HAC/1028/2026`; dated 2 October, published 5 October 2026; 42 pages. | Final legal source. Publication identity and entry into force were checked against the [official BOE text](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-20587) on 13 October 2026. No byte-equality claim is made for the local PDF. |
 | Separate invoice Annex I | `Anexo-1-Proyecto-OM-FE.pdf`; 34 pages; no explicit release version identified in the text. | AEAT-labelled invoice field and code tables. Its filename still contains `Proyecto`, meaning draft/project. Compare each relevant rule with the final BOE annex before binding it. The filename does not change the final order's legal status. |
+| Separate lifecycle Annex II | [A2-Proyecto-OM-FE 21-10-26.pdf](<Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf>); 15 pages; received 22 October 2026. | AEAT-labelled supplement, SPFE-S22. Filename contains `Proyecto` and 21 October; PDF metadata records 20 October. No explicit release version, original public URL or supersession notice is supplied. The final BOE Annex II remains the legal baseline. |
 | Service catalogue | `CatalogoServicios.pdf`; cover date 9 October 2026; version `0.1.0`; 21 pages. | Initial technical description of nine services, including a PRE-only validation service. Contains conflicts and incomplete details listed below. |
 | Input/output formats | `FormatosEntradaSalida.pdf`; cover date 9 October 2026; version `0.1.0`; 15 pages. | Cover explicitly marks the initial version `BORRADOR`. Sections 5.3–5.9 are pending publication. |
 | WSDL/XSD and XML examples | Files supplied in folders named `20261013`. | Contract and example evidence for the supplied snapshot. Folder date and the stakeholder update indicate receipt on 13 October; they do not prove each file's official publication date. |
@@ -69,6 +70,29 @@ Keep the complete sources in the repository. Start a Spain review with this guid
 The user supplied these files from the internal technical-documentation collection. The technical PDFs identify AEAT as author. Their public download provenance has not been independently verified. Do not label the entire bundle as a final production release. The [source manifest](../assets/regulatory/spain/spfe/source-manifest.json) records paths, sizes, SHA-256 hashes, page counts, WSDL ports and local schema references.
 
 The supplied stakeholder update says technical documentation was released on 13 October 2026 and that pre-production availability remains TBC. Its older statement that technical specifications were pending describes the earlier legal-publication update. The actual files establish that technical material is now present; environment availability remains open.
+
+## Annex II supplement reviewed 22 October 2026
+
+The supplied [SPFE-S22 PDF](<Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf>) concerns lifecycle `ApplicationResponse` messages. It does not supply invoice-file retrieval endpoints or AEAT processing-error codes. The [table-cell comparison](../assets/regulatory/spain/spfe/event-annex-comparison.json) checks all 52 field/group rows and both L1 rejection reasons against the unchanged [final-BOE field ledger](../assets/regulatory/spain/spfe/field-traceability.json), **SPFE-S02, Annex II, PDF pp. 36–42**. No differences were found after whitespace and `7.ª`/`7ª` typography normalization. The comparison covers level, cardinality, name, description, type and literal source path; it does not qualify executable mappings or implementation readiness. The [official publication](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587) remains the legal authority.
+
+| Code / actor | SPFE-S22 page | Reviewed meaning and fields | Final BOE comparison |
+|---|---|---|---|
+| `PAYMENT` / recipient | 4–6 | Full payment. `EffectiveDate` and due date are `1..1`; due date uses `Status/ReferenceDate` with `Condition/AttributeID=DueDate`. Conditional receipt dates and `CorrectedInvoice` / `NegativeAmountInvoice` indicators remain separate. | pp. 36–37. The indicators do not create a generic prepaid field. |
+| `CANCELPAYMENT` / recipient | 6 | Cancels the payment communication; referenced invoice identity/name fields remain required. | p. 37. It does not cancel the invoice or reverse a payment fact. |
+| `REJECTION` / recipient | 7 | Rejection date and reason are `1..1`; reason uses `Status/ConditionCode`. | pp. 38–39; list L1 p. 42. Technical rejection or quarantine cannot generate a buyer decision. |
+| `CANCELREJECTION` / recipient | 8 | Cancels the rejection communication; required invoice references remain. | pp. 38–39. Do not fabricate explicit acceptance from cancellation. |
+| `SETTLEMENT` / issuer | 9–10 | Collection date is required; due date and `FinancingArrangement` are `0..1`. Relevant receipt dates are conditional. | pp. 39–40. Issuer collection and recipient payment are distinct assertions. |
+| `CANCELSETTLEMENT` / issuer | 11 | Cancels the collection communication; required invoice references remain. | p. 40. Preserve original report and cancellation evidence. |
+| `DEFAULT` / issuer | 12–13 | `EffectiveDate` is the payment due date, `1..1`; relevant receipt dates are conditional. | pp. 41–42. Do not map the observation time into this date. |
+| `CANCELDEFAULT` / issuer | 14 | Cancels the non-payment communication; required invoice references remain. | p. 42. No invoice withdrawal or inferred payment. |
+
+Every selected message includes its stated invoice series/number, issue date, issuer NIF and issuer legal name. The common source paths are under `ApplicationResponse/cac:DocumentResponse/cac:DocumentReference`: `cbc:ID`, `cbc:IssueDate`, `cac:IssuerParty/cac:PartyTaxScheme/cbc:CompanyID` and `cac:IssuerParty/cac:PartyLegalEntity/cbc:RegistrationName`. They identify the invoice; they are not the authenticated-caller identity or a complete retry/cancellation-correlation contract.
+
+SPFE-S22 p. 15 retains rejection list L1: `01` means commercial rejection; `02` means private consumption or not related to business activity. Its payment/collection sections preserve the named `ShipmentDate` and `ReceptionDate` conditions. Source path typography includes missing/repeated separators, notably the payment `ShipmentDate` row on p. 5; do not repair it silently into an executable XPath. SPFE-Q16 remains open for schema and field mapping.
+
+The existing lifecycle spec [SPEC-SEI-009](../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#annex-ii-event-field-traceability) already records the eight event families and Annex II field traceability from the final BOE. The new file adds a separate source reference; it does not establish implemented mappings, changed legal obligations, an AEAT error dictionary or closed SPFE-Q16/Q17 gates. Sending and receiving continue to pass evidence to lifecycle rather than infer reports from delivery, capture or technical failure.
+
+The separately supplied [FR error-handling extract, INT-ERR01](<FR API/Shared/invoice-flow-error-handling-guide-extract.md>) applies to France service attempts. Its 45 error strings and code-specific retry/support guidance must not be mapped directly to these eight Spain event codes. Platform-owned FR retry is not permission for a product-side resend. In particular, its six-day support wording is not the exceptional Spain outage allowance in Articles 5.7/8.4.
 
 ## Implementation calendar
 
@@ -208,9 +232,10 @@ The formats document, pp. 9 and 12, says ebMS `From/PartyId` identifies the send
 | SPFE-Q13 | Both invoice examples use a `ProfileID` without `ubl:`, while final BOE Annex I BT-23 and the separate annex require the value with `ubl:`. | Format/Validation and AEAT liaison: qualify the governing value and accepted examples. Preserve originals; do not activate an example profile solely because it was supplied. |
 | SPFE-Q14 | The full source-row inventory and logical acceptance matrix are recorded in the owning specs and field ledger. Actual ERP/API/UBL bindings and executable coverage are not yet qualified. Annex I includes conditional groups, 29 Spain-specific BT fields, repeated BG-24 meanings and code lists. SPEC-SEI-015 identifies three-versus-five corrective amount cardinality and buyer-identity wording/path issues. | Creation/Format/DTS and Compliance: record each supported field/group, source locator, condition, target path, rule, exception and test. Hold unsupported applicable content. |
 | SPFE-Q15 | Articles 5.4 and 8.3 require receipt evidence with a secure verification code (`CSV`). The sample `DocumentStatus/ID` is not explicitly mapped to that code by the supplied formats. | Connector/Records and AEAT liaison: confirm CSV representation, scope and retrieval/verification. Keep response ID, locator, message ID and CSV distinct. |
-| SPFE-Q16 | Annex II defines mandatory dates and source paths. Catalogue payment prose mentions a prepaid indicator; Annex II uses `CorrectedInvoice` and `NegativeAmountInvoice`, and Article 7.4 defines a separate prepaid-invoice reporting exception. | Lifecycle/Compliance/Format: reconcile each field and condition; do not invent a prepaid wire field or reuse one date meaning for every event. |
+| SPFE-Q16 | Final Annex II and separate SPFE-S22 define mandatory dates and source paths. The supplement does not resolve path typography or wire-schema gaps. Catalogue payment prose mentions a prepaid indicator; Annex II uses `CorrectedInvoice` and `NegativeAmountInvoice`, and Article 7.4 defines a separate prepaid-invoice reporting exception. | Lifecycle/Compliance/Format: reconcile each field and condition; do not invent a prepaid wire field, silently repair a source path or reuse one date meaning for every event. |
 | SPFE-Q17 | Locator-download and supplier-event sections have no explicit numeric batch limit. Ordering, mixed-item failure shapes and complete error codes remain incomplete across services. | Connector/Retrieval/Lifecycle owners: obtain each operation's limits and response examples. A limit for one operation cannot qualify another. |
 | SPFE-Q18 | Final legal rules establish public-copy timing, duplicate cases, correction branches and exceptional outage windows. Their operational calendars and exact implementation coverage are unqualified. | Compliance/Outbound/Lifecycle/Operations: approve country-rule bindings, issuance handoff, incident evidence, working-day calendar and acceptance corpus. |
+| SPFE-Q19 | The separate Annex II filename and PDF metadata do not establish an official 21 October release or supersession of the final BOE annex. | AEAT liaison and Lifecycle/Compliance: record original publication URL, revision and any field-level changes before claiming a replacement contract. Retain both original sources. |
 
 No recipient directory, external customer-registration mutation or webhook interface is established by this bundle. The invoice discovery operations do not identify a recipient's chosen receiving platform. Absence here does not prove that no such capability can exist elsewhere; keep the owning spec's evidence gate open.
 
@@ -332,3 +357,4 @@ The register below is generated from the supplied file inventory. The source man
 | SPFE-S19 | [soap-envelope.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/w3/soap-envelope.xsd>) | XSD |
 | SPFE-S20 | [xml.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/w3/xml.xsd>) | XSD |
 | SPFE-S21 | [envelope.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/xmlsoap/envelope.xsd>) | XSD |
+| SPFE-S22 | [A2-Proyecto-OM-FE 21-10-26.pdf](<Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf>); [Spanish text](../assets/regulatory/spain/spfe/lifecycle-annex-supplement.es.txt) | 15 PDF pages; received 22 October 2026; filename date 21 October, metadata 20 October; release version/provenance unverified. §§1–4 pp. 4–14, list L1 p. 15. Supplement to final BOE Annex II, not proven supersession. |

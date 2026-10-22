@@ -1,0 +1,286 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="onboarding-api-s08-unsupported-unknown-sequence" name="ONB-S08 - Unsupported or unknown setup">
+    <mxGraphModel page="1" pageWidth="1030" pageHeight="1793">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="v1" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="8" y="8" width="1014" height="1777" />
+        </mxCell>
+        <mxCell id="v2" value="ONB-S08 - Unsupported or unknown setup" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=27;fontColor=#222222;">
+          <mxGeometry as="geometry" x="30" y="18" width="658.38" height="26" />
+        </mxCell>
+        <mxCell id="v3" value="Return the limitation, available evidence and next action owner" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=17;fontColor=#222222;">
+          <mxGeometry as="geometry" x="30" y="59" width="686.73" height="26" />
+        </mxCell>
+        <mxCell id="v4" value="Existing = documented API / guide; To qualify = logical handoff, no confirmed Spain contract." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#888888;">
+          <mxGeometry as="geometry" x="30" y="90" width="832.26" height="26" />
+        </mxCell>
+        <mxCell id="header-divider" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="8" y="124" />
+            <mxPoint as="targetPoint" x="1022" y="124" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lifeline-0" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="216" />
+            <mxPoint as="targetPoint" x="130" y="1621" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="participant-0" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="22" y="150" width="216" height="66" />
+        </mxCell>
+        <mxCell id="v6" value="Product" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#222222;">
+          <mxGeometry as="geometry" x="79.9" y="170" width="100.2" height="26" />
+        </mxCell>
+        <mxCell id="lifeline-1" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="515" y="216" />
+            <mxPoint as="targetPoint" x="515" y="1621" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="participant-1" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="407" y="150" width="216" height="66" />
+        </mxCell>
+        <mxCell id="v8" value="E-Invoice API" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#222222;">
+          <mxGeometry as="geometry" x="427.1" y="170" width="175.8" height="26" />
+        </mxCell>
+        <mxCell id="lifeline-4" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="900" y="216" />
+            <mxPoint as="targetPoint" x="900" y="1621" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="participant-4" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="792" y="150" width="216" height="66" />
+        </mxCell>
+        <mxCell id="v10" value="Original provider" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#222222;">
+          <mxGeometry as="geometry" x="786.9" y="170" width="226.2" height="26" />
+        </mxCell>
+        <mxCell id="v11" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="36" y="688" width="958" height="291" />
+        </mxCell>
+        <mxCell id="v12" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="24" y="443" width="982" height="566" />
+        </mxCell>
+        <mxCell id="v13" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="24" y="1153" width="982" height="245" />
+        </mxCell>
+        <mxCell id="activation-0" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="507" y="303" width="16" height="104" />
+        </mxCell>
+        <mxCell id="activation-1" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="507" y="548" width="16" height="104" />
+        </mxCell>
+        <mxCell id="activation-2" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="507" y="839" width="16" height="104" />
+        </mxCell>
+        <mxCell id="activation-3" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="892" y="1258" width="16" height="104" />
+        </mxCell>
+        <mxCell id="activation-4" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="507" y="1473" width="16" height="104" />
+        </mxCell>
+        <mxCell id="v19" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="36" y="688" width="958" height="34" />
+        </mxCell>
+        <mxCell id="v20" value="opt | A known connection needs detail" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#222222;">
+          <mxGeometry as="geometry" x="48" y="696" width="361.65" height="26" />
+        </mxCell>
+        <mxCell id="v21" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="24" y="443" width="982" height="34" />
+        </mxCell>
+        <mxCell id="v22" value="opt | Known authorised dataset; inspect Sage setup only" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#222222;">
+          <mxGeometry as="geometry" x="36" y="451" width="531.75" height="26" />
+        </mxCell>
+        <mxCell id="v23" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#777777;">
+          <mxGeometry as="geometry" x="24" y="1153" width="982" height="34" />
+        </mxCell>
+        <mxCell id="v24" value="opt | Earlier external effect possible; original provider/operation and safe observation are qualified" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#222222;">
+          <mxGeometry as="geometry" x="36" y="1161" width="975.9" height="26" />
+        </mxCell>
+        <mxCell id="v25" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#aaaaaa;">
+          <mxGeometry as="geometry" x="38" y="1039" width="954" height="90" />
+        </mxCell>
+        <mxCell id="v26" value="Classify the unsupported function, missing evidence or dependency; assign the next action owner. A&#10;failed/empty read does not prove absence." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#222222;">
+          <mxGeometry as="geometry" x="52" y="1047" width="999.84" height="49" />
+        </mxCell>
+        <mxCell id="v27" value="ONB-S08 | ONB-08/10 | No forced switch or blind replay" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=12;fontColor=#888888;">
+          <mxGeometry as="geometry" x="52" y="1105" width="420.24" height="26" />
+        </mxCell>
+        <mxCell id="v28" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="240" width="361" height="54" />
+        </mxCell>
+        <mxCell id="v29" value="[Existing] API-01 / FR-01" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
+          <mxGeometry as="geometry" x="222.0" y="246" width="201.0" height="26" />
+        </mxCell>
+        <mxCell id="message-label-1" value="GET /accesspoints" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
+          <mxGeometry as="geometry" x="225.465" y="265" width="194.07" height="26" />
+        </mxCell>
+        <mxCell id="message-1" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="303" />
+            <mxPoint as="targetPoint" x="507" y="303" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v31" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="321" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v32" value="FR-01 response" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
+          <mxGeometry as="geometry" x="263.58" y="327" width="117.84" height="26" />
+        </mxCell>
+        <mxCell id="message-label-2" value="200 OK&#10;Access-point IDs and names" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
+          <mxGeometry as="geometry" x="177.27" y="346" width="290.46" height="49" />
+        </mxCell>
+        <mxCell id="message-2" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="507" y="407" />
+            <mxPoint as="targetPoint" x="130" y="407" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v34" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="485" width="361" height="54" />
+        </mxCell>
+        <mxCell id="v35" value="[Existing] API-02 / FR-02" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
+          <mxGeometry as="geometry" x="222.0" y="491" width="201.0" height="26" />
+        </mxCell>
+        <mxCell id="message-label-3" value="GET /datasets/{datasetId}/accesspoints" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
+          <mxGeometry as="geometry" x="113.00999999999999" y="510" width="418.98" height="26" />
+        </mxCell>
+        <mxCell id="message-3" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="548" />
+            <mxPoint as="targetPoint" x="507" y="548" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v37" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="566" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v38" value="FR-02 response" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
+          <mxGeometry as="geometry" x="263.58" y="572" width="117.84" height="26" />
+        </mxCell>
+        <mxCell id="message-label-4" value="200 OK&#10;Status + connectionId (or null)" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
+          <mxGeometry as="geometry" x="150.495" y="591" width="344.01" height="49" />
+        </mxCell>
+        <mxCell id="message-4" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="507" y="652" />
+            <mxPoint as="targetPoint" x="130" y="652" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v40" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="730" width="361" height="100" />
+        </mxCell>
+        <mxCell id="v41" value="[Existing] API-04 / FR-04" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
+          <mxGeometry as="geometry" x="222.0" y="736" width="201.0" height="26" />
+        </mxCell>
+        <mxCell id="message-label-5" value="GET /connectors/{accessPointId}/&#10;datasets/{datasetId}/connections/&#10;{connectionId}/" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
+          <mxGeometry as="geometry" x="139.785" y="755" width="365.43" height="72" />
+        </mxCell>
+        <mxCell id="message-5" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="839" />
+            <mxPoint as="targetPoint" x="507" y="839" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v43" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="857" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v44" value="FR-04 response" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
+          <mxGeometry as="geometry" x="263.58" y="863" width="117.84" height="26" />
+        </mxCell>
+        <mxCell id="message-label-6" value="200 OK&#10;Per-address status and errors" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
+          <mxGeometry as="geometry" x="161.205" y="882" width="322.59" height="49" />
+        </mxCell>
+        <mxCell id="message-6" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="507" y="943" />
+            <mxPoint as="targetPoint" x="130" y="943" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v46" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="527" y="1195" width="361" height="54" />
+        </mxCell>
+        <mxCell id="v47" value="[To qualify] Provider contract / timing" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
+          <mxGeometry as="geometry" x="554.08" y="1201" width="306.84" height="26" />
+        </mxCell>
+        <mxCell id="message-label-7" value="Observe original operation" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
+          <mxGeometry as="geometry" x="562.27" y="1220" width="290.46" height="26" />
+        </mxCell>
+        <mxCell id="message-7" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="515" y="1258" />
+            <mxPoint as="targetPoint" x="892" y="1258" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v49" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="527" y="1276" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v50" value="[To qualify] Provider contract / timing" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
+          <mxGeometry as="geometry" x="554.08" y="1282" width="306.84" height="26" />
+        </mxCell>
+        <mxCell id="message-label-8" value="Original-effect evidence&#10;or unresolved / conflicting" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
+          <mxGeometry as="geometry" x="556.915" y="1301" width="301.17" height="49" />
+        </mxCell>
+        <mxCell id="message-8" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="892" y="1362" />
+            <mxPoint as="targetPoint" x="515" y="1362" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v52" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="1410" width="361" height="54" />
+        </mxCell>
+        <mxCell id="v53" value="[To qualify] Logical request; ONB-11" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
+          <mxGeometry as="geometry" x="180.42" y="1416" width="284.16" height="26" />
+        </mxCell>
+        <mxCell id="message-label-9" value="Assess current findings" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
+          <mxGeometry as="geometry" x="193.33499999999998" y="1435" width="258.33000000000004" height="26" />
+        </mxCell>
+        <mxCell id="message-9" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="1473" />
+            <mxPoint as="targetPoint" x="507" y="1473" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v55" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="1491" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v56" value="[Logical outcome] ONB-11" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
+          <mxGeometry as="geometry" x="225.78" y="1497" width="193.44" height="26" />
+        </mxCell>
+        <mxCell id="message-label-10" value="Limitation / uncertainty&#10;+ next action owner" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
+          <mxGeometry as="geometry" x="187.98" y="1516" width="269.04" height="49" />
+        </mxCell>
+        <mxCell id="message-10" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="507" y="1577" />
+            <mxPoint as="targetPoint" x="130" y="1577" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v58" value="Requests: solid / filled arrow. Responses: dashed / open arrow. Grey bars: handling intervals; timing is not to scale." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#888888;">
+          <mxGeometry as="geometry" x="30" y="1647" width="1052.76" height="26" />
+        </mxCell>
+        <mxCell id="v59" value="Precondition: authorised business/dataset access and correct environment. Spain builds and logical contracts remain to be" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#888888;">
+          <mxGeometry as="geometry" x="30" y="1670" width="1079.22" height="26" />
+        </mxCell>
+        <mxCell id="v60" value="qualified." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#888888;">
+          <mxGeometry as="geometry" x="30" y="1693" width="100.2" height="26" />
+        </mxCell>
+        <mxCell id="v61" value="HTTP success is not readiness or activation. Failed / uncertain evidence returns an owned hold; observe original effects" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#888888;">
+          <mxGeometry as="geometry" x="30" y="1716" width="1070.4" height="26" />
+        </mxCell>
+        <mxCell id="v62" value="under ONB-08." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#888888;">
+          <mxGeometry as="geometry" x="30" y="1739" width="126.66" height="26" />
+        </mxCell>
+        <object id="v63" label="Source specification" link="../../specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#onb-s08-unsupported-unknown">
+          <mxCell parent="1" vertex="1" style="text;html=0;fontSize=12;align=right;">
+            <mxGeometry as="geometry" x="790" y="1763" width="210" height="18" />
+          </mxCell>
+        </object>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

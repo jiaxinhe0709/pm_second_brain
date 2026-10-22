@@ -6,12 +6,12 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-21
-updated: 2026-10-21
+updated: 2026-10-22
 reviewers: []
 related:
   - SPEC-SEI-002
   - SPEC-SEI-019
-  - SPEC-SEI-020
+  - SPEC-SEI-021
   - PRD-SEI-101
   - PRD-SEI-104
   - PRD-SEI-107
@@ -20,31 +20,32 @@ related:
   - GLO-SEI-001
   - RES-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
-  page_id: ""
+  parent_page_id: "837610648"
+  page_id: "923861390"
+  title: Onboarding Solution Summary
   layout: two_left_sidebar
   toc: true
 ---
 
 # Customer Onboarding Solution Summary
 
-[Logical Feature Specification](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) · [API Reuse Assessment](SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) · [Feature landing page](README.md)
+[Logical Feature Specification](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) · [API Reuse Assessment](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) · [Feature landing page](README.md)
 
 ## Revision overview
 
-This is the summary companion to [SPEC-SEI-019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md), based on [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md). The split gives stakeholders a shorter end-to-end view and gives Engineering and QA a separate behaviour specification. Detailed fields and technical analysis remain linked supporting material.
+This stakeholder overview explains the onboarding outcome, scope and main decisions. [SEI019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) shows the high-level journeys; [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) assesses engineering reuse and Spain-specific changes. All are based on [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md).
 
-The predecessor is unchanged. Business scope, phase boundaries, ONB/OFR IDs and safety controls are retained. The split does not approve implementation, close existing decisions or change the publication source. The stable onboarding page still selects SPEC-SEI-002. The [proposed page hierarchy](README.md#confluence-presentation) keeps summary, logical behaviour and API design as separate views. Publication and the final delivery-feature breakdown remain pending.
+The predecessor, phase boundaries and ONB/OFR meanings remain unchanged. SPEC-SEI-018 is selected for the stable summary page after the authorised publication. Implementation approval and delivery-feature breakdown remain open.
 
 ## 1 Purpose
 
 Help a Spanish business set up, connect, confirm or extend supported e-invoicing functions through Sage. A direct customer or authorised accountant must understand what is ready, what is active and who must act next. An existing customer should complete only missing or invalidated work.
 
-Directors and Product can review the outcome, boundaries and material decisions here. Engineering and QA use the [logical specification](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) for activity requirements and acceptance, and the [API assessment](SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) for existing coverage, Spain tailoring by platform and reuse gaps. The [feature landing page](README.md) links the canonical PRDs.
+**Audience: local Product teams, directors and cross-functional stakeholders.** Use this page for the business outcome, scope, responsibilities and decisions. Read [SEI019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) for the main process paths and exceptions. Architects and engineers use [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) for existing capabilities, public/private Spain tailoring and evidence gaps.
 
-Customer onboarding is the Master Feature journey for this review. This grouping does not establish new delivery-feature boundaries or a deployed capability. **Confirmed** identifies a sourced fact or recorded ownership direction. The solution behaviour remains **proposed**; **open** decisions require the named owner's evidence and approval.
+Customer onboarding is the Master Feature journey. Behaviour remains proposed; a sourced fact or recorded decision does not prove implementation readiness.
 
 ## 2 Terms used
 
@@ -60,7 +61,7 @@ Use the [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md).
 
 ## 3 Master Feature purpose and scope
 
-The journey starts when an authorised actor requests a setup outcome for one business or a supported set of independent businesses. It ends with a recorded result for each requested function, including any remaining action and its owner. These entry situations share the activity model in section 7.
+An authorised customer or accountant requests setup for one business or independent client businesses. Return each function’s result, limitations and action owner. Existing setup needs only missing or invalidated work.
 
 | Customer situation | Intended outcome |
 |---|---|
@@ -71,11 +72,13 @@ The journey starts when an authorised actor requests a setup outcome for one bus
 | Existing Sage setup | Confirm unchanged valid setup or add only requested functions. |
 | Platform change | Change supported future work at an authorised boundary; preserve earlier obligations. |
 | Existing B2G use | Assess B2B separately and retain the B2G setup. |
-| Unsupported or uncertain setup | Explain the limitation or missing evidence and give an owned next action. |
+| Unsupported or uncertain setup | Explain the limitation or missing evidence and give an owned next action. The unlisted-provider option remains TBD; a planned provider list does not establish availability. |
 
-The logical specification defines these situations as ONB-S01–08. Actor choice is independent: a direct customer, an accountant for one client, or an accountant portfolio can use the applicable journey. A single delegated client does not require a batch.
+SEI019 identifies these situations as ONB-S01–08. Each can apply to a direct customer, an accountant for one client or a portfolio. A single client does not require batch processing.
 
-**Phase 1** returns public readiness. **Later phases** may qualify private setup and route activation. Private A to Private B changes remain disabled pending the shared routing decision. A summary or diagram cannot enable them.
+**Phase 1** returns public readiness. Private setup and activation need later-phase qualification. Private A to Private B remains gated.
+
+**Private-platform timing:** customer ERP setup and operator interconnection are separate. For qualifying platform-to-platform requests, the receiving operator has **one month**, subject to the specific queue exception; the public solution provides the required interim exchange. This is not a general 30-day onboarding promise. [SEI019 ONB-R25](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#67-onb-05-configure-private-choice) defines the clock and handoff. REF-INTERCONNECT.
 
 | Outcome or endpoint | Meaning |
 |---|---|
@@ -84,7 +87,7 @@ The logical specification defines these situations as ONB-S01–08. Actor choice
 | Cancellation complete | Safe pending work is stopped and every possible external effect has sufficient evidence-backed resolution for closure. |
 | Action pending or outcome unknown | Not an endpoint. Retain the owner and recovery path; do not infer completion from escalation. |
 
-Invoice creation, sending, retrieval, status reporting and full offboarding belong to their owning features. Their dependencies remain in scope for setup checks and handoffs. Physical APIs, deployment design and detailed field mappings are supporting engineering material.
+Invoice creation, sending, retrieval, reporting and full exit belong to their owning features. Onboarding supplies setup evidence and checks dependencies.
 
 ## 4 Parties and responsibility boundary
 
@@ -100,7 +103,7 @@ Invoice creation, sending, retrieval, status reporting and full offboarding belo
 
 ## 5 Key open solution decisions
 
-The full [decision record in SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) remains the reference for existing wording, ownership and gates. These groups identify the decisions that can change the end-to-end journey.
+The [existing decision record](../SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) retains owners and gates. These open decisions affect scope or delivery.
 
 | References | Impact | Owner and gate |
 |---|---|---|
@@ -110,10 +113,11 @@ The full [decision record in SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-s
 | ONB-Q08 | Batch permissions, limits, fair processing and access-filtered progress. | Accountant Product, API, Identity and Operations; portfolio pilot. |
 | ONB-Q05 and OFR-Q03 | Existing implementation coverage and gaps within the E-Invoice Service. | Service owner and Architecture; before build. |
 | Unnumbered transition and operational decisions | Operator approval, publication sequence, historical access, safe retry budgets and manual closure evidence. | Provider, Routing, Compliance and Operations; before the affected path is enabled. |
+| Unlisted private provider | Whether to show only enabled providers or add an “Other provider” request remains TBD. Refine with coverage; do not promise an unqualified connection. | Spain Product and local technical lead; before the private onboarding option is enabled. SEI019 section 3.5. |
 
 ## 6 End to end workflow
 
-Capture the request, verify the represented business and acting party, then assess existing setup. Run the required public or private branch for each function. Missing approval enters ONB-12; supported portfolio intake enters ONB-13. Unknown effects enter ONB-08 and resume the exact affected check after resolution.
+Verify the business and actor, assess existing setup, and run the required public/private checks. Missing approval enters ONB-12; portfolio processing uses ONB-13. Uncertain effects enter ONB-08 and return to the affected check.
 
 ![Set up, connect or review e-invoicing through Sage](../../assets/diagrams/onboarding-scenario-selection-process.svg)
 
@@ -139,13 +143,15 @@ Solid arrows show work or a result. Dashed arrows show selected or conditional w
 | ONB-09 Preserve and release | Earlier invoice access retained; dependency release separately gated. | Routing, records and Operations. |
 | ONB-11 Return results and required actions | Current permitted results, limitations and next actions. | E-Invoice Service through Global API to product. |
 
-The [logical activity blocks](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#6-feature-activities) are authoritative for behaviour. The order above is a reading route: approval and recovery can interrupt a check, and independent items can proceed separately.
+SEI019 defines these activities. Approval and recovery can interrupt a check; independent client work can continue.
 
 ## 8 Cross cutting solution considerations
 
-This design is intended for Spain. Shared work-item, approval, portfolio and recovery patterns are reuse candidates. Identity, representation, trust, provider operations and route rules need country bindings. Spain rules must not become another country's defaults.
+Spain identity, representation and provider rules remain country-specific. Reusable journey patterns need the selected country and provider evidence.
 
-Actual implementation coverage remains unknown. The E-Invoice Service, Identity, trust and Routing owners must identify the source build, retained behaviour, local changes, gaps and qualification evidence. Existing Tax/certificate capability is a selected-purpose reuse candidate. Existing DTS is the preferred transformation candidate where relevant; its build, contracts, mappings, rule packs and operations require qualification under [SPEC-SEI-008](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md). Onboarding does not prove either capability ready.
+Reuse the existing FR APIs with Spain country-pack tailoring. Public readiness and private-provider setup need different qualifications. Keep business mapping, traffic changes and unresolved dependencies visible; engineering detail stays in [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md#1-engineering-direction).
+
+Existing Tax Service certificate capability is the intended reuse source; exact Spain fitness remains to qualify. DTS is the preferred transformation candidate for later invoice operations under [SPEC-SEI-008](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md). Onboarding itself establishes neither implementation as ready.
 
 ## 9 Dependencies and risks
 
@@ -159,15 +165,15 @@ Actual implementation coverage remains unknown. The E-Invoice Service, Identity,
 
 ## 10 Features within this Master Feature
 
-For this pilot, one [Logical Feature Specification](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) covers ONB-01–13 and integrated OFR-01–08 recovery. Public setup, private setup, approval and portfolio processing are activity groups; this split does not approve them as separate delivery Features.
+One [high-level logical journey](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) covers ONB-01–13 and OFR-01–08. Public/private setup, approval and portfolio work are activity groups; delivery-feature boundaries remain for Product and Engineering to agree.
 
-Shared certificate, connection/routing, public-execution and invoice-operation specs retain their existing boundaries. Section 7 of the logical specification links those handoffs. Product and Engineering can agree a finer delivery-feature breakdown if independent review or ownership requires it.
+Certificate, connectivity/routing and invoice-operation features retain their existing responsibilities. SEI019 links their handoffs.
 
 ## 12 Assurance and completion checks
 
-Before approval, confirm that ONB-S01–08 and each applicable actor path have acceptance coverage; each enabled function has qualified authority, trust and operation evidence; and each unresolved decision has an owner and gate. Test unknown effects, correction, cancellation, concurrent changes, portfolio visibility and historical continuity.
+Before enabling a scope, confirm scenario/actor coverage, qualified business authority and access, safe recovery, historical continuity and an owner for each open gate.
 
-The [logical specification](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#7-traceability-and-supporting-artefacts) defines the acceptance route. Neither document establishes production readiness.
+SEI019 holds the functional acceptance checks; SEI021 holds engineering qualification. Neither establishes production readiness.
 
 ## REF Source references
 
@@ -176,5 +182,6 @@ The [logical specification](SPEC-SEI-019-customer-onboarding-logical-feature-spe
 | REF-BASE | [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md), snapshot 20 October 2026 | Parts 1–4 and REF | Predecessor scope, IDs, recorded ownership direction, proposed behaviour and open gates. Not implementation evidence. |
 | REF-PRODUCT | [PRD-SEI-101](../../prds/PRD-SEI-101-public-platform-onboarding.md), [104](../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), [222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) | Decision summaries, scope and functional requirements | Canonical product scope; unresolved differences require an owner decision. |
 | REF-COUNTRY | [PRD-SEI-227](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md) | Shared platform and country-pack direction | Reuse direction; not deployment qualification. |
+| REF-INTERCONNECT | [RD 238/2026 official original](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), published 31 March 2026; checked 22 October 2026 | Articles 8(1)–(3), 9(1)–(5) | Participating-platform interconnection, one-month receiving-operator period, specific queue exception and interim public exchange. Not a general customer ERP-onboarding SLA. |
 | SPFE-S03 | [Original catalogue](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026 | Sections 6.1–6.10, pp. 9–20 | Supplied public operations; no onboarding enrolment contract in this bundle. Supports the S02 boundary. Does not prove live availability. |
 | REF-EVIDENCE | [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md) and [logical REF](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#ref-source-references) | Source register, exact contracts and open conflicts | Original-source route for Spain-dependent rules and acceptance. The guide is a reading aid. |

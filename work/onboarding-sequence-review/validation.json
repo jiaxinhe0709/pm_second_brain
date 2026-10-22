@@ -1,0 +1,39 @@
+{
+  "result": "pass",
+  "source_id": "SPEC-SEI-021",
+  "live_publication": false,
+  "main_reading_words": 1998,
+  "total_body_words": 2575,
+  "predecessor_body_words": 6838,
+  "archived_020_analysis_unchanged": true,
+  "business_rules_and_acceptance_018_019_unchanged": true,
+  "publication_configuration_unchanged": true,
+  "stable_page_source": "SPEC-SEI-002",
+  "archive_validation": {
+    "archive_location": "specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md",
+    "archived_020_analysis_unchanged": true,
+    "business_rules_and_acceptance_018_019_unchanged": true,
+    "publication_configuration_unchanged": true,
+    "lifecycle_status_preserved": "draft",
+    "active_review_set": [
+      "SPEC-SEI-018",
+      "SPEC-SEI-019",
+      "SPEC-SEI-021"
+    ],
+    "immutable_sha256": {
+      "specs/SPEC-SEI-002-onboarding-solution-specification.md": "30d01d97be12d9122fee5715236ff8c6451a57bad34f6c2215a1a8b2495e4093",
+      "config/confluence.yml": "62bc03e3ff1203d85bf30d9f3ba9f6f967737abc5c4520a08ad2fcbafb9824d5",
+      "work/onboarding-sequence-renderer.py": "2bc2a36efbdd69dcff70f4e98b695b87af72f5b4a5097ecd43b5c8beda4ed342"
+    }
+  },
+  "checks": [
+    "Metadata and unique successor ID",
+    "Local links, anchors and tables",
+    "All eight scenario and gap IDs; all sixteen acceptance IDs",
+    "Five editable Draw.io macros and SVG/PNG companions",
+    "Documented method/path/success responses and operation IDs",
+    "Shared-reference targets and pre-dispatch mutation gates",
+    "Source contract hashes unchanged",
+    "Authorised archive retained analysis and business rules"
+  ]
+}
