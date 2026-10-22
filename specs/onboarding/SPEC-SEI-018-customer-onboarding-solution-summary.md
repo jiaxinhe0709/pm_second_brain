@@ -30,7 +30,7 @@ confluence:
 
 # Customer Onboarding Solution Summary
 
-[Logical Feature Specification](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) · [API Design and Reuse Assessment](SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) · [Feature landing page](README.md)
+[Logical Feature Specification](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) · [API Reuse Assessment](SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) · [Feature landing page](README.md)
 
 ## Revision overview
 
@@ -42,7 +42,7 @@ The predecessor is unchanged. Business scope, phase boundaries, ONB/OFR IDs and 
 
 Help a Spanish business set up, connect, confirm or extend supported e-invoicing functions through Sage. A direct customer or authorised accountant must understand what is ready, what is active and who must act next. An existing customer should complete only missing or invalidated work.
 
-Directors and Product can review the outcome, boundaries and material decisions here. Engineering and QA use the [logical specification](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) for activity requirements and acceptance, and the [API assessment](SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) for call sequences and FR reuse. The [feature landing page](README.md) links the canonical PRDs.
+Directors and Product can review the outcome, boundaries and material decisions here. Engineering and QA use the [logical specification](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) for activity requirements and acceptance, and the [API assessment](SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) for existing coverage, Spain tailoring by platform and reuse gaps. The [feature landing page](README.md) links the canonical PRDs.
 
 Customer onboarding is the Master Feature journey for this review. This grouping does not establish new delivery-feature boundaries or a deployed capability. **Confirmed** identifies a sourced fact or recorded ownership direction. The solution behaviour remains **proposed**; **open** decisions require the named owner's evidence and approval.
 

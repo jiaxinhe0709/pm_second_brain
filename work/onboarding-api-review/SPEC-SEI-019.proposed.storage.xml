@@ -1,5 +1,4 @@
 <ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-019<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> local-review<br /><strong>Last updated:</strong> 2026-10-21</p></div><h1>Customer Onboarding Logical Feature Specification</h1>
-<p><ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Solution Summary"/><ac:plain-text-link-body><![CDATA[Solution Summary]]></ac:plain-text-link-body></ac:link> · <ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding API Design and Reuse Assessment"/><ac:plain-text-link-body><![CDATA[API Design and Reuse Assessment]]></ac:plain-text-link-body></ac:link> · <a href="README.md">Feature landing page</a></p>
 <h2>Revision overview</h2>
 <p>This separate draft is based on <a href="../SPEC-SEI-002-onboarding-solution-specification.md">SPEC-SEI-002</a> and accompanies <ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Solution Summary"/><ac:plain-text-link-body><![CDATA[SPEC-SEI-018 Solution Summary]]></ac:plain-text-link-body></ac:link>. It follows the Logical Feature Specification template: scope, shared rules, quality requirements, activity blocks and supporting references.</p>
 <p>The predecessor remains unchanged. ONB-S01–08, ONB-01–13, OFR-01–08 and existing requirement and acceptance IDs retain their meanings. Required behaviour is stated here; detailed physical proposals, field inventories and existing decision records stay linked to the predecessor. The split does not change phase gates, enable a provider, approve an architecture or establish production readiness.</p>
@@ -323,7 +322,6 @@
 </table>
 <h2>6 Feature activities</h2>
 <p>Activity references below also refer to the <ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Solution Summary"/><ac:plain-text-link-body><![CDATA[summary lifecycle]]></ac:plain-text-link-body></ac:link>. Interaction and data IDs link to the <a href="#supporting-inventories">supporting inventories</a>; they preserve traceability without defining fields or storage here. Activity-specific requirements below remain proposed unless an external-source statement is explicitly identified.</p>
-<p>The <a href="#end-to-end-sequence-diagrams">end-to-end sequence diagrams</a> show the full public and private setup journeys across these activities.</p>
 <h3>6.1 ONB-01 Capture requested functions</h3>
 <p><strong>Outcome:</strong> One saved, scoped request or an explicit duplicate/conflict result. <strong>Parties:</strong> customer/accountant, product and Sage. <strong>Precondition:</strong> authenticated product context and current permission to prepare the selected business.</p>
 <p>The request identifies the business, intent, selected functions, directions and environment, with a batch reference where applicable. A case can open while NIF or certificate checks are pending. It cannot execute dependent platform work before its prerequisites pass. Unsupported requests return a limitation without external work.</p>
@@ -971,16 +969,6 @@
 </tbody>
 </table>
 <h2>7 Traceability and supporting artefacts</h2>
-<h3>End to end sequence diagrams</h3>
-<p>These existing logical sequences show requests, responses, saved results and recovery across the full journey. Participant labels group responsibilities; physical service boundaries and contracts remain subject to qualification. Solid arrows show requests, dashed arrows show responses or notifications, and open arrows show notifications where marked. <strong>opt</strong> identifies conditional work; <strong>alt</strong> identifies alternative outcomes. Activity requirements in section 6 remain authoritative.</p>
-<h4>Connect an existing public service</h4>
-<p>The ONB-S02 example runs missing or stale checks, records public readiness and returns the saved result through ONB-11. Certificate and authority findings stay separate. Failed checks return to their owning correction or recovery gate; the sequence creates no external registration, receiving-point publication or route activation.</p>
-<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="8ecc9316-6c74-5980-ada5-f7ddbbfda1fa"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">spain-onboarding-public-setup-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1800</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
-<p>Figure 5. Full public setup sequence. <a href="../../assets/diagrams/spain-onboarding-public-setup-sequence.svg">Open full-size SVG</a> · <a href="../../assets/diagrams/spain-onboarding-public-setup-sequence.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/spain-onboarding-public-setup-sequence.png">PNG</a>.</p>
-<h4>Connect a private provider</h4>
-<p>The ONB-S03 example binds the existing provider account and adds only missing setup. ONB-06 checks each function and required external state. ONB-07 confirms an unchanged route or applies a separately authorised change; uncertain effects use ONB-08 before the affected check resumes. ONB-09 preserves earlier invoice context and ONB-11 returns independent results. Later-phase and provider qualification gates still apply.</p>
-<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="086ebc25-825c-5b50-82f2-fa9ef864953f"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">spain-onboarding-private-setup-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1800</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
-<p>Figure 6. Full private setup and conditional activation sequence. <a href="../../assets/diagrams/spain-onboarding-private-setup-sequence.svg">Open full-size SVG</a> · <a href="../../assets/diagrams/spain-onboarding-private-setup-sequence.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/spain-onboarding-private-setup-sequence.png">PNG</a>.</p>
 <h3>Supporting inventories</h3>
 <table>
 <thead>
@@ -997,10 +985,6 @@
 <tr>
 <td><ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding Solution Summary"/><ac:plain-text-link-body><![CDATA[Solution Summary]]></ac:plain-text-link-body></ac:link></td>
 <td>End-to-end outcome, workflow, boundaries and material decisions.</td>
-</tr>
-<tr>
-<td><ac:link><ri:page ri:space-key="DNBU" ri:content-title="Onboarding API Design and Reuse Assessment"/><ac:plain-text-link-body><![CDATA[API Design and Reuse Assessment]]></ac:plain-text-link-body></ac:link></td>
-<td>Per-operation FR contract analysis, API-labelled versions of the journeys, proposed Spain reuse and missing implementation evidence. API allocation does not change the requirements here.</td>
 </tr>
 <tr>
 <td><a href="../SPEC-SEI-002-onboarding-solution-specification.md#1-interaction-contracts">SPEC-SEI-002 interaction contracts</a></td>
@@ -1023,8 +1007,8 @@
 <td>Detailed PRD-to-interaction/data mappings for existing acceptance IDs. The compact scenarios here retain their observable outcomes.</td>
 </tr>
 <tr>
-<td><a href="#end-to-end-sequence-diagrams">End-to-end sequence diagrams</a></td>
-<td>Full public/private journeys embedded above, using the unchanged diagram assets from SPEC-SEI-002.</td>
+<td><a href="../SPEC-SEI-002-onboarding-solution-specification.md#onboarding-technical-sequences">SPEC-SEI-002 technical sequences</a></td>
+<td>Supporting public/private sequence examples. Physical contracts and deployment remain unqualified.</td>
 </tr>
 <tr>
 <td><a href="../SPEC-SEI-001-certificate-management-solution-specification.md">SPEC-SEI-001</a>, <a href="../SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md">013</a>, <a href="../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">014</a>, <a href="../SPEC-SEI-011-public-platform-connector-solution-specification.md">011</a>, <a href="../SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">016</a>, <a href="../SPEC-SEI-003-offboarding-solution-specification.md">003</a></td>

@@ -1,11 +1,14 @@
 {
   "result": "pass",
+  "reviewed": "2026-10-22",
+  "scope": "Current SPEC-SEI-020 reuse assessment preview",
   "checks": [
-    "index: desktop navigation, layout and images pass",
-    "SPEC-SEI-018: desktop navigation, layout and images pass",
-    "SPEC-SEI-019: desktop navigation, layout and images pass",
-    "SPEC-SEI-020: desktop navigation, layout and images pass",
-    "API page: narrow viewport and diagram scroll pass"
+    "Public MVP, optional public improvements and private-platform assessments present",
+    "Existing operations and common Spain tailoring tables present",
+    "Tax Service and internal certificate reference retained",
+    "Ten tables rendered; API sequence images removed",
+    "Local links and publication metadata checked by prepare-onboarding-api-review.py"
   ],
+  "visual_layout_checked": false,
   "live_confluence_verified": false
 }

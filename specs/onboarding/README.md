@@ -6,7 +6,7 @@ Use this folder to review onboarding through three complementary views. All thre
 |---|---|
 | [Solution Summary](SPEC-SEI-018-customer-onboarding-solution-summary.md) | Understand the end-to-end outcome, scope, workflow, responsibilities and material decisions. Start here. |
 | [Logical Feature Specification](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) | Review required behaviour, activity rules, failures, recovery and acceptance scenarios. |
-| [API Design and Reuse Assessment](SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) | Review the five supplied FR operations, API-labelled sequences, Spain changes and implementation evidence gaps. |
+| [API Reuse Assessment](SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) | Review existing FR capabilities, Spain tailoring by public/private platform, product impact and evidence gaps. |
 
 ## Product requirements and original specification
 
@@ -36,8 +36,8 @@ Present three sibling pages under the existing onboarding feature/PRD page (`837
 |---|---|---|
 | Onboarding Solution Summary | SPEC-SEI-018 | Reuse the existing specification page `923861390`, preserving its URL/history. |
 | Onboarding Logical Feature Specification | SPEC-SEI-019 | Create one sibling under the same parent; record its returned page ID. |
-| Onboarding API Design and Reuse Assessment | SPEC-SEI-020 | Create one sibling under the same parent; record its returned page ID. |
+| Onboarding API Reuse Assessment | SPEC-SEI-020 | Create one sibling under the same parent; record its returned page ID. |
 
-Each view links to the other two. Logical behaviour stays in 019; API allocation and FR reuse evidence stay in 020. Draw.io viewers provide full-size diagrams. Per-operation headings on the API page provide contents links without creating a page for every endpoint.
+Each view links to the other two. Logical behaviour and process diagrams stay in 019; existing capability coverage, Spain tailoring and FR reuse evidence stay in 020. The assessment provides one view across public platforms, private platforms and shared changes. It does not design APIs.
 
 The [local preview](../../work/onboarding-api-review/index.html) shows this structure; the [publication plan](../../work/onboarding-api-review/publication-plan.json) records intended targets without changing live configuration. Sources must complete repository review and merge before publication. Before a live update, reconcile existing child titles/IDs, resolve companion links to their Confluence pages, then update the selected-source map together with publication metadata. Preserve SPEC-SEI-002 unchanged. This plan does not itself publish or change document status.

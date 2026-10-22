@@ -32,7 +32,7 @@
     {
       "source_id": "SPEC-SEI-020",
       "source": "specs/onboarding/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md",
-      "title": "Onboarding API Design and Reuse Assessment",
+      "title": "Onboarding API Reuse Assessment",
       "target_page_id": "",
       "action": "create-sibling-after-title-check",
       "parent_page_id": "837610648",

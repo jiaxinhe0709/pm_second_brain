@@ -25,7 +25,7 @@ SPECS = ROOT / 'specs/onboarding'
 DOCS = [
     ('SPEC-SEI-018', 'SPEC-SEI-018-customer-onboarding-solution-summary.md', 'Solution Summary'),
     ('SPEC-SEI-019', 'SPEC-SEI-019-customer-onboarding-logical-feature-specification.md', 'Logical Feature Specification'),
-    ('SPEC-SEI-020', 'SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md', 'API Design and Reuse Assessment'),
+    ('SPEC-SEI-020', 'SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md', 'API Reuse Assessment'),
 ]
 TITLES = {name: 'Onboarding ' + title for _, name, title in DOCS}
 EXPECTED_FR = {
@@ -102,7 +102,9 @@ def prepare():
         snapshots.append({'file': str(p.relative_to(ROOT)), 'sha256': digest,
             'info_version': doc['info']['version'], 'reviewed': '2026-10-21',
             'method': method, 'path': route, 'operation_id': op['operationId'],
-            'response_codes': list(op['responses']), 'implementation_qualification': 'unknown'})
+            'response_codes': list(op['responses']),
+            'reuse_direction': 'reuse-fr-api-with-spain-country-pack',
+            'implementation_qualification': 'unknown'})
     (OUT / 'source-snapshots.json').write_text(json.dumps(snapshots, indent=2) + '\n')
 
     preview_files = {name: ident + '.html' for ident, name, _ in DOCS}
@@ -115,7 +117,8 @@ def prepare():
         assets = publisher.drawio_assets(p, body)
         storage = publisher.storage_with_drawio(metadata, body, 'local-review', None, assets, {})
         storage = re.sub(r'<a href="([^"]+)">(.*?)</a>', page_link, storage, flags=re.S)
-        assert '<ac:structured-macro ac:name="drawio"' in storage
+        if assets:
+            assert '<ac:structured-macro ac:name="drawio"' in storage
         assert '<ri:page ri:space-key="DNBU"' in storage
         assert 'change-history' in storage
         (OUT / f'{ident}.proposed.storage.xml').write_text(storage)
@@ -148,12 +151,12 @@ def prepare():
                     for (ident, _, title), description in zip(DOCS, [
                         'Outcome, scope, workflow and material decisions.',
                         'Required behaviour, process diagrams and acceptance.',
-                        'Five FR operations, four API sequence views and reuse gates.']))
+                        'Existing FR coverage, Spain tailoring by platform and reuse gaps.']))
     landing = ('<main><h1>Customer onboarding</h1><p>Three sibling views under the existing onboarding feature/PRD page. '
                'Choose a view for your review.</p><div class="cards">' + cards + '</div>'
                '<h2>Planned Confluence structure</h2><ul><li>Existing onboarding feature/PRD page (837610648)<ul>'
                '<li>Solution Summary — reuse page 923861390</li><li>Logical Feature Specification — new sibling</li>'
-               '<li>API Design and Reuse Assessment — new sibling</li></ul></li></ul>'
+               '<li>API Reuse Assessment — new sibling</li></ul></li></ul>'
                '<p>The original SPEC-SEI-002 file is unchanged and remains the selected live source. '
                'These local pages do not perform publication.</p><p><a href="publication-plan.json">Publication plan</a> · '
                '<a href="source-snapshots.json">FR source snapshot identities</a></p></main>')
@@ -194,8 +197,10 @@ def prepare():
         ('config/confluence.yml', '62bc03e3ff1203d85bf30d9f3ba9f6f967737abc5c4520a08ad2fcbafb9824d5')]:
         assert hashlib.sha256((ROOT / original).read_bytes()).hexdigest() == digest, original
     api_path = SPECS / DOCS[2][1]
-    assets = publisher.drawio_assets(api_path, publisher.load_document(api_path)[1])
-    assert len(assets) == 4
+    assets = []
+    for _, name, _ in DOCS:
+        document_path = SPECS / name
+        assets.extend(publisher.drawio_assets(document_path, publisher.load_document(document_path)[1]))
     for asset in assets:
         editable = ET.parse(asset.source)
         root = ET.parse(asset.source.with_suffix('.svg')).getroot()
@@ -209,7 +214,7 @@ def prepare():
     report = {'result': 'pass', 'network_calls': 0, 'live_publication': False,
               'checks': ['Local links and anchors', 'Table structure', 'Unique heading anchors',
                          'Draft/publication metadata', 'All five supplied method/path/operation IDs',
-                         'FR source hashes unchanged', 'Four editable SVG/PNG diagram companions',
+                         'FR source hashes unchanged', 'Referenced editable SVG/PNG diagram companions',
                          'Offline Confluence storage with native companion links',
                          'Original specification and publication configuration unchanged']}
     (OUT / 'validation.json').write_text(json.dumps(report, indent=2) + '\n')

@@ -10,7 +10,7 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 .diagram{width:100%;height:640px;overflow:auto;border:1px solid #b8c0c8;margin:16px 0;background:white}.diagram img{display:block;max-width:none}
 .meta{font-size:13px;color:#4e5963}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{padding:20px;border:1px solid #d8dde2;border-radius:6px}
 @media(max-width:800px){.layout{display:block}.outline{position:static;max-height:260px;margin-bottom:24px}.cards{grid-template-columns:1fr}main{padding:0 16px}}
-</style></head><body><header><p class="meta">Local Confluence presentation preview · Unpublished drafts · Live pages unchanged</p><nav><a href="index.html">Feature landing</a><a href="SPEC-SEI-018.html">Solution Summary</a><a href="SPEC-SEI-019.html">Logical Feature Specification</a><a href="SPEC-SEI-020.html">API Design and Reuse Assessment</a></nav></header><div class="layout"><aside class="outline"><strong>Contents</strong><div class="toc">
+</style></head><body><header><p class="meta">Local Confluence presentation preview · Unpublished drafts · Live pages unchanged</p><nav><a href="index.html">Feature landing</a><a href="SPEC-SEI-018.html">Solution Summary</a><a href="SPEC-SEI-019.html">Logical Feature Specification</a><a href="SPEC-SEI-020.html">API Reuse Assessment</a></nav></header><div class="layout"><aside class="outline"><strong>Contents</strong><div class="toc">
 <ul>
 <li><a href="#customer-onboarding-logical-feature-specification">Customer Onboarding Logical Feature Specification</a><ul>
 <li><a href="#revision-overview">Revision overview</a></li>
@@ -43,11 +43,6 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 </ul>
 </li>
 <li><a href="#7-traceability-and-supporting-artefacts">7 Traceability and supporting artefacts</a><ul>
-<li><a href="#end-to-end-sequence-diagrams">End to end sequence diagrams</a><ul>
-<li><a href="#connect-an-existing-public-service">Connect an existing public service</a></li>
-<li><a href="#connect-a-private-provider">Connect a private provider</a></li>
-</ul>
-</li>
 <li><a href="#supporting-inventories">Supporting inventories</a></li>
 <li><a href="#solution-ownership-and-reuse-qualification">Solution ownership and reuse qualification</a></li>
 <li><a href="#review-and-release-gates">Review and release gates</a></li>
@@ -59,7 +54,6 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 </ul>
 </div>
 </aside><main><h1 id="customer-onboarding-logical-feature-specification">Customer Onboarding Logical Feature Specification</h1>
-<p><a href="SPEC-SEI-018.html">Solution Summary</a> · <a href="SPEC-SEI-020.html">API Design and Reuse Assessment</a> · <a href="index.html">Feature landing page</a></p>
 <h2 id="revision-overview">Revision overview</h2>
 <p>This separate draft is based on <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-002-onboarding-solution-specification.md">SPEC-SEI-002</a> and accompanies <a href="SPEC-SEI-018.html">SPEC-SEI-018 Solution Summary</a>. It follows the Logical Feature Specification template: scope, shared rules, quality requirements, activity blocks and supporting references.</p>
 <p>The predecessor remains unchanged. ONB-S01–08, ONB-01–13, OFR-01–08 and existing requirement and acceptance IDs retain their meanings. Required behaviour is stated here; detailed physical proposals, field inventories and existing decision records stay linked to the predecessor. The split does not change phase gates, enable a provider, approve an architecture or establish production readiness.</p>
@@ -383,7 +377,6 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 </table>
 <h2 id="6-feature-activities">6 Feature activities</h2>
 <p>Activity references below also refer to the <a href="SPEC-SEI-018.html#7-master-feature-lifecycle">summary lifecycle</a>. Interaction and data IDs link to the <a href="#supporting-inventories">supporting inventories</a>; they preserve traceability without defining fields or storage here. Activity-specific requirements below remain proposed unless an external-source statement is explicitly identified.</p>
-<p>The <a href="#end-to-end-sequence-diagrams">end-to-end sequence diagrams</a> show the full public and private setup journeys across these activities.</p>
 <h3 id="61-onb-01-capture-requested-functions">6.1 ONB-01 Capture requested functions</h3>
 <p><strong>Outcome:</strong> One saved, scoped request or an explicit duplicate/conflict result. <strong>Parties:</strong> customer/accountant, product and Sage. <strong>Precondition:</strong> authenticated product context and current permission to prepare the selected business.</p>
 <p>The request identifies the business, intent, selected functions, directions and environment, with a batch reference where applicable. A case can open while NIF or certificate checks are pending. It cannot execute dependent platform work before its prerequisites pass. Unsupported requests return a limitation without external work.</p>
@@ -1031,16 +1024,6 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 </tbody>
 </table>
 <h2 id="7-traceability-and-supporting-artefacts">7 Traceability and supporting artefacts</h2>
-<h3 id="end-to-end-sequence-diagrams">End to end sequence diagrams</h3>
-<p>These existing logical sequences show requests, responses, saved results and recovery across the full journey. Participant labels group responsibilities; physical service boundaries and contracts remain subject to qualification. Solid arrows show requests, dashed arrows show responses or notifications, and open arrows show notifications where marked. <strong>opt</strong> identifies conditional work; <strong>alt</strong> identifies alternative outcomes. Activity requirements in section 6 remain authoritative.</p>
-<h4 id="connect-an-existing-public-service">Connect an existing public service</h4>
-<p>The ONB-S02 example runs missing or stale checks, records public readiness and returns the saved result through ONB-11. Certificate and authority findings stay separate. Failed checks return to their owning correction or recovery gate; the sequence creates no external registration, receiving-point publication or route activation.</p>
-<p><div class="diagram"><img alt="Full onboarding sequence for connecting an existing public service" src="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-onboarding-public-setup-sequence.svg" /></div></p>
-<p>Figure 5. Full public setup sequence. <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-onboarding-public-setup-sequence.svg">Open full-size SVG</a> · <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-onboarding-public-setup-sequence.drawio">Editable Draw.io</a> · <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-onboarding-public-setup-sequence.png">PNG</a>.</p>
-<h4 id="connect-a-private-provider">Connect a private provider</h4>
-<p>The ONB-S03 example binds the existing provider account and adds only missing setup. ONB-06 checks each function and required external state. ONB-07 confirms an unchanged route or applies a separately authorised change; uncertain effects use ONB-08 before the affected check resumes. ONB-09 preserves earlier invoice context and ONB-11 returns independent results. Later-phase and provider qualification gates still apply.</p>
-<p><div class="diagram"><img alt="Full onboarding sequence for connecting a private provider and conditional activation" src="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-onboarding-private-setup-sequence.svg" /></div></p>
-<p>Figure 6. Full private setup and conditional activation sequence. <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-onboarding-private-setup-sequence.svg">Open full-size SVG</a> · <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-onboarding-private-setup-sequence.drawio">Editable Draw.io</a> · <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/assets/diagrams/spain-onboarding-private-setup-sequence.png">PNG</a>.</p>
 <h3 id="supporting-inventories">Supporting inventories</h3>
 <table>
 <thead>
@@ -1057,10 +1040,6 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 <tr>
 <td><a href="SPEC-SEI-018.html">Solution Summary</a></td>
 <td>End-to-end outcome, workflow, boundaries and material decisions.</td>
-</tr>
-<tr>
-<td><a href="SPEC-SEI-020.html">API Design and Reuse Assessment</a></td>
-<td>Per-operation FR contract analysis, API-labelled versions of the journeys, proposed Spain reuse and missing implementation evidence. API allocation does not change the requirements here.</td>
 </tr>
 <tr>
 <td><a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-002-onboarding-solution-specification.md#1-interaction-contracts">SPEC-SEI-002 interaction contracts</a></td>
@@ -1083,8 +1062,8 @@ th:first-child,td:first-child{min-width:90px}code{background:#f1f3f5;padding:2px
 <td>Detailed PRD-to-interaction/data mappings for existing acceptance IDs. The compact scenarios here retain their observable outcomes.</td>
 </tr>
 <tr>
-<td><a href="#end-to-end-sequence-diagrams">End-to-end sequence diagrams</a></td>
-<td>Full public/private journeys embedded above, using the unchanged diagram assets from SPEC-SEI-002.</td>
+<td><a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-002-onboarding-solution-specification.md#onboarding-technical-sequences">SPEC-SEI-002 technical sequences</a></td>
+<td>Supporting public/private sequence examples. Physical contracts and deployment remain unqualified.</td>
 </tr>
 <tr>
 <td><a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-001-certificate-management-solution-specification.md">SPEC-SEI-001</a>, <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md">013</a>, <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">014</a>, <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-011-public-platform-connector-solution-specification.md">011</a>, <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">016</a>, <a href="file:///Users/jiaxinhe.he/Library/CloudStorage/OneDrive-SageSoftware%2CInc/Desktop/Github/PM_SECOND_BRAIN/specs/SPEC-SEI-003-offboarding-solution-specification.md">003</a></td>
