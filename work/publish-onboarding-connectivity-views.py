@@ -32,6 +32,8 @@ def git(*args):
 def install_links(revision, documents):
     targets = {str(p.relative_to(ROOT)): m['confluence']['page_id']
                for p, m, _ in documents}
+    prefixes = {m['confluence']['page_id']: re.sub(r'\s+', '', m['confluence']['title'])
+                for _, m, _ in documents}
     original = publisher.storage_with_drawio
 
     def render(metadata, body, *args, **kwargs):
@@ -61,7 +63,8 @@ def install_links(revision, documents):
                 return match[0]
             if url.startswith('#'):
                 target = ('https://confluence.sage.com/pages/viewpage.action?pageId='
-                          + metadata['confluence']['page_id'] + url)
+                          + metadata['confluence']['page_id'] + '#'
+                          + prefixes[metadata['confluence']['page_id']] + '-' + url[1:])
                 return '<a href="' + html.escape(target, quote=True) + '">' + match[2] + '</a>'
             marker = '/blob/' + revision + '/'
             if marker not in url:
@@ -74,7 +77,7 @@ def install_links(revision, documents):
                 return match[0]
             target = 'https://confluence.sage.com/pages/viewpage.action?pageId=' + pid
             if separator:
-                target += '#' + fragment
+                target += '#' + prefixes[pid] + '-' + fragment
             return '<a href="' + html.escape(target, quote=True) + '">' + match[2] + '</a>'
         return re.sub(r'<a href="([^"]+)">(.*?)</a>', link, storage, flags=re.S)
     publisher.storage_with_drawio = render
@@ -162,6 +165,9 @@ def main():
             'editable_diagrams': PAGES[metadata['id']][1], 'verified': True})
         (OUT / 'receipt.json').write_text(json.dumps(manifest, indent=2) + '\n')
     assert client.get_page_by_id(PARENT, expand='version')['version']['number'] == parent_version
+    from verify_onboarding_connectivity_publication import verify
+    verification = verify(client, revision)
+    (OUT / 'verification.json').write_text(json.dumps(verification, indent=2) + '\n')
     manifest.update(live_publication=True, parent_content_unchanged=True)
     (OUT / 'receipt.json').write_text(json.dumps(manifest, indent=2) + '\n')
     print(json.dumps(manifest['results'], indent=2))
