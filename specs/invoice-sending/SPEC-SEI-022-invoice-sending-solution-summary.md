@@ -19,10 +19,11 @@ related:
   - GLO-SEI-001
   - RES-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
-  page_id: ""
+  parent_page_id: "837610656"
+  page_id: "923861395"
+  title: Invoice Sending Solution Summary
   layout: two_left_sidebar
   toc: true
 ---
@@ -35,7 +36,7 @@ confluence:
 
 This separate companion set reorganises [SPEC-SEI-007](../archive/SPEC-SEI-007-invoice-sending-solution.md) for stakeholder, business-process and engineering review. It adds the supplied FR sending-guide assessment. The predecessor stays unchanged, including its detailed contracts, data inventory and field traceability. OUT activity, requirement and acceptance IDs retain their meanings.
 
-ERP issuance ownership and independent action outcomes remain unchanged. The current journey sends one invoice for a business or its authorised accountant. PRD-SEI-246 now records the local-product transitional PDF responsibility; exact channel coverage and issuance/copy coordination remain open. SPEC-SEI-007 remains the selected source for Confluence page `923861395`. All three companions are unpublished drafts.
+ERP issuance ownership and independent action outcomes remain unchanged. The current journey sends one invoice for a business or its authorised accountant. PRD-SEI-246 now records the local-product transitional PDF responsibility; exact channel coverage and issuance/copy coordination remain open. SPEC-SEI-022 is selected for the existing Confluence page `923861395`. The logical specification and sequence/reuse assessment are companion pages under the same feature. Publication is authorised; all three lifecycle statuses remain draft.
 
 ## 1 Purpose and intended outcomes
 

@@ -1,6 +1,6 @@
 # Invoice sending
 
-Review sending through three complementary views, following [customer onboarding and connectivity](../onboarding-and-connectivity/README.md). All three are unpublished drafts based on SPEC-SEI-007 and the supplied FR sending guide.
+Review sending through three complementary views, following [customer onboarding and connectivity](../onboarding-and-connectivity/README.md). The three draft views are authorised for Confluence publication and are based on SPEC-SEI-007 and the supplied FR sending guide.
 
 | Read | Purpose |
 |---|---|
@@ -25,6 +25,6 @@ settings are unchanged.
 
 The folder name uses the business action. It covers the sending journey across public and private routes. Shared diagrams stay in [assets/diagrams](../../assets/diagrams/); terminology and source evidence stay in [context](../../context/).
 
-SPEC-SEI-007 remains unchanged and selected for stable Confluence page `923861395` in [the publication configuration](../../config/confluence.yml). The companions retain existing OUT meanings and add separate engineering gap/check IDs. Their Revision overviews explain the split and open decisions.
+SPEC-SEI-007 remains unchanged in Git. [The publication configuration](../../config/confluence.yml) selects SPEC-SEI-022 for stable Confluence page `923861395`, preserving its URL and history. The companions retain existing OUT meanings and add separate engineering gap/check IDs. Their Revision overviews explain the split and open decisions.
 
-This README is local navigation. Publication and companion page handling require separate approval; no second page is created solely to retain the predecessor as a separate Git document.
+The three views are sibling pages under [UBL 2.5 Invoice Submission (Send)](https://confluence.sage.com/pages/viewpage.action?pageId=837610656). The existing sending page becomes the summary; the logical specification and sequence/reuse assessment are distinct companion views. This README remains local navigation. Lifecycle statuses and the archived predecessor are unchanged.

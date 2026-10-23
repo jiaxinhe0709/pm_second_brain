@@ -15,7 +15,7 @@ Git is the system of record for product documents. Confluence is the publishing 
 - [`specs/`](specs/README.md) — feature reading routes, shared capabilities and archived baselines, linked to the
   [shared e-invoicing glossary](context/GLO-SEI-001-e-invoicing-terminology.md)
   - [Customer onboarding and connectivity](specs/onboarding-and-connectivity/README.md) — primary review set, SPEC-SEI-037–039; earlier onboarding and provider-connectivity folders are retained in the archive
-  - [Invoice sending feature folder](specs/invoice-sending/README.md) — unpublished summary, logical specification and sequence/reuse assessment, with FR sending-guide evidence
+  - [Invoice sending feature folder](specs/invoice-sending/README.md) — draft summary, logical specification and sequence/reuse assessment authorised for Confluence publication, with FR sending-guide evidence
   - [Invoice receiving feature folder](specs/invoice-receiving/README.md) — unpublished retrieval summary, logical specification and sequence/reuse assessment, with FR receiving-guide evidence
   - [Invoice lifecycle feature folder](specs/invoice-lifecycle/README.md) — unpublished summary, logical specification and sequence/reuse assessment, with French lifecycle evidence and the Annex II comparison
   - [Customer offboarding feature folder](specs/offboarding/README.md) — unpublished summary, logical specification and reuse assessment covering Sage and other private platforms, support/cutoff periods and export
