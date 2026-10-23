@@ -1,11 +1,11 @@
-<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-023<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md">e0af5ce07d495fcabd317b1626b35d0d89290c4c</a><br /><strong>Last updated:</strong> 2026-10-22</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">invoice-sending-logical-feature-specification</ac:parameter></ac:structured-macro><h1>Invoice Sending Logical Feature Specification</h1>
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-023<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md">bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48</a><br /><strong>Last updated:</strong> 2026-10-22</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">invoice-sending-logical-feature-specification</ac:parameter></ac:structured-macro><h1>Invoice Sending Logical Feature Specification</h1>
 <p><a href="https://confluence.sage.com/display/DNBU/Invoice+Sending+Solution+Summary">Solution Summary</a> · <a href="https://confluence.sage.com/display/DNBU/Invoice+Sending+Sequence+and+Reuse+Assessment">Sequence and Reuse Assessment</a> · <a href="https://confluence.sage.com/display/DNBU/Invoice+Sending+Solution+Summary">Feature landing page</a></p>
 <ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">revision-overview</ac:parameter></ac:structured-macro><h2>Revision overview</h2>
-<p>This separate view makes the scenarios and OUT activities in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> easier to review. Existing IDs and safeguards retain their meanings. The current flow is one invoice for a business or its authorised accountant; broader portfolio controls remain conditional. It adds the transitional PDF behaviour and local-product generation decision in PRD-SEI-246. The predecessor remains unchanged. SPEC-SEI-022 is selected for its stable Confluence page; this logical view is a companion page under the same feature.</p>
+<p>This separate view makes the scenarios and OUT activities in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> easier to review. Existing IDs and safeguards retain their meanings. The current flow is one invoice for a business or its authorised accountant; broader portfolio controls remain conditional. It adds the transitional PDF behaviour and local-product generation decision in PRD-SEI-246. The predecessor remains unchanged. SPEC-SEI-022 is selected for its stable Confluence page; this logical view is a companion page under the same feature.</p>
 <p>This draft states the proposed behaviour for the companion set. Exact contracts, component allocation, implementation coverage and OUT-Q01–03 remain open. The supplied FR guide informs engineering reuse in SPEC-SEI-024; it does not replace Spain requirements.</p>
 <ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-purpose-actors-and-boundary</ac:parameter></ac:structured-macro><h2>1 Purpose, actors and boundary</h2>
 <p>The business needs the correct invoice sent through the permitted route, with clear results and safe recovery. The ERP owns issuance. A direct business or authorised accountant uses the same single-invoice journey for the represented business. No batch coordinator is required. The supplied FR guide establishes a per-invoice submission, not bulk accountant sending. Portfolio and accounting-handoff proposals remain separate under OUT-Q02. A client relationship, login or dataset ID alone cannot grant action authority. OUT-R11–14; REF-BASE/PRODUCT; INT-SND01.</p>
-<p>Use the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>. Product requirements retain their source authority. Requirements below do not allocate new services or endpoints.</p>
+<p>Use the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>. Product requirements retain their source authority. Requirements below do not allocate new services or endpoints.</p>
 <ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-scenarios-and-observable-outcomes</ac:parameter></ac:structured-macro><h2>2 Scenarios and observable outcomes</h2>
 <p>Existing acceptance IDs also identify the review scenarios. Section 6 supplies their checks.</p>
 <table>
@@ -61,7 +61,7 @@
 </table>
 <ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-process-and-activity-order</ac:parameter></ac:structured-macro><h2>3 Process and activity order</h2>
 <ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="d00b3d7d-2dbd-560c-a84c-886afe324912"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">e-invoicing-outbound-exchange-pilot</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2620</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
-<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/assets/diagrams/e-invoicing-outbound-exchange-pilot.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/assets/diagrams/e-invoicing-outbound-exchange-pilot.png">PNG</a>.</p>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/assets/diagrams/e-invoicing-outbound-exchange-pilot.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/assets/diagrams/e-invoicing-outbound-exchange-pilot.png">PNG</a>.</p>
 <p>This existing detail diagram explains route holds, validation correction and action-specific recovery. It does not define the physical issuance/copy boundary. The ordered activities below govern that boundary: final preparation precedes dependent ERP issuance; a required copy is coordinated with issuance, independently of private delivery success. OUT-SPFE-R01; SPFE-S02 Article 4.</p>
 <p>The original activity numbers retain their meanings. OUT-06 therefore appears after final preparation in execution order.</p>
 <table>
@@ -135,7 +135,7 @@
 </tbody>
 </table>
 <ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">transitional-pdf-behaviour</ac:parameter></ac:structured-macro><h3>Transitional PDF behaviour</h3>
-<p>The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md#transitional-pdf-product-rule">product rule</a> owns applicability and local-product generation responsibility. These requirements develop that rule through the existing final-check, plan, execution and result activities. A PDF is a readability companion, not the faithful public copy. RD238-T2; REF-PDF-DECISION.</p>
+<p>The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md#transitional-pdf-product-rule">product rule</a> owns applicability and local-product generation responsibility. These requirements develop that rule through the existing final-check, plan, execution and result activities. A PDF is a readability companion, not the faithful public copy. RD238-T2; REF-PDF-DECISION.</p>
 <table>
 <thead>
 <tr>
@@ -246,7 +246,7 @@
 <p>The product view identifies the affected invoice/action, known versus unknown result, retained successes, next action and current owner (OUT-15). Resume only after evidence resolves the blocked check and current authority permits the next action. Escalation or manual case assignment is not proof of completion. API codes and contract evidence remain in <a href="https://confluence.sage.com/display/DNBU/Invoice+Sending+Sequence+and+Reuse+Assessment#InvoiceSendingSequenceandReuseAssessment-32-shared-authentication-safety-and-source-conflicts">SEI024 section 3.2</a>.</p>
 <p>The <a href="https://confluence.sage.com/display/DNBU/Invoice+Sending+Sequence+and+Reuse+Assessment#InvoiceSendingSequenceandReuseAssessment-34-fr-attempt-errors-and-annex-ii-handoff">FR attempt-error assessment</a> preserves exact codes and retry ownership. A technical send error cannot generate Spain <code>REJECTION</code>, payment or report-cancellation messages. The separate Annex II supplement concerns lifecycle reporting; final BOE Annex II remains authoritative for legal rules. INT-ERR01; SPFE-S22; SPFE-S02 Annex II.</p>
 <ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-shared-controls-and-spain-binding</ac:parameter></ac:structured-macro><h2>4 Shared controls and Spain binding</h2>
-<p>OUT-I01–13 and OUT-R01–14 retain their meanings in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/specs/archive/SPEC-SEI-007-invoice-sending-solution.md#1-aggregate-model-and-invariants">the predecessor invariants and requirement register</a>. The activity table is this set's authoritative behaviour statement; the register provides traceability rather than another restatement.</p>
+<p>OUT-I01–13 and OUT-R01–14 retain their meanings in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/specs/archive/SPEC-SEI-007-invoice-sending-solution.md#1-aggregate-model-and-invariants">the predecessor invariants and requirement register</a>. The activity table is this set's authoritative behaviour statement; the register provides traceability rather than another restatement.</p>
 <p>Protect tenant, business and test/production isolation on reads and changes. Keep private keys, secrets and sensitive invoice content out of events, logs and customer errors. Prevent concurrent execution of the same invoice revision/action. Preserve source/final files, policy versions and evidence under an approved retention policy; no duration or performance target is invented here.</p>
 <table>
 <thead>
@@ -311,9 +311,9 @@
 </tr>
 </tbody>
 </table>
-<p>Proposed interaction IDs OUT-INT-01–11 and data IDs OUT-D01–12 remain in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/specs/archive/SPEC-SEI-007-invoice-sending-solution.md#part-3-logical-service-interactions-and-data-inventory">SPEC-SEI-007 Part 3</a>. They are technical analysis, not approved component allocations. Annex withdrawal requirements OUT-AXC-R01–07 and positive/negative checks stay at <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/specs/archive/SPEC-SEI-007-invoice-sending-solution.md#annex-i-withdrawal-field-traceability">their original field traceability</a>.</p>
+<p>Proposed interaction IDs OUT-INT-01–11 and data IDs OUT-D01–12 remain in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/specs/archive/SPEC-SEI-007-invoice-sending-solution.md#part-3-logical-service-interactions-and-data-inventory">SPEC-SEI-007 Part 3</a>. They are technical analysis, not approved component allocations. Annex withdrawal requirements OUT-AXC-R01–07 and positive/negative checks stay at <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/specs/archive/SPEC-SEI-007-invoice-sending-solution.md#annex-i-withdrawal-field-traceability">their original field traceability</a>.</p>
 <ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">6-functional-acceptance</ac:parameter></ac:structured-macro><h2>6 Functional acceptance</h2>
-<p>These are required checks, not executed implementation tests. Existing IDs and meanings are preserved; detailed requirement/interface/data links remain in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/specs/archive/SPEC-SEI-007-invoice-sending-solution.md#part-4-assurance-and-traceability-view">SPEC-SEI-007 Part 4</a>.</p>
+<p>These are required checks, not executed implementation tests. Existing IDs and meanings are preserved; detailed requirement/interface/data links remain in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/specs/archive/SPEC-SEI-007-invoice-sending-solution.md#part-4-assurance-and-traceability-view">SPEC-SEI-007 Part 4</a>.</p>
 <table>
 <thead>
 <tr>
@@ -413,22 +413,22 @@
 <tbody>
 <tr>
 <td>INT-ERR01</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/context/FR%20API/Shared/invoice-flow-error-handling-guide-extract.md">FR error-handling extract</a>, received 22 October 2026, revision/build unknown; Processing and error fields, sending/status dictionaries, Recovery interpretation</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/context/FR%20API/Shared/invoice-flow-error-handling-guide-extract.md">FR error-handling extract</a>, received 22 October 2026, revision/build unknown; Processing and error fields, sending/status dictionaries, Recovery interpretation</td>
 <td>History-only error/outcome fields, final attempt and code-specific platform retry/support guidance. No permission for consumer-side resend or proof of Spain implementation.</td>
 </tr>
 <tr>
 <td>SPFE-S22</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/context/Anexo%20II/A2-Proyecto-OM-FE%2021-10-26.pdf">Separate Annex II</a>, received 22 October 2026; §§1–4 pp. 4–14 and list L1 p. 15</td>
-<td>Eight lifecycle communications and actor/field evidence. Release/version/supersession unverified; final SPFE-S02 Annex II remains legal baseline. See <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-ii-supplement-reviewed-22-october-2026">comparison</a>.</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/context/Anexo%20II/A2-Proyecto-OM-FE%2021-10-26.pdf">Separate Annex II</a>, received 22 October 2026; §§1–4 pp. 4–14 and list L1 p. 15</td>
+<td>Eight lifecycle communications and actor/field evidence. Release/version/supersession unverified; final SPFE-S02 Annex II remains legal baseline. See <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-ii-supplement-reviewed-22-october-2026">comparison</a>.</td>
 </tr>
 <tr>
 <td>REF-BASE</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a>, updated 13 October 2026; Parts 1–4</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a>, updated 13 October 2026; Parts 1–4</td>
 <td>Existing OUT IDs, design, decisions and detailed traceability; not deployment evidence.</td>
 </tr>
 <tr>
 <td>REF-PDF-DECISION</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md#transitional-pdf-product-rule">PRD-SEI-246 product rule</a>, updated 22 October 2026; agreed boundaries and PDF product rule</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md#transitional-pdf-product-rule">PRD-SEI-246 product rule</a>, updated 22 October 2026; agreed boundaries and PDF product rule</td>
 <td>User-recorded local-product PDF generation responsibility and single-invoice scope. Delivery channel implementation remains unqualified.</td>
 </tr>
 <tr>
@@ -438,42 +438,42 @@
 </tr>
 <tr>
 <td>INT-SND01</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/context/FR%20API/Sending/send-e-invoice-guide-extract.md">FR sending evidence</a>, received 22 October 2026; prerequisites, Submission design requirements and steps 1–5</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/context/FR%20API/Sending/send-e-invoice-guide-extract.md">FR sending evidence</a>, received 22 October 2026; prerequisites, Submission design requirements and steps 1–5</td>
 <td>One-invoice submission, attachment upload and event/detail evidence. Complete replay, resume, cancellation and ordering contracts are missing; no bulk accountant contract or Spain qualification is established.</td>
 </tr>
 <tr>
 <td>REF-PRODUCT</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md">PRD-SEI-246</a>, 22 October 2026, Agreed business boundaries and validation; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>, BR1–14, FR1–16/43–46; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md">PRD-SEI-212</a>, scope; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md">PRD-SEI-231</a>, delegated access</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md">PRD-SEI-246</a>, 22 October 2026, Agreed business boundaries and validation; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>, BR1–14, FR1–16/43–46; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md">PRD-SEI-212</a>, scope; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md">PRD-SEI-231</a>, delegated access</td>
 <td>Canonical product sources and DTS direction. Draft product scope is not implementation approval.</td>
 </tr>
 <tr>
 <td>SPFE-S02</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/context/BOE-A-2026-20587.pdf">BOE PDF</a>, final Order HAC/1028/2026, published 5 October 2026; Articles 3.4–3.6, 4, 5.4–5.7; <a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587">official text</a></td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/context/BOE-A-2026-20587.pdf">BOE PDF</a>, final Order HAC/1028/2026, published 5 October 2026; Articles 3.4–3.6, 4, 5.4–5.7; <a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587">official text</a></td>
 <td>Copy, withdrawal, correction and admission/outage duties. Physical coordination and timing proof need qualification.</td>
 </tr>
 <tr>
 <td>SPFE-S03</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">Catalogue PDF</a>, draft 0.1.0, 9 October 2026; sections 6.2–6.3, pp. 10–12</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">Catalogue PDF</a>, draft 0.1.0, 9 October 2026; sections 6.2–6.3, pp. 10–12</td>
 <td>Submission batches, per-invoice authority, disputed 5120-byte limit and limited withdrawal. Conflicts do not override final law.</td>
 </tr>
 <tr>
 <td>SPFE-S01</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/context/Anexo%20I/20261013/Anexo-1-Proyecto-OM-FE.pdf">Invoice annex PDF</a>, supplied 13 October 2026; BT-ES-1 p. 4 and withdrawal pp. 26–27</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/context/Anexo%20I/20261013/Anexo-1-Proyecto-OM-FE.pdf">Invoice annex PDF</a>, supplied 13 October 2026; BT-ES-1 p. 4 and withdrawal pp. 26–27</td>
 <td>Copy marker and withdrawal fields. Not a complete implementation mapping.</td>
 </tr>
 <tr>
 <td>SPFE-S16 / SPFE-S10</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/context/WSDL%20servicios%20web%20-%20PRE/20261013/SendInvoice.wsdl">SendInvoice</a> / <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/context/WSDL%20servicios%20web%20-%20PRE/20261013/CancelInvoice.wsdl">CancelInvoice</a>, supplied 13 October 2026; operation, binding, ports</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/context/WSDL%20servicios%20web%20-%20PRE/20261013/SendInvoice.wsdl">SendInvoice</a> / <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/context/WSDL%20servicios%20web%20-%20PRE/20261013/CancelInvoice.wsdl">CancelInvoice</a>, supplied 13 October 2026; operation, binding, ports</td>
 <td>PRE transport and opaque business attachments; no generic replay permission.</td>
 </tr>
 <tr>
 <td>REF-FIELDS</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/assets/regulatory/spain/spfe/field-traceability.json">Field ledger</a>, source snapshot 13 October 2026; AXC-01–07 and exact BOE row locators; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/assets/regulatory/spain/BOE-A-2026-20587.xml">original BOE XML</a></td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/assets/regulatory/spain/spfe/field-traceability.json">Field ledger</a>, source snapshot 13 October 2026; AXC-01–07 and exact BOE row locators; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/assets/regulatory/spain/BOE-A-2026-20587.xml">original BOE XML</a></td>
 <td>Existing field inventory and acceptance IDs; actual mappings/rules remain unqualified.</td>
 </tr>
 <tr>
 <td>REF-EVIDENCE</td>
-<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a>, source register and SPFE-Q03/07/08/13/15/18; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/e0af5ce07d495fcabd317b1626b35d0d89290c4c/assets/regulatory/spain/spfe/source-manifest.json">manifest</a></td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a>, source register and SPFE-Q03/07/08/13/15/18; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48/assets/regulatory/spain/spfe/source-manifest.json">manifest</a></td>
 <td>Original-source inventory and unresolved conflicts, not field-mapping or production readiness.</td>
 </tr>
 </tbody>

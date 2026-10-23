@@ -1,0 +1,78 @@
+{
+  "git_revision": "bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48",
+  "parent_page_id": "837610656",
+  "pages": [
+    {
+      "source_id": "SPEC-SEI-022",
+      "file": "specs/invoice-sending/SPEC-SEI-022-invoice-sending-solution-summary.md",
+      "target": {
+        "mode": "update",
+        "page_id": "923861395",
+        "parent_page_id": "837610656",
+        "space_key": "DNBU",
+        "title": "Invoice Sending Solution Summary"
+      },
+      "editable_diagrams": 1,
+      "sha256": "0f11a15b5697eeb87390ffb49d80cfcabf7c699da85060d5369f56cc928d2f70"
+    },
+    {
+      "source_id": "SPEC-SEI-023",
+      "file": "specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md",
+      "target": {
+        "mode": "create",
+        "page_id": "",
+        "parent_page_id": "837610656",
+        "space_key": "DNBU",
+        "title": "Invoice Sending Logical Feature Specification"
+      },
+      "editable_diagrams": 1,
+      "sha256": "bb9379747d410e4795499e96c250890e21a13b1e53d4ca853464204cfed72b4e"
+    },
+    {
+      "source_id": "SPEC-SEI-024",
+      "file": "specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md",
+      "target": {
+        "mode": "create",
+        "page_id": "",
+        "parent_page_id": "837610656",
+        "space_key": "DNBU",
+        "title": "Invoice Sending Sequence and Reuse Assessment"
+      },
+      "editable_diagrams": 3,
+      "sha256": "61cb3384eaf40e1d8b7eabb3e1bcde00fba47336c55ba58a2d1bd3cd15768fa5"
+    }
+  ],
+  "retained_predecessor_sha256": "83c81b5815a92298bfb62dc619a89086368bc10e96af1fa2f6b336465779bb1b",
+  "lifecycle_status": "draft",
+  "live_publication": true,
+  "review": {
+    "mergeCommit": {
+      "oid": "bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48"
+    },
+    "mergedAt": "2026-10-23T12:58:18Z",
+    "state": "MERGED",
+    "url": "https://github.com/jiaxinhe0709/pm_second_brain/pull/25"
+  },
+  "results": [
+    {
+      "source_id": "SPEC-SEI-023",
+      "page_id": "937951484",
+      "file": "specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md",
+      "title": "Invoice Sending Logical Feature Specification"
+    },
+    {
+      "source_id": "SPEC-SEI-024",
+      "page_id": "937951488",
+      "file": "specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md",
+      "title": "Invoice Sending Sequence and Reuse Assessment"
+    },
+    {
+      "source_id": "SPEC-SEI-022",
+      "page_id": "923861395",
+      "file": "specs/invoice-sending/SPEC-SEI-022-invoice-sending-solution-summary.md",
+      "title": "Invoice Sending Solution Summary"
+    }
+  ],
+  "parent_content_unchanged": true,
+  "verification": "passed"
+}
