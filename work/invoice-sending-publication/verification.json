@@ -1,0 +1,37 @@
+{
+  "result": "passed",
+  "git_revision": "bca51af5ca66ac17b7ad2b7a657b3b17dbcb5a48",
+  "pages": [
+    {
+      "source_id": "SPEC-SEI-023",
+      "page_id": "937951484",
+      "title": "Invoice Sending Logical Feature Specification",
+      "version": 2,
+      "editable_diagrams": 1
+    },
+    {
+      "source_id": "SPEC-SEI-024",
+      "page_id": "937951488",
+      "title": "Invoice Sending Sequence and Reuse Assessment",
+      "version": 2,
+      "editable_diagrams": 3
+    },
+    {
+      "source_id": "SPEC-SEI-022",
+      "page_id": "923861395",
+      "title": "Invoice Sending Solution Summary",
+      "version": 6,
+      "editable_diagrams": 1
+    }
+  ],
+  "rendered_section_links_checked": 12,
+  "checks": [
+    "source IDs and Git revision",
+    "draft lifecycle",
+    "native Change History",
+    "editable diagrams and PNG attachments",
+    "parent hierarchy",
+    "rendered companion section links"
+  ],
+  "browser_viewport_inspection": "not performed"
+}

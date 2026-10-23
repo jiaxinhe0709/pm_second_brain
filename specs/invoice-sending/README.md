@@ -2,11 +2,11 @@
 
 Review sending through three complementary views, following [customer onboarding and connectivity](../onboarding-and-connectivity/README.md). The three draft views are authorised for Confluence publication and are based on SPEC-SEI-007 and the supplied FR sending guide.
 
-| Read | Purpose |
-|---|---|
-| [Solution Summary — SPEC-SEI-022](SPEC-SEI-022-invoice-sending-solution-summary.md) | Business outcome, scope, actors, workflow and material decisions. Start here. |
-| [Logical Feature Specification — SPEC-SEI-023](SPEC-SEI-023-invoice-sending-logical-feature-specification.md) | Scenarios, OUT activities, rules, failures, recovery and functional acceptance. |
-| [Sequence and Reuse Assessment — SPEC-SEI-024](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md) | FR submission/upload/event/detail sequences, Spain public/private differences and engineering evidence gaps. |
+| Read | Purpose | Confluence |
+|---|---|---|
+| [Solution Summary — SPEC-SEI-022](SPEC-SEI-022-invoice-sending-solution-summary.md) | Business outcome, scope, actors, workflow and material decisions. Start here. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=923861395) |
+| [Logical Feature Specification — SPEC-SEI-023](SPEC-SEI-023-invoice-sending-logical-feature-specification.md) | Scenarios, OUT activities, rules, failures, recovery and functional acceptance. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937951484) |
+| [Sequence and Reuse Assessment — SPEC-SEI-024](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md) | FR submission/upload/event/detail sequences, Spain public/private differences and engineering evidence gaps. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937951488) |
 
 [Local review preview](../../work/invoice-sending-review/index.html) · [FR guide evidence extract](<../../context/FR API/Sending/send-e-invoice-guide-extract.md>).
 
