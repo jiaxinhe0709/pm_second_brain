@@ -105,7 +105,7 @@
       "editable_source": true
     }
   ],
-  "source_business_content_and_publication_preserved": true,
+  "predecessor_business_content_preserved": true,
   "eleven_existing_diagram_visuals_unchanged": true,
   "archive_relocation_record": "archive-relocation.json",
   "new_views_remain_draft_publication_authorised": true,
