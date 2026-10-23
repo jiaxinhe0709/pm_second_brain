@@ -56,8 +56,7 @@ SPEC-SEI-020 has no Confluence page ID.
 The stable onboarding page `923861390` selects **SPEC-SEI-037**, with SPEC-SEI-038
 and 039 as companion sources. The archived 018/019/021 retain their historical page IDs;
 the source-selection guard prevents them from overwriting the successor pages. SPEC-SEI-002 remains a retained Git supporting source.
-SPEC-SEI-003, 007, 009 and 016 remain selected for their existing stable pages;
-their folder sets remain unpublished. The five relocated baselines retain their
+The stable sending page `923861395` selects SPEC-SEI-022, with SPEC-SEI-023 and 024 as companion views. SPEC-SEI-007 remains unchanged as supporting evidence; the source-selection guard prevents it from overwriting the summary. SPEC-SEI-003, 009 and 016 remain selected for their stable pages; their folder sets remain unpublished. The five relocated baselines retain their
 existing publication flags and page IDs. Archive location does not disable
 publication. The archive move did not change lifecycle or publication state. Subsequent authorised
 publication selects 037–039 for the three existing onboarding pages; lifecycle statuses remain unchanged.

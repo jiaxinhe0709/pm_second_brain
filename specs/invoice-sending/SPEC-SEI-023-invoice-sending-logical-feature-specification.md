@@ -18,10 +18,11 @@ related:
   - GLO-SEI-001
   - RES-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "837610656"
   page_id: ""
+  title: Invoice Sending Logical Feature Specification
   layout: two_left_sidebar
   toc: true
 ---
@@ -32,7 +33,7 @@ confluence:
 
 ## Revision overview
 
-This separate view makes the scenarios and OUT activities in [SPEC-SEI-007](../archive/SPEC-SEI-007-invoice-sending-solution.md) easier to review. Existing IDs and safeguards retain their meanings. The current flow is one invoice for a business or its authorised accountant; broader portfolio controls remain conditional. It adds the transitional PDF behaviour and local-product generation decision in PRD-SEI-246. The predecessor remains unchanged and selected for its stable Confluence page.
+This separate view makes the scenarios and OUT activities in [SPEC-SEI-007](../archive/SPEC-SEI-007-invoice-sending-solution.md) easier to review. Existing IDs and safeguards retain their meanings. The current flow is one invoice for a business or its authorised accountant; broader portfolio controls remain conditional. It adds the transitional PDF behaviour and local-product generation decision in PRD-SEI-246. The predecessor remains unchanged. SPEC-SEI-022 is selected for its stable Confluence page; this logical view is a companion page under the same feature.
 
 This draft states the proposed behaviour for the companion set. Exact contracts, component allocation, implementation coverage and OUT-Q01–03 remain open. The supplied FR guide informs engineering reuse in SPEC-SEI-024; it does not replace Spain requirements.
 

@@ -22,10 +22,11 @@ related:
   - GLO-SEI-001
   - RES-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "837610656"
   page_id: ""
+  title: Invoice Sending Sequence and Reuse Assessment
   layout: two_left_sidebar
   toc: true
 ---
@@ -38,7 +39,7 @@ confluence:
 
 This separate engineering view extends [SPEC-SEI-007](../archive/SPEC-SEI-007-invoice-sending-solution.md) with the supplied FR sending guide, received 22 October 2026. It separates documented create/upload/event/detail operations from unconfirmed Spain preparation, route, issuance/copy and recovery contracts. The predecessor stays unchanged, including OUT-INT-01–11, OUT-D01–12 and detailed field traceability.
 
-Existing OUT IDs retain their meanings. The current journey is per invoice; bulk accountant sending remains separate unqualified scope. The PDF assessment implements the recorded product direction in PRD-SEI-246. SND-G IDs identify engineering gaps. API qualification checks in §5 link to existing functional acceptance. These drafts do not change the selected Confluence source or approve new APIs.
+Existing OUT IDs retain their meanings. The current journey is per invoice; bulk accountant sending remains separate unqualified scope. The PDF assessment implements the recorded product direction in PRD-SEI-246. SND-G IDs identify engineering gaps. API qualification checks in §5 link to existing functional acceptance. Publication selects SPEC-SEI-022 for the existing summary page, with this assessment and SPEC-SEI-023 as companions. All three remain drafts; publication does not approve new APIs.
 
 ## 1 Engineering direction and product impact
 

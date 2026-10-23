@@ -1,0 +1,92 @@
+[
+  {
+    "id": "837610656",
+    "title": "UBL 2.5 Invoice Submission (Send)",
+    "version": 7,
+    "ancestors": [
+      {
+        "id": "341440053",
+        "title": "Domain Services - Home"
+      },
+      {
+        "id": "677610211",
+        "title": "\ud83d\udc65Groups and Squads spaces"
+      },
+      {
+        "id": "440963918",
+        "title": "Products and Services"
+      },
+      {
+        "id": "341440176",
+        "title": "Domain Services - E-Invoicing"
+      },
+      {
+        "id": "771496799",
+        "title": "2. Features and Product"
+      },
+      {
+        "id": "786204202",
+        "title": "2.4 E-Invoicing Spain"
+      },
+      {
+        "id": "837588792",
+        "title": "Spain Feature briefs"
+      },
+      {
+        "id": "837588796",
+        "title": "Phase 1 - Public platform Connection"
+      }
+    ],
+    "children": [
+      {
+        "id": "923861395",
+        "title": "Invoice sending solution",
+        "version": 5
+      }
+    ]
+  },
+  {
+    "id": "923861395",
+    "title": "Invoice sending solution",
+    "version": 5,
+    "ancestors": [
+      {
+        "id": "341440053",
+        "title": "Domain Services - Home"
+      },
+      {
+        "id": "677610211",
+        "title": "\ud83d\udc65Groups and Squads spaces"
+      },
+      {
+        "id": "440963918",
+        "title": "Products and Services"
+      },
+      {
+        "id": "341440176",
+        "title": "Domain Services - E-Invoicing"
+      },
+      {
+        "id": "771496799",
+        "title": "2. Features and Product"
+      },
+      {
+        "id": "786204202",
+        "title": "2.4 E-Invoicing Spain"
+      },
+      {
+        "id": "837588792",
+        "title": "Spain Feature briefs"
+      },
+      {
+        "id": "837588796",
+        "title": "Phase 1 - Public platform Connection"
+      },
+      {
+        "id": "837610656",
+        "title": "UBL 2.5 Invoice Submission (Send)"
+      }
+    ],
+    "children": []
+  }
+]
