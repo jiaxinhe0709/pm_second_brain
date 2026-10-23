@@ -1,0 +1,25 @@
+{
+  "page_id": "936509735",
+  "title": "Onboarding API Reuse Assessment",
+  "version": 3,
+  "body_sha256": "b532ad147387077262379c99e35455f8162eb152c3dd7b52d6f249d00ea6ad29",
+  "parent_id": "837610648",
+  "diagram_count": 5,
+  "manual_discussion_detected": false,
+  "prose_unchanged_except_source_links": false,
+  "other_page_versions": {
+    "837610648": 38,
+    "923861390": 12,
+    "936509725": 3
+  },
+  "attachment_revisions": {
+    "onboarding-reuse-uncertainty-recovery-sequence": 2,
+    "onboarding-reuse-supported-change-sequence": 2,
+    "onboarding-reuse-private-setup-sequence": 2,
+    "onboarding-reuse-public-readiness-sequence": 2,
+    "onboarding-reuse-shared-prerequisites-sequence": 2
+  },
+  "spec_sha256": "4e08e7d6b64d7b2da7078fdcc1f8721576866ce487299a43f4bb7a3a83b29d34",
+  "page_text_unchanged": true,
+  "text_differences": []
+}

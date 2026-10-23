@@ -1,0 +1,83 @@
+{
+  "source_id": "SPEC-SEI-021",
+  "git_revision": "5a8ff7ff8778ee618ab69aef62ced9e8b4dbc2c0",
+  "review": {
+    "mergeCommit": {
+      "oid": "6faeb93e9d69fd4ce630bc553380b82646b9b48a"
+    },
+    "mergedAt": "2026-10-23T08:54:05Z",
+    "state": "MERGED",
+    "url": "https://github.com/jiaxinhe0709/pm_second_brain/pull/21"
+  },
+  "page_id": "936509735",
+  "title": "Onboarding API Reuse Assessment",
+  "version": 4,
+  "url": "https://confluence.sage.com/pages/viewpage.action?pageId=936509735",
+  "page_wording_preserved": true,
+  "lifecycle_status": "draft",
+  "editable_diagrams": 5,
+  "attachment_checks": [
+    {
+      "name": "onboarding-reuse-shared-prerequisites-sequence",
+      "version": 3,
+      "bytes_verified": true
+    },
+    {
+      "name": "onboarding-reuse-shared-prerequisites-sequence.png",
+      "version": 3,
+      "bytes_verified": true
+    },
+    {
+      "name": "onboarding-reuse-public-readiness-sequence",
+      "version": 3,
+      "bytes_verified": true
+    },
+    {
+      "name": "onboarding-reuse-public-readiness-sequence.png",
+      "version": 3,
+      "bytes_verified": true
+    },
+    {
+      "name": "onboarding-reuse-private-setup-sequence",
+      "version": 3,
+      "bytes_verified": true
+    },
+    {
+      "name": "onboarding-reuse-private-setup-sequence.png",
+      "version": 3,
+      "bytes_verified": true
+    },
+    {
+      "name": "onboarding-reuse-supported-change-sequence",
+      "version": 3,
+      "bytes_verified": true
+    },
+    {
+      "name": "onboarding-reuse-supported-change-sequence.png",
+      "version": 3,
+      "bytes_verified": true
+    },
+    {
+      "name": "onboarding-reuse-uncertainty-recovery-sequence",
+      "version": 3,
+      "bytes_verified": true
+    },
+    {
+      "name": "onboarding-reuse-uncertainty-recovery-sequence.png",
+      "version": 3,
+      "bytes_verified": true
+    }
+  ],
+  "rendered_companion_links": [
+    "923861390",
+    "936509725",
+    "936509735"
+  ],
+  "rendered_macro_errors": [],
+  "other_page_versions_unchanged": {
+    "837610648": 38,
+    "923861390": 12,
+    "936509725": 3
+  },
+  "published": true
+}
