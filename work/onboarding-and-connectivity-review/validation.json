@@ -1,0 +1,121 @@
+{
+  "result": "passed",
+  "documents": [
+    {
+      "source": "specs/onboarding-and-connectivity/SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md",
+      "preview": "SPEC-SEI-037.html",
+      "local_links": 37,
+      "diagrams": 1
+    },
+    {
+      "source": "specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md",
+      "preview": "SPEC-SEI-038.html",
+      "local_links": 73,
+      "diagrams": 4
+    },
+    {
+      "source": "specs/onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md",
+      "preview": "SPEC-SEI-039.html",
+      "local_links": 79,
+      "diagrams": 6
+    },
+    {
+      "source": "specs/onboarding-and-connectivity/README.md",
+      "preview": "index.html",
+      "local_links": 16,
+      "diagrams": 0
+    }
+  ],
+  "diagrams": [
+    {
+      "asset": "onboarding-client-approval-process.svg",
+      "width": 2340,
+      "height": 890,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "onboarding-portfolio-batch-process.svg",
+      "width": 2340,
+      "height": 1030,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "onboarding-private-route-process.svg",
+      "width": 2340,
+      "height": 1120,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "onboarding-public-readiness-process.svg",
+      "width": 2340,
+      "height": 1120,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "onboarding-reuse-private-setup-sequence.svg",
+      "width": 1030,
+      "height": 1551,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "onboarding-reuse-public-readiness-sequence.svg",
+      "width": 1030,
+      "height": 1775,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "onboarding-reuse-shared-prerequisites-sequence.svg",
+      "width": 1415,
+      "height": 1474,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "onboarding-reuse-supported-change-sequence.svg",
+      "width": 1030,
+      "height": 1850,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "onboarding-reuse-uncertainty-recovery-sequence.svg",
+      "width": 1030,
+      "height": 1248,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "onboarding-scenario-selection-process.svg",
+      "width": 1440,
+      "height": 1140,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "shared-platform-connection-qualification-process.svg",
+      "width": 2340,
+      "height": 1090,
+      "reused_unchanged": true,
+      "editable_source": true
+    }
+  ],
+  "predecessor_business_content_preserved": true,
+  "eleven_existing_diagram_visuals_unchanged": true,
+  "archive_relocation_record": "archive-relocation.json",
+  "new_views_remain_draft_publication_authorised": true,
+  "top_public_private_operator_summaries": true,
+  "stable_sources": {
+    "923861390": "SPEC-SEI-037",
+    "936509725": "SPEC-SEI-038",
+    "936509735": "SPEC-SEI-039"
+  },
+  "static_preview_diagnostics": "passed",
+  "implementation_tests_executed": false,
+  "limits": "Document identity, metadata, local links/anchors and source preservation with explicit archive-relocation hashes; original preservation snapshot retained. Existing SVG/PNG visuals unchanged; five Draw.io source links rebased. Static HTML rendering only; browser viewport checks were not performed. No contract, legal, production or external-link qualification."
+}

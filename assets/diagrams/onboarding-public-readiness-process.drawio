@@ -50,47 +50,47 @@
         <mxCell id="lane-label-5" value="Public / private&#10;platforms" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="30" y="860" width="180" height="140" />
         </mxCell>
-        <object id="plan" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Use the current public setup plan&#10;Run missing or out-of-date checks&#10;ONB-01/02/10 · Common" tooltip="Run missing or out-of-date checks">
+        <object id="plan" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Use the current public setup plan&#10;Run missing or out-of-date checks&#10;ONB-01/02/10 · Common" tooltip="Run missing or out-of-date checks">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="240" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="identity" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check business identity and authority&#10;Business NIF, caller and action permission&#10;ONB-02/03 · Common" tooltip="Business NIF, caller and action permission">
+        <object id="identity" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Check business identity and authority&#10;Business NIF, caller and action permission&#10;ONB-02/03 · Common" tooltip="Business NIF, caller and action permission">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="535" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="trust" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check access and trust requirements&#10;Certificate result or policy exception&#10;ONB-03 · Common" tooltip="Certificate result or policy exception">
+        <object id="trust" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Check access and trust requirements&#10;Certificate result or policy exception&#10;ONB-03 · Common" tooltip="Certificate result or policy exception">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="830" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="connection" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check the public connection&#10;Qualified reads for this function&#10;ONB-03 · Scenario-specific" tooltip="Qualified reads for this function">
+        <object id="connection" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Check the public connection&#10;Qualified reads for this function&#10;ONB-03 · Scenario-specific" tooltip="Qualified reads for this function">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1125" y="878" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="record" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Save public check results&#10;Evidence, readiness and next check time&#10;ONB-04 · Scenario-specific" tooltip="Evidence, readiness and next check time">
+        <object id="record" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Save public check results&#10;Evidence, readiness and next check time&#10;ONB-04 · Scenario-specific" tooltip="Evidence, readiness and next check time">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1715" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="result" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Show results and next actions&#10;Readiness is separate from activation&#10;ONB-11 · Common" tooltip="Readiness is separate from activation">
+        <object id="result" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Show results and next actions&#10;Readiness is separate from activation&#10;ONB-11 · Common" tooltip="Readiness is separate from activation">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2010" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="correct" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Correct the requested evidence&#10;Same business, purpose and affected check&#10;ONB-02/03 / OFR-03 · Conditional" tooltip="Same business, purpose and affected check">
+        <object id="correct" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Correct the requested evidence&#10;Same business, purpose and affected check&#10;ONB-02/03 / OFR-03 · Conditional" tooltip="Same business, purpose and affected check">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="830" y="178" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="recover" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Resolve the blocked check&#10;Check the original result; retry only if safe&#10;ONB-08 / OFR-02/04–08 · Conditional" tooltip="Check the original result; retry only if safe">
+        <object id="recover" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Resolve the blocked check&#10;Check the original result; retry only if safe&#10;ONB-08 / OFR-02/04–08 · Conditional" tooltip="Check the original result; retry only if safe">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1420" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="case" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Review the unresolved case&#10;Named owner, evidence and next action&#10;OFR-07 · Conditional" tooltip="Named owner, evidence and next action">
+        <object id="case" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Review the unresolved case&#10;Named owner, evidence and next action&#10;OFR-07 · Conditional" tooltip="Named owner, evidence and next action">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1420" y="738" width="260" height="104" />
           </mxCell>

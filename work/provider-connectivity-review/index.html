@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Provider connectivity review</title><style>
+*{box-sizing:border-box}body{margin:0;color:#243445;background:#fff;font:16px/1.55 Arial,sans-serif}
+header{padding:18px 24px;background:#f3f6f8;border-bottom:1px solid #ccd4dc}nav{display:flex;flex-wrap:wrap;gap:20px}
+a{color:#075eaa}main{max-width:1200px;margin:28px auto;padding:0 24px}h1{font-size:30px}h2{margin-top:36px}
+.table-scroll{overflow:auto;margin:18px 0}table{border-collapse:collapse;width:100%;min-width:650px;font-size:14px}
+th,td{border:1px solid #ccd4dc;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f6f8}
+code{font-size:.9em;background:#f3f6f8;overflow-wrap:anywhere}img{display:block;width:100%;height:auto;margin:20px 0}
+.notice{padding:12px;background:#fff5da;border-left:4px solid #ad7000}.toc{font-size:14px}.toc ul{padding-left:22px}
+
+.diagram{overflow-x:auto}.diagram img{min-width:1050px}
+</style></head><body><header><nav><a href="SPEC-SEI-034.html">Provider Connectivity Solution Summary</a> · <a href="SPEC-SEI-035.html">Provider Connectivity Logical Feature Specification</a> · <a href="SPEC-SEI-036.html">Provider Connectivity Sequence and Reuse Assessment</a> · <a href="index.html">Provider connectivity review</a></nav></header><main><p class="notice">Unpublished design proposal. Specs 011, 013 and 017 and current Confluence sources remain unchanged.</p><div class="toc">
+<ul>
+<li><a href="#provider-connectivity">Provider connectivity</a><ul>
+<li><a href="#retained-source-specifications">Retained source specifications</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="provider-connectivity">Provider connectivity</h1>
+<p>This folder retains the earlier Spain public/private connectivity review. Start customer setup reviews from <a href="../../specs/onboarding-and-connectivity/README.md">onboarding and connectivity</a>, SPEC-SEI-037–039. These three unpublished drafts retain runtime sending/receiving, format and reuse analysis where cited. Business content, IDs and metadata are preserved; relative links and this reading-route guidance changed.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Read</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="SPEC-SEI-034.html">Solution Summary — SPEC-SEI-034</a></td>
+<td>Business problem, scope, actors, shared API direction, existing Global API diagram and material decisions. Start here.</td>
+</tr>
+<tr>
+<td><a href="SPEC-SEI-035.html">Logical Feature Specification — SPEC-SEI-035</a></td>
+<td>Public/private send and receive scenarios, existing PCN/B2BR processes, file roles, failures, recovery and functional acceptance.</td>
+</tr>
+<tr>
+<td><a href="SPEC-SEI-036.html">Sequence and Reuse Assessment — SPEC-SEI-036</a></td>
+<td>Existing sending/receiving sequences, evidenced API operations, format differences, DTS/provider reuse and engineering gates.</td>
+</tr>
+</tbody>
+</table></div>
+<p><a href="index.html">Local review preview</a>. Diagrams are reused unchanged from 011, 013, 017, 024 and 027, with links to their existing Draw.io, SVG and PNG assets. Terminology follows the shared glossary; this folder introduces no additional service or diagram responsibility group.</p>
+<p>This set brings three existing scopes into one review. It does not replace their detailed registers, select a provider or establish one external provider's coverage of both public and private work.</p>
+<p>Public platform terminology comes from the original Spain catalogue, formats, WSDL/XSD and examples indexed in <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md">context</a>, with the shared glossary for common terms. Peppol is excluded from this review.</p>
+<h2 id="retained-source-specifications">Retained source specifications</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Existing source</th>
+<th>Role in the combined review</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md">SPEC-SEI-013 — Provider API through the Global API</a></td>
+<td>Shared Sage contract for products and authorised partners.</td>
+</tr>
+<tr>
+<td><a href="../../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md">SPEC-SEI-011 — Public-platform connector</a></td>
+<td>Spain AEAT protocol, operation qualification and public response evidence.</td>
+</tr>
+<tr>
+<td><a href="../../specs/SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md">SPEC-SEI-017 — B2B Router binding</a></td>
+<td>Candidate private-provider contract and provider-specific gaps.</td>
+</tr>
+</tbody>
+</table></div>
+<p><a href="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">SPEC-SEI-014</a> retains shared connection and routing ownership. The existing <a href="../../specs/invoice-sending/README.md">sending</a>, <a href="../../specs/invoice-receiving/README.md">receiving</a> and <a href="../../specs/invoice-lifecycle/README.md">lifecycle</a> folders retain their business behaviour. This folder assesses how those journeys use external connectivity.</p>
+<p>All three source files remain unchanged. The <a href="../../config/confluence.yml">publication configuration</a> still selects SPEC-SEI-011 for stable Confluence page <code>923861399</code> and SPEC-SEI-013 for <code>923861402</code>. SPEC-SEI-017 has no page ID and remains unpublished. This set changes no publication selection or source document status.</p></main></body></html>

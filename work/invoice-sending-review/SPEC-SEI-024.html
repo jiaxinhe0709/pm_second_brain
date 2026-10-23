@@ -1,0 +1,502 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Invoice Sending Sequence and Reuse Assessment</title><style>
+*{box-sizing:border-box}body{margin:0;color:#263238;background:#fff;font:16px/1.55 Arial,sans-serif}
+header{padding:18px 26px;background:#f5f7f8;border-bottom:1px solid #cdd3d8}nav{display:flex;gap:24px;flex-wrap:wrap}a{color:#075eaa}
+.layout{display:grid;grid-template-columns:220px minmax(0,1120px);gap:30px;max-width:1440px;margin:24px auto;padding:0 24px}
+main{min-width:0}.outline{position:sticky;top:12px;align-self:start;max-height:92vh;overflow:auto;font-size:13px}.outline ul{padding-left:18px}
+h1{font-size:30px}h2{margin-top:36px}h3{margin-top:30px}table{border-collapse:collapse;width:100%;margin:18px 0;font-size:14px}
+th,td{border:1px solid #cdd3d8;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f5f7}
+code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100%;max-height:720px;overflow:auto;border:1px solid #b8c0c8;margin:18px 0}
+.diagram img{display:block;max-width:none}p{max-width:1060px}
+@media(max-width:800px){.layout{display:block}.outline{position:static;max-height:200px;margin-bottom:24px}}
+</style></head><body><header><p>Invoice sending · Unpublished draft · Local review</p><nav><a href="index.html">All sending views</a><a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">Retained SPEC-SEI-007</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
+<ul>
+<li><a href="#invoice-sending-sequence-and-reuse-assessment">Invoice Sending Sequence and Reuse Assessment</a><ul>
+<li><a href="#revision-overview">Revision overview</a></li>
+<li><a href="#1-engineering-direction-and-product-impact">1 Engineering direction and product impact</a></li>
+<li><a href="#2-proposed-reuse-sequences">2 Proposed reuse sequences</a><ul>
+<li><a href="#21-documented-fr-submission-and-observation">2.1 Documented FR submission and observation</a></li>
+<li><a href="#22-spain-final-plan-and-independent-actions">2.2 Spain final plan and independent actions</a></li>
+<li><a href="#23-missing-or-uncertain-result">2.3 Missing or uncertain result</a></li>
+</ul>
+</li>
+<li><a href="#3-existing-operations-and-material-contract-gaps">3 Existing operations and material contract gaps</a><ul>
+<li><a href="#31-identity-routing-and-representation-differences">3.1 Identity, routing and representation differences</a></li>
+<li><a href="#32-shared-authentication-safety-and-source-conflicts">3.2 Shared authentication, safety and source conflicts</a></li>
+<li><a href="#33-transitional-pdf-generation-and-attachment-delivery">3.3 Transitional PDF generation and attachment delivery</a></li>
+<li><a href="#34-fr-attempt-errors-and-annex-ii-handoff">3.4 FR attempt errors and Annex II handoff</a></li>
+</ul>
+</li>
+<li><a href="#4-open-engineering-decisions">4 Open engineering decisions</a></li>
+<li><a href="#5-api-qualification-checks">5 API qualification checks</a></li>
+<li><a href="#ref-source-references">REF Source references</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><main><h1 id="invoice-sending-sequence-and-reuse-assessment">Invoice Sending Sequence and Reuse Assessment</h1>
+<p><a href="SPEC-SEI-022.html">Solution Summary</a> · <a href="SPEC-SEI-023.html">Logical Feature Specification</a> · <a href="../../specs/invoice-sending/README.md">Feature landing page</a></p>
+<h2 id="revision-overview">Revision overview</h2>
+<p>This separate engineering view extends <a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> with the supplied FR sending guide, received 22 October 2026. It separates documented create/upload/event/detail operations from unconfirmed Spain preparation, route, issuance/copy and recovery contracts. The predecessor stays unchanged, including OUT-INT-01–11, OUT-D01–12 and detailed field traceability.</p>
+<p>Existing OUT IDs retain their meanings. The current journey is per invoice; bulk accountant sending remains separate unqualified scope. The PDF assessment implements the recorded product direction in PRD-SEI-246. SND-G IDs identify engineering gaps. API qualification checks in §5 link to existing functional acceptance. These drafts do not change the selected Confluence source or approve new APIs.</p>
+<h2 id="1-engineering-direction-and-product-impact">1 Engineering direction and product impact</h2>
+<p>Assess the existing FR sending APIs before proposing another submission interface. Reuse is a candidate pending the selected build, contracts and Spain qualification. <a href="SPEC-SEI-023.html">SPEC-SEI-023</a> owns behaviour. The FR guide starts with ready files and a connected dataset; it does not establish the full Spain draft-to-issuance journey. INT-SND01; REF-BASE/PRODUCT.</p>
+<p>No breaking API change has been established. The rows below identify integration work and evidence to assess, rather than approved endpoint development.</p>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Possible shared API or country/provider work</th>
+<th>Product integration impact / gap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Draft preparation and final handoff</td>
+<td>Qualify complete-data intake, final identity/revision binding, approval and ERP issuance coordination. No physical methods/paths are evidenced.</td>
+<td>A current file-upload integration may need additional preparation and issuance handoffs. Exact contract is open. SND-G01/06.</td>
+</tr>
+<tr>
+<td>Spain public recipient delivery / required copy</td>
+<td>Bind public UBL profile, authority, original/copy purpose, transport and request/item results. Determine whether the existing API exposes these distinctions.</td>
+<td>Retain separate delivery/copy results and actual issuance evidence. One generic submission/status cannot be assumed sufficient. SND-G02/05/06.</td>
+</tr>
+<tr>
+<td>Spain private platforms</td>
+<td>Qualify provider access-point/address rules, format, trust and action outcome meanings.</td>
+<td>Reuse create/upload/detail only for a supported Spain provider. Confirm which file is required and how failures return. SND-G02/03/05.</td>
+</tr>
+<tr>
+<td>Shared events, reads and recovery</td>
+<td>Qualify key/replay semantics, lost-ID discovery, upload completion, event security and authoritative results.</td>
+<td>Retain original IDs and input; handle partial uploads, failed processing, duplicate/out-of-order events and missing notifications. SND-G04/05/07.</td>
+</tr>
+<tr>
+<td>Transformation and derived files</td>
+<td>Assess existing DTS for the selected Spain mapping. Factur-X generation is a separate documented FR retrieval option.</td>
+<td>Do not require another ERP to produce a finished file merely because the FR guide starts there. Qualify file-generation ownership and mapping. SND-G01/03.</td>
+</tr>
+<tr>
+<td>Transitional PDF companion</td>
+<td>The local product generates the PDF. Assess existing attachment transport for qualified private delivery and a separate recipient channel where needed.</td>
+<td>Implement OUT-PDF-R01/02; exclude this PDF from public requests. Do not infer Spain delivery or server-side generation from <code>application/pdf</code> support. SND-G08; RD238-T2.</td>
+</tr>
+</tbody>
+</table>
+<p>An authorised accountant sends one invoice for one client through the same POST/upload/result flow as the business user. The guide documents one recipient per submission; it supplies no bulk coordinator contract. Public transport batches in the AEAT catalogue are a different concern. INT-SND01; SND-G06.</p>
+<h2 id="2-proposed-reuse-sequences">2 Proposed reuse sequences</h2>
+<p>The sequences distinguish <strong>Existing</strong> guide operations from <strong>To qualify</strong> logical handoffs. Participants group responsibilities, not approved deployments. Requests use solid arrows; paired responses use dashed arrows. Grey bars do not promise timing.</p>
+<h3 id="21-documented-fr-submission-and-observation">2.1 Documented FR submission and observation</h3>
+<p><div class="diagram"><img alt="FR create, upload, status event and detail sequence" src="../../assets/diagrams/invoice-sending-fr-submission-sequence.svg" /></div></p>
+<p><a href="../../assets/diagrams/invoice-sending-fr-submission-sequence.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/invoice-sending-fr-submission-sequence.png">PNG</a>.</p>
+<p>Use only after current business/action authority, a qualified <code>CONNECTED</code> setup and an approved file manifest. <code>201</code> creates the Sage resource and upload references. PUT success confirms upload under its contract. The event can report processing success or <code>ERROR</code>; read details to establish the actual result. None of these facts alone proves buyer acceptance. INT-SND01 prerequisites and steps 1–5; OUT-A10/13/14.</p>
+<h3 id="22-spain-final-plan-and-independent-actions">2.2 Spain final plan and independent actions</h3>
+<p><div class="diagram"><img alt="Spain final handoff, public action and independent recipient delivery" src="../../assets/diagrams/invoice-sending-spain-actions-sequence.svg" /></div></p>
+<p><a href="../../assets/diagrams/invoice-sending-spain-actions-sequence.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/invoice-sending-spain-actions-sequence.png">PNG</a>.</p>
+<p>The public recipient route and private recipient route are alternatives. A required public copy is another action. The copy/issuance frame is a logical coordination requirement; it makes no claim about physical simultaneity, an atomic transaction or an existing API. OUT-Q03 must prove the boundary and failure handling. Public protocol execution follows SPEC-SEI-011; destination evidence follows SPEC-SEI-012 and connection context follows SPEC-SEI-014. SPFE-S02/S08/S16; OUT-A03/04/07/12; OUT-SPFE-A01.</p>
+<p>The diagram covers private delivery with a required copy and direct public recipient delivery. It does not show every sender-to-recipient platform combination. The table below makes the API coverage and remaining gaps explicit. <strong>Public/private describes the platform used by each party.</strong> The copy decision also needs evidence of the platform actually used for issuance or interconnection; a private recipient alone does not establish a copy obligation. OUT-09/10; OUT-SPFE-R01; SPFE-S02 Articles 3.4/4.</p>
+<table>
+<thead>
+<tr>
+<th>Sender → recipient platform</th>
+<th>API coverage and remaining evidence</th>
+<th>Separate faithful public copy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public → private</td>
+<td>Public issuance/interconnection is recognised in the source rules, but the public-to-private transfer is not shown in this sequence. Qualify how the private platform obtains the invoice, who performs the transfer, authority, correlation and recipient-delivery evidence. No public forwarding endpoint or private-provider download contract is established by the FR POST/upload guide. SND-G02/05/06.</td>
+<td>None for an invoice already issued or interconnected through the public platform. Do not submit it again as a copy.</td>
+</tr>
+<tr>
+<td>Private → private</td>
+<td>The FR create/upload/event/detail flow is a candidate product-facing interface. Private delivery in the diagram covers the logical action. Qualify delivery within one provider and interconnection between different providers separately, including their downstream APIs and outcome meanings. The guide does not prove either Spain provider contract. SND-G02/03/05.</td>
+<td>Required where public issuance/interconnection is not used. Qualify the responsible sender and issuance boundary; retain delivery and copy results separately.</td>
+</tr>
+<tr>
+<td>Private → public</td>
+<td>The public action uses qualified <code>SendInvoice</code> interconnection with an original, rather than a faithful-copy submission standing in for delivery. The WSDL establishes public intake; the selected private-provider-to-public handoff and recipient availability/delivery evidence remain to qualify. SND-G02/05/06.</td>
+<td>No additional copy once public interconnection is established for that invoice. An earlier copy needs the governed transition in OUT-SPFE-R02; it is not a fresh-send shortcut.</td>
+</tr>
+<tr>
+<td>Public → public</td>
+<td>Public issuance or interconnection supplies the public original. The FR POST/upload flow does not document the AEAT invoice-generation form. Qualify the applicable public submission or retrieval path and recipient outcome; do not create the already-issued invoice again. SND-G02/05/06.</td>
+<td>None for the established public issuance/interconnection.</td>
+</tr>
+</tbody>
+</table>
+<p>All four combinations remain subject to selected-build and end-to-end contract qualification. Public admission, product upload and notification arrival are distinct evidence levels. An unknown transfer/result holds the affected action under §2.3; it cannot trigger a second delivery route or a new copy. The applicable transitional PDF uses §3.3 independently of this table. OUT-A03–05/07/08; OUT-SPFE-A01/02; INT-SND01; SPFE-S02 Articles 3–5; SPFE-S16.</p>
+<h3 id="23-missing-or-uncertain-result">2.3 Missing or uncertain result</h3>
+<p><div class="diagram"><img alt="Observe original action and hold or recover without repeating success" src="../../assets/diagrams/invoice-sending-recovery-sequence.svg" /></div></p>
+<p><a href="../../assets/diagrams/invoice-sending-recovery-sequence.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/invoice-sending-recovery-sequence.png">PNG</a>.</p>
+<p>Use the known e-invoice ID to query details. A lost POST response may leave no ID; the guide supplies no discovery-by-key contract. An empty/failed query is not proven absence. Keep the original context and owner until the selected contract supports a safe next action. Do not resend successful recipient delivery because a copy or status query is unknown. OUT-13; SND-G04; OUT-A07/08/16.</p>
+<h2 id="3-existing-operations-and-material-contract-gaps">3 Existing operations and material contract gaps</h2>
+<p>These are guide-evidenced operations, not verified OpenAPI signatures or deployed Spain capability. Preserve the exact field and state names in INT-SND01; reconcile source conflicts before generating a client.</p>
+<table>
+<thead>
+<tr>
+<th>Operation / source locator</th>
+<th>Documented contract</th>
+<th>Spain reuse assessment and functional coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST /internal/events/subscriptions</code>; step 1 and overview</td>
+<td>Register resource <code>einvoice</code>, dataset, source and <code>e-invoicing.einvoice.statusupdated</code>. Operation card omits the leading slash. Success code/body not supplied.</td>
+<td>Candidate notification pattern for OUT-14/15. Pin accessible API base, casing/schema, authentication, event library and Spain support. SND-G05/07.</td>
+</tr>
+<tr>
+<td><code>POST /datasets/{datasetId}/e-invoices</code>; step 2</td>
+<td><code>201 Created</code>; resource ID and attachment <code>uploadUrl</code> values. <code>Idempotency-Key</code>, <code>traceparent</code>, <code>tracestate</code> and <code>Authorization</code> are marked required.</td>
+<td>Candidate prepared-file intake, not OUT-01–08 preparation or ERP issuance. Prove final revision/action binding, key scope and asynchronous outcome. SND-G01/04/06.</td>
+</tr>
+<tr>
+<td><code>PUT {uploadUrl}</code>; step 3</td>
+<td>Binary upload, one request per attachment; <code>200 OK</code>. URL is returned dynamically.</td>
+<td>Candidate file transport for OUT-11/12. Confirm required manifest, scan/completion trigger, expiry/renewal and partial/lost-upload recovery. Do not infer readiness from one uploaded file. SND-G03/04.</td>
+</tr>
+<tr>
+<td>Status-updated webhook; step 4</td>
+<td>Environment/access-point-specific <code>source</code> and event type prefix; <code>subject</code> is the e-invoice ID. Example contains <code>datasetid</code>, event <code>id</code> and nullable <code>data.errorCode</code>.</td>
+<td>Candidate observation for OUT-13–15; not a dispatch command or success-only event. Verify authenticity and scope, deduplicate, then read the authoritative result. Delivery/order/freshness semantics are unknown. SND-G05.</td>
+</tr>
+<tr>
+<td><code>GET /datasets/{datasetId}/e-invoices/{e-invoiceId}</code>; step 5</td>
+<td><code>200 OK</code>; status/history, files and <code>downloadUrl</code>. <code>operationStatus</code>: <code>IN_PROGRESS</code>, <code>COMPLETED</code>, <code>ERROR</code>.</td>
+<td>Candidate observation using a retained ID. Exact meaning of each source status and relation to delivery/copy need qualification. The overview's collection path is not evidence of a search-by-idempotency operation. SND-G04/05/07.</td>
+</tr>
+<tr>
+<td>Same GET with <code>format=facturx</code>; step 5</td>
+<td>Can generate and persist a Factur-X/ZUGFeRD 2.3 hybrid; returns an existing hybrid without regeneration.</td>
+<td>Optional FR representation capability. Exclude from routine status observation. Qualify Spain need, source preservation, mapping, concurrency and access before enabling. SND-G03.</td>
+</tr>
+<tr>
+<td><code>SendInvoice</code>; SPFE-S16</td>
+<td>Exact PRE SOAP 1.2/MIME binding; <code>SendInvoiceCertPort</code> or <code>SendInvoiceSealPort</code>. ebMS action <code>SUBMITINVOICE</code> is in SPFE-S03.</td>
+<td>Public execution candidate behind the Sage-facing contract. Transport certificate selection does not establish invoice-signing authority. Keep transport/SOAP, request result and each item result separate. SND-G02/06.</td>
+</tr>
+</tbody>
+</table>
+<p>Public WSDL service addresses are <code>https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/SendInvoiceSOAP</code> and <code>https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/SendInvoiceSOAP</code>. They establish PRE contract locations only. Do not infer production addresses or live acceptance. SPFE-S16 service ports.</p>
+<h3 id="31-identity-routing-and-representation-differences">3.1 Identity, routing and representation differences</h3>
+<table>
+<thead>
+<tr>
+<th>Evidence / exact fields</th>
+<th>Required qualification and consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sender</code>, <code>recipient</code>, <code>accessPointAddressType</code>, <code>accessPointAddress</code>, <code>accessPointId</code></td>
+<td>FR routing addresses are separate from invoice seller/buyer. Sender must belong to the calling dataset. Spain address types, NIF/establishment mapping, connection scope and public/private service IDs are unknown. Do not replace <code>fr.siren</code> with an invented Spain enum. SND-G02; OUT-R04/11.</td>
+</tr>
+<tr>
+<td>Submission's required values and correlation</td>
+<td>The guide requires <code>sender.accessPointAddressType</code>, <code>recipient.accessPointAddressType</code> and <code>eInvoiceTypeCode</code>, even where an earlier schema says optional. Retain returned resource identity and optional <code>erpInvoiceId</code> linkage; the ERP reference is not an idempotency guarantee. INT-SND01 Submission design requirements and step 2; SND-G04/07.</td>
+</tr>
+<tr>
+<td>Self-billing and extra recipients</td>
+<td>Guide routes buyer to seller, one recipient per submission. Qualify material issuer, represented business, actual destination, public-copy responsibility and supported <code>eInvoiceTypeCode</code>; the guide does not resolve those Spain roles. Accountant distribution remains OUT-Q02. SND-G02/06.</td>
+</tr>
+<tr>
+<td><code>AR_Invoice</code>, <code>AR_CreditNote</code>, <code>AP_CreditNote</code></td>
+<td>Preserve FR codes and the guide's type <code>381</code> association. Supplied public formats use UBL 2.5 <code>InvoiceType</code>, including rectification, not <code>CreditNote</code>. Confirm any public mapping; never infer it from the FR label. SPFE-S08 p. 8; SND-G03.</td>
+</tr>
+<tr>
+<td><code>attachments[].mimetype</code> / <code>filename</code></td>
+<td>Guide names <code>ubl-2.1/xml</code> and <code>application/pdf</code>, filename 1–128 and address values 1–50. It supplies no Spain UBL 2.5 MIME value. Qualify selected schemas, file roles and limits without silently extending them. SND-G02/03/07.</td>
+</tr>
+<tr>
+<td>FR UBL/PDF or Factur-X choice</td>
+<td>Real France UBL can have an optional PDF; Factur-X needs one hybrid file. Demo's two-file requirement is local. Public restrictions on embedded files are distinct from MIME transport of UBL business documents; do not forward a hybrid or auxiliary PDF by default. SPFE-S02 Articles 3.5/4.4; SPFE-S03 p. 11; SND-G03.</td>
+</tr>
+<tr>
+<td>Public batch, identity and results</td>
+<td>Catalogue states 1–100 invoices, authority evaluated per invoice and a disputed 5120-byte unit limit. Preserve the conflict with supplied examples; do not silently use KB. Business <code>200</code>/<code>406</code>/<code>400</code> request codes are not HTTP codes. Example locator/response fields do not prove CSV mapping. SPFE-S03/S08/S06; SND-G02.</td>
+</tr>
+<tr>
+<td>Existing DTS</td>
+<td>Preferred transformation implementation candidate under PRD-SEI-223 FR43–46 and SPEC-SEI-008. Prove Spain field coverage, profile/version coexistence, rule isolation, final-byte validation, semantic preservation and operational ownership. FR UBL 2.1 or Factur-X support alone cannot establish this. SND-G03.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-shared-authentication-safety-and-source-conflicts">3.2 Shared authentication, safety and source conflicts</h3>
+<p>Authenticate each caller, then check current represented-business and action authority. M2M access, a ready connection or trace IDs do not replace delegation or signing permission. Bind retained invoice, action and upload references to the correct business/environment. Keep token-bearing URLs and webhook credentials out of logs/events. These are proposed Sage controls supporting OUT-R07–14, not additional claims about the guide.</p>
+<p>The guide documents <code>Idempotency-Key</code> for invoice POST but no key lifetime, input-binding rule or concurrency guarantee. The logical same-input replay/changed-input conflict requirement remains open at the API boundary. An upload retry and a fresh invoice POST have different effects. Qualify which party retries processing, the upload-complete trigger and how to observe the original action before repetition. SND-G04.</p>
+<p>INT-SND01 records unresolved schema differences: subscription casing, <code>data.id</code> versus <code>attributes.eInvoiceId</code>, <code>currentStatus</code> object/string/empty object, a duplicated <code>specversion</code>, and unprefixed subscription event versus prefixed notification type. Its <code>New</code> example after the supposed sent event does not establish status progression. Obtain the actual schema/event/status contracts; do not build a normative payload from those examples. SND-G05/07.</p>
+<p>Use <a href="SPEC-SEI-023.html#exceptions-errors-and-recovery">SEI023's exception decisions</a> for functional handling. The source values below identify evidence to inspect; they are not a complete error catalogue or universal retry policy. INT-SND01.</p>
+<table>
+<thead>
+<tr>
+<th>Supplied value or missing result</th>
+<th>Meaning / API qualification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SENDER_NOT_ONBOARDED</code>; connection not <code>CONNECTED</code></td>
+<td>Guide prerequisite failure. Resolve selected setup and inspect the existing attempt before another submission. Do not infer that asynchronous POST acceptance proved readiness. SND-G02/04/06.</td>
+</tr>
+<tr>
+<td><code>MALICIOUS_ATTACHMENTS</code></td>
+<td>Identify the affected file and processing outcome. The guide's fresh-local-file advice establishes no amendment, deletion or upload-renewal endpoint. Qualify safe file recovery without changing issued content or creating another invoice. SND-G03/04.</td>
+</tr>
+<tr>
+<td>Status event with <code>data.errorCode</code>; <code>operationStatus: ERROR</code></td>
+<td>Inspect the actual error and history for the original invoice/action. Processing completion can be an error; it cannot establish that every external action failed or can be repeated. Missing status/error-library semantics remain SND-G05.</td>
+</tr>
+<tr>
+<td><code>Submitted</code>, absent event or failed detail read</td>
+<td>Non-production <code>Submitted</code> may indicate unresolved recipient registration. Use the retained ID for qualified observation; no notification or failed refresh establishes delivery or absence. A lost POST ID has no evidenced discovery-by-key operation. SND-G04/05.</td>
+</tr>
+</tbody>
+</table>
+<p>The selected contracts must establish error stage, effect certainty, retry ownership and observation evidence. HTTP error names alone cannot release a resend. No general-purpose cancellation endpoint or fixed retry/backoff schedule is evidenced by this guide.</p>
+<h3 id="33-transitional-pdf-generation-and-attachment-delivery">3.3 Transitional PDF generation and attachment delivery</h3>
+<p><a href="SPEC-SEI-023.html#transitional-pdf-behaviour">OUT-PDF-R01/02</a> owns behaviour. The local-product generation decision and legal applicability are recorded in <a href="../../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md#transitional-pdf-product-rule">PRD-SEI-246</a>. The API carries supplied files; its attachment fields are not evidence that it generates the required PDF. REF-PDF-DECISION; RD238-T2.</p>
+<table>
+<thead>
+<tr>
+<th>Step / responsibility</th>
+<th>Existing evidence and Spain assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local product generates the PDF</td>
+<td>Bind the file to the exact invoice/revision and applicability result. This is the recorded product allocation, not an inferred FR API capability.</td>
+</tr>
+<tr>
+<td>Declare a PDF for qualified private recipient delivery</td>
+<td>Existing <code>POST /datasets/{datasetId}/e-invoices</code> uses <code>attachments[].filename</code> and <code>attachments[].mimetype: "application/pdf"</code>. Include a matching product-generated file only when the selected Spain provider/connector is qualified to deliver it to the recipient. No new endpoint or Spain support is established by this field. INT-SND01 step 2.</td>
+</tr>
+<tr>
+<td>Upload the binary</td>
+<td>PUT the local product's file to its returned <code>uploadUrl</code>. Qualify binding, completion trigger, scanning, limits and retry safety. <code>200 OK</code> proves the documented upload result only. INT-SND01 step 3; SND-G03/04.</td>
+</tr>
+<tr>
+<td>Keep the public action separate</td>
+<td>Do not forward this PDF to <code>SendInvoice</code>, inside UBL or as a separate MIME part. An existing common attachment list needs per-action destination filtering before reuse. Public request packaging of structured UBL is a different transport concern. RD238-T2; SND-G02/08.</td>
+</tr>
+<tr>
+<td>Public structured route or private connector cannot deliver the PDF</td>
+<td>Use a separately qualified recipient channel. Channel selection, operational owner, dispatch contract, timing and receipt evidence remain open; no email or other API is assumed. A private-upload capability cannot close this gap for the public route. SND-G08.</td>
+</tr>
+<tr>
+<td>Confirm the recipient obligation</td>
+<td>Correlate PDF delivery evidence or an owned pending/failure result to the invoice. Check whether the status/detail contract actually proves PDF delivery; do not infer it from general invoice processing completion. Recover only affected work. SND-G05/08.</td>
+</tr>
+</tbody>
+</table>
+<p><code>format=facturx</code> remains a separate FR capability that can generate a hybrid on retrieval. It is not the decided generation path for this transitional PDF. A France-optional or Demo-required PDF setting does not determine Spain applicability. INT-SND01; OUT-PDF-R01.</p>
+<h3 id="34-fr-attempt-errors-and-annex-ii-handoff">3.4 FR attempt errors and Annex II handoff</h3>
+<p>The later <a href="../../context/FR API/Shared/invoice-flow-error-handling-guide-extract.md">INT-ERR01 error guide</a> supplies error codes and clarifies the retrieve response. Read <code>data.attributes.history[].operationStatus</code> and <code>history[].errorCode</code> for the relevant attempt. <code>currentStatus</code> contains neither field; <code>Submitted</code> can coexist with a failed sending history item. The guide marks <code>data.meta</code> required. Pin the actual schema and attempt correlation before client generation; the development reference path containing <code>1.13.0</code> is not a deployment guarantee.</p>
+<table>
+<thead>
+<tr>
+<th>Source evidence / exact codes</th>
+<th>Product handling and remaining qualification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Status notification follows handling; <code>ERROR</code> is final for that attempt</td>
+<td>Record the terminal attempt and the associated invoice/action. Do not infer recipient success from notification arrival or use another history item's outcome. The relationship between a final failed attempt and later platform retry remains SND-G04/05.</td>
+</tr>
+<tr>
+<td><code>ERR-SENDING-DOC-001</code>–<code>004</code></td>
+<td>Source assigns retry to the platform flow and support if unchanged after six days. Product observes original work; it does not create another invoice, change key or repeat delivery/public copy. Prove platform retry trigger, identity, scope and evidence.</td>
+</tr>
+<tr>
+<td><code>ERR-SENDING-DOC-005</code>/<code>006</code>/<code>007</code></td>
+<td>Tracking persistence/unexpected errors require support; key lookup failure requires checking the original valid key and support if persistent. Preserve a possible provider effect even when local tracking failed. A new key is not a repair instruction.</td>
+</tr>
+<tr>
+<td><code>ERR-SENDING-STATUS-*</code></td>
+<td>Status-change processing is separate from invoice dispatch. Exact code actions are in INT-ERR01: selected temporary cases use platform retry; mapping/persistence/unsupported status cases need support or correction. Preserve irregular <code>-0010</code>/<code>-0011</code>. No whole-invoice resend to repair a status attempt.</td>
+</tr>
+<tr>
+<td>Six-day support wording</td>
+<td>Apply only to source rows that state it, after qualifying the selected FR build/runbook. It is not a general retry budget, Spain SLA, permission to delay a time-sensitive duty or the Articles 5.7/8.4 outage allowance.</td>
+</tr>
+</tbody>
+</table>
+<p>SPFE-S22 is a separate Annex II supplied on 22 October, not a new invoice-send error dictionary. Its reviewed event codes and key cardinalities align with final BOE Annex II. Recipient <code>PAYMENT</code>/<code>REJECTION</code>, issuer <code>SETTLEMENT</code>/<code>DEFAULT</code> and their cancellations belong to <a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#annex-ii-event-field-traceability">SPEC-SEI-009</a>. A failed technical attempt cannot create a buyer rejection or cancel an invoice/report automatically. Keep FR processing codes, AEAT admission/error results and business lifecycle codes separate. SPFE-S02 Annex II; <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-ii-supplement-reviewed-22-october-2026">supplement comparison and remaining gates</a>.</p>
+<h2 id="4-open-engineering-decisions">4 Open engineering decisions</h2>
+<p>Each owner must record the source capability/build, retained behaviour, Spain changes, missing coverage and acceptance evidence before the affected scope is enabled. Existing implementation reuse and design-pattern reuse remain separate claims.</p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Missing evidence / activation consequence</th>
+<th>Accountable roles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SND-G01 Preparation and final intake</td>
+<td>Actual complete-data and final-revision contracts, generation ownership and relationship to file POST. No claim that the supplied sending API covers preparation.</td>
+<td>ERP Product, API, E-Invoice, Architecture.</td>
+</tr>
+<tr>
+<td>SND-G02 Spain binding</td>
+<td>Business/dataset/address mapping, provider/environment IDs, recipient eligibility and the four platform combinations in §2.2. Qualify each platform handoff and its delivery evidence, including public-to-private acquisition and same/different private providers. Pin public business schemas, profile conflict, size, batch, authority, locator and CSV meanings. Preserve SPFE-Q03/08/13/15/18.</td>
+<td>Spain Compliance, Integration, Routing, API/public connector.</td>
+</tr>
+<tr>
+<td>SND-G03 Files, DTS and trust</td>
+<td>Required files, Spain UBL/profile and MIME support, scan/upload contracts, DTS build/mappings/rules, protected trust model and optional hybrid generation.</td>
+<td>DTS, Validation, Trust, Security, Integration.</td>
+</tr>
+<tr>
+<td>SND-G04 Mutation and recovery</td>
+<td>Idempotency scope/window/input binding, concurrency, upload completion/renewal, lost-POST-ID discovery, original-action query, cancellation effect boundary and safe retry ownership. Unproven absence cannot release resend; missing cancel/resume contracts remain gaps.</td>
+<td>API, Integration, Operations.</td>
+</tr>
+<tr>
+<td>SND-G05 Events and result meanings</td>
+<td>Subscription surface/schema, webhook security, selected source/type/status library, delivery/order/freshness, error outcomes and separate public-copy evidence.</td>
+<td>API, Events, Lifecycle, Security.</td>
+</tr>
+<tr>
+<td>SND-G06 Business coordination</td>
+<td>Exact-revision decisions, current client authority and ERP issue/copy proof. OUT-Q02 portfolio/accounting contracts remain separate optional scope; no bulk API is required for the single-invoice flow.</td>
+<td>Product, ERP, Identity, Compliance, Architecture.</td>
+</tr>
+<tr>
+<td>SND-G07 Build and compatibility</td>
+<td>Pin OpenAPI/event/schema versions, resolve guide conflicts, prove existing FR regressions, Spain isolation, monitoring/support, retention and measured capacity. Qualify retry budgets, stalled-work detection, escalation and evidence-backed case closure; no numerical targets are established here.</td>
+<td>API owner, Architecture, Operations, Records.</td>
+</tr>
+<tr>
+<td>SND-G08 PDF recipient channel</td>
+<td>Prove actual private attachment delivery or select a separate recipient channel; qualify per-action PDF exclusion, file/revision binding, applicability/exception evidence, timing, outcomes and recovery. Generation stays with the local product.</td>
+<td>Local Product, API, Integration, Spain Compliance, Operations.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-api-qualification-checks">5 API qualification checks</h2>
+<p>These checks are specified evidence, not completed implementation tests. Functional checks retain their existing OUT IDs in SPEC-SEI-023.</p>
+<p>For <strong>Replay and recovery</strong> and <strong>Notifications and results</strong>, include the INT-ERR01 case where <code>currentStatus.status</code> is <code>Submitted</code> but the relevant history item is <code>ERROR</code>/<code>ERR-SENDING-DOC-004</code>. Prove platform retry ownership, immutable attempt evidence, lost-tracking reconciliation and no fresh consumer POST/key. Resolve how later attempts are correlated. For <strong>Public delivery and copy</strong> and <strong>Country isolation and compatibility</strong>, prove no FR processing error is mapped into an Annex II business report; use the actor-specific field gates already held by SPEC-SEI-009. Source guidance and implementation tests remain separate evidence.</p>
+<table>
+<thead>
+<tr>
+<th>Check / functional acceptance references</th>
+<th>Evidence required before activation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access and authority / OUT-A13–16</td>
+<td>Demonstrate business/dataset/environment isolation, delegated action scope, protected file URLs and authority loss between plan and execution. INT-SND01; SND-G02/06.</td>
+</tr>
+<tr>
+<td>Replay and recovery / OUT-A02/08/18/20/21</td>
+<td>Same-input POST replay, conflicting input, concurrent calls, cancellation races and lost response retain the original action. No second invoice when the ID is unknown; cancellation remains pending after a possible effect until qualified evidence resolves it. INT-SND01 step 2; SND-G04.</td>
+</tr>
+<tr>
+<td>File uploads / OUT-A06/09/20</td>
+<td>Partial, expired, rejected and uncertain uploads follow the pinned contract. Preserve good file bindings; no fresh invoice merely to renew upload access. Final bytes remain bound to the issued revision; scan failure cannot silently replace issued content. INT-SND01 step 3; SND-G03/04.</td>
+</tr>
+<tr>
+<td>Notifications and results / OUT-A07/08/10/22</td>
+<td>Test success and <code>ERROR</code> notifications, duplicate/out-of-order or contradictory delivery, invalid scope/signature, lost event and failed refresh. Plain detail reads retain source evidence and freshness; never infer buyer acceptance, copy completion or a need to resend. INT-SND01 steps 1/4/5; SND-G05.</td>
+</tr>
+<tr>
+<td>Formats and transformation / OUT-A06/11</td>
+<td>Qualify Spain mappings, public UBL 2.5/rectification, private file combinations and optional Factur-X independently. Record DTS build, pack/version and semantic-loss results; FR/Demo rules do not become Spain defaults. SPFE-S08; INT-SND01; SND-G03/07.</td>
+</tr>
+<tr>
+<td>Public delivery and copy / OUT-A03–05; OUT-SPFE-A01–04; OUT-A19/21</td>
+<td>Exercise all four platform combinations in §2.2, with same-provider and different-provider private delivery. Prove each handoff and recipient result; hold unsupported or unknown paths. Prove actual issuance/copy coordination, original/copy classification and no extra copy after public use. Exercise permitted correction/withdrawal, partial admission and qualified outages. Include both delivery-success/copy-failure and copy-success/delivery-failure; retain completed actions. Pin schema/credential port and distinguish transport, request, item and CSV evidence. SPFE-S02/S03/S08/S16/S06; SND-G02/05/06.</td>
+</tr>
+<tr>
+<td>Country isolation and compatibility / OUT-A11/12/17</td>
+<td>Regress existing France behaviour. A Spain rule/route upgrade cannot change another country or an earlier action plan. Record API/build support, recovery owner, retention and measured operating limits. REF-PRODUCT; SND-G07.</td>
+</tr>
+<tr>
+<td>Transitional PDF delivery / OUT-PDF-A01–03</td>
+<td>Use a product-generated PDF in a qualified private manifest and upload it through the returned URL; prove actual recipient evidence. For the public structured route, use the qualified separate PDF channel. Inspect all public request parts for exclusion. Failed PDF work must not repeat successful invoice/copy actions. Regress FR file choices and one-client accountant sending. RD238-T2; INT-SND01; SND-G08.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ref-source-references">REF Source references</h2>
+<p>The guide is supplied evidence with an unknown original revision/build. Original Spain files establish their own legal or technical facts; examples do not establish complete contracts. English extracts and the inventory are reading aids. No source proves implementation readiness.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Source / version and exact locator</th>
+<th>Supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INT-SND01</td>
+<td><a href="../../context/FR API/Sending/send-e-invoice-guide-extract.md">FR guide evidence extract</a>, received 22 October 2026; prerequisites, Submission design requirements and steps 1–5; original attachment hash recorded there</td>
+<td>Documented methods, fields, file choices, codes and source conflicts. Canonical guide URL, full OpenAPI, event library and deployed build not supplied.</td>
+</tr>
+<tr>
+<td>INT-ERR01</td>
+<td><a href="../../context/FR API/Shared/invoice-flow-error-handling-guide-extract.md">FR error-handling extract</a>, received 22 October 2026, revision/build unknown; Processing and error fields; <code>ERR-SENDING-DOC</code>, <code>ERR-SENDING-STATUS</code>; Recovery interpretation</td>
+<td>Concrete history fields, exact error actions and platform retry ownership. Selected-code six-day support guidance does not establish Spain service or legal deadlines.</td>
+</tr>
+<tr>
+<td>SPFE-S22</td>
+<td><a href="../../context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf">Separate Annex II</a>, filename 21 October 2026, supplied 22 October; §§1–4 pp. 4–14, L1 p. 15</td>
+<td>Supplementary lifecycle code/field evidence; release and supersession unverified. Final SPFE-S02 Annex II remains legal source. No send/download endpoint or AEAT processing-error dictionary.</td>
+</tr>
+<tr>
+<td>REF-BASE</td>
+<td><a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a>, updated 13 October 2026; Parts 2–4, OUT-INT-01–11 and OUT-D01–12</td>
+<td>Original logical controls, technical analysis and acceptance coverage.</td>
+</tr>
+<tr>
+<td>REF-PDF-DECISION</td>
+<td><a href="../../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md#transitional-pdf-product-rule">PRD-SEI-246 PDF product rule</a>, updated 22 October 2026; agreed boundaries and product rule</td>
+<td>Local-product generation allocation and single-invoice scope; not a deployed PDF channel contract.</td>
+</tr>
+<tr>
+<td>RD238-T2</td>
+<td><a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295">Original published RD 238/2026</a>, published 31 March 2026, checked 22 October 2026; transitional provision 2(1)–(2), final provision 4</td>
+<td>Source of the PDF applicability and recipient-only restriction; no API or PDF-generation allocation.</td>
+</tr>
+<tr>
+<td>REF-PRODUCT</td>
+<td><a href="../../prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>, BR1–14 and FR43–46; <a href="../../prds/PRD-SEI-227-e-invoicing-as-a-service.md">PRD-SEI-227</a>, country-pack governance; <a href="../../specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md">SPEC-SEI-008</a>, updated 13 October 2026, DTS reuse assessment</td>
+<td>Shared/country separation and preferred DTS candidate. Source designs do not prove deployed contracts or mappings.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="../../context/BOE-A-2026-20587.pdf">BOE PDF</a>, final Order HAC/1028/2026, published 5 October 2026; Articles 3.4–3.6, 4 and 5.4–5.7; <a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587">official text</a></td>
+<td>Legal copy, file, admission and correction duties; no physical API coordination contract.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf">Catalogue PDF</a>, draft 0.1.0, 9 October 2026; sections 6.2–6.4 pp. 10–12</td>
+<td>Submission/withdrawal/query descriptions, per-invoice authority, batch and disputed byte limit. Selected provider/build qualification remains open.</td>
+</tr>
+<tr>
+<td>SPFE-S08</td>
+<td><a href="../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf">Formats PDF</a>, draft 0.1.0, 9 October 2026; 5.1.1 p. 8, 5.1.2 pp. 8–12, 5.2 p. 14</td>
+<td>UBL 2.5 document selection, messaging and business response codes. Not an invoice schema or DTS build.</td>
+</tr>
+<tr>
+<td>SPFE-S16</td>
+<td><a href="../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl">SendInvoice WSDL</a>, supplied 13 October 2026; documentation, operation, SOAP binding, certificate/seal ports</td>
+<td>Exact PRE transport; opaque UBL attachments need separate validation. No production endpoint or replay promise.</td>
+</tr>
+<tr>
+<td>SPFE-S06</td>
+<td><a href="../../context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/RespuestaAltaFacturas.xml">RespuestaAltaFacturas.xml</a>, supplied 13 October 2026; DocumentResponse / DocumentReference</td>
+<td>Illustrative item results, locator and response identifier; not complete CSV mapping.</td>
+</tr>
+<tr>
+<td>REF-SPAIN</td>
+<td><a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a>, source register and open SPFE questions; <a href="../../assets/regulatory/spain/spfe/source-manifest.json">manifest</a></td>
+<td>Original-file versions/hashes, source conflicts and contract inventory; not mapping completeness or live acceptance.</td>
+</tr>
+</tbody>
+</table></main></div></body></html>

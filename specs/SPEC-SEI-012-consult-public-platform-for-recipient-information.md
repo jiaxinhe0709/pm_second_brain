@@ -48,7 +48,7 @@ The design remains a draft. **Confirmed** means supported by the cited source, w
 
 This **proposed logical design** helps Sage establish where an invoice recipient can receive an invoice. It provides an early indication during preparation and current evidence when the final exchange plan is created. It does not establish that AEAT provides a central recipient-directory API.
 
-[PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md), FR1/3/5/29, requires evidence explaining the recipient route and an invoice representation supported by that route. [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md), OUT-03/09/10, uses the early indication and checks current route evidence before final dispatch. [PRD-SEI-214](../prds/PRD-SEI-214-connections-registration-routing-structured-review.md) separately governs the issuer's own connections and routes. The issuer's connection does not reveal the recipient's destination.
+[PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md), FR1/3/5/29, requires evidence explaining the recipient route and an invoice representation supported by that route. [SPEC-SEI-007](archive/SPEC-SEI-007-invoice-sending-solution.md), OUT-03/09/10, uses the early indication and checks current route evidence before final dispatch. [PRD-SEI-214](../prds/PRD-SEI-214-connections-registration-routing-structured-review.md) separately governs the issuer's own connections and routes. The issuer's connection does not reveal the recipient's destination.
 
 | Evidence | Confirmed basis | Limit and consequence |
 |---|---|---|

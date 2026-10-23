@@ -34,7 +34,7 @@ confluence:
 
 # Onboarding Failure and Reconciliation Solution Specification
 
-> **Historical specification.** Recovery is now included in [SPEC-SEI-002 — Customer Onboarding](../SPEC-SEI-002-onboarding-solution-specification.md#onb-08-recovery). The earlier requirements and permanent IDs remain available here. Publication is disabled; lifecycle status and the historical Confluence page ID are unchanged.
+> **Historical specification.** Recovery is now included in [SPEC-SEI-002 — Customer Onboarding](SPEC-SEI-002-onboarding-solution-specification.md#onb-08-recovery). The earlier requirements and permanent IDs remain available here. Publication is disabled; lifecycle status and the historical Confluence page ID are unchanged.
 
 Terminology follows the [shared e-invoicing glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
@@ -48,7 +48,7 @@ The design remains a draft. **Proposed** choices still need review; **open** dec
 
 ### 1 Purpose and design status
 
-This **proposed logical design** defines failure handling for the ONB-S01–08 journeys in [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md). It covers first setup, existing public or private services, combined setup, confirmation or extension, and supported platform changes. The E-Invoice Service classifies failures, coordinates correction, retries safely and reconciles uncertain effects. SPEC-SEI-002 defines the parent journey, readiness and final ERP result. [PRD-SEI-107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md) owns public recovery requirements. [PRD-SEI-222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) supplies private setup and transition constraints. [PRD-SEI-225](../../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md) supplies shared operations principles.
+This **proposed logical design** defines failure handling for the ONB-S01–08 journeys in [SPEC-SEI-002](SPEC-SEI-002-onboarding-solution-specification.md). It covers first setup, existing public or private services, combined setup, confirmation or extension, and supported platform changes. The E-Invoice Service classifies failures, coordinates correction, retries safely and reconciles uncertain effects. SPEC-SEI-002 defines the parent journey, readiness and final ERP result. [PRD-SEI-107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md) owns public recovery requirements. [PRD-SEI-222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) supplies private setup and transition constraints. [PRD-SEI-225](../../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md) supplies shared operations principles.
 
 **Confirmed ownership direction:** the E-Invoice Service owns setup and recovery coordination. **Onboarding** and **recovery** name workflow responsibilities within that service. They do not name separate services. **Proposed:** an internal onboarding component could implement setup and recovery coordination. Its need and implementation remain open. Existing scheduling, saved-operation and case capabilities must be assessed before new component work is agreed. Operations owns assigned manual cases; adapters and dependency services execute their qualified operations.
 
@@ -145,7 +145,7 @@ This follows the [shared platform and country-pack direction](../../prds/PRD-SEI
 
 Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
 
-Use the Common, Scenario-specific and Conditional meanings in [SPEC-SEI-002's diagram guide](../SPEC-SEI-002-onboarding-solution-specification.md#3-process-diagrams-and-text-equivalent). Capture, classification, scope protection and result publication are common recovery behaviour. The failed operation selects its source and parent checkpoint. Correction, safe retry, original-effect observation and escalation are conditional. Shared behaviour does not qualify a provider contract or an existing implementation.
+Use the Common, Scenario-specific and Conditional meanings in [SPEC-SEI-002's diagram guide](SPEC-SEI-002-onboarding-solution-specification.md#3-process-diagrams-and-text-equivalent). Capture, classification, scope protection and result publication are common recovery behaviour. The failed operation selects its source and parent checkpoint. Correction, safe retry, original-effect observation and escalation are conditional. Shared behaviour does not qualify a provider contract or an existing implementation.
 
 The **Domain Service - E-Invoice Service** lane owns setup and recovery coordination. The proposed internal onboarding component stays within that lane. Other Services covers qualified certificate, identity and connection dependencies. Operations handles manual cases. The diagrams keep their existing layouts; their labels do not imply separate onboarding or recovery services.
 
@@ -161,7 +161,7 @@ The **Domain Service - E-Invoice Service** lane owns setup and recovery coordina
 
 [Editable Draw.io](../../assets/diagrams/onboarding-service-continuity-recovery-process.drawio) · [PNG](../../assets/diagrams/onboarding-service-continuity-recovery-process.png). Text equivalent: OFR-01/02 capture original scenario, operation and pre-state → determine which functions depend on the failure → preserve independently valid functions, and send invalid/uncertain scope to its Connection/Routing owner → OFR-03/04 handles correction or approved safe retry, while possible effects use OFR-05/06 and unresolved work uses OFR-07 → OFR-08 returns the result to the exact parent ONB gate → parent ONB-11 returns per-function ERP results. Recovered external success does not itself mean an active route; supported activation still requires ONB-07/SPC-04.
 
-The [public sequence](../SPEC-SEI-002-onboarding-solution-specification.md#3-process-diagrams-and-text-equivalent) shows certificate reuse, correction and unavailable-evidence alternatives under ONB-03. The private sequence uses the same alternatives under ONB-06. The table below maps their findings to recovery. It is a checkpoint map, not a new error catalogue or state model.
+The [public sequence](SPEC-SEI-002-onboarding-solution-specification.md#3-process-diagrams-and-text-equivalent) shows certificate reuse, correction and unavailable-evidence alternatives under ONB-03. The private sequence uses the same alternatives under ONB-06. The table below maps their findings to recovery. It is a checkpoint map, not a new error catalogue or state model.
 
 | Finding or operation | Recovery action and owner | Parent checkpoint after resolution |
 |---|---|---|

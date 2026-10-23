@@ -1,0 +1,215 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Invoice Sending Solution Summary</title><style>
+*{box-sizing:border-box}body{margin:0;color:#263238;background:#fff;font:16px/1.55 Arial,sans-serif}
+header{padding:18px 26px;background:#f5f7f8;border-bottom:1px solid #cdd3d8}nav{display:flex;gap:24px;flex-wrap:wrap}a{color:#075eaa}
+.layout{display:grid;grid-template-columns:220px minmax(0,1120px);gap:30px;max-width:1440px;margin:24px auto;padding:0 24px}
+main{min-width:0}.outline{position:sticky;top:12px;align-self:start;max-height:92vh;overflow:auto;font-size:13px}.outline ul{padding-left:18px}
+h1{font-size:30px}h2{margin-top:36px}h3{margin-top:30px}table{border-collapse:collapse;width:100%;margin:18px 0;font-size:14px}
+th,td{border:1px solid #cdd3d8;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f5f7}
+code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100%;max-height:720px;overflow:auto;border:1px solid #b8c0c8;margin:18px 0}
+.diagram img{display:block;max-width:none}p{max-width:1060px}
+@media(max-width:800px){.layout{display:block}.outline{position:static;max-height:200px;margin-bottom:24px}}
+</style></head><body><header><p>Invoice sending · Unpublished draft · Local review</p><nav><a href="index.html">All sending views</a><a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">Retained SPEC-SEI-007</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
+<ul>
+<li><a href="#invoice-sending-solution-summary">Invoice Sending Solution Summary</a><ul>
+<li><a href="#revision-overview">Revision overview</a></li>
+<li><a href="#1-purpose-and-intended-outcomes">1 Purpose and intended outcomes</a></li>
+<li><a href="#2-terms-used">2 Terms used</a></li>
+<li><a href="#3-scope-and-actors">3 Scope and actors</a></li>
+<li><a href="#4-end-to-end-workflow">4 End-to-end workflow</a></li>
+<li><a href="#5-reuse-direction-and-spain-boundaries">5 Reuse direction and Spain boundaries</a></li>
+<li><a href="#6-material-decisions-and-dependencies">6 Material decisions and dependencies</a></li>
+<li><a href="#7-completion-and-assurance">7 Completion and assurance</a></li>
+<li><a href="#ref-source-references">REF Source references</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><main><h1 id="invoice-sending-solution-summary">Invoice Sending Solution Summary</h1>
+<p><a href="SPEC-SEI-023.html">Logical Feature Specification</a> · <a href="SPEC-SEI-024.html">Sequence and Reuse Assessment</a> · <a href="../../specs/invoice-sending/README.md">Feature landing page</a></p>
+<h2 id="revision-overview">Revision overview</h2>
+<p>This separate companion set reorganises <a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> for stakeholder, business-process and engineering review. It adds the supplied FR sending-guide assessment. The predecessor stays unchanged, including its detailed contracts, data inventory and field traceability. OUT activity, requirement and acceptance IDs retain their meanings.</p>
+<p>ERP issuance ownership and independent action outcomes remain unchanged. The current journey sends one invoice for a business or its authorised accountant. PRD-SEI-246 now records the local-product transitional PDF responsibility; exact channel coverage and issuance/copy coordination remain open. SPEC-SEI-007 remains the selected source for Confluence page <code>923861395</code>. All three companions are unpublished drafts.</p>
+<h2 id="1-purpose-and-intended-outcomes">1 Purpose and intended outcomes</h2>
+<p>A Spanish business or authorised accountant must prepare an invoice, resolve blocking issues and send the exact final invoice through a qualified route. The ERP owns issuance. The product must show what happened to each delivery or required public copy and who must act next.</p>
+<p>This summary is for Product, directors and cross-functional stakeholders. <a href="SPEC-SEI-023.html">SPEC-SEI-023</a> owns the proposed behaviour in this set. <a href="SPEC-SEI-024.html">SPEC-SEI-024</a> assesses existing APIs and evidence gaps. REF-BASE; REF-PRODUCT.</p>
+<h2 id="2-terms-used">2 Terms used</h2>
+<p>Use the <a href="../../context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>. The represented business, authenticated caller, invoice seller/buyer, approver and signer are distinct roles. Login, connection and certificate possession do not by themselves establish action authority.</p>
+<p>An <strong>exchange action</strong> has one purpose and result, such as recipient delivery or faithful public-copy submission. A processing notification or technical acknowledgement does not establish buyer acceptance.</p>
+<h2 id="3-scope-and-actors">3 Scope and actors</h2>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Intended outcome / boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Direct business or accountant for one client</td>
+<td>Prepare, approve where authorised and send one invoice with current business/action authority.</td>
+</tr>
+<tr>
+<td>Service-assisted draft entry and validation — TBC</td>
+<td>Confirm scope and handoff. The proposed path returns issues before issuance; correction creates a new draft revision.</td>
+</tr>
+<tr>
+<td>Final candidate ready</td>
+<td>Qualify its exact data, recipient route, files, authority and required actions before dependent issuance.</td>
+</tr>
+<tr>
+<td>Public or private recipient route</td>
+<td>Select one eligible delivery route from current evidence. Apply Spain copy rules separately.</td>
+</tr>
+<tr>
+<td>Already-issued invoice or uncertain action</td>
+<td>Preserve issuance and earlier results. Use the applicable correction or reconciliation path.</td>
+</tr>
+<tr>
+<td>Transitional PDF required</td>
+<td>The local product generates the matching PDF. Recipient delivery uses a separately qualified capability and owner. See OUT-PDF-R01/02.</td>
+</tr>
+</tbody>
+</table>
+<p>An accountant sending one client's invoice uses the same route and copy controls as the business user. Batch sending is not a prerequisite, and the supplied FR guide does not establish a bulk accountant requirement. Wider portfolio and accounting-handoff proposals stay separate under OUT-Q02.</p>
+<p>Full setup belongs to <a href="../../specs/archive/onboarding/README.md">onboarding</a>. Creation, trust, route qualification and later lifecycle reporting retain their owning specifications. This sending set coordinates their handoffs; it does not approve new service boundaries. REF-BASE; REF-PRODUCT.</p>
+<h2 id="4-end-to-end-workflow">4 End-to-end workflow</h2>
+<p>The main decision is the recipient route. <strong>Private delivery has a separate faithful public-copy action; public recipient delivery has no extra copy.</strong> The same single-invoice flow applies to a business user or an authorised accountant. The diagram shows these actions separately so one result cannot hide another. REF-LOGICAL; SPFE-S02 Article 4.</p>
+<p><div class="diagram"><img alt="Single-invoice sending through private or public routes, with a separate faithful public copy and local-product PDF responsibility" src="../../assets/diagrams/invoice-sending-end-to-end-workflow.svg" /></div></p>
+<p><a href="../../assets/diagrams/invoice-sending-end-to-end-workflow.svg">Full-size SVG</a> · <a href="../../assets/diagrams/invoice-sending-end-to-end-workflow.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/invoice-sending-end-to-end-workflow.png">PNG</a>.</p>
+<p>The <strong>red dashed box keeps service-assisted draft entry, preparation and validation TBC</strong>. Final candidates and qualified already-issued invoices still need current authority, final validation and an eligible route. A failed lookup holds dispatch; it cannot select public fallback.</p>
+<p>The ERP owns issuance. Coordinate any required public copy with issuance under OUT-Q03. Recipient delivery and public-copy results stay independent; technical success does not establish buyer acceptance. OUT-SPFE-R01; SPFE-S02 Article 4; OUT-13–15.</p>
+<p><strong>PDF responsibility:</strong> the local product generates the transitional readable PDF where the <a href="../../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md#transitional-pdf-product-rule">product rule</a> applies. Send it to the recipient, never to the public platform. A qualified private attachment path may carry it; the public structured-invoice route needs a separate recipient PDF channel. <a href="SPEC-SEI-023.html#transitional-pdf-behaviour">SEI023</a> defines behaviour; <a href="SPEC-SEI-024.html#33-transitional-pdf-generation-and-attachment-delivery">SEI024</a> assesses upload and delivery. RD238-T2.</p>
+<p>SEI023 retains the <a href="SPEC-SEI-023.html#3-process-and-activity-order">process and activity order</a>, <a href="SPEC-SEI-023.html#exceptions-errors-and-recovery">exception and recovery decisions</a>, <a href="SPEC-SEI-023.html#4-shared-controls-and-spain-binding">Spain rules</a> and <a href="SPEC-SEI-023.html#6-functional-acceptance">scenario checks</a>. Recovery preserves successful actions and resolves only affected work.</p>
+<h2 id="5-reuse-direction-and-spain-boundaries">5 Reuse direction and Spain boundaries</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Direction and consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared design patterns</td>
+<td>Retain revision binding, independent action results, approval evidence and recovery. Reusing these patterns does not prove existing code coverage.</td>
+</tr>
+<tr>
+<td>FR sending APIs</td>
+<td>Assess the documented create/upload/event/detail flow first. It starts with prepared files; it does not establish the complete draft-to-issuance Spain journey. INT-SND01; SPEC-SEI-024.</td>
+</tr>
+<tr>
+<td>Shared capability with country binding</td>
+<td>Qualify identity, addresses, document/profile selection, route evidence, trust and status mappings for the selected Spain route.</td>
+</tr>
+<tr>
+<td>Transformation</td>
+<td>Existing DTS is the preferred candidate. Qualify its build, Spain mappings, rule packs, semantic preservation and operations under <a href="../../specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md">SPEC-SEI-008</a>. REF-DTS.</td>
+</tr>
+<tr>
+<td>Spain-specific behaviour</td>
+<td>Public recipient fallback, faithful copies and legal correction rules stay in Spain policy. Public transport and format evidence do not establish a ready Sage integration. SPFE-S02/S08/S16.</td>
+</tr>
+<tr>
+<td>Unknown implementation</td>
+<td>Preparation/final handoffs, copy/issuance coordination, per-action results, approval and portfolio coverage need named owners and evidence before activation.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-material-decisions-and-dependencies">6 Material decisions and dependencies</h2>
+<table>
+<thead>
+<tr>
+<th>Decision / risk</th>
+<th>Consequence and owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Service-assisted draft entry and validation — TBC</td>
+<td>ERP Product, API and Architecture must confirm the scope, owner and draft-to-final handoff before enabling this path.</td>
+</tr>
+<tr>
+<td>OUT-Q01 Approval policy</td>
+<td>Product, Identity and Spain Compliance must qualify eligible roles, manual/automatic decisions and revision binding. Missing evidence holds the dependent action.</td>
+</tr>
+<tr>
+<td>OUT-Q03 Issuance and public-copy coordination</td>
+<td>ERP, E-Invoice and Compliance owners must prove the actual boundary and partial/lost-result recovery. A saved queue intent alone is insufficient.</td>
+</tr>
+<tr>
+<td>Route and trust qualification</td>
+<td>Routing, Integration, Identity and Trust owners must supply fresh eligible route evidence and selected-purpose authority. An unresolved lookup cannot select public delivery by default.</td>
+</tr>
+<tr>
+<td>FR contract and Spain coverage</td>
+<td>API and Integration owners must pin the actual schemas/build, country fields, representation support, idempotency and event meanings. Existing FR documentation is insufficient for activation.</td>
+</tr>
+<tr>
+<td>Transitional PDF delivery channel</td>
+<td>Local Product, API, Integration and Compliance must qualify attachment or separate-channel recipient delivery. The existing attachment API is a reuse candidate; actual Spain support and delivery proof remain open under SND-G08.</td>
+</tr>
+<tr>
+<td>OUT-Q02 Portfolio and accounting handoff</td>
+<td>Separate optional scope; not required for the main single-invoice journey. Qualify it before enabling it.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-completion-and-assurance">7 Completion and assurance</h2>
+<p>The business can see a separate known result or owned pending/unknown state for each action. An escalation or notification alone cannot close the invoice journey. Functional acceptance is in SPEC-SEI-023; engineering qualification is in SPEC-SEI-024. These drafts do not establish production readiness.</p>
+<h2 id="ref-source-references">REF Source references</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Source / version and exact location</th>
+<th>Supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-BASE</td>
+<td><a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a>, updated 13 October 2026; Parts 1–4, OUT-Q01–03</td>
+<td>Predecessor design, IDs and open decisions; not implementation proof.</td>
+</tr>
+<tr>
+<td>REF-LOGICAL</td>
+<td><a href="SPEC-SEI-023.html">SPEC-SEI-023</a>, draft, 22 October 2026; sections 2–6, OUT-A01–22, OUT-SPFE-A01–04 and OUT-PDF-R01/02</td>
+<td>Authoritative scenario, activity and acceptance detail. The overview does not approve implementation or close open decisions.</td>
+</tr>
+<tr>
+<td>REF-PRODUCT</td>
+<td><a href="../../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md">PRD-SEI-246</a>, 22 October 2026, Agreed business boundaries and transitional PDF product rule; <a href="../../prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>, BR1–14 and FR1–16; <a href="../../prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md">PRD-SEI-212</a>, scope; <a href="../../prds/PRD-SEI-227-e-invoicing-as-a-service.md">PRD-SEI-227</a>, country-pack governance</td>
+<td>Canonical product sources, including user-recorded local-product PDF generation responsibility. Draft scope and unresolved source differences remain subject to their owners.</td>
+</tr>
+<tr>
+<td>RD238-T2</td>
+<td><a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295">Original published RD 238/2026</a>, published 31 March 2026, checked 22 October 2026; transitional provision 2(1)–(2), final provision 4</td>
+<td>PDF transition and recipient-only delivery restriction. The product rule owns the scope detail; the law does not allocate a Sage generator or API.</td>
+</tr>
+<tr>
+<td>INT-SND01</td>
+<td><a href="../../context/FR API/Sending/send-e-invoice-guide-extract.md">Supplied FR sending-guide extract</a>, received 22 October 2026; prerequisites and steps 1–5</td>
+<td>Documented FR operations and guide conflicts. Original guide revision, OpenAPI and deployed build unknown.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="../../context/BOE-A-2026-20587.pdf">Original BOE PDF</a>, final Order HAC/1028/2026, published 5 October 2026; Articles 3.4–3.6, 4 and 5.4–5.7; <a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587">official text</a></td>
+<td>Legal copy, correction and admission rules; not an ERP coordination contract.</td>
+</tr>
+<tr>
+<td>SPFE-S08</td>
+<td><a href="../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf">Original formats PDF</a>, draft 0.1.0, 9 October 2026; 5.1.1 p. 8</td>
+<td>Supplied public UBL 2.5 document selection; no proof of FR API or DTS support.</td>
+</tr>
+<tr>
+<td>SPFE-S16</td>
+<td><a href="../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl">Original SendInvoice WSDL</a>, supplied 13 October 2026; operation, binding and service ports</td>
+<td>Public PRE transport; not complete business schema or live qualification.</td>
+</tr>
+<tr>
+<td>REF-DTS</td>
+<td><a href="../../specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md">SPEC-SEI-008</a>, 13 October 2026; reuse assessment; PRD-SEI-223 FR43–46</td>
+<td>Preferred transformation candidate and qualification direction.</td>
+</tr>
+</tbody>
+</table></main></div></body></html>

@@ -257,7 +257,7 @@
         <mxCell id="v55" value="Current business access is required. HTTP success is separate from readiness and activation. Unknown evidence holds dependent work." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
           <mxGeometry as="geometry" x="30" y="1420" width="1167.42" height="26" />
         </mxCell>
-        <object id="v56" label="Source specification" link="../../specs/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md#21-shared-prerequisites">
+        <object id="v56" label="Source specification" link="../../specs/archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md#21-shared-prerequisites">
           <mxCell parent="1" vertex="1" style="text;html=0;fontSize=12;align=right;">
             <mxGeometry as="geometry" x="1175" y="1444" width="210" height="18" />
           </mxCell>

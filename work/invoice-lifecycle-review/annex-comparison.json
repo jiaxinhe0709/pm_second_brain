@@ -1,0 +1,493 @@
+{
+  "source": "SPFE-S22",
+  "sha256": "a28dc3dae7a8c149fff5bb7099305bfd1486554c2b505507cdd0ae0452bccf0b",
+  "baseline": "SPFE-S02 AXII rows in original field ledger",
+  "codes": [
+    "PAYMENT",
+    "CANCELPAYMENT",
+    "REJECTION",
+    "CANCELREJECTION",
+    "SETTLEMENT",
+    "CANCELSETTLEMENT",
+    "DEFAULT",
+    "CANCELDEFAULT"
+  ],
+  "field_group_count": 52,
+  "checks": [
+    "52 ordered cardinalities",
+    "field names, descriptions, literal paths and semantic type in message page ranges"
+  ],
+  "normalisation": "PDF wrapping/whitespace and ordinal 7.\u00aa / 7\u00aa only",
+  "limits": "Page-range text matching plus recorded visual review; not byte/schema/implementation equivalence.",
+  "rows": [
+    {
+      "trace_id": "AXII-PAYMENT-01",
+      "source_pages": [
+        4,
+        6
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-PAYMENT-02",
+      "source_pages": [
+        4,
+        6
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-PAYMENT-03",
+      "source_pages": [
+        4,
+        6
+      ],
+      "cardinality": "0..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-PAYMENT-04",
+      "source_pages": [
+        4,
+        6
+      ],
+      "cardinality": "0..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-PAYMENT-05",
+      "source_pages": [
+        4,
+        6
+      ],
+      "cardinality": "0..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-PAYMENT-06",
+      "source_pages": [
+        4,
+        6
+      ],
+      "cardinality": "0..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-PAYMENT-07",
+      "source_pages": [
+        4,
+        6
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-PAYMENT-08",
+      "source_pages": [
+        4,
+        6
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-PAYMENT-09",
+      "source_pages": [
+        4,
+        6
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-PAYMENT-10",
+      "source_pages": [
+        4,
+        6
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-PAYMENT-11",
+      "source_pages": [
+        4,
+        6
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELPAYMENT-01",
+      "source_pages": [
+        6,
+        6
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELPAYMENT-02",
+      "source_pages": [
+        6,
+        6
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELPAYMENT-03",
+      "source_pages": [
+        6,
+        6
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELPAYMENT-04",
+      "source_pages": [
+        6,
+        6
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-REJECTION-01",
+      "source_pages": [
+        7,
+        7
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-REJECTION-02",
+      "source_pages": [
+        7,
+        7
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-REJECTION-03",
+      "source_pages": [
+        7,
+        7
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-REJECTION-04",
+      "source_pages": [
+        7,
+        7
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-REJECTION-05",
+      "source_pages": [
+        7,
+        7
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-REJECTION-06",
+      "source_pages": [
+        7,
+        7
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-REJECTION-07",
+      "source_pages": [
+        7,
+        7
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELREJECTION-01",
+      "source_pages": [
+        8,
+        8
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELREJECTION-02",
+      "source_pages": [
+        8,
+        8
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELREJECTION-03",
+      "source_pages": [
+        8,
+        8
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELREJECTION-04",
+      "source_pages": [
+        8,
+        8
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-SETTLEMENT-01",
+      "source_pages": [
+        9,
+        10
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-SETTLEMENT-02",
+      "source_pages": [
+        9,
+        10
+      ],
+      "cardinality": "0..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-SETTLEMENT-03",
+      "source_pages": [
+        9,
+        10
+      ],
+      "cardinality": "0..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-SETTLEMENT-04",
+      "source_pages": [
+        9,
+        10
+      ],
+      "cardinality": "0..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-SETTLEMENT-05",
+      "source_pages": [
+        9,
+        10
+      ],
+      "cardinality": "0..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-SETTLEMENT-06",
+      "source_pages": [
+        9,
+        10
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-SETTLEMENT-07",
+      "source_pages": [
+        9,
+        10
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-SETTLEMENT-08",
+      "source_pages": [
+        9,
+        10
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-SETTLEMENT-09",
+      "source_pages": [
+        9,
+        10
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-SETTLEMENT-10",
+      "source_pages": [
+        9,
+        10
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELSETTLEMENT-01",
+      "source_pages": [
+        11,
+        11
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELSETTLEMENT-02",
+      "source_pages": [
+        11,
+        11
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELSETTLEMENT-03",
+      "source_pages": [
+        11,
+        11
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELSETTLEMENT-04",
+      "source_pages": [
+        11,
+        11
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-DEFAULT-01",
+      "source_pages": [
+        12,
+        13
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-DEFAULT-02",
+      "source_pages": [
+        12,
+        13
+      ],
+      "cardinality": "0..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-DEFAULT-03",
+      "source_pages": [
+        12,
+        13
+      ],
+      "cardinality": "0..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-DEFAULT-04",
+      "source_pages": [
+        12,
+        13
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-DEFAULT-05",
+      "source_pages": [
+        12,
+        13
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-DEFAULT-06",
+      "source_pages": [
+        12,
+        13
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-DEFAULT-07",
+      "source_pages": [
+        12,
+        13
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-DEFAULT-08",
+      "source_pages": [
+        12,
+        13
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELDEFAULT-01",
+      "source_pages": [
+        14,
+        14
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELDEFAULT-02",
+      "source_pages": [
+        14,
+        14
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELDEFAULT-03",
+      "source_pages": [
+        14,
+        14
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    },
+    {
+      "trace_id": "AXII-CANCELDEFAULT-04",
+      "source_pages": [
+        14,
+        14
+      ],
+      "cardinality": "1..1",
+      "result": "source text matched"
+    }
+  ],
+  "implementation_tests_executed": false
+}

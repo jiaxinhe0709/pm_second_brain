@@ -92,11 +92,11 @@ The PRD describes the full public-platform integration in the **Sage Global e-In
 
 | Responsibility | Owner and handoff |
 |---|---|
-| Customer identity, authority and readiness | [Onboarding](SPEC-SEI-002-onboarding-solution-specification.md) and identity/authority services; connector checks effective evidence before each operation. |
+| Customer identity, authority and readiness | [Onboarding](archive/SPEC-SEI-002-onboarding-solution-specification.md) and identity/authority services; connector checks effective evidence before each operation. |
 | Certificate custody and purpose-specific use | [Certificate management](SPEC-SEI-001-certificate-management-solution-specification.md); connector receives protected references and results, not private keys. |
-| Public discovery, polling, source archive and checkpoint | [Receiving, retrieval and download](SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md); connector returns correlated source responses and files. |
-| Issued invoice, validation, exchange plan and independent actions | [Outbound](SPEC-SEI-007-invoice-sending-solution.md) and PRD-SEI-212; connector executes one approved public operation. |
-| Status consultation and commercial/payment interpretation | [Lifecycle](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md); lifecycle requests source refresh and interprets the result; connector executes qualified public queries and preserves source observations without deriving buyer acceptance. |
+| Public discovery, polling, source archive and checkpoint | [Receiving, retrieval and download](archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md); connector returns correlated source responses and files. |
+| Issued invoice, validation, exchange plan and independent actions | [Outbound](archive/SPEC-SEI-007-invoice-sending-solution.md) and PRD-SEI-212; connector executes one approved public operation. |
+| Status consultation and commercial/payment interpretation | [Lifecycle](archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md); lifecycle requests source refresh and interprets the result; connector executes qualified public queries and preserves source observations without deriving buyer acceptance. |
 | Recipient receiving destination | [Recipient lookup](SPEC-SEI-012-consult-public-platform-for-recipient-information.md); uses this connector only if an approved public lookup contract exists. |
 
 The connector does not issue invoices, change customer routes, interpret absence of a private destination, create public-copy duties, own statutory archive retention, or provide a generic proxy to arbitrary URLs. Onboarding/registration mutations, if required by the final contract, remain owned by their feature service and must use this same operation-safety boundary.

@@ -1,0 +1,189 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Invoice Lifecycle Solution Summary</title><style>
+*{box-sizing:border-box}body{margin:0;color:#263238;background:#fff;font:16px/1.55 Arial,sans-serif}
+header{padding:18px 26px;background:#f5f7f8;border-bottom:1px solid #cdd3d8}nav{display:flex;gap:24px;flex-wrap:wrap}a{color:#075eaa}
+.layout{display:grid;grid-template-columns:220px minmax(0,1120px);gap:30px;max-width:1440px;margin:24px auto;padding:0 24px}
+main{min-width:0}.outline{position:sticky;top:12px;align-self:start;max-height:92vh;overflow:auto;font-size:13px}.outline ul{padding-left:18px}
+h1{font-size:30px}h2{margin-top:36px}h3{margin-top:30px}table{border-collapse:collapse;width:100%;margin:18px 0;font-size:14px}
+th,td{border:1px solid #cdd3d8;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f5f7}
+code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100%;max-height:720px;overflow:auto;border:1px solid #b8c0c8;margin:18px 0}
+.diagram img{display:block;max-width:none}p{max-width:1060px}
+@media(max-width:800px){.layout{display:block}.outline{position:static;max-height:200px;margin-bottom:24px}}
+</style></head><body><header><p>Invoice lifecycle · Unpublished draft · Local review</p><nav><a href="index.html">All lifecycle views</a><a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">Retained SPEC-SEI-009</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
+<ul>
+<li><a href="#invoice-lifecycle-solution-summary">Invoice Lifecycle Solution Summary</a><ul>
+<li><a href="#revision-overview">Revision overview</a></li>
+<li><a href="#1-problem-and-intended-outcomes">1 Problem and intended outcomes</a></li>
+<li><a href="#2-scope-and-actors">2 Scope and actors</a></li>
+<li><a href="#3-end-to-end-flow">3 End-to-end flow</a></li>
+<li><a href="#4-reuse-direction-and-product-impact">4 Reuse direction and product impact</a></li>
+<li><a href="#5-new-annex-ii-review">5 New Annex II review</a></li>
+<li><a href="#6-decisions-that-affect-delivery">6 Decisions that affect delivery</a></li>
+<li><a href="#ref-source-references">REF Source references</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><main><h1 id="invoice-lifecycle-solution-summary">Invoice Lifecycle Solution Summary</h1>
+<p><a href="SPEC-SEI-029.html">Logical Feature Specification</a> · <a href="SPEC-SEI-030.html">Sequence and Reuse Assessment</a> · <a href="../../specs/invoice-lifecycle/README.md">Feature folder</a></p>
+<h2 id="revision-overview">Revision overview</h2>
+<p>This separate draft develops <a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a> into the same three reading views as sending and receiving. It adds the four supplied French lifecycle guides, the transition-outcome note and the Annex II file named <code>21-10-26</code>. SPEC-SEI-009 stays unchanged and remains the selected source for stable Confluence page <code>923861398</code>.</p>
+<p>Existing LCS activities, requirements, acceptance IDs, independent outcome dimensions, reporting duties and historical-route controls retain their meanings. The new analysis assesses the existing French API as the first reuse candidate. It does not approve Spain API coverage, an automatic translation of French statuses or a lifecycle release change. Country configuration, fields, correction support, deployed coverage and guide conflicts remain open.</p>
+<h2 id="1-problem-and-intended-outcomes">1 Problem and intended outcomes</h2>
+<p>A Spanish business must see what happened to an invoice, who reported it and what needs action. A delivered invoice can be rejected or partly paid. A saved payment fact can have a public report still pending. A failed attempt to change status must remain visible without replacing the last successful status. REF-PRODUCT; INT-LCS05; LCS-R03/08/14.</p>
+<p>The product outcome is an explainable history and current view with separate technical, validation, delivery, commercial, payment and reporting information. The buyer, seller or authorised accountant can take a permitted action and see its outcome. Operations can recover uncertain reports without duplicating them. The logical view owns these rules; the API view assesses their implementation.</p>
+<h2 id="2-scope-and-actors">2 Scope and actors</h2>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Observable outcome and boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public or private platform supplies status evidence</td>
+<td>Preserve source vocabulary and actor. Update only the dimensions supported by that evidence.</td>
+</tr>
+<tr>
+<td>Buyer or seller records an authorised business event</td>
+<td>Save the decision or payment fact and identify each applicable destination. Recording a fact and completing a report have separate results.</td>
+</tr>
+<tr>
+<td>A transition fails</td>
+<td>Keep the latest successful status. Retain the failed attempt and an owned corrective action.</td>
+</tr>
+<tr>
+<td>A report succeeds at one destination</td>
+<td>Show that destination's result while other destinations retain their own pending, failed or uncertain outcomes.</td>
+</tr>
+<tr>
+<td>An event is corrected, arrives late or follows a platform change</td>
+<td>Retain the original evidence and invoice context. Reconcile conflicts and uncertain mutations before repeating them.</td>
+</tr>
+<tr>
+<td>Product misses an update</td>
+<td>Recover saved Sage history. Discover an external event not yet received through a separately qualified source query.</td>
+</tr>
+</tbody>
+</table>
+<p>The business/authorised accountant supplies purpose-specific authority. The ERP supplies supported facts and displays results. The lifecycle capability preserves evidence and calculates the view and duties. The public or private platform returns its own result. Operations resolves blocked or uncertain actions. These are logical responsibilities; deployment boundaries remain engineering decisions.</p>
+<p>PRD-SEI-224 distinguishes Phase 1 public consultation, Phase 2 provider mapping and Phase 3 recipient actions and reporting fan-out. This draft retains that scope. Payment initiation, dispute adjudication and automatic rectifying-invoice creation remain outside this feature. Optional customer actions still require the existing LCS-Q-OPTIONAL decision.</p>
+<h2 id="3-end-to-end-flow">3 End-to-end flow</h2>
+<p><div class="diagram"><img alt="Receive evidence and derive independent invoice outcomes" src="../../assets/diagrams/lifecycle-event-derivation-process.svg" /></div></p>
+<p><a href="../../assets/diagrams/lifecycle-event-derivation-process.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/lifecycle-event-derivation-process.png">PNG</a>.</p>
+<p>The existing diagram joins platform evidence and authorised customer facts at verification and source preservation. Unknown meaning or conflicting evidence goes to review. Valid evidence updates the supported view. The separate reporting process in SPEC-SEI-029 creates and reconciles destination-specific obligations. The French product flow adds asynchronous status attempts and history reads; it does not combine those outcomes.</p>
+<h2 id="4-reuse-direction-and-product-impact">4 Reuse direction and product impact</h2>
+<p><strong>Assess the existing French status-update, notification and invoice-history APIs before proposing another product interface.</strong> The supplied guides show dataset/invoice scoping, a common envelope, status-specific <code>statusAttributes</code>, operation identity and saved history. These are credible reuse points. They do not prove how the implementation selects country rules or whether Spain events can be represented. INT-LCS01–05; API qualification in SPEC-SEI-030.</p>
+<table>
+<thead>
+<tr>
+<th>Classification</th>
+<th>Spain use and consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reusable design patterns</td>
+<td>Separate successful status from transition attempts; keep source history; notify after processing; read the resulting history. Actual code coverage remains unknown.</td>
+</tr>
+<tr>
+<td>Shared capability with country rules</td>
+<td>Reuse existing operations if the selected build supports Spain actors, fields, independent dimensions and per-destination reports. Products may retain call patterns, but Spain identifiers and payloads still need qualification.</td>
+</tr>
+<tr>
+<td>Spain-specific</td>
+<td>Annex II ApplicationResponse codes, issuer/recipient roles, <code>01</code>/<code>02</code> reasons, full-payment reporting, cancellation, legal applicability and calendars. These must not become France defaults.</td>
+</tr>
+<tr>
+<td>Preferred transformation candidate</td>
+<td>Assess existing DTS if it will create Spain ApplicationResponse XML. Confirm its build, mappings, rules, operations and fixtures; France invoice UBL support does not establish event-message support.</td>
+</tr>
+<tr>
+<td>Unknown implementation coverage</td>
+<td>A configurable country registry, Spain status UUIDs, correction commands, complete history schema, external report ownership and runtime readiness are not established by the guides.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-new-annex-ii-review">5 New Annex II review</h2>
+<p>The supplied <a href="../../context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf">Annex II</a> contains the same eight event codes, 52 field/group occurrences and rejection reasons as the final BOE baseline. The comparison found no material change in the reviewed fields, cardinalities, descriptions or literal UBL paths after removing PDF wrapping and ordinal punctuation differences. The <a href="../../context/Anexo II/annex-ii-review.md">review note</a> records exact pages and limits. SPFE-S22; REF-FIELDS.</p>
+<p>The filename provides a date cue, but the document states no formal revision or superseding authority. Final published regulation remains the legal source. Existing ambiguous UBL paths and absent executable event formats remain open. This snapshot does not close Spain contract or implementation qualification.</p>
+<h2 id="6-decisions-that-affect-delivery">6 Decisions that affect delivery</h2>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Consequence, accountable role and required evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LIF-G01/02 — actual reuse coverage and model fit</td>
+<td>API/Architecture owners must identify the build and prove country selection, independent dimensions, failed history and reporting results. A single French status field is insufficient evidence.</td>
+</tr>
+<tr>
+<td>LIF-G03 — French guide conflicts</td>
+<td>French API owner must resolve terminality, actor and blocked-transition conflicts against the selected schema and tests before using its matrix.</td>
+</tr>
+<tr>
+<td>LIF-G04 — Spain event and XML coverage</td>
+<td>Spain integration, DTS and Legal/Tax owners must qualify each Annex II field and cancellation sequence. Missing fields hold the affected action.</td>
+</tr>
+<tr>
+<td>LIF-G05/06 — completion and safe recovery</td>
+<td>API, Notifications and Operations owners must prove result correlation, idempotency, missed-event recovery and external uncertainty handling.</td>
+</tr>
+<tr>
+<td>Existing country/authority/calendar and LCS-Q-OPTIONAL gates</td>
+<td>Product, Spain Legal/Tax and integration owners select applicability, enabled actions and historical actors. A documented API action cannot approve release scope.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ref-source-references">REF Source references</h2>
+<table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>Original source and version/date</th>
+<th>Exact location</th>
+<th>Supported claims and limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-BASE</td>
+<td><a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a>, updated 20 October 2026</td>
+<td>Parts 1–4; LCS controls and REF</td>
+<td>Existing draft design, full provider assessment and preserved IDs; no runtime proof.</td>
+</tr>
+<tr>
+<td>REF-PRODUCT</td>
+<td><a href="../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md">PRD-SEI-224</a>, updated 7 October 2026; <a href="../../prds/PRD-SEI-232-country-lifecycle-status-mapping.md">PRD-SEI-232</a>; <a href="../../prds/PRD-SEI-242-peppol-lifecycle-feedback.md">PRD-SEI-242</a></td>
+<td>Phase table; FR1–23; LS-FR and PEP-FR controls</td>
+<td>Canonical product scope in recorded discovery/draft states; not new approval.</td>
+</tr>
+<tr>
+<td>INT-LCS01–05</td>
+<td><a href="../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md">Supplied guide evidence</a>, received 22 October 2026, revision unknown</td>
+<td>Five named sections</td>
+<td>API patterns and supplied transition outcomes; Spain support and build unknown.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="../../context/BOE-A-2026-20587.pdf">Final BOE order</a>, published 5 October 2026</td>
+<td>Articles 7–11; Annex II pp. 36–42</td>
+<td>Legal communication, authority and field baseline; not a complete runnable API.</td>
+</tr>
+<tr>
+<td>SPFE-S22</td>
+<td><a href="../../context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf">Supplied Annex II</a>, filename dated 21 October 2026, formal revision unknown</td>
+<td>Sections I.1–4 pp. 4–14; II/L1 p. 15</td>
+<td>Technical field snapshot and comparison; does not establish a legal amendment.</td>
+</tr>
+<tr>
+<td>REF-FIELDS</td>
+<td><a href="../../assets/regulatory/spain/spfe/field-traceability.json">Original field ledger</a>; <a href="../../context/Anexo II/annex-ii-review.md">comparison note</a></td>
+<td>AXII rows; per-message page comparison</td>
+<td>Inventory and review evidence. Field bindings and acceptance execution remain unqualified.</td>
+</tr>
+</tbody>
+</table></main></div></body></html>

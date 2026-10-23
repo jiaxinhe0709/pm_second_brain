@@ -1,0 +1,90 @@
+[
+  {
+    "document": "025",
+    "width": 1440,
+    "overflow": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "../../assets/diagrams/receiving-retrieval-and-download-intake-process.svg"
+      }
+    ],
+    "brokenLocalLinks": []
+  },
+  {
+    "document": "025",
+    "width": 480,
+    "overflow": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "../../assets/diagrams/receiving-retrieval-and-download-intake-process.svg"
+      }
+    ],
+    "brokenLocalLinks": []
+  },
+  {
+    "document": "026",
+    "width": 1440,
+    "overflow": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "../../assets/diagrams/receiving-intake-and-delivery-process.svg"
+      }
+    ],
+    "brokenLocalLinks": []
+  },
+  {
+    "document": "026",
+    "width": 480,
+    "overflow": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "../../assets/diagrams/receiving-intake-and-delivery-process.svg"
+      }
+    ],
+    "brokenLocalLinks": []
+  },
+  {
+    "document": "027",
+    "width": 1440,
+    "overflow": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "../../assets/diagrams/invoice-retrieval-fr-notification-sequence.svg"
+      },
+      {
+        "ok": true,
+        "src": "../../assets/diagrams/invoice-retrieval-spain-public-sequence.svg"
+      },
+      {
+        "ok": true,
+        "src": "../../assets/diagrams/invoice-retrieval-file-recovery-sequence.svg"
+      }
+    ],
+    "brokenLocalLinks": []
+  },
+  {
+    "document": "027",
+    "width": 480,
+    "overflow": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "../../assets/diagrams/invoice-retrieval-fr-notification-sequence.svg"
+      },
+      {
+        "ok": true,
+        "src": "../../assets/diagrams/invoice-retrieval-spain-public-sequence.svg"
+      },
+      {
+        "ok": true,
+        "src": "../../assets/diagrams/invoice-retrieval-file-recovery-sequence.svg"
+      }
+    ],
+    "brokenLocalLinks": []
+  }
+]

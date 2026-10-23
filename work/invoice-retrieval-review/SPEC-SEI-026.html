@@ -1,0 +1,506 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Invoice Retrieval Logical Feature Specification</title><style>
+*{box-sizing:border-box}body{margin:0;color:#263238;background:#fff;font:16px/1.55 Arial,sans-serif}
+header{padding:18px 26px;background:#f5f7f8;border-bottom:1px solid #cdd3d8}nav{display:flex;gap:24px;flex-wrap:wrap}a{color:#075eaa}
+.layout{display:grid;grid-template-columns:220px minmax(0,1120px);gap:30px;max-width:1440px;margin:24px auto;padding:0 24px}
+main{min-width:0}.outline{position:sticky;top:12px;align-self:start;max-height:92vh;overflow:auto;font-size:13px}.outline ul{padding-left:18px}
+h1{font-size:30px}h2{margin-top:36px}h3{margin-top:30px}table{border-collapse:collapse;width:100%;margin:18px 0;font-size:14px}
+th,td{border:1px solid #cdd3d8;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f5f7}
+code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100%;max-height:720px;overflow:auto;border:1px solid #b8c0c8;margin:18px 0}
+.diagram img{display:block;max-width:none}p{max-width:1060px}
+@media(max-width:800px){.layout{display:block}.outline{position:static;max-height:200px;margin-bottom:24px}}
+</style></head><body><header><p>Invoice retrieval · Unpublished draft · Local review</p><nav><a href="index.html">All retrieval views</a><a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">Retained SPEC-SEI-016</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
+<ul>
+<li><a href="#invoice-retrieval-logical-feature-specification">Invoice Retrieval Logical Feature Specification</a><ul>
+<li><a href="#revision-overview">Revision overview</a></li>
+<li><a href="#1-purpose-actors-and-boundary">1 Purpose, actors and boundary</a></li>
+<li><a href="#2-scenarios-and-observable-outcomes">2 Scenarios and observable outcomes</a></li>
+<li><a href="#3-process-and-activity-order">3 Process and activity order</a><ul>
+<li><a href="#31-source-acquisition-and-stored-file-access">3.1 Source acquisition and stored-file access</a></li>
+<li><a href="#32-receiving-handoff">3.2 Receiving handoff</a></li>
+<li><a href="#33-failure-and-recovery-decisions">3.3 Failure and recovery decisions</a></li>
+</ul>
+</li>
+<li><a href="#4-shared-controls-and-spain-binding">4 Shared controls and Spain binding</a></li>
+<li><a href="#5-decisions-and-technical-analysis-boundary">5 Decisions and technical analysis boundary</a></li>
+<li><a href="#6-functional-acceptance">6 Functional acceptance</a></li>
+<li><a href="#ref-source-references">REF Source references</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><main><h1 id="invoice-retrieval-logical-feature-specification">Invoice Retrieval Logical Feature Specification</h1>
+<p><a href="SPEC-SEI-025.html">Solution Summary</a> · <a href="SPEC-SEI-027.html">Sequence and Reuse Assessment</a> · <a href="../../specs/invoice-receiving/README.md">Feature landing page</a></p>
+<h2 id="revision-overview">Revision overview</h2>
+<p>This separate logical view develops <a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a> for retrieval review. It organises the existing intake, capture, receiving, download and recovery controls into concise scenarios and activity tables. The predecessor remains unchanged and retains full interaction/data inventories and original acceptance traceability.</p>
+<p>Existing RRI, PRI, RSD and RCV meanings, Phase 1 scope and product/records boundaries remain unchanged. The supplied FR guide informs engineering qualification in SPEC-SEI-027; it does not redefine the business requirements. Exact physical APIs, acknowledgement effects, records policy and rollout remain open. This draft does not change publication or approve implementation.</p>
+<h2 id="1-purpose-actors-and-boundary">1 Purpose, actors and boundary</h2>
+<p>For a represented recipient, obtain each eligible invoice's actual source file, retain its evidence and support qualified receiving and authorised downloads. Actors are the business, its authorised accountant or service, the product and source platform, and operations. Authenticate the caller separately from permission for the represented business and action. Use the <a href="../../context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>. REF-BASE/PRODUCT.</p>
+<p>Public collection follows PRD-SEI-211 Phase 1. Private intake follows its selected later-phase scope under RRI-Q01/02. This view does not add ZIP export, buyer acceptance, payment reporting or outbound submission. <a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a> owns later lifecycle behaviour; <a href="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">SPEC-SEI-014</a> owns source connection and historical route context.</p>
+<h2 id="2-scenarios-and-observable-outcomes">2 Scenarios and observable outcomes</h2>
+<p>These scenarios select existing behaviour; their activity IDs remain authoritative. API-specific limits and compatibility checks belong to SPEC-SEI-027.</p>
+<table>
+<thead>
+<tr>
+<th>Situation and actor</th>
+<th>Required result</th>
+<th>Failure and safe next action / existing coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A public recipient is due for automatic collection</td>
+<td>Collect within the qualified scope and retain complete page/item evidence. An optional customer refresh joins the same scoped work.</td>
+<td>Missing authority stops protected calls; failed queries do not become empty successes. RSD-01–06; RSD-A01–03/07/10.</td>
+</tr>
+<tr>
+<td>A private provider notifies Sage or returns metadata</td>
+<td>Save the observation, then obtain and verify the required file before file-dependent processing.</td>
+<td>Keep <code>FETCH_PENDING</code> with an owner if the file is not available. RRI-A02/03; PRI-01–04.</td>
+</tr>
+<tr>
+<td>A private provider delivers complete bytes</td>
+<td>Capture the supplied file once and use the common receiving checks.</td>
+<td>A downstream delay does not require another external fetch. RRI-A01; RSD-04/05.</td>
+</tr>
+<tr>
+<td>A source repeats an item, or public and private sources cover one invoice</td>
+<td>Preserve both observations and qualify one business identity and one product effect.</td>
+<td>Changed content or unproven equivalence enters restricted conflict handling. RSD-A05/06; RCV-A13.</td>
+</tr>
+<tr>
+<td>A supplier sends a correction document or replacement content</td>
+<td>Preserve the original. An approved correction document is a separate business document with its qualified correction reference; replacement content is a new observation whose relationship needs a decision.</td>
+<td>The same invoice number cannot authorise overwrite of an already delivered invoice. RCV-04/09; RCV-A06/18; REF-BASE Part 2 §3.</td>
+</tr>
+<tr>
+<td>File capture succeeds but validation, mapping or product receipt fails</td>
+<td>Preserve source access permitted by current safety/records policy and recover affected processing.</td>
+<td>Do not claim business availability or refetch because the product is unavailable. RSD-A04; RCV-A14–18/23.</td>
+</tr>
+<tr>
+<td>An authorised business user or accountant downloads a saved file</td>
+<td>Return the selected labelled bytes and audit the access result.</td>
+<td>Deny the affected read if authority, integrity or ordinary safety fails. RRI-A05/08; RSD-A08/09/14.</td>
+</tr>
+<tr>
+<td>Notifications are missed, a cursor fails or history expires</td>
+<td>Recover a bounded range with existing item identities and separate recovery progress.</td>
+<td>Retain an owned visible gap when coverage cannot be proved. RRI-A04; RSD-A10.</td>
+</tr>
+<tr>
+<td>A client grant or route changes during work</td>
+<td>Stop only affected future protected actions; preserve historical evidence and independent client work.</td>
+<td>Recheck binding/current authority before the next action or progress commit. RRI-A08; RCV-A19/28/29.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-process-and-activity-order">3 Process and activity order</h2>
+<p><div class="diagram"><img alt="Receiving checks, identity and delivery recovery" src="../../assets/diagrams/receiving-intake-and-delivery-process.svg" /></div></p>
+<p><a href="../../assets/diagrams/receiving-intake-and-delivery-process.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/receiving-intake-and-delivery-process.png">PNG</a>.</p>
+<p>This existing diagram expands the receiving stage after the <a href="SPEC-SEI-025.html#4-end-to-end-workflow">summary's intake overview</a>. It distinguishes a durable source from a qualified business invoice. Acknowledgement timing is conditional on the source contract; its drawn position does not require waiting for product receipt. Recover the affected observation or delivery with its original identity. RCV-01–09; REF-BASE.</p>
+<h3 id="31-source-acquisition-and-stored-file-access">3.1 Source acquisition and stored-file access</h3>
+<table>
+<thead>
+<tr>
+<th>Existing activity / condition</th>
+<th>Required behaviour and outcome</th>
+<th>Safe next action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RSD-01 / public scope due</td>
+<td>Check current entity/action authority, environment and eligible source binding before protected calls.</td>
+<td>Hold affected calls; preserve history and required client action.</td>
+</tr>
+<tr>
+<td>RSD-02 / eligible triggers</td>
+<td>Combine equivalent refreshes; apply approved capacity and a current numbered work claim.</td>
+<td>Other requests observe current work; an old worker cannot commit after takeover.</td>
+</tr>
+<tr>
+<td>RSD-03 / qualified public run</td>
+<td>Discover within approved boundaries and separately fetch exact files where required. Save query scope and continuation evidence.</td>
+<td>Distinguish empty success from error. Restrict gap recovery; reconcile possible read effects before unsafe repeat.</td>
+</tr>
+<tr>
+<td>PRI-01–03 / private arrival or check</td>
+<td>Qualify provider/caller and mode. If only a notification, metadata or file reference arrives, download the required invoice file before verified capture. If complete bytes arrive, capture them without a redundant download.</td>
+<td>Preserve missing-file, expiry, partial-body or unsupported-profile reasons. Resume the same item.</td>
+</tr>
+<tr>
+<td>RSD-04 / file obtained</td>
+<td>Save exact bytes or an approved immutable reference with matching hash, role, source, profile and time before verified capture.</td>
+<td>Incomplete writes or mismatches remain incomplete; unsafe evidence stays restricted.</td>
+</tr>
+<tr>
+<td>RSD-05 / verified capture</td>
+<td>Obtain a durable receiving classification, or retain a recoverable pending handoff with owner.</td>
+<td>Retry the existing handoff without refetch. Pending handoff cannot complete a page.</td>
+</tr>
+<tr>
+<td>RSD-06; PRI-04 / covered boundary</td>
+<td>Commit only when each covered item has saved source/classification or an approved ignore outcome. Keep qualified scope and work version.</td>
+<td>Preserve the prior checkpoint for incomplete pages. Later mapping/product failure does not undo capture/classification.</td>
+</tr>
+<tr>
+<td>RSD-08 / detected collection gap</td>
+<td>Repeat qualified acquisition over an authorised bounded range with separate recovery progress and stable item identities.</td>
+<td>Leave missing history visible; do not replace routine progress with a guessed position.</td>
+</tr>
+<tr>
+<td>RSD-07 / stored-file request</td>
+<td>For a captured public or private file, check current entity/action/file-role authority, safety, integrity and retention. Return labelled saved bytes and audit result.</td>
+<td>Deny unsafe/unauthorised ordinary access; record an integrity incident for missing/corrupt content. A failed read is not a new source fetch.</td>
+</tr>
+<tr>
+<td>RSD-09 / records event</td>
+<td>Apply the selected retention/hold policy, preserve authorised historical access and verify exit export before allowed disposal.</td>
+<td>A hold blocks deletion; incomplete export prevents disposal.</td>
+</tr>
+</tbody>
+</table>
+<p>RSD-01–09 retain the detailed conditions in REF-BASE Part 2 §2.2. PRI-01–04 retain private contract boundaries in §2.1. These are proposed Sage controls; source APIs do not prescribe the internal storage or worker design.</p>
+<h3 id="32-receiving-handoff">3.2 Receiving handoff</h3>
+<table>
+<thead>
+<tr>
+<th>Existing activity</th>
+<th>Required behaviour and failure outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RCV-01 Register observation</td>
+<td>Use the verified capture receipt; save source identity/hash before downstream processing or an irreversible acknowledgement. Metadata-only arrival remains acquisition pending.</td>
+</tr>
+<tr>
+<td>RCV-02 Match recipient</td>
+<td>Match trusted source context to the exact business, environment, historical route and intended product. Ambiguity or changed binding holds delivery without exposing another client.</td>
+</tr>
+<tr>
+<td>RCV-03 Assess safety/trust</td>
+<td>Apply the selected source/trust policy to received bytes. Unavailable checks remain pending; invalid or unsafe content is restricted. Disable XML external-entity/network resolution.</td>
+</tr>
+<tr>
+<td>RCV-04 Resolve identity</td>
+<td>Compare observation identity before business identity. Keep a candidate until required checks and equivalence evidence complete. A different hash alone does not decide public-copy equivalence.</td>
+</tr>
+<tr>
+<td>RCV-05 Validate original</td>
+<td>Use the activated inbound syntax/profile/rule versions. Preserve invalid, unsupported and unavailable outcomes separately; do not edit the source.</td>
+</tr>
+<tr>
+<td>RCV-06 Map semantics</td>
+<td>Use qualified inbound mapping, preserve provenance and validate target meaning. Missing tax/extension meaning holds business delivery while retaining source access.</td>
+</tr>
+<tr>
+<td>RCV-07 Publish once</td>
+<td>Save a recoverable business/delivery decision. Require stable product deduplication and authenticated receipt before claiming product consumption. Lost receipt resumes the same delivery identity.</td>
+</tr>
+<tr>
+<td>RCV-08 Acknowledge/reconcile</td>
+<td>Respond only at the qualified source milestone and with its exact meaning. Preserve original intent and reconcile an uncertain possible mutation before unsafe repeat.</td>
+</tr>
+<tr>
+<td>RCV-09 Recover</td>
+<td>Assign reason, owner and allowed action. Reprocess preserved source under recorded versions; delivered business facts cannot be silently overwritten.</td>
+</tr>
+</tbody>
+</table>
+<p>The predecessor's Part 2 §3 retains the detailed conditions. Internal approval holds only its named dependent action. It cannot replace buyer acceptance or block independently authorised capture/conservation. Accounting handoff uses its own target/receipt; portfolio work remains per client. RCV-I13–16; RCV-Q12/13; RCV-A26–31.</p>
+<h3 id="33-failure-and-recovery-decisions">3.3 Failure and recovery decisions</h3>
+<p>Use this table to select recovery at the failed activity. It applies to qualified public and private intake and their saved-file downloads. It consolidates the inherited RCV-09 and RSD/PRI recovery rules; existing acceptance IDs retain their full checks in §6 and REF-BASE Part 4. The responses below are proposed Sage controls, not claims that a provider implements them.</p>
+<table>
+<thead>
+<tr>
+<th>Failure or edge case</th>
+<th>Required result and safe next action</th>
+<th>Evidence needed to resume or close / accountable roles</th>
+<th>Existing acceptance coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A webhook is forged, mis-scoped, duplicated, reordered or carries an error</td>
+<td>Deny untrusted input without exposing invoice details. Reuse saved observations for repeats. Preserve error/late-event evidence; recover missing work through the qualified source mechanism.</td>
+<td>Verified event source/scope and current item state. An error event needs the selected error contract. Events, Security and Integration.</td>
+<td>RRI-A02/04/09; RET-API-A02.</td>
+</tr>
+<tr>
+<td>An FR attempt reports <code>ERROR</code> but the current status snapshot looks unchanged</td>
+<td>Read the relevant history item's outcome/code and preserve the final failed attempt. Follow INT-ERR01's code-specific platform retry, configuration correction or support action. Do not create another invoice/key or repeat capture to repair a notification failure.</td>
+<td>Qualified event/history/attempt correlation and evidence of the original work. Later retry attempts need separate results. API, Events and Operations; RET-G02/09.</td>
+<td>RRI-A04; RCV-A14/20; RET-API-A02/09; INT-ERR01.</td>
+</tr>
+<tr>
+<td>Caller credentials expire, recipient authority is withdrawn or an accountant loses a client grant</td>
+<td>Stop affected protected calls and reads. Preserve source history and independent authorised client work. Do not treat the refusal as an empty collection.</td>
+<td>Corrected credentials plus current business/action authority. Recheck before resuming the same item. Identity, client action owner and Integration.</td>
+<td>RSD-A01/08; RRI-A08; RCV-A29.</td>
+</tr>
+<tr>
+<td>A source times out, is unavailable or returns <code>429</code></td>
+<td>Keep the run/item pending or failed with its original correlation. Use only the qualified bounded retry policy; honour valid <code>Retry-After</code> instructions. Do not advance successful freshness.</td>
+<td>Current authority and a contract-safe retry or authoritative reconciliation where effects are possible. Integration and Operations; RET-G03/09 set limits.</td>
+<td>RSD-A10/16; RET-API-A09; INT-RCV01 Polling.</td>
+</tr>
+<tr>
+<td>A notified file is not ready, its link expires or it is no longer available</td>
+<td>Keep acquisition pending. For a confirmed expired-link <code>403</code> in the FR flow, retrieve details again for a fresh link. Other refusals or missing files need their actual source reason. Do not infer deletion or repeat forever.</td>
+<td>Required file role, current access and renewed binding to the intended content. Unrecoverable source history remains an owned gap. Integration, provider owner and Records.</td>
+<td>RRI-A02/03/06; RET-API-A04; INT-RCV01 §4.</td>
+</tr>
+<tr>
+<td>A transfer is interrupted, or only some required files arrive</td>
+<td>Retain verified files and per-file failures. Keep affected file-dependent work incomplete. Retry only missing/failed transfers under the qualified contract; do not discard captured files or create another invoice.</td>
+<td>Every file required for the named next step has a verified receipt or an approved policy disposition. Optional files follow their own policy. Stable file-role/content binding remains RET-G04. Integration and Records.</td>
+<td>RRI-A03/06; RSD-A03/14; RET-API-A04.</td>
+</tr>
+<tr>
+<td>A page fails, a cursor expires, events are missed or recovery exceeds available history</td>
+<td>Keep the last proved boundary; run bounded gap recovery separately. Do not report successful empty collection or complete coverage from a partial page.</td>
+<td>Saved item outcomes and qualified continuation or recovered-range evidence. Unavailable history remains visible, including FR coverage beyond the stated 90-day creation window. Retrieval, provider/API owner and Operations.</td>
+<td>RSD-A03/07/10; RRI-A04; RET-API-A03.</td>
+</tr>
+<tr>
+<td>Concurrent workers observe the same invoice, or private original/public copy differ</td>
+<td>Reuse the committed business identity only after required checks and equivalence evidence. Preserve both observations. Changed bytes or material differences remain restricted conflict.</td>
+<td>Recipient/trust/profile checks and an approved business-meaning decision; hash difference alone is insufficient. Receiving and Records; country specialist for equivalence.</td>
+<td>RSD-A05/06; RCV-A13; RET-API-A07.</td>
+</tr>
+<tr>
+<td>Recipient/route is wrong or ambiguous; a file is unsafe, untrusted, invalid or unsupported</td>
+<td>Deny or quarantine as appropriate. Prevent ordinary exposure and business delivery. Keep invalid evidence distinct from a temporarily unavailable check.</td>
+<td>Authorised resolution and passing required checks under a qualified profile. No ordinary retry releases quarantine. Routing, Security, Validation and Records.</td>
+<td>RSD-A09; RCV-A17/21/22; RET-API-A01/04/07.</td>
+</tr>
+<tr>
+<td>Bytes and metadata disagree, storage fails, or a worker crashes during capture/progress commit</td>
+<td>Keep capture or coverage incomplete. Reconcile the original capture/commit identity and reject stale-worker updates. Do not skip the item or publish inconsistent references.</td>
+<td>Verified bytes/hash/metadata and durable item classification under the current work claim. Records, Retrieval and Architecture.</td>
+<td>RSD-A03/07/14; RCV-A15; RET-API-A09.</td>
+</tr>
+<tr>
+<td>Validation or mapping is unavailable, returns late, or fails to preserve required meaning</td>
+<td>Hold business processing; resume the saved operation or make an authorised versioned attempt from preserved bytes. Safe source access remains independently governed.</td>
+<td>Result matches the saved source/scope/version and passes required source/target checks. Task acceptance is not success; no silent source repair or overwrite of delivered facts. Validation, DTS and Receiving.</td>
+<td>RCV-A16–18/22/23; RET-API-A07.</td>
+</tr>
+<tr>
+<td>Optional rendering or hybrid generation fails</td>
+<td>Keep the derived-file request pending/failed separately. Preserve captured source and its independently permitted access; do not mark a missing rendering as the original.</td>
+<td>Qualified generation result with correct provenance if that optional feature is enabled. API, Format and Records; RET-G08.</td>
+<td>RRI-A06; RCV-I05; RET-API-A08.</td>
+</tr>
+<tr>
+<td>Product is unavailable, rejects its schema, or applies the invoice but its receipt is lost</td>
+<td>Retain pending/held delivery and query or replay the original delivery identity under proven repeat safety. Do not fetch the source or create another invoice to bypass the failure.</td>
+<td>Authenticated evidence of the product's business effect, or a corrected qualified handoff. Product and Receiving.</td>
+<td>RCV-A14/15/17; RET-API-A09.</td>
+</tr>
+<tr>
+<td>A source acknowledgement or other possible mutation has an unknown result</td>
+<td>Keep the original intent, payload and source context. Reconcile before unsafe repetition. Without authoritative query or proven repeat safety, assign manual resolution.</td>
+<td>Evidence of the original effect or an approved evidence-backed disposition. Escalation alone is not completion. Integration and Operations.</td>
+<td>RSD-A16; RRI-A09; RCV-A20.</td>
+</tr>
+<tr>
+<td>A route/provider changes, or a late invoice arrives during transition</td>
+<td>Preserve original source and historical binding. Hold ambiguous late delivery; do not move an uncertain operation to the new route. Isolate each client's work.</td>
+<td>Approved late-arrival/product binding and current action authority. Routing, Product and Records.</td>
+<td>RSD-A11; RCV-A19/28/29.</td>
+</tr>
+<tr>
+<td>A saved-file download is interrupted, denied, missing or corrupt</td>
+<td>Audit the actual result; do not claim the recipient retained the file. Repeat/resume only under current authority and the qualified transfer contract. Missing/corrupt stored bytes open an integrity incident rather than an ordinary source fetch.</td>
+<td>Verified stored content and permitted access; Records proves restore or reconciles an unresolved loss. Access, Records and Operations.</td>
+<td>RRI-A05/08; RSD-A08/09/14; RET-API-A05.</td>
+</tr>
+<tr>
+<td>A retention hold or provider exit conflicts with disposal</td>
+<td>Keep required evidence and permitted historical access. Block deletion under hold and disposal before verified export.</td>
+<td>Approved records policy, hold disposition and verified export/restore evidence. Records and Compliance.</td>
+<td>RSD-A11; RCV-A24; RET-API-A05.</td>
+</tr>
+</tbody>
+</table>
+<p>Record the affected business/item, failed activity, safe reason, original operation, owner, next action and evidence needed to resume. Keep retry, pending client action, restricted quarantine and unknown external outcome distinct. Retry limits, wait policy and alert thresholds remain RSD-G07/RCV-Q11 and RET-G03/09. INT-ERR01's six-day support guidance applies only to its named FR codes; it is not a general retry policy or Spain allowance. When the qualified retry policy is exhausted or no safe automatic action exists, stop automatic repetition and retain an owned unresolved case. An operator cannot bypass authority, alter a checkpoint directly or replace original bytes. REF-BASE Part 4, readiness and operational evidence.</p>
+<h2 id="4-shared-controls-and-spain-binding">4 Shared controls and Spain binding</h2>
+<table>
+<thead>
+<tr>
+<th>Boundary</th>
+<th>Authoritative rule and evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Separate outcomes</td>
+<td>RRI-R02; RCV-I10; REF-BASE Part 2 §1.1. Discovery, capture, classification, product availability, consumption, source response and business decisions are separate facts. Proposed state labels are not external codes.</td>
+</tr>
+<tr>
+<td>Lifecycle message handoff</td>
+<td>SPFE-S22 §§1–4/L1 provides supplementary evidence for the eight actor-specific Annex II codes already recorded in SPEC-SEI-009. Technical quarantine, download failure or an FR processing error cannot generate recipient <code>REJECTION</code> or payment/cancellation messages. Final SPFE-S02 Annex II governs legal meaning; field/schema qualification remains open.</td>
+</tr>
+<tr>
+<td>Complete progress</td>
+<td>RSD-R03/04; RRI-R04. Classification can precede final mapping only with durable source, saved processing state and recovery ownership. Capture without classification is insufficient.</td>
+</tr>
+<tr>
+<td>Spain public discovery</td>
+<td>RSD-SPFE-R01: <code>GetRegisteredInvoice</code> / <code>QUERYBYFILTER</code> uses presentation date; <code>GetInvoices</code> / <code>QUERYBYID</code> consults identities/final states. Catalogue maxima are 1000 results/identifiers respectively. Preserve <code>SECUENCE_ID</code>; wire continuation remains open. SPFE-S03/S14/S15.</td>
+</tr>
+<tr>
+<td>Spain source-file recovery</td>
+<td>RSD-SPFE-R02/03: use separately qualified <code>DownloadInvoicesByLOC</code> or <code>DownloadInvoicesByID</code>. ID downloads have catalogue maximum 100 invoices; do not borrow this for LOC. Locator, invoice identity and <code>MessageId</code> remain distinct. SPFE-S03/S12/S13.</td>
+</tr>
+<tr>
+<td>Spain authority</td>
+<td>RSD-R01; SPFE-S02 Articles 9–11. Qualify registered third-party authority independently of transport credentials. Catalogue issuer/social-collaboration and locator-certificate branches cannot be assumed to authorise recipient recovery.</td>
+</tr>
+<tr>
+<td>Spain representation</td>
+<td>RCV-SPFE-R02; SPFE-S08/S09. Qualify public UBL 2.5 profile and source <code>CopyIndicator</code>; preserve original/copy/derived files. The example's conflicting <code>ProfileID</code> remains a gate.</td>
+</tr>
+<tr>
+<td>Reuse and country isolation</td>
+<td>RRI-R03/05; RSD-R09; RCV-R14. Assess existing DTS first where mapping is needed. Pin build, input/output direction, rules and run owner. Spain identity, records and public rules cannot change France or another country.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-decisions-and-technical-analysis-boundary">5 Decisions and technical analysis boundary</h2>
+<p>The existing RRI-Q01–03, RSD-G01–09 and RCV-Q01–13 remain the decision record in REF-BASE. The <a href="SPEC-SEI-027.html#4-open-engineering-decisions">engineering view</a> maps the supplied API evidence to those gates. No new service boundary, physical schema, cadence, SLA, retention duration or acknowledgement deadline is approved here.</p>
+<p>Failure scenarios are specified in §3.3, but recovery is not implementation-proven. The selected provider's error/read/acknowledgement contract, file-set binding, older-history recovery and retry/escalation policy remain activation evidence. An unresolved gate prevents claiming that its dependent recovery path is ready.</p>
+<p>The FR guide's notification, list, detail and presigned-file operations are implementation candidates. Its 90-day query window is a coverage limit to qualify, not a product recovery policy. Its optional Factur-X request is derived-file generation, not the receiving requirement or the default Spain source representation. INT-RCV01 §§3.1–4 and Polling.</p>
+<h2 id="6-functional-acceptance">6 Functional acceptance</h2>
+<p>These are required acceptance scenarios, not executed implementation tests. Existing IDs retain their full source checks in REF-BASE Part 4.</p>
+<table>
+<thead>
+<tr>
+<th>Existing acceptance IDs</th>
+<th>Evidence required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RSD-A01/08; RRI-A08; RCV-A27/29</td>
+<td>Caller authentication cannot bypass business/action authority. Revocation blocks affected source calls and stored reads while other authorised client work continues. SPFE-S02 Article 11.</td>
+</tr>
+<tr>
+<td>RSD-A02/03/07; RCV-A15</td>
+<td>Concurrent triggers and a crash around capture/progress recover without skipped items or stale-worker commit. Missing bytes or pending handoff cannot complete coverage.</td>
+</tr>
+<tr>
+<td>RRI-A01–03/06</td>
+<td>Complete private bytes avoid redundant fetch. Metadata-only notifications remain pending. Expired/partial fetches preserve item identity; a rendering cannot substitute for the required source.</td>
+</tr>
+<tr>
+<td>RRI-A04; RSD-A10/16</td>
+<td>Missed/reordered events and incomplete query history retain evidence of the gap. An unknown possible source mutation is reconciled before unsafe repeat. No false freshness or all-history claim.</td>
+</tr>
+<tr>
+<td>RSD-A05/06; RCV-A13</td>
+<td>Concurrent public/private observations create one business effect only after required recipient/trust/profile/equivalence checks. Material conflict remains owned and restricted. SPFE-S02 Article 6; SPFE-S08/S09.</td>
+</tr>
+<tr>
+<td>RSD-A04/09/14; RRI-A05; RCV-A23</td>
+<td>Source access is independent of mapping/product success and subject to current authority/safety. Unsafe or corrupt bytes are not served as ordinary files.</td>
+</tr>
+<tr>
+<td>RCV-A14/16–18/20</td>
+<td>Mapping task acceptance is not completion. Lost product receipt uses the original identity. Reprocessing preserves earlier evidence. Source acknowledgement does not create buyer acceptance.</td>
+</tr>
+<tr>
+<td>RCV-A26/28/30/31</td>
+<td>Internal review, accounting transfer and portfolio results remain independent from capture and buyer lifecycle. Ineligible/stale approval cannot release a hold. A lost accounting receipt cannot create another invoice.</td>
+</tr>
+<tr>
+<td>RSD-A11/13/15; RCV-A22/24; RRI-A07/10</td>
+<td>Historical access/holds survive route changes. Qualify actual reused build and inbound DTS mapping. Missing Spain country binding blocks the selected mode; another country's behaviour is unchanged.</td>
+</tr>
+<tr>
+<td>RSD-SPFE-A01–03; RCV-SPFE-A01–03</td>
+<td>Presentation-date discovery, qualified continuation, separate downloads and recipient authority are proven with partial failures. Query success cannot create file capture. SPFE-S02/S03/S08/S12–15.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ref-source-references">REF Source references</h2>
+<table>
+<thead>
+<tr>
+<th>REF ID</th>
+<th>Source and version/date</th>
+<th>Exact location</th>
+<th>Supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-BASE</td>
+<td><a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a>, updated 20 October 2026</td>
+<td>Part 2 §§1–5.1; Part 4; Part 3 inventories</td>
+<td>Existing requirement/activity/acceptance IDs and proposed logical controls; not deployed contracts.</td>
+</tr>
+<tr>
+<td>REF-PRODUCT</td>
+<td><a href="../../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md">PRD-SEI-211</a>, updated 20 October 2026; <a href="../../prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>, updated 7 October 2026</td>
+<td>PRD211 Phase 1, FR1–55, retrieval/download boundary; PRD223 FR17–20/43–44</td>
+<td>Canonical scope and receiving/reuse outcomes, subject to recorded status. Proposed Sage safeguards remain design controls.</td>
+</tr>
+<tr>
+<td>INT-RCV01</td>
+<td><a href="../../context/FR API/Receiving/receive-e-invoice-guide-extract.md">Supplied FR guide extract</a>, received 22 October 2026; revision unknown</td>
+<td>Sections 1–4 and Polling</td>
+<td>Candidate API facts and coverage limits; no Spain implementation evidence.</td>
+</tr>
+<tr>
+<td>INT-ERR01</td>
+<td><a href="../../context/FR API/Shared/invoice-flow-error-handling-guide-extract.md">FR error-handling extract</a>, received 22 October 2026, revision/build unknown</td>
+<td>Processing and error fields; <code>ERR-RECEIVING-DOC</code>, <code>ERR-RECEIVING-NOT</code>; Recovery interpretation</td>
+<td>History-only attempt outcomes and code-specific retry/support actions. No automatic consumer resend or universal six-day policy.</td>
+</tr>
+<tr>
+<td>SPFE-S22</td>
+<td><a href="../../context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf">Separate Annex II</a>, received 22 October 2026, filename date 21 October; release unverified</td>
+<td>§§1–4 pp. 4–14; rejection list L1 p. 15</td>
+<td>Lifecycle code/actor/field evidence, not file-retrieval or AEAT processing-error contracts. Final SPFE-S02 Annex II remains legal baseline; <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-ii-supplement-reviewed-22-october-2026">comparison</a>.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="../../context/BOE-A-2026-20587.pdf">Final Order HAC/1028/2026</a>, published 5 October 2026</td>
+<td>Article 6; Articles 9–11, PDF pp. 8–11</td>
+<td>Spain public identity, recovery/access and representation. Does not define internal storage or public wire fields.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf">Original catalogue</a>, 0.1.0, 9 October 2026</td>
+<td>Sections 6.4–6.7, pp. 12–15</td>
+<td>Operation purposes, roles, limits and <code>SECUENCE_ID</code>. Complete query/download formats and side effects remain unqualified.</td>
+</tr>
+<tr>
+<td>SPFE-S08</td>
+<td><a href="../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf">Original formats</a>, 0.1.0, 9 October 2026, BORRADOR</td>
+<td>§5.1.1 p. 8; §§5.4–5.7 pp. 14–15</td>
+<td>UBL 2.5 <code>InvoiceType</code>; query/download formats pending. Not a full validator.</td>
+</tr>
+<tr>
+<td>SPFE-S09</td>
+<td><a href="../../context/Ejemplos/20261013/factura.xml">Original factura.xml</a>, supplied 13 October 2026</td>
+<td><code>cbc:ProfileID</code>; <code>cbc:CopyIndicator</code></td>
+<td>Example profile conflict and original classification only; not a complete faithful-copy contract.</td>
+</tr>
+<tr>
+<td>SPFE-S12–15</td>
+<td><a href="../../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByID.wsdl">DownloadInvoicesByID</a>, <a href="../../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByLOC.wsdl">DownloadInvoicesByLOC</a>, <a href="../../context/WSDL servicios web - PRE/20261013/GetInvoices.wsdl">GetInvoices</a>, <a href="../../context/WSDL servicios web - PRE/20261013/GetRegisteredInvoice.wsdl">GetRegisteredInvoice</a>, supplied 13 October 2026</td>
+<td>Named operation, binding and service ports in each file</td>
+<td>Exact operation names and PRE transport; generic payload descriptions do not complete business schemas.</td>
+</tr>
+<tr>
+<td>REF-EVIDENCE</td>
+<td><a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a>, repository evidence baseline</td>
+<td>REF; SPFE-Q06/Q09/Q12–14/Q17</td>
+<td>Reading route to originals and unresolved conflicts; source inventory completeness is not mapping readiness.</td>
+</tr>
+</tbody>
+</table></main></div></body></html>

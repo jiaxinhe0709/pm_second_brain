@@ -1,0 +1,474 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Customer Onboarding and Connectivity Solution Summary</title><style>
+*{box-sizing:border-box}body{margin:0;color:#243445;background:#fff;font:16px/1.55 Arial,sans-serif}
+header{padding:18px 24px;background:#f3f6f8;border-bottom:1px solid #ccd4dc}nav{display:flex;flex-wrap:wrap;gap:20px}
+a{color:#075eaa}main{max-width:1200px;margin:28px auto;padding:0 24px}h1{font-size:30px}h2{margin-top:36px}
+.table-scroll{overflow:auto;margin:18px 0}table{border-collapse:collapse;width:100%;min-width:650px;font-size:14px}
+th,td{border:1px solid #ccd4dc;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f6f8}
+code{font-size:.9em;background:#f3f6f8;overflow-wrap:anywhere}img{display:block;width:100%;height:auto;margin:20px 0}
+.notice{padding:12px;background:#fff5da;border-left:4px solid #ad7000}.toc{font-size:14px}.toc ul{padding-left:22px}
+
+.diagram{overflow-x:auto}.diagram img{min-width:1050px}
+
+.diagram{overflow:auto;max-height:720px}.diagram img{display:block;max-width:none;width:auto;min-width:0;height:auto}
+</style></head><body><header><nav><a href="SPEC-SEI-037.html">Customer Onboarding and Connectivity Solution Summary</a> · <a href="SPEC-SEI-038.html">Customer Onboarding and Connectivity Logical Feature Specification</a> · <a href="SPEC-SEI-039.html">Customer Onboarding and Connectivity Sequence and Reuse Assessment</a> · <a href="index.html">Customer onboarding and connectivity review</a></nav></header><main><p class="notice">Draft design; publication authorised for the existing three onboarding pages. Predecessor folders are archived references. Business content, IDs, lifecycle and publication selections are preserved; relative links and reading routes changed.</p><div class="toc">
+<ul>
+<li><a href="#customer-onboarding-and-connectivity-solution-summary">Customer Onboarding and Connectivity Solution Summary</a><ul>
+<li><a href="#revision-overview">Revision overview</a></li>
+<li><a href="#1-purpose">1 Purpose</a></li>
+<li><a href="#2-terms-used">2 Terms used</a></li>
+<li><a href="#3-master-feature-purpose-and-scope">3 Master Feature purpose and scope</a></li>
+<li><a href="#4-parties-and-responsibility-boundary">4 Parties and responsibility boundary</a></li>
+<li><a href="#5-key-open-solution-decisions">5 Key open solution decisions</a></li>
+<li><a href="#6-end-to-end-workflow">6 End to end workflow</a></li>
+<li><a href="#7-master-feature-lifecycle">7 Master Feature lifecycle</a></li>
+<li><a href="#8-cross-cutting-solution-considerations">8 Cross cutting solution considerations</a></li>
+<li><a href="#9-dependencies-and-risks">9 Dependencies and risks</a></li>
+<li><a href="#10-features-within-this-master-feature">10 Features within this Master Feature</a></li>
+<li><a href="#12-assurance-and-completion-checks">12 Assurance and completion checks</a></li>
+<li><a href="#ref-source-references">REF Source references</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="customer-onboarding-and-connectivity-solution-summary">Customer Onboarding and Connectivity Solution Summary</h1>
+<p><a href="SPEC-SEI-037.html">Solution Summary</a> · <a href="SPEC-SEI-038.html">Logical Feature Specification</a> · <a href="SPEC-SEI-039.html">Sequence and Reuse Assessment</a> · <a href="index.html">Folder</a></p>
+<p><strong>Public, private, Sage platform and shared work at a glance</strong></p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>What needs to be done</th>
+<th>Outcome and considerations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public platform (SPFE)</td>
+<td>Confirm the business and action authority; reuse valid setup; check the selected public functions, environment, access and trust.</td>
+<td>Phase 1 returns per-function readiness and owned actions. Public terms and contracts come from context. No assumed enrolment, test invoice or route activation. ONB-02–04/10/11; SPFE-S03/S08.</td>
+</tr>
+<tr>
+<td>Customer connects an external private provider</td>
+<td>Confirm the selected provider/account and qualified interfaces; configure only missing setup; prove sending and receiving separately.</td>
+<td>Later-phase scope. Keep connection, external registration, readiness and activation separate. Preserve earlier invoice access. ONB-05–09; REF-PROVIDER.</td>
+</tr>
+<tr>
+<td>Sage as a private platform</td>
+<td>Identify the actual operator and delivery model; qualify operator readiness and public/private interconnection before enabling the proposition for customers.</td>
+<td>Gated expansion. Sage branding does not establish the legal operator. A customer connection or external-provider integration does not establish operator readiness. REF-OPERATOR; SPC-01–03.</td>
+</tr>
+<tr>
+<td>Shared controls and expansion</td>
+<td>Reuse identity, authority, protected credentials, Global API access, connection/routing patterns and recovery under qualified scope.</td>
+<td>Add selected functions without resetting valid setup. Country/provider/role differences remain explicit; actual build coverage stays open. Peppol is excluded. REF-CONNECTIVITY.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="revision-overview">Revision overview</h2>
+<p>This separate successor combines the setup scope from SPEC-SEI-018 and SPEC-SEI-034 in one customer onboarding review. It adds an opening public/private/Sage comparison and makes the Sage private-platform role explicit. The two source sets, original specifications, permanent behaviour IDs and diagram assets remain unchanged. Invoice execution stays with its existing features. Operator/delivery-model selection, actual implementation coverage, private-provider scope and activation remain open. This draft is selected to update the existing onboarding summary page. Publication preserves its page ID and history; implementation gates remain open.</p>
+<h2 id="1-purpose">1 Purpose</h2>
+<p>Help a Spanish business set up, connect, confirm or extend supported e-invoicing functions through Sage. A direct customer or authorised accountant must understand what is ready, what is active and who must act next. An existing customer should complete only missing or invalidated work.</p>
+<p><strong>Audience: local Product teams, directors and cross-functional stakeholders.</strong> Use this page for the business outcome, scope, responsibilities and decisions. Read <a href="SPEC-SEI-038.html">SEI038</a> for the main process paths and exceptions. Architects and engineers use <a href="SPEC-SEI-039.html">SEI039</a> for existing capabilities, public/private Spain tailoring and evidence gaps.</p>
+<p>Customer onboarding is the Master Feature journey. Behaviour remains proposed; a sourced fact or recorded decision does not prove implementation readiness.</p>
+<h2 id="2-terms-used">2 Terms used</h2>
+<p>Use the <a href="../../context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>. These distinctions are essential to the summary.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Represented business</td>
+<td>The business whose setup or invoice function is affected. It is separate from the authenticated caller.</td>
+</tr>
+<tr>
+<td>Authority</td>
+<td>Current permission for a specific action for that business. A login, client relationship or certificate alone is insufficient.</td>
+</tr>
+<tr>
+<td>Readiness</td>
+<td>An evidenced check result for a stated function, actor and environment, with limitations and recheck conditions.</td>
+</tr>
+<tr>
+<td>Activation</td>
+<td>An evidenced start of authorised use for the exact function, direction and scope. Connection and readiness are separate results.</td>
+</tr>
+<tr>
+<td>Recovery</td>
+<td>Correct or establish the result of affected work, then return to its blocked check.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-master-feature-purpose-and-scope">3 Master Feature purpose and scope</h2>
+<p>An authorised customer or accountant requests setup for one business or independent client businesses. Return each function’s result, limitations and action owner. Existing setup needs only missing or invalidated work.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Customer situation</th>
+<th>Intended outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>First-time setup</td>
+<td>Select a supported option and establish the required checks.</td>
+</tr>
+<tr>
+<td>Existing public service</td>
+<td>Establish Sage access for selected functions without assuming new public enrolment (SPFE-S03).</td>
+</tr>
+<tr>
+<td>Existing private provider</td>
+<td>Keep the provider and connect its qualified account to Sage.</td>
+</tr>
+<tr>
+<td>Public and private services</td>
+<td>Qualify the function assigned to each service and return independent results.</td>
+</tr>
+<tr>
+<td>Existing Sage setup</td>
+<td>Confirm unchanged valid setup or add only requested functions.</td>
+</tr>
+<tr>
+<td>Platform change</td>
+<td>Change supported future work at an authorised boundary; preserve earlier obligations.</td>
+</tr>
+<tr>
+<td>Existing B2G use</td>
+<td>Assess B2B separately and retain the B2G setup.</td>
+</tr>
+<tr>
+<td>Unsupported or uncertain setup</td>
+<td>Explain the limitation or missing evidence and give an owned next action. The unlisted-provider option remains TBD; a planned provider list does not establish availability.</td>
+</tr>
+</tbody>
+</table></div>
+<p>SEI038 identifies these situations as ONB-S01–08. Each can apply to a direct customer, an accountant for one client or a portfolio. A single client does not require batch processing.</p>
+<p><strong>Phase 1</strong> returns public readiness. Private setup and activation need later-phase qualification. Private A to Private B remains gated.</p>
+<p><strong>Public onboarding in Phase 1:</strong> select the business, environment and requested public functions; verify identity and authority; reuse valid existing setup; check the required access and trust evidence; then return readiness for each selected function. The <a href="SPEC-SEI-038.html#31-in-scope">public-only plan in SEI038</a> identifies the activities and stop conditions. This establishes whether Sage can perform the selected work for that business. It does not issue an invoice, create an assumed public registration or activate a route.</p>
+<p><strong>Private-platform timing:</strong> customer ERP setup and operator interconnection are separate. For qualifying platform-to-platform requests, the receiving operator has <strong>one month</strong>, subject to the specific queue exception; the public solution provides the required interim exchange. This is not a general 30-day onboarding promise. <a href="SPEC-SEI-038.html#67-onb-05-configure-private-choice">SEI038 operator interconnection handoff</a> defines the clock and handoff. REF-INTERCONNECT.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Outcome or endpoint</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Selected work complete</td>
+<td>Each function has a supported, evidenced result. Public readiness and later activation retain separate meanings.</td>
+</tr>
+<tr>
+<td>Final rejection or withdrawal</td>
+<td>The requested work has a recorded final disposition. Existing service remains subject to its own state and obligations.</td>
+</tr>
+<tr>
+<td>Cancellation complete</td>
+<td>Safe pending work is stopped and every possible external effect has sufficient evidence-backed resolution for closure.</td>
+</tr>
+<tr>
+<td>Action pending or outcome unknown</td>
+<td>Not an endpoint. Retain the owner and recovery path; do not infer completion from escalation.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Invoice creation, sending, retrieval, reporting and full exit belong to their owning features. Onboarding supplies setup evidence and checks dependencies.</p>
+<h2 id="4-parties-and-responsibility-boundary">4 Parties and responsibility boundary</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Party</th>
+<th>Responsibility and handoff</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business or authorised accountant</td>
+<td>Select the requested outcome and supported option; provide missing information or a purpose-specific decision.</td>
+</tr>
+<tr>
+<td>ERP or product</td>
+<td>Present choices and client actions; show the current permitted per-function result through the Global API.</td>
+</tr>
+<tr>
+<td>E-Invoice Service</td>
+<td>Own setup and recovery coordination. This recorded direction does not establish a separate onboarding service.</td>
+</tr>
+<tr>
+<td>Identity, trust and connection owners</td>
+<td>Supply qualified identity, authority, protected access and connection evidence. Keep their decisions separate.</td>
+</tr>
+<tr>
+<td>Routing and invoice-operation owners</td>
+<td>Qualify activation, preserve invoice origins and apply runtime checks for their own operations.</td>
+</tr>
+<tr>
+<td>Provider or public connector</td>
+<td>Execute only the selected qualified contract and provide operation evidence.</td>
+</tr>
+<tr>
+<td>Named operator / proposition owner</td>
+<td>Qualify the proposed Sage private-platform service and operator interconnection before enabling the affected customer scope. The operator may be Sage or a partner under the selected delivery model; REF-OPERATOR.</td>
+</tr>
+<tr>
+<td>Operations</td>
+<td>Own assigned unresolved work and evidence-backed manual action; assignment alone does not prove success.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="5-key-open-solution-decisions">5 Key open solution decisions</h2>
+<p>The <a href="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks">existing decision record</a> retains owners and gates. These open decisions affect scope or delivery.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>References</th>
+<th>Impact</th>
+<th>Owner and gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONB-Q01/02 and OFR-Q01/02</td>
+<td>Supported observations, public/private combinations, receiving reachability and exact recovery checkpoints.</td>
+<td>Integration, Routing, Product and Operations; selected-provider pilot.</td>
+</tr>
+<tr>
+<td>ONB-Q04/09</td>
+<td>Actual ERP/API results, customer inputs, scheduling, timezones and receiving-history coverage.</td>
+<td>API, ERP Product, Routing and Receiving; contract review and cohort pilot.</td>
+</tr>
+<tr>
+<td>ONB-Q06/07 and OFR-Q04</td>
+<td>Protected-source operations, accepted representation evidence, eligible approvers and action channel.</td>
+<td>Trust, Identity, Spain Compliance and Security; selected-function and delegated pilots.</td>
+</tr>
+<tr>
+<td>ONB-Q08</td>
+<td>Batch permissions, limits, fair processing and access-filtered progress.</td>
+<td>Accountant Product, API, Identity and Operations; portfolio pilot.</td>
+</tr>
+<tr>
+<td>ONB-Q05 and OFR-Q03</td>
+<td>Existing implementation coverage and gaps within the E-Invoice Service.</td>
+<td>Service owner and Architecture; before build.</td>
+</tr>
+<tr>
+<td>Unnumbered transition and operational decisions</td>
+<td>Operator approval, publication sequence, historical access, safe retry budgets and manual closure evidence.</td>
+<td>Provider, Routing, Compliance and Operations; before the affected path is enabled.</td>
+</tr>
+<tr>
+<td>Sage private-platform role</td>
+<td>Customer connection success cannot establish operator readiness or enable the proposition.</td>
+<td>Operator, Compliance, Security and Operations: accountable entity, delivery model, qualified public/private capabilities and operational evidence before enablement. REF-OPERATOR.</td>
+</tr>
+<tr>
+<td>Unlisted private provider</td>
+<td>Whether to show only enabled providers or add an “Other provider” request remains TBD. Refine with coverage; do not promise an unqualified connection.</td>
+<td>Spain Product and local technical lead; before the private onboarding option is enabled. SEI038 section 3.5.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="6-end-to-end-workflow">6 End to end workflow</h2>
+<p>Verify the business and actor, assess existing setup, and run the required public/private checks. Missing approval enters ONB-12; portfolio processing uses ONB-13. Uncertain effects enter ONB-08 and return to the affected check.</p>
+<div class="diagram"><img alt="Set up, connect or review e-invoicing through Sage" src="../../assets/diagrams/onboarding-scenario-selection-process.svg" /></div>
+<p>Figure 1. Onboarding paths for ONB-S01–08. <a href="../../assets/diagrams/onboarding-scenario-selection-process.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/onboarding-scenario-selection-process.png">PNG</a>.</p>
+<p>Solid arrows show work or a result. Dashed arrows show selected or conditional work. The columns identify paths, not service boundaries. A combined setup can use several branches. Recovery and approval remain conditional activities, not alternative delivery routes.</p>
+<h2 id="7-master-feature-lifecycle">7 Master Feature lifecycle</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Outcome</th>
+<th>Accountable party or handoff</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONB-13 Manage portfolio batch</td>
+<td>Saved receipt and independent item mapping, where batch mode applies.</td>
+<td>E-Invoice Service; current per-client permission.</td>
+</tr>
+<tr>
+<td>ONB-01 Capture requested functions</td>
+<td>Scoped request recorded or duplicate/conflict returned.</td>
+<td>Product to E-Invoice Service.</td>
+</tr>
+<tr>
+<td>ONB-02 Check business identity and authority</td>
+<td>Separate identity and action-authority findings.</td>
+<td>Identity and authority owners.</td>
+</tr>
+<tr>
+<td>ONB-10 Assess current setup</td>
+<td>Plan for missing, unchanged, stale or unsupported work.</td>
+<td>E-Invoice Service with evidence owners.</td>
+</tr>
+<tr>
+<td>ONB-12 Coordinate client approval and evidence</td>
+<td>Missing decision resolved or owned client action retained.</td>
+<td>Eligible approver and evidence owner.</td>
+</tr>
+<tr>
+<td>ONB-03 Assess prerequisites</td>
+<td>Required access and trust checks established.</td>
+<td>Policy, Identity and trust owners.</td>
+</tr>
+<tr>
+<td>ONB-04 Publish public readiness</td>
+<td>Evidenced result for each selected public function.</td>
+<td>E-Invoice Service to product.</td>
+</tr>
+<tr>
+<td>ONB-05 Configure private choice</td>
+<td>Explicit supported choice and missing configuration recorded.</td>
+<td>Customer, product and connection owner.</td>
+</tr>
+<tr>
+<td>ONB-06 Prove private readiness</td>
+<td>Selected function and required external state qualified.</td>
+<td>Connection and provider owners.</td>
+</tr>
+<tr>
+<td>ONB-07 Cut over new traffic</td>
+<td>Authorised future-work boundary evidenced.</td>
+<td>Routing owner.</td>
+</tr>
+<tr>
+<td>ONB-08 Reconcile and recover</td>
+<td>Original effect resolved or kept on an owned hold.</td>
+<td>Operation owner and Operations.</td>
+</tr>
+<tr>
+<td>ONB-09 Preserve and release</td>
+<td>Earlier invoice access retained; dependency release separately gated.</td>
+<td>Routing, records and Operations.</td>
+</tr>
+<tr>
+<td>ONB-11 Return results and required actions</td>
+<td>Current permitted results, limitations and next actions.</td>
+<td>E-Invoice Service through Global API to product.</td>
+</tr>
+</tbody>
+</table></div>
+<p>SEI038 defines these activities. Approval and recovery can interrupt a check; independent client work can continue.</p>
+<h2 id="8-cross-cutting-solution-considerations">8 Cross cutting solution considerations</h2>
+<p>Spain identity, representation and provider rules remain country-specific. Reusable journey patterns need the selected country and provider evidence.</p>
+<p>Reuse the existing FR APIs with Spain country-pack tailoring. Public readiness and private-provider setup need different qualifications. Keep business mapping, traffic changes and unresolved dependencies visible; engineering detail stays in <a href="SPEC-SEI-039.html#1-engineering-direction">SEI039</a>.</p>
+<p>Expand through the same activities. ONB-S05 adds a requested function and checks its missing or invalidated evidence while preserving valid existing functions. A later private connection uses ONB-05/06 and the existing activation gates. New scope needs qualified country/provider contracts; flexibility does not enable it automatically. Public terminology follows the original sources in <code>context/</code>. Peppol remains outside this review.</p>
+<p>Existing Tax Service certificate capability is the intended reuse source; exact Spain fitness remains to qualify. DTS is the preferred transformation candidate for later invoice operations under <a href="../../specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md">SPEC-SEI-008</a>. Onboarding itself establishes neither implementation as ready.</p>
+<h2 id="9-dependencies-and-risks">9 Dependencies and risks</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Dependency or risk</th>
+<th>Consequence and response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authority or trust evidence is missing</td>
+<td>Hold dependent work and return the eligible action owner.</td>
+</tr>
+<tr>
+<td>An external change has an unknown outcome</td>
+<td>Preserve the original operation and check actual state before repetition.</td>
+</tr>
+<tr>
+<td>A receiving change affects reachability</td>
+<td>Routing decides hold or continuation from evidence, even before local activation.</td>
+</tr>
+<tr>
+<td>Earlier invoices still need the previous path</td>
+<td>Retain required access until the historical-continuity gate passes.</td>
+</tr>
+<tr>
+<td>Capacity and service targets are unqualified</td>
+<td>Set measurable limits and objectives from approved contracts and pilot evidence.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="10-features-within-this-master-feature">10 Features within this Master Feature</h2>
+<p>Connection setup is part of this customer journey. Shared runtime access and public/provider execution remain in SPEC-SEI-011/013/014/017 and the sending, receiving and lifecycle sets. A configured account, qualified connection, active customer route and eligible operator remain separate outcomes.</p>
+<p>One <a href="SPEC-SEI-038.html">high-level logical journey</a> covers ONB-01–13 and OFR-01–08. Public/private setup, approval and portfolio work are activity groups; delivery-feature boundaries remain for Product and Engineering to agree.</p>
+<p>Certificate, connectivity/routing and invoice-operation features retain their existing responsibilities. SEI038 links their handoffs.</p>
+<h2 id="12-assurance-and-completion-checks">12 Assurance and completion checks</h2>
+<p>Before enabling a scope, confirm scenario/actor coverage, qualified business authority and access, safe recovery, historical continuity and an owner for each open gate.</p>
+<p>SEI038 holds the functional acceptance checks; SEI039 holds engineering qualification. Neither establishes production readiness.</p>
+<h2 id="ref-source-references">REF Source references</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>REF ID</th>
+<th>Source and version</th>
+<th>Exact location</th>
+<th>Supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-BASE</td>
+<td><a href="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md">SPEC-SEI-002</a>, snapshot 20 October 2026</td>
+<td>Parts 1–4 and REF</td>
+<td>Predecessor scope, IDs, recorded ownership direction, proposed behaviour and open gates. Not implementation evidence.</td>
+</tr>
+<tr>
+<td>REF-PRODUCT</td>
+<td><a href="../../prds/PRD-SEI-101-public-platform-onboarding.md">PRD-SEI-101</a>, <a href="../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md">104</a>, <a href="../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md">107</a>, <a href="../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md">222</a></td>
+<td>Decision summaries, scope and functional requirements</td>
+<td>Canonical product scope; unresolved differences require an owner decision.</td>
+</tr>
+<tr>
+<td>REF-COUNTRY</td>
+<td><a href="../../prds/PRD-SEI-227-e-invoicing-as-a-service.md">PRD-SEI-227</a></td>
+<td>Shared platform and country-pack direction</td>
+<td>Reuse direction; not deployment qualification.</td>
+</tr>
+<tr>
+<td>REF-INTERCONNECT</td>
+<td><a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295">RD 238/2026 official original</a>, published 31 March 2026; checked 22 October 2026</td>
+<td>Articles 8(1)–(3), 9(1)–(5)</td>
+<td>Participating-platform interconnection, one-month receiving-operator period, specific queue exception and interim public exchange. Not a general customer ERP-onboarding SLA.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf">Original catalogue</a>, 0.1.0, 9 October 2026</td>
+<td>Sections 6.1–6.10, pp. 9–20</td>
+<td>Supplied public operations; no onboarding enrolment contract in this bundle. Supports the S02 boundary. Does not prove live availability.</td>
+</tr>
+<tr>
+<td>REF-EVIDENCE</td>
+<td><a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a> and <a href="SPEC-SEI-038.html#ref-source-references">logical REF</a></td>
+<td>Source register, exact contracts and open conflicts</td>
+<td>Original-source route for Spain-dependent rules and acceptance. The guide is a reading aid.</td>
+</tr>
+<tr>
+<td>REF-PREDECESSORS</td>
+<td><a href="../../specs/archive/onboarding/SPEC-SEI-018-customer-onboarding-solution-summary.md">018</a>, <a href="../../specs/archive/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md">019</a>, <a href="../../specs/archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md">021</a>; <a href="../../specs/archive/provider-connectivity/SPEC-SEI-034-provider-connectivity-solution-summary.md">034</a>, <a href="../../specs/archive/provider-connectivity/SPEC-SEI-035-provider-connectivity-logical-feature-specification.md">035</a>, <a href="../../specs/archive/provider-connectivity/SPEC-SEI-036-provider-connectivity-sequence-and-reuse-assessment.md">036</a>, repository sources updated 23 October 2026.</td>
+<td>Sections and IDs stated in the source/claim cells.</td>
+<td>Scope, scenarios, ONB/OFR activities, capability boundaries, formats and evidence gates. Retained draft designs; no approval or implementation proof.</td>
+</tr>
+<tr>
+<td>REF-PROVIDER</td>
+<td><a href="../../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md">SPEC-SEI-011</a>, <a href="../../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md">013</a>, <a href="../../specs/SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md">017</a>, updated 20 October 2026.</td>
+<td>Sections and IDs stated in the source/claim cells.</td>
+<td>Public execution, Global API access/integration modes, B2B Router binding and PCN/GPA/B2BR gates. Setup consumes qualified capabilities; these sources retain runtime contracts and uncertainties.</td>
+</tr>
+<tr>
+<td>REF-CONNECTIVITY</td>
+<td><a href="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">SPEC-SEI-014</a>, updated 20 October 2026; Part 1 §§1–3 and SPC-01–08.</td>
+<td>Sections and IDs stated in the source/claim cells.</td>
+<td>Customer-provider and platform-interconnection roles; separate qualification, routes and continuity. Proposed shared foundation, not build compatibility or operator eligibility.</td>
+</tr>
+<tr>
+<td>REF-OPERATOR</td>
+<td><a href="../../prds/PRD-SEI-210-sage-private-platform-reuse-and-operator-expansion.md">PRD-SEI-210</a>, updated 10 August 2026; delivery-model/reuse boundaries. <a href="../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md">PRD-SEI-221</a>, updated 6 October 2026; Decision summary, Phase and outcome, readiness domains, E7, BR11 and FR20.</td>
+<td>Sections and IDs stated in the source/claim cells.</td>
+<td>Sage proposition, named operator, legal/technical/security/operations evidence and operator interconnection process. Canonical proposed product scope; no selected delivery model, operator appointment or permission to launch.</td>
+</tr>
+</tbody>
+</table></div></main></body></html>

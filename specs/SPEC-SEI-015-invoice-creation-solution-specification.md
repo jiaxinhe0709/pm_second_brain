@@ -116,8 +116,8 @@ The Word compliance guide linked inside IC-E01 was not supplied. Its full conten
 | Public-profile and country-rule approval | Spain technical and Compliance owners. Own applicability, field meaning, code lists, exceptions and technical-contract evidence. |
 | UBL transformation | Existing DTS is the preferred implementation reuse candidate. [SPEC-SEI-008](SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) owns migration and qualification. |
 | Validation and issues | [SPEC-SEI-005](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md). Reuse its result semantics and layered checks. |
-| Signing, recipient delivery and public-copy actions | [SPEC-SEI-001](SPEC-SEI-001-certificate-management-solution-specification.md) and [SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md). Creation supplies exact final source and representation evidence; bind actual ERP issuance proof through the qualified sending boundary. |
-| Later correction relationships and payment/reporting interpretation | ERP and [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md). A creation result alone never changes payment or commercial status. |
+| Signing, recipient delivery and public-copy actions | [SPEC-SEI-001](SPEC-SEI-001-certificate-management-solution-specification.md) and [SPEC-SEI-007](archive/SPEC-SEI-007-invoice-sending-solution.md). Creation supplies exact final source and representation evidence; bind actual ERP issuance proof through the qualified sending boundary. |
+| Later correction relationships and payment/reporting interpretation | ERP and [SPEC-SEI-009](archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md). A creation result alone never changes payment or commercial status. |
 | Durable invoice conservation | Existing product/records owner. DTS temporary output is not an archive. Exact custody and retention need IC-Q09. |
 
 ### 4 Spain use and reuse qualification

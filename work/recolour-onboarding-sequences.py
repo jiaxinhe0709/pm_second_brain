@@ -7,7 +7,7 @@ import re
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-SPEC = ROOT / 'specs/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md'
+SPEC = ROOT / 'specs/archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md'
 OUT = ROOT / 'work/onboarding-colour-review'
 GREY, BLUE = '#626262', '#1565C0'
 PAINT_KEYS = {'fontColor', 'strokeColor', 'fillColor'}
@@ -187,7 +187,7 @@ def apply_colours(svg_path):
 
 
 def main():
-    protected = list((ROOT / 'specs/onboarding').glob('*.md'))
+    protected = list((ROOT / 'specs/archive/onboarding').glob('*.md'))
     hashes = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in protected}
     paths = [(SPEC.parent / target).resolve() for target in re.findall(r'^!\[[^\]]*\]\(([^)]+\.svg)\)', SPEC.read_text(), re.M)]
     assert len(paths) == 5 and all(path.name.startswith('onboarding-reuse-') for path in paths)

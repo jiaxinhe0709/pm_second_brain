@@ -50,77 +50,77 @@
         <mxCell id="lane-label-5" value="Public / private&#10;platforms" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="30" y="860" width="180" height="140" />
         </mxCell>
-        <object id="source" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Source check or file arrival&#10;Selected public or private source&#10;RSD-01 / PRI-01 · Common" tooltip="Selected public or private source">
+        <object id="source" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Source check or file arrival&#10;Selected public or private source&#10;RSD-01 / PRI-01 · Common" tooltip="Selected public or private source">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="240" y="878" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="authority" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Check source and authority&#10;Business, caller, route and mode&#10;RSD-01/02 / PRI-01 · Common" tooltip="Business, caller, route and mode">
+        <object id="authority" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Check source and authority&#10;Business, caller, route and mode&#10;RSD-01/02 / PRI-01 · Common" tooltip="Business, caller, route and mode">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="240" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="public_query" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Discover public invoices&#10;Qualified filters and continuation&#10;RSD-03 · Scenario-specific" tooltip="Qualified filters and continuation">
+        <object id="public_query" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Discover public invoices&#10;Qualified filters and continuation&#10;RSD-03 · Scenario-specific" tooltip="Qualified filters and continuation">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="565" y="878" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="public_fetch" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Download public source file&#10;Qualified locator or ID contract&#10;RSD-03 · Scenario-specific" tooltip="Qualified locator or ID contract">
+        <object id="public_fetch" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Download public source file&#10;Qualified locator or ID contract&#10;RSD-03 · Scenario-specific" tooltip="Qualified locator or ID contract">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="900" y="878" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="private_file" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Full file supplied?&#10;&#10;PRI-02 · Scenario-specific" tooltip="">
+        <object id="private_file" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Full file supplied?&#10;&#10;PRI-02 · Scenario-specific" tooltip="">
           <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="900" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="private_fetch" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Fetch private source file&#10;Qualified provider file contract&#10;PRI-03 · Scenario-specific" tooltip="Qualified provider file contract">
+        <object id="private_fetch" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Fetch private source file&#10;Qualified provider file contract&#10;PRI-03 · Scenario-specific" tooltip="Qualified provider file contract">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1250" y="878" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="private_hold" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Recover pending file fetch&#10;Same item; safe resume or reconcile&#10;PRI-03/04 · Conditional" tooltip="Same item; safe resume or reconcile">
+        <object id="private_hold" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Recover pending file fetch&#10;Same item; safe resume or reconcile&#10;PRI-03/04 · Conditional" tooltip="Same item; safe resume or reconcile">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1250" y="738" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="capture" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Verify durable source capture&#10;Exact bytes, role, context and hash&#10;RSD-04 · Common" tooltip="Exact bytes, role, context and hash">
+        <object id="capture" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Verify durable source capture&#10;Exact bytes, role, context and hash&#10;RSD-04 · Common" tooltip="Exact bytes, role, context and hash">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1595" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="receiving" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Register durable item outcome&#10;Saved state and recovery owner&#10;RCV-01 / RSD-05 · Common" tooltip="Saved state and recovery owner">
+        <object id="receiving" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Register durable item outcome&#10;Saved state and recovery owner&#10;RCV-01 / RSD-05 · Common" tooltip="Saved state and recovery owner">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1935" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="processing" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Check, map and publish once&#10;One business invoice and delivery&#10;RCV-02–09 · Common" tooltip="One business invoice and delivery">
+        <object id="processing" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Check, map and publish once&#10;One business invoice and delivery&#10;RCV-02–09 · Common" tooltip="One business invoice and delivery">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2255" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="progress" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Commit covered source progress&#10;Every covered item accounted for&#10;RSD-06 / PRI-04 · Common" tooltip="Every covered item accounted for">
+        <object id="progress" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Commit covered source progress&#10;Every covered item accounted for&#10;RSD-06 / PRI-04 · Common" tooltip="Every covered item accounted for">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2255" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="product" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Deliver to the product&#10;Stable identity; separate receipt&#10;RCV-07 · Conditional" tooltip="Stable identity; separate receipt">
+        <object id="product" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Deliver to the product&#10;Stable identity; separate receipt&#10;RCV-07 · Conditional" tooltip="Stable identity; separate receipt">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2255" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="file_read" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Read the saved source file&#10;Current permission; labelled bytes&#10;RSD-07/09 · Conditional" tooltip="Current permission; labelled bytes">
+        <object id="file_read" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Read the saved source file&#10;Current permission; labelled bytes&#10;RSD-07/09 · Conditional" tooltip="Current permission; labelled bytes">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1935" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="customer_file" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Receive the downloaded file&#10;Separate from product delivery&#10;RSD-07 · Conditional" tooltip="Separate from product delivery">
+        <object id="customer_file" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Receive the downloaded file&#10;Separate from product delivery&#10;RSD-07 · Conditional" tooltip="Separate from product delivery">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2255" y="178" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="restricted" link="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Hold or restrict the file&#10;Owned case; approved safe access&#10;RCV-09 / RSD-07/08 · Conditional" tooltip="Owned case; approved safe access">
+        <object id="restricted" link="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md" label="Hold or restrict the file&#10;Owned case; approved safe access&#10;RCV-09 / RSD-07/08 · Conditional" tooltip="Owned case; approved safe access">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1935" y="738" width="260" height="104" />
           </mxCell>

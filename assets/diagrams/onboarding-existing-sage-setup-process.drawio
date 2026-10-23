@@ -47,52 +47,52 @@
         <mxCell id="lane-label-5" value="Public / private&#10;platforms" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="30" y="860" width="180" height="140" />
         </mxCell>
-        <object id="request" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Review setup or add a function&#10;Explicit requested outcome&#10;ONB-01" tooltip="Explicit requested outcome">
+        <object id="request" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Review setup or add a function&#10;Explicit requested outcome&#10;ONB-01" tooltip="Explicit requested outcome">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="240" y="178" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="api" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Submit review through the API&#10;Business and environment&#10;ONB-01" tooltip="Business and environment">
+        <object id="api" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Submit review through the API&#10;Business and environment&#10;ONB-01" tooltip="Business and environment">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="535" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="identity" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Recheck current permission&#10;No inherited authority&#10;ONB-02" tooltip="No inherited authority">
+        <object id="identity" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Recheck current permission&#10;No inherited authority&#10;ONB-02" tooltip="No inherited authority">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="535" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="assess" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Read setup and evidence&#10;Settings, versions, freshness&#10;ONB-10" tooltip="Settings, versions, freshness">
+        <object id="assess" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Read setup and evidence&#10;Settings, versions, freshness&#10;ONB-10" tooltip="Settings, versions, freshness">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="830" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="choice" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Any missing work?&#10;&#10;ONB-10" tooltip="">
+        <object id="choice" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Any missing work?&#10;&#10;ONB-10" tooltip="">
           <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1125" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="confirm" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="No: confirm existing setup&#10;Zero external mutations&#10;ONB-11" tooltip="Zero external mutations">
+        <object id="confirm" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="No: confirm existing setup&#10;Zero external mutations&#10;ONB-11" tooltip="Zero external mutations">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1420" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="checks" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Yes: check affected functions&#10;Reuse valid unchanged checks&#10;ONB-03–06" tooltip="Reuse valid unchanged checks">
+        <object id="checks" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Yes: check affected functions&#10;Reuse valid unchanged checks&#10;ONB-03–06" tooltip="Reuse valid unchanged checks">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1420" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="activate" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Activate only requested scope&#10;If supported and authorised&#10;ONB-07" tooltip="If supported and authorised">
+        <object id="activate" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Activate only requested scope&#10;If supported and authorised&#10;ONB-07" tooltip="If supported and authorised">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1715" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="recover" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Resolve stale or unknown facts&#10;Do not infer deregistration&#10;ONB-08" tooltip="Do not infer deregistration">
+        <object id="recover" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Resolve stale or unknown facts&#10;Do not infer deregistration&#10;ONB-08" tooltip="Do not infer deregistration">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1715" y="738" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="result" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Return current function results&#10;Unchanged functions preserved&#10;ONB-11" tooltip="Unchanged functions preserved">
+        <object id="result" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Return current function results&#10;Unchanged functions preserved&#10;ONB-11" tooltip="Unchanged functions preserved">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2010" y="318" width="260" height="104" />
           </mxCell>

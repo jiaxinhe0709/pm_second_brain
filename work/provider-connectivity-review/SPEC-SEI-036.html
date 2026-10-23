@@ -1,0 +1,375 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Provider Connectivity Sequence and Reuse Assessment</title><style>
+*{box-sizing:border-box}body{margin:0;color:#243445;background:#fff;font:16px/1.55 Arial,sans-serif}
+header{padding:18px 24px;background:#f3f6f8;border-bottom:1px solid #ccd4dc}nav{display:flex;flex-wrap:wrap;gap:20px}
+a{color:#075eaa}main{max-width:1200px;margin:28px auto;padding:0 24px}h1{font-size:30px}h2{margin-top:36px}
+.table-scroll{overflow:auto;margin:18px 0}table{border-collapse:collapse;width:100%;min-width:650px;font-size:14px}
+th,td{border:1px solid #ccd4dc;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f6f8}
+code{font-size:.9em;background:#f3f6f8;overflow-wrap:anywhere}img{display:block;width:100%;height:auto;margin:20px 0}
+.notice{padding:12px;background:#fff5da;border-left:4px solid #ad7000}.toc{font-size:14px}.toc ul{padding-left:22px}
+
+.diagram{overflow-x:auto}.diagram img{min-width:1050px}
+</style></head><body><header><nav><a href="SPEC-SEI-034.html">Provider Connectivity Solution Summary</a> · <a href="SPEC-SEI-035.html">Provider Connectivity Logical Feature Specification</a> · <a href="SPEC-SEI-036.html">Provider Connectivity Sequence and Reuse Assessment</a> · <a href="index.html">Provider connectivity review</a></nav></header><main><p class="notice">Unpublished design proposal. Specs 011, 013 and 017 and current Confluence sources remain unchanged.</p><div class="toc">
+<ul>
+<li><a href="#provider-connectivity-sequence-and-reuse-assessment">Provider Connectivity Sequence and Reuse Assessment</a><ul>
+<li><a href="#revision-overview">Revision overview</a></li>
+<li><a href="#1-engineering-direction-and-product-impact">1 Engineering direction and product impact</a></li>
+<li><a href="#2-proposed-reuse-sequences">2 Proposed reuse sequences</a><ul>
+<li><a href="#21-sending-through-public-and-private-routes">2.1 Sending through public and private routes</a></li>
+<li><a href="#22-public-consultation-and-download">2.2 Public consultation and download</a></li>
+<li><a href="#23-private-receiving-and-existing-api-reuse">2.3 Private receiving and existing API reuse</a></li>
+</ul>
+</li>
+<li><a href="#3-contract-and-format-assessment">3 Contract and format assessment</a><ul>
+<li><a href="#31-operation-evidence">3.1 Operation evidence</a></li>
+<li><a href="#32-files-syntax-and-transport">3.2 Files, syntax and transport</a></li>
+</ul>
+</li>
+<li><a href="#4-reuse-qualification">4 Reuse qualification</a></li>
+<li><a href="#5-decisions-and-qualification-checks">5 Decisions and qualification checks</a></li>
+<li><a href="#ref-source-references">REF Source references</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="provider-connectivity-sequence-and-reuse-assessment">Provider Connectivity Sequence and Reuse Assessment</h1>
+<p><a href="SPEC-SEI-034.html">Solution Summary</a> · <a href="SPEC-SEI-035.html">Logical Feature Specification</a> · <a href="index.html">Folder</a></p>
+<h2 id="revision-overview">Revision overview</h2>
+<p>This engineering view develops the initial SPEC-SEI-034 assessment into sequences, contract/format comparisons and reuse gates. SPEC-SEI-035 owns the combined scenarios; existing PCN, GPA, B2BR and journey IDs retain their meanings. The three source specifications remain unchanged, including detailed inventories and unresolved decisions.</p>
+<p>This is a Spain design proposal. It does not approve API endpoints, deployment boundaries, provider selection or production coverage. The <a href="../../context/GLO-SEI-001-e-invoicing-terminology.md">glossary</a> distinguishes the Sage-owned Provider API from a provider-owned external API.</p>
+<h2 id="1-engineering-direction-and-product-impact">1 Engineering direction and product impact</h2>
+<p>Assess the E-Invoicing Global API contract for public/private capabilities. Qualify the public platform connector and private-provider bindings independently. If one external provider can execute both, it must supply evidence for each action; it cannot inherit public coverage from private sending or generic format support. REF-BASE.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Proposed assessment / possible change</th>
+<th>Product integration impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared access</td>
+<td>Compare actual API/build with caller authority, representation references, receipts and action results.</td>
+<td>Existing contract compatibility is unknown. No breaking change is established.</td>
+</tr>
+<tr>
+<td>Spain public send/receive</td>
+<td>Qualify public operation purpose, credentials, payload and source result levels.</td>
+<td>Product needs public capability and action results; current submission support cannot be assumed sufficient.</td>
+</tr>
+<tr>
+<td>Private send/receive</td>
+<td>Qualify provider account, direction, format strategy, observation and historical access.</td>
+<td>One product contract can hide transport differences while exposing unsupported capabilities and correct outcomes.</td>
+</tr>
+<tr>
+<td>Files and transformation</td>
+<td>Assess each source/target pair and one accountable conversion owner. Prefer existing DTS where qualified.</td>
+<td>Product must distinguish source and derived files. Unsupported pairs remain visible.</td>
+</tr>
+<tr>
+<td>Recovery and continuity</td>
+<td>Bind safe retries, original-operation queries, missed-event coverage and original route context.</td>
+<td>A timeout, missing event or provider switch must not create another invoice/action.</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>PROVIDER_API</code>, <code>SAGE_ADAPTER</code> and <code>HYBRID</code> retain their meanings from 013 and apply per capability. Products and partners can use common domain contracts with distinct permissions or exposure controls. Each external mutation has one execution and reconciliation owner. Call initiator and business direction are separate decisions. Physical services, hosts and gateways remain open. REF-BASE.</p>
+<h2 id="2-proposed-reuse-sequences">2 Proposed reuse sequences</h2>
+<p>The sequences below are reused unchanged from the sending and receiving sets. Their existing participants, methods, paths, activity IDs, request/response arrows and qualification labels retain the same meanings. They show how the common Global API proposal uses existing invoice features; they do not define another service model.</p>
+<h3 id="21-sending-through-public-and-private-routes">2.1 Sending through public and private routes</h3>
+<div class="diagram"><img alt="Spain final handoff, public action and independent recipient delivery — from SPEC-SEI-024" src="../../assets/diagrams/invoice-sending-spain-actions-sequence.svg" /></div>
+<p><a href="../../assets/diagrams/invoice-sending-spain-actions-sequence.svg">Full-size SVG</a> · <a href="../../assets/diagrams/invoice-sending-spain-actions-sequence.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/invoice-sending-spain-actions-sequence.png">PNG</a>.</p>
+<p>This is the existing sequence in SPEC-SEI-024 §2.2. The E-Invoice Service uses the approved exchange plan. Private delivery and a required public copy retain separate actions and results. The alternative public recipient route does not create a redundant copy. The issuance/copy frame states the existing coordination requirement; it does not make private delivery success the copy trigger or approve physical timing. Public execution follows 011. B2B Router-specific operation and payload qualification remain in 017 and §3.1 below. REF-JOURNEYS; REF-BASE; SPFE-S16.</p>
+<h3 id="22-public-consultation-and-download">2.2 Public consultation and download</h3>
+<div class="diagram"><img alt="Spain public discovery and separate file recovery — from SPEC-SEI-027" src="../../assets/diagrams/invoice-retrieval-spain-public-sequence.svg" /></div>
+<p><a href="../../assets/diagrams/invoice-retrieval-spain-public-sequence.svg">Full-size SVG</a> · <a href="../../assets/diagrams/invoice-retrieval-spain-public-sequence.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/invoice-retrieval-spain-public-sequence.png">PNG</a>.</p>
+<p>This is the existing sequence in SPEC-SEI-027 §2.2. Use <code>GetRegisteredInvoice</code> / <code>QUERYBYFILTER</code> for consultation by date filter (using the presentation date), and <code>GetInvoices</code> / <code>QUERYBYID</code> for consultation by identifier and final state. Download source bytes separately through <code>DownloadInvoicesByLOC</code> or <code>DownloadInvoicesByID</code> after the required authority checks. Preserve item results and safe progress. No public notification interface is inferred. SPFE-S03/S08/S12–15; REF-JOURNEYS.</p>
+<h3 id="23-private-receiving-and-existing-api-reuse">2.3 Private receiving and existing API reuse</h3>
+<div class="diagram"><img alt="FR subscription, received event, detail and attachment download — from SPEC-SEI-027" src="../../assets/diagrams/invoice-retrieval-fr-notification-sequence.svg" /></div>
+<p><a href="../../assets/diagrams/invoice-retrieval-fr-notification-sequence.svg">Full-size SVG</a> · <a href="../../assets/diagrams/invoice-retrieval-fr-notification-sequence.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/invoice-retrieval-fr-notification-sequence.png">PNG</a>.</p>
+<p>This is the existing FR reuse sequence in SPEC-SEI-027 §2.1. It separates event receipt, invoice detail, file download and verified capture. It is candidate API behaviour for the selected Spain private provider; it does not prove B2B Router uses the same event, API, credentials or file roles. B2B Router observations and recovery remain B2BR-05–07 in 017. A missing event needs qualified reads; a notification alone cannot complete source capture. INT-RCV01; B2BR-S04; REF-BASE.</p>
+<p>If public and private sources expose the same business invoice, apply the Duplicate observations scenario in 035 and the receiving set's recipient, trust, profile and equivalence checks. Preserve both source observations. Existing DTS remains the preferred transformation candidate for a selected source/target pair; these diagrams do not establish an available mapping. REF-JOURNEYS; REF-DTS.</p>
+<h2 id="3-contract-and-format-assessment">3 Contract and format assessment</h2>
+<h3 id="31-operation-evidence">3.1 Operation evidence</h3>
+<p>Public service names below follow the original AEAT catalogue in context; WSDL operation names and ebXML Action values retain their exact spelling. The FR guides define only their own Sage API resource, event and format terms. Private provider terms remain with the provider contract. Obtain selected contracts and builds before deriving schemas from examples. SPFE-S03/S08/S12–16.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Capability and evidenced operation</th>
+<th>Source</th>
+<th>Reuse, local difference and gap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sage submission: <code>POST /datasets/{datasetId}/e-invoices</code>, then <code>PUT {uploadUrl}</code></td>
+<td>INT-SND01 steps 2–3; supplied FR guide.</td>
+<td>Candidate common intake/file upload. Qualify Spain manifest, action purpose, authority, upload completion and lost-response recovery. <code>201</code> is not external delivery.</td>
+</tr>
+<tr>
+<td>Sage list/detail: <code>GET /datasets/{datasetId}/e-invoices</code> and <code>GET /datasets/{datasetId}/e-invoices/{e-invoiceId}</code>; <code>GET {downloadUrl}</code> for files</td>
+<td>INT-RCV01 §§3.1–4.</td>
+<td>Candidate product read/file pattern. Confirm direction filters, source-file roles, temporary URLs, history and complete recovery. Supplied FR list limits are not Spain or archive guarantees.</td>
+</tr>
+<tr>
+<td>Sage events: <code>POST /internal/events/subscriptions</code></td>
+<td>INT-SND01 step 1; INT-RCV01 §1.</td>
+<td>Confirm exposure, tokens, casing, event names, authentication and replay/completeness. Guide conflicts remain open.</td>
+</tr>
+<tr>
+<td>Invoice submission — Remisión de facturas electrónicas: <code>SendInvoice</code> / <code>SUBMITINVOICE</code></td>
+<td>SPFE-S03 §6.2; SPFE-S16.</td>
+<td>PRE SOAP 1.2, ebMS header and MIME business attachments. Qualify submission purpose, authority, environment, business schemas and repeat safety. Submission is separate from recipient delivery and a commercial response.</td>
+</tr>
+<tr>
+<td>Consultation by date filter — Consulta por filtro de fechas: <code>GetRegisteredInvoice</code> / <code>QUERYBYFILTER</code></td>
+<td>SPFE-S03 §6.5; SPFE-S15.</td>
+<td>Filter by presentation date. Preserve exact continuation field <code>SECUENCE_ID</code>; qualify pagination and safe progress. This consultation does not download invoice bytes.</td>
+</tr>
+<tr>
+<td>Consultation by identifier — Consulta por identificador: <code>GetInvoices</code> / <code>QUERYBYID</code></td>
+<td>SPFE-S03 §6.4; SPFE-S14.</td>
+<td>Consult invoice identity and final state. This is separate from date-filter consultation and file download.</td>
+</tr>
+<tr>
+<td>Download by locator — Descarga por localizador: <code>DownloadInvoicesByLOC</code> / <code>DOWNLOADBYLOC</code></td>
+<td>SPFE-S03 §6.7; SPFE-S13.</td>
+<td>Acquire source bytes by locator after qualifying the operation-specific authority. Preserve item outcomes; do not infer production access or a generic limit.</td>
+</tr>
+<tr>
+<td>Download by identifier — Descarga por identificador: <code>DownloadInvoicesByID</code> / <code>DOWNLOADBYID</code></td>
+<td>SPFE-S03 §6.6; SPFE-S12.</td>
+<td>Qualified alternative using invoice identity. Preserve per-item success/failure separately from the consultation result.</td>
+</tr>
+<tr>
+<td>Private import: <code>POST /accounts/{account}/invoices/import</code></td>
+<td>B2BR-S03.</td>
+<td>The sending-import profile explicitly requests <code>send_after_import=true</code> and a qualified sending transport. Preserve actual transport/document values and check provider defaults; qualify account, version, profiles and repeat safety. Import success is not delivery.</td>
+</tr>
+<tr>
+<td>Private received observation: <code>received_invoice.created</code></td>
+<td>B2BR-S04.</td>
+<td>Notification/signature evidence. Qualify selected-version list/detail/source-file reads, replay protection and independent completeness. Notification is not source capture.</td>
+</tr>
+<tr>
+<td>Lifecycle, public copy and reporting results</td>
+<td>011/013/017 and the owning invoice feature sources.</td>
+<td>Qualify raw source provenance and independent action meaning. No universal status mapping, public-report endpoint or combined obligation is established here.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Current authority is checked for the represented business and each action, separately from caller authentication and credential possession. Protect secrets, signed/private URLs and sensitive invoice content from logs and events. Bind original input and correlation before a possible effect. A failed query does not prove absence; retry requires the selected safe-repeat contract or original-outcome reconciliation. PCN-02–09; GPA-03/08; B2BR-03/07.</p>
+<h3 id="32-files-syntax-and-transport">3.2 Files, syntax and transport</h3>
+<p>One Sage API can carry metadata and references to multiple file types. The API metadata schema, external transport envelope and invoice syntax/profile are separate contracts. Business direction alone does not determine the syntax.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Boundary / representation</th>
+<th>Evidence</th>
+<th>Qualification needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product files in supplied FR sending flow</td>
+<td>UBL 2.1 XML with optional PDF, or a Factur-X hybrid PDF; Demo rules differ. INT-SND01 prerequisites and step 3.</td>
+<td>Actual Spain input profiles, file generation ownership and qualified manifest. Do not apply Demo attachment requirements globally.</td>
+</tr>
+<tr>
+<td>Public business documents</td>
+<td>Draft v0.1.0 §5.1.1 names UBL 2.5: <code>InvoiceType</code> (not <code>CreditNote</code>) for invoices; <code>ApplicationResponse</code> for cancellation, actions/states, consultation and download requests; <code>DocumentStatus</code> for service responses except download. SPFE-S08.</td>
+<td>Selected Spain document mappings and validators. Changing a MIME label cannot turn UBL 2.1 into the public profile. Pending §§5.3–5.9 remain a gate.</td>
+</tr>
+<tr>
+<td>Public envelope</td>
+<td>SOAP 1.2/ebMS and MIME wrap business files; WSDL payloads are opaque. SPFE-S16/S14/S12.</td>
+<td>Packaging and source-result correlation. Shared REST/JSON access does not remove the external envelope.</td>
+</tr>
+<tr>
+<td>Private outbound file/data</td>
+<td>017 assesses JSON-create versus structured import. B2BR-S03 documents possible transport/document defaults.</td>
+<td>Choose the contracted strategy and exact document/transport profile. Retain requested and actual values; hold incompatible substitution.</td>
+</tr>
+<tr>
+<td>Inbound source versus product representation</td>
+<td>Supplied FR receiving guide distinguishes <code>Original_Document</code>, UBL and <code>Human_Readable</code>, and describes UBL after a Factur-X source. INT-RCV01 §3.1 and format notes.</td>
+<td>Source-file role and preservation for each Spain/provider profile. This is pattern evidence, not B2B Router or Spain implementation coverage.</td>
+</tr>
+<tr>
+<td>Optional rendering</td>
+<td>FR <code>format=facturx</code> can generate a persisted representation. INT-SND01 step 5; INT-RCV01 §3.1.</td>
+<td>Separate observation from generation, including permissions and source identity. A rendered file is not automatically the exchanged original.</td>
+</tr>
+</tbody>
+</table></div>
+<p>For each selected mapping, record direction and operation; country/network; environment/contract version; source and target syntax/version/profile; document type; original or derived role; attachment limits; mapping/validation versions; signature evidence; owner and conformance result. These are evidence needs, not approved API fields.</p>
+<p>A private delivery and a separate public copy can need different qualified representations of one invoice. Preserve both file references and independent action results. The owning invoice feature determines copy applicability and semantic equivalence. Do not assume every input/output combination or signed-file path is supported.</p>
+<h2 id="4-reuse-qualification">4 Reuse qualification</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Capability/source</th>
+<th>Spain use and reuse classification</th>
+<th>Local change / unknown coverage</th>
+<th>Accountable role and activation evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authority, receipts, correlation and recovery patterns</td>
+<td>Reusable unchanged as proposed patterns.</td>
+<td>Actual stores, contracts and concurrency/replay behaviour unknown.</td>
+<td>API/Identity/Operations: selected build, business isolation, lost-result and crash-recovery proof.</td>
+</tr>
+<tr>
+<td>Existing Global API, files and events</td>
+<td>Unknown existing implementation coverage; preferred common access candidate.</td>
+<td>FR guides do not prove Spain action, profile or partner support.</td>
+<td>API owner + Architecture: OpenAPI/build, permissions, consumer impact, gaps and conformance.</td>
+</tr>
+<tr>
+<td>Connection and routing under 014</td>
+<td>Reusable with country binding.</td>
+<td>Spain registration, direction, public-copy/reporting applicability and cutover evidence.</td>
+<td>Routing + Spain Product: approved scope and actual service mapping; no parallel registry or route engine.</td>
+</tr>
+<tr>
+<td>Public platform connector under 011</td>
+<td>Country-specific Spain contract.</td>
+<td>PRE conflicts, business schemas, accepted authority, credential purposes and outcome queries.</td>
+<td>Public integration/Security: selected contracts, access and per-operation proof; PCN-Q01–08.</td>
+</tr>
+<tr>
+<td>B2B Router binding under 017</td>
+<td>Reusable binding pattern with provider-specific rules.</td>
+<td>Contracted version, entitlement, account model, directions, files and recovery.</td>
+<td>Provider owner: B2BR-Q01–08 evidence; no combined public/private entitlement assumed.</td>
+</tr>
+<tr>
+<td>Existing DTS; SPEC-SEI-008</td>
+<td>Unknown existing implementation coverage; preferred transformation candidate.</td>
+<td>Exact mapping pairs, rule packs, semantic/signature preservation and run support.</td>
+<td>DTS + Spain mapping owners: actual build/contracts, mapping fixtures, validation, limits and operating evidence.</td>
+</tr>
+<tr>
+<td>Spain identity, route, public-copy and reporting policy</td>
+<td>Country-specific rules.</td>
+<td>Must be explicitly bound and isolated from shared defaults.</td>
+<td>Spain Product/Compliance + QA: rule/version evidence and another-country isolation checks.</td>
+</tr>
+</tbody>
+</table></div>
+<p>If provider conversion is selected, record its owner and source/target evidence. Prevent two untracked conversions. A reusable design pattern, a supplier format list and a document inventory each remain separate from proof that an existing build is fit. REF-BASE; REF-DTS.</p>
+<h2 id="5-decisions-and-qualification-checks">5 Decisions and qualification checks</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Decision/gap</th>
+<th>Accountable role and required evidence</th>
+<th>Effect and linked functional acceptance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared API coverage and compatibility</td>
+<td>API owner + Architecture: selected build/OpenAPI, caller model, operation and action coverage, current-consumer regression evidence. Carry forward GPA-Q01/Q02.</td>
+<td>Blocks claims of unchanged integration. Check 035 Qualification/Access and country/reuse acceptance.</td>
+</tr>
+<tr>
+<td>One provider for public and private work</td>
+<td>Provider owner + Spain Product/Compliance: contracted matrix for public submission/copy/retrieval/reporting; authority, credential model, per-item public evidence, original-outcome queries and exit.</td>
+<td>Combined SPFE coverage stays unproved. Test each action independently; a different authority interface or tax-report capability is insufficient.</td>
+</tr>
+<tr>
+<td>Representations and transformation ownership</td>
+<td>DTS/Exchange/Receiving + provider: profile pairs, actual mappings/rules, source access, semantic/signature evidence and conversion owner.</td>
+<td>Holds unsupported pairs. Check 035 Representation and incompatible-substitution acceptance.</td>
+</tr>
+<tr>
+<td>Recovery and observation completeness</td>
+<td>Integration/Operations + provider/public owner: idempotency scope/input binding/window, original-action queries, notification security and bounded read/page coverage.</td>
+<td>No blind retries or assumed complete polling. Check 035 Unknown outcome, Duplicate observations and both receive scenarios.</td>
+</tr>
+<tr>
+<td>First delivery subset and continuity</td>
+<td>Product + Engineering + Operations: route, direction, document types, environment, pilot cohort and operating/exit owners.</td>
+<td>Independent capability readiness; check 035 Continuity and historical dependencies.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Retain PCN-Q01–08, GPA decisions and B2BR-Q01–08. This set closes none of them. For a reviewable design, map each selected capability to its actual contract/build and resolve its blocking gaps. Pilot/production additionally require the source gates and functional acceptance, operations evidence and approval for activation.</p>
+<p>Qualification should demonstrate: per-item public response correlation; requested/actual provider profile checks; safe lost-response handling without a second executor; incomplete page and missing-notification recovery; identifiable original/derived files; consumer compatibility; Spain-rule isolation; and qualified DTS/build coverage. These are evidence checks, not executed implementation tests or permission to activate.</p>
+<h2 id="ref-source-references">REF Source references</h2>
+<p>Sources support only the claims and elements stated below. Product requirements and proposed Sage controls have separate authority from external contracts. The <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md">Spain evidence guide</a> records the baseline and unresolved conflicts.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>REF ID</th>
+<th>Original source and version/date</th>
+<th>Exact location, supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-BASE</td>
+<td><a href="../../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md">SPEC-SEI-011</a>, <a href="../../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md">013</a>, <a href="../../specs/SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md">017</a>, updated 20 October 2026; <a href="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">014</a>, current repository source.</td>
+<td>011 Part 1 §§1–2 and Part 4 gates; 013 Part 1 §§1–4 and GPA-05/08; 017 Parts 1–4; 014 SPC-01–08. Canonical draft design and scope references. Not approved external contracts or build evidence.</td>
+</tr>
+<tr>
+<td>REF-JOURNEYS</td>
+<td><a href="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md">Sending assessment, SPEC-SEI-024</a> and <a href="../../specs/invoice-receiving/SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md">receiving assessment, SPEC-SEI-027</a>, repository review set, 22 October 2026.</td>
+<td>Sequences and reuse gaps; their linked logical specs retain detailed behaviour. Product/BA sources, not external contract proof.</td>
+</tr>
+<tr>
+<td>SPFE-S16</td>
+<td><a href="../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl">SendInvoice.wsdl</a>, supplied PRE snapshot, 13 October 2026.</td>
+<td><code>wsdl:documentation</code>, <code>SendInvoicePortType/SendInvoice</code>, <code>SendInvoiceSoapBinding</code>, certificate/seal ports. Establishes SOAP 1.2, ebMS/MIME and opaque business payloads; not a business validator or proof of live access.</td>
+</tr>
+<tr>
+<td>SPFE-S14 / SPFE-S12</td>
+<td><a href="../../context/WSDL servicios web - PRE/20261013/GetInvoices.wsdl">GetInvoices.wsdl</a> and <a href="../../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByID.wsdl">DownloadInvoicesByID.wsdl</a>, supplied PRE snapshot, 13 October 2026.</td>
+<td>Corresponding <code>portType/operation</code>, bindings and documentation. Query/download operations and packaging; not complete business schemas, push delivery or gap-free recovery.</td>
+</tr>
+<tr>
+<td>SPFE-S08</td>
+<td><a href="../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf">FormatosEntradaSalida.pdf</a>, v0.1.0, 9 October 2026, marked <code>BORRADOR</code>.</td>
+<td>§5.1.1, p. 8: UBL 2.5 document types; §§5.3–5.9, pp. 14–15: pending service formats. Draft technical evidence; no blanket production or cross-profile compatibility claim.</td>
+</tr>
+<tr>
+<td>B2BR-S03</td>
+<td><a href="https://developer.b2brouter.net/reference/import-invoice">Import an invoice from a file</a>, public live reference checked 23 October 2026; header candidate <code>2026-06-26</code>.</td>
+<td><code>POST /accounts/{account}/invoices/import</code>, <code>send_after_import</code>, transport/document parameters and <code>201</code>. Supports import, asynchronous processing and possible defaults. Not Sage's selected contract, SPFE coverage or idempotency proof.</td>
+</tr>
+<tr>
+<td>B2BR-S04</td>
+<td><a href="https://developer.b2brouter.net/reference/getnewreceivedinvoicecreated">New received invoice</a>, public live reference checked 23 October 2026.</td>
+<td><code>received_invoice.created</code>, <code>X-B2Brouter-Signature</code>. Establishes a notification and signature description; not source capture, complete reconciliation or contracted Spain entitlement.</td>
+</tr>
+<tr>
+<td>INT-SND01 / INT-RCV01</td>
+<td><a href="../../context/FR API/Sending/send-e-invoice-guide-extract.md">Supplied FR sending guide extract</a> and <a href="../../context/FR API/Receiving/receive-e-invoice-guide-extract.md">receiving guide extract</a>, received 22 October 2026; original attachment hashes recorded there.</td>
+<td>Sending prerequisites and steps 2–5; receiving §§3.1–4 and format notes. Reading aids for supplied API evidence; original canonical URLs, OpenAPI revisions and deployed builds are unavailable. They establish reuse candidates and conflicts, not Spain support.</td>
+</tr>
+<tr>
+<td>REF-DTS</td>
+<td><a href="../../specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md">SPEC-SEI-008 — Spain mapper migration to DTS</a>, current repository source.</td>
+<td>Reuse qualification and migration scope. Preferred existing transformation candidate; selected builds, mappings, rule packs and operations still require evidence.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf">CatalogoServicios.pdf</a>, 0.1.0, 9 October 2026</td>
+<td>§6.1, p. 10; §6.2 and §§6.4–6.7, pp. 10–15. Original service names, <code>SUBMITINVOICE</code>, <code>QUERYBYID</code>, <code>QUERYBYFILTER</code>, <code>DOWNLOADBYID</code>, <code>DOWNLOADBYLOC</code>, presentation date, <code>SECUENCE_ID</code>, limits and authority branches. Exact encoding/ordering/recipient-authority reconciliation remain open.</td>
+</tr>
+<tr>
+<td>SPFE-S13</td>
+<td><a href="../../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByLOC.wsdl">DownloadInvoicesByLOC.wsdl</a>, supplied 13 October 2026</td>
+<td><code>DownloadInvoicesByLOC</code> portType/binding, MIME parts and service ports. Locator-download PRE transport; no inferred production address, LOC batch size or recipient authority.</td>
+</tr>
+<tr>
+<td>SPFE-S15</td>
+<td><a href="../../context/WSDL servicios web - PRE/20261013/GetRegisteredInvoice.wsdl">GetRegisteredInvoice.wsdl</a>, supplied 13 October 2026</td>
+<td>Singular <code>GetRegisteredInvoice</code> operation; generic payload documentation and service ports. Exact transport/name. Reconcile catalogue <code>MessageProperties</code> filters with WSDL payload description before client design.</td>
+</tr>
+</tbody>
+</table></div></main></body></html>

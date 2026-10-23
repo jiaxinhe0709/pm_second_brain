@@ -44,72 +44,72 @@
         <mxCell id="lane-label-4" value="Operations / support" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="30" y="720" width="180" height="140" />
         </mxCell>
-        <object id="submit" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Select clients and functions&#10;Trusted firm and actor context&#10;ONB-13 · Common" tooltip="Trusted firm and actor context">
+        <object id="submit" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Select clients and functions&#10;Trusted firm and actor context&#10;ONB-13 · Common" tooltip="Trusted firm and actor context">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="240" y="178" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="envelope" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Valid batch envelope?&#10;&#10;ONB-13 · Common" tooltip="">
+        <object id="envelope" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Valid batch envelope?&#10;&#10;ONB-13 · Common" tooltip="">
           <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="535" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="reject" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Reject envelope safely&#10;No client items or external work&#10;ONB-13 · Common" tooltip="No client items or external work">
+        <object id="reject" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Reject envelope safely&#10;No client items or external work&#10;ONB-13 · Common" tooltip="No client items or external work">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="535" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="receipt" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Persist receipt and manifest&#10;Durable acceptance; not readiness&#10;ONB-13 · Common" tooltip="Durable acceptance; not readiness">
+        <object id="receipt" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Persist receipt and manifest&#10;Durable acceptance; not readiness&#10;ONB-13 · Common" tooltip="Durable acceptance; not readiness">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="830" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="items" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Create or attach client items&#10;Stable mapping; restart-safe&#10;ONB-13/01 · Common" tooltip="Stable mapping; restart-safe">
+        <object id="items" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Create or attach client items&#10;Stable mapping; restart-safe&#10;ONB-13/01 · Common" tooltip="Stable mapping; restart-safe">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1125" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="access" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check each client permission&#10;Relationship and scoped authority&#10;ONB-02 · Common" tooltip="Relationship and scoped authority">
+        <object id="access" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Check each client permission&#10;Relationship and scoped authority&#10;ONB-02 · Common" tooltip="Relationship and scoped authority">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1420" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="permitted" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Item can proceed?&#10;&#10;ONB-02 · Common" tooltip="">
+        <object id="permitted" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Item can proceed?&#10;&#10;ONB-02 · Common" tooltip="">
           <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1715" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="run" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Run the existing setup flow&#10;Recheck before protected actions&#10;ONB-10/03–07 · Common" tooltip="Recheck before protected actions">
+        <object id="run" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Run the existing setup flow&#10;Recheck before protected actions&#10;ONB-10/03–07 · Common" tooltip="Recheck before protected actions">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2010" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="blocked" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Return client action or denial&#10;Hold only the affected item&#10;ONB-12/11 · Conditional" tooltip="Hold only the affected item">
+        <object id="blocked" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Return client action or denial&#10;Hold only the affected item&#10;ONB-12/11 · Conditional" tooltip="Hold only the affected item">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1715" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="aggregate" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Return permitted progress&#10;Current access; independent results&#10;ONB-13/11 · Common" tooltip="Current access; independent results">
+        <object id="aggregate" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Return permitted progress&#10;Current access; independent results&#10;ONB-13/11 · Common" tooltip="Current access; independent results">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2010" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="correct" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Correct selected client items&#10;Same case; new evidence version&#10;ONB-13/12 · Conditional" tooltip="Same case; new evidence version">
+        <object id="correct" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Correct selected client items&#10;Same case; new evidence version&#10;ONB-13/12 · Conditional" tooltip="Same case; new evidence version">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1420" y="178" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="cancel" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Cancel selected pending work&#10;Recheck each item permission&#10;ONB-13 · Conditional" tooltip="Recheck each item permission">
+        <object id="cancel" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Cancel selected pending work&#10;Recheck each item permission&#10;ONB-13 · Conditional" tooltip="Recheck each item permission">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="830" y="178" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="hold" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Stop selected pending steps&#10;Keep completed item results&#10;ONB-13 · Conditional" tooltip="Keep completed item results">
+        <object id="hold" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Stop selected pending steps&#10;Keep completed item results&#10;ONB-13 · Conditional" tooltip="Keep completed item results">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="240" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="recover" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check original effect; keep hold&#10;Query owner; manual case if needed&#10;ONB-08 / OFR-05/06/07 · Conditional" tooltip="Query owner; manual case if needed">
+        <object id="recover" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Check original effect; keep hold&#10;Query owner; manual case if needed&#10;ONB-08 / OFR-05/06/07 · Conditional" tooltip="Query owner; manual case if needed">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="830" y="598" width="260" height="104" />
           </mxCell>

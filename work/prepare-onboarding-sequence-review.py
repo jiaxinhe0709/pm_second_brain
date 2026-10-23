@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import update_confluence_pages as publisher
 
-SOURCE = ROOT / 'specs/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md'
+SOURCE = ROOT / 'specs/archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md'
 OUT = ROOT / 'work/onboarding-sequence-review'
 STYLE = '''
 *{box-sizing:border-box}body{margin:0;background:white;color:#263238;font:16px/1.55 Arial,sans-serif}
@@ -92,7 +92,7 @@ def prepare():
     assert storage.count('ac:name="drawio"') == 5 and 'change-history' in storage
     (OUT / 'SPEC-SEI-021.proposed.storage.xml').write_text(storage)
 
-    for path in (SOURCE, ROOT / 'specs/onboarding/README.md'):
+    for path in (SOURCE, ROOT / 'specs/archive/onboarding/README.md'):
         validate_links(path)
         width = None
         for line in path.read_text().splitlines() + ['']:
@@ -140,7 +140,7 @@ def prepare():
         png = (ROOT / view['png']).read_bytes()
         assert struct.unpack('>II', png[16:24]) == (int(svg.get('width')), int(svg.get('height')))
         assert editable.getroot().tag == 'mxfile'
-        assert any(obj.get('link','').startswith('../../specs/onboarding/SPEC-SEI-021-') for obj in editable.findall('.//object'))
+        assert any(obj.get('link','').startswith('../../specs/archive/onboarding/SPEC-SEI-021-') for obj in editable.findall('.//object'))
     config = yaml.safe_load((ROOT / 'config/confluence.yml').read_text())
     assert config['publication']['current_sources']['923861390'] == 'SPEC-SEI-002'
     predecessor = ROOT / archive_validation['archive_location']

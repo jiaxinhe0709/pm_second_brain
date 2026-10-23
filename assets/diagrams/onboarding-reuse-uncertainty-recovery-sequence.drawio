@@ -191,7 +191,7 @@
         <mxCell id="v43" value="dependent work." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
           <mxGeometry as="geometry" x="30" y="1194" width="144.3" height="26" />
         </mxCell>
-        <object id="v44" label="Source specification" link="../../specs/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md#25-uncertainty-and-recovery">
+        <object id="v44" label="Source specification" link="../../specs/archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md#25-uncertainty-and-recovery">
           <mxCell parent="1" vertex="1" style="text;html=0;fontSize=12;align=right;">
             <mxGeometry as="geometry" x="790" y="1218" width="210" height="18" />
           </mxCell>

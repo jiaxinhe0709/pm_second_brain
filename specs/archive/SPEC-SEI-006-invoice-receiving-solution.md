@@ -41,7 +41,7 @@ confluence:
 
 # Invoice receiving solution
 
-> **Historical specification.** This document is retained for historical reference. For the current combined receiving, retrieval and download design, use [SPEC-SEI-016](../SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md). Earlier content and history are preserved. Publication is disabled; this notice does not approve implementation or activation.
+> **Historical specification.** This document is retained for historical reference. For the current combined receiving, retrieval and download design, use [SPEC-SEI-016](SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md). Earlier content and history are preserved. Publication is disabled; this notice does not approve implementation or activation.
 
 Terminology follows the [shared e-invoicing glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
@@ -59,13 +59,13 @@ The design remains a draft. **Proposed** choices still need review; **open** dec
 
 ### Design depth and scope
 
-[SPEC-SEI-007](../SPEC-SEI-007-invoice-sending-solution.md) provides the comparison for version binding, durable operation intent, separate outcomes and recovery. Receiving needs equivalent control over source evidence, identity, mapping, product delivery and acknowledgements. ERP issuance, outbound signing and public-copy submission remain outside this receiving journey.
+[SPEC-SEI-007](SPEC-SEI-007-invoice-sending-solution.md) provides the comparison for version binding, durable operation intent, separate outcomes and recovery. Receiving needs equivalent control over source evidence, identity, mapping, product delivery and acknowledgements. ERP issuance, outbound signing and public-copy submission remain outside this receiving journey.
 
 All state names and contract details below are **proposed**. The source PRDs establish product requirements; they do not prove that a receiving implementation, provider acknowledgement contract or DTS inbound mapping is deployed and qualified.
 
 ### 1 Purpose, authority and boundary
 
-This **proposed logical design** explains how Sage could receive invoices through an approved private platform or retrieve them from the public platform. The service checks the source, recipient and original file, recognises duplicates, and makes one invoice available to the correct Sage product. [PRD-SEI-223](../../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns exchange/routing requirements; [PRD-SEI-211](../../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md) owns scheduled public discovery, checkpoints and freshness; [PRD-SEI-244](../../prds/PRD-SEI-244-e-invoicing-process-flow-specification.md) supplies the inbound process boundary. [SPEC-SEI-005](../SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) owns the outbound UBL validation/correction contract; this spec calls an activated inbound validation profile with separate trust and quarantine policy. [SPEC-SEI-009](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns lifecycle interpretation after durable receipt.
+This **proposed logical design** explains how Sage could receive invoices through an approved private platform or retrieve them from the public platform. The service checks the source, recipient and original file, recognises duplicates, and makes one invoice available to the correct Sage product. [PRD-SEI-223](../../prds/PRD-SEI-223-interoperability-routing-transformation.md) owns exchange/routing requirements; [PRD-SEI-211](../../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md) owns scheduled public discovery, checkpoints and freshness; [PRD-SEI-244](../../prds/PRD-SEI-244-e-invoicing-process-flow-specification.md) supplies the inbound process boundary. [SPEC-SEI-005](../SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) owns the outbound UBL validation/correction contract; this spec calls an activated inbound validation profile with separate trust and quarantine policy. [SPEC-SEI-009](SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) owns lifecycle interpretation after durable receipt.
 
 The service starts when an external invoice is available. Public consultation decides **whether and when to fetch it**. Receiving decides **what to do with the fetched invoice**.
 

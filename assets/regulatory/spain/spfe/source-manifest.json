@@ -1,7 +1,7 @@
 {
   "id": "RES-SEI-002-source-manifest",
   "indexed_on": "2026-10-13",
-  "scope": "The user-supplied SPFE bundle and BOE order in context; excludes the unrelated workshop PDF.",
+  "scope": "Original user-supplied SPFE bundle and BOE order, plus the separately supplied Annex II received 2026-10-22; excludes the unrelated workshop PDF.",
   "provenance": {
     "legal": "BOE publication identity and dates checked on the official BOE website; no byte-equality claim.",
     "technical": "User-supplied AEAT-labelled files, stored in folders named 20261013. Public download provenance and PRE access are not independently verified.",
@@ -383,13 +383,28 @@
       "kind": "xsd",
       "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
       "schema_references": []
+    },
+    {
+      "source_id": "SPFE-S22",
+      "path": "context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf",
+      "bytes": 331359,
+      "sha256": "a28dc3dae7a8c149fff5bb7099305bfd1486554c2b505507cdd0ae0452bccf0b",
+      "kind": "pdf",
+      "pages": 15,
+      "text_extract": "assets/regulatory/spain/spfe/lifecycle-annex-supplement.es.txt",
+      "extract_sha256": "cc279e2cd1eff22d82df4cd8905e9081b4fde932c9576be4a24fc04bc7701782",
+      "supplied_on": "2026-10-22",
+      "filename_date": "2026-10-21",
+      "pdf_metadata_date": "2026-10-20",
+      "authority_limit": "AEAT-labelled separate Annex II; filename contains Proyecto. Original public release URL/version and supersession not verified. Final BOE Annex II remains legal baseline."
     }
   ],
   "counts": {
-    "pdf": 4,
+    "pdf": 5,
     "wsdl": 8,
     "xsd": 4,
     "xml": 5,
-    "pdf_pages": 112
-  }
+    "pdf_pages": 127
+  },
+  "updated_on": "2026-10-22"
 }

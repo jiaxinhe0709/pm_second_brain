@@ -1,0 +1,558 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Customer Offboarding Logical Feature Specification</title><style>
+*{box-sizing:border-box}body{margin:0;color:#243445;background:#fff;font:16px/1.55 Arial,sans-serif}
+header{padding:18px 24px;background:#f3f6f8;border-bottom:1px solid #ccd4dc}nav{display:flex;flex-wrap:wrap;gap:20px}
+a{color:#075eaa}main{max-width:1200px;margin:28px auto;padding:0 24px}h1{font-size:30px}h2{margin-top:36px}
+.table-scroll{overflow:auto;margin:18px 0}table{border-collapse:collapse;width:100%;min-width:650px;font-size:14px}
+th,td{border:1px solid #ccd4dc;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f6f8}
+code{font-size:.9em;background:#f3f6f8;overflow-wrap:anywhere}img{display:block;width:100%;height:auto;margin:20px 0}
+.notice{padding:12px;background:#fff5da;border-left:4px solid #ad7000}.toc{font-size:14px}.toc ul{padding-left:22px}
+</style><header><nav><a href="SPEC-SEI-031.html">Customer Offboarding Solution Summary</a> · <a href="SPEC-SEI-032.html">Customer Offboarding Logical Feature Specification</a> · <a href="SPEC-SEI-033.html">Customer Offboarding Sequence and Reuse Assessment</a> · <a href="index.html">Customer offboarding review</a></nav></header><main><p class="notice">Unpublished draft. Proposed periods need approval. SPEC-SEI-003 is retained in the archive and remains the selected Confluence source.</p><div class="toc">
+<ul>
+<li><a href="#customer-offboarding-logical-feature-specification">Customer Offboarding Logical Feature Specification</a><ul>
+<li><a href="#revision-overview">Revision overview</a></li>
+<li><a href="#1-scope-actors-and-observable-outcomes">1 Scope, actors and observable outcomes</a></li>
+<li><a href="#2-state-invariants-and-workflow">2 State, invariants and workflow</a></li>
+<li><a href="#3-what-stops-at-cutoff">3 What stops at cutoff?</a></li>
+<li><a href="#4-support-access-and-expiry-controls">4 Support, access and expiry controls</a><ul>
+<li><a href="#exit-statement">Exit statement</a></li>
+<li><a href="#proposed-planning-periods">Proposed planning periods</a></li>
+<li><a href="#when-a-period-expires">When a period expires</a></li>
+</ul>
+</li>
+<li><a href="#5-export-and-evidence-handover">5 Export and evidence handover</a><ul>
+<li><a href="#scope-and-package">Scope and package</a></li>
+<li><a href="#delivery-later-additions-and-recovery">Delivery, later additions and recovery</a></li>
+</ul>
+</li>
+<li><a href="#6-requirements-and-operational-controls">6 Requirements and operational controls</a></li>
+<li><a href="#7-assurance-and-traceability">7 Assurance and traceability</a></li>
+<li><a href="#ref-source-references">REF Source references</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="customer-offboarding-logical-feature-specification">Customer Offboarding Logical Feature Specification</h1>
+<p><a href="SPEC-SEI-031.html">Solution Summary</a> · <a href="SPEC-SEI-033.html">Sequence and Reuse Assessment</a> · <a href="index.html">Feature folder</a></p>
+<h2 id="revision-overview">Revision overview</h2>
+<p>This separate draft develops the logical view of <a href="../../specs/archive/SPEC-SEI-003-offboarding-solution-specification.md">SPEC-SEI-003</a>. It expands Sage/external private-platform scenarios, cutoff behaviour, support/access periods and export recovery. The predecessor remains unchanged and selected for stable Confluence page <code>923861391</code>.</p>
+<p>OFF-01–08, OFF-I01–08, OFF-R01–10 and OFF-A01–11 keep their original meanings. New OFF-R11–16 and OFF-A12–25 add detail to the draft PRD. OFF-Q01–06 identify unresolved decisions in SPEC-SEI-031. Numeric periods are proposals requiring a product decision. The detailed interaction/data records remain in SPEC-SEI-003 Part 3; new implementation placement is outside this view.</p>
+<p>Terminology follows the <a href="../../context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>. An authenticated caller still needs authority for the represented business and requested action. A transport acknowledgement does not prove completed disconnection, handover or reporting.</p>
+<h2 id="1-scope-actors-and-observable-outcomes">1 Scope, actors and observable outcomes</h2>
+<p>The customer administrator or authorised delegate requests a defined entity, environment, direction and service scope. The old and destination operators supply evidence for their own actions. Operations owns unresolved work; Legal/Tax qualifies continuing duties; Records/Privacy controls disposition; Security controls credentials. REF-PRODUCT.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Trigger and condition</th>
+<th>Required result</th>
+<th>Failure or recovery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sage private → other private</td>
+<td>Customer moves one or both directions.</td>
+<td>Observe qualified destination and cutoff; preserve old-provider context and agreed history access.</td>
+<td>Unproven destination holds the affected transition; OFF-03/08.</td>
+</tr>
+<tr>
+<td>Other private → Sage private/public</td>
+<td>Customer retains Sage and authorises coordination of previous-provider exit.</td>
+<td>Onboarding owns adoption; this case tracks external release, handover and evidence.</td>
+<td>Unsupported previous-provider action stays manual with a provider owner; no fabricated Sage success.</td>
+</tr>
+<tr>
+<td>Other private → other private through Sage</td>
+<td>Sage has authority to coordinate both connections.</td>
+<td>One scope and one observed transition; each operator retains its own release result.</td>
+<td>One provider's acceptance cannot close the other's unresolved action.</td>
+</tr>
+<tr>
+<td>Product-only cancellation</td>
+<td>Customer ends the ERP/product but may retain its platform contract.</td>
+<td>Identify the exact commercial and access scope; maintain or separately end platform functions as authorised.</td>
+<td>If archive access depended on the product login, establish an authorised alternative before its removal.</td>
+</tr>
+<tr>
+<td>Partial exit</td>
+<td>One client, entity, address or direction changes.</td>
+<td>Unselected scope continues; shared dependencies remain available.</td>
+<td>Whole-connection removal is blocked if it would affect unselected scope.</td>
+</tr>
+<tr>
+<td>Full exit</td>
+<td>Customer requests all identified Sage e-invoicing scopes to end.</td>
+<td>Separate outcomes for new traffic, earlier work, contract, access, export and disposition.</td>
+<td>An unresolved historical/export item remains visible after commercial termination.</td>
+</tr>
+<tr>
+<td>Business ceases trading without a destination</td>
+<td>Customer asserts that future traffic is no longer required.</td>
+<td>Record Legal/Tax evidence and a future-receipt decision for the exact entity/scope.</td>
+<td>An assertion alone does not bypass G3; maintain an owned blocked case. No invented deregistration path.</td>
+</tr>
+<tr>
+<td>Urgent outage or compromised access</td>
+<td>Normal provider operation or credentials are unsafe.</td>
+<td>Apply incident containment; preserve evidence and give affected obligations a recovery owner/channel.</td>
+<td>Do not retain compromised access solely to pass G5. An unavailable old route cannot be described as safe or active.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="2-state-invariants-and-workflow">2 State, invariants and workflow</h2>
+<p>Retain the predecessor's case stages: <code>REQUESTED</code>, <code>INVENTORY</code>, <code>DESTINATION_READY</code>, <code>CUTOVER_PENDING</code>, <code>CUTOVER_OBSERVED</code>, <code>HISTORICAL_CONTINUITY</code>, <code>RELEASE_PENDING</code>, <code>DISPOSITION_PENDING</code>, <code>COMPLETE</code>, <code>BLOCKED</code>, <code>OUTCOME_UNKNOWN</code>, <code>CANCELLED</code>. These are proposed internal states. They are not provider values.</p>
+<p>Track route, registration, credentials, subscription, export and retained-data obligations separately. <code>COMPLETE</code> requires resolved or evidenced handover of historical work and assigned, owned disposition schedules. Future scheduled retention/deletion may continue after case closure only with a durable owner, due date, evidence and reopen/escalation path. Case closure does not assert that every retained record has already been deleted. REF-PRODUCT OFR7/8/13.</p>
+<p>The authoritative invariant statements remain <a href="../../specs/archive/SPEC-SEI-003-offboarding-solution-specification.md#1-scope-state-and-invariants">OFF-I01–08</a>: scope/authority, destination isolation, inbound continuity, invoice origin, unknown outcomes, separate release, historical ownership and factual evidence. The following activities apply those rules.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Activity / gate</th>
+<th>Required behaviour and visible result</th>
+<th>Safe next action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFF-01 / G1 Authority and scope</td>
+<td>Confirm represented business, caller, direct/delegate authority, affected scope, destination and separate commercial authority. Bind duplicate requests to unchanged input.</td>
+<td>Reject unresolved authority/scope. Serialise or conflict overlapping exits.</td>
+</tr>
+<tr>
+<td>OFF-02 / G2 Inventory</td>
+<td>Inventory actual routes, commitments, unresolved sends, receipt checkpoints, obligations, registrations, shared credentials, archive and contracts. Record changes after the snapshot. Present the section 4 exit statement.</td>
+<td>Hold dependent cutoff/release where missing coverage could strand invoices or duties.</td>
+</tr>
+<tr>
+<td>OFF-03 / G3 Destination</td>
+<td>Obtain direction-specific capability and receiving reachability evidence under the selected provider/country sequence. Do not activate from saved configuration alone.</td>
+<td>Correct/retest without disturbing an available safe route. Use a documented cessation decision only where evidenced.</td>
+</tr>
+<tr>
+<td>OFF-04 / G4 Cutover</td>
+<td>Recheck authority, freshness and current route version. Apply one scoped transition and independently observe its internal/external result. Section 3 controls invoice assignment.</td>
+<td>Possible external effect with no reliable result enters <code>OUTCOME_UNKNOWN</code>; OFF-08.</td>
+</tr>
+<tr>
+<td>OFF-05 / G5 Historical continuity</td>
+<td>Give every unfinished obligation an accountable actor, permitted channel, due date, evidence and restricted access dependency. Obtain handover acceptance when responsibility moves.</td>
+<td>Keep unresolved work owned and escalate before due dates; no silent expiry. REF-RD, REF-SPFE.</td>
+</tr>
+<tr>
+<td>OFF-06 / G6 Release</td>
+<td>Separately evidence old traffic cessation, receiving withdrawal, deregistration, each credential removal and commercial termination. Check shared dependencies before each action.</td>
+<td>Unsupported actions need an evidenced manual gate. Unknown results block dependent release.</td>
+</tr>
+<tr>
+<td>OFF-07 / G7 Export and disposition</td>
+<td>Complete the agreed package/access handover in section 5. Assign approved retention/hold/deletion schedules by data class.</td>
+<td>Repair omissions or record accepted limits with an authorised alternative; do not claim a complete package from a failed download.</td>
+</tr>
+<tr>
+<td>OFF-08 Recovery</td>
+<td>Observe the original uncertain operation before another mutation. Preserve actual invoice attribution. Cancellation before effects closes only reversible work; reversal after effects is a new transition.</td>
+<td>Operations records state, deadlines, customer notice, permitted action and recovery owner.</td>
+</tr>
+</tbody>
+</table></div>
+<p><img alt="Recovery from uncertain provider results or urgent exit" src="../../assets/diagrams/offboarding-recovery-process.svg" /></p>
+<p><a href="../../assets/diagrams/offboarding-recovery-process.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/offboarding-recovery-process.png">PNG</a>. The diagram explains OFF-08's reconciliation decision. An urgent security action uses incident authority and records the unavailable historical path rather than claiming continuity that cannot be delivered.</p>
+<h2 id="3-what-stops-at-cutoff">3 What stops at cutoff?</h2>
+<p>Use one evidenced cutoff per entity/direction/scope, with timestamp, time zone, route version and the agreed business boundary. Invoice issue date, scheduled termination date and request-arrival time alone do not establish which provider already owns an operation. REF-PRODUCT OFR5/6; proposed detail under OFF-R11.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Work at the boundary</th>
+<th>Required treatment</th>
+<th>Control and recovery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New eligible invoice after observed cutoff</td>
+<td>Use the qualified destination for the selected scope. Reject or hold an attempt to start new traffic on the old scope with an actionable reason.</td>
+<td>Historical access and the 90-day proposal do not permit new invoicing through the old route.</td>
+</tr>
+<tr>
+<td>Prepared/queued invoice with no external effect</td>
+<td>Apply the agreed commitment rule. If no binding original plan exists, re-evaluate the current qualified route before first submission.</td>
+<td>Record reassignment and invalidate the obsolete send plan. An issued invoice retains its identity and content.</td>
+</tr>
+<tr>
+<td>Queued invoice bound to an earlier route</td>
+<td>Resolve under its documented original plan or an expressly authorised change with proof that no old-provider effect occurred.</td>
+<td>Do not infer that a queue item is safe to resend from its creation time.</td>
+</tr>
+<tr>
+<td>Send accepted, in progress or outcome unknown</td>
+<td>Preserve original operator/correlation and reconcile there.</td>
+<td>A destination change does not authorise replay.</td>
+</tr>
+<tr>
+<td>Late inbound invoice on the old connection</td>
+<td>Preserve receipt, original provider and deduplication evidence. Handle through the qualified transition rule and alert the route owner.</td>
+<td>Do not discard, silently forward or issue a new business invoice. Release remains pending if receipt/publication is unresolved.</td>
+</tr>
+<tr>
+<td>Repeated callback, status update or late payment</td>
+<td>Accept and attribute only through the permitted historical channel. Reconcile duplicates/conflicts against prior evidence.</td>
+<td>Product cancellation cannot turn an old event into a new invoice or a completed public report.</td>
+</tr>
+<tr>
+<td>New rectifying invoice linked to old history</td>
+<td>Evaluate as a new invoice under the confirmed current country/provider rule, keeping the original reference.</td>
+<td>Cross-provider correction handling remains OFF-Q02; neither route is assumed.</td>
+</tr>
+<tr>
+<td>Credential shared with retained entities or directions</td>
+<td>Remove only the selected authority if supported; retain the shared dependency with restricted scope.</td>
+<td>If independent removal is unsupported, hold that release and assign a provider owner.</td>
+</tr>
+</tbody>
+</table></div>
+<p>If destination state becomes uncertain during propagation, stop only the unsafe work and open OFF-08. An available last safe route may continue only where the observed provider state, mandate and country rules permit it. No automatic switch back follows.</p>
+<h2 id="4-support-access-and-expiry-controls">4 Support, access and expiry controls</h2>
+<h3 id="exit-statement">Exit statement</h3>
+<p>Before authorisation, the customer and Operations must see current and destination operators; selected entities/directions; requested and observed cutoff; commercial end date; each remaining action/channel; support hours and response/escalation terms; support end/review date; archive custodian and copy-request channel; export scope/readiness/expiry; fees or contractual limits; provider notice requirements; and the next action/owner for unresolved items. Dates must name their start event and time zone. OFF-R09/12.</p>
+<h3 id="proposed-planning-periods">Proposed planning periods</h3>
+<p>These are candidates for OFF-Q01 and PRD-SEI-243, not approved requirements or existing service levels.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Candidate</th>
+<th>Why this boundary is separate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planned preparation</td>
+<td>30 calendar days before intended cutoff; shorter by explicit agreement or emergency process.</td>
+<td>Allows destination and inventory work. It cannot override a provider's evidenced notice requirement.</td>
+</tr>
+<tr>
+<td>Transition support and self-service export</td>
+<td>90 calendar days after observed cutoff for the affected scope.</td>
+<td>Provides a bounded assistance/access offer. Staged cutovers have separately recorded dates. The commercial end may differ.</td>
+</tr>
+<tr>
+<td>Unresolved historical obligations</td>
+<td>Until completion or evidenced handover; review at least every 30 calendar days and before any earlier due date.</td>
+<td>A fixed account expiry cannot decide legal authority or make an unpaid invoice disappear.</td>
+</tr>
+<tr>
+<td>Copy access, records and credentials</td>
+<td>No common duration proposed. Use the applicable approved schedule or actual dependency end.</td>
+<td>They have different purposes and triggers. REF-COPY; REF-PRIVACY.</td>
+</tr>
+</tbody>
+</table></div>
+<p>OFF-R12 requires a recorded decision before any of these durations becomes a customer promise. OFF-Q01 must also decide reminder timings, support response targets, charges and the authority for extensions. Do not infer those terms from the candidate periods.</p>
+<h3 id="when-a-period-expires">When a period expires</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Required result</th>
+<th>Next action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Assistance window ends; all relevant handovers complete</td>
+<td>End the agreed transition assistance and general access, retaining only separately authorised functions.</td>
+<td>Show the continuing copy/archive channel and disposition schedule.</td>
+</tr>
+<tr>
+<td>Historical obligation or provider result remains unresolved</td>
+<td>Keep its owner, deadline and permitted channel visible. Do not mark it complete from the date alone.</td>
+<td>Escalate before expiry; decide restricted continuation, accepted alternative or incident response. No restoration of new-traffic permission.</td>
+</tr>
+<tr>
+<td>Package is incomplete or inaccessible due to Sage/provider failure</td>
+<td>Keep export/disposition pending. Give a repair owner and revised delivery/access dates.</td>
+<td>A timed-out link does not erase the obligation to deliver the agreed package.</td>
+</tr>
+<tr>
+<td>Customer does not download or reply</td>
+<td>Record delivery attempts, contractual notices and available alternatives.</td>
+<td>Apply approved non-response policy; never invent a receipt or infer consent to deletion. OFF-Q06.</td>
+</tr>
+<tr>
+<td>Self-service access ends while an applicable copy right continues</td>
+<td>Provide the approved authenticated request channel.</td>
+<td>Do not require renewal solely to obtain a copy that must be supplied without additional cost. Legal confirms the accountable party. REF-COPY.</td>
+</tr>
+<tr>
+<td>A legal hold or retention requirement remains</td>
+<td>Restrict retained records to the approved purpose; keep custodian and review date.</td>
+<td>Defer the affected deletion. Expiry of general access is not evidence of data deletion. REF-PRIVACY.</td>
+</tr>
+<tr>
+<td>Security requires immediate revocation</td>
+<td>Contain the credential risk under incident authority.</td>
+<td>Record affected duties, notices and alternative recovery. Do not keep a compromised secret active solely to meet an exit date.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The copy-right baseline is four years from each invoice's issue under Article 2 bis.3, subject to applicability. It is not measured from offboarding. Legal must confirm responsible parties, effectivity and the delivery channel. REF-COPY; OFF-Q03. Do not substitute that period for a data-class retention schedule.</p>
+<h2 id="5-export-and-evidence-handover">5 Export and evidence handover</h2>
+<h3 id="scope-and-package">Scope and package</h3>
+<p>An authorised customer must be able to obtain the agreed evidence under OFR12. Agree the package before cutoff. For product-only cancellation or a partial exit, a verified continuing archive can avoid an unnecessary bulk transfer, but the customer must still have the permitted export/copy path. Record whether delivery is to the customer, an authorised destination or an accepted archive custodian. REF-PRODUCT; OFF-R13.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Evidence class</th>
+<th>Required content where held and in agreed scope</th>
+<th>Limitation to expose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Invoice files</td>
+<td>Exact stored source bytes, identifiers, syntax/version, source/provider, direction and issue/receipt timestamps. Preserve signatures/seals and validation evidence where held.</td>
+<td>Missing originals, unavailable attachments and unsupported formats. A transformed file is separately labelled.</td>
+</tr>
+<tr>
+<td>Other representations</td>
+<td>Public original or faithful-copy classification and any readable rendition, with provenance and links to the invoice.</td>
+<td>Public copy and private source original may differ. Do not relabel one as the other.</td>
+</tr>
+<tr>
+<td>Delivery and lifecycle</td>
+<td>Acknowledgements, raw provider values, attributed events, event times and separate commercial/payment/reporting outcomes.</td>
+<td>Missing external history, unknown meanings and observations that do not prove final delivery.</td>
+</tr>
+<tr>
+<td>Public reporting</td>
+<td>Submitted communications, response/receipt references, cancellations and destination-specific unresolved results.</td>
+<td>An invoice download does not prove all reports succeeded. REF-SPFE.</td>
+</tr>
+<tr>
+<td>Exit and unfinished work</td>
+<td>Cutover/route evidence, obligation owner/channel/due date, handover acceptance and relevant authorisation evidence with necessary redaction.</td>
+<td>Transfer of files alone does not grant the destination authority to act.</td>
+</tr>
+<tr>
+<td>Machine-readable manifest</td>
+<td>Entity/environment/scope, snapshot boundary, package/part versions, inventory counts, file hashes, relationships, omissions and completeness result.</td>
+<td>Counts and hashes prove only against the recorded inventory; they cannot prove that the source inventory was complete.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Never include private keys, bearer tokens or reusable credentials. Apply tenant/entity/delegate isolation and minimise unrelated personal data. Returning personal data under a processor contract and exporting invoice evidence are separately qualified obligations. REF-PRIVACY; OFF-R14.</p>
+<h3 id="delivery-later-additions-and-recovery">Delivery, later additions and recovery</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Observable result and failure handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prepare</td>
+<td>Check export authority and inventory coverage early. If preparation precedes cutoff, label its snapshot boundary. Unavailable source records create an owned omission.</td>
+</tr>
+<tr>
+<td>Generate and validate</td>
+<td>Reconcile manifest counts and relationships to inventory, compute hashes and verify that package parts can be read. Large exports use resumable parts/checkpoints under the qualified implementation. An incomplete part cannot count as delivered.</td>
+</tr>
+<tr>
+<td>Deliver</td>
+<td>Use an authenticated, scoped channel with an explicit expiry. Log generation, availability, retrieval and receiving-party acceptance as different events. Verify the recipient again before reissuing expired access.</td>
+</tr>
+<tr>
+<td>Confirm handover</td>
+<td>Record customer/destination receipt and manifest version. If the destination will process old obligations, additionally confirm authority, import/operability and acceptance of those obligations. Download alone is insufficient.</td>
+</tr>
+<tr>
+<td>Add late evidence</td>
+<td>Link a versioned delta package to the previous snapshot for later callbacks, reports or corrections. State coverage end and unresolved work each time. A completed snapshot is not a claim that future invoice events are impossible.</td>
+</tr>
+<tr>
+<td>Resolve gaps</td>
+<td>Repair/re-export and preserve prior receipts. A limitation may be accepted only by an authorised party with an evidenced alternative where required; it cannot waive an applicable duty or make absent evidence present.</td>
+</tr>
+<tr>
+<td>Dispose</td>
+<td>After the applicable authority, handover and schedule checks, evidence deletion/continued retention by class and affected copy, including backup handling. A hold blocks only its covered data. Retain the lawful exit audit under its own schedule.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Exact output schema, size limits, secure delivery method and destination import support are OFF-Q05, not invented API contracts. A public-platform download can contribute records but cannot substitute for this complete assessment. REF-SPFE/REF-CATALOGUE.</p>
+<h2 id="6-requirements-and-operational-controls">6 Requirements and operational controls</h2>
+<p>OFF-R01–10 remain authoritative in SPEC-SEI-003 Part 2 section 3. They cover authority, inventory, destination, cutoff/origin, historical work, independent release, reconciliation, concurrency, visibility and recovery. New detail below references the same draft product requirements; it does not approve the support proposals.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Condition and required behaviour</th>
+<th>Product trace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFF-R11</td>
+<td>At cutoff, the authorised business and Operations must see which queued/in-flight/new work uses each operator under section 3. Uncertain effects require original-route reconciliation before reassignment.</td>
+<td>OFR2/5/6/9.</td>
+</tr>
+<tr>
+<td>OFF-R12</td>
+<td>Before approval and each scheduled expiry, the customer and Operations must receive the section 4 statement and applicable next action. A date alone cannot complete an unresolved obligation or grant new-traffic permission.</td>
+<td>OFR7/8/11/13; durations remain OFF-Q01.</td>
+</tr>
+<tr>
+<td>OFF-R13</td>
+<td>For an authorised export/handover, the customer or agreed recipient must receive section 5 evidence, manifest and separate retrieval/acceptance results; omissions keep the dependent gate open.</td>
+<td>OFR12/13.</td>
+</tr>
+<tr>
+<td>OFF-R14</td>
+<td>During post-exit access/export, an actor must remain limited to the authorised entity, purpose and data. Revoked delegates lose access; an alternative authorised recipient can receive a reissued package.</td>
+<td>OFR1/8/12; ONFR2/3.</td>
+</tr>
+<tr>
+<td>OFF-R15</td>
+<td>When one product/provider relationship ends, the customer must see the independent result of each retained relationship. Shared addresses/credentials and unselected client scopes must not be removed by a broader disconnect.</td>
+<td>OFR1/8/10/11.</td>
+</tr>
+<tr>
+<td>OFF-R16</td>
+<td>Before a country/provider exit is activated, its owner must qualify applicable authority, route, historical, copy/export and disposition rules. Unproven coverage remains an owned gate and cannot become a default for another country.</td>
+<td>OFR3/4/7/8/13; source-dependent detail REF-RD/REF-SPFE/REF-COPY.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Every material decision/mutation retains actor, represented business, scope, original operation, expected/actual version, time, observed evidence, approval and next action. Track unknown-result age, late old-route invoices, approaching obligation dates, export omissions and residual access. Targets and response hours need Product/Operations approval; guide observation windows are not support or retention commitments.</p>
+<h2 id="7-assurance-and-traceability">7 Assurance and traceability</h2>
+<p>The <a href="../../specs/archive/SPEC-SEI-003-offboarding-solution-specification.md#1-verification-matrix">original OFF-A01–11 matrix</a> remains required coverage. It covers outbound-only, unproven inbound, unknown delivery, late duties, withdrawal timeout, concurrency, full export, reversal, outage, country isolation and platform change versus full exit. The additional scenarios below are acceptance definitions, not executed implementation tests.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Required observation</th>
+<th>Trace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFF-A12 External-provider exit</td>
+<td>When Sage lacks external withdrawal permission or automation, show the responsible operator/manual evidence gate. Do not claim completed withdrawal.</td>
+<td>R01/06/15/16; INT-AP03.</td>
+</tr>
+<tr>
+<td>OFF-A13 Product-only cancellation</td>
+<td>End the selected product access while a retained platform agreement and authorised copy channel remain independently visible and usable.</td>
+<td>R06/09/12/15.</td>
+</tr>
+<tr>
+<td>OFF-A14 Cutoff race and queue</td>
+<td>Race a prepared item, an accepted send and a new invoice across cutoff. Apply the recorded commitment rule exactly once; reconcile the accepted/unknown send before reassignment.</td>
+<td>R02/04/07/08/11.</td>
+</tr>
+<tr>
+<td>OFF-A15 Late old-route receipt</td>
+<td>Preserve and deduplicate a late receipt, retain the observed source and open correction/release work. Do not discard it because cutoff passed.</td>
+<td>R04/05/10/11.</td>
+</tr>
+<tr>
+<td>OFF-A16 Support expiry with open payment</td>
+<td>On expiry, retain an owned permitted channel for the earlier duty or an evidenced accepted handover. End new-traffic permission independently.</td>
+<td>R05/06/12; REF-RD Articles 10/12, actor qualification still open.</td>
+</tr>
+<tr>
+<td>OFF-A17 Copy access after exit</td>
+<td>For an applicable invoice inside its issue-based copy period, the approved authenticated channel supplies the copy without the prohibited extra charge. Test the confirmed applicability boundary separately from the 90-day candidate.</td>
+<td>R09/12/16; REF-COPY Article 2 bis.3; OFF-Q03 must be resolved.</td>
+</tr>
+<tr>
+<td>OFF-A18 Partial/unreadable export</td>
+<td>Omit a source file or corrupt a package part. Validation exposes the gap; no complete-export result or fictitious receipt is recorded. Recovery produces a linked replacement.</td>
+<td>R09/13; OFR12.</td>
+</tr>
+<tr>
+<td>OFF-A19 Late event after export</td>
+<td>Add a report/callback after the initial snapshot. Produce a linked delta and keep unresolved destination outcomes visible.</td>
+<td>R05/13; REF-SPFE Articles 8–10.</td>
+</tr>
+<tr>
+<td>OFF-A20 Scope and authority isolation</td>
+<td>Reject cross-entity export and a revoked delegate's link. A partial exit leaves other entities/directions/shared dependencies unchanged.</td>
+<td>R01/08/14/15.</td>
+</tr>
+<tr>
+<td>OFF-A21 Non-response and expired link</td>
+<td>Distinguish availability, retrieval and acceptance. Reissue only to an authorised recipient; apply approved notice/escalation without inferring receipt or deletion consent.</td>
+<td>R09/12/13/14; OFF-Q06.</td>
+</tr>
+<tr>
+<td>OFF-A22 Security and hold</td>
+<td>Revoke a compromised credential under incident authority; keep an owned historical recovery case. An applicable hold prevents covered deletion without preserving unrelated general access.</td>
+<td>R05/06/10/12/14; REF-PRIVACY, role/schedule qualified.</td>
+</tr>
+<tr>
+<td>OFF-A23 Address absence</td>
+<td>A <code>202</code>, update event or absent address alone cannot establish completed scoped disconnection. Correlate the original action and provider result; preserve unrelated addresses.</td>
+<td>R03/06/07/15; INT-AP02/03/05/06.</td>
+</tr>
+<tr>
+<td>OFF-A24 Country/reuse qualification</td>
+<td>Attempt activation without a Spain/provider contract or qualified historical path. Block the dependent gate. France registration/status rules and Spain public/reporting rules remain isolated in regression coverage.</td>
+<td>R16; OFF-A10; SPEC-SEI-033.</td>
+</tr>
+<tr>
+<td>OFF-A25 File transfer versus obligation transfer</td>
+<td>Download a valid export but leave destination authority/import/obligation acceptance unproved. Mark file delivery separately; G5 remains open.</td>
+<td>R05/06/13; OFF-Q02/05.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Production needs approved OFF-Q01–06 decisions, qualified contracts, safe partial/full-exit drills, a staffed runbook, accepted customer wording and evidence that post-cancellation access works. Document validation only checks this review set; it cannot close those gates.</p>
+<h2 id="ref-source-references">REF Source references</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>Original source, version/date and exact locator</th>
+<th>Supported claims and limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-PRODUCT</td>
+<td><a href="../../prds/PRD-SEI-243-customer-offboarding-and-provider-exit.md">PRD-SEI-243</a>, draft 5 October 2026; OFR1–15, ONFR1–5, OD1–8. <a href="../../specs/archive/SPEC-SEI-003-offboarding-solution-specification.md">SPEC-SEI-003</a>, draft updated 8 October; Parts 2–4.</td>
+<td>Product baseline and proposed safety controls. New periods remain proposals.</td>
+</tr>
+<tr>
+<td>REF-RD</td>
+<td><a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295">Published RD 238/2026</a>, 31 March 2026; Articles 5.4, 6, 10 and 12, final provision 4.</td>
+<td>Receiving-publicity and continuing invoice/reporting context. Does not establish a former provider's continuing authority or a universal exit period.</td>
+</tr>
+<tr>
+<td>REF-SPFE</td>
+<td>SPFE-S02: <a href="../../context/BOE-A-2026-20587.pdf">original Order HAC/1028/2026 PDF</a>, published 5 October 2026; Articles 8–11 and Annex II; <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-20587">official text</a>.</td>
+<td>Reporting responses/cancellations, recovery/download and authority. No blanket public archive completeness or private handover API.</td>
+</tr>
+<tr>
+<td>REF-CATALOGUE</td>
+<td>SPFE-S03: <a href="../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf">original catalogue PDF</a>, v0.1.0, 9 October 2026; sections 6.4–6.9, pp. 12–19.</td>
+<td>Query/download/event capability descriptions only. Initial technical evidence; pagination, completeness and cross-provider authority need qualification.</td>
+</tr>
+<tr>
+<td>REF-COPY</td>
+<td><a href="https://www.boe.es/buscar/act.php?id=BOE-A-2007-22440#a2bis">Law 56/2007 consolidated text</a>, checked 22 October 2026; Article 2 bis.3 and effectivity notes.</td>
+<td>Recipient copy right and issue-based period. Legal must allocate responsibility/applicability; no general retention or full-service duration follows.</td>
+</tr>
+<tr>
+<td>REF-PRIVACY</td>
+<td><a href="https://www.boe.es/buscar/doc.php?id=DOUE-L-2016-80807">GDPR published text</a>, 4 May 2016; Articles 5(1)(e), 28(3)(g).</td>
+<td>Storage limitation and processor return/deletion subject to legally required retention. Does not define an invoice export schema or all Sage legal roles.</td>
+</tr>
+<tr>
+<td>INT-AP02/03/05/06</td>
+<td><a href="../../context/FR API/Onboarding/access-point-guides-evidence-extract.md">Saved access-point guide extract</a>, received 22 October 2026; matching source-ID headings. Removal text mentions v1.1.0; disconnect guide links 0.1.7; error link includes 1.10.0.</td>
+<td>Update/disconnect/observe candidate behaviour, accepted versus completed outcome, failed-absent addresses and short-lived observations. Not a Spain contract or retention policy.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md">Spain evidence guide</a> remains the public source baseline. Read the original file for each claimed behaviour. The English extracts aid reading; their presence does not prove implementation or mapping coverage.</p></main></html>

@@ -15,7 +15,7 @@ def module(name, filename):
 
 base = module('onboarding_contract_sources', 'build-onboarding-api-diagrams.py')
 palette = module('onboarding_reuse_colours', 'recolour-onboarding-sequences.py')
-SPEC = '../../specs/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md'
+SPEC = '../../specs/archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md'
 VIEWS = [
     ('shared-prerequisites', 'Shared prerequisites', 'Reuse current evidence; provision a dataset only if the channel requires it', '21-shared-prerequisites'),
     ('public-readiness', 'Public readiness', 'Phase 1: assess selected functions through qualified checks', '22-public-readiness'),

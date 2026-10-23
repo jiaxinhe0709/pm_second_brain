@@ -56,7 +56,7 @@ The absence of a France feature and the expected size of Spanish customers are s
 
 ## Targeted consistency review
 
-The rows below retain the original review record. SPEC-SEI-006 and SPEC-SEI-010 are archived predecessors; use [SPEC-SEI-016](../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) for current combined receiving, retrieval and download design.
+The rows below retain the original review record. SPEC-SEI-006 and SPEC-SEI-010 are archived predecessors; use [SPEC-SEI-016](../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) for current combined receiving, retrieval and download design.
 
 | Canonical document | Update in this pass | Remaining gate / owner |
 |---|---|---|
