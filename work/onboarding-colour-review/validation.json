@@ -1,0 +1,107 @@
+{
+  "markdown_unchanged": {
+    "specs/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md": "5d316930e840e7d8ff1eba2081119aeda6082fa59ca53f3b80ff2bef8fe232b8",
+    "specs/onboarding/SPEC-SEI-018-customer-onboarding-solution-summary.md": "06aa9eeb5d00fea2f8610bef6c0c0b0c2ea72a91216a4018c896a4ec1d554d96",
+    "specs/onboarding/README.md": "61130c234465537839ce7eca37d6fce563ef9885d6281be672857eb93293d87b",
+    "specs/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md": "469434d01efe16139e33c339594f7309d59857dfa39cdb26b83784294a46e656"
+  },
+  "diagrams": [
+    {
+      "svg": "assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.svg",
+      "process_content_and_geometry_preserved": true,
+      "header_legend_added": true,
+      "request_response_pairs": 5,
+      "grey_messages": [
+        "message-7",
+        "message-8",
+        "message-9",
+        "message-10"
+      ],
+      "blue_messages": [
+        "message-1",
+        "message-2",
+        "message-3",
+        "message-4",
+        "message-5",
+        "message-6"
+      ]
+    },
+    {
+      "svg": "assets/diagrams/onboarding-reuse-public-readiness-sequence.svg",
+      "process_content_and_geometry_preserved": true,
+      "header_legend_added": true,
+      "request_response_pairs": 5,
+      "grey_messages": [
+        "message-1",
+        "message-2",
+        "message-3",
+        "message-4",
+        "message-5",
+        "message-6"
+      ],
+      "blue_messages": [
+        "message-7",
+        "message-8",
+        "message-9",
+        "message-10"
+      ]
+    },
+    {
+      "svg": "assets/diagrams/onboarding-reuse-private-setup-sequence.svg",
+      "process_content_and_geometry_preserved": true,
+      "header_legend_added": true,
+      "request_response_pairs": 5,
+      "grey_messages": [
+        "message-1",
+        "message-2",
+        "message-3",
+        "message-4",
+        "message-7",
+        "message-8"
+      ],
+      "blue_messages": [
+        "message-5",
+        "message-6",
+        "message-9",
+        "message-10"
+      ]
+    },
+    {
+      "svg": "assets/diagrams/onboarding-reuse-supported-change-sequence.svg",
+      "process_content_and_geometry_preserved": true,
+      "header_legend_added": true,
+      "request_response_pairs": 5,
+      "grey_messages": [
+        "message-5",
+        "message-6"
+      ],
+      "blue_messages": [
+        "message-1",
+        "message-2",
+        "message-3",
+        "message-4",
+        "message-7",
+        "message-8",
+        "message-9",
+        "message-10"
+      ]
+    },
+    {
+      "svg": "assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.svg",
+      "process_content_and_geometry_preserved": true,
+      "header_legend_added": true,
+      "request_response_pairs": 3,
+      "grey_messages": [
+        "message-1",
+        "message-2"
+      ],
+      "blue_messages": [
+        "message-3",
+        "message-4",
+        "message-5",
+        "message-6"
+      ]
+    }
+  ],
+  "published": false
+}

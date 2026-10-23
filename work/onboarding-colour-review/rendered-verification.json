@@ -1,0 +1,66 @@
+{
+  "render_checks": [
+    {
+      "svg": "assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.svg",
+      "legend": [
+        "Existing FR API / flow",
+        "Spain adaptation / proposed work"
+      ],
+      "text_out_of_bounds": [],
+      "dimensions_preserved": [
+        1415,
+        1474
+      ]
+    },
+    {
+      "svg": "assets/diagrams/onboarding-reuse-public-readiness-sequence.svg",
+      "legend": [
+        "Existing FR API / flow",
+        "Spain adaptation / proposed work"
+      ],
+      "text_out_of_bounds": [],
+      "dimensions_preserved": [
+        1030,
+        1775
+      ]
+    },
+    {
+      "svg": "assets/diagrams/onboarding-reuse-private-setup-sequence.svg",
+      "legend": [
+        "Existing FR API / flow",
+        "Spain adaptation / proposed work"
+      ],
+      "text_out_of_bounds": [],
+      "dimensions_preserved": [
+        1030,
+        1551
+      ]
+    },
+    {
+      "svg": "assets/diagrams/onboarding-reuse-supported-change-sequence.svg",
+      "legend": [
+        "Existing FR API / flow",
+        "Spain adaptation / proposed work"
+      ],
+      "text_out_of_bounds": [],
+      "dimensions_preserved": [
+        1030,
+        1850
+      ]
+    },
+    {
+      "svg": "assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.svg",
+      "legend": [
+        "Existing FR API / flow",
+        "Spain adaptation / proposed work"
+      ],
+      "text_out_of_bounds": [],
+      "dimensions_preserved": [
+        1030,
+        1248
+      ]
+    }
+  ],
+  "desktop_and_narrow_layout": "pass",
+  "result": "pass"
+}
