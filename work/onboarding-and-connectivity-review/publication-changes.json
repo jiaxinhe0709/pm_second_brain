@@ -1,0 +1,25 @@
+{
+  "authorisation": "User instructed: address the review findings and publish to the three existing Confluence pages. Lifecycle statuses and archived spec bodies remain unchanged.",
+  "files": {
+    "context/GLO-SEI-001-e-invoicing-terminology.md": {
+      "before_sha256": "ff94d76c0034e4129b26cdbb4d842aa8228178b62dc4c1ac44e5310d2bd9d659",
+      "after_sha256": "eb8730ff96c72bee18eb4d975e33f6ed732181c4657ab90e2479bc0378b2a9aa",
+      "reason": "User-authorised publication mapping, source-qualified ONB-R25 glossary reference or publication navigation."
+    },
+    "specs/archive/onboarding/README.md": {
+      "before_sha256": "2da2cd68283796cf99e0e4b4ba2e7cbca2cb966eb6903fae9eaeb85d17406cc6",
+      "after_sha256": "2009cfa39dd6fd4efb9b7d05192770e111a44aaed54ea09c4c89b91c608cdcc4",
+      "reason": "User-authorised publication mapping, source-qualified ONB-R25 glossary reference or publication navigation."
+    },
+    "specs/archive/README.md": {
+      "before_sha256": "15dd7c45dcb6d6fdc4062976142c4eab4f4744a2c64554a51009522e2355177f",
+      "after_sha256": "d6466c9dfaee60ab03fb666e5ddb3cd25d0a19ae35170460c63d01559f51cc94",
+      "reason": "User-authorised publication mapping, source-qualified ONB-R25 glossary reference or publication navigation."
+    },
+    "config/confluence.yml": {
+      "before_sha256": "b9c15daf80ae4acfb080156bbdaa70059518357143732d2622a3c98566013c5b",
+      "after_sha256": "e8fa9a6b80d607e189c298c0616f8fa1403d82fe440ffb0127f381347f42732d",
+      "reason": "User-authorised publication mapping, source-qualified ONB-R25 glossary reference or publication navigation."
+    }
+  }
+}

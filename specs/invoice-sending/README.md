@@ -1,6 +1,6 @@
 # Invoice sending
 
-Review sending through three complementary views, following [customer onboarding](../onboarding/README.md). All three are unpublished drafts based on SPEC-SEI-007 and the supplied FR sending guide.
+Review sending through three complementary views, following [customer onboarding and connectivity](../onboarding-and-connectivity/README.md). All three are unpublished drafts based on SPEC-SEI-007 and the supplied FR sending guide.
 
 | Read | Purpose |
 |---|---|

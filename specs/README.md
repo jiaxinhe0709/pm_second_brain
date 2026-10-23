@@ -9,16 +9,16 @@ inventories, decisions and acceptance mappings when needed.
 
 | Feature folder | Primary review set | Archived supporting baseline |
 |---|---|---|
-| [Customer onboarding](onboarding/README.md) | SPEC-SEI-018, 019, 021 | [SPEC-SEI-002](archive/SPEC-SEI-002-onboarding-solution-specification.md) |
+| [Customer onboarding and connectivity](onboarding-and-connectivity/README.md) | SPEC-SEI-037–039 | [Onboarding 018/019/021](archive/onboarding/README.md), [provider connectivity 034–036](archive/provider-connectivity/README.md) and [SPEC-SEI-002](archive/SPEC-SEI-002-onboarding-solution-specification.md) |
 | [Invoice sending](invoice-sending/README.md) | SPEC-SEI-022–024 | [SPEC-SEI-007](archive/SPEC-SEI-007-invoice-sending-solution.md) |
 | [Invoice receiving, retrieval and download](invoice-receiving/README.md) | SPEC-SEI-025–027 | [SPEC-SEI-016](archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) |
 | [Invoice lifecycle](invoice-lifecycle/README.md) | SPEC-SEI-028–030 | [SPEC-SEI-009](archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) |
 | [Customer offboarding](offboarding/README.md) | SPEC-SEI-031–033 | [SPEC-SEI-003](archive/SPEC-SEI-003-offboarding-solution-specification.md) |
 
-The [publication configuration](../config/confluence.yml) selects SPEC-SEI-018 for
-the stable onboarding summary page, with SPEC-SEI-019 and 021 as companions. It
-still selects SPEC-SEI-007, 016, 009 and 003 for the other four topics. Their folder
-sets are unpublished drafts. File location does not change lifecycle or publication
+The [publication configuration](../config/confluence.yml) selects SPEC-SEI-037 for
+the stable onboarding summary page, with SPEC-SEI-038 and 039 as companions. It
+still selects SPEC-SEI-007, 016, 009 and 003 for the other four topics. The sending, receiving, lifecycle and offboarding folder
+sets are unpublished drafts. Onboarding and connectivity remains draft with publication authorised. File location does not change lifecycle or publication
 state.
 
 ## Specifications without a replacement folder
@@ -58,7 +58,7 @@ moved files. The nine capabilities without replacement folders remain active.
 
 | Archived baseline | Coverage in the feature folder | Detail retained through archive links |
 |---|---|---|
-| SPEC-SEI-002 | ONB-S01–08, ONB/OFR activities, recovery and compact acceptance. | [SEI019 §7](onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#7-traceability-and-supporting-artefacts) retains links to ONB/OFR interactions and records, customer/system/public field inventories, original verification mappings and release gates. Its decision register also remains in 002. |
+| SPEC-SEI-002 | ONB-S01–08, ONB/OFR activities, recovery and compact acceptance. | [SEI019 §7](archive/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#7-traceability-and-supporting-artefacts) retains links to ONB/OFR interactions and records, customer/system/public field inventories, original verification mappings and release gates. Its decision register also remains in 002. |
 | SPEC-SEI-007 | OUT activities, failure/recovery, public binding and compact acceptance. | [SEI023 §§4–6](invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#4-shared-controls-and-spain-binding) still uses the predecessor's invariant/requirement register, OUT-INT-01–11, OUT-D01–12, OUT-AXC-R01–07 withdrawal traceability and detailed assurance mappings. |
 | SPEC-SEI-016 | Public/private acquisition, capture, receiving, saved-file access and recovery. | [SEI026 §§3–6](invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#3-process-and-activity-order) retains detailed PRI/RSD/RCV conditions and original acceptance in REF-BASE. Full interaction/data inventories, RRI/RCV/RSD controls and decision records remain in 016. |
 | SPEC-SEI-009 | LCS-01–10, LCS-R01–14, reporting/recovery and compact acceptance. | [SEI029 §§4–6](invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#4-functional-requirements-and-invariants) still binds to LCS-I01–09, the destination/obligation table, detailed SPFE controls, 52-row Annex II field matrix and assurance mappings. Provider-specific lifecycle tables and interaction/data inventories remain in 009. |
@@ -66,5 +66,6 @@ moved files. The nine capabilities without replacement folders remain active.
 
 This is a document-coverage review. It does not validate external contracts,
 approve implementation or resolve the recorded product and engineering gates.
-The [archive index](archive/README.md) identifies all nine retained sources and
-distinguishes their publication settings.
+The [archive index](archive/README.md) also identifies the two retained three-view
+folders and distinguishes their publication settings. Their archive move preserves
+business content and metadata; relative links and reading-route guidance changed.

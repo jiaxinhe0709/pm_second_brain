@@ -1,0 +1,79 @@
+{
+  "result": "passed",
+  "documents": [
+    {
+      "source": "specs/archive/provider-connectivity/SPEC-SEI-034-provider-connectivity-solution-summary.md",
+      "preview": "SPEC-SEI-034.html",
+      "local_links": 28,
+      "diagrams": 1
+    },
+    {
+      "source": "specs/archive/provider-connectivity/SPEC-SEI-035-provider-connectivity-logical-feature-specification.md",
+      "preview": "SPEC-SEI-035.html",
+      "local_links": 30,
+      "diagrams": 2
+    },
+    {
+      "source": "specs/archive/provider-connectivity/SPEC-SEI-036-provider-connectivity-sequence-and-reuse-assessment.md",
+      "preview": "SPEC-SEI-036.html",
+      "local_links": 33,
+      "diagrams": 3
+    },
+    {
+      "source": "specs/archive/provider-connectivity/README.md",
+      "preview": "index.html",
+      "local_links": 14,
+      "diagrams": 0
+    }
+  ],
+  "diagrams": [
+    {
+      "asset": "b2b-router-adapter-binding-process.svg",
+      "width": 1800,
+      "height": 820,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "global-api-exchange-and-reconciliation-process.svg",
+      "width": 2800,
+      "height": 948,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "invoice-retrieval-fr-notification-sequence.svg",
+      "width": 1800,
+      "height": 1679,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "invoice-retrieval-spain-public-sequence.svg",
+      "width": 1415,
+      "height": 1861,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "invoice-sending-spain-actions-sequence.svg",
+      "width": 1415,
+      "height": 1993,
+      "reused_unchanged": true,
+      "editable_source": true
+    },
+    {
+      "asset": "public-platform-connector-process.svg",
+      "width": 3200,
+      "height": 961,
+      "reused_unchanged": true,
+      "editable_source": true
+    }
+  ],
+  "source_specs_and_publication_unchanged": true,
+  "six_existing_diagrams_reused_unchanged": true,
+  "new_views_unpublished_drafts": true,
+  "static_preview_diagnostics": "passed",
+  "implementation_tests_executed": false,
+  "limits": "Document identity, metadata, local links/anchors, source preservation, unchanged source diagram hashes and asset XML/PNG checks. Existing source diagrams reused without regeneration. Headless Chrome could not launch under the current sandbox; browser viewport checks are not claimed. No contract, legal, production or external-link qualification."
+}

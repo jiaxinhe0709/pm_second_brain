@@ -62,7 +62,7 @@ An **exchange action** has one purpose and result, such as recipient delivery or
 
 An accountant sending one client's invoice uses the same route and copy controls as the business user. Batch sending is not a prerequisite, and the supplied FR guide does not establish a bulk accountant requirement. Wider portfolio and accounting-handoff proposals stay separate under OUT-Q02.
 
-Full setup belongs to [onboarding](../onboarding/README.md). Creation, trust, route qualification and later lifecycle reporting retain their owning specifications. This sending set coordinates their handoffs; it does not approve new service boundaries. REF-BASE; REF-PRODUCT.
+Full setup belongs to [onboarding](../archive/onboarding/README.md). Creation, trust, route qualification and later lifecycle reporting retain their owning specifications. This sending set coordinates their handoffs; it does not approve new service boundaries. REF-BASE; REF-PRODUCT.
 
 ## 4 End-to-end workflow
 

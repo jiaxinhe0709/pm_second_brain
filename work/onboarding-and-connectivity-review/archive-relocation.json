@@ -1,0 +1,276 @@
+{
+  "purpose": "Authorised archive relocation; original source-preservation.json remains unchanged. Hash transitions record link rebasing and navigation only for managed documents.",
+  "moves": {
+    "specs/onboarding": "specs/archive/onboarding",
+    "specs/provider-connectivity": "specs/archive/provider-connectivity"
+  },
+  "six_archived_specs_business_content_and_metadata_preserved": true,
+  "config_confluence_unchanged": true,
+  "drawio_source_links_only": [
+    "assets/diagrams/onboarding-reuse-public-readiness-sequence.drawio",
+    "assets/diagrams/onboarding-reuse-supported-change-sequence.drawio",
+    "assets/diagrams/onboarding-reuse-private-setup-sequence.drawio",
+    "assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.drawio",
+    "assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.drawio"
+  ],
+  "files": {
+    "README.md": {
+      "retained_path": "README.md",
+      "before_sha256": "f1139cb6d91a9a53bb37fcdbbfbe9a911e8fe763c3e4caed417218da35733855",
+      "after_sha256": "09d36bad61760b600c668cbee09b3d2862d418057a0a5d351acfa99021a40089",
+      "change": "relative links and reading-route guidance"
+    },
+    "work/prepare-onboarding-api-review.py": {
+      "retained_path": "work/prepare-onboarding-api-review.py",
+      "before_sha256": "c11e4e101dd9a3f0ee742e20c8471b1de9f00d1bde3ca7090d210cd628d3f224",
+      "after_sha256": "019ec471c6ce9963026febb3e26a6bb9665c1b7f7ce941653eef18536a19fec2",
+      "change": "source paths and relocation-aware validation"
+    },
+    "work/prepare-onboarding-sequence-review.py": {
+      "retained_path": "work/prepare-onboarding-sequence-review.py",
+      "before_sha256": "8f9277509d764bedf74a23ba0f0e9a4b1c6ddbf53c0cb124c59f378ca6f0a81b",
+      "after_sha256": "752332052c72ae7ea7e50ac0e19ef66d2133d7f3b91de321b72522d6699b1e46",
+      "change": "source paths and relocation-aware validation"
+    },
+    "work/recolour-onboarding-sequences.py": {
+      "retained_path": "work/recolour-onboarding-sequences.py",
+      "before_sha256": "df45d006506f0558d96699f03b60da02d21fed84abafc849b288b120ad8db0ce",
+      "after_sha256": "06704bd23c52d26c98e7cc3d7a90c121539721354552335af36370fd7b22b1a1",
+      "change": "source paths and relocation-aware validation"
+    },
+    "specs/invoice-sending/SPEC-SEI-022-invoice-sending-solution-summary.md": {
+      "retained_path": "specs/invoice-sending/SPEC-SEI-022-invoice-sending-solution-summary.md",
+      "before_sha256": "45f1dbe85b980edaf8bfe691b751ce9ce152bb38b07dfd747e0636a3cc469091",
+      "after_sha256": "543576a77617a54fafff030ec93159737912fb2018d9f245758132c89f6a45d3",
+      "change": "relative links only"
+    },
+    "specs/onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md": {
+      "retained_path": "specs/onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md",
+      "before_sha256": "afb6765b569011ba299a1eb2e6c998e6d4876dbf50c0962d51d8f1646322ac1c",
+      "after_sha256": "29bc8932a3c417c31bc58965a3fc0806f3dbda30a2778dc272d817de8e83f01c",
+      "change": "relative links only"
+    },
+    "specs/onboarding-and-connectivity/README.md": {
+      "retained_path": "specs/onboarding-and-connectivity/README.md",
+      "before_sha256": "940a809917c53a3c5ddc353525e3f5fb5fd6e14b7a62ea00fcf9d09b53f47e45",
+      "after_sha256": "a2e2d8890888bf58fa5318333e7f9de7f038883021a307931b2215c7a4eb5f8b",
+      "change": "relative links and reading-route guidance"
+    },
+    "specs/invoice-sending/README.md": {
+      "retained_path": "specs/invoice-sending/README.md",
+      "before_sha256": "aa8c6cc3e1c36aec22aed732780f3e12d7183198cdd672ac6013c955e488d390",
+      "after_sha256": "5840f653ae50d235b91a58d0ebae6b2bfdfdfa6c8633390cffc450123acf2d3d",
+      "change": "relative links and reading-route guidance"
+    },
+    "specs/onboarding-and-connectivity/SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md": {
+      "retained_path": "specs/onboarding-and-connectivity/SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md",
+      "before_sha256": "d88af7367c1b20af73703e6c39fe3fe70d7b8a46425b74cf3c9764a750e5aa6b",
+      "after_sha256": "b46c9a0c11cd491aef51ef2a7fb3c2b37a23bf98c6bd3a173eac12867275b692",
+      "change": "relative links only"
+    },
+    "specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md": {
+      "retained_path": "specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md",
+      "before_sha256": "6075c80101caa1843ae2969d09fd0805f63eaf6cae18794a125ef15729ef597c",
+      "after_sha256": "0cb4275f8923cacc561a37d8e89cf6009c9cf0e0c6293a2b012aa418131240aa",
+      "change": "relative links only"
+    },
+    "specs/provider-connectivity/SPEC-SEI-036-provider-connectivity-sequence-and-reuse-assessment.md": {
+      "retained_path": "specs/archive/provider-connectivity/SPEC-SEI-036-provider-connectivity-sequence-and-reuse-assessment.md",
+      "before_sha256": "865e5d0954570e319fb014efba37bfe1cb7596b5b46c5e3b61b6e0832e955ab6",
+      "after_sha256": "e9012b5a78e8eb0dc2993a2716fdf23d4394f1d11e49a871d8d3fa2d7e05900d",
+      "change": "relative links only"
+    },
+    "specs/provider-connectivity/README.md": {
+      "retained_path": "specs/archive/provider-connectivity/README.md",
+      "before_sha256": "c49e39c79350d9050e59df8a99c591ef0615e69db3cf8e59d7ce7e2f7bdea50c",
+      "after_sha256": "e945d4ec8c33204908cc44df9cfaf40bd82b9f6c04cc565a8216a7a139fb7ab9",
+      "change": "relative links and reading-route guidance"
+    },
+    "specs/provider-connectivity/SPEC-SEI-034-provider-connectivity-solution-summary.md": {
+      "retained_path": "specs/archive/provider-connectivity/SPEC-SEI-034-provider-connectivity-solution-summary.md",
+      "before_sha256": "af6ff2ee68af34a5ee35c69844c2f92c496bf12314b8ac4b9178ee66c576d883",
+      "after_sha256": "ebc2a2d0f16cf19b68d8cb49bcf6d2314c5060a04b9f94e613953a465bd41e01",
+      "change": "relative links only"
+    },
+    "specs/provider-connectivity/SPEC-SEI-035-provider-connectivity-logical-feature-specification.md": {
+      "retained_path": "specs/archive/provider-connectivity/SPEC-SEI-035-provider-connectivity-logical-feature-specification.md",
+      "before_sha256": "9852f56ef930676b547e3baa0fef00b5aeed2e0ba0abfbb14978f2a75eceea2d",
+      "after_sha256": "006c1f79fb85e882ceab4852dffbe60b7d0fe9419358fa9eb041cb97f17f7608",
+      "change": "relative links only"
+    },
+    "assets/diagrams/onboarding-reuse-public-readiness-sequence.drawio": {
+      "retained_path": "assets/diagrams/onboarding-reuse-public-readiness-sequence.drawio",
+      "before_sha256": "fe6d9712e00fe9d0ed9cdb81d82fb63f4878a5100fa9f755b531ff09fbcc80ec",
+      "after_sha256": "464dd8d58441c66c57633a9603426f7b9747ee42196745b2482fb516eb4c1aea",
+      "change": "source specification link only; layout unchanged"
+    },
+    "assets/diagrams/onboarding-reuse-supported-change-sequence.drawio": {
+      "retained_path": "assets/diagrams/onboarding-reuse-supported-change-sequence.drawio",
+      "before_sha256": "75c0704a616462331e6f7a310464389671d46b41d7e304847fe11ca5f9be88c7",
+      "after_sha256": "1ca6bc1602d842171cadc7ac31e5853b8313f9f9ae40a42ea93eb0fa7d1420ce",
+      "change": "source specification link only; layout unchanged"
+    },
+    "assets/diagrams/onboarding-reuse-private-setup-sequence.drawio": {
+      "retained_path": "assets/diagrams/onboarding-reuse-private-setup-sequence.drawio",
+      "before_sha256": "75410574504ed8b5fb058786e2be1dcd806b2aaa95faf84cec7d6a0a5113a039",
+      "after_sha256": "399a831e36f3600d2edb596222e52eaa4ae7e786cb9b3161b47b740aea58276e",
+      "change": "source specification link only; layout unchanged"
+    },
+    "specs/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md": {
+      "retained_path": "specs/archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md",
+      "before_sha256": "c0d480fa4958e30d8b57d88b50ca640f429f4a5cecfa5857b1f87ebca6f96ddb",
+      "after_sha256": "2e93c06fb0f35aed85788a145ad70b07049316af330eafb2f85d0ff0a18838e9",
+      "change": "relative links only"
+    },
+    "specs/onboarding/README.md": {
+      "retained_path": "specs/archive/onboarding/README.md",
+      "before_sha256": "c6715ac713996846ec6ffc5fdb773c480373c6d8b6ce45f195547d470526ebd0",
+      "after_sha256": "2da2cd68283796cf99e0e4b4ba2e7cbca2cb966eb6903fae9eaeb85d17406cc6",
+      "change": "relative links and reading-route guidance"
+    },
+    "specs/onboarding/SPEC-SEI-018-customer-onboarding-solution-summary.md": {
+      "retained_path": "specs/archive/onboarding/SPEC-SEI-018-customer-onboarding-solution-summary.md",
+      "before_sha256": "533f93b2303e96c87bf22b89fda62351bf745100ced6567be6d809f659961a6d",
+      "after_sha256": "3301257b31c8f206d742ce26cdc40e3af7fea4e69ace9af1a238c6dfdaef7607",
+      "change": "relative links only"
+    },
+    "specs/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md": {
+      "retained_path": "specs/archive/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md",
+      "before_sha256": "3c7eb5ef16eace9efae40404905d1b552c0775781c3d3fcb5d17930299fd6790",
+      "after_sha256": "b10b6e7372000d0f68396b04610706cb9b36c7b0b37be6ecffe0661b53a21afc",
+      "change": "relative links only"
+    },
+    "work/prepare-provider-connectivity-review.py": {
+      "retained_path": "work/prepare-provider-connectivity-review.py",
+      "before_sha256": "441a5a3e8bf5a7275fcf8867db939ab46a8095b488d58218eb5adf9f2e51bf50",
+      "after_sha256": "677bb3b4f9c2c5e245ae384889afcc758847f8f2e8a1aa4a35675e12541a1b1a",
+      "change": "source paths and relocation-aware validation"
+    },
+    "assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.drawio": {
+      "retained_path": "assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.drawio",
+      "before_sha256": "4cf5bd7ed43ffc2400568582bba184a855b85c931b88bbb89ab6c792bec91ff7",
+      "after_sha256": "3e04a13ca939f705e8a95eb6f84b020f9131a9ce6ad097aba85ef5ebadffb041",
+      "change": "source specification link only; layout unchanged"
+    },
+    "assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.drawio": {
+      "retained_path": "assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.drawio",
+      "before_sha256": "7f56a250bc519a8d07d7baa6c20efe7bda4d7505342de4d158991ec6edd3460a",
+      "after_sha256": "8239df1cbcd50499e1a209687cd2ffe623a9fd49a532015f9d3920fdd3c03a74",
+      "change": "source specification link only; layout unchanged"
+    },
+    "work/publish-onboarding-views.py": {
+      "retained_path": "work/publish-onboarding-views.py",
+      "before_sha256": "41831877f66e6bcb1f2fb84ec6257e3e72ed9296d2f2b2d02a5a056d9c0fd51d",
+      "after_sha256": "6f8b18dca97f7ea4552acaabc528e68eddcebfe6278c61e07030e966db4669be",
+      "change": "source paths and relocation-aware validation"
+    },
+    "work/prepare-onboarding-and-connectivity-review.py": {
+      "retained_path": "work/prepare-onboarding-and-connectivity-review.py",
+      "before_sha256": "6f34f03e5c2c06911557ff2b08232163d77f5ba4ce6be86d4525485662dc5dcd",
+      "after_sha256": "430bb6b992c7f60eaa56fd44ec230ee4553a1127e84a231304ca1585a9b88989",
+      "change": "source paths and relocation-aware validation"
+    },
+    "work/build-onboarding-reuse-walkthrough.py": {
+      "retained_path": "work/build-onboarding-reuse-walkthrough.py",
+      "before_sha256": "3f06158f138506c1a995a153928369b5ad12c0568a30fe7fe4b7d56bcd7d9225",
+      "after_sha256": "0ba810c0e99c4a93be7035c8c4aab7cd823d41a861c32144dddb9f70050fa8eb",
+      "change": "source paths and relocation-aware validation"
+    },
+    "work/onboarding-and-connectivity-review/SPEC-SEI-037.html": {
+      "retained_path": "work/onboarding-and-connectivity-review/SPEC-SEI-037.html",
+      "before_sha256": "7fb9cb8f7a0d3da8523319f6401e2db830bcf12226d6b0cef397d18520c4e4cb",
+      "after_sha256": "8a7149b0d543148d3593c9f6706945df44989fd0ac2d07970983a94eeebb5b79",
+      "change": "local preview links"
+    },
+    "work/onboarding-and-connectivity-review/SPEC-SEI-038.html": {
+      "retained_path": "work/onboarding-and-connectivity-review/SPEC-SEI-038.html",
+      "before_sha256": "81f64cb658e5d36cf3e9c42d2ab7dbbbcb9ba0a2bf4f725b7115e57383773bf7",
+      "after_sha256": "ed258fcdda4559f93dfefc3ac1419a601382ec31391edecab8006b612eda864a",
+      "change": "local preview links"
+    },
+    "work/onboarding-and-connectivity-review/index.html": {
+      "retained_path": "work/onboarding-and-connectivity-review/index.html",
+      "before_sha256": "37ec1c7c43db285037c3de52ac8f246becc5d0c72f0652c9740c736b70698978",
+      "after_sha256": "45a844ac3be2d7b33224b86c79305a34bd9c55baa41adc5845b10b189b4b6149",
+      "change": "local preview links"
+    },
+    "work/onboarding-and-connectivity-review/SPEC-SEI-039.html": {
+      "retained_path": "work/onboarding-and-connectivity-review/SPEC-SEI-039.html",
+      "before_sha256": "b873df678646f99cf7e6a2ebbf9a56a371a0552cccca6a4593361fe928c87666",
+      "after_sha256": "f578d1158faa32c1c3ec3d12afe1b7492367b8d5b99bcb021a0e713516b212c6",
+      "change": "local preview links"
+    },
+    "specs/offboarding/SPEC-SEI-033-customer-offboarding-sequence-and-reuse-assessment.md": {
+      "retained_path": "specs/offboarding/SPEC-SEI-033-customer-offboarding-sequence-and-reuse-assessment.md",
+      "before_sha256": "585a1be8172cc09abaa3c5142290c94094f1c3e0cde934cb72b5f3374d0d31b5",
+      "after_sha256": "2429b8799feaeab5223f605d91316f4d332a01b97b6b71df42778ae60da8e950",
+      "change": "relative links only"
+    },
+    "work/invoice-retrieval-review/SPEC-SEI-027.html": {
+      "retained_path": "work/invoice-retrieval-review/SPEC-SEI-027.html",
+      "before_sha256": "8943e1de4b18f80fb89c67f73172331a12a5c894a46bbbe1ad4d0a7db70f1d45",
+      "after_sha256": "d2685fa0662745687693a9488977f3dd185fbb36e78db7b9c19dafb4ac5fd36a",
+      "change": "local preview links"
+    },
+    "specs/README.md": {
+      "retained_path": "specs/README.md",
+      "before_sha256": "1ed52611522eb9c5b63b5b0f9925888c8164bc483874bb9130db8a5281bf46fc",
+      "after_sha256": "3b2ee85b41044d84f36a00603c1d791e31054ad05cbca8f4311b0440e58abb9d",
+      "change": "relative links and reading-route guidance"
+    },
+    "work/provider-connectivity-review/index.html": {
+      "retained_path": "work/provider-connectivity-review/index.html",
+      "before_sha256": "37df5fa7d1a704f9b8d09577377b04ef767a4f6070abcb21a7632ea84b9b0c22",
+      "after_sha256": "e9f9bdb13f33e430a79bcf32b40bae58520409c2fa3b03fe4bfb0e487b3b3738",
+      "change": "local preview links"
+    },
+    "work/build-onboarding-colour-trial.py": {
+      "retained_path": "work/build-onboarding-colour-trial.py",
+      "before_sha256": "d6ffa318da9ce27e118ff3714ccf8e2ed65df7d1db9ddd8b0d7019bff318405b",
+      "after_sha256": "8ea61e94de29e2bdd92c1aafe025198ce5a0185f6747d720b875b56c8c7c03b2",
+      "change": "source paths and relocation-aware validation"
+    },
+    "specs/invoice-receiving/README.md": {
+      "retained_path": "specs/invoice-receiving/README.md",
+      "before_sha256": "0e6ad15394ad1432e5d0046a1f534fc1c787ef91c8537eea97073513b9a667d2",
+      "after_sha256": "b72c570e21fc04a97c2ade0badc17a20339268d3688874618ddbbdcd2eb7d286",
+      "change": "relative links and reading-route guidance"
+    },
+    "specs/invoice-receiving/SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md": {
+      "retained_path": "specs/invoice-receiving/SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md",
+      "before_sha256": "72446af2766ca2b558186b21ca8e1e6dbb63bfb3a227d51f60b9e8459b46b045",
+      "after_sha256": "4d58af5227e2ce5f0022fe881c25539a68b63650c67cc3b59a38a9d27f2d5a41",
+      "change": "relative links only"
+    },
+    "work/offboarding-review/SPEC-SEI-033.html": {
+      "retained_path": "work/offboarding-review/SPEC-SEI-033.html",
+      "before_sha256": "e33576a1f3ab88075de78fd82ffabbeb4f255708be03445847121ac9b4d9c935",
+      "after_sha256": "5807f6a81704ef47d462f6022cba4771cde0dd03dd1eb90e3bcf8805cc5937ee",
+      "change": "local preview links"
+    },
+    "work/invoice-sending-review/SPEC-SEI-022.html": {
+      "retained_path": "work/invoice-sending-review/SPEC-SEI-022.html",
+      "before_sha256": "8e4d0a74b3e68e51236b2384a0389b69955abdffeaaffa2f2fff998b2b816fca",
+      "after_sha256": "69eb7c9de835482e378830ce80034ca11545a745c4f7f7485115675cccb030dc",
+      "change": "local preview links"
+    },
+    "specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md": {
+      "retained_path": "specs/archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md",
+      "before_sha256": "2ed96ddb6f0c6e0de5c32ae18cc427e53f8a3392d58c1f5d4a8e9e9162cdedbf",
+      "after_sha256": "c83b1fe83cf25d6c2492a5f0ad5696d0aefc28b38794f282b8d69513b6d714c8",
+      "change": "relative links only"
+    },
+    "specs/archive/README.md": {
+      "retained_path": "specs/archive/README.md",
+      "before_sha256": "fba664692f3e3eb8223120d5c1a0f355bfa3f3f83635e862bbe62476ebf6441b",
+      "after_sha256": "15dd7c45dcb6d6fdc4062976142c4eab4f4744a2c64554a51009522e2355177f",
+      "change": "relative links and reading-route guidance"
+    },
+    "context/GLO-SEI-001-e-invoicing-terminology.md": {
+      "retained_path": "context/GLO-SEI-001-e-invoicing-terminology.md",
+      "before_sha256": "32323073eb2d6e7c8a675dce2657d581ef36ab2329c98c0d767636f30759e39a",
+      "after_sha256": "ff94d76c0034e4129b26cdbb4d842aa8228178b62dc4c1ac44e5310d2bd9d659",
+      "change": "relative links only"
+    }
+  }
+}

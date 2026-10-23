@@ -14,7 +14,8 @@ def module(name, filename):
 
 
 base = module('onboarding_contract_sources', 'build-onboarding-api-diagrams.py')
-SPEC = '../../specs/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md'
+palette = module('onboarding_reuse_colours', 'recolour-onboarding-sequences.py')
+SPEC = '../../specs/archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md'
 VIEWS = [
     ('shared-prerequisites', 'Shared prerequisites', 'Reuse current evidence; provision a dataset only if the channel requires it', '21-shared-prerequisites'),
     ('public-readiness', 'Public readiness', 'Phase 1: assess selected functions through qualified checks', '22-public-readiness'),
@@ -68,6 +69,7 @@ class Sketch:
             'Solid requests; dashed paired responses; grey activation bars. Timing and service placement remain proposed.',
             'Current business access is required. HTTP success is separate from readiness and activation. Unknown evidence holds dependent work.',
         ])
+        palette.apply_colours(path)
         pairs = len(self.s.activations)
         assert pairs * 2 == len(self.s.messages)
         return path, {

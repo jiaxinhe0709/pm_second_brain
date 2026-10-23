@@ -1,0 +1,263 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Provider Connectivity Logical Feature Specification</title><style>
+*{box-sizing:border-box}body{margin:0;color:#243445;background:#fff;font:16px/1.55 Arial,sans-serif}
+header{padding:18px 24px;background:#f3f6f8;border-bottom:1px solid #ccd4dc}nav{display:flex;flex-wrap:wrap;gap:20px}
+a{color:#075eaa}main{max-width:1200px;margin:28px auto;padding:0 24px}h1{font-size:30px}h2{margin-top:36px}
+.table-scroll{overflow:auto;margin:18px 0}table{border-collapse:collapse;width:100%;min-width:650px;font-size:14px}
+th,td{border:1px solid #ccd4dc;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f6f8}
+code{font-size:.9em;background:#f3f6f8;overflow-wrap:anywhere}img{display:block;width:100%;height:auto;margin:20px 0}
+.notice{padding:12px;background:#fff5da;border-left:4px solid #ad7000}.toc{font-size:14px}.toc ul{padding-left:22px}
+
+.diagram{overflow-x:auto}.diagram img{min-width:1050px}
+</style></head><body><header><nav><a href="SPEC-SEI-034.html">Provider Connectivity Solution Summary</a> · <a href="SPEC-SEI-035.html">Provider Connectivity Logical Feature Specification</a> · <a href="SPEC-SEI-036.html">Provider Connectivity Sequence and Reuse Assessment</a> · <a href="index.html">Provider connectivity review</a></nav></header><main><p class="notice">Unpublished design proposal. Specs 011, 013 and 017 and current Confluence sources remain unchanged.</p><div class="toc">
+<ul>
+<li><a href="#provider-connectivity-logical-feature-specification">Provider Connectivity Logical Feature Specification</a><ul>
+<li><a href="#revision-overview">Revision overview</a></li>
+<li><a href="#1-behaviour-authority-and-outcomes">1 Behaviour authority and outcomes</a></li>
+<li><a href="#2-scenarios-required-behaviour-and-safe-recovery">2 Scenarios, required behaviour and safe recovery</a></li>
+<li><a href="#3-process-and-activity-order">3 Process and activity order</a><ul>
+<li><a href="#31-public-platform-connector-spec-sei-011">3.1 Public platform connector — SPEC-SEI-011</a></li>
+<li><a href="#32-b2b-router-provider-adapter-spec-sei-017">3.2 B2B Router provider adapter — SPEC-SEI-017</a></li>
+</ul>
+</li>
+<li><a href="#4-country-provider-and-file-boundaries">4 Country, provider and file boundaries</a></li>
+<li><a href="#5-functional-acceptance-and-retained-detail">5 Functional acceptance and retained detail</a></li>
+<li><a href="#ref-source-references">REF Source references</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="provider-connectivity-logical-feature-specification">Provider Connectivity Logical Feature Specification</h1>
+<p><a href="SPEC-SEI-034.html">Solution Summary</a> · <a href="SPEC-SEI-036.html">Sequence and Reuse Assessment</a> · <a href="index.html">Folder</a></p>
+<h2 id="revision-overview">Revision overview</h2>
+<p>This view develops the scenarios in the initial SPEC-SEI-034 assessment into one behaviour and acceptance view across 011, 013 and 017. Existing PCN, GPA, B2BR and journey IDs keep their meanings. The source specifications remain unchanged. This view connects their behaviour; it does not move their detailed registers or approve component ownership.</p>
+<p>The scope is Spain public/private connectivity. Public platform terminology follows the original context sources identified in 036 §3.1; FR API terms describe only the API reuse candidate. Actual API/build coverage, provider SPFE coverage, representation pairs and the first delivery subset remain open. All terms follow the <a href="../../context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>.</p>
+<h2 id="1-behaviour-authority-and-outcomes">1 Behaviour authority and outcomes</h2>
+<p>The scenario table in §2 is the authoritative statement for this combined view. Refer to the original requirement IDs for retained detail. Business and functional behaviour stays separate from proposed component allocation in <a href="SPEC-SEI-036.html">036</a>.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Outcome</th>
+<th>Meaning and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qualified capability</td>
+<td>Evidence supports the named direction, operation, business scope, environment and profile. It does not activate a route.</td>
+</tr>
+<tr>
+<td>Saved operation receipt</td>
+<td>Requested work is recorded for recovery. It does not prove an external effect or delivery.</td>
+</tr>
+<tr>
+<td>External result observed</td>
+<td>Correlated source evidence is available at its actual meaning. Delivery, public copy, buyer decision, payment and reporting remain separate results.</td>
+</tr>
+<tr>
+<td>File available</td>
+<td>The required file is captured and permitted for access, with its source or derived role. Notification or metadata alone is insufficient.</td>
+</tr>
+<tr>
+<td>Held or outcome unknown</td>
+<td>A named owner and next action exist. Assignment to support does not complete the action.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The authenticated caller, represented party, provider account scope and credential purpose remain separate facts. Read and mutation access must preserve tenant, business and environment isolation. GPA-03; PCN-02/03; B2BR-I02; REF-BASE.</p>
+<h2 id="2-scenarios-required-behaviour-and-safe-recovery">2 Scenarios, required behaviour and safe recovery</h2>
+<p>These scenarios cover the main, alternative and failure paths. They do not create new routing policy or change the business behaviour in the journey specifications.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Scenario / actor and condition</th>
+<th>Required behaviour and observable result</th>
+<th>Failure or recovery; retained authority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qualification — customer requests public/private send and receive</td>
+<td>Check current authority and record readiness separately for each operation, direction, environment and representation profile. Keep connection readiness separate from route activation.</td>
+<td>Missing, stale or conflicting evidence holds the affected capability. Show the evidence needed to recheck. GPA-02; B2BR-01/I03; SPC-01–03.</td>
+</tr>
+<tr>
+<td>Access — product or partner acts for a business</td>
+<td>Check the trusted caller and current permission for the represented business, action and objects. Return only permitted files and evidence.</td>
+<td>Deny unauthorised access without disclosing another scope. Recheck current authority before recovery creates a new effect. GPA-03; PCN-02/03; B2BR-I02.</td>
+</tr>
+<tr>
+<td>Public submission — sender requests Remisión de facturas electrónicas on the qualified public route</td>
+<td>Preserve the approved invoice/action context and prepared file. Return a saved receipt, then correlated public results at their actual meaning.</td>
+<td>Unsupported profile or missing authority holds transmission. A possible external effect with missing result follows the unknown-outcome scenario. PCN-01–09; sending SPEC-SEI-023.</td>
+</tr>
+<tr>
+<td>Private send — sender has a qualified private route and a separate public-copy duty where applicable</td>
+<td>Preserve one execution owner for each action and independent delivery/copy results. The owning sending journey determines applicability and issuance coordination.</td>
+<td>Retain any completed action. Recover only the rejected, pending or unknown action. Private delivery failure cannot choose public recipient delivery automatically. GPA-05/06; B2BR-I06/07; SPEC-SEI-023.</td>
+</tr>
+<tr>
+<td>Public consultation and download — authorised recipient requests Consulta and Descarga operations</td>
+<td>Preserve consultation coverage, invoice references and captured source files before making the required representation available to the product.</td>
+<td>Empty results and unavailable queries have different outcomes. Incomplete pages or failed capture keep the prior safe progress point. Use the service names and exact operations in 036 §3.1, sourced from context. No public notification contract is assumed. SPFE-S03; receiving SPEC-SEI-026; PCN handoffs.</td>
+</tr>
+<tr>
+<td>Private receive — recipient obtains a notification or polling result</td>
+<td>Authenticate and correlate the observation. Capture the required source bytes and metadata before product availability. Retain raw source evidence for lifecycle interpretation.</td>
+<td>Invalid or uncorrelated observations are held. Missing notifications use qualified independent reads; repeated observations cannot repeat product processing. B2BR-05/06; B2BR-A07–09; SPEC-SEI-026.</td>
+</tr>
+<tr>
+<td>Representation — authorised product requests a format different from the captured source</td>
+<td>Preserve source bytes and identify derived files with source, mapping, validation and profile evidence. Report available representations clearly.</td>
+<td>Hold unsupported pairs or changed/ambiguous file identity. Preserve signature evidence; do not label a generated PDF as the exchanged original. GPA-07; SPEC-SEI-008; SPEC-SEI-026.</td>
+</tr>
+<tr>
+<td>Unknown outcome — sender or operations cannot establish an external result</td>
+<td>Preserve original action, input, route/profile version and correlation. Establish the original result before repetition unless the qualified idempotency contract proves safe retry.</td>
+<td>A failed query is not proven absence. Ambiguous evidence remains an owned hold. Do not create a new action, key, provider or environment to bypass uncertainty. PCN-09; GPA-08; B2BR-07.</td>
+</tr>
+<tr>
+<td>Duplicate observations — public and private sources expose the same business invoice</td>
+<td>Apply qualified invoice identity and source correlation. Keep source observations and action evidence distinct while preventing duplicate product processing.</td>
+<td>Matching invoice numbers alone are insufficient. Preserve ambiguous observations for resolution; do not discard a source file as a guessed duplicate. SPEC-SEI-026; GPA-08.</td>
+</tr>
+<tr>
+<td>Continuity — route or provider changes with earlier work open</td>
+<td>New work uses the approved effective route. Earlier invoices retain their original context and permitted file/status access.</td>
+<td>Historical dependencies block destructive release or require an approved handover. Do not replay old work through the new route. SPC-04/08; B2BR-08.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-process-and-activity-order">3 Process and activity order</h2>
+<p>Use the existing source diagrams and activity IDs. The responsibility groups follow the <a href="../../context/GLO-SEI-001-e-invoicing-terminology.md#services-connections-and-routing">glossary</a>: Customer / accountant, ERP / product, Domain Service - E-Invoice Service, Domain Service - Other Services, Operations / support, and Public / private platforms. Diagrams can omit groups with no activity. These are logical responsibilities, not approved deployments.</p>
+<h3 id="31-public-platform-connector-spec-sei-011">3.1 Public platform connector — SPEC-SEI-011</h3>
+<div class="diagram"><img alt="Public platform connector process — existing PCN activities" src="../../assets/diagrams/public-platform-connector-process.svg" /></div>
+<p><a href="../../assets/diagrams/public-platform-connector-process.svg">Full-size SVG</a> · <a href="../../assets/diagrams/public-platform-connector-process.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/public-platform-connector-process.png">PNG</a>.</p>
+<p>This is the unchanged diagram from 011. PCN-01–08 receive the authorised feature request, check scope and credentials, confirm support, save intent, execute and return evidence. PCN-09 reconciles uncertain effects; PCN-10 covers controlled operations. The connector executes the public operation. Sending, receiving and lifecycle retain their business decisions. A denied or unsupported request has no new external effect; an unknown result is checked before repetition.</p>
+<h3 id="32-b2b-router-provider-adapter-spec-sei-017">3.2 B2B Router provider adapter — SPEC-SEI-017</h3>
+<div class="diagram"><img alt="B2B Router adapter binding and recovery — existing B2BR activities" src="../../assets/diagrams/b2b-router-adapter-binding-process.svg" /></div>
+<p><a href="../../assets/diagrams/b2b-router-adapter-binding-process.svg">Full-size SVG</a> · <a href="../../assets/diagrams/b2b-router-adapter-binding-process.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/b2b-router-adapter-binding-process.png">PNG</a>.</p>
+<p>This is the unchanged diagram from 017. B2BR-01–04 qualify the binding, prepare and execute the assigned operation, then save the provider response. B2BR-05/06 handle notifications and independent reads. B2BR-07 resolves unknown outcomes; B2BR-08 preserves historical access. A provider observation retains its source meaning. Import, recipient delivery and product availability remain separate outcomes.</p>
+<p>The §2 scenarios link these source activities across public and private work. A file-conversion failure preserves captured source files. A public-copy failure preserves completed private delivery. Each incomplete result retains its owner and safe next action. GPA-06/07/08; PCN-07/09; B2BR-04/07.</p>
+<h2 id="4-country-provider-and-file-boundaries">4 Country, provider and file boundaries</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Boundary</th>
+<th>Functional rule and source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared behaviour</td>
+<td>Apply isolation, authority, independent action identity, source preservation and owned recovery consistently. Existing implementation coverage remains unknown. REF-BASE.</td>
+</tr>
+<tr>
+<td>Spain rules</td>
+<td>Apply identity, route, public-copy and reporting rules only under the selected Spain binding. Applicability remains with the canonical journey and final-BOE references. This view adds no legal interpretation. REF-JOURNEYS.</td>
+</tr>
+<tr>
+<td>Provider capability</td>
+<td>Qualify direction, operation and profile independently. A supported transport or tax-report feature does not enable another capability. B2BR-I03/I13; GPA-02.</td>
+</tr>
+<tr>
+<td>Business syntax versus transport</td>
+<td>Validate the actual selected file profile independently from API metadata and transport packaging. The draft public profile and FR reuse evidence differ; the exact comparison belongs in 036 §3. SPFE-S08; INT-SND01 / INT-RCV01.</td>
+</tr>
+<tr>
+<td>Original versus derived file</td>
+<td>Preserve the captured file and its role. A format name, rendered document or temporary download URL does not by itself prove original-file custody. GPA-07; SPEC-SEI-026.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="5-functional-acceptance-and-retained-detail">5 Functional acceptance and retained detail</h2>
+<p>These are proposed acceptance scenarios. No implementation tests have run. Engineering qualification in <a href="SPEC-SEI-036.html#5-decisions-and-qualification-checks">036 §5</a> adds contract and compatibility evidence to these checks.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Scenario coverage</th>
+<th>Demonstrable result</th>
+<th>Existing acceptance / evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qualification; Access</td>
+<td>Public submission can be qualified while receiving remains held. A wrong business, account or environment cannot obtain files or mutate work; current routes remain unchanged.</td>
+<td>B2BR-A01/A02; GPA access checks; profile and negative-scope fixtures.</td>
+</tr>
+<tr>
+<td>Public submission; Private send</td>
+<td>Private delivery succeeds while public copy fails or is unknown. Recovery retains delivery and addresses only the copy. Direct public work does not create an unnecessary second copy.</td>
+<td>PCN-SPFE-A01–03; B2BR-A03/A06; sending SPEC-SEI-023 and its issuance/copy checks.</td>
+</tr>
+<tr>
+<td>Public consultation and download; Private receive</td>
+<td>A notification, metadata result or partial page cannot mark missing files available. Lost and repeated observations preserve complete, duplicate-safe acquisition.</td>
+<td>B2BR-A07–09; receiving SPEC-SEI-026; page/capture and missed-event fixtures.</td>
+</tr>
+<tr>
+<td>Representation</td>
+<td>Source and derived files remain distinguishable. An unsupported mapping or incompatible provider substitution holds the affected result and preserves known successes.</td>
+<td>B2BR-A04/A09/A14; GPA-07; source/derived and mapping fixtures.</td>
+</tr>
+<tr>
+<td>Unknown outcome; Duplicate observations</td>
+<td>A lost mutation response is reconciled against original work. Ambiguous matches remain held. Dual-source intake preserves both observations and avoids duplicate product processing.</td>
+<td>B2BR-A06/A08; PCN-SPFE-A03; receiving SPEC-SEI-026.</td>
+</tr>
+<tr>
+<td>Continuity</td>
+<td>Route changes affect only approved new work. Unresolved historical dependencies stop destructive release.</td>
+<td>B2BR-A10/A11; SPC-04/08; transition and historical-access fixtures.</td>
+</tr>
+<tr>
+<td>Country and implementation reuse</td>
+<td>Another country does not inherit Spain identity, copy or reporting rules. A proposed reused build records actual coverage, gaps, owner and conformance evidence before activation.</td>
+<td>GPA-A17/A18; B2BR-A13/A14; country isolation and build qualification.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Detailed PCN, GPA, B2BR, interaction/data inventories and original gates remain in <a href="../../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md">011</a>, <a href="../../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md">013</a> and <a href="../../specs/SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md">017</a>. The current journey folders retain issuance, receiving, lifecycle and exit decisions. No source is superseded by this review set.</p>
+<h2 id="ref-source-references">REF Source references</h2>
+<p>Sources support only the claims and elements stated below. Product requirements and proposed Sage controls have separate authority from external contracts. The <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md">Spain evidence guide</a> records the baseline and unresolved conflicts.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>REF ID</th>
+<th>Original source and version/date</th>
+<th>Exact location, supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-BASE</td>
+<td><a href="../../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md">SPEC-SEI-011</a>, <a href="../../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md">013</a>, <a href="../../specs/SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md">017</a>, updated 20 October 2026; <a href="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">014</a>, current repository source.</td>
+<td>011 Part 1 §§1–2 and Part 4 gates; 013 Part 1 §§1–4 and GPA-05/08; 017 Parts 1–4; 014 SPC-01–08. Canonical draft design and scope references. Not approved external contracts or build evidence.</td>
+</tr>
+<tr>
+<td>REF-JOURNEYS</td>
+<td><a href="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md">Sending assessment, SPEC-SEI-024</a> and <a href="../../specs/invoice-receiving/SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md">receiving assessment, SPEC-SEI-027</a>, repository review set, 22 October 2026.</td>
+<td>Sequences and reuse gaps; their linked logical specs retain detailed behaviour. Product/BA sources, not external contract proof.</td>
+</tr>
+<tr>
+<td>SPFE-S08</td>
+<td><a href="../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf">FormatosEntradaSalida.pdf</a>, v0.1.0, 9 October 2026, marked <code>BORRADOR</code>.</td>
+<td>§5.1.1, p. 8: UBL 2.5 document types; §§5.3–5.9, pp. 14–15: pending service formats. Draft technical evidence; no blanket production or cross-profile compatibility claim.</td>
+</tr>
+<tr>
+<td>INT-SND01 / INT-RCV01</td>
+<td><a href="../../context/FR API/Sending/send-e-invoice-guide-extract.md">Supplied FR sending guide extract</a> and <a href="../../context/FR API/Receiving/receive-e-invoice-guide-extract.md">receiving guide extract</a>, received 22 October 2026; original attachment hashes recorded there.</td>
+<td>Sending prerequisites and steps 2–5; receiving §§3.1–4 and format notes. Reading aids for supplied API evidence; original canonical URLs, OpenAPI revisions and deployed builds are unavailable. They establish reuse candidates and conflicts, not Spain support.</td>
+</tr>
+<tr>
+<td>REF-DTS</td>
+<td><a href="../../specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md">SPEC-SEI-008 — Spain mapper migration to DTS</a>, current repository source.</td>
+<td>Reuse qualification and migration scope. Preferred existing transformation candidate; selected builds, mappings, rule packs and operations still require evidence.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf">CatalogoServicios.pdf</a>, v0.1.0, 9 October 2026.</td>
+<td>§6.1, p. 10; §§6.2 and 6.4–6.7, pp. 10–15. Original public service names, submission, consultation and download roles. Technical descriptions do not qualify live access or complete business schemas.</td>
+</tr>
+</tbody>
+</table></div></main></body></html>

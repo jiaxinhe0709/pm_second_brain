@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-21
-updated: 2026-10-22
+updated: 2026-10-23
 reviewers: []
 related:
   - SPEC-SEI-002
@@ -41,7 +41,7 @@ confluence:
 
 ## Revision overview
 
-This high-level journey view is based on [SPEC-SEI-002](../archive/SPEC-SEI-002-onboarding-solution-specification.md). It retains the business rules, activity IDs, diagrams and acceptance checks. [SEI018](SPEC-SEI-018-customer-onboarding-solution-summary.md) gives the overview; [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) holds engineering reuse and Spain-specific evidence.
+This high-level journey view is based on [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md). It retains the business rules, activity IDs, diagrams and acceptance checks. [SEI018](SPEC-SEI-018-customer-onboarding-solution-summary.md) gives the overview; [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) holds engineering reuse and Spain-specific evidence.
 
 The predecessor, phase gates and ONB/OFR meanings remain unchanged. Contract detail, record fields and technical sequences stay in the linked supporting sources. This revision does not approve implementation or enable a provider.
 
@@ -55,7 +55,7 @@ Product scope comes from REF-PRODUCT. Behaviour remains proposed. External Spain
 
 ## 2 Terms used
 
-Use the [shared e-invoicing glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). Terms below retain its meanings.
+Use the [shared e-invoicing glossary](../../../context/GLO-SEI-001-e-invoicing-terminology.md). Terms below retain its meanings.
 
 | Term | Meaning in this feature |
 |---|---|
@@ -88,6 +88,18 @@ These scenarios are authoritative for entry selection. Apply actor and processin
 | ONB-S07 | B2G service used before B2B setup | Assess B2B access independently and retain the existing B2G service. |
 | ONB-S08 | Provider/function unsupported or setup unknown | Return the precise limitation, missing evidence and owner. An unlisted-provider option remains TBD; distinguish customer setup from operator interconnection under ONB-R25. Do not force a provider change or infer absence. |
 
+**Public-only plan — Phase 1.** Apply this path to the selected public functions in ONB-S01/02/04/05. It uses the existing activities; the detailed rules and acceptance remain in section 6.
+
+| Order / existing activity | Public onboarding work | Result needed to continue |
+|---|---|---|
+| 1. ONB-01 Capture requested functions | Identify the represented business, environment and public functions requested through Sage. Use existing references and request only missing information. | Saved scope for the selected functions; ONB-R24. An unsupported function returns its limitation and owner. |
+| 2. ONB-02 Check business identity and authority | Establish the business identity, trusted caller and permission for each selected action separately. Use ONB-12 only if a required decision or evidence is missing. | Current purpose-specific authority; ONB-SPFE-R03. Missing authority holds the affected function. |
+| 3. ONB-10 Assess current setup | Inspect known Sage setup and current public-access evidence. Reuse valid matching evidence; identify only missing, stale or changed checks. | A scoped check plan. Failed lookup does not prove absence or justify new provisioning; ONB-R12. |
+| 4. ONB-03 Assess prerequisites | Check the selected public operation's qualified contract, environment, access and trust requirements. Use protected credential references where required. | Required evidence passes for this business and purpose. Missing contract/build coverage, authority or suitable credentials holds readiness; ONB-SPFE-R02/03. |
+| 5. ONB-04 and ONB-11 Return public readiness | Evaluate each selected function under section 6.6 and return its result, limitation, recheck condition and required action. | Evidenced readiness or an owned pending action. Returning progress does not complete blocked work or activate a route. |
+
+For an ONB-S05 extension, run this path for the added function and any affected dependencies. For example, adding public download to qualified submission requires download-specific contract, authority and credential checks; submission stays unchanged if its evidence remains valid. This follows ONB-R03/12/18, not a second onboarding journey.
+
 ### 3.2 Out of scope
 
 Invoice issuance, delivery, retrieval, lifecycle reporting and full exit belong to their owning features. Onboarding supplies their setup evidence and checks relevant dependencies. Physical endpoints, schemas, storage design, deployment and detailed field mapping are outside this logical specification; section 7 links their supporting analysis.
@@ -112,7 +124,7 @@ Pending prerequisites, retry waits, unknown external effects and unresolved manu
 
 ### 3.5 Decisions and open questions
 
-The [existing decision record](../archive/SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) retains ONB-Q01–09 and OFR-Q01–04. Missing qualification holds only dependent work; SEI021 identifies the engineering evidence needed.
+The [existing decision record](../SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) retains ONB-Q01–09 and OFR-Q01–04. Missing qualification holds only dependent work; SEI021 identifies the engineering evidence needed.
 
 **Unlisted private provider — TBD.** Spain Product and the local technical lead must decide whether onboarding shows only enabled providers or also offers an “Other provider” request. Refine this decision as coverage develops. The provider portfolio is planning context; absence from it does not establish ineligibility. Check actual supported capability before enabling a connection, and do not promise an unqualified completion date. This open UI decision cannot remove an applicable operator interconnection duty. REF-PROVIDERS; REF-PRIVATE Articles 8–9.
 
@@ -198,9 +210,9 @@ Verify NIF/NIE for the represented business, caller identity and current action 
 
 **Outcome:** Qualified evidence or a specific pending client action. **Parties:** requester, eligible approver, product, Sage and evidence owner. **Precondition:** a gate identifies a missing purpose-specific decision.
 
-![Obtain missing approval and verify authority before resuming](../../assets/diagrams/onboarding-client-approval-process.svg)
+![Obtain missing approval and verify authority before resuming](../../../assets/diagrams/onboarding-client-approval-process.svg)
 
-Figure 1. Approval and evidence flow. [Draw.io](../../assets/diagrams/onboarding-client-approval-process.drawio) · [PNG](../../assets/diagrams/onboarding-client-approval-process.png). Solid arrows show handoffs; dashed arrows show conditional work and recovery. Existing qualified evidence bypasses a new request. Refusal or missing authority retains the blocked check.
+Figure 1. Approval and evidence flow. [Draw.io](../../../assets/diagrams/onboarding-client-approval-process.drawio) · [PNG](../../../assets/diagrams/onboarding-client-approval-process.png). Solid arrows show handoffs; dashed arrows show conditional work and recovery. Existing qualified evidence bypasses a new request. Refusal or missing authority retains the blocked check.
 
 | Requirement ID | Activity requirement |
 |---|---|
@@ -244,9 +256,9 @@ Confirm existing product/provider relationships before new setup. A new address 
 
 **Outcome:** Required access, policy and trust checks for the exact public/private purpose. **Parties:** Sage, Identity, trust owner and qualified integration. **Precondition:** current selected-function plan.
 
-![Check public setup and return readiness](../../assets/diagrams/onboarding-public-readiness-process.svg)
+![Check public setup and return readiness](../../../assets/diagrams/onboarding-public-readiness-process.svg)
 
-Figure 2. ONB-02–04 public checks. [Draw.io](../../assets/diagrams/onboarding-public-readiness-process.drawio) · [PNG](../../assets/diagrams/onboarding-public-readiness-process.png). Responsibility lanes group logical roles. Failed checks return to their correction/recovery owner; a recovered check must pass before readiness is recorded. Lane labels do not approve deployment boundaries.
+Figure 2. ONB-02–04 public checks. [Draw.io](../../../assets/diagrams/onboarding-public-readiness-process.drawio) · [PNG](../../../assets/diagrams/onboarding-public-readiness-process.png). Responsibility lanes group logical roles. Failed checks return to their correction/recovery owner; a recovered check must pass before readiness is recorded. Lane labels do not approve deployment boundaries.
 
 Apply the selected country/function policy. Where required, use Tax Service certificate evidence under SPEC-SEI-001: in-date, suitable material, current authority and protected references. Missing/expired/revoked/unsuitable material needs correction; unavailable/stale evidence stays unknown. NOT_REQUIRED needs policy evidence. Hold dependent work until prerequisites pass.
 
@@ -275,18 +287,22 @@ Public web-form access does not prove automated ERP access. Registered third-par
 
 Readiness states remain NOT_STARTED, CHECKING, ACTION_REQUIRED, READY_WITH_LIMITATIONS, READY, SUSPENDED and OUTCOME_UNKNOWN. READY records checks passed at that time; expiry/revocation can change it. Pending prerequisites are separate from unknown external effects. Readiness cannot activate a route.
 
+For ONB-SPFE-R01, distinguish two checks: the selected public capability has qualified Sage contract/build coverage for the environment, and the represented business has the required current authority and access/trust evidence. Passing one cannot replace the other. Unknown implementation coverage is a gate, not a customer certificate failure. The [public operation mapping in SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md#22-public-readiness) identifies the source contracts; it does not require every public function in one onboarding request.
+
+ONB-11 returns the selected function and environment, readiness state, supporting check/evidence references, limitations and recheck conditions, plus the next action and owner where needed. These are required result meanings, not new API field names. READY requires all mandatory checks for that function to pass. READY_WITH_LIMITATIONS must state the permitted scope; it cannot hide a failed mandatory check. ACTION_REQUIRED and OUTCOME_UNKNOWN remain open work. Sending, consultation, download and reporting still perform their own checks when used.
+
 | Acceptance ID | Acceptance check |
 |---|---|
-| ONB-A01 | Return evidenced public readiness or a precise limitation; keep the private route unchanged. |
-| ONB-SPFE-A01 | Submission qualification cannot establish receiving readiness. Return separate function findings. SPFE-S03/S16. |
+| ONB-A01 | Return evidenced public readiness or a precise limitation, evidence/recheck condition and action owner; keep the private route unchanged. Missing mandatory evidence cannot return READY or be hidden by READY_WITH_LIMITATIONS. |
+| ONB-SPFE-A01 | Submission qualification cannot establish receiving readiness. When download is added, return its independent findings and preserve valid submission evidence. A qualified contract cannot replace business authority, and a valid certificate cannot replace qualified implementation coverage. SPFE-S03/S16; ONB-R03/12/18. |
 
 ### 6.7 ONB-05 Configure private choice
 
 **Outcome:** Explicit supported choice and only missing configuration recorded. **Parties:** customer/delegate, product, Sage and connection owner. **Precondition:** later-phase scope and selected-provider contract are qualified.
 
-![Connect a private provider and activate only when required](../../assets/diagrams/onboarding-private-route-process.svg)
+![Connect a private provider and activate only when required](../../../assets/diagrams/onboarding-private-route-process.svg)
 
-Figure 3. ONB-05–09 private setup and activation. [Draw.io](../../assets/diagrams/onboarding-private-route-process.drawio) · [PNG](../../assets/diagrams/onboarding-private-route-process.png). Configure/check first; decide separately whether an authorised route change is required. Setup calls with routing effects follow the ONB-05 pre-dispatch controls below. Failed/unknown work returns to its blocked gate. Historical obligations continue after a qualified change.
+Figure 3. ONB-05–09 private setup and activation. [Draw.io](../../../assets/diagrams/onboarding-private-route-process.drawio) · [PNG](../../../assets/diagrams/onboarding-private-route-process.png). Configure/check first; decide separately whether an authorised route change is required. Setup calls with routing effects follow the ONB-05 pre-dispatch controls below. Failed/unknown work returns to its blocked gate. Historical obligations continue after a qualified change.
 
 | Requirement ID | Activity requirement |
 |---|---|
@@ -423,9 +439,9 @@ When notifications are used, reflect saved state and recover the current permitt
 
 **Outcome:** Saved receipt and independent client work with permitted progress. **Parties:** authorised submitter, product, Sage, Identity and Operations. **Precondition:** qualified batch permission and contract under ONB-Q08.
 
-![Receive a portfolio batch and isolate every client outcome](../../assets/diagrams/onboarding-portfolio-batch-process.svg)
+![Receive a portfolio batch and isolate every client outcome](../../../assets/diagrams/onboarding-portfolio-batch-process.svg)
 
-Figure 4. Portfolio intake and independent client processing. [Draw.io](../../assets/diagrams/onboarding-portfolio-batch-process.drawio) · [PNG](../../assets/diagrams/onboarding-portfolio-batch-process.png). Reject an invalid envelope before client work. Save valid intake before receipt, check each client independently and stop only unsafe/unauthorised work. Dashed paths show correction, cancellation and uncertain-effect recovery.
+Figure 4. Portfolio intake and independent client processing. [Draw.io](../../../assets/diagrams/onboarding-portfolio-batch-process.drawio) · [PNG](../../../assets/diagrams/onboarding-portfolio-batch-process.png). Reject an invalid envelope before client work. Save valid intake before receipt, check each client independently and stop only unsafe/unauthorised work. Dashed paths show correction, cancellation and uncertain-effect recovery.
 
 | Requirement ID | Activity requirement |
 |---|---|
@@ -464,20 +480,20 @@ During remaining-batch cancellation, CANCELLING takes precedence until effects a
 | [Feature landing page](README.md) | Navigation to canonical PRDs, companions and unchanged predecessor. |
 | [Solution Summary](SPEC-SEI-018-customer-onboarding-solution-summary.md) | End-to-end outcome, workflow, boundaries and material decisions. |
 | [API Reuse Assessment](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) | FR connection contracts, internal dataset guide, Spain tailoring, source differences and implementation evidence gaps. |
-| [Archived SPEC-SEI-020](../archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) | Retained detailed API assurance and source-conflict analysis, referenced by the main SEI021 engineering view. |
-| [SPEC-SEI-002 interaction contracts](../archive/SPEC-SEI-002-onboarding-solution-specification.md#1-interaction-contracts) | ONB-INT-01–13 and OFR-INT-01–09 logical/technical analysis. Proposed service allocations and field names require qualification. |
-| [SPEC-SEI-002 data inventory](../archive/SPEC-SEI-002-onboarding-solution-specification.md#2-data-inventory) | ONB-D01–13 and OFR-D01–09 supporting records; no new duplicate stores are required by this split. |
-| [SPEC-SEI-002 customer fields](../archive/SPEC-SEI-002-onboarding-solution-specification.md#3-customer-and-accountant-fields-by-scenario) and [system/results fields](../archive/SPEC-SEI-002-onboarding-solution-specification.md#4-system-fields-dates-and-erp-results) | Proposed field-level analysis under ONB-Q04/09, including start dates and receiving history. |
-| [SPEC-SEI-002 public field boundary](../archive/SPEC-SEI-002-onboarding-solution-specification.md#5-sage-spfe-field-boundary) | Exact transport elements and source limits. Does not define an onboarding payload. |
-| [SPEC-SEI-002 original verification matrix](../archive/SPEC-SEI-002-onboarding-solution-specification.md#1-verification-matrix) | Detailed PRD-to-interaction/data mappings for existing acceptance IDs. The compact scenarios here retain their observable outcomes. |
-| [SPEC-SEI-002 technical sequences](../archive/SPEC-SEI-002-onboarding-solution-specification.md#onboarding-technical-sequences) | Supporting public/private sequence examples. Physical contracts and deployment remain unqualified. |
-| [SPEC-SEI-001](../SPEC-SEI-001-certificate-management-solution-specification.md), [013](../SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md), [014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), [011](../SPEC-SEI-011-public-platform-connector-solution-specification.md), [016](../archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), [003](../archive/SPEC-SEI-003-offboarding-solution-specification.md) | Owning trust, API, route, public-execution, receiving and exit boundaries. |
+| [Archived SPEC-SEI-020](../SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) | Retained detailed API assurance and source-conflict analysis, referenced by the main SEI021 engineering view. |
+| [SPEC-SEI-002 interaction contracts](../SPEC-SEI-002-onboarding-solution-specification.md#1-interaction-contracts) | ONB-INT-01–13 and OFR-INT-01–09 logical/technical analysis. Proposed service allocations and field names require qualification. |
+| [SPEC-SEI-002 data inventory](../SPEC-SEI-002-onboarding-solution-specification.md#2-data-inventory) | ONB-D01–13 and OFR-D01–09 supporting records; no new duplicate stores are required by this split. |
+| [SPEC-SEI-002 customer fields](../SPEC-SEI-002-onboarding-solution-specification.md#3-customer-and-accountant-fields-by-scenario) and [system/results fields](../SPEC-SEI-002-onboarding-solution-specification.md#4-system-fields-dates-and-erp-results) | Proposed field-level analysis under ONB-Q04/09, including start dates and receiving history. |
+| [SPEC-SEI-002 public field boundary](../SPEC-SEI-002-onboarding-solution-specification.md#5-sage-spfe-field-boundary) | Exact transport elements and source limits. Does not define an onboarding payload. |
+| [SPEC-SEI-002 original verification matrix](../SPEC-SEI-002-onboarding-solution-specification.md#1-verification-matrix) | Detailed PRD-to-interaction/data mappings for existing acceptance IDs. The compact scenarios here retain their observable outcomes. |
+| [SPEC-SEI-002 technical sequences](../SPEC-SEI-002-onboarding-solution-specification.md#onboarding-technical-sequences) | Supporting public/private sequence examples. Physical contracts and deployment remain unqualified. |
+| [SPEC-SEI-001](../../SPEC-SEI-001-certificate-management-solution-specification.md), [013](../../SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md), [014](../../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), [011](../../SPEC-SEI-011-public-platform-connector-solution-specification.md), [016](../SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), [003](../SPEC-SEI-003-offboarding-solution-specification.md) | Owning trust, API, route, public-execution, receiving and exit boundaries. |
 
 ### Solution ownership and reuse qualification
 
 **ONB-R15 / OFR-R11:** the E-Invoice Service coordinates setup and recovery; dependency owners retain their controls. Implementation ownership, reuse and deployment qualification are assessed in SEI021 under ONB-Q05/OFR-Q03.
 
-Engineering evidence for shared workflow, country/provider rules, Tax Service and DTS stays in [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md). Existing DTS remains the preferred transformation candidate under [SPEC-SEI-008](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md); onboarding performs no invoice conversion. ONB-Q01/02/05/06/07/08 and OFR-Q01/02/03/04 retain their owners and gates.
+Engineering evidence for shared workflow, country/provider rules, Tax Service and DTS stays in [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md). Existing DTS remains the preferred transformation candidate under [SPEC-SEI-008](../../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md); onboarding performs no invoice conversion. ONB-Q01/02/05/06/07/08 and OFR-Q01/02/03/04 retain their owners and gates.
 
 | Acceptance ID | Required cross-feature evidence |
 |---|---|
@@ -489,7 +505,7 @@ Engineering evidence for shared workflow, country/provider rules, Tax Service an
 
 ### Review and release gates
 
-Acceptance checks describe evidence to obtain. Before enabling a scope, close its gates in the [existing release record](../archive/SPEC-SEI-002-onboarding-solution-specification.md#2-review-and-release-gates); engineering findings stay in SEI021.
+Acceptance checks describe evidence to obtain. Before enabling a scope, close its gates in the [existing release record](../SPEC-SEI-002-onboarding-solution-specification.md#2-review-and-release-gates); engineering findings stay in SEI021.
 
 | Scope | Evidence needed |
 |---|---|
@@ -506,16 +522,16 @@ Final published law establishes legal duties. A technical file establishes only 
 
 | REF ID | Original source and version | Exact location | Supported claims and limits |
 |---|---|---|---|
-| REF-BASE | [SPEC-SEI-002](../archive/SPEC-SEI-002-onboarding-solution-specification.md), updated 20 October 2026 | ONB/OFR activities, requirements, verification matrix and decisions | Predecessor IDs, recorded ownership and proposed behaviour. Does not prove implementation. |
-| INT-AP01–06 | [Supplied access-point guide extracts](<../../context/FR API/Onboarding/access-point-guides-evidence-extract.md>), received 22 October 2026; revisions/builds unverified | Connect/channel selection; update/removal; disconnection; ownership transfer; error dictionary; catalogue/address/status guidance | Existing France registration effects, product mapping responsibility, per-address events and retry guidance. SEI021 retains version/source conflicts and Spain qualification; no gated transition is enabled by these guides. |
-| INT-DS01 | [Supplied internal Network dataset guide extract](<../../context/FR API/Onboarding/network-onboarding-create-dataset-guide-extract.md>), received 22 October 2026; canonical URL/revision unknown | Partner tenancy model / Ownership and access; Multi-product and existing Sage channels; Steps 1–2 | Documents partner-owned datasets and create/confirm behaviour for an external partner channel. One-per-entity provisioning guidance is not a proven dataset constraint; France cardinality, Spain support, channel linkage and source inconsistencies remain open in SEI021. |
-| REF-PRODUCT | [PRD-SEI-101](../../prds/PRD-SEI-101-public-platform-onboarding.md), [104](../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), [222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md), [225](../../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md), [231](../../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md) | Product scope/FRs; PRD-104 FR2–8/13–20 and NFR4; PRD-107 FR1–20; PRD-231 ID-FR9–12. Individual source versions remain in their front matter. | Canonical product needs for readiness, authority, portfolio, recovery and continuity. Earlier external assumptions cannot override final sources. |
-| SPFE-S02 | [BOE-A-2026-20587.pdf](../../context/BOE-A-2026-20587.pdf); Order HAC/1028/2026, published 5 October 2026; [official original](https://www.boe.es/eli/es/o/2026/10/02/hac1028) checked 21 October 2026 | Article 11(1)–(2) | Certificate access, specified web-form options and representation rules including registered third-party recovery/consultation authority. Does not prove Sage API support. |
+| REF-BASE | [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md), updated 20 October 2026 | ONB/OFR activities, requirements, verification matrix and decisions | Predecessor IDs, recorded ownership and proposed behaviour. Does not prove implementation. |
+| INT-AP01–06 | [Supplied access-point guide extracts](<../../../context/FR API/Onboarding/access-point-guides-evidence-extract.md>), received 22 October 2026; revisions/builds unverified | Connect/channel selection; update/removal; disconnection; ownership transfer; error dictionary; catalogue/address/status guidance | Existing France registration effects, product mapping responsibility, per-address events and retry guidance. SEI021 retains version/source conflicts and Spain qualification; no gated transition is enabled by these guides. |
+| INT-DS01 | [Supplied internal Network dataset guide extract](<../../../context/FR API/Onboarding/network-onboarding-create-dataset-guide-extract.md>), received 22 October 2026; canonical URL/revision unknown | Partner tenancy model / Ownership and access; Multi-product and existing Sage channels; Steps 1–2 | Documents partner-owned datasets and create/confirm behaviour for an external partner channel. One-per-entity provisioning guidance is not a proven dataset constraint; France cardinality, Spain support, channel linkage and source inconsistencies remain open in SEI021. |
+| REF-PRODUCT | [PRD-SEI-101](../../../prds/PRD-SEI-101-public-platform-onboarding.md), [104](../../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [107](../../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), [222](../../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md), [225](../../../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md), [231](../../../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md) | Product scope/FRs; PRD-104 FR2–8/13–20 and NFR4; PRD-107 FR1–20; PRD-231 ID-FR9–12. Individual source versions remain in their front matter. | Canonical product needs for readiness, authority, portfolio, recovery and continuity. Earlier external assumptions cannot override final sources. |
+| SPFE-S02 | [BOE-A-2026-20587.pdf](../../../context/BOE-A-2026-20587.pdf); Order HAC/1028/2026, published 5 October 2026; [official original](https://www.boe.es/eli/es/o/2026/10/02/hac1028) checked 21 October 2026 | Article 11(1)–(2) | Certificate access, specified web-form options and representation rules including registered third-party recovery/consultation authority. Does not prove Sage API support. |
 | REF-PRIVATE | [RD 238/2026 official original](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), published 31 March 2026; original and consolidated text checked 22 October 2026 | Articles 7(3), 8(1)–(3), 9(1)–(5) | Private-invoice signature boundary; participating-platform interconnection, invoice/status coverage, receiving-operator one-month period, specific receipt-order exception and interim public exchange. Not a 30-day customer ERP-onboarding SLA or evidence of a working provider integration. |
-| REF-PROVIDERS | [PRD-SEI-213](../../prds/PRD-SEI-213-private-platform-connectivity-structured-review.md), current draft | Phase 2 provider landscape; BR4; FR4 | Planned provider scope and qualification before readiness. Does not establish a live provider count or decide the unlisted-provider UI. |
-| REF-OPERATOR | [PRD-SEI-221](../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md), current draft | E7, BR11, FR20 | Canonical operator request, queue, deadline, testing, interim exchange and evidence process. This onboarding view supplies the handoff, not another operator workflow. |
-| SPFE-S03 | [CatalogoServicios.pdf](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026 | Sections 4.1–4.3, 5.1 and 6.1–6.10, pp. 7–20 | Operation inventory, authorisation and fault/resend guidance. No supplied onboarding enrolment contract; no blanket repeat-safety guarantee. |
-| SPFE-S08 | [FormatosEntradaSalida.pdf](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), 0.1.0, 9 October 2026, marked draft | Sections 4.3 and 5.1.2–5.9, pp. 7–15 | Caller/destination/message structure and distinct response levels. No onboarding payload; transport conflict and pending formats limit qualification. |
-| SPFE-S16 | [SendInvoice.wsdl](<../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>), supplied 13 October 2026 | Request documentation, SOAP binding, fault and service/port elements | Submission contract and certificate-class PRE ports; no onboarding mutation, live-availability evidence or guarantee that repetition is safe. |
-| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../../context/WSDL servicios web - PRE/20261013/xsd/ebms/ebms-header-3_0-200704.xsd>), supplied 13 October 2026 | MessageInfo, PartyInfo/From/To, CollaborationInfo and PayloadInfo/PartInfo | Exact header structure used by ONB-A42's supporting mapping; generic schema does not establish business values, authority or replay safety. |
-| REF-CONTEXT | [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md), [source manifest](../../assets/regulatory/spain/spfe/source-manifest.json), [glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md) | Source register, snapshot hashes, shared conflicts and terminology | Traceability and reading aids. Inventory completeness and hashes do not prove field-map or implementation completeness. |
+| REF-PROVIDERS | [PRD-SEI-213](../../../prds/PRD-SEI-213-private-platform-connectivity-structured-review.md), current draft | Phase 2 provider landscape; BR4; FR4 | Planned provider scope and qualification before readiness. Does not establish a live provider count or decide the unlisted-provider UI. |
+| REF-OPERATOR | [PRD-SEI-221](../../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md), current draft | E7, BR11, FR20 | Canonical operator request, queue, deadline, testing, interim exchange and evidence process. This onboarding view supplies the handoff, not another operator workflow. |
+| SPFE-S03 | [CatalogoServicios.pdf](<../../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026 | Sections 4.1–4.3, 5.1 and 6.1–6.10, pp. 7–20 | Operation inventory, authorisation and fault/resend guidance. No supplied onboarding enrolment contract; no blanket repeat-safety guarantee. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), 0.1.0, 9 October 2026, marked draft | Sections 4.3 and 5.1.2–5.9, pp. 7–15 | Caller/destination/message structure and distinct response levels. No onboarding payload; transport conflict and pending formats limit qualification. |
+| SPFE-S16 | [SendInvoice.wsdl](<../../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>), supplied 13 October 2026 | Request documentation, SOAP binding, fault and service/port elements | Submission contract and certificate-class PRE ports; no onboarding mutation, live-availability evidence or guarantee that repetition is safe. |
+| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../../../context/WSDL servicios web - PRE/20261013/xsd/ebms/ebms-header-3_0-200704.xsd>), supplied 13 October 2026 | MessageInfo, PartyInfo/From/To, CollaborationInfo and PayloadInfo/PartInfo | Exact header structure used by ONB-A42's supporting mapping; generic schema does not establish business values, authority or replay safety. |
+| REF-CONTEXT | [RES-SEI-002](../../../context/RES-SEI-002-spain-public-platform-technical-evidence.md), [source manifest](../../../assets/regulatory/spain/spfe/source-manifest.json), [glossary](../../../context/GLO-SEI-001-e-invoicing-terminology.md) | Source register, snapshot hashes, shared conflicts and terminology | Traceability and reading aids. Inventory completeness and hashes do not prove field-map or implementation completeness. |

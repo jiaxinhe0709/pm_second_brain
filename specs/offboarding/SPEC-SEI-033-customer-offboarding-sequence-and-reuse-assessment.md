@@ -70,7 +70,7 @@ These tables describe proposed logical sequences, not an approved allocation to 
 | 5 | Release owner → qualified update/disconnect operation; notification/detail observation confirms result. | OFF-06: choose address, direction or whole-connection action only after dependency checks. INT-AP02/03; address absence alone is insufficient. |
 | 6 | Records/customer → qualified export/archive capabilities: validate package and record delivery/disposition. | OFF-07, R13: export can begin earlier. Completion evidence and later schedules are separate from disconnect. |
 
-For external → Sage adoption, the destination steps follow [onboarding SEI021](../onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md). The previous operator's release is independently evidenced. Do not create competing route commits in onboarding and offboarding. REF-PRODUCT; SPEC-SEI-014 SPC-04/08.
+For external → Sage adoption, the destination steps follow [onboarding SEI021](../archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md). The previous operator's release is independently evidenced. Do not create competing route commits in onboarding and offboarding. REF-PRODUCT; SPEC-SEI-014 SPC-04/08.
 
 ### 2.2 Unknown disconnection or late provider evidence
 

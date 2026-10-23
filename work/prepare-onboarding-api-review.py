@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / 'tools'))
 import update_confluence_pages as publisher
 
 OUT = ROOT / 'work/onboarding-api-review'
-SPECS = ROOT / 'specs/onboarding'
+SPECS = ROOT / 'specs/archive/onboarding'
 DOCS = [
     ('SPEC-SEI-018', 'SPEC-SEI-018-customer-onboarding-solution-summary.md', 'Solution Summary'),
     ('SPEC-SEI-019', 'SPEC-SEI-019-customer-onboarding-logical-feature-specification.md', 'Logical Feature Specification'),

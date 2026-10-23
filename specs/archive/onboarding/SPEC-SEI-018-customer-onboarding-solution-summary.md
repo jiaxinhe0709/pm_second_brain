@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-21
-updated: 2026-10-22
+updated: 2026-10-23
 reviewers: []
 related:
   - SPEC-SEI-002
@@ -35,7 +35,7 @@ confluence:
 
 ## Revision overview
 
-This stakeholder overview explains the onboarding outcome, scope and main decisions. [SEI019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) shows the high-level journeys; [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) assesses engineering reuse and Spain-specific changes. All are based on [SPEC-SEI-002](../archive/SPEC-SEI-002-onboarding-solution-specification.md).
+This stakeholder overview explains the onboarding outcome, scope and main decisions. [SEI019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) shows the high-level journeys; [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) assesses engineering reuse and Spain-specific changes. All are based on [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md).
 
 The predecessor, phase boundaries and ONB/OFR meanings remain unchanged. SPEC-SEI-018 is selected for the stable summary page after the authorised publication. Implementation approval and delivery-feature breakdown remain open.
 
@@ -49,7 +49,7 @@ Customer onboarding is the Master Feature journey. Behaviour remains proposed; a
 
 ## 2 Terms used
 
-Use the [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). These distinctions are essential to the summary.
+Use the [shared glossary](../../../context/GLO-SEI-001-e-invoicing-terminology.md). These distinctions are essential to the summary.
 
 | Term | Meaning |
 |---|---|
@@ -78,6 +78,8 @@ SEI019 identifies these situations as ONB-S01–08. Each can apply to a direct c
 
 **Phase 1** returns public readiness. Private setup and activation need later-phase qualification. Private A to Private B remains gated.
 
+**Public onboarding in Phase 1:** select the business, environment and requested public functions; verify identity and authority; reuse valid existing setup; check the required access and trust evidence; then return readiness for each selected function. The [public-only plan in SEI019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#31-in-scope) identifies the activities and stop conditions. This establishes whether Sage can perform the selected work for that business. It does not issue an invoice, create an assumed public registration or activate a route.
+
 **Private-platform timing:** customer ERP setup and operator interconnection are separate. For qualifying platform-to-platform requests, the receiving operator has **one month**, subject to the specific queue exception; the public solution provides the required interim exchange. This is not a general 30-day onboarding promise. [SEI019 ONB-R25](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#67-onb-05-configure-private-choice) defines the clock and handoff. REF-INTERCONNECT.
 
 | Outcome or endpoint | Meaning |
@@ -103,7 +105,7 @@ Invoice creation, sending, retrieval, reporting and full exit belong to their ow
 
 ## 5 Key open solution decisions
 
-The [existing decision record](../archive/SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) retains owners and gates. These open decisions affect scope or delivery.
+The [existing decision record](../SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) retains owners and gates. These open decisions affect scope or delivery.
 
 | References | Impact | Owner and gate |
 |---|---|---|
@@ -119,9 +121,9 @@ The [existing decision record](../archive/SPEC-SEI-002-onboarding-solution-speci
 
 Verify the business and actor, assess existing setup, and run the required public/private checks. Missing approval enters ONB-12; portfolio processing uses ONB-13. Uncertain effects enter ONB-08 and return to the affected check.
 
-![Set up, connect or review e-invoicing through Sage](../../assets/diagrams/onboarding-scenario-selection-process.svg)
+![Set up, connect or review e-invoicing through Sage](../../../assets/diagrams/onboarding-scenario-selection-process.svg)
 
-Figure 1. Onboarding paths for ONB-S01–08. [Editable Draw.io](../../assets/diagrams/onboarding-scenario-selection-process.drawio) · [PNG](../../assets/diagrams/onboarding-scenario-selection-process.png).
+Figure 1. Onboarding paths for ONB-S01–08. [Editable Draw.io](../../../assets/diagrams/onboarding-scenario-selection-process.drawio) · [PNG](../../../assets/diagrams/onboarding-scenario-selection-process.png).
 
 Solid arrows show work or a result. Dashed arrows show selected or conditional work. The columns identify paths, not service boundaries. A combined setup can use several branches. Recovery and approval remain conditional activities, not alternative delivery routes.
 
@@ -151,7 +153,9 @@ Spain identity, representation and provider rules remain country-specific. Reusa
 
 Reuse the existing FR APIs with Spain country-pack tailoring. Public readiness and private-provider setup need different qualifications. Keep business mapping, traffic changes and unresolved dependencies visible; engineering detail stays in [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md#1-engineering-direction).
 
-Existing Tax Service certificate capability is the intended reuse source; exact Spain fitness remains to qualify. DTS is the preferred transformation candidate for later invoice operations under [SPEC-SEI-008](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md). Onboarding itself establishes neither implementation as ready.
+Expand through the same activities. ONB-S05 adds a requested function and checks its missing or invalidated evidence while preserving valid existing functions. A later private connection uses ONB-05/06 and the existing activation gates. New scope needs qualified country/provider contracts; flexibility does not enable it automatically. Public terminology follows the original sources in `context/`. Peppol remains outside this review.
+
+Existing Tax Service certificate capability is the intended reuse source; exact Spain fitness remains to qualify. DTS is the preferred transformation candidate for later invoice operations under [SPEC-SEI-008](../../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md). Onboarding itself establishes neither implementation as ready.
 
 ## 9 Dependencies and risks
 
@@ -179,9 +183,9 @@ SEI019 holds the functional acceptance checks; SEI021 holds engineering qualific
 
 | REF ID | Source and version | Exact location | Supported claim and limit |
 |---|---|---|---|
-| REF-BASE | [SPEC-SEI-002](../archive/SPEC-SEI-002-onboarding-solution-specification.md), snapshot 20 October 2026 | Parts 1–4 and REF | Predecessor scope, IDs, recorded ownership direction, proposed behaviour and open gates. Not implementation evidence. |
-| REF-PRODUCT | [PRD-SEI-101](../../prds/PRD-SEI-101-public-platform-onboarding.md), [104](../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), [222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) | Decision summaries, scope and functional requirements | Canonical product scope; unresolved differences require an owner decision. |
-| REF-COUNTRY | [PRD-SEI-227](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md) | Shared platform and country-pack direction | Reuse direction; not deployment qualification. |
+| REF-BASE | [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md), snapshot 20 October 2026 | Parts 1–4 and REF | Predecessor scope, IDs, recorded ownership direction, proposed behaviour and open gates. Not implementation evidence. |
+| REF-PRODUCT | [PRD-SEI-101](../../../prds/PRD-SEI-101-public-platform-onboarding.md), [104](../../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [107](../../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), [222](../../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) | Decision summaries, scope and functional requirements | Canonical product scope; unresolved differences require an owner decision. |
+| REF-COUNTRY | [PRD-SEI-227](../../../prds/PRD-SEI-227-e-invoicing-as-a-service.md) | Shared platform and country-pack direction | Reuse direction; not deployment qualification. |
 | REF-INTERCONNECT | [RD 238/2026 official original](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), published 31 March 2026; checked 22 October 2026 | Articles 8(1)–(3), 9(1)–(5) | Participating-platform interconnection, one-month receiving-operator period, specific queue exception and interim public exchange. Not a general customer ERP-onboarding SLA. |
-| SPFE-S03 | [Original catalogue](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026 | Sections 6.1–6.10, pp. 9–20 | Supplied public operations; no onboarding enrolment contract in this bundle. Supports the S02 boundary. Does not prove live availability. |
-| REF-EVIDENCE | [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md) and [logical REF](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#ref-source-references) | Source register, exact contracts and open conflicts | Original-source route for Spain-dependent rules and acceptance. The guide is a reading aid. |
+| SPFE-S03 | [Original catalogue](<../../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026 | Sections 6.1–6.10, pp. 9–20 | Supplied public operations; no onboarding enrolment contract in this bundle. Supports the S02 boundary. Does not prove live availability. |
+| REF-EVIDENCE | [RES-SEI-002](../../../context/RES-SEI-002-spain-public-platform-technical-evidence.md) and [logical REF](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#ref-source-references) | Source register, exact contracts and open conflicts | Original-source route for Spain-dependent rules and acceptance. The guide is a reading aid. |

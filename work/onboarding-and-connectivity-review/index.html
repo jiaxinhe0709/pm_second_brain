@@ -1,0 +1,80 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Customer onboarding and connectivity review</title><style>
+*{box-sizing:border-box}body{margin:0;color:#243445;background:#fff;font:16px/1.55 Arial,sans-serif}
+header{padding:18px 24px;background:#f3f6f8;border-bottom:1px solid #ccd4dc}nav{display:flex;flex-wrap:wrap;gap:20px}
+a{color:#075eaa}main{max-width:1200px;margin:28px auto;padding:0 24px}h1{font-size:30px}h2{margin-top:36px}
+.table-scroll{overflow:auto;margin:18px 0}table{border-collapse:collapse;width:100%;min-width:650px;font-size:14px}
+th,td{border:1px solid #ccd4dc;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f6f8}
+code{font-size:.9em;background:#f3f6f8;overflow-wrap:anywhere}img{display:block;width:100%;height:auto;margin:20px 0}
+.notice{padding:12px;background:#fff5da;border-left:4px solid #ad7000}.toc{font-size:14px}.toc ul{padding-left:22px}
+
+.diagram{overflow-x:auto}.diagram img{min-width:1050px}
+
+.diagram{overflow:auto;max-height:720px}.diagram img{display:block;max-width:none;width:auto;min-width:0;height:auto}
+</style></head><body><header><nav><a href="SPEC-SEI-037.html">Customer Onboarding and Connectivity Solution Summary</a> · <a href="SPEC-SEI-038.html">Customer Onboarding and Connectivity Logical Feature Specification</a> · <a href="SPEC-SEI-039.html">Customer Onboarding and Connectivity Sequence and Reuse Assessment</a> · <a href="index.html">Customer onboarding and connectivity review</a></nav></header><main><p class="notice">Draft design; publication authorised for the existing three onboarding pages. Predecessor folders are archived references. Business content, IDs, lifecycle and publication selections are preserved; relative links and reading routes changed.</p><div class="toc">
+<ul>
+<li><a href="#customer-onboarding-and-connectivity">Customer onboarding and connectivity</a><ul>
+<li><a href="#scope-and-retained-detail">Scope and retained detail</a></li>
+<li><a href="#predecessors-and-publication">Predecessors and publication</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="customer-onboarding-and-connectivity">Customer onboarding and connectivity</h1>
+<p>This is the primary review set for customer onboarding and connection setup. Each view starts with the work needed for the public platform, an external private provider, the proposed Sage private-platform role and shared controls. The predecessor folders are retained under <code>specs/archive/</code>.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Read</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="SPEC-SEI-037.html">Solution Summary — SPEC-SEI-037</a></td>
+<td>Outcomes, public/private/Sage scope, responsibilities, phases and material decisions.</td>
+</tr>
+<tr>
+<td><a href="SPEC-SEI-038.html">Logical Feature Specification — SPEC-SEI-038</a></td>
+<td>Scenarios, required work, readiness, activation, failure/recovery, operator handoff and functional acceptance.</td>
+</tr>
+<tr>
+<td><a href="SPEC-SEI-039.html">Sequence and Reuse Assessment — SPEC-SEI-039</a></td>
+<td>Existing APIs/sequences, context-based public terminology, private-provider qualification, operator-role reuse and engineering gaps.</td>
+</tr>
+</tbody>
+</table></div>
+<p><a href="index.html">Local review preview</a>.</p>
+<h2 id="scope-and-retained-detail">Scope and retained detail</h2>
+<p>Public onboarding remains Phase 1 readiness. External private connections and the Sage private-platform proposition require their existing scope, contract and activation gates. Sage branding does not identify the legal operator. Customer authority, connection readiness, route activation and operator readiness remain separate results.</p>
+<p>The existing ONB-S01–08, ONB/OFR activities and relevant acceptance IDs retain their meanings. Diagrams are reused unchanged with their existing responsibility groups. Public service names and identifiers come from the original <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md">context source baseline</a>. Peppol is excluded.</p>
+<p>Runtime invoice execution stays in the sending, receiving and lifecycle sets. <a href="../../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md">011</a>, <a href="../../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md">013</a>, <a href="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">014</a> and <a href="../../specs/SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md">017</a> retain public execution, Global API, shared routing and provider contracts. Existing DTS remains the preferred qualified transformation candidate where invoice work requires it.</p>
+<h2 id="predecessors-and-publication">Predecessors and publication</h2>
+<p>All six predecessors retain their business content, permanent IDs and metadata. Their archive move changes relative links and reading-route guidance. Publication of these drafts is authorised for the existing three onboarding pages. No lifecycle status changes. The selected sources are 037–039; archived sources cannot overwrite those pages.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>New view</th>
+<th>Retained predecessors</th>
+<th>Approved stable-page source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPEC-SEI-037</td>
+<td><a href="../../specs/archive/onboarding/SPEC-SEI-018-customer-onboarding-solution-summary.md">018</a> and <a href="../../specs/archive/provider-connectivity/SPEC-SEI-034-provider-connectivity-solution-summary.md">034</a></td>
+<td>Onboarding summary page <code>923861390</code> selects SPEC-SEI-037.</td>
+</tr>
+<tr>
+<td>SPEC-SEI-038</td>
+<td><a href="../../specs/archive/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md">019</a> and <a href="../../specs/archive/provider-connectivity/SPEC-SEI-035-provider-connectivity-logical-feature-specification.md">035</a></td>
+<td>Logical page <code>936509725</code> selects SPEC-SEI-038.</td>
+</tr>
+<tr>
+<td>SPEC-SEI-039</td>
+<td><a href="../../specs/archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md">021</a> and <a href="../../specs/archive/provider-connectivity/SPEC-SEI-036-provider-connectivity-sequence-and-reuse-assessment.md">036</a></td>
+<td>Engineering page <code>936509735</code> selects SPEC-SEI-039.</td>
+</tr>
+</tbody>
+</table></div>
+<p>See <a href="../../config/confluence.yml">publication configuration</a>. Existing public connector page <code>923861399</code> still selects 011 and Global API page <code>923861402</code> still selects 013. A separate Git successor does not require another Confluence page.</p>
+<p>The logical view records an inherited source conflict: 019 uses ONB-R25 for two different statements. The new set preserves the original effective-boundary meaning from 002 and references PRD-SEI-221 FR20 for operator handoff. The source-qualified mapping in SPEC-SEI-038 §7 resolves cross-document traceability; the archived behaviour is unchanged.</p></main></body></html>

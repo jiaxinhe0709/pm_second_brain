@@ -1,6 +1,6 @@
 # Invoice receiving
 
-Review retrieval, receiving and saved-file download through three complementary views, following [customer onboarding](../onboarding/README.md). All three are unpublished drafts based on SPEC-SEI-016 and the supplied FR receiving guide.
+Review retrieval, receiving and saved-file download through three complementary views, following [customer onboarding and connectivity](../onboarding-and-connectivity/README.md). All three are unpublished drafts based on SPEC-SEI-016 and the supplied FR receiving guide.
 
 | Read | Purpose |
 |---|---|

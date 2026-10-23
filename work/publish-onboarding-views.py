@@ -33,7 +33,7 @@ def git(*args):
 
 def install_links(revision):
     targets = {}
-    for path in (ROOT / 'specs/onboarding').glob('SPEC-*.md'):
+    for path in (ROOT / 'specs/archive/onboarding').glob('SPEC-*.md'):
         metadata, _ = publisher.load_document(path)
         for ident, title in DOCS:
             if metadata['id'] == ident:
@@ -49,7 +49,7 @@ def install_links(revision):
             if marker not in url:
                 return match[0]
             relative = unquote(url.split(marker, 1)[1].split('#')[0])
-            if relative == 'specs/onboarding/README.md':
+            if relative == 'specs/archive/onboarding/README.md':
                 return f'<a href="https://confluence.sage.com/pages/viewpage.action?pageId={PARENT}">{label}</a>'
             if relative not in targets:
                 return match[0]
@@ -71,7 +71,7 @@ def prepare(revision):
     records = []
     documents = []
     for ident, title in DOCS:
-        path = next((ROOT / 'specs/onboarding').glob(ident + '-*.md'))
+        path = next((ROOT / 'specs/archive/onboarding').glob(ident + '-*.md'))
         metadata, body = publisher.load_document(path)
         assert metadata['status'] == 'draft'
         assert metadata['confluence']['title'] == title
@@ -115,7 +115,7 @@ def main():
     assert review['state'] == 'MERGED' and review['mergedAt']
     merge_sha = review['mergeCommit']['oid']
     subprocess.run(['git', 'merge-base', '--is-ancestor', revision, merge_sha], cwd=ROOT, check=True)
-    protected = ['specs/onboarding', 'specs/archive', 'assets/diagrams', 'context', 'config/confluence.yml']
+    protected = ['specs/archive/onboarding', 'specs/archive', 'assets/diagrams', 'context', 'config/confluence.yml']
     assert not git('status', '--porcelain', '--', *protected), 'Publication sources must be committed'
     publisher.load_workspace_env(args.env_from or Path(__file__))
     client = publisher.confluence_client()

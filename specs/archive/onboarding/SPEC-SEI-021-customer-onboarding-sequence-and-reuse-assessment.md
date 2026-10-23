@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-22
+updated: 2026-10-23
 reviewers: []
 related:
   - SPEC-SEI-020
@@ -32,7 +32,7 @@ confluence:
 
 # Customer Onboarding Sequence and Reuse Assessment
 
-[Stakeholder summary — SEI018](SPEC-SEI-018-customer-onboarding-solution-summary.md) · [Business behaviour — SEI019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) · [Predecessor — SEI020](../archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md)
+[Stakeholder summary — SEI018](SPEC-SEI-018-customer-onboarding-solution-summary.md) · [Business behaviour — SEI019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) · [Predecessor — SEI020](../SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md)
 
 ## Revision overview
 
@@ -59,33 +59,44 @@ Use the [API and capability table](#26-existing-api-and-capability-reuse) for th
 
 **Existing** labels show supplied methods, full paths and success codes; wrapped paths retain every segment. **To qualify** labels describe logical requests/returns with no confirmed contract. Participants group responsibilities, not approved deployment boundaries. Solid arrows are requests; dashed arrows are responses; grey bars show handling intervals without timing promises. A `ref` box invokes another sequence conditionally; it is not an API call.
 
-All views assume authorised business access and the correct environment. HTTP success, setup, per-function readiness and route activation have separate meanings. Failed/unknown evidence holds dependent work and returns an owner. Terms follow the [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md).
+All views assume authorised business access and the correct environment. HTTP success, setup, per-function readiness and route activation have separate meanings. Failed/unknown evidence holds dependent work and returns an owner. Terms follow the [shared glossary](../../../context/GLO-SEI-001-e-invoicing-terminology.md).
 
 ### 2.1 Shared prerequisites
 
-![Shared NIF, authority, certificate and conditional dataset sequence](../../assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.svg)
+![Shared NIF, authority, certificate and conditional dataset sequence](../../../assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.svg)
 
 Use once per selected business/purpose. Reuse current evidence; check only missing/stale evidence. Keep represented-business NIF, establishment/routing references, authenticated caller and action authority separate. Certificate lookup returns readiness and a protected reference, never key material. Unavailable lookup does not prove that another upload is needed. REF-LOGICAL ONB-02/03; REF-TRUST.
 
 Dataset POSTs show the successful create/confirm path, conditional on the channel. Preserve identical input and `X-Idempotency-Key`; `202` supplies no ID. Retain confirmed `tenantId` as `datasetId`. Replay limits, differing example `data.id`, Spain inputs and native-product linkage remain gates. INT-DS01.
 
 
-[Full-size SVG](../../assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.svg) · [Editable Draw.io](../../assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.drawio) · [PNG](../../assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.png)
+[Full-size SVG](../../../assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.svg) · [Editable Draw.io](../../../assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.drawio) · [PNG](../../../assets/diagrams/onboarding-reuse-shared-prerequisites-sequence.png)
 
 ### 2.2 Public readiness
 
-![Public readiness sequence with shared prerequisite reference and existing discovery/detail calls](../../assets/diagrams/onboarding-reuse-public-readiness-sequence.svg)
+![Public readiness sequence with shared prerequisite reference and existing discovery/detail calls](../../../assets/diagrams/onboarding-reuse-public-readiness-sequence.svg)
 
 The supplied AEAT contracts define HTTPS certificate/seal access, SOAP 1.2 bindings, ebMS headers and MIME attachments at PRE endpoints. They do not supply an enrolment operation. PRE access, production addresses and the SOAP-version conflict remain open. SPFE-S03/S08/S16; REF-SPAIN SPFE-Q01/Q12.
 
 Reuse valid public evidence; run only missing/stale checks under qualified contracts. Existing public access does not prove Sage access. The selected action's authority must be established; third-party recovery/consultation needs the registered-authority evidence in SPFE-S02 Article 11. No external enrolment or test-invoice probe is inferred. REF-LOGICAL ONB-03/04/11; SPFE-S02/S03/S08.
 
+Use the [public-only plan and readiness criteria in SEI019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#31-in-scope). Bind only the requested functions to the original catalogue names below. These are the later operations being qualified, not a sequence of calls that onboarding must execute against customer invoices. SPFE-S03 §6.1, p. 10; SPFE-S08 §5.1.
 
-[Full-size SVG](../../assets/diagrams/onboarding-reuse-public-readiness-sequence.svg) · [Editable Draw.io](../../assets/diagrams/onboarding-reuse-public-readiness-sequence.drawio) · [PNG](../../assets/diagrams/onboarding-reuse-public-readiness-sequence.png)
+| Requested public function | Original public service / contract | Evidence boundary before readiness |
+|---|---|---|
+| Invoice submission | Remisión de facturas electrónicas — `SendInvoice`, `SUBMITINVOICE`. | Qualified operation/build, business scope, authority, credential purpose, environment and invoice profile. Do not submit a test invoice as an assumed setup check. SPFE-S03 §6.2; SPFE-S16. |
+| Invoice consultation | Consulta por filtro de fechas — `GetRegisteredInvoice`, `QUERYBYFILTER`; Consulta por identificador — `GetInvoices`, `QUERYBYID`. | Qualify date-filter and identifier consultation separately, including accepted represented-business authority. A result does not prove file download. SPFE-S03 §§6.4–6.5; REF-SPAIN. |
+| Invoice download | Descarga por localizador — `DownloadInvoicesByLOC`, `DOWNLOADBYLOC`; Descarga por identificador — `DownloadInvoicesByID`, `DOWNLOADBYID`. | Qualify the selected method's access, authority and file contract. Submission or consultation readiness cannot establish download readiness. SPFE-S03 §§6.6–6.7; REF-SPAIN. |
+| Status communication | Comunicación de estados destinatario — `CustomerInvoiceEvents`; Comunicación de estados emisor — `SupplierInvoiceEvents`. | Qualify the actor, report purpose and selected message contract. No invoice or status communication is sent merely to complete setup. SPFE-S03 §§6.8–6.9; REF-SPAIN. |
+
+GAP-02/03/05/06 must establish which of these capabilities the actual Sage build supports and what evidence proves access for the selected business. API-01/02/04 can inspect Sage-side configuration only where their Spain use is qualified. The need for a dataset or local connection record remains channel-dependent; the FR `/connect` flow is not evidence of public registration. Apply API-03/05 to public setup only after their exact purpose and effects are qualified. An unavailable contract or test environment remains an owned readiness gate.
+
+
+[Full-size SVG](../../../assets/diagrams/onboarding-reuse-public-readiness-sequence.svg) · [Editable Draw.io](../../../assets/diagrams/onboarding-reuse-public-readiness-sequence.drawio) · [PNG](../../../assets/diagrams/onboarding-reuse-public-readiness-sequence.png)
 
 ### 2.3 Private setup
 
-![Private setup sequence with gated connect, provider binding and per-address observation](../../assets/diagrams/onboarding-reuse-private-setup-sequence.svg)
+![Private setup sequence with gated connect, provider binding and per-address observation](../../../assets/diagrams/onboarding-reuse-private-setup-sequence.svg)
 
 Inspect known Sage setup first. For a retained provider, keep its account and add only missing Sage setup. **Connect may change address routing:** qualify provider effects, route authority and historical continuity before dispatch. Skip connect when setup already matches. FR-02/03/04; INT-AP01/04/05; REF-LOGICAL ONB-05–09.
 
@@ -96,27 +107,27 @@ The supplied connection APIs describe France/Sovos behaviour. No Spain private-p
 Check actual support for an unlisted provider; without a qualified path, return the ONB-S08 limitation and owner. The customer option remains TBD. For qualifying operator interconnection, follow [SEI019 ONB-R25](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#67-onb-05-configure-private-choice): track the receiving operator's **one-month** clock, specific receipt-order exception, interim public exchange and operational evidence. Existing `/connect`, HTTP success and `CONNECTED` do not satisfy that process. Operator case/clock integration remains GAP-06/08. REF-LOGICAL; REF-INTERCONNECT.
 
 
-[Full-size SVG](../../assets/diagrams/onboarding-reuse-private-setup-sequence.svg) · [Editable Draw.io](../../assets/diagrams/onboarding-reuse-private-setup-sequence.drawio) · [PNG](../../assets/diagrams/onboarding-reuse-private-setup-sequence.png)
+[Full-size SVG](../../../assets/diagrams/onboarding-reuse-private-setup-sequence.svg) · [Editable Draw.io](../../../assets/diagrams/onboarding-reuse-private-setup-sequence.drawio) · [PNG](../../../assets/diagrams/onboarding-reuse-private-setup-sequence.png)
 
 ### 2.4 Supported change
 
-![Conditional update or enabled transition with route authority and continuity gates](../../assets/diagrams/onboarding-reuse-supported-change-sequence.svg)
+![Conditional update or enabled transition with route authority and continuity gates](../../../assets/diagrams/onboarding-reuse-supported-change-sequence.svg)
 
 Unchanged valid setup needs no mutation, new input or route version. Refresh only affected prerequisites. A requested extension uses qualified update semantics; a platform transition also needs its enabled scope, future-work boundary and earlier-invoice access confirmed before route-affecting calls. Private A to Private B stays disabled. REF-LOGICAL ONB-S05/S06, ONB-07/09; REF-ROUTING.
 
 
-[Full-size SVG](../../assets/diagrams/onboarding-reuse-supported-change-sequence.svg) · [Editable Draw.io](../../assets/diagrams/onboarding-reuse-supported-change-sequence.drawio) · [PNG](../../assets/diagrams/onboarding-reuse-supported-change-sequence.png)
+[Full-size SVG](../../../assets/diagrams/onboarding-reuse-supported-change-sequence.svg) · [Editable Draw.io](../../../assets/diagrams/onboarding-reuse-supported-change-sequence.drawio) · [PNG](../../../assets/diagrams/onboarding-reuse-supported-change-sequence.png)
 
 ### 2.5 Uncertainty and recovery
 
-![Original-effect observation and owned recovery without blind replay](../../assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.svg)
+![Original-effect observation and owned recovery without blind replay](../../../assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.svg)
 
 Use after a possible effect, conflicting observations or an unsupported/unknown setup. Preserve the original business, provider, environment and operation identity. A failed/empty read does not prove absence. Record confirmed success once; retry proven absence only under qualified semantics and current authority. Otherwise hold dependent work with an owner. Preserve valid independent functions. REF-LOGICAL ONB-08/11, OFR-01–08.
 
 Do not duplicate platform `RETRYING` work, force a provider switch or use delete/recreate recovery. INT-AP05/06.
 
 
-[Full-size SVG](../../assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.svg) · [Editable Draw.io](../../assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.drawio) · [PNG](../../assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.png)
+[Full-size SVG](../../../assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.svg) · [Editable Draw.io](../../../assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.drawio) · [PNG](../../../assets/diagrams/onboarding-reuse-uncertainty-recovery-sequence.png)
 
 ### 2.6 Existing API and capability reuse
 
@@ -131,7 +142,7 @@ Documented France behaviour and demo success do not prove Spain readiness. GAP I
 | API-04: `GET /connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/`. FR-04. | Read per-address status/errors. | Public internal inspection; private progress/recovery evidence. | Freshness, partial/absent addresses and original-effect authority. GAP-04/05. |
 | API-05: `PUT /connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/`. FR-05; INT-AP02. | Update supported connection/address details. | Private requested changes; public applicability open. | Supported edits/removal, concurrency and route effects; no inferred migration/rollback. GAP-04/07. |
 | Guide only: `POST /internal/events/subscriptions`. INT-AP01–03. | Subscribe to completed/updated address events. | Private progress candidate; public events unverified. | Surface/access, exact event library and delivery semantics. GAP-05/06/07. |
-| Guide only: `DELETE /connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}`. INT-AP03. | Legacy whole-connection disconnection; `202`. | Private disconnection candidate; public support unproven. | Current provider/build, removal scope and continuity. [SPEC003](../archive/SPEC-SEI-003-offboarding-solution-specification.md) owns full exit. GAP-04/07. |
+| Guide only: `DELETE /connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}`. INT-AP03. | Legacy whole-connection disconnection; `202`. | Private disconnection candidate; public support unproven. | Current provider/build, removal scope and continuity. [SPEC003](../SPEC-SEI-003-offboarding-solution-specification.md) owns full exit. GAP-04/07. |
 | Identity / Tax candidates; APIs unconfirmed. REF-TRUST; REF-SAGE-CERT. | Proposed NIF/authority and certificate-readiness handoffs. | Selected-purpose public/private prerequisites. | Actual contracts, custody, protected-reference lookup and B2B fitness. GAP-03/06. |
 | Shared routing pattern; API unconfirmed. REF-ROUTING. | Proposed activation, boundary and continuity controls. | Qualified later-phase route changes. | Existing implementation, transition contracts and earlier-invoice access. GAP-06/08. |
 
@@ -165,11 +176,11 @@ Existing GAP IDs retain SPEC020 meanings. Each owner must identify the actual re
 | GAP-07 Source conflicts / all | Pin build/contract: `RECEIVE` enum, update/remove/DELETE, takeover/conflicts, dates/lengths/auth, statuses/events and header/version differences. Resolve 24-hour retry versus six-day escalation and seven-day error observations; the latter is not audit retention. INT-AP01–06. | FR API/dataset owners, Operations. |
 | GAP-08 Implementation qualification / all | Record retained behaviour, Spain changes, actual caller impact, regressions, monitoring, recovery and support ownership. Existing capability documentation is not production readiness. | Architecture, API, Integration, Operations. |
 
-Detailed conflicting source statements remain in [SPEC020 section 5](../archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#5-common-spain-changes-and-open-evidence). Invoice transformation remains outside these sequences; existing [DTS](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) is the preferred reuse candidate when qualifying that scope.
+Detailed conflicting source statements remain in [SPEC020 section 5](../SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#5-common-spain-changes-and-open-evidence). Invoice transformation remains outside these sequences; existing [DTS](../../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) is the preferred reuse candidate when qualifying that scope.
 
 ## 5 Acceptance coverage
 
-Retain [API-A01–16](../archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#6-reuse-assurance) and SEI019 functional acceptance; this view changes their presentation only.
+Retain [API-A01–16](../SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#6-reuse-assurance) and SEI019 functional acceptance; this view changes their presentation only.
 
 | Existing checks | Review against these sequences |
 |---|---|
@@ -187,27 +198,27 @@ FR-01–05 are supplied OpenAPI 3.1.0 files declaring `info.version: 1.0.0`, rev
 
 | ID | Source / version and exact locator | Supports / limit |
 |---|---|---|
-| REF-REUSE | [SPEC020 section 1](../archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#1-engineering-decision-summary), recorded direction, 22 October 2026. | FR reuse choice; no schema or deployment approval. |
-| REF-COUNTRY | [PRD-SEI-227](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md), canonical proposal, FR11 / country-pack governance. | Shared/country separation; broader proposal status unchanged. |
+| REF-REUSE | [SPEC020 section 1](../SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md#1-engineering-decision-summary), recorded direction, 22 October 2026. | FR reuse choice; no schema or deployment approval. |
+| REF-COUNTRY | [PRD-SEI-227](../../../prds/PRD-SEI-227-e-invoicing-as-a-service.md), canonical proposal, FR11 / country-pack governance. | Shared/country separation; broader proposal status unchanged. |
 | REF-LOGICAL | [SPEC-SEI-019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md), draft, updated 22 October 2026; sections 3–7, ONB/OFR activities and acceptance. | Canonical business behaviour and phase gates; no deployed API proof. |
 | REF-INTERCONNECT | [RD 238/2026 official original](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), published 31 March 2026; checked 22 October 2026; Articles 8(1)–(3), 9(1)–(5). | Participating-platform operator duty, invoice/status exchange, one-month receipt-based period, specific receipt-order exception and public interim route. Not an ERP/customer setup SLA; no provider API or calendar implementation contract supplied. |
-| REF-TRUST | [SPEC-SEI-001](../SPEC-SEI-001-certificate-management-solution-specification.md), draft, updated 20 October 2026; CERT-04/05, G1/G9/G10. | Proposed protected-reference/readiness controls; Tax/Connections/AFL ownership and B2B fitness remain open. |
+| REF-TRUST | [SPEC-SEI-001](../../SPEC-SEI-001-certificate-management-solution-specification.md), draft, updated 20 October 2026; CERT-04/05, G1/G9/G10. | Proposed protected-reference/readiness controls; Tax/Connections/AFL ownership and B2B fitness remain open. |
 | REF-SAGE-CERT | [Sage certificate management](https://confluence.sage.com/spaces/CCLD/pages/759615024/Sage+certificate+management), page 759615024; version/content unverified, access unavailable in predecessor review. | User-supplied supporting context; no independent proof of live Tax contracts or Spain acceptance. |
-| REF-ROUTING | [SPEC-SEI-014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), SPC-04/08; [SPEC-SEI-016](../archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), Shared connection and route handoff; drafts updated 20 October 2026. | Proposed route/continuity boundary; no supplied mutation contract. |
-| INT-DS01 | [Dataset guide extract](<../../context/FR API/Onboarding/network-onboarding-create-dataset-guide-extract.md>); ownership/channel sections, steps 1–2 and field reference. | POST `202`/`200`, keys and `tenantId`; Spain availability, example ID and enforced cardinality unproven. |
-| INT-AP01 | [Connect extract](<../../context/FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap01-connect-and-channel-selection>); connection model, channel selection, steps 0–5. | Connection, API/UI and observations; France coverage only. |
-| INT-AP02 | [Update extract](<../../context/FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap02-update-and-removal>); steps 1–4; removal names v1.1.0. | Candidate update/remove; guide/OpenAPI differences unresolved. |
-| INT-AP03 | [Disconnection extract](<../../context/FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap03-connection-disconnection>); remove/confirm, linked API 0.1.7. | Legacy DELETE/202 and observations; no generic rollback or full-exit proof. |
-| INT-AP04 | [Ownership extract](<../../context/FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap04-address-ownership-transfer>); scenarios A/B, implementation/confirmation, linked API 0.1.9. | Possible routing takeover; not universal linking or last-one-wins. |
-| INT-AP05 | [Error extract](<../../context/FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap05-error-handling-and-retry-ownership>); retention/dictionary/ERR-PPL002-3; link contains 1.10.0. | Retry scopes, seven-day observations and failed-absent addresses; build semantics need confirmation. |
-| INT-AP06 | [Catalogue/status extract](<../../context/FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap06-catalogue-address-mapping-and-environments>); addresses, usage, retries, notifications and environments. | Partial events, mapping and real/demo limits; no Spain deployment proof. |
-| FR-01 | [Discovery contract](<../../context/FR API/Onboarding/get-accesspoints.md>); operationId `Get-AccessPoints`, GET response. | API-01 IDs/names; no capability/readiness proof. |
-| FR-02 | [Dataset listing contract](<../../context/FR API/Onboarding/get-dataset-accesspoints.md>); `Get-Dataset-AccessPoints`, GET response. | API-02 status/nullable `connectionId`; no external-absence proof. |
-| FR-03 | [Connect contract](<../../context/FR API/Onboarding/new-accesspoint-connection.md>); `New-AccessPoint-Connection`, `Idempotency-Key`, `201` response. | API-03 inputs/address states; replay/effects unqualified. |
-| FR-04 | [Detail contract](<../../context/FR API/Onboarding/get-accesspoint-connection.md>); `Get-AccessPoint-Connection`, GET response. | API-04 address results; freshness/original-effect authority unproven. |
-| FR-05 | [Update contract](<../../context/FR API/Onboarding/put-accesspoint-connection.md>); `Put-AccessPoint-Connection`, PUT response. | API-05 actions/date/usage rules; no supplied repeat/version guarantee. |
-| SPFE-S02 | [Original BOE order](../../context/BOE-A-2026-20587.pdf), HAC/1028/2026, published 5 October 2026; Article 11(1)–(2). | Certificate access and representation; no Sage implementation proof. |
-| SPFE-S03 | [Original service catalogue](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026; sections 4.3, 5.1, 6.1–6.10, pp. 8–20. | Public access/operation inventory; no supplied onboarding enrolment command. |
-| SPFE-S08 | [Original input/output formats](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), draft 0.1.0, 9 October 2026; sections 5.1–5.9, pp. 8–15. | Response distinctions; pending formats do not supply an onboarding payload. |
-| SPFE-S16 | [Original SendInvoice WSDL](<../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>), supplied snapshot 13 October 2026; `SendInvoiceSoapBinding`, `SendInvoiceCertPort`, `SendInvoiceSealPort`. | SOAP 1.2, ebMS/MIME packaging and PRE certificate/seal addresses; no proven connectivity or production endpoint. |
-| REF-SPAIN | [Original-file evidence baseline](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md), updated 20 October 2026; source authority, file inventory and conflicts. | Routes legal/technical claims to original BOE/catalogue/WSDL/XSD files; inventory is not mapping completeness. |
+| REF-ROUTING | [SPEC-SEI-014](../../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), SPC-04/08; [SPEC-SEI-016](../SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), Shared connection and route handoff; drafts updated 20 October 2026. | Proposed route/continuity boundary; no supplied mutation contract. |
+| INT-DS01 | [Dataset guide extract](<../../../context/FR API/Onboarding/network-onboarding-create-dataset-guide-extract.md>); ownership/channel sections, steps 1–2 and field reference. | POST `202`/`200`, keys and `tenantId`; Spain availability, example ID and enforced cardinality unproven. |
+| INT-AP01 | [Connect extract](<../../../context/FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap01-connect-and-channel-selection>); connection model, channel selection, steps 0–5. | Connection, API/UI and observations; France coverage only. |
+| INT-AP02 | [Update extract](<../../../context/FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap02-update-and-removal>); steps 1–4; removal names v1.1.0. | Candidate update/remove; guide/OpenAPI differences unresolved. |
+| INT-AP03 | [Disconnection extract](<../../../context/FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap03-connection-disconnection>); remove/confirm, linked API 0.1.7. | Legacy DELETE/202 and observations; no generic rollback or full-exit proof. |
+| INT-AP04 | [Ownership extract](<../../../context/FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap04-address-ownership-transfer>); scenarios A/B, implementation/confirmation, linked API 0.1.9. | Possible routing takeover; not universal linking or last-one-wins. |
+| INT-AP05 | [Error extract](<../../../context/FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap05-error-handling-and-retry-ownership>); retention/dictionary/ERR-PPL002-3; link contains 1.10.0. | Retry scopes, seven-day observations and failed-absent addresses; build semantics need confirmation. |
+| INT-AP06 | [Catalogue/status extract](<../../../context/FR API/Onboarding/access-point-guides-evidence-extract.md#int-ap06-catalogue-address-mapping-and-environments>); addresses, usage, retries, notifications and environments. | Partial events, mapping and real/demo limits; no Spain deployment proof. |
+| FR-01 | [Discovery contract](<../../../context/FR API/Onboarding/get-accesspoints.md>); operationId `Get-AccessPoints`, GET response. | API-01 IDs/names; no capability/readiness proof. |
+| FR-02 | [Dataset listing contract](<../../../context/FR API/Onboarding/get-dataset-accesspoints.md>); `Get-Dataset-AccessPoints`, GET response. | API-02 status/nullable `connectionId`; no external-absence proof. |
+| FR-03 | [Connect contract](<../../../context/FR API/Onboarding/new-accesspoint-connection.md>); `New-AccessPoint-Connection`, `Idempotency-Key`, `201` response. | API-03 inputs/address states; replay/effects unqualified. |
+| FR-04 | [Detail contract](<../../../context/FR API/Onboarding/get-accesspoint-connection.md>); `Get-AccessPoint-Connection`, GET response. | API-04 address results; freshness/original-effect authority unproven. |
+| FR-05 | [Update contract](<../../../context/FR API/Onboarding/put-accesspoint-connection.md>); `Put-AccessPoint-Connection`, PUT response. | API-05 actions/date/usage rules; no supplied repeat/version guarantee. |
+| SPFE-S02 | [Original BOE order](../../../context/BOE-A-2026-20587.pdf), HAC/1028/2026, published 5 October 2026; Article 11(1)–(2). | Certificate access and representation; no Sage implementation proof. |
+| SPFE-S03 | [Original service catalogue](<../../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026; sections 4.3, 5.1, 6.1–6.10, pp. 8–20. | Public access/operation inventory; no supplied onboarding enrolment command. |
+| SPFE-S08 | [Original input/output formats](<../../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), draft 0.1.0, 9 October 2026; sections 5.1–5.9, pp. 8–15. | Response distinctions; pending formats do not supply an onboarding payload. |
+| SPFE-S16 | [Original SendInvoice WSDL](<../../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>), supplied snapshot 13 October 2026; `SendInvoiceSoapBinding`, `SendInvoiceCertPort`, `SendInvoiceSealPort`. | SOAP 1.2, ebMS/MIME packaging and PRE certificate/seal addresses; no proven connectivity or production endpoint. |
+| REF-SPAIN | [Original-file evidence baseline](../../../context/RES-SEI-002-spain-public-platform-technical-evidence.md), updated 20 October 2026; source authority, file inventory and conflicts. | Routes legal/technical claims to original BOE/catalogue/WSDL/XSD files; inventory is not mapping completeness. |
