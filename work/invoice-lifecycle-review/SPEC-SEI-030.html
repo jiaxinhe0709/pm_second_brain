@@ -8,7 +8,7 @@ th,td{border:1px solid #cdd3d8;vertical-align:top;text-align:left;padding:10px;o
 code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100%;max-height:720px;overflow:auto;border:1px solid #b8c0c8;margin:18px 0}
 .diagram img{display:block;max-width:none}p{max-width:1060px}
 @media(max-width:800px){.layout{display:block}.outline{position:static;max-height:200px;margin-bottom:24px}}
-</style></head><body><header><p>Invoice lifecycle · Unpublished draft · Local review</p><nav><a href="index.html">All lifecycle views</a><a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">Unchanged SPEC-SEI-009</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
+</style></head><body><header><p>Invoice lifecycle · Unpublished draft · Local review</p><nav><a href="index.html">All lifecycle views</a><a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">Retained SPEC-SEI-009</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
 <ul>
 <li><a href="#invoice-lifecycle-sequence-and-reuse-assessment">Invoice Lifecycle Sequence and Reuse Assessment</a><ul>
 <li><a href="#revision-overview">Revision overview</a></li>
@@ -35,7 +35,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </aside><main><h1 id="invoice-lifecycle-sequence-and-reuse-assessment">Invoice Lifecycle Sequence and Reuse Assessment</h1>
 <p><a href="SPEC-SEI-028.html">Solution Summary</a> · <a href="SPEC-SEI-029.html">Logical Feature Specification</a></p>
 <h2 id="revision-overview">Revision overview</h2>
-<p>This separate API view assesses the supplied French lifecycle API against <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a> and the <a href="SPEC-SEI-029.html">functional view</a>. The predecessor remains unchanged and selected for stable Confluence page <code>923861398</code>. Existing LCS-INT/data and provider assessments remain available there; this view adds guide-evidenced operations, Spain gaps and engineering qualification.</p>
+<p>This separate API view assesses the supplied French lifecycle API against <a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a> and the <a href="SPEC-SEI-029.html">functional view</a>. The predecessor remains unchanged and selected for stable Confluence page <code>923861398</code>. Existing LCS-INT/data and provider assessments remain available there; this view adds guide-evidenced operations, Spain gaps and engineering qualification.</p>
 <p>The user reports that the French API was built for reuse. Treat that as the reuse direction to investigate. The supplied contract supports useful common patterns; it does not establish the implementation's architecture, Spain coverage or production readiness. No new endpoint, status UUID, breaking schema change or deployment boundary is approved here.</p>
 <h2 id="1-reuse-decision-and-product-impact">1 Reuse decision and product impact</h2>
 <p><strong>Use the existing lifecycle API as the first implementation reuse candidate.</strong> Its documented shape separates dataset/invoice scope, a status UUID, variable <code>statusAttributes</code>, an operation response, asynchronous completion and invoice history. This can support a stable product integration while country rules vary, if the actual build provides those extension points. INT-LCS01/02/05. A variable object in a guide is not proof that arbitrary fields are accepted or that country selection exists.</p>
@@ -213,7 +213,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tr>
 </tbody>
 </table>
-<p>Keep existing LCS-D01–10, <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#1-interaction-contracts">interaction contracts</a> and <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#2-data-inventory">data inventory</a> as the detailed logical baseline. No storage or component allocation follows from this API assessment. Qualify whether existing response fields can carry these concerns before proposing additions.</p>
+<p>Keep existing LCS-D01–10, <a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#1-interaction-contracts">interaction contracts</a> and <a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#2-data-inventory">data inventory</a> as the detailed logical baseline. No storage or component allocation follows from this API assessment. Qualify whether existing response fields can carry these concerns before proposing additions.</p>
 <h3 id="32-spain-field-coverage-against-the-french-guide">3.2 Spain field coverage against the French guide</h3>
 <p>This is a gap assessment, not an approved transformation table. Exact Spain semantics and cardinalities are in SPEC-SEI-029 section 5.2 and its AXII source links. All mappings below remain unqualified.</p>
 <table>
@@ -365,7 +365,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tr>
 </tbody>
 </table>
-<p>The <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#lifecycle-statuses-and-actions-by-provider">existing provider catalogues</a> retain B2B Router, Banqup, SERES, EDICOM and ZeroComa evidence limits. This review does not requalify those contracts or replace them with French behaviour. The <a href="../../context/Anexo II/annex-ii-review.md">Annex II comparison</a> found no material field delta; it does not resolve the listed runtime gaps.</p>
+<p>The <a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#lifecycle-statuses-and-actions-by-provider">existing provider catalogues</a> retain B2B Router, Banqup, SERES, EDICOM and ZeroComa evidence limits. This review does not requalify those contracts or replace them with French behaviour. The <a href="../../context/Anexo II/annex-ii-review.md">Annex II comparison</a> found no material field delta; it does not resolve the listed runtime gaps.</p>
 <h2 id="5-api-qualification-acceptance">5 API qualification acceptance</h2>
 <p>These checks supplement functional LCS-A01–27; none has been executed against an implementation in this review.</p>
 <table>
@@ -432,7 +432,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 <tbody>
 <tr>
 <td>REF-BASE</td>
-<td><a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a>, updated 20 October 2026; <a href="SPEC-SEI-029.html">functional successor view</a>, draft 22 October</td>
+<td><a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a>, updated 20 October 2026; <a href="SPEC-SEI-029.html">functional successor view</a>, draft 22 October</td>
 <td>LCS-INT-01–11; D01–10; provider catalogues; LCS requirements/acceptance</td>
 <td>Canonical draft requirements and logical contracts; no physical allocation approval.</td>
 </tr>

@@ -32,7 +32,7 @@ confluence:
 
 # Customer Offboarding Solution Specification
 
-Terminology follows the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
+Terminology follows the [shared e-invoicing glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -44,7 +44,7 @@ The design remains a draft. **Proposed** choices still need review; **open** dec
 
 ### 1 Purpose, authority and boundaries
 
-This **proposed logical design** explains how a business could move a defined part of its invoice traffic away from Sage or leave the service completely. New invoices must still have a valid destination. Work on earlier invoices must still have a responsible party, a permitted channel and the required evidence. [PRD-SEI-243](../prds/PRD-SEI-243-customer-offboarding-and-provider-exit.md) is the outcome and requirement source; [onboarding/migration PRD-SEI-222](../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) supplies route transition constraints.
+This **proposed logical design** explains how a business could move a defined part of its invoice traffic away from Sage or leave the service completely. New invoices must still have a valid destination. Work on earlier invoices must still have a responsible party, a permitted channel and the required evidence. [PRD-SEI-243](../../prds/PRD-SEI-243-customer-offboarding-and-provider-exit.md) is the outcome and requirement source; [onboarding/migration PRD-SEI-222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) supplies route transition constraints.
 
 The [onboarding spec](SPEC-SEI-002-onboarding-solution-specification.md) covers adopting Sage; this spec covers leaving an active Sage scope. The proposed case, states, records and interactions need architecture, provider and country-rule review before implementation.
 
@@ -56,13 +56,13 @@ New traffic can switch successfully while work on earlier invoices or data remai
 
 The responsibility overview uses **Change e-invoicing platform** for changing where future invoices are sent or received. This is separate from **Offboarding**, which ends a defined Sage service scope and coordinates its release controls. A platform change does not automatically end subscriptions, deregister a connection, revoke credentials or delete records.
 
-The [shared connectivity and routing spec](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) supplies the common route-change and historical-context controls (SPC-04/07/08). Onboarding owns adoption/migration; this spec owns leaving an active Sage scope and releasing dependencies. Both use one Routing owner for the actual route commit. Present the affected direction, effective boundary, result, remaining historical obligations and permitted access terms in plain language. Keep existing technical fields and OFF activity IDs unchanged.
+The [shared connectivity and routing spec](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) supplies the common route-change and historical-context controls (SPC-04/07/08). Onboarding owns adoption/migration; this spec owns leaving an active Sage scope and releasing dependencies. Both use one Routing owner for the actual route commit. Present the affected direction, effective boundary, result, remaining historical obligations and permitted access terms in plain language. Keep existing technical fields and OFF activity IDs unchanged.
 
 ### Spain use and reuse boundaries
 
 This is a **Spain reference design**. The classifications below describe proposed reuse of behaviour, not proof that existing code is ready for use. **Reusable unchanged** means the design pattern can stay the same. **Reusable with country binding** means the shared behaviour needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** means implementation fitness or coverage still needs evidence.
 
-This follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
+This follows the [shared platform and country-pack direction](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot or production use still depends on this spec’s approval and evidence gates. Reuse in another country needs that country’s own assessment.
 
 | Area | Intended use in Spain | Reuse classification | Condition and owner |
 |---|---|---|---|
@@ -110,15 +110,15 @@ The customer administrator or validated accountant delegate requests and approve
 
 Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
 
-**Planned switch-out and release:** ![Leave the service safely and preserve earlier work](../assets/diagrams/offboarding-planned-exit-process.svg)
+**Planned switch-out and release:** ![Leave the service safely and preserve earlier work](../../assets/diagrams/offboarding-planned-exit-process.svg)
 
-[Editable Draw.io source](../assets/diagrams/offboarding-planned-exit-process.drawio) · [PNG preview](../assets/diagrams/offboarding-planned-exit-process.png). The existing [route transition and offboarding overview](../assets/diagrams/e-invoicing-route-transition-offboarding.drawio) shows the wider customer lifecycle.
+[Editable Draw.io source](../../assets/diagrams/offboarding-planned-exit-process.drawio) · [PNG preview](../../assets/diagrams/offboarding-planned-exit-process.png). The existing [route transition and offboarding overview](../../assets/diagrams/e-invoicing-route-transition-offboarding.drawio) shows the wider customer lifecycle.
 
 OFF-01 verifies one legal entity, direction/scope, actor and destination → OFF-02 inventories in-flight invoices, external mutations, obligations, registration, credentials and archive → OFF-03 proves the destination without disturbing live Sage traffic → OFF-04 commits an authorised effective cutover and observes external state → OFF-05 assigns each historical obligation to a permitted actor/channel → OFF-06 withdraws old route/registration and revokes credentials only when dependencies clear → OFF-07 exports evidence and schedules approved disposition. Failure or unknown result diverts to OFF-08; it does not jump to release.
 
-**Recovery and urgent provider exit:** ![Recover an exit problem and protect earlier work](../assets/diagrams/offboarding-recovery-process.svg)
+**Recovery and urgent provider exit:** ![Recover an exit problem and protect earlier work](../../assets/diagrams/offboarding-recovery-process.svg)
 
-[Editable Draw.io source](../assets/diagrams/offboarding-recovery-process.drawio) · [PNG preview](../assets/diagrams/offboarding-recovery-process.png).
+[Editable Draw.io source](../../assets/diagrams/offboarding-recovery-process.drawio) · [PNG preview](../../assets/diagrams/offboarding-recovery-process.png).
 
 An uncertain provider mutation or outage creates OFF-08 with original operation IDs, affected invoices, deadlines and last observed state. Operations queries authoritative state, protects the last safe route, preserves queued/in-flight evidence, then either resumes the same transition, selects an approved prospective fallback or escalates a historical obligation. A reversal after cutover is a new evidenced route transition; OFF-05 retains each invoice's original provider context.
 

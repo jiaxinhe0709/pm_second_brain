@@ -8,7 +8,7 @@ th,td{border:1px solid #cdd3d8;vertical-align:top;text-align:left;padding:10px;o
 code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100%;max-height:720px;overflow:auto;border:1px solid #b8c0c8;margin:18px 0}
 .diagram img{display:block;max-width:none}p{max-width:1060px}
 @media(max-width:800px){.layout{display:block}.outline{position:static;max-height:200px;margin-bottom:24px}}
-</style></head><body><header><p>Invoice retrieval · Unpublished draft · Local review</p><nav><a href="index.html">All retrieval views</a><a href="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">Unchanged SPEC-SEI-016</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
+</style></head><body><header><p>Invoice retrieval · Unpublished draft · Local review</p><nav><a href="index.html">All retrieval views</a><a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">Retained SPEC-SEI-016</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
 <ul>
 <li><a href="#invoice-retrieval-sequence-and-reuse-assessment">Invoice Retrieval Sequence and Reuse Assessment</a><ul>
 <li><a href="#revision-overview">Revision overview</a></li>
@@ -37,7 +37,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </aside><main><h1 id="invoice-retrieval-sequence-and-reuse-assessment">Invoice Retrieval Sequence and Reuse Assessment</h1>
 <p><a href="SPEC-SEI-025.html">Solution Summary</a> · <a href="SPEC-SEI-026.html">Logical Feature Specification</a> · <a href="../../specs/invoice-receiving/README.md">Feature landing page</a></p>
 <h2 id="revision-overview">Revision overview</h2>
-<p>This separate engineering view extends <a href="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a> with the supplied FR receiving guide, received 22 October 2026. It separates evidenced subscription, list, detail and file-download operations from Spain qualification and shared capture/recovery design. The predecessor remains unchanged, including its PRI/RSD/RCV interactions, data inventory, decisions and acceptance traceability.</p>
+<p>This separate engineering view extends <a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a> with the supplied FR receiving guide, received 22 October 2026. It separates evidenced subscription, list, detail and file-download operations from Spain qualification and shared capture/recovery design. The predecessor remains unchanged, including its PRI/RSD/RCV interactions, data inventory, decisions and acceptance traceability.</p>
 <p>Existing behaviour IDs retain their meanings. RET-G and RET-API-A identify engineering gaps and qualification checks, not new product requirements or APIs. Public/private release selection, wire contracts, records policy and actual build coverage remain open. All three companions are unpublished drafts; the selected Confluence source remains SPEC-SEI-016.</p>
 <h2 id="1-engineering-direction-and-product-impact">1 Engineering direction and product impact</h2>
 <p>Assess the existing FR receiving API as the preferred product-interface reuse candidate for the documented operations. Qualify the actual implementation and Spain country/provider binding before activation. <a href="SPEC-SEI-026.html">SPEC-SEI-026</a> owns functional behaviour. INT-RCV01; REF-BASE/PRODUCT.</p>
@@ -322,7 +322,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tbody>
 </table>
 <p>Keep the complete code strings, including <code>ERR-RECEIVING-NOT-22</code>–<code>-25</code> without extra zero padding. Unknown codes retain raw safe evidence and an owned action; they cannot default to success or safe retry. Guide descriptions are not a complete HTTP, webhook-response or reconciliation contract. RET-G02/04/09.</p>
-<p>The separate AEAT Annex II <strong>SPFE-S22</strong> supplies lifecycle message fields, not France error mappings or invoice-file download changes. Its reviewed eight codes, actors and key cardinalities align with final BOE Annex II. For example, <code>PAYMENT</code> needs payment and due dates, <code>REJECTION</code> needs its date and L1 reason <code>01</code>/<code>02</code>, and for issuer <code>DEFAULT</code>, <code>cbc:EffectiveDate</code> means due date. <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#annex-ii-event-field-traceability">SPEC-SEI-009</a> already owns that source mapping. A receiving/download error cannot create one of those business reports or their cancellations. Final SPFE-S02 remains legal authority; SPFE-Q16/17/19 remain open. See the <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-ii-supplement-reviewed-22-october-2026">original-source comparison</a>.</p>
+<p>The separate AEAT Annex II <strong>SPFE-S22</strong> supplies lifecycle message fields, not France error mappings or invoice-file download changes. Its reviewed eight codes, actors and key cardinalities align with final BOE Annex II. For example, <code>PAYMENT</code> needs payment and due dates, <code>REJECTION</code> needs its date and L1 reason <code>01</code>/<code>02</code>, and for issuer <code>DEFAULT</code>, <code>cbc:EffectiveDate</code> means due date. <a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#annex-ii-event-field-traceability">SPEC-SEI-009</a> already owns that source mapping. A receiving/download error cannot create one of those business reports or their cancellations. Final SPFE-S02 remains legal authority; SPFE-Q16/17/19 remain open. See the <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-ii-supplement-reviewed-22-october-2026">original-source comparison</a>.</p>
 <h2 id="4-open-engineering-decisions">4 Open engineering decisions</h2>
 <p>For each candidate, record the source capability/build, retained behaviour, Spain changes, gaps, build/run owner and qualification evidence. Design-pattern reuse is separate from existing implementation reuse.</p>
 <table>
@@ -445,7 +445,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 <tbody>
 <tr>
 <td>REF-BASE</td>
-<td><a href="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a>, updated 20 October 2026</td>
+<td><a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a>, updated 20 October 2026</td>
 <td>Parts 2–4; PRI/RSD/RCV contracts, data and gates</td>
 <td>Proposed shared controls and inherited IDs; not a deployed physical API.</td>
 </tr>

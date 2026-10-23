@@ -8,7 +8,7 @@ th,td{border:1px solid #cdd3d8;vertical-align:top;text-align:left;padding:10px;o
 code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100%;max-height:720px;overflow:auto;border:1px solid #b8c0c8;margin:18px 0}
 .diagram img{display:block;max-width:none}p{max-width:1060px}
 @media(max-width:800px){.layout{display:block}.outline{position:static;max-height:200px;margin-bottom:24px}}
-</style></head><body><header><p>Invoice retrieval · Unpublished draft · Local review</p><nav><a href="index.html">All retrieval views</a><a href="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">Unchanged SPEC-SEI-016</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
+</style></head><body><header><p>Invoice retrieval · Unpublished draft · Local review</p><nav><a href="index.html">All retrieval views</a><a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">Retained SPEC-SEI-016</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
 <ul>
 <li><a href="#invoice-retrieval-logical-feature-specification">Invoice Retrieval Logical Feature Specification</a><ul>
 <li><a href="#revision-overview">Revision overview</a></li>
@@ -31,11 +31,11 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </aside><main><h1 id="invoice-retrieval-logical-feature-specification">Invoice Retrieval Logical Feature Specification</h1>
 <p><a href="SPEC-SEI-025.html">Solution Summary</a> · <a href="SPEC-SEI-027.html">Sequence and Reuse Assessment</a> · <a href="../../specs/invoice-receiving/README.md">Feature landing page</a></p>
 <h2 id="revision-overview">Revision overview</h2>
-<p>This separate logical view develops <a href="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a> for retrieval review. It organises the existing intake, capture, receiving, download and recovery controls into concise scenarios and activity tables. The predecessor remains unchanged and retains full interaction/data inventories and original acceptance traceability.</p>
+<p>This separate logical view develops <a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a> for retrieval review. It organises the existing intake, capture, receiving, download and recovery controls into concise scenarios and activity tables. The predecessor remains unchanged and retains full interaction/data inventories and original acceptance traceability.</p>
 <p>Existing RRI, PRI, RSD and RCV meanings, Phase 1 scope and product/records boundaries remain unchanged. The supplied FR guide informs engineering qualification in SPEC-SEI-027; it does not redefine the business requirements. Exact physical APIs, acknowledgement effects, records policy and rollout remain open. This draft does not change publication or approve implementation.</p>
 <h2 id="1-purpose-actors-and-boundary">1 Purpose, actors and boundary</h2>
 <p>For a represented recipient, obtain each eligible invoice's actual source file, retain its evidence and support qualified receiving and authorised downloads. Actors are the business, its authorised accountant or service, the product and source platform, and operations. Authenticate the caller separately from permission for the represented business and action. Use the <a href="../../context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>. REF-BASE/PRODUCT.</p>
-<p>Public collection follows PRD-SEI-211 Phase 1. Private intake follows its selected later-phase scope under RRI-Q01/02. This view does not add ZIP export, buyer acceptance, payment reporting or outbound submission. <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a> owns later lifecycle behaviour; <a href="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">SPEC-SEI-014</a> owns source connection and historical route context.</p>
+<p>Public collection follows PRD-SEI-211 Phase 1. Private intake follows its selected later-phase scope under RRI-Q01/02. This view does not add ZIP export, buyer acceptance, payment reporting or outbound submission. <a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a> owns later lifecycle behaviour; <a href="../../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">SPEC-SEI-014</a> owns source connection and historical route context.</p>
 <h2 id="2-scenarios-and-observable-outcomes">2 Scenarios and observable outcomes</h2>
 <p>These scenarios select existing behaviour; their activity IDs remain authoritative. API-specific limits and compatibility checks belong to SPEC-SEI-027.</p>
 <table>
@@ -438,7 +438,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 <tbody>
 <tr>
 <td>REF-BASE</td>
-<td><a href="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a>, updated 20 October 2026</td>
+<td><a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a>, updated 20 October 2026</td>
 <td>Part 2 §§1–5.1; Part 4; Part 3 inventories</td>
 <td>Existing requirement/activity/acceptance IDs and proposed logical controls; not deployed contracts.</td>
 </tr>

@@ -8,7 +8,7 @@ th,td{border:1px solid #cdd3d8;vertical-align:top;text-align:left;padding:10px;o
 code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100%;max-height:720px;overflow:auto;border:1px solid #b8c0c8;margin:18px 0}
 .diagram img{display:block;max-width:none}p{max-width:1060px}
 @media(max-width:800px){.layout{display:block}.outline{position:static;max-height:200px;margin-bottom:24px}}
-</style></head><body><header><p>Invoice sending · Unpublished draft · Local review</p><nav><a href="index.html">All sending views</a><a href="../../specs/SPEC-SEI-007-invoice-sending-solution.md">Unchanged SPEC-SEI-007</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
+</style></head><body><header><p>Invoice sending · Unpublished draft · Local review</p><nav><a href="index.html">All sending views</a><a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">Retained SPEC-SEI-007</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
 <ul>
 <li><a href="#invoice-sending-logical-feature-specification">Invoice Sending Logical Feature Specification</a><ul>
 <li><a href="#revision-overview">Revision overview</a></li>
@@ -30,7 +30,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </aside><main><h1 id="invoice-sending-logical-feature-specification">Invoice Sending Logical Feature Specification</h1>
 <p><a href="SPEC-SEI-022.html">Solution Summary</a> · <a href="SPEC-SEI-024.html">Sequence and Reuse Assessment</a> · <a href="../../specs/invoice-sending/README.md">Feature landing page</a></p>
 <h2 id="revision-overview">Revision overview</h2>
-<p>This separate view makes the scenarios and OUT activities in <a href="../../specs/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> easier to review. Existing IDs and safeguards retain their meanings. The current flow is one invoice for a business or its authorised accountant; broader portfolio controls remain conditional. It adds the transitional PDF behaviour and local-product generation decision in PRD-SEI-246. The predecessor remains unchanged and selected for its stable Confluence page.</p>
+<p>This separate view makes the scenarios and OUT activities in <a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> easier to review. Existing IDs and safeguards retain their meanings. The current flow is one invoice for a business or its authorised accountant; broader portfolio controls remain conditional. It adds the transitional PDF behaviour and local-product generation decision in PRD-SEI-246. The predecessor remains unchanged and selected for its stable Confluence page.</p>
 <p>This draft states the proposed behaviour for the companion set. Exact contracts, component allocation, implementation coverage and OUT-Q01–03 remain open. The supplied FR guide informs engineering reuse in SPEC-SEI-024; it does not replace Spain requirements.</p>
 <h2 id="1-purpose-actors-and-boundary">1 Purpose, actors and boundary</h2>
 <p>The business needs the correct invoice sent through the permitted route, with clear results and safe recovery. The ERP owns issuance. A direct business or authorised accountant uses the same single-invoice journey for the represented business. No batch coordinator is required. The supplied FR guide establishes a per-invoice submission, not bulk accountant sending. Portfolio and accounting-handoff proposals remain separate under OUT-Q02. A client relationship, login or dataset ID alone cannot grant action authority. OUT-R11–14; REF-BASE/PRODUCT; INT-SND01.</p>
@@ -53,8 +53,8 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tr>
 <tr>
 <td>OUT-A03 Eligible private route</td>
-<td>Plan private recipient delivery and only the separately required public copy.</td>
-<td>OUT-09–13</td>
+<td>Plan private recipient delivery and only the separately required public copy. Qualify the sender-to-recipient platform path; public issuance/interconnection does not need another copy.</td>
+<td>OUT-09–13; OUT-SPFE-R01</td>
 </tr>
 <tr>
 <td>OUT-A04/05 Public route or unresolved lookup</td>
@@ -135,7 +135,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tr>
 <tr>
 <td>OUT-10 Plan</td>
-<td>Freeze the invoice/revision, route and evidence, profiles/files, mapping/trust versions and required independent actions. A material pre-execution change creates a new plan version. Earlier transmitted actions retain their original context.</td>
+<td>Freeze the invoice/revision, route and evidence, profiles/files, mapping/trust versions and required independent actions. Distinguish the sender's platform, recipient's platform and actual public issuance/interconnection use before deciding the required copy. A material pre-execution change creates a new plan version. Earlier transmitted actions retain their original context.</td>
 </tr>
 <tr>
 <td>OUT-11 Prepare/send intent</td>
@@ -275,7 +275,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 <p>The product view identifies the affected invoice/action, known versus unknown result, retained successes, next action and current owner (OUT-15). Resume only after evidence resolves the blocked check and current authority permits the next action. Escalation or manual case assignment is not proof of completion. API codes and contract evidence remain in <a href="SPEC-SEI-024.html#32-shared-authentication-safety-and-source-conflicts">SEI024 section 3.2</a>.</p>
 <p>The <a href="SPEC-SEI-024.html#34-fr-attempt-errors-and-annex-ii-handoff">FR attempt-error assessment</a> preserves exact codes and retry ownership. A technical send error cannot generate Spain <code>REJECTION</code>, payment or report-cancellation messages. The separate Annex II supplement concerns lifecycle reporting; final BOE Annex II remains authoritative for legal rules. INT-ERR01; SPFE-S22; SPFE-S02 Annex II.</p>
 <h2 id="4-shared-controls-and-spain-binding">4 Shared controls and Spain binding</h2>
-<p>OUT-I01–13 and OUT-R01–14 retain their meanings in <a href="../../specs/SPEC-SEI-007-invoice-sending-solution.md#1-aggregate-model-and-invariants">the predecessor invariants and requirement register</a>. The activity table is this set's authoritative behaviour statement; the register provides traceability rather than another restatement.</p>
+<p>OUT-I01–13 and OUT-R01–14 retain their meanings in <a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md#1-aggregate-model-and-invariants">the predecessor invariants and requirement register</a>. The activity table is this set's authoritative behaviour statement; the register provides traceability rather than another restatement.</p>
 <p>Protect tenant, business and test/production isolation on reads and changes. Keep private keys, secrets and sensitive invoice content out of events, logs and customer errors. Prevent concurrent execution of the same invoice revision/action. Preserve source/final files, policy versions and evidence under an approved retention policy; no duration or performance target is invented here.</p>
 <table>
 <thead>
@@ -340,9 +340,9 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tr>
 </tbody>
 </table>
-<p>Proposed interaction IDs OUT-INT-01–11 and data IDs OUT-D01–12 remain in <a href="../../specs/SPEC-SEI-007-invoice-sending-solution.md#part-3-logical-service-interactions-and-data-inventory">SPEC-SEI-007 Part 3</a>. They are technical analysis, not approved component allocations. Annex withdrawal requirements OUT-AXC-R01–07 and positive/negative checks stay at <a href="../../specs/SPEC-SEI-007-invoice-sending-solution.md#annex-i-withdrawal-field-traceability">their original field traceability</a>.</p>
+<p>Proposed interaction IDs OUT-INT-01–11 and data IDs OUT-D01–12 remain in <a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md#part-3-logical-service-interactions-and-data-inventory">SPEC-SEI-007 Part 3</a>. They are technical analysis, not approved component allocations. Annex withdrawal requirements OUT-AXC-R01–07 and positive/negative checks stay at <a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md#annex-i-withdrawal-field-traceability">their original field traceability</a>.</p>
 <h2 id="6-functional-acceptance">6 Functional acceptance</h2>
-<p>These are required checks, not executed implementation tests. Existing IDs and meanings are preserved; detailed requirement/interface/data links remain in <a href="../../specs/SPEC-SEI-007-invoice-sending-solution.md#part-4-assurance-and-traceability-view">SPEC-SEI-007 Part 4</a>.</p>
+<p>These are required checks, not executed implementation tests. Existing IDs and meanings are preserved; detailed requirement/interface/data links remain in <a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md#part-4-assurance-and-traceability-view">SPEC-SEI-007 Part 4</a>.</p>
 <table>
 <thead>
 <tr>
@@ -405,7 +405,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tr>
 <tr>
 <td>OUT-SPFE-A01</td>
-<td>Prove the issuance/copy boundary for qualifying private and recipient-issued journeys, identity/authority changes and partial/lost results. No extra copy after public use. SPFE-S02 Article 4; OUT-SPFE-R01.</td>
+<td>Prove the issuance/copy boundary for qualifying private and recipient-issued journeys, identity/authority changes and partial/lost results. Cover public → private, private → private, private → public and public → public with qualified route evidence. No extra copy after public use. <a href="SPEC-SEI-024.html#22-spain-final-plan-and-independent-actions">SEI024 §2.2</a> records API coverage and open handoffs. SPFE-S02 Articles 3.4/4; OUT-SPFE-R01.</td>
 </tr>
 <tr>
 <td>OUT-SPFE-A02/03</td>
@@ -452,7 +452,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tr>
 <tr>
 <td>REF-BASE</td>
-<td><a href="../../specs/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a>, updated 13 October 2026; Parts 1–4</td>
+<td><a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a>, updated 13 October 2026; Parts 1–4</td>
 <td>Existing OUT IDs, design, decisions and detailed traceability; not deployment evidence.</td>
 </tr>
 <tr>

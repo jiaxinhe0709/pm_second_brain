@@ -10,11 +10,15 @@ Review retrieval, receiving and saved-file download through three complementary 
 
 [Local review preview](../../work/invoice-retrieval-review/index.html) · [FR guide evidence extract](<../../context/FR API/Receiving/receive-e-invoice-guide-extract.md>).
 
+The combined predecessor is retained in [the archive](../archive/README.md). Its
+linked detail remains part of this review set; its lifecycle and publication
+settings are unchanged.
+
 ## Current sources
 
 | Source | Scope |
 |---|---|
-| [SPEC-SEI-016 Invoice receiving, retrieval and download](../SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) | Unchanged combined predecessor. Retains full interaction/data inventories, decisions and original acceptance traceability. |
+| [SPEC-SEI-016 Invoice receiving, retrieval and download](../archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) | Retained archived baseline. Contains full interaction/data inventories, decisions and original acceptance traceability. |
 | [PRD-SEI-211 Public platform invoice consultation](../../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md) | Public consultation and retrieval requirements. |
 | [PRD-SEI-223 Interoperability, routing and transformation](../../prds/PRD-SEI-223-interoperability-routing-transformation.md) | Shared exchange and receiving requirements. |
 | [PRD-SEI-213 Private platform connectivity](../../prds/PRD-SEI-213-private-platform-connectivity-structured-review.md) | Private connectivity requirements. |

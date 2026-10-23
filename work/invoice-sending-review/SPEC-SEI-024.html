@@ -8,7 +8,7 @@ th,td{border:1px solid #cdd3d8;vertical-align:top;text-align:left;padding:10px;o
 code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100%;max-height:720px;overflow:auto;border:1px solid #b8c0c8;margin:18px 0}
 .diagram img{display:block;max-width:none}p{max-width:1060px}
 @media(max-width:800px){.layout{display:block}.outline{position:static;max-height:200px;margin-bottom:24px}}
-</style></head><body><header><p>Invoice sending · Unpublished draft · Local review</p><nav><a href="index.html">All sending views</a><a href="../../specs/SPEC-SEI-007-invoice-sending-solution.md">Unchanged SPEC-SEI-007</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
+</style></head><body><header><p>Invoice sending · Unpublished draft · Local review</p><nav><a href="index.html">All sending views</a><a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">Retained SPEC-SEI-007</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
 <ul>
 <li><a href="#invoice-sending-sequence-and-reuse-assessment">Invoice Sending Sequence and Reuse Assessment</a><ul>
 <li><a href="#revision-overview">Revision overview</a></li>
@@ -36,7 +36,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </aside><main><h1 id="invoice-sending-sequence-and-reuse-assessment">Invoice Sending Sequence and Reuse Assessment</h1>
 <p><a href="SPEC-SEI-022.html">Solution Summary</a> · <a href="SPEC-SEI-023.html">Logical Feature Specification</a> · <a href="../../specs/invoice-sending/README.md">Feature landing page</a></p>
 <h2 id="revision-overview">Revision overview</h2>
-<p>This separate engineering view extends <a href="../../specs/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> with the supplied FR sending guide, received 22 October 2026. It separates documented create/upload/event/detail operations from unconfirmed Spain preparation, route, issuance/copy and recovery contracts. The predecessor stays unchanged, including OUT-INT-01–11, OUT-D01–12 and detailed field traceability.</p>
+<p>This separate engineering view extends <a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> with the supplied FR sending guide, received 22 October 2026. It separates documented create/upload/event/detail operations from unconfirmed Spain preparation, route, issuance/copy and recovery contracts. The predecessor stays unchanged, including OUT-INT-01–11, OUT-D01–12 and detailed field traceability.</p>
 <p>Existing OUT IDs retain their meanings. The current journey is per invoice; bulk accountant sending remains separate unqualified scope. The PDF assessment implements the recorded product direction in PRD-SEI-246. SND-G IDs identify engineering gaps. API qualification checks in §5 link to existing functional acceptance. These drafts do not change the selected Confluence source or approve new APIs.</p>
 <h2 id="1-engineering-direction-and-product-impact">1 Engineering direction and product impact</h2>
 <p>Assess the existing FR sending APIs before proposing another submission interface. Reuse is a candidate pending the selected build, contracts and Spain qualification. <a href="SPEC-SEI-023.html">SPEC-SEI-023</a> owns behaviour. The FR guide starts with ready files and a connected dataset; it does not establish the full Spain draft-to-issuance journey. INT-SND01; REF-BASE/PRODUCT.</p>
@@ -93,6 +93,39 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 <p><div class="diagram"><img alt="Spain final handoff, public action and independent recipient delivery" src="../../assets/diagrams/invoice-sending-spain-actions-sequence.svg" /></div></p>
 <p><a href="../../assets/diagrams/invoice-sending-spain-actions-sequence.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/invoice-sending-spain-actions-sequence.png">PNG</a>.</p>
 <p>The public recipient route and private recipient route are alternatives. A required public copy is another action. The copy/issuance frame is a logical coordination requirement; it makes no claim about physical simultaneity, an atomic transaction or an existing API. OUT-Q03 must prove the boundary and failure handling. Public protocol execution follows SPEC-SEI-011; destination evidence follows SPEC-SEI-012 and connection context follows SPEC-SEI-014. SPFE-S02/S08/S16; OUT-A03/04/07/12; OUT-SPFE-A01.</p>
+<p>The diagram covers private delivery with a required copy and direct public recipient delivery. It does not show every sender-to-recipient platform combination. The table below makes the API coverage and remaining gaps explicit. <strong>Public/private describes the platform used by each party.</strong> The copy decision also needs evidence of the platform actually used for issuance or interconnection; a private recipient alone does not establish a copy obligation. OUT-09/10; OUT-SPFE-R01; SPFE-S02 Articles 3.4/4.</p>
+<table>
+<thead>
+<tr>
+<th>Sender → recipient platform</th>
+<th>API coverage and remaining evidence</th>
+<th>Separate faithful public copy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public → private</td>
+<td>Public issuance/interconnection is recognised in the source rules, but the public-to-private transfer is not shown in this sequence. Qualify how the private platform obtains the invoice, who performs the transfer, authority, correlation and recipient-delivery evidence. No public forwarding endpoint or private-provider download contract is established by the FR POST/upload guide. SND-G02/05/06.</td>
+<td>None for an invoice already issued or interconnected through the public platform. Do not submit it again as a copy.</td>
+</tr>
+<tr>
+<td>Private → private</td>
+<td>The FR create/upload/event/detail flow is a candidate product-facing interface. Private delivery in the diagram covers the logical action. Qualify delivery within one provider and interconnection between different providers separately, including their downstream APIs and outcome meanings. The guide does not prove either Spain provider contract. SND-G02/03/05.</td>
+<td>Required where public issuance/interconnection is not used. Qualify the responsible sender and issuance boundary; retain delivery and copy results separately.</td>
+</tr>
+<tr>
+<td>Private → public</td>
+<td>The public action uses qualified <code>SendInvoice</code> interconnection with an original, rather than a faithful-copy submission standing in for delivery. The WSDL establishes public intake; the selected private-provider-to-public handoff and recipient availability/delivery evidence remain to qualify. SND-G02/05/06.</td>
+<td>No additional copy once public interconnection is established for that invoice. An earlier copy needs the governed transition in OUT-SPFE-R02; it is not a fresh-send shortcut.</td>
+</tr>
+<tr>
+<td>Public → public</td>
+<td>Public issuance or interconnection supplies the public original. The FR POST/upload flow does not document the AEAT invoice-generation form. Qualify the applicable public submission or retrieval path and recipient outcome; do not create the already-issued invoice again. SND-G02/05/06.</td>
+<td>None for the established public issuance/interconnection.</td>
+</tr>
+</tbody>
+</table>
+<p>All four combinations remain subject to selected-build and end-to-end contract qualification. Public admission, product upload and notification arrival are distinct evidence levels. An unknown transfer/result holds the affected action under §2.3; it cannot trigger a second delivery route or a new copy. The applicable transitional PDF uses §3.3 independently of this table. OUT-A03–05/07/08; OUT-SPFE-A01/02; INT-SND01; SPFE-S02 Articles 3–5; SPFE-S16.</p>
 <h3 id="23-missing-or-uncertain-result">2.3 Missing or uncertain result</h3>
 <p><div class="diagram"><img alt="Observe original action and hold or recover without repeating success" src="../../assets/diagrams/invoice-sending-recovery-sequence.svg" /></div></p>
 <p><a href="../../assets/diagrams/invoice-sending-recovery-sequence.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/invoice-sending-recovery-sequence.png">PNG</a>.</p>
@@ -290,7 +323,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tr>
 </tbody>
 </table>
-<p>SPFE-S22 is a separate Annex II supplied on 22 October, not a new invoice-send error dictionary. Its reviewed event codes and key cardinalities align with final BOE Annex II. Recipient <code>PAYMENT</code>/<code>REJECTION</code>, issuer <code>SETTLEMENT</code>/<code>DEFAULT</code> and their cancellations belong to <a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#annex-ii-event-field-traceability">SPEC-SEI-009</a>. A failed technical attempt cannot create a buyer rejection or cancel an invoice/report automatically. Keep FR processing codes, AEAT admission/error results and business lifecycle codes separate. SPFE-S02 Annex II; <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-ii-supplement-reviewed-22-october-2026">supplement comparison and remaining gates</a>.</p>
+<p>SPFE-S22 is a separate Annex II supplied on 22 October, not a new invoice-send error dictionary. Its reviewed event codes and key cardinalities align with final BOE Annex II. Recipient <code>PAYMENT</code>/<code>REJECTION</code>, issuer <code>SETTLEMENT</code>/<code>DEFAULT</code> and their cancellations belong to <a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#annex-ii-event-field-traceability">SPEC-SEI-009</a>. A failed technical attempt cannot create a buyer rejection or cancel an invoice/report automatically. Keep FR processing codes, AEAT admission/error results and business lifecycle codes separate. SPFE-S02 Annex II; <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-ii-supplement-reviewed-22-october-2026">supplement comparison and remaining gates</a>.</p>
 <h2 id="4-open-engineering-decisions">4 Open engineering decisions</h2>
 <p>Each owner must record the source capability/build, retained behaviour, Spain changes, missing coverage and acceptance evidence before the affected scope is enabled. Existing implementation reuse and design-pattern reuse remain separate claims.</p>
 <table>
@@ -309,7 +342,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tr>
 <tr>
 <td>SND-G02 Spain binding</td>
-<td>Business/dataset/address mapping, provider/environment IDs, recipient eligibility, public business schemas, profile conflict, size, batch, authority, locator and CSV meanings. Preserve SPFE-Q03/08/13/15/18.</td>
+<td>Business/dataset/address mapping, provider/environment IDs, recipient eligibility and the four platform combinations in §2.2. Qualify each platform handoff and its delivery evidence, including public-to-private acquisition and same/different private providers. Pin public business schemas, profile conflict, size, batch, authority, locator and CSV meanings. Preserve SPFE-Q03/08/13/15/18.</td>
 <td>Spain Compliance, Integration, Routing, API/public connector.</td>
 </tr>
 <tr>
@@ -376,8 +409,8 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 <td>Qualify Spain mappings, public UBL 2.5/rectification, private file combinations and optional Factur-X independently. Record DTS build, pack/version and semantic-loss results; FR/Demo rules do not become Spain defaults. SPFE-S08; INT-SND01; SND-G03/07.</td>
 </tr>
 <tr>
-<td>Public delivery and copy / OUT-SPFE-A01–04; OUT-A19/21</td>
-<td>Prove actual issuance/copy coordination, original/copy classification, permitted correction/withdrawal, partial admission and qualified outage handling. Exercise both delivery-success/copy-failure and copy-success/delivery-failure, including uncertain results; retain completed actions. Pin schema/credential port and distinguish transport, request, item and CSV evidence. SPFE-S02/S03/S08/S16/S06; SND-G02/06.</td>
+<td>Public delivery and copy / OUT-A03–05; OUT-SPFE-A01–04; OUT-A19/21</td>
+<td>Exercise all four platform combinations in §2.2, with same-provider and different-provider private delivery. Prove each handoff and recipient result; hold unsupported or unknown paths. Prove actual issuance/copy coordination, original/copy classification and no extra copy after public use. Exercise permitted correction/withdrawal, partial admission and qualified outages. Include both delivery-success/copy-failure and copy-success/delivery-failure; retain completed actions. Pin schema/credential port and distinguish transport, request, item and CSV evidence. SPFE-S02/S03/S08/S16/S06; SND-G02/05/06.</td>
 </tr>
 <tr>
 <td>Country isolation and compatibility / OUT-A11/12/17</td>
@@ -417,7 +450,7 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tr>
 <tr>
 <td>REF-BASE</td>
-<td><a href="../../specs/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a>, updated 13 October 2026; Parts 2–4, OUT-INT-01–11 and OUT-D01–12</td>
+<td><a href="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a>, updated 13 October 2026; Parts 2–4, OUT-INT-01–11 and OUT-D01–12</td>
 <td>Original logical controls, technical analysis and acceptance coverage.</td>
 </tr>
 <tr>

@@ -10,11 +10,15 @@ Review sending through three complementary views, following [customer onboarding
 
 [Local review preview](../../work/invoice-sending-review/index.html) · [FR guide evidence extract](<../../context/FR API/Sending/send-e-invoice-guide-extract.md>).
 
+The combined predecessor is retained in [the archive](../archive/README.md). Its
+linked detail remains part of this review set; its lifecycle and publication
+settings are unchanged.
+
 ## Current sources
 
 | Source | Scope |
 |---|---|
-| [SPEC-SEI-007 Invoice sending solution](../SPEC-SEI-007-invoice-sending-solution.md) | Unchanged combined predecessor. Retains detailed interaction/data inventories, field traceability and original acceptance links. |
+| [SPEC-SEI-007 Invoice sending solution](../archive/SPEC-SEI-007-invoice-sending-solution.md) | Retained archived baseline. Contains detailed interaction/data inventories, field traceability and original acceptance links. |
 | [PRD-SEI-246 Spain invoice preparation and outbound flow](../../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md) | Proposed end-to-end business flow. |
 | [PRD-SEI-223 Interoperability, routing and transformation](../../prds/PRD-SEI-223-interoperability-routing-transformation.md) | Shared exchange requirements. |
 | [PRD-SEI-212 Public platform invoice submission](../../prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md) | Public submission requirements. |

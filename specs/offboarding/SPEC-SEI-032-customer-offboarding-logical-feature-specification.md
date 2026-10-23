@@ -32,7 +32,7 @@ confluence:
 
 ## Revision overview
 
-This separate draft develops the logical view of [SPEC-SEI-003](../SPEC-SEI-003-offboarding-solution-specification.md). It expands Sage/external private-platform scenarios, cutoff behaviour, support/access periods and export recovery. The predecessor remains unchanged and selected for stable Confluence page `923861391`.
+This separate draft develops the logical view of [SPEC-SEI-003](../archive/SPEC-SEI-003-offboarding-solution-specification.md). It expands Sage/external private-platform scenarios, cutoff behaviour, support/access periods and export recovery. The predecessor remains unchanged and selected for stable Confluence page `923861391`.
 
 OFF-01–08, OFF-I01–08, OFF-R01–10 and OFF-A01–11 keep their original meanings. New OFF-R11–16 and OFF-A12–25 add detail to the draft PRD. OFF-Q01–06 identify unresolved decisions in SPEC-SEI-031. Numeric periods are proposals requiring a product decision. The detailed interaction/data records remain in SPEC-SEI-003 Part 3; new implementation placement is outside this view.
 
@@ -59,7 +59,7 @@ Retain the predecessor's case stages: `REQUESTED`, `INVENTORY`, `DESTINATION_REA
 
 Track route, registration, credentials, subscription, export and retained-data obligations separately. `COMPLETE` requires resolved or evidenced handover of historical work and assigned, owned disposition schedules. Future scheduled retention/deletion may continue after case closure only with a durable owner, due date, evidence and reopen/escalation path. Case closure does not assert that every retained record has already been deleted. REF-PRODUCT OFR7/8/13.
 
-The authoritative invariant statements remain [OFF-I01–08](../SPEC-SEI-003-offboarding-solution-specification.md#1-scope-state-and-invariants): scope/authority, destination isolation, inbound continuity, invoice origin, unknown outcomes, separate release, historical ownership and factual evidence. The following activities apply those rules.
+The authoritative invariant statements remain [OFF-I01–08](../archive/SPEC-SEI-003-offboarding-solution-specification.md#1-scope-state-and-invariants): scope/authority, destination isolation, inbound continuity, invoice origin, unknown outcomes, separate release, historical ownership and factual evidence. The following activities apply those rules.
 
 | Activity / gate | Required behaviour and visible result | Safe next action |
 |---|---|---|
@@ -174,7 +174,7 @@ Every material decision/mutation retains actor, represented business, scope, ori
 
 ## 7 Assurance and traceability
 
-The [original OFF-A01–11 matrix](../SPEC-SEI-003-offboarding-solution-specification.md#1-verification-matrix) remains required coverage. It covers outbound-only, unproven inbound, unknown delivery, late duties, withdrawal timeout, concurrency, full export, reversal, outage, country isolation and platform change versus full exit. The additional scenarios below are acceptance definitions, not executed implementation tests.
+The [original OFF-A01–11 matrix](../archive/SPEC-SEI-003-offboarding-solution-specification.md#1-verification-matrix) remains required coverage. It covers outbound-only, unproven inbound, unknown delivery, late duties, withdrawal timeout, concurrency, full export, reversal, outage, country isolation and platform change versus full exit. The additional scenarios below are acceptance definitions, not executed implementation tests.
 
 | Check | Required observation | Trace |
 |---|---|---|
@@ -199,7 +199,7 @@ Production needs approved OFF-Q01–06 decisions, qualified contracts, safe part
 
 | Source ID | Original source, version/date and exact locator | Supported claims and limits |
 |---|---|---|
-| REF-PRODUCT | [PRD-SEI-243](../../prds/PRD-SEI-243-customer-offboarding-and-provider-exit.md), draft 5 October 2026; OFR1–15, ONFR1–5, OD1–8. [SPEC-SEI-003](../SPEC-SEI-003-offboarding-solution-specification.md), draft updated 8 October; Parts 2–4. | Product baseline and proposed safety controls. New periods remain proposals. |
+| REF-PRODUCT | [PRD-SEI-243](../../prds/PRD-SEI-243-customer-offboarding-and-provider-exit.md), draft 5 October 2026; OFR1–15, ONFR1–5, OD1–8. [SPEC-SEI-003](../archive/SPEC-SEI-003-offboarding-solution-specification.md), draft updated 8 October; Parts 2–4. | Product baseline and proposed safety controls. New periods remain proposals. |
 | REF-RD | [Published RD 238/2026](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), 31 March 2026; Articles 5.4, 6, 10 and 12, final provision 4. | Receiving-publicity and continuing invoice/reporting context. Does not establish a former provider's continuing authority or a universal exit period. |
 | REF-SPFE | SPFE-S02: [original Order HAC/1028/2026 PDF](../../context/BOE-A-2026-20587.pdf), published 5 October 2026; Articles 8–11 and Annex II; [official text](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-20587). | Reporting responses/cancellations, recovery/download and authority. No blanket public archive completeness or private handover API. |
 | REF-CATALOGUE | SPFE-S03: [original catalogue PDF](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), v0.1.0, 9 October 2026; sections 6.4–6.9, pp. 12–19. | Query/download/event capability descriptions only. Initial technical evidence; pagination, completeness and cross-provider authority need qualification. |

@@ -16,7 +16,7 @@
     "Annex II 52-field source comparison"
   ],
   "source_hashes": {
-    "specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md": "296a77e85ef437be8b6555812b130a2c7591e9b8a21b068d882db7ffb8833c8e",
+    "specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md": "ab9dd6b7878c57ed117cba7d6f2390f042165f5af771e667ad15c9e12c092929",
     "config/confluence.yml": "b9c15daf80ae4acfb080156bbdaa70059518357143732d2622a3c98566013c5b"
   },
   "annex_field_group_count": 52,

@@ -11,7 +11,7 @@ definition = importlib.util.spec_from_file_location(
 diagram = importlib.util.module_from_spec(definition)
 definition.loader.exec_module(diagram)
 node, edge = diagram.node, diagram.edge
-SPEC = '../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md'
+SPEC = '../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md'
 
 
 def build():

@@ -202,8 +202,9 @@ def prepare():
                 count = None
         ids = re.findall(r'\bid="([^"]+)"', markdown.markdown(text, extensions=['toc', 'tables']))
         assert not [i for i, c in Counter(ids).items() if c > 1], (p, 'duplicate HTML anchor')
+    # The archived baseline fingerprint includes the verified relative-link updates.
     for original, digest in [
-        ('specs/SPEC-SEI-002-onboarding-solution-specification.md', '30d01d97be12d9122fee5715236ff8c6451a57bad34f6c2215a1a8b2495e4093'),
+        ('specs/archive/SPEC-SEI-002-onboarding-solution-specification.md', 'f8820673283d5218b949be3b7d3db93a29903edc96440c2046625ac6c6a48150'),
         ('config/confluence.yml', '62bc03e3ff1203d85bf30d9f3ba9f6f967737abc5c4520a08ad2fcbafb9824d5')]:
         assert hashlib.sha256((ROOT / original).read_bytes()).hexdigest() == digest, original
     api_path = SPECS / DOCS[2][1]

@@ -12,6 +12,10 @@ Use this folder to review onboarding through three complementary views. All thre
 
 In SEI021, start with [product impact](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md#1-engineering-direction), [public readiness](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md#22-public-readiness), [private setup](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md#23-private-setup) or the [API reuse table](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md#26-existing-api-and-capability-reuse). Detailed evidence links lead to the retained sources.
 
+The combined predecessor is retained in [the archive](../archive/README.md). Its
+linked detail remains part of this review set; its lifecycle and publication
+settings are unchanged.
+
 ## Product requirements and original specification
 
 The existing PRDs remain the product requirements sources. This landing page adds navigation; it does not replace or duplicate them.
@@ -22,7 +26,7 @@ The existing PRDs remain the product requirements sources. This landing page add
 | [PRD-SEI-104 Accountant and single-client onboarding](../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md) | Direct and delegated access, client isolation and portfolio work. |
 | [PRD-SEI-107 Onboarding failure recovery](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md) | Correction, safe retry, reconciliation and manual recovery. |
 | [PRD-SEI-222 Customer onboarding and migration](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) | Private setup, authorised route changes and historical continuity. |
-| [Original SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md) | Unchanged combined specification. Retains detailed technical analysis, field inventories, decision records and original acceptance coverage. |
+| [Original SPEC-SEI-002](../archive/SPEC-SEI-002-onboarding-solution-specification.md) | Retained archived baseline. Contains detailed technical analysis, field inventories, decision records and original acceptance coverage. |
 
 ## Directory and publication boundary
 

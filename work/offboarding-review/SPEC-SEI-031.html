@@ -1,0 +1,237 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Customer Offboarding Solution Summary</title><style>
+*{box-sizing:border-box}body{margin:0;color:#243445;background:#fff;font:16px/1.55 Arial,sans-serif}
+header{padding:18px 24px;background:#f3f6f8;border-bottom:1px solid #ccd4dc}nav{display:flex;flex-wrap:wrap;gap:20px}
+a{color:#075eaa}main{max-width:1200px;margin:28px auto;padding:0 24px}h1{font-size:30px}h2{margin-top:36px}
+.table-scroll{overflow:auto;margin:18px 0}table{border-collapse:collapse;width:100%;min-width:650px;font-size:14px}
+th,td{border:1px solid #ccd4dc;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f6f8}
+code{font-size:.9em;background:#f3f6f8;overflow-wrap:anywhere}img{display:block;width:100%;height:auto;margin:20px 0}
+.notice{padding:12px;background:#fff5da;border-left:4px solid #ad7000}.toc{font-size:14px}.toc ul{padding-left:22px}
+</style><header><nav><a href="SPEC-SEI-031.html">Customer Offboarding Solution Summary</a> · <a href="SPEC-SEI-032.html">Customer Offboarding Logical Feature Specification</a> · <a href="SPEC-SEI-033.html">Customer Offboarding Sequence and Reuse Assessment</a> · <a href="index.html">Customer offboarding review</a></nav></header><main><p class="notice">Unpublished draft. Proposed periods need approval. SPEC-SEI-003 is retained in the archive and remains the selected Confluence source.</p><div class="toc">
+<ul>
+<li><a href="#customer-offboarding-solution-summary">Customer Offboarding Solution Summary</a><ul>
+<li><a href="#revision-overview">Revision overview</a></li>
+<li><a href="#1-problem-and-intended-outcomes">1 Problem and intended outcomes</a></li>
+<li><a href="#2-scope-and-platform-responsibilities">2 Scope and platform responsibilities</a></li>
+<li><a href="#3-end-to-end-flow">3 End-to-end flow</a></li>
+<li><a href="#4-how-long-should-support-continue">4 How long should support continue?</a></li>
+<li><a href="#5-do-we-need-export">5 Do we need export?</a></li>
+<li><a href="#6-reuse-and-spain-boundaries">6 Reuse and Spain boundaries</a></li>
+<li><a href="#7-decisions-needed-before-a-customer-commitment">7 Decisions needed before a customer commitment</a></li>
+<li><a href="#ref-source-references">REF Source references</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="customer-offboarding-solution-summary">Customer Offboarding Solution Summary</h1>
+<p><a href="SPEC-SEI-032.html">Logical Feature Specification</a> · <a href="SPEC-SEI-033.html">Sequence and Reuse Assessment</a> · <a href="index.html">Feature folder</a></p>
+<h2 id="revision-overview">Revision overview</h2>
+<p>This separate draft develops <a href="../../specs/archive/SPEC-SEI-003-offboarding-solution-specification.md">SPEC-SEI-003</a> into three review views. It adds platform responsibility scenarios, separate support and access periods, explicit cutoff handling and a fuller export assessment. The predecessor remains unchanged and selected for stable Confluence page <code>923861391</code>.</p>
+<p>OFF-01–08, OFF-I01–08, OFF-R01–10 and OFF-A01–11 retain their meanings. Existing detailed interaction and data inventories remain in SPEC-SEI-003. No provider contract, retention schedule, lifecycle status or publication approval changes. Support durations, commercial terms and the practical delivery of invoice-copy rights remain open product and legal decisions.</p>
+<h2 id="1-problem-and-intended-outcomes">1 Problem and intended outcomes</h2>
+<p>A business can leave Sage while invoices still need delivery confirmation, payment reporting, corrections or evidence. Ending every capability at subscription expiry can strand this work. Keeping every capability active indefinitely leaves unclear authority, cost and security exposure. The business needs a dated statement of what stops, what continues, who owns it and how records remain available. REF-PRODUCT.</p>
+<p>The intended outcomes are an observed switch for new traffic, an accountable path for earlier obligations, a usable evidence handover, and controlled access removal. The <a href="SPEC-SEI-032.html">logical specification</a> defines the behaviour. This summary presents the decisions needed to offer it.</p>
+<h2 id="2-scope-and-platform-responsibilities">2 Scope and platform responsibilities</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What Sage must coordinate within its authorised scope</th>
+<th>What needs separate evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business leaves the Sage private platform for another private platform</td>
+<td>Scope, destination proof, new-traffic cutoff, Sage history, release and export.</td>
+<td>Destination acceptance and the old/new operators' historical responsibilities.</td>
+</tr>
+<tr>
+<td>Business leaves another private platform and retains its Sage product</td>
+<td>Destination onboarding and route change; the previous provider's exit steps only where authorised.</td>
+<td>Previous-provider notice, withdrawal, export and historical access. Sage cannot promise their execution without a contract.</td>
+</tr>
+<tr>
+<td>Business changes an external private provider while Sage coordinates both connections</td>
+<td>One scoped transition; preserve both operators' actual evidence and independent release gates.</td>
+<td>Supported direction/address granularity and each provider's action/query contract.</td>
+</tr>
+<tr>
+<td>Business stops using its Sage product but keeps a private-platform agreement</td>
+<td>Identify which product access and commercial scope ends.</td>
+<td>Whether the platform agreement, mandate and independent archive access continue. Product cancellation is not proof of platform termination.</td>
+</tr>
+<tr>
+<td>Business ends its full Sage e-invoicing scope</td>
+<td>Account for all selected entities/directions, future receipt, unfinished work and data disposition.</td>
+<td>A valid external/public destination where required, or evidence supporting a different treatment.</td>
+</tr>
+<tr>
+<td>A private provider becomes unavailable or access is compromised</td>
+<td>Protect records and deadlines; establish an approved alternative and incident owner.</td>
+<td>Emergency authority, obtainable evidence and a technically supported recovery path.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The business administrator or authorised accountant approves scope. Product and Operations own the customer exit statement. Each platform operator owns its external actions under its agreement. Legal/Tax determines continuing obligations; Privacy/Records determines data disposition; Security controls credential release. These are responsibilities, not proposed service boundaries.</p>
+<h2 id="3-end-to-end-flow">3 End-to-end flow</h2>
+<p><img alt="Planned exit with separate historical and release gates" src="../../assets/diagrams/offboarding-planned-exit-process.svg" /></p>
+<p><a href="../../assets/diagrams/offboarding-planned-exit-process.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/offboarding-planned-exit-process.png">PNG</a>.</p>
+<p>The existing diagram shows the planned OFF-01–07 journey. G4 changes new traffic. G5 keeps earlier work accountable. G6 and G7 separately release dependencies and assign data disposition. Export preparation can start before cutover; OFF-07 is its completion and disposition gate. The diagram's order does not require all export generation to wait until release. A partial or uncertain result follows OFF-08 in the logical view.</p>
+<h2 id="4-how-long-should-support-continue">4 How long should support continue?</h2>
+<p><strong>Recommendation for product review:</strong> use separate periods with explicit start events. Avoid one account-wide expiry. The following numbers are planning proposals for OFF-Q01; they are neither statutory periods nor existing Sage commitments. Detailed rules and failure handling are authoritative in SPEC-SEI-032, section 4.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Proposed starting position</th>
+<th>Approval needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planned notice and preparation</td>
+<td>Aim for 30 calendar days before intended cutover. Allow an expressly agreed shorter period or urgent exit.</td>
+<td>Product/Commercial and provider owner: contractual notice, customer need and achievable destination proof.</td>
+</tr>
+<tr>
+<td>New invoice traffic</td>
+<td>Stop the old authorised scope at observed cutover. A support or export period does not extend permission to send new invoices.</td>
+<td>Route and provider owners: exact transaction boundary and inbound propagation behaviour.</td>
+</tr>
+<tr>
+<td>Transition assistance and self-service export</td>
+<td>Offer 90 calendar days from observed cutover, with dates stated before approval.</td>
+<td>Product/Operations: staffing, access, fees, notice and exception route. This window cannot override continuing rights or duties.</td>
+</tr>
+<tr>
+<td>Earlier invoice obligations</td>
+<td>Continue the necessary restricted processing until completion or evidenced handover. Review unresolved cases every 30 calendar days and before each due date.</td>
+<td>Legal/Tax, Operations and providers: permitted actor/channel, cost and escalation. No unowned expiry or indefinite full-service access.</td>
+</tr>
+<tr>
+<td>Invoice-copy access and retained evidence</td>
+<td>Establish a separate lawful access and retention schedule.</td>
+<td>Legal/Records: applicable rights, custodian, request channel, retention triggers and holds. See REF-COPY and REF-PRIVACY.</td>
+</tr>
+<tr>
+<td>Credentials</td>
+<td>Remove each credential after its final dependency ends; review retained access with the historical case.</td>
+<td>Security and the relevant obligation owner. A compromised credential follows incident containment.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Spain's Law 56/2007 Article 2 bis.3 gives recipients four years from invoice issue to request copies without additional cost. This is not four years of full Sage service. The accountable copy provider, applicable commencement rules and post-exit channel need Legal confirmation. REF-COPY; OFF-Q03.</p>
+<h2 id="5-do-we-need-export">5 Do we need export?</h2>
+<p><strong>Yes: provide an authorised export and evidence-handover capability.</strong> This is already in the draft product baseline, OFR12–13. For each exit, agree whether the customer receives files, an authorised destination receives them, or a verified continuing archive supplies access. Record the result and limitations. A change of provider does not automatically transfer records or transfer responsibility for unfinished actions. REF-PRODUCT.</p>
+<p>The package must distinguish source invoice files, public copies, readable renditions and event/report evidence. A PDF-only package cannot establish the complete structured evidence handover. SPEC-SEI-032, section 5 defines scope, manifest, receipts, late additions and recovery. Public download capabilities are inputs to this assessment; they do not prove that every source original, private acknowledgement or history item is available. REF-SPFE.</p>
+<h2 id="6-reuse-and-spain-boundaries">6 Reuse and Spain boundaries</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Intended Spain use and reuse classification</th>
+<th>Qualification needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exit case, scoped gates and recovery</td>
+<td>Reuse the proposed OFF design pattern.</td>
+<td>Existing implementation, product access after cancellation and Operations tooling remain unknown.</td>
+</tr>
+<tr>
+<td>Connection update, disconnection and observation</td>
+<td>Assess the existing FR implementation first; bind Spain/provider rules separately.</td>
+<td>Version-specific removal scope, completion evidence, shared-address impact and historical access. REF-FR.</td>
+</tr>
+<tr>
+<td>Export, authorised retrieval and archive</td>
+<td>Assess shared records/retrieval capabilities before creating another export implementation.</td>
+<td>Coverage, completeness, access after subscription end and destination import.</td>
+</tr>
+<tr>
+<td>DTS transformation</td>
+<td>Preferred candidate if export needs an additional supported representation.</td>
+<td>Actual build, contracts, mappings, rule packs and operations. Preserve exact originals separately; conversion cannot manufacture missing evidence.</td>
+</tr>
+<tr>
+<td>Spain-specific behaviour</td>
+<td>Keep identity, receiving publication, public-copy and reporting rules in Spain policy.</td>
+<td>Post-switch actor/channel and receiving-point sequence remain open. Another country's exit rules cannot activate Spain coverage.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The <a href="SPEC-SEI-033.html">reuse assessment</a> records source capability, local changes, owner and evidence gaps. No production exit implementation is established by this review.</p>
+<h2 id="7-decisions-needed-before-a-customer-commitment">7 Decisions needed before a customer commitment</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Consequence and accountable role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFF-Q01 Support/notice/access periods and charges</td>
+<td>Product/Commercial/Operations must accept or amend the planning proposal and update PRD-SEI-243 before it becomes a service commitment.</td>
+</tr>
+<tr>
+<td>OFF-Q02 Historical execution and custody</td>
+<td>Legal/Tax and both platform owners must identify who can act after switch and who retains each record. PRD OD1/2/6.</td>
+</tr>
+<tr>
+<td>OFF-Q03 Copy access, retention and deletion</td>
+<td>Legal/Privacy/Records must bind applicable copy rights, retention duties, controller instructions and legal holds by data class. PRD OD5.</td>
+</tr>
+<tr>
+<td>OFF-Q04 Provider and route contract</td>
+<td>Platform owners must qualify notice, granularity, completion observation, inbound propagation and emergency handling. PRD OD3/4/8.</td>
+</tr>
+<tr>
+<td>OFF-Q05 Export and receiving-party acceptance</td>
+<td>Records/Product and destination owner must agree package coverage, supported imports, omissions, receipts and later additions.</td>
+</tr>
+<tr>
+<td>OFF-Q06 Service and security exceptions</td>
+<td>Operations/Security must define restricted post-exit access, escalation, unavailable customer handling and compromised-access recovery.</td>
+</tr>
+</tbody>
+</table></div>
+<p>These decisions block the dependent commitment or automation. They do not require unrelated product shutdown or publication. An owned manual gate is possible only with authority and evidence; it cannot waive an applicable obligation.</p>
+<h2 id="ref-source-references">REF Source references</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>Original source, version/date and locator</th>
+<th>Supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-PRODUCT</td>
+<td><a href="../../prds/PRD-SEI-243-customer-offboarding-and-provider-exit.md">PRD-SEI-243</a>, draft 5 October 2026; OFR1–15, OD1–8. <a href="../../specs/archive/SPEC-SEI-003-offboarding-solution-specification.md">SPEC-SEI-003</a>, draft updated 8 October 2026; Parts 1–4.</td>
+<td>Canonical product baseline and proposed OFF design. Neither approves new support periods.</td>
+</tr>
+<tr>
+<td>REF-COPY</td>
+<td><a href="https://www.boe.es/buscar/act.php?id=BOE-A-2007-22440#a2bis">Law 56/2007, consolidated BOE text</a>, checked 22 October 2026; Article 2 bis.3 and associated effectivity notes.</td>
+<td>Recipient copy-request right. No universal Sage support duration or automatic allocation to a former platform.</td>
+</tr>
+<tr>
+<td>REF-PRIVACY</td>
+<td><a href="https://www.boe.es/buscar/doc.php?id=DOUE-L-2016-80807">GDPR, published BOE text</a>, 4 May 2016; Articles 5(1)(e), 28(3)(g).</td>
+<td>Storage limitation and processor return/deletion subject to required retention. Roles and schedules need qualification.</td>
+</tr>
+<tr>
+<td>REF-SPFE</td>
+<td><a href="../../context/BOE-A-2026-20587.pdf">Original Order HAC/1028/2026 PDF</a>, published 5 October 2026, Articles 9–11; <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-20587">official BOE</a>. SPFE-S02 in the <a href="../../context/RES-SEI-002-spain-public-platform-technical-evidence.md">evidence baseline</a>.</td>
+<td>Recovery, download and access framework. No full private-platform archive transfer or offboarding API. Exact technical sources are in SPEC-SEI-033 REF.</td>
+</tr>
+<tr>
+<td>REF-FR</td>
+<td><a href="../../context/FR API/Onboarding/access-point-guides-evidence-extract.md">Saved access-point guide extract</a>, received 22 October 2026; INT-AP02/03/05/06.</td>
+<td>Evidence of versioned address removal, asynchronous disconnection and observation limits. Guide versions conflict; Spain support is unproven.</td>
+</tr>
+</tbody>
+</table></div></main></html>

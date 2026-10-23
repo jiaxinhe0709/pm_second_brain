@@ -130,13 +130,13 @@ def main():
         page = ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             + '<title>' + html.escape(metadata['title']) + '</title><style>' + STYLE + '</style></head><body>'
             + '<header><p>Invoice lifecycle · Unpublished draft · Local review</p><nav><a href="index.html">All lifecycle views</a>'
-            + '<a href="../../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">Unchanged SPEC-SEI-009</a></nav></header>'
+            + '<a href="../../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">Retained SPEC-SEI-009</a></nav></header>'
             + '<div class="layout"><aside class="outline">' + md.toc + '</aside><main>' + markup + '</main></div></body></html>')
         (OUT / (ident + '.html')).write_text(page)
         cards.append(f'<li><a href="{ident}.html">{html.escape(metadata["title"])}</a></li>')
     (OUT / 'index.html').write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         + '<title>Invoice lifecycle review</title><style>' + STYLE + '</style></head><body><header><h1>Invoice lifecycle</h1>'
-        + '<p>Three unpublished draft views. SPEC-SEI-009 and publication settings are unchanged.</p></header><main style="padding:24px;max-width:1100px">'
+        + '<p>Three unpublished draft views. SPEC-SEI-009 is retained in the archive; publication settings are unchanged.</p></header><main style="padding:24px;max-width:1100px">'
         + '<ol>' + ''.join(cards) + '</ol><p>Document checks do not prove implementation readiness. Each engineering gap retains its owner and evidence gate.</p></main></body></html>')
     files = docs + [SOURCE / 'README.md', ROOT / 'README.md', ROOT / 'context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md', ROOT / 'context/Anexo II/annex-ii-review.md']
     for path in files:
@@ -152,9 +152,14 @@ def main():
         if path.name.endswith('-sequence.svg'):
             assert 'stroke-dasharray' in path.read_text()
     initial_hashes = json.loads((OUT / 'source-hashes.json').read_text())
+    # Preserve the original source-hash receipt. This move changed links only.
+    archived_baseline = 'specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md'
     for name, digest in initial_hashes.items():
+        if name == 'specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md':
+            assert digest == '296a77e85ef437be8b6555812b130a2c7591e9b8a21b068d882db7ffb8833c8e', 'Unexpected original baseline'
+            name, digest = archived_baseline, 'ab9dd6b7878c57ed117cba7d6f2390f042165f5af771e667ad15c9e12c092929'
         assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest, (name, 'source changed')
-    source_hashes = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in ['specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md','config/confluence.yml']}
+    source_hashes = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in ['specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md','config/confluence.yml']}
     comparison = compare_annex()
     report = {'mode':'local-review-only','documents':[p.name for p in docs], 'checks': ['metadata and unique IDs','unpublished drafts','revision and source references','local links and anchors','table structure','SVG/Draw.io XML and PNG dimensions', 'source/config/field-ledger unchanged since task snapshot', 'Annex II 52-field source comparison'], 'source_hashes':source_hashes, 'annex_field_group_count':comparison['field_group_count'], 'implementation_tests_executed':False}
     (OUT / 'validation.json').write_text(json.dumps(report, indent=2) + '\n')

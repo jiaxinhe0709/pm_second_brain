@@ -690,7 +690,7 @@
         <mxCell id="cell-187" value="Source: SPEC-SEI-002; timing pattern: PRD-SEI-101/104. Actual API mapping, policy and service ownership remain open." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
           <mxGeometry as="geometry" x="40" y="5724" width="1021.1999999999999" height="25" />
         </mxCell>
-        <object id="cell-188" label="Source specification" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md">
+        <object id="cell-188" label="Source specification" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md">
           <mxCell parent="1" vertex="1" style="text;html=0;align=right;fontSize=12;">
             <mxGeometry as="geometry" x="1560" y="5737" width="190" height="20" />
           </mxCell>

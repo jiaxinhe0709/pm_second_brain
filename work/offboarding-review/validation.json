@@ -1,0 +1,31 @@
+{
+  "result": "passed",
+  "documents": [
+    {
+      "source": "specs/offboarding/SPEC-SEI-031-customer-offboarding-solution-summary.md",
+      "local_links_checked": 14,
+      "preview": "SPEC-SEI-031.html"
+    },
+    {
+      "source": "specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md",
+      "local_links_checked": 16,
+      "preview": "SPEC-SEI-032.html"
+    },
+    {
+      "source": "specs/offboarding/SPEC-SEI-033-customer-offboarding-sequence-and-reuse-assessment.md",
+      "local_links_checked": 23,
+      "preview": "SPEC-SEI-033.html"
+    },
+    {
+      "source": "specs/offboarding/README.md",
+      "local_links_checked": 11,
+      "preview": "index.html"
+    }
+  ],
+  "baseline_sha256": "fd7ac66dc16374144c0fb9634cf2a2f109fdb1813c79541778ebf4dd6bf85dc3",
+  "baseline_unchanged": true,
+  "selected_confluence_source": "SPEC-SEI-003",
+  "new_documents_unpublished_drafts": true,
+  "implementation_tests_executed": false,
+  "limits": "Metadata, identity, local file/anchor links, source preservation and HTML generation only. No external-link, browser, contract, legal-applicability or implementation validation."
+}

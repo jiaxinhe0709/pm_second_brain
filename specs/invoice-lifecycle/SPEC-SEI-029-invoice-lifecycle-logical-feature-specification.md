@@ -32,7 +32,7 @@ confluence:
 
 ## Revision overview
 
-This separate functional view develops [SPEC-SEI-009](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md). The source remains unchanged. LCS-01–10, LCS-I01–09, LCS-R01–13, LCS-A01–25 and SPFE/AXII IDs keep their meanings. This view adds LCS-R14 and LCS-A26/27 for the supplied transition-outcome behaviour and reconciles the new Annex II snapshot. API fields and reuse gates belong to SPEC-SEI-030.
+This separate functional view develops [SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md). The source remains unchanged. LCS-01–10, LCS-I01–09, LCS-R01–13, LCS-A01–25 and SPFE/AXII IDs keep their meanings. This view adds LCS-R14 and LCS-A26/27 for the supplied transition-outcome behaviour and reconciles the new Annex II snapshot. API fields and reuse gates belong to SPEC-SEI-030.
 
 Independent dimensions, actor authority, full versus partial payment, per-destination reporting and historical follow-up remain unchanged. Country mapping, calendar, optional scope, provider contracts and build readiness remain open. This is an unpublished draft; it does not enable new customer actions.
 
@@ -96,7 +96,7 @@ The diagram separates the saved business fact from issuer/public reporting. Its 
 | LCS-R13 | Qualify provider/version, direction, actor, fields, transition/correction procedure and automatic reporting effects before sending. Preserve valid incoming optional evidence; hold unqualified commands with an owner. | PRD224 FR10; existing proposed control |
 | LCS-R14 | For a supported transition, expose the attempt result separately. While pending or after confirmed failure, retain the last successful status. Save a failed attempt in history with `operationStatus = ERROR`; advance the affected view only after qualified success. | INT-LCS05; supplied behaviour applied as proposed Spain integration control |
 
-The [existing LCS-I01–09 invariants](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#1-identity-dimensions-and-invariants) remain binding to this draft: source immutability, independent dimensions/namespaces, evidence-level limits, derived labels, separate obligations, duplicate/conflict lineage, historical context and appended corrections. Their IDs are unchanged.
+The [existing LCS-I01–09 invariants](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#1-identity-dimensions-and-invariants) remain binding to this draft: source immutability, independent dimensions/namespaces, evidence-level limits, derived labels, separate obligations, duplicate/conflict lineage, historical context and appended corrections. Their IDs are unchanged.
 
 Apply tenant, represented-entity, environment and delegated-access checks to commands, reads, subscriptions and operations. Protect invoice/payment evidence; keep raw payment payloads and credentials out of logs. Monitor unknown mappings, source lag, obligation age, deadline risk, conflicts and uncertain outcomes. Exact targets and retention policies remain open under the predecessor's quality controls.
 
@@ -104,7 +104,7 @@ Apply tenant, represented-entity, environment and delegated-access checks to com
 
 ### 5.1 Destination and obligation rules
 
-The [predecessor's destination table](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#spain-events-mandatory-and-optional-reporting-by-destination) owns the unchanged mandatory/optional classifications under ES-RD10 Articles 10/12. Recipient full acceptance/rejection and effective full payment communications to the issuer differ from public reporting. Optional partial decisions, partial payments and assignment have no corresponding supplied public event code. Do not turn French mandatory labels into Spain duties. LCS-R12/13.
+The [predecessor's destination table](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#spain-events-mandatory-and-optional-reporting-by-destination) owns the unchanged mandatory/optional classifications under ES-RD10 Articles 10/12. Recipient full acceptance/rejection and effective full payment communications to the issuer differ from public reporting. Optional partial decisions, partial payments and assignment have no corresponding supplied public event code. Do not turn French mandatory labels into Spain duties. LCS-R12/13.
 
 SPFE-S02 Article 7.1 supplies a presumed public acceptance view under its conditions; no public explicit-acceptance report code is supplied. Article 7.4 defines the conditional prepaid exception. Article 8.4 defines exceptional handling for a qualifying SPFE outage. Article 8.5 retains cancellation traceability. The existing LCS-SPFE-R04 and country/calendar gates remain open; the new Annex II contains no revised deadlines or rollout dates.
 
@@ -123,7 +123,7 @@ Each message requires the referenced invoice's series/number, issue date, seller
 | Issuer `DEFAULT` | Payment due date in `cbc:EffectiveDate`, `1..1`. | Relevant `ShipmentDate`/`ReceptionDate`, `0..1`. Mutually exclusive with issuer SETTLEMENT. An observation timestamp is not the due date. | SPFE-S22 pp. 12–13; SPFE-S03 §6.9 |
 | Issuer `CANCELDEFAULT` | Cancel earlier non-payment communication; four required invoice-reference fields. | Retain history and business facts; no invoice withdrawal. | SPFE-S22 p. 14; SPFE-S03 §6.9 |
 
-LCS-SPFE-R01–04 and LCS-SPFE-A01–04 retain their [existing detailed statements](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#public-platform-lifecycle-events-and-reporting-requirements). The table above applies the reviewed snapshot without changing those IDs. The [52-row field matrix](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#annex-ii-event-field-traceability) and [original ledger](../../assets/regulatory/spain/spfe/field-traceability.json) retain each AXII requirement and positive/negative acceptance ID. The [comparison](<../../context/Anexo II/annex-ii-review.md>) adds page evidence rather than duplicating that inventory.
+LCS-SPFE-R01–04 and LCS-SPFE-A01–04 retain their [existing detailed statements](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#public-platform-lifecycle-events-and-reporting-requirements). The table above applies the reviewed snapshot without changing those IDs. The [52-row field matrix](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#annex-ii-event-field-traceability) and [original ledger](../../assets/regulatory/spain/spfe/field-traceability.json) retain each AXII requirement and positive/negative acceptance ID. The [comparison](<../../context/Anexo II/annex-ii-review.md>) adds page evidence rather than duplicating that inventory.
 
 ### 5.3 Source limits and country isolation
 
@@ -133,7 +133,7 @@ Shared behaviour is source preservation, independent views, transition-attempt h
 
 ## 6 Functional acceptance
 
-These are required scenarios, not executed implementation tests. The [original assurance table](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#part-4-assurance-and-traceability-view) preserves detailed activity/data traceability.
+These are required scenarios, not executed implementation tests. The [original assurance table](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#part-4-assurance-and-traceability-view) preserves detailed activity/data traceability.
 
 | Existing checks | Coverage retained and required evidence |
 |---|---|
@@ -158,7 +158,7 @@ Pilot evidence must exercise these cases with the selected build, country rules,
 
 | Source ID | Original source and version/date | Exact locator | Supported claim and limit |
 |---|---|---|---|
-| REF-BASE / REF-PRODUCT | [SPEC-SEI-009](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), updated 20 October; [PRD224](../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md), [PRD232](../../prds/PRD-SEI-232-country-lifecycle-status-mapping.md), [PRD242](../../prds/PRD-SEI-242-peppol-lifecycle-feedback.md), current repository drafts/discovery | LCS requirements/invariants/acceptance; PRD FR1–23, LS-FR and PEP-FR | Existing product/design baseline and preserved IDs; not approved architecture or runtime evidence. |
+| REF-BASE / REF-PRODUCT | [SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), updated 20 October; [PRD224](../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md), [PRD232](../../prds/PRD-SEI-232-country-lifecycle-status-mapping.md), [PRD242](../../prds/PRD-SEI-242-peppol-lifecycle-feedback.md), current repository drafts/discovery | LCS requirements/invariants/acceptance; PRD FR1–23, LS-FR and PEP-FR | Existing product/design baseline and preserved IDs; not approved architecture or runtime evidence. |
 | ES-RD10 | [Original RD 238/2026](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-7295), published 31 March 2026; source identity retained from baseline | Articles 8.3, 10 and 12 | Recipient/issuer and public duties remain separate; no private API catalogue supplied. |
 | SPFE-S02 | [Original final order](../../context/BOE-A-2026-20587.pdf), published 5 October 2026; [official publication](https://www.boe.es/eli/es/o/2026/10/02/hac1028), checked 22 October | Articles 7–11; Annex II pp. 36–42 | Legal duties, authority and event fields; not complete wire contract. |
 | SPFE-S03 | [Original catalogue](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026 | §§6.4–6.5 pp. 12–14; §§6.8–6.9 pp. 16–19 | Consultation, exclusivity, full payment/collection and cancellation; no tested integration. |

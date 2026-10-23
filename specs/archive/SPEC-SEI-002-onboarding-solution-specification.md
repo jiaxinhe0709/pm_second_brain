@@ -41,7 +41,7 @@ confluence:
 
 # Customer Onboarding Solution Specification
 
-Use the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). Local definitions explain this feature. Technical IDs, fields and source codes retain their stated meanings.
+Use the [shared e-invoicing glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). Local definitions explain this feature. Technical IDs, fields and source codes retain their stated meanings.
 
 ## Part 1 Feature Solution Summary
 
@@ -49,7 +49,7 @@ Use the [shared e-invoicing glossary](../context/GLO-SEI-001-e-invoicing-termino
 
 Start with Part 1 for scope, scenarios and outcomes. Part 2 places each detailed diagram beside its activities, including failures and recovery. Part 3 defines interactions and data. Part 4 contains acceptance checks, open decisions and release gates.
 
-OFR IDs preserve recovery controls from [archived SPEC-SEI-004](archive/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md). They remain within the affected onboarding steps.
+OFR IDs preserve recovery controls from [archived SPEC-SEI-004](SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md). They remain within the affected onboarding steps.
 
 The design remains a draft. **Proposed** choices need review. **Open** decisions need an owner's recorded answer. Technical IDs and state names give all readers the same references.
 
@@ -117,9 +117,9 @@ The overview shows the shared journey. Part 2 places [public checks](#onb-03-pre
 
 Record the request, verify authority and assess current setup (ONB-01/02/10). Follow the public or private path for each selected function. Return results and required actions through ONB-11; recovery returns to the affected check.
 
-![Set up, connect or review e-invoicing through Sage](../assets/diagrams/onboarding-scenario-selection-process.svg)
+![Set up, connect or review e-invoicing through Sage](../../assets/diagrams/onboarding-scenario-selection-process.svg)
 
-[Editable Draw.io](../assets/diagrams/onboarding-scenario-selection-process.drawio) · [PNG](../assets/diagrams/onboarding-scenario-selection-process.png).
+[Editable Draw.io](../../assets/diagrams/onboarding-scenario-selection-process.drawio) · [PNG](../../assets/diagrams/onboarding-scenario-selection-process.png).
 
 For ONB-S04, run public and private checks independently. Preserve unaffected functions. The invoice feature still checks required public-copy and reporting dependencies. These branches do not create two delivery routes for one action. ONB-12 adds approval where needed; ONB-13 applies the same checks to each portfolio client.
 
@@ -300,11 +300,11 @@ Classify an unsupported function as POLICY or its stable capability reason, not 
 
 Check identity, authority, required credentials and the public connection for each selected function (ONB-02–04). Correct or recover failed checks at the affected step. Return readiness and required actions through ONB-11. Public readiness does not activate invoice exchange.
 
-![Check public setup and return readiness — landscape responsibility lanes](../assets/diagrams/onboarding-public-readiness-process.svg)
+![Check public setup and return readiness — landscape responsibility lanes](../../assets/diagrams/onboarding-public-readiness-process.svg)
 
-[Open full-size SVG](../assets/diagrams/onboarding-public-readiness-process.svg) · [Editable Draw.io](../assets/diagrams/onboarding-public-readiness-process.drawio) · [PNG](../assets/diagrams/onboarding-public-readiness-process.png).
+[Open full-size SVG](../../assets/diagrams/onboarding-public-readiness-process.svg) · [Editable Draw.io](../../assets/diagrams/onboarding-public-readiness-process.drawio) · [PNG](../../assets/diagrams/onboarding-public-readiness-process.png).
 
-**ONB-03 Prerequisites.** The E-Invoice Service resolves a versioned capability policy for the phase, operator, environment, route, direction and effective date. It checks required legal identity and representation evidence, and product entitlement. It performs external verification only under an approved contract. Check certificate readiness only where policy requires it. Record NOT_REQUIRED with policy evidence. UNDETERMINED blocks progress under that policy. The qualified certificate capability returns purpose-specific readiness and an evidence reference under [SPEC-SEI-001](SPEC-SEI-001-certificate-management-solution-specification.md). It does not expose key material.
+**ONB-03 Prerequisites.** The E-Invoice Service resolves a versioned capability policy for the phase, operator, environment, route, direction and effective date. It checks required legal identity and representation evidence, and product entitlement. It performs external verification only under an approved contract. Check certificate readiness only where policy requires it. Record NOT_REQUIRED with policy evidence. UNDETERMINED blocks progress under that policy. The qualified certificate capability returns purpose-specific readiness and an evidence reference under [SPEC-SEI-001](../SPEC-SEI-001-certificate-management-solution-specification.md). It does not expose key material.
 
 Where required, obtain an existing protected reference and purpose-specific readiness through SPEC-SEI-001. Resolve the business/source binding from authorised context and apply ONB-I08. ONB-D04 stores safe references and results; the qualified custodian retains material. Reopening setup does not require another upload.
 
@@ -349,9 +349,9 @@ READY means the approved Phase 1 checks passed for that capability at the record
 
 Connect the selected provider and check each function (ONB-05/06). Activate a route only when the plan requires an authorised change (ONB-07). Return failed or unknown work to its affected check. Preserve earlier invoice context and return separate function results (ONB-09/11).
 
-![Connect a private provider; activate only when required — landscape responsibility lanes](../assets/diagrams/onboarding-private-route-process.svg)
+![Connect a private provider; activate only when required — landscape responsibility lanes](../../assets/diagrams/onboarding-private-route-process.svg)
 
-[Open full-size SVG](../assets/diagrams/onboarding-private-route-process.svg) · [Editable Draw.io](../assets/diagrams/onboarding-private-route-process.drawio) · [PNG](../assets/diagrams/onboarding-private-route-process.png).
+[Open full-size SVG](../../assets/diagrams/onboarding-private-route-process.svg) · [Editable Draw.io](../../assets/diagrams/onboarding-private-route-process.drawio) · [PNG](../../assets/diagrams/onboarding-private-route-process.png).
 
 **ONB-05 Private choice/configuration.** The product presents supported public, current-provider and Sage options. Show the operator, direction, supported scope, price and support boundary. The E-Invoice Service records explicit customer or delegate choice and action authority. It creates missing proposed subscription and connection configurations separately from active route state. For an existing provider or public route, record current directions and historical obligations. Before any external change, configuration failure or cancellation leaves the old route. A possible external effect requires ONB-08. Block unsupported mixed-scope combinations and explain the limitation. Do not widen scope silently.
 
@@ -375,7 +375,7 @@ Inspect current receiving-point evidence and reuse it where valid. Publish or ch
 
 <a id="onb-07-activationcutover"></a>
 
-For **Change e-invoicing platform**, show current and proposed platforms, affected direction, remaining steps and result. **Route** is the technical term. [SPEC-SEI-014](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns connection/profile qualification, route-version commit and historical context (SPC-01–08). ONB-06/07 use that foundation. A qualified Sage operator role alone does not migrate customers.
+For **Change e-invoicing platform**, show current and proposed platforms, affected direction, remaining steps and result. **Route** is the technical term. [SPEC-SEI-014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns connection/profile qualification, route-version commit and historical context (SPC-01–08). ONB-06/07 use that foundation. A qualified Sage operator role alone does not migrate customers.
 
 **ONB-07 Activation/cutover.** The E-Invoice Service rechecks the actor's permission and current readiness evidence. The route service locks the affected scope and records the expected route version. The cutover plan records the approved time and sequence, entry-point publication evidence, rollback trigger and customer notice.
 
@@ -442,9 +442,9 @@ READY and READY_WITH_LIMITATIONS require the parent checks to pass. CONFIRMED_SU
 
 Reuse current evidence or request a missing decision from an eligible approver (ONB-12). Verify the response and required official evidence before resuming covered work. Refusal, expiry or withdrawal keeps dependent work blocked; reconcile any unknown submitted operation.
 
-![Request client approval, verify evidence and resume only authorised work](../assets/diagrams/onboarding-client-approval-process.svg)
+![Request client approval, verify evidence and resume only authorised work](../../assets/diagrams/onboarding-client-approval-process.svg)
 
-[Editable Draw.io](../assets/diagrams/onboarding-client-approval-process.drawio) · [PNG](../assets/diagrams/onboarding-client-approval-process.png).
+[Editable Draw.io](../../assets/diagrams/onboarding-client-approval-process.drawio) · [PNG](../../assets/diagrams/onboarding-client-approval-process.png).
 
 **Approval boundary:** keep the decision purposes below separate. ONB-12 coordinates evidence; it does not register legal representation. ONB-Q07 qualifies approvers, accepted evidence and any external representation process.
 
@@ -478,9 +478,9 @@ After new evidence is verified, the E-Invoice Service resumes the same affected 
 
 Save a batch receipt, then check and process each client independently (ONB-13). Receipt does not prove readiness. Correct or cancel selected items while other safe items continue; an unresolved external effect prevents final cancellation.
 
-![Receive a portfolio batch and process independently authorised client items](../assets/diagrams/onboarding-portfolio-batch-process.svg)
+![Receive a portfolio batch and process independently authorised client items](../../assets/diagrams/onboarding-portfolio-batch-process.svg)
 
-[Editable Draw.io](../assets/diagrams/onboarding-portfolio-batch-process.drawio) · [PNG](../assets/diagrams/onboarding-portfolio-batch-process.png).
+[Editable Draw.io](../../assets/diagrams/onboarding-portfolio-batch-process.drawio) · [PNG](../../assets/diagrams/onboarding-portfolio-batch-process.png).
 
 **ONB-13 Manage portfolio batch.** A product submits a batch with a stable request key, input digest, environment, firm/actor context where applicable and client item references. Requested functions, directions, intent and evidence references belong to each item. The E-Invoice Service checks the envelope, submitter's batch permission and approved size limits. An unusable envelope returns FAILED_ENVELOPE with safe structural findings and creates no client items. A durable RECEIVED acknowledgement returns the batch reference/version, received count and authorised status access. It does not claim identity verification, approval or readiness for the items.
 
@@ -570,7 +570,7 @@ Durable intent and idempotency records must survive restart and cover the approv
 
 Public onboarding establishes readiness for selected supplied SPFE operations. The bundle provides invoice operations and certificate ports. It does not establish a customer-enrolment or receiving-point publication operation. Readiness remains separate from active exchange.
 
-See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
+See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
 **Confirmed source context, checked 9 October 2026:** [FACe](https://www.facturae.gob.es/face) is a B2G submission service. [Order HAC/1028/2026](https://www.boe.es/eli/es/o/2026/10/02/hac1028) governs the B2B public solution. These are separate services. The published rules do not prove an implemented Sage connector or customer production access. The [AEAT scope guidance](https://sede.agenciatributaria.gob.es/Sede/iva/factura-electronica/cuestiones-generales/quienes-estan-obligados-que-operaciones-incluyen.html) excludes B2C and international B2B with a business not established in Spain. A transaction addressed to a Spanish permanent establishment can fall within scope. The E-Invoice Service records business context. The owning invoice feature checks applicability for each transaction. B2G use or an international invoice does not establish readiness or exemption for the whole business.
 
@@ -592,7 +592,7 @@ This part describes what each service asks for, returns and stores. The technica
 
 ### ERP and API responsibility boundary
 
-The proposed handoff is **Sage ERP / product → Global API → E-Invoice Service → shared identity, trust and connection services → qualified public connector or provider integration**. Responses use the same product-facing contract. This describes responsibilities, not approved endpoints or deployment. [SPEC-SEI-013](SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md) owns common API exposure; [SPEC-SEI-011](SPEC-SEI-011-public-platform-connector-solution-specification.md) owns public execution; [SPEC-SEI-014](SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns connection and route records.
+The proposed handoff is **Sage ERP / product → Global API → E-Invoice Service → shared identity, trust and connection services → qualified public connector or provider integration**. Responses use the same product-facing contract. This describes responsibilities, not approved endpoints or deployment. [SPEC-SEI-013](../SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md) owns common API exposure; [SPEC-SEI-011](../SPEC-SEI-011-public-platform-connector-solution-specification.md) owns public execution; [SPEC-SEI-014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns connection and route records.
 
 **Confirmed ownership direction:** the E-Invoice Service owns the onboarding journey and its recovery coordination. There is no separate onboarding service. In this spec, **onboarding** names the setup workflow. **Proposed:** an internal onboarding component could implement that workflow within the E-Invoice Service. Its need, code boundary and implementation remain open under ONB-Q05. It does not introduce a separate product API or deployment.
 
@@ -616,7 +616,7 @@ Customer-facing actions are **Set up e-invoicing**, **Connect your existing serv
 
 This is a **Spain reference design**. Reuse classifications describe proposed behaviour. They do not prove that existing code is ready. **Reusable unchanged** keeps the design pattern. **Reusable with country binding** needs approved local policies or adapters. **Country-specific** rules stay in the country pack. **Unknown** needs implementation evidence.
 
-The design follows the [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot and production use require this spec's approval and evidence gates. Another country needs its own reuse assessment.
+The design follows the [shared platform and country-pack direction](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Spain pilot and production use require this spec's approval and evidence gates. Another country needs its own reuse assessment.
 
 | Area | Intended use in Spain | Reuse classification | Condition and owner |
 |---|---|---|---|
@@ -663,17 +663,17 @@ Resolve country/policy context from trusted context or versioned references. Nam
 
 This ONB-S02 example uses a saved asynchronous request; local checks can finish synchronously. ONB-03/04 perform qualified reads and save readiness without registration, receiving-point publication or route activation. ONB-11 notifies the product; after a lost notification, read the current authorised result.
 
-![Connect an existing public service: shared checks and certificate readiness](../assets/diagrams/spain-onboarding-public-setup-sequence.svg)
+![Connect an existing public service: shared checks and certificate readiness](../../assets/diagrams/spain-onboarding-public-setup-sequence.svg)
 
-[Editable Draw.io](../assets/diagrams/spain-onboarding-public-setup-sequence.drawio) · [PNG](../assets/diagrams/spain-onboarding-public-setup-sequence.png).
+[Editable Draw.io](../../assets/diagrams/spain-onboarding-public-setup-sequence.drawio) · [PNG](../../assets/diagrams/spain-onboarding-public-setup-sequence.png).
 
 **Private setup and activation — sequence**
 
 This ONB-S03 example adds only missing configuration. ONB-06 checks each function and required provider state; save intent before any separately approved external change. ONB-07/08 confirm an unchanged route, activate an authorised change or return blocked work to its exact check. ONB-11 returns results; runtime owners retain authentication, signing and validity checks.
 
-![Connect a private provider: shared trust checks and conditional activation](../assets/diagrams/spain-onboarding-private-setup-sequence.svg)
+![Connect a private provider: shared trust checks and conditional activation](../../assets/diagrams/spain-onboarding-private-setup-sequence.svg)
 
-[Editable Draw.io](../assets/diagrams/spain-onboarding-private-setup-sequence.drawio) · [PNG](../assets/diagrams/spain-onboarding-private-setup-sequence.png).
+[Editable Draw.io](../../assets/diagrams/spain-onboarding-private-setup-sequence.drawio) · [PNG](../../assets/diagrams/spain-onboarding-private-setup-sequence.png).
 
 ### 1 Interaction contracts
 
@@ -1016,12 +1016,12 @@ Use the original files for the claims they establish. Final published regulation
 
 | REF ID | Source and version | Exact location | Supported information and limit |
 |---|---|---|---|
-| SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Article 11 | Accepted certificates and registered third-party recovery/consultation authority. |
-| SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 4.1–4.3 and 6.1–6.10; pp. 7–20 Recovery locator: Section 5.1, p. 9; sections 6.1–6.10 | Operation-specific public capabilities and authorization; no customer registration contract. Recovery limit: Legacy fault/resend guidance and public operations do not provide an automatic safe-retry guarantee. |
-| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | service ports and soap:address Recovery locator: SOAP binding, fault and service ports | Two certificate-class PRE addresses; no environment availability evidence. Recovery limit: Operation-specific SOAP 1.2 contract; no onboarding mutation. |
-| SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | Cover; sections 5.1.2–5.2, pp. 8–14; sections 5.3–5.9, pp. 14–15. Recovery locator: Sections 4.3 and 5.2–5.9; pp. 7, 12–15 | Message identity, caller/destination, service/action, payload references and request/item response meaning. Draft status, pending service formats and transport conflicts limit qualification; no onboarding payload is defined. Recovery limit: Protocol conflicts, distinct response levels and pending formats retain their qualification gates. |
-| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/ebms/ebms-header-3_0-200704.xsd>); supplied 13 October 2026; schema identity in filename. | Named types `MessageInfo`, `PartyInfo`, `From`, `To`, `CollaborationInfo`, `PayloadInfo`, `PartInfo`. | Exact header names and structure. Generic schema does not establish SPFE business values, authority, replay safety or live acceptance. |
-| SPFE-S04 | [Peticion_ebXML- SUBMITINVOICE.xml](<../context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/PETICIÓN/Peticion_ebXML- SUBMITINVOICE.xml>); supplied 13 October 2026; undated example. | `Messaging/UserMessage/PartyInfo`, `CollaborationInfo`, `PayloadInfo`. | One illustrative submission header; not a complete contract, production configuration or onboarding request. |
-| REF-PRD | [public onboarding](../prds/PRD-SEI-101-public-platform-onboarding.md); [direct and accountant onboarding](../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md); [recovery](../prds/PRD-SEI-107-public-onboarding-failure-recovery.md); [private onboarding and migration](../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Recovery operations source: PRD-SEI-107 and PRD-SEI-222, already linked above; additional [PRD-SEI-225](../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md) | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. Product recovery, transition and shared-operations requirements. Provider contracts and implementation readiness remain separate evidence gates. |
-| REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |
-| REF-BASE-004 | [Archived SPEC-SEI-004](archive/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md); pre-merge Git `a74ee79`; SHA-256 `33ca54126950a31dcd30cfc053c2b9df31d0360503052ba25140d87efdde9574` | OFR design baseline in Parts 1–4. | Recovery design source for OFR activities, requirements, contracts, data, acceptance and open decisions. The hash identifies the pre-merge source, before archive link adjustments and the historical notice. It does not qualify runtime behaviour. |
+| SPFE-S02 | [BOE-A-2026-20587.pdf](<../../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Article 11 | Accepted certificates and registered third-party recovery/consultation authority. |
+| SPFE-S03 | [CatalogoServicios.pdf](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 4.1–4.3 and 6.1–6.10; pp. 7–20 Recovery locator: Section 5.1, p. 9; sections 6.1–6.10 | Operation-specific public capabilities and authorization; no customer registration contract. Recovery limit: Legacy fault/resend guidance and public operations do not provide an automatic safe-retry guarantee. |
+| SPFE-S16 | [SendInvoice.wsdl](<../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | service ports and soap:address Recovery locator: SOAP binding, fault and service ports | Two certificate-class PRE addresses; no environment availability evidence. Recovery limit: Operation-specific SOAP 1.2 contract; no onboarding mutation. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | Cover; sections 5.1.2–5.2, pp. 8–14; sections 5.3–5.9, pp. 14–15. Recovery locator: Sections 4.3 and 5.2–5.9; pp. 7, 12–15 | Message identity, caller/destination, service/action, payload references and request/item response meaning. Draft status, pending service formats and transport conflicts limit qualification; no onboarding payload is defined. Recovery limit: Protocol conflicts, distinct response levels and pending formats retain their qualification gates. |
+| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../../context/WSDL servicios web - PRE/20261013/xsd/ebms/ebms-header-3_0-200704.xsd>); supplied 13 October 2026; schema identity in filename. | Named types `MessageInfo`, `PartyInfo`, `From`, `To`, `CollaborationInfo`, `PayloadInfo`, `PartInfo`. | Exact header names and structure. Generic schema does not establish SPFE business values, authority, replay safety or live acceptance. |
+| SPFE-S04 | [Peticion_ebXML- SUBMITINVOICE.xml](<../../context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/PETICIÓN/Peticion_ebXML- SUBMITINVOICE.xml>); supplied 13 October 2026; undated example. | `Messaging/UserMessage/PartyInfo`, `CollaborationInfo`, `PayloadInfo`. | One illustrative submission header; not a complete contract, production configuration or onboarding request. |
+| REF-PRD | [public onboarding](../../prds/PRD-SEI-101-public-platform-onboarding.md); [direct and accountant onboarding](../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md); [recovery](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md); [private onboarding and migration](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md); [shared platform and country-pack direction](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md). Recovery operations source: PRD-SEI-107 and PRD-SEI-222, already linked above; additional [PRD-SEI-225](../../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md) | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. Product recovery, transition and shared-operations requirements. Provider contracts and implementation readiness remain separate evidence gates. |
+| REF-CONTEXT | [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |
+| REF-BASE-004 | [Archived SPEC-SEI-004](SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md); pre-merge Git `a74ee79`; SHA-256 `33ca54126950a31dcd30cfc053c2b9df31d0360503052ba25140d87efdde9574` | OFR design baseline in Parts 1–4. | Recovery design source for OFR activities, requirements, contracts, data, acceptance and open decisions. The hash identifies the pre-merge source, before archive link adjustments and the historical notice. It does not qualify runtime behaviour. |

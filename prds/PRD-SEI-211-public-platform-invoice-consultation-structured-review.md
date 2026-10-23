@@ -351,7 +351,7 @@ The objective is to deliver an automated, incremental, idempotent and observable
 
 Automated collection of many invoices is part of required recovery. A user requesting a ZIP of several stored invoices is a separate product option, proposed outside initial scope until usage and cost evidence justify it. France's feature coverage and expected Spanish usage do not remove the automated-recovery requirement.
 
-The proposed [combined receiving, retrieval and download specification](../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) owns this journey, including source capture, covered progress, validation, duplicate handling, product distribution and authorised stored-file access. Its public intake path implements this PRD; private intake retains its separate scope and activation gates.
+The proposed [combined receiving, retrieval and download specification](../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) owns this journey, including source capture, covered progress, validation, duplicate handling, product distribution and authorised stored-file access. Its public intake path implements this PRD; private intake retains its separate scope and activation gates.
 
 ### Working hypotheses
 

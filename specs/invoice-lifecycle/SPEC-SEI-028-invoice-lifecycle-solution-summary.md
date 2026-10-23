@@ -32,7 +32,7 @@ confluence:
 
 ## Revision overview
 
-This separate draft develops [SPEC-SEI-009](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) into the same three reading views as sending and receiving. It adds the four supplied French lifecycle guides, the transition-outcome note and the Annex II file named `21-10-26`. SPEC-SEI-009 stays unchanged and remains the selected source for stable Confluence page `923861398`.
+This separate draft develops [SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) into the same three reading views as sending and receiving. It adds the four supplied French lifecycle guides, the transition-outcome note and the Annex II file named `21-10-26`. SPEC-SEI-009 stays unchanged and remains the selected source for stable Confluence page `923861398`.
 
 Existing LCS activities, requirements, acceptance IDs, independent outcome dimensions, reporting duties and historical-route controls retain their meanings. The new analysis assesses the existing French API as the first reuse candidate. It does not approve Spain API coverage, an automatic translation of French statuses or a lifecycle release change. Country configuration, fields, correction support, deployed coverage and guide conflicts remain open.
 
@@ -97,7 +97,7 @@ The filename provides a date cue, but the document states no formal revision or 
 
 | Source ID | Original source and version/date | Exact location | Supported claims and limits |
 |---|---|---|---|
-| REF-BASE | [SPEC-SEI-009](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), updated 20 October 2026 | Parts 1–4; LCS controls and REF | Existing draft design, full provider assessment and preserved IDs; no runtime proof. |
+| REF-BASE | [SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), updated 20 October 2026 | Parts 1–4; LCS controls and REF | Existing draft design, full provider assessment and preserved IDs; no runtime proof. |
 | REF-PRODUCT | [PRD-SEI-224](../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md), updated 7 October 2026; [PRD-SEI-232](../../prds/PRD-SEI-232-country-lifecycle-status-mapping.md); [PRD-SEI-242](../../prds/PRD-SEI-242-peppol-lifecycle-feedback.md) | Phase table; FR1–23; LS-FR and PEP-FR controls | Canonical product scope in recorded discovery/draft states; not new approval. |
 | INT-LCS01–05 | [Supplied guide evidence](<../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md>), received 22 October 2026, revision unknown | Five named sections | API patterns and supplied transition outcomes; Spain support and build unknown. |
 | SPFE-S02 | [Final BOE order](../../context/BOE-A-2026-20587.pdf), published 5 October 2026 | Articles 7–11; Annex II pp. 36–42 | Legal communication, authority and field baseline; not a complete runnable API. |

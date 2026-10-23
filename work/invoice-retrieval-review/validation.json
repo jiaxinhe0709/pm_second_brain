@@ -14,7 +14,7 @@
     "SVG/Draw.io XML and PNG dimensions"
   ],
   "source_hashes": {
-    "specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md": "82f9e360054d315ed39eb195018fae356c4acbf37fe7e88d079e60c47311507a",
+    "specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md": "0893ee5240a4b8b0eb3d48c7098711972342f5fae5953514117c165f5722e837",
     "config/confluence.yml": "b9c15daf80ae4acfb080156bbdaa70059518357143732d2622a3c98566013c5b"
   },
   "implementation_tests_executed": false

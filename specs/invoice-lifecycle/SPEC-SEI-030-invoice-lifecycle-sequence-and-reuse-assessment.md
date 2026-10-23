@@ -34,7 +34,7 @@ confluence:
 
 ## Revision overview
 
-This separate API view assesses the supplied French lifecycle API against [SPEC-SEI-009](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) and the [functional view](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md). The predecessor remains unchanged and selected for stable Confluence page `923861398`. Existing LCS-INT/data and provider assessments remain available there; this view adds guide-evidenced operations, Spain gaps and engineering qualification.
+This separate API view assesses the supplied French lifecycle API against [SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) and the [functional view](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md). The predecessor remains unchanged and selected for stable Confluence page `923861398`. Existing LCS-INT/data and provider assessments remain available there; this view adds guide-evidenced operations, Spain gaps and engineering qualification.
 
 The user reports that the French API was built for reuse. Treat that as the reuse direction to investigate. The supplied contract supports useful common patterns; it does not establish the implementation's architecture, Spain coverage or production readiness. No new endpoint, status UUID, breaking schema change or deployment boundary is approved here.
 
@@ -107,7 +107,7 @@ The first branch applies the supplied failed-transition rule. The second shows a
 | Latest status snapshot | INT-ERR01 locates it at `data.attributes.currentStatus`; that object has neither `operationStatus` nor `errorCode`. | Read attempt failures from history. Qualify which dimensions the snapshot actually represents; LIF-G02. |
 | Lifecycle Completed | French numeric `209`, UUID `00000000-0000-0000-0000-140000000000`, means requested information was supplied after suspension. | It is distinct from operational `COMPLETED`, payment and reporting completion. LCS-A27. |
 
-Keep existing LCS-D01–10, [interaction contracts](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#1-interaction-contracts) and [data inventory](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#2-data-inventory) as the detailed logical baseline. No storage or component allocation follows from this API assessment. Qualify whether existing response fields can carry these concerns before proposing additions.
+Keep existing LCS-D01–10, [interaction contracts](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#1-interaction-contracts) and [data inventory](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#2-data-inventory) as the detailed logical baseline. No storage or component allocation follows from this API assessment. Qualify whether existing response fields can carry these concerns before proposing additions.
 
 ### 3.2 Spain field coverage against the French guide
 
@@ -156,7 +156,7 @@ The existing [FR error-handling evidence](<../../context/FR API/Shared/invoice-f
 | LIF-G07 — Identity/Spain and provider owners | Prove represented-party/action authority, historical operator/channel and selected private contract. Retain predecessor LCS-Q-PROVIDER; a new customer route does not rebind old reports. |
 | LIF-G08 — Product/Spain country owner | Select release scope and optional actions under existing LCS-Q-OPTIONAL; confirm legal calendars and derived views. Preserve valid incoming optional evidence. An API capability does not approve activation. |
 
-The [existing provider catalogues](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#lifecycle-statuses-and-actions-by-provider) retain B2B Router, Banqup, SERES, EDICOM and ZeroComa evidence limits. This review does not requalify those contracts or replace them with French behaviour. The [Annex II comparison](<../../context/Anexo II/annex-ii-review.md>) found no material field delta; it does not resolve the listed runtime gaps.
+The [existing provider catalogues](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#lifecycle-statuses-and-actions-by-provider) retain B2B Router, Banqup, SERES, EDICOM and ZeroComa evidence limits. This review does not requalify those contracts or replace them with French behaviour. The [Annex II comparison](<../../context/Anexo II/annex-ii-review.md>) found no material field delta; it does not resolve the listed runtime gaps.
 
 ## 5 API qualification acceptance
 
@@ -177,7 +177,7 @@ These checks supplement functional LCS-A01–27; none has been executed against 
 
 | Source ID | Original source and version/date | Exact locator | Supported claims and limits |
 |---|---|---|---|
-| REF-BASE | [SPEC-SEI-009](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), updated 20 October 2026; [functional successor view](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md), draft 22 October | LCS-INT-01–11; D01–10; provider catalogues; LCS requirements/acceptance | Canonical draft requirements and logical contracts; no physical allocation approval. |
+| REF-BASE | [SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), updated 20 October 2026; [functional successor view](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md), draft 22 October | LCS-INT-01–11; D01–10; provider catalogues; LCS requirements/acceptance | Canonical draft requirements and logical contracts; no physical allocation approval. |
 | INT-LCS01 | [Supplied send-status guide extract](<../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md#int-lcs01-send-a-status-update>), received 22 October, revision unknown | §1 request/response, headers and per-status examples; linked API `1.13.0` | Exact product POST and documented payloads; not Spain schema or deployed build evidence. |
 | INT-LCS02 | [Supplied receive/history guide extract](<../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md#int-lcs02-receive-notifications-and-read-history>), same receipt/version limit | §§1–3; linked Notifications `6.3.0`; webhook example; invoice GET | Completion event and history read; full correlation/history contract absent. |
 | INT-LCS03/04/05 | [Supplied status, reason and outcome evidence](<../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md>), same receipt/version limit | Status list; blocked table; status-specific reasons; user transition note | Exact France UUIDs, conflicts and attempt outcomes. Matrix/Schematron not independently verified; no Spain defaults. |

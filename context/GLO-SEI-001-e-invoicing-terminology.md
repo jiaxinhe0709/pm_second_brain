@@ -229,19 +229,19 @@ An **existing implementation reuse candidate** is an identified service or build
 
 ## Review coverage and remaining contract questions
 
-The terminology review covers SPEC-SEI-001 through SPEC-SEI-016, including archived predecessors. Use [SPEC-SEI-016](../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) for current receiving, retrieval and download design. SPEC-SEI-006 and SPEC-SEI-010 remain linked below as historical review sources. Current onboarding and recovery design is in [SPEC-SEI-002](../specs/SPEC-SEI-002-onboarding-solution-specification.md); the SPEC-SEI-004 row is also an archived review source. The review checks repeated definitions, service names, roles, outcome wording, reuse labels and terms used in behaviour, contracts and acceptance coverage. It is not an implementation test or a new regulatory validation.
+The terminology review covers SPEC-SEI-001 through SPEC-SEI-016, including archived predecessors. Use [SPEC-SEI-016](../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) for current receiving, retrieval and download design. SPEC-SEI-006 and SPEC-SEI-010 remain linked below as historical review sources. Current onboarding and recovery design is in [SPEC-SEI-002](../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md); the SPEC-SEI-004 row is also an archived review source. The review checks repeated definitions, service names, roles, outcome wording, reuse labels and terms used in behaviour, contracts and acceptance coverage. It is not an implementation test or a new regulatory validation.
 
 | Source spec | Terminology focus |
 |---|---|
 | [SPEC-SEI-001 — Certificate management](../specs/SPEC-SEI-001-certificate-management-solution-specification.md) | Represented party versus authenticated principal; trust readiness, custody, rotation and source aliases. |
-| [SPEC-SEI-002 — Onboarding](../specs/SPEC-SEI-002-onboarding-solution-specification.md) | Readiness versus registration and activation; connection, entry point and cutover. |
-| [SPEC-SEI-003 — Offboarding](../specs/SPEC-SEI-003-offboarding-solution-specification.md) | Cutover, historical continuity and data disposition. |
+| [SPEC-SEI-002 — Onboarding](../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md) | Readiness versus registration and activation; connection, entry point and cutover. |
+| [SPEC-SEI-003 — Offboarding](../specs/archive/SPEC-SEI-003-offboarding-solution-specification.md) | Cutover, historical continuity and data disposition. |
 | [SPEC-SEI-004 — Onboarding recovery](../specs/archive/SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md) | Unknown outcome, retry safety and reconciliation. |
 | [SPEC-SEI-005 — UBL validation](../specs/SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) | Profile versus rule pack; preflight versus final validation. |
 | [SPEC-SEI-006 — Inbound receiving](../specs/archive/SPEC-SEI-006-invoice-receiving-solution.md) | Source observation, canonical representation, product receipt and technical acknowledgement. |
-| [SPEC-SEI-007 — Preparation and outbound](../specs/SPEC-SEI-007-invoice-sending-solution.md) | Issuance, exchange actions, faithful public copy and final route evidence. |
+| [SPEC-SEI-007 — Preparation and outbound](../specs/archive/SPEC-SEI-007-invoice-sending-solution.md) | Issuance, exchange actions, faithful public copy and final route evidence. |
 | [SPEC-SEI-008 — Mapper migration to DTS](../specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) | DTS, mapper, transformation, task, capability bundle and migration cutover. |
-| [SPEC-SEI-009 — Invoice lifecycle](../specs/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) | Raw event, canonical event, derived status and independent outcome dimensions. |
+| [SPEC-SEI-009 — Invoice lifecycle](../specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) | Raw event, canonical event, derived status and independent outcome dimensions. |
 | [SPEC-SEI-010 — Retrieval, storage and download](../specs/archive/SPEC-SEI-010-consult-and-download-ubl-from-public-platform-for-einvoices-received.md) | Source original versus public copy; checkpoint, conservation and reuse classification. |
 | [SPEC-SEI-011 — Public connector](../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md) | Qualified operation, connection, contract profile and public transport responsibility. |
 | [SPEC-SEI-012 — Recipient lookup](../specs/SPEC-SEI-012-consult-public-platform-for-recipient-information.md) | Recipient destination versus received-invoice discovery; coverage, freshness and unresolved absence. |
@@ -249,7 +249,7 @@ The terminology review covers SPEC-SEI-001 through SPEC-SEI-016, including archi
 
 | [SPEC-SEI-014 — Shared connectivity and routing](../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) | Integration role, contract qualification, setup result, scoped platform change and historical continuity. |
 | [SPEC-SEI-015 — Invoice creation](../specs/SPEC-SEI-015-invoice-creation-solution-specification.md) | Business creation versus representation generation; material issuer; corrective method versus simplified-invoice replacement; qualified unique invoice code and regime entries. |
-| [SPEC-SEI-016 — Receiving, retrieval and download](../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) | One receiving feature; file acquisition versus notification-only intake; source-file download versus authorised stored-file download; qualified provider and country reuse. |
+| [SPEC-SEI-016 — Receiving, retrieval and download](../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) | One receiving feature; file acquisition versus notification-only intake; source-file download versus authorised stored-file download; qualified provider and country reuse. |
 
 | Remaining question | Owner and boundary |
 |---|---|

@@ -32,7 +32,7 @@ confluence:
 
 ## Revision overview
 
-This separate draft develops [SPEC-SEI-003](../SPEC-SEI-003-offboarding-solution-specification.md) into three review views. It adds platform responsibility scenarios, separate support and access periods, explicit cutoff handling and a fuller export assessment. The predecessor remains unchanged and selected for stable Confluence page `923861391`.
+This separate draft develops [SPEC-SEI-003](../archive/SPEC-SEI-003-offboarding-solution-specification.md) into three review views. It adds platform responsibility scenarios, separate support and access periods, explicit cutoff handling and a fuller export assessment. The predecessor remains unchanged and selected for stable Confluence page `923861391`.
 
 OFF-01–08, OFF-I01–08, OFF-R01–10 and OFF-A01–11 retain their meanings. Existing detailed interaction and data inventories remain in SPEC-SEI-003. No provider contract, retention schedule, lifecycle status or publication approval changes. Support durations, commercial terms and the practical delivery of invoice-copy rights remain open product and legal decisions.
 
@@ -113,7 +113,7 @@ These decisions block the dependent commitment or automation. They do not requir
 
 | Source ID | Original source, version/date and locator | Supported claim and limit |
 |---|---|---|
-| REF-PRODUCT | [PRD-SEI-243](../../prds/PRD-SEI-243-customer-offboarding-and-provider-exit.md), draft 5 October 2026; OFR1–15, OD1–8. [SPEC-SEI-003](../SPEC-SEI-003-offboarding-solution-specification.md), draft updated 8 October 2026; Parts 1–4. | Canonical product baseline and proposed OFF design. Neither approves new support periods. |
+| REF-PRODUCT | [PRD-SEI-243](../../prds/PRD-SEI-243-customer-offboarding-and-provider-exit.md), draft 5 October 2026; OFR1–15, OD1–8. [SPEC-SEI-003](../archive/SPEC-SEI-003-offboarding-solution-specification.md), draft updated 8 October 2026; Parts 1–4. | Canonical product baseline and proposed OFF design. Neither approves new support periods. |
 | REF-COPY | [Law 56/2007, consolidated BOE text](https://www.boe.es/buscar/act.php?id=BOE-A-2007-22440#a2bis), checked 22 October 2026; Article 2 bis.3 and associated effectivity notes. | Recipient copy-request right. No universal Sage support duration or automatic allocation to a former platform. |
 | REF-PRIVACY | [GDPR, published BOE text](https://www.boe.es/buscar/doc.php?id=DOUE-L-2016-80807), 4 May 2016; Articles 5(1)(e), 28(3)(g). | Storage limitation and processor return/deletion subject to required retention. Roles and schedules need qualification. |
 | REF-SPFE | [Original Order HAC/1028/2026 PDF](../../context/BOE-A-2026-20587.pdf), published 5 October 2026, Articles 9–11; [official BOE](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-20587). SPFE-S02 in the [evidence baseline](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md). | Recovery, download and access framework. No full private-platform archive transfer or offboarding API. Exact technical sources are in SPEC-SEI-033 REF. |

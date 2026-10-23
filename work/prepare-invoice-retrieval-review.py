@@ -96,13 +96,13 @@ def main():
         page = ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             + '<title>' + html.escape(metadata['title']) + '</title><style>' + STYLE + '</style></head><body>'
             + '<header><p>Invoice retrieval · Unpublished draft · Local review</p><nav><a href="index.html">All retrieval views</a>'
-            + '<a href="../../specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">Unchanged SPEC-SEI-016</a></nav></header>'
+            + '<a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">Retained SPEC-SEI-016</a></nav></header>'
             + '<div class="layout"><aside class="outline">' + md.toc + '</aside><main>' + markup + '</main></div></body></html>')
         (OUT / (ident + '.html')).write_text(page)
         cards.append(f'<li><a href="{ident}.html">{html.escape(metadata["title"])}</a></li>')
     (OUT / 'index.html').write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         + '<title>Invoice retrieval review</title><style>' + STYLE + '</style></head><body><header><h1>Invoice retrieval</h1>'
-        + '<p>Three unpublished draft views. SPEC-SEI-016 and publication settings are unchanged.</p></header><main style="padding:24px;max-width:1100px">'
+        + '<p>Three unpublished draft views. SPEC-SEI-016 is retained in the archive; publication settings are unchanged.</p></header><main style="padding:24px;max-width:1100px">'
         + '<ol>' + ''.join(cards) + '</ol><p>Document checks do not prove implementation readiness. Each engineering gap retains its owner and evidence gate.</p></main></body></html>')
     files = docs + [SOURCE / 'README.md', ROOT / 'README.md', ROOT / 'context/FR API/Receiving/receive-e-invoice-guide-extract.md']
     for path in files:
@@ -117,7 +117,7 @@ def main():
         assert struct.unpack('>II', data[16:24]) == (int(svg.get('width')), int(svg.get('height')))
         if path.name.endswith('-sequence.svg'):
             assert 'stroke-dasharray' in path.read_text()
-    source_hashes = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in ['specs/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md','config/confluence.yml']}
+    source_hashes = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in ['specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md','config/confluence.yml']}
     report = {'mode':'local-review-only','documents':[p.name for p in docs], 'checks': ['metadata and unique IDs','unpublished drafts','revision and source references','local links and anchors','table structure','SVG/Draw.io XML and PNG dimensions'], 'source_hashes':source_hashes, 'implementation_tests_executed':False}
     (OUT / 'validation.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))

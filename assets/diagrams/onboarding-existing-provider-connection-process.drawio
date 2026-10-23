@@ -47,52 +47,52 @@
         <mxCell id="lane-label-5" value="Public / private&#10;platforms" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="30" y="860" width="180" height="140" />
         </mxCell>
-        <object id="request" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Keep provider and connect Sage&#10;Selected sending or receiving&#10;ONB-01" tooltip="Selected sending or receiving">
+        <object id="request" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Keep provider and connect Sage&#10;Selected sending or receiving&#10;ONB-01" tooltip="Selected sending or receiving">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="240" y="178" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="api" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Submit the connection request&#10;Common Global API contract&#10;ONB-01" tooltip="Common Global API contract">
+        <object id="api" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Submit the connection request&#10;Common Global API contract&#10;ONB-01" tooltip="Common Global API contract">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="535" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="identity" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check business and permission&#10;Per function and environment&#10;ONB-02" tooltip="Per function and environment">
+        <object id="identity" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Check business and permission&#10;Per function and environment&#10;ONB-02" tooltip="Per function and environment">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="535" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="assess" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Identify existing account&#10;Observe setup and gaps&#10;ONB-10" tooltip="Observe setup and gaps">
+        <object id="assess" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Identify existing account&#10;Observe setup and gaps&#10;ONB-10" tooltip="Observe setup and gaps">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="830" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="configure" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Bind missing Sage settings&#10;No duplicate enrolment&#10;ONB-05" tooltip="No duplicate enrolment">
+        <object id="configure" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Bind missing Sage settings&#10;No duplicate enrolment&#10;ONB-05" tooltip="No duplicate enrolment">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1125" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="qualify" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check each selected function&#10;Transport, authority, profile&#10;ONB-06" tooltip="Transport, authority, profile">
+        <object id="qualify" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Check each selected function&#10;Transport, authority, profile&#10;ONB-06" tooltip="Transport, authority, profile">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1420" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="external" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Observe required provider state&#10;Publish only if required&#10;ONB-06" tooltip="Publish only if required">
+        <object id="external" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Observe required provider state&#10;Publish only if required&#10;ONB-06" tooltip="Publish only if required">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1420" y="878" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="activate" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Confirm or activate Sage route&#10;Explicit authority if needed&#10;ONB-07" tooltip="Explicit authority if needed">
+        <object id="activate" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Confirm or activate Sage route&#10;Explicit authority if needed&#10;ONB-07" tooltip="Explicit authority if needed">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1715" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="result" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Show per-function ERP results&#10;Current provider retained&#10;ONB-11" tooltip="Current provider retained">
+        <object id="result" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Show per-function ERP results&#10;Current provider retained&#10;ONB-11" tooltip="Current provider retained">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2010" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="recover" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Resolve the affected setup&#10;No provider substitution&#10;ONB-08" tooltip="No provider substitution">
+        <object id="recover" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Resolve the affected setup&#10;No provider substitution&#10;ONB-08" tooltip="No provider substitution">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1715" y="738" width="260" height="104" />
           </mxCell>

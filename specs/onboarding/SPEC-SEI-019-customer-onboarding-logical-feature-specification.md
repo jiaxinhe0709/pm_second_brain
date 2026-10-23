@@ -41,7 +41,7 @@ confluence:
 
 ## Revision overview
 
-This high-level journey view is based on [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md). It retains the business rules, activity IDs, diagrams and acceptance checks. [SEI018](SPEC-SEI-018-customer-onboarding-solution-summary.md) gives the overview; [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) holds engineering reuse and Spain-specific evidence.
+This high-level journey view is based on [SPEC-SEI-002](../archive/SPEC-SEI-002-onboarding-solution-specification.md). It retains the business rules, activity IDs, diagrams and acceptance checks. [SEI018](SPEC-SEI-018-customer-onboarding-solution-summary.md) gives the overview; [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) holds engineering reuse and Spain-specific evidence.
 
 The predecessor, phase gates and ONB/OFR meanings remain unchanged. Contract detail, record fields and technical sequences stay in the linked supporting sources. This revision does not approve implementation or enable a provider.
 
@@ -112,7 +112,7 @@ Pending prerequisites, retry waits, unknown external effects and unresolved manu
 
 ### 3.5 Decisions and open questions
 
-The [existing decision record](../SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) retains ONB-Q01–09 and OFR-Q01–04. Missing qualification holds only dependent work; SEI021 identifies the engineering evidence needed.
+The [existing decision record](../archive/SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) retains ONB-Q01–09 and OFR-Q01–04. Missing qualification holds only dependent work; SEI021 identifies the engineering evidence needed.
 
 **Unlisted private provider — TBD.** Spain Product and the local technical lead must decide whether onboarding shows only enabled providers or also offers an “Other provider” request. Refine this decision as coverage develops. The provider portfolio is planning context; absence from it does not establish ineligibility. Check actual supported capability before enabling a connection, and do not promise an unqualified completion date. This open UI decision cannot remove an applicable operator interconnection duty. REF-PROVIDERS; REF-PRIVATE Articles 8–9.
 
@@ -465,13 +465,13 @@ During remaining-batch cancellation, CANCELLING takes precedence until effects a
 | [Solution Summary](SPEC-SEI-018-customer-onboarding-solution-summary.md) | End-to-end outcome, workflow, boundaries and material decisions. |
 | [API Reuse Assessment](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) | FR connection contracts, internal dataset guide, Spain tailoring, source differences and implementation evidence gaps. |
 | [Archived SPEC-SEI-020](../archive/SPEC-SEI-020-customer-onboarding-api-design-and-reuse-assessment.md) | Retained detailed API assurance and source-conflict analysis, referenced by the main SEI021 engineering view. |
-| [SPEC-SEI-002 interaction contracts](../SPEC-SEI-002-onboarding-solution-specification.md#1-interaction-contracts) | ONB-INT-01–13 and OFR-INT-01–09 logical/technical analysis. Proposed service allocations and field names require qualification. |
-| [SPEC-SEI-002 data inventory](../SPEC-SEI-002-onboarding-solution-specification.md#2-data-inventory) | ONB-D01–13 and OFR-D01–09 supporting records; no new duplicate stores are required by this split. |
-| [SPEC-SEI-002 customer fields](../SPEC-SEI-002-onboarding-solution-specification.md#3-customer-and-accountant-fields-by-scenario) and [system/results fields](../SPEC-SEI-002-onboarding-solution-specification.md#4-system-fields-dates-and-erp-results) | Proposed field-level analysis under ONB-Q04/09, including start dates and receiving history. |
-| [SPEC-SEI-002 public field boundary](../SPEC-SEI-002-onboarding-solution-specification.md#5-sage-spfe-field-boundary) | Exact transport elements and source limits. Does not define an onboarding payload. |
-| [SPEC-SEI-002 original verification matrix](../SPEC-SEI-002-onboarding-solution-specification.md#1-verification-matrix) | Detailed PRD-to-interaction/data mappings for existing acceptance IDs. The compact scenarios here retain their observable outcomes. |
-| [SPEC-SEI-002 technical sequences](../SPEC-SEI-002-onboarding-solution-specification.md#onboarding-technical-sequences) | Supporting public/private sequence examples. Physical contracts and deployment remain unqualified. |
-| [SPEC-SEI-001](../SPEC-SEI-001-certificate-management-solution-specification.md), [013](../SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md), [014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), [011](../SPEC-SEI-011-public-platform-connector-solution-specification.md), [016](../SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), [003](../SPEC-SEI-003-offboarding-solution-specification.md) | Owning trust, API, route, public-execution, receiving and exit boundaries. |
+| [SPEC-SEI-002 interaction contracts](../archive/SPEC-SEI-002-onboarding-solution-specification.md#1-interaction-contracts) | ONB-INT-01–13 and OFR-INT-01–09 logical/technical analysis. Proposed service allocations and field names require qualification. |
+| [SPEC-SEI-002 data inventory](../archive/SPEC-SEI-002-onboarding-solution-specification.md#2-data-inventory) | ONB-D01–13 and OFR-D01–09 supporting records; no new duplicate stores are required by this split. |
+| [SPEC-SEI-002 customer fields](../archive/SPEC-SEI-002-onboarding-solution-specification.md#3-customer-and-accountant-fields-by-scenario) and [system/results fields](../archive/SPEC-SEI-002-onboarding-solution-specification.md#4-system-fields-dates-and-erp-results) | Proposed field-level analysis under ONB-Q04/09, including start dates and receiving history. |
+| [SPEC-SEI-002 public field boundary](../archive/SPEC-SEI-002-onboarding-solution-specification.md#5-sage-spfe-field-boundary) | Exact transport elements and source limits. Does not define an onboarding payload. |
+| [SPEC-SEI-002 original verification matrix](../archive/SPEC-SEI-002-onboarding-solution-specification.md#1-verification-matrix) | Detailed PRD-to-interaction/data mappings for existing acceptance IDs. The compact scenarios here retain their observable outcomes. |
+| [SPEC-SEI-002 technical sequences](../archive/SPEC-SEI-002-onboarding-solution-specification.md#onboarding-technical-sequences) | Supporting public/private sequence examples. Physical contracts and deployment remain unqualified. |
+| [SPEC-SEI-001](../SPEC-SEI-001-certificate-management-solution-specification.md), [013](../SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md), [014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), [011](../SPEC-SEI-011-public-platform-connector-solution-specification.md), [016](../archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), [003](../archive/SPEC-SEI-003-offboarding-solution-specification.md) | Owning trust, API, route, public-execution, receiving and exit boundaries. |
 
 ### Solution ownership and reuse qualification
 
@@ -489,7 +489,7 @@ Engineering evidence for shared workflow, country/provider rules, Tax Service an
 
 ### Review and release gates
 
-Acceptance checks describe evidence to obtain. Before enabling a scope, close its gates in the [existing release record](../SPEC-SEI-002-onboarding-solution-specification.md#2-review-and-release-gates); engineering findings stay in SEI021.
+Acceptance checks describe evidence to obtain. Before enabling a scope, close its gates in the [existing release record](../archive/SPEC-SEI-002-onboarding-solution-specification.md#2-review-and-release-gates); engineering findings stay in SEI021.
 
 | Scope | Evidence needed |
 |---|---|
@@ -506,7 +506,7 @@ Final published law establishes legal duties. A technical file establishes only 
 
 | REF ID | Original source and version | Exact location | Supported claims and limits |
 |---|---|---|---|
-| REF-BASE | [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md), updated 20 October 2026 | ONB/OFR activities, requirements, verification matrix and decisions | Predecessor IDs, recorded ownership and proposed behaviour. Does not prove implementation. |
+| REF-BASE | [SPEC-SEI-002](../archive/SPEC-SEI-002-onboarding-solution-specification.md), updated 20 October 2026 | ONB/OFR activities, requirements, verification matrix and decisions | Predecessor IDs, recorded ownership and proposed behaviour. Does not prove implementation. |
 | INT-AP01–06 | [Supplied access-point guide extracts](<../../context/FR API/Onboarding/access-point-guides-evidence-extract.md>), received 22 October 2026; revisions/builds unverified | Connect/channel selection; update/removal; disconnection; ownership transfer; error dictionary; catalogue/address/status guidance | Existing France registration effects, product mapping responsibility, per-address events and retry guidance. SEI021 retains version/source conflicts and Spain qualification; no gated transition is enabled by these guides. |
 | INT-DS01 | [Supplied internal Network dataset guide extract](<../../context/FR API/Onboarding/network-onboarding-create-dataset-guide-extract.md>), received 22 October 2026; canonical URL/revision unknown | Partner tenancy model / Ownership and access; Multi-product and existing Sage channels; Steps 1–2 | Documents partner-owned datasets and create/confirm behaviour for an external partner channel. One-per-entity provisioning guidance is not a proven dataset constraint; France cardinality, Spain support, channel linkage and source inconsistencies remain open in SEI021. |
 | REF-PRODUCT | [PRD-SEI-101](../../prds/PRD-SEI-101-public-platform-onboarding.md), [104](../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), [222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md), [225](../../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md), [231](../../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md) | Product scope/FRs; PRD-104 FR2–8/13–20 and NFR4; PRD-107 FR1–20; PRD-231 ID-FR9–12. Individual source versions remain in their front matter. | Canonical product needs for readiness, authority, portfolio, recovery and continuity. Earlier external assumptions cannot override final sources. |

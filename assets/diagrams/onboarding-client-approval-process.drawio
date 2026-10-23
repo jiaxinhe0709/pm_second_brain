@@ -38,57 +38,57 @@
         <mxCell id="lane-label-3" value="Domain Service - Other&#10;Services" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="30" y="580" width="180" height="140" />
         </mxCell>
-        <object id="evidence" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Current evidence covers decision?&#10;&#10;ONB-02 · Common" tooltip="">
+        <object id="evidence" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Current evidence covers decision?&#10;&#10;ONB-02 · Common" tooltip="">
           <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="240" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="request" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Save scoped approval request&#10;Requester, purpose and version&#10;ONB-12 · Conditional" tooltip="Requester, purpose and version">
+        <object id="request" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Save scoped approval request&#10;Requester, purpose and version&#10;ONB-12 · Conditional" tooltip="Requester, purpose and version">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="535" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="present" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Present the client action&#10;Eligible approver; exact scope&#10;ONB-12/11 · Conditional" tooltip="Eligible approver; exact scope">
+        <object id="present" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Present the client action&#10;Eligible approver; exact scope&#10;ONB-12/11 · Conditional" tooltip="Eligible approver; exact scope">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="830" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="respond" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Approve or decline request&#10;Current eligibility and version&#10;ONB-12 · Conditional" tooltip="Current eligibility and version">
+        <object id="respond" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Approve or decline request&#10;Current eligibility and version&#10;ONB-12 · Conditional" tooltip="Current eligibility and version">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1125" y="178" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="verify" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Verify response and evidence&#10;Approver, scope, official evidence&#10;ONB-12/02 · Conditional" tooltip="Approver, scope, official evidence">
+        <object id="verify" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Verify response and evidence&#10;Approver, scope, official evidence&#10;ONB-12/02 · Conditional" tooltip="Approver, scope, official evidence">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1420" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="effective" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Authority effective?&#10;&#10;ONB-02 · Common" tooltip="">
+        <object id="effective" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Authority effective?&#10;&#10;ONB-02 · Common" tooltip="">
           <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1715" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="resume" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Resume the covered gate&#10;Recheck plan, authority and trust&#10;ONB-12 · Conditional" tooltip="Recheck plan, authority and trust">
+        <object id="resume" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Resume the covered gate&#10;Recheck plan, authority and trust&#10;ONB-12 · Conditional" tooltip="Recheck plan, authority and trust">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2010" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="blocked" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Keep dependent work blocked&#10;Refusal, expiry or missing evidence&#10;ONB-12/11 · Conditional" tooltip="Refusal, expiry or missing evidence">
+        <object id="blocked" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Keep dependent work blocked&#10;Refusal, expiry or missing evidence&#10;ONB-12/11 · Conditional" tooltip="Refusal, expiry or missing evidence">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1715" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="result" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Return result and action owner&#10;Approval is separate from readiness&#10;ONB-11 · Common" tooltip="Approval is separate from readiness">
+        <object id="result" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Return result and action owner&#10;Approval is separate from readiness&#10;ONB-11 · Common" tooltip="Approval is separate from readiness">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2010" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="withdraw" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Approval or relationship ends&#10;Effective withdrawal or role loss&#10;ONB-12/02 · Conditional" tooltip="Effective withdrawal or role loss">
+        <object id="withdraw" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Approval or relationship ends&#10;Effective withdrawal or role loss&#10;ONB-12/02 · Conditional" tooltip="Effective withdrawal or role loss">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1125" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="recover" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Stop affected new use&#10;Reconcile only possible unknown effects&#10;ONB-12/08 / OFR-05/06/07 · Conditional" tooltip="Reconcile only possible unknown effects">
+        <object id="recover" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Stop affected new use&#10;Reconcile only possible unknown effects&#10;ONB-12/08 / OFR-05/06/07 · Conditional" tooltip="Reconcile only possible unknown effects">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1420" y="458" width="260" height="104" />
           </mxCell>

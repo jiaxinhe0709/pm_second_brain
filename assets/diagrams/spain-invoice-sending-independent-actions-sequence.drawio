@@ -674,7 +674,7 @@
         <mxCell id="cell-179" value="Source: SPEC-SEI-007; product-facing handoff is logical. SPEC-SEI-013 private/provider design remains deferred. Reconcile an unknown action without repeating a completed action." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
           <mxGeometry as="geometry" x="40" y="5174" width="1551.8999999999999" height="25" />
         </mxCell>
-        <object id="cell-180" label="Source specification" link="../../specs/SPEC-SEI-007-invoice-sending-solution.md">
+        <object id="cell-180" label="Source specification" link="../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md">
           <mxCell parent="1" vertex="1" style="text;html=0;align=right;fontSize=12;">
             <mxGeometry as="geometry" x="1560" y="5187" width="190" height="20" />
           </mxCell>

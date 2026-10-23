@@ -35,7 +35,7 @@ confluence:
 
 ## Revision overview
 
-This stakeholder overview explains the onboarding outcome, scope and main decisions. [SEI019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) shows the high-level journeys; [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) assesses engineering reuse and Spain-specific changes. All are based on [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md).
+This stakeholder overview explains the onboarding outcome, scope and main decisions. [SEI019](SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) shows the high-level journeys; [SEI021](SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) assesses engineering reuse and Spain-specific changes. All are based on [SPEC-SEI-002](../archive/SPEC-SEI-002-onboarding-solution-specification.md).
 
 The predecessor, phase boundaries and ONB/OFR meanings remain unchanged. SPEC-SEI-018 is selected for the stable summary page after the authorised publication. Implementation approval and delivery-feature breakdown remain open.
 
@@ -103,7 +103,7 @@ Invoice creation, sending, retrieval, reporting and full exit belong to their ow
 
 ## 5 Key open solution decisions
 
-The [existing decision record](../SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) retains owners and gates. These open decisions affect scope or delivery.
+The [existing decision record](../archive/SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) retains owners and gates. These open decisions affect scope or delivery.
 
 | References | Impact | Owner and gate |
 |---|---|---|
@@ -179,7 +179,7 @@ SEI019 holds the functional acceptance checks; SEI021 holds engineering qualific
 
 | REF ID | Source and version | Exact location | Supported claim and limit |
 |---|---|---|---|
-| REF-BASE | [SPEC-SEI-002](../SPEC-SEI-002-onboarding-solution-specification.md), snapshot 20 October 2026 | Parts 1–4 and REF | Predecessor scope, IDs, recorded ownership direction, proposed behaviour and open gates. Not implementation evidence. |
+| REF-BASE | [SPEC-SEI-002](../archive/SPEC-SEI-002-onboarding-solution-specification.md), snapshot 20 October 2026 | Parts 1–4 and REF | Predecessor scope, IDs, recorded ownership direction, proposed behaviour and open gates. Not implementation evidence. |
 | REF-PRODUCT | [PRD-SEI-101](../../prds/PRD-SEI-101-public-platform-onboarding.md), [104](../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), [222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) | Decision summaries, scope and functional requirements | Canonical product scope; unresolved differences require an owner decision. |
 | REF-COUNTRY | [PRD-SEI-227](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md) | Shared platform and country-pack direction | Reuse direction; not deployment qualification. |
 | REF-INTERCONNECT | [RD 238/2026 official original](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), published 31 March 2026; checked 22 October 2026 | Articles 8(1)–(3), 9(1)–(5) | Participating-platform interconnection, one-month receiving-operator period, specific queue exception and interim public exchange. Not a general customer ERP-onboarding SLA. |

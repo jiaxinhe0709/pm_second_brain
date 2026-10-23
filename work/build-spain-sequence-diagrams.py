@@ -274,7 +274,7 @@ def onboarding():
     s = Sequence('spain-onboarding-public-setup-sequence',
         'Spain onboarding · Connect an existing public service',
         'ONB-S02 example · Public detail: ONB-S01/02/04/05/07 · Shared checks, certificate readiness and authoritative result.',
-        '../../specs/SPEC-SEI-002-onboarding-solution-specification.md', onboarding_participants())
+        '../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md', onboarding_participants())
     setup_start(s)
     access_and_trust(s, 'ONB-03')
     s.band('4 · Scenario-specific · Check public setup requirements; record public check results')
@@ -298,7 +298,7 @@ def onboarding_private():
     s = Sequence('spain-onboarding-private-setup-sequence',
         'Spain onboarding · Connect a private provider',
         'ONB-S03 example · Private detail: ONB-S01/03/04/05/06/07 · Account binding, shared trust checks and conditional activation.',
-        '../../specs/SPEC-SEI-002-onboarding-solution-specification.md', onboarding_participants(private=True))
+        '../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md', onboarding_participants(private=True))
     setup_start(s)
     s.band('2a · Scenario-specific · Configure missing provider settings')
     f = s.start_frame('opt · Conditional · Selected private function needs account binding or missing configuration')
@@ -339,7 +339,7 @@ def sending():
     s = Sequence('spain-invoice-sending-independent-actions-sequence',
         'Spain sending · Recipient delivery and required public copy',
         'One final candidate · Article 4 private-issuance case · ERP issuance and required public-copy submission share a qualified boundary.',
-        '../../specs/SPEC-SEI-007-invoice-sending-solution.md', [
+        '../../specs/archive/SPEC-SEI-007-invoice-sending-solution.md', [
         'ERP / product\nOwns invoice issuance', 'Global API\nProduct-facing contract', 'Domain Service -\nE-Invoice Service\nExchange responsibility',
         'Domain Service -\nOther Services\nPolicy / lookup / prepare', 'Domain Service -\nOther Services\nQualified adapters',
         'Public / private platforms\nPrivate recipient platform', 'Public / private platforms\nPublic platform'])

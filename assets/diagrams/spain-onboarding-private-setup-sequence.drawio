@@ -872,7 +872,7 @@
         <mxCell id="cell-237" value="Source: SPEC-SEI-002; recovery: OFR-01–08; protected-source readiness: SPEC-SEI-001. No endpoint is approved here." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=15;fontColor=#444444;spacing=0;">
           <mxGeometry as="geometry" x="40" y="7413" width="1003.8" height="25" />
         </mxCell>
-        <object id="cell-238" label="Source specification" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md">
+        <object id="cell-238" label="Source specification" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md">
           <mxCell parent="1" vertex="1" style="text;html=0;align=right;fontSize=12;">
             <mxGeometry as="geometry" x="1560" y="7426" width="190" height="20" />
           </mxCell>

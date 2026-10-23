@@ -33,7 +33,7 @@ confluence:
 
 ## Revision overview
 
-This separate overview develops [SPEC-SEI-016](../SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) into the same three reading views as onboarding and sending. It adds the supplied FR receiving guide to the reuse assessment. The predecessor stays unchanged, including its receiving, private-intake, retrieval and records controls.
+This separate overview develops [SPEC-SEI-016](../archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) into the same three reading views as onboarding and sending. It adds the supplied FR receiving guide to the reuse assessment. The predecessor stays unchanged, including its receiving, private-intake, retrieval and records controls.
 
 Retrieval is the focus within the combined receiving feature. Existing RRI, PRI, RSD and RCV IDs retain their meanings. Public Phase 1 scope, separate file roles, current action authority and safe recovery remain unchanged. Provider rollout, complete query coverage, Spain contract details and implementation fitness remain open. These companions are unpublished drafts; SPEC-SEI-016 remains the selected source for Confluence page `933331276`.
 
@@ -112,7 +112,7 @@ The [failure and recovery table](SPEC-SEI-026-invoice-retrieval-logical-feature-
 
 | REF ID | Source and version/date | Exact location | Supported claim and limit |
 |---|---|---|---|
-| REF-BASE | [SPEC-SEI-016](../SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), updated 20 October 2026 | Parts 1–4; RRI/PRI/RSD/RCV controls and REF | Combined draft baseline and existing IDs; not implementation evidence. |
+| REF-BASE | [SPEC-SEI-016](../archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), updated 20 October 2026 | Parts 1–4; RRI/PRI/RSD/RCV controls and REF | Combined draft baseline and existing IDs; not implementation evidence. |
 | REF-PRODUCT | [PRD-SEI-211](../../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md), updated 20 October 2026; [PRD-SEI-223](../../prds/PRD-SEI-223-interoperability-routing-transformation.md), updated 7 October 2026; [PRD-SEI-213](../../prds/PRD-SEI-213-private-platform-connectivity-structured-review.md) | PRD211 Phase 1, retrieval/download boundary, FR1–55; PRD223 receiving FR17–20 and DTS FR43–44; private capability boundaries | Canonical product sources with their recorded draft/discovery status. Does not approve added release scope. |
 | INT-RCV01 | [Supplied FR receiving guide extract](<../../context/FR API/Receiving/receive-e-invoice-guide-extract.md>), received 22 October 2026; revision unknown | Sections 1–4; Polling, formats, and extracted data | Documented guide flow and limits; schema, build and Spain coverage unverified. |
 | SPFE-S02 | [Final Order HAC/1028/2026](../../context/BOE-A-2026-20587.pdf), published 5 October 2026 | Articles 9–11, PDF pp. 9–11 | Recovery, conservation access and representation within the order's scope; no numeric Sage service objective or private API contract. |

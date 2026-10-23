@@ -12,4 +12,8 @@ Three unpublished draft views based on the unchanged SPEC-SEI-009, four supplied
 
 The existing API is the first implementation reuse candidate. A common envelope and variable attributes do not prove deployed Spain support. Keep successful invoice status, transition attempts, business facts and destination-specific reports separate. French codes, reasons and transition rules must not become Spain defaults.
 
-[SPEC-SEI-009](../SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) remains unchanged and selected for stable Confluence page `923861398` in [the publication configuration](../../config/confluence.yml). Its detailed provider tables, field ledger links and LCS traceability remain available. These companions preserve existing IDs and add only the stated controls and checks. No publication, status change or second Confluence page is authorised by this draft set.
+The combined predecessor is retained in [the archive](../archive/README.md). Its
+linked detail remains part of this review set; its lifecycle and publication
+settings are unchanged.
+
+[SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) remains unchanged and selected for stable Confluence page `923861398` in [the publication configuration](../../config/confluence.yml). Its detailed provider tables, field ledger links and LCS traceability remain available. These companions preserve existing IDs and add only the stated controls and checks. No publication, status change or second Confluence page is authorised by this draft set.

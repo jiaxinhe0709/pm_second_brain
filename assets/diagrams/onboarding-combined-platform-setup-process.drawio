@@ -47,62 +47,62 @@
         <mxCell id="lane-label-5" value="Public / private&#10;platforms" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="30" y="860" width="180" height="140" />
         </mxCell>
-        <object id="request" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Choose public/private functions&#10;Keep or extend current setup&#10;ONB-01" tooltip="Keep or extend current setup">
+        <object id="request" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Choose public/private functions&#10;Keep or extend current setup&#10;ONB-01" tooltip="Keep or extend current setup">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="240" y="178" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="api" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Submit the scoped setup&#10;Functions and directions&#10;ONB-01" tooltip="Functions and directions">
+        <object id="api" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Submit the scoped setup&#10;Functions and directions&#10;ONB-01" tooltip="Functions and directions">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="535" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="identity" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check business and permission&#10;Authority for each action&#10;ONB-02" tooltip="Authority for each action">
+        <object id="identity" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Check business and permission&#10;Authority for each action&#10;ONB-02" tooltip="Authority for each action">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="535" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="assess" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Map functions and their owners&#10;Observe current configuration&#10;ONB-10" tooltip="Observe current configuration">
+        <object id="assess" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Map functions and their owners&#10;Observe current configuration&#10;ONB-10" tooltip="Observe current configuration">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="830" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="public" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Check public prerequisites&#10;Qualified connector and trust&#10;ONB-03" tooltip="Qualified connector and trust">
+        <object id="public" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Check public prerequisites&#10;Qualified connector and trust&#10;ONB-03" tooltip="Qualified connector and trust">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1125" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="private" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Coordinate private setup&#10;Existing account and gaps&#10;ONB-05/06" tooltip="Existing account and gaps">
+        <object id="private" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Coordinate private setup&#10;Existing account and gaps&#10;ONB-05/06" tooltip="Existing account and gaps">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1125" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="pubready" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Record public readiness&#10;No route activation&#10;ONB-04" tooltip="No route activation">
+        <object id="pubready" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Record public readiness&#10;No route activation&#10;ONB-04" tooltip="No route activation">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1420" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="privready" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Record private function checks&#10;Each direction separate&#10;ONB-06" tooltip="Each direction separate">
+        <object id="privready" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Record private function checks&#10;Each direction separate&#10;ONB-06" tooltip="Each direction separate">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="1420" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="external" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Observe private service state&#10;Qualified provider contract&#10;ONB-06" tooltip="Qualified provider contract">
+        <object id="external" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Observe private service state&#10;Qualified provider contract&#10;ONB-06" tooltip="Qualified provider contract">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1420" y="878" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="activation" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Confirm authorised private route&#10;Activate only if needed&#10;ONB-07" tooltip="Activate only if needed">
+        <object id="activation" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Confirm authorised private route&#10;Activate only if needed&#10;ONB-07" tooltip="Activate only if needed">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1715" y="598" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="result" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Return separate function results&#10;Show limitations and owners&#10;ONB-11" tooltip="Show limitations and owners">
+        <object id="result" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Return separate function results&#10;Show limitations and owners&#10;ONB-11" tooltip="Show limitations and owners">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="2010" y="318" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="recover" link="../../specs/SPEC-SEI-002-onboarding-solution-specification.md" label="Hold only dependent work&#10;Preserve valid services&#10;ONB-08" tooltip="Preserve valid services">
+        <object id="recover" link="../../specs/archive/SPEC-SEI-002-onboarding-solution-specification.md" label="Hold only dependent work&#10;Preserve valid services&#10;ONB-08" tooltip="Preserve valid services">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1715" y="738" width="260" height="104" />
           </mxCell>
