@@ -7,7 +7,7 @@ from urllib.parse import parse_qs, unquote, urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = {'923861390': ('SPEC-SEI-037', 1),
          '936509725': ('SPEC-SEI-038', 2),
-         '936509735': ('SPEC-SEI-039', 6)}
+         '936509735': ('SPEC-SEI-039', 3)}
 
 
 class RenderedLinks(HTMLParser):
