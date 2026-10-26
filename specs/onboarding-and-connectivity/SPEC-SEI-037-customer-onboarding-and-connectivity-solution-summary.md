@@ -57,6 +57,8 @@ This view combines SPEC-SEI-018 onboarding and SPEC-SEI-034 connection setup. It
 
 **Reuse:** use the existing E-Invoice API and Tax certificate capability. Confirm Spain service settings, NIF/address rules, permissions, certificate acceptance and provider support. The API was first used for France; it is shared.
 
+**Product precondition:** integrate SXS and Tax certificate management before enabling e-invoicing; see the [shared rule in 038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#4-feature-wide-functional-requirements-and-rules).
+
 **Read next:** [SPEC038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md) explains behaviour and exceptions; [SPEC039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md) gives calls, examples, reuse recommendations and required changes. These drafts do not prove production support.
 
 ## 2 Terms used

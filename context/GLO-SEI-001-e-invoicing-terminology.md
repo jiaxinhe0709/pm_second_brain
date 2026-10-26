@@ -93,6 +93,7 @@ Definitions explain the current source documents. They do not approve an archite
 
 | Preferred term | Definition and usage boundary |
 |---|---|
+| SXS | The small experience service that manages the product's `datasetId` / `tenantId`, as clarified by the user on 26 October 2026. Its exact interface, business/client mapping and deployment support need owner confirmation. It does not establish one dataset per NIF or replace action permission. |
 | Public platform | Preferred prose name for Spain's public e-invoicing platform in these specs. **Public solution**, **public electronic invoicing solution** and **SPFE** are source aliases in this context. This does not make other AEAT services interchangeable with it. |
 | AEAT | The Spain tax authority identified in the source specs. AEAT names the authority; public platform names the e-invoicing service being used. Avoid using “AEAT API” without naming the qualified capability. |
 | Private platform | An invoice platform other than the public platform, used under its qualified capability, contract and customer authority. Its readiness does not remove independent public-copy or reporting requirements. |
