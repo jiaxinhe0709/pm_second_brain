@@ -53,7 +53,7 @@ This view combines SPEC-SEI-021 and SPEC-SEI-036. It assesses reuse; it does not
 
 **What:** set up Sage access to the customer's selected e-invoicing platform. **Why:** reuse valid setup without repeated registration or an unintended provider change.
 
-**What exists:** the shared E-Invoice API can list services, find connections, connect, read status and update supported details. **Proposal:** reuse these calls and the Tax certificate capability. Add Spain rules and provider support where needed. The supplied contracts establish API behaviour; they do not prove a Spain implementation is ready. FR-01–05; REF-TRUST.
+**What exists:** the shared E-Invoice API can list services, find connections, connect, read status and update supported details. **Proposal:** reuse these calls and the [Tax certificate capability](https://confluence.sage.com/spaces/CCLD/pages/759615024/Sage+certificate+management). Add Spain rules and provider support where needed. The supplied contracts establish API behaviour; they do not prove a Spain implementation is ready. FR-01–05; REF-TRUST.
 
 | Delivery scope | Work to assess | Impact on integrating products |
 |---|---|---|
