@@ -72,7 +72,7 @@ Grey / **Existing** shows existing E-Invoice API calls. Blue / **To confirm** sh
 
 Check the business NIF, caller permission and a suitable in-date certificate where required. Reuse the Tax service's protected reference. Find the existing dataset mapping; create a dataset only when the channel requires a missing one. Mapping and service interfaces remain GAP-01/03/06. REF-TRUST; SPFE-S02.
 
-[Shared-check sequence](../../assets/diagrams/onboarding-setup-shared-prerequisites-sequence.svg).
+![Shared prerequisites: check NIF, permission and certificate, then find or create the required dataset](../../assets/diagrams/onboarding-setup-shared-prerequisites-sequence.svg)
 
 ### 2.2 Public readiness
 
