@@ -1,22 +1,22 @@
 # Customer onboarding and connectivity
 
-This is the primary review set for customer onboarding and connection setup. Each view starts with the work needed for the public platform, an external private provider, the proposed Sage private-platform role and shared controls. The predecessor folders are retained under `specs/archive/`.
+This is the primary review set for customer onboarding and connection setup. Read 037 for the quick overview, 038 for the customer paths and 039 for API reuse and Spain changes. The predecessor folders are retained under `specs/archive/`.
 
 | Read | Purpose |
 |---|---|
 | [Solution Summary — SPEC-SEI-037](SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md) | Outcomes, public/private/Sage scope, responsibilities, phases and material decisions. |
-| [Logical Feature Specification — SPEC-SEI-038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md) | Scenarios, required work, readiness, activation, failure/recovery, operator handoff and functional acceptance. |
-| [Sequence and Reuse Assessment — SPEC-SEI-039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md) | Existing APIs/sequences, context-based public terminology, private-provider qualification, operator-role reuse and engineering gaps. |
+| [Logical Feature Specification — SPEC-SEI-038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md) | Simple public/private paths; conditional approval/recovery/batches. Exact rules, acceptance, states and operator timing are linked in its reference section. |
+| [Sequence and Reuse Assessment — SPEC-SEI-039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md) | Existing E-Invoice API calls, setup sequences, Spain changes, per-call reuse recommendations and owner checks. |
 
-[Local review preview](../../work/onboarding-and-connectivity-review/index.html).
+[Public setup diagram](../../assets/diagrams/onboarding-public-setup-swimlane.svg) · [Private setup diagram](../../assets/diagrams/onboarding-private-setup-swimlane.svg).
 
 ## Scope and retained detail
 
-Public onboarding remains Phase 1 readiness. External private connections and the Sage private-platform proposition require their existing scope, contract and activation gates. Sage branding does not identify the legal operator. Customer authority, connection readiness, route activation and operator readiness remain separate results.
+Public onboarding remains Phase 1 readiness. External private connections and the Sage private-platform service require their existing scope, contract and activation gates. Sage branding does not identify the legal operator. Customer authority, connection readiness, route activation and operator readiness remain separate results.
 
-The existing ONB-S01–08, ONB/OFR activities and relevant acceptance IDs retain their meanings. Diagrams are reused unchanged with their existing responsibility groups. Public service names and identifiers come from the original [context source baseline](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md). Peppol is excluded.
+The existing ONB-S01–08, ONB/OFR activities and relevant acceptance IDs retain their meanings. The summary shows the main choices. Logical diagrams show the main path and key correction and recovery branches; tables hold further actions. The five engineering sequences show API calls and data. Detailed rules and conditional diagrams remain linked; all archived sources and assets are unchanged. Public service names and identifiers come from the original [context source baseline](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md). Peppol is excluded.
 
-Runtime invoice execution stays in the sending, receiving and lifecycle sets. [011](../SPEC-SEI-011-public-platform-connector-solution-specification.md), [013](../SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md), [014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) and [017](../SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md) retain public execution, Global API, shared routing and provider contracts. Existing DTS remains the preferred qualified transformation candidate where invoice work requires it.
+Runtime invoice execution stays in the sending, receiving and lifecycle sets. [011](../SPEC-SEI-011-public-platform-connector-solution-specification.md), [013](../SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md), [014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) and [017](../SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md) retain public execution, Global API, shared routing and provider contracts. Existing DTS remains the preferred transformation candidate, subject to checks in the invoice feature where invoice work requires it.
 
 ## Predecessors and publication
 
