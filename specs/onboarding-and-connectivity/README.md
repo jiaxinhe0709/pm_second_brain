@@ -6,7 +6,8 @@ This is the primary review set for customer onboarding and connection setup. Rea
 |---|---|
 | [Solution Summary — SPEC-SEI-037](SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md) | Outcomes, public/private/Sage scope, responsibilities, phases and material decisions. |
 | [Logical Feature Specification — SPEC-SEI-038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md) | Eight customer scenarios, public/private paths and conditional approval, recovery and batches. |
-| [Sequence and Reuse Assessment — SPEC-SEI-039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md) | Existing API reuse, Spain changes, product impact and owner decisions. Schemas stay in the linked API contracts. |
+| [Sequence and Reuse Assessment — SPEC-SEI-039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md) | Sequences, product impact, request/response responsibilities and owner decisions. Read with 040. |
+| [API Reuse and Spain Changes — SPEC-SEI-040](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md) | Each API's request/response: grey existing fields, blue Spain changes, plus certificate management. No diagrams. |
 
 [Public setup diagram](../../assets/diagrams/onboarding-public-setup-swimlane.svg) · [Private setup diagram](../../assets/diagrams/onboarding-private-setup-swimlane.svg).
 
@@ -20,7 +21,7 @@ Runtime invoice execution stays in the sending, receiving and lifecycle sets. [0
 
 ## Predecessors and publication
 
-All six predecessors retain their business content, permanent IDs and metadata. Their archive move changes relative links and reading-route guidance. Publication of these drafts is authorised for the existing three onboarding pages. No lifecycle status changes. The selected sources are 037–039; archived sources cannot overwrite those pages.
+All six predecessors retain their business content, permanent IDs and metadata. Their archive move changes relative links and reading-route guidance. Publication of these drafts is authorised for the existing three onboarding pages and a new 040 child beneath the main Onboarding page (`837610648`). No lifecycle status changes. The selected sources are 037–040; archived sources cannot overwrite those pages.
 
 | New view | Retained predecessors | Approved stable-page source |
 |---|---|---|
