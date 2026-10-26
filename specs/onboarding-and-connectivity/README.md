@@ -28,6 +28,7 @@ All six predecessors retain their business content, permanent IDs and metadata. 
 | SPEC-SEI-037 | [018](../archive/onboarding/SPEC-SEI-018-customer-onboarding-solution-summary.md) and [034](../archive/provider-connectivity/SPEC-SEI-034-provider-connectivity-solution-summary.md) | Onboarding summary page `923861390` selects SPEC-SEI-037. |
 | SPEC-SEI-038 | [019](../archive/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md) and [035](../archive/provider-connectivity/SPEC-SEI-035-provider-connectivity-logical-feature-specification.md) | Logical page `936509725` selects SPEC-SEI-038. |
 | SPEC-SEI-039 | [021](../archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md) and [036](../archive/provider-connectivity/SPEC-SEI-036-provider-connectivity-sequence-and-reuse-assessment.md) | Engineering page `936509735` selects SPEC-SEI-039. |
+| SPEC-SEI-040 | Request/response companion to 039; no predecessor is replaced. | API examples page `938804297` selects SPEC-SEI-040 beneath Onboarding `837610648`. |
 
 See [publication configuration](../../config/confluence.yml). Existing public connector page `923861399` still selects 011 and Global API page `923861402` still selects 013. A separate Git successor does not require another Confluence page.
 
