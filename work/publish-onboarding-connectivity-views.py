@@ -21,7 +21,7 @@ SOURCE = ROOT / 'specs/onboarding-and-connectivity'
 OUT = ROOT / 'work/onboarding-and-connectivity-publication'
 PARENT = '837610648'
 PAGES = {'SPEC-SEI-037': ('923861390', 1),
-         'SPEC-SEI-038': ('936509725', 4),
+         'SPEC-SEI-038': ('936509725', 2),
          'SPEC-SEI-039': ('936509735', 6)}
 
 

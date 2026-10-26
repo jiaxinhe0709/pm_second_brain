@@ -1,0 +1,319 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="onboarding-setup-supported-change-sequence" name="Change setup: keep what already works">
+    <mxGraphModel page="1" pageWidth="1030" pageHeight="2169">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="v1" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="8" y="8" width="1014" height="2153" />
+        </mxCell>
+        <mxCell id="v2" value="Change setup: keep what already works" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=27;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="18" width="641.37" height="26" />
+        </mxCell>
+        <mxCell id="v3" value="Add a supported function or make an enabled change; Private A to Private B is disabled" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="59" width="933.0600000000001" height="26" />
+        </mxCell>
+        <mxCell id="header-divider" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="8" y="124" />
+            <mxPoint as="targetPoint" x="1022" y="124" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lifeline-0" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="216" />
+            <mxPoint as="targetPoint" x="130" y="2043" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="participant-0" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="22" y="150" width="216" height="66" />
+        </mxCell>
+        <mxCell id="v6" value="ERP / product&#10;Setup screen" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#626262;">
+          <mxGeometry as="geometry" x="42.099999999999994" y="158" width="175.8" height="49" />
+        </mxCell>
+        <mxCell id="lifeline-1" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="515" y="216" />
+            <mxPoint as="targetPoint" x="515" y="2043" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="participant-1" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="407" y="150" width="216" height="66" />
+        </mxCell>
+        <mxCell id="v8" value="Sage&#10;E-Invoice API" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#626262;">
+          <mxGeometry as="geometry" x="427.1" y="158" width="175.8" height="49" />
+        </mxCell>
+        <mxCell id="lifeline-2" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="900" y="216" />
+            <mxPoint as="targetPoint" x="900" y="2043" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="participant-2" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="792" y="150" width="216" height="66" />
+        </mxCell>
+        <mxCell id="v10" value="Routing owner&#10;Future invoice route" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#626262;">
+          <mxGeometry as="geometry" x="768.0" y="158" width="264.0" height="49" />
+        </mxCell>
+        <mxCell id="v11" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#1565C0;">
+          <mxGeometry as="geometry" x="24" y="326" width="982" height="68" />
+        </mxCell>
+        <mxCell id="v12" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#1565C0;">
+          <mxGeometry as="geometry" x="24" y="528" width="982" height="268" />
+        </mxCell>
+        <mxCell id="v13" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="967" width="958" height="68" />
+        </mxCell>
+        <mxCell id="v14" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="1065" width="958" height="337" />
+        </mxCell>
+        <mxCell id="v15" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="1432" width="958" height="268" />
+        </mxCell>
+        <mxCell id="v16" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#1565C0;">
+          <mxGeometry as="geometry" x="24" y="907" width="982" height="823" />
+        </mxCell>
+        <mxCell id="activation-0" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="892" y="656" width="16" height="104" />
+        </mxCell>
+        <mxCell id="activation-1" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="507" y="492" width="16" height="379" />
+        </mxCell>
+        <mxCell id="activation-2" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="507" y="1239" width="16" height="127" />
+        </mxCell>
+        <mxCell id="activation-3" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="892" y="1560" width="16" height="104" />
+        </mxCell>
+        <mxCell id="activation-4" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="507" y="1805" width="16" height="104" />
+        </mxCell>
+        <mxCell id="v22" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
+          <mxGeometry as="geometry" x="24" y="326" width="982" height="34" />
+        </mxCell>
+        <mxCell id="v23" value="ref | First: recheck only affected business/permission/certificate evidence (2.1)" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="334" width="777.45" height="26" />
+        </mxCell>
+        <mxCell id="v24" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
+          <mxGeometry as="geometry" x="24" y="528" width="982" height="34" />
+        </mxCell>
+        <mxCell id="v25" value="opt | If the change affects routing or access to earlier invoices" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="536" width="626.25" height="26" />
+        </mxCell>
+        <mxCell id="v26" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="967" width="958" height="34" />
+        </mxCell>
+        <mxCell id="v27" value="ref | Use private setup (2.3) only for a missing target connection" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="48" y="975" width="635.7" height="26" />
+        </mxCell>
+        <mxCell id="v28" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="1065" width="958" height="34" />
+        </mxCell>
+        <mxCell id="v29" value="opt | Update only if this provider/API supports the requested edit" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="48" y="1073" width="635.7" height="26" />
+        </mxCell>
+        <mxCell id="v30" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="1432" width="958" height="34" />
+        </mxCell>
+        <mxCell id="v31" value="opt | If an authorised routing change is needed and its result can be checked" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="48" y="1440" width="739.65" height="26" />
+        </mxCell>
+        <mxCell id="v32" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
+          <mxGeometry as="geometry" x="24" y="907" width="982" height="34" />
+        </mxCell>
+        <mxCell id="v33" value="opt | Apply only an allowed change; skip unchanged setup; Private A to Private B disabled" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="915" width="853.05" height="26" />
+        </mxCell>
+        <mxCell id="v34" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="38" y="258" width="954" height="44" />
+        </mxCell>
+        <mxCell id="v35" value="Start: the customer requests a setup change. Inputs: business, existing connection and the requested change." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#626262;">
+          <mxGeometry as="geometry" x="52" y="266" width="1100.64" height="26" />
+        </mxCell>
+        <mxCell id="v36" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="38" y="1945" width="954" height="66" />
+        </mxCell>
+        <mxCell id="v37" value="End: retain unchanged setup or return the confirmed change and its effective boundary. Keep earlier-invoice&#10;access; hold unknown results." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#626262;">
+          <mxGeometry as="geometry" x="52" y="1953" width="1090.56" height="49" />
+        </mxCell>
+        <mxCell id="v38" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="406" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v39" value="[To confirm] Setup request; ONB-05/07" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="176.64" y="412" width="291.72" height="26" />
+        </mxCell>
+        <mxCell id="message-label-1" value="Check the requested setup change&#10;Business + connection + change" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="145.14" y="431" width="354.72" height="49" />
+        </mxCell>
+        <mxCell id="message-1" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="492" />
+            <mxPoint as="targetPoint" x="507" y="492" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v41" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="527" y="570" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v42" value="[To confirm] Change permission / earlier access" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="523.84" y="576" width="367.32" height="26" />
+        </mxCell>
+        <mxCell id="message-label-2" value="Check change permission, when it&#10;takes effect and earlier access" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="530.14" y="595" width="354.72" height="49" />
+        </mxCell>
+        <mxCell id="message-2" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="523" y="656" />
+            <mxPoint as="targetPoint" x="892" y="656" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v44" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="527" y="674" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v45" value="[To confirm] Change permission / earlier access" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="523.84" y="680" width="367.32" height="26" />
+        </mxCell>
+        <mxCell id="message-label-3" value="Change allowed or blocked&#10;with reason + action owner" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="562.27" y="699" width="290.46" height="49" />
+        </mxCell>
+        <mxCell id="message-3" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="892" y="760" />
+            <mxPoint as="targetPoint" x="523" y="760" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v47" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="808" width="361" height="54" />
+        </mxCell>
+        <mxCell id="v48" value="[Setup result] ONB-07/09" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="225.78" y="814" width="193.44" height="26" />
+        </mxCell>
+        <mxCell id="message-label-4" value="Allowed change or reason + owner" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="145.14" y="833" width="354.72" height="26" />
+        </mxCell>
+        <mxCell id="message-4" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="507" y="871" />
+            <mxPoint as="targetPoint" x="130" y="871" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v50" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="1107" width="361" height="123" />
+        </mxCell>
+        <mxCell id="v51" value="[Existing] API-05 / FR-05" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#626262;">
+          <mxGeometry as="geometry" x="222.0" y="1113" width="201.0" height="26" />
+        </mxCell>
+        <mxCell id="message-label-5" value="Update supported setup details&#10;PUT /connectors/{accessPointId}/&#10;datasets/{datasetId}/connections/&#10;{connectionId}/" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="139.785" y="1132" width="365.43" height="95" />
+        </mxCell>
+        <mxCell id="message-5" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="1239" />
+            <mxPoint as="targetPoint" x="507" y="1239" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v53" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="1257" width="361" height="100" />
+        </mxCell>
+        <mxCell id="v54" value="FR-05 response" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#626262;">
+          <mxGeometry as="geometry" x="263.58" y="1263" width="117.84" height="26" />
+        </mxCell>
+        <mxCell id="message-label-6" value="200 OK&#10;Updated connection/address details&#10;Route activation is separate" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="134.43" y="1282" width="376.14" height="72" />
+        </mxCell>
+        <mxCell id="message-6" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="507" y="1366" />
+            <mxPoint as="targetPoint" x="130" y="1366" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v56" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="527" y="1474" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v57" value="[To confirm] Route change method" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="580.54" y="1480" width="253.92000000000002" height="26" />
+        </mxCell>
+        <mxCell id="message-label-7" value="Apply the authorised route change&#10;and check what actually changed" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="524.785" y="1499" width="365.43" height="49" />
+        </mxCell>
+        <mxCell id="message-7" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="515" y="1560" />
+            <mxPoint as="targetPoint" x="892" y="1560" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v59" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="527" y="1578" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v60" value="[To confirm] Route change method" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="580.54" y="1584" width="253.92000000000002" height="26" />
+        </mxCell>
+        <mxCell id="message-label-8" value="Effective boundary + earlier access&#10;or result still unknown" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="514.075" y="1603" width="386.85" height="49" />
+        </mxCell>
+        <mxCell id="message-8" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="892" y="1664" />
+            <mxPoint as="targetPoint" x="515" y="1664" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v62" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="1742" width="361" height="54" />
+        </mxCell>
+        <mxCell id="v63" value="[To confirm] Setup request; ONB-11" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="187.98" y="1748" width="269.04" height="26" />
+        </mxCell>
+        <mxCell id="message-label-9" value="Read the result of this change" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="155.85" y="1767" width="333.3" height="26" />
+        </mxCell>
+        <mxCell id="message-9" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="1805" />
+            <mxPoint as="targetPoint" x="507" y="1805" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v65" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="1823" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v66" value="[Setup result] ONB-07/09/11" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="214.44" y="1829" width="216.12" height="26" />
+        </mxCell>
+        <mxCell id="message-label-10" value="Confirmed result or pending action&#10;with its owner" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="134.43" y="1848" width="376.14" height="49" />
+        </mxCell>
+        <mxCell id="message-10" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="507" y="1909" />
+            <mxPoint as="targetPoint" x="130" y="1909" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v68" value="Solid arrows: requests. Dashed arrows: responses. Lanes show responsibilities, not separate deployed services." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="2069" width="982.2" height="26" />
+        </mxCell>
+        <mxCell id="v69" value="Blue marks Spain work or an interface to confirm; it does not mean a new API. Provider setup may finish later. Route" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="2092" width="1035.12" height="26" />
+        </mxCell>
+        <mxCell id="v70" value="activation is separate." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="2115" width="214.86" height="26" />
+        </mxCell>
+        <object id="v71" label="Source specification" link="../../specs/onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#24-supported-change">
+          <mxCell parent="1" vertex="1" style="text;html=0;fontSize=12;align=right;">
+            <mxGeometry as="geometry" x="790" y="2139" width="210" height="18" />
+          </mxCell>
+        </object>
+        <mxCell id="reuse-legend-grey-swatch" value="" parent="1" vertex="1" style="rounded=0;fillColor=#626262;strokeColor=none;">
+          <mxGeometry as="geometry" x="30" y="91" width="13" height="13" />
+        </mxCell>
+        <mxCell id="reuse-legend-grey-label" value="Existing E-Invoice API / flow" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
+          <mxGeometry as="geometry" x="53" y="89" width="260" height="24" />
+        </mxCell>
+        <mxCell id="reuse-legend-blue-swatch" value="" parent="1" vertex="1" style="rounded=0;fillColor=#1565C0;strokeColor=none;">
+          <mxGeometry as="geometry" x="340" y="91" width="13" height="13" />
+        </mxCell>
+        <mxCell id="reuse-legend-blue-label" value="Spain adaptation / proposed work" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="363" y="89" width="440" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
