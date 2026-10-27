@@ -99,7 +99,7 @@ The unlisted-provider decision is in [038 §3.2](SPEC-SEI-038-customer-onboardin
 
 ![Change routing or platform: check permission, reuse or connect the target, and confirm the authorised change](../../assets/diagrams/onboarding-setup-supported-change-sequence.svg)
 
-**Change routing or platform — ONB-S05/S06:** read existing setup first. If an allowed platform change needs a target connection, use the private setup in §2.3. Use API-05 only for supported connection edits. Separately authorise and confirm the route change and its effective start; preserve access to earlier invoices. [SPEC014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns these routing controls. Private A to Private B stays disabled; an update is not a general migration or rollback.
+**Change routing or platform — ONB-S05/S06:** read existing setup first. For another supported platform exposed as a different `accessPointId`, API-03 creates the missing dataset connection (§2.3). Within an existing connection, API-05 adds an address (`add`) or changes address dates (`update`), including both in one request. Confirm Spain address/grouping rules and public access-point representation. Separately authorise the routing change and confirm its effective start and earlier-invoice access. [SPEC014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md) owns those controls. Private A to Private B stays disabled; PUT does not establish a general migration or rollback.
 
 ### 2.5 Uncertainty and recovery
 
@@ -114,9 +114,9 @@ API links open 040's examples. Gap owners are in §4. Spain implementation still
 | Dataset: `POST /datasets` — INT-DS01 | Qualify the SXS binding to channel-specific provisioning. Reuse an existing mapping; confirm missing setup before creation. | GAP-01/02/04/06 |
 | [API-01 — Discover services](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-01) — FR-01 | Reuse catalogue; qualify Spain service IDs/environments. | GAP-02/08 |
 | [API-02 — Find connections](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-02) — FR-02 | Reuse array; confirm dataset mapping and concurrent public/private support. | GAP-01/02/06 |
-| [API-03 — Connect](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-03) — FR-03 | Reuse body; confirm Spain addresses, provider binding and safe repeats. | GAP-02/04/06 |
+| [API-03 — Connect](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-03) — FR-03 | Create the selected dataset/access-point connection with initial addresses, optional dates/usage and company/requester context. Confirm Spain formats/grouping, provider binding and safe repeats. | GAP-02/04/06 |
 | [API-04 — Read progress](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-04) — FR-04 | Reuse address results; qualify readiness/status meanings and uncertain outcomes. | GAP-04/05/06 |
-| [API-05 — Update setup](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-05) — FR-05 | Qualify edits; route changes remain separate. | GAP-02/06/07/08 |
+| [API-05 — Update setup](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-05) — FR-05 | Reuse address `add` and date-only `update`, including mixed requests. Confirm Spain grouping/provider support; route changes remain separate. | GAP-02/06/07/08 |
 | Events — INT-AP01–06 | Reuse supported subscriptions/notifications; caller access and public coverage are unconfirmed. | GAP-05/06/07 |
 | Identity and Tax certificate services — REF-TRUST | Reuse existing checks and protected references; confirm NIF, representation and certificate acceptance. | GAP-03/06 |
 | Public connector — SPEC011 | Reuse the proposed access-check pattern; confirm actual Spain build and environment support. | GAP-02/05/06 |
@@ -149,7 +149,7 @@ Owners must qualify implementation and evidence before activation.
 | ID | Decision / evidence needed | Owner |
 |---|---|---|
 | GAP-01 | Confirm SXS business/client mapping and supported dataset/access-point cardinality. Several addresses do not prove several legal entities; do not assume one dataset per NIF. | API, Identity, Tax, Enablement |
-| GAP-02 | Supply Spain service IDs/environments, address types and provider inputs. Confirm which public/private combinations are supported and whether public setup has an access point. Classify configuration/code/contract changes. `fr.*` values are not Spain identifiers. | Spain Product/Compliance, API, Integration |
+| GAP-02 | **Open decision — Spain public-platform representation:** decide whether public setup uses the existing access-point/connection model, how it appears in API-01/02 and whether API-03/05 apply. The supplied sources do not settle this. Confirm Spain service IDs/environments, address types, provider inputs and supported public/private combinations; identify configuration/code/contract changes. `fr.*` values are not Spain identifiers. | Architecture and Engineering (API/Integration); Spain Product/Compliance for country rules |
 | GAP-03 | Confirm accepted evidence that the caller may act for this business. Login and certificate possession are insufficient. | Identity, Security, Product |
 | GAP-04 | Confirm duplicate handling, safe repeats, concurrent changes and how to establish an earlier request's result. | API, Integration, Operations |
 | GAP-05 | Confirm what each status/event proves, including partial or missing addresses and separate activation. | API, E-Invoice Service, Routing |
@@ -169,7 +169,7 @@ Use [038's release checks](SPEC-SEI-038-customer-onboarding-and-connectivity-log
 | FR-02 | [Dataset listing](<../../context/FR API/Onboarding/get-dataset-accesspoints.md>), 1.0.0, `Get-Dataset-AccessPoints`. | API-02 status and nullable `connectionId`. |
 | FR-03 | [Connect contract](<../../context/FR API/Onboarding/new-accesspoint-connection.md>), 1.0.0, `New-AccessPoint-Connection`, request/response schemas. | API-03 and full payload example; replay/routing effects need confirmation. |
 | FR-04 | [Connection detail](<../../context/FR API/Onboarding/get-accesspoint-connection.md>), 1.0.0, `Get-AccessPoint-Connection`. | API-04 per-address status/error; not activation. |
-| FR-05 | [Update contract](<../../context/FR API/Onboarding/put-accesspoint-connection.md>), 1.0.0, `Put-AccessPoint-Connection`. | API-05; no generic migration/replay guarantee. |
+| FR-05 | [Update contract](<../../context/FR API/Onboarding/put-accesspoint-connection.md>), 1.0.0, `Put-AccessPoint-Connection`; address `action` description and `mixed-actions-success` example. | API-05 add/date-update and mixed requests; current France grouping is not a Spain default. No generic migration/replay guarantee. |
 | INT-DS01 | [Dataset guide](<../../context/FR API/Onboarding/network-onboarding-create-dataset-guide-extract.md>), received 22 October 2026, ownership/channel sections and steps 1–2; revision unverified. | Conditional provisioning; Spain mapping and native linkage remain open. |
 | INT-AP01–06 | [Access-point guides](<../../context/FR API/Onboarding/access-point-guides-evidence-extract.md>), received 22 October 2026, connect/update/ownership/errors/catalogue sections; revisions/builds unverified. | Existing flow guidance; source conflicts remain GAP-07. |
 | REF-TRUST | [SPEC001](../SPEC-SEI-001-certificate-management-solution-specification.md), 20 October 2026, CERT-04/05 and G1/G9/G10. | Proposed certificate validation/readiness; not a deployed Tax response contract. |
