@@ -91,7 +91,7 @@ For ONB-S02, reuse saved setup and check access for the selected public function
 
 For ONB-S03, find the service and connection (API-01/02). Reuse valid setup; connect only if missing (API-03), then read progress (API-04). Check permission and routing effects first. A connected address does not activate a route.
 
-The five private-provider candidates are B2B Router, Banqup (Unifiedpost), EDICOM, SERES (Docaposte) and ZeroComa. [040's examples](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#1-existing-calls-to-reuse) apply this flow to Sage 200/B2B Router and Despachos/ZeroComa. Names do not prove integration readiness; provider inputs and interfaces remain GAP-02/06. REF-PROVIDERS.
+The Phase 2 portfolio names B2B Router, Banqup (Unifiedpost), EDICOM, SERES (Docaposte) and ZeroComa. [040](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-01) also records **Sovos as a new candidate** from the Confluence review. Names do not prove Spain integration readiness; provider services, contracts and inputs remain GAP-02/06. REF-PROVIDERS.
 
 The unlisted-provider decision is in [038 §3.2](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#32-decisions-and-open-questions); the separate interconnection duty is in its [operator handoff](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#operator-interconnection-handoff). Sage's operator role requires the [PRD221](../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md) checks; customer connection success is insufficient.
 
