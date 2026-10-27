@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="invoice-lifecycle-overview-process" name="Invoice lifecycle: show what happened and what needs action">
+    <mxGraphModel page="1" pageWidth="1400" pageHeight="1830">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Invoice lifecycle: show what happened and what needs action&#10;Business facts, status-change attempts and destination reporting have separate results." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="12" width="1344" height="95" />
+        </mxCell>
+        <mxCell id="legend" value="Proposed design · Solid: saved evidence and results · Dashed: reporting only when applicable" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="104" width="1344" height="22" />
+        </mxCell>
+        <mxCell id="behaviour-legend" value="Read top to bottom. Branches apply only to the selected source or required action." style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="130" width="1344" height="24" />
+        </mxCell>
+        <object id="input" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md" label="Read platform evidence or an authorised business fact&#10;Existing invoice and its original source context&#10;LCS-01" tooltip="Existing invoice and its original source context">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="400" y="180" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="verify" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md" label="Check invoice, business, actor and permission&#10;Hold unknown or unauthorised work&#10;LCS-02" tooltip="Hold unknown or unauthorised work">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="400" y="340" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="save" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md" label="Save evidence and apply country rules&#10;Keep raw codes, times and correction history&#10;LCS-03/04" tooltip="Keep raw codes, times and correction history">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="400" y="500" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="view" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md" label="Update the supported invoice facts&#10;Delivery, decisions, payment and reports stay separate&#10;LCS-05/06" tooltip="Delivery, decisions, payment and reports stay separate">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="400" y="660" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="needed" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md" label="Is an outgoing report required?&#10;&#10;LCS-07" tooltip="">
+          <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="500" y="820" width="400" height="104" />
+          </mxCell>
+        </object>
+        <object id="plan" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md" label="Select each report and its execution owner&#10;Required fields, destination, original route and deadline&#10;LCS-07/08" tooltip="Required fields, destination, original route and deadline">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="400" y="1050" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="public" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md" label="Send the required public report&#10;Recipient or issuer contract; Spain fields confirmed&#10;LCS-09" tooltip="Recipient or issuer contract; Spain fields confirmed">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="130" y="1270" width="500" height="104" />
+          </mxCell>
+        </object>
+        <object id="private" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md" label="Send the required private report&#10;Only where applicable; identify provider-owned reports&#10;LCS-09" tooltip="Only where applicable; identify provider-owned reports">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="770" y="1270" width="500" height="104" />
+          </mxCell>
+        </object>
+        <object id="result" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md" label="Show facts, report results and next actions&#10;Each destination keeps its own result and action owner&#10;LCS-06/10" tooltip="Each destination keeps its own result and action owner">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="400" y="1530" width="600" height="110" />
+          </mxCell>
+        </object>
+        <mxCell id="edge-0" source="input" target="verify" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-1" source="verify" target="save" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-2" source="save" target="view" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" source="view" target="needed" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-4" source="needed" target="plan" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-4" value="Yes" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="720" y="976" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-5" source="needed" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.0;exitY=0.5;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="70" y="872" />
+              <mxPoint x="70" y="1470" />
+              <mxPoint x="700" y="1470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-5" value="No outgoing report" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="90" y="984" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-6" source="plan" target="public" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="700" y="1200" />
+              <mxPoint x="380" y="1200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-6" value="If required" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="200" y="1224" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-7" source="plan" target="private" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="700" y="1200" />
+              <mxPoint x="1020" y="1200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-7" value="If required" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="840" y="1224" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-8" source="public" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="380" y="1430" />
+              <mxPoint x="700" y="1430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-9" source="private" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1020" y="1430" />
+              <mxPoint x="700" y="1430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="boundary" value="Unknown codes or conflicting evidence need review. Keep known facts and the last successful status when an attempt fails.&#10;A timeout keeps the external result unknown. Check the original report before unsafe replay or cancellation replacement.&#10;Public and private reports can both apply. Incoming already-reported evidence does not automatically create another report." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="1720" width="1344" height="96" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

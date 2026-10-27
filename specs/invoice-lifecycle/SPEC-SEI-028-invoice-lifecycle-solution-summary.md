@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-22
+updated: 2026-10-27
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -28,70 +28,66 @@ confluence:
 
 # Invoice Lifecycle Solution Summary
 
-[Logical Feature Specification](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md) · [Sequence and Reuse Assessment](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md) · [Feature folder](README.md)
+[Logical specification](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md) · [API reuse assessment](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md) · [Feature folder](README.md)
 
 ## Revision overview
 
-This separate draft develops [SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) into the same three reading views as sending and receiving. It adds the four supplied French lifecycle guides, the transition-outcome note and the Annex II file named `21-10-26`. SPEC-SEI-009 stays unchanged and remains the selected source for stable Confluence page `923861398`.
-
-Existing LCS activities, requirements, acceptance IDs, independent outcome dimensions, reporting duties and historical-route controls retain their meanings. The new analysis assesses the existing French API as the first reuse candidate. It does not approve Spain API coverage, an automatic translation of French statuses or a lifecycle release change. Country configuration, fields, correction support, deployed coverage and guide conflicts remain open.
+This view summarises [SPEC009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), which stays unchanged and remains the selected Confluence source. Existing LCS IDs, country rules and release boundaries remain. These three views are unpublished drafts; Spain API coverage and implementation readiness are open.
 
 ## 1 Problem and intended outcomes
 
-A Spanish business must see what happened to an invoice, who reported it and what needs action. A delivered invoice can be rejected or partly paid. A saved payment fact can have a public report still pending. A failed attempt to change status must remain visible without replacing the last successful status. REF-PRODUCT; INT-LCS05; LCS-R03/08/14.
+**What:** show what happened to an invoice, who reported it and who must act next. **Why:** a status-change request or completed API call cannot prove buyer acceptance, payment or completion of every report. **Reuse:** assess the existing E-Invoice status-update, notification and history APIs before adding product calls. REF-PRODUCT; INT-LCS01–05.
 
-The product outcome is an explainable history and current view with separate technical, validation, delivery, commercial, payment and reporting information. The buyer, seller or authorised accountant can take a permitted action and see its outcome. Operations can recover uncertain reports without duplicating them. The logical view owns these rules; the API view assesses their implementation.
+Keep business facts, action attempts and destination reports separate. If a transition fails, retain the last successful status and the failed attempt. SPEC029 owns these rules; SPEC030 owns reuse and contract gaps.
 
 ## 2 Scope and actors
 
-| Situation | Observable outcome and boundary |
+| Situation | Required outcome |
 |---|---|
-| Public or private platform supplies status evidence | Preserve source vocabulary and actor. Update only the dimensions supported by that evidence. |
-| Buyer or seller records an authorised business event | Save the decision or payment fact and identify each applicable destination. Recording a fact and completing a report have separate results. |
-| A transition fails | Keep the latest successful status. Retain the failed attempt and an owned corrective action. |
-| A report succeeds at one destination | Show that destination's result while other destinations retain their own pending, failed or uncertain outcomes. |
-| An event is corrected, arrives late or follows a platform change | Retain the original evidence and invoice context. Reconcile conflicts and uncertain mutations before repeating them. |
-| Product misses an update | Recover saved Sage history. Discover an external event not yet received through a separately qualified source query. |
+| Platform sends status evidence | Save its source/code and update only the facts it proves. |
+| Buyer/seller/accountant records an allowed decision or payment fact | Save the authorised fact and assess the reports it requires. |
+| Transition or report fails | Preserve earlier success; show the failed/pending action and owner. |
+| Several destinations require a report | Track each result independently and avoid duplicate senders. |
+| Correction, late event or provider change occurs | Preserve original evidence and invoice route; check uncertain earlier effects before repeating. |
+| Product misses an update | Recover saved history; use a qualified platform query for evidence Sage has not received. |
 
-The business/authorised accountant supplies purpose-specific authority. The ERP supplies supported facts and displays results. The lifecycle capability preserves evidence and calculates the view and duties. The public or private platform returns its own result. Operations resolves blocked or uncertain actions. These are logical responsibilities; deployment boundaries remain engineering decisions.
+The business/accountant supplies authorised facts. The ERP displays results. The E-Invoice Service maintains the view and reporting work; public/private platforms return their results. Operations resolves uncertain actions. Responsibility labels do not approve service boundaries.
 
-PRD-SEI-224 distinguishes Phase 1 public consultation, Phase 2 provider mapping and Phase 3 recipient actions and reporting fan-out. This draft retains that scope. Payment initiation, dispute adjudication and automatic rectifying-invoice creation remain outside this feature. Optional customer actions still require the existing LCS-Q-OPTIONAL decision.
+PRD224 keeps Phase 1 public consultation, Phase 2 provider mapping and Phase 3 recipient actions/reporting. Optional actions need Product approval. Payment initiation, dispute decisions and automatic rectifying-invoice creation remain outside scope.
 
 ## 3 End-to-end flow
 
-![Receive evidence and derive independent invoice outcomes](../../assets/diagrams/lifecycle-event-derivation-process.svg)
+![Save invoice evidence, update the view and track each required report](../../assets/diagrams/invoice-lifecycle-overview-process.svg)
 
-[Editable Draw.io](../../assets/diagrams/lifecycle-event-derivation-process.drawio) · [PNG](../../assets/diagrams/lifecycle-event-derivation-process.png).
+[Draw.io](../../assets/diagrams/invoice-lifecycle-overview-process.drawio) · [PNG](../../assets/diagrams/invoice-lifecycle-overview-process.png).
 
-The existing diagram joins platform evidence and authorised customer facts at verification and source preservation. Unknown meaning or conflicting evidence goes to review. Valid evidence updates the supported view. The separate reporting process in SPEC-SEI-029 creates and reconciles destination-specific obligations. The French product flow adds asynchronous status attempts and history reads; it does not combine those outcomes.
+Start with an existing invoice and its authorised source context. Save the evidence before applying country rules. An incoming status does not automatically trigger another report. When reporting applies, keep each destination’s result separate. A timeout stays unresolved until the original result is checked.
 
 ## 4 Reuse direction and product impact
 
-**Assess the existing French status-update, notification and invoice-history APIs before proposing another product interface.** The supplied guides show dataset/invoice scoping, a common envelope, status-specific `statusAttributes`, operation identity and saved history. These are credible reuse points. They do not prove how the implementation selects country rules or whether Spain events can be represented. INT-LCS01–05; API qualification in SPEC-SEI-030.
-
-| Classification | Spain use and consequence |
+| Existing capability / pattern | Spain work to confirm |
 |---|---|
-| Reusable design patterns | Separate successful status from transition attempts; keep source history; notify after processing; read the resulting history. Actual code coverage remains unknown. |
-| Shared capability with country rules | Reuse existing operations if the selected build supports Spain actors, fields, independent dimensions and per-destination reports. Products may retain call patterns, but Spain identifiers and payloads still need qualification. |
-| Spain-specific | Annex II ApplicationResponse codes, issuer/recipient roles, `01`/`02` reasons, full-payment reporting, cancellation, legal applicability and calendars. These must not become France defaults. |
-| Preferred transformation candidate | Assess existing DTS if it will create Spain ApplicationResponse XML. Confirm its build, mappings, rules, operations and fixtures; France invoice UBL support does not establish event-message support. |
-| Unknown implementation coverage | A configurable country registry, Spain status UUIDs, correction commands, complete history schema, external report ownership and runtime readiness are not established by the guides. |
+| E-Invoice status POST, notification and invoice GET/history | Confirm the actual build, Spain action identifiers/fields, result correlation and supported read/write actions. |
+| Shared history and recovery | Keep successful status, failed attempts, source evidence and destination reports separate. Implementation coverage is unknown. |
+| Country/provider rules | Bind actors, directions, reasons, deadlines and historical routes without changing another country’s behaviour. |
+| Spain public reporting | Qualify Annex II codes, dates, full payment/collection, rejection and cancellation. No automatic mapping from France statuses is approved. |
+| Existing DTS — preferred XML mapping candidate | Prove ApplicationResponse support, field mappings, rules and operations. Invoice UBL support alone is insufficient. |
 
 ## 5 New Annex II review
 
-The supplied [Annex II](<../../context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf>) contains the same eight event codes, 52 field/group occurrences and rejection reasons as the final BOE baseline. The comparison found no material change in the reviewed fields, cardinalities, descriptions or literal UBL paths after removing PDF wrapping and ordinal punctuation differences. The [review note](<../../context/Anexo II/annex-ii-review.md>) records exact pages and limits. SPFE-S22; REF-FIELDS.
-
-The filename provides a date cue, but the document states no formal revision or superseding authority. Final published regulation remains the legal source. Existing ambiguous UBL paths and absent executable event formats remain open. This snapshot does not close Spain contract or implementation qualification.
+The supplied [Annex II comparison](<../../context/Anexo II/annex-ii-review.md>) found the same eight event codes and 52 field/group occurrences as the final BOE baseline. No reviewed material field change was found. The filename does not establish a formal revision or legal amendment. Final regulation remains authoritative; field-path ambiguities and missing executable formats remain open. SPFE-S02/S22; REF-FIELDS.
 
 ## 6 Decisions that affect delivery
 
-| Gate | Consequence, accountable role and required evidence |
+| Decision / owner | Evidence required |
 |---|---|
-| LIF-G01/02 — actual reuse coverage and model fit | API/Architecture owners must identify the build and prove country selection, independent dimensions, failed history and reporting results. A single French status field is insufficient evidence. |
-| LIF-G03 — French guide conflicts | French API owner must resolve terminality, actor and blocked-transition conflicts against the selected schema and tests before using its matrix. |
-| LIF-G04 — Spain event and XML coverage | Spain integration, DTS and Legal/Tax owners must qualify each Annex II field and cancellation sequence. Missing fields hold the affected action. |
-| LIF-G05/06 — completion and safe recovery | API, Notifications and Operations owners must prove result correlation, idempotency, missed-event recovery and external uncertainty handling. |
-| Existing country/authority/calendar and LCS-Q-OPTIONAL gates | Product, Spain Legal/Tax and integration owners select applicability, enabled actions and historical actors. A documented API action cannot approve release scope. |
+| LIF-G01/02 — API/Architecture | Running build, country selection, independent results and complete history. |
+| LIF-G03 — API owner | Resolve conflicting France transition/actor rules against the selected contract. |
+| LIF-G04 — Spain, DTS, Legal/Tax | Spain action/field bindings, event XML and cancellation recovery. |
+| LIF-G05/06 — API, Events, Operations | Attempt correlation, repeat safety, missed events and original-result lookup. |
+| LIF-G07/08 — Identity, Integration, Product | Business/actor authority, historical provider, applicable calendars and enabled scope. |
+
+[SPEC030](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md#4-source-conflicts-and-qualification-gates) holds the detailed gates. A documented capability does not enable a release or prove a working Spain integration.
 
 ## REF Source references
 

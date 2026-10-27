@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-22
+updated: 2026-10-27
 reviewers: []
 related:
   - SPEC-SEI-016
@@ -29,84 +29,69 @@ confluence:
 
 # Invoice Retrieval Solution Summary
 
-[Logical Feature Specification](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md) · [Sequence and Reuse Assessment](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md) · [Feature landing page](README.md)
+[Logical specification](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md) · [API reuse assessment](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md) · [Feature folder](README.md)
 
 ## Revision overview
 
-This separate overview develops [SPEC-SEI-016](../archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) into the same three reading views as onboarding and sending. It adds the supplied FR receiving guide to the reuse assessment. The predecessor stays unchanged, including its receiving, private-intake, retrieval and records controls.
-
-Retrieval is the focus within the combined receiving feature. Existing RRI, PRI, RSD and RCV IDs retain their meanings. Public Phase 1 scope, separate file roles, current action authority and safe recovery remain unchanged. Provider rollout, complete query coverage, Spain contract details and implementation fitness remain open. These companions are unpublished drafts; SPEC-SEI-016 remains the selected source for Confluence page `933331276`.
+This view summarises [SPEC016](../archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md). Its RRI, PRI, RSD and RCV IDs, release scope and source-file controls remain unchanged. SPEC016 remains the selected Confluence source; these three views are unpublished drafts. Provider support and implementation coverage remain open.
 
 ## 1 Purpose and intended outcomes
 
-Help a Spanish business obtain invoices addressed to it, retain their exact source files and make them available to the correct product and authorised users. A direct customer or accountant must see what was found, what was captured, what needs attention and who must act next. Missing notifications and downstream failures must not silently lose invoices. REF-PRODUCT; REF-BASE.
+**What:** obtain invoices addressed to a Spanish business, save their source files and deliver each business invoice once to the correct product. **Why:** a missed notification or product failure must not lose an invoice. **Reuse:** assess the existing E-Invoice API, records access and inbound DTS mapping before adding capabilities. REF-PRODUCT; INT-RCV01.
 
-**Audience: local Product teams, directors and cross-functional stakeholders.** Use this page for outcomes and decisions. SPEC-SEI-026 owns functional scenarios and checks; SPEC-SEI-027 assesses API sequences, country differences and engineering evidence.
+Product teams use this summary for scope and impact. SPEC026 owns scenarios and required behaviour; SPEC027 owns API reuse and engineering gaps.
 
 ## 2 Terms used
 
-Use the [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). Discovery identifies a candidate. Retrieval obtains its actual file. Verified capture means the file and its identifying evidence are saved consistently. A stored-file download returns already captured bytes to a currently authorised actor.
-
-Source capture, product availability, product receipt, technical acknowledgement, internal invoice approval and buyer acceptance are separate outcomes. A file can be safely accessible while mapping or product delivery needs repair. RRI-R02/06; RCV-I10/14.
+[Shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md): **discovery** finds an invoice reference; **capture** saves its verified source file; **stored-file access** returns saved bytes under current permission. Capture, product receipt and buyer acceptance have separate results.
 
 ## 3 Scope and actors
 
-| Situation | Intended outcome and boundary |
+| Situation | Required outcome |
 |---|---|
-| Spain public-platform collection | Automated discovery and separate file recovery for the eligible recipient. Login or refresh can accelerate collection; they are not the completeness mechanism. SPFE-S02 Articles 9–11; RSD-R01/02. |
-| Private-provider notification or polling | Download the required invoice file through the selected qualified provider contract. A notification, metadata response or file link alone is insufficient. PRI-03; RRI-A02/03. |
-| Private provider supplies complete bytes | Capture once and enter the same receiving controls. Downstream delay is not a reason to fetch again. RRI-A01. |
-| Customer or accountant downloads a saved file from a public or private source | Return the permitted, labelled file under current authority, safety and records policy. After verified capture, this read does not fetch the file from the platform again. RRI-R06. |
-| Public copy and private original both arrive | Preserve both sources and qualify one business-invoice relationship. Do not create two product invoices. RCV-04; RSD-A05. |
-| Accountant works across clients | Keep authority, progress, files and results separate for each client. No portfolio membership implies permission. RCV-I13/16. |
+| Public platform — Phase 1 | Collect automatically. Discover invoices, then download their files. Customer refresh can accelerate the same work. SPFE-S02/S03. |
+| Private platform — selected later phase | Download a file when only a notification/reference arrives. If the provider delivers complete bytes, save them without another fetch. |
+| Public copy and private original | Keep both sources and prove whether they represent one business invoice. |
+| Customer/accountant requests a saved file | Check current client/file permission and return the saved, labelled file. |
+| Processing, product delivery or collection fails | Keep completed work; show the affected item, next action and owner. |
 
-PRD-SEI-211 Phase 1 covers public retrieval. The combined design also assesses private intake; it does not add private collection to that release. Product selects enabled modes under RRI-Q02. ZIP export remains outside the initial scope under RSD-G09. Sending, public-copy submission, buyer decisions and payment reporting retain their owning features.
+The business or authorised accountant requests permitted actions. The ERP displays results and confirms receipt. The E-Invoice Service coordinates collection and receiving; supporting capabilities check permission, files, mapping and records. Source platforms supply files/results; Operations resolves assigned failures. These are logical responsibilities.
 
-| Party | Outcome or handoff |
-|---|---|
-| Business or authorised accountant | Request an allowed refresh or download; provide a missing purpose-specific decision. |
-| ERP / product | Integrate notifications and reads where supported; show separate file, processing and next-action results. |
-| E-Invoice Service | Coordinate collection, receiving and recovery using the selected source context. This is a logical responsibility, not a new deployment decision. |
-| Identity, connections, trust, records and transformation owners | Supply qualified authority, source access, safe capture, file access and selected inbound mapping. |
-| Public connector or private provider | Execute the qualified source contract and return scoped evidence. |
-| Operations / support | Resolve assigned gaps, conflicts and integrity incidents with an evidenced safe next action. |
+Start after [onboarding](../onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#4-feature-wide-functional-requirements-and-rules) has established the selected platform access and business mapping. Reuse the company’s SXS dataset and required credential references through qualified bindings; do not onboard the customer again here. Private rollout remains RRI-Q02. ZIP export, sending and business lifecycle actions keep their existing scope.
 
 ## 4 End-to-end workflow
 
-![Receiving intake, source capture and product delivery](../../assets/diagrams/receiving-retrieval-and-download-intake-process.svg)
+![Find an invoice, save its file, and deliver it once](../../assets/diagrams/invoice-retrieval-overview-process.svg)
 
-[Editable Draw.io](../../assets/diagrams/receiving-retrieval-and-download-intake-process.drawio) · [PNG](../../assets/diagrams/receiving-retrieval-and-download-intake-process.png).
+[Draw.io](../../assets/diagrams/invoice-retrieval-overview-process.drawio) · [PNG](../../assets/diagrams/invoice-retrieval-overview-process.png).
 
-The existing overview joins public recovery and private intake at verified source capture. It separates authorised stored-file access from receiving and product delivery. A failed file fetch keeps the item incomplete. Later processing failure preserves captured evidence and its permitted access. SPEC-SEI-026 gives the activity order, exceptions and recovery checks.
+Public discovery and private intake join at source capture. A notification or metadata result does not complete capture. After capture, stored-file access and product processing proceed separately. SPEC026 explains the checks and safe recovery.
 
 ## 5 Reuse direction and Spain boundaries
 
-Assess the existing FR subscription, list, detail and attachment-download APIs before proposing another product interface. The guide supplies a reuse candidate, not evidence of Spain deployment. The engineering assessment identifies changes and gates without asserting a breaking API change. INT-RCV01; REF-API.
-
-| Classification | Intended use and qualification |
+| Existing capability / pattern | Spain work to confirm |
 |---|---|
-| Reusable design patterns | Scoped collection, verified capture, independent progress, duplicate handling and recovery. Source code coverage remains unknown. |
-| Shared capability needing country/provider rules | Existing APIs, identity/route binding, records access, trust and inbound mapping. Qualify the actual build, contracts, local changes and run owner. |
-| Spain-specific | Public discovery/download operations, registered representation, NIF/business identity, original/copy rules and public UBL profile. Do not make these defaults for another country. SPFE-S02/S03/S08. |
-| Preferred transformation candidate | Existing DTS, where inbound mapping is required. Outbound generation and France UBL support do not qualify Spain inbound mapping. RRI-R05; RCV-Q09. |
-
-The FR guide states 20 results per page, a 90-day creation query window, short-lived attachment links and a separate optional Factur-X representation request. These facts affect missed-event recovery and file handling; they are not Spain public limits or retention rules. INT-RCV01 sections 3.1–4 and Polling.
+| E-Invoice subscriptions, list, detail and file download | Confirm Spain service support, identity mapping, file roles and missed-event recovery. The supplied guide proves documented operations, not a running Spain integration. |
+| Shared capture, duplicate handling and records access | Qualify the actual build, current permissions, integrity, retention and recovery. |
+| Existing DTS — preferred mapping candidate | Prove the selected Spain inbound format, tax/extension fields and target-product mapping. Outbound UBL support alone is insufficient. |
+| Spain public collection | Bind the supplied discovery/download operations, representation and UBL profile. Keep these country rules separate. SPFE-S02/S03/S08. |
 
 ## 6 Material decisions and dependencies
 
-| Decision / existing gate | Consequence and accountable roles |
+| Decision | Evidence / owner |
 |---|---|
-| Enabled modes and entry points — RRI-Q01/02 | Product and Integration must select public/private cohorts and qualify what refresh, query and download mean. A private guide cannot establish AEAT notifications. |
-| Query completeness and recovery — RSD-G01/06/07 | Public connector, API and Operations must prove page boundaries, saved progress and gap recovery. The FR 90-day list cannot establish all-history recovery. |
-| Source files and inbound mapping — RSD-G05/08; RCV-Q03/09 | Format, DTS and Security owners must qualify exact source roles, Spain profile and mapping coverage. A derived PDF or transformed UBL cannot stand in for missing original bytes. |
-| Authority and historical access — RSD-G02/04; RCV-Q06/12 | Identity, Spain Compliance and Records must qualify each action and historical access. A valid token, certificate or client relationship alone is insufficient. |
-| Product receipt and acknowledgement — RCV-Q05/07/08 | Product, Integration and Architecture must prove the receiving-to-product result and each source response's meaning. Event publication does not prove product consumption. |
+| Enabled sources and access — RRI-Q01/02; RET-G01/06 | Product, Identity and Integration: supported modes, recipient permission and public contract. |
+| Complete collection — RSD-G01/06/07; RET-G03 | API and Operations: page boundaries, saved progress, late arrivals and older-history recovery. |
+| Correct files and mapping — RET-G04/07 | Records, Security, Format and DTS: source provenance, safety and inbound meaning. |
+| Saved access and product receipt — RET-G05/09 | Records and Product: historical access, retention/holds, delivery identity and receipt. |
+
+SPEC027 records the full gates and owners. Existing query windows, temporary links and optional renderings are API constraints; they do not set Spain retention or release scope.
 
 ## 7 Completion and assurance
 
-A collection boundary is complete only when all covered items have the required durable source and classification, or an approved ignore outcome. Final mapping and ERP receipt are separately tracked. Overall consultation still requires evidenced product distribution and freshness under PRD-SEI-211; checkpoint completion alone does not prove that outcome. REF-PRODUCT; RSD-05/06; RCV-07.
+Collection progress is complete only when each covered item has a saved source file and receiving classification, or an approved ignore outcome. Product processing, product receipt and source acknowledgement remain separate. PRD211 consultation also requires evidenced distribution and freshness. RSD-05/06; RCV-07; REF-PRODUCT.
 
-The [failure and recovery table](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#33-failure-and-recovery-decisions) identifies safe actions, owners and resume evidence. SPEC-SEI-026 retains functional acceptance and SPEC-SEI-027 adds API qualification evidence. Provider error meanings, partial-file recovery, retry limits and operational closure still need qualification; these documents do not claim that implementation tests have passed.
+Use [SPEC026 recovery](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#33-failure-and-recovery-decisions) and acceptance for failure coverage. Implementation readiness requires the selected contracts, build, mappings and operational evidence; document review cannot establish it.
 
 ## REF Source references
 

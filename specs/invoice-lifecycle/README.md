@@ -1,14 +1,14 @@
 # Invoice lifecycle
 
-Three unpublished draft views based on the unchanged SPEC-SEI-009, four supplied French lifecycle guides, the transition-outcome note and the new Annex II snapshot.
+Use the same three reading views as [onboarding](../onboarding-and-connectivity/README.md): overview, required behaviour and API reuse. These unpublished drafts use SPEC009, the supplied existing E-Invoice API guides and the Annex II evidence.
 
 | Read | Purpose |
 |---|---|
 | [Solution Summary — SPEC-SEI-028](SPEC-SEI-028-invoice-lifecycle-solution-summary.md) | Business outcomes, scope, reuse direction and material decisions. Start here. |
 | [Logical Feature Specification — SPEC-SEI-029](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md) | Scenarios, LCS rules, Spain events, failure/recovery and acceptance. |
-| [Sequence and Reuse Assessment — SPEC-SEI-030](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md) | Existing French API patterns, Spain field gaps, sequences and qualification gates. |
+| [Sequence and Reuse Assessment — SPEC-SEI-030](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md) | Existing API calls, grey/blue sequences, Spain field gaps, product impact and engineering gates. |
 
-[Local review preview](../../work/invoice-lifecycle-review/index.html) · [French guide evidence](<../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md>) · [Annex II comparison](<../../context/Anexo II/annex-ii-review.md>).
+[Supplied API guide evidence](<../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md>) · [Annex II comparison](<../../context/Anexo II/annex-ii-review.md>). The guides describe the first France implementation; Spain support still needs confirmation.
 
 The existing API is the first implementation reuse candidate. A common envelope and variable attributes do not prove deployed Spain support. Keep successful invoice status, transition attempts, business facts and destination-specific reports separate. French codes, reasons and transition rules must not become Spain defaults.
 

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-22
+updated: 2026-10-27
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -30,148 +30,147 @@ confluence:
 
 # Invoice Lifecycle Sequence and Reuse Assessment
 
-[Solution Summary](SPEC-SEI-028-invoice-lifecycle-solution-summary.md) · [Logical Feature Specification](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md)
+[Solution summary](SPEC-SEI-028-invoice-lifecycle-solution-summary.md) · [Logical specification](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md)
 
 ## Revision overview
 
-This separate API view assesses the supplied French lifecycle API against [SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) and the [functional view](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md). The predecessor remains unchanged and selected for stable Confluence page `923861398`. Existing LCS-INT/data and provider assessments remain available there; this view adds guide-evidenced operations, Spain gaps and engineering qualification.
-
-The user reports that the French API was built for reuse. Treat that as the reuse direction to investigate. The supplied contract supports useful common patterns; it does not establish the implementation's architecture, Spain coverage or production readiness. No new endpoint, status UUID, breaking schema change or deployment boundary is approved here.
+This view assesses the existing E-Invoice API against [SPEC009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), which stays unchanged and remains the Confluence source. The supplied France guides establish reuse candidates; they do not prove Spain support, new status UUIDs or a configurable country implementation. No new endpoint or breaking change is approved.
 
 ## 1 Reuse decision and product impact
 
-**Use the existing lifecycle API as the first implementation reuse candidate.** Its documented shape separates dataset/invoice scope, a status UUID, variable `statusAttributes`, an operation response, asynchronous completion and invoice history. This can support a stable product integration while country rules vary, if the actual build provides those extension points. INT-LCS01/02/05. A variable object in a guide is not proof that arbitrary fields are accepted or that country selection exists.
+Assess the existing status POST → notification → invoice GET/history pattern first. Products may retain that pattern if the selected build supports the Spain action, actor, fields and reporting results. Variable `statusAttributes` does not prove arbitrary-field support. INT-LCS01/02/05. [SPEC029](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md) owns required behaviour.
 
-| Delivery scope | Possible API or rule changes to qualify | Product integration impact | Affected operations |
-|---|---|---|---|
-| Public consultation in existing Phase 1 | Bind qualified AEAT observations to independent dimensions and the saved view. | Existing invoice reads may be reusable; exact field coverage is unknown. No AEAT webhook is established. | Invoice GET; GetInvoices / GetRegisteredInvoice |
-| Spain recipient reporting in the owning release | Country-specific action identifiers, required dates/reasons, report ownership and cancellation. | Reuse POST only if the schema represents the selected Spain action without loss. Clients need qualified identifiers/payloads and separate attempt/report outcomes. | Status POST; CustomerInvoiceEvents |
-| Optional issuer reports / optional customer actions | Product-enabled scope plus collection/default/cancellation mappings. | Keep disabled until approved. A readable event does not establish a writable command. | Status POST if qualified; SupplierInvoiceEvents |
-| Private exchange and reporting fan-out | Provider-specific mapping, direction, actor, automatic reports and historical route. | Products may retain the common call pattern; provider contract and obligation visibility remain gaps. | POST, events, GET; selected provider operations |
-| Shared completion/recovery | Exact attempt correlation, complete history, key semantics and country isolation. | Process notifications as completion prompts; read results and recover missed notifications. No confirmed breaking change is established. | All three common operations |
+| Delivery scope | Reuse / Spain work | Product impact / gates |
+|---|---|---|
+| Public consultation — Phase 1 | Map qualified public evidence to saved invoice views. | Reuse invoice reads if fields suffice; no AEAT webhook is established. LIF-G01/02/05. |
+| Private mapping — Phase 2 | Qualify each provider’s status, actor, direction, original route and automatic reports. | Keep common calls where supported; expose separate reporting results. LIF-G02/07. |
+| Recipient actions/reporting — Phase 3 | Qualify Spain action UUIDs, dates/reasons, report ownership and cancellation. | Products supply the selected action fields and retain operation/report results. LIF-G04/06. |
+| Optional issuer/customer actions | Select enabled scope and qualify collection/default/cancellation. | Read support does not imply a writable command. LIF-G04/08. |
+| Shared history and recovery | Correlate exact attempts, notifications and destination results; prove safe replay. | Recover missed events through reads. No confirmed breaking change. LIF-G02/05/06. |
 
-This table preserves PRD-SEI-224's phase boundaries. The French payment flow supplies no separate payment endpoint. Do not invent one or resubmit invoice UBL to attach a payment fact. That does not prove that its current status payload can represent Spain payment reporting. INT-LCS01; LIF-G04.
+PRD224 retains these phases. The guide uses status POST for payment facts, not a separate payment endpoint or revised invoice UBL. Whether its payload covers Spain reporting is still open.
 
-## 2 Operation assessment
+<a id="2-operation-assessment"></a>
 
-| Operation and purpose | Exact evidence | Functional controls | Reuse and Spain qualification |
-|---|---|---|---|
-| Subscribe to completion | `POST /internal/events/subscriptions`; Notifications `6.3.0` link. `resource = einvoice`, `eventType = e-invoicing.einvoice.statusupdated`. INT-LCS01/02. | LCS-R08/11; A10/23 | Existing implementation candidate. Qualify environment/access-point source, dataset scope, webhook authentication, delivery and replay. The France production source is not a Spain default. |
-| Request a lifecycle change | `POST /datasets/{datasetId}/e-invoices/{e-invoiceId}/status`; E-Invoicing `1.13.0` link. INT-LCS01. | LCS-R04–07/12–14 | Reuse envelope/operation pattern. Spain action UUIDs, payload schema, actor rules, correction commands and external effects remain unknown. Numeric French code or AEAT string cannot be substituted for the UUID. |
-| Receive completion notification | Guide event example `com.sage.network.api.e-invoicing.einvoice.statusupdated`; `subject` identifies invoice; `data.id` is a workflow status UUID. INT-LCS02. | LCS-R08/14; A26/27 | Completion may represent `ERROR`. Qualify correlation to the POST operation, event identity and sequence; inspect history before choosing recovery. |
-| Read saved invoice/history | `GET /datasets/{datasetId}/e-invoices/{e-invoiceId}`; read `data.attributes.history`. INT-LCS02; INT-ERR01. | LCS-R03/08/11/14 | Existing error guide locates attempt fields under history and the latest snapshot under `currentStatus`. Full entry schema, paging, retention, concurrency and result freshness remain unqualified. GET does not itself discover an external event Sage has not received. |
-| Consult Spain public evidence | Catalogue GetInvoices / `QUERYBYID`, GetRegisteredInvoice / `QUERYBYFILTER`; supplied PRE WSDLs. SPFE-S03/S14/S15. | LCS-R01–03/11; A15 | Existing public transport candidates; exact status coverage, actor scope, filters/continuation and source completeness need qualification. Query failures retain the last view and evidence age. |
-| Report recipient events | `CustomerInvoiceEvents`, certificate/seal SOAP ports; SPFE-S11. | LCS-07–10; SPFE-R01–04 | Recipient PAYMENT, REJECTION and their cancellations. Final wire envelope, business schema and response correlation remain open. |
-| Report issuer events | `SupplierInvoiceEvents`, certificate/seal SOAP ports; SPFE-S17. | LCS-07–10; SPFE-R01–04 | Issuer SETTLEMENT, DEFAULT and their cancellations. Optional reporting and qualified product scope differ from command availability. |
+## 2 Proposed reuse sequences
 
-The SOAP operations are public connector candidates, not product endpoints. Supplied WSDL operation/port names do not establish complete Annex II body schemas, production addresses, numeric batch limits or deployed support. Use [SPEC-SEI-011](../SPEC-SEI-011-public-platform-connector-solution-specification.md) for transport ownership and the original contracts in REF.
+Grey shows documented existing E-Invoice calls. Blue shows Spain binding or proposed work to confirm. Each diagram explains the request, result and action still needing evidence.
 
-### 2.1 French request, notification and history read
+<a id="21-french-request-notification-and-history-read"></a>
 
-![French lifecycle command and result read](../../assets/diagrams/invoice-lifecycle-fr-update-sequence.svg)
+### 2.1 Existing request, notification and history read
 
-[Editable Draw.io](../../assets/diagrams/invoice-lifecycle-fr-update-sequence.drawio) · [PNG](../../assets/diagrams/invoice-lifecycle-fr-update-sequence.png).
+![Existing E-Invoice API: request a status change and read its result](../../assets/diagrams/invoice-lifecycle-fr-update-sequence.svg)
 
-The sequence shows documented product calls. It does not assert a particular internal component structure. A created operation and completion event require a result read; neither establishes a successful business transition or Spain report. A missed notification can be recovered by a qualified read strategy under LIF-G05/06.
+[Draw.io](../../assets/diagrams/invoice-lifecycle-fr-update-sequence.drawio) · [PNG](../../assets/diagrams/invoice-lifecycle-fr-update-sequence.png).
+
+Save the returned operation ID. The completion event prompts a result read; it cannot prove transition success. A missed event uses qualified history recovery. LIF-G02/05/06.
 
 ### 2.2 Spain business event and independent public reporting
 
-![Spain lifecycle reporting qualification](../../assets/diagrams/invoice-lifecycle-spain-reporting-sequence.svg)
+![Spain business fact and separate public/private report results](../../assets/diagrams/invoice-lifecycle-spain-reporting-sequence.svg)
 
-[Editable Draw.io](../../assets/diagrams/invoice-lifecycle-spain-reporting-sequence.drawio) · [PNG](../../assets/diagrams/invoice-lifecycle-spain-reporting-sequence.png).
+[Draw.io](../../assets/diagrams/invoice-lifecycle-spain-reporting-sequence.drawio) · [PNG](../../assets/diagrams/invoice-lifecycle-spain-reporting-sequence.png).
 
-This is a proposed responsibility sequence. The lifecycle/country lane is not a new service decision. The selected command needs qualification before use. Choose the recipient or issuer SOAP operation by the reporting actor and event. Create a private/counterparty report only when applicable and through its own qualified contract. Observe each result separately; no private endpoint is invented here.
+Save the authorised fact, select required destinations and execute each report through its qualified contract. Public and private results stay independent; correlate provider-owned reporting instead of sending it again. Responsibility lanes do not approve new services.
 
 ### 2.3 Failed transition and uncertain cancellation
 
-![Failure history and cancellation recovery](../../assets/diagrams/invoice-lifecycle-recovery-sequence.svg)
+![Keep the successful status and check an uncertain cancellation](../../assets/diagrams/invoice-lifecycle-recovery-sequence.svg)
 
-[Editable Draw.io](../../assets/diagrams/invoice-lifecycle-recovery-sequence.drawio) · [PNG](../../assets/diagrams/invoice-lifecycle-recovery-sequence.png).
+[Draw.io](../../assets/diagrams/invoice-lifecycle-recovery-sequence.drawio) · [PNG](../../assets/diagrams/invoice-lifecycle-recovery-sequence.png).
 
-The first branch applies the supplied failed-transition rule. The second shows an uncertain Spain cancellation. A local `ERROR` does not prove that AEAT rejected or never received the report. If an external effect remains possible, preserve and reconcile the original action; hold its replacement until the qualified recovery rule permits it. No reconciliation endpoint is supplied by the guides.
+A failed transition retains the last successful status. A timeout/local error does not prove external rejection or non-execution. Hold replacement while checking the original cancellation; without a qualified lookup, keep an owned manual case. LCS-R14; LIF-G06.
 
 ## 3 Contract details that affect reuse
 
+| Existing operation / source | Request → result | Reuse / Spain gap |
+|---|---|---|
+| `POST /internal/events/subscriptions` — INT-LCS01/02 | `resource = einvoice`, scoped `eventType = e-invoicing.einvoice.statusupdated` → subscription. | Qualify service/environment, dataset, webhook security, delivery and replay. LIF-G01/05. |
+| `POST /datasets/{datasetId}/e-invoices/{e-invoiceId}/status` — INT-LCS01 | `data.type = e-InvoiceStatus`; UUID `statusCode`, selected `statusAttributes` → `201 Created`, operation `data.id`. | Reuse envelope/attempt pattern; Spain UUIDs, fields, actors and corrections remain unconfirmed. LIF-G04/06. |
+| Status-updated webhook — INT-LCS02 | Example type `com.sage.network.api.e-invoicing.einvoice.statusupdated`; `subject` = invoice, `data.id` = status UUID. | Finished processing may mean `ERROR`. Prove event-to-operation/history correlation. LIF-G05. |
+| `GET /datasets/{datasetId}/e-invoices/{e-invoiceId}` — INT-LCS02/INT-ERR01 | Existing IDs → `data.attributes.currentStatus` and `history`. | Read the relevant attempt’s outcome/error from history. Prove full schema, completeness and freshness. LIF-G02/05. |
+| `GetInvoices` / `GetRegisteredInvoice` — SPFE-S03/S14/S15 | Identity or presentation-date query → public observations. | Separate external discovery from saved-history reads. Qualify fields, scope and continuation. LIF-G01/02. |
+| `CustomerInvoiceEvents` — SPFE-S11 | Recipient PAYMENT, REJECTION or cancellation → public result. | Supplied SOAP transport; body/envelope, actor/fields and result correlation still gated. LIF-G04/06. |
+| `SupplierInvoiceEvents` — SPFE-S17 | Issuer SETTLEMENT, DEFAULT or cancellation → public result. | Qualify contract and enabled optional scope. LIF-G04/08. |
+
+SOAP operations belong to the public connector boundary in [SPEC011](../SPEC-SEI-011-public-platform-connector-solution-specification.md). Their supplied PRE WSDLs do not prove production support, complete event schemas or batch limits.
+
 ### 3.1 Identifiers, payloads and outcome domains
 
-| Contract element | Evidence and integration rule | Gap / owner |
-|---|---|---|
-| Dataset and invoice | Preserve `datasetId` and the existing e-invoice ID. Current represented-entity/action authority is a separate check. | Spain onboarding/access-point and historical binding: API/Identity; LIF-G01/07. |
-| `statusCode` | Request field is a UUID. French numeric `200` appears for three different UUIDs. AEAT `PAYMENT` is an external `ResponseCode`, not a UUID. | Country catalogue and selection rules: API/Country; LIF-G02/04. |
-| `statusAttributes` | Documented per-status object. Refused uses `rejectionData[]`; Disputed uses `disputeData[]`; Partially Approved uses `partiallyApprovedData[]`; Suspended uses one `suspendedData` object. | Allowed Spain fields, validation, backward compatibility and unknown-field behaviour: API; LIF-G04. |
-| Payment fields | France supplies `paymentData[]` with required `netAmount` and `currencyCode`, optional `vatRate`. It describes partial or full payments. | Spain requires actor-specific full payment/collection and dates; see section 3.2. API/Spain owner. |
-| Time | Optional `lifecycleMetadata.statusDateTime` is a UTC date-time; POST response creation time and webhook time are different observations. | Date-only legal fields, time-zone conversion and missing occurrence evidence: Spain/API; LIF-G04. Never substitute notification time. |
-| POST result `data.id` | Guide identifies a status-change operation. | Exact history correlation and retry lookup: API; LIF-G05. |
-| Notification identifiers | `subject` = invoice; `data.id` = status UUID; example top-level `id` has ambiguous resource/status annotation. | Prove event/operation identity, deduplication and order. Do not deduplicate distinct attempts using the status UUID. Notifications/API; LIF-G05. |
-| Attempt outcome / error | INT-LCS05 defines `IN_PROGRESS`, `COMPLETED`, `ERROR`. Existing INT-ERR01 places them in `data.attributes.history[].operationStatus`, with nullable `history[].errorCode`. | Prove complete entry schema and exact attempt correlation in the selected build; API; LIF-G02/05. |
-| Latest status snapshot | INT-ERR01 locates it at `data.attributes.currentStatus`; that object has neither `operationStatus` nor `errorCode`. | Read attempt failures from history. Qualify which dimensions the snapshot actually represents; LIF-G02. |
-| Lifecycle Completed | French numeric `209`, UUID `00000000-0000-0000-0000-140000000000`, means requested information was supplied after suspension. | It is distinct from operational `COMPLETED`, payment and reporting completion. LCS-A27. |
+| Existing element | Reuse rule / gap |
+|---|---|
+| Dataset/invoice and historical route | Reuse saved IDs; verify current business/action authority. A route change cannot rebind old reports. LIF-G01/07. |
+| `statusCode` | UUID required. France numeric `200` identifies three different UUIDs; AEAT `PAYMENT` is a separate external code. Country selection remains LIF-G02/04. |
+| `statusAttributes` | Use only the selected action’s fields. The [guide](<../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md#int-lcs01-send-a-status-update>) retains array/object shapes. Spain schema/unknown-field behaviour is open. LIF-G04. |
+| Occurrence time | Optional `lifecycleMetadata.statusDateTime` is UTC. Creation/webhook timestamps cannot replace legal event dates. LIF-G04. |
+| Operation/event/history IDs | POST `data.id` is an operation; webhook `data.id` is a status UUID; `subject` is the invoice. Notification top-level `id` is ambiguous. Prove correlation; never deduplicate distinct attempts by status UUID. LIF-G05. |
+| Attempt result | `history[].operationStatus` = `IN_PROGRESS`, `COMPLETED` or `ERROR`; nullable `history[].errorCode`. `currentStatus` has neither. Prove entry schema/order/correlation. INT-ERR01; LIF-G02/05. |
+| Lifecycle Completed | France `209`, UUID `00000000-0000-0000-0000-140000000000`, concerns information supplied after suspension. It differs from operational `COMPLETED`, payment and report completion. LCS-A27. |
 
-Keep existing LCS-D01–10, [interaction contracts](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#1-interaction-contracts) and [data inventory](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#2-data-inventory) as the detailed logical baseline. No storage or component allocation follows from this API assessment. Qualify whether existing response fields can carry these concerns before proposing additions.
+Detailed LCS-D01–10 and interaction inventories remain in [SPEC009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#1-interaction-contracts). Qualify existing fields before proposing additions.
 
 ### 3.2 Spain field coverage against the French guide
 
-This is a gap assessment, not an approved transformation table. Exact Spain semantics and cardinalities are in SPEC-SEI-029 section 5.2 and its AXII source links. All mappings below remain unqualified.
+These are reuse candidates, not approved transformations. [SPEC029 §5.2](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#52-public-event-contract) and the AXII ledger own exact Spain fields/cardinalities.
 
-| Spain requirement | French guide candidate | Assessment and evidence needed |
-|---|---|---|
-| Four invoice-reference fields | Existing invoice ID and saved invoice metadata | Candidate derivation from saved context; prove exact series/number, issue date, seller NIF/name and actor binding. Dataset owner is not necessarily seller. |
-| Recipient `PAYMENT` | Payment Sent `211` / paymentData | Semantic mismatch risk: transfer sent is not effective full payment. Prove authority, completeness and date; obtain required `DueDate` and conditional receipt/indicator fields. No direct mapping approved. |
-| Issuer `SETTLEMENT` | Payment Received `212` / paymentData | Potential source fact only. France includes partial payment; public SETTLEMENT reports full collection. Prove collection date and conditional due/receipt/financing fields. |
-| `REJECTION` with L1 `01`/`02` | Refused `210` / `rejectionData[].reasonCode` | Similar business label does not establish an exact mapping. France closed reasons do not supply the two Spain legal categories. Prove reason, actor and rejection date without losing original detail. |
-| Explicit acceptance | Approved `205` | Candidate private communication under qualified rules; no public acceptance report exists in the supplied catalogue. Preserve explicit versus presumed meaning. |
-| `DEFAULT` | No matching writable action supplied | Missing capability evidence. A derived overdue view cannot automatically become an issuer assertion. |
-| Four `CANCEL*` report actions | No matching writable action supplied | Prove separate cancellation and replacement lineage. French terminal states cannot block a required Spain correction by default. Invoice withdrawal is a different action. |
-| Shipment/receipt dates and indicators | No corresponding fields in supplied France payment payload | Qualify legal date semantics, XML selectors and indicator values. Optional lifecycle time cannot encode several distinct required dates. |
-| Several destination outcomes | POST operation and invoice history | Full schema absent. Prove separate issuer/public obligations and provider-owned reports without duplicate submissions. |
+| Spain need | Existing candidate / change to qualify |
+|---|---|
+| Four invoice-reference fields | Derive from saved invoice context only after proving exact seller NIF/name, series/number and date. Dataset owner need not be the seller. |
+| Recipient `PAYMENT` | France Payment Sent `211`/`paymentData` does not prove full effective payment. Obtain due/payment dates and conditional fields. |
+| Issuer `SETTLEMENT` | France Payment Received `212` includes partial payments; qualify full collection, occurrence date and conditional fields. |
+| `REJECTION`, L1 `01`/`02` | France Refused `210`/`rejectionData[].reasonCode` needs an explicit actor/reason/date mapping; similar labels are insufficient. |
+| Explicit acceptance | France Approved `205` may inform qualified private communication. No supplied public acceptance report exists. |
+| `DEFAULT` | No matching writable command is supplied. A calculated overdue view cannot automatically assert issuer non-payment. |
+| Four `CANCEL*` actions | Missing command evidence. Preserve report cancellation/replacement lineage; invoice withdrawal differs. |
+| Several dates/indicators | France `paymentData[]` has required `netAmount`/`currencyCode`, optional `vatRate`; it lacks the distinct Spain date/indicator fields. One lifecycle timestamp cannot replace them. |
+| Several destinations | Existing POST/history pattern needs proof of independent obligations/results and provider-report correlation. |
 
-For XML creation, assess [existing DTS](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) first. Qualify actual ApplicationResponse support, transformation contracts, mappings, rule pack, country versioning, observability and recovery. DTS can transform a qualified event; it cannot supply missing authority, event facts or legal interpretation. LIF-G04.
+Assess existing DTS first for ApplicationResponse generation. Qualify its actual build, contract, mappings, rules, country versions and operations. Transformation cannot provide missing event facts or authority. LIF-G04.
 
 ### 3.3 Authentication, retries and completion
 
-The supplied guide accepts Domain Services or Sage ID M2M tokens and requires `Authorization`, `traceparent`, `tracestate` and `Idempotency-Key` for status POST. Public SOAP certificate authentication and registered representation remain separately qualified under SPFE-S02 Article 11 and the selected WSDL. Do not copy a product bearer token into an unrelated provider call.
+INT-LCS01 documents Domain Services or Sage ID M2M tokens and required `Authorization`, `traceparent`, `tracestate`, `Idempotency-Key` for status POST. Qualify public certificate authentication/representation separately; a product bearer token is not a provider credential. SPFE-S02 Article 11; SPFE-S11/S17.
 
-| Condition | Required handling | Qualification |
-|---|---|---|
-| Repeated logical command | Preserve original request identity and content. A changed correction is a separately linked action. | Key scope, retention, mismatch response, concurrent requests and supported replay: LIF-G06. |
-| `201 Created` or echoed payload | Save operation identity and await/read its processing result. | Admission does not prove completion or public reporting. INT-LCS01/02. |
-| Completion event | Verify scope, deduplicate by qualified event identity and read the correlated result. | May indicate `ERROR`; full event/correlation contract: LIF-G05. |
-| Confirmed transition `ERROR` | Apply LCS-R14. Retain last successful status and failed attempt; offer an owned correction. | External-report outcome remains independent. LCS-A26/27. |
-| Timeout after possible external mutation | Keep that destination outcome unknown and reconcile the original action. | No blind POST replay, new key or route fallback. Actual lookup/retry semantics: LIF-G06. |
-| `429` with `Retry-After` | Respect delay; apply the qualified mutation-safety rule before retrying. | Delay alone does not establish absence of an earlier effect. |
-| Missing notification or concurrent changes | Read qualified history; use source consultation for evidence not yet captured. Preserve all attempts and conflicts. | Complete history/paging, consistency, causal order and concurrency policy: LIF-G02/05/06. |
+| Condition | Required handling / gate |
+|---|---|
+| Repeated command | Keep original identity/content; a changed correction is a linked action. Prove key scope, retention, conflicts and concurrency. LIF-G06. |
+| `201` or completion notification | Save/correlate the operation and read the result. Neither proves business/public success. LIF-G05. |
+| Confirmed transition `ERROR` | Retain successful status and failed history; expose correction/owner. A report’s external result remains separate. LCS-R14/A26/27. |
+| Timeout or uncertain cancellation | Check the original effect before unsafe replay, new key, replacement or route fallback. LIF-G06. |
+| `429`, missing event or concurrent changes | Honour `Retry-After`; still apply mutation-safety rules. Read qualified history or consult uncaptured source evidence. LIF-G02/05/06. |
 
-The existing [FR error-handling evidence](<../../context/FR API/Shared/invoice-flow-error-handling-guide-extract.md>) adds documented history/error paths. Its `ERR-SENDING-STATUS-*` codes distinguish mapping, unsupported status, update and notification failures. Use its code-specific actions under the selected contract; platform-owned retries do not authorise a product resend. Its six-day support wording is not a Spain legal deadline or a universal waiting period. INT-ERR01; LIF-G05/06. This review does not duplicate that source's error dictionary.
+[INT-ERR01](<../../context/FR API/Shared/invoice-flow-error-handling-guide-extract.md>) retains `ERR-SENDING-STATUS-*` actions for mapping, unsupported status, update and notification failures. Platform retries do not authorise product resends. Its code-specific six-day support guidance is not a Spain deadline.
 
 ## 4 Source conflicts and qualification gates
 
-| Gate / owner | Evidence needed and blocked consequence |
+| Gate / owner | Required evidence before the affected capability is enabled |
 |---|---|
-| LIF-G01 — API/Architecture and country integration owners | Identify service/build, deployed API versions, actual access-point/country extension points and Spain entitlements. The reuse report is not code evidence. Blocks implementation-readiness claims. |
-| LIF-G02 — lifecycle/API owner | Prove independent dimensions, latest successful status, attempt history, per-destination obligations, concurrency and retained rule versions in actual schemas/tests. Blocks assuming the French single status represents all Spain outcomes. |
-| LIF-G03 — French API owner | Resolve Payment Received terminal in send guide versus nonterminal in blocked table; Disputed → Refused permitted in send guide but blocked in table; Submitted → Rejected blocked; Completed actor buyer versus supplier; Rejected actor PA versus buyer. Obtain selected schema, approved matrix/version and positive/negative tests. Do not use the supplied table as executable truth or a Spain default. |
-| LIF-G04 — Spain integration, DTS, API and Legal/Tax owners | Supply Spain command identifiers, eight code/actor bindings, all 52 field occurrences, complete envelope/schema, validated literal-path/indicator decisions, cancellation and response fixtures. Resolve full/partial payment, date and reason gaps. Blocks affected commands, not preservation of valid incoming facts. |
-| LIF-G05 — Notifications/API owner | Prove notification authentication, IDs, operation/history correlation, delivery/replay, full history schema/pagination and consistency. Clarify conflicting illustrative reason values `DIS-001`, `SUP-001`, `PA-001` against the supplied closed lists; select valid fixtures. Blocks unqualified automatic outcome processing. |
-| LIF-G06 — API/public connector/Operations owners | Prove idempotency scope/retention/conflicts, mutation safety, retry budget and original-operation reconciliation, including uncertain cancellation and missed notifications. Provide runbook and owned manual path where lookup is unsupported. |
-| LIF-G07 — Identity/Spain and provider owners | Prove represented-party/action authority, historical operator/channel and selected private contract. Retain predecessor LCS-Q-PROVIDER; a new customer route does not rebind old reports. |
-| LIF-G08 — Product/Spain country owner | Select release scope and optional actions under existing LCS-Q-OPTIONAL; confirm legal calendars and derived views. Preserve valid incoming optional evidence. An API capability does not approve activation. |
+| LIF-G01 — API/Architecture, Integration | Actual build/API version, country extension points, access-point mapping and Spain entitlement. |
+| LIF-G02 — Lifecycle/API | Separate views, latest successful status, exact attempt/history schema, per-destination work, concurrency and retained rule versions. |
+| LIF-G03 — API owner | Resolve France Payment Received terminal/nonterminal, Disputed → Refused, blocked Submitted → Rejected and Completed/Rejected actor conflicts against the selected matrix/schema/tests. No Spain default inferred. |
+| LIF-G04 — Spain, DTS, API, Legal/Tax | Spain command identifiers, eight actor/code bindings, 52 fields, complete schema, literal-path/indicator decisions, cancellation and result fixtures. Preserve incoming facts while holding unsupported commands. |
+| LIF-G05 — Notifications/API | Event security/identity, operation/history correlation, replay and complete reads. Resolve sample `DIS-001`, `SUP-001`, `PA-001` against closed reason lists. |
+| LIF-G06 — API, Connector, Operations | Key/retry/mutation-safety rules, original-result reconciliation, uncertain cancellation and owned manual fallback. |
+| LIF-G07 — Identity/Spain, provider owners | Represented business/actor authority, original provider/channel and selected private contract. Retain LCS-Q-PROVIDER. |
+| LIF-G08 — Product/Spain | Enabled release/optional actions, legal applicability and calendars. Retain LCS-Q-OPTIONAL and valid incoming optional evidence. |
 
-The [existing provider catalogues](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#lifecycle-statuses-and-actions-by-provider) retain B2B Router, Banqup, SERES, EDICOM and ZeroComa evidence limits. This review does not requalify those contracts or replace them with French behaviour. The [Annex II comparison](<../../context/Anexo II/annex-ii-review.md>) found no material field delta; it does not resolve the listed runtime gaps.
+[Existing provider assessments](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#lifecycle-statuses-and-actions-by-provider) retain B2B Router, Banqup, SERES, EDICOM and ZeroComa evidence limits. No new private contract is established. The [Annex II comparison](<../../context/Anexo II/annex-ii-review.md>) does not close runtime gaps.
 
 ## 5 API qualification acceptance
 
-These checks supplement functional LCS-A01–27; none has been executed against an implementation in this review.
+These checks supplement LCS-A01–27; none is claimed as executed implementation testing.
 
-| ID | Required evidence | Functional link |
-|---|---|---|
-| LIF-API-A01 | Same common envelope selects pinned France and Spain rules without leaking codes, reasons, deadlines, authorities or changed history. Existing French clients and states retain approved behaviour. | LCS-A13/14; G01/02/04 |
-| LIF-API-A02 | POST returns a correlatable operation. Pending and failed attempts preserve the successful status. Notification and GET/history recover the exact attempt despite repeated status UUIDs and missing/duplicate events. | LCS-A10/26; G02/05 |
-| LIF-API-A03 | Correctly distinguish operational COMPLETED, lifecycle Completed, technical Rejected, business Refused and an external unknown outcome. Confirm guide conflicts against the approved France contract; do not guess precedence. | LCS-A01/22/27; G03/05 |
-| LIF-API-A04 | Approved Spain fixtures cover eight codes and 52 fields, full/partial payment, rejection `01`/`02`, distinct dates, optional indicators and cancellation lineage. Missing/invalid content is held before mutation; no France field substitution. | LCS-SPFE-A01/02; AXII pairs; G04 |
-| LIF-API-A05 | Identical-key replay, changed-content conflict, concurrent actions, timeout and 429 follow the selected contract without duplicate business or reporting effects. | LCS-A06/07/08; G06 |
-| LIF-API-A06 | Two destinations yield independent outcomes; correlate a provider-created report rather than sending another. An uncertain cancellation holds replacement until a qualified result or owned resolution. | LCS-A08/12/24; SPFE-A03; G04/06 |
-| LIF-API-A07 | Wrong dataset/entity/environment/actor is denied. An old invoice retains its permitted historical channel after platform change; no automatic fallback. | LCS-A09/15/19; G07 |
-| LIF-API-A08 | Selected build, schema, DTS mapping/rules, positive/negative fixtures, support owner and operations evidence are recorded for the enabled scope. Unqualified capability remains held. | LCS-A14/25; G01–08 |
+| Check | Required proof / functional link |
+|---|---|
+| LIF-API-A01 | Common calls select separate France/Spain rules without changing codes, reasons, duties, authority or saved history. LCS-A13/14; G01/02/04. |
+| LIF-API-A02 | POST, events and history correlate the exact attempt despite repeated UUIDs/missed events; pending/failure preserves success. LCS-A10/26; G02/05. |
+| LIF-API-A03 | Separate lifecycle Completed, operational COMPLETED, technical Rejected, business Refused and external unknown; resolve guide conflicts. LCS-A01/22/27; G03/05. |
+| LIF-API-A04 | Eight codes/52 fields cover actors, full/partial payment, reasons, dates, indicators and cancellations; invalid input holds before mutation. LCS-SPFE-A01/02; AXII pairs; G04. |
+| LIF-API-A05 | Same-key replay, changed content, concurrent commands, timeout and `429` follow qualified safe rules without duplicate effects. LCS-A06–08; G06. |
+| LIF-API-A06 | Independent destination results and provider-owned reports avoid duplicates; uncertain cancellation holds replacement. LCS-A08/12/24; SPFE-A03; G04/06. |
+| LIF-API-A07 | Wrong client/actor/environment denied; historical invoice reports retain their permitted route without automatic fallback. LCS-A09/15/19; G07. |
+| LIF-API-A08 | Record actual build, schema, DTS/rules, positive/negative fixtures and operations owner for enabled scope. Unqualified actions remain held. LCS-A14/25; G01–08. |
 
 ## REF Source references
 

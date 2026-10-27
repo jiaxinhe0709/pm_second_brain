@@ -1,231 +1,222 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="app.diagrams.net" type="device" version="24.7.17">
-  <diagram id="invoice-lifecycle-recovery-sequence" name="Failed attempt and uncertain cancellation recovery">
-    <mxGraphModel page="1" pageWidth="1415" pageHeight="1515">
+  <diagram id="invoice-lifecycle-recovery-sequence" name="Keep successful status; resolve uncertain cancellation">
+    <mxGraphModel page="1" pageWidth="1415" pageHeight="1218">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="v1" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#777777;">
-          <mxGeometry as="geometry" x="8" y="8" width="1399" height="1499" />
+        <mxCell id="v1" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="8" y="8" width="1399" height="1202" />
         </mxCell>
-        <mxCell id="v2" value="Failed attempt and uncertain cancellation recovery" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=27;fontColor=#222222;">
-          <mxGeometry as="geometry" x="30" y="18" width="862.5" height="26" />
+        <mxCell id="v2" value="Keep successful status; resolve uncertain cancellation" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=27;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="18" width="930.54" height="26" />
         </mxCell>
-        <mxCell id="v3" value="Keep successful status, attempt results and destination reporting outcomes distinct" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=17;fontColor=#222222;">
-          <mxGeometry as="geometry" x="30" y="59" width="900.93" height="26" />
+        <mxCell id="v3" value="A failed local attempt and an unknown external report are different results" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="59" width="815.25" height="26" />
         </mxCell>
-        <mxCell id="v4" value="Existing = documented API / guide; To qualify = logical handoff, no confirmed Spain contract." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#888888;">
-          <mxGeometry as="geometry" x="30" y="90" width="832.26" height="26" />
-        </mxCell>
-        <mxCell id="header-divider" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;endArrow=none;">
+        <mxCell id="header-divider" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;endArrow=none;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint as="sourcePoint" x="8" y="124" />
             <mxPoint as="targetPoint" x="1407" y="124" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="lifeline-0" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=none;">
+        <mxCell id="lifeline-0" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=none;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint as="sourcePoint" x="130" y="216" />
-            <mxPoint as="targetPoint" x="130" y="1412" />
+            <mxPoint as="targetPoint" x="130" y="1115" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="participant-0" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#777777;">
+        <mxCell id="participant-0" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
           <mxGeometry as="geometry" x="22" y="150" width="216" height="66" />
         </mxCell>
-        <mxCell id="v6" value="ERP / product" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#222222;">
+        <mxCell id="v6" value="ERP / product" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#626262;">
           <mxGeometry as="geometry" x="42.099999999999994" y="170" width="175.8" height="26" />
         </mxCell>
-        <mxCell id="lifeline-1" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=none;">
+        <mxCell id="lifeline-1" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=none;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint as="sourcePoint" x="515" y="216" />
-            <mxPoint as="targetPoint" x="515" y="1412" />
+            <mxPoint as="targetPoint" x="515" y="1115" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="participant-1" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#777777;">
+        <mxCell id="participant-1" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
           <mxGeometry as="geometry" x="407" y="150" width="216" height="66" />
         </mxCell>
-        <mxCell id="v8" value="E-Invoice API" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#222222;">
+        <mxCell id="v8" value="E-Invoice API" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#626262;">
           <mxGeometry as="geometry" x="427.1" y="170" width="175.8" height="26" />
         </mxCell>
-        <mxCell id="lifeline-2" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=none;">
+        <mxCell id="lifeline-2" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=none;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint as="sourcePoint" x="900" y="216" />
-            <mxPoint as="targetPoint" x="900" y="1412" />
+            <mxPoint as="targetPoint" x="900" y="1115" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="participant-2" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#777777;">
+        <mxCell id="participant-2" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
           <mxGeometry as="geometry" x="792" y="150" width="216" height="66" />
         </mxCell>
-        <mxCell id="v10" value="Reporting / operations" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#222222;">
+        <mxCell id="v10" value="Reporting / operations" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#626262;">
           <mxGeometry as="geometry" x="755.4" y="170" width="289.2" height="26" />
         </mxCell>
-        <mxCell id="lifeline-3" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=none;">
+        <mxCell id="lifeline-3" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=none;">
           <mxGeometry as="geometry" relative="1">
             <mxPoint as="sourcePoint" x="1285" y="216" />
-            <mxPoint as="targetPoint" x="1285" y="1412" />
+            <mxPoint as="targetPoint" x="1285" y="1115" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="participant-3" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#777777;">
+        <mxCell id="participant-3" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
           <mxGeometry as="geometry" x="1177" y="150" width="216" height="66" />
         </mxCell>
-        <mxCell id="v12" value="Original destination" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#222222;">
+        <mxCell id="v12" value="Original destination" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#626262;">
           <mxGeometry as="geometry" x="1153.0" y="170" width="264.0" height="26" />
         </mxCell>
-        <mxCell id="v13" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#777777;">
-          <mxGeometry as="geometry" x="24" y="258" width="1367" height="382" />
+        <mxCell id="v13" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="24" y="258" width="1367" height="245" />
         </mxCell>
-        <mxCell id="v14" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#777777;">
-          <mxGeometry as="geometry" x="24" y="670" width="1367" height="590" />
+        <mxCell id="v14" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="24" y="533" width="1367" height="430" />
         </mxCell>
-        <mxCell id="activation-0" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#777777;">
-          <mxGeometry as="geometry" x="507" y="386" width="16" height="104" />
+        <mxCell id="activation-0" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="507" y="363" width="16" height="104" />
         </mxCell>
-        <mxCell id="activation-1" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#777777;">
-          <mxGeometry as="geometry" x="1277" y="798" width="16" height="104" />
+        <mxCell id="activation-1" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="1277" y="638" width="16" height="104" />
         </mxCell>
-        <mxCell id="activation-2" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#777777;">
-          <mxGeometry as="geometry" x="1277" y="1120" width="16" height="104" />
+        <mxCell id="activation-2" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="1277" y="846" width="16" height="81" />
         </mxCell>
-        <mxCell id="v18" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#777777;">
+        <mxCell id="v18" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
           <mxGeometry as="geometry" x="24" y="258" width="1367" height="34" />
         </mxCell>
-        <mxCell id="v19" value="case | A transition is confirmed failed" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#222222;">
-          <mxGeometry as="geometry" x="36" y="266" width="380.55" height="26" />
+        <mxCell id="v19" value="case | Status transition is confirmed failed" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#626262;">
+          <mxGeometry as="geometry" x="36" y="266" width="427.8" height="26" />
         </mxCell>
-        <mxCell id="v20" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#777777;">
-          <mxGeometry as="geometry" x="24" y="670" width="1367" height="34" />
+        <mxCell id="v20" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="24" y="533" width="1367" height="34" />
         </mxCell>
-        <mxCell id="v21" value="case | A Spain report cancellation may have reached its destination" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#222222;">
-          <mxGeometry as="geometry" x="36" y="678" width="645.15" height="26" />
+        <mxCell id="v21" value="case | Cancellation may have reached its destination" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#626262;">
+          <mxGeometry as="geometry" x="36" y="541" width="503.4" height="26" />
         </mxCell>
-        <mxCell id="v22" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#aaaaaa;">
-          <mxGeometry as="geometry" x="38" y="526" width="1339" height="90" />
+        <mxCell id="v22" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="38" y="993" width="1339" height="90" />
         </mxCell>
-        <mxCell id="v23" value="Expose the failed attempt and an owned corrective action. Lifecycle Completed (209) differs from operational&#10;COMPLETED. A saved business fact remains when only its report fails." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#222222;">
-          <mxGeometry as="geometry" x="52" y="534" width="1100.64" height="49" />
+        <mxCell id="v23" value="Hold replacement until cancellation is resolved. Keep the original route, request and evidence. Never hide&#10;uncertainty with a new key or destination. Lifecycle Completed (209) differs from operational COMPLETED." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#626262;">
+          <mxGeometry as="geometry" x="52" y="1001" width="1080.48" height="49" />
         </mxCell>
-        <mxCell id="v24" value="LCS-R14; LCS-A26/27" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=12;fontColor=#888888;">
-          <mxGeometry as="geometry" x="52" y="592" width="155.64000000000001" height="26" />
+        <mxCell id="v24" value="LCS-R14; LCS-A26/27; LCS-SPFE-A03" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=12;fontColor=#626262;">
+          <mxGeometry as="geometry" x="52" y="1059" width="261.48" height="26" />
         </mxCell>
-        <mxCell id="v25" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#aaaaaa;">
-          <mxGeometry as="geometry" x="38" y="938" width="1339" height="90" />
+        <mxCell id="v25" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="300" width="361" height="54" />
         </mxCell>
-        <mxCell id="v26" value="Hold replacement reporting. A local processing ERROR does not prove external non-execution. Keep the original&#10;route, payload, operation identity and all evidence." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#222222;">
-          <mxGeometry as="geometry" x="52" y="946" width="1110.72" height="49" />
+        <mxCell id="v26" value="[Existing] INT-LCS02/05; INT-ERR01" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#626262;">
+          <mxGeometry as="geometry" x="187.98" y="306" width="269.04" height="26" />
         </mxCell>
-        <mxCell id="v27" value="LCS-SPFE-R03; LCS-A08/09/12; LIF-G06/07" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=12;fontColor=#888888;">
-          <mxGeometry as="geometry" x="52" y="1004" width="306.84" height="26" />
+        <mxCell id="message-label-1" value="GET invoice and matching history" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="145.14" y="325" width="354.72" height="26" />
         </mxCell>
-        <mxCell id="v28" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#aaaaaa;">
-          <mxGeometry as="geometry" x="38" y="1290" width="1339" height="90" />
+        <mxCell id="message-1" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="363" />
+            <mxPoint as="targetPoint" x="507" y="363" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="v29" value="Resume only when the selected contract and observed result permit it. Never issue a new key, send replacement&#10;first, withdraw the invoice or switch destination to hide an uncertain cancellation." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#222222;">
-          <mxGeometry as="geometry" x="52" y="1298" width="1110.72" height="49" />
+        <mxCell id="v28" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="381" width="361" height="77" />
         </mxCell>
-        <mxCell id="v30" value="LCS-SPFE-A03; LIF-API-A05/06/07" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=12;fontColor=#888888;">
-          <mxGeometry as="geometry" x="52" y="1356" width="246.36" height="26" />
+        <mxCell id="v29" value="[Existing] INT-LCS02/05; INT-ERR01" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#626262;">
+          <mxGeometry as="geometry" x="187.98" y="387" width="269.04" height="26" />
+        </mxCell>
+        <mxCell id="message-label-2" value="Last successful status; failed attempt&#10;operationStatus = ERROR" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="113.00999999999999" y="406" width="418.98" height="49" />
+        </mxCell>
+        <mxCell id="message-2" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="507" y="467" />
+            <mxPoint as="targetPoint" x="130" y="467" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="v31" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="142" y="300" width="361" height="77" />
+          <mxGeometry as="geometry" x="912" y="575" width="361" height="54" />
         </mxCell>
-        <mxCell id="v32" value="[Guide] INT-LCS02/05; INT-ERR01" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
-          <mxGeometry as="geometry" x="199.32" y="306" width="246.36" height="26" />
+        <mxCell id="v32" value="[Spain proposal] LCS-09/10" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="988.22" y="581" width="208.56" height="26" />
         </mxCell>
-        <mxCell id="message-label-1" value="GET existing invoice and correlated&#10;history" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
-          <mxGeometry as="geometry" x="129.075" y="325" width="386.85" height="49" />
+        <mxCell id="message-label-3" value="Original CANCEL* report" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="963.335" y="600" width="258.33000000000004" height="26" />
         </mxCell>
-        <mxCell id="message-1" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;endArrow=block;">
+        <mxCell id="message-3" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;endArrow=block;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="130" y="386" />
-            <mxPoint as="targetPoint" x="507" y="386" />
+            <mxPoint as="sourcePoint" x="900" y="638" />
+            <mxPoint as="targetPoint" x="1277" y="638" />
           </mxGeometry>
         </mxCell>
         <mxCell id="v34" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="142" y="404" width="361" height="77" />
+          <mxGeometry as="geometry" x="912" y="656" width="361" height="77" />
         </mxCell>
-        <mxCell id="v35" value="[Guide] INT-LCS02/05; INT-ERR01" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
-          <mxGeometry as="geometry" x="199.32" y="410" width="246.36" height="26" />
+        <mxCell id="v35" value="[Spain proposal] LCS-09/10" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="988.22" y="662" width="208.56" height="26" />
         </mxCell>
-        <mxCell id="message-label-2" value="Last successful currentStatus; failed&#10;history operationStatus = ERROR" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
-          <mxGeometry as="geometry" x="118.36500000000001" y="429" width="408.27" height="49" />
+        <mxCell id="message-label-4" value="No reliable result: preserve outcome&#10;unknown" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="893.72" y="681" width="397.56" height="49" />
         </mxCell>
-        <mxCell id="message-2" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+        <mxCell id="message-4" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="507" y="490" />
-            <mxPoint as="targetPoint" x="130" y="490" />
+            <mxPoint as="sourcePoint" x="1277" y="742" />
+            <mxPoint as="targetPoint" x="900" y="742" />
           </mxGeometry>
         </mxCell>
         <mxCell id="v37" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="912" y="712" width="361" height="77" />
+          <mxGeometry as="geometry" x="912" y="760" width="361" height="77" />
         </mxCell>
-        <mxCell id="v38" value="[Proposed] LCS-09/10; SPFE-S03; LIF-G04/06" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
-          <mxGeometry as="geometry" x="927.74" y="718" width="329.52" height="26" />
+        <mxCell id="v38" value="[Proposed] LIF-G06; no lookup endpoint supplied" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="908.84" y="766" width="367.32" height="26" />
         </mxCell>
-        <mxCell id="message-label-3" value="Original CANCEL* obligation with saved&#10;request identity" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
-          <mxGeometry as="geometry" x="883.01" y="737" width="418.98" height="49" />
+        <mxCell id="message-label-5" value="Check the original result through&#10;confirmed read/support" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="909.785" y="785" width="365.43" height="49" />
         </mxCell>
-        <mxCell id="message-3" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;endArrow=block;">
+        <mxCell id="message-5" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;endArrow=block;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="900" y="798" />
-            <mxPoint as="targetPoint" x="1277" y="798" />
+            <mxPoint as="sourcePoint" x="900" y="846" />
+            <mxPoint as="targetPoint" x="1277" y="846" />
           </mxGeometry>
         </mxCell>
         <mxCell id="v40" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="912" y="816" width="361" height="77" />
+          <mxGeometry as="geometry" x="912" y="864" width="361" height="54" />
         </mxCell>
-        <mxCell id="v41" value="[Proposed] LCS-09/10; SPFE-S03; LIF-G04/06" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
-          <mxGeometry as="geometry" x="927.74" y="822" width="329.52" height="26" />
+        <mxCell id="v41" value="[Proposed] LIF-G06; no lookup endpoint supplied" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="908.84" y="870" width="367.32" height="26" />
         </mxCell>
-        <mxCell id="message-label-4" value="No reliable completion result; external&#10;outcome remains unknown" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
-          <mxGeometry as="geometry" x="877.655" y="841" width="429.69" height="49" />
+        <mxCell id="message-label-6" value="Proved result, or an owned manual case" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="883.01" y="889" width="418.98" height="26" />
         </mxCell>
-        <mxCell id="message-4" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+        <mxCell id="message-6" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="1277" y="902" />
-            <mxPoint as="targetPoint" x="900" y="902" />
+            <mxPoint as="sourcePoint" x="1277" y="927" />
+            <mxPoint as="targetPoint" x="900" y="927" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="v43" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="912" y="1034" width="361" height="77" />
+        <mxCell id="v43" value="Solid: request. Dashed: result. Grey bars show handling, not elapsed time." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="1141" width="664.68" height="26" />
         </mxCell>
-        <mxCell id="v44" value="[To qualify] LIF-G06; no reconciliation endpoint supplied" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
-          <mxGeometry as="geometry" x="871.04" y="1040" width="442.92" height="26" />
+        <mxCell id="v44" value="Blue: Spain binding or proposed work to confirm; it does not mean a new API or proven implementation." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="1164" width="902.82" height="26" />
         </mxCell>
-        <mxCell id="message-label-5" value="Reconcile original operation under&#10;qualified read/support contract" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
-          <mxGeometry as="geometry" x="904.4300000000001" y="1059" width="376.14" height="49" />
-        </mxCell>
-        <mxCell id="message-5" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;endArrow=block;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="900" y="1120" />
-            <mxPoint as="targetPoint" x="1277" y="1120" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="v46" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
-          <mxGeometry as="geometry" x="912" y="1138" width="361" height="77" />
-        </mxCell>
-        <mxCell id="v47" value="[To qualify] LIF-G06; no reconciliation endpoint supplied" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#888888;">
-          <mxGeometry as="geometry" x="871.04" y="1144" width="442.92" height="26" />
-        </mxCell>
-        <mxCell id="message-label-6" value="Proven result, or owned manual case if&#10;lookup is unavailable" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#222222;">
-          <mxGeometry as="geometry" x="883.01" y="1163" width="418.98" height="49" />
-        </mxCell>
-        <mxCell id="message-6" edge="1" parent="1" style="edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="1277" y="1224" />
-            <mxPoint as="targetPoint" x="900" y="1224" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="v49" value="Solid arrows: requests or deliveries. Dashed arrows: paired results. Grey bars show handling, not elapsed time." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#888888;">
-          <mxGeometry as="geometry" x="30" y="1438" width="991.02" height="26" />
-        </mxCell>
-        <mxCell id="v50" value="Guide/PRE transport: supplied evidence. Proposed/To qualify: design or missing contract, not deployed coverage." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#888888;">
-          <mxGeometry as="geometry" x="30" y="1461" width="991.02" height="26" />
-        </mxCell>
-        <object id="v51" label="Source specification" link="../../specs/invoice-lifecycle/SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md#23-failed-transition-and-uncertain-cancellation">
+        <object id="v45" label="Source specification" link="../../specs/invoice-lifecycle/SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md#23-failed-transition-and-uncertain-cancellation">
           <mxCell parent="1" vertex="1" style="text;html=0;fontSize=12;align=right;">
-            <mxGeometry as="geometry" x="1175" y="1485" width="210" height="18" />
+            <mxGeometry as="geometry" x="1175" y="1188" width="210" height="18" />
           </mxCell>
         </object>
+        <mxCell id="reuse-legend-grey-swatch" value="" parent="1" vertex="1" style="rounded=0;fillColor=#626262;strokeColor=none;">
+          <mxGeometry as="geometry" x="30" y="91" width="13" height="13" />
+        </mxCell>
+        <mxCell id="reuse-legend-grey-label" value="Existing E-Invoice API / flow" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
+          <mxGeometry as="geometry" x="53" y="89" width="260" height="24" />
+        </mxCell>
+        <mxCell id="reuse-legend-blue-swatch" value="" parent="1" vertex="1" style="rounded=0;fillColor=#1565C0;strokeColor=none;">
+          <mxGeometry as="geometry" x="340" y="91" width="13" height="13" />
+        </mxCell>
+        <mxCell id="reuse-legend-blue-label" value="Spain adaptation / proposed work" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="363" y="89" width="440" height="24" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
