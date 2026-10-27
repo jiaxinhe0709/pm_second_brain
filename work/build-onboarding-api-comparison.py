@@ -10,7 +10,7 @@ GREY = '#666666'
 BLUE = '#1565C0'
 AP_ID = '00000000-0000-4000-8000-000000000002'
 CONNECTION_ID = '00000000-0000-4000-8000-000000000003'
-SPAIN_TYPE = 'SPAIN_ADDRESS_TYPE_TBD'
+SPAIN_TYPE = 'es.nif'
 NIF = 'NIF_TBD'
 PRIVATE_PROVIDERS = [
     ('B2B Router', AP_ID),
@@ -23,14 +23,45 @@ PRIVATE_PROVIDERS = [
 def blue(value):
     return f'<span style="color:{BLUE};">{value}</span>'
 
-def payload(value, changed=()):
+def coloured_json(value, changed=()):
     code = html.escape(json.dumps(value, indent=2, ensure_ascii=False), quote=False)
     for item in changed:
         token = html.escape(json.dumps(item, ensure_ascii=False), quote=False)
         code = code.replace(token, blue(token))
+    return code
+
+def code_block(code):
     return ('<!-- confluence-html-macro:start -->\n'
             f'<pre style="color:{GREY};background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>{code}</code></pre>\n'
             '<!-- confluence-html-macro:end -->')
+
+def payload(value, changed=()):
+    return code_block(coloured_json(value, changed))
+
+def request(method, path, body=None, changed=(), *, tax=False, extra_headers=()):
+    base = '{connectionsServiceBaseUrl}' if tax else 'https://api-sbx.e-invoicing.sage.com'
+    auth = '{authorisationValue}' if tax else 'Bearer {sageIdM2MToken}'
+    lines = [f'{method} {base}{path}', f'Authorization: {auth}']
+    lines.extend(extra_headers)
+    lines.extend(['traceparent: {traceparent}', 'tracestate: {tracestate}'])
+    if body is not None and not tax:
+        lines.append('Content-Type: application/vnd.api+json')
+    code = html.escape('\n'.join(lines), quote=False)
+    if body is not None:
+        code += '\n\n' + coloured_json(body, changed)
+    return code_block(code)
+
+def path_inputs(*names):
+    meanings = {
+        'datasetId': 'Company dataset resolved through SXS; confirm the E-Invoice binding.',
+        'accessPointId': 'Selected service ID returned by API-01.',
+        'connectionId': 'Saved connection ID for this dataset/access-point pair, returned by API-02 or API-03.',
+    }
+    if not names:
+        return '**Path parameters:** none for the shown URL.'
+    rows = ['| Path parameter | Required / type | Value to supply |', '|---|---|---|']
+    rows.extend(f'| `{name}` | Yes / UUID | {meanings[name]} |' for name in names)
+    return '\n'.join(rows)
 
 def call(value):
     return f'<span style="color:{GREY};"><code>{html.escape(value)}</code></span>'
@@ -99,6 +130,14 @@ Response extracts show selected fields; full schemas are linked. All sample busi
 
 ## 1 Existing calls to reuse
 
+Request templates use the supplied **sandbox** URL; they do not prove Spain availability. Replace placeholders with authorised values. Each template includes the optional tracing headers. FR-01–05, `servers`, `securitySchemes.m2m` and operation parameters.
+
+| Shared request header | Required / value |
+|---|---|
+| `Authorization` | Required: `Bearer {{sageIdM2MToken}}`, using the supplied Sage ID M2M security scheme. |
+| `traceparent`, `tracestate` | Optional tracing values. |
+| `Content-Type` — POST/PUT bodies | `application/vnd.api+json`, as declared in the supplied request contracts. |
+
 | Product / example | What happens during onboarding |
 |---|---|
 | Sage 200 customer already uses B2B Router | SXS supplies the dataset ID. API-02 finds saved Sage setup; API-03 is used only if that setup is missing. Keep the customer's B2B Router account. Confirm its account/credential mapping under GAP-02/06. |
@@ -111,7 +150,13 @@ Response extracts show selected fields; full schemas are linked. All sample busi
 
 {call('GET /accesspoints')} — FR-01 · [039 private setup](../SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#23-private-setup).
 
-**Request:** no body. **Proposed private-provider catalogue — existing `200 OK` response shape:**
+{path_inputs()}
+
+**Request — no body:**
+
+{request('GET', '/accesspoints')}
+
+**Proposed private-provider catalogue — existing `200 OK` response shape:**
 
 {payload(discovery, [value for provider in PRIVATE_PROVIDERS for value in provider])}
 
@@ -127,7 +172,13 @@ Source issue: FR-01 declares a path `datasetId` absent from `/accesspoints`; the
 
 {call('GET /datasets/{datasetId}/accesspoints')} — FR-02 · [039 private setup](../SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#23-private-setup).
 
-**Request:** the existing `datasetId`; no body. **Proposed example: two saved private connections under one dataset — existing `200 OK` response shape:**
+{path_inputs('datasetId')}
+
+**Request — no body:**
+
+{request('GET', '/datasets/{datasetId}/accesspoints')}
+
+**Proposed example: two saved private connections under one dataset — existing `200 OK` response shape:**
 
 {payload(listing, [value for provider in PRIVATE_PROVIDERS[:2] for value in provider])}
 
@@ -148,13 +199,17 @@ These are synthetic saved-connection examples, not evidence that both providers 
 
 {call('POST /connectors/{accessPointId}/datasets/{datasetId}/connect')} — FR-03 · [039 private setup](../SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#23-private-setup).
 
-**Alternative: Sage setup is missing for the existing B2B Router customer.** Use its service ID from API-01 as `accessPointId` and the client's SXS ID as `datasetId`. Reuse the existing `Idempotency-Key` header.
+**Alternative: Sage setup is missing for the existing B2B Router customer.**
 
-**Body for review:**
+{path_inputs('accessPointId', 'datasetId')}
 
-{payload(create, ['ES', SPAIN_TYPE, NIF])}
+**Additional required header:** `Idempotency-Key: {{idempotencyKey}}` — FR-03. Qualify its replay guarantees under GAP-04.
 
-{blue('Spain: confirm the country value, address type and NIF-based address format, provider account binding and safe repeats. No Spain address enum is supplied. Other company/requester fields remain reuse candidates. API/Spain Product/Integration — GAP-02/04/06.')}
+**Request with body for review:**
+
+{request('POST', '/connectors/{accessPointId}/datasets/{datasetId}/connect', create, ['ES', SPAIN_TYPE, NIF], extra_headers=['Idempotency-Key: {idempotencyKey}'])}
+
+{blue('Spain proposal: es.nif identifies the business tax-ID scheme in these examples. The API owner must confirm the enum and supported NIF/NIE formats; no Spain enum is defined in the supplied contracts. Confirm the country value, provider account binding and safe repeats. Other company/requester fields remain reuse candidates. API/Spain Product/Integration — GAP-02/04/06.')}
 
 **Response extract — `201 Created`:**
 
@@ -168,7 +223,13 @@ Keep `data.id` as `connectionId`. `201` does not mean setup is complete. Certifi
 
 {call('GET /connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/')} — FR-04 · [039 recovery](../SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#25-uncertainty-and-recovery).
 
-**Request:** reuse the three path IDs; no body. **Response extract — `200 OK`:**
+{path_inputs('accessPointId', 'datasetId', 'connectionId')}
+
+**Request — no body:**
+
+{request('GET', '/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/')}
+
+**Response extract — `200 OK`:**
 
 {payload(connection('CONNECTED'), [SPAIN_TYPE, NIF])}
 
@@ -182,9 +243,11 @@ Follow [039 recovery](../SPEC-SEI-039-customer-onboarding-and-connectivity-seque
 
 {call('PUT /connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/')} — FR-05 · [039 supported change](../SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#24-supported-change).
 
-**Request:** reuse the three path IDs. **Body extract — date update:**
+{path_inputs('accessPointId', 'datasetId', 'connectionId')}
 
-{payload(update, [SPAIN_TYPE, NIF])}
+**Request with body extract — date update:**
+
+{request('PUT', '/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/', update, [SPAIN_TYPE, NIF])}
 
 **Response extract — `200 OK`:**
 
@@ -196,13 +259,15 @@ Follow [039 recovery](../SPEC-SEI-039-customer-onboarding-and-connectivity-seque
 
 The [Connections Service source](<../../../context/Tax API/Certificates/connections-service-certificate-guide-extract.md>) now gives specific ES AFL fields. Grey below is documented ES AFL behaviour; blue is the B2B reuse proposal. This credential connection is not assumed equal to the E-Invoice access-point `connectionId`. INT-CERT01.
 
+For both Tax requests, `dataset_id` is the path parameter; confirm its binding to the company's SXS dataset. `{{connectionsServiceBaseUrl}}` is a configuration placeholder. The source lists the shown headers but does not establish requiredness, the `Authorization` value format or request media type; the Tax owner must confirm them. Tracing optionality above applies only to FR-01–05. INT-CERT01, **Certificate upload / Internal - Encrypt**.
+
 ### 2.1 Existing certificate provisioning
 
 {call('POST /datasets/{dataset_id}/connections')} — Connections Service. Use only when the required customer credential does not already exist.
 
-**Request example for review:**
+**Request example for review — source-listed headers and body:**
 
-{payload(credential_create, [CERT_PROVIDER])}
+{request('POST', '/datasets/{dataset_id}/connections', credential_create, [CERT_PROVIDER], tax=True, extra_headers=['x-api-key: {apiKey}'])}
 
 {blue('Confirm whether an existing credential provider is eligible for B2B or another is needed. The source obtains providerId from /connections/providers, but supplies no B2B ID. Certificate/password fields belong to this credential-provisioning flow, not the E-Invoice connect body.')}
 
@@ -222,7 +287,7 @@ The request example uses `credentials.credentialsObject`; its field table instea
 
 **Request extract:**
 
-{payload(encryption_request)}
+{request('POST', '/datasets/{dataset_id}/compliance/es-anti-fraud-legislation/encryptions', encryption_request, tax=True, extra_headers=['Idempotency-Key: {idempotencyKey}'])}
 
 **Response extract:**
 
@@ -270,15 +335,15 @@ For blue items, engineering must identify existing support, configuration/countr
 
 ## REF Source references
 
-FR-01–05 are supplied OpenAPI 3.1.0 contracts declaring API version `1.0.0`, reviewed 26 October 2026. Grey structures follow those schemas; blue values/information require confirmation. Full headers, audit fields and error schemas remain in the sources.
+FR-01–05 are supplied OpenAPI 3.1.0 contracts declaring API version `1.0.0`, reviewed 26 October 2026. Grey structures follow those schemas; blue values/information require confirmation. Requests show the method, sandbox URL, path inputs, headers and body where applicable. Full field constraints, audit fields and error schemas remain in the sources.
 
 | ID | Source / exact locator | Supports / limit |
 |---|---|---|
-| FR-01 | [Discovery](<../../../context/FR API/Onboarding/get-accesspoints.md>), `Get-AccessPoints`. | API-01 and existing catalogue structure. |
-| FR-02 | [Dataset listing](<../../../context/FR API/Onboarding/get-dataset-accesspoints.md>), `Get-Dataset-AccessPoints`. | API-02 and nullable connection ID. |
-| FR-03 | [Connect](<../../../context/FR API/Onboarding/new-accesspoint-connection.md>), `New-AccessPoint-Connection`; `AccessPointConnectionRequest/Response`. | API-03 fields; no Spain enum or certificate field. |
-| FR-04 | [Detail](<../../../context/FR API/Onboarding/get-accesspoint-connection.md>), `Get-AccessPoint-Connection`. | API-04 address results, not complete readiness. |
-| FR-05 | [Update](<../../../context/FR API/Onboarding/put-accesspoint-connection.md>), `Put-AccessPoint-Connection`; `UpdateAccessPointConnectionRequest/Response`. | API-05 add/update actions, not an approved route-change contract. |
+| FR-01 | [Discovery](<../../../context/FR API/Onboarding/get-accesspoints.md>), `Get-AccessPoints`; `servers`, `securitySchemes.m2m`, operation parameters. | API-01 request/catalogue; declared `datasetId` does not appear in the URL and needs correction. |
+| FR-02 | [Dataset listing](<../../../context/FR API/Onboarding/get-dataset-accesspoints.md>), `Get-Dataset-AccessPoints`; `servers`, `securitySchemes.m2m`, operation parameters. | API-02 path, authentication/tracing headers and nullable connection ID. |
+| FR-03 | [Connect](<../../../context/FR API/Onboarding/new-accesspoint-connection.md>), `New-AccessPoint-Connection`; parameters, security, request media type and `AccessPointConnectionRequest/Response`. | API-03 request, required `Idempotency-Key` and payload; no Spain enum or certificate field. |
+| FR-04 | [Detail](<../../../context/FR API/Onboarding/get-accesspoint-connection.md>), `Get-AccessPoint-Connection`; parameters and security. | API-04 request and address results, not complete readiness. The guide's extra idempotency header remains a source conflict. |
+| FR-05 | [Update](<../../../context/FR API/Onboarding/put-accesspoint-connection.md>), `Put-AccessPoint-Connection`; parameters, security, request media type and `UpdateAccessPointConnectionRequest/Response`. | API-05 request and add/update actions; no idempotency header declared, and no approved route-change contract. |
 | INT-AP01/06 | [Access-point guide extract](<../../../context/FR API/Onboarding/access-point-guides-evidence-extract.md>), received 22 October 2026, **Connect and channel selection / Catalogue, address mapping and environments**; revision unverified. | One connection per dataset/access point, several addresses and per-service references. Spain implementation coverage remains unknown. |
 | INT-CERT01 | [Connections Service API extract](<../../../context/Tax API/Certificates/connections-service-certificate-guide-extract.md>), Confluence 467063094 v4, read 26 October 2026; **Certificate upload / Internal - Encrypt**, requests, responses and field tables. | Existing provisioning/encryption examples; nesting and syntax issues remain owner questions. No B2B provider/readiness contract. |
 | INT-CERT02 | [Certificate-management extract](<../../../context/Tax API/Certificates/sage-certificate-management-guide-extract.md>), Confluence 759615024 v6, read 26 October 2026; **Current solution / Proposed solution / Final Decision Summary**. | Exact ES AFL `Connection-Id`, customer/seal selection, custody and agreement gate. Page remains UNDER REVIEW; not proof of B2B deployment. |
@@ -293,6 +358,7 @@ FR-01–05 are supplied OpenAPI 3.1.0 contracts declaring API version `1.0.0`, r
 '''
 DOC.write_text('---' + front + '---\n\n' + body)
 print(json.dumps({'file': str(DOC.relative_to(ROOT)), 'e_invoice_response_extracts': 5,
-                  'e_invoice_request_body_examples': 2, 'credential_encryption_examples': 4,
+                  'e_invoice_request_examples': 5, 'e_invoice_request_body_examples': 2,
+                  'credential_encryption_request_examples': 2, 'credential_encryption_examples': 4,
                   'certificate_management': True,
                   'diagrams': 0, 'published': False}, indent=2))
