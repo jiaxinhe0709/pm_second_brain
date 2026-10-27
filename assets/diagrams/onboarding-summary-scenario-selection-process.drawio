@@ -1,192 +1,189 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="app.diagrams.net" type="device" version="24.7.17">
-  <diagram id="onboarding-scenario-selection-process" name="Set up, connect or review e-invoicing through Sage">
-    <mxGraphModel page="1" pageWidth="1440" pageHeight="1140">
+  <diagram id="onboarding-summary-scenario-selection-process" name="Set up Sage access to the company’s chosen platforms">
+    <mxGraphModel page="1" pageWidth="1200" pageHeight="2180">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="Set up, connect or review e-invoicing through Sage&#10;ONB-S01–08: choose the work needed for each requested function. Both public and private setup may be needed." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="28" y="12" width="1384" height="95" />
+        <mxCell id="title" value="Set up Sage access to the company’s chosen platforms&#10;Read top to bottom: prepare the product, check the company’s setup, then change routing only if requested." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="12" width="1144" height="95" />
         </mxCell>
-        <mxCell id="legend" value="Proposed flow · Solid: step or result · Dashed: only when needed · Darker grey: problem or recovery" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="28" y="104" width="1384" height="22" />
+        <mxCell id="legend" value="Proposed design · Solid: setup steps · Dashed: selected checks or a requested routing change" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="104" width="1144" height="22" />
         </mxCell>
-        <mxCell id="behaviour-legend" value="Common: used across cases · Scenario-specific: selected case · Conditional: only when needed" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="28" y="130" width="1384" height="24" />
+        <mxCell id="behaviour-legend" value="S01–S08 refer to SPEC038 scenarios. The customer and authorised accountant use the same flow." style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="130" width="1144" height="24" />
         </mxCell>
-        <object id="request" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#61-onb-01-capture-requested-functions" label="Choose the requested setup&#10;Business and required functions&#10;ONB-01 · Common" tooltip="Business and required functions">
+        <object id="prerequisite" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#4-feature-wide-functional-requirements-and-rules" label="Product integrates with SXS and Tax / Connections Service&#10;Before customer onboarding&#10;SPEC038 §4" tooltip="Before customer onboarding">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
-            <mxGeometry as="geometry" x="40" y="165" width="280" height="104" />
+            <mxGeometry as="geometry" x="350" y="180" width="500" height="104" />
           </mxCell>
         </object>
-        <object id="identity" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#62-onb-02-check-business-identity-and-authority" label="Check the NIF and permission&#10;Check the business and caller separately&#10;ONB-02 · Common" tooltip="Check the business and caller separately">
+        <object id="request" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#61-onb-01-capture-requested-functions" label="Choose company and requested setup&#10;New setup / review / add platform / change&#10;ONB-01 · S01–08" tooltip="New setup / review / add platform / change">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
-            <mxGeometry as="geometry" x="430" y="165" width="280" height="104" />
+            <mxGeometry as="geometry" x="350" y="330" width="500" height="104" />
           </mxCell>
         </object>
-        <object id="assess" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup" label="Check existing setup&#10;Reuse valid checks for the same work&#10;ONB-10 · Common" tooltip="Reuse valid checks for the same work">
+        <object id="assess" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup" label="Resolve the company’s dataset through SXS&#10;Find saved connections and credentials&#10;ONB-10 · S01–08" tooltip="Find saved connections and credentials">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
-            <mxGeometry as="geometry" x="830" y="165" width="280" height="104" />
+            <mxGeometry as="geometry" x="350" y="480" width="500" height="104" />
           </mxCell>
         </object>
-        <object id="choice" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup" label="Which work is needed?&#10;&#10;ONB-10 · Common" tooltip="">
+        <object id="identity" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#62-onb-02-check-business-identity-and-authority" label="Check NIF and caller permission&#10;Check certificate suitability only if required&#10;ONB-02/03 · S01–08" tooltip="Check certificate suitability only if required">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="350" y="630" width="500" height="104" />
+          </mxCell>
+        </object>
+        <object id="choice" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup" label="Which checks are still needed?&#10;&#10;ONB-10" tooltip="">
           <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
-            <mxGeometry as="geometry" x="830" y="305" width="280" height="104" />
+            <mxGeometry as="geometry" x="450" y="780" width="300" height="104" />
           </mxCell>
         </object>
-        <object id="confirm" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#612-onb-11-return-results-and-required-actions" label="Keep valid existing setup&#10;S05 and other unchanged valid setup&#10;ONB-11 · Scenario-specific" tooltip="S05 and other unchanged valid setup">
+        <object id="confirm" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#612-onb-11-return-results-and-required-actions" label="Reuse unchanged setup&#10;Keep valid connections and evidence&#10;ONB-11 · S05 / unchanged valid setup" tooltip="Keep valid connections and evidence">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
-            <mxGeometry as="geometry" x="40" y="510" width="280" height="104" />
+            <mxGeometry as="geometry" x="60" y="980" width="300" height="104" />
           </mxCell>
         </object>
-        <object id="public" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#65-onb-03-assess-prerequisites" label="Check public access&#10;Check required access and certificate&#10;ONB-03 · Scenario-specific" tooltip="Check required access and certificate">
+        <object id="public" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#65-onb-03-assess-prerequisites" label="Check Sage access to the public platform&#10;No public registration assumed&#10;ONB-03/04 · S01/S02/S04/S05/S07" tooltip="No public registration assumed">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
-            <mxGeometry as="geometry" x="380" y="510" width="280" height="104" />
+            <mxGeometry as="geometry" x="450" y="980" width="300" height="104" />
           </mxCell>
         </object>
-        <object id="pubresult" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#66-onb-04-publish-public-readiness" label="Record public setup results&#10;Show readiness; do not activate a route&#10;ONB-04 · Scenario-specific" tooltip="Show readiness; do not activate a route">
+        <object id="private" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#67-onb-05-configure-private-choice" label="Reuse or connect the chosen provider account&#10;Add only missing Sage setup&#10;ONB-05 · S01/S03/S04/S05" tooltip="Add only missing Sage setup">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
-            <mxGeometry as="geometry" x="380" y="670" width="280" height="104" />
+            <mxGeometry as="geometry" x="840" y="980" width="300" height="104" />
           </mxCell>
         </object>
-        <object id="private" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#67-onb-05-configure-private-choice" label="Set up and check private access&#10;Reuse or connect the chosen account&#10;ONB-05/06 · Scenario-specific" tooltip="Reuse or connect the chosen account">
+        <object id="privatecheck" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#68-onb-06-prove-private-readiness" label="Check connection and access&#10;For the requested private-platform functions&#10;ONB-06 · S01/S03/S04/S05" tooltip="For the requested private-platform functions">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
-            <mxGeometry as="geometry" x="720" y="510" width="280" height="104" />
+            <mxGeometry as="geometry" x="840" y="1130" width="300" height="104" />
           </mxCell>
         </object>
-        <object id="activation" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#69-onb-07-cut-over-new-traffic" label="Activate or change the route&#10;If needed; keep earlier-invoice access&#10;ONB-07/09 · Conditional" tooltip="If needed; keep earlier-invoice access">
+        <object id="routecheck" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#69-onb-07-cut-over-new-traffic" label="Confirm the change is enabled and authorised&#10;Target ready; start agreed&#10;ONB-07/09 · S01/S06" tooltip="Target ready; start agreed">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
-            <mxGeometry as="geometry" x="720" y="670" width="280" height="104" />
+            <mxGeometry as="geometry" x="350" y="1410" width="500" height="104" />
           </mxCell>
         </object>
-        <object id="hold" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#610-onb-08-reconcile-and-recover" label="Explain the problem and next action&#10;S08 or affected work; name who must act&#10;ONB-08/11 · Conditional" tooltip="S08 or affected work; name who must act">
-          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
-            <mxGeometry as="geometry" x="1060" y="510" width="280" height="104" />
+        <object id="activation" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#69-onb-07-cut-over-new-traffic" label="Apply the routing change&#10;Preserve access to earlier invoices&#10;ONB-07/09 · S01/S06" tooltip="Preserve access to earlier invoices">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="350" y="1570" width="500" height="104" />
           </mxCell>
         </object>
-        <object id="result" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#612-onb-11-return-results-and-required-actions" label="Show results and next actions&#10;Report setup, readiness and route activation separately&#10;ONB-11 · Common" tooltip="Report setup, readiness and route activation separately">
+        <object id="result" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#612-onb-11-return-results-and-required-actions" label="Show the result for each request&#10;Access / connection / routing result; pending work and who must act&#10;ONB-11 · S01–08" tooltip="Access / connection / routing result; pending work and who must act">
           <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
-            <mxGeometry as="geometry" x="630" y="900" width="460" height="104" />
+            <mxGeometry as="geometry" x="280" y="1840" width="640" height="110" />
           </mxCell>
         </object>
-        <mxCell id="edge-0" source="request" target="identity" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+        <mxCell id="edge-0" source="prerequisite" target="request" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-1" source="identity" target="assess" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+        <mxCell id="edge-1" source="request" target="assess" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-2" source="assess" target="choice" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+        <mxCell id="edge-2" source="assess" target="identity" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-3" source="choice" target="confirm" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
-          <mxGeometry as="geometry" relative="1">
-            <Array as="points">
-              <mxPoint x="970" y="455" />
-              <mxPoint x="180" y="455" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-4" source="choice" target="public" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
-          <mxGeometry as="geometry" relative="1">
-            <Array as="points">
-              <mxPoint x="970" y="455" />
-              <mxPoint x="520" y="455" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-5" source="choice" target="private" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
-          <mxGeometry as="geometry" relative="1">
-            <Array as="points">
-              <mxPoint x="970" y="455" />
-              <mxPoint x="860" y="455" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-6" source="choice" target="hold" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
-          <mxGeometry as="geometry" relative="1">
-            <Array as="points">
-              <mxPoint x="970" y="455" />
-              <mxPoint x="1200" y="455" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-7" source="public" target="pubresult" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+        <mxCell id="edge-3" source="identity" target="choice" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-8" source="private" target="activation" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+        <mxCell id="edge-4" source="choice" target="confirm" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="600" y="930" />
+              <mxPoint x="210" y="930" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-4" value="Existing Sage setup remains valid" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="946" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-5" source="choice" target="public" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-9" source="private" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.5;entryY=0.0;dashed=1;">
+        <mxCell id="edge-label-5" value="Public platform" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="470" y="946" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-6" source="choice" target="private" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points">
-              <mxPoint x="1020" y="562" />
-              <mxPoint x="1020" y="840" />
-              <mxPoint x="860" y="840" />
+              <mxPoint x="600" y="930" />
+              <mxPoint x="990" y="930" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-label-9" value="No route change needed" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="1040" y="734" width="260" height="22" />
+        <mxCell id="edge-label-6" value="Private platform" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="860" y="946" width="260" height="22" />
         </mxCell>
-        <mxCell id="edge-10" source="confirm" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
-          <mxGeometry as="geometry" relative="1">
-            <Array as="points">
-              <mxPoint x="180" y="840" />
-              <mxPoint x="860" y="840" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-11" source="pubresult" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
-          <mxGeometry as="geometry" relative="1">
-            <Array as="points">
-              <mxPoint x="520" y="840" />
-              <mxPoint x="860" y="840" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-12" source="activation" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+        <mxCell id="edge-7" source="private" target="privatecheck" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-13" source="hold" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+        <mxCell id="edge-8" source="confirm" target="routecheck" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points">
-              <mxPoint x="1200" y="840" />
-              <mxPoint x="860" y="840" />
+              <mxPoint x="210" y="1290" />
+              <mxPoint x="600" y="1290" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="caption-0" value="Follow each branch needed for the request. Columns show work; they do not assign service ownership." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="28" y="412" width="1392" height="24" />
+        <mxCell id="edge-9" source="public" target="routecheck" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="caption-1" value="Valid setup" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="472" width="1380" height="24" />
+        <mxCell id="edge-10" source="privatecheck" target="routecheck" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="990" y="1290" />
+              <mxPoint x="600" y="1290" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="caption-2" value="Public" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="380" y="472" width="1040" height="24" />
+        <mxCell id="edge-11" source="routecheck" target="activation" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="caption-3" value="Private" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="720" y="472" width="700" height="24" />
+        <mxCell id="edge-12" source="activation" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="caption-4" value="Needs action" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="1060" y="472" width="360" height="24" />
+        <mxCell id="edge-13" source="public" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="600" y="1290" />
+              <mxPoint x="250" y="1290" />
+              <mxPoint x="250" y="1770" />
+              <mxPoint x="600" y="1770" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="caption-5" value="Show a result for each function: completed checks, unfinished work and who must act." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="28" y="857" width="1392" height="24" />
+        <mxCell id="edge-label-13" value="Otherwise, keep current routing" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="35" y="1679" width="260" height="22" />
         </mxCell>
-        <mxCell id="boundary" value="Phase 1 checks public access. Later-phase private setup needs confirmed contracts and approved scope.&#10;Activate a route only after checks pass, permission is confirmed and the start point is agreed.&#10;Keep other valid functions. Invoice features check any required public copy and reporting before use." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="28" y="1030" width="1384" height="96" />
+        <mxCell id="caption-0" value="Public and private checks can both apply." style="text;html=0;align=center;fontSize=14;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="300" y="1312" width="600" height="24" />
+        </mxCell>
+        <mxCell id="caption-1" value="Keep the same company dataset." style="text;html=0;align=center;fontSize=14;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="300" y="1334" width="600" height="24" />
+        </mxCell>
+        <mxCell id="caption-2" value="IF A ROUTING CHANGE IS REQUESTED" style="text;html=0;align=center;fontSize=14;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="300" y="1372" width="600" height="24" />
+        </mxCell>
+        <mxCell id="boundary" value="At any check: show missing information, approval, an unknown result or an unsupported choice, and who must act.&#10;Keep successful results and existing B2G (S07). Resume only affected checks; check the original request if its result is unknown.&#10;Phase 1: public-access checks. Later phase: private connections and routing changes. Private A to Private B stays disabled." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="2070" width="1144" height="96" />
         </mxCell>
       </root>
     </mxGraphModel>

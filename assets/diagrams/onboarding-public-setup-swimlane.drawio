@@ -5,7 +5,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="Public onboarding: setup, correction and recovery&#10;Phase 1. Reuse valid setup, check Sage access for the business, then return readiness." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+        <mxCell id="title" value="Public onboarding: setup, correction and recovery&#10;Before setup: product integrates SXS and Tax Connections Service. Phase 1 checks public access." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="28" y="12" width="1884" height="95" />
         </mxCell>
         <mxCell id="legend" value="Proposed design · Solid: main path · Dashed: alternative or correction · Darker grey: recovery · Details: table below · Crossed lines do not join" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
@@ -55,12 +55,12 @@
             <mxGeometry as="geometry" x="240" y="178" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="reuse" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup" label="2. Reuse valid existing setup&#10;Check only missing or old information&#10;ONB-10" tooltip="Check only missing or old information">
+        <object id="reuse" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup" label="2. Reuse SXS dataset and setup&#10;Use the resolved company dataset&#10;ONB-10" tooltip="Use the resolved company dataset">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="520" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="checks" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#62-onb-02-check-business-identity-and-authority" label="3. Check identity and access&#10;NIF, caller and permission separately&#10;ONB-02/03" tooltip="NIF, caller and permission separately">
+        <object id="checks" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#62-onb-02-check-business-identity-and-authority" label="3. Check identity and access&#10;NIF, permission; Tax credential if needed&#10;ONB-02/03" tooltip="NIF, permission; Tax credential if needed">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="800" y="598" width="260" height="104" />
           </mxCell>

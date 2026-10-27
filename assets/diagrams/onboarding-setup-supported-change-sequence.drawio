@@ -92,8 +92,8 @@
         <mxCell id="v22" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
           <mxGeometry as="geometry" x="24" y="326" width="982" height="34" />
         </mxCell>
-        <mxCell id="v23" value="ref | First: recheck only affected business/permission/certificate evidence (2.1)" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
-          <mxGeometry as="geometry" x="36" y="334" width="777.45" height="26" />
+        <mxCell id="v23" value="ref | First: keep the SXS dataset; recheck only affected permission/credential evidence (2.1)" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="334" width="890.85" height="26" />
         </mxCell>
         <mxCell id="v24" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
           <mxGeometry as="geometry" x="24" y="528" width="982" height="34" />

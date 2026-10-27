@@ -117,14 +117,14 @@ def build_all():
  reports=[]
  public=[
   node('choose',0,0,'1. Choose business and service','ONB-01','Customer or authorised accountant'),
-  node('reuse',1,2,'2. Reuse valid existing setup','ONB-10','Check only missing or old information'),
-  node('checks',2,3,'3. Check identity and access','ONB-02/03','NIF, caller and permission separately'),
+  node('reuse',1,2,'2. Reuse SXS dataset and setup','ONB-10','Use the resolved company dataset'),
+  node('checks',2,3,'3. Check identity and access','ONB-02/03','NIF, permission; Tax credential if needed'),
   node('public',3,5,'4. Check public service access','ONB-03','Use supported checks for this function'),
   node('save',4,2,'5. Save public check results','ONB-04','Save readiness and evidence'),
   node('result',5,1,'6. Show result and next action','ONB-11','Per function; no route activation','outcome'),
  ]
  reports.append(build('onboarding-public-setup-swimlane','Public onboarding: setup, correction and recovery',
-  'Phase 1. Reuse valid setup, check Sage access for the business, then return readiness.',public,
+  'Before setup: product integrates SXS and Tax Connections Service. Phase 1 checks public access.',public,
   [edge(a,b) for a,b in [('choose','reuse'),('reuse','checks'),('checks','public'),('public','save'),('save','result')]],
   6,'onboarding-public-readiness-process',[
    ('Information or approval is missing','Customer / accountant','Correct it, then repeat the affected check. ONB-02/03/12.'),
@@ -137,8 +137,8 @@ def build_all():
   ]))
  private=[
   node('choose',0,0,'1. Choose provider and account','ONB-01','Supported later-phase provider only'),
-  node('reuse',1,2,'2. Reuse valid existing setup','ONB-02/10','Keep the chosen provider'),
-  node('setup',2,3,'3. Connect and check access','ONB-05/06','Certificate only where required'),
+  node('reuse',1,2,'2. Reuse SXS dataset and setup','ONB-02/10','Keep the SXS dataset and provider'),
+  node('setup',2,3,'3. Connect and check access','ONB-05/06','Tax / Connections credential if needed'),
   node('provider',3,5,'4. Check provider status','ONB-06','Continue only when all checks pass'),
   node('change',4,2,'Change the route?','ONB-07',kind='decision'),
   node('activate',5,3,'5. Activate; keep earlier access','ONB-07/09','Only when supported and authorised','conditional'),
@@ -148,7 +148,7 @@ def build_all():
  edges += [edge('change','activate','conditional',label='Yes',label_pos=(1630,590)),
   edge('change','result','conditional',points=[(1490,458),(1490,300),(2050,300),(2050,318)],label='No: keep current route',label_pos=(1660,285)),edge('activate','result')]
  reports.append(build('onboarding-private-setup-swimlane','Private onboarding: setup, recovery and route decision',
-  'Later phase. Keep the chosen provider, confirm access, then change the route only if needed.',private,edges,
+  'Before setup: product integrates SXS and Tax Connections Service. Later phase; keep the chosen provider.',private,edges,
   6,'onboarding-private-route-process',[
    ('Settings or approval is missing','Customer / accountant','Correct it, then repeat the affected check. ONB-05/12.'),
    ('A change fails or has an unknown result','E-Invoice owner','Check earlier effects before repetition or an activation claim. ONB-08.'),

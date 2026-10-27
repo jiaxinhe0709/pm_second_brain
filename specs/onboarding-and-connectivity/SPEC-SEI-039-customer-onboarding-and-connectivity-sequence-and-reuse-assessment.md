@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: '2026-10-26'
+updated: '2026-10-27'
 reviewers: []
 related:
 - SPEC-SEI-040
@@ -73,11 +73,11 @@ Grey shows existing calls; blue shows Spain work to confirm, as in 040. Arrows s
 
 ### 2.1 Shared prerequisites
 
-Resolve the SXS dataset/client mapping. Check the business NIF, caller permission and a suitable in-date certificate where required. Reuse the Tax credential reference; it is separate from the E-Invoice `connectionId`. Create a dataset only when the channel requires a missing one. See [040 §2](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#2-certificate-management-proposed-call-to-confirm) for provisioning, credential selection and missing readiness results. GAP-01/03/06; REF-TRUST; INT-CERT01/02; SPFE-S02.
+Start after the product has integrated SXS and Tax certificate management / Connections Service, as required by 038 §4. For each company, resolve its SXS dataset/client mapping first. If confirmed missing, complete qualified channel/SXS setup before dataset-scoped calls; an unavailable lookup remains pending. Then check NIF, permission and any required credential. Reuse the Tax credential connection ID separately from the E-Invoice `connectionId`; provision only a genuinely missing credential through [040 §2](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#2-certificate-management-proposed-call-to-confirm). The diagram proposes the call order, not new SXS or B2B Tax contracts. GAP-01/03/06; REF-INTEGRATION; REF-TRUST; INT-CERT01/02; SPFE-S02.
 
 **One dataset, several access points:** API-02 can represent several entries. The guide describes one connection per `datasetId` / `accessPointId` pair, with several addresses inside it. Retain each pair's `connectionId`. Spain's proposed model allows public/private setup to coexist; actual support and the public access-point representation remain GAP-01/02/06. A new connection does not select a route. Each business/direction/environment/time scope selects one eligible connection. See [040 API-02](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-02). FR-02; INT-AP01–06; REF-CONNECTIONS.
 
-![Shared prerequisites: check NIF, permission and certificate, then find or create the required dataset](../../assets/diagrams/onboarding-setup-shared-prerequisites-sequence.svg)
+![Shared prerequisites: product integrations are ready; resolve the SXS dataset, then check NIF, permission and any required credential](../../assets/diagrams/onboarding-setup-shared-prerequisites-sequence.svg)
 
 ### 2.2 Public readiness
 
@@ -111,7 +111,7 @@ API links open 040's examples. Gap owners are in §4. Spain implementation still
 
 | Existing call / capability | Reuse proposal and Spain change | Gaps |
 |---|---|---|
-| Dataset: `POST /datasets` — INT-DS01 | Reuse conditional creation. Confirm Spain business inputs and business/client mapping. | GAP-01/02/04 |
+| Dataset: `POST /datasets` — INT-DS01 | Qualify the SXS binding to channel-specific provisioning. Reuse an existing mapping; confirm missing setup before creation. | GAP-01/02/04/06 |
 | [API-01 — Discover services](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-01) — FR-01 | Reuse catalogue; qualify Spain service IDs/environments. | GAP-02/08 |
 | [API-02 — Find connections](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-02) — FR-02 | Reuse array; confirm dataset mapping and concurrent public/private support. | GAP-01/02/06 |
 | [API-03 — Connect](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-03) — FR-03 | Reuse body; confirm Spain addresses, provider binding and safe repeats. | GAP-02/04/06 |
@@ -173,6 +173,7 @@ Use [038's release checks](SPEC-SEI-038-customer-onboarding-and-connectivity-log
 | INT-DS01 | [Dataset guide](<../../context/FR API/Onboarding/network-onboarding-create-dataset-guide-extract.md>), received 22 October 2026, ownership/channel sections and steps 1–2; revision unverified. | Conditional provisioning; Spain mapping and native linkage remain open. |
 | INT-AP01–06 | [Access-point guides](<../../context/FR API/Onboarding/access-point-guides-evidence-extract.md>), received 22 October 2026, connect/update/ownership/errors/catalogue sections; revisions/builds unverified. | Existing flow guidance; source conflicts remain GAP-07. |
 | REF-TRUST | [SPEC001](../SPEC-SEI-001-certificate-management-solution-specification.md), 20 October 2026, CERT-04/05 and G1/G9/G10. | Proposed certificate validation/readiness; not a deployed Tax response contract. |
+| REF-INTEGRATION | User direction, 26–27 October 2026; [038 §4](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#4-feature-wide-functional-requirements-and-rules). | Product SXS/Tax integration preconditions. The sequence proposes their use; SXS and B2B credential lookup contracts remain open. |
 | INT-CERT01 | [Certificate API extract](<../../context/Tax API/Certificates/connections-service-certificate-guide-extract.md>), Confluence 467063094 v4, read 26 October 2026, **Certificate upload / Internal - Encrypt**. | Existing ES AFL provisioning/encryption fields. Source inconsistencies and B2B binding remain open. |
 | INT-CERT02 | [Selection/custody extract](<../../context/Tax API/Certificates/sage-certificate-management-guide-extract.md>), Confluence 759615024 v6, read 26 October 2026, **Current solution / Proposed solution / Final Decision Summary**. | ES AFL `Connection-Id` selection; B2B acceptance remains open. |
 | REF-PROVIDERS | [PRD213](../../prds/PRD-SEI-213-private-platform-connectivity-structured-review.md#phase-2-prd-set), draft, 11 September 2026, Phase 2 PRD set, provider PRDs 216–220; [040 references](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#ref-source-references). | Five provider candidates; contracts and Sage implementation need qualification. |

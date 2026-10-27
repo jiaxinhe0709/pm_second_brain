@@ -5,7 +5,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="Private onboarding: setup, recovery and route decision&#10;Later phase. Keep the chosen provider, confirm access, then change the route only if needed." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+        <mxCell id="title" value="Private onboarding: setup, recovery and route decision&#10;Before setup: product integrates SXS and Tax Connections Service. Later phase; keep the chosen provider." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="28" y="12" width="2164" height="95" />
         </mxCell>
         <mxCell id="legend" value="Proposed design · Solid: main path · Dashed: alternative or correction · Darker grey: recovery · Details: table below · Crossed lines do not join" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
@@ -55,12 +55,12 @@
             <mxGeometry as="geometry" x="240" y="178" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="reuse" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#62-onb-02-check-business-identity-and-authority" label="2. Reuse valid existing setup&#10;Keep the chosen provider&#10;ONB-02/10" tooltip="Keep the chosen provider">
+        <object id="reuse" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#62-onb-02-check-business-identity-and-authority" label="2. Reuse SXS dataset and setup&#10;Keep the SXS dataset and provider&#10;ONB-02/10" tooltip="Keep the SXS dataset and provider">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="520" y="458" width="260" height="104" />
           </mxCell>
         </object>
-        <object id="setup" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#67-onb-05-configure-private-choice" label="3. Connect and check access&#10;Certificate only where required&#10;ONB-05/06" tooltip="Certificate only where required">
+        <object id="setup" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#67-onb-05-configure-private-choice" label="3. Connect and check access&#10;Tax / Connections credential if needed&#10;ONB-05/06" tooltip="Tax / Connections credential if needed">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
             <mxGeometry as="geometry" x="800" y="598" width="260" height="104" />
           </mxCell>

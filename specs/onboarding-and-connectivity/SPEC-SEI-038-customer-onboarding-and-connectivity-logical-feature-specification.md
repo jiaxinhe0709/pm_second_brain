@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: '2026-10-26'
+updated: '2026-10-27'
 reviewers: []
 related:
 - SPEC-SEI-037
@@ -87,7 +87,7 @@ The customer and an authorised accountant use the same paths. Batch processing i
 
 ## 4 Feature wide functional requirements and rules
 
-**Product integration precondition:** before enabling e-invoicing, each product must integrate SXS to manage its `datasetId` / `tenantId` and Tax's certificate-management capability for credential setup and protected use. Accountants need a permitted mapping for each client. This product-level connection does not replace customer permission or require a certificate where the selected function does not need one. User direction, 26 October 2026; REF-INTEGRATION.
+**Product integration preconditions:** before enabling e-invoicing, each product must integrate **SXS** for `datasetId` / `tenantId` management and **Tax certificate management / Connections Service** for credential setup and protected use. These product integrations precede customer onboarding. Accountants need a permitted mapping for each client. They do not replace customer permission or require a certificate where the selected function does not need one. B2B lookup/readiness interfaces still need confirmation. User direction, 26–27 October 2026; REF-INTEGRATION.
 
 Reuse current evidence only for the same business, action and environment. Keep customer statements separate from observed results. A failed lookup means “not confirmed”, not “does not exist”. Spain rules and test credentials must not affect other countries or production. ONB-R01/03/12/14/24; OFR-R09/10.
 
@@ -111,7 +111,7 @@ If approval is missing, ask an eligible person for the specific action. Changed,
 
 ### 6.4 ONB-10 Assess current setup
 
-Compare the request with existing public, private and Sage setup. Reuse what is valid. Check only missing, changed or expired items; do not create another provider account to repair an unknown result.
+Resolve the company's SXS dataset/client mapping before dataset-scoped credential lookup or access-point calls. Reuse that dataset when adding a platform. Missing mapping follows the qualified channel/SXS setup process; an unavailable lookup remains pending. Compare existing public, private and Sage setup; check only missing, changed or expired items. Do not create another account to repair an unknown result.
 
 ### 6.5 ONB-03 Assess prerequisites
 
@@ -186,7 +186,7 @@ Before enabling a path, demonstrate its main outcome, correction, unknown-result
 |---|---|---|
 | REF-PRODUCT | [PRD101](../../prds/PRD-SEI-101-public-platform-onboarding.md), [104](../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), [222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md), [231](../../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md); repository draft versions; scope and functional requirements. | Proposed product behaviour, not proof of implementation. |
 | REF-TRUST | [SPEC001](../SPEC-SEI-001-certificate-management-solution-specification.md), updated 20 October 2026, CERT-04/05 and G1/G9/G10. | Certificate reuse/checks; actual Tax interface and Spain acceptance remain open. |
-| REF-INTEGRATION | User direction, 26 October 2026, recorded in §4; [SXS glossary definition](../../context/GLO-SEI-001-e-invoicing-terminology.md#services-connections-and-routing). | Product integration precondition; not evidence of a deployed SXS/Tax contract. |
+| REF-INTEGRATION | User direction, 26–27 October 2026, recorded in §4; [SXS glossary definition](../../context/GLO-SEI-001-e-invoicing-terminology.md#services-connections-and-routing). | Product integration precondition; not evidence of a deployed SXS/Tax contract. |
 | SPFE-S02 | [Original BOE order](../../context/BOE-A-2026-20587.pdf), HAC/1028/2026, 5 October 2026, Article 11(1)–(2). | Access and representation, including registered third-party consultation/retrieval authority; no Sage implementation proof. |
 | SPFE-S03/S08/S16 | [Catalogue](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>) 0.1.0, 9 October 2026, §§4.3/5.1/6.1–6.10; [draft formats](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>) 0.1.0, 9 October 2026, §§5.1–5.9; [SendInvoice WSDL](<../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>) snapshot 13 October 2026, binding/service ports. | Operation boundaries; no supplied onboarding enrolment contract. Unfinished formats and transport conflicts in [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md) remain open. |
 | REF-PRIVATE | [Original RD 238/2026](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), 31 March 2026, Articles 8–9. | Operator interconnection, timing exception and interim public exchange; not a customer-onboarding deadline. |

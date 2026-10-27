@@ -77,8 +77,8 @@
         <mxCell id="v17" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
           <mxGeometry as="geometry" x="24" y="348" width="982" height="34" />
         </mxCell>
-        <mxCell id="v18" value="ref | First: confirm permission to inspect (2.1); do not create or change setup" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
-          <mxGeometry as="geometry" x="36" y="356" width="758.55" height="26" />
+        <mxCell id="v18" value="ref | First: use the original SXS dataset and permission to inspect; do not create setup (2.1)" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="356" width="900.3" height="26" />
         </mxCell>
         <mxCell id="v19" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#FAFAFA;strokeColor=#626262;">
           <mxGeometry as="geometry" x="24" y="446" width="982" height="34" />

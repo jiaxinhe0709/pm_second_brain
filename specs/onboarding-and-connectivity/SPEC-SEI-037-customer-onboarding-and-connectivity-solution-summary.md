@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: '2026-10-26'
+updated: '2026-10-27'
 reviewers: []
 related:
 - SPEC-SEI-038
@@ -121,9 +121,9 @@ Pending checks, unknown effects and unanswered actions remain open. Rejection/wi
 
 ## 6 End to end workflow
 
-![Onboarding choices, checks and next actions](../../assets/diagrams/onboarding-summary-scenario-selection-process.svg)
+![Company onboarding: reuse the SXS dataset, complete the required public and private checks, and apply only an authorised requested routing change](../../assets/diagrams/onboarding-summary-scenario-selection-process.svg)
 
-Figure 1. Check the business, permission and existing setup, then follow each branch needed for the request. [Draw.io](../../assets/diagrams/onboarding-summary-scenario-selection-process.drawio) · [PNG](../../assets/diagrams/onboarding-summary-scenario-selection-process.png). Ask for approval only when missing. If a check fails or its result is unknown, show who must act and keep other valid work. Detailed rules stay in SPEC038.
+Figure 1. Start after the product integrations in SPEC038 §4 are available. Reuse the company’s SXS dataset and complete only the required checks; public and private paths can both apply. Apply a routing change only when requested, enabled and authorised, with the target ready and the start agreed. Missing information, unknown results or unsupported choices return an action owner; keep successful results and existing B2G setup. [Draw.io](../../assets/diagrams/onboarding-summary-scenario-selection-process.drawio) · [PNG](../../assets/diagrams/onboarding-summary-scenario-selection-process.png). Scenarios and detailed behaviour remain in SPEC038.
 
 ## 7 Master Feature lifecycle
 

@@ -18,7 +18,7 @@ base = module('onboarding_contract_sources', 'build-onboarding-api-diagrams.py')
 palette = module('onboarding_reuse_colours', 'recolour-onboarding-sequences.py')
 SPEC = '../../specs/onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md'
 VIEWS = [
-    ('shared-prerequisites', 'Start onboarding: business and certificate checks', 'Reuse valid evidence; create a dataset only when the selected channel requires it', '21-shared-prerequisites'),
+    ('shared-prerequisites', 'Start onboarding: SXS and credential checks', 'Product integrations with SXS and Tax Connections Service are already available', '21-shared-prerequisites'),
     ('public-readiness', 'Public setup: check Sage access', 'Phase 1: confirm access for the selected business, action and environment', '22-public-readiness'),
     ('private-setup', 'Private setup: reuse or connect an account', 'Later phase: keep the chosen provider; add only missing Sage setup', '23-private-setup'),
     ('supported-change', 'Change setup: keep what already works', 'Add a supported function or make an enabled change; Private A to Private B is disabled', '24-supported-change'),
@@ -29,7 +29,7 @@ VIEWS = [
 def existing_read_frames(path):
     svg=ET.parse(path).getroot()
     native=ET.parse(path.with_suffix('.drawio')).getroot()
-    prefixes=('opt | Find a service only', 'opt | If this channel uses a dataset',
+    prefixes=('opt | Find a service only', 'opt | Inspect saved access-point setup',
               'opt | Read detail only', 'opt | Read only a known connection')
     cells=list(native.iter('mxCell'))
     frames=[]
@@ -64,6 +64,10 @@ def existing_read_frames(path):
 class Sketch:
     def __init__(self, slug, title, subtitle, anchor):
         parties = ['ERP / product\nSetup screen', 'Sage\nE-Invoice API', 'Business identity\nand permission', 'Tax Service\nCertificates', 'Public platform\nSpain (SPFE)']
+        if slug == 'shared-prerequisites':
+            parties = ['ERP / product\nSetup screen', 'SXS\nDataset / tenant',
+                       'Sage\nE-Invoice API', 'Identity\nNIF / permission',
+                       'Tax / Connections\nCertificates']
         if slug == 'private-setup':
             parties[4] = 'Private provider\nCustomer account'
         if slug == 'supported-change':
@@ -91,7 +95,7 @@ class Sketch:
             self.effects.append({'label': ident, 'y': self.s.y})
         response = {
             'API-01': '200 OK\nService names + IDs\nUse service id as accessPointId',
-            'API-02': '200 OK\nConnection status + connectionId\n(connectionId may be null)',
+            'API-02': '200 OK\nEntries per access point\nEach status + connectionId (or null)',
             'API-03': '201 Created\nSave data.id as connectionId\nSetup may still be IN_PROGRESS',
             'API-04': '200 OK\nEach address: status + errorCode',
             'API-05': '200 OK\nUpdated connection/address details\nRoute activation is separate',
@@ -134,7 +138,7 @@ def build_all():
         p = Sketch(slug, title, subtitle, anchor)
         s = p.s
         starts = {
-            'shared-prerequisites': 'Start: the customer or accountant selects a business and setup action in the ERP. Reuse valid evidence.',
+            'shared-prerequisites': 'Before customer setup: the product is integrated with SXS and Tax Connections Service. These are product prerequisites, not repeated customer registrations.',
             'public-readiness': 'Start: the customer wants Sage access to the public platform. Inputs: business, requested function and environment.',
             'private-setup': 'Start: the customer keeps a supported private provider. Inputs: datasetId, accessPointId and the provider account.',
             'supported-change': 'Start: the customer requests a setup change. Inputs: business, existing connection and the requested change.',
@@ -142,26 +146,26 @@ def build_all():
         }
         s.note(starts[slug])
         if slug == 'shared-prerequisites':
-            t = s.call(0, 1, 'Start setup checks\nBusiness NIF + caller + action', '[To confirm] Setup request; ONB-02/03')
-            s.exchange(1, 2, 'Validate the business NIF\nand permission for this action',
+            s.exchange(0, 1, 'Resolve the company dataset\nBusiness/client + environment',
+                       'datasetId / tenantId\nor missing/unknown + next action',
+                       '[To confirm] SXS interface; GAP-01/06')
+            s.note('Continue only with a confirmed dataset mapping. Missing setup follows the channel-specific SXS process; an unavailable lookup remains pending. Reuse the dataset when adding a platform.')
+            t = s.call(0, 2, 'Check onboarding prerequisites\nNIF + datasetId + caller + action', '[To confirm] Setup request; ONB-02/03')
+            s.exchange(2, 3, 'Validate the business NIF\nand permission for this action',
                        'Identity and permission confirmed\nor missing item + action owner', '[To confirm] Identity/permission API')
-            f = s.start_frame('opt | Certificate required for this purpose; reuse valid evidence')
-            s.exchange(1, 3, 'Find a suitable in-date certificate\nfor this business and action',
-                       'Usable: protected certificate reference\nOtherwise: reason or unknown result', '[To confirm] Tax Service; CERT-05')
+            f = s.start_frame('opt | Certificate required for this action; reuse suitable saved credentials')
+            s.exchange(2, 4, 'Find and check the saved credential\nDataset + business + action + environment',
+                       'Protected credential connection ID\nor missing/unsuitable/unknown + action',
+                       '[To confirm] Tax/Connections B2B lookup; CERT-04/05')
+            s.note('Missing credential: use separate Connections Service provisioning (040 section 2), then repeat the check. An unavailable lookup does not justify another upload.')
             s.end_frame(f)
             s.reply(t, 'Checks passed: continue\nOtherwise: missing item + owner', '[Setup result] ONB-02/03/08')
-            f = s.start_frame('opt | Only if checks pass and this channel needs a new dataset; confirm Spain inputs and safe repeat rules')
-            s.exchange(0, 1, 'Create / confirm missing dataset\nPOST /datasets', '202 Accepted\nCreation started; no dataset ID yet',
-                       '[Existing guide] INT-DS01; X-Idempotency-Key', 'INT-DS01; provisioning started')
-            s.exchange(0, 1, 'Create / confirm missing dataset\nPOST /datasets', '200 OK\nSave returned tenantId as datasetId',
-                       '[Existing guide] Same input + same key', 'INT-DS01; successful confirmation path')
-            s.end_frame(f)
         elif slug == 'public-readiness':
-            p.ref('21-shared-prerequisites', 'First: business, permission and required certificate checks (2.1)', gate=True)
+            p.ref('21-shared-prerequisites', 'First: SXS dataset, permission and required Tax credential checks (2.1)', gate=True)
             f = s.start_frame('opt | Find a service only if its ID is not already known')
             p.http('API-01')
             s.end_frame(f)
-            f = s.start_frame('opt | If this channel uses a dataset: inspect its existing Sage setup')
+            f = s.start_frame('opt | Inspect saved access-point setup only where the public channel supports it')
             p.http('API-02')
             g = s.start_frame('opt | Read detail only for a known connection')
             p.http('API-04')
@@ -173,7 +177,7 @@ def build_all():
             s.end_frame(f)
             s.reply(t, 'For each requested function:\nready or missing item + owner', '[Setup result] ONB-04/11')
         elif slug == 'private-setup':
-            p.ref('21-shared-prerequisites', 'First: checks in 2.1 pass; the required dataset is known', gate=True)
+            p.ref('21-shared-prerequisites', 'First: reuse the SXS dataset; permission and required credential checks pass (2.1)', gate=True)
             p.http('API-02')
             f = s.start_frame('opt | Connect only for missing setup; confirm provider support, permission and earlier-invoice access')
             p.gates.append(f[0])
@@ -185,7 +189,7 @@ def build_all():
             s.exchange(0, 1, 'Check whether setup is complete\nfor the requested functions', 'Setup result + missing item/owner\nRoute activation is separate',
                        '[To confirm] Setup request; ONB-06/11', '[Setup result] ONB-06/11')
         elif slug == 'supported-change':
-            p.ref('21-shared-prerequisites', 'First: recheck only affected business/permission/certificate evidence (2.1)', gate=True)
+            p.ref('21-shared-prerequisites', 'First: keep the SXS dataset; recheck only affected permission/credential evidence (2.1)', gate=True)
             t = s.call(0, 1, 'Check the requested setup change\nBusiness + connection + change', '[To confirm] Setup request; ONB-05/07')
             g = s.start_frame('opt | If the change affects routing or access to earlier invoices')
             s.exchange(1, 2, 'Check change permission, when it\ntakes effect and earlier access', 'Change allowed or blocked\nwith reason + action owner',
@@ -206,7 +210,7 @@ def build_all():
             s.exchange(0, 1, 'Read the result of this change', 'Confirmed result or pending action\nwith its owner',
                        '[To confirm] Setup request; ONB-11', '[Setup result] ONB-07/09/11')
         else:
-            p.ref('21-shared-prerequisites', 'First: confirm permission to inspect (2.1); do not create or change setup', gate=True)
+            p.ref('21-shared-prerequisites', 'First: use the original SXS dataset and permission to inspect; do not create setup (2.1)', gate=True)
             f = s.start_frame('opt | Read only a known connection whose detail can safely add evidence')
             p.http('API-04')
             s.end_frame(f)
@@ -217,7 +221,7 @@ def build_all():
             s.end_frame(f)
             s.reply(t, 'Confirmed result or pending action\nwith a named owner', '[Setup result] ONB-08/11')
         outcomes = {
-            'shared-prerequisites': 'End: checks pass and any required dataset ID is stored, or the affected work waits for a named owner. Spain contracts remain open.',
+            'shared-prerequisites': 'End: reuse the resolved dataset and any required suitable credential, or return the pending action and owner. Credential connection IDs and access-point connection IDs are separate. Spain interfaces remain open.',
             'public-readiness': 'End: return public readiness or a specific missing item and owner. No public enrolment call or test invoice is assumed.',
             'private-setup': 'End: reuse matching setup; otherwise follow each address status. IN_PROGRESS/RETRYING means wait and observe. Route activation is separate.',
             'supported-change': 'End: retain unchanged setup or return the confirmed change and its effective boundary. Keep earlier-invoice access; hold unknown results.',

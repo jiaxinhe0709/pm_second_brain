@@ -80,8 +80,8 @@
         <mxCell id="v18" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
           <mxGeometry as="geometry" x="24" y="348" width="982" height="34" />
         </mxCell>
-        <mxCell id="v19" value="ref | First: checks in 2.1 pass; the required dataset is known" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
-          <mxGeometry as="geometry" x="36" y="356" width="597.9" height="26" />
+        <mxCell id="v19" value="ref | First: reuse the SXS dataset; permission and required credential checks pass (2.1)" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="356" width="843.6" height="26" />
         </mxCell>
         <mxCell id="v20" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
           <mxGeometry as="geometry" x="24" y="677" width="982" height="34" />
@@ -122,8 +122,8 @@
         <mxCell id="v30" value="FR-02 response" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#626262;">
           <mxGeometry as="geometry" x="263.58" y="538" width="117.84" height="26" />
         </mxCell>
-        <mxCell id="message-label-2" value="200 OK&#10;Connection status + connectionId&#10;(connectionId may be null)" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#626262;">
-          <mxGeometry as="geometry" x="145.14" y="557" width="354.72" height="72" />
+        <mxCell id="message-label-2" value="200 OK&#10;Entries per access point&#10;Each status + connectionId (or null)" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="123.72" y="557" width="397.56" height="72" />
         </mxCell>
         <mxCell id="message-2" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
           <mxGeometry as="geometry" relative="1">
