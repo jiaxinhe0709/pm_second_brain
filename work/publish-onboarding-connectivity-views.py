@@ -32,7 +32,8 @@ def git(*args):
 def install_links(revision, documents):
     targets = {str(p.relative_to(ROOT)): m['confluence']['page_id']
                for p, m, _ in documents}
-    prefixes = {m['confluence']['page_id']: re.sub(r'\s+', '', m['confluence']['title'])
+    # The rendered Confluence anchor prefix omits spaces and title hyphens.
+    prefixes = {m['confluence']['page_id']: re.sub(r'[\s-]+', '', m['confluence']['title'])
                 for _, m, _ in documents}
     original = publisher.storage_with_drawio
 

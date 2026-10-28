@@ -1,4 +1,5 @@
 from pathlib import Path
+import importlib.util
 import sys
 import unittest
 from unittest.mock import MagicMock, patch
@@ -8,6 +9,39 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
 import update_confluence_pages as publisher
+
+
+class OnboardingSectionLinkTests(unittest.TestCase):
+    def test_api_section_link_matches_rendered_confluence_anchor(self) -> None:
+        spec = importlib.util.spec_from_file_location(
+            "onboarding_links", ROOT / "work/publish-onboarding-connectivity-views.py"
+        )
+        links = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(links)
+        folder = ROOT / "specs/onboarding-and-connectivity"
+        documents = [
+            (path, *publisher.load_document(path))
+            for path in sorted(folder.rglob("SPEC-*.md"))
+        ]
+        path, metadata, _ = next(
+            doc for doc in documents if doc[1]["id"] == "SPEC-SEI-039"
+        )
+        revision = "abcdef1234567890"
+        body = (
+            "# Assessment\n\n"
+            "[API-02](api-reference/"
+            "SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-02)"
+        )
+        with patch.object(publisher, "storage_with_drawio", publisher.storage_with_drawio):
+            links.install_links(revision, documents)
+            storage = publisher.storage_with_drawio(
+                metadata, body, revision, publisher.git_source_url(revision, path), [], {}
+            )
+        self.assertIn(
+            'href="https://confluence.sage.com/pages/viewpage.action?pageId=938804297'
+            '#EInvoiceOnboardingAPIReuseandSpainChanges-api-02"',
+            storage,
+        )
 
 
 class ConfluenceChangeHistoryTests(unittest.TestCase):
