@@ -104,17 +104,42 @@ def build(slug,title,description,nodes,edges,lanes,original,rows,notes):
    cell(f'exception-{i}-{j}',value,columns[j],y,widths[j],52)
  path.write_text(ET.tostring(svg,encoding='unicode'))
  ET.indent(native);path.with_suffix('.drawio').write_text(ET.tostring(native,encoding='unicode',xml_declaration=True))
- original_root=ET.parse(ROOT/f'assets/diagrams/{original}.drawio')
- old_lanes=[e.get('value') for e in original_root.iter('mxCell') if e.get('id','').startswith('lane-label')]
- current_lanes=[e.get('value') for e in native.iter('mxCell') if e.get('id','').startswith('lane-label')]
- assert old_lanes==current_lanes
+ original_root=ET.parse(ROOT/f'assets/diagrams/{original}.drawio') if original else None
+ if original_root is not None:
+  old_lanes=[e.get('value') for e in original_root.iter('mxCell') if e.get('id','').startswith('lane-label')]
+  current_lanes=[e.get('value') for e in native.iter('mxCell') if e.get('id','').startswith('lane-label')]
+  assert old_lanes==current_lanes
  return dict(svg=str(path.relative_to(ROOT)),png=str(path.with_suffix('.png').relative_to(ROOT)),
    drawio=str(path.with_suffix('.drawio').relative_to(ROOT)),nodes=len(nodes),connections=len(edges),
-   original_nodes=len(list(original_root.iter('object'))),original_lanes_preserved=True,swimlanes=lanes,
+   original_nodes=len(list(original_root.iter('object'))) if original_root is not None else None,
+   original_lanes_preserved=True if original else None,swimlanes=lanes,
    width=width,height=height,title=title,exception_rows=len(rows),key_controls_shown=True)
 
+def build_shared():
+ nodes=[
+  node('choose',0,0,'1. Choose company and setup','ONB-01','New, review, add or enabled change'),
+  node('dataset',1,2,'2. Resolve SXS dataset','ONB-10','Reuse saved business/client mapping'),
+  node('identity',2,3,'3. Check NIF and permission','ONB-02','Check business and caller separately'),
+  node('credential',3,3,'4. Check required credential','ONB-03','Skip if the selected function needs none'),
+  node('result',4,1,'5. Show shared check result','ONB-11','Pass: continue public/private setup','outcome'),
+ ]
+ return build('onboarding-shared-prerequisites-swimlane',
+  'Shared onboarding checks: company, permission and credentials',
+  'Phases 1–3. Before customer setup: product integrations with SXS and Tax / Connections Service are available.',
+  nodes,[edge(a,b) for a,b in [('choose','dataset'),('dataset','identity'),('identity','credential'),('credential','result')]],
+  4,None,[
+   ('Company mapping is missing','Product / SXS owner','Confirm it is missing, then complete qualified setup. ONB-10.'),
+   ('Information or approval is missing','Customer / accountant','Correct it, then repeat the affected check. ONB-02/12.'),
+   ('Required certificate is missing or unsuitable','Tax / credential owner','Use the qualified correction or provisioning path. ONB-03.'),
+   ('Lookup fails or an earlier result is unknown','E-Invoice owner','Keep pending with an owner; check the original result. ONB-08/11.'),
+  ],[
+   'Continue the selected public or private checks only after the required shared checks pass. No route activation occurs here.',
+   'Reuse valid evidence for the business, action and environment. An unavailable lookup does not prove missing setup.',
+   'Open: Spain resource mapping and Tax / E-Invoice ID relationships require owner confirmation. SPEC039 GAP-01/02/06.',
+  ])
+
 def build_all():
- reports=[]
+ reports=[build_shared()]
  public=[
   node('choose',0,0,'1. Choose business and service','ONB-01','Customer or authorised accountant'),
   node('reuse',1,2,'2. Reuse SXS dataset and setup','ONB-10','Use the resolved company dataset'),
@@ -214,5 +239,8 @@ def build_all():
  return reports
 
 if __name__=='__main__':
- import json
- print(json.dumps(build_all(),indent=2))
+ import argparse,json
+ parser=argparse.ArgumentParser(description=__doc__)
+ parser.add_argument('--shared-only',action='store_true',help='Build only the shared prerequisites diagram.')
+ args=parser.parse_args()
+ print(json.dumps([build_shared()] if args.shared_only else build_all(),indent=2))

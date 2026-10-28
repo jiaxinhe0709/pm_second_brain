@@ -38,6 +38,10 @@ Under **Internal - Encrypt**, the page documents `POST /datasets/{dataset_id}/co
 
 The header table lists `traceparent`, `tracestate`, `Idempotency-Key` and `Authorization`. The source does not establish the certificate/password serialisation inside `secret` or an external product permission to call this internal operation.
 
+## Later evidence
+
+The [AEAT upload guide received 27 October 2026](aeat-certificate-upload-guide-extract.md) supplies provider discovery, environment URLs, header requiredness and upload success code `201`. It retains the nesting conflict and does not establish B2B readiness. [Trusted-service retrieval](connections-service-retrieval-guide-extract.md) is documented for HMRC tokens, not an AEAT certificate-readiness response.
+
 ## Scope
 
 These are ES AFL design/documentation facts, not proof of deployed B2B support. Certificate connection IDs must not be assumed equal to E-Invoice access-point connection IDs. Use the [certificate-management extract](sage-certificate-management-guide-extract.md) for credential selection and custody.

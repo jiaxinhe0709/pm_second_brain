@@ -14,4 +14,4 @@ The page is marked **UNDER REVIEW**, while its narrative describes an agreed ES 
 
 The document does not define a `certificate` property on the E-Invoice access-point APIs, a Tax certificate-readiness JSON response, or equivalence between a credential connection and an access-point connection. It does not establish that the proposed Tax Vault and the described Connections Service/AFL store are one implementation.
 
-The linked [Connections Service API extract](connections-service-certificate-guide-extract.md) records the available certificate provisioning and internal-encryption fields.
+Rechecked 27 October 2026: the live page remains version 6. The linked [Connections Service API extract](connections-service-certificate-guide-extract.md) records provisioning and internal-encryption fields. The later [AEAT upload guide](aeat-certificate-upload-guide-extract.md) adds provider discovery, URLs, headers and `201`. A separate [trusted-service retrieval page](connections-service-retrieval-guide-extract.md) covers HMRC tokens; it does not close the B2B certificate-readiness gap.
