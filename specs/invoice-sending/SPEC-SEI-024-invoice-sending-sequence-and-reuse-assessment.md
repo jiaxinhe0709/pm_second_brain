@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-22
+updated: 2026-10-28
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -37,7 +37,7 @@ confluence:
 
 ## Revision overview
 
-This separate engineering view extends [SPEC-SEI-007](../archive/SPEC-SEI-007-invoice-sending-solution.md) with the supplied FR sending guide, received 22 October 2026. It separates documented create/upload/event/detail operations from unconfirmed Spain preparation, route, issuance/copy and recovery contracts. The predecessor stays unchanged, including OUT-INT-01–11, OUT-D01–12 and detailed field traceability.
+This separate engineering view extends [SPEC-SEI-007](../archive/SPEC-SEI-007-invoice-sending-solution.md) with the supplied FR sending guide and preserved Send e-invoice OpenAPI snapshot. It assesses proposed Spain extensions without treating the France contract as Spain implementation evidence. The predecessor stays unchanged, including OUT-INT-01–11, OUT-D01–12 and detailed field traceability.
 
 Existing OUT IDs retain their meanings. The current journey is per invoice; bulk accountant sending remains separate unqualified scope. The PDF assessment implements the recorded product direction in PRD-SEI-246. SND-G IDs identify engineering gaps. API qualification checks in §5 link to existing functional acceptance. Publication selects SPEC-SEI-022 for the existing summary page, with this assessment and SPEC-SEI-023 as companions. All three remain drafts; publication does not approve new APIs.
 
@@ -99,12 +99,12 @@ Use the known e-invoice ID to query details. A lost POST response may leave no I
 
 ## 3 Existing operations and material contract gaps
 
-These are guide-evidenced operations, not verified OpenAPI signatures or deployed Spain capability. Preserve the exact field and state names in INT-SND01; reconcile source conflicts before generating a client.
+The preserved OpenAPI snapshot is the schema baseline for the France-oriented operations below (OpenAPI 3.1.0, info version 1.0.0). INT-SND01 is separate supplied guide evidence and contains points of conflict with that snapshot. Neither source establishes the deployed build or Spain capability. Preserve exact fields and values, label each source, and resolve conflicts before generating a client. INT-SND01/02.
 
 | Operation / source locator | Documented contract | Spain reuse assessment and functional coverage |
 |---|---|---|
 | `POST /internal/events/subscriptions`; step 1 and overview | Register resource `einvoice`, dataset, source and `e-invoicing.einvoice.statusupdated`. Operation card omits the leading slash. Success code/body not supplied. | Candidate notification pattern for OUT-14/15. Pin accessible API base, casing/schema, authentication, event library and Spain support. SND-G05/07. |
-| `POST /datasets/{datasetId}/e-invoices`; step 2 | `201 Created`; resource ID and attachment `uploadUrl` values. `Idempotency-Key`, `traceparent`, `tracestate` and `Authorization` are marked required. | Candidate prepared-file intake, not OUT-01–08 preparation or ERP issuance. Prove final revision/action binding, key scope and asynchronous outcome. SND-G01/04/06. |
+| `POST /datasets/{datasetId}/e-invoices`; OpenAPI operation and step 2 | OpenAPI `PostSendInvoiceRequest` / `PostSendInvoiceResponse`; `201 Created`; resource ID and attachment `uploadUrl` values. `Idempotency-Key`, `traceparent`, `tracestate` and `Authorization` are marked required. | Reuse candidate for prepared-file intake, not OUT-01–08 preparation or ERP issuance. Confirm the schema defects in §3.5 and qualify final revision/action binding, key scope and asynchronous outcome. SND-G01/04/06; INT-SND02. |
 | `PUT {uploadUrl}`; step 3 | Binary upload, one request per attachment; `200 OK`. URL is returned dynamically. | Candidate file transport for OUT-11/12. Confirm required manifest, scan/completion trigger, expiry/renewal and partial/lost-upload recovery. Do not infer readiness from one uploaded file. SND-G03/04. |
 | Status-updated webhook; step 4 | Environment/access-point-specific `source` and event type prefix; `subject` is the e-invoice ID. Example contains `datasetid`, event `id` and nullable `data.errorCode`. | Candidate observation for OUT-13–15; not a dispatch command or success-only event. Verify authenticity and scope, deduplicate, then read the authoritative result. Delivery/order/freshness semantics are unknown. SND-G05. |
 | `GET /datasets/{datasetId}/e-invoices/{e-invoiceId}`; step 5 | `200 OK`; status/history, files and `downloadUrl`. `operationStatus`: `IN_PROGRESS`, `COMPLETED`, `ERROR`. | Candidate observation using a retained ID. Exact meaning of each source status and relation to delivery/copy need qualification. The overview's collection path is not evidence of a search-by-idempotency operation. SND-G04/05/07. |
@@ -117,8 +117,8 @@ Public WSDL service addresses are `https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/Sen
 
 | Evidence / exact fields | Required qualification and consequence |
 |---|---|
-| `sender`, `recipient`, `accessPointAddressType`, `accessPointAddress`, `accessPointId` | FR routing addresses are separate from invoice seller/buyer. Sender must belong to the calling dataset. Spain address types, NIF/establishment mapping, connection scope and public/private service IDs are unknown. Do not replace `fr.siren` with an invented Spain enum. SND-G02; OUT-R04/11. |
-| Submission's required values and correlation | The guide requires `sender.accessPointAddressType`, `recipient.accessPointAddressType` and `eInvoiceTypeCode`, even where an earlier schema says optional. Retain returned resource identity and optional `erpInvoiceId` linkage; the ERP reference is not an idempotency guarantee. INT-SND01 Submission design requirements and step 2; SND-G04/07. |
+| `sender`, `recipient`, `accessPointAddressType`, `accessPointAddress`, `accessPointId` | INT-SND01 defines sender and recipient as network-routing addresses, separate from seller/buyer in invoice content. The snapshot describes `recipient.accessPointAddress` as a Buyer key in the sender ERP; this is a confirmed wording defect. NIF is a legal tax identifier, not automatically a routing address. Spain schemes and values remain Open; do not replace `fr.siren` with an invented Spain enum. The snapshot calls `accessPointId` a route destination; using it to select the sender's access point is Proposed and needs API-owner qualification. SND-G02; OUT-R04/11; INT-SND01/02. |
+| Submission's required values and correlation | INT-SND01 says the guide requires `sender.accessPointAddressType`, `recipient.accessPointAddressType` and `eInvoiceTypeCode`; the OpenAPI schema omits `eInvoiceTypeCode` from its required list. Preserve this source conflict. Retain returned resource identity and optional `erpInvoiceId` linkage; the ERP reference is not an idempotency guarantee. INT-SND01/02; SND-G04/07. |
 | Self-billing and extra recipients | Guide routes buyer to seller, one recipient per submission. Qualify material issuer, represented business, actual destination, public-copy responsibility and supported `eInvoiceTypeCode`; the guide does not resolve those Spain roles. Accountant distribution remains OUT-Q02. SND-G02/06. |
 | `AR_Invoice`, `AR_CreditNote`, `AP_CreditNote` | Preserve FR codes and the guide's type `381` association. Supplied public formats use UBL 2.5 `InvoiceType`, including rectification, not `CreditNote`. Confirm any public mapping; never infer it from the FR label. SPFE-S08 p. 8; SND-G03. |
 | `attachments[].mimetype` / `filename` | Guide names `ubl-2.1/xml` and `application/pdf`, filename 1–128 and address values 1–50. It supplies no Spain UBL 2.5 MIME value. Qualify selected schemas, file roles and limits without silently extending them. SND-G02/03/07. |
@@ -174,6 +174,150 @@ The later [INT-ERR01 error guide](<../../context/FR API/Shared/invoice-flow-erro
 
 SPFE-S22 is a separate Annex II supplied on 22 October, not a new invoice-send error dictionary. Its reviewed event codes and key cardinalities align with final BOE Annex II. Recipient `PAYMENT`/`REJECTION`, issuer `SETTLEMENT`/`DEFAULT` and their cancellations belong to [SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#annex-ii-event-field-traceability). A failed technical attempt cannot create a buyer rejection or cancel an invoice/report automatically. Keep FR processing codes, AEAT admission/error results and business lifecycle codes separate. SPFE-S02 Annex II; [supplement comparison and remaining gates](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-ii-supplement-reviewed-22-october-2026).
 
+### 3.5 Proposed Spain extension of the Send e-invoice API
+
+This section proposes how Sending could reuse the France API for Spain. `Existing` marks behaviour documented by the France contract or guide. `Proposed` marks intent that needs API and Spain qualification. Assumptions, open points and source conflicts remain unresolved. The snapshot describes the France contract. It does not prove deployment or Spain support. INT-SND01/02.
+
+#### Contract baseline and reuse assessment
+
+| Capability | Evidence label | Spain proposal and limit |
+|---|---|---|
+| `POST /datasets/{datasetId}/e-invoices`, returned resource ID and attachment upload URLs | Existing | Reuse the one-invoice resource and upload pattern. The POST accepts prepared files; preparation and ERP issuance remain outside this contract. INT-SND02; SND-G01. |
+| `PUT {uploadUrl}`, status event, detail read, `currentStatus`, `history[]` and `statusAttributes` | Existing | Reuse as the observation baseline. Confirm event authentication, history correlation, freshness and Spain support. A processing status is not a recipient or public-copy result. INT-SND01/02; INT-ERR01; SND-G05. |
+| Spain document and routing values | Extend | Preserve field names only where the selected Spain contract supports their meaning. Spain UBL 2.5, address schemes, recipient scope and MIME remain open. Do not copy France enum values into Spain. SND-G02/03. |
+| Configured sender access point and explicit selection | Proposed | Use `accessPointId` as the leading candidate for explicit sender-access-point selection. The current snapshot calls it a “route destination”; its sender-side meaning is unconfirmed. Do not confuse `accessPointId` with dataset-specific `connectionId`. SND-G02. |
+| Separate delivery and SPFE action results | Proposed | Keep the existing status/history model where possible, with an additive per-action representation only if needed to make both outcomes independently observable. The example below is illustrative, not a wire contract. SND-G05. |
+| Recipient lookup, route eligibility, customer configuration and access-point setup | Outside Sending | Owned by routing and onboarding. Sending consumes qualified sender configuration and recipient evidence; it does not create a national directory or connection. |
+| UBL mapping, signing, SPFE transport and later lifecycle reports | Outside Sending | DTS, trust, public connector and lifecycle own their contracts. Sending coordinates the required handoffs and results. |
+
+#### Identity and recipient routing
+
+| Term | Meaning for this proposal |
+|---|---|
+| NIF | Legal tax identifier for the issuer or recipient. It is not automatically the network address. |
+| Routing address | Network identifier used to address a party through a qualified platform. It is separate from invoice seller/buyer identity. |
+| Platform | SPFE or a named private platform. Sender platform and recipient platform can differ. |
+| Sender connection | The configured sender access point and its dataset connection. `accessPointId` identifies an access-point route in the current sources; `connectionId` identifies the dataset-specific connection. Keep both meanings distinct. |
+| Recipient destination | The eligible receiving entry point selected under the approved country rule. It is not the sender connection. |
+
+The OpenAPI calls `recipient.accessPointAddress` a Buyer key in the sender's ERP. This is a confirmed wording defect. The guide defines sender and recipient values as routing addresses, separate from invoice seller and buyer identities. Spain address schemes and mappings remain open. No Spain address-type value is proposed. INT-SND01/02.
+
+The Spain route distinction is:
+
+| Evidence condition | Proposed handling | Status |
+|---|---|---|
+| `PRIVATE_READY` | A published private destination is eligible under the confirmed interconnection or bridge rule. Use that destination. | Existing outcome meaning; qualify for Spain |
+| `PROVEN_NONE` | A successful authoritative lookup confirms no private receiving entry point. Under Spain policy, use the public recipient route. PRD-SEI-231 ID-AC14; PRD-SEI-223 BR3. | Existing outcome meaning; Spain rule source |
+| No private address has been communicated to the sender by the recipient | Use the public route only if the approved Spain rule accepts this evidence and it is retained. | Proposed separate condition; evidence and rule open |
+| Private entry point is published and matches the invoice scope | Select it only after route eligibility and interconnection/bridge conditions are confirmed. | Proposed; route qualification Open |
+| Lookup fails, is stale, unsupported or ambiguous | Hold dispatch. These outcomes prove neither that no private address has been communicated to the sender by the recipient nor that no private route exists. | Proposed control |
+| No central authoritative directory can return the required evidence | Do not convert the missing directory or failed query into proof of absence or lack of recipient communication. Product and Spain Compliance must define acceptable alternate evidence and release conditions. | Source conflict/Open |
+
+The two addressing pages are user-supplied. Their content status is **Content not preserved in this repository**. Their reported wording does not replace final legal evidence. Product and Spain Compliance must resolve the source conflict. Until then, OUT-09 holds if the route condition is unclear. USR-ADDR01/02; OUT-09.
+
+#### `accessPointId` selection semantics
+
+| Condition | Proposed result |
+|---|---|
+| No explicit `accessPointId` or it is null | For Spain, resolve the configured sender access point only where the country contract permits omission or null. This must not change France's required-field contract. |
+| Explicit selection is valid, connected and eligible | Use that sender access point for this invoice, subject to recipient-destination eligibility. Bind the selected route and evidence to the invoice plan. |
+| Explicit selection is unknown, disconnected or ineligible | Return a clear error to the ERP. Do not replace it with the configured point or another route. |
+| No valid configured sender access point exists | Return a clear configuration error; do not choose a public sender point or recipient route silently. |
+| Several sender access points are configured | Select exactly one for the invoice. Configuration never means fan-out. |
+
+The sender access point may be public or private. It is the sender-side connection. The public recipient route is the recipient's destination under Spain policy. These are separate choices. The onboarding snapshots document access-point and connection operations, but not per-invoice selection. SND-G02; INT-AP07.
+
+#### Invoice document and file handling
+
+SPFE-S08 and the product specifications identify UBL 2.5 for the public route. The France snapshot lists `ubl-2.1/xml` and `application/pdf`. It does not establish Spain MIME, profile or provider support. No Spain MIME value is proposed. DTS remains the preferred transformation candidate, subject to qualification. SPFE-S08; SND-G03.
+
+The transitional PDF goes to the recipient. Exclude it from every SPFE request, including attachments. Use a qualified private attachment path or a separate recipient channel. UBL 2.5 profile support and each provider's file rules remain open. RD238-T2; INT-SND02; SND-G08.
+
+#### Response, notification and error proposal
+
+Reuse `currentStatus`, `history[]` and `statusAttributes` for their existing processing meanings. The snapshot defines `IN_PROGRESS`, `COMPLETED` and `ERROR` for `operationStatus`. `ERROR` is final for one attempt. These fields do not identify recipient delivery or the required SPFE action. Do not map France processing codes to Spain business statuses. INT-SND02; INT-ERR01.
+
+**Proposed:** If the current resource cannot show both outcomes independently, add an action-result concept to the response and notification pattern. Each result identifies its purpose, outcome, reason when present and next owner. Keep an action unresolved until evidence confirms its result. Do not show full completion while a required action remains unresolved. The API owner must qualify this proposal under SND-G05.
+
+This request example uses existing field names. Bracketed values are placeholders, not approved Spain values or a valid payload. Null illustrates the proposed Spain selection only, where the country contract permits it. The France schema still requires `accessPointId`. INT-SND02; SND-G02.
+
+```json
+{
+  "data": {
+    "type": "e-Invoice",
+    "attributes": {
+      "attachments": [
+        {"filename": "invoice-example.xml", "mimetype": "[Spain UBL 2.5 MIME: open]"}
+      ],
+      "sender": {
+        "accessPointAddressType": "[Spain routing scheme: open]",
+        "accessPointAddress": "[sender routing address]"
+      },
+      "recipient": {
+        "accessPointAddressType": "[Spain routing scheme: open]",
+        "accessPointAddress": "[recipient routing address]"
+      },
+      "accessPointId": null,
+      "eInvoiceTypeCode": "[Spain document mapping: open]",
+      "erpInvoiceId": "erp-invoice-example-42"
+    }
+  }
+}
+```
+
+This response fragment is **Proposed**. It is not the current OpenAPI schema. `proposedActionResults` and its labels are unapproved placeholders. Recipient delivery may be complete while the required SPFE action is unresolved. Overall completion remains pending until both results are known. Support takes ownership only if platform recovery cannot resolve the outcome. SND-G05.
+
+The fragment omits history entries, `meta` and an aggregate completion field for brevity. It does not define an aggregate field.
+
+```json
+{
+  "data": {
+    "type": "e-Invoice",
+    "id": "85f5d2c4-0ea3-4fca-9b71-12b507f4c201",
+    "attributes": {
+      "currentStatus": null,
+      "proposedActionResults": [
+        {"purpose": "recipient delivery", "outcome": "completed"},
+        {
+          "purpose": "required SPFE action",
+          "outcome": "unresolved",
+          "errorReason": "external result awaiting reconciliation",
+          "nextOwner": "platform recovery"
+        }
+      ]
+    }
+  }
+}
+```
+
+Reuse the France notification and detail pattern after API qualification. The ERP result must identify the action, reason and next owner. Separate transport errors, Sending errors, content errors and business lifecycle results. Return content errors to the ERP for correction. A correction creates a governed invoice revision. Retry eligible technical work only after reconciling the original result. Preserve completed actions. A failed invoice need not block later invoices. Sending cannot detect invoices the ERP never submitted without a separate capability. Keep accepted work visible and recoverable. SND-G04/05/07; OUT-A23/24.
+
+#### Scenario coverage
+
+| Scenario | Proposed Sending behaviour | Boundary / open evidence |
+|---|---|---|
+| A. Public platform only | Use the eligible public recipient route. No separate faithful copy is added after public issuance/interconnection. | Public eligibility and the Spain recipient-default evidence rule remain under OUT-09/SND-G02. |
+| B. Private delivery plus required SPFE action | Plan private recipient delivery and the required SPFE action as separate results. One ERP-facing request coordinated by Sage is an Assumption under OUT-Q03. | Prove the boundary between issuance and copy, action correlation and recovery from partial or lost results. |
+| C. Several configured private providers | Use one configured sender access point or one valid explicit selection. Never fan out. Keep recipient destination separate and require recipient-routing eligibility. | `accessPointId` sender-side semantics and provider contracts need API-owner confirmation. |
+| D. Sage operates as a private platform | **Proposed:** Sage may share the ERP-facing connection model with other private platforms. Keep the sender-platform role and required public-copy responsibility visible. | Limited outline only. Provider-facing APIs and operator service remain outside this Sending proposal. |
+
+#### Confirmed contract defects and compatibility
+
+The following are defects in the preserved snapshot, not verified runtime defects. Record only these confirmed schema/documentation issues; API owners must decide corrections.
+
+| Snapshot locator | Confirmed defect | Consequence for proposal |
+|---|---|---|
+| `SendInvoiceResponse.required`; `SendInvoiceResponse.properties` | `documents` is required, but the schema defines `attachments` and no `documents` property. | Fix the schema/example inconsistency in the owning API contract; do not assume which name runtime uses. |
+| `SendInvoiceRequest.sender` and `.recipient` | Both parent properties are required, but neither nested object declares required child properties. | The schema does not enforce the address type/value that the guide says to supply. |
+| `SendInvoiceRequest.required` and `.eInvoiceTypeCode` | `eInvoiceTypeCode` is absent from the required list, while INT-SND01 says it is required. | Resolve as a source conflict and align the selected contract. |
+| `SendInvoiceRequest.attachments` | Array schema has no `minItems`. | Empty attachment-list behaviour is not constrained by this schema. |
+| `SendInvoiceRequest.required` and `.accessPointId` | Field is required but its type allows `null`; null behaviour is undocumented. | The proposed Spain configured-point fallback is additive and requires an explicit country/compatibility contract. |
+| `SendInvoiceRequest.recipient.accessPointAddress` | Description identifies a Buyer key in the sender ERP, conflicting with the guide's routing-address meaning. | Correct the contract description; do not treat NIF or ERP buyer ID as the network address without a qualified mapping. |
+
+Other relevant preserved onboarding contract issues are: `GET /accesspoints` declares `datasetId` as a path parameter although the path has no placeholder; connection requests allow address `maxLength` 114, while connection responses and Sending allow 50; string length constraints use `maximum` in some request properties; and the create example uses invalid IPv4 `183.342.1.1`. The postal-code example is numeric although the schema type is string; this confirms a type/example mismatch, not that `12345` is an invalid postal code. Preserve these as onboarding/API-owner follow-ups, not new Sending requirements. INT-AP07.
+
+Keep France behaviour compatible: Spain additions must be country-qualified, and must not make France `accessPointId` optional or change France file/profile values. Do not rewrite historical plans or action outcomes after route/configuration changes. The dataset's country binding and how Spain applies the new omission/null behaviour remain Open under SND-G02/07. No implementation or deployment claim follows from this proposal.
+
 ## 4 Open engineering decisions
 
 Each owner must record the source capability/build, retained behaviour, Spain changes, missing coverage and acceptance evidence before the affected scope is enabled. Existing implementation reuse and design-pattern reuse remain separate claims.
@@ -181,12 +325,12 @@ Each owner must record the source capability/build, retained behaviour, Spain ch
 | Gate | Missing evidence / activation consequence | Accountable roles |
 |---|---|---|
 | SND-G01 Preparation and final intake | Actual complete-data and final-revision contracts, generation ownership and relationship to file POST. No claim that the supplied sending API covers preparation. | ERP Product, API, E-Invoice, Architecture. |
-| SND-G02 Spain binding | Business/dataset/address mapping, provider/environment IDs, recipient eligibility and the four platform combinations in §2.2. Qualify each platform handoff and its delivery evidence, including public-to-private acquisition and same/different private providers. Pin public business schemas, profile conflict, size, batch, authority, locator and CSV meanings. Preserve SPFE-Q03/08/13/15/18. | Spain Compliance, Integration, Routing, API/public connector. |
+| SND-G02 Spain binding | NIF/routing-address mapping, configured sender access point, `accessPointId` meaning, recipient eligibility and the four platform combinations in §§2.2/3.5. Qualify public/private handoffs, provider/environment IDs and the evidence that releases the Spain public recipient route. Preserve unresolved recipient scope and multiple-entry precedence. Pin public schemas, profile, size, batch, authority, locator and CSV meanings. Preserve SPFE-Q03/08/13/15/18. | Spain Compliance, Integration, Routing, API/public connector. |
 | SND-G03 Files, DTS and trust | Required files, Spain UBL/profile and MIME support, scan/upload contracts, DTS build/mappings/rules, protected trust model and optional hybrid generation. | DTS, Validation, Trust, Security, Integration. |
 | SND-G04 Mutation and recovery | Idempotency scope/window/input binding, concurrency, upload completion/renewal, lost-POST-ID discovery, original-action query, cancellation effect boundary and safe retry ownership. Unproven absence cannot release resend; missing cancel/resume contracts remain gaps. | API, Integration, Operations. |
-| SND-G05 Events and result meanings | Subscription surface/schema, webhook security, selected source/type/status library, delivery/order/freshness, error outcomes and separate public-copy evidence. | API, Events, Lifecycle, Security. |
+| SND-G05 Events and result meanings | Subscription surface/schema, webhook security, selected source/type/status library, delivery/order/freshness, action-specific error outcomes and the additive per-action result representation. Reuse `currentStatus`, `history[]` and `statusAttributes` where they preserve their existing meaning. | API, Events, Lifecycle, Security. |
 | SND-G06 Business coordination | Exact-revision decisions, current client authority and ERP issue/copy proof. OUT-Q02 portfolio/accounting contracts remain separate optional scope; no bulk API is required for the single-invoice flow. | Product, ERP, Identity, Compliance, Architecture. |
-| SND-G07 Build and compatibility | Pin OpenAPI/event/schema versions, resolve guide conflicts, prove existing FR regressions, Spain isolation, monitoring/support, retention and measured capacity. Qualify retry budgets, stalled-work detection, escalation and evidence-backed case closure; no numerical targets are established here. | API owner, Architecture, Operations, Records. |
+| SND-G07 Build and compatibility | Pin OpenAPI/event/schema versions, resolve snapshot/guide conflicts, correct confirmed contract defects, preserve France behaviour, and prove country isolation, monitoring/support, retention and measured capacity. Qualify retry budgets, stalled-work detection, escalation and evidence-backed case closure; no numerical targets are established here. | API owner, Architecture, Operations, Records. |
 | SND-G08 PDF recipient channel | Prove actual private attachment delivery or select a separate recipient channel; qualify per-action PDF exclusion, file/revision binding, applicability/exception evidence, timing, outcomes and recovery. Generation stays with the local product. | Local Product, API, Integration, Spain Compliance, Operations. |
 
 ## 5 API qualification checks
@@ -200,9 +344,12 @@ For **Replay and recovery** and **Notifications and results**, include the INT-E
 | Access and authority / OUT-A13–16 | Demonstrate business/dataset/environment isolation, delegated action scope, protected file URLs and authority loss between plan and execution. INT-SND01; SND-G02/06. |
 | Replay and recovery / OUT-A02/08/18/20/21 | Same-input POST replay, conflicting input, concurrent calls, cancellation races and lost response retain the original action. No second invoice when the ID is unknown; cancellation remains pending after a possible effect until qualified evidence resolves it. INT-SND01 step 2; SND-G04. |
 | File uploads / OUT-A06/09/20 | Partial, expired, rejected and uncertain uploads follow the pinned contract. Preserve good file bindings; no fresh invoice merely to renew upload access. Final bytes remain bound to the issued revision; scan failure cannot silently replace issued content. INT-SND01 step 3; SND-G03/04. |
-| Notifications and results / OUT-A07/08/10/22 | Test success and `ERROR` notifications, duplicate/out-of-order or contradictory delivery, invalid scope/signature, lost event and failed refresh. Plain detail reads retain source evidence and freshness; never infer buyer acceptance, copy completion or a need to resend. INT-SND01 steps 1/4/5; SND-G05. |
+| Notifications and results | Test success and `ERROR` notifications, duplicates, out-of-order or contradictory delivery, invalid scope or signature, lost events and failed refresh. Detail reads retain source evidence and freshness. Never infer buyer acceptance, copy completion or a need to resend. INT-SND01 steps 1, 4 and 5; SND-G05; OUT-A07, OUT-A08, OUT-A10 and OUT-A22. |
+| Sender access-point selection / OUT-A23 | Test configured public and private sender points, valid explicit selection, invalid/disconnected/ineligible selection, missing configuration and several configured points. One selected sender point must not cause fan-out and must remain distinct from recipient destination. Spain omission/null semantics must not change France behaviour. INT-SND02; INT-AP07; SND-G02/07. |
+| Independent action outcomes | Show recipient delivery complete while the required SPFE action is unresolved, and the reverse. Identify purpose, reason and next owner. Do not show full completion or repeat a completed action. Qualify any new response or event fields. Preserve `currentStatus` and `history[]` meanings. INT-SND02; SND-G04/05; OUT-A07, OUT-A19 and OUT-A24. |
+| Contract defects / INT-SND02 | Validate the six snapshot defects in §3.5 against the preserved schema; separately track onboarding snapshot issues with their owning API team. Corrected contracts must preserve existing France clients or use an approved compatibility path. |
 | Formats and transformation / OUT-A06/11 | Qualify Spain mappings, public UBL 2.5/rectification, private file combinations and optional Factur-X independently. Record DTS build, pack/version and semantic-loss results; FR/Demo rules do not become Spain defaults. SPFE-S08; INT-SND01; SND-G03/07. |
-| Public delivery and copy / OUT-A03–05; OUT-SPFE-A01–04; OUT-A19/21 | Exercise all four platform combinations in §2.2, with same-provider and different-provider private delivery. Prove each handoff and recipient result; hold unsupported or unknown paths. Prove actual issuance/copy coordination, original/copy classification and no extra copy after public use. Exercise permitted correction/withdrawal, partial admission and qualified outages. Include both delivery-success/copy-failure and copy-success/delivery-failure; retain completed actions. Pin schema/credential port and distinguish transport, request, item and CSV evidence. SPFE-S02/S03/S08/S16/S06; SND-G02/05/06. |
+| Public delivery and copy / OUT-A03–05; OUT-SPFE-A01–04; OUT-A19/21 | Exercise all four platform combinations in §2.2, with same-provider and different-provider private delivery. Prove each handoff and recipient result; hold unsupported or unknown paths. Prove the boundary between issuance and copy, classify original and copy, and prevent an extra copy after public use. Exercise permitted correction or withdrawal, partial admission and qualified outages. Test delivery success with copy failure, then copy success with delivery failure. Preserve completed actions. Pin the schema and credential port. Distinguish transport, request, item and CSV evidence. SPFE-S02/S03/S08/S16/S06; SND-G02/05/06. |
 | Country isolation and compatibility / OUT-A11/12/17 | Regress existing France behaviour. A Spain rule/route upgrade cannot change another country or an earlier action plan. Record API/build support, recovery owner, retention and measured operating limits. REF-PRODUCT; SND-G07. |
 | Transitional PDF delivery / OUT-PDF-A01–03 | Use a product-generated PDF in a qualified private manifest and upload it through the returned URL; prove actual recipient evidence. For the public structured route, use the qualified separate PDF channel. Inspect all public request parts for exclusion. Failed PDF work must not repeat successful invoice/copy actions. Regress FR file choices and one-client accountant sending. RD238-T2; INT-SND01; SND-G08. |
 
@@ -212,13 +359,17 @@ The guide is supplied evidence with an unknown original revision/build. Original
 
 | ID | Source / version and exact locator | Supported claim and limit |
 |---|---|---|
-| INT-SND01 | [FR guide evidence extract](<../../context/FR API/Sending/send-e-invoice-guide-extract.md>), received 22 October 2026; prerequisites, Submission design requirements and steps 1–5; original attachment hash recorded there | Documented methods, fields, file choices, codes and source conflicts. Canonical guide URL, full OpenAPI, event library and deployed build not supplied. |
+| INT-SND01 | [FR guide evidence extract](<../../context/FR API/Sending/send-e-invoice-guide-extract.md>), received 22 October 2026; prerequisites, Submission design requirements and steps 1–5; original attachment hash recorded there | Documented methods, fields, file choices, codes and source conflicts. Canonical guide URL, revision, event library and deployed build not supplied. The preserved OpenAPI is separately referenced as INT-SND02. |
+| INT-SND02 | [Preserved Send e-invoice OpenAPI snapshot](<../../context/FR API/Sending/send-e-invoice-openapi.md>), OpenAPI 3.1.0, info version 1.0.0; `POST /datasets/{datasetId}/e-invoices`, `SendInvoiceRequest`, `SendInvoiceResponse`, history item schema | Existing France-oriented schema and the defects confirmed in §3.5. It does not establish deployed behaviour or Spain support. |
+| INT-AP07 | Preserved OpenAPI 3.1.0, info version 1.0.0 snapshots: [list access points](<../../context/FR API/Onboarding/get-accesspoints.md>), [list dataset access points](<../../context/FR API/Onboarding/get-dataset-accesspoints.md>), [create connection](<../../context/FR API/Onboarding/new-accesspoint-connection.md>), [retrieve connection](<../../context/FR API/Onboarding/get-accesspoint-connection.md>), [update connection](<../../context/FR API/Onboarding/put-accesspoint-connection.md>); relevant operation paths and request/response schemas | Existing access-point and dataset-connection contracts. They do not define Spain per-invoice selection, default precedence or deployment support. |
+| USR-ADDR01 | User-supplied [Invoice addresses Spain](https://confluence.sage.com/spaces/DNBU/pages/837611067/Invoice+addresses+Spain); supplied 28 October 2026; content not preserved in this repository | Locator for reported Spain addressing statements only. Content not preserved in this repository; not final legal evidence. |
+| USR-ADDR02 | User-supplied “Spain - March 2026 e-invoice update”, Sage Intra-Compliance site; supplied 28 October 2026; page URL/content not preserved in this repository | Locator for reported March summary only. It does not override the final October 2026 legal sources. |
 | INT-ERR01 | [FR error-handling extract](<../../context/FR API/Shared/invoice-flow-error-handling-guide-extract.md>), received 22 October 2026, revision/build unknown; Processing and error fields; `ERR-SENDING-DOC`, `ERR-SENDING-STATUS`; Recovery interpretation | Concrete history fields, exact error actions and platform retry ownership. Selected-code six-day support guidance does not establish Spain service or legal deadlines. |
 | SPFE-S22 | [Separate Annex II](<../../context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf>), filename 21 October 2026, supplied 22 October; §§1–4 pp. 4–14, L1 p. 15 | Supplementary lifecycle code/field evidence; release and supersession unverified. Final SPFE-S02 Annex II remains legal source. No send/download endpoint or AEAT processing-error dictionary. |
 | REF-BASE | [SPEC-SEI-007](../archive/SPEC-SEI-007-invoice-sending-solution.md), updated 13 October 2026; Parts 2–4, OUT-INT-01–11 and OUT-D01–12 | Original logical controls, technical analysis and acceptance coverage. |
 | REF-PDF-DECISION | [PRD-SEI-246 PDF product rule](../../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md#transitional-pdf-product-rule), updated 22 October 2026; agreed boundaries and product rule | Local-product generation allocation and single-invoice scope; not a deployed PDF channel contract. |
 | RD238-T2 | [Original published RD 238/2026](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), published 31 March 2026, checked 22 October 2026; transitional provision 2(1)–(2), final provision 4 | Source of the PDF applicability and recipient-only restriction; no API or PDF-generation allocation. |
-| REF-PRODUCT | [PRD-SEI-223](../../prds/PRD-SEI-223-interoperability-routing-transformation.md), BR1–14 and FR43–46; [PRD-SEI-227](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md), country-pack governance; [SPEC-SEI-008](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md), updated 13 October 2026, DTS reuse assessment | Shared/country separation and preferred DTS candidate. Source designs do not prove deployed contracts or mappings. |
+| REF-PRODUCT | [PRD-SEI-223](../../prds/PRD-SEI-223-interoperability-routing-transformation.md), BR1–14 and FR43–46; [PRD-SEI-231](../../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md#acceptance-criteria), §Acceptance criteria, ID-AC14 (public default when no private entry point is publicly identified); [PRD-SEI-227](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md), country-pack governance; [SPEC-SEI-008](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md), updated 13 October 2026, DTS reuse assessment | Shared/country separation, Spain public-default product intent and preferred DTS candidate. Source designs do not prove deployed contracts or mappings. |
 | SPFE-S02 | [BOE PDF](../../context/BOE-A-2026-20587.pdf), final Order HAC/1028/2026, published 5 October 2026; Articles 3.4–3.6, 4 and 5.4–5.7; [official text](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587) | Legal copy, file, admission and correction duties; no physical API coordination contract. |
 | SPFE-S03 | [Catalogue PDF](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), draft 0.1.0, 9 October 2026; sections 6.2–6.4 pp. 10–12 | Submission/withdrawal/query descriptions, per-invoice authority, batch and disputed byte limit. Selected provider/build qualification remains open. |
 | SPFE-S08 | [Formats PDF](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), draft 0.1.0, 9 October 2026; 5.1.1 p. 8, 5.1.2 pp. 8–12, 5.2 p. 14 | UBL 2.5 document selection, messaging and business response codes. Not an invoice schema or DTS build. |
