@@ -57,6 +57,16 @@ def install_links(revision, documents):
                     '</ac:structured-macro>' + match[0])
         storage = re.sub(r'<h([1-6])>(.*?)</h\1>', anchor, storage, flags=re.S)
         assert next(headings, None) is None
+        # Keep earlier section links valid when a heading gains a phase suffix.
+        # This also preserves the API-01–05 aliases used by the companion view.
+        storage = re.sub(
+            r'<a id="([^"]+)"></a>',
+            lambda match: ('<ac:structured-macro ac:name="anchor">'
+                           '<ac:parameter ac:name="">'
+                           + html.escape(match[1], quote=True)
+                           + '</ac:parameter></ac:structured-macro>'),
+            storage,
+        )
         def link(match):
             url = html.unescape(match[1])
             if match[2] == revision:

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: '2026-10-27'
+updated: '2026-10-28'
 reviewers: []
 related:
 - SPEC-SEI-038
@@ -45,11 +45,15 @@ confluence:
 
 [Solution Summary](SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md) · [Logical Feature Specification](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md) · [Sequence and Reuse Assessment](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md) · [Folder](README.md)
 
-## Revision overview
+<a id="revision-overview"></a>
+
+## Revision overview — Phases 1–3
 
 This view combines SPEC-SEI-018 onboarding and SPEC-SEI-034 connection setup. It keeps their scope and decisions. The summary and diagram now show the main journey; SPEC038 holds the required behaviour and SPEC039 the existing E-Invoice API reuse decisions. Archived sources are unchanged. Provider support, operator approval and actual Spain implementation remain open.
 
-## 1 Purpose
+<a id="1-purpose"></a>
+
+## 1 Purpose — Phases 1–3
 
 **What:** let a business or its authorised accountant set up Sage access to its chosen supported e-invoicing platform. Show what is ready, what is missing and who must act next.
 
@@ -61,7 +65,9 @@ This view combines SPEC-SEI-018 onboarding and SPEC-SEI-034 connection setup. It
 
 **Read next:** [SPEC038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md) explains behaviour and exceptions; [SPEC039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md) gives calls, examples, reuse recommendations and required changes. These drafts do not prove production support.
 
-## 2 Terms used
+<a id="2-terms-used"></a>
+
+## 2 Terms used — Phases 1–3
 
 Use the [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md).
 
@@ -73,20 +79,22 @@ Use the [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md).
 | Activation | Separately authorised use of the selected route for specified future invoice work. A connection is not activation. |
 | Recovery | Check what happened to an earlier request before correcting or repeating it. |
 
-## 3 Master Feature purpose and scope
+<a id="3-master-feature-purpose-and-scope"></a>
 
-| Scenario | Customer situation | Setup outcome |
-|---|---|---|
-| ONB-S01 | New setup | Choose a supported option and complete its required checks. |
-| ONB-S02 | Already uses the public service | Check Sage access; do not assume new public registration. |
-| ONB-S03 | Keeps a private provider | Link its account and add only missing Sage setup. |
-| ONB-S04 | Uses public and private services | Check selected functions separately; preserve valid results and required dependencies. |
-| ONB-S05 | Reviews or extends Sage setup | Keep unchanged setup or add only the requested functions. |
-| ONB-S06 | Requests a platform change | Permit only enabled, authorised changes; preserve earlier invoices. |
-| ONB-S07 | Already uses B2G | Assess B2B separately and retain B2G setup. |
-| ONB-S08 | Unsupported or unknown setup | Explain the limitation, missing evidence and action owner. |
+## 3 Master Feature purpose and scope — Phases 1–3
 
-**Phase 1:** check public readiness. Private setup and route activation are later-phase work. Private A to Private B stays disabled. A customer may act directly or through an authorised accountant; one client needs no batch mode.
+| Scenario | Customer situation | Setup outcome | Phase |
+|---|---|---|---|
+| ONB-S01 | New setup | Choose a supported option and complete its required checks. | 1–3 |
+| ONB-S02 | Already uses the public service | Check Sage access; do not assume new public registration. | 1; reused in 2–3 |
+| ONB-S03 | Keeps a private provider | Link its account and add only missing Sage setup. | 2–3 |
+| ONB-S04 | Uses public and private services | Check selected functions separately; preserve valid results and required dependencies. | 2–3 |
+| ONB-S05 | Reviews or extends Sage setup | Keep unchanged setup or add only the requested functions. | 1–3 |
+| ONB-S06 | Requests a platform change | Permit only enabled, authorised changes; preserve earlier invoices. | 2–3; enabled changes only |
+| ONB-S07 | Already uses B2G | Assess B2B separately and retain B2G setup. | 1–3 |
+| ONB-S08 | Unsupported or unknown setup | Explain the limitation, missing evidence and action owner. | 1–3 |
+
+**Phase coverage:** **1 — SPFE public solution; 2 — external private providers; 3 — Sage private-platform offering.** Labels show analysis coverage, not delivery approval or confirmed API availability. REF-PHASE. Public checks remain relevant in Phases 2–3. Private A to Private B stays disabled. A customer may act directly or through an authorised accountant; one client needs no batch mode.
 
 Onboarding does not send an invoice, assume public enrolment or prove operator eligibility. Sending, receiving, reporting and full exit stay in their owning features. Sage acting as a private platform requires separate operator approval under REF-OPERATOR.
 
@@ -94,7 +102,9 @@ Pending checks, unknown effects and unanswered actions remain open. Rejection/wi
 
 **Timing:** customer setup has no general 30-day promise. An applicable platform-operator interconnection request has a **one-month** receiving-operator period, with the specific queue exception and required interim public exchange. [SPEC038 operator handoff](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#operator-interconnection-handoff) gives the exact rule. REF-INTERCONNECT.
 
-## 4 Parties and responsibility boundary
+<a id="4-parties-and-responsibility-boundary"></a>
+
+## 4 Parties and responsibility boundary — Phases 1–3
 
 | Party | Responsibility |
 |---|---|
@@ -106,63 +116,80 @@ Pending checks, unknown effects and unanswered actions remain open. Rejection/wi
 | Named operator / service owner | Confirm that Sage or its partner may offer the private-platform service before enabling it. |
 | Operations | Resolve assigned problems with evidence; an assignment alone is not success. |
 
-## 5 Key open solution decisions
+<a id="5-key-open-solution-decisions"></a>
 
-[Existing decision IDs](../archive/SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) retain their owners; [SPEC039 §4](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#4-open-engineering-decisions) lists the engineering answers needed.
+## 5 Key open solution decisions — Phases 1–3
 
-| Decision | Who must resolve it / when |
-|---|---|
-| Existing code, API coverage, business/dataset mapping and Spain/provider inputs — ONB-Q05, OFR-Q03 | Architecture, API, Identity, Tax and Integration; before build or enablement. |
-| Access evidence, provider state, safe recovery and earlier-invoice access — ONB-Q01/02/06/07, OFR-Q01/02/04 | Integration, Routing, Trust, Identity, Compliance and Operations; before the affected path is used. |
-| Product fields, start dates/timezones and receiving history — ONB-Q04/09 | API, Product, Routing and Receiving; product/pilot review. |
-| Approval and accountant-batch support — ONB-Q07/08 | Product, Identity, API and Operations; confirm approvers, permissions, limits and visibility before use. |
-| Sage private-platform operator and delivery model | Operator, Compliance, Security and Operations; prove legal/technical support and operations before offering the service. |
-| Phase 2: provider outside the planned list | Open: supported providers only, or an “Other provider” request? Spain Product/local technical lead to decide; offer no unconfirmed connection. Being outside the list alone does not prove lack of support. |
+[Existing decision IDs](../archive/SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks) retain their owners; [SPEC039 §2](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#2-open-engineering-decisions) lists the engineering answers needed.
 
-## 6 End to end workflow
+| Decision | Who must resolve it / when | Phase |
+|---|---|---|
+| <span style="color:#B42318;">Existing code, API coverage, business/dataset mapping and Spain/provider inputs — ONB-Q05, OFR-Q03</span> | Architecture and Engineering; close the applicable [039 GAP-01/02/06/08](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#2-open-engineering-decisions) evidence gates before build or enablement. | 1–3 |
+| <span style="color:#B42318;">Access evidence, provider state, safe recovery and earlier-invoice access — ONB-Q01/02/06/07, OFR-Q01/02/04</span> | Integration, Routing, Trust, Identity, Compliance and Operations; before the affected path is used. | 1–3 |
+| <span style="color:#B42318;">Product fields, start dates/timezones and receiving history — ONB-Q04/09</span> | API, Product, Routing and Receiving; product/pilot review. | 1–3 |
+| <span style="color:#B42318;">Approval and accountant-batch support — ONB-Q07/08</span> | Product, Identity, API and Operations; confirm approvers, permissions, limits and visibility before use. | 1–3 |
+| <span style="color:#B42318;">Sage private-platform operator and delivery model</span> | Operator, Compliance, Security and Operations; prove legal/technical support and operations before offering the service. | 3 |
+| <span style="color:#B42318;">Phase 2: provider outside the planned list</span> | Open: supported providers only, or an “Other provider” request? Spain Product/local technical lead to decide; offer no unconfirmed connection. Being outside the list alone does not prove lack of support. | 2; reuse in 3 to confirm |
+
+<a id="6-end-to-end-workflow"></a>
+
+## 6 End to end workflow — Phases 1–3
 
 ![Company onboarding: reuse the SXS dataset, complete the required public and private checks, and apply only an authorised requested routing change](../../assets/diagrams/onboarding-summary-scenario-selection-process.svg)
 
-Figure 1. Start after the product integrations in SPEC038 §4 are available. Reuse the company’s SXS dataset and complete only the required checks; public and private paths can both apply. Apply a routing change only when requested, enabled and authorised, with the target ready and the start agreed. Missing information, unknown results or unsupported choices return an action owner; keep successful results and existing B2G setup. [Draw.io](../../assets/diagrams/onboarding-summary-scenario-selection-process.drawio) · [PNG](../../assets/diagrams/onboarding-summary-scenario-selection-process.png). Scenarios and detailed behaviour remain in SPEC038.
+Figure 1. Phase 1 uses the public path; Phases 2–3 add the applicable private and enabled-change paths. The diagram does not select the Spain API resource model; see 039 GAP-02. Start after the product integrations in SPEC038 §4 are available. Reuse the company’s SXS dataset and complete only the required checks; public and private paths can both apply. Apply a routing change only when requested, enabled and authorised, with the target ready and the start agreed. Missing information, unknown results or unsupported choices return an action owner; keep successful results and existing B2G setup. [Draw.io](../../assets/diagrams/onboarding-summary-scenario-selection-process.drawio) · [PNG](../../assets/diagrams/onboarding-summary-scenario-selection-process.png). Scenarios and detailed behaviour remain in SPEC038.
 
-## 7 Master Feature lifecycle
+<a id="7-master-feature-lifecycle"></a>
 
-| Work | Activities / result |
-|---|---|
-| Select and inspect | ONB-01/02/10: capture the request, check identity/permission and reuse valid setup. |
-| Check public access | ONB-03/04/11: check required access/certificate and return readiness or an action. |
-| Set up private access — later phase | ONB-05/06: reuse or connect the account and prove required access. ONB-07/09 separately controls an enabled route change and earlier access. |
-| Resolve missing or failed work | ONB-12 for approval; ONB-08 for correction/recovery. Resume the affected check. |
-| Process a client list | ONB-13: save a receipt, check clients independently and return only currently permitted progress. |
+## 7 Master Feature lifecycle — Phases 1–3
 
-## 8 Cross cutting solution considerations
+| Work | Activities / result | Phase |
+|---|---|---|
+| Select and inspect | ONB-01/02/10: capture the request, check identity/permission and reuse valid setup. | 1–3 |
+| Check public access | ONB-03/04/11: check required access/certificate and return readiness or an action. | 1; reused in 2–3 |
+| Set up private access | ONB-05/06: reuse or connect the account and prove required access. ONB-07/09 separately controls an enabled route change and earlier access. | 2–3 |
+| Resolve missing or failed work | ONB-12 for approval; ONB-08 for correction/recovery. Resume the affected check. | 1–3 |
+| Process a client list | ONB-13: save a receipt, check clients independently and return only currently permitted progress. | 1–3; if batch requested |
+
+<a id="8-cross-cutting-solution-considerations"></a>
+
+## 8 Cross cutting solution considerations — Phases 1–3
 
 Keep Spain rules separate from shared behaviour and keep test/production evidence separate. An added function rechecks only its affected requirements; working setup remains unchanged.
 
 Reuse decisions belong to SPEC039. Reuse of a design is not proof of running code. Confirm Tax certificate acceptance for each selected action. DTS remains the preferred conversion candidate for later invoice features under [SPEC008](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md); onboarding converts no invoice. Peppol is outside this scope.
 
-## 9 Dependencies and risks
+<a id="9-dependencies-and-risks"></a>
 
-| If… | Required response |
-|---|---|
-| Permission or certificate evidence is missing | Stop the affected work and identify who must act. |
-| A request may have changed external state | Check its original result before repeating it. |
-| A setup change affects receiving | Routing checks actual reachability before allowing unsafe traffic. |
-| Earlier invoices need the old path | Keep the required access until release is authorised. |
-| Capacity or service targets are unconfirmed | Operations sets limits and objectives from contract/pilot evidence. |
+## 9 Dependencies and risks — Phases 1–3
 
-## 10 Features within this Master Feature
+| If… | Required response | Phase |
+|---|---|---|
+| Permission or certificate evidence is missing | Stop the affected work and identify who must act. | 1–3 |
+| A request may have changed external state | Check its original result before repeating it. | 1–3 |
+| A setup change affects receiving | Routing checks actual reachability before allowing unsafe traffic. | 2–3 for route changes |
+| Earlier invoices need the old path | Keep the required access until release is authorised. | 1–3 |
+| Capacity or service targets are unconfirmed | Operations sets limits and objectives from contract/pilot evidence. | 1–3 |
+
+<a id="10-features-within-this-master-feature"></a>
+
+## 10 Features within this Master Feature — Phases 1–3
 
 Onboarding owns customer setup and its recovery. Certificate, connectivity/routing and invoice-operation features keep their responsibilities. [SPEC038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md) links their handoffs. Configured account, readiness, route activation and operator approval remain separate results; no new deployment boundary is approved.
 
-## 12 Assurance and completion checks
+<a id="12-assurance-and-completion-checks"></a>
 
-Before enabling work, close its [functional/release checks in SPEC038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#review-and-release-gates) and [implementation checks in SPEC039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#4-open-engineering-decisions).
+## 12 Assurance and completion checks — Phases 1–3
 
-## REF Source references
+Before enabling work, close its [functional/release checks in SPEC038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#review-and-release-gates) and [implementation checks in SPEC039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#2-open-engineering-decisions).
+
+<a id="ref-source-references"></a>
+
+## REF Source references — Phases 1–3
 
 | REF ID | Source and version | Exact location | Supported claim and limit |
 |---|---|---|---|
+| REF-PHASE | [PRD213](<../../prds/PRD-SEI-213-private-platform-connectivity-structured-review.md>), Phase 2 scope; [PRD210](<../../prds/PRD-SEI-210-sage-private-platform-reuse-and-operator-expansion.md>), Phase 3 document map / phase comparison; [PRD221](<../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md>), Phase and outcome; repository drafts. | Sections named in the source cell; user direction, 28 October 2026. | Phase labels describe analysis coverage: SPFE, external providers, then Sage private-platform offering. They do not approve delivery, implementation or Private A to Private B switching. |
 | REF-BASE | [SPEC-SEI-002](../archive/SPEC-SEI-002-onboarding-solution-specification.md), snapshot 20 October 2026 | Parts 1–4 and REF | Predecessor scope, IDs, recorded ownership direction, proposed behaviour and open gates. Not implementation evidence. |
 | REF-PRODUCT | [PRD-SEI-101](../../prds/PRD-SEI-101-public-platform-onboarding.md), [104](../../prds/PRD-SEI-104-accountant-and-single-client-onboarding.md), [107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md), [222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) | Decision summaries, scope and functional requirements | Canonical product scope; unresolved differences require an owner decision. |
 | REF-COUNTRY | [PRD-SEI-227](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md) | Shared platform and country-pack direction | Reuse direction; not deployment qualification. |
