@@ -1,10 +1,10 @@
 {
   "id": "RES-SEI-002-source-manifest",
-  "indexed_on": "2026-10-13",
-  "scope": "Original user-supplied SPFE bundle and BOE order, plus the separately supplied Annex II received 2026-10-22; excludes the unrelated workshop PDF.",
+  "indexed_on": "2026-10-29",
+  "scope": "Current supplied SPFE evidence, with the 29 October 2026 PRE WSDL baseline; original WSDL/XSD snapshot retained separately for historical references. Excludes the unrelated workshop PDF.",
   "provenance": {
     "legal": "BOE publication identity and dates checked on the official BOE website; no byte-equality claim.",
-    "technical": "User-supplied AEAT-labelled files, stored in folders named 20261013. Public download provenance and PRE access are not independently verified.",
+    "technical": "User-supplied AEAT-labelled files. The current PRE WSDL release is labelled 29 October 2026 by the user. Public download provenance and PRE access are not independently verified.",
     "cover_date": "The service catalogue and input/output formats have cover date 2026-10-09 and version 0.1.0.",
     "format_document_status": "The input/output formats cover labels the initial version BORRADOR (draft)."
   },
@@ -96,9 +96,9 @@
     },
     {
       "source_id": "SPFE-S10",
-      "path": "context/WSDL servicios web - PRE/20261013/CancelInvoice.wsdl",
-      "bytes": 7766,
-      "sha256": "2735ae21903ef7a99e6dd41a845e4e702624c41420c3c242517d1cbd0267e620",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/CancelInvoice.wsdl",
+      "bytes": 6717,
+      "sha256": "0edea5d196e04c0bbc620ae5373cb8ef8469bd845a9dc399b3108c4c5a0d8f07",
       "kind": "wsdl",
       "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
       "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/CancelInvoice/v1",
@@ -121,13 +121,14 @@
           "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
           "local_exists": true
         }
-      ]
+      ],
+      "release_date": "2026-10-29"
     },
     {
       "source_id": "SPFE-S11",
-      "path": "context/WSDL servicios web - PRE/20261013/CustomerInvoiceEvents.wsdl",
-      "bytes": 8070,
-      "sha256": "bf7c596f0a34f63cb633e3e7896bfdf13f45b1a0bbb5349d630a1270ec7a21e3",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/CustomerInvoiceEvents.wsdl",
+      "bytes": 6965,
+      "sha256": "69fe0e5ca0f21670a2188e97e91545eb4ee40ee01e5c66a8f50692378c32fa92",
       "kind": "wsdl",
       "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
       "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/CustomerInvoiceEvents/v1",
@@ -150,13 +151,14 @@
           "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
           "local_exists": true
         }
-      ]
+      ],
+      "release_date": "2026-10-29"
     },
     {
       "source_id": "SPFE-S12",
-      "path": "context/WSDL servicios web - PRE/20261013/DownloadInvoicesByID.wsdl",
-      "bytes": 8032,
-      "sha256": "9e19cc3fc7ded95e4e85bb4b9d44f450fd16551572c56eb4ddc2b1364a953977",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/DownloadInvoicesByID.wsdl",
+      "bytes": 6934,
+      "sha256": "23cc3e03c33d9693cfac82ee0b104ba054c8d968b58b49b39c1fe161ad492396",
       "kind": "wsdl",
       "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
       "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/DownloadInvoicesByID/v1",
@@ -179,13 +181,14 @@
           "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
           "local_exists": true
         }
-      ]
+      ],
+      "release_date": "2026-10-29"
     },
     {
       "source_id": "SPFE-S13",
-      "path": "context/WSDL servicios web - PRE/20261013/DownloadInvoicesByLOC.wsdl",
-      "bytes": 8070,
-      "sha256": "2e1e066f23d50159027c5139b7ba954c631675366fc12965e7e1b1a396a7743f",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/DownloadInvoicesByLOC.wsdl",
+      "bytes": 6965,
+      "sha256": "d0a8a4534aa1552a5c54e1b206e4f8c91ae702a2008d841fd5fe54228875385d",
       "kind": "wsdl",
       "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
       "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/DownloadInvoicesByLOC/v1",
@@ -208,13 +211,14 @@
           "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
           "local_exists": true
         }
-      ]
+      ],
+      "release_date": "2026-10-29"
     },
     {
       "source_id": "SPFE-S14",
-      "path": "context/WSDL servicios web - PRE/20261013/GetInvoices.wsdl",
-      "bytes": 7690,
-      "sha256": "625eae833dbf132df6e2e28540765e7620497b3c59b7d02c91f826c77d6fcd2f",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/GetInvoices.wsdl",
+      "bytes": 6655,
+      "sha256": "d7805e71b0a57b772872a0e2ac1c9b1e6f0d9312c1f08e4c930bf20f17f90a6a",
       "kind": "wsdl",
       "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
       "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/GetInvoices/v1",
@@ -237,13 +241,14 @@
           "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
           "local_exists": true
         }
-      ]
+      ],
+      "release_date": "2026-10-29"
     },
     {
       "source_id": "SPFE-S15",
-      "path": "context/WSDL servicios web - PRE/20261013/GetRegisteredInvoice.wsdl",
-      "bytes": 8032,
-      "sha256": "fc8e8452f16f1525df58104f301e31638e5087c9eab6fb0f687bf99279bb0790",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/GetRegisteredInvoice.wsdl",
+      "bytes": 6934,
+      "sha256": "d047166769fb58a695f28b9551fcda913365f325ee0fd07894c4ee5c9ac74085",
       "kind": "wsdl",
       "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
       "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/GetRegisteredInvoice/v1",
@@ -266,13 +271,14 @@
           "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
           "local_exists": true
         }
-      ]
+      ],
+      "release_date": "2026-10-29"
     },
     {
       "source_id": "SPFE-S16",
-      "path": "context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl",
-      "bytes": 7690,
-      "sha256": "057fb0ef6bece816908ba7d7e181784e1b8c00d69aae82d2f147e9cc0dfaae5b",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/SendInvoice.wsdl",
+      "bytes": 6655,
+      "sha256": "c5c9688ea97d184197e8dc0a565eef0796ad9e4319f8e59ac09c7a6784f20b5c",
       "kind": "wsdl",
       "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
       "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/SendInvoice/v1",
@@ -295,13 +301,14 @@
           "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
           "local_exists": true
         }
-      ]
+      ],
+      "release_date": "2026-10-29"
     },
     {
       "source_id": "SPFE-S17",
-      "path": "context/WSDL servicios web - PRE/20261013/SupplierInvoiceEvents.wsdl",
-      "bytes": 8070,
-      "sha256": "63e8a845e317d3604382493133ad0426345094b4031215c921f8b48e4f0305ea",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/SupplierInvoiceEvents.wsdl",
+      "bytes": 6965,
+      "sha256": "1eeb0c8886c6c5171948e607480e184f1835dc03ae82c9454215fa848cf77262",
       "kind": "wsdl",
       "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
       "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/SupplierInvoiceEvents/v1",
@@ -324,11 +331,12 @@
           "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
           "local_exists": true
         }
-      ]
+      ],
+      "release_date": "2026-10-29"
     },
     {
       "source_id": "SPFE-S18",
-      "path": "context/WSDL servicios web - PRE/20261013/xsd/ebms/ebms-header-3_0-200704.xsd",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/xsd/ebms/ebms-header-3_0-200704.xsd",
       "bytes": 9707,
       "sha256": "fb965bd19e1f47f5e9ce570d9782a53aefeee860d552a1f8f6a64c7a3795f060",
       "kind": "xsd",
@@ -349,11 +357,12 @@
           "location": "../w3/xml.xsd",
           "local_exists": true
         }
-      ]
+      ],
+      "release_date": "2026-10-29"
     },
     {
       "source_id": "SPFE-S19",
-      "path": "context/WSDL servicios web - PRE/20261013/xsd/w3/soap-envelope.xsd",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/xsd/w3/soap-envelope.xsd",
       "bytes": 5808,
       "sha256": "388c76d3ef483c9ce09f625a0758077c6df040e788c58fc4ff22b663d71688fe",
       "kind": "xsd",
@@ -364,25 +373,28 @@
           "location": "xml.xsd",
           "local_exists": true
         }
-      ]
+      ],
+      "release_date": "2026-10-29"
     },
     {
       "source_id": "SPFE-S20",
-      "path": "context/WSDL servicios web - PRE/20261013/xsd/w3/xml.xsd",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/xsd/w3/xml.xsd",
       "bytes": 8836,
       "sha256": "61960fb3131e38022caad5360e2f33a3382578ab3c80cd58bd74320ede61b20c",
       "kind": "xsd",
       "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
-      "schema_references": []
+      "schema_references": [],
+      "release_date": "2026-10-29"
     },
     {
       "source_id": "SPFE-S21",
-      "path": "context/WSDL servicios web - PRE/20261013/xsd/xmlsoap/envelope.xsd",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/xsd/xmlsoap/envelope.xsd",
       "bytes": 6123,
       "sha256": "b3b47ed56c4c1c1dc75843eec976575cf60ae1460a8bb39ce52e4ba25a4414cb",
       "kind": "xsd",
       "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
-      "schema_references": []
+      "schema_references": [],
+      "release_date": "2026-10-29"
     },
     {
       "source_id": "SPFE-S22",
@@ -397,6 +409,59 @@
       "filename_date": "2026-10-21",
       "pdf_metadata_date": "2026-10-20",
       "authority_limit": "AEAT-labelled separate Annex II; filename contains Proyecto. Original public release URL/version and supersession not verified. Final BOE Annex II remains legal baseline."
+    },
+    {
+      "source_id": "SPFE-S23",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/ValidationInvoice.wsdl",
+      "kind": "wsdl",
+      "release_date": "2026-10-29",
+      "bytes": 6061,
+      "sha256": "64f5735947d2d0aab29dccf33641771eb2b9104b58bb6e7a64fa46b862e18ec4",
+      "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+      "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/ValidationInvoice/v1",
+      "operations": [
+        "ValidationInvoice"
+      ],
+      "ports": [
+        {
+          "name": "ValidationInvoiceCertPort",
+          "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/ValidationInvoiceSOAP"
+        },
+        {
+          "name": "ValidationInvoiceSealPort",
+          "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/ValidationInvoiceSOAP"
+        }
+      ],
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+          "location": "xsd/ubl-2.5/maindoc/UBL-Invoice-2.5.xsd",
+          "local_exists": false
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:DocumentStatus-2",
+          "location": "xsd/ubl-2.5/maindoc/UBL-DocumentStatus-2.5.xsd",
+          "local_exists": false
+        }
+      ]
+    },
+    {
+      "source_id": "SPFE-S24",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/spfe-ebms3-jaxb-bindings.xml",
+      "kind": "xml",
+      "release_date": "2026-10-29",
+      "bytes": 2112,
+      "sha256": "ad42c1d5b8cfa5ffa103551f2b3c78e802cdb4a9ec6106b00e671a7647a5e2c7",
+      "root_element": "{https://jakarta.ee/xml/ns/jaxb}bindings",
+      "schema_references": []
+    },
+    {
+      "source_id": "SPFE-S25",
+      "path": "context/WSDL servicios web - PRE_29:10:2026/xsd/ubl-2.5/LEEME.txt",
+      "kind": "text",
+      "release_date": "2026-10-29",
+      "bytes": 289,
+      "sha256": "ff3ea73499f3871a71da1d283a2fe029722f20289d6c8beacb6515dfd0f7e37e"
     }
   ],
   "counts": {
@@ -406,5 +471,315 @@
     "xml": 5,
     "pdf_pages": 127
   },
-  "updated_on": "2026-10-22"
+  "updated_on": "2026-10-22",
+  "current_wsdl_baseline": {
+    "release_date": "2026-10-29",
+    "reviewed_on": "2026-10-29",
+    "root": "context/WSDL servicios web - PRE_29:10:2026",
+    "date_basis": "User-supplied release label; no official publication URL supplied.",
+    "qualification": "Local contract comparison complete; runtime and business-rule qualification remain open.",
+    "missing_schema_gates": {
+      "context/WSDL servicios web - PRE_29:10:2026/xsd/ubl-2.5/maindoc/UBL-Invoice-2.5.xsd": "SPFE-Q04/SPFE-Q05",
+      "context/WSDL servicios web - PRE_29:10:2026/xsd/ubl-2.5/maindoc/UBL-DocumentStatus-2.5.xsd": "SPFE-Q04/SPFE-Q05"
+    }
+  },
+  "historical_wsdl_releases": [
+    {
+      "release_date": "2026-10-16",
+      "root": "context/WSDL servicios web - PRE_16/10/2026/20261013",
+      "date_basis": "User labels the previous release 16 October; files retain the nested 20261013 snapshot. No InvoiceValidation WSDL is present, so its reported 16 October addition and rename cannot be compared locally.",
+      "sources": [
+        {
+          "source_id": "SPFE-S10",
+          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/CancelInvoice.wsdl",
+          "bytes": 7766,
+          "sha256": "2735ae21903ef7a99e6dd41a845e4e702624c41420c3c242517d1cbd0267e620",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/CancelInvoice/v1",
+          "operations": [
+            "CancelInvoice"
+          ],
+          "ports": [
+            {
+              "name": "CancelInvoiceCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/CancelInvoiceSOAP"
+            },
+            {
+              "name": "CancelInvoiceSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/CancelInvoiceSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ]
+        },
+        {
+          "source_id": "SPFE-S11",
+          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/CustomerInvoiceEvents.wsdl",
+          "bytes": 8070,
+          "sha256": "bf7c596f0a34f63cb633e3e7896bfdf13f45b1a0bbb5349d630a1270ec7a21e3",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/CustomerInvoiceEvents/v1",
+          "operations": [
+            "CustomerInvoiceEvents"
+          ],
+          "ports": [
+            {
+              "name": "CustomerInvoiceEventsCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/CustomerInvoiceEventsSOAP"
+            },
+            {
+              "name": "CustomerInvoiceEventsSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/CustomerInvoiceEventsSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ]
+        },
+        {
+          "source_id": "SPFE-S12",
+          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/DownloadInvoicesByID.wsdl",
+          "bytes": 8032,
+          "sha256": "9e19cc3fc7ded95e4e85bb4b9d44f450fd16551572c56eb4ddc2b1364a953977",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/DownloadInvoicesByID/v1",
+          "operations": [
+            "DownloadInvoicesByID"
+          ],
+          "ports": [
+            {
+              "name": "DownloadInvoicesByIDCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/DownloadInvoicesByIDSOAP"
+            },
+            {
+              "name": "DownloadInvoicesByIDSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/DownloadInvoicesByIDSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ]
+        },
+        {
+          "source_id": "SPFE-S13",
+          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/DownloadInvoicesByLOC.wsdl",
+          "bytes": 8070,
+          "sha256": "2e1e066f23d50159027c5139b7ba954c631675366fc12965e7e1b1a396a7743f",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/DownloadInvoicesByLOC/v1",
+          "operations": [
+            "DownloadInvoicesByLOC"
+          ],
+          "ports": [
+            {
+              "name": "DownloadInvoicesByLOCCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/DownloadInvoicesByLOCSOAP"
+            },
+            {
+              "name": "DownloadInvoicesByLOCSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/DownloadInvoicesByLOCSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ]
+        },
+        {
+          "source_id": "SPFE-S14",
+          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/GetInvoices.wsdl",
+          "bytes": 7690,
+          "sha256": "625eae833dbf132df6e2e28540765e7620497b3c59b7d02c91f826c77d6fcd2f",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/GetInvoices/v1",
+          "operations": [
+            "GetInvoices"
+          ],
+          "ports": [
+            {
+              "name": "GetInvoicesCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/GetInvoicesSOAP"
+            },
+            {
+              "name": "GetInvoicesSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/GetInvoicesSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ]
+        },
+        {
+          "source_id": "SPFE-S15",
+          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/GetRegisteredInvoice.wsdl",
+          "bytes": 8032,
+          "sha256": "fc8e8452f16f1525df58104f301e31638e5087c9eab6fb0f687bf99279bb0790",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/GetRegisteredInvoice/v1",
+          "operations": [
+            "GetRegisteredInvoice"
+          ],
+          "ports": [
+            {
+              "name": "GetRegisteredInvoiceCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/GetRegisteredInvoiceSOAP"
+            },
+            {
+              "name": "GetRegisteredInvoiceSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/GetRegisteredInvoiceSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ]
+        },
+        {
+          "source_id": "SPFE-S16",
+          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/SendInvoice.wsdl",
+          "bytes": 7690,
+          "sha256": "057fb0ef6bece816908ba7d7e181784e1b8c00d69aae82d2f147e9cc0dfaae5b",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/SendInvoice/v1",
+          "operations": [
+            "SendInvoice"
+          ],
+          "ports": [
+            {
+              "name": "SendInvoiceCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/SendInvoiceSOAP"
+            },
+            {
+              "name": "SendInvoiceSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/SendInvoiceSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ]
+        },
+        {
+          "source_id": "SPFE-S17",
+          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/SupplierInvoiceEvents.wsdl",
+          "bytes": 8070,
+          "sha256": "63e8a845e317d3604382493133ad0426345094b4031215c921f8b48e4f0305ea",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/SupplierInvoiceEvents/v1",
+          "operations": [
+            "SupplierInvoiceEvents"
+          ],
+          "ports": [
+            {
+              "name": "SupplierInvoiceEventsCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/SupplierInvoiceEventsSOAP"
+            },
+            {
+              "name": "SupplierInvoiceEventsSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/SupplierInvoiceEventsSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ]
+        },
+        {
+          "source_id": "SPFE-S18",
+          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/xsd/ebms/ebms-header-3_0-200704.xsd",
+          "bytes": 9707,
+          "sha256": "fb965bd19e1f47f5e9ce570d9782a53aefeee860d552a1f8f6a64c7a3795f060",
+          "kind": "xsd",
+          "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+          "schema_references": [
+            {
+              "namespace": "http://schemas.xmlsoap.org/soap/envelope/",
+              "location": "../xmlsoap/envelope.xsd",
+              "local_exists": true
+            },
+            {
+              "namespace": "http://www.w3.org/2003/05/soap-envelope",
+              "location": "../w3/soap-envelope.xsd",
+              "local_exists": true
+            },
+            {
+              "namespace": "http://www.w3.org/XML/1998/namespace",
+              "location": "../w3/xml.xsd",
+              "local_exists": true
+            }
+          ]
+        },
+        {
+          "source_id": "SPFE-S19",
+          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/xsd/w3/soap-envelope.xsd",
+          "bytes": 5808,
+          "sha256": "388c76d3ef483c9ce09f625a0758077c6df040e788c58fc4ff22b663d71688fe",
+          "kind": "xsd",
+          "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+          "schema_references": [
+            {
+              "namespace": "http://www.w3.org/XML/1998/namespace",
+              "location": "xml.xsd",
+              "local_exists": true
+            }
+          ]
+        },
+        {
+          "source_id": "SPFE-S20",
+          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/xsd/w3/xml.xsd",
+          "bytes": 8836,
+          "sha256": "61960fb3131e38022caad5360e2f33a3382578ab3c80cd58bd74320ede61b20c",
+          "kind": "xsd",
+          "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+          "schema_references": []
+        },
+        {
+          "source_id": "SPFE-S21",
+          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/xsd/xmlsoap/envelope.xsd",
+          "bytes": 6123,
+          "sha256": "b3b47ed56c4c1c1dc75843eec976575cf60ae1460a8bb39ce52e4ba25a4414cb",
+          "kind": "xsd",
+          "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+          "schema_references": []
+        }
+      ]
+    }
+  ]
 }

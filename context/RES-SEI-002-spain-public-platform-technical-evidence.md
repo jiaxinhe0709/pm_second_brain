@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-13
-updated: 2026-10-22
+updated: 2026-10-29
 reviewers: []
 related:
   - RES-SEI-001
@@ -37,13 +37,15 @@ The supplied AEAT technical bundle supports initial offline work on the Spain pu
 
 The original supplied files are the **source evidence baseline** for external Spain public-platform behaviour. The final BOE order governs legal requirements. The catalogue, formats, WSDLs and XSDs govern the technical facts each establishes. Examples illustrate particular messages. Earlier product assumptions must be reconciled with this evidence. Sage architecture, internal states, recovery controls and product scope remain proposed choices. A conflict between source files remains an open gate; this guide does not resolve it by preference.
 
-This English guide links the original 21 supplied files plus the separate Annex II received on 22 October 2026: five PDFs, eight WSDLs, four XSDs and five XML examples. The PDFs contain 127 pages, including the 15-page supplement. Their Spanish text is searchable in the [extracted source folder](../assets/regulatory/spain/spfe/). The original files retain their stated authority. This guide translates key findings; it is not a complete or official English translation.
+The current inventory contains five PDFs, nine WSDLs, four transport XSDs, five XML examples, one JAXB binding XML and one UBL schema instruction file. The PDFs contain 127 pages. Their Spanish text is searchable in the [extracted source folder](../assets/regulatory/spain/spfe/). The manifest also retains the earlier eight WSDLs and four XSDs as historical evidence. This guide is a reading aid, not an official translation.
 
 Use the [existing legal evidence note](../research/spain-public-platform-order-evidence.md) for the published order and the [shared glossary](GLO-SEI-001-e-invoicing-terminology.md) for project terminology. The technical release adds evidence to those sources. It does not approve the current PRDs, solution specs, country rules or implementation.
 
 ## How to use this context
 
-Keep the complete sources in the repository. Start a Spain review with this guide, then read the pages and contracts relevant to that feature. Do not load the full source collection into every chat. Files in `context/` are persistent evidence; they are not automatically loaded into every conversation.
+Start a Spain review with the `current_wsdl_baseline` in the [source manifest](../assets/regulatory/spain/spfe/source-manifest.json), this guide and the selected original contracts. The current reviewed local PRE release is **29 October 2026**, in [the supplied folder](<WSDL servicios web - PRE_29:10:2026/>). Review means that the local files have been compared; it does not qualify a running implementation. Files in `context/` are persistent evidence; they are not automatically loaded into every conversation.
+
+When a new release arrives, retain earlier files, compare the affected operations, record the release date and hashes, update affected specs and run `python3 tools/validate_spfe_sources.py`. The PR check rejects unregistered WSDL files, changed source bytes, missing imports without a recorded gate and current specs linked to historical contracts. Archives retain dated historical links. This controls the latest reviewed **local** release; it cannot detect a future AEAT publication that has not been obtained. The AEAT liaison must supply the original publication URL and new files before that claim can be extended.
 
 | Task | Read next |
 |---|---|
@@ -65,11 +67,29 @@ Keep the complete sources in the repository. Start a Spain review with this guid
 | Separate lifecycle Annex II | [A2-Proyecto-OM-FE 21-10-26.pdf](<Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf>); 15 pages; received 22 October 2026. | AEAT-labelled supplement, SPFE-S22. Filename contains `Proyecto` and 21 October; PDF metadata records 20 October. No explicit release version, original public URL or supersession notice is supplied. The final BOE Annex II remains the legal baseline. |
 | Service catalogue | `CatalogoServicios.pdf`; cover date 9 October 2026; version `0.1.0`; 21 pages. | Initial technical description of nine services, including a PRE-only validation service. Contains conflicts and incomplete details listed below. |
 | Input/output formats | `FormatosEntradaSalida.pdf`; cover date 9 October 2026; version `0.1.0`; 15 pages. | Cover explicitly marks the initial version `BORRADOR`. Sections 5.3–5.9 are pending publication. |
-| WSDL/XSD and XML examples | Files supplied in folders named `20261013`. | Contract and example evidence for the supplied snapshot. Folder date and the stakeholder update indicate receipt on 13 October; they do not prove each file's official publication date. |
+| Current PRE WSDL/XSD release | User-labelled 29 October 2026; nine WSDLs, four unchanged transport XSDs, JAXB XML and UBL instructions. | Current local transport evidence. Original publication URL, live access and complete UBL schemas are not supplied. See the release review below. |
+| Historical WSDL/XSD and XML examples | Earlier contracts now in `WSDL servicios web - PRE_16/10/2026/20261013`; examples remain in their original folders. | The user labels the earlier release 16 October; the nested folder is dated 13 October. These labels do not independently prove publication dates. |
 
 The user supplied these files from the internal technical-documentation collection. The technical PDFs identify AEAT as author. Their public download provenance has not been independently verified. Do not label the entire bundle as a final production release. The [source manifest](../assets/regulatory/spain/spfe/source-manifest.json) records paths, sizes, SHA-256 hashes, page counts, WSDL ports and local schema references.
 
 The supplied stakeholder update says technical documentation was released on 13 October 2026 and that pre-production availability remains TBC. Its older statement that technical specifications were pending describes the earlier legal-publication update. The actual files establish that technical material is now present; environment availability remains open.
+
+## PRE WSDL release reviewed 29 October 2026
+
+The comparison uses all eight matching old/new WSDLs and four transport XSDs. The earlier local folder has no `InvoiceValidation.wsdl`. The reported addition on 16 October and rename on 29 October cannot be verified as a file-to-file change. SPFE-S23 establishes the current `ValidationInvoice` name and contract.
+
+| Contract point | Earlier local snapshot | 29 October evidence and spec impact |
+|---|---|---|
+| SOAP binding | Already SOAP 1.2: the `soap` prefix resolves to `http://schemas.xmlsoap.org/wsdl/soap12/`. | Prefix becomes `soap12`; the binding namespace is unchanged. This is not an evidenced SOAP 1.1-to-1.2 migration. SPFE-S10–S17. |
+| HTTP envelope and action | No equivalent explicit documentation. | `application/soap+xml`; its `action` parameter equals the operation's `soapAction`. For ebMS messages the SOAP part sits in `multipart/related`, with `type="application/soap+xml"`. Keep this URI separate from the catalogue's ebMS `Action`. SPEC-SEI-011 PCN-SPFE-R02. |
+| Faults | Each WSDL declared an operation-specific fault with `ErrorCode`, `ErrorMessage`, optional `RefToMessageId` and `AttachmentRef`. | Custom fault schema/message and `wsdl:fault` are removed. Documentation requires standard SOAP 1.2 `env:Code/env:Value` and `env:Reason/env:Text`, no service-specific `env:Detail`, HTTP 400 or 500. SPEC-SEI-011 PCN-SPFE-R03; SPFE-S10–S17/S23. |
+| ebMS attachments | Illustrative `payload` part plus `mime:multipartRelated`; documentation already allowed multiple parts. | No `payload` WSDL part or MIME binding. Actual MIME parts remain: one per `PayloadInfo/PartInfo/@href="cid:..."`, matched to `Content-ID`. The envelope permits 0..N; operation-specific business minima and limits still apply. SPEC-SEI-011 PCN-SPFE-R02/R04. |
+| Existing service identities | Eight operations, namespaces, `soapAction` URIs and certificate/seal addresses. | All unchanged. No new business fields, legal duties, production access or replay guarantees are established. SPFE-S10–S17. |
+| PRE validation | Catalogue calls it `InvoiceValidationSOAP`; no validator WSDL in the earlier local folder. | SPFE-S23 defines `ValidationInvoice`, namespace ending `/ValidationInvoice/v1`, action ending `/ValidationInvoice/v1/ValidationInvoice`, and `ValidationInvoiceCertPort`/`ValidationInvoiceSealPort` at the two PRE domains under `/ws/ValidationInvoiceSOAP`. SOAP 1.2 body: `ubl:Invoice` → `ublds:DocumentStatus`; no ebMS/MIME envelope. SPEC-SEI-005 UV-SPFE-R03. |
+| Client generation | No supplied JAXB customization. | SPFE-S24 is **XML**, not HTML. It separates SOAP 1.1/1.2 `mustUnderstand` properties for JAXB; its instructions select `setS12MustUnderstand(true)` and describe Jakarta/legacy toolchains. This is a generation aid, not proof that attachments or faults work. SPEC-SEI-011 PCN-SPFE-A04. |
+| Schemas | Four transport schemas. | Those four files are byte-identical. Validator imports `UBL-Invoice-2.5.xsd` and `UBL-DocumentStatus-2.5.xsd`, both absent. SPFE-S25 instructs users to obtain OASIS UBL 2.5 `maindoc/` and `common/`; it retains the old validator filename. SPFE-Q04/Q05 remain open. |
+
+SPEC-SEI-011 is authoritative for shared public transport rules. SPEC-SEI-005 owns the optional PRE-validation rule. Sending (SPEC-SEI-022–024), retrieval (026–027), lifecycle (030/041), onboarding (038–040), offboarding (033), certificates (001), routing (014), recipient lookup (012) and DTS mapping (008) use refreshed source references. Their business scope and process diagrams do not change from this release. Reuse qualification must test the selected client build against this contract; an unchanged endpoint does not prove compatibility. Engineering owns client generation and MIME/fault checks; AEAT liaison owns publication and access evidence. Keep Spain transport bindings separate from other countries' profiles.
 
 ## Annex II supplement reviewed 22 October 2026
 
@@ -117,16 +137,16 @@ These findings come from the [catalogue](../assets/regulatory/spain/spfe/service
 | Contract item | Meaning in this snapshot | Evidence and qualification |
 |---|---|---|
 | HTTPS and certificate access | Applications authenticate with a recognized qualified electronic certificate. | Catalogue section 4.3, p. 8. WSDLs expose separate certificate and electronic-seal ports. Certificate acceptance does not establish authority for the represented party. |
-| SOAP | The service uses an XML request/response envelope. The WSDLs bind SOAP 1.2. | Catalogue p. 8 and sample envelope namespace agree. Formats p. 7 says SOAP 1.1; resolve this conflict. |
-| ebMS 3.0 / ebXML | The SOAP header carries message identity, caller/receiver information, action and payload references. | Formats sections 5.1.2–5.2 and WSDL documentation. The WSDLs describe an empty SOAP body. |
+| SOAP | All nine current WSDLs bind SOAP 1.2. | SPFE-S10–S17/S23 document `application/soap+xml`, action and standard SOAP 1.2 faults. The older formats/catalogue wording remains inconsistent under SPFE-Q01. |
+| ebMS 3.0 / ebXML | The SOAP header carries message identity, caller/receiver information, action and payload references. | Formats sections 5.1.2–5.2 and WSDL documentation. The eight ebMS WSDLs describe an empty SOAP body; SPFE-S23 validation uses a direct business body. |
 | MIME `multipart/related` | Business XML documents travel as separate parts of the HTTP message. | The ebMS `PartInfo/@href` refers to the part's `Content-ID` through `cid:`. This is transport packaging, separate from prohibited files embedded inside an invoice. |
 | UTF-8 | XML uses UTF-8 encoding. | Both technical PDFs, section 4.1. |
 | UBL 2.5 | The formats document selects UBL version 2.5 business documents. | Formats p. 8: `InvoiceType` for invoices, including rectifications; `ApplicationResponse` for cancellation, actions and queries/download requests; `DocumentStatus` for responses other than invoice downloads. This is supplied technical evidence, not a successful conformance test. |
 | Synchronous response | Each sent message receives a synchronous response. | Both technical PDFs, section 3. The response still requires per-document interpretation. It does not establish buyer acceptance or payment. |
-| WSDL payload typing | Business attachments are opaque at the WSDL layer. | The WSDL imports the ebMS schema, not the UBL business schemas. One illustrative `payload` part does not restrict the actual message to one attachment. Validate business documents separately. |
+| WSDL payload typing | Business attachments are opaque at the WSDL layer. | SPFE-S10–S17 import the ebMS schema; their messages contain only `ebmsHeader`, with no WSDL `payload` or MIME binding. MIME attachment counts follow `PartInfo` and operation rules. SPFE-S23 instead imports two UBL business schemas, which are missing locally. Validate business documents separately. |
 | AS4 reference | The formats document describes a minimal ebMS/AS4-compatible approach without a cryptographic message signature. | Formats p. 9. This statement does not qualify full AS4/Peppol conformance or settle invoice-signing duties and security controls. |
 
-All eight WSDLs expose these PRE address patterns:
+All nine current WSDLs expose these PRE address patterns:
 
 ```text
 Electronic certificate, excluding electronic seal:
@@ -152,9 +172,9 @@ The names and actions below are exact technical values. `N` means several busine
 | `DownloadInvoicesByLOC` | `DOWNLOADBYLOC` | One `ApplicationResponse` with N locator references → N `InvoiceType` attachments. | Download by locator. Certificate/locator authorization is described separately. No separate numeric limit is stated in section 6.7; do not copy the ID-download limit without confirmation. |
 | `CustomerInvoiceEvents` | `ACCOUNTINGCUSTOMERPARTYACTION` | One `ApplicationResponse` → one `DocumentStatus`. | Recipient payment/rejection reports and their cancellation. Maximum 100 states in one request. Do not mix supplier and customer events. |
 | `SupplierInvoiceEvents` | `ACCOUNTINGSUPPLIERPARTYACTION` | One `ApplicationResponse` → one `DocumentStatus`. | Issuer collection/non-payment reports and their cancellation. Section 6.9 does not give a numeric batch limit. |
-| `InvoiceValidation` | Not applicable | Direct XML `InvoiceType` → direct XML `DocumentStatus`. | Catalogue describes one-invoice PRE-only validation. No matching WSDL is supplied. It does not register or admit the invoice and is unavailable in production under this description. |
+| `ValidationInvoice` | Not applicable | SOAP 1.2 body `ubl:Invoice` → body `ublds:DocumentStatus`; no ebMS. | SPFE-S23 supplies the current contract. Catalogue §6.10 describes one-invoice PRE-only validation, without registration/admission; production use is not established. Missing schemas and runtime qualification remain SPFE-Q04/Q05. |
 
-The catalogue's ninth service uses path `ws/InvoiceValidationSOAP`. Its exact HTTP/SOAP request packaging and certificate ports need evidence. Do not derive them from the eight attachment-based WSDLs.
+The catalogue's older path `ws/InvoiceValidationSOAP` differs from SPFE-S23's current `ws/ValidationInvoiceSOAP`. Use the current WSDL's exact operation, action and certificate/seal ports for the PRE design. Obtain AEAT confirmation of the naming change and qualify access under SPFE-Q05/Q12.
 
 `GetRegisteredInvoice` is singular in the WSDL, operation and endpoint. Preserve this spelling. The stakeholder update uses a plural name. `GetInvoices` is the identifier query; `GetRegisteredInvoice` is the date-filter query. Their names alone are insufficient to choose the discovery operation.
 
@@ -217,16 +237,16 @@ The formats document, pp. 9 and 12, says ebMS `From/PartyId` identifies the send
 
 | ID | Finding and source | Owner and next evidence |
 |---|---|---|
-| SPFE-Q01 | Formats p. 7 says SOAP 1.1. Catalogue p. 8, WSDL bindings and XML envelope examples use SOAP 1.2. Catalogue p. 9 still describes SOAP 1.1 fault names. | Public Platform Technical Owner: confirm transport and fault profile. Proposed offline POC baseline: SOAP 1.2 from the supplied WSDLs, with the conflict recorded. |
+| SPFE-Q01 | Older formats p. 7 says SOAP 1.1; catalogue p. 9 uses SOAP 1.1 fault names. The 29 October WSDLs explicitly specify SOAP 1.2, HTTP action and standard faults, with no custom Detail. | Public Platform Technical Owner: use SPFE-S10–S17/S23 for the current transport design; obtain corrected cross-document wording and verify runtime responses. The WSDL-level ambiguity is resolved; documentation alignment and live conformance remain open. |
 | SPFE-Q02 | Formats pp. 14–15 mark sections 5.3–5.9 pending publication. | AEAT liaison and Technical Owner: obtain exact query, pagination, download, cancellation and event request/response shapes. Catalogue descriptions alone do not close this gap. |
 | SPFE-Q03 | Catalogue p. 11 states a 5,120-byte invoice limit, but both supplied invoice examples exceed it. | AEAT liaison: confirm number, unit, byte-measurement basis, envelope/batch limits and conformance examples. |
 | SPFE-Q04 | No UBL 2.5 business XSD set, complete EN 16931/Spain rules or referenced validation/error document is supplied. | Format/Validation Owner: qualify the actual schemas, extensions, code lists and rule versions. Do not assert invoice schema validation from XML parsing. |
-| SPFE-Q05 | Catalogue describes `InvoiceValidationSOAP`, but its WSDL and exact packaging are absent. | Technical Owner: obtain its contract and access evidence. Do not rely on it for production preflight validation. |
-| SPFE-Q06 | Header-only date-query request in the catalogue differs from the WSDL's generic payload part. Filter names, formats and continuation semantics are incomplete. `SECUENCE_ID` is the source spelling. | Retrieval Owner: obtain official examples and boundary tests, including pagination and presentation-date semantics. |
+| SPFE-Q05 | SPFE-S23 now supplies `ValidationInvoice` packaging, action and ports. Catalogue §6.10 and SPFE-S25 retain the old name; the two imported UBL schemas and live acceptance evidence are missing. | Technical/Validation Owner and AEAT liaison: reconcile naming, obtain/qualify the UBL schema closure, generate the client and test authorized PRE access. Keep it optional and PRE-only; no production dependency. |
+| SPFE-Q06 | The current WSDL removes the generic payload part, so that older mismatch no longer applies. It still does not define the business `MessageProperties` filters, formats or continuation semantics. `SECUENCE_ID` is the catalogue spelling. | Retrieval Owner: obtain official examples and boundary tests, including pagination and presentation-date semantics. |
 | SPFE-Q07 | Catalogue p. 9 recommends resending after some failures or missing responses. No complete idempotency or same-content duplicate contract is supplied. | Connector/Outbound Owners: qualify replay behavior and reconciliation. `MessageId` alone is not proof of idempotency. Never withdraw an existing invoice merely to retry an uncertain send. |
 | SPFE-Q08 | Catalogue cancellation language includes removal and identifier reuse. The final order preserves traceability and restricts permissible withdrawal cases. | Compliance and Outbound Owner: approve withdrawal versus rectification policy, audit behavior and historical identity handling. |
 | SPFE-Q09 | Catalogue social-collaboration and locator-certificate paths need reconciliation with final order Article 11 authority requirements. | Compliance/Security/Technical Owners: approved operation-specific authority and credential matrix. |
-| SPFE-Q10 | Catalogue p. 21 points to a `tikeV1.0/.../SistemaFacturacion.wsdl` reference. Its relationship to this SPFE bundle is not established. | AEAT liaison: obtain the correct SPFE publication link. Do not use that reference as the source for these eight contracts. |
+| SPFE-Q10 | Catalogue p. 21 points to a `tikeV1.0/.../SistemaFacturacion.wsdl` reference. Its relationship to this SPFE bundle is not established. | AEAT liaison: obtain the correct SPFE publication link. Do not use that reference as the source for the current nine contracts. |
 | SPFE-Q11 | Formats operation-key list omits `DOWNLOADBYID`, although the catalogue and corresponding WSDL describe the service. Catalogue locator path repeats `ws/`. | Technical Owner: retain exact WSDL operation/address and catalogue action values; obtain corrected reference material. |
 | SPFE-Q12 | WSDL addresses exist, but PRE service availability, Sage access, accepted test identities and authorization are not demonstrated. Production endpoints, quotas and service targets are absent. | AEAT liaison and Security/Operations: confirm access and environment rules, then record authorized live test results. |
 | SPFE-Q13 | Both invoice examples use a `ProfileID` without `ubl:`, while final BOE Annex I BT-23 and the separate annex require the value with `ubl:`. | Format/Validation and AEAT liaison: qualify the governing value and accepted examples. Preserve originals; do not activate an example profile solely because it was supplied. |
@@ -332,6 +352,8 @@ Use the stable `SPFE-S*` source IDs below in the reviewed specs. Each feature's 
 
 ### Complete source register
 
+SPFE-S10–S21 refer here to the 29 October 2026 PRE release. The manifest retains the earlier dated entries under `historical_wsdl_releases`. Cite both source ID and release date when comparing releases.
+
 The register below is generated from the supplied file inventory. The source manifest contains a SHA-256 hash for every original file and extracted text. Hashes identify this local snapshot; they do not establish publication authority or successful integration.
 
 | Source | Original file | Coverage |
@@ -345,16 +367,19 @@ The register below is generated from the supplied file inventory. The source man
 | SPFE-S07 | [Respuesta_ebXML- SUBMITINVOICE.xml](<../context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/Respuesta_ebXML- SUBMITINVOICE.xml>) | XML |
 | SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); [Spanish text](../assets/regulatory/spain/spfe/input-output-formats.es.txt) | 15 PDF pages |
 | SPFE-S09 | [factura.xml](<../context/Ejemplos/20261013/factura.xml>) | XML |
-| SPFE-S10 | [CancelInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/CancelInvoice.wsdl>) | CancelInvoice |
-| SPFE-S11 | [CustomerInvoiceEvents.wsdl](<../context/WSDL servicios web - PRE/20261013/CustomerInvoiceEvents.wsdl>) | CustomerInvoiceEvents |
-| SPFE-S12 | [DownloadInvoicesByID.wsdl](<../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByID.wsdl>) | DownloadInvoicesByID |
-| SPFE-S13 | [DownloadInvoicesByLOC.wsdl](<../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByLOC.wsdl>) | DownloadInvoicesByLOC |
-| SPFE-S14 | [GetInvoices.wsdl](<../context/WSDL servicios web - PRE/20261013/GetInvoices.wsdl>) | GetInvoices |
-| SPFE-S15 | [GetRegisteredInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/GetRegisteredInvoice.wsdl>) | GetRegisteredInvoice |
-| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>) | SendInvoice |
-| SPFE-S17 | [SupplierInvoiceEvents.wsdl](<../context/WSDL servicios web - PRE/20261013/SupplierInvoiceEvents.wsdl>) | SupplierInvoiceEvents |
-| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/ebms/ebms-header-3_0-200704.xsd>) | XSD |
-| SPFE-S19 | [soap-envelope.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/w3/soap-envelope.xsd>) | XSD |
-| SPFE-S20 | [xml.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/w3/xml.xsd>) | XSD |
-| SPFE-S21 | [envelope.xsd](<../context/WSDL servicios web - PRE/20261013/xsd/xmlsoap/envelope.xsd>) | XSD |
+| SPFE-S10 | [CancelInvoice.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/CancelInvoice.wsdl>) | CancelInvoice |
+| SPFE-S11 | [CustomerInvoiceEvents.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/CustomerInvoiceEvents.wsdl>) | CustomerInvoiceEvents |
+| SPFE-S12 | [DownloadInvoicesByID.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/DownloadInvoicesByID.wsdl>) | DownloadInvoicesByID |
+| SPFE-S13 | [DownloadInvoicesByLOC.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/DownloadInvoicesByLOC.wsdl>) | DownloadInvoicesByLOC |
+| SPFE-S14 | [GetInvoices.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/GetInvoices.wsdl>) | GetInvoices |
+| SPFE-S15 | [GetRegisteredInvoice.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/GetRegisteredInvoice.wsdl>) | GetRegisteredInvoice |
+| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/SendInvoice.wsdl>) | SendInvoice |
+| SPFE-S17 | [SupplierInvoiceEvents.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/SupplierInvoiceEvents.wsdl>) | SupplierInvoiceEvents |
+| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../context/WSDL servicios web - PRE_29:10:2026/xsd/ebms/ebms-header-3_0-200704.xsd>) | XSD |
+| SPFE-S19 | [soap-envelope.xsd](<../context/WSDL servicios web - PRE_29:10:2026/xsd/w3/soap-envelope.xsd>) | XSD |
+| SPFE-S20 | [xml.xsd](<../context/WSDL servicios web - PRE_29:10:2026/xsd/w3/xml.xsd>) | XSD |
+| SPFE-S21 | [envelope.xsd](<../context/WSDL servicios web - PRE_29:10:2026/xsd/xmlsoap/envelope.xsd>) | XSD |
 | SPFE-S22 | [A2-Proyecto-OM-FE 21-10-26.pdf](<Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf>); [Spanish text](../assets/regulatory/spain/spfe/lifecycle-annex-supplement.es.txt) | 15 PDF pages; received 22 October 2026; filename date 21 October, metadata 20 October; release version/provenance unverified. §§1–4 pp. 4–14, list L1 p. 15. Supplement to final BOE Annex II, not proven supersession. |
+| SPFE-S23 | [ValidationInvoice.wsdl](<WSDL servicios web - PRE_29:10:2026/ValidationInvoice.wsdl>); PRE release 29 October 2026 | `types` UBL imports, request/response parts, `ValidationInvoice` operation, SOAP 1.2 binding/action and certificate/seal ports; documentation defines direct bodies and standard faults. Missing business XSDs and runtime access remain open. |
+| SPFE-S24 | [spfe-ebms3-jaxb-bindings.xml](<WSDL servicios web - PRE_29:10:2026/spfe-ebms3-jaxb-bindings.xml>); PRE release 29 October 2026 | `jaxb:bindings` SCD selectors for `eb3:headerExtension/@S11:mustUnderstand` and `@S12:mustUnderstand`; property names and toolchain instructions. Client-generation aid only. |
+| SPFE-S25 | [UBL schema instructions](<WSDL servicios web - PRE_29:10:2026/xsd/ubl-2.5/LEEME.txt>); PRE release 29 October 2026 | Entire file: UBL 2.5 schemas excluded; obtain `maindoc/` and `common/`. Retains `InvoiceValidation.wsdl` spelling. Does not supply or qualify those schemas. |

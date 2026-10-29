@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-28
+updated: 2026-10-29
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -213,6 +213,8 @@ Definitions explain the current source documents. They do not approve an archite
 | SQS / DLQ / redrive | Amazon Simple Queue Service; dead-letter queue for messages that could not be processed; controlled replay of those messages. Redrive keeps original identity and safe execution rules. |
 | NAS / JWT / IAM | The authorisation service named NAS in the DTS sources; JSON Web Token; identity and access management. The NAS name does not establish its complete protocol. |
 | CDK / MIME type | Cloud Development Kit for deployment; a label identifying a file format. Neither proves the content or capability is valid. |
+| SOAP action / ebMS Action | The SOAP action is the operation URI in WSDL `soapAction`; the current SPFE SOAP 1.2 contract also places it in the SOAP Content-Type `action` parameter. The ebMS `CollaborationInfo/Action` is a separate business action code, such as `SUBMITINVOICE`. Do not substitute one for the other. See SPEC-SEI-011 PCN-SPFE-R02 and SPFE-S16, PRE release 29 October 2026. |
+| MIME attachment / WSDL part | A MIME attachment is a separate message part. In current SPFE ebMS exchanges, `PayloadInfo/PartInfo/@href="cid:..."` identifies its MIME `Content-ID`. A WSDL part is a contract declaration; its removal does not remove wire attachments. Transport attachments are separate from files embedded inside an invoice. See SPEC-SEI-011 PCN-SPFE-R02 and SPFE-S16, PRE release 29 October 2026. |
 | B2B / B2G / B2C | Business to business; business to government; business to consumer. Different transaction scope and service/network rules apply. International trade between businesses is still B2B, but the label alone does not establish inclusion in a domestic mandate. B2G or tax-submission capability is not automatically qualified B2B invoice exchange. |
 | SLA / RTO / RPO | Service-level agreement; target time to restore service; maximum acceptable loss of recent data. Exact targets require approval and measurement. |
 | RACI / LFS | Responsible, accountable, consulted and informed; Logical Feature Specification, Part 2 of these specs. |

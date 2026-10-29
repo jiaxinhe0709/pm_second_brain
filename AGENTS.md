@@ -62,6 +62,16 @@ Read `schema/DOCUMENT_RULES.md` before creating or changing managed documents.
 
 ## Spain source evidence and references
 
+- Before Spain public-platform work, read the `current_wsdl_baseline` in
+  `assets/regulatory/spain/spfe/source-manifest.json` and the release review in
+  `context/RES-SEI-002-spain-public-platform-technical-evidence.md`. Use that
+  explicitly reviewed release for current work; do not select by folder name,
+  file modification time or chat memory. Read the selected original contracts.
+- When new WSDL evidence arrives, preserve earlier files, compare the contracts,
+  update the manifest hashes and affected specs, and run
+  `python3 tools/validate_spfe_sources.py`. An unregistered or unreviewed release
+  must be reported before treating a spec as current. The manifest identifies
+  the latest reviewed local release; it does not monitor future AEAT publications.
 - Use the original BOE, AEAT catalogue, formats, WSDL, XSD and example files listed
   in `context/RES-SEI-002-spain-public-platform-technical-evidence.md` as the
   source evidence baseline for Spain public-platform requirements and contracts.

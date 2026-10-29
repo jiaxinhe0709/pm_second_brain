@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-22
+updated: 2026-10-29
 reviewers: []
 related:
   - SPEC-SEI-003
@@ -167,8 +167,8 @@ These checks are evidence requirements, not executed tests. API documentation al
 | SPFE-S02 | [Original BOE PDF](../../context/BOE-A-2026-20587.pdf), Order HAC/1028/2026, published 5 October 2026; Articles 8–11; [official text](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-20587). | Public report responses, recovery/download and access framework; no private full-exit contract. |
 | SPFE-S03 | [Original service catalogue PDF](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), v0.1.0, 9 October 2026; sections 6.4–6.9, pp. 12–19. | Specific query/download/event descriptions and limits. No complete export/inventory or original-operation safety guarantee. |
 | SPFE-S08 | [Original input/output formats PDF](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), v0.1.0, 9 October 2026; sections 4–5. | Draft transport/format evidence. Pending sections and source conflicts remain unresolved. |
-| SPFE-S12/13 | [DownloadInvoicesByID.wsdl](<../../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByID.wsdl>) and [DownloadInvoicesByLOC.wsdl](<../../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByLOC.wsdl>), supplied snapshot `20261013`; named operations, bindings and certificate ports. | Exact configured file-download operations, not tested availability or complete archive transfer. |
-| SPFE-S14/15 | [GetInvoices.wsdl](<../../context/WSDL servicios web - PRE/20261013/GetInvoices.wsdl>) and [GetRegisteredInvoice.wsdl](<../../context/WSDL servicios web - PRE/20261013/GetRegisteredInvoice.wsdl>), snapshot `20261013`; named operations/bindings. | Consultation operations, not invoice files or universal recipient-directory queries. |
-| SPFE-S11/17 | [CustomerInvoiceEvents.wsdl](<../../context/WSDL servicios web - PRE/20261013/CustomerInvoiceEvents.wsdl>) and [SupplierInvoiceEvents.wsdl](<../../context/WSDL servicios web - PRE/20261013/SupplierInvoiceEvents.wsdl>), snapshot `20261013`; named operations/bindings. | Event submission contracts. No post-switch authority allocation. |
+| SPFE-S12/13 | [DownloadInvoicesByID.wsdl](<../../context/WSDL servicios web - PRE_29:10:2026/DownloadInvoicesByID.wsdl>) and [DownloadInvoicesByLOC.wsdl](<../../context/WSDL servicios web - PRE_29:10:2026/DownloadInvoicesByLOC.wsdl>), PRE release 29 October 2026; named operations, bindings and certificate ports. | Exact configured file-download operations, not tested availability or complete archive transfer. |
+| SPFE-S14/15 | [GetInvoices.wsdl](<../../context/WSDL servicios web - PRE_29:10:2026/GetInvoices.wsdl>) and [GetRegisteredInvoice.wsdl](<../../context/WSDL servicios web - PRE_29:10:2026/GetRegisteredInvoice.wsdl>), PRE release 29 October 2026; named operations/bindings. | Consultation operations, not invoice files or universal recipient-directory queries. |
+| SPFE-S11/17 | [CustomerInvoiceEvents.wsdl](<../../context/WSDL servicios web - PRE_29:10:2026/CustomerInvoiceEvents.wsdl>) and [SupplierInvoiceEvents.wsdl](<../../context/WSDL servicios web - PRE_29:10:2026/SupplierInvoiceEvents.wsdl>), PRE release 29 October 2026; named operations/bindings. | Event submission contracts. No post-switch authority allocation. |
 
 The original-file inventory and authority limits remain in [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md). The local examples and English extracts are reading aids, not proof of field-mapping completeness or implementation readiness. Copy-right and privacy sources, with their limits, are in SPEC-SEI-032 REF beside the owning behaviour.

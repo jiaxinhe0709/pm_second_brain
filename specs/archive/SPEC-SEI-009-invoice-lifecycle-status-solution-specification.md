@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-20
+updated: 2026-10-29
 reviewers: []
 related:
   - RES-SEI-002
@@ -548,8 +548,8 @@ Use the original files for the claims they establish. Final published regulation
 | ZERO-L02 | [ZeroComa FACeB2B](https://www.zerocoma.com/soluciones-transformacion-digital/faceb2b/); unversioned product page; indexed content reviewed 15 October 2026, direct-page retrieval unavailable. | Seguimiento del estado / acceptance-rejection visibility. | Route-specific product claim; not proof of the intended SPFE/private B2B contract or actual API codes. |
 | SPFE-S02 | [BOE-A-2026-20587.pdf](<../../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 7–8 and Annex II, pp. 36–42 | Exact communication fields/codes, rejection reasons, prepaid exception, CSV and exceptional outage rule. |
 | SPFE-S03 | [CatalogoServicios.pdf](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.4–6.5 and 6.8–6.9; pp. 12–14, 16–19 | Status consultation, event exclusivity, full-payment/collection and communication correction. |
-| SPFE-S11 | [CustomerInvoiceEvents.wsdl](<../../context/WSDL servicios web - PRE/20261013/CustomerInvoiceEvents.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | CustomerInvoiceEvents operation and service ports | Recipient report transport, not a proven complete business schema. |
-| SPFE-S17 | [SupplierInvoiceEvents.wsdl](<../../context/WSDL servicios web - PRE/20261013/SupplierInvoiceEvents.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SupplierInvoiceEvents operation and service ports | Issuer report transport; numeric batch limit not stated. |
+| SPFE-S11 | [CustomerInvoiceEvents.wsdl](<../../context/WSDL servicios web - PRE_16/10/2026/20261013/CustomerInvoiceEvents.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | CustomerInvoiceEvents operation and service ports | Recipient report transport, not a proven complete business schema. |
+| SPFE-S17 | [SupplierInvoiceEvents.wsdl](<../../context/WSDL servicios web - PRE_16/10/2026/20261013/SupplierInvoiceEvents.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SupplierInvoiceEvents operation and service ports | Issuer report transport; numeric batch limit not stated. |
 | SPFE-S08 | [FormatosEntradaSalida.pdf](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | response description p. 14 and pending event formats pp. 14–15 | Structured request/item meanings and missing complete wire formats. |
 | REF-CAL | [AEAT implementation calendar](https://sede.agenciatributaria.gob.es/Sede/iva/factura-electronica/calendario-implantacion.html); checked 13 October 2026. | Invoice, status/payment and private-platform dates; RD 238/2026 final provision 4 and transitional provision 3. | Invoice duties start 6 October 2027 or 2028 by customer group; reporting for remaining natural persons/income-attribution entities starts 6 October 2029. Customer classification and event deadlines remain separately governed. |
 | REF-PRD | [PRD-SEI-224](../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md); [PRD-SEI-232](../../prds/PRD-SEI-232-country-lifecycle-status-mapping.md); [PRD-SEI-242](../../prds/PRD-SEI-242-peppol-lifecycle-feedback.md); [shared platform and country-rule direction](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md); [country lifecycle mapping](../../prds/PRD-SEI-232-country-lifecycle-status-mapping.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |

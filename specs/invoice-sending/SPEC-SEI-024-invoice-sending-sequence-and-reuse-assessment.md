@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-22
+updated: 2026-10-29
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -222,6 +222,6 @@ The guide is supplied evidence with an unknown original revision/build. Original
 | SPFE-S02 | [BOE PDF](../../context/BOE-A-2026-20587.pdf), final Order HAC/1028/2026, published 5 October 2026; Articles 3.4–3.6, 4 and 5.4–5.7; [official text](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587) | Legal copy, file, admission and correction duties; no physical API coordination contract. |
 | SPFE-S03 | [Catalogue PDF](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), draft 0.1.0, 9 October 2026; sections 6.2–6.4 pp. 10–12 | Submission/withdrawal/query descriptions, per-invoice authority, batch and disputed byte limit. Selected provider/build qualification remains open. |
 | SPFE-S08 | [Formats PDF](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), draft 0.1.0, 9 October 2026; 5.1.1 p. 8, 5.1.2 pp. 8–12, 5.2 p. 14 | UBL 2.5 document selection, messaging and business response codes. Not an invoice schema or DTS build. |
-| SPFE-S16 | [SendInvoice WSDL](<../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>), supplied 13 October 2026; documentation, operation, SOAP binding, certificate/seal ports | Exact PRE transport; opaque UBL attachments need separate validation. No production endpoint or replay promise. |
+| SPFE-S16 | [SendInvoice WSDL](<../../context/WSDL servicios web - PRE_29:10:2026/SendInvoice.wsdl>), PRE release 29 October 2026; documentation, operation, SOAP binding, certificate/seal ports | Exact PRE transport; opaque UBL attachments need separate validation. No production endpoint or replay promise. |
 | SPFE-S06 | [RespuestaAltaFacturas.xml](<../../context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/RespuestaAltaFacturas.xml>), supplied 13 October 2026; DocumentResponse / DocumentReference | Illustrative item results, locator and response identifier; not complete CSV mapping. |
 | REF-SPAIN | [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md), source register and open SPFE questions; [manifest](../../assets/regulatory/spain/spfe/source-manifest.json) | Original-file versions/hashes, source conflicts and contract inventory; not mapping completeness or live acceptance. |

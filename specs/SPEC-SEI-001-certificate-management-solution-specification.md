@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-05
-updated: 2026-10-20
+updated: 2026-10-29
 reviewers: []
 related:
   - RES-SEI-002
@@ -743,7 +743,7 @@ Use the original files for the claims they establish. Final published regulation
 |---|---|---|---|
 | SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Article 11 | Authentication and operation-specific representation; no custody or signing implementation. |
 | SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 4.1–4.3, 6.4–6.7; pp. 7–8, 12–15 | Qualified certificate and operation-specific authorization; locator and social-collaboration paths require legal reconciliation. |
-| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SendInvoiceCertPort, SendInvoiceSealPort and soap:address | Exact PRE certificate/seal destinations; no live access or accepted issuer list. |
+| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/SendInvoice.wsdl>); PRE release 29 October 2026; SHA-256 in source manifest. | SendInvoiceCertPort, SendInvoiceSealPort and soap12:address | Exact PRE certificate/seal destinations; no live access or accepted issuer list. |
 | SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | sections 4.3 and 5.1.2; pp. 7–9 | Certificate authentication and minimal message transport; draft wording does not settle invoice-signature duties. |
 | REF-PRD | [PRD-SEI-226](../prds/PRD-SEI-226-security-trust-identity-data-audit.md); [shared platform and country-pack direction](../prds/PRD-SEI-227-e-invoicing-as-a-service.md); [PRD-SEI-101](../prds/PRD-SEI-101-public-platform-onboarding.md); [PRD-SEI-231](../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md); [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-225](../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md); [PRD-SEI-236](../prds/PRD-SEI-236-ubl-format-profile.md); [237](../prds/PRD-SEI-237-cii-format-profile.md); [238](../prds/PRD-SEI-238-un-edifact-format-profile.md); [239](../prds/PRD-SEI-239-facturae-format-profile.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
 | REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

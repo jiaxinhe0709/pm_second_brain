@@ -6,12 +6,13 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-27
+updated: 2026-10-28
 reviewers: []
 related:
   - SPEC-SEI-009
   - SPEC-SEI-029
   - SPEC-SEI-030
+  - SPEC-SEI-041
   - PRD-SEI-224
   - PRD-SEI-232
   - PRD-SEI-242
@@ -28,7 +29,7 @@ confluence:
 
 # Invoice Lifecycle Solution Summary
 
-[Logical specification](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md) · [API reuse assessment](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md) · [Feature folder](README.md)
+[Logical specification](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md) · [API reuse assessment](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md) · [API examples — 041](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md)
 
 ## Revision overview
 
@@ -67,10 +68,10 @@ Start with an existing invoice and its authorised source context. Save the evide
 
 | Existing capability / pattern | Spain work to confirm |
 |---|---|
-| E-Invoice status POST, notification and invoice GET/history | Confirm the actual build, Spain action identifiers/fields, result correlation and supported read/write actions. |
+| E-Invoice status POST, notification and invoice GET/history | Supplied POST contract is analysed in [041](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md). Confirm build, Spain fields/actions, nested validation and result correlation; read/event evidence is guide-only. |
 | Shared history and recovery | Keep successful status, failed attempts, source evidence and destination reports separate. Implementation coverage is unknown. |
-| Country/provider rules | Bind actors, directions, reasons, deadlines and historical routes without changing another country’s behaviour. |
-| Spain public reporting | Qualify Annex II codes, dates, full payment/collection, rejection and cancellation. No automatic mapping from France statuses is approved. |
+| Country/provider rules | Prefer a [Spain lifecycle country pack with qualified connectors](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md#country-pack-assessment). The supplied architecture separates shared processing and connectors. Confirm native pack registration/versioning; keep Spain rules isolated. ARCH-LCS01/02. |
+| Spain public reporting | [041's proposed API/XML mapping](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#spfe-action-mapping) covers eight actions and 52 source rows. Validate its three conditional status reuses, five missing action bindings and execution. No automatic mapping from France history is approved. |
 | Existing DTS — preferred XML mapping candidate | Prove ApplicationResponse support, field mappings, rules and operations. Invoice UBL support alone is insufficient. |
 
 ## 5 New Annex II review
@@ -81,8 +82,8 @@ The supplied [Annex II comparison](<../../context/Anexo II/annex-ii-review.md>) 
 
 | Decision / owner | Evidence required |
 |---|---|
-| LIF-G01/02 — API/Architecture | Running build, country selection, independent results and complete history. |
-| LIF-G03 — API owner | Resolve conflicting France transition/actor rules against the selected contract. |
+| LIF-G01/02 — API/Architecture | Running build, native country-pack/connector extension points, version selection, independent results and complete history. |
+| LIF-G03 — API owner | Resolve France transition/actor rules and guide/schema differences against the selected contract. |
 | LIF-G04 — Spain, DTS, Legal/Tax | Spain action/field bindings, event XML and cancellation recovery. |
 | LIF-G05/06 — API, Events, Operations | Attempt correlation, repeat safety, missed events and original-result lookup. |
 | LIF-G07/08 — Identity, Integration, Product | Business/actor authority, historical provider, applicable calendars and enabled scope. |
@@ -94,8 +95,10 @@ The supplied [Annex II comparison](<../../context/Anexo II/annex-ii-review.md>) 
 | Source ID | Original source and version/date | Exact location | Supported claims and limits |
 |---|---|---|---|
 | REF-BASE | [SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), updated 20 October 2026 | Parts 1–4; LCS controls and REF | Existing draft design, full provider assessment and preserved IDs; no runtime proof. |
+| ARCH-LCS01/02 | [Service/connector overview](../../assets/architecture/b22496cd-5719-45a2-ae1a-27d91f69f11c.png); [detailed status flow](../../assets/architecture/711539a8-ff4e-4723-9181-b21c71f389af.png), reviewed 28 October 2026; original design date/version/approval unrecorded | Shared e-Invoicing Service, provider connectors, status-request and status-update routing | Architecture supports the country-binding reuse assessment. Pack registry, configuration-only delivery and Spain runtime coverage are not established. SPEC030 §3.5 owns detail. |
 | REF-PRODUCT | [PRD-SEI-224](../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md), updated 7 October 2026; [PRD-SEI-232](../../prds/PRD-SEI-232-country-lifecycle-status-mapping.md); [PRD-SEI-242](../../prds/PRD-SEI-242-peppol-lifecycle-feedback.md) | Phase table; FR1–23; LS-FR and PEP-FR controls | Canonical product scope in recorded discovery/draft states; not new approval. |
 | INT-LCS01–05 | [Supplied guide evidence](<../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md>), received 22 October 2026, revision unknown | Five named sections | API patterns and supplied transition outcomes; Spain support and build unknown. |
+| FR-LIF01 | [Supplied status POST OpenAPI](<../../context/FR API/Lifecycle/update-e-invoice-status.openapi.json>), received 28 October 2026; API `1.0.0` | `LifecycleChange-Document`; request/response schemas and parameters | POST contract and open attributes; no nested Spain validation or deployed-support proof. Detailed analysis is in SPEC041. |
 | SPFE-S02 | [Final BOE order](../../context/BOE-A-2026-20587.pdf), published 5 October 2026 | Articles 7–11; Annex II pp. 36–42 | Legal communication, authority and field baseline; not a complete runnable API. |
 | SPFE-S22 | [Supplied Annex II](<../../context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf>), filename dated 21 October 2026, formal revision unknown | Sections I.1–4 pp. 4–14; II/L1 p. 15 | Technical field snapshot and comparison; does not establish a legal amendment. |
 | REF-FIELDS | [Original field ledger](../../assets/regulatory/spain/spfe/field-traceability.json); [comparison note](<../../context/Anexo II/annex-ii-review.md>) | AXII rows; per-message page comparison | Inventory and review evidence. Field bindings and acceptance execution remain unqualified. |

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-22
+updated: 2026-10-29
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -192,6 +192,6 @@ Final published law governs legal duties. Technical files support only their sta
 | SPFE-S02 | [BOE PDF](../../context/BOE-A-2026-20587.pdf), final Order HAC/1028/2026, published 5 October 2026; Articles 3.4–3.6, 4, 5.4–5.7; [official text](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587) | Copy, withdrawal, correction and admission/outage duties. Physical coordination and timing proof need qualification. |
 | SPFE-S03 | [Catalogue PDF](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), draft 0.1.0, 9 October 2026; sections 6.2–6.3, pp. 10–12 | Submission batches, per-invoice authority, disputed 5120-byte limit and limited withdrawal. Conflicts do not override final law. |
 | SPFE-S01 | [Invoice annex PDF](<../../context/Anexo I/20261013/Anexo-1-Proyecto-OM-FE.pdf>), supplied 13 October 2026; BT-ES-1 p. 4 and withdrawal pp. 26–27 | Copy marker and withdrawal fields. Not a complete implementation mapping. |
-| SPFE-S16 / SPFE-S10 | [SendInvoice](<../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>) / [CancelInvoice](<../../context/WSDL servicios web - PRE/20261013/CancelInvoice.wsdl>), supplied 13 October 2026; operation, binding, ports | PRE transport and opaque business attachments; no generic replay permission. |
+| SPFE-S16 / SPFE-S10 | [SendInvoice](<../../context/WSDL servicios web - PRE_29:10:2026/SendInvoice.wsdl>) / [CancelInvoice](<../../context/WSDL servicios web - PRE_29:10:2026/CancelInvoice.wsdl>), PRE release 29 October 2026; operation, binding, ports | PRE transport and opaque business attachments; no generic replay permission. |
 | REF-FIELDS | [Field ledger](../../assets/regulatory/spain/spfe/field-traceability.json), source snapshot 13 October 2026; AXC-01–07 and exact BOE row locators; [original BOE XML](../../assets/regulatory/spain/BOE-A-2026-20587.xml) | Existing field inventory and acceptance IDs; actual mappings/rules remain unqualified. |
 | REF-EVIDENCE | [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md), source register and SPFE-Q03/07/08/13/15/18; [manifest](../../assets/regulatory/spain/spfe/source-manifest.json) | Original-source inventory and unresolved conflicts, not field-mapping or production readiness. |

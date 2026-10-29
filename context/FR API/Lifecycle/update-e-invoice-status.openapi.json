@@ -1,0 +1,1639 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Update e-invoice status.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Sage Network Accounts Team",
+      "email": "email.protected@sage.com"
+    },
+    "license": {
+      "name": "Sage Terms and Conditions",
+      "url": "https://www.sage.com/en-us/legal/terms/"
+    }
+  },
+  "externalDocs": {
+    "url": "https://developer.sage.com/domain-services/",
+    "description": "Sage Network e-Invoicing Service Documentation"
+  },
+  "servers": [
+    {
+      "url": "https://api.e-invoicing.sage.com",
+      "description": "Production"
+    },
+    {
+      "url": "https://api-sbx.e-invoicing.sage.com",
+      "description": "Sandbox-Production"
+    },
+    {
+      "url": "https://api-int.e-invoicing-eng.sage.com",
+      "description": "Internal Sandbox"
+    }
+  ],
+  "security": [
+    {
+      "m2m": []
+    }
+  ],
+  "paths": {
+    "/datasets/{datasetId}/e-invoices/{e-invoiceId}/status": {
+      "post": {
+        "security": [
+          {
+            "m2m": []
+          }
+        ],
+        "operationId": "LifecycleChange-Document",
+        "summary": "Update e-invoice status.",
+        "tags": [
+          "e-Invoicing"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/traceparent"
+          },
+          {
+            "$ref": "#/components/parameters/tracestate"
+          },
+          {
+            "$ref": "#/components/parameters/Idempotency-Key"
+          },
+          {
+            "$ref": "#/components/parameters/datasetId"
+          },
+          {
+            "$ref": "#/components/parameters/e-invoiceId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostInvoiceStatusRequest"
+              },
+              "examples": {
+                "inHand": {
+                  "summary": "InHand",
+                  "description": "Example of updating invoice status to InHand (no statusAttributes required)",
+                  "value": {
+                    "data": {
+                      "type": "e-InvoiceStatus",
+                      "attributes": {
+                        "statusCode": "00000000-0000-0000-0000-400000000000"
+                      }
+                    }
+                  }
+                },
+                "approved": {
+                  "summary": "Approved",
+                  "description": "Example of updating invoice status to Approved (no statusAttributes required)",
+                  "value": {
+                    "data": {
+                      "type": "e-InvoiceStatus",
+                      "attributes": {
+                        "statusCode": "00000000-0000-0000-0000-500000000000"
+                      }
+                    }
+                  }
+                },
+                "partiallyApproved": {
+                  "summary": "PartiallyApproved",
+                  "description": "Example of updating invoice status to PartiallyApproved with approval data",
+                  "value": {
+                    "data": {
+                      "type": "e-InvoiceStatus",
+                      "attributes": {
+                        "statusCode": "00000000-0000-0000-0000-600000000000",
+                        "statusAttributes": {
+                          "partiallyApprovedData": [
+                            {
+                              "motifCode": "PA-001",
+                              "motifNote": "Accepted except for one line",
+                              "approvedNetAmount": 100,
+                              "approvedTotalAmount": 120,
+                              "nonApprovedNetAmount": 20,
+                              "nonApprovedTotalAmount": 24,
+                              "currencyCode": "EUR"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "disputed": {
+                  "summary": "Disputed",
+                  "description": "Example of updating invoice status to Disputed with dispute reason",
+                  "value": {
+                    "data": {
+                      "type": "e-InvoiceStatus",
+                      "attributes": {
+                        "statusCode": "00000000-0000-0000-0000-700000000000",
+                        "statusAttributes": {
+                          "disputeData": [
+                            {
+                              "reasonCode": "DIS-001",
+                              "notes": "Quantity mismatch",
+                              "requestedActionCode": "INFO",
+                              "requestedAction": "Please send supporting evidence"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "suspended": {
+                  "summary": "Suspended",
+                  "description": "Example of updating invoice status to Suspended with reason",
+                  "value": {
+                    "data": {
+                      "type": "e-InvoiceStatus",
+                      "attributes": {
+                        "statusCode": "00000000-0000-0000-0000-800000000000",
+                        "statusAttributes": {
+                          "suspendedData": {
+                            "reasonCode": "SUP-001",
+                            "reasonText": "Waiting for missing supporting document"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "completed": {
+                  "summary": "Completed",
+                  "description": "Example of updating invoice status to Completed with corrected fields",
+                  "value": {
+                    "data": {
+                      "type": "e-InvoiceStatus",
+                      "attributes": {
+                        "statusCode": "00000000-0000-0000-0000-140000000000",
+                        "statusAttributes": {
+                          "completedData": [
+                            {
+                              "fieldId": "BT-84",
+                              "fieldValue": "Updated supporting attachment reference"
+                            },
+                            {
+                              "fieldId": "BT-20",
+                              "fieldValue": "Corrected payment terms"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "refused": {
+                  "summary": "Refused",
+                  "description": "Example of updating invoice status to Refused with refusal reason",
+                  "value": {
+                    "data": {
+                      "type": "e-InvoiceStatus",
+                      "attributes": {
+                        "statusCode": "00000000-0000-0000-0000-120000000000",
+                        "statusAttributes": {
+                          "rejectionData": [
+                            {
+                              "reasonCode": "REASON-CODE",
+                              "notes": "Pricing mismatch with agreement"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "paymentSent": {
+                  "summary": "PaymentSent",
+                  "description": "Example of updating invoice status to PaymentSent with payment details",
+                  "value": {
+                    "data": {
+                      "type": "e-InvoiceStatus",
+                      "attributes": {
+                        "statusCode": "00000000-0000-0000-0000-900000000000",
+                        "statusAttributes": {
+                          "paymentData": [
+                            {
+                              "netAmount": 800,
+                              "vatRate": 20,
+                              "currencyCode": "EUR"
+                            },
+                            {
+                              "netAmount": 200,
+                              "vatRate": 5.5,
+                              "currencyCode": "EUR"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "paymentReceived": {
+                  "summary": "PaymentReceived",
+                  "description": "Example of updating invoice status to PaymentReceived with payment details",
+                  "value": {
+                    "data": {
+                      "type": "e-InvoiceStatus",
+                      "attributes": {
+                        "statusCode": "00000000-0000-0000-0000-110000000000",
+                        "statusAttributes": {
+                          "paymentData": [
+                            {
+                              "netAmount": 1000,
+                              "vatRate": 20,
+                              "currencyCode": "EUR"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "format": "duration"
+                },
+                "description": "Number of seconds to wait before making a follow-up request"
+              }
+            },
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostInvoiceStatusResponse"
+                },
+                "examples": {
+                  "201 response example": {
+                    "value": {
+                      "data": {
+                        "type": "e-InvoiceStatus",
+                        "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+                        "attributes": {
+                          "statusCode": "00000000-0000-0000-0000-500000000000",
+                          "status": "Approved",
+                          "statusAttributes": {}
+                        },
+                        "meta": {
+                          "createdAt": "2024-05-22T15:13:45.8410000+00:00",
+                          "createdSource": "sR1N7Mwqww1Ja41W9J0W3SxWnR5LQEiL",
+                          "createdTraceId": "ccf441167c9f414e81f077c9b4f3d42e",
+                          "modifiedAt": "2024-05-22T15:13:45.8410000+00:00",
+                          "modifiedSource": "sR1N7Mwqww1Ja41W9J0W3SxWnR5LQEiL",
+                          "modifiedTraceId": "ccf441167c9f414e81f077c9b4f3d42e"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "405": {
+            "$ref": "#/components/responses/405"
+          },
+          "413": {
+            "$ref": "#/components/responses/413"
+          },
+          "415": {
+            "$ref": "#/components/responses/415"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          },
+          "504": {
+            "$ref": "#/components/responses/504"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "shell_curl",
+            "name": "inHand",
+            "source": "curl --request POST \\\n  --url https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-400000000000\"}}}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_httpie",
+            "name": "inHand",
+            "source": "echo '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-400000000000\"}}}' |  \\\n  http POST https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  Content-Type:'application/vnd.api+json' \\\n  Idempotency-Key:'{Idempotency-Key}' \\\n  traceparent:'{traceparent}' \\\n  tracestate:'{tracestate}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_wget",
+            "name": "inHand",
+            "source": "wget --quiet \\\n  --method POST \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --body-data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-400000000000\"}}}' \\\n  --output-document \\\n  - https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_xhr",
+            "name": "inHand",
+            "source": "const data = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-400000000000\\\"}}}\";\n\nconst xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function () {\n  if (this.readyState === this.DONE) {\n    console.log(this.responseText);\n  }\n});\n\nxhr.open(\"POST\", \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nxhr.setRequestHeader(\"Content-Type\", \"application/vnd.api+json\");\nxhr.setRequestHeader(\"traceparent\", \"{traceparent}\");\nxhr.setRequestHeader(\"tracestate\", \"{tracestate}\");\nxhr.setRequestHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\n\nxhr.send(data);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_jquery",
+            "name": "inHand",
+            "source": "const settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"method\": \"POST\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  },\n  \"data\": \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-400000000000\\\"}}}\"\n};\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "node_native",
+            "name": "inHand",
+            "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"POST\",\n  \"hostname\": \"api.e-invoicing.sage.com\",\n  \"port\": null,\n  \"path\": \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-400000000000\\\"}}}\");\nreq.end();",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_httpclient",
+            "name": "inHand",
+            "source": "var client = new HttpClient();\nvar request = new HttpRequestMessage\n{\n    Method = HttpMethod.Post,\n    RequestUri = new Uri(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"),\n    Headers =\n    {\n        { \"traceparent\", \"{traceparent}\" },\n        { \"tracestate\", \"{tracestate}\" },\n        { \"Idempotency-Key\", \"{Idempotency-Key}\" },\n    },\n    Content = new StringContent(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-400000000000\\\"}}}\")\n    {\n        Headers =\n        {\n            ContentType = new MediaTypeHeaderValue(\"application/vnd.api+json\")\n        }\n    }\n};\nusing (var response = await client.SendAsync(request))\n{\n    response.EnsureSuccessStatusCode();\n    var body = await response.Content.ReadAsStringAsync();\n    Console.WriteLine(body);\n}",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_restsharp",
+            "name": "inHand",
+            "source": "var client = new RestClient(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nvar request = new RestRequest(Method.POST);\nrequest.AddHeader(\"Content-Type\", \"application/vnd.api+json\");\nrequest.AddHeader(\"traceparent\", \"{traceparent}\");\nrequest.AddHeader(\"tracestate\", \"{tracestate}\");\nrequest.AddHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\nrequest.AddParameter(\"application/vnd.api+json\", \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-400000000000\\\"}}}\", ParameterType.RequestBody);\nIRestResponse response = client.Execute(request);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_python3",
+            "name": "inHand",
+            "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.e-invoicing.sage.com\")\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-400000000000\\\"}}}\"\n\nheaders = {\n    'Content-Type': \"application/vnd.api+json\",\n    'traceparent': \"{traceparent}\",\n    'tracestate': \"{tracestate}\",\n    'Idempotency-Key': \"{Idempotency-Key}\"\n    }\n\nconn.request(\"POST\", \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\", payload, headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_requests",
+            "name": "inHand",
+            "source": "import requests\n\nurl = \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-400000000000\\\"}}}\"\nheaders = {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n}\n\nresponse = requests.request(\"POST\", url, data=payload, headers=headers)\n\nprint(response.text)",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_curl",
+            "name": "approved",
+            "source": "curl --request POST \\\n  --url https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-500000000000\"}}}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_httpie",
+            "name": "approved",
+            "source": "echo '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-500000000000\"}}}' |  \\\n  http POST https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  Content-Type:'application/vnd.api+json' \\\n  Idempotency-Key:'{Idempotency-Key}' \\\n  traceparent:'{traceparent}' \\\n  tracestate:'{tracestate}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_wget",
+            "name": "approved",
+            "source": "wget --quiet \\\n  --method POST \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --body-data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-500000000000\"}}}' \\\n  --output-document \\\n  - https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_xhr",
+            "name": "approved",
+            "source": "const data = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-500000000000\\\"}}}\";\n\nconst xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function () {\n  if (this.readyState === this.DONE) {\n    console.log(this.responseText);\n  }\n});\n\nxhr.open(\"POST\", \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nxhr.setRequestHeader(\"Content-Type\", \"application/vnd.api+json\");\nxhr.setRequestHeader(\"traceparent\", \"{traceparent}\");\nxhr.setRequestHeader(\"tracestate\", \"{tracestate}\");\nxhr.setRequestHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\n\nxhr.send(data);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_jquery",
+            "name": "approved",
+            "source": "const settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"method\": \"POST\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  },\n  \"data\": \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-500000000000\\\"}}}\"\n};\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "node_native",
+            "name": "approved",
+            "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"POST\",\n  \"hostname\": \"api.e-invoicing.sage.com\",\n  \"port\": null,\n  \"path\": \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-500000000000\\\"}}}\");\nreq.end();",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_httpclient",
+            "name": "approved",
+            "source": "var client = new HttpClient();\nvar request = new HttpRequestMessage\n{\n    Method = HttpMethod.Post,\n    RequestUri = new Uri(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"),\n    Headers =\n    {\n        { \"traceparent\", \"{traceparent}\" },\n        { \"tracestate\", \"{tracestate}\" },\n        { \"Idempotency-Key\", \"{Idempotency-Key}\" },\n    },\n    Content = new StringContent(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-500000000000\\\"}}}\")\n    {\n        Headers =\n        {\n            ContentType = new MediaTypeHeaderValue(\"application/vnd.api+json\")\n        }\n    }\n};\nusing (var response = await client.SendAsync(request))\n{\n    response.EnsureSuccessStatusCode();\n    var body = await response.Content.ReadAsStringAsync();\n    Console.WriteLine(body);\n}",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_restsharp",
+            "name": "approved",
+            "source": "var client = new RestClient(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nvar request = new RestRequest(Method.POST);\nrequest.AddHeader(\"Content-Type\", \"application/vnd.api+json\");\nrequest.AddHeader(\"traceparent\", \"{traceparent}\");\nrequest.AddHeader(\"tracestate\", \"{tracestate}\");\nrequest.AddHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\nrequest.AddParameter(\"application/vnd.api+json\", \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-500000000000\\\"}}}\", ParameterType.RequestBody);\nIRestResponse response = client.Execute(request);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_python3",
+            "name": "approved",
+            "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.e-invoicing.sage.com\")\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-500000000000\\\"}}}\"\n\nheaders = {\n    'Content-Type': \"application/vnd.api+json\",\n    'traceparent': \"{traceparent}\",\n    'tracestate': \"{tracestate}\",\n    'Idempotency-Key': \"{Idempotency-Key}\"\n    }\n\nconn.request(\"POST\", \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\", payload, headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_requests",
+            "name": "approved",
+            "source": "import requests\n\nurl = \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-500000000000\\\"}}}\"\nheaders = {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n}\n\nresponse = requests.request(\"POST\", url, data=payload, headers=headers)\n\nprint(response.text)",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_curl",
+            "name": "partiallyApproved",
+            "source": "curl --request POST \\\n  --url https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-600000000000\",\"statusAttributes\":{\"partiallyApprovedData\":[{\"motifCode\":\"PA-001\",\"motifNote\":\"Accepted except for one line\",\"approvedNetAmount\":100,\"approvedTotalAmount\":120,\"nonApprovedNetAmount\":20,\"nonApprovedTotalAmount\":24,\"currencyCode\":\"EUR\"}]}}}}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_httpie",
+            "name": "partiallyApproved",
+            "source": "echo '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-600000000000\",\"statusAttributes\":{\"partiallyApprovedData\":[{\"motifCode\":\"PA-001\",\"motifNote\":\"Accepted except for one line\",\"approvedNetAmount\":100,\"approvedTotalAmount\":120,\"nonApprovedNetAmount\":20,\"nonApprovedTotalAmount\":24,\"currencyCode\":\"EUR\"}]}}}}' |  \\\n  http POST https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  Content-Type:'application/vnd.api+json' \\\n  Idempotency-Key:'{Idempotency-Key}' \\\n  traceparent:'{traceparent}' \\\n  tracestate:'{tracestate}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_wget",
+            "name": "partiallyApproved",
+            "source": "wget --quiet \\\n  --method POST \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --body-data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-600000000000\",\"statusAttributes\":{\"partiallyApprovedData\":[{\"motifCode\":\"PA-001\",\"motifNote\":\"Accepted except for one line\",\"approvedNetAmount\":100,\"approvedTotalAmount\":120,\"nonApprovedNetAmount\":20,\"nonApprovedTotalAmount\":24,\"currencyCode\":\"EUR\"}]}}}}' \\\n  --output-document \\\n  - https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_xhr",
+            "name": "partiallyApproved",
+            "source": "const data = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-600000000000\\\",\\\"statusAttributes\\\":{\\\"partiallyApprovedData\\\":[{\\\"motifCode\\\":\\\"PA-001\\\",\\\"motifNote\\\":\\\"Accepted except for one line\\\",\\\"approvedNetAmount\\\":100,\\\"approvedTotalAmount\\\":120,\\\"nonApprovedNetAmount\\\":20,\\\"nonApprovedTotalAmount\\\":24,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\";\n\nconst xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function () {\n  if (this.readyState === this.DONE) {\n    console.log(this.responseText);\n  }\n});\n\nxhr.open(\"POST\", \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nxhr.setRequestHeader(\"Content-Type\", \"application/vnd.api+json\");\nxhr.setRequestHeader(\"traceparent\", \"{traceparent}\");\nxhr.setRequestHeader(\"tracestate\", \"{tracestate}\");\nxhr.setRequestHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\n\nxhr.send(data);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_jquery",
+            "name": "partiallyApproved",
+            "source": "const settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"method\": \"POST\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  },\n  \"data\": \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-600000000000\\\",\\\"statusAttributes\\\":{\\\"partiallyApprovedData\\\":[{\\\"motifCode\\\":\\\"PA-001\\\",\\\"motifNote\\\":\\\"Accepted except for one line\\\",\\\"approvedNetAmount\\\":100,\\\"approvedTotalAmount\\\":120,\\\"nonApprovedNetAmount\\\":20,\\\"nonApprovedTotalAmount\\\":24,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\"\n};\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "node_native",
+            "name": "partiallyApproved",
+            "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"POST\",\n  \"hostname\": \"api.e-invoicing.sage.com\",\n  \"port\": null,\n  \"path\": \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-600000000000\\\",\\\"statusAttributes\\\":{\\\"partiallyApprovedData\\\":[{\\\"motifCode\\\":\\\"PA-001\\\",\\\"motifNote\\\":\\\"Accepted except for one line\\\",\\\"approvedNetAmount\\\":100,\\\"approvedTotalAmount\\\":120,\\\"nonApprovedNetAmount\\\":20,\\\"nonApprovedTotalAmount\\\":24,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\");\nreq.end();",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_httpclient",
+            "name": "partiallyApproved",
+            "source": "var client = new HttpClient();\nvar request = new HttpRequestMessage\n{\n    Method = HttpMethod.Post,\n    RequestUri = new Uri(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"),\n    Headers =\n    {\n        { \"traceparent\", \"{traceparent}\" },\n        { \"tracestate\", \"{tracestate}\" },\n        { \"Idempotency-Key\", \"{Idempotency-Key}\" },\n    },\n    Content = new StringContent(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-600000000000\\\",\\\"statusAttributes\\\":{\\\"partiallyApprovedData\\\":[{\\\"motifCode\\\":\\\"PA-001\\\",\\\"motifNote\\\":\\\"Accepted except for one line\\\",\\\"approvedNetAmount\\\":100,\\\"approvedTotalAmount\\\":120,\\\"nonApprovedNetAmount\\\":20,\\\"nonApprovedTotalAmount\\\":24,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\")\n    {\n        Headers =\n        {\n            ContentType = new MediaTypeHeaderValue(\"application/vnd.api+json\")\n        }\n    }\n};\nusing (var response = await client.SendAsync(request))\n{\n    response.EnsureSuccessStatusCode();\n    var body = await response.Content.ReadAsStringAsync();\n    Console.WriteLine(body);\n}",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_restsharp",
+            "name": "partiallyApproved",
+            "source": "var client = new RestClient(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nvar request = new RestRequest(Method.POST);\nrequest.AddHeader(\"Content-Type\", \"application/vnd.api+json\");\nrequest.AddHeader(\"traceparent\", \"{traceparent}\");\nrequest.AddHeader(\"tracestate\", \"{tracestate}\");\nrequest.AddHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\nrequest.AddParameter(\"application/vnd.api+json\", \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-600000000000\\\",\\\"statusAttributes\\\":{\\\"partiallyApprovedData\\\":[{\\\"motifCode\\\":\\\"PA-001\\\",\\\"motifNote\\\":\\\"Accepted except for one line\\\",\\\"approvedNetAmount\\\":100,\\\"approvedTotalAmount\\\":120,\\\"nonApprovedNetAmount\\\":20,\\\"nonApprovedTotalAmount\\\":24,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\", ParameterType.RequestBody);\nIRestResponse response = client.Execute(request);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_python3",
+            "name": "partiallyApproved",
+            "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.e-invoicing.sage.com\")\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-600000000000\\\",\\\"statusAttributes\\\":{\\\"partiallyApprovedData\\\":[{\\\"motifCode\\\":\\\"PA-001\\\",\\\"motifNote\\\":\\\"Accepted except for one line\\\",\\\"approvedNetAmount\\\":100,\\\"approvedTotalAmount\\\":120,\\\"nonApprovedNetAmount\\\":20,\\\"nonApprovedTotalAmount\\\":24,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\"\n\nheaders = {\n    'Content-Type': \"application/vnd.api+json\",\n    'traceparent': \"{traceparent}\",\n    'tracestate': \"{tracestate}\",\n    'Idempotency-Key': \"{Idempotency-Key}\"\n    }\n\nconn.request(\"POST\", \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\", payload, headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_requests",
+            "name": "partiallyApproved",
+            "source": "import requests\n\nurl = \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-600000000000\\\",\\\"statusAttributes\\\":{\\\"partiallyApprovedData\\\":[{\\\"motifCode\\\":\\\"PA-001\\\",\\\"motifNote\\\":\\\"Accepted except for one line\\\",\\\"approvedNetAmount\\\":100,\\\"approvedTotalAmount\\\":120,\\\"nonApprovedNetAmount\\\":20,\\\"nonApprovedTotalAmount\\\":24,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\"\nheaders = {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n}\n\nresponse = requests.request(\"POST\", url, data=payload, headers=headers)\n\nprint(response.text)",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_curl",
+            "name": "disputed",
+            "source": "curl --request POST \\\n  --url https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-700000000000\",\"statusAttributes\":{\"disputeData\":[{\"reasonCode\":\"DIS-001\",\"notes\":\"Quantity mismatch\",\"requestedActionCode\":\"INFO\",\"requestedAction\":\"Please send supporting evidence\"}]}}}}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_httpie",
+            "name": "disputed",
+            "source": "echo '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-700000000000\",\"statusAttributes\":{\"disputeData\":[{\"reasonCode\":\"DIS-001\",\"notes\":\"Quantity mismatch\",\"requestedActionCode\":\"INFO\",\"requestedAction\":\"Please send supporting evidence\"}]}}}}' |  \\\n  http POST https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  Content-Type:'application/vnd.api+json' \\\n  Idempotency-Key:'{Idempotency-Key}' \\\n  traceparent:'{traceparent}' \\\n  tracestate:'{tracestate}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_wget",
+            "name": "disputed",
+            "source": "wget --quiet \\\n  --method POST \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --body-data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-700000000000\",\"statusAttributes\":{\"disputeData\":[{\"reasonCode\":\"DIS-001\",\"notes\":\"Quantity mismatch\",\"requestedActionCode\":\"INFO\",\"requestedAction\":\"Please send supporting evidence\"}]}}}}' \\\n  --output-document \\\n  - https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_xhr",
+            "name": "disputed",
+            "source": "const data = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-700000000000\\\",\\\"statusAttributes\\\":{\\\"disputeData\\\":[{\\\"reasonCode\\\":\\\"DIS-001\\\",\\\"notes\\\":\\\"Quantity mismatch\\\",\\\"requestedActionCode\\\":\\\"INFO\\\",\\\"requestedAction\\\":\\\"Please send supporting evidence\\\"}]}}}}\";\n\nconst xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function () {\n  if (this.readyState === this.DONE) {\n    console.log(this.responseText);\n  }\n});\n\nxhr.open(\"POST\", \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nxhr.setRequestHeader(\"Content-Type\", \"application/vnd.api+json\");\nxhr.setRequestHeader(\"traceparent\", \"{traceparent}\");\nxhr.setRequestHeader(\"tracestate\", \"{tracestate}\");\nxhr.setRequestHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\n\nxhr.send(data);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_jquery",
+            "name": "disputed",
+            "source": "const settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"method\": \"POST\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  },\n  \"data\": \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-700000000000\\\",\\\"statusAttributes\\\":{\\\"disputeData\\\":[{\\\"reasonCode\\\":\\\"DIS-001\\\",\\\"notes\\\":\\\"Quantity mismatch\\\",\\\"requestedActionCode\\\":\\\"INFO\\\",\\\"requestedAction\\\":\\\"Please send supporting evidence\\\"}]}}}}\"\n};\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "node_native",
+            "name": "disputed",
+            "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"POST\",\n  \"hostname\": \"api.e-invoicing.sage.com\",\n  \"port\": null,\n  \"path\": \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-700000000000\\\",\\\"statusAttributes\\\":{\\\"disputeData\\\":[{\\\"reasonCode\\\":\\\"DIS-001\\\",\\\"notes\\\":\\\"Quantity mismatch\\\",\\\"requestedActionCode\\\":\\\"INFO\\\",\\\"requestedAction\\\":\\\"Please send supporting evidence\\\"}]}}}}\");\nreq.end();",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_httpclient",
+            "name": "disputed",
+            "source": "var client = new HttpClient();\nvar request = new HttpRequestMessage\n{\n    Method = HttpMethod.Post,\n    RequestUri = new Uri(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"),\n    Headers =\n    {\n        { \"traceparent\", \"{traceparent}\" },\n        { \"tracestate\", \"{tracestate}\" },\n        { \"Idempotency-Key\", \"{Idempotency-Key}\" },\n    },\n    Content = new StringContent(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-700000000000\\\",\\\"statusAttributes\\\":{\\\"disputeData\\\":[{\\\"reasonCode\\\":\\\"DIS-001\\\",\\\"notes\\\":\\\"Quantity mismatch\\\",\\\"requestedActionCode\\\":\\\"INFO\\\",\\\"requestedAction\\\":\\\"Please send supporting evidence\\\"}]}}}}\")\n    {\n        Headers =\n        {\n            ContentType = new MediaTypeHeaderValue(\"application/vnd.api+json\")\n        }\n    }\n};\nusing (var response = await client.SendAsync(request))\n{\n    response.EnsureSuccessStatusCode();\n    var body = await response.Content.ReadAsStringAsync();\n    Console.WriteLine(body);\n}",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_restsharp",
+            "name": "disputed",
+            "source": "var client = new RestClient(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nvar request = new RestRequest(Method.POST);\nrequest.AddHeader(\"Content-Type\", \"application/vnd.api+json\");\nrequest.AddHeader(\"traceparent\", \"{traceparent}\");\nrequest.AddHeader(\"tracestate\", \"{tracestate}\");\nrequest.AddHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\nrequest.AddParameter(\"application/vnd.api+json\", \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-700000000000\\\",\\\"statusAttributes\\\":{\\\"disputeData\\\":[{\\\"reasonCode\\\":\\\"DIS-001\\\",\\\"notes\\\":\\\"Quantity mismatch\\\",\\\"requestedActionCode\\\":\\\"INFO\\\",\\\"requestedAction\\\":\\\"Please send supporting evidence\\\"}]}}}}\", ParameterType.RequestBody);\nIRestResponse response = client.Execute(request);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_python3",
+            "name": "disputed",
+            "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.e-invoicing.sage.com\")\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-700000000000\\\",\\\"statusAttributes\\\":{\\\"disputeData\\\":[{\\\"reasonCode\\\":\\\"DIS-001\\\",\\\"notes\\\":\\\"Quantity mismatch\\\",\\\"requestedActionCode\\\":\\\"INFO\\\",\\\"requestedAction\\\":\\\"Please send supporting evidence\\\"}]}}}}\"\n\nheaders = {\n    'Content-Type': \"application/vnd.api+json\",\n    'traceparent': \"{traceparent}\",\n    'tracestate': \"{tracestate}\",\n    'Idempotency-Key': \"{Idempotency-Key}\"\n    }\n\nconn.request(\"POST\", \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\", payload, headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_requests",
+            "name": "disputed",
+            "source": "import requests\n\nurl = \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-700000000000\\\",\\\"statusAttributes\\\":{\\\"disputeData\\\":[{\\\"reasonCode\\\":\\\"DIS-001\\\",\\\"notes\\\":\\\"Quantity mismatch\\\",\\\"requestedActionCode\\\":\\\"INFO\\\",\\\"requestedAction\\\":\\\"Please send supporting evidence\\\"}]}}}}\"\nheaders = {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n}\n\nresponse = requests.request(\"POST\", url, data=payload, headers=headers)\n\nprint(response.text)",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_curl",
+            "name": "suspended",
+            "source": "curl --request POST \\\n  --url https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-800000000000\",\"statusAttributes\":{\"suspendedData\":{\"reasonCode\":\"SUP-001\",\"reasonText\":\"Waiting for missing supporting document\"}}}}}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_httpie",
+            "name": "suspended",
+            "source": "echo '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-800000000000\",\"statusAttributes\":{\"suspendedData\":{\"reasonCode\":\"SUP-001\",\"reasonText\":\"Waiting for missing supporting document\"}}}}}' |  \\\n  http POST https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  Content-Type:'application/vnd.api+json' \\\n  Idempotency-Key:'{Idempotency-Key}' \\\n  traceparent:'{traceparent}' \\\n  tracestate:'{tracestate}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_wget",
+            "name": "suspended",
+            "source": "wget --quiet \\\n  --method POST \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --body-data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-800000000000\",\"statusAttributes\":{\"suspendedData\":{\"reasonCode\":\"SUP-001\",\"reasonText\":\"Waiting for missing supporting document\"}}}}}' \\\n  --output-document \\\n  - https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_xhr",
+            "name": "suspended",
+            "source": "const data = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-800000000000\\\",\\\"statusAttributes\\\":{\\\"suspendedData\\\":{\\\"reasonCode\\\":\\\"SUP-001\\\",\\\"reasonText\\\":\\\"Waiting for missing supporting document\\\"}}}}}\";\n\nconst xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function () {\n  if (this.readyState === this.DONE) {\n    console.log(this.responseText);\n  }\n});\n\nxhr.open(\"POST\", \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nxhr.setRequestHeader(\"Content-Type\", \"application/vnd.api+json\");\nxhr.setRequestHeader(\"traceparent\", \"{traceparent}\");\nxhr.setRequestHeader(\"tracestate\", \"{tracestate}\");\nxhr.setRequestHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\n\nxhr.send(data);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_jquery",
+            "name": "suspended",
+            "source": "const settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"method\": \"POST\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  },\n  \"data\": \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-800000000000\\\",\\\"statusAttributes\\\":{\\\"suspendedData\\\":{\\\"reasonCode\\\":\\\"SUP-001\\\",\\\"reasonText\\\":\\\"Waiting for missing supporting document\\\"}}}}}\"\n};\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "node_native",
+            "name": "suspended",
+            "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"POST\",\n  \"hostname\": \"api.e-invoicing.sage.com\",\n  \"port\": null,\n  \"path\": \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-800000000000\\\",\\\"statusAttributes\\\":{\\\"suspendedData\\\":{\\\"reasonCode\\\":\\\"SUP-001\\\",\\\"reasonText\\\":\\\"Waiting for missing supporting document\\\"}}}}}\");\nreq.end();",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_httpclient",
+            "name": "suspended",
+            "source": "var client = new HttpClient();\nvar request = new HttpRequestMessage\n{\n    Method = HttpMethod.Post,\n    RequestUri = new Uri(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"),\n    Headers =\n    {\n        { \"traceparent\", \"{traceparent}\" },\n        { \"tracestate\", \"{tracestate}\" },\n        { \"Idempotency-Key\", \"{Idempotency-Key}\" },\n    },\n    Content = new StringContent(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-800000000000\\\",\\\"statusAttributes\\\":{\\\"suspendedData\\\":{\\\"reasonCode\\\":\\\"SUP-001\\\",\\\"reasonText\\\":\\\"Waiting for missing supporting document\\\"}}}}}\")\n    {\n        Headers =\n        {\n            ContentType = new MediaTypeHeaderValue(\"application/vnd.api+json\")\n        }\n    }\n};\nusing (var response = await client.SendAsync(request))\n{\n    response.EnsureSuccessStatusCode();\n    var body = await response.Content.ReadAsStringAsync();\n    Console.WriteLine(body);\n}",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_restsharp",
+            "name": "suspended",
+            "source": "var client = new RestClient(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nvar request = new RestRequest(Method.POST);\nrequest.AddHeader(\"Content-Type\", \"application/vnd.api+json\");\nrequest.AddHeader(\"traceparent\", \"{traceparent}\");\nrequest.AddHeader(\"tracestate\", \"{tracestate}\");\nrequest.AddHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\nrequest.AddParameter(\"application/vnd.api+json\", \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-800000000000\\\",\\\"statusAttributes\\\":{\\\"suspendedData\\\":{\\\"reasonCode\\\":\\\"SUP-001\\\",\\\"reasonText\\\":\\\"Waiting for missing supporting document\\\"}}}}}\", ParameterType.RequestBody);\nIRestResponse response = client.Execute(request);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_python3",
+            "name": "suspended",
+            "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.e-invoicing.sage.com\")\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-800000000000\\\",\\\"statusAttributes\\\":{\\\"suspendedData\\\":{\\\"reasonCode\\\":\\\"SUP-001\\\",\\\"reasonText\\\":\\\"Waiting for missing supporting document\\\"}}}}}\"\n\nheaders = {\n    'Content-Type': \"application/vnd.api+json\",\n    'traceparent': \"{traceparent}\",\n    'tracestate': \"{tracestate}\",\n    'Idempotency-Key': \"{Idempotency-Key}\"\n    }\n\nconn.request(\"POST\", \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\", payload, headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_requests",
+            "name": "suspended",
+            "source": "import requests\n\nurl = \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-800000000000\\\",\\\"statusAttributes\\\":{\\\"suspendedData\\\":{\\\"reasonCode\\\":\\\"SUP-001\\\",\\\"reasonText\\\":\\\"Waiting for missing supporting document\\\"}}}}}\"\nheaders = {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n}\n\nresponse = requests.request(\"POST\", url, data=payload, headers=headers)\n\nprint(response.text)",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_curl",
+            "name": "completed",
+            "source": "curl --request POST \\\n  --url https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-140000000000\",\"statusAttributes\":{\"completedData\":[{\"fieldId\":\"BT-84\",\"fieldValue\":\"Updated supporting attachment reference\"},{\"fieldId\":\"BT-20\",\"fieldValue\":\"Corrected payment terms\"}]}}}}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_httpie",
+            "name": "completed",
+            "source": "echo '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-140000000000\",\"statusAttributes\":{\"completedData\":[{\"fieldId\":\"BT-84\",\"fieldValue\":\"Updated supporting attachment reference\"},{\"fieldId\":\"BT-20\",\"fieldValue\":\"Corrected payment terms\"}]}}}}' |  \\\n  http POST https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  Content-Type:'application/vnd.api+json' \\\n  Idempotency-Key:'{Idempotency-Key}' \\\n  traceparent:'{traceparent}' \\\n  tracestate:'{tracestate}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_wget",
+            "name": "completed",
+            "source": "wget --quiet \\\n  --method POST \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --body-data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-140000000000\",\"statusAttributes\":{\"completedData\":[{\"fieldId\":\"BT-84\",\"fieldValue\":\"Updated supporting attachment reference\"},{\"fieldId\":\"BT-20\",\"fieldValue\":\"Corrected payment terms\"}]}}}}' \\\n  --output-document \\\n  - https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_xhr",
+            "name": "completed",
+            "source": "const data = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-140000000000\\\",\\\"statusAttributes\\\":{\\\"completedData\\\":[{\\\"fieldId\\\":\\\"BT-84\\\",\\\"fieldValue\\\":\\\"Updated supporting attachment reference\\\"},{\\\"fieldId\\\":\\\"BT-20\\\",\\\"fieldValue\\\":\\\"Corrected payment terms\\\"}]}}}}\";\n\nconst xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function () {\n  if (this.readyState === this.DONE) {\n    console.log(this.responseText);\n  }\n});\n\nxhr.open(\"POST\", \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nxhr.setRequestHeader(\"Content-Type\", \"application/vnd.api+json\");\nxhr.setRequestHeader(\"traceparent\", \"{traceparent}\");\nxhr.setRequestHeader(\"tracestate\", \"{tracestate}\");\nxhr.setRequestHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\n\nxhr.send(data);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_jquery",
+            "name": "completed",
+            "source": "const settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"method\": \"POST\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  },\n  \"data\": \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-140000000000\\\",\\\"statusAttributes\\\":{\\\"completedData\\\":[{\\\"fieldId\\\":\\\"BT-84\\\",\\\"fieldValue\\\":\\\"Updated supporting attachment reference\\\"},{\\\"fieldId\\\":\\\"BT-20\\\",\\\"fieldValue\\\":\\\"Corrected payment terms\\\"}]}}}}\"\n};\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "node_native",
+            "name": "completed",
+            "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"POST\",\n  \"hostname\": \"api.e-invoicing.sage.com\",\n  \"port\": null,\n  \"path\": \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-140000000000\\\",\\\"statusAttributes\\\":{\\\"completedData\\\":[{\\\"fieldId\\\":\\\"BT-84\\\",\\\"fieldValue\\\":\\\"Updated supporting attachment reference\\\"},{\\\"fieldId\\\":\\\"BT-20\\\",\\\"fieldValue\\\":\\\"Corrected payment terms\\\"}]}}}}\");\nreq.end();",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_httpclient",
+            "name": "completed",
+            "source": "var client = new HttpClient();\nvar request = new HttpRequestMessage\n{\n    Method = HttpMethod.Post,\n    RequestUri = new Uri(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"),\n    Headers =\n    {\n        { \"traceparent\", \"{traceparent}\" },\n        { \"tracestate\", \"{tracestate}\" },\n        { \"Idempotency-Key\", \"{Idempotency-Key}\" },\n    },\n    Content = new StringContent(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-140000000000\\\",\\\"statusAttributes\\\":{\\\"completedData\\\":[{\\\"fieldId\\\":\\\"BT-84\\\",\\\"fieldValue\\\":\\\"Updated supporting attachment reference\\\"},{\\\"fieldId\\\":\\\"BT-20\\\",\\\"fieldValue\\\":\\\"Corrected payment terms\\\"}]}}}}\")\n    {\n        Headers =\n        {\n            ContentType = new MediaTypeHeaderValue(\"application/vnd.api+json\")\n        }\n    }\n};\nusing (var response = await client.SendAsync(request))\n{\n    response.EnsureSuccessStatusCode();\n    var body = await response.Content.ReadAsStringAsync();\n    Console.WriteLine(body);\n}",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_restsharp",
+            "name": "completed",
+            "source": "var client = new RestClient(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nvar request = new RestRequest(Method.POST);\nrequest.AddHeader(\"Content-Type\", \"application/vnd.api+json\");\nrequest.AddHeader(\"traceparent\", \"{traceparent}\");\nrequest.AddHeader(\"tracestate\", \"{tracestate}\");\nrequest.AddHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\nrequest.AddParameter(\"application/vnd.api+json\", \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-140000000000\\\",\\\"statusAttributes\\\":{\\\"completedData\\\":[{\\\"fieldId\\\":\\\"BT-84\\\",\\\"fieldValue\\\":\\\"Updated supporting attachment reference\\\"},{\\\"fieldId\\\":\\\"BT-20\\\",\\\"fieldValue\\\":\\\"Corrected payment terms\\\"}]}}}}\", ParameterType.RequestBody);\nIRestResponse response = client.Execute(request);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_python3",
+            "name": "completed",
+            "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.e-invoicing.sage.com\")\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-140000000000\\\",\\\"statusAttributes\\\":{\\\"completedData\\\":[{\\\"fieldId\\\":\\\"BT-84\\\",\\\"fieldValue\\\":\\\"Updated supporting attachment reference\\\"},{\\\"fieldId\\\":\\\"BT-20\\\",\\\"fieldValue\\\":\\\"Corrected payment terms\\\"}]}}}}\"\n\nheaders = {\n    'Content-Type': \"application/vnd.api+json\",\n    'traceparent': \"{traceparent}\",\n    'tracestate': \"{tracestate}\",\n    'Idempotency-Key': \"{Idempotency-Key}\"\n    }\n\nconn.request(\"POST\", \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\", payload, headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_requests",
+            "name": "completed",
+            "source": "import requests\n\nurl = \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-140000000000\\\",\\\"statusAttributes\\\":{\\\"completedData\\\":[{\\\"fieldId\\\":\\\"BT-84\\\",\\\"fieldValue\\\":\\\"Updated supporting attachment reference\\\"},{\\\"fieldId\\\":\\\"BT-20\\\",\\\"fieldValue\\\":\\\"Corrected payment terms\\\"}]}}}}\"\nheaders = {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n}\n\nresponse = requests.request(\"POST\", url, data=payload, headers=headers)\n\nprint(response.text)",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_curl",
+            "name": "refused",
+            "source": "curl --request POST \\\n  --url https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-120000000000\",\"statusAttributes\":{\"rejectionData\":[{\"reasonCode\":\"REASON-CODE\",\"notes\":\"Pricing mismatch with agreement\"}]}}}}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_httpie",
+            "name": "refused",
+            "source": "echo '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-120000000000\",\"statusAttributes\":{\"rejectionData\":[{\"reasonCode\":\"REASON-CODE\",\"notes\":\"Pricing mismatch with agreement\"}]}}}}' |  \\\n  http POST https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  Content-Type:'application/vnd.api+json' \\\n  Idempotency-Key:'{Idempotency-Key}' \\\n  traceparent:'{traceparent}' \\\n  tracestate:'{tracestate}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_wget",
+            "name": "refused",
+            "source": "wget --quiet \\\n  --method POST \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --body-data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-120000000000\",\"statusAttributes\":{\"rejectionData\":[{\"reasonCode\":\"REASON-CODE\",\"notes\":\"Pricing mismatch with agreement\"}]}}}}' \\\n  --output-document \\\n  - https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_xhr",
+            "name": "refused",
+            "source": "const data = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-120000000000\\\",\\\"statusAttributes\\\":{\\\"rejectionData\\\":[{\\\"reasonCode\\\":\\\"REASON-CODE\\\",\\\"notes\\\":\\\"Pricing mismatch with agreement\\\"}]}}}}\";\n\nconst xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function () {\n  if (this.readyState === this.DONE) {\n    console.log(this.responseText);\n  }\n});\n\nxhr.open(\"POST\", \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nxhr.setRequestHeader(\"Content-Type\", \"application/vnd.api+json\");\nxhr.setRequestHeader(\"traceparent\", \"{traceparent}\");\nxhr.setRequestHeader(\"tracestate\", \"{tracestate}\");\nxhr.setRequestHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\n\nxhr.send(data);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_jquery",
+            "name": "refused",
+            "source": "const settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"method\": \"POST\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  },\n  \"data\": \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-120000000000\\\",\\\"statusAttributes\\\":{\\\"rejectionData\\\":[{\\\"reasonCode\\\":\\\"REASON-CODE\\\",\\\"notes\\\":\\\"Pricing mismatch with agreement\\\"}]}}}}\"\n};\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "node_native",
+            "name": "refused",
+            "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"POST\",\n  \"hostname\": \"api.e-invoicing.sage.com\",\n  \"port\": null,\n  \"path\": \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-120000000000\\\",\\\"statusAttributes\\\":{\\\"rejectionData\\\":[{\\\"reasonCode\\\":\\\"REASON-CODE\\\",\\\"notes\\\":\\\"Pricing mismatch with agreement\\\"}]}}}}\");\nreq.end();",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_httpclient",
+            "name": "refused",
+            "source": "var client = new HttpClient();\nvar request = new HttpRequestMessage\n{\n    Method = HttpMethod.Post,\n    RequestUri = new Uri(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"),\n    Headers =\n    {\n        { \"traceparent\", \"{traceparent}\" },\n        { \"tracestate\", \"{tracestate}\" },\n        { \"Idempotency-Key\", \"{Idempotency-Key}\" },\n    },\n    Content = new StringContent(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-120000000000\\\",\\\"statusAttributes\\\":{\\\"rejectionData\\\":[{\\\"reasonCode\\\":\\\"REASON-CODE\\\",\\\"notes\\\":\\\"Pricing mismatch with agreement\\\"}]}}}}\")\n    {\n        Headers =\n        {\n            ContentType = new MediaTypeHeaderValue(\"application/vnd.api+json\")\n        }\n    }\n};\nusing (var response = await client.SendAsync(request))\n{\n    response.EnsureSuccessStatusCode();\n    var body = await response.Content.ReadAsStringAsync();\n    Console.WriteLine(body);\n}",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_restsharp",
+            "name": "refused",
+            "source": "var client = new RestClient(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nvar request = new RestRequest(Method.POST);\nrequest.AddHeader(\"Content-Type\", \"application/vnd.api+json\");\nrequest.AddHeader(\"traceparent\", \"{traceparent}\");\nrequest.AddHeader(\"tracestate\", \"{tracestate}\");\nrequest.AddHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\nrequest.AddParameter(\"application/vnd.api+json\", \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-120000000000\\\",\\\"statusAttributes\\\":{\\\"rejectionData\\\":[{\\\"reasonCode\\\":\\\"REASON-CODE\\\",\\\"notes\\\":\\\"Pricing mismatch with agreement\\\"}]}}}}\", ParameterType.RequestBody);\nIRestResponse response = client.Execute(request);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_python3",
+            "name": "refused",
+            "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.e-invoicing.sage.com\")\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-120000000000\\\",\\\"statusAttributes\\\":{\\\"rejectionData\\\":[{\\\"reasonCode\\\":\\\"REASON-CODE\\\",\\\"notes\\\":\\\"Pricing mismatch with agreement\\\"}]}}}}\"\n\nheaders = {\n    'Content-Type': \"application/vnd.api+json\",\n    'traceparent': \"{traceparent}\",\n    'tracestate': \"{tracestate}\",\n    'Idempotency-Key': \"{Idempotency-Key}\"\n    }\n\nconn.request(\"POST\", \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\", payload, headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_requests",
+            "name": "refused",
+            "source": "import requests\n\nurl = \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-120000000000\\\",\\\"statusAttributes\\\":{\\\"rejectionData\\\":[{\\\"reasonCode\\\":\\\"REASON-CODE\\\",\\\"notes\\\":\\\"Pricing mismatch with agreement\\\"}]}}}}\"\nheaders = {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n}\n\nresponse = requests.request(\"POST\", url, data=payload, headers=headers)\n\nprint(response.text)",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_curl",
+            "name": "paymentSent",
+            "source": "curl --request POST \\\n  --url https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-900000000000\",\"statusAttributes\":{\"paymentData\":[{\"netAmount\":800,\"vatRate\":20,\"currencyCode\":\"EUR\"},{\"netAmount\":200,\"vatRate\":5.5,\"currencyCode\":\"EUR\"}]}}}}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_httpie",
+            "name": "paymentSent",
+            "source": "echo '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-900000000000\",\"statusAttributes\":{\"paymentData\":[{\"netAmount\":800,\"vatRate\":20,\"currencyCode\":\"EUR\"},{\"netAmount\":200,\"vatRate\":5.5,\"currencyCode\":\"EUR\"}]}}}}' |  \\\n  http POST https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  Content-Type:'application/vnd.api+json' \\\n  Idempotency-Key:'{Idempotency-Key}' \\\n  traceparent:'{traceparent}' \\\n  tracestate:'{tracestate}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_wget",
+            "name": "paymentSent",
+            "source": "wget --quiet \\\n  --method POST \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --body-data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-900000000000\",\"statusAttributes\":{\"paymentData\":[{\"netAmount\":800,\"vatRate\":20,\"currencyCode\":\"EUR\"},{\"netAmount\":200,\"vatRate\":5.5,\"currencyCode\":\"EUR\"}]}}}}' \\\n  --output-document \\\n  - https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_xhr",
+            "name": "paymentSent",
+            "source": "const data = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-900000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":800,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"},{\\\"netAmount\\\":200,\\\"vatRate\\\":5.5,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\";\n\nconst xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function () {\n  if (this.readyState === this.DONE) {\n    console.log(this.responseText);\n  }\n});\n\nxhr.open(\"POST\", \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nxhr.setRequestHeader(\"Content-Type\", \"application/vnd.api+json\");\nxhr.setRequestHeader(\"traceparent\", \"{traceparent}\");\nxhr.setRequestHeader(\"tracestate\", \"{tracestate}\");\nxhr.setRequestHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\n\nxhr.send(data);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_jquery",
+            "name": "paymentSent",
+            "source": "const settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"method\": \"POST\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  },\n  \"data\": \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-900000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":800,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"},{\\\"netAmount\\\":200,\\\"vatRate\\\":5.5,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\"\n};\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "node_native",
+            "name": "paymentSent",
+            "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"POST\",\n  \"hostname\": \"api.e-invoicing.sage.com\",\n  \"port\": null,\n  \"path\": \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-900000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":800,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"},{\\\"netAmount\\\":200,\\\"vatRate\\\":5.5,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\");\nreq.end();",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_httpclient",
+            "name": "paymentSent",
+            "source": "var client = new HttpClient();\nvar request = new HttpRequestMessage\n{\n    Method = HttpMethod.Post,\n    RequestUri = new Uri(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"),\n    Headers =\n    {\n        { \"traceparent\", \"{traceparent}\" },\n        { \"tracestate\", \"{tracestate}\" },\n        { \"Idempotency-Key\", \"{Idempotency-Key}\" },\n    },\n    Content = new StringContent(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-900000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":800,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"},{\\\"netAmount\\\":200,\\\"vatRate\\\":5.5,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\")\n    {\n        Headers =\n        {\n            ContentType = new MediaTypeHeaderValue(\"application/vnd.api+json\")\n        }\n    }\n};\nusing (var response = await client.SendAsync(request))\n{\n    response.EnsureSuccessStatusCode();\n    var body = await response.Content.ReadAsStringAsync();\n    Console.WriteLine(body);\n}",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_restsharp",
+            "name": "paymentSent",
+            "source": "var client = new RestClient(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nvar request = new RestRequest(Method.POST);\nrequest.AddHeader(\"Content-Type\", \"application/vnd.api+json\");\nrequest.AddHeader(\"traceparent\", \"{traceparent}\");\nrequest.AddHeader(\"tracestate\", \"{tracestate}\");\nrequest.AddHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\nrequest.AddParameter(\"application/vnd.api+json\", \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-900000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":800,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"},{\\\"netAmount\\\":200,\\\"vatRate\\\":5.5,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\", ParameterType.RequestBody);\nIRestResponse response = client.Execute(request);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_python3",
+            "name": "paymentSent",
+            "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.e-invoicing.sage.com\")\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-900000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":800,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"},{\\\"netAmount\\\":200,\\\"vatRate\\\":5.5,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\"\n\nheaders = {\n    'Content-Type': \"application/vnd.api+json\",\n    'traceparent': \"{traceparent}\",\n    'tracestate': \"{tracestate}\",\n    'Idempotency-Key': \"{Idempotency-Key}\"\n    }\n\nconn.request(\"POST\", \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\", payload, headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_requests",
+            "name": "paymentSent",
+            "source": "import requests\n\nurl = \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-900000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":800,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"},{\\\"netAmount\\\":200,\\\"vatRate\\\":5.5,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\"\nheaders = {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n}\n\nresponse = requests.request(\"POST\", url, data=payload, headers=headers)\n\nprint(response.text)",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_curl",
+            "name": "paymentReceived",
+            "source": "curl --request POST \\\n  --url https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-110000000000\",\"statusAttributes\":{\"paymentData\":[{\"netAmount\":1000,\"vatRate\":20,\"currencyCode\":\"EUR\"}]}}}}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_httpie",
+            "name": "paymentReceived",
+            "source": "echo '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-110000000000\",\"statusAttributes\":{\"paymentData\":[{\"netAmount\":1000,\"vatRate\":20,\"currencyCode\":\"EUR\"}]}}}}' |  \\\n  http POST https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status \\\n  Content-Type:'application/vnd.api+json' \\\n  Idempotency-Key:'{Idempotency-Key}' \\\n  traceparent:'{traceparent}' \\\n  tracestate:'{tracestate}'",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "shell_wget",
+            "name": "paymentReceived",
+            "source": "wget --quiet \\\n  --method POST \\\n  --header 'Content-Type: application/vnd.api+json' \\\n  --header 'traceparent: {traceparent}' \\\n  --header 'tracestate: {tracestate}' \\\n  --header 'Idempotency-Key: {Idempotency-Key}' \\\n  --body-data '{\"data\":{\"type\":\"e-InvoiceStatus\",\"attributes\":{\"statusCode\":\"00000000-0000-0000-0000-110000000000\",\"statusAttributes\":{\"paymentData\":[{\"netAmount\":1000,\"vatRate\":20,\"currencyCode\":\"EUR\"}]}}}}' \\\n  --output-document \\\n  - https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_xhr",
+            "name": "paymentReceived",
+            "source": "const data = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-110000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":1000,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\";\n\nconst xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function () {\n  if (this.readyState === this.DONE) {\n    console.log(this.responseText);\n  }\n});\n\nxhr.open(\"POST\", \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nxhr.setRequestHeader(\"Content-Type\", \"application/vnd.api+json\");\nxhr.setRequestHeader(\"traceparent\", \"{traceparent}\");\nxhr.setRequestHeader(\"tracestate\", \"{tracestate}\");\nxhr.setRequestHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\n\nxhr.send(data);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "javascript_jquery",
+            "name": "paymentReceived",
+            "source": "const settings = {\n  \"async\": true,\n  \"crossDomain\": true,\n  \"url\": \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"method\": \"POST\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  },\n  \"data\": \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-110000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":1000,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\"\n};\n\n$.ajax(settings).done(function (response) {\n  console.log(response);\n});",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "node_native",
+            "name": "paymentReceived",
+            "source": "const http = require(\"https\");\n\nconst options = {\n  \"method\": \"POST\",\n  \"hostname\": \"api.e-invoicing.sage.com\",\n  \"port\": null,\n  \"path\": \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\",\n  \"headers\": {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n  }\n};\n\nconst req = http.request(options, function (res) {\n  const chunks = [];\n\n  res.on(\"data\", function (chunk) {\n    chunks.push(chunk);\n  });\n\n  res.on(\"end\", function () {\n    const body = Buffer.concat(chunks);\n    console.log(body.toString());\n  });\n});\n\nreq.write(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-110000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":1000,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\");\nreq.end();",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_httpclient",
+            "name": "paymentReceived",
+            "source": "var client = new HttpClient();\nvar request = new HttpRequestMessage\n{\n    Method = HttpMethod.Post,\n    RequestUri = new Uri(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"),\n    Headers =\n    {\n        { \"traceparent\", \"{traceparent}\" },\n        { \"tracestate\", \"{tracestate}\" },\n        { \"Idempotency-Key\", \"{Idempotency-Key}\" },\n    },\n    Content = new StringContent(\"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-110000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":1000,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\")\n    {\n        Headers =\n        {\n            ContentType = new MediaTypeHeaderValue(\"application/vnd.api+json\")\n        }\n    }\n};\nusing (var response = await client.SendAsync(request))\n{\n    response.EnsureSuccessStatusCode();\n    var body = await response.Content.ReadAsStringAsync();\n    Console.WriteLine(body);\n}",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "csharp_restsharp",
+            "name": "paymentReceived",
+            "source": "var client = new RestClient(\"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\");\nvar request = new RestRequest(Method.POST);\nrequest.AddHeader(\"Content-Type\", \"application/vnd.api+json\");\nrequest.AddHeader(\"traceparent\", \"{traceparent}\");\nrequest.AddHeader(\"tracestate\", \"{tracestate}\");\nrequest.AddHeader(\"Idempotency-Key\", \"{Idempotency-Key}\");\nrequest.AddParameter(\"application/vnd.api+json\", \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-110000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":1000,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\", ParameterType.RequestBody);\nIRestResponse response = client.Execute(request);",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_python3",
+            "name": "paymentReceived",
+            "source": "import http.client\n\nconn = http.client.HTTPSConnection(\"api.e-invoicing.sage.com\")\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-110000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":1000,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\"\n\nheaders = {\n    'Content-Type': \"application/vnd.api+json\",\n    'traceparent': \"{traceparent}\",\n    'tracestate': \"{tracestate}\",\n    'Idempotency-Key': \"{Idempotency-Key}\"\n    }\n\nconn.request(\"POST\", \"/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\", payload, headers)\n\nres = conn.getresponse()\ndata = res.read()\n\nprint(data.decode(\"utf-8\"))",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          },
+          {
+            "lang": "python_requests",
+            "name": "paymentReceived",
+            "source": "import requests\n\nurl = \"https://api.e-invoicing.sage.com/datasets/%7BdatasetId%7D/e-invoices/%7Be-invoiceId%7D/status\"\n\npayload = \"{\\\"data\\\":{\\\"type\\\":\\\"e-InvoiceStatus\\\",\\\"attributes\\\":{\\\"statusCode\\\":\\\"00000000-0000-0000-0000-110000000000\\\",\\\"statusAttributes\\\":{\\\"paymentData\\\":[{\\\"netAmount\\\":1000,\\\"vatRate\\\":20,\\\"currencyCode\\\":\\\"EUR\\\"}]}}}}\"\nheaders = {\n    \"Content-Type\": \"application/vnd.api+json\",\n    \"traceparent\": \"{traceparent}\",\n    \"tracestate\": \"{tracestate}\",\n    \"Idempotency-Key\": \"{Idempotency-Key}\"\n}\n\nresponse = requests.request(\"POST\", url, data=payload, headers=headers)\n\nprint(response.text)",
+            "mimeType": "application/vnd.api+json",
+            "isAutoGenerated": true
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "m2m": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "A SageID JWT token (M2M token) is required to access this API."
+      }
+    },
+    "parameters": {
+      "traceparent": {
+        "name": "traceparent",
+        "in": "header",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "examples": [
+            "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
+          ],
+          "description": "The traceparent header as defined by the [W3C TraceContext spec](https://www.w3.org/TR/trace-context-2/)."
+        }
+      },
+      "tracestate": {
+        "name": "tracestate",
+        "in": "header",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "examples": [
+            "rojo=00f067aa0ba902b7"
+          ]
+        },
+        "description": "The tracestate header as defined by the [W3C TraceContext spec](https://www.w3.org/TR/trace-context-2/)."
+      },
+      "Idempotency-Key": {
+        "name": "Idempotency-Key",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "examples": [
+            "2131451c-f8c4-49f8-aa60-e0ec10be0e29"
+          ]
+        },
+        "description": "An idempotency key as defined by the [IETF Idempotency-Key header](https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/)."
+      },
+      "datasetId": {
+        "name": "datasetId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "example": "747733f7-43d4-4bbb-8154-494c97c824bc"
+      },
+      "e-invoiceId": {
+        "name": "e-invoiceId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "examples": [
+            "295e6b17-83e7-4ef8-b598-26f55e57e6a2"
+          ]
+        }
+      }
+    },
+    "schemas": {
+      "PostInvoiceStatusRequest": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "type",
+              "attributes"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "e-InvoiceStatus"
+                ]
+              },
+              "attributes": {
+                "$ref": "#/components/schemas/InvoiceStatusRequest"
+              }
+            }
+          }
+        }
+      },
+      "PostInvoiceStatusResponse": {
+        "type": "object",
+        "description": "JSON:API formatted lifecycle change task response.",
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "type",
+              "id",
+              "attributes",
+              "meta"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "e-InvoiceStatus"
+                ]
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "Id of the status change operation"
+              },
+              "attributes": {
+                "$ref": "#/components/schemas/InvoiceStatusResponse"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/Assigned-Keys"
+              }
+            }
+          }
+        }
+      },
+      "InvoiceStatusRequest": {
+        "type": "object",
+        "required": [
+          "statusCode"
+        ],
+        "properties": {
+          "statusCode": {
+            "description": "The unique e-invoice lifecycle status identifier (GUID)",
+            "type": "string",
+            "format": "uuid",
+            "examples": [
+              "00000000-0000-0000-0000-500000000000"
+            ]
+          },
+          "statusAttributes": {
+            "type": "object",
+            "description": "Status-specific attributes. The presence and content depend on the statusCode:\n- **InHand** (400...): no attributes\n- **Approved** (500...): no attributes\n- **PartiallyApproved** (600...): partiallyApprovedData array\n- **Disputed** (700...): disputeData array\n- **Suspended** (800...): suspendedData object\n- **Completed** (140...): completedData array (optional)\n- **Refused** (120...): rejectionData array\n- **PaymentSent** (900...): paymentData array\n- **PaymentReceived** (110...): paymentData array\n",
+            "additionalProperties": true
+          }
+        }
+      },
+      "InvoiceStatusResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The unique e-invoice lifecycle status identifier (GUID)",
+            "examples": [
+              "00000000-0000-0000-0000-500000000000"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "The e-Invoice lifecycle status (string representation)",
+            "enum": [
+              "InHand",
+              "Approved",
+              "PartiallyApproved",
+              "Disputed",
+              "Suspended",
+              "Completed",
+              "Refused",
+              "PaymentSent",
+              "PaymentReceived",
+              "Submitted"
+            ],
+            "examples": [
+              "Approved"
+            ]
+          },
+          "statusAttributes": {
+            "type": "object",
+            "description": "Status-specific attributes. Structure depends on the status type:\n- **partiallyApprovedData**: array of partially approved items with motif code, amounts, and currency\n- **disputeData**: array of dispute items with reason code, notes, and requested action\n- **suspendedData**: object with reason code and text\n- **completedData**: array of completed items with field ID and corrected value\n- **rejectionData**: array of rejection items with reason code and notes\n- **paymentData**: array of payment items with net amount, VAT rate, and currency\n",
+            "additionalProperties": true
+          }
+        }
+      },
+      "Assigned-Keys": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The ISO 8601 Coordinated Universal Time (UTC) date this resource was created.",
+            "readOnly": true,
+            "examples": [
+              "2024-05-22T15:13:45.8410000+00:00"
+            ]
+          },
+          "createdSource": {
+            "description": "The source that created this resource (SageID clientID).",
+            "type": "string",
+            "examples": [
+              "sR1N7Mwqww1Ja41W9J0W3SxWnR5LQEiL"
+            ],
+            "readOnly": true
+          },
+          "createdTraceId": {
+            "description": "The trace identifier for distributed tracing during creation.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "examples": [
+              "ccf441167c9f414e81f077c9b4f3d42e"
+            ],
+            "readOnly": true
+          },
+          "modifiedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "The ISO 8601 Coordinated Universal Time (UTC) date this resource was last modified.",
+            "readOnly": true,
+            "examples": [
+              "2024-05-22T15:13:45.8410000+00:00"
+            ]
+          },
+          "modifiedSource": {
+            "description": "The source modified this resource (SageID clientID).",
+            "type": [
+              "string",
+              "null"
+            ],
+            "examples": [
+              "sR1N7Mwqww1Ja41W9J0W3SxWnR5LQEiL"
+            ],
+            "readOnly": true
+          },
+          "modifiedTraceId": {
+            "description": "The trace identifier for distributed tracing during last modification.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "examples": [
+              "ccf441167c9f414e81f077c9b4f3d42e"
+            ],
+            "readOnly": true
+          }
+        }
+      },
+      "Errors-detailed": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error-Details"
+            }
+          }
+        }
+      },
+      "Error-Details": {
+        "type": "object",
+        "description": "Follows the [JSON:API error](https://jsonapi.org/format/#errors) convention.\n\nEvery member in an error object is optional, but all help the client by providing extra details.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "A unique identifier for this particular occurrence of the problem."
+          },
+          "source": {
+            "type": "object",
+            "description": "The source member is used to indicate which part of the request document caused the error.",
+            "properties": {
+              "pointer": {
+                "type": "string",
+                "description": "A [JSON pointer](https://www.rfc-editor.org/rfc/rfc6901) to the value in the request document that caused the error."
+              },
+              "parameter": {
+                "type": "string",
+                "description": "A string indicating which URI parameter caused the error."
+              },
+              "header": {
+                "type": "string",
+                "description": "A string indicating the name of a single request header which caused the error."
+              }
+            }
+          },
+          "title": {
+            "type": "string",
+            "description": "A generic description of the problem."
+          },
+          "detail": {
+            "type": "string",
+            "description": "A description specific to this occurrence of the problem."
+          },
+          "status": {
+            "type": "number",
+            "examples": [
+              400
+            ],
+            "description": "The status member represents the HTTP status code associated with the problem. It’s very helpful when multiple errors are returned at once, as the HTTP response itself can only have one status code. However, it can also be useful for single errors, to save clients the trouble of consulting the HTTP headers, or in cases where a proxy might modify the original HTTP status code."
+          },
+          "links": {
+            "type": "object",
+            "description": "Supporting links.",
+            "properties": {
+              "about": {
+                "type": "string",
+                "format": "uri-reference",
+                "description": "A link that leads to further details about this particular occurrence of the problem. When derefenced, it should return a human-readable description of the error."
+              },
+              "type": {
+                "type": "string",
+                "format": "uri-reference",
+                "description": "A link that identifies the type of error that this particular error is an instance of. When derefenced, it should return a human-readable explanation of the general error."
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "description": "Additional, non-standard metadata about the error."
+          }
+        }
+      },
+      "Error-Simple": {
+        "type": "object",
+        "required": [
+          "errors"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "status",
+                "title",
+                "detail"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "description": "The HTTP status code"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short, human-readable summary of the problem"
+                },
+                "detail": {
+                  "type": "string",
+                  "description": "A human-readable explanation specific to this occurrence of the problem"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Error-Simple-With-Source": {
+        "type": "object",
+        "required": [
+          "errors"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "source",
+                "status",
+                "title",
+                "detail"
+              ],
+              "properties": {
+                "source": {
+                  "type": "object",
+                  "required": [
+                    "header"
+                  ],
+                  "properties": {
+                    "header": {
+                      "type": "string",
+                      "description": "The name of the request header that caused the error"
+                    }
+                  }
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "The HTTP status code"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "A short, human-readable summary of the problem"
+                },
+                "detail": {
+                  "type": "string",
+                  "description": "A human-readable explanation specific to this occurrence of the problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Errors-detailed"
+            },
+            "example": {
+              "errors": [
+                {
+                  "id": "{datasetId}",
+                  "source": {
+                    "pointer": "path/to/invalid/field",
+                    "parameter": "parameterName",
+                    "header": "headerName"
+                  },
+                  "title": "Invalid request",
+                  "detail": "{description of the issue}",
+                  "status": 400,
+                  "links": [],
+                  "meta": {}
+                }
+              ]
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthenticated",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error-Simple"
+            },
+            "example": {
+              "errors": [
+                {
+                  "status": 401,
+                  "title": "Unauthenticated.",
+                  "detail": "Unauthorized"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error-Simple"
+            },
+            "example": {
+              "errors": [
+                {
+                  "status": 403,
+                  "title": "Forbidden.",
+                  "detail": "User is not authorized to access this resource with an explicit deny in an identity-based policy"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not Found",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error-Simple"
+            },
+            "example": {
+              "errors": [
+                {
+                  "status": 404,
+                  "title": "Not found",
+                  "detail": "string"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "405": {
+        "description": "Method Not Allowed",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error-Simple"
+            },
+            "example": {
+              "errors": [
+                {
+                  "status": 405,
+                  "title": "Method not allowed.",
+                  "detail": "Invalid key=value pair"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "413": {
+        "description": "Payload Too Large",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error-Simple-With-Source"
+            },
+            "example": {
+              "errors": [
+                {
+                  "source": {
+                    "header": "Content-Length"
+                  },
+                  "status": 413,
+                  "title": "The 'Content-Length' header exceeds the maximum allowed size.",
+                  "detail": "string"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "415": {
+        "description": "Unsupported Media Type",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error-Simple-With-Source"
+            },
+            "example": {
+              "errors": [
+                {
+                  "source": {
+                    "header": "Content-Type"
+                  },
+                  "status": 415,
+                  "title": "The 'Content-Type' header does not contain an acceptable media type.",
+                  "detail": "string"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "429": {
+        "description": "Too Many Requests",
+        "headers": {
+          "Retry-After": {
+            "schema": {
+              "type": "integer",
+              "format": "duration"
+            },
+            "description": "Number of seconds to wait before making a follow-up request"
+          }
+        },
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error-Simple"
+            },
+            "example": {
+              "errors": [
+                {
+                  "status": 429,
+                  "title": "Too many requests.",
+                  "detail": "string"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error-Simple"
+            },
+            "example": {
+              "errors": [
+                {
+                  "status": 500,
+                  "title": "Internal server error.",
+                  "detail": "string"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "502": {
+        "description": "Bad Gateway",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error-Simple"
+            },
+            "example": {
+              "errors": [
+                {
+                  "status": 502,
+                  "title": "Bad Gateway.",
+                  "detail": "string"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "503": {
+        "description": "Service Unavailable",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error-Simple"
+            },
+            "example": {
+              "errors": [
+                {
+                  "status": 503,
+                  "title": "Service unavailable.",
+                  "detail": "string"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "504": {
+        "description": "Gateway Timeout",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error-Simple"
+            },
+            "example": {
+              "errors": [
+                {
+                  "status": 504,
+                  "title": "Gateway timeout.",
+                  "detail": "string"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

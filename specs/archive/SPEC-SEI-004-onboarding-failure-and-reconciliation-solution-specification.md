@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-20
+updated: 2026-10-29
 reviewers: []
 related:
   - RES-SEI-002
@@ -399,6 +399,6 @@ Use the original files for the claims they establish. Final published regulation
 |---|---|---|---|
 | SPFE-S03 | [CatalogoServicios.pdf](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | section 5.1, p. 9; sections 6.1–6.10 | Legacy fault/resend guidance and public operations; no automatic safe-retry guarantee. |
 | SPFE-S08 | [FormatosEntradaSalida.pdf](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | sections 4.3 and 5.2–5.9; pp. 7, 12–15 | Protocol conflict, response levels and pending formats. |
-| SPFE-S16 | [SendInvoice.wsdl](<../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SOAP binding, fault and service ports | Operation-specific SOAP 1.2 contract; no onboarding mutation. |
+| SPFE-S16 | [SendInvoice.wsdl](<../../context/WSDL servicios web - PRE_16/10/2026/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SOAP binding, fault and service ports | Operation-specific SOAP 1.2 contract; no onboarding mutation. |
 | REF-PRD | [PRD-SEI-107](../../prds/PRD-SEI-107-public-onboarding-failure-recovery.md); [PRD-SEI-222](../../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md); [PRD-SEI-225](../../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md); [shared platform and country-pack direction](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
 | REF-CONTEXT | [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

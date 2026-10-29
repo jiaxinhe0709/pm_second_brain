@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-21
-updated: 2026-10-23
+updated: 2026-10-29
 reviewers: []
 related:
   - SPEC-SEI-002
@@ -532,6 +532,6 @@ Final published law establishes legal duties. A technical file establishes only 
 | REF-OPERATOR | [PRD-SEI-221](../../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md), current draft | E7, BR11, FR20 | Canonical operator request, queue, deadline, testing, interim exchange and evidence process. This onboarding view supplies the handoff, not another operator workflow. |
 | SPFE-S03 | [CatalogoServicios.pdf](<../../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026 | Sections 4.1–4.3, 5.1 and 6.1–6.10, pp. 7–20 | Operation inventory, authorisation and fault/resend guidance. No supplied onboarding enrolment contract; no blanket repeat-safety guarantee. |
 | SPFE-S08 | [FormatosEntradaSalida.pdf](<../../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), 0.1.0, 9 October 2026, marked draft | Sections 4.3 and 5.1.2–5.9, pp. 7–15 | Caller/destination/message structure and distinct response levels. No onboarding payload; transport conflict and pending formats limit qualification. |
-| SPFE-S16 | [SendInvoice.wsdl](<../../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>), supplied 13 October 2026 | Request documentation, SOAP binding, fault and service/port elements | Submission contract and certificate-class PRE ports; no onboarding mutation, live-availability evidence or guarantee that repetition is safe. |
-| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../../../context/WSDL servicios web - PRE/20261013/xsd/ebms/ebms-header-3_0-200704.xsd>), supplied 13 October 2026 | MessageInfo, PartyInfo/From/To, CollaborationInfo and PayloadInfo/PartInfo | Exact header structure used by ONB-A42's supporting mapping; generic schema does not establish business values, authority or replay safety. |
+| SPFE-S16 | [SendInvoice.wsdl](<../../../context/WSDL servicios web - PRE_16/10/2026/20261013/SendInvoice.wsdl>), supplied 13 October 2026 | Request documentation, SOAP binding, fault and service/port elements | Submission contract and certificate-class PRE ports; no onboarding mutation, live-availability evidence or guarantee that repetition is safe. |
+| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../../../context/WSDL servicios web - PRE_16/10/2026/20261013/xsd/ebms/ebms-header-3_0-200704.xsd>), supplied 13 October 2026 | MessageInfo, PartyInfo/From/To, CollaborationInfo and PayloadInfo/PartInfo | Exact header structure used by ONB-A42's supporting mapping; generic schema does not establish business values, authority or replay safety. |
 | REF-CONTEXT | [RES-SEI-002](../../../context/RES-SEI-002-spain-public-platform-technical-evidence.md), [source manifest](../../../assets/regulatory/spain/spfe/source-manifest.json), [glossary](../../../context/GLO-SEI-001-e-invoicing-terminology.md) | Source register, snapshot hashes, shared conflicts and terminology | Traceability and reading aids. Inventory completeness and hashes do not prove field-map or implementation completeness. |

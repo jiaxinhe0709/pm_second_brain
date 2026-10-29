@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-13
+updated: 2026-10-29
 reviewers: []
 related:
   - RES-SEI-002
@@ -428,8 +428,8 @@ Use the original files for the claims they establish. Final published regulation
 | SPFE-S02 | [BOE-A-2026-20587.pdf](<../../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 3.4–3.6, 4.1–4.4 and 5.4–5.7 | Public-copy timing, duplicate/withdrawal/correction branches, admission/CSV and exceptional outage window. |
 | SPFE-S03 | [CatalogoServicios.pdf](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.2–6.3; pp. 10–12 | Submission batch, per-issuer authority, disputed size and limited withdrawal. |
 | SPFE-S01 | [Anexo-1-Proyecto-OM-FE.pdf](<../../context/Anexo I/20261013/Anexo-1-Proyecto-OM-FE.pdf>); Supplied 13 October 2026; SHA-256 in source manifest. | BT-ES-1 p. 4; withdrawal pp. 26–27 | CopyIndicator and invoice-reference withdrawal content. |
-| SPFE-S16 | [SendInvoice.wsdl](<../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SendInvoice operation, SOAP binding and service ports | PRE submission transport and opaque business attachments. |
-| SPFE-S10 | [CancelInvoice.wsdl](<../../context/WSDL servicios web - PRE/20261013/CancelInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | CancelInvoice operation and payload documentation | Withdrawal transport; not a general legal cancellation or retry mechanism. |
+| SPFE-S16 | [SendInvoice.wsdl](<../../context/WSDL servicios web - PRE_16/10/2026/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | SendInvoice operation, SOAP binding and service ports | PRE submission transport and opaque business attachments. |
+| SPFE-S10 | [CancelInvoice.wsdl](<../../context/WSDL servicios web - PRE_16/10/2026/20261013/CancelInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | CancelInvoice operation and payload documentation | Withdrawal transport; not a general legal cancellation or retry mechanism. |
 | SPFE-S06 | [RespuestaAltaFacturas.xml](<../../context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/RespuestaAltaFacturas.xml>); Supplied 13 October 2026; SHA-256 in source manifest. | DocumentResponse and DocumentReference | Example request/item result, locator and response ID; CSV mapping is unconfirmed. |
 | REF-PRD | [PRD-SEI-246](../../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md); [PRD-SEI-223](../../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-212](../../prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md); [shared platform and country-pack direction](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
 | REF-FIELDS | [Complete source-field ledger](../../assets/regulatory/spain/spfe/field-traceability.json); [original BOE XML](../../assets/regulatory/spain/BOE-A-2026-20587.xml). | Exact XML row locators and original cells in the ledger; trace IDs in Part 3. | Complete source-row inventory, logical controls and required acceptance cases. Actual wire/ERP mappings and execution remain unqualified. |

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-13
+updated: 2026-10-29
 reviewers: []
 related:
   - RES-SEI-002
@@ -335,7 +335,7 @@ Use the original files for the claims they establish. Final published regulation
 | REF ID | Source and version | Exact location | Supported information and limit |
 |---|---|---|---|
 | SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.1, 6.4–6.7; pp. 10, 12–15 | Invoice queries and downloads; no receiving-platform directory operation. |
-| SPFE-S14 | [GetInvoices.wsdl](<../context/WSDL servicios web - PRE/20261013/GetInvoices.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetInvoices operation and service ports | Invoice identity/status query, not recipient routing. |
-| SPFE-S15 | [GetRegisteredInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/GetRegisteredInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetRegisteredInvoice operation and service ports | Presentation-date invoice discovery, not a recipient directory. |
+| SPFE-S14 | [GetInvoices.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/GetInvoices.wsdl>); PRE release 29 October 2026; SHA-256 in source manifest. | GetInvoices operation and service ports | Invoice identity/status query, not recipient routing. |
+| SPFE-S15 | [GetRegisteredInvoice.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/GetRegisteredInvoice.wsdl>); PRE release 29 October 2026; SHA-256 in source manifest. | GetRegisteredInvoice operation and service ports | Presentation-date invoice discovery, not a recipient directory. |
 | REF-PRD | [PRD-SEI-223](../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-214](../prds/PRD-SEI-214-connections-registration-routing-structured-review.md); [Identity/tenancy PRD](../prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md); [addressing PRD](../prds/PRD-SEI-233-peppol-multi-address-and-endpoint-routing.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
 | REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

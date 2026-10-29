@@ -9,12 +9,23 @@ on:
       - "schema/**"
       - "config/**"
       - "tools/**"
+      - "specs/**"
+      - "context/**"
+      - "assets/regulatory/spain/spfe/**"
+      - "tests/test_validate_spfe_sources.py"
+      - "AGENTS.md"
+      - ".github/workflows/validate-documents.yml"
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validation placeholder
-        run: echo "Add the document validator before enabling required checks."
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate reviewed SPFE sources and spec references
+        run: python3 tools/validate_spfe_sources.py
+      - name: Test SPFE source validation
+        run: python3 -m unittest discover -s tests -p 'test_validate_spfe_sources.py'
 

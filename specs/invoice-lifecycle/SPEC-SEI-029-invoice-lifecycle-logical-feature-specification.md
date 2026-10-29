@@ -6,12 +6,13 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-27
+updated: 2026-10-28
 reviewers: []
 related:
   - SPEC-SEI-009
   - SPEC-SEI-028
   - SPEC-SEI-030
+  - SPEC-SEI-041
   - PRD-SEI-224
   - PRD-SEI-232
   - PRD-SEI-242
@@ -28,7 +29,7 @@ confluence:
 
 # Invoice Lifecycle Logical Feature Specification
 
-[Solution summary](SPEC-SEI-028-invoice-lifecycle-solution-summary.md) · [API reuse assessment](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md)
+[Solution summary](SPEC-SEI-028-invoice-lifecycle-solution-summary.md) · [API reuse assessment](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md) · [API examples — 041](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md)
 
 ## Revision overview
 

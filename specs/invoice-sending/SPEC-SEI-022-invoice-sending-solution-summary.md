@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-22
+updated: 2026-10-29
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -119,5 +119,5 @@ The business can see a separate known result or owned pending/unknown state for 
 | INT-SND01 | [Supplied FR sending-guide extract](<../../context/FR API/Sending/send-e-invoice-guide-extract.md>), received 22 October 2026; prerequisites and steps 1–5 | Documented FR operations and guide conflicts. Original guide revision, OpenAPI and deployed build unknown. |
 | SPFE-S02 | [Original BOE PDF](../../context/BOE-A-2026-20587.pdf), final Order HAC/1028/2026, published 5 October 2026; Articles 3.4–3.6, 4 and 5.4–5.7; [official text](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587) | Legal copy, correction and admission rules; not an ERP coordination contract. |
 | SPFE-S08 | [Original formats PDF](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), draft 0.1.0, 9 October 2026; 5.1.1 p. 8 | Supplied public UBL 2.5 document selection; no proof of FR API or DTS support. |
-| SPFE-S16 | [Original SendInvoice WSDL](<../../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>), supplied 13 October 2026; operation, binding and service ports | Public PRE transport; not complete business schema or live qualification. |
+| SPFE-S16 | [Original SendInvoice WSDL](<../../context/WSDL servicios web - PRE_29:10:2026/SendInvoice.wsdl>), PRE release 29 October 2026; operation, binding and service ports | Public PRE transport; not complete business schema or live qualification. |
 | REF-DTS | [SPEC-SEI-008](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md), 13 October 2026; reuse assessment; PRD-SEI-223 FR43–46 | Preferred transformation candidate and qualification direction. |

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-08
-updated: 2026-10-20
+updated: 2026-10-29
 reviewers: []
 related:
   - RES-SEI-002
@@ -288,6 +288,6 @@ Use the original files for the claims they establish. Final published regulation
 |---|---|---|---|
 | SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 3.4, 4 and 11 | Public-copy distinction and public action authority; no private adapter implementation. |
 | SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 4.3 and 6.1–6.10; pp. 8, 10–20 | Public operations and limits, not a recipient directory or private service contract. |
-| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE/20261013/SendInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | certificate/seal service ports and PRE addresses | Public environment/credential-class binding. |
+| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/SendInvoice.wsdl>); PRE release 29 October 2026; SHA-256 in source manifest. | certificate/seal service ports and PRE addresses | Public environment/credential-class binding. |
 | REF-PRD | [PRD-SEI-214 — Connections, registration and routing](../prds/PRD-SEI-214-connections-registration-routing-structured-review.md); [PRD-SEI-213 — Private connectivity](../prds/PRD-SEI-213-private-platform-connectivity-structured-review.md); [PRD-SEI-235 — Provider API](../prds/PRD-SEI-235-provider-api-for-e-invoicing-service.md); [PRD-SEI-210 — Sage as a private platform](../prds/PRD-SEI-210-sage-private-platform-reuse-and-operator-expansion.md); [PRD-SEI-223 — Exchange](../prds/PRD-SEI-223-interoperability-routing-transformation.md); [PRD-SEI-221 — Operator readiness](../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md); [PRD-SEI-215 — Recovery](../prds/PRD-SEI-215-resilience-recovery-reconciliation-structured-review.md); [PRD-SEI-227 — Shared platform](../prds/PRD-SEI-227-e-invoicing-as-a-service.md). | Product scope and requirement IDs cited in Parts 1–4. | Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval. |
 | REF-CONTEXT | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md); [source manifest](../assets/regulatory/spain/spfe/source-manifest.json); [shared glossary](../context/GLO-SEI-001-e-invoicing-terminology.md). | Source register, shared conflicts and terminology. | Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness. |

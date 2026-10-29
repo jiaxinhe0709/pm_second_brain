@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-13
-updated: 2026-10-20
+updated: 2026-10-29
 reviewers: []
 related:
   - RES-SEI-002
@@ -821,10 +821,10 @@ REF-BASE entries preserve design provenance. They do not qualify a runtime build
 |---|---|---|---|
 | SPFE-S02 | [BOE-A-2026-20587.pdf](<../../context/BOE-A-2026-20587.pdf>); final Order HAC/1028/2026; published 5 October 2026. | Articles 3–4, 6 and 9–11; Annex I BT-23/24 | Public invoice/copy scope, public invoice identity, automated recovery, conservation availability and registered third-party access. Apply within the order’s scope. It does not define every wire field, provider contract or another country’s obligations. |
 | SPFE-S03 | [CatalogoServicios.pdf](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.4–6.7; pp. 12–15 | GetInvoices by identity, GetRegisteredInvoice by presentation-date filter and two download paths. |
-| SPFE-S15 | [GetRegisteredInvoice.wsdl](<../../context/WSDL servicios web - PRE/20261013/GetRegisteredInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetRegisteredInvoice operation, binding and payload documentation | Exact singular operation name and PRE addresses; generic payload description does not complete the filter contract. |
-| SPFE-S14 | [GetInvoices.wsdl](<../../context/WSDL servicios web - PRE/20261013/GetInvoices.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetInvoices operation and service ports | Identity/status-query transport. |
-| SPFE-S12 | [DownloadInvoicesByID.wsdl](<../../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByID.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | DownloadInvoicesByID operation | Invoice-file download by identity. |
-| SPFE-S13 | [DownloadInvoicesByLOC.wsdl](<../../context/WSDL servicios web - PRE/20261013/DownloadInvoicesByLOC.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | DownloadInvoicesByLOC operation | Locator-based file download. |
+| SPFE-S15 | [GetRegisteredInvoice.wsdl](<../../context/WSDL servicios web - PRE_16/10/2026/20261013/GetRegisteredInvoice.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetRegisteredInvoice operation, binding and payload documentation | Exact singular operation name and PRE addresses; generic payload description does not complete the filter contract. |
+| SPFE-S14 | [GetInvoices.wsdl](<../../context/WSDL servicios web - PRE_16/10/2026/20261013/GetInvoices.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | GetInvoices operation and service ports | Identity/status-query transport. |
+| SPFE-S12 | [DownloadInvoicesByID.wsdl](<../../context/WSDL servicios web - PRE_16/10/2026/20261013/DownloadInvoicesByID.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | DownloadInvoicesByID operation | Invoice-file download by identity. |
+| SPFE-S13 | [DownloadInvoicesByLOC.wsdl](<../../context/WSDL servicios web - PRE_16/10/2026/20261013/DownloadInvoicesByLOC.wsdl>); Supplied 13 October 2026; SHA-256 in source manifest. | DownloadInvoicesByLOC operation | Locator-based file download. |
 | SPFE-S08 | [FormatosEntradaSalida.pdf](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026; marked BORRADOR. | Section 5.1.1 and response description, pp. 8, 14; sections 5.4–5.7, pp. 14–15 | Supplied UBL 2.5 binding, invoice attachments and response levels. Query/download formats remain pending. This file and inventory completeness do not qualify full field mappings or live conformance. |
 | SPFE-S09 | [factura.xml](<../../context/Ejemplos/20261013/factura.xml>); Supplied 13 October 2026; SHA-256 in source manifest. | cbc:ProfileID and cbc:CopyIndicator | Original example and profile conflict; no faithful-copy conformance example. |
 | REF-BASE-006 | [SPEC-SEI-006-invoice-receiving-solution](SPEC-SEI-006-invoice-receiving-solution.md); current repository snapshot used 13 October 2026; SHA-256 `c66247ffd2ceef0d7500c3bbb13363f317ebc36b7f49af5e1be871f4286014b6`. | Four parts, RCV/RSD controls and REF source tables. | Receiving design foundation and stable technical IDs. Original design retained; archive links adjusted. Snapshot includes existing local edits; it is not a claim of a committed or deployed baseline. |
