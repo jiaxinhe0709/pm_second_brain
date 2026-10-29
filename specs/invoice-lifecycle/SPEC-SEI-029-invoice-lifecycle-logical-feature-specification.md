@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-28
+updated: 2026-10-29
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -55,6 +55,8 @@ Before a command or report, check the caller, represented business, actor role a
 | Late/conflicting evidence or provider switch | Preserve chronology and original route. Hold unsafe changes; a new route does not rebind old reports. | R07/10; A06/07/09 |
 | Optional/provider-specific action requested | Check enabled scope, direction, actor and fields. Keep valid incoming evidence even when its outgoing command is disabled. | R12/13; A19/21/22/25 |
 
+Invoice-submission withdrawal (`CancelInvoice`) belongs to [Sending OUT-SPFE-R02](../invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#4-shared-controls-and-spain-binding). [FP-SEI-002](../../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md) records the separate Global API review proposal while the sending branch is in progress. This lifecycle view owns cancellation of the earlier business report; that action preserves the invoice and business fact.
+
 ## 3 Activity order and process support
 
 | Activity | Required result |
@@ -96,6 +98,41 @@ The business fact remains saved while reports complete independently. A known su
 | LCS-R14 | Show transition attempts separately. Pending/failed attempts retain the latest successful status; save failure with `operationStatus = ERROR`. Advance only on qualified success. | INT-LCS05; proposed Spain control |
 
 [LCS-I01–09](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#1-identity-dimensions-and-invariants) retain immutable sources, independent results, evidence limits, correction history and separate obligations. Apply business/tenant/environment/delegate checks to reads, writes, subscriptions and support. Protect payment evidence and credentials; monitor stale/unknown facts, deadlines, conflicts and uncertain reports. Targets/retention remain open.
+
+<a id="general-status-comparison"></a>
+
+### 4.1 General status and country comparison
+
+General labels below are documentation terms, not new API statuses. A row compares related meanings; it does not establish an exact API mapping. France uses the supplied Sage status catalogue and reason-code guide (INT-LCS03/04). Spain uses the reviewed SPFE public-reporting baseline (SPFE-S02 Annex II; SPFE-S03 §§6.8–6.9; SPFE-S22). **No direct event** means no corresponding public lifecycle-report code is established; a private-platform capability needs its own contract. [§5.1](#51-destination-and-obligation-rules) owns Spain duties; [§5.2](#52-public-event-contract) owns event fields.
+
+| General status or action | France | Spain |
+|---|---|---|
+| New | **New** (`200`) — Sage internal status. | No direct event. |
+| File uploaded | **File Uploaded** (`200`) — Sage internal status. | No direct event. |
+| Submitted | **Submitted / Déposée** (`200`). | Submission belongs to invoice sending; no equivalent lifecycle-report code is established. |
+| Issued by platform | **Issued by platform / Émise** (`201`). | No direct event. |
+| Received by platform | **Received by platform / Reçue** (`202`). | No direct event. |
+| Available to buyer | **Made Available / Mise à disposition** (`203`). | No direct event. |
+| Buyer processing | **In Hand / Prise en charge** (`204`). | No direct event. |
+| Buyer acceptance | **Approved / Approuvée** (`205`). | Recipient communication where the duty applies; no explicit public acceptance code. Presumed acceptance remains derived. |
+| Partial acceptance | **Partially Approved / Approuvée partiellement** (`206`). | Optional recipient communication; no corresponding public code supplied. |
+| Disputed | **Disputed / En litige** (`207`). | No direct event. |
+| Suspended | **Suspended / Suspendue** (`208`). | No direct event. |
+| Missing information supplied | **Completed / Complétée** (`209`) — information supplied after suspension. | No direct event. Workflow completion does not prove payment. |
+| Buyer refusal | **Refused / Refusée** (`210`) — business refusal. | Recipient `REJECTION`; rejection date and reason `01` or `02`. `Refused` is a conditional reuse candidate. |
+| Buyer payment | **Payment Sent / Paiement transmis** (`211`) — payment flow sent. | Recipient `PAYMENT` requires full effective payment and required dates. A sent payment instruction is insufficient. |
+| Seller collection | **Payment Received / Encaissée** (`212`) — partial or full collection. | Issuer `SETTLEMENT` requires full collection and enabled optional scope. |
+| Technical rejection | **Rejected / Rejetée** (`213`) — platform rejection. | Preserve the actual technical outcome separately; it cannot become buyer `REJECTION`. |
+| Initial flow inadmissible | **Inadmissible** (`501`) — CDAR technical outcome; no published Sage status UUID. | No equivalent lifecycle-report code established. |
+| Non-payment declaration | No documented equivalent in the supplied Sage status catalogue. | Issuer `DEFAULT`. |
+| Cancel payment report | No documented equivalent. | Recipient `CANCELPAYMENT`; cancels the earlier report. |
+| Cancel refusal report | No documented equivalent. | Recipient `CANCELREJECTION`; does not create buyer acceptance. |
+| Cancel collection report | No documented equivalent. | Issuer `CANCELSETTLEMENT`; preserves collection facts and history. |
+| Cancel non-payment report | No documented equivalent. | Issuer `CANCELDEFAULT`; preserves facts and history. |
+
+The numeric France codes are catalogue values; the POST `statusCode` takes a UUID. New, File Uploaded and Submitted share `200` but have different UUIDs. [SPEC041 §2.1](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#spfe-action-mapping) owns the three conditional reuses and five missing Spain action bindings. Report cancellation preserves the invoice and business facts; invoice-submission withdrawal remains with Sending.
+
+`operationStatus` describes a transition attempt: `IN_PROGRESS` means underway, `COMPLETED` means successful and `ERROR` means failed. Under LCS-R14, a failed attempt remains in history while the invoice retains its latest successful status. Operational `COMPLETED` differs from French lifecycle Completed (`209`) and from each external report's result. INT-LCS05; LCS-A26/27. Transition and actor conflicts remain [LIF-G03](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md#lif-g03); this comparison does not define shared France/Spain transition rules.
 
 ## 5 Spain rules and Annex II
 
@@ -171,3 +208,5 @@ These are required checks, not executed implementation tests. The [original assu
 | SPFE-S22 | [New supplied Annex II](<../../context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf>), filename dated 21 October, formal revision unknown | I.1 pp. 4–6; I.2 pp. 7–8; I.3 pp. 9–11; I.4 pp. 12–14; II/L1 p. 15 | Same reviewed field semantics and codes as baseline; no legal amendment or implementation proof. |
 | REF-FIELDS | [Original field ledger](../../assets/regulatory/spain/spfe/field-traceability.json); [new comparison note](<../../context/Anexo II/annex-ii-review.md>) | All AXII traces and their source locators | Row inventory and unchanged source meaning; executable mapping and test results unverified. |
 | INT-LCS01–05 | [User-supplied lifecycle evidence](<../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md>), received 22 October, revision unknown | Named guide sections; especially INT-LCS05 | France documentation and supplied attempt-result rule. Application to Spain is a proposed control; build coverage is unknown. |
+| INT-LCS03 | [Original Invoice Statuses guide](https://internaldeveloper.sage.com/domain-services/docs/v1.0.0/solutions/e-invoicing/status-updates/invoice-statuses), user-supplied extract received 29 October 2026; URL version `v1.0.0`, publication date unknown | Status catalogue: Code, Status, French, Identifier and Description columns; Blocked Transitions table | French labels, numeric codes, UUIDs and status meanings in §4.1. Numeric codes do not establish writable actions. Transition conflicts remain LIF-G03; linked matrix not reviewed. |
+| INT-LCS04 | [Original Lifecycle Reason Codes guide](https://internaldeveloper.sage.com/domain-services/docs/v1.0.0/solutions/e-invoicing/status-updates/lifecycle-status-fields), user-supplied extract received 29 October 2026; URL version `v1.0.0`, publication date unknown | CDAR-only status codes; Rejected; Deposited / Submitted; Inadmissible | Technical/business distinctions; Inadmissible `501` has no published Sage UUID. French reasons do not establish Spain codes or enabled actions. |

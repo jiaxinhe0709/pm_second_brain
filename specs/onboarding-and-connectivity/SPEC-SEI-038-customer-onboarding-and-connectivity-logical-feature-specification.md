@@ -157,6 +157,8 @@ Run these shared checks before public or private setup. Use the Tax certificate 
 
 Return readiness only for the functions whose mandatory checks passed, including actual Sage support. Name any limitation and next action. The supplied public contracts contain no onboarding enrolment operation; do not invent one or send a test invoice. Web-form access does not prove automated access. SPFE-S03/S08/S16.
 
+If no qualified evidence can establish access for a requested function, keep that result unconfirmed and name the action owner. [039's WSDL assessment](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#spfe-wsdl-onboarding-boundary) records the operation evidence, limits and GAP-05/06 owners; [039 §5](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#5-acceptance-coverage) defines the contract-specific checks. This is a proposed readiness control, not an external onboarding contract.
+
 <a id="67-onb-05-configure-private-choice"></a>
 
 ### 6.7 ONB-05 Configure private choice — Phases 2–3

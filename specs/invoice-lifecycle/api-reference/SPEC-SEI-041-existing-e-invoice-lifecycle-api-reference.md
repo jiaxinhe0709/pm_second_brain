@@ -100,6 +100,8 @@ Save the operation ID. The returned `Approved` label does not establish that pro
 
 FR-LIF01 supplies these nine request examples. UUIDs and shapes below are existing France evidence. INT-LCS01 supplies the field requirements; FR-LIF01 does not define nested validation schemas.
 
+[SPEC029's general / France / Spain comparison](../SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#general-status-comparison) owns the business meanings and country differences. This table retains exact request UUIDs and payload constraints.
+
 | Exact example name / UUID `statusCode` | `statusAttributes` / guide constraint |
 |---|---|
 | `inHand` — `00000000-0000-0000-0000-400000000000` | No status-specific attributes. |
@@ -192,7 +194,7 @@ The connector maps recipient actions to ebMS `Action = ACCOUNTINGCUSTOMERPARTYAC
 
 The five new bindings also need defined response `status` values or an approved response shape; the supplied response enum has no DEFAULT or cancellation values. Check existing consumers before extending it. A cancellation action changes the report result/history; it cannot erase the saved payment/decision fact or withdraw the invoice. LCS-R03/06/07; LIF-G02/03/04.
 
-`Approved`, `InHand`, `PartiallyApproved`, `Disputed`, `Suspended`, `Completed` and `Submitted` have no direct public event in this mapping. An allowed private communication uses its separate contract. Do not create a public acceptance code or infer payment from workflow completion. LCS-R02/03/12/13.
+Use [SPEC029's comparison](../SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#general-status-comparison) for statuses with no direct public event. An allowed private communication uses its separate contract. LCS-R02/03/12/13.
 
 <a id="spfe-field-mapping"></a>
 

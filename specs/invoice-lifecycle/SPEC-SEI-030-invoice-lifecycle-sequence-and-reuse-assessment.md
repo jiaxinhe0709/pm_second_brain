@@ -118,6 +118,8 @@ Detailed LCS-D01–10 and interaction inventories remain in [SPEC009](../archive
 
 ### 3.2 Spain field coverage against the French guide
 
+Use [SPEC029's general / France / Spain comparison](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#general-status-comparison) for business meanings and statuses with no direct public event. It does not establish API compatibility or shared transition rules.
+
 **SPFE definition baseline: available for specification work.** Final Annex II and the supplied supplement define all eight event codes, their actors, 52 field/group occurrences and L1 reasons `01`/`02`. The recorded comparison found no field differences. Catalogue §§6.8–6.9 and both event WSDLs establish the reporting operations and PRE transport. SPFE-S02/S03/S11/S17/S22; REF-FIELDS.
 
 The [SPEC041 mapping](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#spfe-action-mapping) owns the proposed command/field bindings and payloads. [SPEC029 §5.2](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#52-public-event-contract) and the AXII ledger own exact Spain meanings/cardinalities. The WSDLs carry opaque UBL attachments; SPFE-S08 §§5.8–5.9 still mark detailed event formats pending in the supplied snapshot.
