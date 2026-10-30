@@ -11,7 +11,7 @@ inventories, decisions and acceptance mappings when needed.
 |---|---|---|
 | [Customer onboarding and connectivity](onboarding-and-connectivity/README.md) | SPEC-SEI-037–039 | [Onboarding 018/019/021](archive/onboarding/README.md), [provider connectivity 034–036](archive/provider-connectivity/README.md) and [SPEC-SEI-002](archive/SPEC-SEI-002-onboarding-solution-specification.md) |
 | [Invoice sending](invoice-sending/README.md) | SPEC-SEI-022–024 | [SPEC-SEI-007](archive/SPEC-SEI-007-invoice-sending-solution.md) |
-| [Invoice receiving, retrieval and download](invoice-receiving/README.md) | SPEC-SEI-025–027 | [SPEC-SEI-016](archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) |
+| [Invoice receiving, retrieval and download](invoice-receiving/README.md) | SPEC-SEI-025–027; [API reference 042](invoice-receiving/api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md) | [SPEC-SEI-016](archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) |
 | [Invoice lifecycle](invoice-lifecycle/README.md) | SPEC-SEI-028–030; [API reference 041](invoice-lifecycle/api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md) | [SPEC-SEI-009](archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) |
 | [Customer offboarding](offboarding/README.md) | SPEC-SEI-031–033 | [SPEC-SEI-003](archive/SPEC-SEI-003-offboarding-solution-specification.md) |
 

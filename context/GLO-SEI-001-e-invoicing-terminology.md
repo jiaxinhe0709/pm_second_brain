@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-29
+updated: 2026-10-30
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -146,6 +146,7 @@ Definitions explain the current source documents. They do not approve an archite
 | Transitional PDF companion | A readable PDF accompanying the structured invoice under the selected country transition rule. In this Spain sending scope, the local product generates it and qualifies delivery to the recipient. It is distinct from a faithful public copy, a Factur-X hybrid and the structured invoice. See [the product rule](../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md#transitional-pdf-product-rule). |
 | Recovered source file / original | The exact bytes obtained from a source, kept with their source and role. “Original” must identify which source it refers to. A retrieved public copy is not relabelled as the private-route original. |
 | Retrieval / file acquisition | Obtaining the actual invoice file from its source. Discovery, a query result or a notification records availability but does not by itself establish durable source-file capture. A qualified source can deliver the complete file or require a separate fetch. |
+| Invoice view | An authorised read of invoice information or a readable representation. A list/detail API can supply information for a product view; it does not by itself render a document. Viewing is separate from user file download, source-file acquisition, technical acknowledgement and buyer acceptance. A derived readable representation retains its own role. |
 | Source-file download / stored-file download | A source-file download transfers a file from an external source. A stored-file download returns already captured bytes to an authorised actor. Qualify which operation is meant. Neither operation alone proves product receipt, buyer acceptance or completed conservation. |
 | Notification-only intake | A saved source event, metadata or file reference that requires later file acquisition. It cannot stand in for the actual invoice bytes, a verified capture receipt or business delivery. Acknowledgement meaning follows the qualified source contract. |
 | Faithful public copy / public copy | The separately classified public-platform copy of an invoice exchanged through another route, where the applicable Spain policy requires it. “Faithful copy” is a source short form. Exact syntax and acceptance still require the selected contract/profile evidence. Preserve role `PUBLIC_COPY`. |

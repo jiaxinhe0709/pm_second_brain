@@ -11,7 +11,7 @@
         <mxCell id="v2" value="Receive an invoice: event, details and file" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=27;fontColor=#626262;">
           <mxGeometry as="geometry" x="30" y="18" width="743.43" height="26" />
         </mxCell>
-        <mxCell id="v3" value="Existing calls; Spain support and source capture need confirmation" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=17;fontColor=#626262;">
+        <mxCell id="v3" value="Existing source-capture pattern; private user download remains TBD" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=17;fontColor=#626262;">
           <mxGeometry as="geometry" x="30" y="59" width="718.86" height="26" />
         </mxCell>
         <mxCell id="header-divider" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;endArrow=none;">

@@ -11,7 +11,7 @@
         <mxCell id="v2" value="Recover a file link or read a saved file" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=27;fontColor=#626262;">
           <mxGeometry as="geometry" x="30" y="18" width="692.4" height="26" />
         </mxCell>
-        <mxCell id="v3" value="Keep the same invoice and file role; recover only missing work" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=17;fontColor=#626262;">
+        <mxCell id="v3" value="Required SPFE user download; private user download remains TBD" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=17;fontColor=#626262;">
           <mxGeometry as="geometry" x="30" y="59" width="676.02" height="26" />
         </mxCell>
         <mxCell id="header-divider" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;endArrow=none;">
@@ -95,8 +95,8 @@
         <mxCell id="v21" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
           <mxGeometry as="geometry" x="24" y="857" width="1367" height="34" />
         </mxCell>
-        <mxCell id="v22" value="case | Customer requests an already saved file" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#626262;">
-          <mxGeometry as="geometry" x="36" y="865" width="446.7" height="26" />
+        <mxCell id="v22" value="case | SPFE customer requests an already saved file" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#626262;">
+          <mxGeometry as="geometry" x="36" y="865" width="493.95" height="26" />
         </mxCell>
         <mxCell id="v23" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
           <mxGeometry as="geometry" x="38" y="1109" width="1339" height="90" />

@@ -3,7 +3,8 @@
   "documents": [
     "SPEC-SEI-025-invoice-retrieval-solution-summary.md",
     "SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md",
-    "SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md"
+    "SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md",
+    "SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md"
   ],
   "checks": [
     "metadata and unique IDs",
@@ -14,8 +15,8 @@
     "SVG/Draw.io XML and PNG dimensions"
   ],
   "source_hashes": {
-    "specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md": "0893ee5240a4b8b0eb3d48c7098711972342f5fae5953514117c165f5722e837",
-    "config/confluence.yml": "b9c15daf80ae4acfb080156bbdaa70059518357143732d2622a3c98566013c5b"
+    "specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md": "d06c1a46dd8874ec7936f2bd84b82cdb967e9d6107857af80652afa2b18ad221",
+    "config/confluence.yml": "df00977682a9d976fb3a0a68d4693648a163fd4ba6aee1ca60db4c74649036fb"
   },
   "implementation_tests_executed": false
 }

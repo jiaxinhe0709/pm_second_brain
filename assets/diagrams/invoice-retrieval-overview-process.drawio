@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="app.diagrams.net" type="device" version="24.7.17">
-  <diagram id="invoice-retrieval-overview-process" name="Receive invoices: find the file, save it and deliver once">
+  <diagram id="invoice-retrieval-overview-process" name="Retrieve invoices: collect, view and download">
     <mxGraphModel page="1" pageWidth="1400" pageHeight="1660">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="Receive invoices: find the file, save it and deliver once&#10;Phase 1: public collection. Private intake follows its selected later-phase scope." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+        <mxCell id="title" value="Retrieve invoices: collect, view and download&#10;View: public and private required. User download: SPFE required; private TBD." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="28" y="12" width="1344" height="95" />
         </mxCell>
-        <mxCell id="legend" value="Proposed design · Solid: main steps · Dashed: selected source or a requested saved-file read" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="legend" value="Proposed design · Solid: main steps · Dashed: selected source or a requested view/download" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="28" y="104" width="1344" height="22" />
         </mxCell>
         <mxCell id="behaviour-legend" value="Read top to bottom. Branches apply only to the selected source or required action." style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
@@ -54,7 +54,7 @@
             <mxGeometry as="geometry" x="460" y="1160" width="480" height="104" />
           </mxCell>
         </object>
-        <object id="savedread" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md" label="Read a saved file when requested&#10;Current client/file permission; saved safe bytes&#10;RSD-07/09" tooltip="Current client/file permission; saved safe bytes">
+        <object id="savedread" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md" label="View invoice or download a saved file&#10;Both views; SPFE download; private download TBD&#10;RSD-07/09" tooltip="Both views; SPFE download; private download TBD">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
             <mxGeometry as="geometry" x="1000" y="1160" width="360" height="104" />
           </mxCell>
@@ -136,7 +136,7 @@
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="boundary" value="A missing file or pending receiving handoff cannot complete collection progress. Partial capture keeps its recovery owner.&#10;Mapping or product failure preserves saved source files and independently permitted access. Recover only affected work.&#10;Source acknowledgement uses its confirmed contract milestone. Buyer acceptance and payment reports belong to lifecycle." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="boundary" value="A missing file or pending receiving handoff cannot complete collection progress. Partial capture keeps its recovery owner.&#10;Mapping or product failure preserves safe permitted view/download. Private user download remains a separate Product decision.&#10;Source acknowledgement uses its confirmed contract milestone. Buyer acceptance and payment reports belong to lifecycle." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="28" y="1550" width="1344" height="96" />
         </mxCell>
       </root>

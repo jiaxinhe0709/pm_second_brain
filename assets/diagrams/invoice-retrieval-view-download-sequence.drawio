@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="invoice-retrieval-view-download-sequence" name="View public or private invoices; download SPFE files">
+    <mxGraphModel page="1" pageWidth="1030" pageHeight="1356">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="v1" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="8" y="8" width="1014" height="1340" />
+        </mxCell>
+        <mxCell id="v2" value="View public or private invoices; download SPFE files" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=27;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="18" width="896.52" height="26" />
+        </mxCell>
+        <mxCell id="v3" value="View: required for both sources. User download: SPFE required; private TBD." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="59" width="815.25" height="26" />
+        </mxCell>
+        <mxCell id="header-divider" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="8" y="124" />
+            <mxPoint as="targetPoint" x="1022" y="124" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lifeline-0" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="216" />
+            <mxPoint as="targetPoint" x="130" y="1253" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="participant-0" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="22" y="150" width="216" height="66" />
+        </mxCell>
+        <mxCell id="v6" value="ERP / product" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#626262;">
+          <mxGeometry as="geometry" x="42.099999999999994" y="170" width="175.8" height="26" />
+        </mxCell>
+        <mxCell id="lifeline-1" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="515" y="216" />
+            <mxPoint as="targetPoint" x="515" y="1253" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="participant-1" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="407" y="150" width="216" height="66" />
+        </mxCell>
+        <mxCell id="v8" value="E-Invoice API" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#626262;">
+          <mxGeometry as="geometry" x="427.1" y="170" width="175.8" height="26" />
+        </mxCell>
+        <mxCell id="lifeline-2" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=none;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="900" y="216" />
+            <mxPoint as="targetPoint" x="900" y="1253" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="participant-2" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="792" y="150" width="216" height="66" />
+        </mxCell>
+        <mxCell id="v10" value="File source / records" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=20;fontColor=#626262;">
+          <mxGeometry as="geometry" x="761.7" y="170" width="276.6" height="26" />
+        </mxCell>
+        <mxCell id="v11" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=none;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="24" y="879" width="982" height="222" />
+        </mxCell>
+        <mxCell id="activation-0" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="507" y="417" width="16" height="104" />
+        </mxCell>
+        <mxCell id="activation-1" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="507" y="625" width="16" height="104" />
+        </mxCell>
+        <mxCell id="activation-2" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#dddddd;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="892" y="984" width="16" height="81" />
+        </mxCell>
+        <mxCell id="v15" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="24" y="879" width="982" height="34" />
+        </mxCell>
+        <mxCell id="v16" value="case | User downloads a captured SPFE file" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#626262;">
+          <mxGeometry as="geometry" x="36" y="887" width="408.9" height="26" />
+        </mxCell>
+        <mxCell id="v17" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="38" y="258" width="954" height="90" />
+        </mxCell>
+        <mxCell id="v18" value="Reuse the authorised business dataset. The grey calls are documented; their Spain applicability still needs&#10;qualification. Viewing is separate from buyer acceptance." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#626262;">
+          <mxGeometry as="geometry" x="52" y="266" width="1090.56" height="49" />
+        </mxCell>
+        <mxCell id="v19" value="REF-SCOPE; RET-G01/03/05" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=12;fontColor=#626262;">
+          <mxGeometry as="geometry" x="52" y="324" width="193.44" height="26" />
+        </mxCell>
+        <mxCell id="v20" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="38" y="765" width="954" height="90" />
+        </mxCell>
+        <mxCell id="v21" value="The product displays permitted invoice content from qualified data or a readable file. Metadata alone does not&#10;complete the view. Qualify readable-file support and SPFE freshness." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#626262;">
+          <mxGeometry as="geometry" x="52" y="773" width="1120.8" height="49" />
+        </mxCell>
+        <mxCell id="v22" value="RET-G05/07/08; RET-API-01/02" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=12;fontColor=#626262;">
+          <mxGeometry as="geometry" x="52" y="831" width="223.68" height="26" />
+        </mxCell>
+        <mxCell id="v23" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
+          <mxGeometry as="geometry" x="38" y="1131" width="954" height="90" />
+        </mxCell>
+        <mxCell id="v24" value="Required SPFE download needs a proven saved-file binding and current permission. Private user download is TBD;&#10;required private view and backend source capture remain separate." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#626262;">
+          <mxGeometry as="geometry" x="52" y="1139" width="1120.8" height="49" />
+        </mxCell>
+        <mxCell id="v25" value="REF-SCOPE; RET-G04/05/10" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=12;fontColor=#626262;">
+          <mxGeometry as="geometry" x="52" y="1197" width="193.44" height="26" />
+        </mxCell>
+        <mxCell id="v26" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="354" width="361" height="54" />
+        </mxCell>
+        <mxCell id="v27" value="[Existing] INT-RCV01 §3.2" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#626262;">
+          <mxGeometry as="geometry" x="222.0" y="360" width="201.0" height="26" />
+        </mxCell>
+        <mxCell id="message-label-1" value="GET /datasets/{datasetId}/e-invoices" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="123.72" y="379" width="397.56" height="26" />
+        </mxCell>
+        <mxCell id="message-1" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="417" />
+            <mxPoint as="targetPoint" x="507" y="417" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v29" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="435" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v30" value="[Existing] INT-RCV01 §3.2" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#626262;">
+          <mxGeometry as="geometry" x="222.0" y="441" width="201.0" height="26" />
+        </mxCell>
+        <mxCell id="message-label-2" value="Permitted invoice list; follow&#10;links.next within qualified coverage" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="123.72" y="460" width="397.56" height="49" />
+        </mxCell>
+        <mxCell id="message-2" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="507" y="521" />
+            <mxPoint as="targetPoint" x="130" y="521" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v32" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="539" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v33" value="[Existing] INT-RCV01 §3.1" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#626262;">
+          <mxGeometry as="geometry" x="222.0" y="545" width="201.0" height="26" />
+        </mxCell>
+        <mxCell id="message-label-3" value="GET /datasets/{datasetId}/e-invoices/{e-&#10;invoiceId}" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="102.30000000000001" y="564" width="440.4" height="49" />
+        </mxCell>
+        <mxCell id="message-3" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="625" />
+            <mxPoint as="targetPoint" x="507" y="625" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v35" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="643" width="361" height="77" />
+        </mxCell>
+        <mxCell id="v36" value="[Existing] INT-RCV01 §3.1" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#626262;">
+          <mxGeometry as="geometry" x="222.0" y="649" width="201.0" height="26" />
+        </mxCell>
+        <mxCell id="message-label-4" value="Invoice information, history and file&#10;descriptors" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="118.36500000000001" y="668" width="408.27" height="49" />
+        </mxCell>
+        <mxCell id="message-4" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="507" y="729" />
+            <mxPoint as="targetPoint" x="130" y="729" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v38" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="921" width="746" height="54" />
+        </mxCell>
+        <mxCell id="v39" value="[Spain] Reuse INT-RCV01 §4; saved binding RET-G04/05" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="312.44" y="927" width="405.12" height="26" />
+        </mxCell>
+        <mxCell id="message-label-5" value="GET {downloadUrl} for the selected saved file" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="268.025" y="946" width="493.95" height="26" />
+        </mxCell>
+        <mxCell id="message-5" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;endArrow=block;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="130" y="984" />
+            <mxPoint as="targetPoint" x="892" y="984" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v41" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=white;strokeColor=none;">
+          <mxGeometry as="geometry" x="142" y="1002" width="746" height="54" />
+        </mxCell>
+        <mxCell id="v42" value="[Proposed] RSD-07; RET-G04/05" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=12;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="399.38" y="1008" width="231.24" height="26" />
+        </mxCell>
+        <mxCell id="message-label-6" value="Labelled bytes, or classified denial/integrity case" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=center;fontSize=17;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="235.89499999999998" y="1027" width="558.21" height="26" />
+        </mxCell>
+        <mxCell id="message-6" edge="1" parent="1" style="edgeStyle=none;strokeColor=#1565C0;strokeWidth=1.6;dashed=1;endArrow=open;endFill=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="892" y="1065" />
+            <mxPoint as="targetPoint" x="130" y="1065" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v44" value="Solid: request. Dashed: result. Grey bars show handling, not elapsed time." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="1279" width="664.68" height="26" />
+        </mxCell>
+        <mxCell id="v45" value="Blue: Spain binding or proposed work to confirm; it does not mean a new API or proven implementation." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="1302" width="902.82" height="26" />
+        </mxCell>
+        <object id="v46" label="Source specification" link="../../specs/invoice-receiving/SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md#24-required-view-and-spfe-user-download">
+          <mxCell parent="1" vertex="1" style="text;html=0;fontSize=12;align=right;">
+            <mxGeometry as="geometry" x="790" y="1326" width="210" height="18" />
+          </mxCell>
+        </object>
+        <mxCell id="reuse-legend-grey-swatch" value="" parent="1" vertex="1" style="rounded=0;fillColor=#626262;strokeColor=none;">
+          <mxGeometry as="geometry" x="30" y="91" width="13" height="13" />
+        </mxCell>
+        <mxCell id="reuse-legend-grey-label" value="Existing E-Invoice API / flow" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
+          <mxGeometry as="geometry" x="53" y="89" width="260" height="24" />
+        </mxCell>
+        <mxCell id="reuse-legend-blue-swatch" value="" parent="1" vertex="1" style="rounded=0;fillColor=#1565C0;strokeColor=none;">
+          <mxGeometry as="geometry" x="340" y="91" width="13" height="13" />
+        </mxCell>
+        <mxCell id="reuse-legend-blue-label" value="Spain adaptation / proposed work" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="363" y="89" width="440" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

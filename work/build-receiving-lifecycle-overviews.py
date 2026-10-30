@@ -36,7 +36,7 @@ def receiving():
         n('capture',0,0,'Verify and save files and item results','RSD-04/05','Exact bytes, roles, hashes and receiving state'),
         n('progress',0,0,'Save covered collection progress','RSD-06 / PRI-04','Only when every covered item is accounted for','outcome'),
         n('process',0,0,'Check and map the invoice','RCV-02–07','Recipient, safety, duplicates, profile and meaning'),
-        n('savedread',0,0,'Read a saved file when requested','RSD-07/09','Current client/file permission; saved safe bytes','conditional'),
+        n('savedread',0,0,'View invoice or download a saved file','RSD-07/09','Both views; SPFE download; private download TBD','conditional'),
         n('product',0,0,'Deliver once and confirm product receipt','RCV-07','Keep pending delivery and who must act visible','outcome'),
     ]
     positions = {
@@ -59,14 +59,14 @@ def receiving():
         e('process','product',points=[(700,1264),(700,1340)]),
     ]
     return finish(flow.build('invoice-retrieval-overview-process',
-        'Receive invoices: find the file, save it and deliver once',
-        'Phase 1: public collection. Private intake follows its selected later-phase scope.',
+        'Retrieve invoices: collect, view and download',
+        'View: public and private required. User download: SPFE required; private TBD.',
         nodes,edges,spec='../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md',
         positions=positions,width=1400,height=1660,lanes=[],
-        legend='Solid: main steps · Dashed: selected source or a requested saved-file read',
+        legend='Solid: main steps · Dashed: selected source or a requested view/download',
         boundaries=[
             'A missing file or pending receiving handoff cannot complete collection progress. Partial capture keeps its recovery owner.',
-            'Mapping or product failure preserves saved source files and independently permitted access. Recover only affected work.',
+            'Mapping or product failure preserves safe permitted view/download. Private user download remains a separate Product decision.',
             'Source acknowledgement uses its confirmed contract milestone. Buyer acceptance and payment reports belong to lifecycle.',
         ]))
 

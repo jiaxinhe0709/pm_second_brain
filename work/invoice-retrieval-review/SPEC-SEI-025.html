@@ -6,6 +6,7 @@ main{min-width:0}.outline{position:sticky;top:12px;align-self:start;max-height:9
 h1{font-size:30px}h2{margin-top:36px}h3{margin-top:30px}table{border-collapse:collapse;width:100%;margin:18px 0;font-size:14px}
 th,td{border:1px solid #cdd3d8;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f5f7}
 code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100%;max-height:720px;overflow:auto;border:1px solid #b8c0c8;margin:18px 0}
+pre{max-width:100%;overflow-x:auto;padding:12px;background:#f1f3f5}
 .diagram img{display:block;max-width:none}p{max-width:1060px}
 @media(max-width:800px){.layout{display:block}.outline{position:static;max-height:200px;margin-bottom:24px}}
 </style></head><body><header><p>Invoice retrieval · Unpublished draft · Local review</p><nav><a href="index.html">All retrieval views</a><a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">Retained SPEC-SEI-016</a></nav></header><div class="layout"><aside class="outline"><div class="toc">
@@ -25,153 +26,151 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </ul>
 </div>
 </aside><main><h1 id="invoice-retrieval-solution-summary">Invoice Retrieval Solution Summary</h1>
-<p><a href="SPEC-SEI-026.html">Logical Feature Specification</a> · <a href="SPEC-SEI-027.html">Sequence and Reuse Assessment</a> · <a href="../../specs/invoice-receiving/README.md">Feature landing page</a></p>
+<p><a href="SPEC-SEI-026.html">Logical specification</a> · <a href="SPEC-SEI-027.html">API reuse assessment</a> · <a href="SPEC-SEI-042.html">API calls and Spain changes</a> · <a href="../../specs/invoice-receiving/README.md">Feature folder</a></p>
 <h2 id="revision-overview">Revision overview</h2>
-<p>This separate overview develops <a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a> into the same three reading views as onboarding and sending. It adds the supplied FR receiving guide to the reuse assessment. The predecessor stays unchanged, including its receiving, private-intake, retrieval and records controls.</p>
-<p>Retrieval is the focus within the combined receiving feature. Existing RRI, PRI, RSD and RCV IDs retain their meanings. Public Phase 1 scope, separate file roles, current action authority and safe recovery remain unchanged. Provider rollout, complete query coverage, Spain contract details and implementation fitness remain open. These companions are unpublished drafts; SPEC-SEI-016 remains the selected source for Confluence page <code>933331276</code>.</p>
+<p>This view summarises <a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC016</a>. Its RRI, PRI, RSD and RCV IDs and source-file controls remain unchanged. The 30 October scope decision requires public/private view and SPFE download; private user download remains TBD. SPEC016 is unchanged and remains the selected Confluence source. These views and the new API reference are unpublished drafts. Provider support and implementation coverage remain open. REF-SCOPE.</p>
 <h2 id="1-purpose-and-intended-outcomes">1 Purpose and intended outcomes</h2>
-<p>Help a Spanish business obtain invoices addressed to it, retain their exact source files and make them available to the correct product and authorised users. A direct customer or accountant must see what was found, what was captured, what needs attention and who must act next. Missing notifications and downstream failures must not silently lose invoices. REF-PRODUCT; REF-BASE.</p>
-<p><strong>Audience: local Product teams, directors and cross-functional stakeholders.</strong> Use this page for outcomes and decisions. SPEC-SEI-026 owns functional scenarios and checks; SPEC-SEI-027 assesses API sequences, country differences and engineering evidence.</p>
+<p><strong>What:</strong> let a business or authorised accountant view received invoices from public and private platforms, and download saved SPFE files. Private user download remains TBD. <strong>Why:</strong> users need access to invoices even when collection or product processing has a problem. <strong>Reuse:</strong> assess the existing E-Invoice list, detail and file calls, records access and inbound DTS mapping before adding capabilities. REF-PRODUCT; REF-SCOPE; INT-RCV01.</p>
+<p>SPEC026 owns scenarios and required behaviour; SPEC027 owns reuse and engineering gaps; SPEC042 supplies API fields, examples and Spain changes.</p>
 <h2 id="2-terms-used">2 Terms used</h2>
-<p>Use the <a href="../../context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>. Discovery identifies a candidate. Retrieval obtains its actual file. Verified capture means the file and its identifying evidence are saved consistently. A stored-file download returns already captured bytes to a currently authorised actor.</p>
-<p>Source capture, product availability, product receipt, technical acknowledgement, internal invoice approval and buyer acceptance are separate outcomes. A file can be safely accessible while mapping or product delivery needs repair. RRI-R02/06; RCV-I10/14.</p>
+<p><a href="../../context/GLO-SEI-001-e-invoicing-terminology.md">Shared glossary</a>: <strong>view</strong> shows permitted invoice information or a readable representation; <strong>source-file download</strong> obtains bytes from a platform; <strong>stored-file download</strong> returns captured bytes to the user. A required source fetch does not decide private user-download scope. Viewing, capture, product receipt and buyer acceptance have separate results.</p>
 <h2 id="3-scope-and-actors">3 Scope and actors</h2>
 <table>
 <thead>
 <tr>
 <th>Situation</th>
-<th>Intended outcome and boundary</th>
+<th>Required outcome</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Spain public-platform collection</td>
-<td>Automated discovery and separate file recovery for the eligible recipient. Login or refresh can accelerate collection; they are not the completeness mechanism. SPFE-S02 Articles 9–11; RSD-R01/02.</td>
+<td>SPFE public platform — Phase 1</td>
+<td><strong>View and user download required.</strong> Collect automatically through discovery and separate source-file download. Customer refresh can accelerate the same work. SPFE-S02/S03; REF-SCOPE.</td>
 </tr>
 <tr>
-<td>Private-provider notification or polling</td>
-<td>Download the required invoice file through the selected qualified provider contract. A notification, metadata response or file link alone is insufficient. PRI-03; RRI-A02/03.</td>
+<td>External private providers — Phase 2</td>
+<td><strong>View required; user download TBD.</strong> Qualify the provider intake needed for the view. Complete supplied bytes avoid another source fetch. REF-SCOPE.</td>
 </tr>
 <tr>
-<td>Private provider supplies complete bytes</td>
-<td>Capture once and enter the same receiving controls. Downstream delay is not a reason to fetch again. RRI-A01.</td>
+<td>Sage private-platform offering — Phase 3</td>
+<td><strong>View required; user download TBD.</strong> Qualify shared reuse, provider/service-chain support and operator readiness. REF-SCOPE.</td>
 </tr>
 <tr>
-<td>Customer or accountant downloads a saved file from a public or private source</td>
-<td>Return the permitted, labelled file under current authority, safety and records policy. After verified capture, this read does not fetch the file from the platform again. RRI-R06.</td>
+<td>Public copy and private original</td>
+<td>Keep both sources and prove whether they represent one business invoice.</td>
 </tr>
 <tr>
-<td>Public copy and private original both arrive</td>
-<td>Preserve both sources and qualify one business-invoice relationship. Do not create two product invoices. RCV-04; RSD-A05.</td>
+<td>Customer/accountant opens an invoice or downloads an enabled file</td>
+<td>Apply the scope in SPEC026 §1 and current client/invoice/file permission. Keep original, public-copy and derived roles clear.</td>
 </tr>
 <tr>
-<td>Accountant works across clients</td>
-<td>Keep authority, progress, files and results separate for each client. No portfolio membership implies permission. RCV-I13/16.</td>
+<td>Processing, product delivery or collection fails</td>
+<td>Keep completed work; show the affected item, next action and owner.</td>
 </tr>
 </tbody>
 </table>
-<p>PRD-SEI-211 Phase 1 covers public retrieval. The combined design also assesses private intake; it does not add private collection to that release. Product selects enabled modes under RRI-Q02. ZIP export remains outside the initial scope under RSD-G09. Sending, public-copy submission, buyer decisions and payment reporting retain their owning features.</p>
-<table>
-<thead>
-<tr>
-<th>Party</th>
-<th>Outcome or handoff</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Business or authorised accountant</td>
-<td>Request an allowed refresh or download; provide a missing purpose-specific decision.</td>
-</tr>
-<tr>
-<td>ERP / product</td>
-<td>Integrate notifications and reads where supported; show separate file, processing and next-action results.</td>
-</tr>
-<tr>
-<td>E-Invoice Service</td>
-<td>Coordinate collection, receiving and recovery using the selected source context. This is a logical responsibility, not a new deployment decision.</td>
-</tr>
-<tr>
-<td>Identity, connections, trust, records and transformation owners</td>
-<td>Supply qualified authority, source access, safe capture, file access and selected inbound mapping.</td>
-</tr>
-<tr>
-<td>Public connector or private provider</td>
-<td>Execute the qualified source contract and return scoped evidence.</td>
-</tr>
-<tr>
-<td>Operations / support</td>
-<td>Resolve assigned gaps, conflicts and integrity incidents with an evidenced safe next action.</td>
-</tr>
-</tbody>
-</table>
+<p>The business or authorised accountant requests permitted actions. The ERP displays results and confirms receipt. The E-Invoice Service coordinates collection and receiving; supporting capabilities check permission, files, mapping and records. Source platforms supply files/results; Operations resolves assigned failures. These are logical responsibilities.</p>
+<p>Start after <a href="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#4-feature-wide-functional-requirements-and-rules">onboarding</a> has established the selected platform access and business mapping. Reuse the company’s SXS dataset and required credential references through qualified bindings. RRI-Q02 still gates provider rollout; the private download decision is separate from required private view. ZIP export, sending and business lifecycle actions keep their existing scope.</p>
 <h2 id="4-end-to-end-workflow">4 End-to-end workflow</h2>
-<p><div class="diagram"><img alt="Receiving intake, source capture and product delivery" src="../../assets/diagrams/receiving-retrieval-and-download-intake-process.svg" /></div></p>
-<p><a href="../../assets/diagrams/receiving-retrieval-and-download-intake-process.drawio">Editable Draw.io</a> · <a href="../../assets/diagrams/receiving-retrieval-and-download-intake-process.png">PNG</a>.</p>
-<p>The existing overview joins public recovery and private intake at verified source capture. It separates authorised stored-file access from receiving and product delivery. A failed file fetch keeps the item incomplete. Later processing failure preserves captured evidence and its permitted access. SPEC-SEI-026 gives the activity order, exceptions and recovery checks.</p>
-<h2 id="5-reuse-direction-and-spain-boundaries">5 Reuse direction and Spain boundaries</h2>
-<p>Assess the existing FR subscription, list, detail and attachment-download APIs before proposing another product interface. The guide supplies a reuse candidate, not evidence of Spain deployment. The engineering assessment identifies changes and gates without asserting a breaking API change. INT-RCV01; REF-API.</p>
+<p><div class="diagram"><img alt="Find an invoice, save its file, and deliver it once" src="../../assets/diagrams/invoice-retrieval-overview-process.svg" /></div></p>
+<p><a href="../../assets/diagrams/invoice-retrieval-overview-process.drawio">Draw.io</a> · <a href="../../assets/diagrams/invoice-retrieval-overview-process.png">PNG</a>.</p>
 <table>
 <thead>
 <tr>
-<th>Classification</th>
-<th>Intended use and qualification</th>
+<th>Walkthrough</th>
+<th>Result / detailed rule</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Reusable design patterns</td>
-<td>Scoped collection, verified capture, independent progress, duplicate handling and recovery. Source code coverage remains unknown.</td>
+<td>1. Reuse the business setup</td>
+<td>Resolve current business/action permission and the source binding. RSD-01; PRI-01.</td>
 </tr>
 <tr>
-<td>Shared capability needing country/provider rules</td>
-<td>Existing APIs, identity/route binding, records access, trust and inbound mapping. Qualify the actual build, contracts, local changes and run owner.</td>
+<td>2. Collect from the selected platform</td>
+<td>SPFE discovers by presentation date and downloads files separately. Private intake uses its qualified notification/fetch or supplied-file mode. RSD-03; PRI-02/03.</td>
 </tr>
 <tr>
-<td>Spain-specific</td>
-<td>Public discovery/download operations, registered representation, NIF/business identity, original/copy rules and public UBL profile. Do not make these defaults for another country. SPFE-S02/S03/S08.</td>
+<td>3. Save the source and covered progress</td>
+<td>Preserve exact files and classification before completing collection progress. A notification alone is insufficient. RSD-04–06.</td>
 </tr>
 <tr>
-<td>Preferred transformation candidate</td>
-<td>Existing DTS, where inbound mapping is required. Outbound generation and France UBL support do not qualify Spain inbound mapping. RRI-R05; RCV-Q09.</td>
+<td>4. List and open invoices</td>
+<td>Show permitted captured information and file roles. For SPFE, show freshness and distinguish an empty result from failed collection. SPEC026 §2.</td>
+</tr>
+<tr>
+<td>5. Download a selected file</td>
+<td>Required for SPFE; TBD for private platforms. Read safe saved bytes under current permission. RSD-07; REF-SCOPE.</td>
+</tr>
+<tr>
+<td>6. Complete downstream processing</td>
+<td>Validation, mapping and product receipt have their own outcomes. Recover their failures from saved bytes. RCV-02–09.</td>
 </tr>
 </tbody>
 </table>
-<p>The FR guide states 20 results per page, a 90-day creation query window, short-lived attachment links and a separate optional Factur-X representation request. These facts affect missed-event recovery and file handling; they are not Spain public limits or retention rules. INT-RCV01 sections 3.1–4 and Polling.</p>
+<p>Steps 4–5 use captured information independently of later mapping or product-delivery success. An available readable representation can support viewing; optional PDF/Factur-X generation does not replace the source. SPEC026 owns the detailed checks and recovery.</p>
+<h2 id="5-reuse-direction-and-spain-boundaries">5 Reuse direction and Spain boundaries</h2>
+<table>
+<thead>
+<tr>
+<th>Existing capability / pattern</th>
+<th>Spain work to confirm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E-Invoice list/detail and file download; optional notifications</td>
+<td>Confirm public and private view support, SPFE download binding, identity, file roles and missed-event recovery. Private user download stays a Product decision. The guide proves documented operations, not a running Spain integration.</td>
+</tr>
+<tr>
+<td>Shared capture, duplicate handling and records access</td>
+<td>Qualify the actual build, current permissions, integrity, retention and recovery.</td>
+</tr>
+<tr>
+<td>Existing DTS — preferred mapping candidate</td>
+<td>Prove the selected Spain inbound format, tax/extension fields and target-product mapping. Outbound UBL support alone is insufficient.</td>
+</tr>
+<tr>
+<td>Spain public collection</td>
+<td>Bind the supplied discovery/download operations, representation and UBL profile. Keep these country rules separate. SPFE-S02/S03/S08.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="6-material-decisions-and-dependencies">6 Material decisions and dependencies</h2>
 <table>
 <thead>
 <tr>
-<th>Decision / existing gate</th>
-<th>Consequence and accountable roles</th>
+<th>Decision</th>
+<th>Evidence / owner</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Enabled modes and entry points — RRI-Q01/02</td>
-<td>Product and Integration must select public/private cohorts and qualify what refresh, query and download mean. A private guide cannot establish AEAT notifications.</td>
+<td>Enabled sources and access — RRI-Q01/02; RET-G01/06</td>
+<td>Product, Identity and Integration: supported modes, recipient permission and public contract.</td>
 </tr>
 <tr>
-<td>Query completeness and recovery — RSD-G01/06/07</td>
-<td>Public connector, API and Operations must prove page boundaries, saved progress and gap recovery. The FR 90-day list cannot establish all-history recovery.</td>
+<td>Complete collection — RSD-G01/06/07; RET-G03</td>
+<td>API and Operations: page boundaries, saved progress, late arrivals and older-history recovery.</td>
 </tr>
 <tr>
-<td>Source files and inbound mapping — RSD-G05/08; RCV-Q03/09</td>
-<td>Format, DTS and Security owners must qualify exact source roles, Spain profile and mapping coverage. A derived PDF or transformed UBL cannot stand in for missing original bytes.</td>
+<td>Correct files and mapping — RET-G04/07</td>
+<td>Records, Security, Format and DTS: source provenance, safety and inbound meaning.</td>
 </tr>
 <tr>
-<td>Authority and historical access — RSD-G02/04; RCV-Q06/12</td>
-<td>Identity, Spain Compliance and Records must qualify each action and historical access. A valid token, certificate or client relationship alone is insufficient.</td>
+<td>Saved access and product receipt — RET-G05/09</td>
+<td>Records and Product: historical access, retention/holds, delivery identity and receipt.</td>
 </tr>
 <tr>
-<td>Product receipt and acknowledgement — RCV-Q05/07/08</td>
-<td>Product, Integration and Architecture must prove the receiving-to-product result and each source response's meaning. Event publication does not prove product consumption.</td>
+<td>Private user download — RRI-Q02; RET-G10</td>
+<td>Product/Compliance: decide provider scope, file roles, permissions and use before enabling this action. Private view remains required.</td>
 </tr>
 </tbody>
 </table>
+<p>SPEC027 records the full gates and owners. Existing query windows, temporary links and optional renderings are API constraints; they do not set Spain retention or release scope.</p>
 <h2 id="7-completion-and-assurance">7 Completion and assurance</h2>
-<p>A collection boundary is complete only when all covered items have the required durable source and classification, or an approved ignore outcome. Final mapping and ERP receipt are separately tracked. Overall consultation still requires evidenced product distribution and freshness under PRD-SEI-211; checkpoint completion alone does not prove that outcome. REF-PRODUCT; RSD-05/06; RCV-07.</p>
-<p>The <a href="SPEC-SEI-026.html#33-failure-and-recovery-decisions">failure and recovery table</a> identifies safe actions, owners and resume evidence. SPEC-SEI-026 retains functional acceptance and SPEC-SEI-027 adds API qualification evidence. Provider error meanings, partial-file recovery, retry limits and operational closure still need qualification; these documents do not claim that implementation tests have passed.</p>
+<p>Collection progress is complete only when each covered item has a saved source file and receiving classification, or an approved ignore outcome. Product processing, product receipt and source acknowledgement remain separate. PRD211 consultation also requires evidenced distribution and freshness. RSD-05/06; RCV-07; REF-PRODUCT.</p>
+<p>Use <a href="SPEC-SEI-026.html#33-failure-and-recovery-decisions">SPEC026 recovery</a> and acceptance for failure coverage. Implementation readiness requires the selected contracts, build, mappings and operational evidence; document review cannot establish it.</p>
 <h2 id="ref-source-references">REF Source references</h2>
 <table>
 <thead>
@@ -183,6 +182,12 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>REF-SCOPE</td>
+<td><a href="SPEC-SEI-026.html#1-purpose-actors-and-boundary">SPEC026 scope decision</a>, user direction and clarification, 30 October 2026</td>
+<td>Source/phase scope table; REF-SCOPE</td>
+<td>Public/private view required, SPFE user download required, private user download TBD. Product decision, not a legal or implementation claim.</td>
+</tr>
 <tr>
 <td>REF-BASE</td>
 <td><a href="../../specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a>, updated 20 October 2026</td>
@@ -221,8 +226,8 @@ code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100
 </tr>
 <tr>
 <td>REF-API</td>
-<td><a href="SPEC-SEI-027.html#ref-source-references">SPEC-SEI-027</a>, draft 22 October 2026</td>
-<td>Operation sources, local changes and qualification gates</td>
+<td><a href="SPEC-SEI-027.html#ref-source-references">SPEC027</a> and <a href="SPEC-SEI-042.html#ref-source-references">SPEC042</a>, drafts, 30 October 2026</td>
+<td>Operation sources, request/response examples, local changes and qualification gates</td>
 <td>Engineering analysis and original-contract links. Proposed controls have separate authority from external sources.</td>
 </tr>
 </tbody>

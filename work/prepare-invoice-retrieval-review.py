@@ -23,6 +23,7 @@ main{min-width:0}.outline{position:sticky;top:12px;align-self:start;max-height:9
 h1{font-size:30px}h2{margin-top:36px}h3{margin-top:30px}table{border-collapse:collapse;width:100%;margin:18px 0;font-size:14px}
 th,td{border:1px solid #cdd3d8;vertical-align:top;text-align:left;padding:10px;overflow-wrap:anywhere}th{background:#f3f5f7}
 code{font-size:.9em;background:#f1f3f5;overflow-wrap:anywhere}.diagram{width:100%;max-height:720px;overflow:auto;border:1px solid #b8c0c8;margin:18px 0}
+pre{max-width:100%;overflow-x:auto;padding:12px;background:#f1f3f5}
 .diagram img{display:block;max-width:none}p{max-width:1060px}
 @media(max-width:800px){.layout{display:block}.outline{position:static;max-height:200px;margin-bottom:24px}}
 '''
@@ -50,8 +51,8 @@ def validate_links(path):
 
 def main():
     OUT.mkdir(exist_ok=True)
-    docs = sorted(SOURCE.glob('SPEC-*.md'))
-    assert len(docs) == 3
+    docs = sorted(SOURCE.rglob('SPEC-*.md'))
+    assert len(docs) == 4
     repo_ids = Counter()
     for path in (ROOT / 'specs').rglob('*.md'):
         match = re.search(r'^id: (SPEC-\S+)$', path.read_text(), re.M)
@@ -66,7 +67,9 @@ def main():
             assert field in metadata, (path, field)
         assert metadata['status'] == 'draft' and metadata['confluence']['publish'] is False
         assert not metadata['confluence']['page_id'] and 'SPEC-SEI-016' in metadata['related']
-        assert '## Revision overview' in path.read_text() and '## REF Source references' in path.read_text()
+        if metadata['type'] == 'solution-spec':
+            assert '## Revision overview' in path.read_text()
+        assert '## REF Source references' in path.read_text()
         assert not re.search(r'^#+ .*?(change log|revision history)', path.read_text(), re.I | re.M)
         width = None
         for line in path.read_text().splitlines():
@@ -102,13 +105,13 @@ def main():
         cards.append(f'<li><a href="{ident}.html">{html.escape(metadata["title"])}</a></li>')
     (OUT / 'index.html').write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         + '<title>Invoice retrieval review</title><style>' + STYLE + '</style></head><body><header><h1>Invoice retrieval</h1>'
-        + '<p>Three unpublished draft views. SPEC-SEI-016 is retained in the archive; publication settings are unchanged.</p></header><main style="padding:24px;max-width:1100px">'
+        + '<p>Three unpublished draft views and an API reference. View is required for public/private; SPFE user download is required; private user download is TBD.</p></header><main style="padding:24px;max-width:1100px">'
         + '<ol>' + ''.join(cards) + '</ol><p>Document checks do not prove implementation readiness. Each engineering gap retains its owner and evidence gate.</p></main></body></html>')
     files = docs + [SOURCE / 'README.md', ROOT / 'README.md', ROOT / 'context/FR API/Receiving/receive-e-invoice-guide-extract.md']
     for path in files:
         validate_links(path)
     diagrams = sorted((ROOT / 'assets/diagrams').glob('invoice-retrieval-*-sequence.svg'))
-    assert len(diagrams) == 3
+    assert len(diagrams) == 4
     for path in diagrams:
         svg = ET.parse(path).getroot()
         assert svg.get('role') == 'img' and svg.get('aria-label')
