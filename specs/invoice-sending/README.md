@@ -7,6 +7,7 @@ Review sending through three complementary views, following [customer onboarding
 | [Solution Summary — SPEC-SEI-022](SPEC-SEI-022-invoice-sending-solution-summary.md) | Business outcome, scope, actors, workflow and material decisions. Start here. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=923861395) |
 | [Logical Feature Specification — SPEC-SEI-023](SPEC-SEI-023-invoice-sending-logical-feature-specification.md) | Scenarios, OUT activities, rules, failures, recovery and functional acceptance. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937951484) |
 | [Sequence and Reuse Assessment — SPEC-SEI-024](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md) | FR submission/upload/event/detail sequences, Spain public/private differences and engineering evidence gaps. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937951488) |
+| [API Reference — SPEC-SEI-042](api-reference/SPEC-SEI-042-invoice-sending-api-reference.md) | Detailed API fields, request/response examples, field-level reuse and confirmed contract defects. | Draft; publication not enabled |
 
 [Local review preview](../../work/invoice-sending-review/index.html) · [FR guide evidence extract](<../../context/FR API/Sending/send-e-invoice-guide-extract.md>).
 

@@ -12,6 +12,7 @@ related:
   - SPEC-SEI-007
   - SPEC-SEI-022
   - SPEC-SEI-024
+  - SPEC-SEI-042
   - PRD-SEI-246
   - PRD-SEI-223
   - PRD-SEI-212
@@ -29,7 +30,7 @@ confluence:
 
 # Invoice Sending Logical Feature Specification
 
-[Solution Summary](SPEC-SEI-022-invoice-sending-solution-summary.md) · [Sequence and Reuse Assessment](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md) · [Feature landing page](README.md)
+[Solution Summary](SPEC-SEI-022-invoice-sending-solution-summary.md) · [Sequence and Reuse Assessment](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md) · [API Reference](api-reference/SPEC-SEI-042-invoice-sending-api-reference.md) · [Feature landing page](README.md)
 
 ## Revision overview
 
@@ -97,7 +98,7 @@ The [product rule](../../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound
 | OUT-PDF-R01 | Before planned sending, resolve whether the PDF is required, exempt or not applicable under the product rule. Retain the applicable cohort/date and any recipient exception evidence. When required, the local product generates a readable PDF for the exact final invoice revision and supplies its file reference/hash. Missing, mismatched or unsafe content returns an owned readiness hold. A changed invoice requires a matching PDF; already-issued facts cannot be silently changed. |
 | OUT-PDF-R02 | Plan the required PDF's delivery to the recipient through a qualified private attachment path or a separate permitted channel. Exclude the PDF from every public-platform request, including MIME attachments. Record its delivery evidence and unresolved obligations separately from structured-invoice delivery and public-copy submission. Upload success is not recipient delivery. A PDF failure cannot repeat a successful structured-invoice action; preserve any issued/transmitted work and reconcile the affected PDF operation. |
 
-These rules also apply when the structured invoice uses the public route. [SEI024 section 3.3](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#33-transitional-pdf-generation-and-attachment-delivery) assesses file transport; it does not transfer PDF generation to the API or DTS. Exact channel timing, completion evidence and release handling need the selected-channel qualification below. RD238-T2.
+These rules also apply when the structured invoice uses the public route. [SEI042 section 2 — Invoice document and file handling](api-reference/SPEC-SEI-042-invoice-sending-api-reference.md#invoice-document-and-file-handling) assesses file transport; it does not transfer PDF generation to the API or DTS. Exact channel timing, completion evidence and release handling need the selected-channel qualification below. RD238-T2.
 
 ### Exceptions, errors and recovery
 
@@ -121,7 +122,7 @@ Use the evidence of a possible external effect to select the next step. An error
 | Cancellation or refusal races with execution | Close only pending work proven safe to stop. If an effect may have occurred, report cancellation/recovery pending and reconcile through the currently authorised owner. Already-issued facts and completed actions remain; no undocumented cancel/withdraw endpoint is assumed. | OUT-A16/21; OUT-Q01/03; SND-G04. |
 | Temporary outage, rate limit or caller authentication failure | API/Operations first establishes the affected action's effect boundary. Retry only proven safe work under the selected contract; otherwise reconcile or hold. Restoring caller access does not restore withdrawn business authority. Retry intervals, limits and escalation targets remain to qualify. | OUT-A08/16/20; SND-G04/07. |
 
-The product view identifies the affected invoice/action, known versus unknown result, retained successes, next action and current owner (OUT-15). Resume only after evidence resolves the blocked check and current authority permits the next action. Escalation or manual case assignment is not proof of completion. API codes and contract evidence remain in [SEI024 section 3.2](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#32-shared-authentication-safety-and-source-conflicts).
+The product view identifies the affected invoice/action, known versus unknown result, retained successes, next action and current owner (OUT-15). Resume only after evidence resolves the blocked check and current authority permits the next action. Escalation or manual case assignment is not proof of completion. API codes and contract evidence remain in [SEI024 section 3.2](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#32-shared-authentication-safety-and-source-conflicts) and [SEI042 section 2 — Response, notification and error proposal](api-reference/SPEC-SEI-042-invoice-sending-api-reference.md#response-notification-and-error-proposal).
 
 The [FR attempt-error assessment](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#34-fr-attempt-errors-and-annex-ii-handoff) preserves exact codes and retry ownership. A technical send error cannot generate Spain `REJECTION`, payment or report-cancellation messages. The separate Annex II supplement concerns lifecycle reporting; final BOE Annex II remains authoritative for legal rules. INT-ERR01; SPFE-S22; SPFE-S02 Annex II.
 

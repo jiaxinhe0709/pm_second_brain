@@ -12,6 +12,7 @@ related:
   - SPEC-SEI-007
   - SPEC-SEI-023
   - SPEC-SEI-024
+  - SPEC-SEI-042
   - PRD-SEI-246
   - PRD-SEI-212
   - PRD-SEI-223
@@ -30,7 +31,7 @@ confluence:
 
 # Invoice Sending Solution Summary
 
-[Logical Feature Specification](SPEC-SEI-023-invoice-sending-logical-feature-specification.md) · [Sequence and Reuse Assessment](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md) · [Feature landing page](README.md)
+[Logical Feature Specification](SPEC-SEI-023-invoice-sending-logical-feature-specification.md) · [API Reference](api-reference/SPEC-SEI-042-invoice-sending-api-reference.md) · [Sequence and Reuse Assessment](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md) · [Feature landing page](README.md)
 
 ## Revision overview
 
@@ -42,7 +43,7 @@ ERP issuance ownership and independent action outcomes remain unchanged. The cur
 
 A Spanish business or authorised accountant must prepare an invoice, resolve blocking issues and send the exact final invoice through a qualified route. The ERP owns issuance. The product must show what happened to each delivery or required public copy and who must act next.
 
-This summary is for Product, directors and cross-functional stakeholders. [SPEC-SEI-023](SPEC-SEI-023-invoice-sending-logical-feature-specification.md) owns the proposed behaviour in this set. [SPEC-SEI-024](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md) assesses existing APIs and evidence gaps. REF-BASE; REF-PRODUCT.
+This summary is for Product, directors and cross-functional stakeholders. [SPEC-SEI-023](SPEC-SEI-023-invoice-sending-logical-feature-specification.md) owns the proposed behaviour in this set. [SPEC-SEI-024](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md) assesses existing APIs and evidence gaps. [SPEC-SEI-042](api-reference/SPEC-SEI-042-invoice-sending-api-reference.md) owns the API reference. REF-BASE; REF-PRODUCT.
 
 ## 2 Terms used
 
@@ -75,7 +76,7 @@ The plan distinguishes the sender connection from the recipient destination. For
 
 [Full-size SVG](../../assets/diagrams/invoice-sending-end-to-end-workflow.svg) · [Editable Draw.io](../../assets/diagrams/invoice-sending-end-to-end-workflow.drawio) · [PNG](../../assets/diagrams/invoice-sending-end-to-end-workflow.png).
 
-The **red dashed box keeps service-assisted draft entry, preparation and validation TBC**. Final candidates and qualified already-issued invoices still need current authority, final validation and an eligible route. A failed, stale or ambiguous lookup does not prove that no private address has been communicated to the sender by the recipient. Dispatch holds until the approved Spain rule and evidence resolve the destination. Whether the public route applies when no private address has been communicated to the sender by the recipient remains a Product and Spain Compliance source conflict; see SPEC-SEI-023 OUT-09 and SPEC-SEI-024 section 3.5.
+The **red dashed box keeps service-assisted draft entry, preparation and validation TBC**. Final candidates and qualified already-issued invoices still need current authority, final validation and an eligible route. A failed, stale or ambiguous lookup does not prove that no private address has been communicated to the sender by the recipient. Dispatch holds until the approved Spain rule and evidence resolve the destination. Whether the public route applies when no private address has been communicated to the sender by the recipient remains a Product and Spain Compliance source conflict; see SPEC-SEI-023 OUT-09 and [SPEC-SEI-042 section 2](api-reference/SPEC-SEI-042-invoice-sending-api-reference.md#2-proposed-spain-extension-of-the-send-e-invoice-api).
 
 The ERP owns issuance. Coordinate any required public copy with issuance under OUT-Q03. Recipient delivery and public-copy results stay independent; technical success does not establish buyer acceptance. OUT-SPFE-R01; SPFE-S02 Article 4; OUT-13–15.
 
