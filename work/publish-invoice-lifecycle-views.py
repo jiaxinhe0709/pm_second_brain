@@ -80,7 +80,8 @@ def install_links(revision, docs):
                     return match[0]
             destination = 'https://confluence.sage.com/display/DNBU/' + quote(title.replace(' ', '+'), safe='+')
             if fragment:
-                destination += '#' + re.sub(r'\s+', '', title) + '-' + fragment
+                # Verified against rendered DNBU anchors, including the E-Invoice title.
+                destination += '#' + re.sub(r'[^A-Za-z0-9]', '', title) + '-' + fragment
             return '<a href="' + html.escape(destination, quote=True) + '">' + match[2] + '</a>'
 
         return re.sub(r'<a href="([^"]+)">(.*?)</a>', link, storage, flags=re.S)

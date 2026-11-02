@@ -5,9 +5,9 @@ Use the same reading structure as [onboarding and connectivity](../onboarding-an
 | Read | Purpose | Confluence |
 |---|---|---|
 | [Solution Summary — SPEC-SEI-028](SPEC-SEI-028-invoice-lifecycle-solution-summary.md) | Business outcomes, scope, reuse direction and material decisions. Start here. | [Open summary](https://confluence.sage.com/pages/viewpage.action?pageId=923861398) |
-| [Logical Feature Specification — SPEC-SEI-029](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md) | Scenarios, LCS rules, Spain events, failure/recovery and acceptance. | Publication approved; page pending |
-| [Sequence and Reuse Assessment — SPEC-SEI-030](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md) | Reuse sequences, country-pack/architecture assessment, product impact and the authoritative LIF-G01–08 register. | Publication approved; page pending |
-| [API Reuse and Spain Changes — SPEC-SEI-041](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md) | Existing calls, proposed SPFE action/field mappings, Spain payload examples and headers/errors. | Publication approved; page pending |
+| [Logical Feature Specification — SPEC-SEI-029](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md) | Scenarios, LCS rules, Spain events, failure/recovery and acceptance. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937965384) |
+| [Sequence and Reuse Assessment — SPEC-SEI-030](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md) | Reuse sequences, country-pack/architecture assessment, product impact and the authoritative LIF-G01–08 register. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937965388) |
+| [API Reuse and Spain Changes — SPEC-SEI-041](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md) | Existing calls, proposed SPFE action/field mappings, Spain payload examples and headers/errors. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937965396) |
 
 [Supplied POST contract](<../../context/FR API/Lifecycle/update-e-invoice-status.openapi.json>) · [API guide evidence](<../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md>) · [Annex II comparison](<../../context/Anexo II/annex-ii-review.md>). The POST contract declares API `1.0.0`; the guides link `1.13.0`. Their build relationship and Spain support remain unconfirmed.
 
