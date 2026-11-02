@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-29
+updated: 2026-11-02
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -21,10 +21,11 @@ related:
   - GLO-SEI-001
   - RES-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "837610664"
   page_id: ""
+  title: Invoice Lifecycle Sequence and Reuse Assessment
   layout: two_left_sidebar
   toc: true
 ---
@@ -35,7 +36,7 @@ confluence:
 
 ## Revision overview
 
-This view assesses reuse against [SPEC009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), which stays unchanged and remains the Confluence source. It owns sequences, product impact and LIF-G01–08. SPEC041 owns call details, examples and the proposed SPFE API/XML mapping. The binding proposal covers all eight actions and 52 source rows; engineering qualification and implementation readiness remain open. No new endpoint or breaking change is approved.
+This view assesses reuse against [SPEC009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), which stays unchanged in Git. SPEC-SEI-028 is the selected Confluence summary; this assessment is a companion view. It owns sequences, product impact and LIF-G01–08. SPEC041 owns call details, examples and the proposed SPFE API/XML mapping. The binding proposal covers all eight actions and 52 source rows; engineering qualification and implementation readiness remain open. No new endpoint or breaking change is approved.
 
 ## 1 Reuse decision and product impact
 
