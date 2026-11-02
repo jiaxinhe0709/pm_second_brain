@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-30
+updated: 2026-11-02
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -61,7 +61,7 @@ An authorised accountant sends one invoice for one client through the same POST/
 
 ## 2 Proposed reuse sequences
 
-The sequences distinguish <span style="color:#666666;">**Existing**</span> guide operations from <span style="color:#1565C0;">**Proposed**</span> logical handoffs. <span style="color:#B42318;">**Open**, **Assumption** and **Source conflict**</span> identify unresolved evidence. Participants group responsibilities, not approved deployments. Requests use solid arrows; paired responses use dashed arrows. Grey bars do not promise timing.
+The diagrams use <span style="color:#666666;">**grey — Existing**</span> for documented calls and <span style="color:#1565C0;">**blue — Proposed**</span> for Spain handoffs. <span style="color:#B42318;">**Red — Open, Assumption, Gap or Source conflict**</span> marks unresolved evidence or contracts. Read the text label beside each colour. Participants group responsibilities, not approved deployments. Requests use solid arrows; paired responses use dashed arrows. Grey bars show handling, not elapsed time. Colour does not establish Spain implementation support.
 
 ### 2.1 Documented FR submission and observation
 
@@ -73,11 +73,11 @@ Use only after current business/action authority, a qualified `CONNECTED` setup 
 
 ### 2.2 Spain final plan and independent actions
 
-![Spain final handoff, public action and independent recipient delivery](../../assets/diagrams/invoice-sending-spain-actions-sequence.svg)
+![Spain proposed handoffs, private-platform public copy and open result-reporting contracts](../../assets/diagrams/invoice-sending-spain-actions-sequence.svg)
 
 [Editable Draw.io](../../assets/diagrams/invoice-sending-spain-actions-sequence.drawio) · [PNG](../../assets/diagrams/invoice-sending-spain-actions-sequence.png).
 
-The public recipient route and private recipient route are alternatives. A required public copy is another action. The copy/issuance frame is a logical coordination requirement; it makes no claim about physical simultaneity, an atomic transaction or an existing API. OUT-Q03 must prove the boundary and failure handling. Public protocol execution follows SPEC-SEI-011; destination evidence follows SPEC-SEI-012 and connection context follows SPEC-SEI-014. SPFE-S02/S08/S16; OUT-A03/04/07/12; OUT-SPFE-A01.
+The public and private recipient routes are alternatives. The private-platform lane performs the proposed Phase 2 copy action; Sage performs that role when it operates as the private platform. Red labels keep the assumed copy capability and missing report/acknowledgement contract visible. The copy/issuance frame shows logical coordination, not physical timing or an atomic transaction. OUT-Q03 must prove the boundary and failure handling; SND-G05 owns the result-reporting and retry gaps. Public protocol execution follows SPEC-SEI-011; destination evidence follows SPEC-SEI-012 and connection context follows SPEC-SEI-014. SPFE-S02/S08/S16; OUT-A03/04/07/12; OUT-SPFE-A01.
 
 The diagram covers private delivery with a required copy and direct public recipient delivery. It does not show every sender-to-recipient platform combination. The table below makes the API coverage and remaining gaps explicit. **Public/private describes the platform used by each party.** The copy decision also needs evidence of the platform actually used for issuance or interconnection; a private recipient alone does not establish a copy obligation. OUT-09/10; OUT-SPFE-R01; SPFE-S02 Articles 3.4/4.
 
