@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-30
+updated: 2026-11-02
 reviewers: []
 related:
   - SPEC-SEI-016
@@ -21,9 +21,9 @@ related:
   - GLO-SEI-001
   - RES-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "837610662"
   page_id: ""
   layout: two_left_sidebar
   toc: true
@@ -55,7 +55,7 @@ Reuse the dataset and platform setup established by onboarding. [Lifecycle](../i
 
 | Trigger | Required outcome / safe alternative | Existing coverage |
 |---|---|---|
-| Public collection is due; customer requests refresh | Collect the eligible scope automatically; join equivalent refreshes. A failed query cannot be reported as an empty success. | RSD-01–06; A01–03/07/10 |
+| Public collection is due; customer requests refresh | Collect the eligible scope automatically, including when no customer is viewing the list. Customer refresh can accelerate collection; join equivalent refreshes. A failed query cannot be reported as an empty success. | RSD-01–06; A01–03/07/10; REF-PRODUCT, PRD211 Product principles 1–2 |
 | Business/accountant opens a public or private invoice list or detail | Check current client/invoice permission. Show permitted invoice content and source/file roles. A metadata-only availability record is not a complete invoice view. Distinguish no invoices from incomplete or failed intake; show collection freshness for SPFE. Viewing captured information does not depend on a live platform response. | RSD-01/03/07; RCV-02; PRD211 FR30–33/48/52; REF-SCOPE |
 | Business/accountant downloads a captured SPFE file | Check current client/file authority, safety and integrity; return the selected labelled bytes or a recorded denial/incident. Mapping/product failure alone does not block a safe permitted source read. | RRI-A05/08; RSD-A04/08/09/14; RCV-A23 |
 | Enabled private provider uses notification/reference intake | Save the observation, then obtain required files. Missing bytes remain `FETCH_PENDING` with an owner. | RRI-A02/03; PRI-01–04; transfer contract to confirm |
@@ -146,6 +146,8 @@ When the qualified retry policy is exhausted, stop automatic repetition and keep
 ## 5 Decisions and technical analysis boundary
 
 [SPEC027’s gates](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md#4-open-engineering-decisions) map API evidence to existing RRI-Q01–03, RSD-G01–09 and RCV-Q01–13. Unproved coverage blocks the affected mode. No service boundary, cadence, SLA, retention period or acknowledgement deadline is approved here.
+
+[SPEC027 §3.1](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md#31-query-coverage-and-recovery) records the proposed list-open refresh and Architecture's pull-policy decisions. It does not make a live SPFE call a condition for viewing captured information.
 
 ## 6 Functional acceptance
 
