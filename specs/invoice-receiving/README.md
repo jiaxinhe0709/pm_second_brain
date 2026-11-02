@@ -1,8 +1,12 @@
 # Invoice receiving
 
-Use the same three reading views and detailed API reference as [onboarding](../onboarding-and-connectivity/README.md). These are unpublished drafts based on SPEC016 and the supplied `/context` evidence.
+Use the same three reading views and detailed API reference as [onboarding](../onboarding-and-connectivity/README.md). These drafts are based on SPEC016 and the supplied `/context` evidence. Publication was authorised on 2 November 2026; lifecycle status remains draft.
 
 **View is required for public and private platforms. SPFE user download is required; private user download is TBD.** [SPEC026 §1](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#1-purpose-actors-and-boundary) owns this product decision. Backend source-file acquisition is a separate action.
+
+**Which API does what?** **Query e-invoices** supplies the invoice list (RET-API-01). **Retrieve e-invoice** supplies one invoice's details, status history and attachment download links (RET-API-02). Downloading an attachment follows a returned link as part of this flow. RET-API-03 documents that file-transfer step; it is not a third Sage invoice endpoint. Query can also return attachment links. See [the API comparison and flow](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#1-existing-product-facing-calls). Spain implementation coverage still needs qualification.
+
+**How do new SPFE invoices reach the list?** Sage must initiate discovery and file pulls using the supplied contracts; no SPFE webhook or WebSocket interface is established. [SPEC027 §3.1](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md#31-query-coverage-and-recovery) compares France notifications, the scheduled baseline and the proposed refresh when a customer opens a stale list. Architecture must determine cadence, rate limits and execution; the customer-view trigger remains a proposal.
 
 | Read | Purpose |
 |---|---|
@@ -31,4 +35,4 @@ The folder name covers receiving, retrieval and download. Source intake, product
 
 The companions retain existing RRI, PRI, RSD and RCV meanings. Their Revision overviews identify the split, unchanged areas and open decisions. The API guide supplies reuse evidence; it does not prove Spain coverage. Phase 1 is SPFE; Phase 2 adds external private providers; Phase 3 covers the Sage offering. Labels do not establish provider readiness.
 
-SPEC-SEI-016 remains unchanged and selected for stable Confluence page `933331276` in [the publication configuration](../../config/confluence.yml). This README is local navigation. No live publication or companion page creation is authorised by this draft set.
+SPEC-SEI-016 remains unchanged. SPEC-SEI-025 is selected for stable Confluence page `933331276` in [the publication configuration](../../config/confluence.yml). SPEC026, SPEC027 and SPEC042 are distinct detail pages under the same public consultation parent (`837610662`); creation is authorised where no matching page exists. This README is local navigation.

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-30
+updated: 2026-11-02
 reviewers: []
 related:
   - SPEC-SEI-016
@@ -21,9 +21,9 @@ related:
   - GLO-SEI-001
   - RES-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "837610662"
   page_id: ""
   layout: two_left_sidebar
   toc: true
@@ -55,7 +55,7 @@ Reuse the dataset and platform setup established by onboarding. [Lifecycle](../i
 
 | Trigger | Required outcome / safe alternative | Existing coverage |
 |---|---|---|
-| Public collection is due; customer requests refresh | Collect the eligible scope automatically; join equivalent refreshes. A failed query cannot be reported as an empty success. | RSD-01–06; A01–03/07/10 |
+| Public collection is due; customer requests refresh | Collect the eligible scope automatically, including when no customer is viewing the list. Customer refresh can accelerate collection; join equivalent refreshes. A failed query cannot be reported as an empty success. | RSD-01–06; A01–03/07/10; REF-PRODUCT, PRD211 Product principles 1–2 |
 | Business/accountant opens a public or private invoice list or detail | Check current client/invoice permission. Show permitted invoice content and source/file roles. A metadata-only availability record is not a complete invoice view. Distinguish no invoices from incomplete or failed intake; show collection freshness for SPFE. Viewing captured information does not depend on a live platform response. | RSD-01/03/07; RCV-02; PRD211 FR30–33/48/52; REF-SCOPE |
 | Business/accountant downloads a captured SPFE file | Check current client/file authority, safety and integrity; return the selected labelled bytes or a recorded denial/incident. Mapping/product failure alone does not block a safe permitted source read. | RRI-A05/08; RSD-A04/08/09/14; RCV-A23 |
 | Enabled private provider uses notification/reference intake | Save the observation, then obtain required files. Missing bytes remain `FETCH_PENDING` with an owner. | RRI-A02/03; PRI-01–04; transfer contract to confirm |
@@ -147,6 +147,8 @@ When the qualified retry policy is exhausted, stop automatic repetition and keep
 
 [SPEC027’s gates](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md#4-open-engineering-decisions) map API evidence to existing RRI-Q01–03, RSD-G01–09 and RCV-Q01–13. Unproved coverage blocks the affected mode. No service boundary, cadence, SLA, retention period or acknowledgement deadline is approved here.
 
+[SPEC027 §3.1](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md#31-query-coverage-and-recovery) records the proposed list-open refresh and Architecture's pull-policy decisions. It does not make a live SPFE call a condition for viewing captured information.
+
 ## 6 Functional acceptance
 
 Required checks below retain their detailed IDs in REF-BASE Part 4. They have not been run against an implementation.
@@ -177,8 +179,8 @@ Required checks below retain their detailed IDs in REF-BASE Part 4. They have no
 | INT-ERR01 | [FR error-handling extract](<../../context/FR API/Shared/invoice-flow-error-handling-guide-extract.md>), received 22 October 2026, revision/build unknown | Processing and error fields; `ERR-RECEIVING-DOC`, `ERR-RECEIVING-NOT`; Recovery interpretation | History-only attempt outcomes and code-specific retry/support actions. No automatic consumer resend or universal six-day policy. |
 | SPFE-S22 | [Separate Annex II](<../../context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf>), received 22 October 2026, filename date 21 October; release unverified | §§1–4 pp. 4–14; rejection list L1 p. 15 | Lifecycle code/actor/field evidence, not file-retrieval or AEAT processing-error contracts. Final SPFE-S02 Annex II remains legal baseline; [comparison](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-ii-supplement-reviewed-22-october-2026). |
 | SPFE-S02 | [Final Order HAC/1028/2026](../../context/BOE-A-2026-20587.pdf), published 5 October 2026 | Article 6; Articles 9–11, PDF pp. 8–11 | Spain public identity, recovery/access and representation. Does not define internal storage or public wire fields. |
-| SPFE-S03 | [Original catalogue](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026 | Sections 6.4–6.7, pp. 12–15 | Operation purposes, roles, limits and `SECUENCE_ID`. Complete query/download formats and side effects remain unqualified. |
-| SPFE-S08 | [Original formats](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), 0.1.0, 9 October 2026, BORRADOR | §5.1.1 p. 8; §§5.4–5.7 pp. 14–15 | UBL 2.5 `InvoiceType`; query/download formats pending. Not a full validator. |
+| SPFE-S03 | [Original catalogue](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026 | Sections 6.4–6.7, pp. 12–15 | Operation purposes, roles, limits and `SECUENCE_ID`. Complete query/download formats and side effects remain unqualified. |
+| SPFE-S08 | [Original formats](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), 0.1.0, 9 October 2026, BORRADOR | §5.1.1 p. 8; §§5.4–5.7 pp. 14–15 | UBL 2.5 `InvoiceType`; query/download formats pending. Not a full validator. |
 | SPFE-S09 | [Original factura.xml](../../context/Ejemplos/20261013/factura.xml), supplied 13 October 2026 | `cbc:ProfileID`; `cbc:CopyIndicator` | Example profile conflict and original classification only; not a complete faithful-copy contract. |
 | SPFE-S12–15 | [DownloadInvoicesByID](<../../context/WSDL servicios web - PRE_29:10:2026/DownloadInvoicesByID.wsdl>), [DownloadInvoicesByLOC](<../../context/WSDL servicios web - PRE_29:10:2026/DownloadInvoicesByLOC.wsdl>), [GetInvoices](<../../context/WSDL servicios web - PRE_29:10:2026/GetInvoices.wsdl>), [GetRegisteredInvoice](<../../context/WSDL servicios web - PRE_29:10:2026/GetRegisteredInvoice.wsdl>), PRE release 29 October 2026 | Named operation, binding and service ports in each file | Exact operation names and PRE transport; opaque attachments do not complete business schemas; current transport rules are in SPEC-SEI-011 PCN-SPFE-R02/R03. |
 | REF-EVIDENCE | [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md), repository evidence baseline | REF; SPFE-Q06/Q09/Q12–14/Q17 | Reading route to originals and unresolved conflicts; source inventory completeness is not mapping readiness. |
