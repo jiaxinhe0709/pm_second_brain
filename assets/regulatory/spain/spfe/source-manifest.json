@@ -36,7 +36,7 @@
     },
     {
       "source_id": "SPFE-S03",
-      "path": "context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf",
+      "path": "context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf",
       "bytes": 472161,
       "sha256": "0b216e41e0e5100b6cf82bd3a25c9bd4f395f8b3d269b77afc6e50a5c3b51b53",
       "kind": "pdf",
@@ -46,7 +46,7 @@
     },
     {
       "source_id": "SPFE-S04",
-      "path": "context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/PETICIÓN/Peticion_ebXML- SUBMITINVOICE.xml",
+      "path": "context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/PETICIÓN/Peticion_ebXML- SUBMITINVOICE.xml",
       "bytes": 1734,
       "sha256": "953155c707a0daf221dc3ed8c94c814dede329924436f0bfbbc8815707201738",
       "kind": "xml",
@@ -54,7 +54,7 @@
     },
     {
       "source_id": "SPFE-S05",
-      "path": "context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/PETICIÓN/altaFacturas.xml",
+      "path": "context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/PETICIÓN/altaFacturas.xml",
       "bytes": 5376,
       "sha256": "1136fee5a307ecd4e3918a987b704da239ebdd05db66021d95b63ff60486c97f",
       "kind": "xml",
@@ -62,7 +62,7 @@
     },
     {
       "source_id": "SPFE-S06",
-      "path": "context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/RespuestaAltaFacturas.xml",
+      "path": "context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/RespuestaAltaFacturas.xml",
       "bytes": 1401,
       "sha256": "f7bf229a7c6d0401f9364d572a293ad33051c43b08051cbf661ec8427db8e5f5",
       "kind": "xml",
@@ -70,7 +70,7 @@
     },
     {
       "source_id": "SPFE-S07",
-      "path": "context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/Respuesta_ebXML- SUBMITINVOICE.xml",
+      "path": "context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/Respuesta_ebXML- SUBMITINVOICE.xml",
       "bytes": 1839,
       "sha256": "8c86f1c3a1e2c4d2c5352a053be572e6431b5178d3d030d248dde1c57cfad966",
       "kind": "xml",
@@ -78,7 +78,7 @@
     },
     {
       "source_id": "SPFE-S08",
-      "path": "context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf",
+      "path": "context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf",
       "bytes": 898951,
       "sha256": "53bbad27f7672865a370a30ef9ccd2f3b0f9d22cdc79be7db344e631e7fdbd5b",
       "kind": "pdf",
