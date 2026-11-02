@@ -14,7 +14,7 @@ SPEC = '../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-re
 def build():
     sequences = []
     s = renderer.Sequence('invoice-sending-fr-submission-sequence',
-        'FR submission and observation', 'Existing guide flow; Spain contracts and implementation remain to qualify',
+        'Existing E-Invoice API submission and observation', 'Existing guide flow; Spain contracts and implementation remain to qualify',
         SPEC + '#21-documented-fr-submission-and-observation',
         ['ERP / product', 'E-Invoice API', 'File upload', 'Events'])
     s.note('Precondition: current business/action authority, qualified CONNECTED setup and approved final files. HTTP intake is separate from processing, delivery and buyer acceptance.', '[Proposed] Spain qualification; OUT-08/11/12; INT-SND01 prerequisites')

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="app.diagrams.net" type="device" version="24.7.17">
-  <diagram id="invoice-sending-fr-submission-sequence" name="FR submission and observation">
+  <diagram id="invoice-sending-fr-submission-sequence" name="Existing E-Invoice API submission and observation">
     <mxGraphModel page="1" pageWidth="1415" pageHeight="1566">
       <root>
         <mxCell id="0" />
@@ -8,8 +8,8 @@
         <mxCell id="v1" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#777777;">
           <mxGeometry as="geometry" x="8" y="8" width="1399" height="1550" />
         </mxCell>
-        <mxCell id="v2" value="FR submission and observation" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=27;fontColor=#222222;">
-          <mxGeometry as="geometry" x="30" y="18" width="505.29" height="26" />
+        <mxCell id="v2" value="Existing E-Invoice API submission and observation" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=27;fontColor=#222222;">
+          <mxGeometry as="geometry" x="30" y="18" width="845.49" height="26" />
         </mxCell>
         <mxCell id="v3" value="Existing guide flow; Spain contracts and implementation remain to qualify" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=17;fontColor=#222222;">
           <mxGeometry as="geometry" x="30" y="59" width="793.83" height="26" />

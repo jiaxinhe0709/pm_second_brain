@@ -63,9 +63,11 @@ An authorised accountant sends one invoice for one client through the same POST/
 
 The diagrams use <span style="color:#666666;">**grey — Existing**</span> for documented calls and <span style="color:#1565C0;">**blue — Proposed**</span> for Spain handoffs. <span style="color:#B42318;">**Red — Open, Assumption, Gap or Source conflict**</span> marks unresolved evidence or contracts. Read the text label beside each colour. Participants group responsibilities, not approved deployments. Requests use solid arrows; paired responses use dashed arrows. Grey bars show handling, not elapsed time. Colour does not establish Spain implementation support.
 
-### 2.1 Documented FR submission and observation
+<a id="21-documented-fr-submission-and-observation"></a>
 
-![FR create, upload, status event and detail sequence](../../assets/diagrams/invoice-sending-fr-submission-sequence.svg)
+### 2.1 Documented current E-Invoice API submission and observation
+
+![Existing E-Invoice API create, upload, status event and detail sequence](../../assets/diagrams/invoice-sending-fr-submission-sequence.svg)
 
 [Editable Draw.io](../../assets/diagrams/invoice-sending-fr-submission-sequence.drawio) · [PNG](../../assets/diagrams/invoice-sending-fr-submission-sequence.png).
 
