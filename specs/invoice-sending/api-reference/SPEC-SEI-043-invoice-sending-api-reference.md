@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-02
 reviewers: []
 related:
   - SPEC-SEI-024
@@ -14,7 +14,7 @@ related:
   - SPEC-SEI-023
   - GLO-SEI-001
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
   parent_page_id: "837610656"
   page_id: ""
@@ -37,7 +37,7 @@ This page owns request/response examples, detailed API fields, field-level chang
 
 ## How to read the examples
 
-<span style="color:#666666;">Grey — Existing behaviour, calls and fields.</span> <span style="color:#1565C0;">Blue — Proposed Spain change.</span> <span style="color:#B42318;">Red — Open question, Assumption, Gap or Source conflict.</span> Always read the text label beside each colour. This follows [SPEC-SEI-039 §3](../../onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#3-proposed-reuse-sequences--phases-13) and [SPEC-SEI-040 “How to read the examples”](../../onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#how-to-read-the-examples). Examples use the preserved France-oriented contract and proposed Spain values where explicitly labelled. Proposed values and response fields are not approved wire contracts or implementation evidence.
+<span style="color:#666666;">Grey — Existing behaviour, calls and fields.</span> <span style="color:#1565C0;">Blue — Proposed Spain change.</span> <span style="color:#B42318;">Red — Open question, Assumption, Gap or Source conflict.</span> Always read the text label beside each colour. This follows [SPEC-SEI-039 §3](../../onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#3-proposed-reuse-sequences-phases-13) and [SPEC-SEI-040 “How to read the examples”](../../onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#how-to-read-the-examples). Examples use the preserved France-oriented contract and proposed Spain values where explicitly labelled. Proposed values and response fields are not approved wire contracts or implementation evidence.
 
 <a id="1-identity-routing-and-representation"></a>
 
