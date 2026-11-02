@@ -36,3 +36,7 @@ The folder name covers receiving, retrieval and download. Source intake, product
 The companions retain existing RRI, PRI, RSD and RCV meanings. Their Revision overviews identify the split, unchanged areas and open decisions. The API guide supplies reuse evidence; it does not prove Spain coverage. Phase 1 is SPFE; Phase 2 adds external private providers; Phase 3 covers the Sage offering. Labels do not establish provider readiness.
 
 SPEC-SEI-016 remains unchanged. SPEC-SEI-025 is selected for stable Confluence page `933331276` in [the publication configuration](../../config/confluence.yml). SPEC026, SPEC027 and SPEC042 are distinct detail pages under the same public consultation parent (`837610662`); creation is authorised where no matching page exists. This README is local navigation.
+
+## Confluence reading views
+
+Confluence views: [Summary](https://confluence.sage.com/pages/viewpage.action?pageId=933331276) · [Required behaviour](https://confluence.sage.com/pages/viewpage.action?pageId=943980648) · [Sequences and reuse](https://confluence.sage.com/pages/viewpage.action?pageId=943980652) · [API reference](https://confluence.sage.com/pages/viewpage.action?pageId=943980662)

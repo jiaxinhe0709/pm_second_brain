@@ -24,7 +24,7 @@ confluence:
   publish: true
   space_key: DNBU
   parent_page_id: "837610662"
-  page_id: ""
+  page_id: "943980648"
   layout: two_left_sidebar
   toc: true
 ---
@@ -32,6 +32,8 @@ confluence:
 # Invoice Retrieval Logical Feature Specification
 
 [Solution summary](SPEC-SEI-025-invoice-retrieval-solution-summary.md) · [API reuse assessment](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md) · [API calls and Spain changes](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md)
+
+Confluence views: [Summary](https://confluence.sage.com/pages/viewpage.action?pageId=933331276) · [Required behaviour](https://confluence.sage.com/pages/viewpage.action?pageId=943980648) · [Sequences and reuse](https://confluence.sage.com/pages/viewpage.action?pageId=943980652) · [API reference](https://confluence.sage.com/pages/viewpage.action?pageId=943980662)
 
 ## Revision overview
 
