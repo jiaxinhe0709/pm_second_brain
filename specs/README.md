@@ -17,7 +17,7 @@ inventories, decisions and acceptance mappings when needed.
 
 The [publication configuration](../config/confluence.yml) selects SPEC-SEI-037 for
 the stable onboarding summary page, with SPEC-SEI-038 and 039 as companions. It
-selects SPEC-SEI-022 for the stable sending summary page, with SPEC-SEI-023 and 024 as companions. Receiving, lifecycle and offboarding still select SPEC-SEI-016, 009 and 003; their folder sets remain unpublished. Onboarding/connectivity and sending remain drafts with publication authorised. File location does not change lifecycle or publication state.
+selects SPEC-SEI-022 for the stable sending summary page, with SPEC-SEI-023 and 024 as companions. It selects SPEC-SEI-025 for receiving, with SPEC-SEI-026, 027 and 042 as companions, and SPEC-SEI-028 for lifecycle, with SPEC-SEI-029, 030 and 041 as companions. These sets remain drafts with publication authorised. Offboarding still selects SPEC-SEI-003; its folder set remains unpublished. File location does not change lifecycle or publication state.
 
 ## Specifications without a replacement folder
 

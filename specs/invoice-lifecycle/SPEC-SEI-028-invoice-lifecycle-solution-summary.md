@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-29
+updated: 2026-11-02
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -19,10 +19,11 @@ related:
   - GLO-SEI-001
   - RES-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
-  page_id: ""
+  parent_page_id: "837610664"
+  page_id: "923861398"
+  title: Invoice Lifecycle Solution Summary
   layout: two_left_sidebar
   toc: true
 ---
@@ -33,7 +34,7 @@ confluence:
 
 ## Revision overview
 
-This view summarises [SPEC009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), which stays unchanged and remains the selected Confluence source. Existing LCS IDs, country rules and release boundaries remain. These three views are unpublished drafts; Spain API coverage and implementation readiness are open.
+This view summarises [SPEC009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), which stays unchanged in Git. SPEC-SEI-028 is selected for stable Confluence page `923861398`; SPEC-SEI-029, 030 and 041 are companion views. Publication is authorised; all four remain drafts. Existing LCS IDs, country rules and release boundaries remain. Spain API coverage and implementation readiness are open.
 
 ## 1 Problem and intended outcomes
 

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-29
+updated: 2026-11-02
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -19,10 +19,11 @@ related:
   - GLO-SEI-001
   - RES-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "837610664"
   page_id: ""
+  title: Invoice Lifecycle Logical Feature Specification
   layout: two_left_sidebar
   toc: true
 ---
@@ -33,7 +34,7 @@ confluence:
 
 ## Revision overview
 
-This view preserves [SPEC009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) and its LCS/SPFE/AXII meanings. LCS-R14 and LCS-A26/27 cover the supplied transition-outcome rule. Release scope, authority, full/partial payment and historical routes are unchanged. These unpublished drafts do not enable customer actions.
+This view preserves [SPEC009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) and its LCS/SPFE/AXII meanings. LCS-R14 and LCS-A26/27 cover the supplied transition-outcome rule. Release scope, authority, full/partial payment and historical routes are unchanged. These drafts do not enable customer actions.
 
 ## 1 Purpose, terms and authority
 

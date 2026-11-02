@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-28
-updated: 2026-10-29
+updated: 2026-11-02
 reviewers: []
 related:
   - SPEC-SEI-028
@@ -15,10 +15,11 @@ related:
   - GLO-SEI-001
   - RES-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "837610664"
   page_id: ""
+  title: E-Invoice Lifecycle API Reuse and Spain Changes
   layout: two_left_sidebar
   toc: true
 ---
