@@ -10,14 +10,14 @@ inventories, decisions and acceptance mappings when needed.
 | Feature folder | Primary review set | Archived supporting baseline |
 |---|---|---|
 | [Customer onboarding and connectivity](onboarding-and-connectivity/README.md) | SPEC-SEI-037–039 | [Onboarding 018/019/021](archive/onboarding/README.md), [provider connectivity 034–036](archive/provider-connectivity/README.md) and [SPEC-SEI-002](archive/SPEC-SEI-002-onboarding-solution-specification.md) |
-| [Invoice sending](invoice-sending/README.md) | SPEC-SEI-022–024 | [SPEC-SEI-007](archive/SPEC-SEI-007-invoice-sending-solution.md) |
+| [Invoice sending](invoice-sending/README.md) | SPEC-SEI-022–024; [API reference 043](invoice-sending/api-reference/SPEC-SEI-043-invoice-sending-api-reference.md) | [SPEC-SEI-007](archive/SPEC-SEI-007-invoice-sending-solution.md) |
 | [Invoice receiving, retrieval and download](invoice-receiving/README.md) | SPEC-SEI-025–027; [API reference 042](invoice-receiving/api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md) | [SPEC-SEI-016](archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) |
 | [Invoice lifecycle](invoice-lifecycle/README.md) | SPEC-SEI-028–030; [API reference 041](invoice-lifecycle/api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md) | [SPEC-SEI-009](archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md) |
 | [Customer offboarding](offboarding/README.md) | SPEC-SEI-031–033 | [SPEC-SEI-003](archive/SPEC-SEI-003-offboarding-solution-specification.md) |
 
 The [publication configuration](../config/confluence.yml) selects SPEC-SEI-037 for
 the stable onboarding summary page, with SPEC-SEI-038 and 039 as companions. It
-selects SPEC-SEI-022 for the stable sending summary page, with SPEC-SEI-023 and 024 as companions. It selects SPEC-SEI-025 for receiving, with SPEC-SEI-026, 027 and 042 as companions, and SPEC-SEI-028 for lifecycle, with SPEC-SEI-029, 030 and 041 as companions. These sets remain drafts with publication authorised. Offboarding still selects SPEC-SEI-003; its folder set remains unpublished. File location does not change lifecycle or publication state.
+selects SPEC-SEI-022 for the stable sending summary page, with SPEC-SEI-023, 024 and API reference 043 as companions. It selects SPEC-SEI-025 for receiving, with SPEC-SEI-026, 027 and 042 as companions, and SPEC-SEI-028 for lifecycle, with SPEC-SEI-029, 030 and 041 as companions. These sets remain drafts with publication authorised. Offboarding still selects SPEC-SEI-003; its folder set remains unpublished. File location does not change lifecycle or publication state.
 
 ## Specifications without a replacement folder
 

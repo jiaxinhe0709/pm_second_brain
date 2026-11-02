@@ -1,5 +1,4 @@
-"""Publish the authorised sending views from a merged, clean Git snapshot."""
-
+"""Preview, publish and verify the authorised sending views from merged Git."""
 import argparse
 import hashlib
 import html
@@ -8,6 +7,7 @@ import importlib.util
 import json
 from pathlib import Path
 import re
+import struct
 import subprocess
 import sys
 from urllib.parse import quote, unquote, urlsplit
@@ -20,10 +20,9 @@ sys.path.insert(0, str(ROOT / 'tools'))
 import update_confluence_pages as publisher
 
 SOURCE = ROOT / 'specs/invoice-sending'
-OUT = ROOT / 'work/invoice-sending-publication'
-PARENT = '837610656'
-SUMMARY = '923861395'
-COUNTS = {'SPEC-SEI-022': 1, 'SPEC-SEI-023': 1, 'SPEC-SEI-024': 3}
+PARENT, SUMMARY = '837610656', '923861395'
+COUNTS = {'SPEC-SEI-022': 1, 'SPEC-SEI-023': 1, 'SPEC-SEI-024': 3, 'SPEC-SEI-043': 0}
+REPO = 'jiaxinhe0709/pm_second_brain'
 
 
 def git(*args):
@@ -31,7 +30,7 @@ def git(*args):
 
 
 def documents():
-    return [(path, *publisher.load_document(path)) for path in sorted(SOURCE.glob('SPEC-*.md'))]
+    return [(path, *publisher.load_document(path)) for path in sorted(SOURCE.rglob('SPEC-*.md'))]
 
 
 def install_links(revision, docs):
@@ -52,24 +51,25 @@ def install_links(revision, docs):
 
         headings = iter(flatten(md.toc_tokens))
 
-        def anchor(match):
+        def native_anchor(value):
+            return ('<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">'
+                    + html.escape(value, quote=True) + '</ac:parameter></ac:structured-macro>')
+
+        def heading(match):
             if match[2] == 'Confluence page history':
                 return match[0]
-            heading = next(headings)
-            assert int(match[1]) == heading['level']
-            return ('<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">'
-                    + html.escape(heading['id'], quote=True)
-                    + '</ac:parameter></ac:structured-macro>' + match[0])
+            token = next(headings)
+            assert int(match[1]) == token['level']
+            return native_anchor(token['id']) + match[0]
 
-        storage = re.sub(r'<h([1-6])>(.*?)</h\1>', anchor, storage, flags=re.S)
+        storage = re.sub(r'<h([1-6])>(.*?)</h\1>', heading, storage, flags=re.S)
         assert next(headings, None) is None
+        storage = re.sub(r'<a id="([^"]+)"></a>', lambda m: native_anchor(m[1]), storage)
 
         def link(match):
             url = html.unescape(match[1])
-            fragment = ''
             if url.startswith('#'):
-                title = metadata['confluence']['title']
-                fragment = url[1:]
+                title, fragment = metadata['confluence']['title'], url[1:]
             else:
                 marker = '/blob/' + revision + '/'
                 if marker not in url or match[2] == revision:
@@ -78,23 +78,36 @@ def install_links(revision, docs):
                 title = targets.get(relative)
                 if not title:
                     return match[0]
-            target = 'https://confluence.sage.com/display/DNBU/' + quote(title.replace(' ', '+'), safe='+')
+            destination = 'https://confluence.sage.com/display/DNBU/' + quote(title.replace(' ', '+'), safe='+')
             if fragment:
-                target += '#' + re.sub(r'\s+', '', title) + '-' + fragment
-            return '<a href="' + html.escape(target, quote=True) + '">' + match[2] + '</a>'
+                # Verified against rendered DNBU anchors, including the E-Invoice title.
+                destination += '#' + re.sub(r'[^A-Za-z0-9]', '', title) + '-' + fragment
+            return '<a href="' + html.escape(destination, quote=True) + '">' + match[2] + '</a>'
 
         return re.sub(r'<a href="([^"]+)">(.*?)</a>', link, storage, flags=re.S)
 
     publisher.storage_with_drawio = render
 
 
+class RenderedLinks(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.anchors, self.links = set(), []
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        for key in ('id', 'name'):
+            if attrs.get(key):
+                self.anchors.add(attrs[key])
+        if tag == 'a' and attrs.get('href'):
+            self.links.append(attrs['href'])
+
+
 def prepare(revision, docs):
-    OUT.mkdir(exist_ok=True)
     assert {metadata['id'] for _, metadata, _ in docs} == set(COUNTS)
     spec = importlib.util.spec_from_file_location('sending_review', ROOT / 'work/prepare-invoice-sending-review.py')
     review = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(review)
-    records = []
     for path, metadata, body in docs:
         assert metadata['status'] == 'draft'
         target = publisher.validate_publication(metadata, path, True)
@@ -105,63 +118,46 @@ def prepare(revision, docs):
         assert len(assets) == COUNTS[metadata['id']]
         for asset in assets:
             ET.parse(asset.source)
-            ET.parse(asset.source.with_suffix('.svg'))
-            assert asset.preview.read_bytes().startswith(b'\x89PNG\r\n\x1a\n')
+            svg = ET.parse(asset.source.with_suffix('.svg')).getroot()
+            assert svg.get('role') == 'img' and svg.get('aria-label')
+            assert struct.unpack('>II', asset.preview.read_bytes()[16:24]) == (
+                int(svg.get('width')), int(svg.get('height')))
         storage = publisher.storage_with_drawio(metadata, body, revision,
-                    publisher.git_source_url(revision, path), assets, {})
+            publisher.git_source_url(revision, path), assets, {})
         ET.fromstring('<root xmlns:ac="urn:ac" xmlns:ri="urn:ri">' + storage + '</root>')
-        assert storage.count('ac:name="drawio"') == len(assets)
+        assert storage.count('ac:name="drawio"') == COUNTS[metadata['id']]
         assert 'change-history' in storage and 'file://' not in storage
         assert not re.search(r'<a href="(?:\.\.?/|#)', storage)
-        (OUT / (metadata['id'] + '.storage.xml')).write_text(storage)
-        records.append({'source_id': metadata['id'], 'file': str(path.relative_to(ROOT)),
-                        'target': target, 'editable_diagrams': len(assets),
-                        'sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
-    baseline = ROOT / 'specs/archive/SPEC-SEI-007-invoice-sending-solution.md'
-    return {'git_revision': revision, 'parent_page_id': PARENT, 'pages': records,
-            'retained_predecessor_sha256': hashlib.sha256(baseline.read_bytes()).hexdigest(),
-            'lifecycle_status': 'draft', 'live_publication': False}
 
 
-class RenderedLinks(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.anchors = set()
-        self.links = []
-
-    def handle_starttag(self, tag, attrs):
-        attrs = dict(attrs)
-        if attrs.get('id'):
-            self.anchors.add(attrs['id'])
-        if tag == 'a' and attrs.get('name'):
-            self.anchors.add(attrs['name'])
-        if tag == 'a' and attrs.get('href'):
-            self.links.append(attrs['href'])
-
-
-def verify(client, revision, results):
-    rendered = {}
-    records = []
+def verify(client, revision, docs, results):
+    rendered, records = {}, []
+    by_id = {metadata['id']: (path, metadata, body) for path, metadata, body in docs}
     for result in results:
+        path, metadata, body = by_id[result['source_id']]
         page = client.get_page_by_id(result['page_id'], expand='version,body.storage,body.view,ancestors')
         storage = page['body']['storage']['value']
-        view = RenderedLinks()
-        view.feed(page['body']['view']['value'])
-        rendered[page['title']] = view
         assert result['source_id'] in storage and revision in storage
         assert result['source_id'] in page['version'].get('message', '')
         assert revision[:12] in page['version'].get('message', '')
         assert storage.count('ac:name="drawio"') == COUNTS[result['source_id']]
         assert 'change-history' in storage and 'Lifecycle status:</strong> draft' in storage
         assert str(page['ancestors'][-1]['id']) == PARENT
-        attachments = {x['title'] for x in client.get_attachments_from_content(result['page_id'], limit=500)['results']}
-        path = ROOT / result['file']
-        _, body = publisher.load_document(path)
+        view = RenderedLinks()
+        view.feed(page['body']['view']['value'])
+        rendered[page['title']] = view
+        attachments = {item['title']: item for item in
+            client.get_attachments_from_content(result['page_id'], limit=500, expand='version')['results']}
+        verified = []
         for asset in publisher.drawio_assets(path, body):
-            assert asset.name in attachments and asset.name + '.png' in attachments
-        records.append({'source_id': result['source_id'], 'page_id': result['page_id'],
-                        'title': page['title'], 'version': page['version']['number'],
-                        'editable_diagrams': COUNTS[result['source_id']]})
+            for name, local in [(asset.name, asset.source), (asset.name + '.png', asset.preview)]:
+                item = attachments[name]
+                remote = client.get(item['_links']['download'], not_json_response=True)
+                if isinstance(remote, str):
+                    remote = remote.encode()
+                assert hashlib.sha256(remote).digest() == hashlib.sha256(local.read_bytes()).digest(), name
+                verified.append(name)
+        records.append(dict(result, version=page['version']['number'], verified_attachments=verified))
     checked = 0
     for title, view in rendered.items():
         for href in view.links:
@@ -175,62 +171,71 @@ def verify(client, revision, results):
             checked += 1
     assert checked > 0
     return {'result': 'passed', 'git_revision': revision, 'pages': records,
-            'rendered_section_links_checked': checked,
-            'checks': ['source IDs and Git revision', 'draft lifecycle', 'native Change History',
-                       'editable diagrams and PNG attachments', 'parent hierarchy', 'rendered companion section links'],
-            'browser_viewport_inspection': 'not performed'}
+            'rendered_section_links_checked': checked, 'browser_inspection': 'not available'}
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--live', action='store_true')
     parser.add_argument('--merged-pr', type=int)
-    parser.add_argument('--env-from', type=Path)
+    parser.add_argument('--verify-only', action='store_true')
+    parser.add_argument('--receipt', type=Path, default=Path('/private/tmp/invoice-sending-publication.json'))
     args = parser.parse_args()
-    revision = git('rev-parse', 'HEAD')
-    docs = documents()
+    assert not (args.live and args.verify_only)
+    docs, revision = documents(), git('rev-parse', 'HEAD')
+    saved = json.loads(args.receipt.read_text()) if args.receipt.exists() else {}
+    if args.verify_only:
+        revision = saved['git_revision']
     install_links(revision, docs)
-    manifest = prepare(revision, docs)
-    (OUT / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
-    if not args.live:
-        print(json.dumps(manifest, indent=2))
-        return
-    assert args.merged_pr, 'Publish only after the review PR is merged'
-    review = json.loads(subprocess.check_output(['gh', 'pr', 'view', str(args.merged_pr),
-        '--repo', 'jiaxinhe0709/pm_second_brain', '--json', 'state,mergedAt,mergeCommit,url'], text=True))
-    assert review['state'] == 'MERGED' and review['mergeCommit']['oid'] == revision
-    assert not git('status', '--porcelain', '--', 'specs', 'assets/diagrams', 'context', 'config/confluence.yml')
-    publisher.load_workspace_env(args.env_from or Path(__file__))
+    prepare(revision, docs)
+    publisher.load_workspace_env(ROOT / 'tools/update_confluence_pages.py')
     client = publisher.confluence_client()
     client.timeout = 30
-    preflight = json.loads((OUT / 'preflight.json').read_text())
+    if args.verify_only:
+        result = verify(client, revision, docs, saved['results'])
+        saved['verification'] = result
+        args.receipt.write_text(json.dumps(saved, indent=2) + '\n')
+        print(json.dumps(result, indent=2))
+        return
     parent = client.get_page_by_id(PARENT, expand='version')
     summary = client.get_page_by_id(SUMMARY, expand='version,body.storage,ancestors')
-    assert parent['version']['number'] == preflight[0]['version']
-    assert summary['version']['number'] == preflight[1]['version']
     assert str(summary['ancestors'][-1]['id']) == PARENT
-    assert not re.search('manual[ -]discussion', summary['body']['storage']['value'], re.I)
-    existing_children = list(client.get_page_child_by_type(PARENT, type='page', start=0, limit=100))
-    assert {str(x['id']) for x in existing_children} == {SUMMARY}
-    for _, metadata, _ in docs:
-        collision = client.get_page_by_title('DNBU', metadata['confluence']['title'])
-        assert not collision or str(collision['id']) == metadata['confluence']['page_id']
-    manifest.update(review=review, results=[])
-    # Create companions first, then update the existing summary and its navigation.
-    for path, metadata, body in docs[1:] + docs[:1]:
+    assert not re.search(r'manual[ -]discussion', summary['body']['storage']['value'], re.I)
+    if not args.live:
+        for path, metadata, body in docs:
+            collision = client.get_page_by_title('DNBU', metadata['confluence']['title'])
+            assert not collision or str(collision['id']) == metadata['confluence']['page_id']
+            print(publisher.update_document(client, path, metadata, body, revision, False, True))
+        plan = {'summary_version': summary['version']['number'], 'parent_version': parent['version']['number'],
+                'predecessor_sha256': hashlib.sha256((ROOT / 'specs/archive/SPEC-SEI-007-invoice-sending-solution.md').read_bytes()).hexdigest()}
+        args.receipt.write_text(json.dumps({'preflight': plan}, indent=2) + '\n')
+        return
+    assert args.merged_pr, 'Publish only after a merged review PR'
+    pr = json.loads(subprocess.check_output(['gh', 'pr', 'view', str(args.merged_pr),
+        '--repo', REPO, '--json', 'state,mergeCommit,url'], text=True))
+    assert pr['state'] == 'MERGED' and pr['mergeCommit']['oid'] == revision
+    assert not git('status', '--porcelain', '--', 'specs', 'assets/diagrams', 'context', 'config/confluence.yml')
+    assert summary['version']['number'] == saved['preflight']['summary_version']
+    assert parent['version']['number'] == saved['preflight']['parent_version']
+    assert hashlib.sha256((ROOT / 'specs/archive/SPEC-SEI-007-invoice-sending-solution.md').read_bytes()).hexdigest() == saved['preflight']['predecessor_sha256']
+    saved.update(git_revision=revision, review_pr=pr['url'], results=[])
+    args.receipt.write_text(json.dumps(saved, indent=2) + '\n')
+    for path, metadata, body in sorted(docs, key=lambda doc: bool(doc[1]['confluence']['page_id'])):
         result = publisher.update_document(client, path, metadata, body, revision, True, True)
-        print(result, flush=True)
-        pid = re.search(r'page=(\d+)', result)[1]
-        manifest['results'].append({'source_id': metadata['id'], 'page_id': pid,
+        page_id = re.search(r'page=(\d+)', result)[1]
+        page = client.get_page_by_id(page_id, expand='version,body.storage')
+        if metadata['id'] not in page['version'].get('message', ''):
+            client.update_page(page_id=page_id, title=metadata['confluence']['title'],
+                body=page['body']['storage']['value'], parent_id=PARENT, representation='storage',
+                version_comment=publisher.publication_version_comment(metadata, revision), always_update=True)
+        saved['results'].append({'source_id': metadata['id'], 'page_id': page_id,
             'file': str(path.relative_to(ROOT)), 'title': metadata['confluence']['title']})
-        (OUT / 'receipt.json').write_text(json.dumps(manifest, indent=2) + '\n')
-    verification = verify(client, revision, manifest['results'])
+        args.receipt.write_text(json.dumps(saved, indent=2) + '\n')
+        print(result, flush=True)
+    saved['verification'] = verify(client, revision, docs, saved['results'])
     assert client.get_page_by_id(PARENT, expand='version')['version']['number'] == parent['version']['number']
-    assert {str(x['id']) for x in client.get_page_child_by_type(PARENT, type='page', start=0, limit=100)} == {x['page_id'] for x in manifest['results']}
-    (OUT / 'verification.json').write_text(json.dumps(verification, indent=2) + '\n')
-    manifest.update(live_publication=True, parent_content_unchanged=True, verification='passed')
-    (OUT / 'receipt.json').write_text(json.dumps(manifest, indent=2) + '\n')
-    print(json.dumps(verification, indent=2))
+    args.receipt.write_text(json.dumps(saved, indent=2) + '\n')
+    print(json.dumps(saved['verification'], indent=2))
 
 
 if __name__ == '__main__':
