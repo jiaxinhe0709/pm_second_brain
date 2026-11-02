@@ -65,8 +65,16 @@ class Sequence:
         self.frames.append((top, self.y - top, label, depth))
         self.y += 30
 
-    def write(self, footer):
+    def write(self, footer, reuse_colours=False):
         assert not self.open_calls, self.open_calls
+        def evidence_colour(label):
+            if not reuse_colours:
+                return None
+            if any(f'[{state}]' in label for state in ('Open', 'Assumption', 'Gap', 'Source conflict')):
+                return '#B42318'
+            if '[Proposed]' in label:
+                return '#1565C0'
+            return '#666666'
         used = sorted(self.used)
         xs = {party: 130 + i * 385 for i, party in enumerate(used)}
         width = 260 + (len(used) - 1) * 385
@@ -107,9 +115,9 @@ class Sequence:
             vertex('', f'rounded={int(rounded)};arcSize=8;fillColor={fill};strokeColor={stroke};',
                    x, y, w, h, key=key)
 
-        def text(x, y, label, size=17, grey=False, center=False, key=None):
+        def text(x, y, label, size=17, grey=False, center=False, key=None, color=None):
             lines = label.split('\n')
-            color = '#888888' if grey else '#222222'
+            color = color or ('#888888' if grey else '#222222')
             for i, line in enumerate(lines):
                 ET.SubElement(svg, 'text', x=str(x), y=str(y + i * 23),
                               fill=color, attrib={'font-family': 'Arial, sans-serif',
@@ -119,10 +127,10 @@ class Sequence:
                    f'align={"center" if center else "left"};fontSize={size};fontColor={color};',
                    x - w / 2 if center else x, y - size, w, len(lines) * 23 + 3, key=key)
 
-        def edge(x1, y1, x2, y2, kind, key):
+        def edge(x1, y1, x2, y2, kind, key, color='#444444'):
             dashed = kind in ('reply', 'lifeline')
             attrs = {'d': f'M {x1},{y1} L {x2},{y2}', 'fill': 'none',
-                     'stroke': '#444444', 'stroke-width': '1.6'}
+                     'stroke': color, 'stroke-width': '1.6'}
             if dashed:
                 attrs['stroke-dasharray'] = '7 6'
             ET.SubElement(svg, 'path', attrs)
@@ -131,10 +139,10 @@ class Sequence:
                 p = f'M {x2-direction*12},{y2-6} L {x2},{y2} L {x2-direction*12},{y2+6}'
                 if kind == 'call':
                     p += ' Z'
-                ET.SubElement(svg, 'path', d=p, fill='#444444' if kind == 'call' else 'none',
-                              stroke='#444444', attrib={'stroke-width': '1.6'})
+                ET.SubElement(svg, 'path', d=p, fill=color if kind == 'call' else 'none',
+                              stroke=color, attrib={'stroke-width': '1.6'})
             cell = ET.SubElement(root, 'mxCell', id=key, edge='1', parent='1',
-                style='edgeStyle=none;strokeColor=#444444;strokeWidth=1.6;'
+                style=f'edgeStyle=none;strokeColor={color};strokeWidth=1.6;'
                 + ('dashed=1;' if dashed else '')
                 + f'endArrow={"none" if kind in ("lifeline", "divider") else "open" if kind == "reply" else "block"};'
                 + ('endFill=0;' if kind == 'reply' else ''))
@@ -145,7 +153,12 @@ class Sequence:
         rect(8, 8, width - 16, height - 16, rounded=True)
         text(30, 45, self.title, 27)
         text(30, 76, self.subtitle, 17)
-        text(30, 104, 'Existing = documented API / guide; To qualify = logical handoff, no confirmed Spain contract.', 14, grey=True)
+        if reuse_colours:
+            text(30, 104, 'Grey: Existing documented calls', 14, color='#666666')
+            text(350, 104, 'Blue: Proposed Spain handoffs', 14, color='#1565C0')
+            text(680, 104, 'Red: Open / Assumption / Gap / Source conflict', 14, color='#B42318')
+        else:
+            text(30, 104, 'Existing = documented API / guide; To qualify = logical handoff, no confirmed Spain contract.', 14, grey=True)
         edge(8, 124, width - 8, 124, 'divider', 'header-divider')
         for i in used:
             party, x = self.parties[i], xs[i]
@@ -154,19 +167,21 @@ class Sequence:
             text(x, 178 if '\n' in party else 190, party, 20, center=True)
         for top, h, label, depth in self.frames:
             x = 24 + depth * 12
-            rect(x, top, width - x * 2, h, fill='none')
+            rect(x, top, width - x * 2, h, fill='none', stroke=evidence_colour(label) or '#777777')
         for i, (party, start, end) in enumerate(self.activations):
             rect(xs[party] - 8, start, 16, end - start, fill='#dddddd', key=f'activation-{i}')
         # Keep frame labels above activation bars and lifelines.
         for top, h, label, depth in self.frames:
             x = 24 + depth * 12
-            rect(x, top, width - x * 2, 34, fill='#fafafa')
-            text(x + 12, top + 23, label, 15)
+            color = evidence_colour(label)
+            rect(x, top, width - x * 2, 34, fill='#fafafa', stroke=color or '#777777')
+            text(x + 12, top + 23, label, 15, color=color)
         for y, h, lines, source in self.notes:
-            rect(38, y, width - 76, h, fill='#fafafa', stroke='#aaaaaa')
-            text(52, y + 24, '\n'.join(lines), 16)
+            color = evidence_colour(source)
+            rect(38, y, width - 76, h, fill='#fafafa', stroke=color or '#aaaaaa')
+            text(52, y + 24, '\n'.join(lines), 16, color=color)
             if source:
-                text(52, y + h - 12, source, 12, grey=True)
+                text(52, y + h - 12, source, 12, grey=True, color=color)
         for i, msg in enumerate(self.messages, 1):
             a, b, y = msg['a'], msg['b'], msg['y']
             direction = 1 if b > a else -1
@@ -178,9 +193,10 @@ class Sequence:
             top = y - len(msg['lines']) * 23 - 22
             rect(min(xs[a], xs[b]) + 12, top - 18, abs(xs[b] - xs[a]) - 24,
                  y - top + 9, stroke='none')
-            text(tx, top, msg['source'], 12, grey=True, center=True)
-            text(tx, top + 24, '\n'.join(msg['lines']), 17, center=True, key=f'message-label-{i}')
-            edge(xa, y, xb, y, msg['kind'], f'message-{i}')
+            color = evidence_colour(msg['source'])
+            text(tx, top, msg['source'], 12, grey=True, center=True, color=color)
+            text(tx, top + 24, '\n'.join(msg['lines']), 17, center=True, key=f'message-label-{i}', color=color)
+            edge(xa, y, xb, y, msg['kind'], f'message-{i}', color=color or '#444444')
         for i, line in enumerate(footer_lines):
             text(30, self.y + 48 + i * 23, line, 14, grey=True)
         vertex('Source specification', 'text;html=0;fontSize=12;align=right;',
