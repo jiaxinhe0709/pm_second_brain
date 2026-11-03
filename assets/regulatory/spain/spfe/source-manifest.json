@@ -96,7 +96,7 @@
     },
     {
       "source_id": "SPFE-S10",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/CancelInvoice.wsdl",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/CancelInvoice.wsdl",
       "bytes": 6717,
       "sha256": "0edea5d196e04c0bbc620ae5373cb8ef8469bd845a9dc399b3108c4c5a0d8f07",
       "kind": "wsdl",
@@ -126,7 +126,7 @@
     },
     {
       "source_id": "SPFE-S11",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/CustomerInvoiceEvents.wsdl",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/CustomerInvoiceEvents.wsdl",
       "bytes": 6965,
       "sha256": "69fe0e5ca0f21670a2188e97e91545eb4ee40ee01e5c66a8f50692378c32fa92",
       "kind": "wsdl",
@@ -156,7 +156,7 @@
     },
     {
       "source_id": "SPFE-S12",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/DownloadInvoicesByID.wsdl",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/DownloadInvoicesByID.wsdl",
       "bytes": 6934,
       "sha256": "23cc3e03c33d9693cfac82ee0b104ba054c8d968b58b49b39c1fe161ad492396",
       "kind": "wsdl",
@@ -186,7 +186,7 @@
     },
     {
       "source_id": "SPFE-S13",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/DownloadInvoicesByLOC.wsdl",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/DownloadInvoicesByLOC.wsdl",
       "bytes": 6965,
       "sha256": "d0a8a4534aa1552a5c54e1b206e4f8c91ae702a2008d841fd5fe54228875385d",
       "kind": "wsdl",
@@ -216,7 +216,7 @@
     },
     {
       "source_id": "SPFE-S14",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/GetInvoices.wsdl",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/GetInvoices.wsdl",
       "bytes": 6655,
       "sha256": "d7805e71b0a57b772872a0e2ac1c9b1e6f0d9312c1f08e4c930bf20f17f90a6a",
       "kind": "wsdl",
@@ -246,7 +246,7 @@
     },
     {
       "source_id": "SPFE-S15",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/GetRegisteredInvoice.wsdl",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/GetRegisteredInvoice.wsdl",
       "bytes": 6934,
       "sha256": "d047166769fb58a695f28b9551fcda913365f325ee0fd07894c4ee5c9ac74085",
       "kind": "wsdl",
@@ -276,7 +276,7 @@
     },
     {
       "source_id": "SPFE-S16",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/SendInvoice.wsdl",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/SendInvoice.wsdl",
       "bytes": 6655,
       "sha256": "c5c9688ea97d184197e8dc0a565eef0796ad9e4319f8e59ac09c7a6784f20b5c",
       "kind": "wsdl",
@@ -306,7 +306,7 @@
     },
     {
       "source_id": "SPFE-S17",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/SupplierInvoiceEvents.wsdl",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/SupplierInvoiceEvents.wsdl",
       "bytes": 6965,
       "sha256": "1eeb0c8886c6c5171948e607480e184f1835dc03ae82c9454215fa848cf77262",
       "kind": "wsdl",
@@ -336,7 +336,7 @@
     },
     {
       "source_id": "SPFE-S18",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/xsd/ebms/ebms-header-3_0-200704.xsd",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/xsd/ebms/ebms-header-3_0-200704.xsd",
       "bytes": 9707,
       "sha256": "fb965bd19e1f47f5e9ce570d9782a53aefeee860d552a1f8f6a64c7a3795f060",
       "kind": "xsd",
@@ -362,7 +362,7 @@
     },
     {
       "source_id": "SPFE-S19",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/xsd/w3/soap-envelope.xsd",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/xsd/w3/soap-envelope.xsd",
       "bytes": 5808,
       "sha256": "388c76d3ef483c9ce09f625a0758077c6df040e788c58fc4ff22b663d71688fe",
       "kind": "xsd",
@@ -378,7 +378,7 @@
     },
     {
       "source_id": "SPFE-S20",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/xsd/w3/xml.xsd",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/xsd/w3/xml.xsd",
       "bytes": 8836,
       "sha256": "61960fb3131e38022caad5360e2f33a3382578ab3c80cd58bd74320ede61b20c",
       "kind": "xsd",
@@ -388,7 +388,7 @@
     },
     {
       "source_id": "SPFE-S21",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/xsd/xmlsoap/envelope.xsd",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/xsd/xmlsoap/envelope.xsd",
       "bytes": 6123,
       "sha256": "b3b47ed56c4c1c1dc75843eec976575cf60ae1460a8bb39ce52e4ba25a4414cb",
       "kind": "xsd",
@@ -412,7 +412,7 @@
     },
     {
       "source_id": "SPFE-S23",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/ValidationInvoice.wsdl",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/ValidationInvoice.wsdl",
       "kind": "wsdl",
       "release_date": "2026-10-29",
       "bytes": 6061,
@@ -447,7 +447,7 @@
     },
     {
       "source_id": "SPFE-S24",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/spfe-ebms3-jaxb-bindings.xml",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/spfe-ebms3-jaxb-bindings.xml",
       "kind": "xml",
       "release_date": "2026-10-29",
       "bytes": 2112,
@@ -457,7 +457,7 @@
     },
     {
       "source_id": "SPFE-S25",
-      "path": "context/WSDL servicios web - PRE_29:10:2026/xsd/ubl-2.5/LEEME.txt",
+      "path": "context/WSDL servicios web - PRE_29_10_2026/xsd/ubl-2.5/LEEME.txt",
       "kind": "text",
       "release_date": "2026-10-29",
       "bytes": 289,
@@ -475,12 +475,12 @@
   "current_wsdl_baseline": {
     "release_date": "2026-10-29",
     "reviewed_on": "2026-10-29",
-    "root": "context/WSDL servicios web - PRE_29:10:2026",
+    "root": "context/WSDL servicios web - PRE_29_10_2026",
     "date_basis": "User-supplied release label; no official publication URL supplied.",
     "qualification": "Local contract comparison complete; runtime and business-rule qualification remain open.",
     "missing_schema_gates": {
-      "context/WSDL servicios web - PRE_29:10:2026/xsd/ubl-2.5/maindoc/UBL-Invoice-2.5.xsd": "SPFE-Q04/SPFE-Q05",
-      "context/WSDL servicios web - PRE_29:10:2026/xsd/ubl-2.5/maindoc/UBL-DocumentStatus-2.5.xsd": "SPFE-Q04/SPFE-Q05"
+      "context/WSDL servicios web - PRE_29_10_2026/xsd/ubl-2.5/maindoc/UBL-Invoice-2.5.xsd": "SPFE-Q04/SPFE-Q05",
+      "context/WSDL servicios web - PRE_29_10_2026/xsd/ubl-2.5/maindoc/UBL-DocumentStatus-2.5.xsd": "SPFE-Q04/SPFE-Q05"
     }
   },
   "historical_wsdl_releases": [

@@ -43,7 +43,7 @@ Use the [existing legal evidence note](../research/spain-public-platform-order-e
 
 ## How to use this context
 
-Start a Spain review with the `current_wsdl_baseline` in the [source manifest](../assets/regulatory/spain/spfe/source-manifest.json), this guide and the selected original contracts. The current reviewed local PRE release is **29 October 2026**, in [the supplied folder](<WSDL servicios web - PRE_29:10:2026/>). Review means that the local files have been compared; it does not qualify a running implementation. Files in `context/` are persistent evidence; they are not automatically loaded into every conversation.
+Start a Spain review with the `current_wsdl_baseline` in the [source manifest](../assets/regulatory/spain/spfe/source-manifest.json), this guide and the selected original contracts. The current reviewed local PRE release is **29 October 2026**, in [the supplied folder](<WSDL servicios web - PRE_29_10_2026/>). Review means that the local files have been compared; it does not qualify a running implementation. Files in `context/` are persistent evidence; they are not automatically loaded into every conversation.
 
 When a new release arrives, retain earlier files, compare the affected operations, record the release date and hashes, update affected specs and run `python3 tools/validate_spfe_sources.py`. The PR check rejects unregistered WSDL files, changed source bytes, missing imports without a recorded gate and current specs linked to historical contracts. Archives retain dated historical links. This controls the latest reviewed **local** release; it cannot detect a future AEAT publication that has not been obtained. The AEAT liaison must supply the original publication URL and new files before that claim can be extended.
 
@@ -367,19 +367,19 @@ The register below is generated from the supplied file inventory. The source man
 | SPFE-S07 | [Respuesta_ebXML- SUBMITINVOICE.xml](<../context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/Respuesta_ebXML- SUBMITINVOICE.xml>) | XML |
 | SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); [Spanish text](../assets/regulatory/spain/spfe/input-output-formats.es.txt) | 15 PDF pages |
 | SPFE-S09 | [factura.xml](<../context/Ejemplos/20261013/factura.xml>) | XML |
-| SPFE-S10 | [CancelInvoice.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/CancelInvoice.wsdl>) | CancelInvoice |
-| SPFE-S11 | [CustomerInvoiceEvents.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/CustomerInvoiceEvents.wsdl>) | CustomerInvoiceEvents |
-| SPFE-S12 | [DownloadInvoicesByID.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/DownloadInvoicesByID.wsdl>) | DownloadInvoicesByID |
-| SPFE-S13 | [DownloadInvoicesByLOC.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/DownloadInvoicesByLOC.wsdl>) | DownloadInvoicesByLOC |
-| SPFE-S14 | [GetInvoices.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/GetInvoices.wsdl>) | GetInvoices |
-| SPFE-S15 | [GetRegisteredInvoice.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/GetRegisteredInvoice.wsdl>) | GetRegisteredInvoice |
-| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/SendInvoice.wsdl>) | SendInvoice |
-| SPFE-S17 | [SupplierInvoiceEvents.wsdl](<../context/WSDL servicios web - PRE_29:10:2026/SupplierInvoiceEvents.wsdl>) | SupplierInvoiceEvents |
-| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../context/WSDL servicios web - PRE_29:10:2026/xsd/ebms/ebms-header-3_0-200704.xsd>) | XSD |
-| SPFE-S19 | [soap-envelope.xsd](<../context/WSDL servicios web - PRE_29:10:2026/xsd/w3/soap-envelope.xsd>) | XSD |
-| SPFE-S20 | [xml.xsd](<../context/WSDL servicios web - PRE_29:10:2026/xsd/w3/xml.xsd>) | XSD |
-| SPFE-S21 | [envelope.xsd](<../context/WSDL servicios web - PRE_29:10:2026/xsd/xmlsoap/envelope.xsd>) | XSD |
+| SPFE-S10 | [CancelInvoice.wsdl](<../context/WSDL servicios web - PRE_29_10_2026/CancelInvoice.wsdl>) | CancelInvoice |
+| SPFE-S11 | [CustomerInvoiceEvents.wsdl](<../context/WSDL servicios web - PRE_29_10_2026/CustomerInvoiceEvents.wsdl>) | CustomerInvoiceEvents |
+| SPFE-S12 | [DownloadInvoicesByID.wsdl](<../context/WSDL servicios web - PRE_29_10_2026/DownloadInvoicesByID.wsdl>) | DownloadInvoicesByID |
+| SPFE-S13 | [DownloadInvoicesByLOC.wsdl](<../context/WSDL servicios web - PRE_29_10_2026/DownloadInvoicesByLOC.wsdl>) | DownloadInvoicesByLOC |
+| SPFE-S14 | [GetInvoices.wsdl](<../context/WSDL servicios web - PRE_29_10_2026/GetInvoices.wsdl>) | GetInvoices |
+| SPFE-S15 | [GetRegisteredInvoice.wsdl](<../context/WSDL servicios web - PRE_29_10_2026/GetRegisteredInvoice.wsdl>) | GetRegisteredInvoice |
+| SPFE-S16 | [SendInvoice.wsdl](<../context/WSDL servicios web - PRE_29_10_2026/SendInvoice.wsdl>) | SendInvoice |
+| SPFE-S17 | [SupplierInvoiceEvents.wsdl](<../context/WSDL servicios web - PRE_29_10_2026/SupplierInvoiceEvents.wsdl>) | SupplierInvoiceEvents |
+| SPFE-S18 | [ebms-header-3_0-200704.xsd](<../context/WSDL servicios web - PRE_29_10_2026/xsd/ebms/ebms-header-3_0-200704.xsd>) | XSD |
+| SPFE-S19 | [soap-envelope.xsd](<../context/WSDL servicios web - PRE_29_10_2026/xsd/w3/soap-envelope.xsd>) | XSD |
+| SPFE-S20 | [xml.xsd](<../context/WSDL servicios web - PRE_29_10_2026/xsd/w3/xml.xsd>) | XSD |
+| SPFE-S21 | [envelope.xsd](<../context/WSDL servicios web - PRE_29_10_2026/xsd/xmlsoap/envelope.xsd>) | XSD |
 | SPFE-S22 | [A2-Proyecto-OM-FE 21-10-26.pdf](<Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf>); [Spanish text](../assets/regulatory/spain/spfe/lifecycle-annex-supplement.es.txt) | 15 PDF pages; received 22 October 2026; filename date 21 October, metadata 20 October; release version/provenance unverified. §§1–4 pp. 4–14, list L1 p. 15. Supplement to final BOE Annex II, not proven supersession. |
-| SPFE-S23 | [ValidationInvoice.wsdl](<WSDL servicios web - PRE_29:10:2026/ValidationInvoice.wsdl>); PRE release 29 October 2026 | `types` UBL imports, request/response parts, `ValidationInvoice` operation, SOAP 1.2 binding/action and certificate/seal ports; documentation defines direct bodies and standard faults. Missing business XSDs and runtime access remain open. |
-| SPFE-S24 | [spfe-ebms3-jaxb-bindings.xml](<WSDL servicios web - PRE_29:10:2026/spfe-ebms3-jaxb-bindings.xml>); PRE release 29 October 2026 | `jaxb:bindings` SCD selectors for `eb3:headerExtension/@S11:mustUnderstand` and `@S12:mustUnderstand`; property names and toolchain instructions. Client-generation aid only. |
-| SPFE-S25 | [UBL schema instructions](<WSDL servicios web - PRE_29:10:2026/xsd/ubl-2.5/LEEME.txt>); PRE release 29 October 2026 | Entire file: UBL 2.5 schemas excluded; obtain `maindoc/` and `common/`. Retains `InvoiceValidation.wsdl` spelling. Does not supply or qualify those schemas. |
+| SPFE-S23 | [ValidationInvoice.wsdl](<WSDL servicios web - PRE_29_10_2026/ValidationInvoice.wsdl>); PRE release 29 October 2026 | `types` UBL imports, request/response parts, `ValidationInvoice` operation, SOAP 1.2 binding/action and certificate/seal ports; documentation defines direct bodies and standard faults. Missing business XSDs and runtime access remain open. |
+| SPFE-S24 | [spfe-ebms3-jaxb-bindings.xml](<WSDL servicios web - PRE_29_10_2026/spfe-ebms3-jaxb-bindings.xml>); PRE release 29 October 2026 | `jaxb:bindings` SCD selectors for `eb3:headerExtension/@S11:mustUnderstand` and `@S12:mustUnderstand`; property names and toolchain instructions. Client-generation aid only. |
+| SPFE-S25 | [UBL schema instructions](<WSDL servicios web - PRE_29_10_2026/xsd/ubl-2.5/LEEME.txt>); PRE release 29 October 2026 | Entire file: UBL 2.5 schemas excluded; obtain `maindoc/` and `common/`. Retains `InvoiceValidation.wsdl` spelling. Does not supply or qualify those schemas. |
