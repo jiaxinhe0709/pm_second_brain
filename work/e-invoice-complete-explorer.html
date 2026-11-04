@@ -502,6 +502,24 @@
     #spain-einvoice-complete-explorer[data-density="compact"] .hub-main { padding-top: 18px; }
     #spain-einvoice-complete-explorer[data-density="compact"] .hub-panel { padding: 13px; }
     #spain-einvoice-complete-explorer[data-density="compact"] .hub-step { min-height: 58px; padding: 8px; }
+    #spain-einvoice-complete-explorer .hub-stack { display: grid; gap: 16px; }
+    #spain-einvoice-complete-explorer .hub-settings-tabs { margin-bottom: 16px; flex-wrap: wrap; }
+    #spain-einvoice-complete-explorer .hub-connection-list { display: grid; gap: 8px; padding: 0; list-style: none; }
+    #spain-einvoice-complete-explorer .hub-connection-item { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 12px; background: var(--hub-soft); border-radius: 7px; font-size: 12px; line-height: 18px; }
+    #spain-einvoice-complete-explorer .hub-connection-item small { display: block; color: var(--hub-secondary); }
+    #spain-einvoice-complete-explorer .hub-demo { padding: 12px; color: var(--hub-secondary); background: var(--hub-soft); border-radius: 7px; font-size: 12px; line-height: 18px; }
+    #spain-einvoice-complete-explorer .hub-demo summary { cursor: pointer; margin-bottom: 8px; }
+    #spain-einvoice-complete-explorer .hub-inline-check { display: flex; align-items: flex-start; gap: 9px; font-size: 12px; line-height: 19px; color: var(--hub-secondary); }
+    #spain-einvoice-complete-explorer .hub-inline-check input { flex: none; margin-top: 3px; }
+    #spain-einvoice-complete-explorer .hub-audit { padding-left: 18px; font-size: 12px; line-height: 22px; color: var(--hub-secondary); }
+    #spain-einvoice-complete-explorer .hub-payment-brand { display: inline-block; padding: 8px 12px; color: var(--hub-inverse); background: var(--hub-inverse-bg); border-radius: 6px; font-weight: 600; font-size: 18px; }
+    #spain-einvoice-complete-explorer .hub-settings-message { min-height: 22px; margin-top: 12px; font-size: 12px; line-height: 20px; color: var(--hub-secondary); }
+    #spain-einvoice-complete-explorer .hub-map-routes { flex-wrap: wrap; }
+    #spain-einvoice-complete-explorer .hub-panel, #spain-einvoice-complete-explorer .hub-field { min-width: 0; }
+    #spain-einvoice-complete-explorer[data-map-route="sage"] .hub-board .hub-node.is-route-private rect { stroke: var(--hub-green); stroke-width: 2.5; }
+    #spain-einvoice-complete-explorer[data-map-route="sage"] .hub-board .hub-edge-active.route-private,
+    #spain-einvoice-complete-explorer[data-map-route="sage"] .hub-board .hub-copy-edge,
+    #spain-einvoice-complete-explorer[data-map-route="sage"] .hub-board .hub-copy-label { display: block; }
     @media (max-width: 850px) {
       #spain-einvoice-complete-explorer .hub-nav { overflow-x: auto; }
       #spain-einvoice-complete-explorer .hub-page-head { align-items: stretch; flex-direction: column; }
@@ -570,7 +588,7 @@
         <span class="hub-brand-mark"><i data-lucide="network" aria-hidden="true"></i></span>
         <span class="hub-brand-copy"><strong>Spain e-invoicing</strong><span>Complete product journey</span></span>
       </div>
-      <span class="hub-context"><span class="hub-dot"></span>Product context · process · working screens · data</span>
+      <span class="hub-context"><span class="hub-dot"></span>Interactive demo · synthetic data · no live service calls</span>
     </header>
 
     <nav class="hub-nav" role="tablist" aria-label="Spain e-invoicing explorer">
@@ -579,7 +597,7 @@
       <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-onboarding" data-view="onboarding">Onboarding</button>
       <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-exchange" data-view="exchange">Invoice exchange</button>
       <button class="hub-nav-button" id="hub-tab-example" type="button" role="tab" aria-selected="false" aria-controls="hub-view-example" data-view="example">Multi-platform example</button>
-      <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-switch" data-view="switch">Private connections</button>
+      <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-switch" data-view="switch">Settings</button>
       <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-fields" data-view="fields">Field catalogue</button>
     </nav>
 
@@ -594,6 +612,7 @@
           <div class="hub-segmented hub-map-routes" role="group" aria-label="Highlight ecosystem route">
             <button type="button" aria-pressed="true" data-map-route="public">Public-first</button>
             <button type="button" aria-pressed="false" data-map-route="private">Phase 2 private</button>
+            <button type="button" aria-pressed="false" data-map-route="sage">Sage private + payments</button>
             <button type="button" aria-pressed="false" data-map-route="accountant">Accountant portfolio</button>
           </div>
         </div>
@@ -641,7 +660,7 @@
             <g class="hub-node is-core" transform="translate(417 236)"><rect width="156" height="58" rx="9"/><text x="78" y="21" text-anchor="middle">Sage e-Invoicing</text><text x="78" y="38" text-anchor="middle">shared platform</text><text class="hub-node-sub" x="78" y="52" text-anchor="middle">Scope · route · orchestrate</text></g>
 
             <g class="hub-node is-route-public" transform="translate(780 113)"><rect width="148" height="46" rx="7"/><text x="10" y="19">Spanish public platform</text><text class="hub-node-sub" x="10" y="35">Public route and copy</text></g>
-            <g class="hub-node is-route-private" transform="translate(780 255)"><rect width="148" height="58" rx="7"/><text x="10" y="19">Private platforms</text><text class="hub-node-sub" x="10" y="35">EDICOM · SERES · Banqup</text><text class="hub-node-sub" x="10" y="50">B2B Router · ZeroComa</text></g>
+            <g class="hub-node is-route-private" transform="translate(780 255)"><rect width="148" height="58" rx="7"/><text x="10" y="19">Private platforms</text><text class="hub-node-sub" x="10" y="35">Sage · EDICOM · SERES</text><text class="hub-node-sub" x="10" y="50">Banqup · B2B Router · ZeroComa</text></g>
             <g class="hub-node" transform="translate(780 416)"><rect width="148" height="46" rx="7"/><text x="10" y="19">Recipient environment</text><text class="hub-node-sub" x="10" y="35">Platform, product or customer</text></g>
 
             <g class="hub-node" transform="translate(335 676)"><rect width="160" height="32" rx="7"/><text x="10" y="14">Canonical + Spain pack</text><text class="hub-node-sub" x="10" y="27">Shared contract · effective rules</text></g>
@@ -694,7 +713,7 @@
           <div class="hub-map-mobile-arrow" aria-hidden="true">↓</div>
           <div class="hub-map-mobile-block"><strong>Shared platform + Spain country binding</strong><span>Access · authority · connections · adapters · validation · routing · lifecycle · evidence</span></div>
           <div class="hub-map-mobile-arrow" aria-hidden="true">↓</div>
-          <div class="hub-map-mobile-block"><strong>External delivery ecosystem</strong><span>Spanish public platform · supported private platforms · recipient environment</span></div>
+          <div class="hub-map-mobile-block"><strong>External delivery ecosystem</strong><span>Spanish public platform · existing private providers · Sage private platform with optional PAS payments · recipient environment</span></div>
           <div class="hub-map-mobile-arrow" aria-hidden="true">↕</div>
           <div class="hub-map-mobile-block"><strong>Cross-product operations</strong><span>Canonical invoice + Spain pack · immutable context · reconciliation and recovery</span></div>
         </div>
@@ -709,9 +728,10 @@
         <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">High-level process with drill-down</p><h1>Set up once, exchange repeatedly, change route deliberately.</h1><p>Select any step to see its customer, technical and control views.</p></div></div>
         <div class="hub-reference-strip" aria-label="Detailed Confluence references"><span>Detailed Confluence</span><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837588799" target="_blank" rel="noopener noreferrer">Phase 2 platform connectivity ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148655" target="_blank" rel="noopener noreferrer">Customer onboarding &amp; migration ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148657" target="_blank" rel="noopener noreferrer">Lifecycle, rejection &amp; payment ↗</a></div>
         <div class="hub-journey-list">
-          <section class="hub-lane"><div class="hub-lane-label"><strong>Set up once</strong><span>Company and authority</span></div><div class="hub-lane-flow"><button class="hub-step" type="button" data-journey="identify" aria-pressed="true">Identify company</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="authority" aria-pressed="false">Confirm authority</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="register" aria-pressed="false">Register and confirm readiness</button></div></section>
+          <section class="hub-lane"><div class="hub-lane-label"><strong>Set up once</strong><span>Company and authority</span></div><div class="hub-lane-flow"><button class="hub-step" type="button" data-journey="identify" aria-pressed="true">Identify company</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="authority" aria-pressed="false">Confirm authority</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="register" aria-pressed="false">Check required access</button></div></section>
           <section class="hub-lane"><div class="hub-lane-label"><strong>Every invoice</strong><span>Send, receive and track</span></div><div class="hub-lane-flow"><button class="hub-step" type="button" data-journey="create" aria-pressed="false">Create in Sage product</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="validate" aria-pressed="false">Validate and resolve recipient</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="deliver" aria-pressed="false">Route and deliver</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="status" aria-pressed="false">Return lifecycle status</button></div></section>
-          <section class="hub-lane"><div class="hub-lane-label"><strong>When needed</strong><span>Private platform setup</span></div><div class="hub-lane-flow"><button class="hub-step" type="button" data-journey="connect" aria-pressed="false">Connect private provider</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="prove" aria-pressed="false">Prove readiness</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="switch" aria-pressed="false">Select route in Send</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="preserve" aria-pressed="false">Preserve prior history</button></div></section>
+          <section class="hub-lane"><div class="hub-lane-label"><strong>When needed</strong><span>Private platform setup</span></div><div class="hub-lane-flow"><button class="hub-step" type="button" data-journey="connect" aria-pressed="false">Connect private provider</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="prove" aria-pressed="false">Prove readiness</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="switch" aria-pressed="false">Manage routes in Settings</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-journey="preserve" aria-pressed="false">Preserve prior history</button></div></section>
+          <section class="hub-lane"><div class="hub-lane-label"><strong>Optional service</strong><span>Sage private platform</span></div><div class="hub-lane-flow"><button class="hub-step" type="button" data-journey="payments" aria-pressed="false">Set up payment collection</button><span class="hub-arrow">→</span><button class="hub-step" type="button" data-view="switch" data-open-settings="payments">Manage payment service</button></div></section>
         </div>
         <section class="hub-detail" aria-live="polite"><div><p class="hub-kicker">Selected step</p><h2 id="hub-journey-title"></h2><p id="hub-journey-summary"></p></div><div><h3>Customer experience</h3><ul id="hub-journey-customer"></ul></div><div><h3>Technical responsibility</h3><ul id="hub-journey-technical"></ul></div><div><h3>Control or exception</h3><ul id="hub-journey-control"></ul></div></section>
       </section>
@@ -721,28 +741,36 @@
         <div class="hub-reference-strip" aria-label="Detailed Confluence references"><span>Detailed Confluence</span><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148655" target="_blank" rel="noopener noreferrer">Customer onboarding &amp; migration ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866152234" target="_blank" rel="noopener noreferrer">Identifiers, tenancy &amp; delegated accountants ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=837610648" target="_blank" rel="noopener noreferrer">Public platform onboarding ↗</a></div>
         <div id="hub-onboard-single">
           <div class="hub-workspace">
-            <section class="hub-panel"><div class="hub-panel-head"><div><h2>Company and authority</h2><p>Reusable identity and requested capabilities</p></div></div><div class="hub-form-grid">
+            <section class="hub-panel"><div class="hub-panel-head"><div><h2>Company and authority</h2><p>Reusable identity and requested capabilities</p></div></div>
+            <label class="hub-field">Current setup<select id="hub-setup-scenario"><option value="new">New e-invoicing setup</option><option value="public">Already using the public platform</option><option value="private">Already using a private provider</option><option value="sage">Already using Sage private platform</option><option value="unknown">Setup is unknown or unsupported</option></select></label>
+            <p class="hub-rule" id="hub-reuse-summary">Confirm the business and complete only the missing setup.</p>
+            <div class="hub-form-grid">
               <label class="hub-field is-wide">Legal entity<input id="hub-onboard-company-name" type="text" value="Demo Supplier S.L."></label>
               <label class="hub-field">Tax scheme<select><option>ES:NIF</option></select></label>
-              <label class="hub-field">Tax identifier<input type="text" value="B12345674"></label>
+              <label class="hub-field">Tax identifier<input id="hub-onboard-tax-id" type="text" value="B12345674"></label>
               <label class="hub-field">Onboarding actor<select id="hub-onboarding-actor" aria-label="Onboarding actor"><option value="customer" selected>Customer administrator</option><option value="accountant">Authorised accountant</option></select></label>
-              <label class="hub-field">Directions<select><option>Send and receive</option><option>Send only</option><option>Receive only</option></select></label>
+              <label class="hub-field">Directions<select id="hub-onboard-directions"><option value="both">Send and receive</option><option value="outbound">Send only</option><option value="inbound">Receive only</option></select></label>
               <div id="hub-accountant-fields" class="hub-form-grid is-wide" hidden>
                 <label class="hub-field">Accountancy practice<input id="hub-accountant-practice" value="SYNTH Accounting Partners S.L." aria-label="Accountancy practice"></label>
                 <label class="hub-field">Acting user<input value="Ana Torres" aria-label="Accountant acting user"></label>
                 <label class="hub-field">Client mandate reference<input value="SYNTH-MANDATE-1042" aria-label="Client mandate reference"></label>
-                <label class="hub-field">Delegated scope<select aria-label="Delegated authority scope"><option>Onboard and manage e-invoicing</option><option>Onboard only</option><option>Manage routes and connections</option><option>View and receive only</option></select></label>
+                <label class="hub-field">Delegated scope<select id="hub-accountant-scope" aria-label="Delegated authority scope"><option value="all">Onboard and manage e-invoicing</option><option value="onboard">Onboard only</option><option value="routes">Manage routes and connections</option><option value="view">View and receive only</option></select></label>
                 <label class="hub-field">Authority valid until<input type="date" value="2027-12-31" aria-label="Delegated authority valid until"></label>
                 <label class="hub-field">Client context<input value="Demo Supplier S.L. · isolated client workspace" readonly aria-label="Selected client context"></label>
               </div>
             </div><div class="hub-panel-head" style="margin-top:16px"><div><h2>Choose the starting route</h2><p>A provider connection never silently becomes the live route</p></div></div><div class="hub-choice-list">
               <label class="hub-choice"><input type="radio" name="hub-start-route" value="public" checked><span><strong>Spanish public platform</strong><span>Public-first baseline route.</span></span></label>
-              <label class="hub-choice"><input type="radio" name="hub-start-route" value="private"><span><strong>Supported private provider</strong><span>Connect and validate it; select it later in Send.</span></span></label>
+              <label class="hub-choice"><input type="radio" name="hub-start-route" value="private"><span><strong>Supported private provider</strong><span>Keep your chosen provider. Check the requested functions before activation.</span></span></label>
+              <label class="hub-choice"><input type="radio" name="hub-start-route" value="sage"><span><strong>Sage private platform</strong><span>Use Sage as your private platform, with optional payment collection. Proposed Phase 3 experience.</span></span></label>
             </div><div id="hub-private-provider" class="hub-form-grid" style="margin-top:12px" hidden><label class="hub-field">Private platform<select id="hub-onboard-private-provider"><option>EDICOM</option><option>SERES</option><option>Banqup</option><option>B2B Router</option><option>ZeroComa</option></select></label><label class="hub-field">Provider account<input value="SYNTH-PROVIDER-001"></label></div>
+            <div id="hub-sage-onboarding" hidden>
+              <p class="hub-rule">Sage setup checks the named operator, customer authority and selected functions. Public access remains a separate check where required. This preview does not prove operator or service availability.</p>
+              <label class="hub-inline-check" style="margin-top:12px"><input id="hub-payments-next" type="checkbox"><span>Set up payment collection with Bridge after e-invoicing activation. You can skip this and add it later in Settings.</span></label>
+            </div>
             <div class="hub-panel-head" style="margin-top:16px"><div><h2>Conditional certificate readiness</h2><p>Required only when the selected capability, route or format needs it</p></div></div>
             <div class="hub-form-grid">
-              <label class="hub-field is-wide">Certificate policy<select id="hub-certificate-policy" aria-label="Certificate policy"><option value="not-required" selected>Not required for the selected public capability</option><option value="private-signing">Private-platform advanced invoice signature</option><option value="provider-auth">Provider / API authentication</option><option value="facturae-xades">Facturae XAdES signing</option></select></label>
-              <p class="hub-rule is-wide" id="hub-certificate-summary">No certificate is requested for the selected public capability. This is a recorded policy result—not a missing onboarding step.</p>
+              <label class="hub-field is-wide">Certificate policy<select id="hub-certificate-policy" aria-label="Certificate policy"><option value="provider-auth" selected>Public API authentication — qualified certificate or seal</option><option value="not-required">No customer-held certificate — qualified managed path</option><option value="private-signing">Private-platform advanced invoice signature</option><option value="provider-auth">Provider / API authentication</option><option value="facturae-xades">Facturae XAdES signing</option></select></label>
+              <p class="hub-rule is-wide" id="hub-certificate-summary">Confirm who supplies the authentication certificate for the selected action. A managed credential does not remove the caller authentication check.</p>
               <div id="hub-certificate-fields" class="hub-form-grid is-wide" hidden>
                 <label class="hub-field is-wide">Certificate supplied or managed by<select id="hub-certificate-holder" aria-label="Certificate supplied or managed by"><option value="customer" selected>Customer / invoice issuer</option><option value="accountant">Accountant / delegated representative</option><option value="provider">Private platform / delegated signing service</option><option value="sage">Sage trust service</option></select></label>
                 <label class="hub-field">Certificate reference<input value="SYNTH-CERT-009" aria-label="Certificate reference"></label>
@@ -754,9 +782,10 @@
               </div>
             </div>
             <p class="hub-rule"><strong>Authority rule:</strong> an accountant's product access or possession of a certificate does not by itself grant invoice-signing authority. The client mandate, delegated scope, signer role and certificate policy must agree. Older invoices retain their original platform, certificate/signature and lifecycle evidence after rotation or route changes.</p></section>
-            <aside class="hub-panel"><div class="hub-panel-head"><div><h2>Activation readiness</h2><p>Checked per capability and direction</p></div></div><ol class="hub-progress" id="hub-onboard-progress"><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Company identity</strong><br>Legal and tax identity captured</span></li><li><span class="hub-progress-marker">2</span><span><strong>Authority</strong><br><span id="hub-authority-progress-copy">Customer administrator scope and evidence</span></span></li><li><span class="hub-progress-marker">3</span><span><strong>Certificate decision</strong><br><span id="hub-certificate-progress-copy">Not required for selected public capability</span></span></li><li><span class="hub-progress-marker">4</span><span><strong>Connection</strong><br>Registration and protected credentials</span></li><li><span class="hub-progress-marker">5</span><span><strong>Capability</strong><br>Send and receive readiness</span></li></ol></aside>
+            <aside class="hub-panel"><div class="hub-panel-head"><div><h2>Activation readiness</h2><p>Checked per capability and direction</p></div></div><ol class="hub-progress" id="hub-onboard-progress"><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Company identity</strong><br>Legal and tax identity captured</span></li><li><span class="hub-progress-marker">2</span><span><strong>Authority</strong><br><span id="hub-authority-progress-copy">Customer administrator scope and evidence</span></span></li><li><span class="hub-progress-marker">3</span><span><strong>Certificate decision</strong><br><span id="hub-certificate-progress-copy">Authentication and representation checks</span></span></li><li><span class="hub-progress-marker">4</span><span><strong>Connection</strong><br>Required access and protected credentials</span></li><li><span class="hub-progress-marker">5</span><span><strong>Capability</strong><br>Send and receive readiness</span></li></ol></aside>
           </div>
-          <div class="hub-footer"><p class="hub-inline-status" id="hub-onboard-status"><span class="hub-dot"></span>Draft · identity captured</p><div class="hub-actions"><button class="hub-button" type="button" id="hub-onboard-validate"><i data-lucide="badge-check" aria-hidden="true"></i>Validate and activate</button></div></div>
+          <details class="hub-demo" style="margin-top:14px"><summary>Demo controls · onboarding result</summary><label class="hub-field">Check outcome<select id="hub-onboard-outcome"><option value="ready">Ready</option><option value="blocked">Needs action · authority or trust evidence missing</option><option value="pending">Pending · original result is unknown</option></select></label></details>
+          <div class="hub-footer"><p class="hub-inline-status" id="hub-onboard-status" role="status">Draft · identity captured</p><div class="hub-actions"><button class="hub-button is-secondary" type="button" id="hub-onboard-validate">Check readiness</button><button class="hub-button" type="button" id="hub-onboard-activate" disabled>Activate selected functions</button></div></div>
         </div>
         <div id="hub-onboard-batch" hidden>
           <section class="hub-panel"><div class="hub-panel-head"><div><h2>Accountant portfolio context</h2><p>The practice authenticates once; authority and readiness are still evaluated per client</p></div><span class="hub-state">3 clients</span></div><div class="hub-form-grid"><label class="hub-field">Accountancy practice<input value="SYNTH Accounting Partners S.L." readonly aria-label="Batch accountancy practice"></label><label class="hub-field">Portfolio authority reference<input value="SYNTH-PORTFOLIO-88" aria-label="Portfolio authority reference"></label></div><p class="hub-rule">A portfolio mandate may prove the accountant can administer onboarding, but it does not automatically let the practice sign every client's invoice or reuse one certificate across the portfolio.</p></section>
@@ -811,7 +840,7 @@
                 <label class="hub-field">Issue date<input type="date" value="2026-09-15" aria-label="Issue date"></label>
                 <label class="hub-field">Currency<select aria-label="Currency"><option>EUR</option></select></label>
                 <label class="hub-field">Total<input value="€1,210.00" aria-label="Invoice total"></label>
-                <label class="hub-field is-wide">Delivery route<select id="hub-send-route" aria-label="Delivery route"><option value="auto">Automatically discover recipient route</option><optgroup label="Public route"><option value="public">Spanish Public Platform (AEAT)</option></optgroup><optgroup label="Private platforms — Phase 2 portfolio"><option value="b2b-router">B2B Router</option><option value="banqup">Banqup (Unifiedpost)</option><option value="edicom">EDICOM</option><option value="seres">SERES (Docaposte)</option><option value="zerocoma">ZeroComa</option></optgroup><option value="unresolved">Manual reconciliation required</option></select></label>
+                <label class="hub-field is-wide">Delivery route<select id="hub-send-route" aria-label="Delivery route"><option value="auto">Automatically discover recipient route</option><optgroup label="Public route"><option value="public">Spanish Public Platform (AEAT)</option></optgroup><optgroup label="Private platforms — prepared connections"><option value="sage">Sage private platform</option><option value="b2b-router">B2B Router</option><option value="banqup">Banqup (Unifiedpost)</option><option value="edicom">EDICOM</option><option value="seres">SERES (Docaposte)</option><option value="zerocoma">ZeroComa</option></optgroup><option value="unresolved">Manual reconciliation required</option></select></label>
                 <label class="hub-field">Exchange syntax<select id="hub-exchange-format" aria-label="Exchange syntax"><option value="ubl" selected>UBL</option><option value="cii">UN/CEFACT CII</option><option value="edifact">UN/EDIFACT invoice</option><option value="facturae">Facturae</option></select></label>
                 <label class="hub-field">Profile / implementation guide<select id="hub-exchange-profile" aria-label="Exchange profile"></select></label>
                 <label class="hub-field is-wide">Readability companion<select id="hub-pdf-companion" aria-label="PDF readability companion"><option value="none" selected>None</option><option value="transition">Transition PDF — separate companion, not invoice syntax</option></select></label>
@@ -850,7 +879,7 @@
               </fieldset>
 
               <label id="hub-private-directory-field" class="hub-field hub-private-directory" hidden>Private platform directory
-                <select id="hub-private-directory" aria-label="Private platform directory"><option value="b2b-router">B2B Router</option><option value="banqup">Banqup (Unifiedpost)</option><option value="edicom">EDICOM</option><option value="seres">SERES (Docaposte)</option><option value="zerocoma">ZeroComa</option></select>
+                <select id="hub-private-directory" aria-label="Private platform directory"><option value="sage">Sage private platform</option><option value="b2b-router">B2B Router</option><option value="banqup">Banqup (Unifiedpost)</option><option value="edicom">EDICOM</option><option value="seres">SERES (Docaposte)</option><option value="zerocoma">ZeroComa</option></select>
               </label>
 
               <ol class="hub-validation-steps" aria-label="Route validation steps">
@@ -874,7 +903,7 @@
         </dialog>
 
         <div id="hub-exchange-receive" hidden>
-          <div class="hub-workspace"><section class="hub-panel"><div class="hub-panel-head"><div><h2>Inbound invoice queue</h2><p>Retrieved through the active inbound route</p></div><span class="hub-state is-ready">Inbound ready</span></div><table class="hub-batch-table"><thead><tr><th>Supplier</th><th>Invoice</th><th>Route</th><th>Format</th><th>Total</th><th>Status</th></tr></thead><tbody><tr><td data-label="Supplier"><strong>Iberia Office S.L.</strong></td><td data-label="Invoice">FAC-90812</td><td data-label="Route">Public platform</td><td data-label="Format">UBL · public profile</td><td data-label="Total">€842.10</td><td data-label="Status"><span class="hub-state is-ready">Available</span></td></tr><tr><td data-label="Supplier"><strong>Servicios Norte S.A.</strong></td><td data-label="Invoice">2026-1187</td><td data-label="Route">EDICOM</td><td data-label="Format">CII · D16B</td><td data-label="Total">€2,140.00</td><td data-label="Status"><span class="hub-state">Needs review</span></td></tr></tbody></table><div class="hub-form-grid" style="margin-top:14px"><label class="hub-field">Download artefact<select aria-label="Download artefact"><option>Original structured invoice</option><option>Canonical Sage representation</option><option>Human-readable rendering</option><option>Transition PDF companion, if present</option></select></label><label class="hub-field">Evidence included<input value="Role · media type · format/profile · hash · provenance" readonly aria-label="Download evidence"></label></div><p class="hub-rule">Original, canonical, rendering and transition companion are distinct artefacts. A rendering or PDF companion is never labelled as the authoritative structured invoice.</p></section><aside class="hub-panel"><div class="hub-panel-head"><div><h2>Retrieval control</h2><p>Scheduling, checkpoints and duplicate protection</p></div></div><ol class="hub-progress"><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Authority</strong><br>Inbound scope verified</span></li><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Original artefact</strong><br>Bytes, hash, route and format profile retained</span></li><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Checkpoint</strong><br>Cursor committed after durable outcomes</span></li><li><span class="hub-progress-marker">4</span><span><strong>Reconciliation</strong><br>Next scheduled comparison</span></li></ol><button class="hub-button is-secondary" type="button" id="hub-retrieve" style="margin-top:12px"><i data-lucide="refresh-cw" aria-hidden="true"></i>Retrieve now</button></aside></div><div class="hub-footer"><p class="hub-inline-status" id="hub-receive-status"><span class="hub-dot"></span>Last scheduled retrieval completed</p></div>
+          <div class="hub-workspace"><section class="hub-panel"><div class="hub-panel-head"><div><h2>Inbound invoice queue</h2><p>New retrieval uses the active inbound route. Rows below illustrate retained historical invoices.</p></div><span class="hub-state" id="hub-inbound-readiness">Receiving not active</span></div><table class="hub-batch-table"><thead><tr><th>Supplier</th><th>Invoice</th><th>Route</th><th>Format</th><th>Total</th><th>Status</th></tr></thead><tbody><tr><td data-label="Supplier"><strong>Iberia Office S.L.</strong></td><td data-label="Invoice">FAC-90812</td><td data-label="Route">Public platform</td><td data-label="Format">UBL · public profile</td><td data-label="Total">€842.10</td><td data-label="Status"><span class="hub-state is-ready">Available</span></td></tr><tr><td data-label="Supplier"><strong>Servicios Norte S.A.</strong></td><td data-label="Invoice">2026-1187</td><td data-label="Route">EDICOM</td><td data-label="Format">CII · D16B</td><td data-label="Total">€2,140.00</td><td data-label="Status"><span class="hub-state">Needs review</span></td></tr></tbody></table><div class="hub-form-grid" style="margin-top:14px"><label class="hub-field">Download artefact<select aria-label="Download artefact"><option>Original structured invoice</option><option>Canonical Sage representation</option><option>Human-readable rendering</option><option>Transition PDF companion, if present</option></select></label><label class="hub-field">Evidence included<input value="Role · media type · format/profile · hash · provenance" readonly aria-label="Download evidence"></label></div><p class="hub-rule">Original, canonical, rendering and transition companion are distinct artefacts. A rendering or PDF companion is never labelled as the authoritative structured invoice.</p></section><aside class="hub-panel"><div class="hub-panel-head"><div><h2>Retrieval control</h2><p>Scheduling, checkpoints and duplicate protection</p></div></div><ol class="hub-progress"><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Authority</strong><br>Inbound scope verified</span></li><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Original artefact</strong><br>Bytes, hash, route and format profile retained</span></li><li class="is-done"><span class="hub-progress-marker">✓</span><span><strong>Checkpoint</strong><br>Cursor committed after durable outcomes</span></li><li><span class="hub-progress-marker">4</span><span><strong>Reconciliation</strong><br>Next scheduled comparison</span></li></ol><button class="hub-button is-secondary" type="button" id="hub-retrieve" style="margin-top:12px"><i data-lucide="refresh-cw" aria-hidden="true"></i>Retrieve now</button></aside></div><div class="hub-footer"><p class="hub-inline-status" id="hub-receive-status"><span class="hub-dot"></span>Last scheduled retrieval completed</p></div>
         </div>
       </section>
 
@@ -1121,21 +1150,57 @@
       </section>
 
       <section class="hub-view" id="hub-view-switch" role="tabpanel" hidden>
-        <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">Provider-specific preparation</p><h1>Connect a private platform without onboarding the company again.</h1><p>Reuse the verified legal entity and authority. A connection makes a provider available; it does not change the effective invoice route.</p></div></div>
-        <div class="hub-reference-strip" aria-label="Detailed Confluence references"><span>Detailed Confluence</span><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866126304" target="_blank" rel="noopener noreferrer">Connections, registration &amp; routing ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148655" target="_blank" rel="noopener noreferrer">Customer onboarding &amp; migration ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=899154047" target="_blank" rel="noopener noreferrer">Provider API &amp; adapter boundary ↗</a></div>
-        <div class="hub-workspace">
-          <div>
-            <section class="hub-panel"><div class="hub-panel-head"><div><h2>Existing company context</h2><p>Reused from the completed public-platform onboarding</p></div><span class="hub-state is-ready">Reused</span></div><div class="hub-form-grid"><label class="hub-field is-wide">Legal entity<input value="Demo Supplier S.L." readonly></label><label class="hub-field">Tax identity<input value="ES:NIF B12345674" readonly></label><label class="hub-field">Onboarding status<input value="Active" readonly></label><label class="hub-field is-wide">Current active route<input value="Spanish public platform" readonly></label></div><p class="hub-rule"><strong>No re-onboarding:</strong> the new provider connection references the existing legal subject, tax identity and authority grant.</p></section>
-            <section class="hub-panel" style="margin-top:14px"><div class="hub-panel-head"><div><h2>Private platform connection</h2><p>Provider-specific account, credentials, format and trust capability</p></div></div><div class="hub-form-grid"><label class="hub-field">Private platform<select id="hub-connect-provider"><option value="EDICOM">EDICOM</option><option value="SERES">SERES</option><option value="Banqup">Banqup</option><option value="B2B Router">B2B Router</option><option value="ZeroComa">ZeroComa</option></select></label><label class="hub-field">Direction<select><option>Send and receive</option><option>Send only</option><option>Receive only</option></select></label><label class="hub-field">Provider account reference<input value="SYNTH-PROVIDER-001" aria-label="Provider account reference"></label><label class="hub-field">Credential reference<input value="SYNTH-CREDENTIAL-042" aria-label="Credential reference"></label><label class="hub-field">Environment<select><option>Production</option><option>Test</option></select></label><label class="hub-field">Authority grant<input value="SYNTH-GRANT-018" readonly aria-label="Authority grant"></label><label class="hub-field is-wide">Required format coverage<input value="CII · UBL (including eligible Peppol BIS profiles) · EDIFACT invoice · Facturae" readonly aria-label="Required format coverage"></label><label class="hub-field">Signing certificate reference<input value="SYNTH-CERT-009" aria-label="Signing certificate reference"></label><label class="hub-field">Signing readiness<input value="Owner, authority, purpose, validity and revocation check" readonly aria-label="Signing readiness"></label></div><p class="hub-rule">Store only protected credential/certificate references—not secrets or private keys. A Spanish private platform must transform between the four admitted syntaxes and apply the required advanced signature; exact versions/profiles remain evidence-gated.</p></section>
-          </div>
-          <aside class="hub-panel"><div class="hub-panel-head"><div><h2>Connection checks</h2><p>All checks must pass before the provider appears in Send</p></div></div><div class="hub-readiness" id="hub-connect-gates"><div class="hub-readiness-row"><span class="hub-progress-marker">1</span><span><strong>Authority scope</strong><br>Actor may connect this provider for the legal entity</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">2</span><span><strong>Account and credentials</strong><br>Provider account exists and the credential reference works</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">3</span><span><strong>Format and transformation</strong><br>Four admitted syntaxes, exact profiles and mappings are evidenced</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">4</span><span><strong>Advanced-signature readiness</strong><br>Signer authority and certificate lifecycle are valid</span></div><div class="hub-readiness-row"><span class="hub-progress-marker">5</span><span><strong>Reachability and health</strong><br>Endpoint, callback and provider health checks succeed</span></div></div><button class="hub-button is-secondary" type="button" id="hub-connect-validate" style="margin-top:12px"><i data-lucide="shield-check" aria-hidden="true"></i>Validate connection</button></aside>
+        <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">Company settings</p><h1>Manage platforms, routes and payment services.</h1><p>Add capabilities to the existing company. Review each change before it affects new work.</p></div></div>
+        <section class="hub-panel" style="margin-bottom:16px"><div class="hub-panel-head"><div><h2 id="hub-settings-company">Demo Supplier S.L.</h2><p id="hub-settings-context">Complete onboarding to manage this company.</p></div><span class="hub-state" id="hub-company-status">Not activated</span></div><p class="hub-helper" id="hub-current-routes"></p></section>
+        <div class="hub-segmented hub-settings-tabs" role="group" aria-label="Settings category"><button type="button" data-settings-tab="platforms" aria-pressed="true">Platforms &amp; routing</button><button type="button" data-settings-tab="payments" aria-pressed="false">Payment services</button><button type="button" data-settings-tab="access" aria-pressed="false">Access &amp; authority</button></div>
+        <div data-settings-panel="platforms" class="hub-stack">
+          <div class="hub-workspace"><div class="hub-stack">
+            <section class="hub-panel"><div class="hub-panel-head"><div><h2>Platforms &amp; connections</h2><p>Prepared connections and active routes have separate states.</p></div></div><ul id="hub-connections-list" class="hub-connection-list"></ul></section>
+            <section class="hub-panel"><div class="hub-panel-head"><div><h2>Add a platform</h2><p>Reuse the company setup. Complete only provider-specific checks.</p></div></div>
+              <div class="hub-form-grid"><label class="hub-field">Platform<select id="hub-connect-provider"><option value="sage">Sage private platform</option><option value="public">Spanish public platform</option><option value="edicom">EDICOM</option><option value="seres">SERES</option><option value="banqup">Banqup</option><option value="b2b-router">B2B Router</option><option value="zerocoma">ZeroComa</option><option value="other">Other provider · request assessment</option></select></label><label class="hub-field">Requested functions<select id="hub-connect-direction"><option value="both">Send and receive</option><option value="outbound">Send only</option><option value="inbound">Receive only</option></select></label><label class="hub-field">Provider account reference<input id="hub-connect-account" value="SYNTH-PROVIDER-001"></label><label class="hub-field">Protected credential reference<input id="hub-connect-credential" value="SYNTH-CREDENTIAL-042"></label></div>
+              <p class="hub-rule" id="hub-connect-help">Sage setup requires qualified operator, trust and capability evidence. This is a simulated supported connection.</p>
+              <details class="hub-demo" style="margin-top:12px"><summary>Demo controls · connection result</summary><label class="hub-field">Check outcome<select id="hub-connect-outcome"><option value="ready">Ready</option><option value="blocked">Needs action</option><option value="pending">Pending · reconcile original request</option></select></label></details>
+              <p id="hub-connection-status" class="hub-settings-message" role="status">Not checked</p><div class="hub-actions"><button class="hub-button is-secondary" id="hub-connect-validate" type="button">Check connection</button><button class="hub-button" id="hub-connect-save" type="button" disabled>Save prepared connection</button></div>
+            </section>
+          </div><aside class="hub-panel"><div class="hub-panel-head"><div><h2>Change routes for new invoices</h2><p>Confirm direction and effective time.</p></div></div>
+            <div class="hub-form-grid"><label class="hub-field is-wide">Prepared target platform<select id="hub-change-target"></select></label><label class="hub-field">Direction<select id="hub-change-direction"><option value="both">Send and receive</option><option value="outbound">Send only</option><option value="inbound">Receive only</option></select></label><label class="hub-field">Effective time<select id="hub-change-timing"><option value="now">After confirmation</option><option value="scheduled">Schedule a change</option></select></label><label class="hub-field is-wide" id="hub-change-date-field" hidden>Effective date and time · browser local time<input id="hub-change-date" type="datetime-local" step="1"></label></div>
+            <p class="hub-rule">Adding a connection does not switch traffic. Earlier invoices retain their original platform references and lifecycle path. Direct changes between different private platforms remain outside this preview's enabled scope.</p>
+            <p id="hub-change-message" class="hub-settings-message" role="status">Choose a prepared connection to review a change.</p><button class="hub-button is-secondary" id="hub-change-review" type="button">Review route change</button>
+            <div id="hub-change-confirmation" class="hub-rule" hidden><p id="hub-change-summary"></p><div class="hub-actions" style="margin-top:12px"><button class="hub-button" id="hub-change-confirm" type="button">Confirm change</button><button class="hub-button is-secondary" id="hub-change-cancel" type="button">Cancel change</button></div></div>
+          </aside></div>
+          <section class="hub-panel"><h2>Change history</h2><p class="hub-helper">Demo changes preserve earlier invoice context. Scheduled changes can be cancelled before they take effect.</p><ol id="hub-change-history" class="hub-audit"></ol></section>
         </div>
-        <section class="hub-panel" style="margin-top:14px"><h2>Connection makes the provider available—it does not switch the route</h2><div class="hub-history-flow is-three"><div class="hub-history-node"><strong>1 · Existing onboarded company</strong><span>Identity, authority and public route remain active.</span></div><span aria-hidden="true">→</span><div class="hub-history-node"><strong>2 · Connected private provider</strong><span>Provider-specific readiness is stored independently.</span></div><span aria-hidden="true">→</span><div class="hub-history-node"><strong>3 · Selectable in Send</strong><span id="hub-connected-provider">After connection, EDICOM can be selected for eligible invoices. The current public route remains unchanged.</span></div></div></section>
-        <div class="hub-footer"><p class="hub-inline-status" id="hub-connection-status"><span class="hub-dot"></span>Not connected · current public route remains active</p><div class="hub-actions"><button class="hub-button" type="button" id="hub-connect-save" disabled><i data-lucide="plug" aria-hidden="true"></i>Connect private platform</button></div></div>
+        <div data-settings-panel="payments" class="hub-stack" hidden>
+          <div class="hub-workspace"><section class="hub-panel"><div class="hub-panel-head"><div><p class="hub-kicker">Optional · Sage private platform</p><h2>Collect invoice payments</h2><p>Set up Bridge through Sage Payments Acceptance Service.</p></div><span class="hub-payment-brand" aria-label="Bridge sample wordmark">Bridge</span></div>
+            <p class="hub-rule" id="hub-payment-eligibility">Activate Sage private-platform functions before setting up payment collection.</p>
+            <div class="hub-form-grid"><label class="hub-field is-wide">Primary contact email<input id="hub-payment-email" type="email" value="payments@example.invalid" autocomplete="off" required></label></div>
+            <p class="hub-helper">Bridge uses this address to contact the primary user about suspicious activity. If the user cannot be contacted, the payment capability may be terminated.</p>
+            <p class="hub-helper" style="margin-top:12px">No existing Bridge account is needed. Set up the payment service directly here.</p>
+            <button class="hub-button is-secondary" id="hub-payment-terms" type="button" style="margin-top:12px">Read sample provider terms</button>
+            <label class="hub-inline-check" style="margin-top:12px"><input id="hub-payment-consent" type="checkbox"><span>I agree to the displayed sample payment-provider terms for this demo. Consent applies to this company and payment setup.</span></label>
+            <p class="hub-helper">Production must show the logo and terms returned by the selected servicer. This preview uses a sample wordmark and terms; it records no legal consent.</p>
+            <p id="hub-payment-status" class="hub-settings-message" role="status">Not configured · e-invoicing remains available</p>
+            <div class="hub-actions"><button class="hub-button" id="hub-payment-create" type="button">Set up payment collection</button><button class="hub-button is-secondary" id="hub-payment-reconcile" type="button" hidden>Check original request</button></div>
+          </section><aside class="hub-panel"><h2>Payment readiness</h2><ol id="hub-payment-gates" class="hub-progress" style="margin-top:14px"></ol><p class="hub-rule">Payment-provider account readiness is separate from receiving funds and from invoice payment reporting. A failed payment setup leaves working e-invoicing unchanged.</p></aside></div>
+          <details class="hub-demo"><summary>Demo controls · PAS prerequisites and outcomes</summary><div class="hub-stack">
+            <label class="hub-inline-check"><input id="hub-pas-country" type="checkbox"><span>Simulate Bridge being qualified and enabled for this Spain scenario. The supplied source does not confirm country, currency or commercial availability.</span></label>
+            <label class="hub-inline-check"><input id="hub-pas-network" type="checkbox" checked><span>Existing Network onboarding has completed · reuse the company mapping.</span></label>
+            <label class="hub-inline-check"><input id="hub-pas-notifications" type="checkbox" checked><span>Required PAS notification subscriptions have been created.</span></label>
+            <label class="hub-inline-check"><input id="hub-pas-creation" type="checkbox" checked><span>Servicer metadata permits account creation.</span></label>
+            <label class="hub-field">Account request / reconciliation result<select id="hub-pas-result"><option value="active">Account created · ready</option><option value="pending">Pending · original result unknown</option><option value="failed">Confirmed failure · no account created</option></select></label>
+            <button class="hub-button is-secondary" id="hub-payment-deleted" type="button" disabled>Simulate account.deleted notification</button>
+          </div></details>
+          <details class="hub-demo"><summary>PAS source and integration boundary</summary><p>Based on the user-supplied <a href="https://confluence.sage.com/spaces/PAS/pages/586593610/Onboarding" target="_blank" rel="noopener noreferrer">PAS onboarding extract</a> (date not supplied). Discover servicer capabilities with <code>GET /servicers</code>. Bridge has <code>accountLinkingSupported: false</code>; do not call <code>POST /servicers/authorisation_url</code>, which returns 422 for this servicer. Use <code>POST /accounts</code> only when <code>accountCreationSupported: true</code>. Network onboarding and required notification subscriptions are prerequisites. An <code>account.deleted</code> event disables the payment capability.</p><p style="margin-top:8px">Request payloads, supported currencies/countries, account-status contracts, notification verification and live availability are not established by this extract. All responses here are fixtures. No payment is initiated.</p></details>
+        </div>
+        <div data-settings-panel="access" class="hub-stack" hidden>
+          <section class="hub-panel"><h2>Access &amp; authority</h2><p class="hub-helper" id="hub-access-summary"></p><p class="hub-rule">Company identity, product access, customer representation, signing authority and payment-service consent are separate checks. An accountant needs the relevant client scope for each change. The controls below simulate an existing grant; they do not grant real access.</p></section>
+          <details class="hub-demo" open><summary>Demo controls · current user's effective access</summary><div class="hub-form-grid"><label class="hub-field">Acting role<select id="hub-demo-role"><option value="admin">Customer administrator</option><option value="accountant">Authorised accountant</option><option value="viewer">Read only user</option></select></label><label class="hub-field">Accountant's client grant<select id="hub-demo-delegation"><option value="all">Onboarding and e-invoicing management</option><option value="onboard">Onboarding only</option><option value="routes">Routes and connections only</option><option value="view">View only</option></select></label></div><label class="hub-inline-check" style="margin-top:12px"><input id="hub-demo-payment-grant" type="checkbox"><span>Accountant has separate authority to set up this client's payment service.</span></label></details>
+        </div>
       </section>
+      <dialog id="hub-payment-terms-dialog" class="hub-dialog" aria-labelledby="hub-payment-terms-title"><div class="hub-dialog-header"><h2 id="hub-payment-terms-title">Sample provider terms · preview only</h2></div><div class="hub-dialog-content"><p class="hub-helper">The supplied extract does not contain the terms returned by GET /servicers. Production must display that returned content and capture consent to its actual version. This sample demonstrates the review step only. Do not enter real customer details.</p></div><form method="dialog" class="hub-dialog-footer"><button class="hub-button" type="submit">Close sample</button></form></dialog>
 
       <section class="hub-view" id="hub-view-fields" role="tabpanel" hidden>
-        <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">Conceptual data contract</p><h1>What information moves through each journey?</h1><p>Business facts are supplied once, Sage derives and freezes operational context, and external systems return identifiers and evidence.</p></div><div class="hub-segmented" role="group" aria-label="Field catalogue stage"><button type="button" data-field-stage="onboard" aria-pressed="true">Onboard</button><button type="button" data-field-stage="batch" aria-pressed="false">Batch onboard</button><button type="button" data-field-stage="send" aria-pressed="false">Send</button><button type="button" data-field-stage="receive" aria-pressed="false">Receive</button><button type="button" data-field-stage="connect" aria-pressed="false">Connect</button></div></div>
+        <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">Conceptual data contract</p><h1>What information moves through each journey?</h1><p>Business facts are supplied once, Sage derives and freezes operational context, and external systems return identifiers and evidence.</p></div><div class="hub-segmented" role="group" aria-label="Field catalogue stage"><button type="button" data-field-stage="onboard" aria-pressed="true">Onboard</button><button type="button" data-field-stage="batch" aria-pressed="false">Batch onboard</button><button type="button" data-field-stage="send" aria-pressed="false">Send</button><button type="button" data-field-stage="receive" aria-pressed="false">Receive</button><button type="button" data-field-stage="connect" aria-pressed="false">Connect</button><button type="button" data-field-stage="payments" aria-pressed="false">Payments</button></div></div>
         <div class="hub-reference-strip" aria-label="Detailed Confluence references"><span>Detailed Confluence</span><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866152234" target="_blank" rel="noopener noreferrer">Identifiers, tenancy &amp; delegated accountants ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866148660" target="_blank" rel="noopener noreferrer">Trust, identity, data &amp; audit ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866126304" target="_blank" rel="noopener noreferrer">Connections, registration &amp; routing ↗</a><a href="https://confluence.sage.com/pages/viewpage.action?pageId=866150169" target="_blank" rel="noopener noreferrer">Shared platform &amp; country packs ↗</a></div>
         <div class="hub-fields-flow" id="hub-fields-flow"></div>
         <p class="hub-rule" id="hub-fields-principle"></p>
@@ -1149,7 +1214,7 @@
       if (!root) return;
 
       const journey = {
-        identify: { title: 'Identify company', summary: 'Create the reusable legal-subject record.', customer: ['Confirm legal name and tax identity', 'Choose send, receive or both'], technical: ['Link Sage tenant, dataset and product', 'Normalise scheme-qualified identifiers'], control: ['Reject ambiguous or invalid identity', 'Keep effective dates and provenance'] },
+        identify: { title: 'Identify company', summary: 'Reuse the existing SXS company mapping and complete only missing setup.', customer: ['Confirm legal name and tax identity', 'Choose send, receive or both'], technical: ['Resolve the existing SXS company dataset before connection checks', 'Normalise scheme-qualified identifiers'], control: ['Reject ambiguous or invalid identity', 'Keep effective dates and provenance'] },
         authority: { title: 'Confirm authority', summary: 'Prove who may act and for which client and capability.', customer: ['Customer admin acts directly or an accountant presents the client mandate', 'Accountant selects one isolated client context before acting'], technical: ['Create a scoped authority grant per client', 'Track mandate evidence, capabilities, validity and revocation'], control: ['Product access is not invoice-signing authority', 'Prevent cross-client access and certificate reuse'] },
         register: { title: 'Confirm capability readiness', summary: 'Establish capability-specific readiness without assuming a universal registration step.', customer: ['See send and receive readiness separately', 'Complete certificate setup only when the route or capability requires it'], technical: ['Persist connection and external references where an external operation exists', 'Resolve certificate owner, purpose, authority and lifecycle through the trust service'], control: ['Do not collapse readiness to one flag', 'Certificate possession never grants authority; recheck expiry and revocation'] },
         create: { title: 'Create in the Sage product', summary: 'The existing accounting workflow remains the starting point.', customer: ['Create the invoice in the familiar product', 'Reuse customer and tax master data'], technical: ['Map product data into the canonical contract', 'Keep stable invoice and request identities'], control: ['Prevent duplicate logical submissions', 'Preserve the source record'] },
@@ -1158,14 +1223,15 @@
         status: { title: 'Return lifecycle status', summary: 'Normalise external events into one Sage history.', customer: ['See admission, rejection, delivery and payment', 'Know who must act on an exception'], technical: ['Map provider events to canonical states', 'Retain raw status and evidence'], control: ['Do not equate admission with acceptance', 'Keep mapping versions'] },
         connect: { title: 'Connect target provider', summary: 'Prepare credentials and capability while the current route stays live.', customer: ['Select a supported provider', 'Supply account and authority details'], technical: ['Create a provider-specific connection', 'Test credentials and callbacks'], control: ['Do not expose an unverified route', 'Protect secret references'] },
         prove: { title: 'Prove readiness', summary: 'Verify registration, reachability, authority and continuity.', customer: ['See every failed gate', 'Correct setup without interrupting service'], technical: ['Run provider capability and health checks', 'Detect conflicts and in-flight work'], control: ['Require all scoped gates', 'Define safe rollback'] },
-        switch: { title: 'Select route in Send', summary: 'Choose a proven connected provider for the eligible invoice; connection alone never changes routing.', customer: ['Choose from connected, ready routes', 'See the resolved route before sending'], technical: ['Resolve the route for this invoice scope', 'Freeze connection and decision evidence'], control: ['Require an explicit route choice or policy', 'Keep the current route unchanged until selection'] },
+        switch: { title: 'Manage routes in Settings', summary: 'Prepare a connection, then review and explicitly activate the supported change for new traffic.', customer: ['Choose the ready target and directions', 'Confirm an immediate or scheduled change'], technical: ['Recheck authority and target readiness at activation', 'Retain original platform context for earlier invoices'], control: ['Connection creation never silently switches traffic', 'Direct private-to-private changes remain disabled'] },
+        payments: { title: 'Set up optional payment collection', summary: 'With Sage private-platform sending active, offer Bridge account creation through PAS.', customer: ['Review provider terms and give payment-specific consent', 'Provide a valid primary contact email or skip setup until later'], technical: ['Reuse Network onboarding and required notification subscriptions', 'Read GET /servicers flags; create with POST /accounts when supported'], control: ['Bridge has no account-linking or OAuth flow', 'Reconcile unknown creation results; account.deleted disables payments', 'Spain service availability and full contracts need qualification'] },
         preserve: { title: 'Preserve prior history', summary: 'Every invoice continues through its origin route.', customer: ['See one history across old and new routes', 'Continue correcting older invoices'], technical: ['Retain route and profile snapshots', 'Reconcile lifecycle events by origin'], control: ['Never rewrite historic evidence', 'Keep retention and dispute records'] }
       };
 
       const fields = {
         onboard: { principle: 'The legal entity and authority are established once. Certificate setup is conditional by capability, route, format profile and environment; provider connections remain separate.', owners: [
           { title: 'Customer or accountant supplies', subtitle: 'Reusable business identity, client-scoped authority and conditional trust input', groups: [['Company identity', 'legalName, legalForm, subjectType, jurisdiction'], ['Tax identity', 'taxScheme, sourceIdentifierClass, identifierCountry, taxIdentifier'], ['Tax scheme values', 'ES:NIF, EU:VAT, countryTaxId, unresolved'], ['Source identifier classes', 'entityNIF, DNIDerivedNIF, NIEDerivedNIF, otherAEATAssignedNIF, countryQualifiedVATId, entityNationalTaxId, personNationalTaxId, permanentEstablishmentTaxId, policyReview'], ['Business context', 'businessCapacity, requestedCapabilities, directions'], ['Authority or delegation', 'actor, principal, delegateOrganisation, clientMandateRef, delegatedScope, validFrom, validTo, evidenceRef'], ['Conditional certificate', 'certificateRef, certificateOwner, certificateCustodian, certificatePurpose, environment, signerAuthorityRef']] },
-          { title: 'Sage creates and manages', subtitle: 'Product context, legal subject and readiness decisions', groups: [['Access context', 'tenantId, datasetId, productId, contextRole'], ['Legal subject record', 'legalSubjectId, normalisedTaxIdentity, provenance, effectivePeriod'], ['Authority decision', 'grantId, capabilities, routeScope, validity, revocationStatus'], ['Certificate readiness', 'requirement, ownerMatch, purposeMatch, chainStatus, validFrom, validUntil, revocationStatus, checkedAt'], ['Capability readiness', 'direction, result, limitation, policyVersion'], ['Onboarding operation', 'caseId, intakeMode, status, idempotencyKey']] },
+          { title: 'Sage reuses and manages', subtitle: 'Existing SXS context, legal subject and readiness decisions', groups: [['Access context', 'tenantId, datasetId, productId, contextRole'], ['Legal subject record', 'legalSubjectId, normalisedTaxIdentity, provenance, effectivePeriod'], ['Authority decision', 'grantId, capabilities, routeScope, validity, revocationStatus'], ['Certificate readiness', 'requirement, ownerMatch, purposeMatch, chainStatus, validFrom, validUntil, revocationStatus, checkedAt'], ['Capability readiness', 'direction, result, limitation, policyVersion'], ['Onboarding operation', 'caseId, intakeMode, status, idempotencyKey']] },
           { title: 'Authority or trust service returns', subtitle: 'Only confirmed external and certificate evidence', groups: [['Registration result where applicable', 'externalRegistrationRef, participantRef, publicMailboxRef'], ['Verification result', 'externalCode, externalStatus, observedAt, evidenceRef'], ['Certificate status', 'issuer, chainStatus, revocationStatus, expiresAt, evidenceRef'], ['Capability result', 'sendStatus, receiveStatus, limitations, validUntil']] }
         ]},
         batch: { principle: 'A portfolio upload is one operation but every company is validated and activated independently; identity, authority and failures never leak across clients.', owners: [
@@ -1189,6 +1255,12 @@
           { title: 'Private provider returns', subtitle: 'Account, format, trust and health evidence', groups: [['Account result', 'externalAccountRef, providerStatus'], ['Registration result', 'participantRef, mailboxRef, observedAt'], ['Format result', 'supportedFormats, supportedProfiles, mappingVersions, limitations'], ['Trust result', 'signatureModes, delegatedSignerSupport, verificationEvidence'], ['Capability result', 'supportedDirections, supportedProfiles, limitations'], ['Health evidence', 'endpointResult, callbackResult, evidenceRef']] }
         ]}
       };
+
+      fields.payments = { principle: 'PAS integration based on the supplied onboarding extract. The fields below describe concepts; they are not an approved POST /accounts payload. Spain availability and complete request/event contracts remain open.', owners: [
+        { title: 'Customer supplies', subtitle: 'Payment-specific setup', groups: [['Payment request', 'selectedServicer, companyContext'], ['Primary contact', 'validEmail'], ['Separate decision', 'paymentConsent, displayedTermsReference']] },
+        { title: 'Product coordinates', subtitle: 'Proposed controls and source-established prerequisites', groups: [['Reuse prerequisites', 'existingNetworkOnboarding, requiredNotificationSubscriptions'], ['Proposed controls', 'scopedAuthority, originalRequestCorrelation, pendingResultReconciliation'], ['Eligibility', 'countryQualification, commercialEnablement']] },
+        { title: 'PAS / servicer establishes', subtitle: 'Exact names retained from the supplied source', groups: [['GET /servicers', 'accountLinkingSupported, accountCreationSupported, logo and terms links'], ['Bridge onboarding', 'POST /accounts'], ['Disabled capability', 'account.deleted']] }
+      ]};
 
       const identitySchemeOptions = {
         'es-nif': {
@@ -1223,10 +1295,11 @@
         facturae: [['facturae-322', 'Facturae 3.2.2 — route-specific XAdES policy']]
       };
       const formatLabels = { ubl: 'UBL', cii: 'UN/CEFACT CII', edifact: 'UN/EDIFACT invoice', facturae: 'Facturae' };
-      const privateExchangeRoutes = ['b2b-router', 'banqup', 'edicom', 'seres', 'zerocoma'];
+      const privateExchangeRoutes = ['sage', 'b2b-router', 'banqup', 'edicom', 'seres', 'zerocoma'];
       const exchangeRouteLabels = {
         auto: 'Automatic recipient discovery',
         public: 'Spanish Public Platform (AEAT)',
+        sage: 'Sage private platform',
         'b2b-router': 'B2B Router',
         banqup: 'Banqup (Unifiedpost)',
         edicom: 'EDICOM',
@@ -1239,13 +1312,14 @@
       const mapCopy = {
         public: ['Phase 1 · public-first route', 'A Sage product submits through the shared platform to the Spanish public route. The selected route and resulting evidence remain attached to that invoice.'],
         private: ['Phase 2 · public/private coexistence', 'A proven private connection is activated only for its intended entity, direction, environment and effective period. Recipient delivery and any required public copy remain separate, correlated actions.'],
+        sage: ['Phase 3 · Sage private platform + optional payments', 'Sage becomes the private-platform proposition. Customer setup reuses the existing company context. Optional payment collection uses PAS / Bridge after separate consent and readiness checks; Spain availability remains unconfirmed.'],
         accountant: ['Accountant-managed portfolio', 'Sage Despachos supplies a portfolio access context, but identity, authority, readiness, routes and evidence remain isolated for each client and operation.']
       };
 
       const saved = window.openai && window.openai.widgetState && window.openai.widgetState.modelContent;
       const state = {
         view: saved && ['map','journey','onboarding','exchange','example','switch','fields'].includes(saved.view) ? saved.view : 'map',
-        mapRoute: saved && ['public','private','accountant'].includes(saved.mapRoute) ? saved.mapRoute : 'public',
+        mapRoute: saved && ['public','private','sage','accountant'].includes(saved.mapRoute) ? saved.mapRoute : 'public',
         journeyStage: saved && journey[saved.journeyStage] ? saved.journeyStage : 'identify',
         onboardMode: saved && ['single','batch'].includes(saved.onboardMode) ? saved.onboardMode : 'single',
         exchangeMode: saved && ['send','receive'].includes(saved.exchangeMode) ? saved.exchangeMode : 'send',
@@ -1255,7 +1329,348 @@
       };
       const designState = { density: 'comfortable', showNotes: true };
 
+      // Proposed product behaviour. PAS contract facts come only from the supplied onboarding extract.
+      const platformIds = ['public', 'sage', 'edicom', 'seres', 'banqup', 'b2b-router', 'zerocoma'];
+      const workspace = state.workspace = {
+        active: false, primary: 'public', connections: [], routes: { outbound: null, inbound: null },
+        onboarding: 'draft', onboardingKey: '', connectionKey: '', pendingChange: null, audit: [],
+        payment: 'not-configured', paymentRequest: 0, paymentMessage: 'Not configured · e-invoicing remains available'
+      };
+      let settingsTab = 'platforms';
+      let onboardingTimer;
+      let paymentTimer;
+      const el = id => root.querySelector(`#${id}`);
+      const textAt = (id, value) => { el(id).textContent = value; };
+      const directions = value => value === 'both' ? ['outbound', 'inbound'] : [value];
+      const labelFor = id => exchangeRouteLabels[id] || 'Not activated';
+      const currentRouteText = () => `Send: ${labelFor(workspace.routes.outbound)} · Receive: ${labelFor(workspace.routes.inbound)}`;
+      const readyConnection = (id, scope) => workspace.connections.some(c => c.id === id && directions(scope).every(d => c.directions.includes(d)));
+      const isPrivate = id => id && id !== 'public';
+      function permission(action) {
+        const role = el('hub-demo-role').value;
+        if (role === 'admin') return true;
+        if (role === 'viewer') return false;
+        const grant = el('hub-demo-delegation').value;
+        if (action === 'payments') return el('hub-demo-payment-grant').checked;
+        if (action === 'send') return grant === 'all';
+        return grant === 'all' || grant === (action === 'onboard' ? 'onboard' : 'routes');
+      }
+      function recordChange(message) {
+        workspace.audit.unshift(`${new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})} · ${message}`);
+        workspace.audit = workspace.audit.slice(0, 15);
+      }
+      function saveConnection(id, scope) {
+        const found = workspace.connections.find(c => c.id === id);
+        if (found) found.directions = [...new Set([...found.directions, ...directions(scope)])];
+        else workspace.connections.push({ id, directions: directions(scope) });
+      }
+      function clearOnboarding(message = 'Setup changed · check the affected readiness again.') {
+        clearTimeout(onboardingTimer);
+        workspace.onboarding = 'draft';
+        workspace.onboardingKey = '';
+        root.querySelectorAll('#hub-onboard-progress li').forEach((row, i) => {
+          row.classList.remove('is-done'); row.querySelector('.hub-progress-marker').textContent = String(i + 1);
+        });
+        el('hub-onboard-activate').disabled = true;
+        el('hub-onboard-validate').disabled = workspace.active || !permission('onboard');
+        textAt('hub-onboard-status', message);
+      }
+      function onboardProvider() {
+        const selected = root.querySelector('input[name="hub-start-route"]:checked').value;
+        if (selected !== 'private') return selected;
+        const name = el('hub-onboard-private-provider').value;
+        return { EDICOM: 'edicom', SERES: 'seres', Banqup: 'banqup', 'B2B Router': 'b2b-router', ZeroComa: 'zerocoma' }[name];
+      }
+      function onboardingKey() {
+        return JSON.stringify([...root.querySelectorAll('#hub-onboard-single input, #hub-onboard-single select')]
+          .filter(n => !['hub-onboard-outcome', 'hub-payments-next'].includes(n.id))
+          .map(n => [n.id || n.name, n.value, n.checked]));
+      }
+      function checkOnboarding() {
+        if (workspace.active) return;
+        clearOnboarding('Checking the selected functions…');
+        if (!permission('onboard')) { textAt('hub-onboard-status', 'Needs action · an authorised customer or accountant must complete setup.'); return; }
+        if (el('hub-setup-scenario').value === 'unknown') { textAt('hub-onboard-status', 'Needs assessment · support must identify the existing setup. No new account or route was created.'); return; }
+        if (!el('hub-onboard-company-name').value.trim() || !el('hub-onboard-tax-id').value.trim()) { textAt('hub-onboard-status', 'Enter the company name and tax identifier, then check again.'); return; }
+        workspace.onboarding = 'checking';
+        const key = onboardingKey();
+        el('hub-onboard-validate').disabled = true;
+        onboardingTimer = setTimeout(() => {
+          el('hub-onboard-validate').disabled = false;
+          if (key !== onboardingKey()) { clearOnboarding(); return; }
+          const outcome = el('hub-onboard-outcome').value;
+          workspace.onboarding = outcome;
+          if (outcome !== 'ready') {
+            textAt('hub-onboard-status', outcome === 'pending' ? 'Pending · check the original setup result before repeating any external action.' : 'Needs action · the customer or trust owner must supply missing authority or credential evidence.');
+            el('hub-onboard-validate').textContent = outcome === 'pending' ? 'Check original result' : 'Check corrected setup';
+            return;
+          }
+          workspace.onboardingKey = key;
+          root.querySelectorAll('#hub-onboard-progress li').forEach(row => {
+            row.classList.add('is-done'); row.querySelector('.hub-progress-marker').textContent = '✓';
+          });
+          textAt('hub-onboard-status', `Ready · ${labelFor(onboardProvider())} · ${el('hub-onboard-directions').selectedOptions[0].text}. Confirm activation separately.`);
+          el('hub-onboard-activate').disabled = false;
+        }, 350);
+      }
+      function activateOnboarding() {
+        if (workspace.active || !permission('onboard') || workspace.onboarding !== 'ready' || workspace.onboardingKey !== onboardingKey()) return;
+        const id = onboardProvider(), scope = el('hub-onboard-directions').value;
+        saveConnection(id, scope);
+        directions(scope).forEach(d => workspace.routes[d] = id);
+        workspace.active = true; workspace.primary = id;
+        recordChange(`Initial ${labelFor(id)} functions activated for ${scope}.`);
+        textAt('hub-onboard-status', `Active · ${labelFor(id)} · ${el('hub-onboard-directions').selectedOptions[0].text}.`);
+        if (id === 'sage' && el('hub-payments-next').checked) { state.view = 'switch'; settingsTab = 'payments'; renderView(); }
+        renderWorkspace(); persist();
+      }
+      function reuseScenario() {
+        const scenario = el('hub-setup-scenario').value;
+        clearOnboarding('Draft · check only missing setup.');
+        if (!platformIds.includes(scenario) && scenario !== 'private') {
+          textAt('hub-reuse-summary', scenario === 'unknown' ? 'Existing state needs assessment. Support must establish the original result before creating anything.' : 'Confirm the business and complete only the missing setup.');
+          return;
+        }
+        const id = scenario === 'private' ? 'edicom' : scenario;
+        workspace.active = true; workspace.primary = id;
+        workspace.routes = { outbound: id, inbound: id };
+        saveConnection(id, 'both');
+        root.querySelector(`input[name="hub-start-route"][value="${scenario === 'private' ? 'private' : id}"]`).checked = true;
+        syncOnboardRoute();
+        textAt('hub-reuse-summary', `Demo: found existing ${labelFor(id)} setup and reused the company's SXS mapping. Add or change functions in Settings.`);
+        textAt('hub-onboard-status', `Existing setup retained · ${labelFor(id)}. Use Settings for additional capabilities.`);
+        recordChange(`Existing ${labelFor(id)} setup reused; no new company registration.`);
+        renderWorkspace(); persist();
+      }
+      function syncOnboardRoute() {
+        const value = root.querySelector('input[name="hub-start-route"]:checked').value;
+        el('hub-private-provider').hidden = value !== 'private';
+        el('hub-sage-onboarding').hidden = value !== 'sage';
+        el('hub-certificate-policy').value = value === 'public' ? 'provider-auth' : 'private-signing';
+        if (value === 'sage') el('hub-certificate-holder').value = 'sage';
+        toggleCertificateSetup();
+      }
+      function connectionKey() {
+        return JSON.stringify(['hub-connect-provider', 'hub-connect-direction', 'hub-connect-account', 'hub-connect-credential'].map(id => el(id).value));
+      }
+      function invalidateConnection() {
+        workspace.connectionKey = ''; state.connectionReady = false;
+        el('hub-connect-save').disabled = true;
+        textAt('hub-connection-status', 'Not checked · the current routes remain unchanged.');
+        const id = el('hub-connect-provider').value;
+        textAt('hub-connect-help', id === 'other' ? 'Request an assessment from the integration owner. No unconfirmed provider connection will be created.' : id === 'sage' ? 'Sage operator, authority, trust and capability checks must be qualified before use.' : 'Check the selected provider account, protected credentials, trust and requested directions.');
+      }
+      function checkConnection() {
+        invalidateConnection();
+        if (!workspace.active || !permission('routes')) { textAt('hub-connection-status', 'Needs action · complete company setup and use an authorised role.'); return; }
+        if (el('hub-connect-provider').value === 'other') { textAt('hub-connection-status', 'Assessment required · integration owner must confirm support and required evidence.'); return; }
+        if (!el('hub-connect-account').value.trim() || !el('hub-connect-credential').value.trim()) { textAt('hub-connection-status', 'Add the required protected account and credential references.'); return; }
+        const outcome = el('hub-connect-outcome').value;
+        textAt('hub-connection-status', outcome === 'ready' ? 'Ready to save · no route change has been made.' : outcome === 'pending' ? 'Pending · reconcile the original provider result before retrying.' : 'Needs action · the connection owner must correct account, trust or reachability evidence.');
+        if (outcome === 'ready') { workspace.connectionKey = connectionKey(); state.connectionReady = true; el('hub-connect-save').disabled = false; }
+      }
+      function storeConnection() {
+        if (!workspace.active || !permission('routes') || !state.connectionReady || workspace.connectionKey !== connectionKey()) return;
+        const id = el('hub-connect-provider').value;
+        if (!platformIds.includes(id)) return;
+        saveConnection(id, el('hub-connect-direction').value);
+        recordChange(`${labelFor(id)} connection prepared; current routes unchanged.`);
+        textAt('hub-connection-status', `Prepared · ${labelFor(id)}. Review a route change separately.`);
+        workspace.connectionKey = ''; state.connectionReady = false;
+        renderWorkspace(); persist();
+      }
+      function routeProblem(target, scope) {
+        if (!workspace.active || !permission('routes')) return 'An authorised customer or accountant must manage the company routes.';
+        if (!readyConnection(target, scope)) return 'The target is not ready for every selected direction. Prepare the missing functions first.';
+        const selected = directions(scope);
+        if (selected.every(d => workspace.routes[d] === target)) return 'The selected directions already use this platform.';
+        if (selected.some(d => isPrivate(workspace.routes[d]) && isPrivate(target) && workspace.routes[d] !== target)) return 'Direct changes between different private platforms are not enabled. The product owner must qualify this migration path.';
+        const next = { ...workspace.routes }; selected.forEach(d => next[d] = target);
+        if (new Set(Object.values(next).filter(isPrivate)).size > 1) return 'Multiple active private providers are not enabled for this scope.';
+        return '';
+      }
+      function cancelChange(message = 'Change cancelled · current routes and earlier invoices are unchanged.') {
+        workspace.pendingChange = null;
+        textAt('hub-change-message', message);
+        renderWorkspace(); persist();
+      }
+      function reviewChange() {
+        if (workspace.pendingChange?.confirmed) { textAt('hub-change-message', 'Cancel the scheduled change before preparing a different change.'); return; }
+        const target = el('hub-change-target').value, scope = el('hub-change-direction').value;
+        const problem = routeProblem(target, scope);
+        if (problem) { cancelChange(problem); return; }
+        const scheduled = el('hub-change-timing').value === 'scheduled';
+        const at = scheduled ? new Date(el('hub-change-date').value).getTime() : null;
+        if (scheduled && (!Number.isFinite(at) || at <= Date.now())) { cancelChange('Choose a future effective date and time.'); return; }
+        workspace.pendingChange = {target, scope, at, confirmed: false, before: JSON.stringify(workspace.routes)};
+        textAt('hub-change-message', 'Review the proposed change and confirm explicitly.');
+        renderWorkspace();
+      }
+      function confirmChange() {
+        const change = workspace.pendingChange;
+        if (!change || change.confirmed) return;
+        const problem = routeProblem(change.target, change.scope);
+        if (problem || change.before !== JSON.stringify(workspace.routes)) { cancelChange(problem || 'Routes changed. Review the latest state before confirming.'); return; }
+        change.confirmed = true;
+        if (change.at && change.at > Date.now()) {
+          recordChange(`${labelFor(change.target)} change scheduled for ${new Date(change.at).toLocaleString()}.`);
+          textAt('hub-change-message', 'Scheduled · current routes remain active until the agreed time.');
+        } else applyRouteChange();
+        renderWorkspace(); persist();
+      }
+      function applyRouteChange() {
+        const change = workspace.pendingChange;
+        if (!change?.confirmed || (change.at && change.at > Date.now())) return;
+        const problem = routeProblem(change.target, change.scope);
+        if (problem || change.before !== JSON.stringify(workspace.routes)) { cancelChange(`Scheduled change stopped · ${problem || 'current routes changed; review again.'}`); return; }
+        directions(change.scope).forEach(d => workspace.routes[d] = change.target);
+        recordChange(`New ${change.scope} traffic uses ${labelFor(change.target)}. Earlier invoices retain their original platform context.`);
+        workspace.pendingChange = null;
+        invalidateSendValidation('Company routing changed. Recheck the route for the next invoice.');
+        textAt('hub-change-message', 'Change applied · earlier invoices and required historical access are preserved.');
+        renderWorkspace(); persist();
+      }
+      function paymentGates() {
+        const email = el('hub-payment-email');
+        return [
+          ['Sage private-platform sending functions are active', workspace.active && workspace.routes.outbound === 'sage' && readyConnection('sage', 'outbound')],
+          ['Actor has payment-service setup authority', permission('payments')],
+          ['Bridge is enabled for this country scenario', el('hub-pas-country').checked],
+          ['Existing Network onboarding is complete', el('hub-pas-network').checked],
+          ['Required PAS notification subscriptions exist', el('hub-pas-notifications').checked],
+          ['Servicer supports account creation', el('hub-pas-creation').checked],
+          ['Primary contact email is valid', !!email.value.trim() && email.checkValidity()],
+          ['Customer reviewed terms and gave demo consent', el('hub-payment-consent').checked]
+        ];
+      }
+      function createPaymentAccount() {
+        if (['creating', 'pending', 'active', 'deleted'].includes(workspace.payment)) return;
+        const missing = paymentGates().find(g => !g[1]);
+        if (missing) { workspace.paymentMessage = `Needs action · ${missing[0]}.`; renderWorkspace(); return; }
+        workspace.payment = 'creating'; workspace.paymentRequest += 1;
+        workspace.paymentMessage = 'Creating the payment account · original request in progress.';
+        renderWorkspace();
+        paymentTimer = setTimeout(() => finishPaymentRequest(false), 350);
+      }
+      function finishPaymentRequest(reconcile) {
+        if (reconcile ? workspace.payment !== 'pending' : workspace.payment !== 'creating') return;
+        const result = el('hub-pas-result').value;
+        workspace.payment = result;
+        const lostGate = paymentGates().find(g => !g[1]);
+        workspace.paymentMessage = result === 'active'
+          ? `Account created · payment collection setup is ready${lostGate ? '; review current access or readiness before use' : ''}. No money has moved.`
+          : result === 'pending' ? 'Pending · the original account request is unresolved. Check its result; do not create another account.'
+          : 'Needs action · confirmed failure with no account created. Correct the setup before trying again.';
+        recordChange(`PAS account request ${workspace.paymentRequest}: ${result}. E-invoicing unchanged.`);
+        renderWorkspace(); persist();
+      }
+      function accountDeleted() {
+        if (!['active', 'pending', 'creating'].includes(workspace.payment)) return;
+        clearTimeout(paymentTimer);
+        workspace.payment = 'deleted'; workspace.paymentMessage = 'Payment capability disabled · account.deleted received. Contact support to establish the reason and permitted recovery. E-invoicing remains available.';
+        recordChange('PAS account.deleted received; payment capability disabled. Existing invoice routes retained.');
+        renderWorkspace(); persist();
+      }
+      function renderWorkspace() {
+        root.querySelectorAll('[data-settings-tab]').forEach(n => n.setAttribute('aria-pressed', String(n.dataset.settingsTab === settingsTab)));
+        root.querySelectorAll('[data-settings-panel]').forEach(n => n.hidden = n.dataset.settingsPanel !== settingsTab);
+        textAt('hub-settings-company', el('hub-onboard-company-name').value || 'Selected company');
+        textAt('hub-settings-context', workspace.active ? 'Existing company / SXS dataset reused · test scenario · separate connection and routing results' : 'Complete onboarding before adding company capabilities.');
+        textAt('hub-company-status', workspace.active ? 'Active' : 'Not activated');
+        el('hub-company-status').classList.toggle('is-ready', workspace.active);
+        textAt('hub-current-routes', currentRouteText());
+        textAt('hub-access-summary', `Current role: ${el('hub-demo-role').selectedOptions[0].text}. Onboard: ${permission('onboard') ? 'permitted' : 'not permitted'}; routes: ${permission('routes') ? 'permitted' : 'not permitted'}; payment setup: ${permission('payments') ? 'permitted' : 'not permitted'}.`);
+        const list = el('hub-connections-list'); list.replaceChildren();
+        workspace.connections.forEach(c => {
+          const li = document.createElement('li'); li.className = 'hub-connection-item';
+          const title = document.createElement('span'); title.textContent = labelFor(c.id);
+          const subtitle = document.createElement('small'); subtitle.textContent = `Ready: ${c.directions.join(', ')} · Test scenario`; title.append(subtitle);
+          const status = document.createElement('span'); status.className = 'hub-state is-ready';
+          const active = ['outbound', 'inbound'].filter(d => workspace.routes[d] === c.id);
+          status.textContent = active.length ? `Active: ${active.join(', ')}` : 'Prepared · not active';
+          li.append(title, status); list.append(li);
+        });
+        if (!workspace.connections.length) { const li = document.createElement('li'); li.className = 'hub-helper'; li.textContent = 'No confirmed connections. Complete company onboarding first.'; list.append(li); }
+        const target = el('hub-change-target'), previous = target.value; target.replaceChildren();
+        workspace.connections.forEach(c => { const option = document.createElement('option'); option.value = c.id; option.textContent = labelFor(c.id); target.append(option); });
+        if (workspace.connections.some(c => c.id === previous)) target.value = previous;
+        const change = workspace.pendingChange;
+        el('hub-change-confirmation').hidden = !change;
+        if (change) textAt('hub-change-summary', `${change.confirmed ? 'Scheduled' : 'Proposed'}: ${labelFor(change.target)} · ${change.scope} · ${change.at ? new Date(change.at).toLocaleString() : 'after confirmation'}. Earlier invoice paths remain unchanged.`);
+        ['hub-change-target', 'hub-change-direction', 'hub-change-timing', 'hub-change-date'].forEach(id => el(id).disabled = !!change?.confirmed || !permission('routes'));
+        el('hub-change-confirm').hidden = !!change?.confirmed;
+        el('hub-change-confirm').disabled = !permission('routes');
+        el('hub-change-cancel').disabled = !permission('routes');
+        el('hub-change-review').disabled = !workspace.active || !permission('routes') || !workspace.connections.length || !!change?.confirmed;
+        el('hub-connect-validate').disabled = !workspace.active || !permission('routes');
+        el('hub-connect-save').disabled = !permission('routes') || !state.connectionReady;
+        const audit = el('hub-change-history'); audit.replaceChildren();
+        (workspace.audit.length ? workspace.audit : ['No changes recorded. Earlier invoice context is retained when a route changes.']).forEach(value => { const li = document.createElement('li'); li.textContent = value; audit.append(li); });
+        root.querySelectorAll('#hub-setup-scenario, #hub-onboard-company-name, #hub-onboard-tax-id, #hub-onboard-directions, input[name="hub-start-route"], #hub-onboard-private-provider').forEach(n => n.disabled = workspace.active);
+        el('hub-onboard-validate').disabled = workspace.active || !permission('onboard') || workspace.onboarding === 'checking';
+        el('hub-onboard-activate').disabled = workspace.active || !permission('onboard') || workspace.onboarding !== 'ready';
+        const gates = paymentGates(), gateList = el('hub-payment-gates'); gateList.replaceChildren();
+        gates.forEach(([value, passed], index) => { const li = document.createElement('li'); li.classList.toggle('is-done', passed); const mark = document.createElement('span'); mark.className = 'hub-progress-marker'; mark.textContent = passed ? '✓' : String(index + 1); const copy = document.createElement('span'); copy.textContent = value; li.append(mark, copy); gateList.append(li); });
+        const eligible = workspace.active && workspace.routes.outbound === 'sage';
+        textAt('hub-payment-eligibility', eligible ? 'Sage private-platform sending is active. Payment setup is optional and has its own consent and readiness checks.' : 'Activate Sage private-platform sending functions before setting up collection for issued invoices.');
+        textAt('hub-payment-status', workspace.payment === 'active' && gates.some(g => !g[1]) ? 'Payment account retained · collection is unavailable until the current service, authority and readiness checks pass. E-invoicing has its own status.' : workspace.paymentMessage);
+        el('hub-payment-create').disabled = ['creating', 'pending', 'active', 'deleted'].includes(workspace.payment) || gates.some(g => !g[1]);
+        el('hub-payment-create').textContent = workspace.payment === 'active' ? 'Payment account created' : workspace.payment === 'deleted' ? 'Payment capability disabled' : workspace.payment === 'creating' ? 'Creating account…' : 'Set up payment collection';
+        el('hub-payment-reconcile').hidden = workspace.payment !== 'pending';
+        el('hub-payment-reconcile').disabled = !permission('payments');
+        el('hub-payment-deleted').disabled = !['active', 'pending', 'creating'].includes(workspace.payment);
+        ['hub-payment-email', 'hub-payment-consent', 'hub-payment-terms'].forEach(id => el(id).disabled = ['creating', 'pending', 'active', 'deleted'].includes(workspace.payment) || !permission('payments'));
+        root.querySelectorAll('#hub-certificate-fields input, #hub-certificate-fields select, #hub-certificate-policy').forEach(n => n.disabled = workspace.active);
+        const inbound = workspace.routes.inbound;
+        textAt('hub-inbound-readiness', inbound && readyConnection(inbound, 'inbound') ? `Receiving via ${labelFor(inbound)}` : 'Receiving not active');
+        el('hub-inbound-readiness').classList.toggle('is-ready', !!inbound);
+        el('hub-retrieve').disabled = !inbound || !readyConnection(inbound, 'inbound');
+        if (!permission('send')) el('hub-send-button').disabled = true;
+        root.querySelectorAll('#hub-send-route option').forEach(option => {
+          if (platformIds.includes(option.value)) option.disabled = !readyConnection(option.value, 'outbound');
+        });
+      }
+      // Changes stay in this demo session. Editable company/email data is never sent to widget state.
+      root.addEventListener('click', event => {
+        const settings = event.target.closest('[data-settings-tab], [data-open-settings]');
+        if (settings) { settingsTab = settings.dataset.settingsTab || settings.dataset.openSettings; renderWorkspace(); }
+        const actions = {
+          'hub-onboard-activate': activateOnboarding, 'hub-change-review': reviewChange, 'hub-change-confirm': confirmChange,
+          'hub-change-cancel': () => { if (permission('routes')) cancelChange(); }, 'hub-payment-create': createPaymentAccount,
+          'hub-payment-reconcile': () => { if (permission('payments')) finishPaymentRequest(true); }, 'hub-payment-deleted': accountDeleted,
+          'hub-payment-terms': () => el('hub-payment-terms-dialog').showModal()
+        };
+        const button = event.target.closest('button');
+        if (button && actions[button.id]) actions[button.id]();
+      });
+      root.addEventListener('input', event => {
+        if (event.target.closest('#hub-onboard-single') && !workspace.active && event.target.id !== 'hub-payments-next') clearOnboarding();
+        if (['hub-connect-account', 'hub-connect-credential'].includes(event.target.id)) invalidateConnection();
+        if (['hub-buyer-name', 'hub-seller-name'].includes(event.target.id)) invalidateSendValidation();
+        if (event.target.id === 'hub-payment-email') { el('hub-payment-consent').checked = false; renderWorkspace(); }
+      });
+      root.addEventListener('change', event => {
+        const id = event.target.id;
+        if (id === 'hub-setup-scenario') reuseScenario();
+        if (['hub-connect-provider', 'hub-connect-direction', 'hub-connect-outcome'].includes(id)) invalidateConnection();
+        if (id === 'hub-change-timing') el('hub-change-date-field').hidden = event.target.value !== 'scheduled';
+        if (['hub-change-target', 'hub-change-direction', 'hub-change-timing', 'hub-change-date'].includes(id) && workspace.pendingChange && !workspace.pendingChange.confirmed) cancelChange('Request changed · review the latest change again.');
+        if (['hub-demo-role', 'hub-demo-delegation', 'hub-demo-payment-grant'].includes(id)) {
+          if (!workspace.active) clearOnboarding('Access changed · check the current authority again.');
+          invalidateConnection();
+          invalidateSendValidation('Current authority changed. Recheck permission and recipient route before sending.');
+          if (workspace.pendingChange && !permission('routes')) cancelChange('Change stopped · route-change authority is no longer available.');
+        }
+        renderWorkspace();
+      });
+      setInterval(() => {
+        if (workspace.pendingChange?.confirmed && workspace.pendingChange.at <= Date.now()) applyRouteChange();
+      }, 1000);
+
       function invalidateSendValidation(message = 'Recipient identity or route changed. Validate recipient reachability again.') {
+        clearRouteValidationTimers();
+        el('hub-run-route-validation').disabled = false;
+        el('hub-run-route-validation').textContent = 'Run validation';
         state.routeReady = false;
         const sendButton = root.querySelector('#hub-send-button');
         const routeResult = root.querySelector('#hub-route-result');
@@ -1366,15 +1781,17 @@
         const purposes = { 'private-signing': 'Advanced invoice signing', 'provider-auth': 'Provider / API authentication', 'facturae-xades': 'Facturae XAdES signing' };
         if (required) purpose.value = purposes[policy.value];
         syncCertificateOwner();
-        summary.textContent = required
-          ? 'Certificate setup is required for this selected capability. Validate the certificate owner, the client principal, delegated signer authority, purpose, chain, expiry and revocation status.'
-          : 'No certificate is requested for the selected public capability. This is a recorded policy result—not a missing onboarding step.';
-        progressCopy.textContent = required
-          ? 'Owner, delegated signer, purpose and lifecycle must pass'
-          : 'Not required for selected public capability';
+        summary.textContent = policy.value === 'provider-auth'
+          ? 'Validate the authenticated caller and its certificate purpose, chain, expiry and revocation status. Check authority to act for the business separately.'
+          : required ? 'Validate the certificate owner, represented business, signer authority, purpose, chain, expiry and revocation status.'
+          : 'Confirm who supplies the authentication certificate for the selected action. A managed credential does not remove the caller authentication check.';
+        progressCopy.textContent = policy.value === 'provider-auth'
+          ? 'Caller authentication, representation and certificate lifecycle'
+          : required ? 'Owner, delegated signer, purpose and lifecycle must pass'
+          : 'Authentication and representation checks';
         root.querySelector('#hub-onboard-status').innerHTML = required
-          ? `<span class="hub-dot"></span>Draft · ${isAccountant ? 'client mandate and ' : ''}certificate owner, signer authority, purpose and status must be validated`
-          : `<span class="hub-dot"></span>Draft · ${isAccountant ? 'client mandate must be validated; ' : ''}certificate not required for current selected capability`;
+          ? `<span class="hub-dot"></span>Draft · ${isAccountant ? 'client mandate and ' : ''}action-specific certificate and authority checks are required`
+          : `<span class="hub-dot"></span>Draft · ${isAccountant ? 'client mandate must be validated; ' : ''}managed authentication path requires qualification`;
       }
 
       function clearRouteValidationTimers() {
@@ -1467,6 +1884,14 @@
         }
 
         root.querySelector('#hub-validation-result').dataset.visible = 'true';
+        root.querySelector('#hub-run-route-validation').disabled = false;
+        root.querySelector('#hub-run-route-validation').textContent = 'Run again';
+        if (!workspace.active || !permission('send') || !readyConnection(route.value, 'outbound')) {
+          resultTitle.textContent = 'Connection readiness required';
+          resultCopy.textContent = `Confirm sending authority and prepare ${labelFor(route.value)} for sending in Settings, then recheck recipient reachability.`;
+          invalidateSendValidation(resultCopy.textContent);
+          return;
+        }
         state.routeReady = true;
         root.querySelectorAll('#hub-send-checks .hub-readiness-row').forEach(row => row.classList.add('is-done'));
         root.querySelectorAll('#hub-send-checks .hub-progress-marker').forEach(marker => marker.textContent = '✓');
@@ -1497,7 +1922,12 @@
       }
 
       function renderView() {
-        root.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-selected', String(button.dataset.view === state.view)));
+        root.querySelectorAll('[role="tab"][data-view]').forEach(button => {
+          const active = button.dataset.view === state.view;
+          button.setAttribute('aria-selected', String(active)); button.tabIndex = active ? 0 : -1;
+          if (!button.id) button.id = `hub-tab-${button.dataset.view}`;
+          el(`hub-view-${button.dataset.view}`).setAttribute('aria-labelledby', button.id);
+        });
         root.querySelectorAll('.hub-view').forEach(panel => panel.hidden = panel.id !== `hub-view-${state.view}`);
       }
 
@@ -1551,11 +1981,11 @@
         root.querySelector('#hub-fields-principle').textContent = item.principle;
       }
 
-      function renderAll() { renderView(); renderMap(); renderJourney(); renderOnboarding(); renderExchange(); renderFields(); }
+      function renderAll() { renderView(); renderMap(); renderJourney(); renderOnboarding(); renderExchange(); renderFields(); renderWorkspace(); }
 
       root.addEventListener('click', event => {
         const view = event.target.closest('[data-view]');
-        if (view) { state.view = view.dataset.view; renderView(); persist(); return; }
+        if (view) { state.view = view.dataset.view; renderView(); renderWorkspace(); persist(); return; }
         const mapRoute = event.target.closest('button[data-map-route]');
         if (mapRoute) { state.mapRoute = mapRoute.dataset.mapRoute; renderMap(); persist(); return; }
         const stage = event.target.closest('[data-journey]');
@@ -1567,16 +1997,9 @@
         const fieldStage = event.target.closest('[data-field-stage]');
         if (fieldStage) { state.fieldStage = fieldStage.dataset.fieldStage; renderFields(); persist(); return; }
 
-        if (event.target.closest('#hub-onboard-validate')) {
-          root.querySelectorAll('#hub-onboard-progress li').forEach(li => li.classList.add('is-done'));
-          root.querySelectorAll('#hub-onboard-progress .hub-progress-marker').forEach(marker => marker.textContent = '✓');
-          const actor = root.querySelector('#hub-onboarding-actor').value;
-          root.querySelector('#hub-onboard-status').innerHTML = actor === 'accountant'
-            ? '<span class="hub-dot"></span>Active · client ready under recorded delegated authority'
-            : '<span class="hub-dot"></span>Active · public route ready for send and receive';
-          return;
-        }
+        if (event.target.closest('#hub-onboard-validate')) { checkOnboarding(); return; }
         if (event.target.closest('#hub-batch-activate')) {
+          if (!permission('onboard')) { textAt('hub-batch-status', 'Not permitted · an authorised actor must activate each client within its own authority scope.'); return; }
           root.querySelectorAll('[data-batch-state]').forEach(status => { if (!status.classList.contains('is-error') && !status.hasAttribute('data-batch-blocked')) { status.className = 'hub-state is-ready'; status.textContent = 'Activated'; } });
           root.querySelector('#hub-batch-status').innerHTML = '<span class="hub-dot"></span>1 activated · 1 blocked by trust/connection · 1 retained for correction';
           return;
@@ -1601,6 +2024,7 @@
           return;
         }
         if (event.target.closest('#hub-send-button')) {
+          if (!permission('send') || !state.routeReady || !readyConnection(el('hub-send-route').value, 'outbound')) { invalidateSendValidation('Prepare the selected sending connection and validate the current recipient route.'); return; }
           if (hasUnresolvedExchangeIdentity()) {
             invalidateSendValidation('Resolve the seller and buyer tax schemes before sending.');
             root.querySelector('#hub-send-status').innerHTML = '<span class="hub-dot"></span>Identity policy decision required';
@@ -1610,35 +2034,22 @@
           return;
         }
         if (event.target.closest('#hub-retrieve')) {
-          root.querySelector('#hub-receive-status').innerHTML = '<span class="hub-dot"></span>Retrieval completed · 2 observed · 0 duplicates created';
+          if (!workspace.routes.inbound || !readyConnection(workspace.routes.inbound, 'inbound')) return;
+          textAt('hub-receive-status', `Retrieval completed via ${labelFor(workspace.routes.inbound)} · 2 observed · 0 duplicates created. Historical invoice origins retained.`);
           return;
         }
-        if (event.target.closest('#hub-connect-validate')) {
-          state.connectionReady = true;
-          root.querySelectorAll('#hub-connect-gates .hub-readiness-row').forEach(row => row.classList.add('is-done'));
-          root.querySelectorAll('#hub-connect-gates .hub-progress-marker').forEach(marker => marker.textContent = '✓');
-          root.querySelector('#hub-connect-save').disabled = false;
-          root.querySelector('#hub-connection-status').innerHTML = '<span class="hub-dot"></span>Checks passed · current public route remains active';
-          return;
-        }
-        if (event.target.closest('#hub-connect-save')) {
-          const provider = root.querySelector('#hub-connect-provider').value;
-          root.querySelector('#hub-connected-provider').textContent = `${provider} is connected and can now appear as a route candidate in Send. The current public route remains unchanged.`;
-          root.querySelector('#hub-connection-status').innerHTML = `<span class="hub-dot"></span>Connected · ${provider} available in Send`;
-          event.target.closest('#hub-connect-save').innerHTML = '<i data-lucide="check" aria-hidden="true"></i>Connected';
-          if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
-        }
+        if (event.target.closest('#hub-connect-validate')) { checkConnection(); return; }
+        if (event.target.closest('#hub-connect-save')) { storeConnection(); return; }
       });
 
       root.addEventListener('change', event => {
         if (event.target.matches('input[name="hub-start-route"]')) {
-          const isPrivate = event.target.value === 'private';
-          root.querySelector('#hub-private-provider').hidden = !isPrivate;
-          root.querySelector('#hub-certificate-policy').value = isPrivate ? 'private-signing' : 'not-required';
-          toggleCertificateSetup();
+          syncOnboardRoute();
+          if (!workspace.active) clearOnboarding();
         }
         if (event.target.id === 'hub-certificate-policy') toggleCertificateSetup();
-        if (event.target.id === 'hub-onboarding-actor') toggleOnboardingActor();
+        if (event.target.id === 'hub-onboarding-actor') { toggleOnboardingActor(); el('hub-demo-role').value = event.target.value === 'accountant' ? 'accountant' : 'admin'; el('hub-demo-delegation').value = el('hub-accountant-scope').value; renderWorkspace(); }
+        if (event.target.id === 'hub-accountant-scope') { el('hub-demo-delegation').value = event.target.value; if (!workspace.active) clearOnboarding(); renderWorkspace(); }
         if (event.target.id === 'hub-certificate-holder' || event.target.id === 'hub-onboard-company-name' || event.target.id === 'hub-accountant-practice' || event.target.id === 'hub-onboard-private-provider') syncCertificateOwner();
         if (event.target.matches('input[name="hub-directory-method"]')) toggleDirectoryMethod();
         if (event.target.id === 'hub-private-directory') toggleDirectoryMethod();
@@ -1652,26 +2063,23 @@
         if (event.target.id === 'hub-send-route') {
           invalidateSendValidation('Route selection changed. Validate recipient reachability again.');
         }
-        if (event.target.id === 'hub-connect-provider') {
-          state.connectionReady = false;
-          const saveButton = root.querySelector('#hub-connect-save');
-          saveButton.disabled = true;
-          saveButton.innerHTML = '<i data-lucide="plug" aria-hidden="true"></i>Connect private platform';
-          root.querySelector('#hub-connected-provider').textContent = `After connection, ${event.target.value} can be selected for eligible invoices. The current public route remains unchanged.`;
-          root.querySelector('#hub-connection-status').innerHTML = '<span class="hub-dot"></span>Provider changed · validate the connection';
-          root.querySelectorAll('#hub-connect-gates .hub-readiness-row').forEach(row => row.classList.remove('is-done'));
-          root.querySelectorAll('#hub-connect-gates .hub-progress-marker').forEach((marker, index) => marker.textContent = String(index + 1));
-          if (window.lucide) window.lucide.createIcons({ attrs: { width: 16, height: 16 } });
-        }
       });
 
+      root.addEventListener('keydown', event => {
+        const current = event.target.closest('.hub-nav-button');
+        if (!current || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const tabs = [...root.querySelectorAll('.hub-nav-button')], index = tabs.indexOf(current);
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[next].focus(); tabs[next].click();
+      });
       root.addEventListener('example-state-changed', persist);
 
       window.addEventListener('openai:set_globals', event => {
         const incoming = event.detail && event.detail.globals && event.detail.globals.widgetState && event.detail.globals.widgetState.modelContent;
         if (!incoming) return;
         if (['map','journey','onboarding','exchange','example','switch','fields'].includes(incoming.view)) state.view = incoming.view;
-        if (['public','private','accountant'].includes(incoming.mapRoute)) state.mapRoute = incoming.mapRoute;
+        if (['public','private','sage','accountant'].includes(incoming.mapRoute)) state.mapRoute = incoming.mapRoute;
         if (journey[incoming.journeyStage]) state.journeyStage = incoming.journeyStage;
         if (['single','batch'].includes(incoming.onboardMode)) state.onboardMode = incoming.onboardMode;
         if (['send','receive'].includes(incoming.exchangeMode)) state.exchangeMode = incoming.exchangeMode;
@@ -1684,6 +2092,7 @@
       configureExchangeParty('buyer', 'nie');
       configureFormatProfile('spain-public');
       toggleOnboardingActor();
+      syncOnboardRoute();
       root.querySelector('#hub-route-dialog').addEventListener('close', clearRouteValidationTimers);
       renderDesign();
       renderAll();
