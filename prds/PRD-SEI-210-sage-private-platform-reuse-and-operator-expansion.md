@@ -6,8 +6,9 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-08-10
-reviewers: []
+updated: 2026-11-03
+reviewers:
+  - Jiaxin He
 related:
   - PRD-SEI-209
   - ADR-SEI-001
@@ -52,9 +53,9 @@ confluence:
 |---|---|
 | Predecessor | Based on PRD-SEI-209, which remains the unchanged predecessor document. |
 | Reason for this successor | Preserve the original Phase 3 draft while evaluating Phase 1 and Phase 2 component reuse as a formal Phase 3 design constraint, then consolidate the legacy *Sage as a Private Platform (Spain)* and *Private platform building blocks* Confluence pages into one authoritative Phase 3 product story. |
-| Material changes | Adds the shared-platform/operator-edge architecture, the reuse/extend/new capability classification, an evidence-gated reuse decision flow, a labelled strategic-hypothesis register, the four-category Confluence structure, and explicit links to the Phase 1 submission and consultation PRDs. |
-| Unchanged areas | Retains the strategic rationale, customer proposition, operating-model options, regulatory analysis, scenarios, requirements, risks, dependencies, and open questions from PRD-SEI-209. |
-| Decisions still open | Actual component maturity; service ownership; reuse fitness; operator accountability; build/partner route; customer and commercial evidence; and the Phase 3 delivery investment decision. |
+| Material changes | This revision adds the proposed OP01–OP23, CX01–CX08, VA01–VA12 and EX01–EX05 capability framework, explicit B2G capability CX09, responsibility transfer, minimum proposition, transition terms and capability gates CG1–CG7. It incorporates Jiaxin He's November 2026 product clarifications and the withdrawal, fiscal-correction, PDF and secure-transport review corrections. The former tiers map to the four layers below. |
+| Unchanged areas | Retains the predecessor relationship, strategic rationale, operating-model options, business scenarios, journeys, FR1–42, NFR1–15, AC1–10 and risks. Source-dependent wording is refreshed without claiming implementation. Existing diagrams and conceptual records remain design hypotheses. No operator, investment, launch cohort, publication or lifecycle approval is granted. |
+| Decisions still open | Operator and contracting entity; actual implementation and reuse fitness; launch cohort and commercial model; interconnection approach and clock interpretation; Phase 2/3 international countries, coverage and phasing; B2G coverage; optional services; support, retention and exit commitments. Earlier cross-country scope statements remain visible for review against PO-03. |
 
 ## Decision summary
 
@@ -63,6 +64,18 @@ This PRD defines the discovery and decision boundary for Sage to offer a Sage-br
 The strategic direction is **proposed, not approved**. This document does not select build, white-label, alliance, or acquisition. It defines the minimum product and regulated operator outcomes that any route must satisfy and the evidence gates required before Sage accepts operator accountability.
 
 > **Product principle:** A Sage-branded experience must have explicit operational and regulatory accountability. Branding a partner service as Sage must not hide who operates the platform, controls data, resolves failures, maintains interconnections, or remains responsible when the partnership changes.
+
+The product question is: **Based on Phases 1 and 2, what additional outcomes must Sage own when the customer selects Sage as its private platform?** The capability register answers that question. It does not select components, endpoints or a delivery model. All layers, classifications, priorities and the minimum launch proposition are **proposed for review**. Product-owner scope clarifications below are confirmed inputs, not regulatory interpretations or evidence of readiness.
+
+### Product-owner clarifications — November 2026
+
+Source: Jiaxin He, product-owner clarifications supplied for this revision. No exact clarification day or implementation approval is asserted.
+
+| Source ID | Confirmed product input | Application and remaining decision |
+|---|---|---|
+| PO-01 | When a customer onboarded to Sage as a private platform wants to connect with any other private platform, Sage must establish that interconnection within one calendar month. In Phase 2, the external private platform owns this responsibility. Phase 2 covers direct integrations with six private platforms. | OP05 owns the Phase 3 outcome. Confirm the six-provider list and actual integration readiness; six integrations in product scope do not prove six deployed integrations. CG4/CG5 must define the clock and evidence of completion. The statutory receiving-platform process and its queue exception remain separate legal rules; they do not silently qualify this product commitment. |
+| PO-02 | Peppol is not mandatory, but is widely used by major organisations. Sage must determine how to support a counterparty private platform that is not on Peppol, for example through direct connection or another approach. | OP23 covers the qualified transport outcome; OP05 covers interconnection establishment. The selected network, direct/other approach and counterpart coverage remain open. Peppol participation or BIS format support alone does not prove complete Spain interconnection. |
+| PO-03 | International e-invoicing and B2G are in scope for Phases 2/3. Peppol is expected for international e-invoicing. B2G is believed to be available in Sage, but coverage is unverified. | VA12 moves to Layer 2 as a Phase 2/3 capability to define; CX09 makes B2G explicit. Countries, flows, Phase 2/3 phasing and delivery approach remain open. CF01 records the conflict with the earlier future-only cross-country position. EX01–EX05 remain guardrails, not a reason to exclude international exchange. |
 
 ## Phase 3 document map
 
@@ -74,7 +87,7 @@ This umbrella PRD explains the complete proposition. Four category pages organis
 | [Compliance and Operator Readiness](https://confluence.sage.com/pages/viewpage.action?pageId=876576917) | ADR-SEI-001 Delivery Model; FP-SEI-001 Reuse Assessment; PRD-SEI-221 Operator Readiness | Accountable operator, reuse evidence, regulatory governance, external validation and production gates |
 | [Security and Operations](https://confluence.sage.com/pages/viewpage.action?pageId=876576918) | PRD-SEI-225 Operations; PRD-SEI-226 Security | Trust, identity, certificates, data, audit, resilience, support and reconciliation |
 | [Interconnection and Interoperability](https://confluence.sage.com/pages/viewpage.action?pageId=876576919) | PRD-SEI-222 Customer; cross-links to PRD-SEI-223 and PRD-SEI-225 | Entry-point onboarding, migration, public/private connectivity, platform interconnection and ecosystem recovery |
-| Commercial and roadmap discovery | Planned proposals | Customer value, packaging, economics, optional services and international expansion |
+| Commercial and coverage decisions | Capability register and planned proposals | Customer value, packaging and optional services; VA12 international exchange and CX09 B2G are Phase 2/3 scope to define under PO-03, with phasing and coverage open |
 
 The detailed decision, foundation and delivery documents form the recommended technical, regulatory and operational consultation package. Commercial and roadmap discovery can progress without delaying review of the operator foundation.
 
@@ -110,6 +123,8 @@ These hypotheses explain why Phase 3 merits discovery. They do not approve a del
 | **Phase 3 — Sage private platform** | Choose Sage as the private-platform proposition and entry point | Branded proposition owner and either operator or accountable prime contractor | **Scope of this PRD** |
 | Future — Cross-country network services | Reuse suitable capabilities across countries | Multi-country network and value-added service provider | Inform extensibility only; not a Spain launch commitment |
 
+**Earlier scope position retained for review — CF01:** the final row above conflicts with PO-03 if read as excluding international exchange from Phase 3. PO-03 is the current product input: international and B2G are in Phase 2/3 scope, with launch coverage and phasing undecided. The row is retained as the earlier position, not as a current scope exclusion. Objective G5 also retains its earlier future-path wording; EX01–EX05 preserve reuse boundaries without deferring the in-scope VA12 capability.
+
 ### Capability by phase
 
 | Capability | Phase 1 | Phase 2 | Phase 3 |
@@ -128,6 +143,8 @@ These hypotheses explain why Phase 3 merits discovery. They do not approve a del
 Phase 3 must extend the platform capabilities established in Phases 1 and 2 rather than create a separate invoice platform. The following visuals express the intended design constraint, the preliminary reuse boundary, and the evidence-based decision process for each candidate component.
 
 > **Evidence caveat:** This is a PRD-level reuse hypothesis. A capability described in an approved or draft PRD is not automatically a built, deployed, scalable or production-proven component. Implementation evidence is required before a reuse decision is approved.
+
+The retained visuals illustrate earlier design hypotheses. The proposed capability register below refines their reuse labels at business-outcome level. A new operator responsibility does not require a new component, and a shared design pattern does not prove a reusable implementation. Use [FP-SEI-001](../feature-proposals/FP-SEI-001-phase3-existing-capability-reuse-gap-assessment.md) for the implementation assessment.
 
 ### One shared platform with a new operator edge
 
@@ -350,7 +367,7 @@ A credible Sage option could protect product relevance, offer a consistent multi
 | BR6 | No bilateral syntax agreement exists | Use the syntax/specifications required for the public solution | Confirmed: Article 7 |
 | BR7 | Current route or operator changes | Never rewrite invoice-origin provider, identifiers, syntax, signature evidence or status history | Confirmed product continuity principle |
 | BR8 | A value-added feature is not needed for regulated exchange | Package it separately from baseline compliance and disclose price/limits | Proposed commercial rule |
-| BR9 | A regulatory technical detail depends on the ministerial order | Treat it as an open implementation gate, not an assumed contract | Confirmed dependency |
+| BR9 | An official technical detail or applicability interpretation remains unresolved | Keep the affected capability gated; do not assume a production contract from the published order or local PRE files | E6; REF-SPFE; replaces the earlier publication-dependent wording |
 
 ## Research and evidence register
 
@@ -358,15 +375,18 @@ A credible Sage option could protect product relevance, offer a consistent multi
 |---|---|---|---|---|
 | E1 | *Spain_E-Invoicing_Strategy_Paper.070726.docx*, July 2026, supplied by the user | Strategic rationale, proposed customer segmentation, four delivery routes, survey claims and competitor comparison | Internal stakeholder evidence. Survey base/method and competitor claims were not supplied for independent verification | G1–G5, S1–S8; commercial and feature validation gates |
 | E2 | [Ley 18/2022](https://www.boe.es/buscar/act.php?id=BOE-A-2022-15818) | Mandatory B2B e-invoicing framework; free platform interconnection/interoperability; staged effect after regulatory development | Confirmed primary law | BR5; regulatory scope and timing model |
-| E3 | [Real Decreto 238/2026](https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295) | Defines the Spanish system, private platform, formats, interconnection, status, public-copy and operator requirements | Confirmed primary regulation. Some technical details still depend on a ministerial order | FR12–FR38, NFR1–NFR15, G2 |
+| E3 | [Real Decreto 238/2026, original publication](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-7295) | Defines the Spanish system, private platform, formats, interconnection, status, public-copy and operator requirements | Primary regulation; apply with the published order in E6 and operation-specific technical evidence. Product clarifications do not reinterpret it. | FR12–FR38, NFR1–NFR15, Objective G2 |
 | E4 | [Ministry announcement on the approved B2B system](https://portal.mineco.gob.es/es-es/comunicacion/Paginas/Gobierno-impulsa-factura-electronica-en-pagos-de-empresas-y-profesionales-rebajar-carga-administrativa-y-morosidad.aspx) | Confirms public/private route choice and staged timing from the ministerial order | Official explanatory source; regulation prevails | Timeline and customer-choice framing |
 | E5 | [European Commission ViDA adoption](https://taxation-customs.ec.europa.eu/news/adoption-vat-in-digital-age-package-2025-03-11_en) | ViDA adopted in March 2025; cross-border digital reporting changes are phased toward 2030 and beyond | Confirmed EU source; not proof that a Spain build is reusable unchanged | G5 and future extensibility |
+| E6 | [Order HAC/1028/2026, original publication](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587), published 5 October 2026; [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md), current reviewed local PRE release 29 October 2026 | Final public-copy, admission, withdrawal/correction, reporting and access baseline; technical evidence is now available | Publication is established. Business schemas, authority, replay, field mappings and live qualification still have specific SPFE-Q gates. | OP12/14/20–22; OQ2; CG4/CG5 |
+| E7 | PO-01–03 above, Jiaxin He, November 2026 | One-calendar-month product interconnection commitment; six Phase 2 direct integrations in scope; Peppol optional for peers and expected for international; international/B2G in Phase 2/3 | Confirmed product-owner input. Not regulatory interpretation, provider selection, country coverage, launch phasing or implementation evidence. | OP05/23; VA12; CX09; CF01–03 |
+| E8 | [PPIFE_competitor_analysis.xlsx](https://sage365.sharepoint.com/sites/NWservicesforSmall/Shared%20Documents/All/EU/ES/PPIFE_competitor_analysis.xlsx?web=1), supplied workbook reviewed November 2026; precise locators in REF-COMP | Supports competitive opportunities and challenges proposition assumptions | Explicit claims, inference and conflicting cells remain distinct. The supplied local copy is the reviewed input; the linked connected copy is a locator, not a byte-equality or latest-version claim. No workbook cell establishes a Sage requirement. | Layer 3 investigation; CX08/09; VA12 qualification |
 
 ### Regulatory findings that change the strategy-paper baseline
 
 - Real Decreto 238/2026 is now approved and defines concrete private-platform duties; Phase 3 is therefore an operator-accountability decision, not only a branding or feature decision.
-- The effective dates are relative to the ministerial order governing the public solution. The strategy paper's May and October 2027 dates are not treated as confirmed dates in this PRD.
-- Private platforms must support the admitted structured syntaxes and transformation, advanced electronic signing/sealing, public-solution connectivity, free interconnection, business continuity, continuous support availability, and data governance/security.
+- The final Order HAC/1028/2026 is published. The strategy paper's forecast dates are not a launch commitment. Compliance must bind the actual applicability periods and exceptions to each enabled scope using E6; publication itself is no longer an open question.
+- Private-platform duties include admitted-syntax exchange/transformation, trust capability, public connectivity, free interconnection, continuity, support and data governance/security. The broad signing/seal wording does not approve substituting an operator seal for the required customer/delegate signature; REF-TRUST and CG5 govern that interpretation.
 - The statutory requirement says support resources must be available “at all times”; the service levels, staffing model and measurable interpretation require legal and operational approval.
 - Competitor capability ticks in the strategy paper remain hypotheses until source, product edition, Spain applicability and contractual availability are evidenced.
 
@@ -376,7 +396,7 @@ Phase 1 and Phase 2 PRDs define public exchange and integrations to selected ext
 
 ## Proposed target capability
 
-The target is a product-neutral Sage platform layer used by eligible Sage products. It owns the customer-visible lifecycle and delegates only through explicit, observable contracts.
+The target is a product-neutral Sage offering used by eligible products. Sage is answerable for the customer-visible outcome; the named operator performs or explicitly allocates the operator responsibilities. Existing conceptual records and diagrams are retained design hypotheses, not approved component or deployment boundaries. [ADR-SEI-001](../decisions/ADR-SEI-001-phase3-delivery-model-accountability.md) owns the delivery-model decision.
 
 ### Conceptual responsibility model
 
@@ -413,19 +433,165 @@ The target is a product-neutral Sage platform layer used by eligible Sage produc
 
 **Working hypothesis:** a partner-enabled route may offer the fastest path, but it must not be recommended until Spain fit, operator compliance, customer experience, economics and exit safety are evidenced. A build-versus-partner decision must be made at the first investment gate.
 
+<a id="capability-framework"></a>
+
+## Capability framework — proposed for review
+
+This register consolidates the reviewed capability model. It adds the operator outcomes that Sage must own or explicitly allocate when selected as the private platform. It references the existing requirements and feature evidence rather than defining another invoice platform.
+
+### Gate and objective identifiers
+
+- G1–G5: Objectives (what Phase 3 must achieve)
+- CG1–CG7: Capability evidence gates (evidence or decision needed before confirming a capability)
+- Rollout G0–G7: Programme stage gates (sponsorship to general availability)
+
+The register replaces the former three tier lists as the scope model: **Tier 0 maps to Layer 1; Tier 1 maps to Layer 2; Tier 2 maps to Layer 3. Layer 4 contains extensibility constraints.** VA12 retains its review ID but moves to Layer 2 under PO-03; it is no longer an optional future-only service. CX09 restores B2G explicitly. The layer mapping and recommended launch boundary remain proposed.
+
+| Classification | Meaning and limit |
+|---|---|
+| REUSE | An evidenced Phase 1/2 foundation appears applicable, subject to actual implementation and readiness qualification. A reusable design pattern is not a production-ready build. |
+| EXTEND | A relevant foundation exists in the evidence; Phase 3 adds behaviour, actors, coverage, assurance or accountability. |
+| NEW RESPONSIBILITY | Sage assumes an operator outcome assigned to the external private platform in Phase 2. This does not imply new code or a new component. |
+| UNKNOWN / NEEDS VALIDATION | Evidence cannot establish coverage, fitness, ownership or the required approach. Local absence alone does not prove non-existence. |
+
+Priorities are recommendations: **LAUNCH FOUNDATION**, **LAUNCH CANDIDATE**, **POST-LAUNCH CANDIDATE**, **FUTURE CONSIDERATION**, **DECISION REQUIRED** and **EVIDENCE REQUIRED**. They indicate need or next review action, not readiness or an approved roadmap. A missing proof does not make an applicable obligation optional.
+
+Source IDs resolve in [REF Source references](#ref-source-references). Confidence concerns documentary support for the assessment: **H** explicit, **M** supported inference, **L** weak/conflicting. None proves deployment.
+
+### Layer 1 — Regulatory / operator core
+
+This layer includes external duties and proposed controls needed to fulfil the supported operator outcomes safely. It does not label each internal control as a separate statutory requirement. Countries or transaction types added under VA12/CX09 need their own applicability assessment.
+
+| ID / capability and business outcome | Classification | Recommended priority | Phase 1/2 foundation → Phase 3 delta | Evidence / confidence | Open evidence or decision gate |
+|---|---|---|---|---|---|
+| OP01 Operator accountability — know who answers for the offering. | NEW RESPONSIBILITY | DECISION REQUIRED | External provider operates its platform → name the operator, contracting party and allocated responsibilities. | FR5; REF-DECISION; H | CG1: entity, agreements, liability, evidence and exit rights. |
+| OP02 Identity and delegated authority — act only for an authorised business and purpose. | EXTEND | LAUNCH FOUNDATION | Existing business/caller/delegate distinctions → qualify operator and peer actors without weakening isolation. | FR2/4; REF-ONB GAP-01/03; REF-TRUST; H | CG3/CG5: actual business mapping, grants, revocation and isolation. EX01. |
+| OP03 Receiving entry-point publication — opted-in businesses are discoverable on Sage. | NEW RESPONSIBILITY | LAUNCH FOUNDATION | Provider-owned publication → Sage publication, consultation, change and removal outcomes. | FR6–7; REF-CUSTOMER; H | CG4: authoritative source, propagation, multiple entries and withdrawal evidence. EX02. |
+| OP04 Recipient destination resolution — select an evidenced eligible destination. | UNKNOWN / NEEDS VALIDATION | EVIDENCE REQUIRED | Existing logical lookup design → qualified Spain source coverage and selection policy. Invoice consultation is not a directory. | REF-LOOKUP RLU-05–10; H on gap | CG4/CG5: sources, absence evidence, freshness, precedence and public-default cases. EX02. |
+| OP05 Peer-platform interconnection — establish exchange with the requested private platform. | NEW RESPONSIBILITY | LAUNCH FOUNDATION | External provider owns interconnection; PO-01 identifies six Phase 2 direct integrations in scope → Sage fulfils PO-01 for its onboarded customer. | PO-01/02; FR21–25; J6; H | CG4/CG5/CG6: six-provider evidence, one-calendar-month clock, completion and non-Peppol counterpart approach. CF02/03; EX02. |
+| OP06 Route and invoice-context continuity — new choices do not rewrite earlier work. | REUSE | LAUNCH FOUNDATION | Scoped routes, per-function readiness and original invoice context → qualify the Sage offering in the same model. | FR3/8–11; REF-ROUTE SPC-03–06; H | CG3: actual scope, effective boundaries, concurrency and historical access. EX01/02/05. |
+| OP07 Outbound exchange — deliver the authorised invoice to its intended recipient. | EXTEND | LAUNCH FOUNDATION | Documented send/upload/result flow and provider integration → qualified operator delivery and independent action evidence. | J2; FR12–18; REF-SEND; H | CG3/CG4: Spain coverage, recipient result and uncertain effects. EX02/03. |
+| OP08 Inbound exchange — receive the authorised invoice and deliver it to the business product. | EXTEND | LAUNCH FOUNDATION | Public collection, private intake and capture patterns → qualify Sage peer/public receipt and product handoff. | J3; REF-RECEIVE; H | CG4: source authority, public/private handoff and receipt meanings. EX02/03. |
+| OP09 Meaning-preserving transformation — preserve invoice meaning across admitted syntaxes. | EXTEND | LAUNCH FOUNDATION | Existing Spain mapper and preferred DTS candidate → qualify required conversion pairs and provenance. | FR12–13; REF-DTS; H | CG3/CG4: build, source/target matrix, mappings, rule packs, semantic coverage and operations. EX03. |
+| OP10 Validation — identify invalid content before dependent exchange. | EXTEND | LAUNCH FOUNDATION | Public/provider validation patterns → complete applicable profiles, Spain rules and evidenced extensions. | FR17–18; J4; SPFE-Q04/Q14; H | CG4/CG5: governing versions, field coverage and correction responsibility. EX03. |
+| OP11 Authenticity and trust — use the approved signer and trust arrangements. | EXTEND | DECISION REQUIRED | Tax/certificate custody candidates → prove B2B purpose, signing authority and operator trust. | FR14; REF-TRUST; H | CG3/CG5: customer/delegate versus operator seal, actual custodian and accepted profiles. EX01–03. |
+| OP12 Faithful public-copy outcome — submit required copies with separate proof. | EXTEND | LAUNCH FOUNDATION | Public submission foundation; external-provider copy remains an assumption → Sage owns execution, result and recovery. | FR19–20; REF-SEND OUT-Q03; SPFE-S02; H | CG4/CG5: issuance timing, copy indicator, acknowledgement and retry owner. EX04. |
+| OP13 Counterparty lifecycle exchange — communicate authorised business states to the relevant party. | EXTEND | LAUNCH FOUNDATION | Lifecycle processing and provider feeds → qualified peer relay, authority and independent destination outcomes. | FR22/26–30; REF-LIFE; H | CG4/CG5: event meaning, actor, required destinations and missing information. EX04. |
+| OP14 Public lifecycle reporting — report applicable facts without inventing a business state. | EXTEND | LAUNCH FOUNDATION | Proposed Spain mappings → supported actions, fields and public results. | REF-LIFE SPEC041 §2.1–2.2; H | CG4/CG5: three conditional reuses, five missing bindings, authority, field/date rules and cancellation recovery. EX04. |
+| OP15 Unknown-outcome reconciliation — avoid unsafe duplicate action after uncertainty. | REUSE | LAUNCH FOUNDATION | Phase 2 operation-safety and reconciliation design → qualify each operator action's evidence and repeat safety. | J5; FR31–34; REF-OPS; H | CG3/CG4: authoritative result discovery, safe repeats and recovery ownership. EX02/04. |
+| OP16 Historical evidence conservation — retain explainable invoices, events and action history. | EXTEND | LAUNCH FOUNDATION | Saved files, original context, raw events, derived status and failed attempts → complete operator evidence and custody. | FR35–36; REF-RECEIVE/EXIT; H | CG6: coverage, provenance, custodian, access, retention and holds. EX03/05. |
+| OP17 Continuity and operational support — sustain, monitor and recover the complete service. | EXTEND | LAUNCH FOUNDATION | Provider recovery and support coordination → whole-service monitoring, controlled actions, incident ownership and continuity. | NFR7–9/13–14; REF-OPS; H | CG6: service promise, staffing, capacity, dependencies and exercise evidence. EX05. |
+| OP18 Security and data assurance — evidence controls for the actual offering. | UNKNOWN / NEEDS VALIDATION | EVIDENCE REQUIRED | Existing security/certification claims → prove coverage of the selected operator and data chain. | NFR1–3/6/11/14; REF-TRUST; H on need, L on coverage | CG3/CG5/CG6: scope, transport, data roles, supplier controls and approvals. EX01/02/05. |
+| OP19 Continuing obligations and controlled exit — stopping new traffic does not abandon earlier work. | EXTEND | LAUNCH FOUNDATION | Route/exit designs → supported historical processing, handover and dependency release. | J7; FR35–37; REF-EXIT; H | CG5/CG6: post-switch actors, unfinished work, records and release rules. EX05. |
+| OP20 Permitted submission withdrawal — withdraw the correct public submission with traceability. | UNKNOWN / NEEDS VALIDATION | LAUNCH FOUNDATION | SPFE CancelInvoice contract; no evidenced Sage withdrawal command → qualify the customer outcome separately from report cancellation. | SPFE-S10; REF-WITHDRAW; H on external contract/gap | CG4/CG5: permitted original/copy case, authority, target references, result and unknown-outcome recovery. EX04. |
+| OP21 Fiscal correction — correct an issued invoice under the applicable rectification rule. | UNKNOWN / NEEDS VALIDATION | LAUNCH FOUNDATION | ERP issuance ownership and correction design → prove product support and downstream exchange/report consequences. | REF-SEND; SPFE-S02 Articles 5.5–5.6; H on need, coverage unknown | CG3/CG4/CG5: correction case, document relationships, actor ownership and evidence. Separate from OP20 and pre-issue correction. EX03/04. |
+| OP22 Transitional readable-PDF delivery — accompany the invoice when the statutory condition applies. | EXTEND | LAUNCH FOUNDATION | Local-product generation decision and attachment candidate → qualify recipient delivery, independently of structured delivery/copy. | REF-PDF; RD238-T2; H | CG4/CG5: applicability/exception evidence, exact revision, permitted channel and delivery proof. Never send the PDF to SPFE. EX03/04. |
+| OP23 Qualified secure inter-platform transport — exchange with peers under evidenced transport and trust arrangements. | UNKNOWN / NEEDS VALIDATION | LAUNCH FOUNDATION | Customer/API and network candidates → qualify the operator role, required AS2/AS4 boundary and counterpart coverage. | PO-02; NFR2; RD238 Article 13.1(b); REF-ROUTE; H on need, coverage unknown | CG3/CG4/CG5/CG6: actual assets, peer/network contract, profiles, identities, invoice/status coverage and operations. Assess Peppol and non-Peppol paths without selecting either. EX02. |
+
+### Layer 2 — Credible Sage proposition
+
+Operator execution belongs to Layer 1. These capabilities make the outcome usable in the customer's Sage workflow. VA12 and CX09 are in-scope coverage capabilities to define under PO-03, not claims that all countries, networks or administrations launch together.
+
+| ID / capability and customer outcome | Classification | Recommended priority | Phase 1/2 foundation → Phase 3 delta | Evidence / confidence | Open evidence or decision gate |
+|---|---|---|---|---|---|
+| CX01 Informed choice and activation — select Sage without accidental migration or hidden terms. | EXTEND | LAUNCH FOUNDATION | Setup/readiness separation → explain public, existing-provider and Sage options; explicitly activate selected scope. | FR1–3/8/39; J1; H | CG1/CG2/CG7: eligibility, price, entitlement, operator, scope and terms. EX01/05. |
+| CX02 Embedded onboarding — complete only missing setup inside Sage. | EXTEND | LAUNCH FOUNDATION | Shared discovery, saved connection and certificate candidates → one understandable setup journey with per-function readiness. | REF-ONB GAP-01–08; J1; H | CG2/CG3: launch products, resource mapping, inputs, authority and next actor. EX01. |
+| CX03 Automated ERP exchange — send and receive without routine duplicate entry or another console. | EXTEND | LAUNCH FOUNDATION | Existing sending/retrieval patterns → supported product workflows using OP07/08. | Objective CG3; J2/J3; REF-SEND/RECEIVE; H | CG2/CG4: product versions, directions and end-to-end workflow coverage. EX02/03. |
+| CX04 Understandable status — distinguish delivery, copy, business state and reporting. | EXTEND | LAUNCH FOUNDATION | Existing lifecycle/history → coherent view of separate actions, freshness and uncertainty. | FR26/29/38; REF-LIFE; H | CG2/CG4: meanings and completion wording; retain OP16 source/attempt history. EX04. |
+| CX05 Actionable correction and recovery — know what to fix, who acts and whether to wait. | EXTEND | LAUNCH FOUNDATION | Validation/reconciliation patterns → embedded guidance and accountable escalation. | J4/J5; FR30–34; H | CG2/CG4/CG6: correction ownership, safe actions and support handoff. OP20/21 remain distinct outcomes. EX03–05. |
+| CX06 History, records access and export — inspect evidence and obtain a usable handover. | EXTEND | LAUNCH FOUNDATION | Retrieval/history/exit proposals → defined customer access and export promise, including after product cancellation. | FR36; REF-RECEIVE/EXIT; H | CG5/CG6: content, permissions, continuing access channel and completeness. EX05. |
+| CX07 Accountable customer support — receive one understandable answer across the service chain. | EXTEND | LAUNCH FOUNDATION | Support coordination → Sage-led customer case ownership and incident communication. | FR33/38; REF-OPS; H | CG1/CG6: communication, escalation and service commitments. EX05. |
+| CX08 Accountant, multi-entity and migration suitability — selected cohorts can act across permitted businesses and enter Sage safely. | EXTEND | LAUNCH CANDIDATE | Delegation, batch setup and transition designs → qualify the selected cohort journeys. | REF-ONB/EXIT; REF-COMP C90/C158; M | CG2/CG3/CG6: decide accountant portfolios, multi-entity administration, batch and migration separately; this is not one indivisible delivery item. EX01/05. |
+| VA12 International e-invoicing — support the Phase 2/3 international proposition to be defined. Retained review ID; moved from Layer 3. | UNKNOWN / NEEDS VALIDATION | DECISION REQUIRED | Existing network/readiness candidates and earlier TBC coverage → define international flows with Peppol expected under PO-03. | PO-03; REF-INTERNATIONAL; REF-COMP C24; H on scope, coverage unknown | CG2/CG3/CG4/CG5/CG7: countries, transactions, Phase 2/3 phasing, participation, approach and economics. CF01; EX01–05. |
+| CX09 B2G invoice exchange — support the Phase 2/3 public-sector proposition to be defined. | UNKNOWN / NEEDS VALIDATION | EVIDENCE REQUIRED | Product owner believes Sage capability exists; workbook claims FACe/FACeB2B → verify actual product and administration coverage without treating the networks as interchangeable. | PO-03; REF-COMP C22; H on scope, coverage unknown | CG2/CG3/CG4/CG5: product/build, supported administrations, formats, transaction scope, evidence and Phase 2/3 phasing. EX01–05. |
+
+### Layer 3 — Optional value-added / differentiators
+
+Only the incremental promise is optional: OP16/CX06 records access, CX04 status and OP17/CX07 support remain foundations. Competitive claims below are supporting research, not requirements. VA12 is defined only in Layer 2.
+
+| ID / potential customer outcome | Classification | Recommended priority | Foundation → possible delta | Evidence / confidence | Open evidence or decision gate |
+|---|---|---|---|---|---|
+| VA01 Enhanced archiving — additional preservation assurance. | UNKNOWN / NEEDS VALIDATION | POST-LAUNCH CANDIDATE | Operational conservation; Sage archive TBC → separately defined archive service. | REF-COMP row 110; M | CG7: demand, assurance, access and cost. EX05. |
+| VA02 Advanced analytics — useful cash-flow or process insights beyond status. | EXTEND | POST-LAUNCH CANDIDATE | Claimed activity reporting → validated analytical decisions. | REF-COMP C94/C100; M | CG3/CG7: data quality, decision value and permitted use. EX04/05. |
+| VA03 Additional portal access — serve an actor not adequately served by embedded access. | UNKNOWN / NEEDS VALIDATION | DECISION REQUIRED | Conflicting Sage portal claims → establish the extra access need and existing fit. | REF-COMP C99 versus template C71; L | CG2/CG7: investigate for launch only for a defined actor; required records access stays CX06. EX01/05. |
+| VA04 OCR/AI capture — reduce unstructured-document entry work. | UNKNOWN / NEEDS VALIDATION | POST-LAUNCH CANDIDATE | Claimed existing Sage capture → qualify reuse for a defined AP need. | REF-COMP C125; M | CG3/CG7: Spain/product coverage, quality and human review. EX03. |
+| VA05 Business approvals — coordinate authorised internal decisions. | UNKNOWN / NEEDS VALIDATION | POST-LAUNCH CANDIDATE | ERP/ISV candidates → incremental workflow value without duplicating ERP ownership. | REF-COMP C25; M | CG7: actor, process, owner and demand. EX01/03. |
+| VA06 Banking/reconciliation enrichment — relate invoices to evidenced bank activity. | UNKNOWN / NEEDS VALIDATION | POST-LAUNCH CANDIDATE | Claimed Banking Cloud matching → qualified invoice/payment information. | REF-COMP C114; M | CG3/CG7: coverage, matching confidence and authority; do not infer a reportable payment automatically. EX04/05. |
+| VA07 Payment initiation — execute an authorised payment. | UNKNOWN / NEEDS VALIDATION | FUTURE CONSIDERATION | Workbook reports no Sage payment execution → validate existing/partner options. | REF-COMP C97/C114; L | CG7: demand, permissions, risk, ownership and economics. EX01/05. |
+| VA08 Financing — obtain liquidity against eligible invoices. | UNKNOWN / NEEDS VALIDATION | FUTURE CONSIDERATION | Satago/Sage 50 claim → establish Spain applicability and value. | REF-COMP C113; L | CG7: geography, eligibility, partner and commercial case. EX05. |
+| VA09 Wider business-document exchange — exchange orders and delivery documents where useful. | UNKNOWN / NEEDS VALIDATION | POST-LAUNCH CANDIDATE | Claimed ERP contacts/catalogue/quotes/documents → qualify network exchange, not another ERP suite. | REF-COMP rows 85–89; M | CG7: document/process demand and product ownership. EX03. |
+| VA10 E-commerce integration — remove a demonstrated merchant handoff problem. | UNKNOWN / NEEDS VALIDATION | POST-LAUNCH CANDIDATE | Claimed ISV connectors → selected cohort and connector coverage. | REF-COMP C96; M | CG2/CG7: customer need and ecosystem support. EX02/03. |
+| VA11 Sold compliance intelligence / managed service — provide additional content or delegated work. | UNKNOWN / NEEDS VALIDATION | POST-LAUNCH CANDIDATE | Internal compliance/support foundation → separate additional service promise. | REF-COMP rows 112/116; M | CG7: assess content and delegated operations separately; scope, staffing, liability and price. EX05. |
+
+**Opportunity recommendations:** investigate VA03 only against an evidenced launch access need; retain the post-launch candidates for separate discovery; leave VA07/08 for future consideration. Exclude blockchain audit, a duplicate catalogue/quote suite and standalone general signing products from this definition unless a customer problem is evidenced. B2G and international exchange are not in that exclusion: PO-03 puts them in scope to define.
+
+### Layer 4 — Future extensibility guardrails
+
+EX01–EX05 are proposed design constraints for current capability decisions. Their **FUTURE CONSIDERATION** priority concerns future reuse, not postponing country-rule separation or the in-scope VA12/CX09 decisions. They do not invent another country's requirements.
+
+| ID / boundary and protected outcome | Classification | Recommended priority | Existing foundation → constraint to preserve | Evidence / confidence | Open gate |
+|---|---|---|---|---|---|
+| EX01 Identity and delegated authority — preserve correct business/action scope. | REUSE | FUTURE CONSIDERATION | Party/caller/delegate distinctions → keep NIF, routing schemes and Spain representation rules local; do not make them universal identity assumptions. | REF-ONB/IDENTITY/TRUST; H | CG3/CG5: actual mappings and qualified country authority. |
+| EX02 Routing, discovery, peer interconnection and transport — keep roles independently qualified. | EXTEND | FUTURE CONSIDERATION | Shared routes and connections → separate sender selection, destination evidence, peer/network support and transport. Spain default/bridge rules cannot become universal fallback. | REF-LOOKUP/ROUTE; PO-02; H | CG4: exact route/network coverage, including non-Peppol counterparties. |
+| EX03 Formats, transformation and provenance — preserve source meaning and local profiles. | REUSE | FUTURE CONSIDERATION | DTS qualification and original-file patterns → version supported pairs, profiles and local rules; Spain UBL/Facturae/correction rules cannot become global defaults. | REF-DTS; FR12–18; H | CG3/CG4: build, mappings, rule versions and semantic evidence. |
+| EX04 Lifecycle and country reporting — preserve facts separately from local obligations. | EXTEND | FUTURE CONSIDERATION | Shared events/history → qualify interpretations, actor/date rules, public-copy/reporting duties and destination results by country. Annex II is not a universal status model. | REF-LIFE; FR19–30; H | CG4/CG5: actual country binding and compatibility evidence. |
+| EX05 Operations, retention, entitlement and exit — preserve jurisdiction and service boundaries. | EXTEND | FUTURE CONSIDERATION | Cases, history and transitions → scope support, evidence rights, retention, charging and post-switch duties by offering/operator/jurisdiction. | REF-OPS/EXIT; FR35–42; M | CG1/CG6/CG7: contracts, operating model, record disposition and commercial scope. |
+
+## Phase 2 → Phase 3 responsibility transfer
+
+The named operator may perform or explicitly delegate work. Sage remains answerable for the proposition it offers. Customer authority and business information remain prerequisites; Sage does not become the issuer, buyer or source of payment facts by assuming the platform role.
+
+| Responsibility / capability | Phase 2 owner → Phase 3 accountable outcome | Sage foundation and remaining gap | Completion evidence / unresolved decision |
+|---|---|---|---|
+| Operator accountability / OP01 | External private platform → named operator and Sage proposition allocation. | Integration accountability exists; legal/service allocation remains open. | Entity, agreements and responsibility map; CG1. |
+| Entry-point publication / OP03 | External platform → accurate Sage receiving membership. | Setup patterns; publication mechanism unqualified. | Authorised selection and reliable publication/consultation evidence; CG4. |
+| Peer interconnection / OP05 | External platform → Sage fulfils PO-01 for its customer. | Phase 2 direct-integration scope; operator request/test process remains distinct. | Request/clock, peer qualification, exchange completion and escalation evidence; CG4/CG5/CG6. |
+| Sending / OP07 | Provider delivers beyond Sage handoff → operator proves recipient outcome. | Sending patterns; Spain operator route coverage open. | Recipient result and accountable recovery; CG4. |
+| Receiving / OP08 | Provider receives before Sage intake → operator proves receipt and product handoff. | Collection/capture; operator ingress and public/private handoff open. | Source authority, receipt and product result; CG4. |
+| Transformation / OP09 | Provider supplies conversion → operator proves required coverage. | Preferred DTS candidate; complete conversion portfolio unknown. | Supported matrix and semantic/provenance evidence; CG3/CG4. |
+| Validation / OP10 | Provider applies platform rules → operator applies applicable profiles and rules. | Existing patterns; complete coverage unqualified. | Rule/field coverage and correction owner; CG4/CG5. |
+| Authenticity/trust/transport / OP11/23 | Provider supplies qualified arrangements → operator proves each trust and transport purpose. | Certificate/network candidates; operator fitness unknown. | Signer/delegate, custody, peer/network contract and conformance evidence; CG3/CG4/CG5. |
+| Faithful copy / OP12 | Provider submission is an assumption → Sage owns copy outcome when it is the operator. | Public submission; issuance/result/retry gaps. | Independent copy result and recovery owner; CG4/CG5. |
+| Counterparty lifecycle / OP13 | Provider relays states → operator proves authorised communication. | Lifecycle processing; cross-platform relay contract open. | Source fact, actor and destination evidence; CG4/CG5. |
+| Public reporting / OP14 | Provider/customer allocation varies → expressly allocated authorised report outcome. | Proposed Spain mappings; execution unproven. | Mandate, applicable fields and public result; CG4/CG5. |
+| Reconciliation / OP15 | Provider supplies external evidence → operator resolves or owns uncertainty. | Shared operation-safety design; source access and queries vary. | Original outcome evidence or owned unresolved case; CG4. |
+| Continuity/support / OP17/CX07 | Provider restores its service → complete operating promise and Sage-led customer support. | Coordination patterns; full service coverage unapproved. | Accepted operating model and credible exercise evidence; CG6. |
+| Historical evidence / OP16/CX06 | Provider holds part of the records → controlled custody, access and handover. | Saved files/history; completeness and rights open. | Coverage, custodian and usable access/export evidence; CG6. |
+| Switching/exit / OP19 | Each provider controls its actions → explicit new-traffic and continuing-work ownership. | Transition design; enabled paths and former-provider actions unqualified. | Cutover, unfinished work, records and separate dependency release decisions; CG5/CG6. |
+
 ## Minimum launch capability
 
-### Tier 0 — Regulatory operator core
+**Proposed for review:** an eligible business can choose Sage as its private platform, exchange invoices through its Sage workflow, understand each action's result, resolve problems with accountable support, and retain access to its records when its choices change.
 
-Identity and tenant isolation; entry-point publication and lookup; public-solution connectivity; admitted syntax receipt, validation and transformation; signature/seal handling; outbound and inbound exchange; mandatory status exchange; faithful-copy submission; payment/rejection communication; free interconnection; security certification; continuity, support, audit and reconciliation.
+| Launch boundary | Recommendation and evidence condition |
+|---|---|
+| Operator foundation | Fulfil the applicable Layer 1 outcomes before enabling dependent service. A small launch cohort cannot waive an operator duty. OP20/21/23 remain unproven capabilities, not assumed delivery. |
+| Credible customer experience | CX01–CX07 form the smallest coherent proposed proposition. Basic status, records and support are foundations; enhanced analytics, archive assurance and sold managed services are additional promises. |
+| Cohort-dependent journeys | Decide the CX08 accountant, multi-entity, batch and migration journeys independently for the selected products and customers. Existing private providers remain a valid choice. |
+| Conditional legal PDF obligation | OP22 is Layer 1, not a discretionary cohort feature. Apply RD238-T2 when its statutory conditions hold; require evidence for an exception or non-applicability. Local product generation and recipient delivery are separate responsibilities. |
+| International and B2G | VA12/CX09 are Phase 2/3 scope to define under PO-03. Approve countries, transaction/administration coverage, phase allocation and launch timing before commitments. Their undecided phasing is not an exclusion from Phase 3. |
+| Optional services | Defer Layer 3 unless a bounded customer need and its owner, legal/data basis, service model and economics pass CG7. No feature-parity backlog is implied. |
 
-### Tier 1 — Credible Sage customer proposition
+RD238-T2 applies during the first 12 months of applicability for businesses whose preceding-calendar-year VAT volume of operations exceeded EUR 8 million, unless the recipient voluntarily and expressly accepts the original format. The readable PDF goes to the recipient, never SPFE. This is not a period starting at Sage onboarding. REF-PDF records the local-product generation decision and open delivery qualification.
 
-Embedded onboarding, transparent route choice, invoice/status timeline, actionable error messages, correction and safe retry, operations-assisted recovery, migration from/to Phase 2 providers, role-based access, service health and exportable history.
+## Transition terminology
 
-### Tier 2 — Differentiating services
+These business terms distinguish outcomes; they do not add a shared glossary meaning or select an implementation. [REF-TERMS](#ref-source-references) remains authoritative for shared terminology. Use offboarding only as an umbrella with the actual outcomes named.
 
-Legal archiving, OCR/capture, portals, approvals, payment services, reconciliation, financing, banking, data and insights. Each requires separate demand, legal, risk, data and commercial validation; none is assumed in launch scope.
+| Term | Meaning in this proposition |
+|---|---|
+| Switch into Sage | Move specified future traffic from another platform to Sage. Former-provider execution is promised only where authority and contracts support it. |
+| Switch out of Sage | Move specified future traffic to another platform while assigning earlier work. |
+| Traffic cutover | The evidenced boundary at which new sending/receiving changes for the authorised scope. |
+| Product cancellation | End access to a Sage product; assess the platform agreement separately. |
+| Platform termination | End the defined platform service scope without erasing continuing obligations. |
+| Unfinished transactions | Started delivery, copy or reporting actions still awaiting resolution. |
+| Historical processing | Later authorised action concerning an earlier invoice. |
+| Continuing obligations | Duties still to fulfil after a change, with an identified actor and permitted path. |
+| Records access | Continued authorised inspection of retained records. |
+| Export | Evidenced handover of a defined records package; not proof that all obligations transfer. |
+| Retention | Lawful keeping and disposition of each record class, including holds. |
+| Credential release | Remove each access dependency after its final authorised need ends; incident containment has its own rules. |
 
 ## Journeys
 
@@ -472,6 +638,8 @@ Legal archiving, OCR/capture, portals, approvals, payment services, reconciliati
 5. Late responses are correlated without producing duplicate invoices or contradictory terminal states.
 
 ### J6 — Interconnection request
+
+This journey retains the receiving-platform request path. PO-01 also covers an onboarded Sage customer's request to connect with another private platform. OP05 owns that product outcome; CF02 keeps its clock and the statutory receiving-platform process distinct.
 
 1. A qualifying platform requests interconnection on behalf of a client.
 2. The operator validates eligibility, records receipt order/date and supplies the required specifications and test facility.
@@ -528,7 +696,7 @@ Legal archiving, OCR/capture, portals, approvals, payment services, reconciliati
 |---|---|
 | FR19 | When required, the platform must send a faithful UBL copy to the public solution simultaneously with private issuance and retain acknowledgement/reconciliation evidence. |
 | FR20 | The platform must not send a duplicate faithful copy when the public solution already acted as the invoice or interconnection medium. |
-| FR21 | The operator must accept qualifying interconnection requests, record their order/date and make the interconnection operational within the applicable regulatory process. |
+| FR21 | The operator must accept qualifying interconnection requests, record their order/date and make the interconnection operational within the applicable regulatory process. For Sage's customer-requested capability, apply PO-01; CF02 records the separate clock and legal interpretation gate. |
 | FR22 | The interconnection capability must exchange at least invoices and mandatory commercial/payment statuses. |
 | FR23 | The operator must supply required technical specifications and a test facility to the requesting qualifying platform. |
 | FR24 | Regulated interconnection must not charge the requesting platform prohibited fees. Commercial customer services must be separately identifiable. |
@@ -581,7 +749,7 @@ Legal archiving, OCR/capture, portals, approvals, payment services, reconciliati
 
 `created → validating → ready-to-send → transmitting → acknowledged | rejected | outcome-unknown → reconciling → delivered → commercially-accepted | commercially-rejected → paid`
 
-This is a proposed model. Architecture and legal review must confirm whether correction, cancellation, partial acceptance/payment and assignment are separate events rather than linear states.
+This is a proposed model. Architecture and legal review must confirm whether correction, cancellation, partial acceptance/payment and assignment are separate events rather than linear states. The illustration does not replace the separate processing, delivery, business-fact and reporting outcomes in REF-LIFE. OP20 withdrawal, OP21 fiscal correction and cancellation of a business report are distinct operations.
 
 ## Failure and recovery matrix
 
@@ -642,6 +810,8 @@ Operations need portfolio health, certificate/credential expiry, interconnection
 
 ## Acceptance criteria
 
+The existing AC IDs are retained as proposed demonstrations. AC3's “exactly once” describes the intended absence of duplicate business effect, not an evidenced exactly-once transport guarantee. The capability gates require actual contract and operating evidence; these rows are not passed tests.
+
 | ID | Demonstration |
 |---|---|
 | AC1 | Given a customer with an active Provider A route, provisioning the Sage option leaves all routes and existing invoice context unchanged. Covers FR2–FR9. |
@@ -671,7 +841,27 @@ No numeric targets are approved. Owners must establish baselines and target date
 | Paid add-on attach, retention and margin | Tests value hypothesis | Commercial + Finance |
 | Route transition completion and historical-access defects | Tests customer choice and exit safety | Product + Operations |
 
+<a id="capability-gates"></a>
+
+## Capability evidence gates CG1–CG7
+
+These proposed gates qualify capability decisions and reuse claims.
+
+| Gate | Evidence or decision needed | Accountable roles from existing domain ownership | Consequence / related rollout stage |
+|---|---|---|---|
+| CG1 Operator and accountability | Named operator and contracting party; delivery model; responsibility, liability, delegated-control, evidence-access and exit rights. | Executive sponsor, Spain Legal, Product; REF-DECISION. | Before operator proposition approval; supports Rollout G1/G3. |
+| CG2 Customer proposition and cohort | Launch products/versions, actors, volumes and valued outcomes. Decide CX08 journeys separately. Define VA12/CX09 flows and Phase 2/3 allocation without treating in-scope coverage as already delivered. | Product, Research, Commercial. | Before customer scope approval; supports Rollout G2/G3/G6. |
+| CG3 Reuse qualification | Actual implementation/build, contracts, environments, consumers, owners, limits and relevant operating evidence. DTS includes source/target mappings, rule packs and operations. A service name, draft or published page is insufficient. | Existing capability owners and Engineering; REF-REUSE. | Before claiming usable reuse, capacity or savings; supports Rollout G3/G4. |
+| CG4 Exchange contracts and evidence | Entry-point/discovery coverage; peer/public handoffs; secure transport; invoice, copy and status result meanings; original-outcome recovery; representative conformance evidence. Define non-Peppol counterpart coverage. | Integration/API owners and Compliance. | Before confirming supported operation; supports Rollout G4/G6. |
+| CG5 Regulatory and authority interpretation | Applicable operator duties and periods; customer/delegate versus seal policy; public routing/copy rules; reporting actors and dates; withdrawal/correction; OP22 applicability; continuing obligations. Reconcile PO-01 with the separate statutory process. | Legal/Compliance, Security. | Before confirming affected coverage; supports Rollout G1/G4. |
+| CG6 Operating, records and exit model | Service/support promise, staffing, capacity, incident command, continuity evidence, custody/access, retention, unfinished work and credential release. Customer and supplier commitments must be achievable together. | Operations, Legal/Records, Security. | Before customer service commitments and activation; supports Rollout G5/G6/G7. |
+| CG7 Commercial and optional value | Offering terms, entitlement, price and cost-to-serve; incremental need, ownership and legal/data basis for optional services. International/B2G scope is confirmed input, while its economics and delivery details remain open. | Product, Commercial, Finance. | Before committing the proposition or optional service; supports Rollout G2/G3/G7. |
+
+Outcomes can be proposed before readiness evidence is complete, but cannot be represented as enabled or production-ready. Optional-service details may remain open if excluded from the launch promise. Operator selection, launch cohort and commercial model remain decisions, not recommendations turned into approvals.
+
 ## Rollout and decision gates
+
+CG1–CG7 supply evidence to the programme stages below as mapped above.
 
 | Gate | Evidence required | Blocks |
 |---|---|---|
@@ -688,7 +878,7 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 
 ## Dependencies
 
-- Ministerial order and official technical specifications for the public solution.
+- Applicable published Order HAC/1028/2026, qualified official technical contracts and unresolved SPFE-Q evidence in REF-SPFE; publication itself is no longer pending.
 - Legal interpretation of platform/operator requirements and accountable Sage entity.
 - Phase 1 public connectivity and Phase 2 connection/routing/resilience contracts.
 - Official sandbox/test facilities and interconnection specifications.
@@ -701,9 +891,9 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 | Risk | Consequence | Mitigation/gate |
 |---|---|---|
 | Brand without control | Sage owns customer harm but cannot resolve it | Responsibility map, back-to-back controls, operational access and exit rights |
-| Dates assumed too early | Missed commitment or waste | Plan relative to ministerial-order trigger; maintain scenarios |
+| Dates assumed too early | Missed commitment or waste | Bind the published applicability baseline to the selected scope; qualify operating-model timing and open technical dependencies before a launch commitment |
 | Public solution crowds out paid demand | Weak adoption/ROI | Segment research and clear non-compliance value before investment |
-| Overbuilt launch | Delay and execution failure | Separate Tier 0/1 launch from Tier 2 services |
+| Overbuilt launch | Delay and execution failure | Use the Layer 1/2 launch boundary and separately justified Layer 3 services; decide VA12/CX09 coverage and phasing under PO-03 |
 | Underpowered white-label proposition | Low differentiation and margin | Spain fit, capability and economics proof before selection |
 | Interconnection/format complexity | Failed exchange or non-compliance | Official artefacts, conformance suite and staged interconnection testing |
 | Existing providers see Sage as hostile | Partner/referral harm | Preserve customer choice and separate Phase 2 from opt-in Phase 3 |
@@ -717,7 +907,7 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 | ID | Question | Why it matters | Proposed owner | Blocks |
 |---|---|---|---|---|
 | OQ1 | Which legal entity will be the operator/customer contracting party? | Determines regulatory, tax, liability and support accountability | Spain Legal + Compliance | G1 |
-| OQ2 | Has the ministerial order been published, and what technical/date triggers apply? | Sets exact contract and effective timeline | Regulatory Compliance | G1/G4 |
+| OQ2 | Which published applicability periods, authority rules and unresolved SPFE technical gates apply to each enabled capability? | The final order exists; exact coverage, schemas, replay, mappings and live qualification remain open | Regulatory Compliance | Rollout G1/G4; CG4/CG5 |
 | OQ3 | What is the current private-platform usage by product, segment, volume and provider? | Validates the 2023 survey and migration opportunity | Research + Data | G2 |
 | OQ4 | Which outcomes make customers pay rather than use the free public route? | Determines proposition and ROI | Product Marketing + Research | G2/G3 |
 | OQ5 | What is the minimum launch set by segment and product? | Controls scope and schedule | Product | G2/G3 |
@@ -727,7 +917,21 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 | OQ9 | Which product versions and API/connector cohorts launch first? | Determines integration and support load | Spain Product leaders | G3/G6 |
 | OQ10 | Which entity reports payment/rejection and obtains the source data? | Determines API, deadline and accountability | Product + Compliance | G4 |
 | OQ11 | What retention, archiving and post-termination access applies to each record? | Determines cost, privacy and exit | Legal + Records Management | G4/G5 |
-| OQ12 | Which Tier 2 services warrant separate proposals? | Prevents unbounded Phase 3 scope | Portfolio Product | Post-G2 |
+| OQ12 | Which optional Layer 3 services warrant separate proposals? | Prevents unbounded scope; VA12 is instead Layer 2 under PO-03 | Portfolio Product | After Rollout G2; CG7 |
+
+### Open capability conflicts and evidence limits
+
+| ID | Conflict or gap | Treatment for this revision / next evidence |
+|---|---|---|
+| CF01 International scope | Earlier phase table and Objective G5 describe a future cross-country path; the earlier wording says “not a Spain launch commitment.” PO-03 places international and B2G in Phase 2/3 scope. | Preserve the earlier text visibly. Follow PO-03 for current product scope; review countries, flows, launch phasing and wording under CG2/CG5/CG7. EX guardrails are not a scope exclusion. |
+| CF02 One-calendar-month commitment | PO-01 is Sage's customer-requested product capability. RD238 Article 9 sets a receiving-platform process, clock and queue exception. | Do not call PO-01 a legal interpretation or silently apply the queue exception to it. CG4/CG5/CG6 must establish the product clock, request evidence, completion, exception handling and operational promise. |
+| CF03 Six Phase 2 integrations | PO-01 confirms six direct integrations in Phase 2 scope, but the sixth integration is unconfirmed (Yooz, Sovos or another). The competitor workbook compares B2B Router, ZeroComa, EDICOM, SERES (Docapost), Banqup (Unifiedpost) and Yooz. REF-ONB SPEC039 names five providers and Sovos as a candidate. | The workbook comparator list is not the Phase 2 integration list. Confirm the selected six, including the sixth provider, and each actual contract, country/function coverage and readiness under CG3/CG4. Do not infer selection or deployment from either list. |
+| CF04 Source and API coverage | The 29 October PRE contracts and later API references establish documentary detail, not Sage runtime support. Some guide/schema statements conflict. | REF-SPFE SPFE-Q01–19, REF-ONB GAP-01–08, REF-SEND SND-G01–09 and REF-LIFE LIF-G01–08 retain their owning evidence gates. CG3/CG4 qualify selected builds; no documentary update closes them by itself. |
+| CF05 Copy and routing | External-provider faithful-copy handling is an assumption; copy-result/error reporting and retry ownership are open. Public-default guidance conflicts in some no-match/private-address cases. | REF-SEND OUT-Q03, OUT-09 and SND-G09 own the detailed decisions. OP04/12 must preserve independent recipient/copy results and hold unresolved destinations; CG4/CG5. |
+| CF06 Trust and lifecycle | General signature/seal wording does not establish signer equivalence. Eight report families and 52 source rows do not prove executed mappings. | REF-TRUST qualifies each signer/custody purpose. REF-LIFE distinguishes three conditional action reuses from five missing bindings. Keep CG3/CG4/CG5 open. |
+| CF07 Switching versus interconnection | Existing onboarding/routing evidence keeps Private A → Private B customer switching disabled. PO-01 peer interconnection is a different outcome. | OP05 does not activate a customer route change. CG2/CG4/CG6 must qualify switch-in/out scope and each former-provider action. OP19 continuity and exit cannot be deferred with optional migration automation. |
+| CF08 Status and completion language | The retained linear state illustration and AC3 wording can conceal independent action results or imply a transport guarantee. | Retain IDs, but use REF-LIFE meanings and the acceptance qualification above. Withdrawal, fiscal correction and report cancellation remain distinct. CG4 supplies actual evidence. |
+| CF09 International/B2G and competitive claims | PO-03 confirms scope and expectations, not countries, certified network participation, complete B2G coverage or a delivery model. Workbook detail and summary cells sometimes conflict. | VA12/CX09 remain UNKNOWN / NEEDS VALIDATION. REF-COMP is supporting research only; CG2/CG3/CG4/CG5/CG7 establish each selected promise. |
 
 ## Decisions
 
@@ -735,7 +939,7 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 |---|---|---|---|
 | D1 | Keep the public route and existing-provider integrations as customer options | Proposed product principle | Approval required |
 | D2 | Define launch requirements independently of build/partner/acquisition route | Proposed | Architecture + Product approval required |
-| D3 | Do not confirm a calendar launch date until the ministerial-order trigger and chosen route are evidenced | Proposed risk control | Regulatory + Sponsor approval required |
+| D3 | Do not confirm a calendar launch date until published applicability, selected operating model and dependent capability evidence are established | Proposed risk control; updates the earlier publication-trigger wording | Regulatory + Sponsor approval required |
 | D4 | Treat operator accountability and exit safety as investment gates | Proposed | Legal + Sponsor approval required |
 
 ## Traceability summary
@@ -749,7 +953,43 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 
 ## Readiness
 
-**Discovery and consultation-ready.** This PRD is the authoritative Confluence umbrella for strategic, regulatory, customer, commercial and architecture discovery. Publication communicates the proposal and open decisions; it does **not** mean the investment, operating model, delivery scope or production launch is approved. G1–G5 are blockers to a production pilot; unresolved Tier 2 choices do not block core discovery.
+**Discovery and consultation-ready.** Git remains canonical; Confluence is the publishing representation. This revision is proposed for review and has not been published. The existing publication metadata and stable page identity are unchanged; neither they nor this revision approve an investment, operating model, launch cohort or readiness claim. Rollout G1–G5 remain pilot blockers. CG1–CG7 qualify the dependent outcomes; unresolved optional Layer 3 choices do not block core discovery. VA12/CX09 scope details remain open under PO-03 rather than excluded from Phase 3.
+
+<a id="ref-source-references"></a>
+
+## REF Source references
+
+Use published primary regulation and official technical material first, then approved internal decisions, current internal product evidence, proposed PRDs/specifications, official competitor information, third-party information and inference. A published internal draft is not an approved decision. PO-01–03 are product-owner clarifications, not legal interpretations. Existing detailed sources remain authoritative in their owning documents.
+
+| Source ID | Exact source / version or locator | Supported claim and limit |
+|---|---|---|
+| RD238 | [Original RD 238/2026](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-7295), published 31 March 2026; Articles 6–13, especially Article 9 and 13.1(b); preamble on Peppol BIS | Spain entry points, interconnection, formats, transport, lifecycle and operator duties. Peppol BIS validity as UBL does not establish a universal Peppol network requirement or selected Sage route. |
+| RD238-T2 | Same original regulation, transitional provision 2(1)–(2) | Conditional readable-PDF duty and recipient-only channel; not a discretionary cohort feature or period from onboarding. |
+| SPFE-S02 | [Original Order HAC/1028/2026 PDF](../context/BOE-A-2026-20587.pdf); [official text](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587), published 5 October 2026; Articles 3–5, 7–11 and Annex II | Public-copy, admission, permitted withdrawal/correction, reporting and access rules. Does not establish an implemented Sage command or complete runtime contract. |
+| SPFE-S10 | [Original CancelInvoice WSDL](<../context/WSDL servicios web - PRE_29_10_2026/CancelInvoice.wsdl>), reviewed local PRE release 29 October 2026; documentation, operation, binding and service ports | External withdrawal transport. Business eligibility, complete message mapping, Sage availability and repeat safety need separate evidence. |
+| SPFE-S16 | [Original SendInvoice WSDL](<../context/WSDL servicios web - PRE_29_10_2026/SendInvoice.wsdl>), same reviewed release; documentation, operation and ports | Public submission transport, not proof of issuance coordination, receipt semantics or production access. |
+| REF-SPFE | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md), 29 October release review and SPFE-Q01–19; [source manifest](../assets/regulatory/spain/spfe/source-manifest.json), current_wsdl_baseline | Selected original catalogue, formats, contracts, schemas and examples, with versions/hashes and limits. Current reviewed local release is 29 October 2026; neither future publication monitoring nor mapping completeness is established. |
+| REF-REUSE | [FP-SEI-001](../feature-proposals/FP-SEI-001-phase3-existing-capability-reuse-gap-assessment.md), preliminary inventory, evidence pack and fitness gates | Implementation qualification method; candidate names and documented designs are not deployed reuse. |
+| REF-DECISION | [ADR-SEI-001](../decisions/ADR-SEI-001-phase3-delivery-model-accountability.md), decision status and accountability matrix | Proposed operating-model decision, not a selected operator or approved route. |
+| REF-GOV | [PRD-SEI-221](PRD-SEI-221-operator-readiness-regulatory-governance.md), control register; [PRD-SEI-222](PRD-SEI-222-customer-onboarding-entry-point-migration.md), customer/entry-point/transition scope | Existing operator readiness and customer foundations; retain their open decisions rather than copying controls here. |
+| REF-CUSTOMER | PRD-SEI-222 above; FR6–11 and J1/J7 in this PRD | Customer setup, publication and transition outcomes. No inferred provider enrolment API or enabled migration. |
+| REF-EXCHANGE | [PRD-SEI-223](PRD-SEI-223-interoperability-routing-transformation.md), BR1–14 and FR1–44; [PRD-SEI-224](PRD-SEI-224-lifecycle-rejection-payment-reporting.md), business rules and reporting scope | Existing proposed exchange/lifecycle ownership; country/provider qualification remains open. |
+| REF-ONB | [SPEC-SEI-039](../specs/onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md), §§1–3 and GAP-01–08; [SPEC-SEI-040](../specs/onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md), preserved calls and Spain proposals | Shared E-Invoice setup/discovery candidates, five named providers and Sovos candidate. Neither selected sixth provider nor implementation readiness is established. |
+| REF-ROUTE | [SPEC-SEI-014](../specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), invariants and SPC-01–08; [SPEC-SEI-013](../specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md), integration roles | Shared routing and qualification design. Customer-provider integration does not prove peer-interconnection fitness or a required separate API. |
+| REF-LOOKUP | [SPEC-SEI-012](../specs/SPEC-SEI-012-consult-public-platform-for-recipient-information.md), RLU-05–10 and RLU-SPFE-R01 | Destination evidence and absence/selection limits; AEAT invoice consultation is not a central recipient directory. |
+| REF-SEND | [SPEC-SEI-022](../specs/invoice-sending/SPEC-SEI-022-invoice-sending-solution-summary.md), §§4–6; [SPEC-SEI-023](../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md), OUT-09 and OUT-SPFE-R01/02; [SPEC-SEI-024](../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md), SND-G01–09; [SPEC-SEI-043](../specs/invoice-sending/api-reference/SPEC-SEI-043-invoice-sending-api-reference.md), contract issues | Existing sending design, copy assumption, routing conflict and preserved API evidence. Publication and snapshots do not prove Spain support. |
+| REF-RECEIVE | [SPEC-SEI-025](../specs/invoice-receiving/SPEC-SEI-025-invoice-retrieval-solution-summary.md), §§4–7; [SPEC-SEI-026](../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md); [SPEC-SEI-027](../specs/invoice-receiving/SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md), RET-G gates | Collection, source preservation, product delivery and access are separate outcomes; current readiness unproven. |
+| REF-LIFE | [SPEC-SEI-030](../specs/invoice-lifecycle/SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md), country-pack assessment and LIF-G01–08; [SPEC-SEI-041](../specs/invoice-lifecycle/api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md), §§2.1–2.2 | Shared lifecycle candidate and proposed eight-action/52-row mapping. Three conditional reuses and five missing bindings do not establish execution or configuration-only delivery. |
+| REF-DTS | [SPEC-SEI-008](../specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md), reuse boundaries, architecture delta and UM gates | DTS is the preferred transformation candidate. Prove build, contracts, mappings, rule packs, semantic preservation and operations for each selected scope. |
+| REF-TRUST | [SPEC-SEI-001](../specs/SPEC-SEI-001-certificate-management-solution-specification.md), certificate bridge and G1/G9/G10; [PRD-SEI-226](PRD-SEI-226-security-trust-identity-data-audit.md), BR3–15 | Custody/trust candidates and purpose/actor separation. Tax credentials, an operator seal and invoice-signing authority are not interchangeable. |
+| REF-OPS | [PRD-SEI-225](PRD-SEI-225-operations-resilience-support-reconciliation.md), operational rules and scenarios; [PRD-SEI-215](PRD-SEI-215-resilience-recovery-reconciliation-structured-review.md), safety and reconciliation | Existing shared recovery/control design, not proof of operator-scale continuity or continuous support coverage. |
+| REF-EXIT | [SPEC-SEI-031](../specs/offboarding/SPEC-SEI-031-customer-offboarding-solution-summary.md), §§2, 4–7; [SPEC-SEI-032](../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md); [SPEC-SEI-033](../specs/offboarding/SPEC-SEI-033-customer-offboarding-sequence-and-reuse-assessment.md) | Distinct transition, unfinished-work, access, export and release outcomes. Proposed support windows are not statutory periods or current service commitments. |
+| REF-WITHDRAW | [FP-SEI-002](../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md), Evidence and gap / Proposed direction | External CancelInvoice evidence and missing Sage withdrawal command. No endpoint or implementation is approved. |
+| REF-PDF | [PRD-SEI-246](PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md), transitional PDF product rule, recorded 22 October 2026; REF-SEND OUT-PDF-R01/02 and SND-G08 | Local-product generation allocation and open recipient delivery qualification. Source legal applicability is RD238-T2. |
+| REF-IDENTITY | [PRD-SEI-231](PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md), country identity and delegated-accountant boundaries | Shared identity principles; Spain NIF and network addresses need purpose-specific bindings. |
+| REF-INTERNATIONAL | [PRD-SEI-234](PRD-SEI-234-cross-border-and-reusable-country-capabilities.md), scope and evidence gates; [PRD-SEI-240](PRD-SEI-240-peppol-access-point-service-readiness.md), readiness and open decisions; PO-03 | Existing international/network candidates. PO-03 confirms Phase 2/3 scope and Peppol expectation, not an approved country set, access-point implementation or delivery approach. |
+| REF-TERMS | [GLO-SEI-001](../context/GLO-SEI-001-e-invoicing-terminology.md), authority, route, lifecycle, retention and reuse vocabulary | Shared meanings. The transition section names distinct business outcomes without changing the glossary. |
+| REF-COMP | E8 supplied workbook, Platform Providers worksheet: C22/C24/C25, rows 85–100, 110–116, 125 and 158; Inferred and Criteria worksheets; template!C71 | Competitive research only. C99 says Sage has no portal while template!C71 says Yes; J86 contradicts detailed catalogue cells; dashboard/reporting summaries contradict ZeroComa detail. Inferred protocol/status claims and global coverage do not prove Spain operator fitness. Criteria confidence is per provider/section, not every cell. Original vendor links are retained in the workbook; no parity backlog or mandatory requirement follows. |
 
 ## Change log
 
@@ -757,3 +997,4 @@ Recommended delivery sequence: internal discovery → route due diligence → te
 |---|---|---|
 | 2026-08-05 | Initial Phase 3 discovery PRD created | July 2026 strategy paper; Ley 18/2022; RD 238/2026; official Ministry and EU sources |
 | 2026-08-10 | Consolidated the legacy strategic rationale and building-block navigation into the authoritative Phase 3 umbrella; renamed the Confluence topic and aligned it to four capability categories | User-approved Phase 3 information architecture; legacy Confluence pages 837588801 and 855180225 |
+| 2026-11-03 | Added the proposed layered capability register, responsibility transfer, minimum proposition, transition terms, CG1–CG7, open conflicts and source references. Mapped former Tier 0/1/2 to Layers 1/2/3; added Layer 4 guardrails. Restored OP20 withdrawal, OP21 fiscal correction, OP22 conditional legal PDF delivery and OP23 secure transport. Moved VA12 to Layer 2 and added CX09 B2G under PO-03; retained the conflicting earlier cross-country text for review. Refreshed E3, BR9, OQ2, D3 and dependency/date wording because the order is published; extended FR21 by reference to PO-01 and scoped the unchanged objective/rollout gate IDs. No FR/NFR/AC ID, journey or risk was deleted. | Reviewed capability framework and corrections; Jiaxin He product-owner clarifications, November 2026; repository source review through 73d0f6c; E6 and REF sources. This replaces the earlier tier-list scope presentation and stale publication-dependent wording, not an approved delivery decision. |
