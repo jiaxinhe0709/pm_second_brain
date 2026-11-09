@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-02
+updated: 2026-11-09
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -46,13 +46,13 @@ Assess the existing status POST → notification → invoice GET/history pattern
 
 | Delivery scope | Reuse / Spain work | Product impact / gates |
 |---|---|---|
-| Public consultation — Phase 1 | Map qualified public evidence to saved invoice views. | Reuse invoice reads if fields suffice; no AEAT webhook is established. LIF-G01/02/05. |
-| Private mapping — Phase 2 | Qualify each provider’s status, actor, direction, original route and automatic reports. | Keep common calls where supported; expose separate reporting results. LIF-G02/07. |
-| Recipient actions/reporting — Phase 3 | Bind documented SPFE actions/fields to qualified product commands; confirm report ownership and cancellation execution. | Products supply the selected action fields and retain operation/report results. LIF-G04/06. |
+| SPFE — Phase 1 | Map public evidence to invoice views. Bind applicable recipient actions and public reports to qualified commands; confirm authority, fields and cancellation recovery. | Products supply selected action fields and retain independent operation/report results. No AEAT webhook is established. LIF-G01/02/04/05/06/07/08. |
+| External private providers — Phase 2 | Qualify provider status mapping, supported actions, original route and reporting ownership for each destination. | Keep common calls where supported; prevent duplicate reporting and preserve historical context. LIF-G01/02/04/06/07/08. |
+| Sage private platform — Phase 3 | Assess reuse of qualified lifecycle actions/reporting; qualify Sage operator responsibilities for private exchange, interconnection and status distribution. | Confirm named operator and service-chain readiness under [PRD224’s rollout gates](../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md#rollout-gates) and [PRD221](../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md). Existing action support alone does not prove operator readiness. |
 | Optional issuer/customer actions | Select enabled scope and qualify collection/default/cancellation. | Read support does not imply a writable command. LIF-G04/08. |
 | Shared history and recovery | Correlate exact attempts, notifications and destination results; prove safe replay. | Recover missed events through reads. No confirmed breaking change. LIF-G02/05/06. |
 
-These are PRD224's lifecycle delivery phases; onboarding's platform phases have different meanings. The supplied payment examples use status POST. No separate payment endpoint or revised invoice UBL is established. Spain reporting coverage remains LIF-G04.
+[PRD224’s phase table](../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md#phase-and-outcome) owns scope and uses the same platform phases as onboarding. Required reporting, optional actions and unknown implementation coverage remain separate. Phase scope does not approve release. The supplied payment examples use status POST. No separate payment endpoint or revised invoice UBL is established. Spain reporting coverage remains LIF-G04.
 
 Shared evidence/history and recovery are **Reusable unchanged** design patterns; actor/provider selection is **Reusable with country binding**. Spain public events, identity, reasons and calendars are **Country-specific**. Existing API/DTS implementation coverage is **Unknown** until the relevant LIF gates pass. These classifications do not establish production readiness.
 

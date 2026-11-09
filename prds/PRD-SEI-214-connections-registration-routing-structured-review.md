@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-10-07
+updated: 2026-11-06
 reviewers: []
 related:
   - PRD-SEI-202
@@ -133,7 +133,9 @@ Creating, validating, or retaining a private connection must not silently change
 
 ## Problem and business objective
 
-The Phase 2 provider portfolio includes B2B Router, Banqup, EDICOM, SERES, and ZeroComa. Each provider will expose different account structures, credentials, registration steps, invoice directions, status models, and operational limitations.
+The Phase 2 provider portfolio includes six private-provider candidates: **B2B Router, Banqup (Unifiedpost), EDICOM, SERES (Docaposte), ZeroComa and Sovos**. SPFE is the separate public-platform connection. Each provider may use different account structures, credentials, registration steps, invoice directions, status models and operational limits.
+
+Sovos was already recorded as a candidate in [SPEC-SEI-039](../specs/onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md) and [SPEC-SEI-040, API-01 / REF-PROVIDERS](../specs/onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-01); its inclusion here was confirmed by the product request on 6 November 2026. Inclusion defines discovery scope, not Spain production readiness. Qualify each provider's selected Spain service, contract, integration mode and supported capabilities before activation. Existing France/Sovos implementation evidence is a reuse candidate, not proof of Spain support.
 
 Without a shared foundation:
 
@@ -160,7 +162,7 @@ The business objective is to provide a single, auditable and provider-neutral wa
 | Stakeholder | Value |
 |---|---|
 | Customer or accountant | Prepare private connectivity without an unexpected route change and use different networks for sending and receiving |
-| Sage ERP product | Consume one stable connection and routing contract rather than implement five provider models |
+| Sage ERP product | Consume one stable connection and routing contract rather than implement six provider models |
 | Platform engineering | Add provider adapters behind consistent capability and lifecycle boundaries |
 | Operations and support | Explain route decisions, distinguish configuration from provider failure, and recover exceptions safely |
 | Product and compliance | Preserve evidence of routing and registration decisions through regulatory change |
@@ -261,7 +263,8 @@ The business objective is to provide a single, auditable and provider-neutral wa
 | Public Platform Onboard Confluence draft | Medium internal | Phase 1 onboarding and adapter boundary | Contains public/private and AEAT/VeriFactu concepts that require separation |
 | Stakeholder confirmation: public/private coexist | High internal | BR1 and multi-connection model | External/provider mechanics remain to be confirmed |
 | Stakeholder scenario: different inbound/outbound networks | High internal | BR2 and direction-level routing | Other route dimensions remain open |
-| Provider API evidence packs | Mixed by provider | Capability-based adapter boundary | EDICOM/SERES/ZeroComa endpoint evidence incomplete |
+| Provider API evidence packs | Mixed by provider | Capability-based adapter boundary | EDICOM/SERES/ZeroComa endpoint evidence incomplete; Sovos Spain contract and capability coverage remain unqualified |
+| Sovos candidate scope — SPEC039 and SPEC040 API-01 / REF-PROVIDERS; product confirmation, 6 November 2026 | Internal product scope | Includes Sovos in the six-provider discovery portfolio | The recorded 27 October Confluence review adds the candidate. France/Sovos evidence does not establish Spain services, contracts, entitlement or production readiness |
 
 ### Research contradictions and gaps
 
@@ -269,7 +272,7 @@ The business objective is to provide a single, auditable and provider-neutral wa
 2. The authoritative source of an invoice route remains open with the local team.
 3. Historical lifecycle ownership after a route change remains open.
 4. Final cutover, rollback and deregistration sequences remain open.
-5. Provider-specific capability/readiness evidence differs materially across the five integrations.
+5. Provider-specific capability/readiness evidence differs materially across the six provider candidates.
 
 These gaps block production route activation, but they do not block defining the shared conceptual foundation or running provider discovery.
 

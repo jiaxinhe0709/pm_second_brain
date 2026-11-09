@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="provider-connector-logical-architecture" name="Provider Connectors: one shared API for all consumer roles">
+    <mxGraphModel page="1" pageWidth="2110" pageHeight="1040">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Provider Connectors: one shared API for all consumer roles&#10;Confirmed shared-contract direction. Notifications dispatch work; external platform contracts remain separate. Source: CA-ARCH01/02." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="12" width="2054" height="95" />
+        </mxCell>
+        <mxCell id="legend" value="Proposed design · Solid: logical handoff / dependency · Dashed: integration-mode alternative or recovery · Darker grey: recovery" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="104" width="2054" height="22" />
+        </mxCell>
+        <mxCell id="behaviour-legend" value="Common: shared behaviour · Scenario-specific: selected path · Conditional: only when required" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="130" width="2054" height="24" />
+        </mxCell>
+        <mxCell id="lane-0" value="ERP / product" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="160" width="2070" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-0" value="ERP / product" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="160" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-1" value="Domain Service - E-Invoice Service" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="300" width="2070" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-1" value="Domain Service -&#10;E-Invoice Service" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="300" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-2" value="Domain Service - Other Services" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="440" width="2070" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-2" value="Domain Service - Other&#10;Services" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="440" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-3" value="Operations / support" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="580" width="2070" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-3" value="Operations / support" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="580" width="180" height="140" />
+        </mxCell>
+        <mxCell id="lane-4" value="Public / private platforms" style="swimlane;horizontal=0;noLabel=1;startSize=200;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#aaaaaa;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="720" width="2070" height="140" />
+        </mxCell>
+        <mxCell id="lane-label-4" value="Public / private&#10;platforms" style="text;html=0;align=center;verticalAlign=middle;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="30" y="720" width="180" height="140" />
+        </mxCell>
+        <object id="product" link="../../specs/provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md" label="Product consumes shared API&#10;Product-scoped requests and results&#10;SPEC013 · Common" tooltip="Product-scoped requests and results">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="240" y="178" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="api" link="../../specs/provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md" label="One shared e-Invoicing API&#10;Product, provider and connector roles&#10;CA-ARCH01/02 · Common" tooltip="Product, provider and connector roles">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="535" y="318" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="feature" link="../../specs/provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md" label="E-Invoice Service owns work&#10;Saved actions, evidence and results&#10;CA-01–05 · Common" tooltip="Saved actions, evidence and results">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="830" y="318" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="controls" link="../../specs/provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md" label="Check scoped access and profile&#10;Identity, authority and fixed context&#10;SPEC001 / 014 · Common" tooltip="Identity, authority and fixed context">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="240" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="notify" link="../../specs/provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md" label="Dispatch work notification&#10;Assigned operation and executor&#10;CA-ARCH01 · Common" tooltip="Assigned operation and executor">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="830" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="connector" link="../../specs/provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md" label="Provider Connector consumes API&#10;Gets content; submits source results&#10;CA-ARCH01/02 · Common" tooltip="Gets content; submits source results">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1125" y="458" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="direct" link="../../specs/provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md" label="Authorised provider consumes API&#10;Alternative integration mode&#10;SPEC013 · Conditional" tooltip="Alternative integration mode">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="240" y="738" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="private" link="../../specs/provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md" label="Six private-provider bindings&#10;Provider-specific external contracts&#10;PRD214 · Scenario-specific" tooltip="Provider-specific external contracts">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1420" y="738" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="public" link="../../specs/provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md" label="One SPFE binding&#10;External public contract&#10;SPEC011 · Scenario-specific" tooltip="External public contract">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1715" y="738" width="260" height="104" />
+          </mxCell>
+        </object>
+        <object id="support" link="../../specs/provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md" label="Resolve blocked / uncertain work&#10;Keep original action and context&#10;CS06 / 07 / 12 / 16 · Conditional" tooltip="Keep original action and context">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1420" y="598" width="260" height="104" />
+          </mxCell>
+        </object>
+        <mxCell id="edge-0" source="product" target="api" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="510" y="230.0" />
+              <mxPoint x="510" y="370.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-1" source="direct" target="api" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="510" y="790.0" />
+              <mxPoint x="510" y="370.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-2" source="controls" target="api" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="510" y="510.0" />
+              <mxPoint x="510" y="370.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" source="api" target="feature" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-4" source="feature" target="notify" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-5" source="notify" target="connector" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-6" source="connector" target="api" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.0;exitY=0.5;entryX=1.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1115" y="510.0" />
+              <mxPoint x="1115" y="432" />
+              <mxPoint x="805" y="432" />
+              <mxPoint x="805" y="370.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-7" source="connector" target="private" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1395" y="510.0" />
+              <mxPoint x="1395" y="790.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-8" source="connector" target="public" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1705" y="510.0" />
+              <mxPoint x="1705" y="790.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-9" source="connector" target="support" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1395" y="510.0" />
+              <mxPoint x="1395" y="650.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="boundary" value="Scope: six private connectors (B2B Router, Banqup, EDICOM, SERES, ZeroComa, Sovos) + SPFE = seven; one common Sage API contract.&#10;A direct provider consumer is an alternative executor role, not a second sender for an action already assigned to a connector.&#10;Shared API access has role-specific permissions. Notifications are dispatch, not a separate invoice API. Crossed lines do not join." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="930" width="2054" height="96" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

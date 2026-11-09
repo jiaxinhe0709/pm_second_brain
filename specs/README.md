@@ -9,6 +9,7 @@ inventories, decisions and acceptance mappings when needed.
 
 | Feature folder | Primary review set | Archived supporting baseline |
 |---|---|---|
+| [Provider Connector architecture and API](provider-connectors/README.md) | SPEC-SEI-044–046; compact technical companions | SPEC-SEI-013 remains active; public and provider bindings remain in 011/017 |
 | [Customer onboarding and connectivity](onboarding-and-connectivity/README.md) | SPEC-SEI-037–039 | [Onboarding 018/019/021](archive/onboarding/README.md), [provider connectivity 034–036](archive/provider-connectivity/README.md) and [SPEC-SEI-002](archive/SPEC-SEI-002-onboarding-solution-specification.md) |
 | [Invoice sending](invoice-sending/README.md) | SPEC-SEI-022–024; [API reference 043](invoice-sending/api-reference/SPEC-SEI-043-invoice-sending-api-reference.md) | [SPEC-SEI-007](archive/SPEC-SEI-007-invoice-sending-solution.md) |
 | [Invoice receiving, retrieval and download](invoice-receiving/README.md) | SPEC-SEI-025–027; [API reference 042](invoice-receiving/api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md) | [SPEC-SEI-016](archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md) |

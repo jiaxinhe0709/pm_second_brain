@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: 2026-10-29
+updated: 2026-11-09
 reviewers: []
 related:
 - SPEC-SEI-040
@@ -84,7 +84,7 @@ This is the authoritative GAP-01–08 register for 037–040. Owners must supply
 
 | ID | Decision / evidence needed | Owner | Phase |
 |---|---|---|---|
-| <a id="gap-01"></a><span style="color:#B42318;white-space:nowrap;">GAP-01</span> | <span style="color:#B42318;">Confirm SXS business/client mapping and supported resource relationships with GAP-02. Several addresses do not prove several legal entities; do not assume one dataset per NIF.</span> | API, Identity, Tax, Enablement | 1–3 |
+| <a id="gap-01"></a><span style="color:#B42318;white-space:nowrap;">GAP-01</span> | <span style="color:#B42318;">Confirm SXS business/client mapping and supported resource relationships with GAP-02 for each [Spain business structure in 038 §2](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#spain-business-structures-and-identity-examples). Supply worked mappings for establishments, group entities and accountant clients, including whether they use one or several datasets and connections. Several addresses do not prove several legal entities; neither one dataset per NIF nor multiple NIFs per dataset is confirmed.</span> | API, Identity, Tax, Enablement | 1–3 |
 | <a id="gap-02"></a><span style="color:#B42318;white-space:nowrap;">GAP-02</span> | <span style="color:#B42318;">**Spain connection model:** Does adding a platform require a new E-Invoice connection, allow reuse of an existing connection, or require another mapping? Architecture and Engineering must validate or replace the [BA hypothesis in 040 API-02](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-02). No option is selected. Several platform connections under one access point remain an alternative to assess, not established support. Include SPFE representation and Phase 1 API applicability. Supply the selected build/contract and a worked response example; confirm Spain service IDs/environments, address types, provider inputs, supported combinations and required configuration/code/contract changes. `fr.*` values are not Spain identifiers.</span> | Architecture and Engineering (API/Integration); Spain Product/Compliance for country rules | 1–3 |
 | <a id="gap-03"></a><span style="color:#B42318;white-space:nowrap;">GAP-03</span> | <span style="color:#B42318;">Confirm accepted evidence that the caller may act for this business. Login and certificate possession are insufficient.</span> | Identity, Security, Product | 1–3 |
 | <a id="gap-04"></a><span style="color:#B42318;white-space:nowrap;">GAP-04</span> | <span style="color:#B42318;">Confirm duplicate handling, safe repeats, concurrent changes and how to establish an earlier request's result.</span> | API, Integration, Operations | 1–3 |

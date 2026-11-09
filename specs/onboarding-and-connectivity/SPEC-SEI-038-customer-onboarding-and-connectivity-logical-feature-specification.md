@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: 2026-10-29
+updated: 2026-11-09
 reviewers: []
 related:
 - SPEC-SEI-037
@@ -69,6 +69,18 @@ Let a business or its authorised accountant set up Sage access to its chosen e-i
 ## 2 Terms used — Phases 1–3
 
 **NIF** identifies the business. **Permission** determines who may act for it. **Readiness** means Sage has passed the checks for a requested function. **Activation** separately authorises use of a platform for future work. A saved connection does not prove both. Other terms use the [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md).
+
+<a id="spain-business-structures-and-identity-examples"></a>
+
+### Spain business structures and identity examples
+
+| Spain case | Example | Identity example: NIF/NIE |
+|---|---|---|
+| One business, several establishments | A company operates several shops or offices. | One company NIF with several establishments or addresses. Separate premises do not automatically mean separate NIFs. Separately identified permanent establishments need their own country-rule assessment. REF-ES-STRUCTURES; shared glossary. |
+| One group, several legal entities | A parent company manages several subsidiaries. | Multiple NIFs: NIF-A for the parent, NIF-B for subsidiary B and NIF-C for subsidiary C. Group membership does not merge their identities. REF-ES-STRUCTURES. |
+| One accountant, several client businesses | A despacho manages companies and self-employed clients. | Multiple client NIFs, separate from the accountant's NIF. For a foreign individual, the NIE generally serves as the NIF; AEAT can assign a NIF when the person has no DNI/NIE. Authority remains specific to the client and action. REF-ES-STRUCTURES; REF-ES-NIF. |
+
+These examples distinguish establishments, legal entities and accountant/client relationships. They do not prescribe how many entities a dataset contains. [039 GAP-01/02](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-01) must confirm whether each case uses one or several datasets and connections. France SIREN/SIRET rules do not define the Spain mapping.
 
 <a id="3-scope"></a>
 
@@ -251,3 +263,5 @@ Before enabling a path, demonstrate its main outcome, correction, unknown-result
 | REF-PRIVATE | [Original RD 238/2026](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), 31 March 2026, Articles 8–9. | Operator interconnection, timing exception and interim public exchange; not a customer-onboarding deadline. |
 | REF-PROVIDERS | [PRD213](../../prds/PRD-SEI-213-private-platform-connectivity-structured-review.md), current draft, BR4/FR4. | Planned provider scope; unlisted-provider UI remains undecided. |
 | REF-CONNECTIVITY / REF-OPERATOR | [SPEC014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), 20 October 2026, SPC-01–08; [PRD221](../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md), 6 October 2026, readiness domains and FR20. | Proposed connection/activation controls and operator obligations; no launch approval. |
+| REF-ES-STRUCTURES | AEAT online guidance, checked 9 November 2026: [Model 036 — activities and premises](https://sede.agenciatributaria.gob.es/Sede/censos-nif-domicilio-fiscal/tramites-censales-relacionados-empresarios-profesionales-retenedores/preguntas-frecuentes-modelos-036-037/modificaciones-censales/datos-relativos-actividades-economicas-locales.html), premises changes; [Model 220 — importing each group entity's data](https://sede.agenciatributaria.gob.es/Sede/eu_es/ayuda/consultas-informaticas/impuesto-sobre-sociedades-ayuda-tecnica/importar-datos-modelo-200-modelo-220.html), entity NIF; [delegated social collaboration](https://sede.agenciatributaria.gob.es/Sede/colaborar-agencia-tributaria/colaboracion-social-presentacion-declaraciones/colaboracion-social-delegada.html), introduction and third-party representation. No page version stated. | Business-structure and representation examples only. Does not establish Sage dataset cardinality, a SIRET-equivalent hierarchy or authority for an SPFE operation. |
+| REF-ES-NIF | [AEAT Model 036 — natural persons](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/guia-practica-cumplimentacion-modelo-censal-036/capitulo-01-cuestiones-generales/causas-presentacion-obligados-declarar/alta-modelo-036/casilla-110-solicitud-numero-identificacion-036/personas-fisicas.html), general DNI/NIE rule and NIF assignment without DNI/NIE; checked 9 November 2026; no page version stated. | Explains individual client identifiers. Does not establish API address types, validation patterns or implementation coverage. |
