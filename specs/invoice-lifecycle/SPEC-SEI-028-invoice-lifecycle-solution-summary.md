@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-02
+updated: 2026-11-09
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -55,7 +55,7 @@ Keep business facts, action attempts and destination reports separate. If a tran
 
 The business/accountant supplies authorised facts. The ERP displays results. The E-Invoice Service maintains the view and reporting work; public/private platforms return their results. Operations resolves uncertain actions. Responsibility labels do not approve service boundaries.
 
-PRD224 keeps Phase 1 public consultation, Phase 2 provider mapping and Phase 3 recipient actions/reporting. Optional actions need Product approval. Payment initiation, dispute decisions and automatic rectifying-invoice creation remain outside scope.
+[PRD224’s phase table](../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md#phase-and-outcome) owns scope across SPFE, external providers and the Sage private platform. Recipient actions and public reporting are assessed for each applicable route; Phase 3 adds Sage operator responsibilities. Phase scope does not establish implementation readiness or approve release. Optional actions need Product approval. Payment initiation, dispute decisions and automatic rectifying-invoice creation remain outside scope.
 
 ## 3 End-to-end flow
 
@@ -97,7 +97,7 @@ The supplied [Annex II comparison](<../../context/Anexo II/annex-ii-review.md>) 
 |---|---|---|---|
 | REF-BASE | [SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), updated 20 October 2026 | Parts 1–4; LCS controls and REF | Existing draft design, full provider assessment and preserved IDs; no runtime proof. |
 | ARCH-LCS01/02 | [Service/connector overview](../../assets/architecture/b22496cd-5719-45a2-ae1a-27d91f69f11c.png); [detailed status flow](../../assets/architecture/711539a8-ff4e-4723-9181-b21c71f389af.png), reviewed 28 October 2026; original design date/version/approval unrecorded | Shared e-Invoicing Service, provider connectors, status-request and status-update routing | Architecture supports the country-binding reuse assessment. Pack registry, configuration-only delivery and Spain runtime coverage are not established. SPEC030 §3.5 owns detail. |
-| REF-PRODUCT | [PRD-SEI-224](../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md), updated 7 October 2026; [PRD-SEI-232](../../prds/PRD-SEI-232-country-lifecycle-status-mapping.md); [PRD-SEI-242](../../prds/PRD-SEI-242-peppol-lifecycle-feedback.md) | Phase table; FR1–23; LS-FR and PEP-FR controls | Canonical product scope in recorded discovery/draft states; not new approval. |
+| REF-PRODUCT | [PRD-SEI-224](../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md), updated 9 November 2026; [PRD-SEI-232](../../prds/PRD-SEI-232-country-lifecycle-status-mapping.md); [PRD-SEI-242](../../prds/PRD-SEI-242-peppol-lifecycle-feedback.md) | Phase table; FR1–23; LS-FR and PEP-FR controls | Canonical product scope in recorded discovery/draft states; not new approval. |
 | INT-LCS01–05 | [Supplied guide evidence](<../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md>), received 22 October 2026, revision unknown | Five named sections | API patterns and supplied transition outcomes; Spain support and build unknown. |
 | FR-LIF01 | [Supplied status POST OpenAPI](<../../context/FR API/Lifecycle/update-e-invoice-status.openapi.json>), received 28 October 2026; API `1.0.0` | `LifecycleChange-Document`; request/response schemas and parameters | POST contract and open attributes; no nested Spain validation or deployed-support proof. Detailed analysis is in SPEC041. |
 | SPFE-S02 | [Final BOE order](../../context/BOE-A-2026-20587.pdf), published 5 October 2026 | Articles 7–11; Annex II pp. 36–42 | Legal communication, authority and field baseline; not a complete runnable API. |

@@ -6,7 +6,7 @@ status: discovery
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-10-07
+updated: 2026-11-09
 reviewers: []
 related:
   - PRD-SEI-210
@@ -33,19 +33,23 @@ An **exchange action** is one separately tracked action, such as delivering an i
 
 ## Decision summary
 
-Phase 3 must provide one coherent invoice lifecycle view while retaining the source, authority and delivery obligation of every technical, commercial and payment event. Transport success, commercial acceptance/rejection and payment are separate dimensions; they must not be collapsed into one linear status.
+Each applicable public or private route must provide one coherent invoice lifecycle view while retaining the source, authority and delivery obligation of every technical, commercial and payment event. Transport success, commercial acceptance/rejection and payment are separate dimensions; they must not be collapsed into one linear status.
 
-For invoices exchanged privately, the recipient must be able to communicate required commercial and payment information to the issuer and, where applicable, the public solution. Duplicate, late, corrected and conflicting events must remain traceable and recoverable. A customer route change does not transfer historical events to the new route automatically.
+For each applicable route, the recipient must be able to communicate required commercial and payment information to the issuer and, where applicable, the public solution. Duplicate, late, corrected and conflicting events must remain traceable and recoverable. A customer route change does not transfer historical events to the new route automatically.
 
 > **Product principle:** Preserve facts as events, derive views explicitly, and deliver each event to every required destination exactly once at the business level.
 
 ## Phase and outcome
 
-| Phase | Lifecycle behaviour | Phase 3 requirement |
+Phase labels follow [PRD-SEI-210, Delivery phases and capability boundary](PRD-SEI-210-sage-private-platform-reuse-and-operator-expansion.md#delivery-phases-and-capability-boundary). They identify platform scope; recipient actions and public reporting are assessed for each applicable route.
+
+| Phase | Lifecycle behaviour | Required outcome / qualification |
 |---|---|---|
-| Phase 1 | Public submission/retrieval status | Reuse public status and consultation patterns where evidence proves fitness |
-| Phase 2 | Provider status mapping and historical continuity | Reuse source-aware mapping, reconciliation and invoice-origin context |
-| **Phase 3** | Sage operates private exchange and status fan-out | Add recipient actions, private interconnection and public rejection/payment reporting |
+| Phase 1 — SPFE | Public consultation, applicable recipient actions and public rejection/payment reporting | Qualify each enabled action, actor authority, required fields and recovery behaviour |
+| Phase 2 — External private providers | Add provider status mapping, supported actions and historical continuity | Establish who reports to each destination, prevent duplicate reporting and preserve original invoice context |
+| Phase 3 — Sage private platform | Add Sage operator responsibilities for private exchange, interconnection and status distribution | Reuse qualified lifecycle actions and reporting from earlier phases; qualify the named operator and service chain |
+
+Required reporting is separate from optional product actions. Optional actions need Product approval. Phase scope does not prove implementation coverage or approve release; each route must pass the applicable delivery gates. Detailed behaviour and API qualification remain in [SPEC-SEI-029](../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md) and [SPEC-SEI-030](../specs/invoice-lifecycle/SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md).
 
 ## Problem and objective
 
@@ -427,10 +431,3 @@ External ownership after a route change is intentionally not decided in this PRD
 | How are corrections to an already reported payment/rejection expressed? | Audit and external consistency | Local technical/legal team | Pilot | Append superseding event if contract supports it |
 | Who owns older invoice status after route switch? | Credential and operational continuity | Spain PM/Compliance and affected providers | Pilot/production | See PRD-SEI-222 research-backed consultation: immutable origin is retained; executing actor and route remain open |
 | What retention applies to event and delivery evidence? | Data/security design | Legal/privacy | Production | Configurable until approved |
-
-## Change log
-
-| Date | Version | Change | Evidence/decision |
-|---|---|---|---|
-| 2026-08-27 | Version 2 | Linked historical route-change ownership to the research-backed Spain consultation, retained reusable lifecycle invariants and defined accountable e-invoicing/banking domain-service ownership | PRD-SEI-222; user research |
-| 2026-08-10 | Version 1 | Initial Phase 3 status, rejection and payment reporting PRD | PRD-SEI-210, Phase 1/2 lifecycle foundations and RD 238/2026 |
