@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-22
+updated: 2026-11-10
 reviewers: []
 related:
   - SPEC-SEI-003
@@ -38,30 +38,50 @@ OFF-01–08, OFF-I01–08, OFF-R01–10 and OFF-A01–11 retain their meanings. 
 
 ## 1 Problem and intended outcomes
 
-A business can leave Sage while invoices still need delivery confirmation, payment reporting, corrections or evidence. Ending every capability at subscription expiry can strand this work. Keeping every capability active indefinitely leaves unclear authority, cost and security exposure. The business needs a dated statement of what stops, what continues, who owns it and how records remain available. REF-PRODUCT.
+A business can leave Sage while earlier invoices still need delivery confirmation, payment reporting or correction. It may also need access to invoice records. Ending all access when the subscription expires can prevent this work. Keeping all services active creates cost and security risks. The customer needs to know what stops, what continues, who is responsible and how records remain available. REF-PRODUCT.
 
-The intended outcomes are an observed switch for new traffic, an accountable path for earlier obligations, a usable evidence handover, and controlled access removal. The [logical specification](SPEC-SEI-032-customer-offboarding-logical-feature-specification.md) defines the behaviour. This summary presents the decisions needed to offer it.
+The result must show when new invoice processing changes, who will finish earlier work, how records are handed over or kept accessible, and which access has ended. The [logical specification](SPEC-SEI-032-customer-offboarding-logical-feature-specification.md) defines the required behaviour. This summary explains the customer outcomes and decisions still needed.
 
 ## 2 Scope and platform responsibilities
 
 | Situation | What Sage must coordinate within its authorised scope | What needs separate evidence |
 |---|---|---|
-| Business leaves the Sage private platform for another private platform | Scope, destination proof, new-traffic cutoff, Sage history, release and export. | Destination acceptance and the old/new operators' historical responsibilities. |
-| Business leaves another private platform and retains its Sage product | Destination onboarding and route change; the previous provider's exit steps only where authorised. | Previous-provider notice, withdrawal, export and historical access. Sage cannot promise their execution without a contract. |
-| Business changes an external private provider while Sage coordinates both connections | One scoped transition; preserve both operators' actual evidence and independent release gates. | Supported direction/address granularity and each provider's action/query contract. |
-| Business stops using its Sage product but keeps a private-platform agreement | Identify which product access and commercial scope ends. | Whether the platform agreement, mandate and independent archive access continue. Product cancellation is not proof of platform termination. |
-| Business ends its full Sage e-invoicing scope | Account for all selected entities/directions, future receipt, unfinished work and data disposition. | A valid external/public destination where required, or evidence supporting a different treatment. |
-| A private provider becomes unavailable or access is compromised | Protect records and deadlines; establish an approved alternative and incident owner. | Emergency authority, obtainable evidence and a technically supported recovery path. |
+| Business leaves the Sage private platform for another private platform | Check the new platform, confirm when new invoices change platform, and arrange earlier work and records access. | The new provider's acceptance and who will handle earlier invoices at each provider. |
+| Business leaves another private platform but keeps its Sage product | Set up the new platform and coordinate old-provider steps only where Sage has permission. | The old provider's notice, exit, export and access rules. Sage cannot promise to perform actions outside its contract. |
+| Business changes external private provider while Sage coordinates both connections | Coordinate one change and obtain separate confirmation from each provider. | Whether each provider supports the selected address or invoice direction, and how completion is confirmed. |
+| Business stops using its Sage product but keeps a private-platform agreement | Identify the subscription and access that end. | Whether the platform agreement, authority and separate archive access continue. Product cancellation does not automatically end the platform agreement. |
+| Business ends all identified Sage e-invoicing services | Account for future invoice receipt, unfinished work, access and records for each selected business and direction. | A working replacement where required, or an accepted decision that no replacement is needed. |
+| A private provider becomes unavailable or access is compromised | Stop unsafe work, protect evidence and name who will manage recovery and deadlines. | Permission for emergency action and a working recovery method. |
 
-The business administrator or authorised accountant approves scope. Product and Operations own the customer exit statement. Each platform operator owns its external actions under its agreement. Legal/Tax determines continuing obligations; Privacy/Records determines data disposition; Security controls credential release. These are responsibilities, not proposed service boundaries.
+The business administrator or authorised accountant approves what will change. Product and Operations explain the exit terms to the customer. Each platform operator confirms its own actions. Legal/Tax confirms which duties continue. Privacy/Records decides how records are kept, returned or deleted. Security decides when credentials can be removed. These responsibilities do not prescribe separate technical services.
 
 ## 3 End-to-end flow
+
+### Customer action: switch or offboard
+
+**Customer entry point:** use E-invoicing settings to **Connect or add a platform**, **Switch platform**, or **Disconnect or stop a service**. A switch is one customer request. Sage coordinates new setup and any old-service exit behind that request, with progress and next actions shown in settings. [SPEC038](../onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#e-invoicing-settings-intended-interaction) owns this intended interaction.
+
+A **switch** changes the platform used to send or receive new invoices. **Offboarding** ends selected access or services. A switch can include ending old access or services. The customer starts one switch request, which can affect part or all of their setup. The [logical spec's customer-action table](SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios), OFF-S01–10, defines the ten scenarios, including urgent incidents and business closure. A listed scenario is not a promise that the feature is available.
+
+[The settings overview lives in SPEC037](../onboarding-and-connectivity/SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md#e-invoicing-settings-overview). [SPEC038 owns the complete customer switch journey](../onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#switch-platform-one-customer-journey). This offboarding set defines the old-service exit checks within that journey, or a standalone disconnect. Its switch references do not create another customer request. The diagram below expands those checks.
+
+![Classify a customer request as a platform switch, offboarding, or both](../../assets/diagrams/offboarding-and-switch-customer-actions.svg)
+
+[Editable Draw.io](../../assets/diagrams/offboarding-and-switch-customer-actions.drawio) · [PNG](../../assets/diagrams/offboarding-and-switch-customer-actions.png) · [Customer-action scenarios](../../work/offboarding-review/customer-actions.html).
+
+Start by checking for an urgent incident. Stop unsafe access when needed, without waiting for the planned switch or exit checks. Then identify what the customer wants to change. If the business has ceased trading, confirm whether a replacement platform is needed. Every path must leave someone responsible for earlier work and records.
+
+Ending Sage access to SPFE is different from changing where new invoices are received. Neither action proves that the customer has deregistered from SPFE. The exact public-access steps remain open under OFF-Q02/04; see SPEC-SEI-033 §3.3.
+
+Onboarding and offboarding describe the work Sage must coordinate. They do not require separate customer journeys for a switch. [SPEC033](SPEC-SEI-033-customer-offboarding-sequence-and-reuse-assessment.md#how-the-onboarding-apis-support-a-platform-switch) keeps API reuse and Spain implementation checks separate from the settings interaction.
+
+### Planned exit and recovery
 
 ![Planned exit with separate historical and release gates](../../assets/diagrams/offboarding-planned-exit-process.svg)
 
 [Editable Draw.io](../../assets/diagrams/offboarding-planned-exit-process.drawio) · [PNG](../../assets/diagrams/offboarding-planned-exit-process.png).
 
-The existing diagram shows the planned OFF-01–07 journey. G4 changes new traffic. G5 keeps earlier work accountable. G6 and G7 separately release dependencies and assign data disposition. Export preparation can start before cutover; OFF-07 is its completion and disposition gate. The diagram's order does not require all export generation to wait until release. A partial or uncertain result follows OFF-08 in the logical view.
+The existing diagram shows the normal OFF-01–07 process. G4 confirms when new invoice processing changes. G5 assigns earlier work. G6 checks which access and services can end. G7 confirms records handover and the rules for keeping or deleting data. Export preparation can start before the change; it does not need to wait for access removal. Use OFF-08 when an action partly succeeds or its result is unknown.
 
 ## 4 How long should support continue?
 
@@ -69,12 +89,12 @@ The existing diagram shows the planned OFF-01–07 journey. G4 changes new traff
 
 | Period | Proposed starting position | Approval needed |
 |---|---|---|
-| Planned notice and preparation | Aim for 30 calendar days before intended cutover. Allow an expressly agreed shorter period or urgent exit. | Product/Commercial and provider owner: contractual notice, customer need and achievable destination proof. |
-| New invoice traffic | Stop the old authorised scope at observed cutover. A support or export period does not extend permission to send new invoices. | Route and provider owners: exact transaction boundary and inbound propagation behaviour. |
-| Transition assistance and self-service export | Offer 90 calendar days from observed cutover, with dates stated before approval. | Product/Operations: staffing, access, fees, notice and exception route. This window cannot override continuing rights or duties. |
-| Earlier invoice obligations | Continue the necessary restricted processing until completion or evidenced handover. Review unresolved cases every 30 calendar days and before each due date. | Legal/Tax, Operations and providers: permitted actor/channel, cost and escalation. No unowned expiry or indefinite full-service access. |
-| Invoice-copy access and retained evidence | Establish a separate lawful access and retention schedule. | Legal/Records: applicable rights, custodian, request channel, retention triggers and holds. See REF-COPY and REF-PRIVACY. |
-| Credentials | Remove each credential after its final dependency ends; review retained access with the historical case. | Security and the relevant obligation owner. A compromised credential follows incident containment. |
+| Planned notice and preparation | Aim for 30 calendar days before the planned change. Allow an agreed shorter period or urgent exit. | Product/Commercial and the provider owner confirm notice terms, customer needs and time to check any new platform. |
+| New invoices | Stop starting new work in the old service when the change is confirmed. Extra support or export time does not permit new invoicing there. | Route and provider owners agree which invoices belong to each platform and how receipt changes take effect. |
+| Transition assistance and self-service export | Offer 90 calendar days from the confirmed change. State the dates before approval. | Product/Operations confirm staffing, access, fees, notices and exceptions. Continuing rights and duties still apply. |
+| Earlier invoice duties | Continue only the necessary work until it is finished or a new owner accepts it. Review open cases every 30 calendar days and before each due date. | Legal/Tax, Operations and providers confirm who can act, how, at what cost and when to escalate. |
+| Invoice-copy access and retained evidence | Agree separate rules and dates for access and keeping records. | Legal/Records confirm applicable rights, who keeps records, how copies are requested and when deletion must be paused. REF-COPY; REF-PRIVACY. |
+| Credentials | Remove each credential when no remaining authorised work needs it. Review any continued access with the earlier-work case. | Security and the work owner confirm removal. Compromised access follows the incident process. |
 
 Spain's Law 56/2007 Article 2 bis.3 gives recipients four years from invoice issue to request copies without additional cost. This is not four years of full Sage service. The accountable copy provider, applicable commencement rules and post-exit channel need Legal confirmation. REF-COPY; OFF-Q03.
 
@@ -82,7 +102,7 @@ Spain's Law 56/2007 Article 2 bis.3 gives recipients four years from invoice iss
 
 **Yes: provide an authorised export and evidence-handover capability.** This is already in the draft product baseline, OFR12–13. For each exit, agree whether the customer receives files, an authorised destination receives them, or a verified continuing archive supplies access. Record the result and limitations. A change of provider does not automatically transfer records or transfer responsibility for unfinished actions. REF-PRODUCT.
 
-The package must distinguish source invoice files, public copies, readable renditions and event/report evidence. A PDF-only package cannot establish the complete structured evidence handover. SPEC-SEI-032, section 5 defines scope, manifest, receipts, late additions and recovery. Public download capabilities are inputs to this assessment; they do not prove that every source original, private acknowledgement or history item is available. REF-SPFE.
+The export must identify original invoice files, public copies, readable copies such as PDFs, and event/report evidence separately. PDFs alone are not a complete handover of structured invoice records. SPEC-SEI-032, section 5 defines the file list, delivery confirmation, later additions and recovery. Public downloads can supply some records, but do not prove that all originals, private-provider responses or history are available. REF-SPFE.
 
 ## 6 Reuse and Spain boundaries
 
@@ -101,13 +121,13 @@ The [reuse assessment](SPEC-SEI-033-customer-offboarding-sequence-and-reuse-asse
 | Decision | Consequence and accountable role |
 |---|---|
 | OFF-Q01 Support/notice/access periods and charges | Product/Commercial/Operations must accept or amend the planning proposal and update PRD-SEI-243 before it becomes a service commitment. |
-| OFF-Q02 Historical execution and custody | Legal/Tax and both platform owners must identify who can act after switch and who retains each record. PRD OD1/2/6. |
+| OFF-Q02 Earlier work and records | Legal/Tax and both platform owners must identify who can act after the switch and who keeps each record. PRD OD1/2/6. |
 | OFF-Q03 Copy access, retention and deletion | Legal/Privacy/Records must bind applicable copy rights, retention duties, controller instructions and legal holds by data class. PRD OD5. |
-| OFF-Q04 Provider and route contract | Platform owners must qualify notice, granularity, completion observation, inbound propagation and emergency handling. PRD OD3/4/8. |
+| OFF-Q04 Provider and route contract | Platform owners must confirm notice terms, which parts can be removed, how completion is checked, when receipt changes take effect and how emergencies are handled. PRD OD3/4/8. |
 | OFF-Q05 Export and receiving-party acceptance | Records/Product and destination owner must agree package coverage, supported imports, omissions, receipts and later additions. |
 | OFF-Q06 Service and security exceptions | Operations/Security must define restricted post-exit access, escalation, unavailable customer handling and compromised-access recovery. |
 
-These decisions block the dependent commitment or automation. They do not require unrelated product shutdown or publication. An owned manual gate is possible only with authority and evidence; it cannot waive an applicable obligation.
+An open decision prevents the affected promise or automatic action. Other safe work can continue. A manual step needs a named owner, permission and completion evidence. It cannot remove an applicable duty.
 
 ## REF Source references
 

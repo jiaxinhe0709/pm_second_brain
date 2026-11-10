@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: '2026-10-28'
+updated: 2026-11-10
 reviewers: []
 related:
 - SPEC-SEI-038
@@ -59,11 +59,23 @@ This view combines SPEC-SEI-018 onboarding and SPEC-SEI-034 connection setup. It
 
 **Why:** use existing accounts, valid certificates and working connections without repeating setup or accidentally changing provider.
 
+**Customer interaction:** use one E-invoicing settings area to review setup and choose **Connect or add a platform**, **Switch platform** or **Disconnect or stop a service**. A switch is one customer request; Sage coordinates the new setup and any old-service exit. [SPEC038 — E-invoicing settings](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#e-invoicing-settings-intended-interaction) defines the intended interaction and enabled-action limits.
+
 **Reuse:** use the existing E-Invoice API and Tax certificate capability. Confirm Spain service settings, NIF/address rules, permissions, certificate acceptance and provider support. The API was first used for France; it is shared.
 
 **Product precondition:** integrate SXS and Tax certificate management before enabling e-invoicing; see the [shared rule in 038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#4-feature-wide-functional-requirements-and-rules).
 
 **Read next:** [SPEC038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md) explains behaviour and exceptions; [SPEC039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md) gives calls, examples, reuse recommendations and required changes. These drafts do not prove production support.
+
+### E-invoicing settings — overview
+
+The intended settings area lives in the **customer's Sage product**, for the selected business or an accountant's selected client. The exact menu location and screen design remain to agree with the product team.
+
+![Manage e-invoicing from settings with connect, switch and disconnect actions](../../assets/diagrams/e-invoicing-settings-actions.svg)
+
+[Editable settings overview](../../assets/diagrams/e-invoicing-settings-actions.drawio) · [PNG](../../assets/diagrams/e-invoicing-settings-actions.png).
+
+This is the primary specification home of the `e-invoicing-settings-actions` diagram. Its shared files stay in `assets/diagrams/`. [SPEC038 — E-invoicing settings](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#e-invoicing-settings-intended-interaction) owns the settings behaviour. [SPEC038 — Switch platform](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#switch-platform-one-customer-journey) owns the complete customer switch journey. [SPEC032](../offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#classification-and-scope) owns exit checks within that journey. [SPEC014 — Routing controls](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md#2-behaviour-by-activity) owns the controlled change for future invoices. Offboarding references this overview rather than maintaining a second settings flow.
 
 <a id="2-terms-used"></a>
 

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-11-09
+updated: 2026-11-10
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -54,6 +54,19 @@ Definitions explain the current source documents. They do not approve an archite
 - Add a new shared term here before copying a definition into another spec. Keep a specialised definition in the owning spec and link to it. Review both when a meaning changes.
 - Identify the country, source and version when a term carries legal or network meaning. A Spain term or code must not become another country's default.
 - The glossary owner coordinates wording. Domain owners decide contract meaning and resolve the open mappings below. A substantive meaning change needs the repository's normal review; document status and publication require explicit approval.
+
+## Switching and offboarding
+
+| Preferred term | Definition and usage boundary |
+|---|---|
+| Onboarding / Connect or add a platform | Onboarding is the setup and readiness work. **Connect or add a platform** is its customer action in E-invoicing settings. Reuse valid setup and ask only for missing information. The customer may already have an account with the selected platform. |
+| Platform switch | Changing the platform used to send or receive new invoices for selected businesses and services. Onboarding checks the new setup. Offboarding handles old access or services that end. Sage coordinates both within one customer switch request. A documented scenario does not prove release support. |
+| Offboarding | Ending selected access or services. Record separate results for new invoices, earlier work, access, contracts and records. Ending Sage access to a public platform does not establish public-platform deregistration. |
+| Partial / full scope | Whether a switch or exit affects part or all of the selected relationship. Identify the businesses, clients, addresses, invoice directions, environments and services affected. Full Sage exit does not mean all external agreements end. |
+
+Use the exact customer action labels **Connect or add a platform**, **Switch platform** and **Disconnect or stop a service**. Onboarding and offboarding name the work behind these actions; they are not additional steps the customer must start during a switch.
+
+[SPEC038 — E-invoicing settings](../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#e-invoicing-settings-intended-interaction) owns the settings behaviour. [SPEC038 — Switch platform](../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#switch-platform-one-customer-journey) owns the complete customer switch journey. [SPEC032 — Customer-action scenarios](../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios) owns exit responsibilities, business closure and incident handling. Keep these meanings and links aligned when either spec changes.
 
 ## Evidence and references
 

@@ -3,22 +3,22 @@
   "documents": [
     {
       "source": "specs/offboarding/SPEC-SEI-031-customer-offboarding-solution-summary.md",
-      "local_links_checked": 14,
+      "local_links_checked": 23,
       "preview": "SPEC-SEI-031.html"
     },
     {
       "source": "specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md",
-      "local_links_checked": 16,
+      "local_links_checked": 22,
       "preview": "SPEC-SEI-032.html"
     },
     {
       "source": "specs/offboarding/SPEC-SEI-033-customer-offboarding-sequence-and-reuse-assessment.md",
-      "local_links_checked": 23,
+      "local_links_checked": 34,
       "preview": "SPEC-SEI-033.html"
     },
     {
       "source": "specs/offboarding/README.md",
-      "local_links_checked": 11,
+      "local_links_checked": 13,
       "preview": "index.html"
     }
   ],

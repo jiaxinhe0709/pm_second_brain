@@ -1,0 +1,26 @@
+{
+  "result": "passed",
+  "documents": [
+    {
+      "source": "specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md",
+      "preview": "SPEC-SEI-038.html",
+      "local_links_checked": 48
+    },
+    {
+      "source": "specs/onboarding-and-connectivity/SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md",
+      "preview": "SPEC-SEI-037.html",
+      "local_links_checked": 51
+    },
+    {
+      "source": "specs/onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md",
+      "preview": "SPEC-SEI-039.html",
+      "local_links_checked": 89
+    },
+    {
+      "source": "specs/onboarding-and-connectivity/README.md",
+      "preview": "index.html",
+      "local_links_checked": 21
+    }
+  ],
+  "scope": "Preview generation and local file/section links. No implementation or publication validation."
+}

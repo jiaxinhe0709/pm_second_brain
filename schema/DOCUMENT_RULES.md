@@ -11,6 +11,13 @@ GitHub is canonical. Confluence pages are published representations.
 - Never encode status or version in a filename.
 - Store supporting assets in `assets/`.
 
+## Cross-references and shared terms
+
+- Use the shared glossary and the owning document's terms. Keep customer action labels identical in text, tables, diagrams and acceptance checks. Distinguish customer actions from the internal work used to deliver them.
+- Keep each shared journey or rule in one owning document. Other documents must link to its exact section and describe only their own responsibility or exception.
+- Use descriptive link text that names the document ID and the relevant journey or rule. Check both the file and section target. Do not replace a working link with an unlinked document name.
+- When changing a shared term, action label, section heading or rule, review affected references, diagrams and acceptance checks in the same change. Update links after moving or renaming content. Preserve exact API fields, values and permanent IDs.
+
 ## Lifecycle
 
 `idea → discovery → draft → in-review → approved → implemented → superseded`

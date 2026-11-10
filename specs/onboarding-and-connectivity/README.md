@@ -11,6 +11,8 @@ This is the primary review set for customer onboarding and connection setup. Rea
 
 [Public setup diagram](../../assets/diagrams/onboarding-public-setup-swimlane.svg) · [Private setup diagram](../../assets/diagrams/onboarding-private-setup-swimlane.svg).
 
+The [E-invoicing settings overview in SPEC037](SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md#e-invoicing-settings-overview) is the primary specification home of `e-invoicing-settings-actions`. Shared SVG, Draw.io and PNG files stay in `assets/diagrams/`. [SPEC038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#switch-platform-one-customer-journey) owns the complete customer switch journey; [SPEC032](../offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#classification-and-scope) owns its exit checks. The intended settings area is in the customer's Sage product; the exact menu location remains to agree.
+
 ## Scope and retained detail
 
 Public onboarding remains Phase 1 readiness. External private connections and the Sage private-platform service require their existing scope, contract and activation gates. Sage branding does not identify the legal operator. Customer authority, connection readiness, route activation and operator readiness remain separate results.

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: 2026-11-09
+updated: 2026-11-10
 reviewers: []
 related:
 - SPEC-SEI-037
@@ -64,6 +64,34 @@ Let a business or its authorised accountant set up Sage access to its chosen e-i
 
 **Phase coverage:** **1 — SPFE public solution; 2 — external private providers; 3 — Sage private-platform offering.** Labels show analysis coverage, not delivery approval or confirmed API availability. REF-PHASE. Private A to Private B stays disabled. Invoice sending, receiving, reporting and full exit belong to separate features. REF-PRODUCT.
 
+### E-invoicing settings — intended interaction
+
+The intended product interaction is one **E-invoicing settings** area in the **customer's Sage product**, for the selected business or authorised accountant's client. Customers can review their current setup and request the following supported actions. The exact menu location, screen design and implementation remain to confirm with the product team. [SPEC037's settings overview](SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md#e-invoicing-settings-overview) is the primary home of the shared diagram.
+
+| Customer action in settings | Meaning | Specification responsibility |
+|---|---|---|
+| Connect or add a platform | Set up Sage access to a chosen platform, reusing valid accounts and connections. | [SPEC038 — Setup scenarios](#31-in-scope), ONB-S01–05 and the applicable checks. |
+| Switch platform | Change the platform used for future sending or receipt. Keep this as one customer request, with the selected scope, start and progress. | [SPEC038 — Switch platform](#switch-platform-one-customer-journey) coordinates new setup, routing and any old-service exit; [SPEC032 — Exit checks](../offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#2-state-invariants-and-workflow) supplies the offboarding rules. |
+| Disconnect or stop a service | End selected Sage access or services, without assuming that the customer wants a different platform. | [SPEC032 — Customer-action scenarios](../offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios), selected OFF-S01/06–09 and applicable exit checks. |
+
+Customers must not have to start separate onboarding and offboarding requests to complete one switch. Before confirmation, show what will change, what will remain, the proposed start and how earlier invoices will be handled. Settings must show progress, any failed or pending step, and who must act next. Ending a connection does not automatically cancel a product subscription or platform agreement; show and confirm those actions separately where applicable.
+
+Offer only enabled actions for the selected country, platform, business and caller. An unsupported action must explain the limitation and available next step. This settings model does not enable private A → private B switching or assert that all listed actions are implemented. Incident response can also start outside settings; OFF-S10 still permits urgent action under incident authority.
+
+#### Switch platform — one customer journey
+
+This section owns the complete customer switch journey (ONB-S06). The onboarding and offboarding specs each retain their detailed checks. A switch scenario in the offboarding table describes the old-service responsibilities within this journey; it is not another customer process.
+
+| Stage | Customer experience and coordination | Detailed rule owner |
+|---|---|---|
+| Choose the change | In settings, select the current and new platform, affected businesses and invoice directions, and requested start. Confirm that the action is enabled and the caller has permission. | ONB-01/02; enabled scope in §3. |
+| Check the new setup | Reuse valid setup and complete only missing connection, credential and readiness checks. Keep progress in the same request. | ONB-10 and ONB-03–06. |
+| Review and confirm | Show what changes, what remains, the proposed start and who will handle earlier invoices. Include any requested old-service termination and its separate contract/access consequences. Obtain the applicable approval. | ONB-07; [SPEC032](../offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#2-state-invariants-and-workflow), OFF-01/02/03/05. |
+| Change future invoice handling | Apply one authorised change and confirm when it takes effect. Keep earlier invoice results and their original platform context. An unknown result remains pending for recovery. | ONB-07/08; [SPEC014 — Routing controls](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md#2-behaviour-by-activity) routing controls; OFF-04/08. |
+| Finish or track old-service work | Where access or services must end, apply the offboarding checks and preserve required records and unfinished duties. Return each step's result, pending work and next owner to the same settings request. | ONB-09/11; [SPEC032](../offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#2-state-invariants-and-workflow), OFF-05–08. |
+
+For a request to stop services without a replacement platform, use **Disconnect or stop a service** and the relevant [SPEC032 — Customer-action scenario](../offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios). Do not create a switch request just to process a cancellation. [SPEC039 — Supported change](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#34-supported-change) owns the API reuse assessment; API reuse does not change this customer-journey ownership.
+
 <a id="2-terms-used"></a>
 
 ## 2 Terms used — Phases 1–3
@@ -81,6 +109,23 @@ Let a business or its authorised accountant set up Sage access to its chosen e-i
 | One accountant, several client businesses | A despacho manages companies and self-employed clients. | Multiple client NIFs, separate from the accountant's NIF. For a foreign individual, the NIE generally serves as the NIF; AEAT can assign a NIF when the person has no DNI/NIE. Authority remains specific to the client and action. REF-ES-STRUCTURES; REF-ES-NIF. |
 
 These examples distinguish establishments, legal entities and accountant/client relationships. They do not prescribe how many entities a dataset contains. [039 GAP-01/02](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-01) must confirm whether each case uses one or several datasets and connections. France SIREN/SIRET rules do not define the Spain mapping.
+
+<a id="spain-nif-identifier-classes"></a>
+
+### Spain NIF identifier classes
+
+NIF is the common taxpayer identifier. Capture and validate the business NIF using the rules for its identifier class. Do not require separate NIF, DNI and NIE values for the same taxpayer. PRD101 FR6–10; REF-ES-NIF.
+
+| Business being identified | Value used as its NIF | Sample value (synthetic) |
+|---|---|---|
+| Spanish individual / sole trader | DNI number, including its check letter. | `12345678Z` |
+| Foreign individual / sole trader | NIE, which generally serves as the individual's NIF. | `X1234567L` |
+| Company or other entity | Entity NIF. | `B12345674` (SL company) |
+| Individual with an exceptional AEAT-assigned identifier | Applicable K-, L- or M-prefixed NIF when the person has no DNI/NIE. | `K0000001R`, `L0000001R`, `M0000001R` |
+
+These are synthetic format examples with valid check characters. They are not verified AEAT registrations and must not be used for live transactions.
+
+REF-ES-NIF supports the individual classes; REF-ES-ENTITY-NIF supports entity NIFs. Keep enough identifier-class information to select the correct validation. This table does not define new API fields or confirm implementation coverage. [039 GAP-01/02](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-01) retains the contract-mapping questions. [ONB-03 prerequisite checks](#65-onb-03-assess-prerequisites) govern identity readiness separately from certificates and authority.
 
 <a id="3-scope"></a>
 
@@ -159,7 +204,18 @@ Resolve the company's SXS dataset/client mapping before dataset-scoped credentia
 
 ![Shared onboarding checks: company dataset, NIF, permission and any required credential](../../assets/diagrams/onboarding-shared-prerequisites-swimlane.svg)
 
-Run these shared checks before public or private setup. Use the Tax certificate service where a certificate is required: confirm its dates, suitability and permitted use for this business and environment. Reuse a protected reference. Missing, expired or revoked material needs correction; an unavailable lookup remains pending. Authentication, signing and permission are separate checks. REF-TRUST; SPFE-S02.
+Run these shared checks before public or private setup. The table explains [ONB-R17 — independent prerequisites](../archive/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#4-feature-wide-functional-requirements-and-rules). A NIF and an in-date certificate alone do not establish readiness.
+
+| Check | Required evidence for the selected business, action and environment | If the check does not pass |
+|---|---|---|
+| Business NIF | Verify the represented taxpayer's NIF using the [Spain NIF identifier classes](#spain-nif-identifier-classes). The accountant's or platform caller's NIF cannot replace the business NIF. REF-ES-NIF; REF-PRODUCT, PRD101 FR6–10. | Ask for correction or missing evidence. An unconfirmed business NIF blocks dependent readiness even if the certificate is valid. |
+| Caller identity and authority | Identify the caller and verify current permission for this business and action. For delegated access, check the represented principal, delegate and operation-specific authority. SPFE-S02 Article 11; ONB-02/12. | Obtain the required authority through ONB-12. Login, a valid NIF or certificate possession cannot replace permission. |
+| Required certificate or seal | Use the Tax certificate service to check the selected credential's owner/caller, represented business, permitted purpose, issuer/chain, validity, revocation status and environment. Reuse a suitable protected reference. For SPFE web-service calls, select the accepted certificate/seal class and matching WSDL port; authentication cannot be skipped. REF-TRUST, SPEC001 CM-SPFE-R01; SPFE-S03 §4.3; SPFE-S16 service ports. | Correct missing, expired, revoked or unsuitable material. Keep an unavailable check or unconfirmed acceptance pending. Block only dependent functions. |
+| Readiness for the requested function | Pass the independent NIF, authority and required-credential checks, then confirm the platform access and actual Sage support under ONB-04/06. An approved `NOT_REQUIRED` decision removes only the certificate condition for a function that permits it. REF-TRUST, SPEC001 CM-R01. | Return the failed or pending check, next action and owner. Passing one check cannot override another failure or activate a route. |
+
+The selected access model determines whose certificate is used. An authorised accountant or platform may use an accepted credential for a permitted delegated action; do not require a customer certificate upload by default. Credential acceptance and delegated authority remain open under [039 GAP-03/06](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-03). Authentication and invoice signing are separate purposes; an authentication certificate does not automatically qualify for signing. REF-TRUST; SPFE-S02.
+
+Acceptance uses [ONB-A25 / OFR-A20](../archive/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#62-onb-02-check-business-identity-and-authority): verify a valid NIF with an unsuitable required certificate, a valid certificate with an unconfirmed NIF, both valid with missing authority, and an approved `NOT_REQUIRED` result. Each case must retain the other independent checks.
 
 <a id="66-onb-04-publish-public-readiness"></a>
 
@@ -209,7 +265,7 @@ For an enabled change, confirm permission, readiness and the effective start. Re
 
 ### 6.11 ONB-09 Preserve and release — Phases 1–3
 
-Keep earlier invoices linked to their original platform, evidence and access. Preserve retrieval progress. Release old dependencies only when continuity is confirmed; full exit belongs to the [offboarding spec](../archive/SPEC-SEI-003-offboarding-solution-specification.md).
+Keep earlier invoices linked to their original platform, evidence and access. Preserve retrieval progress. Release old dependencies only when continuity is confirmed. Apply [SPEC032's exit checks](../offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#2-state-invariants-and-workflow) within the same switch request when old access or services must end. A standalone full exit follows SPEC032 without requiring a replacement-platform journey.
 
 <a id="612-onb-11-return-results-and-required-actions"></a>
 
@@ -262,6 +318,7 @@ Before enabling a path, demonstrate its main outcome, correction, unknown-result
 | SPFE-S03/S08/S16 | [Catalogue](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>) 0.1.0, 9 October 2026, §§4.3/5.1/6.1–6.10; [draft formats](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>) 0.1.0, 9 October 2026, §§5.1–5.9; [SendInvoice WSDL](<../../context/WSDL servicios web - PRE_29_10_2026/SendInvoice.wsdl>) PRE release 29 October 2026, binding/service ports. | Operation boundaries; no supplied onboarding enrolment contract. Unfinished formats and transport conflicts in [RES-SEI-002](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md) remain open. |
 | REF-PRIVATE | [Original RD 238/2026](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), 31 March 2026, Articles 8–9. | Operator interconnection, timing exception and interim public exchange; not a customer-onboarding deadline. |
 | REF-PROVIDERS | [PRD213](../../prds/PRD-SEI-213-private-platform-connectivity-structured-review.md), current draft, BR4/FR4. | Planned provider scope; unlisted-provider UI remains undecided. |
-| REF-CONNECTIVITY / REF-OPERATOR | [SPEC014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), 20 October 2026, SPC-01–08; [PRD221](../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md), 6 October 2026, readiness domains and FR20. | Proposed connection/activation controls and operator obligations; no launch approval. |
+| REF-CONNECTIVITY / REF-OPERATOR | [SPEC014 — Routing controls](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md#2-behaviour-by-activity), 20 October 2026, SPC-01–08; [PRD221](../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md), 6 October 2026, readiness domains and FR20. | Proposed connection/activation controls and operator obligations; no launch approval. |
 | REF-ES-STRUCTURES | AEAT online guidance, checked 9 November 2026: [Model 036 — activities and premises](https://sede.agenciatributaria.gob.es/Sede/censos-nif-domicilio-fiscal/tramites-censales-relacionados-empresarios-profesionales-retenedores/preguntas-frecuentes-modelos-036-037/modificaciones-censales/datos-relativos-actividades-economicas-locales.html), premises changes; [Model 220 — importing each group entity's data](https://sede.agenciatributaria.gob.es/Sede/eu_es/ayuda/consultas-informaticas/impuesto-sobre-sociedades-ayuda-tecnica/importar-datos-modelo-200-modelo-220.html), entity NIF; [delegated social collaboration](https://sede.agenciatributaria.gob.es/Sede/colaborar-agencia-tributaria/colaboracion-social-presentacion-declaraciones/colaboracion-social-delegada.html), introduction and third-party representation. No page version stated. | Business-structure and representation examples only. Does not establish Sage dataset cardinality, a SIRET-equivalent hierarchy or authority for an SPFE operation. |
-| REF-ES-NIF | [AEAT Model 036 — natural persons](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/guia-practica-cumplimentacion-modelo-censal-036/capitulo-01-cuestiones-generales/causas-presentacion-obligados-declarar/alta-modelo-036/casilla-110-solicitud-numero-identificacion-036/personas-fisicas.html), general DNI/NIE rule and NIF assignment without DNI/NIE; checked 9 November 2026; no page version stated. | Explains individual client identifiers. Does not establish API address types, validation patterns or implementation coverage. |
+| REF-ES-NIF | [AEAT — individual NIF composition](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/guia-practica-cumplimentacion-modelo-censal-036/anexos/anexo-01-solicitud-nif-documentacion-aportar/informacion-sobre-numero-identificacion-fiscal/composicion-nif/personas-fisicas.html), general DNI/NIE rules and special K/L/M assignments; checked 10 November 2026; no page version stated. | Explains individual identifier classes. Does not establish API address types or implementation coverage. |
+| REF-ES-ENTITY-NIF | [AEAT — entity NIF composition](https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/guia-practica-cumplimentacion-modelo-censal-036/anexos/anexo-01-solicitud-nif-documentacion-aportar/informacion-sobre-numero-identificacion-fiscal/composicion-nif/personas-juridicas-entidades.html), composition and entity-class prefixes; checked 10 November 2026; cites Order EHA/451/2008 Articles 2–5. | Supports the entity NIF class; does not establish e-invoicing eligibility, platform acceptance or Sage implementation coverage. |

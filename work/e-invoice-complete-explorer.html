@@ -999,6 +999,8 @@
             #spain-invoice-example .sie-demo-edge { stroke:var(--hub-line); stroke-width:1.3; fill:none; }
             #spain-invoice-example .sie-demo-edge.is-current { stroke:var(--hub-blue); stroke-width:2; }
             #spain-invoice-example .sie-demo-edge.is-copy { stroke:var(--hub-orange); stroke-dasharray:5 4; stroke-width:2; }
+            #spain-invoice-example .sie-demo-controls { display:flex; flex-wrap:wrap; gap:12px 20px; margin:16px 0; }
+            #spain-invoice-example .sie-demo-controls label { flex:1 1 220px; max-width:360px; }
             @media(max-width:600px) { #spain-invoice-example .sie-demo { padding:14px 10px; } #spain-invoice-example .sie-demo-heading { gap:10px; } }
             @media(max-width:850px) { #spain-invoice-example .sie-layout { grid-template-columns:minmax(0,1fr); } #spain-invoice-example .sie-api { padding-left:0; padding-top:20px; border-left:0; border-top:1px solid var(--hub-line); } }
           </style>
@@ -1010,6 +1012,7 @@
           </div>
           <section class="sie-demo" aria-label="Interactive invoice journey">
             <div class="sie-demo-heading"><div><h2 id="sie-demo-title">Follow the invoice</h2><p class="sie-small">Click a step or a box. The highlighted arrows show the path.</p></div><div class="sie-demo-actions"><button type="button" class="hub-button is-secondary" id="sie-demo-back">← Back</button><button type="button" class="hub-button" id="sie-demo-next">Next →</button></div></div>
+            <div class="sie-demo-controls" id="sie-demo-controls"><label class="hub-field">Our platform · demo setup<select id="sie-our-platform"><option value="a">B2B Router</option><option value="b">Banqup</option><option value="public">SPFE · public</option></select></label><label class="hub-field"><span id="sie-other-label">Buyer’s platform · demo lookup</span><select id="sie-other-platform"><option value="Banqup">Banqup</option><option value="B2B Router">B2B Router</option><option value="EDICOM">EDICOM</option><option value="SERES">SERES</option><option value="ZeroComa">ZeroComa</option></select></label></div>
             <div class="sie-demo-steps" id="sie-demo-steps" aria-label="Diagram steps"></div>
             <div class="sie-demo-map" id="sie-demo-map"><svg id="sie-demo-lines" aria-hidden="true"></svg><div id="sie-demo-nodes"></div></div>
             <p class="sie-demo-caption" id="sie-demo-caption" aria-live="polite"></p>
@@ -1057,7 +1060,7 @@
               const D = '7f2c4a81-6d35-4b90-8a62-1c9e507d3b46', OUT = uuid(201), IN = uuid(202), PUBLIC_IN = uuid(203);
               const separatePlatforms = {a:{name:'B2B Router',ap:uuid(2),c:uuid(3),alias:'AP1',connection:'C1'},b:{name:'Banqup',ap:uuid(101),c:uuid(102),alias:'AP2',connection:'C2'},public:{name:'SPFE',ap:uuid(111),c:uuid(112),alias:'AP3',connection:'C3'}};
               let platforms = separatePlatforms;
-              let state = {demoIndex:0,demoNode:null,fullApi:false,model:'shared',step:'send',route:'b',sendRoute:'a',platform:'a',operation:'create'};
+              let state = {configuredSender:'a',configuredReceiver:'b',buyerPlatform:'Banqup',supplierPlatform:'B2B Router',demoIndex:0,demoNode:null,fullApi:false,model:'shared',step:'send',route:'b',sendRoute:'a',platform:'a',operation:'create'};
               const operations = {routes:[['list','View all connections'],['connection','Check this connection'],['connect','Create this connection']],send:[['create','1 · Create the invoice'],['upload','2 · Upload the file'],['result','3 · Check the result']],receive:[['query','1 · List invoices'],['detail','2 · Open this invoice'],['download','3 · Download the file']]};
               function restore(value) {
                 const saved = value?.modelContent?.example;
@@ -1066,8 +1069,10 @@
                 if(typeof saved.fullApi==='boolean') state.fullApi=saved.fullApi;
                 if (['separate','shared'].includes(saved.model)) state.model=saved.model;
                 if (operations[saved.step]) state.step=saved.step;
-                if (['b','public'].includes(saved.route)) state.route=saved.route;
-                if (['a','public'].includes(saved.sendRoute)) state.sendRoute=saved.sendRoute;
+                if (['a','b','public'].includes(saved.route)) state.route=saved.route;
+                for(const field of ['configuredSender','configuredReceiver']) if(['a','b'].includes(saved[field])) state[field]=saved[field];
+                for(const field of ['buyerPlatform','supplierPlatform']) if(['Banqup','B2B Router','EDICOM','SERES','ZeroComa'].includes(saved[field])) state[field]=saved[field];
+                if (['a','b','public'].includes(saved.sendRoute)) state.sendRoute=saved.sendRoute;
                 if (platforms[saved.platform]) state.platform=saved.platform;
                 if (operations[state.step].some(([key])=>key===saved.operation)) state.operation=saved.operation;
                 else state.operation=operations[state.step][0][0];
@@ -1136,6 +1141,9 @@
                 const key=state.step==='send'?state.sendRoute:state.step==='receive'?state.route:state.platform;
                 root.querySelectorAll('[data-platform]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.platform===key)));
                 $('sie-send-choice').hidden=state.step!=='send'; $('sie-receive-choice').hidden=state.step!=='receive';
+                const sendPrivate=$('sie-send-route').options[0],receivePrivate=$('sie-route').options[0];
+                sendPrivate.value=state.configuredSender;sendPrivate.textContent=platforms[state.configuredSender].name+' · current sending platform';
+                receivePrivate.value=state.configuredReceiver;receivePrivate.textContent=platforms[state.configuredReceiver].name+' · current receiving platform';
                 $('sie-send-route').value=state.sendRoute; $('sie-route').value=state.route;
                 const op=$('sie-api-operation'); op.replaceChildren();
                 operations[state.step].forEach(([value,label])=>{const option=document.createElement('option');option.value=value;option.textContent=label;op.append(option);});op.value=state.operation;
@@ -1154,16 +1162,16 @@
                   $('sie-detail').textContent='Costa Retail → Hotel Mar Azul. Choose the active private route or an eligible public route for this invoice.';
                   add('Costa Retail · B12345674 · D1','Seller identity remains in the invoice.');
                   add(state.model==='shared'?`${p.alias} → ${p.connection} → ${p.name}`:`${p.connection} → ${p.alias} · ${p.name}`,'Use exactly one sender route for the invoice.');
-                  add(state.sendRoute==='public'?'SPFE → authorised buyer retrieval':'B2B Router → buyer’s Banqup → Hotel Mar Azul','The buyer’s platform is a separate recipient destination.');
+                  add(state.sendRoute==='public'?'SPFE → authorised buyer retrieval':p.name+' → '+state.buyerPlatform+' → Hotel Mar Azul','The buyer’s platform is a separate recipient destination.');
                   if(state.sendRoute!=='public') { $('sie-copy').hidden=false; $('sie-copy').textContent='Separate action: B2B Router → faithful copy to SPFE. External provider capability is assumed; reporting and retry ownership remain open. Costa’s C3 is not automatically used.'; }
                   $('sie-scenario-gate').textContent=state.sendRoute==='public'?'Eligible public delivery is assumed. No extra faithful copy is added. Public selection never follows automatically from a private-platform error.':'Costa’s own Banqup connection C2 is not used to reach the buyer’s Banqup. Another connected private platform is not an approved per-invoice choice (SND-G09).';
                 } else {
                   $('sie-scenario-title').textContent='Receive OL-2027/1042 · €1,028.50';
                   $('sie-detail').textContent='Olivo Supplies → Costa Retail. The supplier uses B2B Router; Costa’s configured private receiving route is Banqup.';
-                  add(state.route==='public'?'SPFE · invoice available to Costa':'Supplier’s B2B Router → Costa’s Banqup','Supplier platform and Costa’s platform are different roles.');
+                  add(state.route==='public'?'SPFE · invoice available to Costa':state.supplierPlatform+' → Costa’s '+p.name,'Supplier platform and Costa’s platform are different roles.');
                   add(state.model==='shared'?`${p.name} → ${p.connection} → AP-S → D1`:`${p.alias} → ${p.connection} → D1`,state.route==='public'?'Sage initiates authorised discovery and file download. No SPFE webhook is established.':'Qualified provider intake collects the invoice for Costa.');
                   add('D1 → Costa’s ERP','Product Query → Retrieve → selected file if needed.');
-                  $('sie-scenario-gate').textContent='Costa’s C1 is not used just because the supplier uses B2B Router. If a private original and public copy are both collected, retain both sources and verify identity/content before treating them as one payable; conflicts require review.';
+                  $('sie-scenario-gate').textContent='The supplier’s connection is separate from Costa’s connection. If a private original and public copy are both collected, retain both sources and verify identity/content before treating them as one payable; conflicts require review.';
                 }
                 const data=payload();
                 simplifyScene(p);
@@ -1237,8 +1245,8 @@
                   $('sie-scenario-gate').textContent=shared?'Question to confirm: can one access point hold three platform connections?':'Question to confirm: should each platform have a separate access point?';
                 } else if(state.step==='send') {
                   $('sie-detail').textContent='Costa Retail sends a €605 invoice to Hotel Mar Azul.';
-                  $('sie-scenario-gate').textContent=shared?'Question to confirm: how does the send API choose C1 or C3 when both use AP-S?':'The access point selects the sending platform. The buyer’s platform is a separate destination.';
-                  if(!$('sie-copy').hidden) $('sie-copy').textContent='Public copy: in this proposal, B2B Router also sends a copy to SPFE. This is a separate action.';
+                  $('sie-scenario-gate').textContent=shared?'Question to confirm: how does the send API choose the required connection under AP-S?':'The access point selects the sending platform. The buyer’s platform is a separate destination.';
+                  if(!$('sie-copy').hidden) $('sie-copy').textContent='Public copy: in this proposal, '+p.name+' also sends a copy to SPFE. This is a separate action.';
                 } else {
                   $('sie-detail').textContent='Costa Retail receives a €1,028.50 invoice from Olivo Supplies.';
                   $('sie-scenario-gate').textContent='If the same invoice arrives from a private platform and SPFE, check that they match before creating one payable.';
@@ -1248,9 +1256,9 @@
                   if(state.step==='send') {
                     notes[0].textContent='Same company and dataset.';
                     notes[1].textContent=shared?`Use ${p.connection} to reach ${p.name}.`:`Use ${p.alias} to reach ${p.name}.`;
-                    notes[2].textContent=state.sendRoute==='public'?'The buyer retrieves the invoice from SPFE.':'The buyer uses Banqup. Costa’s own C2 is not used.';
+                    notes[2].textContent=state.sendRoute==='public'?'The buyer retrieves the invoice from SPFE.':'The buyer uses '+state.buyerPlatform+'. This is the buyer’s connection, not Costa’s.';
                   } else {
-                    notes[0].textContent=state.route==='public'?'Sage checks SPFE and downloads the invoice.':'The supplier sends from B2B Router to Costa’s Banqup.';
+                    notes[0].textContent=state.route==='public'?'Sage checks SPFE and downloads the invoice.':'The supplier sends from '+state.supplierPlatform+' to Costa’s '+p.name+'.';
                     notes[1].textContent=`Use ${p.connection} to collect the invoice for D1.`;
                     notes[2].textContent='List the invoice, open it, then get the file if needed.';
                   }
@@ -1267,11 +1275,17 @@
               }
               function renderDemo() {
                 const phases=demoPhases[state.step];state.demoIndex=Math.min(state.demoIndex,phases.length-1);
+                $('sie-demo-controls').hidden=state.step==='routes';
+                root.querySelector('.sie-demo-legend .sie-copy-line').parentElement.hidden=state.step==='routes';
+                $('sie-our-platform').value=state.step==='receive'?state.route:state.sendRoute;
+                $('sie-other-label').textContent=state.step==='receive'?'Supplier’s platform · demo setup':'Buyer’s platform · demo lookup';
+                $('sie-other-platform').value=state.step==='receive'?state.supplierPlatform:state.buyerPlatform;
+                $('sie-other-platform').disabled=(state.step==='receive'?state.route:state.sendRoute)==='public';
                 const steps=$('sie-demo-steps');steps.replaceChildren();
-                phases.forEach(([label],i)=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.setAttribute('aria-pressed',String(i===state.demoIndex));b.addEventListener('click',()=>demoMove(i));steps.append(b);});
+                phases.forEach(([label],i)=>{const b=document.createElement('button');b.type='button';b.textContent=state.step==='send'&&i===2&&state.sendRoute==='public'?'3 · Deliver':label;b.setAttribute('aria-pressed',String(i===state.demoIndex));b.addEventListener('click',()=>demoMove(i));steps.append(b);});
                 $('sie-demo-back').disabled=state.demoIndex===0;
                 $('sie-demo-next').disabled=state.demoIndex===phases.length-1;
-                $('sie-demo-title').textContent=state.step==='send'?'Follow the €605 invoice':state.step==='receive'?'Follow the €1,028.50 received invoice':'One company connects to three platforms';
+                $('sie-demo-title').textContent=state.step==='send'?'Follow the €605 invoice':state.step==='receive'?'Follow the €1,028.50 received invoice':['Company and dataset','Check the selected connection','Platform setup example'][state.demoIndex];
                 const active=state.step==='send'?state.sendRoute:state.step==='receive'?state.route:state.platform;
                 const p=platforms[active];
                 const captions=state.step==='send'?[
@@ -1284,14 +1298,15 @@
                   'Costa opens the invoice in Sage. The API returns the invoice details and a file link.',
                   'Costa follows the file link. The file comes from saved storage, so this does not request a second invoice from the supplier.'
                 ]:[
-                  'Costa has one NIF and one dataset, D1. Switch A/B to compare the access points.',
-                  `Connection ${p.connection} links Costa to ${p.name}. Click a connection to inspect it.`,
-                  `The setup call would create the connection to ${p.name}. Multiple connections under one shared access point still need confirmation.`
+                  'Start with Costa’s NIF and company dataset. The grey boxes show the platform connections available in this example.',
+                  `Check ${p.connection}: Costa’s dataset → ${p.alias} → ${p.name}. The API panel reads this same connection.`,
+                  `Before ${p.connection} exists, this setup example requests a connection to ${p.name}. The API returns ${p.connection} as IN_PROGRESS; it is not ready yet.`
                 ];
                 $('sie-demo-caption').textContent=captions[state.demoIndex];
+                if(state.step!=='routes') $('sie-demo-caption').textContent=storyCaption();
                 drawDemo();
               }
-              function drawDemo() {
+              function drawSetupDemo() {
                 const map=$('sie-demo-map'),svg=$('sie-demo-lines'),layer=$('sie-demo-nodes');
                 const width=Math.max(240,map.clientWidth),wide=width>=950,medium=width>=560;
                 const columns=wide?6:medium?3:2,gap=wide?24:medium?24:18;
@@ -1309,7 +1324,7 @@
                   if(shared) node('ap','Shared access point','AP-S',2,1,setup?1:2,{current:routeOn});
                   ['a','b','public'].forEach((key,i)=>{
                     const p=platforms[key],on=routeOn&&(setup||key===active);
-                    if(!shared) node('ap-'+key,'Access point',p.alias,2,i,setup?1:2,{current:on,idle:!on});
+                    if(!shared) node('ap-'+key,'Access point',p.alias,2,i,setup?1:2,{current:on,idle:!on,key});
                     node('c-'+key,'Connection '+p.connection,key===active&&!setup?'Selected for this invoice':'Saved company connection',3,i,setup?1:2,{current:on,idle:!on,key});
                     node('p-'+key,p.name,key==='public'?'Public platform':'Private platform',4,i,setup?2:2,{current:on,idle:!on,key});
                   });
@@ -1323,7 +1338,7 @@
                   if(shared) {node('ap','Shared access point','AP-S',0,row,setup?1:2,{current:routeOn});row++;}
                   ['a','b','public'].forEach((key,i)=>{
                     const p=platforms[key],on=routeOn&&(setup||key===active),r=row+i*(shared?1:2);
-                    if(!shared)node('ap-'+key,'Access point',p.alias,0,r,setup?1:2,{current:on,idle:!on});
+                    if(!shared)node('ap-'+key,'Access point',p.alias,0,r,setup?1:2,{current:on,idle:!on,key});
                     node('c-'+key,'Connection '+p.connection,shared?p.alias:'Company link',shared?0:1,r+(shared?0:0),setup?1:2,{current:on,idle:!on,key});
                     node('p-'+key,p.name,key==='public'?'Public platform':'Private platform',shared?1:0,r+(shared?0:1),setup?2:2,{current:on,idle:!on,key});
                   });
@@ -1341,6 +1356,17 @@
                 if(!setup)edge('p-'+active,'other',routeOn,false,incoming);
                 if(!setup&&!incoming&&active!=='public')edge('p-a','p-public',state.demoIndex===2,true);
                 if(incoming)edge('files','erp',state.demoIndex===2);
+                // Company, connection and platform inspection share one selection with the API panel.
+                const focus=new Set(['erp','sage']);
+                if(state.demoIndex>=1) {focus.add(shared?'ap':'ap-'+active);focus.add('c-'+active);}
+                if(state.demoIndex>=2) focus.add('p-'+active);
+                nodes.forEach(n=>{
+                  n.current=focus.has(n.id);n.idle=!n.current;
+                  if(n.id==='c-'+active&&state.demoIndex===1) n.sub='Selected · CONNECTED example';
+                  if(n.id==='c-'+active&&state.demoIndex===2) n.sub='Create example · IN_PROGRESS';
+                  if(n.id==='p-'+active&&state.demoIndex===2) n.sub='Platform selected for setup';
+                });
+                edges.forEach(e=>{e.current=focus.has(e.from)&&focus.has(e.to);});
                 const height=(Math.max(...nodes.map(n=>n.row))+1)*(h+rowGap)+20;
                 map.style.height=height+'px';svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.replaceChildren();layer.replaceChildren();
                 const NS='http://www.w3.org/2000/svg';
@@ -1365,7 +1391,7 @@
                 nodes.forEach(n=>{
                   const b=document.createElement('button');b.type='button';b.className='sie-demo-node'+(n.current?' is-current':'')+(n.idle?' is-idle':'');
                   if(n.id==='p-public'&&!setup&&!incoming&&active!=='public'&&state.demoIndex===2){b.classList.add('is-copy');b.classList.remove('is-idle');}
-                  Object.assign(b.style,{left:n.x+'px',top:n.y+'px',width:w+'px',height:h+'px'});b.dataset.demoNode=n.id;
+                  Object.assign(b.style,{left:n.x+'px',top:n.y+'px',width:w+'px',height:h+'px'});b.dataset.demoNode=n.id;b.setAttribute('aria-pressed',String(n.current));
                   const title=document.createElement('strong'),sub=document.createElement('small');title.textContent=n.title;sub.textContent=n.sub;b.append(title,sub);
                   b.addEventListener('click',()=>{
                     if(setup&&n.key) {state.platform=n.key;state.demoIndex=n.action;state.operation=demoPhases.routes[n.action][1];render();save();}
@@ -1374,6 +1400,135 @@
                   });layer.append(b);
                 });
               }
+              function storyCaption() {
+                const incoming=state.step==='receive',p=platforms[incoming?state.route:state.sendRoute],publicRoute=p.name==='SPFE';
+                if(incoming) return [
+                  `Olivo sends through ${state.supplierPlatform}; Costa receives through ${p.name}. The invoice is already collected when Costa opens its list.`,
+                  'Costa opens one saved invoice. Sage returns its details and a link to the file.',
+                  'Costa downloads the saved file. This does not send the invoice again.'
+                ][state.demoIndex];
+                return [
+                  '1. Prepare: Costa sends the invoice information to Sage. Sage returns an invoice ID and an upload link.',
+                  '2. Upload: Costa sends the actual XML file to the returned upload link. Upload success does not mean buyer delivery.',
+                  publicRoute?'3. Deliver: the invoice goes through SPFE to the buyer. There is no separate public copy.':`3. Deliver: Costa uses ${p.name}; the buyer uses ${state.buyerPlatform}. The two platforms exchange the invoice. ${p.name} also sends the separate SPFE copy in this proposal.`,
+                  '4. Check: Costa reads the result. Buyer delivery and the public copy have separate outcomes. Neither outcome is confirmed by this mock.'
+                ][state.demoIndex];
+              }
+              function drawDemo() {
+                if(state.step==='routes') {drawSetupDemo();return;}
+                const map=$('sie-demo-map'),svg=$('sie-demo-lines'),layer=$('sie-demo-nodes');
+                const width=Math.max(240,map.clientWidth),incoming=state.step==='receive';
+                const active=incoming?state.route:state.sendRoute,p=platforms[active],shared=state.model==='shared',isPublic=active==='public';
+                const nodes=[],edges=[];
+                const add=(id,title,sub,extra={})=>{nodes.push({id,title,sub,...extra});};
+                const link=(a,b,copy=false)=>edges.push({from:a,to:b,copy});
+                const our=()=>{
+                  add('ap',shared?'Shared access point':'Our access point',p.alias);
+                  add('c-'+active,'Our connection',p.connection+' · '+p.name);
+                  add('p-'+active,'Our platform',p.name);
+                };
+                if(!incoming&&state.demoIndex===0) {
+                  add('erp','Invoice draft','CR-2027/2087 · €605',{kind:'document'});
+                  add('sage','Create in Sage','Company dataset 7f2c4a81…');
+                  add('invoice','Invoice record','New invoice ID · 201 Created');
+                  add('upload-link','File upload link','Returned with the invoice ID');
+                  link('erp','sage');link('sage','invoice');link('sage','upload-link');
+                } else if(!incoming&&state.demoIndex===1) {
+                  add('erp','XML file on Costa’s side','CR-2027-2087.xml',{kind:'document'});
+                  add('stored','File storage','PUT to the returned upload link',{kind:'storage'});
+                  link('erp','stored');
+                } else if(!incoming&&state.demoIndex===2) {
+                  add('erp','Costa Retail','Seller · NIF B12345674');
+                  add('sage','Sage','Dataset 7f2c4a81…');our();
+                  if(!isPublic)add('recipient-platform','Buyer’s platform',state.buyerPlatform);
+                  add('buyer','Hotel Mar Azul','Buyer · receives invoice');
+                  ['erp','sage','ap','c-'+active,'p-'+active,...(!isPublic?['recipient-platform']:[]),'buyer'].forEach((id,i,a)=>{if(i)link(a[i-1],id);});
+                  if(!isPublic){add('public-copy','SPFE','Separate public copy',{copy:true});link('p-'+active,'public-copy',true);}
+                } else if(!incoming) {
+                  add('sage','Read invoice result','GET the original invoice ID');
+                  add('delivery-result','Buyer delivery','Not confirmed in this mock',{pending:true});
+                  if(!isPublic)add('copy-result','SPFE copy','Not confirmed in this mock',{pending:true,copy:true});
+                  add('erp','Costa’s ERP','Show each outcome separately');
+                  link('sage','delivery-result');link('delivery-result','erp');
+                  if(!isPublic){link('sage','copy-result',true);link('copy-result','erp',true);}
+                } else if(state.demoIndex===0) {
+                  add('supplier','Olivo Supplies','Supplier · sends invoice');
+                  if(!isPublic)add('supplier-platform','Supplier’s platform',state.supplierPlatform);
+                  add('p-'+active,'Our receiving platform',p.name);add('c-'+active,'Our connection',p.connection);
+                  add('ap',shared?'Shared access point':'Our access point',p.alias);
+                  add('sage','Sage’s invoice list','Already collected for Costa');
+                  add('erp','Costa Retail','Buyer · NIF B12345674');
+                  const ids=nodes.map(n=>n.id);ids.forEach((id,i)=>{if(i)link(ids[i-1],id);});
+                } else if(state.demoIndex===1) {
+                  add('erp','Costa selects an invoice','OL-2027/1042 · €1,028.50');
+                  add('sage','Sage returns its details','GET the selected invoice');
+                  add('detail','Invoice details + file link','200 OK · example');link('erp','sage');link('sage','detail');
+                } else {
+                  add('erp','Costa follows the file link','GET the returned URL');
+                  add('files','Saved invoice file','OL-2027-1042.xml');
+                  add('download','File available to Costa','No second supplier send');link('erp','files');link('files','download');
+                }
+                const cols=width>=650&&!incoming&&[0,3].includes(state.demoIndex)?3:width>=1080?Math.min(nodes.filter(n=>!n.copy).length,7):width>=650?Math.min(nodes.filter(n=>!n.copy).length,4):2;
+                const gap=cols>=7?20:28,w=(width-(cols-1)*gap)/cols,h=78,vertical=42;
+                // Lay out the main path in a continuous snake. Public-copy branches use a separate row.
+                const main=nodes.filter(n=>!n.copy);main.forEach((n,i)=>{const row=Math.floor(i/cols),j=i%cols;n.row=row;n.col=row%2?cols-1-j:j;});
+                const lastRow=Math.max(...main.map(n=>n.row));
+                nodes.filter(n=>n.copy).forEach((n,i)=>{
+                  if(state.demoIndex===3&&!incoming) {
+                    if(cols===2) {n.row=1;n.col=1;const out=main.find(n=>n.id==='erp');out.row=1;out.col=0;}
+                    else {n.row=2;n.col=1;const sage=main.find(n=>n.id==='sage'),delivery=main.find(n=>n.id==='delivery-result'),out=main.find(n=>n.id==='erp');sage.row=1;sage.col=0;delivery.row=0;delivery.col=1;out.row=1;out.col=2;}
+                  }
+                  else {const source=nodes.find(n=>n.id==='p-'+active);n.row=lastRow+1+i;n.col=source.col;}
+                });
+                // Keep all three short scenes spread over the available width.
+                if(main.length===3&&width>=650) main.forEach((n,i)=>{n.row=0;n.col=i;});
+                if(!incoming&&state.demoIndex===0) {
+                  const positions=cols>=3?{erp:[0,.5],sage:[1,.5],invoice:[2,0],'upload-link':[2,1]}:{erp:[0,0],sage:[1,0],invoice:[0,1],'upload-link':[1,1]};
+                  nodes.forEach(n=>{[n.col,n.row]=positions[n.id];});
+                }
+                if(!incoming&&state.demoIndex===3&&!isPublic) {
+                  const positions=cols>=3?{sage:[0,.5],'delivery-result':[1,0],'copy-result':[1,1],erp:[2,.5]}:{sage:[0,0],'delivery-result':[1,0],'copy-result':[1,1],erp:[0,1]};
+                  nodes.forEach(n=>{[n.col,n.row]=positions[n.id];});
+                }
+                const height=(Math.max(...nodes.map(n=>n.row))+1)*(h+vertical)+12;
+                map.style.height=height+'px';svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.replaceChildren();layer.replaceChildren();
+                const NS='http://www.w3.org/2000/svg',el=(tag,attrs)=>{const e=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e;};
+                const defs=el('defs',{});
+                ['current','copy'].forEach(kind=>{const marker=el('marker',{id:'sie-story-arrow-'+kind,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});marker.append(el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:kind==='copy'?'var(--hub-orange)':'var(--hub-blue)'}));defs.append(marker);});svg.append(defs);
+                nodes.forEach(n=>{n.x=n.col*(w+gap);n.y=12+n.row*(h+vertical);});
+                const byId=Object.fromEntries(nodes.map(n=>[n.id,n]));
+                edges.forEach(e=>{
+                  const a=byId[e.from],b=byId[e.to];let d;
+                  if(a.row===b.row){const right=b.x>a.x;d=`M ${right?a.x+w:a.x} ${a.y+h/2} L ${right?b.x:b.x+w} ${b.y+h/2}`;}
+                  else if(cols>=3&&a.col!==b.col) {const right=b.x>a.x,x1=right?a.x+w:a.x,x2=right?b.x:b.x+w,mid=(x1+x2)/2;d=`M ${x1} ${a.y+h/2} C ${mid} ${a.y+h/2},${mid} ${b.y+h/2},${x2} ${b.y+h/2}`;}
+                  else {const down=b.y>a.y,x1=a.x+w/2,x2=b.x+w/2,y1=down?a.y+h:a.y,y2=down?b.y:b.y+h,mid=(y1+y2)/2;d=`M ${x1} ${y1} V ${mid} H ${x2} V ${y2}`;}
+                  const path=el('path',{d,class:'sie-demo-edge '+(e.copy?'is-copy':'is-current'),'marker-end':'url(#sie-story-arrow-'+(e.copy?'copy':'current')+')'});svg.append(path);
+                  // External collection is context, not a fresh provider call triggered by the list GET.
+                  if(!(incoming&&state.demoIndex===0)&&state.demoIndex!==3&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const packet=el('rect',{x:-4,y:-5,width:8,height:10,rx:1,fill:e.copy?'var(--hub-orange)':'var(--hub-blue)'});packet.append(el('animateMotion',{dur:'2.2s',repeatCount:'indefinite',path:d,rotate:'auto'}));svg.append(packet);}
+                });
+                nodes.forEach(n=>{
+                  const b=document.createElement('button');b.type='button';b.className='sie-demo-node is-current'+(n.copy?' is-copy':'');b.dataset.demoNode=n.id;
+                  Object.assign(b.style,{left:n.x+'px',top:n.y+'px',width:w+'px',height:h+'px'});
+                  if(n.kind) {
+                    const icon=el('svg',{viewBox:'0 0 32 32',width:26,height:26,'aria-hidden':'true'});
+                    if(n.kind==='document') {icon.append(el('path',{d:'M8 3 H20 L26 9 V29 H8 Z M20 3 V10 H26 M12 15 H22 M12 19 H22 M12 23 H18',fill:'none',stroke:'currentColor','stroke-width':1.5}));}
+                    else {icon.append(el('path',{d:'M5 8 C5 2 27 2 27 8 V24 C27 30 5 30 5 24 Z M5 8 C5 14 27 14 27 8 M5 16 C5 22 27 22 27 16',fill:'none',stroke:'currentColor','stroke-width':1.5}));}
+                    b.append(icon);
+                  }
+                  const title=document.createElement('strong'),sub=document.createElement('small');title.textContent=n.title;sub.textContent=n.sub;b.append(title,sub);
+                  b.addEventListener('click',()=>{
+                    const text=n.id==='recipient-platform'?`The buyer uses ${state.buyerPlatform}. Costa does not need its own connection to that platform to reach this buyer.`:n.id==='supplier-platform'?`Olivo uses ${state.supplierPlatform}; Costa receives through ${p.name}. These are different parties’ platform connections.`:n.copy?'The public copy is a separate action. It does not send another original to the buyer.':n.title+': '+n.sub+'.';
+                    $('sie-demo-caption').textContent=text;
+                  });layer.append(b);
+                });
+              }
+              $('sie-our-platform').addEventListener('change',e=>{
+                const key=e.target.value;
+                if(state.step==='receive'){state.route=key;if(key!=='public')state.configuredReceiver=key;}
+                else {state.sendRoute=key;if(key!=='public')state.configuredSender=key;}
+                render();save();
+              });
+              $('sie-other-platform').addEventListener('change',e=>{if(state.step==='receive')state.supplierPlatform=e.target.value;else state.buyerPlatform=e.target.value;render();save();});
               $('sie-demo-back').addEventListener('click',()=>demoMove(state.demoIndex-1));
               $('sie-demo-next').addEventListener('click',()=>demoMove(state.demoIndex+1));
               new ResizeObserver(()=>drawDemo()).observe($('sie-demo-map'));

@@ -1,6 +1,6 @@
 # Customer offboarding
 
-Review offboarding through three complementary views. All three are unpublished drafts. The analysis covers Sage private-platform exit, other private-platform exit where Sage coordinates the change, and full Sage e-invoicing termination.
+Review offboarding through three complementary views. All three are unpublished drafts. The analysis distinguishes platform switching from ending access or services, including Sage access to SPFE. SPEC-SEI-032 owns OFF-S01–10, partial/full scope, business closure and incident entry. The summary diagram provides the reading route; analysis coverage does not enable a switch or prove an external deregistration operation.
 
 | Read | Purpose |
 |---|---|
@@ -9,6 +9,8 @@ Review offboarding through three complementary views. All three are unpublished 
 | [Sequence and Reuse Assessment — SPEC-SEI-033](SPEC-SEI-033-customer-offboarding-sequence-and-reuse-assessment.md) | Existing disconnection evidence, shared capability reuse, provider differences and engineering gates. |
 
 [Local review preview](../../work/offboarding-review/index.html).
+
+The shared [settings overview lives in SPEC037](../onboarding-and-connectivity/SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md#e-invoicing-settings-overview). [SPEC038](../onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#switch-platform-one-customer-journey) owns the complete customer switch journey. This set supplies exit checks within that request, or a standalone disconnect; it does not own another settings or switch journey.
 
 The combined predecessor is retained in [the archive](../archive/README.md). Its
 linked detail remains part of this review set; its lifecycle and publication

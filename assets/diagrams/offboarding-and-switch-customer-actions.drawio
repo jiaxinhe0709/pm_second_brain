@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="offboarding-and-switch-customer-actions" name="Switch platforms or end access and services">
+    <mxGraphModel page="1" pageWidth="1600" pageHeight="2430">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Switch platforms or end access and services&#10;Check what the customer wants to change, who can approve it, and how new and earlier invoices will be handled." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="12" width="1544" height="95" />
+        </mxCell>
+        <mxCell id="legend" value="Proposed design · Solid: planned offboarding / shared controls · Dashed: switch, exception or recovery" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="104" width="1544" height="22" />
+        </mxCell>
+        <mxCell id="behaviour-legend" value="A change can affect part or all of the setup. Business closure and urgent incidents need different checks." style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="130" width="1544" height="24" />
+        </mxCell>
+        <object id="request" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios" label="Choose an action in E-invoicing settings&#10;Switch platform or Disconnect or stop a service&#10;OFF-01" tooltip="Switch platform or Disconnect or stop a service">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="500" y="180" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="risk" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios" label="Urgent incident?&#10;&#10;OFF-S10" tooltip="">
+          <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="640" y="340" width="320" height="104" />
+          </mxCell>
+        </object>
+        <object id="contain" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios" label="Stop unsafe access or processing&#10;Name who will recover affected work&#10;OFF-S10 / OFF-08" tooltip="Name who will recover affected work">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#d7d7d7;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="1170" y="340" width="380" height="104" />
+          </mxCell>
+        </object>
+        <object id="scope" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#classification-and-scope" label="Confirm permission and what will change&#10;Identify businesses, clients, addresses, directions, environments and services&#10;OFF-01/02 · OFF-S07/08" tooltip="Identify businesses, clients, addresses, directions, environments and services">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="480" y="540" width="640" height="104" />
+          </mxCell>
+        </object>
+        <object id="choice" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#classification-and-scope" label="What changes?&#10;&#10;Sage coordinates the required steps" tooltip="">
+          <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="640" y="730" width="320" height="104" />
+          </mxCell>
+        </object>
+        <object id="switch" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios" label="SWITCH: change the invoice platform&#10;Use onboarding to check the new setup&#10;OFF-S02–05" tooltip="Use onboarding to check the new setup">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="100" y="950" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="offboard" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios" label="OFFBOARD: end selected access or services&#10;The invoice platform may remain in use&#10;OFF-S01/06–09" tooltip="The invoice platform may remain in use">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="900" y="950" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="switchcase" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios" label="Public to private; private to public or private&#10;Sage product access may continue&#10;Only changes approved and checked for release" tooltip="Sage product access may continue">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="100" y="1110" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="offboardcase" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios" label="Stop a connection, product or all Sage services&#10;Stopping Sage access is not SPFE deregistration&#10;OFF-02" tooltip="Stopping Sage access is not SPFE deregistration">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="900" y="1110" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="ready" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#2-state-invariants-and-workflow" label="Check that the new platform can be used&#10;Reuse onboarding APIs for setup; confirm Spain support&#10;OFF-03 + onboarding" tooltip="Reuse onboarding APIs for setup; confirm Spain support">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="100" y="1270" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="closure" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios" label="Business ceased trading?&#10;&#10;OFF-S09" tooltip="">
+          <mxCell vertex="1" parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1030" y="1270" width="340" height="104" />
+          </mxCell>
+        </object>
+        <object id="cessation" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios" label="Check closure evidence&#10;Decide if invoices must still be received&#10;OFF-S09 / G3" tooltip="Decide if invoices must still be received">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="900" y="1470" width="280" height="104" />
+          </mxCell>
+        </object>
+        <object id="continuity" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#customer-action-scenarios" label="Check how work continues&#10;Confirm the access method&#10;OFF-S01/06 / G3" tooltip="Confirm the access method">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="1220" y="1470" width="280" height="104" />
+          </mxCell>
+        </object>
+        <object id="cutover" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#2-state-invariants-and-workflow" label="Change platform and confirm the result&#10;End old-provider services only where permitted&#10;OFF-04" tooltip="End old-provider services only where permitted">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#f6f6f6;strokeColor=#333333;spacing=8;dashed=1;">
+            <mxGeometry as="geometry" x="100" y="1660" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="stop" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#2-state-invariants-and-workflow" label="Stop new work in the selected Sage services&#10;Keep someone responsible for earlier invoices&#10;OFF-04" tooltip="Keep someone responsible for earlier invoices">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="900" y="1660" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="history" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#2-state-invariants-and-workflow" label="Finish earlier work or agree who takes it over&#10;Remove access safely; hand over records or keep them accessible&#10;OFF-05/06/07" tooltip="Remove access safely; hand over records or keep them accessible">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="480" y="1930" width="640" height="104" />
+          </mxCell>
+        </object>
+        <object id="result" link="../../specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#7-assurance-and-traceability" label="Show each result and any remaining action&#10;New invoices, access, contracts, earlier work and records&#10;OFF-08 / completion" tooltip="New invoices, access, contracts, earlier work and records">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="480" y="2100" width="640" height="110" />
+          </mxCell>
+        </object>
+        <mxCell id="edge-0" source="request" target="risk" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-1" source="risk" target="contain" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-1" value="Yes" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1020" y="361" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-2" source="risk" target="scope" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-2" value="No" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="825" y="477" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-3" source="contain" target="scope" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=1.0;entryY=0.5;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1360" y="490" />
+              <mxPoint x="1140" y="490" />
+              <mxPoint x="1140" y="592" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-3" value="If a switch or exit is requested" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1170" y="454" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-4" source="scope" target="choice" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-5" source="choice" target="switch" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="800" y="900" />
+              <mxPoint x="400" y="900" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-6" source="choice" target="offboard" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="800" y="900" />
+              <mxPoint x="1200" y="900" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-7" source="switch" target="switchcase" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-8" source="switchcase" target="ready" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-9" source="ready" target="cutover" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-10" source="offboard" target="offboardcase" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-11" source="offboardcase" target="closure" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-12" source="closure" target="cessation" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1200" y="1420" />
+              <mxPoint x="1040" y="1420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-12" value="Yes" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="960" y="1431" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-13" source="closure" target="continuity" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1200" y="1420" />
+              <mxPoint x="1360" y="1420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-label-13" value="No" style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1380" y="1431" width="260" height="22" />
+        </mxCell>
+        <mxCell id="edge-14" source="cessation" target="stop" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1040" y="1610" />
+              <mxPoint x="1200" y="1610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-15" source="continuity" target="stop" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1360" y="1610" />
+              <mxPoint x="1200" y="1610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-16" source="cutover" target="history" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="400" y="1860" />
+              <mxPoint x="800" y="1860" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-17" source="stop" target="history" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1200" y="1860" />
+              <mxPoint x="800" y="1860" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-18" source="history" target="result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="caption-0" value="Act before setup or handover if access is unsafe" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1170" y="274" width="410" height="24" />
+        </mxCell>
+        <mxCell id="caption-1" value="Otherwise, continue the incident recovery work." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1170" y="497" width="410" height="24" />
+        </mxCell>
+        <mxCell id="caption-2" value="Sage coordinates both paths behind one Switch platform request." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="100" y="847" width="1480" height="24" />
+        </mxCell>
+        <mxCell id="caption-3" value="New platform not ready? Hold the switch." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="100" y="1472" width="1480" height="24" />
+        </mxCell>
+        <mxCell id="caption-4" value="Closure evidence missing? Hold the exit." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="100" y="1497" width="1480" height="24" />
+        </mxCell>
+        <mxCell id="caption-5" value="Keep safe, permitted work available." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="100" y="1522" width="1480" height="24" />
+        </mxCell>
+        <mxCell id="boundary" value="Only an authorised incident responder may stop unsafe access. This does not complete a switch or customer exit.&#10;Every path keeps evidence and names who will finish earlier work. SPEC032 §1 defines customer scenarios OFF-S01–10.&#10;A listed scenario does not confirm feature availability. Private-to-private switching remains disabled in current onboarding scope." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="2320" width="1544" height="96" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

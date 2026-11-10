@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-29
+updated: 2026-11-10
 reviewers: []
 related:
   - SPEC-SEI-003
@@ -42,7 +42,7 @@ Existing OFF-INT-01–10 and OFF-D01–09 remain proposed logical operations/rec
 
 ## 1 Engineering direction and product impact
 
-**Assess the existing connection-update, disconnection, observation, routing, lifecycle and retrieval capabilities before building another exit interface.** A connection DELETE is only one candidate action within OFF-06. A complete exit still needs authority, inventory, destination proof, historical ownership, export and disposition. REF-PRODUCT; INT-AP03.
+**Check the existing onboarding, connection, routing, lifecycle and records APIs before adding an exit API.** A connection DELETE may support one removal step in OFF-06. It does not complete the whole exit. The exit also needs permission, a list of affected work, the applicable G3 check, responsibility for earlier invoices, records access and data-handling rules. [SPEC032 §1](SPEC-SEI-032-customer-offboarding-logical-feature-specification.md#1-scope-actors-and-observable-outcomes) defines the customer scenarios. Its OFF-S01–10 are not new API operations. REF-PRODUCT; INT-AP03.
 
 | Scope | Reuse or change to assess | Effect on integrating products |
 |---|---|---|
@@ -52,6 +52,9 @@ Existing OFF-INT-01–10 and OFF-D01–09 remain proposed logical operations/rec
 | Historical processing | Reuse invoice origin, lifecycle obligations, reports and case recovery. | Permit only confirmed historical operations after cutoff; preserve unselected scope. |
 | Export and disposition | Reuse records/retrieval and secure delivery where qualified. | Expose scope, snapshot, omissions, readiness, retrieval and acceptance separately. No evidenced complete offboarding export API is supplied. |
 | Public destination or direct recovery | Reuse qualified public access/retrieval where the actor is authorised. | Public technical readiness is not permission to deregister another provider or replace all private records. |
+| End Sage access to SPFE — OFF-S01 | Qualify selected Sage access removal and any separately requested representation change. | Record continuing actor/channel and independent results. No supplied contract establishes SPFE customer deregistration. OFF-Q02/04. |
+| Public-to-private switch — OFF-S02 | Onboarding qualifies the destination; routing owns one enabled receiving change. | Preserve earlier public context. Exact publication/change sequence, applicable duties and implementation coverage remain GAP-06. |
+| Business closure or incident — OFF-S09/10 | Reuse scoped evidence review and incident controls where proven. | Cessation needs an evidenced G3 branch. Incident containment cannot wait for G3/G5; subsequent switching or exit needs separate qualification. |
 
 The scope is Spain. Shared gates, case patterns and audit controls are design-reuse candidates. Spain identity, publication, public-copy/reporting and data-policy bindings remain local. Existing implementation coverage is unknown until the selected build, contract and operations pass the gates below. Terms follow the [glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md).
 
@@ -70,7 +73,7 @@ These tables describe proposed logical sequences, not an approved allocation to 
 | 5 | Release owner → qualified update/disconnect operation; notification/detail observation confirms result. | OFF-06: choose address, direction or whole-connection action only after dependency checks. INT-AP02/03; address absence alone is insufficient. |
 | 6 | Records/customer → qualified export/archive capabilities: validate package and record delivery/disposition. | OFF-07, R13: export can begin earlier. Completion evidence and later schedules are separate from disconnect. |
 
-For external → Sage adoption, the destination steps follow [onboarding SEI021](../archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md). The previous operator's release is independently evidenced. Do not create competing route commits in onboarding and offboarding. REF-PRODUCT; SPEC-SEI-014 SPC-04/08.
+For destination adoption, use the current [onboarding sequence assessment, SPEC039](../onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md). The previous operator's release is independently evidenced. A combined request uses one coordinated transition, not competing route commits in onboarding and offboarding. Public-access-only exit uses the continuing-channel G3 branch; business closure uses OFF-S09. OFF-S10 containment precedes this planned sequence when required and does not itself authorise a new route. REF-PRODUCT; SPEC-SEI-014 SPC-04/08.
 
 ### 2.2 Unknown disconnection or late provider evidence
 
@@ -94,6 +97,23 @@ INT-AP06's platform-managed retry horizon and INT-AP05's seven-day error observa
 | 5 | Historical processing → Records: supply later deltas and disposition evidence. | Keep ongoing duties and data-class schedules owned after general access ends. OFF-R12/13. |
 
 ## 3 Existing API and capability reuse
+
+### How the onboarding APIs support a platform switch
+
+The [complete customer switch journey is defined once in SPEC038](../onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#switch-platform-one-customer-journey). This assessment covers the APIs and exit work used by that journey; it does not define another customer switch process.
+
+The customer starts one **Switch platform** request in E-invoicing settings, as defined in [SPEC038](../onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#e-invoicing-settings-intended-interaction). The API steps below support that single journey. Separate API calls do not require separate customer onboarding and offboarding requests.
+
+The existing onboarding APIs can support **connection setup during a switch**. The saved contracts do not define a single API call that completes a platform switch. [SPEC039 §3.4](../onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#34-supported-change) owns the onboarding sequence; [SPEC040](../onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md) owns the call examples. REF-ONB-API.
+
+| Step in the switch | Existing call to assess | What the documented call does | What still needs confirmation |
+|---|---|---|---|
+| Set up a missing connection to the selected access point | [API-03 — Connect](../onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-03): `POST /connectors/{accessPointId}/datasets/{datasetId}/connect` | Creates a dataset/access-point connection with initial addresses. | How Spain platforms map to `accessPointId` and connections, required provider inputs, and SPFE applicability. Do not assume every switch needs a new connection. Onboarding GAP-02/04/06. |
+| Change setup within an existing connection | [API-05 — Update setup](../onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-05): `PUT /connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/` | Adds an address with `action: "add"` or changes an existing address's `effectiveDate` and/or `endDate` with `action: "update"`. Both actions can be in one request. | Spain address rules, supported providers and exact deployed version. This PUT does not move an existing connection to another `accessPointId` or complete a platform migration. Later guide claims about removal remain separate from saved FR-05. Onboarding GAP-02/06/07/08. |
+| Check the setup result | [API-04 — Read connection](../onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-04): `GET /connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/` | Returns documented connection/address details for the selected connection. | Completion evidence, current state and Spain support. A `200`, `CONNECTED` or address result alone does not prove that invoice routing changed. Onboarding GAP-05/06; offboarding GAP-02. |
+| Start using the new platform and end selected old access | Routing controls in SPEC-SEI-014, then applicable OFF-04/06 actions | The design requires one authorised change for new invoices, with earlier work kept separate. | No approved routing-change endpoint is established by API-03/05. Confirm start, earlier-invoice access, old-provider actions and recovery. Onboarding GAP-06/08; offboarding GAP-01/02/05/06. |
+
+Engineering must confirm the selected Spain model and running API version before this reuse is called supported. Private A → private B remains disabled in current onboarding scope. Keep API IDs and gap owners aligned with SPEC039/040; do not create a second switch implementation in offboarding.
 
 ### 3.1 Saved FR contracts and guide evidence
 
@@ -163,6 +183,8 @@ These checks are evidence requirements, not executed tests. API documentation al
 | INT-AP02/03/05/06 | [Saved source guide extract](<../../context/FR API/Onboarding/access-point-guides-evidence-extract.md>), received 22 October 2026; Update addresses safely, Remove accesspoint connection, Accesspoint connection updated event, Retention window and Status sections under the matching IDs. | The available saved guide evidence. Original standalone offboarding guide/OpenAPI not supplied. v1.1.0 removal, 0.1.7 disconnect link and 1.10.0 error link are unaligned. |
 | FR-04 | [Saved detail OpenAPI](<../../context/FR API/Onboarding/get-accesspoint-connection.md>), `info.version: 1.0.0`; `Get-AccessPoint-Connection`, path and response `accessPointAddresses`. | Exact saved detail contract; deployment/provider support untested. |
 | FR-05 | [Saved update OpenAPI](<../../context/FR API/Onboarding/put-accesspoint-connection.md>), `info.version: 1.0.0`; `Put-AccessPoint-Connection`, address-action schema, examples and usage restrictions. | Saved schema differs from later guide claims. Resolve the selected version before implementing removal. |
+| FR-03 | [Saved connect OpenAPI](<../../context/FR API/Onboarding/new-accesspoint-connection.md>), `info.version: 1.0.0`; `New-AccessPoint-Connection`, request/response and address examples. | Documents connection creation and initial addresses. Does not establish the Spain platform-to-access-point mapping or a complete switch. |
+| REF-ONB-API | [SPEC039](../onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md), §3.4 supported change and GAP-02/06/07/08; [SPEC040](../onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md), API-03/04/05; current repository drafts. | Canonical onboarding reuse analysis and examples. FR-03/04/05 establish the saved API operations; Spain applicability, routing execution and private-to-private support remain open or disabled as stated. |
 | INT-DS01 | [Saved dataset guide extract](<../../context/FR API/Onboarding/network-onboarding-create-dataset-guide-extract.md>), received 22 October 2026; What is a dataset?, Ownership and access, Prerequisites / Workflow summary / Steps 1–2, and Review clarification sections. | Dataset deletion availability conflict and unconfirmed cardinality. Does not prove dataset deletion or universal entity mapping. |
 | SPFE-S02 | [Original BOE PDF](../../context/BOE-A-2026-20587.pdf), Order HAC/1028/2026, published 5 October 2026; Articles 8–11; [official text](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-20587). | Public report responses, recovery/download and access framework; no private full-exit contract. |
 | SPFE-S03 | [Original service catalogue PDF](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), v0.1.0, 9 October 2026; sections 6.4–6.9, pp. 12–19. | Specific query/download/event descriptions and limits. No complete export/inventory or original-operation safety guarantee. |
