@@ -641,10 +641,3 @@ Targets must not be fabricated before a pilot baseline and contracted service co
 | Date | Decision | Status |
 |---|---|---|
 | 2026-07-27 | B2B Router is included in the Phase 2 provider portfolio | Confirmed |
-
-## Revision history
-
-| Date | Change | Pull request |
-|---|---|---|
-| 2026-07-27 | Initial discovery draft | |
-| 2026-07-29 | Embedded official evidence, capability confidence, business rules, API interactions, operation safety, failure/continuity journeys, testable acceptance criteria and production gates for standalone Confluence use | |

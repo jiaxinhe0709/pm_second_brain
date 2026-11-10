@@ -698,10 +698,3 @@ Publication to the six existing stable Confluence pages was explicitly approved 
 **Status: discovery-ready draft; not consultation-ready or approved for delivery.**
 
 The document is ready for structured review of scope, identity and proposed controls. Production design remains blocked by the public-solution technical order/contracts, operation-specific representation evidence, customer/data cardinality, environment definition and approved capacity/security/retention decisions.
-
-## Change log
-
-| Date | Version | Change | Evidence/decision |
-|---|---|---|---|
-| 2026-08-25 | Initial canonical draft | Consolidated the Public Platform onboarding parent and five child subjects; separated readiness from registration, NIF from NIE source identity, authority from authentication, TEST from production and safe retry from reconciliation | User approval; internal Confluence pages; Royal Decree 238/2026; AEAT identity guidance; PRD-SEI-211/212/215/225/226/231/235 |
-| 2026-09-22 | Certificate-readiness extension | Added a conditional certificate setup/readiness stage linked to PRD-SEI-226, including explicit Sage-managed/operator-seal distinctions, owner, purpose, authority, environment, validity, expiry, revocation, rotation and batch controls | PRD-SEI-226; RD 238/2026 Article 7.3; format-profile decomposition in PRD-SEI-223 |

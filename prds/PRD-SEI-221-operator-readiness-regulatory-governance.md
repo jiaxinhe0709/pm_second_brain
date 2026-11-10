@@ -474,9 +474,3 @@ Targets and measurement windows require owners after the pilot baseline is defin
 5. Select one outbound/public-copy and one inbound/interconnection reference journey for early external validation.
 6. Define pilot-critical versus production-critical controls only after legal, security and operations review.
 7. Schedule a BCP and partner/model exit tabletop before commercial commitment.
-
-## Change log
-
-| Date | Version | Change | Evidence/decision |
-|---|---|---|---|
-| 2026-08-10 | Version 1 | Initial discovery PRD for Phase 3 operator readiness and regulatory governance | Official BOE sources, PRD-SEI-210 and Phase 1/2 foundations |

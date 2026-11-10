@@ -135,12 +135,3 @@ The reusable routing contract begins only after those source terms are retained:
 | [OpenPeppol Participant Identifier Schemes v9.7](https://docs.peppol.eu/edelivery/codelists/v9.7/Peppol%20Code%20Lists%20-%20Participant%20identifier%20schemes%20v9.7.html), 2026-07-02 | Confirms active country and international scheme terms including `0002`, `0009`, `9957`, `9920`, `0246`, `0204`, `9930`, `0088`, `9935` and `9932` | Supplies actual scheme vocabulary and version/state; does not supply national mandate eligibility |
 
 Open gates: approved participant-identifier schemes per country; whether one legal entity, establishment or product context owns each address; address priority/purpose UX; discovery cache/freshness policy; multiple-provider commercial model; transport selection; certificate rollover; and operational reconciliation rules.
-
-## Revision history
-
-| Date | Change | Evidence/decision |
-|---|---|---|
-| 2026-08-12 | Initial child discovery PRD; clarified “Access Point address” as Peppol participant and service-endpoint concerns | User clarification and official Peppol specifications |
-| 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |
-| 2026-08-12 | Attached selection and recovery connectors to node boundaries, removed through-node routing and made the diagram responsive | Confluence visual review |
-| 2026-08-25 | Added the actual v9.7 participant-scheme catalogue for France, Spain, Germany, Ireland and the UK, then derived the reusable routing fields and tests | User request; OpenPeppol eDEC v9.7 |

@@ -293,12 +293,3 @@ Rollout gates:
 | Do not prescribe one German B2B transmission network | Confirmed official evidence/product boundary | 2026-08-10 |
 | Keep German authority reporting inactive until future evidence/approval | Confirmed current-scope boundary | 2026-08-10 |
 | Use Germany as a neutrality/reference-pack assessment candidate | Proposed, not selected for delivery | TBD |
-
-## Revision history
-
-| Date | Change | Evidence/decision | Pull request |
-|---|---|---|---|
-| 2026-08-10 | Initial discovery child PRD with Confluence-safe German exchange visual | User request, BMF and EU official sources | |
-| 2026-08-10 | Linked the consolidated parent visual atlas and compressed journey prose for research-stage readability | User direction | |
-| 2026-08-10 | Approved for publication to existing page `771498625`; existing hierarchy preserved | User approval | |
-| 2026-08-11 | Removed the embedded HTML heading and promoted the diagram title to a native Confluence heading | Confluence rendering feedback | |

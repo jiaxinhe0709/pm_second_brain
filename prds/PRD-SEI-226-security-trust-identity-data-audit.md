@@ -601,11 +601,3 @@ At minimum distinguish: customer/legal-entity identity, user/authority evidence,
 | What retention/deletion periods apply by data class? | Storage, audit and exit | Legal/privacy | Production | Configurable until approved |
 | What security evidence can support/customer roles see? | Diagnosis versus minimisation | Security/operations | Design | Role-specific redacted views |
 | Which controls must continue for historical invoices after switch? | Credential/access lifecycle | Legal/security/product | Production/exit | Restrict to required historical operations |
-
-## Change log
-
-| Date | Version | Change | Evidence/decision |
-|---|---|---|---|
-| 2026-08-10 | Version 1 | Initial Phase 3 trust, identity, data and audit PRD | PRD-SEI-210/221–225 and RD 238/2026 |
-| 2026-09-21 | Version 2 | Clarified lifecycle ownership and added the certificate-readiness contract consumed by onboarding and format-specific exchange | PRD-SEI-101/223/236–239; RD 238/2026 Article 7.3 |
-| 2026-09-22 | Version 3 | Separated customer/delegate, Sage-managed, provider, operator-seal, workload and transport certificate models; added protected storage, inventory, expiry/rotation/compromise, outcome-unknown signing and long-term validation/preservation requirements | Stakeholder direction; RD 238/2026 Articles 7/10/13; eIDAS; ETSI EN 319 102-1; Spanish signature-policy catalogue |

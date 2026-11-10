@@ -430,10 +430,3 @@ These controls prevent data loss and duplicate processing. They do **not** decid
 | What is the authoritative cutover, rollback and deregistration sequence? | Prevents reachability and duplicate risk | Local team/architecture/operator | Pilot | Prove new state before release where permitted |
 | Is activation immediate, scheduled or externally effective after propagation? | Determines customer promise and route timestamp | Local team/product | Design | Separate requested and observed effective time |
 | Which roles can bind each legal entity? | Prevents unauthorised registration | Legal/product | Pilot | Approved business administrator with audit evidence |
-
-## Change log
-
-| Date | Version | Change | Evidence/decision |
-|---|---|---|---|
-| 2026-08-27 | Version 2 | Added a research-backed local-validation matrix for historical lifecycle ownership after route change; retained current hypotheses as open; named the required Spain reviewers and accountable domain-service owners | User research; PRD-SEI-224 and PRD-SEI-231 |
-| 2026-08-10 | Version 1 | Initial Phase 3 customer onboarding, entry-point and migration PRD | PRD-SEI-210, Phase 2 transition foundations and RD 238/2026 |

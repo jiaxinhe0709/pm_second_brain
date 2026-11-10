@@ -112,10 +112,3 @@ Discovery input says Sage 50, Sage 200 and Despachos expect private-platform ISV
 | Which acknowledgement messages are required? | Architecture/provider partners | Lifecycle design |
 | Is EDIFACT always provider-transformed for the first product cohort? | Product owners | Delivery plan |
 | What exact object/container is signed for each EDIFACT route, and does Sage remotely sign for the customer/delegate, apply an operator seal, or consume provider evidence? | Business Identity / Legal / Security / provider partners | Signature interoperability and custody |
-
-## Change log
-
-| Date | Version | Change | Evidence/decision |
-|---|---|---|---|
-| 2026-09-21 | Version 1 | Created EDIFACT format child with complete bilateral-profile and transformation controls | PRD-SEI-223; UNECE UN/EDIFACT artefacts; internal requirement 41 |
-| 2026-09-22 | Version 2 | Added explicit signing/seal modes, prohibited generic Sage certificate use and added expiry/historic-validation evidence requirements | PRD-SEI-223/226; stakeholder direction |

@@ -703,14 +703,3 @@ The 83% figure is a discovery hypothesis for reusable **design surface**. It mus
 ## Readiness
 
 This document is **consultation-ready for identity, country-policy, delegation, architecture, security/privacy and operations workshops**. It is not delivery-ready. Production remains gated on country identifier/field catalogs, legal applicability, authority evidence, official technical artefacts, provider/directory behaviour, operation safety, retention and approved ownership.
-
-## Revision history
-
-| Date | Change | Evidence/decision |
-|---|---|---|
-| 2026-08-12 | Initial child discovery PRD; corrected SIREN/SIRET cardinality and combined identity, tenancy, Peppol address and accountant-delegation analysis | User feedback, supplied research and official French/Spanish sources |
-| 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |
-| 2026-08-12 | Relayout separated workspace, delegated authority, identifiers and credentials into collision-free lanes; made SVG and note cards responsive | Confluence visual review |
-| 2026-08-18 | Deepened the discovery into an identity-driven compliance-delivery model; separated document, recipient-delivery and authority-reporting outcomes; added five-country identifier/authority evidence, reusable records, lifecycle, journeys, failures, requirements, acceptance, metrics, reuse method and delivery gates | User review and official sources accessed 2026-08-18 |
-| 2026-08-25 | Added explicit France and Spain country-pack catalogue rows and counts; incorporated DNI/NIE/assigned-NIF treatment and separated identity, document and network bindings; included active Peppol `9957` FR:VAT | User request; existing official identity, directory, Royal Decree and OpenPeppol v9.7 evidence |
-| 2026-08-26 | Added the answer-led section “How does the central directory work in Spain?”, including France–Spain route cardinality, a concrete NIF example, zero/one/multiple-match behaviour and explicit unresolved partial-receipt scope | User request; DGFiP FAQ/directory evidence and Spain RD 238/2026 Articles 5–9 |
