@@ -478,14 +478,3 @@ Rollout gates:
 | Treat Peppol, the selected sending Access Point provider, the receiving Access Point provider and Sage adapter as separate route concepts; select no vendor in this PRD | Confirmed by user context and official OpenPeppol model | 2026-08-11 |
 | Use capability-specific onboarding and keep legal entity, participant and Access Point connection separate | Proposed from Spain reuse and Peppol role boundaries | 2026-09-23 |
 | Treat Great Britain/Northern Ireland applicability as an explicit policy gate while preserving territorial and GB/XI facts | Proposed evidence-led boundary | 2026-09-23 |
-
-## Revision history
-
-| Date | Change | Evidence/decision | Pull request |
-|---|---|---|---|
-| 2026-08-10 | Initial discovery child PRD; updated older topology-TBD research with 2026 Peppol announcement; added Confluence-safe gated roadmap visual | User request and official HMRC/DBT sources | |
-| 2026-08-10 | Linked the consolidated parent visual atlas and compressed journey prose for research-stage readability | User direction | |
-| 2026-08-10 | Approved for publication to existing page `866140019`; existing hierarchy preserved | User approval | |
-| 2026-08-11 | Removed the embedded HTML heading and promoted the diagram title to a native Confluence heading | Confluence rendering feedback | |
-| 2026-08-11 | Reworked the Peppol flow into a four-corner route and separated network, sending/receiving providers and Sage adapter across definitions, evidence, requirements and acceptance | User context and official OpenPeppol sources | |
-| 2026-09-23 | Applied Spain learnings without importing Spanish policy; added legal-subject/participant/authority/readiness decomposition, accountant batch, AP/SMP connection roles, provider change, purpose-specific trust, UK profile gates, GB/Northern Ireland applicability inputs, detailed journeys and acceptance | Stakeholder direction; PRD-SEI-227/223/226/231; current HMRC/OpenPeppol evidence | |

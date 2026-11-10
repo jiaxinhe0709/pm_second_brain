@@ -365,10 +365,3 @@ Production is gated on the official SPFE representation contract, an approved cl
 | Existing Confluence page remains the stable publishing target | Publication approved by user on 2026-08-25, subject to merge and dry-run |
 
 **Readiness: discovery-ready draft.** It is not approved for delivery until the representation, credential, client-relationship, volume and operations gates are closed.
-
-## Change log
-
-| Date | Version | Change | Evidence |
-|---|---|---|---|
-| 2026-08-25 | Initial canonical draft | Preserved direct/batch pathways and isolation; replaced universal credential/authority assumptions with per-client capability decisions and safe batch lifecycle | Confluence v3, PRD-SEI-101/231, Royal Decree 238/2026 |
-| 2026-09-22 | Certificate/signature precision | Added per-client direct, delegated, Sage-managed, provider and operator-seal distinctions; separated accountant configuration permission from signing authority and added expiry/revocation behaviour | PRD-SEI-101/223/226; RD 238/2026 Article 7.3 |

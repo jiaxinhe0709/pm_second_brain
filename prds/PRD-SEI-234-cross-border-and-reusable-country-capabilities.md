@@ -189,13 +189,3 @@ Sources: [BOE — RD 238/2026 Article 3 scope, Article 7 formats and final provi
 | [UK HMRC Transformation Roadmap 2026](https://www.gov.uk/government/publications/hmrc-transformation-roadmap-progress-update-2026/hmrc-transformation-roadmap-update-2026) and [Tax Update 2026](https://www.gov.uk/government/publications/summary-of-tax-update-2026-simplification-modernisation-and-fairness/tax-update-2026-simplification-modernisation-and-fairness-summary) | State April 2029 mandatory e-invoicing for all VAT invoices and Peppol as the core interoperability network | Confirms direction/date wording, not final country-policy or technical bindings |
 
 Open gates: Spain ministerial order, fixed rollout dates and technical profile; current B2G format/version/CIUS contracts; full Spain sales/purchases and cross-border decision table; interaction with VERI*FACTU/SII; destination-country B2B/B2G/B2C fixtures; France territorial/exemption and buyer-side international cases; Germany transition/channel and state-level B2G fixtures; Ireland later phases/technical artefacts; final UK legislation/profile/reporting rules; module ownership/versioning; and reference scenarios approved by country legal/compliance owners.
-
-## Revision history
-
-| Date | Change | Evidence/decision |
-|---|---|---|
-| 2026-08-12 | Initial child discovery PRD for cross-border applicability and safe country-capability reuse | User feedback and official Spanish, French and EU sources |
-| 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |
-| 2026-08-12 | Rerouted reusable-module connectors through a clear gutter into the country binding and made the diagram responsive | Confluence visual review |
-| 2026-08-25 | Added actual five-country relationship, geography, exemption, cohort and route terms before deriving the reusable applicability contract | User request; official France, Spain, Germany, Ireland and UK sources |
-| 2026-09-11 | Reconciled the internal Spain customer-segmentation matrix against primary scope, format, commencement, consent and ViDA evidence; retained its product-service lens while correcting or gating unsupported dates, profiles and universal network assumptions | User-supplied Spanish Legislation Knowledge page; BOE RD 238/2026; AEAT; BOE invoicing regulation; European Commission ViDA |

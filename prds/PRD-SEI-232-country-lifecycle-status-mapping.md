@@ -340,16 +340,3 @@ The final order is now available. Article 7.1 adds a presumed-acceptance view in
 Evidence: parent [PRD-SEI-227](PRD-SEI-227-e-invoicing-as-a-service.md), lifecycle analysis [PRD-SEI-224](PRD-SEI-224-lifecycle-rejection-payment-reporting.md), resilience analysis [PRD-SEI-225](PRD-SEI-225-operations-resilience-support-reconciliation.md), and the Germany/Ireland/UK country-pack PRDs. This child page adds the mapping boundary; it does not declare unverified country codes.
 
 Open gates: approve the shared dimensions; name country owners; obtain authoritative status/reason catalogs; define conflict/precedence tests; confirm customer wording; and set reconciliation ownership/SLOs from operational evidence.
-
-## Revision history
-
-| Date | Change | Evidence/decision |
-|---|---|---|
-| 2026-08-12 | Initial child discovery PRD for preserved country status and shared lifecycle dimensions | User feedback and PRD-SEI-224/225 analysis |
-| 2026-08-12 | Published as a child of commonality page `866150169` | User publication approval |
-| 2026-08-12 | Added distinct view connectors, moved reconciliation routing into an open gutter and made the diagram responsive | Confluence visual review |
-| 2026-08-25 | Added explicit France and Spain lifecycle catalogues, counting rules and source-to-shared mapping boundaries; recorded unknown totals for Germany, Ireland and UK | User request; DGFiP June 2026 guidance and Spain RD 238/2026 Articles 10/12 |
-| 2026-08-26 | Expanded the lifecycle into implementation-oriented source catalogues: corrected France to 15 terms/16 contexts, added reform codes, phases, actors, guarded paths and namespace rules; added Spain's exact statutory terms, event data and precedence without inventing technical codes | User-supplied Sage guide as presentation input; current XP Z12-012/DGFiP/AIFE evidence; Spain RD 238/2026 Articles 10–12 |
-| 2026-08-26 | Made Sage Network, country-pack, route/provider-binding and product responsibilities explicit for outbound, inbound and historical reconciliation flows | User product-direction clarification; PRD-SEI-227 shared-platform boundary |
-| 2026-08-26 | Added a cross-country commonality matrix showing the reusable Sage Network capability beside actual terms, legal-only events, channel-specific evidence, open specifications and inactive obligations for France, Spain, Germany, Ireland and the UK | User request for an overall visual comparison; PRD-SEI-228/229/230 country-pack evidence |
-| 2026-09-11 | Added claim-adjacent official BOE sources for Spain's Article 10 event catalogue and deadline and its separate Article 12 public-reporting action; added AEAT operational corroboration without treating it as the unpublished technical contract | Royal Decree 238/2026, Articles 10.1–10.3 and 12.1–12.3; AEAT mandatory e-invoicing overview |

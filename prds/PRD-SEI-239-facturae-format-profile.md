@@ -141,10 +141,3 @@ Where the selected Facturae route requires signing, onboarding must show the con
 | Does Sage's proposed service remotely sign for the customer/delegate, apply a Sage operator seal, or support both through separately approved policies? | Business Identity owner / Legal / Security | Signer identity, UX and architecture |
 | Which expiry horizon, renewal owner, status source, timestamp and long-term preservation evidence apply to each Facturae route? | Security/operations/local technical team | Production lifecycle |
 | Which Sage 200/Despachos capabilities are native and production-ready? | Product owners | Delivery plan |
-
-## Change log
-
-| Date | Version | Change | Evidence/decision |
-|---|---|---|---|
-| 2026-09-21 | Version 1 | Created Facturae child profile and separated official B2G/XAdES evidence from unconfirmed B2B and threshold claims | PRD-SEI-223; official Facturae portal; internal requirements 38 and 42 |
-| 2026-09-22 | Version 2 | Added explicit direct, delegated, Sage-managed, provider and operator-seal modes; detailed XAdES policy freezing, protected custody, expiry/runtime checks and historic validation evidence | Stakeholder direction; PRD-SEI-101/223/226; eIDAS; ETSI EN 319 102-1; Spanish policy catalogue |

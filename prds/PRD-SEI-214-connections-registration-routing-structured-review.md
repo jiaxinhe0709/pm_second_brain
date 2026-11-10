@@ -657,11 +657,3 @@ Operations must be able to answer:
 | 2026-07-27 | Connections, registrations and routes require separate concepts | Proposed solution principle |
 | 2026-07-27 | Direction-level routing precedes advanced rule dimensions | Proposed delivery boundary |
 | 2026-07-28 | PRD explicitly separates business rules, research and proposed solution analysis | Draft improvement |
-
-## Revision history
-
-| Date | Version/revision | Change | Pull request |
-|---|---|---|---|
-| 2026-07-27 | `phase2-prds-v0.1` | Initial discovery draft | |
-| 2026-07-27 | `phase2-prds-v0.2` | Confluence publication baseline | |
-| 2026-07-28 | Draft | Deepened business analysis, research, solution, visual, traceability and readiness gates | |

@@ -599,11 +599,3 @@ Operations must see:
 | 2026-07-27 | Unknown external outcomes must be reconciled before unsafe retry | Proposed product principle |
 | 2026-07-28 | Provider PRDs must classify operation safety and reconciliation readiness | Draft improvement |
 | 2026-07-28 | Manual recovery must invoke controlled domain workflows | Draft improvement |
-
-## Revision history
-
-| Date | Version/revision | Change | Pull request |
-|---|---|---|---|
-| 2026-07-27 | `phase2-prds-v0.1` | Initial discovery draft | |
-| 2026-07-27 | `phase2-prds-v0.2` | Confluence publication baseline | |
-| 2026-07-28 | Draft | Deepened business analysis, research, solution model, recovery visual and operational gates | |

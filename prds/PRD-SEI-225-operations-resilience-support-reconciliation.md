@@ -409,9 +409,3 @@ Branches: `WAITING_EXTERNAL`, `MANUAL_APPROVAL`, `SUSPENDED`, `KNOWN_LIMITATION`
 | Which functions remain available during suspension? | Continuity/customer promise | Product/legal/operations | Design | History/reconciliation preserved where safe |
 | What RTO/RPO and support targets are approved? | Architecture/staffing | Risk/product/operations | Production | Do not invent before analysis |
 | How are regulatory deadlines prioritised against commercial traffic? | Queue fairness/compliance | Local compliance/product | Design | Approved policy recorded by event/obligation |
-
-## Change log
-
-| Date | Version | Change | Evidence/decision |
-|---|---|---|---|
-| 2026-08-10 | Version 1 | Initial Phase 3 operations, resilience, support and reconciliation PRD | PRD-SEI-203/210/221–224 and RD 238/2026 |

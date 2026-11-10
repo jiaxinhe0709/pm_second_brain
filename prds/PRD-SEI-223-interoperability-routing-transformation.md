@@ -576,12 +576,3 @@ Names and payloads are proposed boundaries, not approved endpoints.
 | Which DTS build and deployment boundary are production-ready for reuse by Spain, and who owns its roadmap and operations? | Determines whether reuse is a library, shared service or product integration | DTS/Domain Services owner | Architecture and delivery plan | Reuse DTS; extend only evidenced gaps |
 | Can the DTS UBL 2.1 canonical model preserve all Spanish route/profile semantics, public-copy requirements and trust boundaries? | A canonical-model gap can create silent loss or invalid signatures | Architecture/local compliance | Mapping activation | Retain the pattern, prove invariants per mapping |
 | How are France FNFE/AFNOR packs isolated from Spain and route-specific rule packs in build, configuration and evidence? | Prevents jurisdictional policy contamination | DTS engineering/security | Spain production readiness | Independently version runtime, schema, mapping and rule packs |
-
-## Change log
-
-| Date | Version | Change | Evidence/decision |
-|---|---|---|---|
-| 2026-08-10 | Version 1 | Initial Phase 3 interoperability, routing and transformation PRD | PRD-SEI-210, Phase 1/2 foundations and RD 238/2026 |
-| 2026-09-21 | Version 2 | Established parent/child format governance, operation-level capability, product ownership hypotheses, requirements 36–44 traceability and evidence-gated signing/version rules; verified the four-format set, Peppol BIS classification, transitional PDF distinction and future-syntax mechanism | Internal format-capability input; RD 238/2026; OASIS, EU, UNECE and Facturae official sources; PRD-SEI-226 |
-| 2026-09-21 | Version 3 | Set France DTS as the preferred reuse candidate and added Spain qualification, country-rule isolation, versioned evidence and operational readiness gates | Stakeholder direction; France DTS/CII D16B-D22B/FNFE Confluence evidence |
-| 2026-09-22 | Version 4 | Separated direct, delegated, Sage-managed, provider and operator-seal execution; added purpose-specific certificate checks, expiry/revocation blocking, signing outcome reconciliation and historic validation evidence | Stakeholder direction; PRD-SEI-226; RD 238/2026 Article 7.3; eIDAS; ETSI EN 319 102-1 |

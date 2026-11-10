@@ -860,17 +860,3 @@ Dependencies include country legal/compliance owners, Sage product teams, existi
 | Create four focused child analyses under the commonality page for identifiers/delegation, lifecycle mapping, Peppol multi-address routing and cross-border reuse | Confirmed by user feedback | 2026-08-12 |
 | Park Spain as the mature reference until the planned end-October official-document/pre-production refresh; focus detailed country work on Ireland and the UK | Confirmed stakeholder direction | 2026-09-23 |
 | Treat Ireland as the first delivery-depth track and the UK as a parallel Peppol/product-readiness track, subject to cohort approval | Proposed sequencing from confirmed dates and evidence maturity | 2026-09-23 |
-
-## Revision history
-
-| Date | Change | Evidence/decision | Pull request |
-|---|---|---|---|
-| 2026-08-10 | Initial discovery PRD; converted research text diagrams into Confluence-safe service and compliance-domain visuals; added Germany/Ireland/UK child structure | User request, supplied research and official sources | |
-| 2026-08-10 | Added a consolidated 12-visual research atlas covering all source diagram themes and retained only code-like snippets as text | User direction | |
-| 2026-08-10 | Approved for publication to existing page `866150169`; existing page hierarchy preserved | User approval | |
-| 2026-08-11 | Removed embedded HTML headings from all diagrams and promoted their titles to native Confluence headings | Confluence rendering feedback | |
-| 2026-08-11 | Added a diagram-led route model separating regulation, network, provider and adapter; strengthened Peppol four-corner evidence, requirements and acceptance | User context and official OpenPeppol sources | |
-| 2026-08-12 | Added four child research PRDs covering country identifiers and accountants, lifecycle mappings, Peppol multi-address routing, and cross-border reusable capability boundaries | User feedback and supplied accountant research | |
-| 2026-08-12 | Published the four focused analyses as children of commonality page `866150169` | User publication approval | |
-| 2026-08-25 | Made the evidence-first derivation order explicit and indexed the actual country terms owned by each commonality child before reuse is assessed | User clarification | |
-| 2026-09-23 | Added the Spain-to-UK/Ireland reuse/gap matrix; adopted capability-specific onboarding, accountant isolation, purpose-specific trust, governed formats/DTS qualification, provider-change continuity and operation-level readiness; set Ireland delivery-depth and UK readiness sequencing | Stakeholder direction; PRD-SEI-101/104/223/226; current Revenue/HMRC/OpenPeppol evidence | |

@@ -351,10 +351,3 @@ The shared onboarding flow must collect SERES-specific configuration, validate r
 | Date | Decision | Status |
 |---|---|---|
 | 2026-07-27 | SERES (Docaposte) is included in the Phase 2 provider portfolio | Confirmed |
-
-## Revision history
-
-| Date | Change | Pull request |
-|---|---|---|
-| 2026-07-27 | Initial discovery draft | |
-| 2026-07-29 | Embedded Spain product evidence/limitations, business rules, endpoint-pending contract, transformation/lifecycle safety, acceptance and gates | |

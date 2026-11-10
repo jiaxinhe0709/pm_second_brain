@@ -774,11 +774,3 @@ The experience must distinguish `connection ready` from `route active`.
 | 2026-07-27 | Phase 2 discovery baseline may be published to the configured Confluence pages | Confirmed and executed at `phase2-prds-v0.2` |
 | 2026-07-29 | PowerPoint use cases are discovery evidence, not confirmed regulatory specification | Confirmed analysis treatment |
 | 2026-07-29 | Per-invoice provider selection remains an explicit Phase 2 scope decision | Open |
-
-## Revision history
-
-| Date | Version/revision | Change | Pull request |
-|---|---|---|---|
-| 2026-07-27 | `phase2-prds-v0.1` | Initial discovery draft | |
-| 2026-07-27 | `phase2-prds-v0.2` | Confluence publication baseline | |
-| 2026-07-29 | Draft | Added Phase 2 HTML journey visual, PowerPoint evidence coverage, business rules and structured scope decisions | |

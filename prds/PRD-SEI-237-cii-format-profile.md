@@ -147,11 +147,3 @@ The existing France DTS materially changes the build hypothesis for shared-servi
 | Which deployed DTS environment/build currently supports D16B, D22B and bidirectional UBL mapping, and what is its production support model? | DTS/Domain Services owner | Reuse readiness |
 | Can the existing UBL 2.1 canonical model preserve every Spanish CII route/profile requirement and faithful-copy obligation? | Architecture/local technical team | Mapping activation |
 | Which parts of the France rule-pack pipeline are configurable and which are coupled to FNFE/AFNOR behaviour? | DTS engineering | Spain isolation design |
-
-## Change log
-
-| Date | Version | Change | Evidence/decision |
-|---|---|---|---|
-| 2026-09-21 | Version 1 | Created CII format child and separated D16B EN 16931 evidence from later-release activation | PRD-SEI-223; EU Decision 2017/1870; UNECE artefacts |
-| 2026-09-21 | Version 2 | Set DTS reuse as the preferred implementation direction while isolating French D22B/FNFE policy from Spain qualification and adding reuse evidence, requirements and acceptance gates | Stakeholder direction; France DTS and CII D16B/D22B Confluence evidence |
-| 2026-09-22 | Version 3 | Added explicit signing/seal modes, prohibited generic Sage certificate use and added expiry/historic-validation evidence requirements | PRD-SEI-223/226; stakeholder direction |

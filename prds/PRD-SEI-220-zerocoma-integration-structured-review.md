@@ -347,10 +347,3 @@ The common onboarding flow must incorporate ZeroComa-specific configuration and 
 | Date | Decision | Status |
 |---|---|---|
 | 2026-07-27 | ZeroComa is included in the Phase 2 provider portfolio | Confirmed |
-
-## Revision history
-
-| Date | Change | Pull request |
-|---|---|---|
-| 2026-07-27 | Initial discovery draft | |
-| 2026-07-29 | Embedded product evidence and mismatch risk, business rules, endpoint-pending contract, safety/continuity, acceptance and gates | |

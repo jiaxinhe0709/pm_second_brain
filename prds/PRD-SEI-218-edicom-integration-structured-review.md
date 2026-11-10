@@ -349,10 +349,3 @@ Provider-specific onboarding data must be collected within the shared experience
 | Date | Decision | Status |
 |---|---|---|
 | 2026-07-27 | EDICOM is included in the Phase 2 provider portfolio | Confirmed |
-
-## Revision history
-
-| Date | Change | Pull request |
-|---|---|---|
-| 2026-07-27 | Initial discovery draft | |
-| 2026-07-29 | Embedded public evidence/limitations, business rules, protocol-neutral contract, safety analysis, testable acceptance and provider gates | |

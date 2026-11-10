@@ -453,13 +453,3 @@ Rollout gates:
 | Keep technical adapters disabled until official artefacts and approvals exist | Confirmed discovery boundary | 2026-08-10 |
 | Use capability-specific onboarding and keep delivery and Revenue connections separate until official evidence proves a combined contract | Proposed from Spain reuse and Ireland's dual obligation | 2026-09-23 |
 | Prioritise Ireland as the first UK/Ireland delivery-depth track, subject to reference product/cohort approval | Proposed sequencing | 2026-09-23 |
-
-## Revision history
-
-| Date | Change | Evidence/decision | Pull request |
-|---|---|---|---|
-| 2026-08-10 | Initial discovery child PRD with Confluence-safe phased delivery and reporting visual | User request, Revenue and EU official sources | |
-| 2026-08-10 | Linked the consolidated parent visual atlas and compressed journey prose for research-stage readability | User direction | |
-| 2026-08-10 | Approved for publication to existing page `866140021`; existing hierarchy preserved | User approval | |
-| 2026-08-11 | Removed the embedded HTML heading and promoted the diagram title to a native Confluence heading | Confluence rendering feedback | |
-| 2026-09-23 | Applied Spain learnings without importing Spanish policy; added legal-subject/cohort/authority/readiness decomposition, accountant batch, separate delivery/Revenue connections, provider change, purpose-specific trust, format/DTS gates, detailed journeys and acceptance | Stakeholder direction; PRD-SEI-227/223/226/231; current Revenue evidence | |

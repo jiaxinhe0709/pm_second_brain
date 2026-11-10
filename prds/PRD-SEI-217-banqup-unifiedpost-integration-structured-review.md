@@ -422,10 +422,3 @@ The shared onboarding flow must display Banqup-specific requirements without exp
 | Date | Decision | Status |
 |---|---|---|
 | 2026-07-27 | Banqup (Unifiedpost) is included in the Phase 2 provider portfolio | Confirmed |
-
-## Revision history
-
-| Date | Change | Pull request |
-|---|---|---|
-| 2026-07-27 | Initial discovery draft | |
-| 2026-07-29 | Embedded official evidence, business rules, API example, lifecycle/safety analysis, testable acceptance and production gates | |
