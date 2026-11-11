@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="app.diagrams.net" type="device" version="24.7.17">
-  <diagram id="invoice-retrieval-view-download-sequence" name="View public or private invoices; download SPFE files">
+  <diagram id="invoice-retrieval-view-download-sequence" name="View and download public or private invoices">
     <mxGraphModel page="1" pageWidth="1030" pageHeight="1356">
       <root>
         <mxCell id="0" />
@@ -8,11 +8,11 @@
         <mxCell id="v1" value="" parent="1" vertex="1" style="rounded=1;arcSize=8;fillColor=white;strokeColor=#626262;">
           <mxGeometry as="geometry" x="8" y="8" width="1014" height="1340" />
         </mxCell>
-        <mxCell id="v2" value="View public or private invoices; download SPFE files" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=27;fontColor=#626262;">
-          <mxGeometry as="geometry" x="30" y="18" width="896.52" height="26" />
+        <mxCell id="v2" value="View and download public or private invoices" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=27;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="18" width="760.44" height="26" />
         </mxCell>
-        <mxCell id="v3" value="View: required for both sources. User download: SPFE required; private TBD." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=17;fontColor=#626262;">
-          <mxGeometry as="geometry" x="30" y="59" width="815.25" height="26" />
+        <mxCell id="v3" value="View and user download are required for both sources." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=17;fontColor=#626262;">
+          <mxGeometry as="geometry" x="30" y="59" width="579.63" height="26" />
         </mxCell>
         <mxCell id="header-divider" edge="1" parent="1" style="edgeStyle=none;strokeColor=#626262;strokeWidth=1.6;endArrow=none;">
           <mxGeometry as="geometry" relative="1">
@@ -71,8 +71,8 @@
         <mxCell id="v15" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
           <mxGeometry as="geometry" x="24" y="879" width="982" height="34" />
         </mxCell>
-        <mxCell id="v16" value="case | User downloads a captured SPFE file" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#626262;">
-          <mxGeometry as="geometry" x="36" y="887" width="408.9" height="26" />
+        <mxCell id="v16" value="case | User downloads a captured public or private file" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#626262;">
+          <mxGeometry as="geometry" x="36" y="887" width="531.75" height="26" />
         </mxCell>
         <mxCell id="v17" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
           <mxGeometry as="geometry" x="38" y="258" width="954" height="90" />
@@ -95,8 +95,8 @@
         <mxCell id="v23" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
           <mxGeometry as="geometry" x="38" y="1131" width="954" height="90" />
         </mxCell>
-        <mxCell id="v24" value="Required SPFE download needs a proven saved-file binding and current permission. Private user download is TBD;&#10;required private view and backend source capture remain separate." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#626262;">
-          <mxGeometry as="geometry" x="52" y="1139" width="1120.8" height="49" />
+        <mxCell id="v24" value="Public and private download need a proven saved-file binding and current permission. Preserve file roles.&#10;Provider source capture and user download need separate qualification." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#626262;">
+          <mxGeometry as="geometry" x="52" y="1139" width="1070.4" height="49" />
         </mxCell>
         <mxCell id="v25" value="REF-SCOPE; RET-G04/05/10" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=12;fontColor=#626262;">
           <mxGeometry as="geometry" x="52" y="1197" width="193.44" height="26" />
@@ -197,7 +197,7 @@
         <mxCell id="v45" value="Blue: Spain binding or proposed work to confirm; it does not mean a new API or proven implementation." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=14;fontColor=#626262;">
           <mxGeometry as="geometry" x="30" y="1302" width="902.82" height="26" />
         </mxCell>
-        <object id="v46" label="Source specification" link="../../specs/invoice-receiving/SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md#24-required-view-and-spfe-user-download">
+        <object id="v46" label="Source specification" link="../../specs/invoice-receiving/SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md#24-required-view-and-user-download">
           <mxCell parent="1" vertex="1" style="text;html=0;fontSize=12;align=right;">
             <mxGeometry as="geometry" x="790" y="1326" width="210" height="18" />
           </mxCell>

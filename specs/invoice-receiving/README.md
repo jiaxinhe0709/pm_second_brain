@@ -2,7 +2,7 @@
 
 Use the same three reading views and detailed API reference as [onboarding](../onboarding-and-connectivity/README.md). These drafts are based on SPEC016 and the supplied `/context` evidence. Publication was authorised on 2 November 2026; lifecycle status remains draft.
 
-**View is required for public and private platforms. SPFE user download is required; private user download is TBD.** [SPEC026 §1](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#1-purpose-actors-and-boundary) owns this product decision. Backend source-file acquisition is a separate action.
+**View and user download are required for all enabled public and private platforms, including the Sage offering.** [SPEC026 §1](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#1-purpose-actors-and-boundary) owns this product decision. Backend source-file acquisition is a separate action.
 
 **Which API does what?** **Query e-invoices** supplies the invoice list (RET-API-01). **Retrieve e-invoice** supplies one invoice's details, status history and attachment download links (RET-API-02). Downloading an attachment follows a returned link as part of this flow. RET-API-03 documents that file-transfer step; it is not a third Sage invoice endpoint. Query can also return attachment links. See [the API comparison and flow](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#1-existing-product-facing-calls). Spain implementation coverage still needs qualification.
 

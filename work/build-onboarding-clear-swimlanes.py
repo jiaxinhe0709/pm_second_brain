@@ -1,6 +1,7 @@
 """Main paths and key controls in the original swimlanes; detailed exceptions stay below."""
 from pathlib import Path
 import importlib.util
+import re
 import xml.etree.ElementTree as ET
 from onboarding_swimlane_routes import finish
 
@@ -24,22 +25,23 @@ def add_controls(slug,nodes,edges):
    node('correct',2,0,'Correct information or approval','ONB-02/12','Repeat only the affected check','conditional'),
    node('recover',3,2,'Check the original result','ONB-08','Resume safely or return next action','recovery')])
   edges.extend([
-   edge('checks','correct','conditional',points=[(950,598),(950,282)],label='Missing information or approval',label_pos=(965,385)),
-   edge('correct','checks','conditional',points=[(890,282),(890,598)],label='Corrected',label_pos=(805,420)),
-   edge('checks','recover','recovery',points=[(1060,625),(1070,625),(1070,535),(1080,535)],label='Result unknown',label_pos=(1080,610)),
-   edge('public','recover','recovery',points=[(1210,878),(1210,562)],label='Failed or unknown',label_pos=(1225,790)),
-   edge('recover','save','recovery',points=[(1340,510),(1360,510)])])
+   edge('checks','correct','conditional',label='Missing input / approval'),
+   edge('correct','request','conditional',label='Corrected: resume request'),
+   edge('checks','recover','recovery',label='Unknown check result'),
+   edge('public','recover','recovery',label='Failed / unknown'),
+   edge('recover','save','recovery')])
  elif slug=='onboarding-private-setup-swimlane':
   nodes.extend([
    node('correct',2,0,'Correct settings or approval','ONB-05/12','Repeat only the affected check','conditional'),
-   node('recover',5,2,'Check the original result','ONB-08','Pause affected work; repeat only if safe','recovery')])
+   node('recover',6,2,'Check the original result','ONB-08','Pause affected work; repeat only if safe','recovery')])
   edges.extend([
-   edge('setup','correct','conditional',points=[(950,598),(950,282)],label='Missing settings or approval',label_pos=(965,385)),
-   edge('correct','setup','conditional',points=[(890,282),(890,598)],label='Corrected',label_pos=(805,420)),
-   edge('provider','recover','recovery',points=[(1340,955),(1620,955),(1620,535),(1640,535)],label='Failed or unknown',label_pos=(1400,980)),
-   edge('activate','recover','recovery',points=[(1770,598),(1770,562)],label='Failed or unknown',label_pos=(1785,585)),
-   edge('recover','result','recovery',points=[(1770,458),(1770,370),(1920,370)],label='Result and next action',label_pos=(1785,355))])
-  next(e for e in edges if (e['source'],e['target'])==('activate','result'))['points']=[(1900,650),(2100,650),(2100,422)]
+   edge('setup','correct','conditional',label='Missing input / approval'),
+   edge('correct','request','conditional',label='Corrected: resume request'),
+   edge('account','recover','recovery',label='Account status unknown'),
+   edge('onboard','recover','recovery',label='Incomplete / unknown'),
+   edge('provider','recover','recovery',label='Failed / unknown'),
+   edge('activate','recover','recovery',label='Failed / unknown'),
+   edge('recover','result','recovery',label='Result and next action')])
  elif slug=='onboarding-client-approval-swimlane':
   nodes.extend([
    node('withdraw',3,2,'Approval or client access ends','ONB-12/02','Withdrawal or loss of role','conditional'),
@@ -61,27 +63,95 @@ def add_controls(slug,nodes,edges):
    edge('cancel','result','conditional',points=[(370,562),(370,840),(1770,840),(1770,422)],label='Cancelled or action required',label_pos=(1050,865))])
 
 def build(slug,title,description,nodes,edges,lanes,original,rows,notes):
- add_controls(slug,nodes,edges)
- width=240+280*max(n['col'] for n in nodes)+300
- lane_bottom=160+140*lanes;height=lane_bottom+430
- positions={n['key']:(240+n['col']*280,178+n['lane']*140,260,104) for n in nodes}
+ primary=slug in {'onboarding-shared-prerequisites-swimlane','onboarding-public-setup-swimlane','onboarding-private-setup-swimlane'}
+ if not primary:add_controls(slug,nodes,edges)
+ if primary:
+  # Keep exception rules in the table. Give the main handoffs their own gutters.
+  if slug=='onboarding-private-setup-swimlane':
+   columns={'choose':0,'load':0,'account':1,'onboard':1,
+            'request':2,'setup':2,'progress':3,'track':3,'provider':3,
+            'change':4,'confirm':5,'activate':5,'result':6}
+   for n in nodes:n['col']=columns[n['key']]
+  step,node_width,lane_height=350,280,180
+  width=240+step*max(n['col'] for n in nodes)+node_width+80
+  lane_bottom=160+lane_height*lanes
+  height=lane_bottom+max(440,((48+32+52*len(rows)+150+19)//20)*20)
+  positions={n['key']:(240+n['col']*step,200+n['lane']*lane_height,node_width,104) for n in nodes}
+  for e in edges:e['points']=None;e['label_pos']=None
+ else:
+  lane_height=140
+  width=240+280*max(n['col'] for n in nodes)+300
+  lane_bottom=160+140*lanes;height=lane_bottom+430
+  positions={n['key']:(240+n['col']*280,178+n['lane']*140,260,104) for n in nodes}
+ if primary:
+  for n in nodes:n['title']=re.sub(r'^\d+\.\s*','',n['title'])
  for n in nodes:n['link']=DOC+ANCHORS[n['activity'].split('/')[0]]
+ if primary and slug=='onboarding-private-setup-swimlane':
+  ax,ay,aw,ah=positions['account'];rx,ry,rw,rh=positions['request']
+  ox,oy,ow,oh=positions['onboard'];cx,cy,cw,ch=positions['change']
+  fx,fy,fw,fh=positions['confirm'];zx,zy,zw,zh=positions['result']
+  routes={
+   ('account','request'): ([(ax+aw,ay+ah/2),(ax+aw+30,ay+ah/2),(ax+aw+30,ry+rh/2),(rx,ry+rh/2)],'Yes: existing account',(ax+aw+42,ay+ah/2-14)),
+   ('account','onboard'): ([(ax+aw/2,ay+ah),(ox+ow/2,oy)],'No: new account needed',(ax+aw/2-190,oy-180)),
+   ('onboard','request'): ([(ox+ow,oy+oh/2),(ax+aw+30,oy+oh/2),(ax+aw+30,ry+rh/2),(rx,ry+rh/2)],'Onboarding confirmed',(ax+aw+42,oy-180)),
+   ('change','confirm'): ([(cx+cw,cy+ch/2),(cx+cw+30,cy+ch/2),(cx+cw+30,fy+fh/2),(fx,fy+fh/2)],'Yes — requested',(cx+cw+42,cy+ch/2-14)),
+   ('change','result'): ([(cx+cw,cy+ch/2),(zx-40,cy+ch/2),(zx-40,zy+zh/2),(zx,zy+zh/2)],'No — setup only',(cx+cw+230,cy+ch/2-14)),
+  }
+  for e in edges:
+   if (e['source'],e['target']) in routes:
+    e['points'],e['label'],e['label_pos']=routes[e['source'],e['target']]
  d.shared.WIDTH,d.shared.HEIGHT=width,height
  for e in edges:e['points']=e['points'] or d.shared.route(e,positions)
+ # Keep labels outside activity boxes after adding product request handoffs.
+ occupied=list(positions.values())
+ for e in edges:
+  if e['label'] and e['label_pos'] is not None:
+   x,y=e['label_pos'];occupied.append((x,y-16,len(e['label'])*6.6+12,22))
+ for e in edges:
+  if not e['label'] or e['label_pos'] is not None:continue
+  tw=len(e['label'])*6.6+12
+  candidates=[]
+  for a,b in zip(e['points'],e['points'][1:]):
+   mx,my=(a[0]+b[0])/2,(a[1]+b[1])/2
+   if a[1]==b[1]:candidates.extend([(mx-tw/2,my-10),(mx-tw/2,my+24)])
+   else:candidates.extend([(mx+12,my),(mx-tw-12,my)])
+  # Tight adjacent lanes may need the label in the neighbouring whitespace.
+  for a,b in zip(e['points'],e['points'][1:]):
+   mx,my=(a[0]+b[0])/2,(a[1]+b[1])/2
+   for dy in (-28,28,-48,48,-70,70):
+    candidates.extend([(mx+12,my+dy),(mx-tw-12,my+dy),(mx-tw/2,my+dy)])
+  for x,y in candidates:
+   if x<225 or x+tw>width-20 or y<165 or y>lane_bottom:continue
+   if any(x<X+W and x+tw>X and y-16<Y+H and y+4>Y for X,Y,W,H in occupied):continue
+   e['label_pos']=(x,y);occupied.append((x,y-16,tw,22));break
+  if e['label_pos'] is None:raise ValueError(('No label space',slug,e))
  path=d.build(slug,title,description,nodes,edges,spec=DOC+'6-feature-activities',positions=positions,
               width=width,height=height,lanes=d.LANES[:lanes],boundaries=notes,
-              legend='Solid: main path · Dashed: alternative or correction · Darker grey: recovery · Details: table below')
+              legend=('Solid: main path · Dashed: selected account or platform-use path · Exceptions: table below' if primary else
+                      'Solid: main path · Dashed: alternative or correction · Darker grey: recovery · Details: table below'))
  finish(path,edges)
  svg=ET.parse(path).getroot();ns='{http://www.w3.org/2000/svg}'
  ET.register_namespace('',ns[1:-1])
+ if primary:
+  # The shared renderer uses 140px lanes. Expand only these three current views.
+  for element in svg:
+   if element.tag==ns+'rect' and element.get('height')=='140':
+    old_y=float(element.get('y'));index=round((old_y-160)/140)
+    element.set('y',str(160+index*lane_height));element.set('height',str(lane_height))
+   if element.tag==ns+'text' and element.get('x')=='120':
+    old_y=float(element.get('y'));index=int((old_y-160)//140)
+    if 0<=index<lanes:element.set('y',str(old_y+index*(lane_height-140)+(lane_height-140)/2))
  # The common/scenario classification adds no decision in this overview.
  for e in list(svg):
   if e.tag==ns+'text' and e.get('y')=='143':
-   e.text='Read the main path from left to right. Swimlanes show proposed roles; Engineering must confirm service ownership.'
+   e.text='Follow the solid arrows through the main path. Swimlanes show proposed roles; Engineering must confirm service ownership.'
  native=ET.parse(path.with_suffix('.drawio')).getroot();root=native.find('.//root')
  for e in native.iter('mxCell'):
+  if primary and (e.get('id','').startswith('lane-') or e.get('id','').startswith('lane-label-')):
+   index=int(e.get('id').rsplit('-',1)[1]);geometry=e.find('mxGeometry')
+   geometry.set('y',str(160+index*lane_height));geometry.set('height',str(lane_height))
   if e.get('id')=='behaviour-legend':
-   e.set('value','Read the main path from left to right. Proposed roles; Engineering must confirm service ownership.')
+   e.set('value','Follow the solid arrows through the main path. Proposed roles; Engineering must confirm service ownership.')
  def txt(x,y,value,size=14,bold=False):
   attrs={'x':str(x),'y':str(y),'font-family':'Arial, sans-serif','font-size':str(size),'fill':'#333333'}
   if bold:attrs['font-weight']='bold'
@@ -113,20 +183,27 @@ def build(slug,title,description,nodes,edges,lanes,original,rows,notes):
    drawio=str(path.with_suffix('.drawio').relative_to(ROOT)),nodes=len(nodes),connections=len(edges),
    original_nodes=len(list(original_root.iter('object'))) if original_root is not None else None,
    original_lanes_preserved=True if original else None,swimlanes=lanes,
+   exception_detail_in_table=primary,lane_height=lane_height,
    width=width,height=height,title=title,exception_rows=len(rows),key_controls_shown=True)
 
 def build_shared():
  nodes=[
-  node('choose',0,0,'1. Choose company and setup','ONB-01','New, review, add or enabled change'),
-  node('dataset',1,2,'2. Resolve SXS dataset','ONB-10','Reuse saved business/client mapping'),
+  node('choose',0,0,'Select the business or client','ONB-01','Use the existing selection if available'),
+  node('load',0,1,'Request current setup','ONB-10','Resolve mapping via product / SXS first'),
+  node('dataset',1,2,'Assess permitted saved setup','ONB-10','Use the confirmed business/client mapping'),
+  node('show',1,1,'Show current e-invoicing setup','ONB-10/11','Permitted setup; readiness is separate'),
+  node('action',2,0,'Choose the requested action','ONB-01','Review / connect or add / enabled switch'),
+  node('request',2,1,'Request shared checks','ONB-01/03','Business/client, functions and environment'),
+  node('coordinate',2,2,'Coordinate required checks','ONB-02/03','Keep the caller and business distinct'),
   node('identity',2,3,'3. Check NIF and permission','ONB-02','Check business and caller separately'),
   node('credential',3,3,'4. Check required credential','ONB-03','Skip if the selected function needs none'),
+  node('collect',4,2,'Return shared check results','ONB-03/11','Passed checks or missing item and owner'),
   node('result',4,1,'5. Show shared check result','ONB-11','Pass: continue public/private setup','outcome'),
  ]
  return build('onboarding-shared-prerequisites-swimlane',
   'Shared onboarding checks: company, permission and credentials',
   'Phases 1–3. Before customer setup: product integrations with SXS and Tax / Connections Service are available.',
-  nodes,[edge(a,b) for a,b in [('choose','dataset'),('dataset','identity'),('identity','credential'),('credential','result')]],
+  nodes,[edge(a,b) for a,b in [('choose','load'),('load','dataset'),('dataset','show'),('show','action'),('action','request'),('request','coordinate'),('coordinate','identity'),('identity','credential'),('credential','collect'),('collect','result')]],
   4,None,[
    ('Company mapping is missing','Product / SXS owner','Confirm it is missing, then complete qualified setup. ONB-10.'),
    ('Information or approval is missing','Customer / accountant','Correct it, then repeat the affected check. ONB-02/12.'),
@@ -138,52 +215,66 @@ def build_shared():
    'Open: Spain resource mapping and Tax / E-Invoice ID relationships require owner confirmation. SPEC039 GAP-01/02/06.',
   ])
 
-def build_all():
+def build_all(primary_only=False):
  reports=[build_shared()]
  public=[
-  node('choose',0,0,'1. Choose business and service','ONB-01','Customer or authorised accountant'),
+  node('choose',0,0,'Review requested public functions','ONB-01','Use the selected business/client context'),
+  node('load',0,1,'Load current public setup','ONB-10','Discover only missing service/setup details'),
   node('reuse',1,2,'2. Reuse SXS dataset and setup','ONB-10','Use the resolved company dataset'),
+  node('request',1,1,'Request public access check','ONB-03/04','Selected business, action and environment'),
+  node('coordinate',2,2,'Coordinate public access check','ONB-03/04','Reuse matching current evidence'),
   node('checks',2,3,'3. Check identity and access','ONB-02/03','NIF, permission; Tax credential if needed'),
   node('public',3,5,'4. Check public service access','ONB-03','Use supported checks for this function'),
   node('save',4,2,'5. Save public check results','ONB-04','Save readiness and evidence'),
-  node('result',5,1,'6. Show result and next action','ONB-11','Per function; no route activation','outcome'),
+  node('result',5,1,'Show result and next action','ONB-11','Readiness / pending / owner; use separate','outcome'),
  ]
  reports.append(build('onboarding-public-setup-swimlane','Public onboarding: setup, correction and recovery',
   'Before setup: product integrates SXS and Tax Connections Service. Phase 1 checks public access.',public,
-  [edge(a,b) for a,b in [('choose','reuse'),('reuse','checks'),('checks','public'),('public','save'),('save','result')]],
+  [edge(a,b) for a,b in [('choose','load'),('load','reuse'),('reuse','request'),('request','coordinate'),('coordinate','checks'),('checks','public'),('public','save'),('save','result')]],
   6,'onboarding-public-readiness-process',[
    ('Information or approval is missing','Customer / accountant','Correct it, then repeat the affected check. ONB-02/03/12.'),
    ('A check fails or its result is unknown','E-Invoice owner','Check the original result. Repeat only when safe. ONB-08.'),
    ('The case cannot be resolved','Operations / support','Keep affected work pending; show its owner and next action. ONB-08/11.'),
   ],[
    'Check the business NIF, caller and permission separately. Use a suitable in-date certificate only where required.',
-   'No public enrolment call, test invoice or route activation is assumed. A failed lookup does not prove missing setup.',
+   'No public enrolment call or test invoice is assumed. Results return to the common ONB-07 platform-use decision; setup alone activates nothing.',
    'Keep other valid functions available. Full rules and acceptance checks remain in SPEC038 §7.'
   ]))
  private=[
-  node('choose',0,0,'1. Choose provider and account','ONB-01','Supported later-phase provider only'),
-  node('reuse',1,2,'2. Reuse SXS dataset and setup','ONB-02/10','Keep the SXS dataset and provider'),
-  node('setup',2,3,'3. Connect and check access','ONB-05/06','Tax / Connections credential if needed'),
-  node('provider',3,5,'4. Check provider status','ONB-06','Continue only when all checks pass'),
-  node('change',4,2,'Change the route?','ONB-07',kind='decision'),
-  node('activate',5,3,'5. Activate; keep earlier access','ONB-07/09','Only when supported and authorised','conditional'),
+  node('choose',0,0,'Choose the private platform','ONB-01','For selected business or accountant client'),
+  node('load',0,1,'Load current private setup','ONB-10','Use confirmed SXS mapping and service ID'),
+  node('request',2,1,'Submit connection setup','ONB-05','Confirmed account; submit only missing work'),
+  node('account',1,2,'Account on chosen platform?','ONB-05/10',kind='decision'),
+  node('onboard',2,5,'Complete provider onboarding','ONB-05','No account: qualified process or handoff'),
+  node('setup',2,3,'Set up or reuse Sage connection','ONB-05','Keep valid setup; add only missing work'),
+  node('progress',3,1,'Read setup progress','ONB-06/11','Keep request and returned connection refs'),
+  node('track',3,2,'Confirm private access','ONB-06','Assess required evidence for each function'),
+  node('provider',3,5,'Provide access evidence','ONB-06','Qualified platform checks or current evidence'),
+  node('change',4,2,'Start or change platform use?','ONB-07',kind='decision'),
+  node('confirm',5,1,'Submit confirmed platform use','ONB-07','Requested scope and agreed start only','conditional'),
+  node('activate',5,3,'Start or change platform use','ONB-07/09','Enabled, authorised; keep earlier access','conditional'),
   node('result',6,1,'6. Show result and next action','ONB-11','Separate readiness from activation','outcome'),
  ]
- edges=[edge(a,b) for a,b in [('choose','reuse'),('reuse','setup'),('setup','provider'),('provider','change')]]
- edges += [edge('change','activate','conditional',label='Yes',label_pos=(1630,590)),
-  edge('change','result','conditional',points=[(1490,458),(1490,300),(2050,300),(2050,318)],label='No: keep current route',label_pos=(1660,285)),edge('activate','result')]
- reports.append(build('onboarding-private-setup-swimlane','Private onboarding: setup, recovery and route decision',
-  'Before setup: product integrates SXS and Tax Connections Service. Later phase; keep the chosen provider.',private,edges,
+ edges=[edge(a,b) for a,b in [('choose','load'),('load','account'),('request','setup'),('setup','progress'),('progress','track'),('track','provider'),('provider','change')]]
+ edges += [edge('account','request','conditional',label='Yes: existing account'),
+  edge('account','onboard','conditional',label='No: new account needed'),
+  edge('onboard','request','conditional',points=[(1060,930),(1070,930),(1070,440),(930,440),(930,422)],label='Onboarding confirmed',label_pos=(1080,800)),
+  edge('change','confirm','conditional',points=[(1490,458),(1490,430),(1770,430),(1770,422)],label='Yes: requested and enabled',label_pos=(1490,453)),edge('confirm','activate','conditional'),
+  edge('change','result','conditional',points=[(1490,562),(1490,585),(1910,585),(1910,370),(1920,370)],label='No — setup only',label_pos=(1640,574)),edge('activate','result')]
+ reports.append(build('onboarding-private-setup-swimlane','Private onboarding: setup, recovery and platform use',
+  'Use the selected business/client and chosen provider. Existing and new accounts both need qualified Sage access.',private,edges,
   6,'onboarding-private-route-process',[
    ('Settings or approval is missing','Customer / accountant','Correct it, then repeat the affected check. ONB-05/12.'),
+   ('Account or onboarding status is unconfirmed','Product / provider owner','Keep pending; obtain evidence before connection. Do not create a duplicate account. ONB-05/08.'),
    ('A change fails or has an unknown result','E-Invoice owner','Check earlier effects before repetition or an activation claim. ONB-08.'),
    ('The case cannot be resolved','Operations / support','Keep affected work pending; show its owner and next action. ONB-08/11.'),
    ('A call can redirect traffic','Customer + routing owner','Before the call: confirm permission, readiness and earlier-invoice access.'),
   ],[
-   'A saved connection alone does not prove readiness. Confirm the agreed start point before a route change.',
+   'Reuse valid setup and evidence; complete only affected work. Setup only preserves any selection; if none exists, it activates none.',
    'Keep earlier invoices linked to their original route. Private A to Private B stays disabled.',
    'Operator interconnection is separate from customer setup. Full rules and acceptance checks remain in SPEC038 §7.'
   ]))
+ if primary_only:return reports
  approval=[
   node('valid',0,3,'Approval valid?','ONB-02/12',kind='decision'),
   node('request',1,2,'1. Save the approval request','ONB-12','Business, action and request version'),
@@ -242,5 +333,6 @@ if __name__=='__main__':
  import argparse,json
  parser=argparse.ArgumentParser(description=__doc__)
  parser.add_argument('--shared-only',action='store_true',help='Build only the shared prerequisites diagram.')
+ parser.add_argument('--primary-only',action='store_true',help='Build only the three inline SPEC038 diagrams.')
  args=parser.parse_args()
- print(json.dumps([build_shared()] if args.shared_only else build_all(),indent=2))
+ print(json.dumps([build_shared()] if args.shared_only else build_all(primary_only=args.primary_only),indent=2))

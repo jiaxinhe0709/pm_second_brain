@@ -66,7 +66,7 @@ Let a business or its authorised accountant set up Sage access to its chosen e-i
 
 ### E-invoicing settings — intended interaction
 
-The intended product interaction is one **E-invoicing settings** area in the **customer's Sage product**, for the selected business or authorised accountant's client. Customers can review their current setup and request the following supported actions. The exact menu location, screen design and implementation remain to confirm with the product team. [SPEC037's settings overview](SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md#e-invoicing-settings-overview) is the primary home of the shared diagram.
+The intended product interaction is one **E-invoicing settings** area in the **business's or accountant's Sage product**, for the selected business or client. Customers may also enter through guided onboarding for initial or incomplete setup, where the product provides it. Both entry points follow the same business selection, setup review and action checks under ONB-01/10. Customers can review their current setup and request the following supported actions. The exact menu location, screen design and implementation remain to confirm with the product team. [SPEC037's settings overview](SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md#e-invoicing-settings-overview) is the primary home of the shared diagram.
 
 | Customer action in settings | Meaning | Specification responsibility |
 |---|---|---|
@@ -135,17 +135,17 @@ REF-ES-NIF supports the individual classes; REF-ES-ENTITY-NIF supports entity NI
 
 ### 3.1 In scope — Phases 1–3
 
-The customer and an authorised accountant use the same paths. Batch processing is optional.
+The customer and an authorised accountant use the same paths. Batch processing is optional. Scenarios can overlap: S03 identifies a retained provider, while S05 identifies existing Sage setup. [SPEC037 Figure 1 and its scenario-path column](SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md#3-master-feature-purpose-and-scope) map these situations to the shared journey; they are not exclusive branches.
 
 | ID | Customer situation | What Sage does | Phase |
 |---|---|---|---|
-| ONB-S01 | No existing setup | Offer supported choices and complete the selected setup. | 1–3 |
+| ONB-S01 | No existing setup | Offer supported choices and complete the selected setup. If the chosen private platform has no account, complete its required onboarding and connect to Sage under ONB-05. Starting platform use needs the separate ONB-07 decision where enabled. | 1–3 |
 | ONB-S02 | Already uses the public platform outside Sage | Check the access Sage needs; reuse valid evidence. | 1; reused in 2–3 |
-| ONB-S03 | Wants to keep a private provider | Link its account and add only missing Sage setup. | 2–3 |
+| ONB-S03 | Wants to keep a private provider | Connect its existing account to Sage, or reuse a valid Sage connection. Complete only missing or changed Sage setup. | 2–3 |
 | ONB-S04 | Uses public and private services | Check each requested function separately. Keep valid results when another check fails; enforce dependencies and one executor per invoice action. | 2–3 |
 | ONB-S05 | Already has Sage setup | Confirm unchanged setup, refresh expired evidence or add the requested function. | 1–3 |
-| ONB-S06 | Wants to change platform | Allow only an enabled, authorised change. Confirm when it takes effect and preserve access to earlier invoices. | 2–3; enabled changes only |
-| ONB-S07 | Already uses business-to-government invoicing (B2G) | Check business-to-business access separately; keep B2G setup intact. | 1–3 |
+| ONB-S06 | Wants to change platform | Confirm target access through the applicable public/private paths, reusing valid setup. Allow only an enabled, authorised change. Confirm when it takes effect and preserve access to earlier invoices. | 2–3; enabled changes only |
+| ONB-S07 | Already uses business-to-government invoicing (B2G) | Assess requested business-to-business functions through the applicable public/private paths; keep B2G setup intact. | 1–3 |
 | ONB-S08 | Provider/function is unsupported, or setup is unknown | State the limitation, missing information and owner. Do not force a provider change. | 1–3 |
 
 <a id="32-decisions-and-open-questions"></a>
@@ -182,7 +182,7 @@ Keep client data and permissions separate. Protect certificate keys and secrets.
 
 ### 6.1 ONB-01 Capture requested functions — Phases 1–3
 
-Save the business, requested setup and environment. Prefill valid information and ask only for missing or changed inputs. An unchanged repeated request returns its saved result; conflicting changes require review.
+From E-invoicing settings or guided onboarding, **Select the business or client**; use the product's existing selection where available. Run **Review current e-invoicing setup** under ONB-10 before **Choose the requested action**. Offer review of existing access, **Connect or add a platform** and **Switch platform** only where supported. An entry point may supply an initial intent; confirm it against the loaded setup before proceeding. Then save the business, requested functions and environment, and complete the applicable ONB-02/03 checks. Prefill valid information and ask only for missing or changed inputs. An unchanged repeated request returns its saved result; conflicting changes require review. User direction, 11 November 2026.
 
 <a id="62-onb-02-check-business-identity-and-authority"></a>
 
@@ -200,7 +200,9 @@ If approval is missing, ask an eligible person for the specific action. Changed,
 
 ### 6.4 ONB-10 Assess current setup — Phases 1–3
 
-Resolve the company's SXS dataset/client mapping before dataset-scoped credential lookup or access-point calls. Reuse the company mapping when adding a platform; apply the resource relationships decided under 039 GAP-01/02. Missing mapping follows the qualified channel/SXS setup process; an unavailable lookup remains pending. Compare existing public, private and Sage setup; check only missing, changed or expired items. Do not create another account to repair an unknown result.
+For **Review current e-invoicing setup**, verify the caller's permission to view the selected business or client. Resolve its SXS dataset/client mapping before dataset-scoped credential lookup or access-point calls. Load and show the permitted saved setup and credential references; do not expose secrets. Saved configuration does not prove readiness or authority for a later action. Reuse the company mapping when adding a platform; apply the resource relationships decided under 039 GAP-01/02. Missing mapping follows the qualified channel/SXS setup process; an unavailable lookup returns a pending result, next action and owner. Do not treat an unavailable lookup as evidence of missing setup or create another account to repair an unknown result.
+
+After ONB-01 captures the action, **Which platform setup applies?** selects the public and/or private paths for the requested functions. Reuse valid setup and matching current evidence in both paths; complete only missing, changed or expired items. Valid unchanged setup requires no new configuration or unnecessary external checks. This rule covers S05 within either path rather than a separate reuse branch. Keep results per function, preserve independent successful results and enforce dependencies before continuing affected work. Existing B2G setup remains unchanged when B2B functions are assessed. Both paths lead to ONB-07's platform-use decision.
 
 <a id="65-onb-03-assess-prerequisites"></a>
 
@@ -208,7 +210,11 @@ Resolve the company's SXS dataset/client mapping before dataset-scoped credentia
 
 ![Shared onboarding checks: company dataset, NIF, permission and any required credential](../../assets/diagrams/onboarding-shared-prerequisites-swimlane.svg)
 
+[Editable Draw.io — shared checks](../../assets/diagrams/onboarding-shared-prerequisites-swimlane.drawio) · [PNG preview](../../assets/diagrams/onboarding-shared-prerequisites-swimlane.png).
+
 Run these shared checks before public or private setup. The table explains [ONB-R17 — independent prerequisites](../archive/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#4-feature-wide-functional-requirements-and-rules). A NIF and an in-date certificate alone do not establish readiness.
+
+The ERP/product requests permitted current setup through its qualified SXS/API integration, shows that setup, and submits the customer's confirmed action for shared checks. The E-Invoice Service lane coordinates the checks; the Other Services lane provides the required identity and credential capabilities. The ERP shows the returned results and next actions. These are functional responsibilities; actual interface and service ownership remain qualified in [039 §3.1](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#31-shared-prerequisites).
 
 | Check | Required evidence for the selected business, action and environment | If the check does not pass |
 |---|---|---|
@@ -227,7 +233,11 @@ Acceptance uses [ONB-A25 / OFR-A20](../archive/onboarding/SPEC-SEI-019-customer-
 
 ![Public setup: checks, correction and unknown-result recovery](../../assets/diagrams/onboarding-public-setup-swimlane.svg)
 
+[Editable Draw.io — public setup](../../assets/diagrams/onboarding-public-setup-swimlane.drawio) · [PNG preview](../../assets/diagrams/onboarding-public-setup-swimlane.png).
+
 Return readiness only for the functions whose mandatory checks passed, including actual Sage support. Name any limitation and next action. The supplied public contracts contain no onboarding enrolment operation; do not invent one or send a test invoice. Web-form access does not prove automated access. SPFE-S03/S08/S16.
+
+The ERP loads applicable saved public setup, requests the public-access check and shows its scoped result. The Domain Service lanes retain coordination, supporting checks and saved findings. Corrections return through the product request; an unknown result follows ONB-08. This diagram returns public readiness to the request's common ONB-07 decision; it does not activate platform use within the access check. [039 §3.2](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#32-public-readiness) shows the corresponding interactions.
 
 If no qualified evidence can establish access for a requested function, keep that result unconfirmed and name the action owner. [039's WSDL assessment](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#spfe-wsdl-onboarding-boundary) records the operation evidence, limits and GAP-05/06 owners; [039 §5](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#5-acceptance-coverage) defines the contract-specific checks. This is a proposed readiness control, not an external onboarding contract.
 
@@ -237,7 +247,21 @@ If no qualified evidence can establish access for a requested function, keep tha
 
 ![Private setup: reuse the account, check access and separately approve route changes](../../assets/diagrams/onboarding-private-setup-swimlane.svg)
 
-The private path links the selected provider account and checks access. Keep valid accounts and credentials. Before a call that can redirect traffic, check permission and continued access to earlier invoices. Setup can finish without activating a route. REF-CONNECTIVITY.
+[Editable Draw.io — private setup](../../assets/diagrams/onboarding-private-setup-swimlane.drawio) · [PNG preview](../../assets/diagrams/onboarding-private-setup-swimlane.png).
+
+**Account on chosen private platform?** distinguishes the provider account from its Sage connection. An existing provider account does not prove that Sage is connected. Use of platform A does not prove an account exists on chosen platform B. Assess the chosen platform's account, including when a platform is new to Sage. User clarification, 11 November 2026.
+
+For an accountant, assess whether the platform account is valid for the selected client under the qualified provider model. Keep the represented client, acting accountant and account holder distinct. The firm's own account or client relationship alone cannot establish permission for that client. Do not assume that each client needs a separate provider account; shared account/client arrangements require provider contract and authority evidence under 039 GAP-01/02/03/08. Missing client approval follows ONB-12 before dependent work continues.
+
+| Condition on the chosen platform | Required behaviour |
+|---|---|
+| Customer already has an account | **Connect existing account to Sage**, or reuse its valid Sage connection. Complete only missing or changed Sage configuration; do not repeat provider account onboarding solely because Sage access is new. |
+| Customer has no account | **Complete provider onboarding, then connect**. Use the provider's qualified account-onboarding process or handoff, then complete its Sage configuration and connection. Do not assume Sage creates the account automatically or invent a provider API. |
+| Account status or required onboarding support is unconfirmed | Return the E result with missing evidence, next action and owner. Do not infer that an account is absent or create a duplicate. |
+
+Both account branches lead to **Confirm private access** under ONB-06. Each platform still requires its own Sage setup and readiness checks, even when a suitable certificate is reused. Add or update only missing or changed configuration; keep suitable credentials. [039 GAP-02/06/08](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-08) must qualify each provider's onboarding/connection path, completion evidence and responsible party before enablement. Before a call that can redirect invoice work, check permission and continued access to earlier invoices. Setup can finish without activating a route; ONB-07 owns that separate decision. REF-CONNECTIVITY.
+
+The ERP loads saved private setup. After the chosen platform account is confirmed, it submits only missing connection work and reads progress using the original request and returned references. The E-Invoice Service lane coordinates the chosen account path and access assessment; Other Services and the chosen platform retain their qualified supporting actions. If platform use is requested, the ERP submits the confirmed scope and start; otherwise it displays setup-only results. [039 §3.3](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#33-private-setup) and [§3.4](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#34-supported-change) show those interactions. The account decision's missing/unknown cases and shared reuse rule remain in ONB-05/10 above.
 
 For Phase 3, if Sage offers the private-platform service, first confirm the named legal operator, permitted interfaces, security and operations under [PRD-SEI-221](../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md). A customer connection does not establish operator eligibility. REF-OPERATOR.
 
@@ -245,17 +269,21 @@ For Phase 3, if Sage offers the private-platform service, first confirm the name
 
 ### 6.8 ONB-06 Prove private readiness — Phases 2–3
 
-Confirm provider access for each requested function. A saved connection alone is insufficient. Where a change affects receiving, confirm that the intended destination is reachable before activation.
+**Confirm private access** for each requested function; reuse matching current evidence under ONB-10. A saved connection alone is insufficient. Where a change affects receiving, confirm that the intended destination is reachable before activation.
 
 <a id="69-onb-07-cut-over-new-traffic"></a>
 
 ### 6.9 ONB-07 Cut over new traffic — Phases 2–3, enabled changes only
 
-For an enabled change, confirm permission, readiness and the effective start. Reject stale or competing changes. Do not reset unchanged setup because its historical start is unknown. ONB-R06/07/25.
+After the applicable public/private paths return their results, **Start or change platform use?** asks whether this action is part of the customer request. For **No — setup only**, return ONB-11 results. Keep any existing platform selection unchanged; if none exists, setup alone activates none. This exit applies after either or both platform paths, including valid unchanged setup.
+
+Where starting or changing use is requested and enabled, **Confirm the platform choice and start** for the agreed sending, receiving or combined scope. Confirm current permission, required readiness and the effective start. Failed dependencies block affected work. Reject stale or competing changes. **Start or change platform use** applies only the authorised selection from the agreed start; ONB-09 preserves earlier-invoice access. Technical specifications call this route activation or a routing change; it is separate from connection configuration. Do not reset unchanged setup because its historical start is unknown. ONB-R06/07/25.
 
 <a id="610-onb-08-reconcile-and-recover"></a>
 
 ### 6.10 ONB-08 Reconcile and recover — Phases 1–3
+
+Each **E** reference in SPEC037 Figure 1 leads to **Show pending result or limitation**. State the limitation or pending evidence, next action and owner. Stop dependent work, preserve independent successful results and resume only the affected step when resolved. The E references include unsupported choices, failed or pending checks and uncertain external results; they do not turn every limitation into a retry. ONB-10 distinguishes unavailable lookup from confirmed missing setup.
 
 | Problem | Required next action |
 |---|---|
@@ -287,7 +315,17 @@ For an accountant batch, save the client list before returning a receipt. Check 
 
 ## 7 Traceability and supporting artefacts — Phases 1–3
 
-The activities above define the journey. Use the existing sources for detailed checks rather than copying them into this view.
+The activities above define the journey. The existing swimlane names remain; wider gaps and taller lanes separate ERP and Domain Service handoffs. Main diagrams show the normal flow and required account/platform-use decisions. The tables below them retain correction, approval and unknown-result recovery rules without crossing loops. SPEC039's participants show interface boundaries rather than a different customer process or approved deployments.
+
+| ERP activity in these swimlanes | Functional IDs | Corresponding SPEC039 interactions |
+|---|---|---|
+| Request current setup; show current e-invoicing setup | ONB-01/10/11 | [Shared prerequisites](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#31-shared-prerequisites): product/SXS mapping and qualified API-02 setup discovery. |
+| Request shared checks; show shared check result | ONB-02/03/11 | [Shared prerequisites](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#31-shared-prerequisites): prerequisite request, identity/credential findings and next action. |
+| Load current public setup; request public access check | ONB-03/04/10/11 | [Public readiness](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#32-public-readiness): qualified API-01/02/04 discovery and the access-check request/result. |
+| Load current private setup; submit connection setup; read setup progress | ONB-05/06/10/11 | [Private setup](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#33-private-setup): API-02/03/04, existing-account reuse and the qualified new-account handoff. |
+| Submit confirmed platform use; show result and next action | ONB-07/09/11 | [Supported change](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#34-supported-change): confirmed scope/start, separate platform-use handoff and saved result. API-05 covers supported configuration edits, not activation. |
+
+Use the existing sources below for detailed checks rather than copying them into this view.
 
 | Detail | Existing source |
 |---|---|
@@ -306,7 +344,13 @@ This is separate from customer setup. Where Article 9 applies, the receiving ope
 
 ### Review and release gates — Phases 1–3
 
-Before enabling a path, demonstrate its main outcome, correction, unknown-result recovery and client isolation. For [platform setup with certificate reuse](#platform-onboarding-and-certificate-reuse), verify two platforms using the same suitable certificate: completion of the first setup must leave the second pending until its own checks pass; a failure in the second must show its next action without changing the first result solely because the certificate is shared. Also check that Spain rules do not change another country's behaviour. Close the applicable [existing release checks](../archive/SPEC-SEI-002-onboarding-solution-specification.md#2-review-and-release-gates) and [039 implementation questions](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#2-open-engineering-decisions). These are required checks, not tests already passed.
+Before enabling a path, demonstrate its main outcome, correction, unknown-result recovery and client isolation. For ONB-01/10, verify that an existing business selection is reused, current setup is shown before action confirmation, and an unavailable lookup returns a pending result without duplicate setup. Verify that an accountant cannot view another client's setup without permission and that saved configuration alone cannot pass readiness.
+
+Check the [SPEC037 scenario-path mapping](SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md#3-master-feature-purpose-and-scope) against S01–08: S05 can reuse unchanged setup or refresh/extend the affected functions through either platform path; S06 checks the target and still requires the separate platform-use decision even when target setup is already valid; S07 can assess public or private B2B access without changing B2G. For ONB-05, cover an existing provider account without a Sage connection, a valid existing Sage connection, no account on the chosen provider, and use of A without an account on B. Unknown account status or an unqualified onboarding path must return E without duplicate account creation; completed onboarding still needs independent ONB-06 access evidence. Test setup-only requests after each applicable path with an existing platform selection and with none. Neither case may activate or change platform use. For S04, retain independent successful results when another function fails; block its dependent work. For S08, show the E result without forcing a provider change or repeating an uncertain request.
+
+Repeat the private-account cases for an accountant onboarding one permitted client. Verify that the provider account covers that client, missing approval invokes ONB-12, and an unlinked client cannot be viewed or changed. The accountant's firm identity or own platform account must not silently replace the represented client. Batch processing is optional for one client; a client list applies ONB-13 isolation and current authority checks per client.
+
+For [platform setup with certificate reuse](#platform-onboarding-and-certificate-reuse), verify two platforms using the same suitable certificate: completion of the first setup must leave the second pending until its own checks pass; a failure in the second must show its next action without changing the first result solely because the certificate is shared. Also check that Spain rules do not change another country's behaviour. Close the applicable [existing release checks](../archive/SPEC-SEI-002-onboarding-solution-specification.md#2-review-and-release-gates) and [039 implementation questions](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#2-open-engineering-decisions). These are required checks, not tests already passed.
 
 <a id="ref-source-references"></a>
 

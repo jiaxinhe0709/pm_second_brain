@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-30
-updated: 2026-11-02
+updated: 2026-11-11
 reviewers: []
 related:
   - SPEC-SEI-016
@@ -35,7 +35,7 @@ Confluence views: [Summary](https://confluence.sage.com/pages/viewpage.action?pa
 
 ## Purpose and evidence
 
-**View is required for public and private platforms. SPFE user download is required; private user download is TBD.** SPEC026 §1 owns this decision. A private provider's source-file fetch can still be necessary for intake and viewing. It is separate from a user downloading a saved file. REF-SCOPE.
+**View and user download are required for all enabled public and private platforms, including the Sage offering.** SPEC026 §1 owns this decision. A private provider's source-file fetch can still be necessary for intake and viewing. It is separate from a user downloading a saved file. REF-SCOPE.
 
 This reference follows the [onboarding API analysis](../../onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md): existing calls, request/result fields, Spain changes and open evidence. SPEC027 owns RET-G01–10 and the reuse decisions. This page does not create another gate register.
 
@@ -58,7 +58,7 @@ The usual screen flow is **Query → select invoice → Retrieve → follow an a
 |---|---|---|---|
 | [RET-API-01 — Query e-invoices / list](#ret-api-01) | Supply invoices for the required public/private list view; recover missed notifications within qualified query coverage. | Inbound/source selection, business mapping and historical coverage. RET-G01/03. | SPEC026 §2; RSD-03; RRI-A04 |
 | [RET-API-02 — Retrieve e-invoice / detail](#ret-api-02) | Supply selected invoice information, status/history and file descriptors. | Public/private support, source identity and role mapping. Metadata alone is not a readable document. RET-G01/04/07. | SPEC026 §2; RSD-07; RCV-02 |
-| [RET-API-03 — Follow attachment link (file-transfer step)](#ret-api-03) | Obtain bytes using a link returned by Retrieve or Query; assess reuse for SPFE user download from saved files. | Prove that the link returns the selected captured file under current authority. Private user download remains TBD. RET-G04/05/10. | RSD-04/07; RRI-A05/08 |
+| [RET-API-03 — Follow attachment link (file-transfer step)](#ret-api-03) | Obtain bytes using a link returned by Retrieve or Query; assess reuse for public/private user download from saved files. | Prove that the link returns the selected captured file under current authority. Private download coverage also needs qualification. RET-G04/05/10. | RSD-04/07; RRI-A05/08 |
 | [RET-API-04 — Subscription/event](#ret-api-04) | Accelerate discovery where supported. Required view does not depend on webhook availability. | Selected source/environment, permissions, event contract and missed-event recovery. RET-G02/03. | PRI-02; RRI-A02/04/09 |
 | [RET-API-05 — Optional readable file](#ret-api-05) | Assess an optional readable representation. | Factur-X generation is not selected by the required view outcome. Spain need and existing rendering options remain RET-G08. | RRI-A06; RCV-I05 |
 
@@ -137,9 +137,9 @@ GET {shortLivedDownloadUrl}
 
 `200` returns bytes. The guide says the URL is short-lived and presigned; send **no `Authorization` header** to the file host. Capture bytes promptly. Do not retain the URL in durable records, logs or events. An expired link can return `403`; only confirmed expiry justifies reading detail again for a fresh link. Other refusals need their own cause/action.
 
-<span style="color:#1565C0;">For SPFE user download, reuse this call only if it returns the selected captured file with current actor/file permission, correct role and integrity. Preserve good files when a required file is missing. Keep ordinary saved reads independent of SPFE availability and downstream mapping/product receipt.</span>
+<span style="color:#1565C0;">For public/private user download, reuse this call only if it returns the selected captured file with current actor/file permission, correct role and integrity. Preserve good files when a required file is missing. Keep ordinary saved reads independent of source-platform availability and downstream mapping/product receipt.</span>
 
-<span style="color:#B42318;">The guide does not establish immutable attachment identity/version/hash, allowed host/redirect rules, byte-range resume, storage ownership or historical saved-read access. A presigned link alone does not close these gaps. Identify an existing records contract before proposing an endpoint extension. Private user download remains TBD; this does not prevent a qualified backend source fetch. RET-G04/05/10.</span>
+<span style="color:#B42318;">The guide does not establish immutable attachment identity/version/hash, allowed host/redirect rules, byte-range resume, storage ownership or historical saved-read access. A presigned link alone does not close these gaps. Identify an existing records contract before proposing an endpoint extension. Required user download and backend source-file acquisition need separate qualification. RET-G04/05/10.</span>
 
 <a id="ret-api-04"></a>
 
@@ -205,8 +205,8 @@ For recipient work, check representation separately from certificate validity. I
 | Capability / pattern | Reuse direction and local change | Owner / evidence gate |
 |---|---|---|
 | Public/private invoice view | Prefer existing E-Invoice list/detail and product display capabilities. Add only missing Spain source/role/freshness bindings. | API, Product, Identity: selected build/schema, authorised same-environment examples and historical-view coverage. RET-G01/03/05. |
-| SPFE user download | Prefer existing file/records capability. Prove that selected links return captured, labelled files under current authority. | Records, API, Security: actual build, saved-file binding, restore/history and access evidence. RET-G04/05. |
-| Private user download | **TBD:** do not turn a backend provider fetch or an existing France file endpoint into a product commitment. | Product/Compliance with Records and provider owners: decision and affected roles/use cases. RET-G10. |
+| Public/private user download | Prefer existing file/records capability. Prove that selected links return captured, labelled files under current authority. | Records, API, Security: actual build, saved-file binding, restore/history and access evidence. RET-G04/05. |
+| Private provider coverage | Prove required saved-file download for each enabled external provider and the Sage offering. A backend provider fetch alone does not establish user access. | Records, API and provider owners, with Product/Compliance: selected contracts/builds, file roles, permissions and failure recovery. RET-G10. |
 | Public collection | Reuse the shared capture/progress/recovery design, with the qualified Spain SOAP binding. Actual implementation reuse remains unknown. | Connector/API/Identity: current client build, missing business contracts, authority, partial results and recovery proof. RET-G06. |
 | Private intake | Prefer proven notification/fetch or supplied-file handling. Product-facing RET-API calls do not establish a provider-owned download contract. | Integration/provider: selected provider operation, bytes/role provenance, authority and acknowledgement/history. RET-G01/02/04. |
 | Inbound mapping / readable display | Assess existing DTS first for the required input/output pair and tax/extension meaning. Keep rendering as a separately qualified capability. | DTS, Format, Product: actual build, Spain UBL/profile mappings, fixtures, loss checks and run owner. RET-G07/08. |
@@ -217,7 +217,7 @@ No source establishes a new product view, freshness, refresh, saved-read or rend
 
 | REF ID | Original source / version | Exact location | Supported claims and limits |
 |---|---|---|---|
-| REF-SCOPE | [SPEC026](../SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#1-purpose-actors-and-boundary), draft, 30 October 2026 | Scope table; REF-SCOPE | Recorded user decision: public/private view required, SPFE user download required, private user download TBD. Not external legal evidence. |
+| REF-SCOPE | [SPEC026](../SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#1-purpose-actors-and-boundary), draft, user direction 11 November 2026 | Scope table; REF-SCOPE | Recorded user decision: public/private view and user download required. Not external legal evidence. |
 | REF-PRODUCT | [PRD211](../../../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md), draft, updated 20 October 2026; [PRD223](../../../prds/PRD-SEI-223-interoperability-routing-transformation.md), updated 7 October 2026 | PRD211 FR30–33/43–55; PRD223 FR17–20/43–44 | Public freshness, exact source capture, authorised access and distribution; shared receiving/DTS direction. Not a wire contract. |
 | INT-RCV01 | [Supplied receiving guide extract](<../../../context/FR API/Receiving/receive-e-invoice-guide-extract.md>), received 22 October 2026; revision/build unknown | Prerequisites; §§1–4; Polling, formats, and extracted data | Guide call paths, IDs, query limits, temporary-file and optional Factur-X flow. Original attachment hash retained. Reconcile with INT-RCV02/03; no source URL or Spain support established. |
 | INT-RCV02 | [Supplied Query e-invoices OpenAPI](<../../../context/FR API/Receiving/query-e-invoices.openapi.json>), OpenAPI 3.1.0, info.version 1.0.0; received 2 November 2026 | `GET /datasets/{datasetId}/e-invoices`; `parameters.filterQuery/pageAfter`; `GetInvoicesResponse`; `InvoicesResponse`; 200 example | Paginated list, nested documents, current status and file links. Example ID relationship is unresolved. No deployed build, exhaustive filter support, page-size/window limit or Spain readiness established. |

@@ -1,1 +1,210 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1660" viewBox="0 0 1400 1660" role="img" aria-label="Retrieve invoices: collect, view and download"><title>Retrieve invoices: collect, view and download</title><desc>View: public and private required. User download: SPFE required; private TBD.</desc><rect width="1400" height="1660" fill="white" /><text x="28" y="35" font-family="Arial, sans-serif" font-size="24" text-anchor="start" fill="#222222">Retrieve invoices: collect, view and download</text><text x="28" y="65" font-family="Arial, sans-serif" font-size="15" text-anchor="start" fill="#222222">View: public and private required. User download: SPFE required; private TBD.</text><text x="28" y="120" font-family="Arial, sans-serif" font-size="14" text-anchor="start" fill="#222222">Proposed design · Solid: main steps · Dashed: selected source or a requested view/download</text><text x="28" y="143" font-family="Arial, sans-serif" font-size="13" text-anchor="start" fill="#222222">Read top to bottom. Branches apply only to the selected source or required action.</text><path d="M 700,284 L 700,340" fill="none" stroke="#555555" stroke-width="1.8" /><path d="M 700,340 L 704.0,332.0 L 696.0,332.0 Z" fill="#555555" /><path d="M 700,444 L 700,480 L 360,480 L 360,540" fill="none" stroke="#555555" stroke-width="1.8" stroke-dasharray="6 4" /><path d="M 360,540 L 364.0,532.0 L 356.0,532.0 Z" fill="#555555" /><path d="M 700,444 L 700,480 L 1040,480 L 1040,540" fill="none" stroke="#555555" stroke-width="1.8" stroke-dasharray="6 4" /><path d="M 1040,540 L 1044.0,532.0 L 1036.0,532.0 Z" fill="#555555" /><path d="M 360,644 L 360,700 L 700,700 L 700,760" fill="none" stroke="#555555" stroke-width="1.8" /><path d="M 700,760 L 704.0,752.0 L 696.0,752.0 Z" fill="#555555" /><path d="M 1040,644 L 1040,700 L 700,700 L 700,760" fill="none" stroke="#555555" stroke-width="1.8" /><path d="M 700,760 L 704.0,752.0 L 696.0,752.0 Z" fill="#555555" /><path d="M 700,864 L 700,930" fill="none" stroke="#555555" stroke-width="1.8" /><path d="M 700,930 L 704.0,922.0 L 696.0,922.0 Z" fill="#555555" /><path d="M 700,1034 L 700,1160" fill="none" stroke="#555555" stroke-width="1.8" /><path d="M 700,1160 L 704.0,1152.0 L 696.0,1152.0 Z" fill="#555555" /><path d="M 460,982 L 220,982 L 220,1160" fill="none" stroke="#555555" stroke-width="1.8" /><path d="M 220,1160 L 224.0,1152.0 L 216.0,1152.0 Z" fill="#555555" /><path d="M 940,982 L 1180,982 L 1180,1160" fill="none" stroke="#555555" stroke-width="1.8" stroke-dasharray="6 4" /><path d="M 1180,1160 L 1184.0,1152.0 L 1176.0,1152.0 Z" fill="#555555" /><path d="M 700,1264 L 700,1340" fill="none" stroke="#555555" stroke-width="1.8" /><path d="M 700,1340 L 704.0,1332.0 L 696.0,1332.0 Z" fill="#555555" /><a href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md" aria-label="RSD-01 / PRI-01 Check company, source and permission"><title>Reuse existing onboarding setup</title><rect x="460" y="180" width="480" height="104" rx="8" fill="#e8e8e8" stroke="#333333" stroke-width="1.5" /><text x="700.0" y="206" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#222222">Check company, source and permission</text><text x="700.0" y="252" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#444444">Reuse existing onboarding setup</text><text x="700.0" y="272" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#555555">RSD-01 / PRI-01</text></a><a href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md" aria-label="RSD-03 / PRI-02 Which source supplied the item?"><title>Which source supplied the item?</title><path d="M 700.0,340 L 850,392.0 L 700.0,444 L 550,392.0 Z" fill="#e8e8e8" stroke="#333333" stroke-width="1.5" /><text x="700.0" y="382" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#222222">Which source supplied</text><text x="700.0" y="400" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#222222">the item?</text><text x="700.0" y="418" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#555555">RSD-03 / PRI-02</text></a><a href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md" aria-label="RSD-03 Find invoices by presentation date"><title>Public platform: automatic collection</title><rect x="120" y="540" width="480" height="104" rx="8" fill="#e8e8e8" stroke="#333333" stroke-width="1.5" /><text x="360.0" y="566" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#222222">Find invoices by presentation date</text><text x="360.0" y="612" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#444444">Public platform: automatic collection</text><text x="360.0" y="632" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#555555">RSD-03</text></a><a href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md" aria-label="PRI-02 Read private notification or supplied files"><title>A notification alone does not contain the invoice</title><rect x="800" y="540" width="480" height="104" rx="8" fill="#e8e8e8" stroke="#333333" stroke-width="1.5" /><text x="1040.0" y="566" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#222222">Read private notification or supplied files</text><text x="1040.0" y="612" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#444444">A notification alone does not contain the invoice</text><text x="1040.0" y="632" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#555555">PRI-02</text></a><a href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md" aria-label="RSD-03 / PRI-03 Obtain the required source files"><title>Download missing files; reuse complete supplied bytes</title><rect x="460" y="760" width="480" height="104" rx="8" fill="#e8e8e8" stroke="#333333" stroke-width="1.5" /><text x="700.0" y="786" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#222222">Obtain the required source files</text><text x="700.0" y="832" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#444444">Download missing files; reuse complete supplied bytes</text><text x="700.0" y="852" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#555555">RSD-03 / PRI-03</text></a><a href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md" aria-label="RSD-04/05 Verify and save files and item results"><title>Exact bytes, roles, hashes and receiving state</title><rect x="460" y="930" width="480" height="104" rx="8" fill="#e8e8e8" stroke="#333333" stroke-width="1.5" /><text x="700.0" y="956" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#222222">Verify and save files and item results</text><text x="700.0" y="1002" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#444444">Exact bytes, roles, hashes and receiving state</text><text x="700.0" y="1022" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#555555">RSD-04/05</text></a><a href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md" aria-label="RSD-06 / PRI-04 Save covered collection progress"><title>Only when every covered item is accounted for</title><rect x="40" y="1160" width="360" height="110" rx="42" fill="#ffffff" stroke="#333333" stroke-width="1.5" /><text x="220.0" y="1186" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#222222">Save covered collection progress</text><text x="220.0" y="1232" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#444444">Only when every covered item is accounted for</text><text x="220.0" y="1252" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#555555">RSD-06 / PRI-04</text></a><a href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md" aria-label="RCV-02–07 Check and map the invoice"><title>Recipient, safety, duplicates, profile and meaning</title><rect x="460" y="1160" width="480" height="104" rx="8" fill="#e8e8e8" stroke="#333333" stroke-width="1.5" /><text x="700.0" y="1186" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#222222">Check and map the invoice</text><text x="700.0" y="1232" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#444444">Recipient, safety, duplicates, profile and meaning</text><text x="700.0" y="1252" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#555555">RCV-02–07</text></a><a href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md" aria-label="RSD-07/09 View invoice or download a saved file"><title>Both views; SPFE download; private download TBD</title><rect x="1000" y="1160" width="360" height="104" rx="8" fill="#f6f6f6" stroke="#333333" stroke-width="1.5" stroke-dasharray="6 4" /><text x="1180.0" y="1186" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#222222">View invoice or download a saved file</text><text x="1180.0" y="1232" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#444444">Both views; SPFE download; private download TBD</text><text x="1180.0" y="1252" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#555555">RSD-07/09</text></a><a href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md" aria-label="RCV-07 Deliver once and confirm product receipt"><title>Keep pending delivery and who must act visible</title><rect x="460" y="1340" width="480" height="110" rx="42" fill="#ffffff" stroke="#333333" stroke-width="1.5" /><text x="700.0" y="1366" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#222222">Deliver once and confirm product receipt</text><text x="700.0" y="1412" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#444444">Keep pending delivery and who must act visible</text><text x="700.0" y="1432" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#555555">RCV-07</text></a><text x="160" y="520" font-family="Arial, sans-serif" font-size="13" text-anchor="start" fill="#222222">Public platform</text><text x="840" y="520" font-family="Arial, sans-serif" font-size="13" text-anchor="start" fill="#222222">Private platform</text><text x="28" y="1570" font-family="Arial, sans-serif" font-size="14" text-anchor="start" fill="#222222">A missing file or pending receiving handoff cannot complete collection progress. Partial capture keeps its recovery owner.</text><text x="28" y="1594" font-family="Arial, sans-serif" font-size="14" text-anchor="start" fill="#222222">Mapping or product failure preserves safe permitted view/download. Private user download remains a separate Product decision.</text><text x="28" y="1618" font-family="Arial, sans-serif" font-size="14" text-anchor="start" fill="#222222">Source acknowledgement uses its confirmed contract milestone. Buyer acceptance and payment reports belong to lifecycle.</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="Retrieve invoices: collect, view and download&#10;Keep original invoices and faithful copies clearly identified." width="1384" height="1864" viewBox="8 -8 1384 1864" role="img">
+  <title>Retrieve invoices: collect, view and download
+Keep original invoices and faithful copies clearly identified.</title>
+  <desc>Collect received invoices using existing onboarding access. Preserve each original or faithful copy with its source. The three Spain examples illustrate file roles; provider support remains unconfirmed.</desc>
+  <rect x="8" y="-8" width="1384" height="1864" fill="white" />
+  <g id="title">
+    <g fill="#000000" font-family="Helvetica" font-size="20.0" text-anchor="start">
+      <text x="30.0" y="45.5" fill="#000000" font-family="Arial" font-size="20.0" text-anchor="start">Retrieve invoices: collect, view and download</text>
+      <text x="30.0" y="69.5" fill="#000000" font-family="Arial" font-size="20.0" text-anchor="start">Keep original invoices and faithful copies clearly identified.</text>
+    </g>
+  </g>
+  <g id="legend">
+    <g fill="#000000" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="30.0" y="104.6" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">Proposed design · Solid: collection steps · Dashed: applicable source or requested view/download</text>
+    </g>
+  </g>
+  <g id="behaviour-legend">
+    <g fill="#000000" font-family="Helvetica" font-size="13.0" text-anchor="start">
+      <text x="30.0" y="132.2" fill="#000000" font-family="Arial" font-size="13.0" text-anchor="start">Read top to bottom. Both sources can apply to one invoice; link matching files before one product delivery.</text>
+    </g>
+  </g>
+  <a id="authority" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md">
+    <rect x="460.0" y="180.0" width="480.0" height="104.0" rx="10.4" fill="#F0EBFA" stroke="#333333" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="15.0" text-anchor="middle">
+      <text x="700.0" y="220.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Confirm access for the business or client</text>
+      <text x="700.0" y="238.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Reuse valid onboarding setup; check current permission</text>
+      <text x="700.0" y="256.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">RSD-01 / PRI-01</text>
+    </g>
+  </a>
+  <a id="source" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md">
+    <path d="M 700.0,340.0 L 850.0,392.0 L 700.0,444.0 L 550.0,392.0 Z" fill="#F0EBFA" stroke="#333333" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="15.0" text-anchor="middle">
+      <text x="700.0" y="380.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Which source applies?</text>
+      <text x="700.0" y="398.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle" />
+      <text x="700.0" y="416.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">RSD-03 / PRI-02</text>
+    </g>
+  </a>
+  <a id="public" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md">
+    <rect x="120.0" y="540.0" width="480.0" height="104.0" rx="10.4" fill="#F0EBFA" stroke="#333333" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="15.0" text-anchor="middle">
+      <text x="360.0" y="580.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Collect invoices from SPFE</text>
+      <text x="360.0" y="598.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Find by presentation date; pull files (no webhook)</text>
+      <text x="360.0" y="616.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">RSD-03</text>
+    </g>
+  </a>
+  <a id="private" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md">
+    <rect x="800.0" y="540.0" width="480.0" height="104.0" rx="10.4" fill="#F0EBFA" stroke="#333333" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="15.0" text-anchor="middle">
+      <text x="1040.0" y="580.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Collect invoices from the private platform</text>
+      <text x="1040.0" y="598.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Read a notification or use supplied files</text>
+      <text x="1040.0" y="616.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">PRI-02</text>
+    </g>
+  </a>
+  <a id="files" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md">
+    <rect x="460.0" y="760.0" width="480.0" height="104.0" rx="10.4" fill="#F0EBFA" stroke="#333333" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="15.0" text-anchor="middle">
+      <text x="700.0" y="800.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Obtain the required source files</text>
+      <text x="700.0" y="818.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Download missing files; reuse complete supplied files</text>
+      <text x="700.0" y="836.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">RSD-03 / PRI-03</text>
+    </g>
+  </a>
+  <a id="capture" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md">
+    <rect x="460.0" y="1120.0" width="480.0" height="104.0" rx="10.4" fill="#F0EBFA" stroke="#333333" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="15.0" text-anchor="middle">
+      <text x="700.0" y="1160.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Save the files and collection results</text>
+      <text x="700.0" y="1178.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Keep exact bytes, source, file role and receiving state</text>
+      <text x="700.0" y="1196.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">RSD-04/05</text>
+    </g>
+  </a>
+  <a id="progress" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md">
+    <rect x="40.0" y="1350.0" width="360.0" height="110.0" rx="44.0" fill="#F0EBFA" stroke="#333333" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="15.0" text-anchor="middle">
+      <text x="220.0" y="1393.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Save covered collection progress</text>
+      <text x="220.0" y="1411.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Only when every covered item is accounted for</text>
+      <text x="220.0" y="1429.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">RSD-06 / PRI-04</text>
+    </g>
+  </a>
+  <a id="process" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md">
+    <rect x="460.0" y="1350.0" width="480.0" height="104.0" rx="10.4" fill="#F0EBFA" stroke="#333333" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="15.0" text-anchor="middle">
+      <text x="700.0" y="1390.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Check and map the invoice</text>
+      <text x="700.0" y="1408.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Confirm recipient, safety, duplicates and business meaning</text>
+      <text x="700.0" y="1426.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">RCV-02–07</text>
+    </g>
+  </a>
+  <a id="savedread" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md">
+    <rect x="1000" y="1350" width="360" height="104" fill="#E6F4F1" /><path d="M 1000.0,1350.0 L 1003.0,1350.0 M 1006.0,1350.0 L 1009.0,1350.0 M 1012.0,1350.0 L 1015.0,1350.0 M 1018.0,1350.0 L 1021.0,1350.0 M 1024.0,1350.0 L 1027.0,1350.0 M 1030.0,1350.0 L 1033.0,1350.0 M 1036.0,1350.0 L 1039.0,1350.0 M 1042.0,1350.0 L 1045.0,1350.0 M 1048.0,1350.0 L 1051.0,1350.0 M 1054.0,1350.0 L 1057.0,1350.0 M 1060.0,1350.0 L 1063.0,1350.0 M 1066.0,1350.0 L 1069.0,1350.0 M 1072.0,1350.0 L 1075.0,1350.0 M 1078.0,1350.0 L 1081.0,1350.0 M 1084.0,1350.0 L 1087.0,1350.0 M 1090.0,1350.0 L 1093.0,1350.0 M 1096.0,1350.0 L 1099.0,1350.0 M 1102.0,1350.0 L 1105.0,1350.0 M 1108.0,1350.0 L 1111.0,1350.0 M 1114.0,1350.0 L 1117.0,1350.0 M 1120.0,1350.0 L 1123.0,1350.0 M 1126.0,1350.0 L 1129.0,1350.0 M 1132.0,1350.0 L 1135.0,1350.0 M 1138.0,1350.0 L 1141.0,1350.0 M 1144.0,1350.0 L 1147.0,1350.0 M 1150.0,1350.0 L 1153.0,1350.0 M 1156.0,1350.0 L 1159.0,1350.0 M 1162.0,1350.0 L 1165.0,1350.0 M 1168.0,1350.0 L 1171.0,1350.0 M 1174.0,1350.0 L 1177.0,1350.0 M 1180.0,1350.0 L 1183.0,1350.0 M 1186.0,1350.0 L 1189.0,1350.0 M 1192.0,1350.0 L 1195.0,1350.0 M 1198.0,1350.0 L 1201.0,1350.0 M 1204.0,1350.0 L 1207.0,1350.0 M 1210.0,1350.0 L 1213.0,1350.0 M 1216.0,1350.0 L 1219.0,1350.0 M 1222.0,1350.0 L 1225.0,1350.0 M 1228.0,1350.0 L 1231.0,1350.0 M 1234.0,1350.0 L 1237.0,1350.0 M 1240.0,1350.0 L 1243.0,1350.0 M 1246.0,1350.0 L 1249.0,1350.0 M 1252.0,1350.0 L 1255.0,1350.0 M 1258.0,1350.0 L 1261.0,1350.0 M 1264.0,1350.0 L 1267.0,1350.0 M 1270.0,1350.0 L 1273.0,1350.0 M 1276.0,1350.0 L 1279.0,1350.0 M 1282.0,1350.0 L 1285.0,1350.0 M 1288.0,1350.0 L 1291.0,1350.0 M 1294.0,1350.0 L 1297.0,1350.0 M 1300.0,1350.0 L 1303.0,1350.0 M 1306.0,1350.0 L 1309.0,1350.0 M 1312.0,1350.0 L 1315.0,1350.0 M 1318.0,1350.0 L 1321.0,1350.0 M 1324.0,1350.0 L 1327.0,1350.0 M 1330.0,1350.0 L 1333.0,1350.0 M 1336.0,1350.0 L 1339.0,1350.0 M 1342.0,1350.0 L 1345.0,1350.0 M 1348.0,1350.0 L 1351.0,1350.0 M 1354.0,1350.0 L 1357.0,1350.0 M 1360.0,1350.0 L 1360.0,1353.0 M 1360.0,1356.0 L 1360.0,1359.0 M 1360.0,1362.0 L 1360.0,1365.0 M 1360.0,1368.0 L 1360.0,1371.0 M 1360.0,1374.0 L 1360.0,1377.0 M 1360.0,1380.0 L 1360.0,1383.0 M 1360.0,1386.0 L 1360.0,1389.0 M 1360.0,1392.0 L 1360.0,1395.0 M 1360.0,1398.0 L 1360.0,1401.0 M 1360.0,1404.0 L 1360.0,1407.0 M 1360.0,1410.0 L 1360.0,1413.0 M 1360.0,1416.0 L 1360.0,1419.0 M 1360.0,1422.0 L 1360.0,1425.0 M 1360.0,1428.0 L 1360.0,1431.0 M 1360.0,1434.0 L 1360.0,1437.0 M 1360.0,1440.0 L 1360.0,1443.0 M 1360.0,1446.0 L 1360.0,1449.0 M 1360.0,1452.0 L 1360.0,1454.0 M 1360.0,1454.0 L 1357.0,1454.0 M 1354.0,1454.0 L 1351.0,1454.0 M 1348.0,1454.0 L 1345.0,1454.0 M 1342.0,1454.0 L 1339.0,1454.0 M 1336.0,1454.0 L 1333.0,1454.0 M 1330.0,1454.0 L 1327.0,1454.0 M 1324.0,1454.0 L 1321.0,1454.0 M 1318.0,1454.0 L 1315.0,1454.0 M 1312.0,1454.0 L 1309.0,1454.0 M 1306.0,1454.0 L 1303.0,1454.0 M 1300.0,1454.0 L 1297.0,1454.0 M 1294.0,1454.0 L 1291.0,1454.0 M 1288.0,1454.0 L 1285.0,1454.0 M 1282.0,1454.0 L 1279.0,1454.0 M 1276.0,1454.0 L 1273.0,1454.0 M 1270.0,1454.0 L 1267.0,1454.0 M 1264.0,1454.0 L 1261.0,1454.0 M 1258.0,1454.0 L 1255.0,1454.0 M 1252.0,1454.0 L 1249.0,1454.0 M 1246.0,1454.0 L 1243.0,1454.0 M 1240.0,1454.0 L 1237.0,1454.0 M 1234.0,1454.0 L 1231.0,1454.0 M 1228.0,1454.0 L 1225.0,1454.0 M 1222.0,1454.0 L 1219.0,1454.0 M 1216.0,1454.0 L 1213.0,1454.0 M 1210.0,1454.0 L 1207.0,1454.0 M 1204.0,1454.0 L 1201.0,1454.0 M 1198.0,1454.0 L 1195.0,1454.0 M 1192.0,1454.0 L 1189.0,1454.0 M 1186.0,1454.0 L 1183.0,1454.0 M 1180.0,1454.0 L 1177.0,1454.0 M 1174.0,1454.0 L 1171.0,1454.0 M 1168.0,1454.0 L 1165.0,1454.0 M 1162.0,1454.0 L 1159.0,1454.0 M 1156.0,1454.0 L 1153.0,1454.0 M 1150.0,1454.0 L 1147.0,1454.0 M 1144.0,1454.0 L 1141.0,1454.0 M 1138.0,1454.0 L 1135.0,1454.0 M 1132.0,1454.0 L 1129.0,1454.0 M 1126.0,1454.0 L 1123.0,1454.0 M 1120.0,1454.0 L 1117.0,1454.0 M 1114.0,1454.0 L 1111.0,1454.0 M 1108.0,1454.0 L 1105.0,1454.0 M 1102.0,1454.0 L 1099.0,1454.0 M 1096.0,1454.0 L 1093.0,1454.0 M 1090.0,1454.0 L 1087.0,1454.0 M 1084.0,1454.0 L 1081.0,1454.0 M 1078.0,1454.0 L 1075.0,1454.0 M 1072.0,1454.0 L 1069.0,1454.0 M 1066.0,1454.0 L 1063.0,1454.0 M 1060.0,1454.0 L 1057.0,1454.0 M 1054.0,1454.0 L 1051.0,1454.0 M 1048.0,1454.0 L 1045.0,1454.0 M 1042.0,1454.0 L 1039.0,1454.0 M 1036.0,1454.0 L 1033.0,1454.0 M 1030.0,1454.0 L 1027.0,1454.0 M 1024.0,1454.0 L 1021.0,1454.0 M 1018.0,1454.0 L 1015.0,1454.0 M 1012.0,1454.0 L 1009.0,1454.0 M 1006.0,1454.0 L 1003.0,1454.0 M 1000.0,1454.0 L 1000.0,1451.0 M 1000.0,1448.0 L 1000.0,1445.0 M 1000.0,1442.0 L 1000.0,1439.0 M 1000.0,1436.0 L 1000.0,1433.0 M 1000.0,1430.0 L 1000.0,1427.0 M 1000.0,1424.0 L 1000.0,1421.0 M 1000.0,1418.0 L 1000.0,1415.0 M 1000.0,1412.0 L 1000.0,1409.0 M 1000.0,1406.0 L 1000.0,1403.0 M 1000.0,1400.0 L 1000.0,1397.0 M 1000.0,1394.0 L 1000.0,1391.0 M 1000.0,1388.0 L 1000.0,1385.0 M 1000.0,1382.0 L 1000.0,1379.0 M 1000.0,1376.0 L 1000.0,1373.0 M 1000.0,1370.0 L 1000.0,1367.0 M 1000.0,1364.0 L 1000.0,1361.0 M 1000.0,1358.0 L 1000.0,1355.0 M 1000.0,1352.0 L 1000.0,1350.0" fill="#E6F4F1" stroke="#333333" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="15.0" text-anchor="middle">
+      <text x="1180.0" y="1390.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">View the invoice or download a saved file</text>
+      <text x="1180.0" y="1408.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Show original / faithful copy / derived file</text>
+      <text x="1180.0" y="1426.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">RSD-07/09</text>
+    </g>
+  </a>
+  <a id="product" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md">
+    <rect x="460.0" y="1530.0" width="480.0" height="110.0" rx="44.0" fill="#F0EBFA" stroke="#333333" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="15.0" text-anchor="middle">
+      <text x="700.0" y="1573.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Deliver once and confirm product receipt</text>
+      <text x="700.0" y="1591.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Show pending results, next action and owner</text>
+      <text x="700.0" y="1609.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">RCV-07</text>
+    </g>
+  </a>
+  <g id="edge-0">
+    <path d="M 700.0,284.0 L 700.0,340.0" fill="none" stroke="#555555" stroke-width="1" />
+    <path d="M 700.0,340.0 L 697.0,333.0 L 703.0,333.0 Z" fill="#555555" />
+  </g>
+  <g id="edge-1">
+    <path d="M 700.0,444.0 L 700.0,447.0 M 700.0,450.0 L 700.0,453.0 M 700.0,456.0 L 700.0,459.0 M 700.0,462.0 L 700.0,465.0 M 700.0,468.0 L 700.0,471.0 M 700.0,474.0 L 700.0,477.0 M 700.0,480.0 L 697.0,480.0 M 694.0,480.0 L 691.0,480.0 M 688.0,480.0 L 685.0,480.0 M 682.0,480.0 L 679.0,480.0 M 676.0,480.0 L 673.0,480.0 M 670.0,480.0 L 667.0,480.0 M 664.0,480.0 L 661.0,480.0 M 658.0,480.0 L 655.0,480.0 M 652.0,480.0 L 649.0,480.0 M 646.0,480.0 L 643.0,480.0 M 640.0,480.0 L 637.0,480.0 M 634.0,480.0 L 631.0,480.0 M 628.0,480.0 L 625.0,480.0 M 622.0,480.0 L 619.0,480.0 M 616.0,480.0 L 613.0,480.0 M 610.0,480.0 L 607.0,480.0 M 604.0,480.0 L 601.0,480.0 M 598.0,480.0 L 595.0,480.0 M 592.0,480.0 L 589.0,480.0 M 586.0,480.0 L 583.0,480.0 M 580.0,480.0 L 577.0,480.0 M 574.0,480.0 L 571.0,480.0 M 568.0,480.0 L 565.0,480.0 M 562.0,480.0 L 559.0,480.0 M 556.0,480.0 L 553.0,480.0 M 550.0,480.0 L 547.0,480.0 M 544.0,480.0 L 541.0,480.0 M 538.0,480.0 L 535.0,480.0 M 532.0,480.0 L 529.0,480.0 M 526.0,480.0 L 523.0,480.0 M 520.0,480.0 L 517.0,480.0 M 514.0,480.0 L 511.0,480.0 M 508.0,480.0 L 505.0,480.0 M 502.0,480.0 L 499.0,480.0 M 496.0,480.0 L 493.0,480.0 M 490.0,480.0 L 487.0,480.0 M 484.0,480.0 L 481.0,480.0 M 478.0,480.0 L 475.0,480.0 M 472.0,480.0 L 469.0,480.0 M 466.0,480.0 L 463.0,480.0 M 460.0,480.0 L 457.0,480.0 M 454.0,480.0 L 451.0,480.0 M 448.0,480.0 L 445.0,480.0 M 442.0,480.0 L 439.0,480.0 M 436.0,480.0 L 433.0,480.0 M 430.0,480.0 L 427.0,480.0 M 424.0,480.0 L 421.0,480.0 M 418.0,480.0 L 415.0,480.0 M 412.0,480.0 L 409.0,480.0 M 406.0,480.0 L 403.0,480.0 M 400.0,480.0 L 397.0,480.0 M 394.0,480.0 L 391.0,480.0 M 388.0,480.0 L 385.0,480.0 M 382.0,480.0 L 379.0,480.0 M 376.0,480.0 L 373.0,480.0 M 370.0,480.0 L 367.0,480.0 M 364.0,480.0 L 361.0,480.0 M 360.0,480.0 L 360.0,483.0 M 360.0,486.0 L 360.0,489.0 M 360.0,492.0 L 360.0,495.0 M 360.0,498.0 L 360.0,501.0 M 360.0,504.0 L 360.0,507.0 M 360.0,510.0 L 360.0,513.0 M 360.0,516.0 L 360.0,519.0 M 360.0,522.0 L 360.0,525.0 M 360.0,528.0 L 360.0,531.0 M 360.0,534.0 L 360.0,537.0" fill="none" stroke="#555555" stroke-width="1" />
+    <path d="M 360.0,540.0 L 357.0,533.0 L 363.0,533.0 Z" fill="#555555" />
+  </g>
+  <g id="edge-label-1">
+    <g fill="#000000" font-family="Helvetica" font-size="13.0" text-anchor="start">
+      <text x="162.0" y="520.2" fill="#000000" font-family="Arial" font-size="13.0" text-anchor="start">Public platform</text>
+    </g>
+  </g>
+  <g id="edge-2">
+    <path d="M 700.0,444.0 L 700.0,447.0 M 700.0,450.0 L 700.0,453.0 M 700.0,456.0 L 700.0,459.0 M 700.0,462.0 L 700.0,465.0 M 700.0,468.0 L 700.0,471.0 M 700.0,474.0 L 700.0,477.0 M 700.0,480.0 L 703.0,480.0 M 706.0,480.0 L 709.0,480.0 M 712.0,480.0 L 715.0,480.0 M 718.0,480.0 L 721.0,480.0 M 724.0,480.0 L 727.0,480.0 M 730.0,480.0 L 733.0,480.0 M 736.0,480.0 L 739.0,480.0 M 742.0,480.0 L 745.0,480.0 M 748.0,480.0 L 751.0,480.0 M 754.0,480.0 L 757.0,480.0 M 760.0,480.0 L 763.0,480.0 M 766.0,480.0 L 769.0,480.0 M 772.0,480.0 L 775.0,480.0 M 778.0,480.0 L 781.0,480.0 M 784.0,480.0 L 787.0,480.0 M 790.0,480.0 L 793.0,480.0 M 796.0,480.0 L 799.0,480.0 M 802.0,480.0 L 805.0,480.0 M 808.0,480.0 L 811.0,480.0 M 814.0,480.0 L 817.0,480.0 M 820.0,480.0 L 823.0,480.0 M 826.0,480.0 L 829.0,480.0 M 832.0,480.0 L 835.0,480.0 M 838.0,480.0 L 841.0,480.0 M 844.0,480.0 L 847.0,480.0 M 850.0,480.0 L 853.0,480.0 M 856.0,480.0 L 859.0,480.0 M 862.0,480.0 L 865.0,480.0 M 868.0,480.0 L 871.0,480.0 M 874.0,480.0 L 877.0,480.0 M 880.0,480.0 L 883.0,480.0 M 886.0,480.0 L 889.0,480.0 M 892.0,480.0 L 895.0,480.0 M 898.0,480.0 L 901.0,480.0 M 904.0,480.0 L 907.0,480.0 M 910.0,480.0 L 913.0,480.0 M 916.0,480.0 L 919.0,480.0 M 922.0,480.0 L 925.0,480.0 M 928.0,480.0 L 931.0,480.0 M 934.0,480.0 L 937.0,480.0 M 940.0,480.0 L 943.0,480.0 M 946.0,480.0 L 949.0,480.0 M 952.0,480.0 L 955.0,480.0 M 958.0,480.0 L 961.0,480.0 M 964.0,480.0 L 967.0,480.0 M 970.0,480.0 L 973.0,480.0 M 976.0,480.0 L 979.0,480.0 M 982.0,480.0 L 985.0,480.0 M 988.0,480.0 L 991.0,480.0 M 994.0,480.0 L 997.0,480.0 M 1000.0,480.0 L 1003.0,480.0 M 1006.0,480.0 L 1009.0,480.0 M 1012.0,480.0 L 1015.0,480.0 M 1018.0,480.0 L 1021.0,480.0 M 1024.0,480.0 L 1027.0,480.0 M 1030.0,480.0 L 1033.0,480.0 M 1036.0,480.0 L 1039.0,480.0 M 1040.0,480.0 L 1040.0,483.0 M 1040.0,486.0 L 1040.0,489.0 M 1040.0,492.0 L 1040.0,495.0 M 1040.0,498.0 L 1040.0,501.0 M 1040.0,504.0 L 1040.0,507.0 M 1040.0,510.0 L 1040.0,513.0 M 1040.0,516.0 L 1040.0,519.0 M 1040.0,522.0 L 1040.0,525.0 M 1040.0,528.0 L 1040.0,531.0 M 1040.0,534.0 L 1040.0,537.0" fill="none" stroke="#555555" stroke-width="1" />
+    <path d="M 1040.0,540.0 L 1037.0,533.0 L 1043.0,533.0 Z" fill="#555555" />
+  </g>
+  <g id="edge-label-2">
+    <g fill="#000000" font-family="Helvetica" font-size="13.0" text-anchor="start">
+      <text x="842.0" y="520.2" fill="#000000" font-family="Arial" font-size="13.0" text-anchor="start">Private platform</text>
+    </g>
+  </g>
+  <g id="edge-3">
+    <path d="M 360.0,644.0 L 360.0,700.0 L 700.0,700.0 L 700.0,760.0" fill="none" stroke="#555555" stroke-width="1" />
+    <path d="M 700.0,760.0 L 697.0,753.0 L 703.0,753.0 Z" fill="#555555" />
+  </g>
+  <g id="edge-4">
+    <path d="M 1040.0,644.0 L 1040.0,700.0 L 700.0,700.0 L 700.0,760.0" fill="none" stroke="#555555" stroke-width="1" />
+    <path d="M 700.0,760.0 L 697.0,753.0 L 703.0,753.0 Z" fill="#555555" />
+  </g>
+  <g id="edge-5">
+    <path d="M 700.0,864.0 L 700.0,930.0" fill="none" stroke="#555555" stroke-width="1" />
+    <path d="M 700.0,930.0 L 697.0,923.0 L 703.0,923.0 Z" fill="#555555" />
+  </g>
+  <g id="edge-6">
+    <path d="M 700.0,1224.0 L 700.0,1350.0" fill="none" stroke="#555555" stroke-width="1" />
+    <path d="M 700.0,1350.0 L 697.0,1343.0 L 703.0,1343.0 Z" fill="#555555" />
+  </g>
+  <g id="edge-7">
+    <path d="M 460.0,1172.0 L 220.0,1172.0 L 220.0,1350.0" fill="none" stroke="#555555" stroke-width="1" />
+    <path d="M 220.0,1350.0 L 217.0,1343.0 L 223.0,1343.0 Z" fill="#555555" />
+  </g>
+  <g id="edge-8">
+    <path d="M 940.0,1172.0 L 943.0,1172.0 M 946.0,1172.0 L 949.0,1172.0 M 952.0,1172.0 L 955.0,1172.0 M 958.0,1172.0 L 961.0,1172.0 M 964.0,1172.0 L 967.0,1172.0 M 970.0,1172.0 L 973.0,1172.0 M 976.0,1172.0 L 979.0,1172.0 M 982.0,1172.0 L 985.0,1172.0 M 988.0,1172.0 L 991.0,1172.0 M 994.0,1172.0 L 997.0,1172.0 M 1000.0,1172.0 L 1003.0,1172.0 M 1006.0,1172.0 L 1009.0,1172.0 M 1012.0,1172.0 L 1015.0,1172.0 M 1018.0,1172.0 L 1021.0,1172.0 M 1024.0,1172.0 L 1027.0,1172.0 M 1030.0,1172.0 L 1033.0,1172.0 M 1036.0,1172.0 L 1039.0,1172.0 M 1042.0,1172.0 L 1045.0,1172.0 M 1048.0,1172.0 L 1051.0,1172.0 M 1054.0,1172.0 L 1057.0,1172.0 M 1060.0,1172.0 L 1063.0,1172.0 M 1066.0,1172.0 L 1069.0,1172.0 M 1072.0,1172.0 L 1075.0,1172.0 M 1078.0,1172.0 L 1081.0,1172.0 M 1084.0,1172.0 L 1087.0,1172.0 M 1090.0,1172.0 L 1093.0,1172.0 M 1096.0,1172.0 L 1099.0,1172.0 M 1102.0,1172.0 L 1105.0,1172.0 M 1108.0,1172.0 L 1111.0,1172.0 M 1114.0,1172.0 L 1117.0,1172.0 M 1120.0,1172.0 L 1123.0,1172.0 M 1126.0,1172.0 L 1129.0,1172.0 M 1132.0,1172.0 L 1135.0,1172.0 M 1138.0,1172.0 L 1141.0,1172.0 M 1144.0,1172.0 L 1147.0,1172.0 M 1150.0,1172.0 L 1153.0,1172.0 M 1156.0,1172.0 L 1159.0,1172.0 M 1162.0,1172.0 L 1165.0,1172.0 M 1168.0,1172.0 L 1171.0,1172.0 M 1174.0,1172.0 L 1177.0,1172.0 M 1180.0,1172.0 L 1180.0,1175.0 M 1180.0,1178.0 L 1180.0,1181.0 M 1180.0,1184.0 L 1180.0,1187.0 M 1180.0,1190.0 L 1180.0,1193.0 M 1180.0,1196.0 L 1180.0,1199.0 M 1180.0,1202.0 L 1180.0,1205.0 M 1180.0,1208.0 L 1180.0,1211.0 M 1180.0,1214.0 L 1180.0,1217.0 M 1180.0,1220.0 L 1180.0,1223.0 M 1180.0,1226.0 L 1180.0,1229.0 M 1180.0,1232.0 L 1180.0,1235.0 M 1180.0,1238.0 L 1180.0,1241.0 M 1180.0,1244.0 L 1180.0,1247.0 M 1180.0,1250.0 L 1180.0,1253.0 M 1180.0,1256.0 L 1180.0,1259.0 M 1180.0,1262.0 L 1180.0,1265.0 M 1180.0,1268.0 L 1180.0,1271.0 M 1180.0,1274.0 L 1180.0,1277.0 M 1180.0,1280.0 L 1180.0,1283.0 M 1180.0,1286.0 L 1180.0,1289.0 M 1180.0,1292.0 L 1180.0,1295.0 M 1180.0,1298.0 L 1180.0,1301.0 M 1180.0,1304.0 L 1180.0,1307.0 M 1180.0,1310.0 L 1180.0,1313.0 M 1180.0,1316.0 L 1180.0,1319.0 M 1180.0,1322.0 L 1180.0,1325.0 M 1180.0,1328.0 L 1180.0,1331.0 M 1180.0,1334.0 L 1180.0,1337.0 M 1180.0,1340.0 L 1180.0,1343.0 M 1180.0,1346.0 L 1180.0,1349.0" fill="none" stroke="#555555" stroke-width="1" />
+    <path d="M 1180.0,1350.0 L 1177.0,1343.0 L 1183.0,1343.0 Z" fill="#555555" />
+  </g>
+  <g id="edge-9">
+    <path d="M 700.0,1454.0 L 700.0,1530.0" fill="none" stroke="#555555" stroke-width="1" />
+    <path d="M 700.0,1530.0 L 697.0,1523.0 L 703.0,1523.0 Z" fill="#555555" />
+  </g>
+  <g id="boundary">
+    <g fill="#000000" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="30.0" y="1768.4" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">View and user download: required for public and private platforms. File labels keep original, faithful copy and derived roles separate.</text>
+      <text x="30.0" y="1785.2" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">A missing file or pending receiving handoff keeps collection progress incomplete. Show the next action and owner.</text>
+      <text x="30.0" y="1802.0" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">Mapping or product failure preserves safe permitted access. Source acknowledgement and buyer acceptance keep separate results.</text>
+      <text x="30.0" y="1818.8" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">Spain examples explain file roles only. Retrieval does not send invoices, select destinations or trigger public fallback.</text>
+    </g>
+  </g>
+  <a id="role" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios">
+    <rect x="460.0" y="930.0" width="480.0" height="104.0" rx="10.4" fill="#F0EBFA" stroke="#333333" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="15.0" text-anchor="middle">
+      <text x="700.0" y="970.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Identify the original or faithful copy</text>
+      <text x="700.0" y="988.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">Check the copy indicator and exchange evidence</text>
+      <text x="700.0" y="1006.0" fill="#000000" font-family="Arial" font-size="15.0" text-anchor="middle">RSD-04 / RCV-SPFE-R02</text>
+    </g>
+  </a>
+  <g id="edge-role-capture">
+    <path d="M 700.0,1034.0 L 700.0,1120.0" fill="none" stroke="#555555" stroke-width="1" />
+    <path d="M 700.0,1120.0 L 697.0,1113.0 L 703.0,1113.0 Z" fill="#555555" />
+  </g>
+  <a id="example-public-private" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios">
+    <rect x="40.0" y="760.0" width="360.0" height="166.0" rx="16.6" fill="#fafafa" stroke="#999999" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="52.0" y="806.6" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">SPFE → B2B Router</text>
+      <text x="52.0" y="823.4" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">Original from B2B Router.*</text>
+      <text x="52.0" y="840.1999999999999" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">SPFE handles issuance or exchange:</text>
+      <text x="52.0" y="856.9999999999999" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">no separate faithful copy.</text>
+      <text x="52.0" y="873.7999999999998" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">*Route support to confirm.</text>
+      <text x="52.0" y="890.5999999999998" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">SPFE-S02 Art. 3(4)</text>
+    </g>
+  </a>
+  <a id="example-private-private" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios">
+    <rect x="1000.0" y="760.0" width="360.0" height="166.0" rx="16.6" fill="#fafafa" stroke="#999999" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="1012.0" y="806.6" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">Zerocoma → SOVOS (private exchange)</text>
+      <text x="1012.0" y="823.4" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">Original from SOVOS.*</text>
+      <text x="1012.0" y="840.1999999999999" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">Faithful copy from SPFE.</text>
+      <text x="1012.0" y="856.9999999999999" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">Link both to one business invoice.</text>
+      <text x="1012.0" y="873.7999999999998" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">*Route support to confirm.</text>
+      <text x="1012.0" y="890.5999999999998" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">SPFE-S02 Arts. 4, 5(5)</text>
+    </g>
+  </a>
+  <a id="example-public-route" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios">
+    <rect x="40.0" y="958.0" width="360.0" height="166.0" rx="16.6" fill="#fafafa" stroke="#999999" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="52.0" y="1004.6" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">Selected public route → SPFE</text>
+      <text x="52.0" y="1021.4" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">Original from SPFE; no faithful copy.</text>
+      <text x="52.0" y="1038.2" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">Sending resolves the destination first.</text>
+      <text x="52.0" y="1055.0" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">Failed lookup or unclear recipient:</text>
+      <text x="52.0" y="1071.8" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">keep pending; do not reroute at retrieval.</text>
+      <text x="52.0" y="1088.6" fill="#000000" font-family="Arial" font-size="14.0" text-anchor="start">SPEC023 OUT-09; SPFE-S02 Art. 3(4)</text>
+    </g>
+  </a>
+  <g id="activity-colours">
+    <g fill="#000000" font-family="Helvetica" font-size="13.0" text-anchor="start">
+      <text x="30.0" y="162.2" fill="#000000" font-family="Arial" font-size="13.0" text-anchor="start">Light teal: Customer settings · Light purple: Setup and checks · Grey notes: Spain examples; provider support unconfirmed</text>
+    </g>
+  </g>
+</svg>

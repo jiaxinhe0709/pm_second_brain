@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: 2026-11-10
+updated: 2026-11-11
 reviewers: []
 related:
 - SPEC-SEI-038
@@ -65,11 +65,11 @@ This view combines SPEC-SEI-018 onboarding and SPEC-SEI-034 connection setup. It
 
 **Product precondition:** integrate SXS and Tax certificate management before enabling e-invoicing; see the [shared rule in 038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#4-feature-wide-functional-requirements-and-rules).
 
-**Read next:** [SPEC038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md) explains behaviour and exceptions; [SPEC039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md) gives calls, examples, reuse recommendations and required changes. These drafts do not prove production support.
+**Read next:** [SPEC038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md) explains behaviour, ERP/Domain Service handoffs and exceptions; its [§7 mapping](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#7-traceability-and-supporting-artefacts) links those functional actions to the sequences in [SPEC039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md). SPEC039 gives calls, reuse recommendations and required changes; 040 holds API examples. These drafts do not prove production support.
 
 ### E-invoicing settings — overview
 
-The intended settings area lives in the **customer's Sage product**, for the selected business or an accountant's selected client. The exact menu location and screen design remain to agree with the product team.
+The intended settings area lives in the **business's Sage product** or the **accountant's Sage product**, for the selected business or client. Guided onboarding, where provided, uses the same setup journey; see [SPEC038 §1 — entry points](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#1-purpose-and-authority). The exact menu location and screen design remain to agree with the product team.
 
 ![Manage e-invoicing from settings with connect, switch and disconnect actions](../../assets/diagrams/e-invoicing-settings-actions.svg)
 
@@ -88,23 +88,25 @@ Use the [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md).
 | Represented business | The business being set up, including an accountant's client. |
 | Authority | Permission for this action and business. Login, a client relationship or a certificate alone is insufficient. |
 | Readiness | Sage has the required access for the selected function, caller, business and environment. |
-| Activation | Separately authorised use of the selected route for specified future invoice work. A connection is not activation. |
+| Activation | Start or change platform use for an agreed invoice scope and start time. Technical specifications call this route activation; setup alone does not activate it. |
 | Recovery | Check what happened to an earlier request before correcting or repeating it. |
 
 <a id="3-master-feature-purpose-and-scope"></a>
 
 ## 3 Master Feature purpose and scope — Phases 1–3
 
-| Scenario | Customer situation | Setup outcome | Phase |
-|---|---|---|---|
-| ONB-S01 | New setup | Choose a supported option and complete its required checks. | 1–3 |
-| ONB-S02 | Already uses the public service | Check Sage access; do not assume new public registration. | 1; reused in 2–3 |
-| ONB-S03 | Keeps a private provider | Link its account and add only missing Sage setup. | 2–3 |
-| ONB-S04 | Uses public and private services | Check selected functions separately; preserve valid results and required dependencies. | 2–3 |
-| ONB-S05 | Reviews or extends Sage setup | Keep unchanged setup or add only the requested functions. | 1–3 |
-| ONB-S06 | Requests a platform change | Permit only enabled, authorised changes; preserve earlier invoices. | 2–3; enabled changes only |
-| ONB-S07 | Already uses B2G | Assess B2B separately and retain B2G setup. | 1–3 |
-| ONB-S08 | Unsupported or unknown setup | Explain the limitation, missing evidence and action owner. | 1–3 |
+| Scenario | Customer situation | Setup outcome | Figure 1 path | Phase |
+|---|---|---|---|---|
+| ONB-S01 | New setup | Complete the selected setup; for a private platform with no account, complete its required onboarding and connect to Sage. Starting platform use remains separate. | Selected public/private path; new-account branch where needed; platform-use decision. | 1–3 |
+| ONB-S02 | Already uses the public service | Check Sage access; do not assume new public registration. | Public access path. | 1; reused in 2–3 |
+| ONB-S03 | Keeps a private provider | Connect its existing account to Sage, or reuse a valid Sage connection; complete missing setup. | Private existing-account branch, then access confirmation. | 2–3 |
+| ONB-S04 | Uses public and private services | Keep function results separate; preserve valid results and enforce dependencies. | Both platform paths. | 2–3 |
+| ONB-S05 | Reviews or extends Sage setup | Reuse valid setup, refresh expired evidence or add the requested functions. | Applicable platform paths; no separate unchanged-setup branch. | 1–3 |
+| ONB-S06 | Requests a platform change | Confirm target access, apply only an enabled, authorised change and preserve earlier invoices. | Target public/private path; assess the chosen provider's account, then Yes at the platform-use decision. | 2–3; enabled changes only |
+| ONB-S07 | Already uses B2G | Assess requested B2B functions separately and retain B2G setup. | Applicable public/private B2B paths; B2G preservation rule. | 1–3 |
+| ONB-S08 | Unsupported or unknown setup | Explain the limitation or pending evidence, next action and owner; do not force a provider change. | E exception result from the affected step. | 1–3 |
+
+These scenarios can overlap. [SPEC038 — Scenario table](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#31-in-scope) owns their required behaviour. Figure 1 applies the relevant paths to the requested functions; a scenario ID does not select an exclusive branch.
 
 **Phase coverage:** **1 — SPFE public solution; 2 — external private providers; 3 — Sage private-platform offering.** Labels show analysis coverage, not delivery approval or confirmed API availability. REF-PHASE. Public checks remain relevant in Phases 2–3. Private A to Private B stays disabled. A customer may act directly or through an authorised accountant; one client needs no batch mode.
 
@@ -147,9 +149,19 @@ Pending checks, unknown effects and unanswered actions remain open. Rejection/wi
 
 ## 6 End to end workflow — Phases 1–3
 
-![Company onboarding: reuse the SXS dataset, complete the required public and private checks, and apply only an authorised requested routing change](../../assets/diagrams/onboarding-summary-scenario-selection-process.svg)
+The product integration precondition is a separate note above the customer flow. **Open E-invoicing settings or guided onboarding**, **Select the business or client**, **Review current e-invoicing setup**, then **Choose the requested action**. [SPEC038 — ONB-01](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#61-onb-01-capture-requested-functions) owns this interaction. [ONB-10](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup) defines the internal SXS lookup, permitted setup display and missing/unavailable mapping outcomes. Saved setup does not prove readiness.
 
-Figure 1. Phase 1 uses the public path; Phases 2–3 add the applicable private and enabled-change paths. The diagram does not select the Spain API resource model; see 039 GAP-02. Start after the product integrations in SPEC038 §4 are available. Reuse the company’s SXS dataset and complete only the required checks; public and private paths can both apply. Apply a routing change only when requested, enabled and authorised, with the target ready and the start agreed. Missing information, unknown results or unsupported choices return an action owner; keep successful results and existing B2G setup. [Draw.io](../../assets/diagrams/onboarding-summary-scenario-selection-process.drawio) · [PNG](../../assets/diagrams/onboarding-summary-scenario-selection-process.png). Scenarios and detailed behaviour remain in SPEC038.
+**Colour key:** light teal marks **Customer settings**, including guided onboarding screens, where the customer selects, reviews and sees results. Light purple marks **Setup and checks**, the onboarding/configuration work for the selected action. The product precondition stays neutral grey. These colours identify activity type; they do not indicate implementation, readiness or success. Both groups remain in one journey.
+
+![Company onboarding: select the business, review setup, confirm public or private access, then separately decide whether to start or change platform use; E marks exception results](../../assets/diagrams/onboarding-summary-scenario-selection-process.svg)
+
+Figure 1. **Which platform setup applies?** selects the public and/or private paths. Both reuse valid setup and evidence; complete only missing, changed or expired work under [ONB-10](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup). Their results lead to the same **Start or change platform use?** decision. **No — setup only** returns results without activating or changing any platform selection. **Yes** follows the enabled, authorised choice and agreed start under [ONB-07](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#69-onb-07-cut-over-new-traffic).
+
+The private path asks **Account on chosen private platform?** Existing accounts need a Sage connection or valid connection reuse; a new account needs provider onboarding and connection. Prior use of another provider does not answer that question. [ONB-05](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#67-onb-05-configure-private-choice) defines both cases and the evidence needed for the provider's onboarding process.
+
+An authorised accountant follows this same flow for the selected client. The platform account and authority must cover that client; the firm's own account is not a default substitute. Missing client approval follows [ONB-12](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#63-onb-12-coordinate-client-approval-and-evidence). A single client needs no batch; [ONB-13](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#613-onb-13-manage-portfolio-batch) adds isolated processing when a client list is requested.
+
+Each **E** reference leads to **Show pending result or limitation**, with recovery under [ONB-08](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#610-onb-08-reconcile-and-recover). Missing SXS mapping follows the qualified setup process; an unavailable lookup is not proof of missing setup. Failed dependencies block only affected work. Phase 1 covers public access; Phases 2–3 add private setup and enabled platform changes. The diagram does not select the Spain API resource model; see [039 GAP-02](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-02). [Draw.io](../../assets/diagrams/onboarding-summary-scenario-selection-process.drawio) · [PNG](../../assets/diagrams/onboarding-summary-scenario-selection-process.png).
 
 <a id="7-master-feature-lifecycle"></a>
 
@@ -157,9 +169,9 @@ Figure 1. Phase 1 uses the public path; Phases 2–3 add the applicable private 
 
 | Work | Activities / result | Phase |
 |---|---|---|
-| Select and inspect | ONB-01/02/10: capture the request, check identity/permission and reuse valid setup. | 1–3 |
+| Select and inspect | ONB-01/10/02: select the business, review current setup, choose the action, then check its identity/permission requirements. | 1–3 |
 | Check public access | ONB-03/04/11: check required access/certificate and return readiness or an action. | 1; reused in 2–3 |
-| Set up private access | ONB-05/06: reuse or connect the account and prove required access. ONB-07/09 separately controls an enabled route change and earlier access. | 2–3 |
+| Set up private access | ONB-05/06: reuse or complete setup and confirm access. ONB-07/09 separately controls starting or changing platform use and earlier access. | 2–3 |
 | Resolve missing or failed work | ONB-12 for approval; ONB-08 for correction/recovery. Resume the affected check. | 1–3 |
 | Process a client list | ONB-13: save a receipt, check clients independently and return only currently permitted progress. | 1–3; if batch requested |
 

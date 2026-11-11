@@ -26,49 +26,13 @@ def finish(path):
     return path
 
 def receiving():
-    n, e = flow.node, flow.edge
-    nodes = [
-        n('authority',0,0,'Check company, source and permission','RSD-01 / PRI-01','Reuse existing onboarding setup'),
-        n('source',0,0,'Which source supplied the item?','RSD-03 / PRI-02',kind='decision'),
-        n('public',0,0,'Find invoices by presentation date','RSD-03','Public platform: automatic collection'),
-        n('private',0,0,'Read private notification or supplied files','PRI-02','A notification alone does not contain the invoice'),
-        n('files',0,0,'Obtain the required source files','RSD-03 / PRI-03','Download missing files; reuse complete supplied bytes'),
-        n('capture',0,0,'Verify and save files and item results','RSD-04/05','Exact bytes, roles, hashes and receiving state'),
-        n('progress',0,0,'Save covered collection progress','RSD-06 / PRI-04','Only when every covered item is accounted for','outcome'),
-        n('process',0,0,'Check and map the invoice','RCV-02–07','Recipient, safety, duplicates, profile and meaning'),
-        n('savedread',0,0,'View invoice or download a saved file','RSD-07/09','Both views; SPFE download; private download TBD','conditional'),
-        n('product',0,0,'Deliver once and confirm product receipt','RCV-07','Keep pending delivery and who must act visible','outcome'),
-    ]
-    positions = {
-        'authority':(460,180,480,104), 'source':(550,340,300,104),
-        'public':(120,540,480,104), 'private':(800,540,480,104),
-        'files':(460,760,480,104), 'capture':(460,930,480,104),
-        'progress':(40,1160,360,110), 'process':(460,1160,480,104),
-        'savedread':(1000,1160,360,104), 'product':(460,1340,480,110),
-    }
-    edges = [
-        e('authority','source',points=[(700,284),(700,340)]),
-        e('source','public','conditional',[(700,444),(700,480),(360,480),(360,540)],'Public platform',(160,520)),
-        e('source','private','conditional',[(700,444),(700,480),(1040,480),(1040,540)],'Private platform',(840,520)),
-        e('public','files',points=[(360,644),(360,700),(700,700),(700,760)]),
-        e('private','files',points=[(1040,644),(1040,700),(700,700),(700,760)]),
-        e('files','capture',points=[(700,864),(700,930)]),
-        e('capture','process',points=[(700,1034),(700,1160)]),
-        e('capture','progress',points=[(460,982),(220,982),(220,1160)]),
-        e('capture','savedread','conditional',[(940,982),(1180,982),(1180,1160)]),
-        e('process','product',points=[(700,1264),(700,1340)]),
-    ]
-    return finish(flow.build('invoice-retrieval-overview-process',
-        'Retrieve invoices: collect, view and download',
-        'View: public and private required. User download: SPFE required; private TBD.',
-        nodes,edges,spec='../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md',
-        positions=positions,width=1400,height=1660,lanes=[],
-        legend='Solid: main steps · Dashed: selected source or a requested view/download',
-        boundaries=[
-            'A missing file or pending receiving handoff cannot complete collection progress. Partial capture keeps its recovery owner.',
-            'Mapping or product failure preserves safe permitted view/download. Private user download remains a separate Product decision.',
-            'Source acknowledgement uses its confirmed contract milestone. Buyer acceptance and payment reports belong to lifecycle.',
-        ]))
+    # Retrieval is edited in Draw.io; render it without replacing local source edits.
+    spec = importlib.util.spec_from_file_location(
+        'retrieval_preview', ROOT / 'work/build-invoice-retrieval-overview.py')
+    preview = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(preview)
+    return preview.build()
+
 
 def lifecycle():
     n,e=flow.node,flow.edge

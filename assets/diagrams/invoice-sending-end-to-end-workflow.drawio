@@ -112,6 +112,14 @@
             <mxPoint x="1736.26" y="650" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="connected-access-points-to-ready" edge="1" parent="1" source="connected-access-points" target="ready" style="edgeStyle=none;strokeColor=#555555;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <object label="Check connected access points&#xa;Available sending / receiving platforms" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#20-check-connected-access-points" id="connected-access-points">
+          <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
+            <mxGeometry height="150" width="310" x="385" y="145" as="geometry" />
+          </mxCell>
+        </object>
         <object label="Draft entry&#xa;Complete business invoice data&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="draft">
           <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
             <mxGeometry height="95" width="245" x="70.5" y="148" as="geometry" />

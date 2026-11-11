@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-10-30
+updated: 2026-11-11
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -78,6 +78,8 @@ Full setup belongs to [onboarding](../archive/onboarding/README.md). Creation, t
 
 ## 4 End-to-end workflow
 
+**Check connected access points:** the ERP discovers the customer's connected platforms and their qualified sending and receiving availability before offering a sender selection. [SPEC-SEI-023 OUT-00](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order) owns this check; [SPEC-SEI-024 §2.0](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#20-check-connected-access-points) assesses reuse of the onboarding API. A listed connection does not by itself establish readiness or activate a route.
+
 The plan distinguishes the sender connection from the recipient destination. For Spain, use the configured sender access point when the country contract permits omission and no explicit eligible selection is supplied. An explicit selection does not bypass recipient-routing eligibility. One invoice has one recipient-delivery route; configured access points do not cause fan-out. **Private delivery has a separate faithful public-copy action; public recipient delivery has no extra copy.** These Spain selection rules are Proposed pending API and routing qualification. The six-case public-route rule is recorded in [SPEC-SEI-023 OUT-09](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order). REF-LOGICAL; INT-SND02; SPFE-S02 Article 4.
 
 ![Single-invoice sending through private or public routes, with a separate faithful public copy and local-product PDF responsibility](../../assets/diagrams/invoice-sending-end-to-end-workflow.svg)
@@ -126,7 +128,7 @@ The business can see a separate known result or owned pending/unknown state for 
 | ID | Source / version and exact location | Supported claim and limit |
 |---|---|---|
 | REF-BASE | [SPEC-SEI-007](../archive/SPEC-SEI-007-invoice-sending-solution.md), updated 13 October 2026; Parts 1–4, OUT-Q01–03 | Predecessor design, IDs and open decisions; not implementation proof. |
-| REF-LOGICAL | [SPEC-SEI-023](SPEC-SEI-023-invoice-sending-logical-feature-specification.md), draft, updated 30 October 2026; sections 2–6, OUT-A01–24, OUT-SPFE-A01–04 and OUT-PDF-R01/02 | Authoritative scenario, activity and acceptance detail. The overview does not approve implementation or close open decisions. |
+| REF-LOGICAL | [SPEC-SEI-023](SPEC-SEI-023-invoice-sending-logical-feature-specification.md), draft, updated 11 November 2026; sections 2–6, OUT-00, OUT-A01–25, OUT-SPFE-A01–04 and OUT-PDF-R01/02 | Authoritative scenario, activity and acceptance detail. The overview does not approve implementation or close open decisions. |
 | REF-PRODUCT | [PRD-SEI-246](../../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md), 22 October 2026, Agreed business boundaries and transitional PDF product rule; [PRD-SEI-223](../../prds/PRD-SEI-223-interoperability-routing-transformation.md), BR1–14 and FR1–16; [PRD-SEI-212](../../prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md), scope; [PRD-SEI-227](../../prds/PRD-SEI-227-e-invoicing-as-a-service.md), country-pack governance | Canonical product sources, including user-recorded local-product PDF generation responsibility. Draft scope and unresolved source differences remain subject to their owners. |
 | PRD-SEI-101 | [Public Platform Onboarding PRD](../../prds/PRD-SEI-101-public-platform-onboarding.md), linked product topic “Seller NIF vs Buyer NIF/NIE” | Seller/buyer tax identity distinction and the NIF/NIE relationship. It does not establish that a NIF is a network routing address. |
 | RD238-T2 | [Original published RD 238/2026](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295), published 31 March 2026, checked 22 October 2026; transitional provision 2(1)–(2), final provision 4 | PDF transition and recipient-only delivery restriction. The product rule owns the scope detail; the law does not allocate a Sage generator or API. |

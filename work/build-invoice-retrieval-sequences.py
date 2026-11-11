@@ -36,7 +36,7 @@ def build():
     sequences = []
     s = renderer.Sequence('invoice-retrieval-fr-notification-sequence',
         'Receive an invoice: event, details and file',
-        'Existing source-capture pattern; private user download remains TBD',
+        'Existing source-capture pattern; saved-file access needs separate qualification',
         SPEC + '#21-existing-notifications-details-and-files',
         ['ERP / product', 'E-Invoice API', 'Events', 'File source', 'Records'])
     s.note('Start with the authorised company dataset and platform connection. Check the event source and client scope before using its invoice ID.', 'RSD-01; RET-G01/02')
@@ -74,7 +74,7 @@ def build():
 
     s = renderer.Sequence('invoice-retrieval-file-recovery-sequence',
         'Recover a file link or read a saved file',
-        'Required SPFE user download; private user download remains TBD',
+        'Required user download for public and private platforms',
         SPEC + '#23-expired-links-interrupted-capture-and-stored-file-access',
         ['ERP / product', 'E-Invoice API', 'File source', 'Records'])
     f = s.start_frame('case | Required file is missing; link expiry is confirmed')
@@ -85,7 +85,7 @@ def build():
     s.exchange(0, 3, 'Verify and save the missing file',
         'Saved receipt, or content conflict to resolve', '[Proposed] RSD-04; RET-G04/05')
     s.end_frame(f)
-    f = s.start_frame('case | SPFE customer requests an already saved file')
+    f = s.start_frame('case | Public or private customer requests a saved file')
     s.exchange(0, 3, 'Check current permission and read saved bytes',
         'Labelled file and audit result, or denial/incident', '[Proposed] RSD-07/09; no endpoint supplied')
     s.end_frame(f)
@@ -93,9 +93,9 @@ def build():
     sequences.append(s)
 
     s = renderer.Sequence('invoice-retrieval-view-download-sequence',
-        'View public or private invoices; download SPFE files',
-        'View: required for both sources. User download: SPFE required; private TBD.',
-        SPEC + '#24-required-view-and-spfe-user-download',
+        'View and download public or private invoices',
+        'View and user download are required for both sources.',
+        SPEC + '#24-required-view-and-user-download',
         ['ERP / product', 'E-Invoice API', 'File source / records'])
     s.note('Reuse the authorised business dataset. The grey calls are documented; their Spain applicability still needs qualification. Viewing is separate from buyer acceptance.', 'REF-SCOPE; RET-G01/03/05')
     s.exchange(0, 1, 'GET /datasets/{datasetId}/e-invoices',
@@ -103,12 +103,12 @@ def build():
     s.exchange(0, 1, 'GET /datasets/{datasetId}/e-invoices/{e-invoiceId}',
         'Invoice information, history and file descriptors', '[Existing] INT-RCV01 §3.1')
     s.note('The product displays permitted invoice content from qualified data or a readable file. Metadata alone does not complete the view. Qualify readable-file support and SPFE freshness.', 'RET-G05/07/08; RET-API-01/02')
-    f = s.start_frame('case | User downloads a captured SPFE file')
+    f = s.start_frame('case | User downloads a captured public or private file')
     s.exchange(0, 2, 'GET {downloadUrl} for the selected saved file',
         'Labelled bytes, or classified denial/integrity case', '[Spain] Reuse INT-RCV01 §4; saved binding RET-G04/05',
         response_source='[Proposed] RSD-07; RET-G04/05')
     s.end_frame(f)
-    s.note('Required SPFE download needs a proven saved-file binding and current permission. Private user download is TBD; required private view and backend source capture remain separate.', 'REF-SCOPE; RET-G04/05/10')
+    s.note('Public and private download need a proven saved-file binding and current permission. Preserve file roles. Provider source capture and user download need separate qualification.', 'REF-SCOPE; RET-G04/05/10')
     sequences.append(s)
     return [finish(s) for s in sequences]
 

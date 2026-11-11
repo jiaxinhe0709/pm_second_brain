@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-02
+updated: 2026-11-11
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -50,6 +50,7 @@ No breaking API change has been established. The rows below identify integration
 
 | Scope | Possible shared API or country/provider work | Product integration impact / gap |
 |---|---|---|
+| Customer platform discovery | Reuse onboarding connection reads for [OUT-00](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order); see §2.0. | ERP can show customer platforms before sender selection. Qualify separate sending and receiving availability; discovery does not activate a route. INT-AP07; SND-G09. |
 | Draft preparation and final handoff | Qualify complete-data intake, final identity/revision binding, approval and ERP issuance coordination. No physical methods/paths are evidenced. | A current file-upload integration may need additional preparation and issuance handoffs. Exact contract is open. SND-G01/06. |
 | Spain public recipient delivery / required copy | Bind public UBL profile, authority, original/copy purpose, transport and request/item results. Determine whether the existing API exposes these distinctions. | Retain separate delivery/copy results and actual issuance evidence. One generic submission/status cannot be assumed sufficient. SND-G02/05/06. |
 | Spain private platforms | Qualify provider access-point/address rules, format, trust and action outcome meanings. | Reuse create/upload/detail only for a supported Spain provider. Confirm which file is required and how failures return. SND-G02/03/05. |
@@ -63,6 +64,19 @@ An authorised accountant sends one invoice for one client through the same POST/
 
 The diagrams use <span style="color:#666666;">**grey — Existing**</span> for documented calls and <span style="color:#1565C0;">**blue — Proposed**</span> for Spain handoffs. <span style="color:#B42318;">**Red — Open, Assumption, Gap or Source conflict**</span> marks unresolved evidence or contracts. Read the text label beside each colour. Participants group responsibilities, not approved deployments. Requests use solid arrows; paired responses use dashed arrows. Grey bars show handling, not elapsed time. Colour does not establish Spain implementation support.
 
+### 2.0 Check connected access points
+
+This read step supports [SPEC-SEI-023 OUT-00](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order). It reuses onboarding operations before sending; it does not create a new Sending endpoint. The ERP uses the represented customer's authorised dataset and environment. INT-AP07.
+
+| Order / existing operation | Contract evidence and use |
+|---|---|
+| 1. `GET /datasets/{datasetId}/accesspoints` | Returns `200` with `data[]`: access-point `id`, `attributes.name`, `attributes.status` (`CONNECTED` or `DISCONNECTED`) and nullable `attributes.connectionId`. Keep access-point and connection IDs distinct. This is the customer's connection list; the general access-point catalogue alone does not establish a customer connection. See [SPEC-SEI-040 API-02](../onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-02). |
+| 2. `GET /connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/` | For a returned connection ID, read `accessPointAddresses[]`, including `status`, `errorCode`, `effectiveDate`, `endDate` and `usage`. These address-level facts inform availability for each direction; they are not a complete readiness decision. See [SPEC-SEI-040 API-04](../onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md#api-04). |
+
+**Existing contract limit:** the detail snapshot defines `usage: ["SEND"]` and `["EREPORTING"]`. It says null or omitted `usage` permits send, receive and e-reporting; there is no `RECEIVE` enum value. Preserve this documented France meaning. Neither the list's `CONNECTED` value nor unrestricted `usage` proves country/provider readiness. Do not invent a direction field in either response. INT-AP07.
+
+**Spain qualification — SND-G09:** Onboarding, API and Integration owners must confirm the selected build, dataset/platform mapping, direction rules, address validity and current readiness evidence before the ERP labels a platform available for sending or receiving. Public-platform discovery remains subject to onboarding's “SPFE use TBD” gate; no public enrolment API is established. Where the reads cannot establish availability, retain an unknown result and identify the missing evidence. Discovery does not relax the existing sender-selection limits in [SPEC-SEI-043 §1.1](api-reference/SPEC-SEI-043-invoice-sending-api-reference.md#1-1-accesspointid-selection-semantics).
+
 <a id="21-documented-fr-submission-and-observation"></a>
 
 ### 2.1 Documented current E-Invoice API submission and observation
@@ -71,7 +85,7 @@ The diagrams use <span style="color:#666666;">**grey — Existing**</span> for d
 
 [Editable Draw.io](../../assets/diagrams/invoice-sending-fr-submission-sequence.drawio) · [PNG](../../assets/diagrams/invoice-sending-fr-submission-sequence.png).
 
-Use only after current business/action authority, a qualified `CONNECTED` setup and an approved file manifest. `201` creates the Sage resource and upload references. PUT success confirms upload under its contract. The event can report processing success or `ERROR`; read details to establish the actual result. None of these facts alone proves buyer acceptance. INT-SND01 prerequisites and steps 1–5; OUT-A10/13/14.
+Use only after current business/action authority, a qualified `CONNECTED` setup and an approved file manifest. [§2.0](#20-check-connected-access-points) supplies the connection-discovery handoff. `201` creates the Sage resource and upload references. PUT success confirms upload under its contract. The event can report processing success or `ERROR`; read details to establish the actual result. None of these facts alone proves buyer acceptance. INT-SND01 prerequisites and steps 1–5; OUT-A10/13/14.
 
 ### 2.2 Spain final plan and independent actions
 
@@ -184,7 +198,7 @@ Each owner must record the source capability/build, retained behaviour, Spain ch
 | SND-G06 Business coordination | Exact-revision decisions, current client authority and ERP issue/copy proof. OUT-Q02 portfolio/accounting contracts remain separate optional scope; no bulk API is required for the single-invoice flow. | Product, ERP, Identity, Compliance, Architecture. |
 | SND-G07 Build and compatibility | Pin OpenAPI/event/schema versions, resolve snapshot/guide conflicts, correct confirmed contract defects, preserve France behaviour, and prove country isolation, monitoring/support, retention and measured capacity. Qualify retry budgets, stalled-work detection, escalation and evidence-backed case closure; no numerical targets are established here. | API owner, Architecture, Operations, Records. |
 | SND-G08 PDF recipient channel | Prove actual private attachment delivery or select a separate recipient channel; qualify per-action PDF exclusion, file/revision binding, applicability/exception evidence, timing, outcomes and recovery. Generation stays with the local product. | Local Product, API, Integration, Spain Compliance, Operations. |
-| SND-G09 Onboarding route handoff | <span style="color:#B42318;">**Open:** Onboarding must confirm this shared decision; onboarding specs are not edited here.</span> <span style="color:#666666;">**Existing:** A saved connection does not activate a route, Private A to Private B switching is disabled, and SPFE has no enrolment API (“SPFE use TBD”).</span> <span style="color:#1565C0;">**Proposed:** The customer administrator chooses the initial route (public or one private platform) for a dataset and sender address. An authorised route change is an onboarding operation with its own authority and effective date. Phase 2 per-invoice choice (option B) is limited to the active route or a ready public connection. Sending never activates or changes a route. Private platforms interconnect, so the sender's selected private platform can deliver to a recipient on another private platform; that does not establish per-invoice switching between the sender's private connections.</span> <span style="color:#B42318;">**Open:** Per-invoice use of another connected private platform.</span> | Onboarding; Product; Routing. |
+| SND-G09 Onboarding route handoff | Qualify OUT-00 connection discovery and separate sending/receiving availability under §2.0. <span style="color:#B42318;">**Open:** Onboarding must confirm this shared decision; onboarding specs are not edited here.</span> <span style="color:#666666;">**Existing:** A saved connection does not activate a route, Private A to Private B switching is disabled, and SPFE has no enrolment API (“SPFE use TBD”).</span> <span style="color:#1565C0;">**Proposed:** The customer administrator chooses the initial route (public or one private platform) for a dataset and sender address. An authorised route change is an onboarding operation with its own authority and effective date. Phase 2 per-invoice choice (option B) is limited to the active route or a ready public connection. Sending never activates or changes a route. Private platforms interconnect, so the sender's selected private platform can deliver to a recipient on another private platform; that does not establish per-invoice switching between the sender's private connections.</span> <span style="color:#B42318;">**Open:** Per-invoice use of another connected private platform.</span> | Onboarding; Product; Routing. |
 
 ## 5 API qualification checks
 
@@ -194,6 +208,7 @@ For **Replay and recovery** and **Notifications and results**, include the INT-E
 
 | Check / functional acceptance references | Evidence required before activation |
 |---|---|
+| Connected access-point discovery / OUT-A25 | Verify list/detail ID mapping, customer and environment isolation, and address-level status, dates and `usage`. Cover send-only and unrestricted usage under the selected country rules, unknown readiness, no connections, failed/stale reads and setup changes after discovery. Confirm no invented `RECEIVE` value, route activation or automatic switching; preserve France contract meanings. INT-AP07; SND-G02/07/09. |
 | Access and authority / OUT-A13–16 | Demonstrate business/dataset/environment isolation, delegated action scope, protected file URLs and authority loss between plan and execution. INT-SND01; SND-G02/06. |
 | Replay and recovery / OUT-A02/08/18/20/21 | Same-input POST replay, conflicting input, concurrent calls, cancellation races and lost response retain the original action. No second invoice when the ID is unknown; cancellation remains pending after a possible effect until qualified evidence resolves it. INT-SND01 step 2; SND-G04. |
 | File uploads / OUT-A06/09/20 | Partial, expired, rejected and uncertain uploads follow the pinned contract. Preserve good file bindings; no fresh invoice merely to renew upload access. Final bytes remain bound to the issued revision; scan failure cannot silently replace issued content. INT-SND01 step 3; SND-G03/04. |
