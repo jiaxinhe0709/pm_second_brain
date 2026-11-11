@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-05
-updated: 2026-10-29
+updated: 2026-11-11
 reviewers: []
 related:
   - RES-SEI-002
@@ -67,7 +67,7 @@ See [REF Source references](#ref-source-references) for the original files, exac
 
 **Proposed reference slice:** assess the existing Tax Service Engine Vault as a custody candidate for eligible Spain customer and accountant certificates. A centralised certificate bridge would resolve authorised dataset/client context, obtain a protected material reference, and request authentication or signing inside an approved protected boundary. The bridge stores mappings and evidence references. The supplied blueprint describes Tax Vault custody, but the ES AFL design below shows a different, purpose-specific Connections Service/AFL boundary; G1/G9 must establish the actual custodian and avoid a second copy of each credential. This supports the blueprint's “Upload Once, Comply Everywhere” aim only where purpose, authority, source and contract checks pass.
 
-Certificate reuse can remove a repeat upload. It cannot establish business authority, complete external registration or prove that a certificate supports every purpose. A valid certificate found by `datasetId` is a candidate for validation; it does not immediately make the customer `Authorized` or finish onboarding. The result is the existing purpose-specific readiness decision from CERT-05.
+Certificate reuse can remove a repeat upload. Under the [Spain-confirmed platform setup rule in SPEC038](onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#platform-onboarding-and-certificate-reuse), the same certificate can support two platforms, each with separate onboarding (configuration and setup). Reuse cannot establish business authority, complete external registration or prove that a certificate supports every purpose. A valid certificate found by `datasetId` is a candidate for validation; it does not immediately make the customer `Authorized` or finish onboarding. The result is the existing purpose-specific readiness decision from CERT-05.
 
 | Evidence | What it supports | Limit / treatment in this spec |
 |---|---|---|

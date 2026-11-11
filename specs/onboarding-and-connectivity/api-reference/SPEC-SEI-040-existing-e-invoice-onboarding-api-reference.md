@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-26'
-updated: 2026-10-29
+updated: 2026-11-11
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -457,7 +457,7 @@ ES AFL selects customer certificates or the Sage seal with <span style="color:#6
 | Case | Reuse / Spain check |
 |---|---|
 | Suitable certificate already held | Reuse its reference after confirming client/environment/action mapping. Failed lookup stays pending; it does not justify another upload. |
-| Add another platform that requires a certificate | <span style="color:#B42318;">BA working hypothesis: reuse suitable protected certificate material without another upload. Acceptance, credential IDs and use by several E-Invoice connections remain unvalidated; see [GAP-06](../SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-06).</span> |
+| Add another platform that requires a certificate | Apply the [Spain-confirmed rule in 038](../SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#platform-onboarding-and-certificate-reuse): reuse the same suitable certificate and complete separate platform onboarding (configuration and setup). <span style="color:#B42318;">Per-action acceptance, credential-ID relationships and implementation support for reuse remain unvalidated under [GAP-06](../SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-06); E-Invoice resource mapping remains GAP-02.</span> |
 | Missing or unsuitable certificate | Provision missing material or correct expired/revoked/unsuitable material through the qualified flow. |
 | Sage seal | <span style="color:#B42318;">Confirm dedicated provider/type, B2B permission and stored purpose-specific agreement.</span> Customers do not upload Sage's seal. |
 

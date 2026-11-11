@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-29
+updated: 2026-11-11
 reviewers: []
 related:
   - RES-SEI-002
@@ -178,6 +178,12 @@ Peppol BIS is a specific UBL/EN 16931 profile, rather than a separate syntax. Th
 
 Use a consistent issue order. Limit the visible list only under an approved user-experience contract; keep the complete result available to authorised users. Show whether the customer, developer, country policy owner or Sage operations must act next. PASS proves only that the local checks passed at the recorded time.
 
+For optional PRE results, use the [SPEC011 SPFE response and error matrix](SPEC-SEI-011-public-platform-connector-solution-specification.md#spfe-response-and-error-matrix). Link every external issue to the validated file hash, invoice reference, operation and source evidence. Keep all errors for one invoice; do not replace an earlier local result with the external response. REF-SPFE-EX09 illustrates invoice-data and caller-authority failures, not lifecycle states.
+
+When data fails validation, the authorised user checks the source facts; the integration owner checks mapping if the facts are correct. Apply UV-06 to content changes. A consistency error can identify more than one field: retain both locations and let the authorised owner determine which value is wrong. Do not silently copy a contact name into the seller legal name or patch issued XML. REF-SPFE-OBS01 supports an observed error only; its local rule and operation binding remain unqualified.
+
+When caller authority fails, Administrator/Support checks the authenticated caller, certificate, represented business and authority with Security/Compliance. A path to seller identity does not by itself require changing correct invoice data. After authority is resolved, a new PRE attempt can use unchanged invoice bytes. Unknown codes follow PCN-07/09; do not classify them as customer-data errors or automatically repeat a submission.
+
 **UV-06 Correct.** An authorised ERP edit produces a new source revision and new validation request with lineage to the failed result. A customer may fix facts or replace a prebuilt file; the service does not patch XML invisibly. If the invoice has already been sent/issued, route to the approved issued-invoice correction lifecycle; the public representation remains Invoice where the SPFE profile applies and preserve the original signed/sent representation. Do not use a pre-send edit operation to rewrite a post-send invoice. Support can inspect prior hashes and issue versions subject to permissions.
 
 **UV-07 Final check.** Outbound exchange passes the exact final representation reference/hash, frozen route choice, actor/trust plan, source revision and proposed send identity. Resolve current effective profile/rules and confirm the selected representation is the one to be signed/sent. Re-run applicable validation even if preflight PASS exists; changed bytes, route, pack or capability can change the result. If the final target file changes through mapping, validate after mapping and before signing. Failure or UNDETERMINED returns no dispatch authorisation.
@@ -285,6 +291,8 @@ These are required evidence scenarios, not executed implementation tests. The so
 | UV-SPFE-A01 | Public corrective Invoice, public CreditNote, and the supplied sample ProfileID | Qualify the Invoice/type rules; reject unsupported CreditNote for this public profile and hold the conflicting sample declaration. Preserve source bytes and issue provenance. | UV-SPFE-R01; UV-02–04, UV-07–08; [REF](#ref-source-references). |
 | UV-SPFE-A02 | Only the four transport XSDs are available | Return no invoice PASS. Identify the missing business schemas or rule pack and keep final dispatch blocked. | UV-SPFE-R02; UV-02–04, UV-07–08; [REF](#ref-source-references). |
 | UV-SPFE-A03 | Generate a PRE validation client, then request production dispatch | Identify both missing UBL imports and hold qualification until their schema closure is supplied. With qualified schemas, verify SPFE-S23 exact action/ports and direct Invoice/DocumentStatus bodies. Apply connector fault checks PCN-SPFE-A02. Run the qualified exact-file validation; PRE success cannot establish registration, production acceptance or a permitted size limit. | UV-SPFE-R03; UV-02–04, UV-07–08; [REF](#ref-source-references). |
+| UV-SPFE-A04 | One PRE invoice returns four errors; then authority is corrected or an unknown code is returned | Apply the [SPEC011 matrix](SPEC-SEI-011-public-platform-connector-solution-specification.md#spfe-response-and-error-matrix) and UV-05. Retain all four issues against one invoice and the original local result. Separate data correction from authority recovery. Authority recovery alone does not create a new invoice revision. Preserve an unknown code and responsible owner. No validation result creates a lifecycle event, registers the invoice or enables a production dependency. Repeat UV-A10 country-isolation checks. | UV-05/06; UV-SPFE-R03; REF-SPFE-EX09; PCN-SPFE-A05; SPFE-Q20. |
+| UV-SPFE-A05 | A supplied consistency error names seller legal name and contact name | Preserve both field locations, original code/description and unconfirmed operation/source. Show an owned data/mapping investigation; do not overwrite the legal name, silently repair XML or fabricate an overall numeric response. Qualify the source rule before local activation. Keep earlier revisions and results under UV-06. | UV-05/06; REF-SPFE-OBS01; PCN-SPFE-A06; SPFE-Q20. |
 
 ## REF Source references
 
@@ -294,6 +302,8 @@ Use the original files for the claims they establish. Final published regulation
 
 | REF ID | Source and version | Exact location | Supported information and limit |
 |---|---|---|---|
+| REF-SPFE-EX09 | [RespuestaFacturaValidation.xml](https://sage365.sharepoint.com/sites/global/epd/ib/TechDoc/Shared%20Documents/3.Legal/2.-%20FACTURACI%C3%93N/TRANSVERSAL/FACTURA%20ELECTR%C3%93NICA/ACTUAL/SPFE/Documentaci%C3%B3n%20t%C3%A9cnica/Ejemplos%20de%20peticiones%20y%20respuestas%20de%20SW/09%20-%20ValidationInvoiceSOAP/09%20-%20ValidationInvoiceSOAP/RESPUESTA/RespuestaFacturaValidation.xml); SharePoint copy inspected 10 November 2026; publication date and release version unknown. | SOAP Body/DocumentStatus; DocumentResponse/Response/ResponseCode; repeated DocumentReference/DocumentStatusCode and DocumentDescription. | One overall failure and four errors for the same invoice. Example evidence only; no HTTP headers, complete error catalogue, raw-byte hash or live acceptance evidence. |
+| REF-SPFE-OBS01 | User-supplied SPFE response excerpt, received 11 November 2026; original operation, filename and version unknown. | Description, DocumentDescription and DocumentStatusCode value; [source limits](../context/RES-SEI-002-spain-public-platform-technical-evidence.md#code-inventory-coverage). | Records the supplied seller-name consistency error only. No original XML namespace, numeric overall result or runtime provenance is established. |
 | SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 3–4; Annex I BT-23/24, p. 14 | Final public invoice/copy fields and exact profile identifiers. |
 | SPFE-S01 | [Anexo-1-Proyecto-OM-FE.pdf](<../context/Anexo I/20261013/Anexo-1-Proyecto-OM-FE.pdf>); Supplied 13 October 2026; SHA-256 in source manifest. | pp. 4–6 and 25–34 | Copy indicator, profile identifiers, corrective groups and code lists; compare against final Annex I. |
 | SPFE-S03 | [CatalogoServicios.pdf](<../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>); 0.1.0; cover 9 October 2026. | sections 6.2 and 6.10; pp. 10–11, 19–20 | Layered validation, disputed size and PRE-only validation service. |

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: 2026-11-10
+updated: 2026-11-11
 reviewers: []
 related:
 - SPEC-SEI-037
@@ -162,6 +162,10 @@ The customer and an authorised accountant use the same paths. Batch processing i
 
 **Product integration preconditions:** before enabling e-invoicing, each product must integrate **SXS** for `datasetId` / `tenantId` management and **Tax certificate management / Connections Service** for credential setup and protected use. These product integrations precede customer onboarding. Accountants need a permitted mapping for each client. They do not replace customer permission or require a certificate where the selected function does not need one. B2B lookup/readiness interfaces still need confirmation. User direction, 26–27 October 2026; REF-INTEGRATION.
 
+<a id="platform-onboarding-and-certificate-reuse"></a>
+
+**Platform onboarding and certificate reuse:** the Spain team confirmed, as reported by the user on 11 November 2026, that the same certificate can be reused across platforms, but each platform requires separate onboarding (configuration and setup). When an administrator adds a second platform, reuse a suitable certificate and complete the second platform's required configuration, authority and readiness checks. Show each platform's setup result separately. If the second setup fails or remains pending, identify its next action and owner; do not mark it ready because the first platform is ready. This confirmation does not select API connection resources or credential-ID relationships; [039 GAP-02/06](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-06) retain those implementation checks.
+
 Reuse current evidence only for the same business, action and environment. Keep customer statements separate from observed results. A failed lookup means “not confirmed”, not “does not exist”. Spain rules and test credentials must not affect other countries or production. ONB-R01/03/12/14/24; OFR-R09/10.
 
 <a id="5-cross-cutting-quality-and-operational-requirements"></a>
@@ -302,7 +306,7 @@ This is separate from customer setup. Where Article 9 applies, the receiving ope
 
 ### Review and release gates — Phases 1–3
 
-Before enabling a path, demonstrate its main outcome, correction, unknown-result recovery and client isolation. Also check that Spain rules do not change another country's behaviour. Close the applicable [existing release checks](../archive/SPEC-SEI-002-onboarding-solution-specification.md#2-review-and-release-gates) and [039 implementation questions](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#2-open-engineering-decisions). These are required checks, not tests already passed.
+Before enabling a path, demonstrate its main outcome, correction, unknown-result recovery and client isolation. For [platform setup with certificate reuse](#platform-onboarding-and-certificate-reuse), verify two platforms using the same suitable certificate: completion of the first setup must leave the second pending until its own checks pass; a failure in the second must show its next action without changing the first result solely because the certificate is shared. Also check that Spain rules do not change another country's behaviour. Close the applicable [existing release checks](../archive/SPEC-SEI-002-onboarding-solution-specification.md#2-review-and-release-gates) and [039 implementation questions](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#2-open-engineering-decisions). These are required checks, not tests already passed.
 
 <a id="ref-source-references"></a>
 
