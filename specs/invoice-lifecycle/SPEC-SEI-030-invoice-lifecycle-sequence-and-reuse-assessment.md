@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-09
+updated: 2026-11-12
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -87,6 +87,8 @@ Save the authorised fact, select required destinations and execute each report t
 [Draw.io](../../assets/diagrams/invoice-lifecycle-recovery-sequence.drawio) · [PNG](../../assets/diagrams/invoice-lifecycle-recovery-sequence.png).
 
 A failed transition retains the last successful status. A timeout/local error does not prove external rejection or non-execution. Hold replacement while checking the original cancellation; without a qualified lookup, keep an owned manual case. LCS-R14; LIF-G06.
+
+This sequence concerns report cancellation. Invoice-submission withdrawal remains with [SPEC-SEI-023 OUT-SPFE-R02](../invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#withdrawal-and-correction-boundaries) and [SPEC-SEI-024 §2.4](../invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#24-proposed-withdrawal-interaction); it adds no lifecycle status or report-cancellation behaviour here.
 
 ## 3 Contract details that affect reuse
 

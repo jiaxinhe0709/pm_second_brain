@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-30
-updated: 2026-11-02
+updated: 2026-11-12
 reviewers: []
 related:
   - SPEC-SEI-024
@@ -29,7 +29,7 @@ confluence:
 
 ## Revision overview
 
-This API view owns field-level detail, request/response examples and contract issues. This revision adds change types and text labels to Spain field proposals, records the six-case public-route decision, clarifies identity and platform terms, and links withdrawal assessment to FP-SEI-002. Sequences, scenarios, decisions and acceptance checks remain in SPEC-SEI-023/024. No new call or wire contract is approved.
+This API view owns field-level detail, request/response examples and contract issues. This revision adds change types and text labels to Spain field proposals, records the six-case public-route decision, clarifies identity and platform terms, and records the proposed withdrawal action under FP-SEI-002's agreed direction. Sequences, scenarios, decisions and acceptance checks remain in SPEC-SEI-023/024. No new call or wire contract is approved.
 
 ## Summary
 
@@ -99,11 +99,11 @@ This section proposes how Sending could reuse the France API for Spain. `Existin
 | `accessPointId` | Changed meaning | <span style="color:#1565C0;">Proposed Spain-only change:</span> when null, use the active sender route. France remains unchanged and retains its current required-field contract. |
 | `eInvoiceTypeCode` | New value | <span style="color:#B42318;">Open:</span> Spain document mapping is not confirmed. |
 | Recipient delivery and SPFE-copy results using `history[]` / `statusAttributes` | New field, if needed | <span style="color:#1565C0;">Proposed:</span> reuse existing history/status structures where meanings stay intact; add a per-action result shape only if needed. <span style="color:#B42318;">Open:</span> the wire contract remains under SND-G05. |
-| Withdrawal reference | New call (under assessment; not approved) | <span style="color:#B42318;">Open:</span> see [FP-SEI-002](../../../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md). This is an assessment of a possible separate command, not an approved call or wire contract. No equivalent Sage capability is documented in the preserved contracts (<span style="color:#B42318;">Gap</span>). |
+| Withdrawal action | Proposed action; contract pending | <span style="color:#1565C0;">Proposed API action:</span> a distinct issuer action on the existing e-invoice resource, following the [FP-SEI-002 agreed direction](../../../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#proposed-direction-and-decisions). It is not a flag on send or a lifecycle status. <span style="color:#B42318;">Open:</span> endpoint, payload, fields and wire result remain unselected; the preserved contracts establish no equivalent Sage capability. |
 
-**Engineering conclusion:** Spain sending needs new values and a Spain-only changed meaning, not a new send call. Withdrawal is a possible separate command under assessment in FP-SEI-002. SPFE, SERES, EDICOM, ZeroComa and B2Brouter are platforms selected through `accessPointId`; they are not values of `accessPointAddressType`.
+**Engineering conclusion:** Spain sending needs new values and a Spain-only changed meaning, not a new send call. Withdrawal follows the separate action direction above; its API contract is pending. SPFE, SERES, EDICOM, ZeroComa and B2Brouter are platforms selected through `accessPointId`; they are not values of `accessPointAddressType`.
 
-SPFE withdrawal applies only to an invoice already submitted when no real transaction existed and no rectifying invoice is required. The SPFE reference uses issuer NIF, series and number, and issue date. A rectifying invoice is an ERP/Compliance correction; stopping work before an external effect is separate. A permitted withdrawal is a recorded outcome, after which the identifier may be reused. See [SPEC-SEI-023 OUT-SPFE-R02](../SPEC-SEI-023-invoice-sending-logical-feature-specification.md#4-shared-controls-and-spain-binding). Withdrawal remains Open and is not an approved call.
+Use [SPEC-SEI-023 OUT-SPFE-R02](../SPEC-SEI-023-invoice-sending-logical-feature-specification.md#withdrawal-and-correction-boundaries) for eligibility, original/copy cases and linked-instance safeguards, and [SPEC-SEI-024 §2.4](../SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#24-proposed-withdrawal-interaction) for correlation and recovery qualification. No withdrawal request/response example is defined before the contract decision.
 
 ### Contract baseline and reuse assessment
 
@@ -238,5 +238,5 @@ Keep France behaviour compatible: Spain additions must be country-qualified, and
 | SPFE-S03 | [Original public service catalogue](<../../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), draft 0.1.0, 9 October 2026; §6.3, pp. 11–12 | Withdrawal operation purpose and business conditions. It does not select a Sage endpoint or wire contract. |
 | SPFE-S08 | [Original public formats](<../../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), draft 0.1.0, 9 October 2026; §5.1.1, p. 8 | Public UBL 2.5 format evidence. It does not establish a MIME value for the France Sending API. |
 | USR-ADDR01/02 | User-supplied [Invoice addresses Spain](https://confluence.sage.com/spaces/DNBU/pages/837611067/Invoice+addresses+Spain), supplied 28 October 2026; “Spain - March 2026 e-invoice update”, Intra-Compliance page URL/content not preserved | The reported public-by-default wording conflicts with the proposed hold after a no-match when a private address was supplied. Content is not preserved and is not final legal evidence. |
-| SPFE-S16 / SPFE-S10 | [SPEC-SEI-023](../SPEC-SEI-023-invoice-sending-logical-feature-specification.md#ref-source-references), existing combined `SPFE-S16 / SPFE-S10` row with original WSDL links; [SPEC-SEI-024](../SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#ref-source-references), existing `SPFE-S16` row | PRE transport evidence for `SendInvoice` and `CancelInvoice`; does not establish a Sage withdrawal call or production readiness. The source rows are unchanged in this revision. |
-| FP-SEI-002 | [Global API submission withdrawal review proposal](<../../../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md>), draft updated 29 October 2026; “Proposed direction and decisions” and “Review outcome and acceptance evidence” | Assesses a distinct withdrawal command but selects no endpoint, payload or wire status. It is not an approved call. |
+| SPFE-S16 / SPFE-S10 | [SPEC-SEI-023](../SPEC-SEI-023-invoice-sending-logical-feature-specification.md#ref-source-references), combined `SPFE-S16 / SPFE-S10` row with original WSDL links; [SPEC-SEI-024](../SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#ref-source-references), `SPFE-S16` and `SPFE-S10` rows; reviewed local PRE release 29 October 2026 | PRE transport evidence for `SendInvoice` and `CancelInvoice`; does not establish a Sage withdrawal call or production readiness. |
+| FP-SEI-002 | [Global API submission withdrawal review proposal](<../../../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md>), draft updated 12 November 2026; “Proposed direction and decisions” and “Review outcome and acceptance evidence” | Agreed action direction; no endpoint, payload, field or wire status selected. Implementation support remains unqualified. |
