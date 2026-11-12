@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: 2026-11-11
+updated: 2026-11-12
 reviewers: []
 related:
 - SPEC-SEI-040
@@ -155,7 +155,7 @@ Under **GAP-05/06**, Public Integration and API owners must confirm the permitte
 
 ![Private setup: find the connection, add missing setup and observe each address result](../../assets/diagrams/onboarding-setup-private-setup-sequence.svg)
 
-For ONB-S03, find the service and connection (API-01/02). Reuse valid setup; connect only if missing (API-03), then read progress (API-04). Check permission and routing effects first. A connected address does not activate a route.
+For ONB-S03, use API-01/02 only for missing, stale or changed service/setup information. Reuse valid setup; connect only if missing (API-03). Read progress (API-04) for pending work or missing/stale connection evidence. Check permission and routing effects first. A connected address does not activate a route.
 
 The [ONB-05 account decision](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#67-onb-05-configure-private-choice) distinguishes an existing account on the chosen platform from one requiring provider onboarding. API-03 is the Sage connection candidate; its `201` response does not prove completion of a provider's account onboarding. GAP-02/06/08 must confirm whether the qualified provider flow includes account creation or requires a separate customer/provider handoff. Keep unresolved account or onboarding evidence pending with an owner; do not invent another call.
 

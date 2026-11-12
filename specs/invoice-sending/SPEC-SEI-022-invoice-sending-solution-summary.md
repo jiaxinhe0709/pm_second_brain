@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-11
+updated: 2026-11-12
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -80,7 +80,7 @@ Full setup belongs to [onboarding](../archive/onboarding/README.md). Creation, t
 
 **Check connected access points:** the ERP discovers the customer's connected platforms and their qualified sending and receiving availability before offering a sender selection. [SPEC-SEI-023 OUT-00](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order) owns this check; [SPEC-SEI-024 §2.0](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#20-check-connected-access-points) assesses reuse of the onboarding API. A listed connection does not by itself establish readiness or activate a route.
 
-The plan distinguishes the sender connection from the recipient destination. For Spain, use the configured sender access point when the country contract permits omission and no explicit eligible selection is supplied. An explicit selection does not bypass recipient-routing eligibility. One invoice has one recipient-delivery route; configured access points do not cause fan-out. **Private delivery has a separate faithful public-copy action; public recipient delivery has no extra copy.** These Spain selection rules are Proposed pending API and routing qualification. The six-case public-route rule is recorded in [SPEC-SEI-023 OUT-09](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order). REF-LOGICAL; INT-SND02; SPFE-S02 Article 4.
+The plan distinguishes the sender connection from the recipient destination. For Spain, use the configured sender access point when the country contract permits omission and no explicit eligible selection is supplied. [SPEC-SEI-023 OUT-10](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order) checks that the dataset can send through the exact selected access point. OUT-09 handles recipient evidence separately; private delivery does not require an unsupported Sage recipient lookup. One invoice has one recipient-delivery route; configured access points do not cause fan-out. **Private delivery has a separate faithful public-copy action; public recipient delivery has no extra copy.** These Spain selection rules are Proposed pending API and routing qualification. OUT-09's six cases apply where a qualified lookup source exists; no public recipient-directory API is established. REF-LOGICAL; INT-SND02; SPFE-S02 Article 4.
 
 ![Single-invoice sending through private or public routes, with a separate faithful public copy and local-product PDF responsibility](../../assets/diagrams/invoice-sending-end-to-end-workflow.svg)
 

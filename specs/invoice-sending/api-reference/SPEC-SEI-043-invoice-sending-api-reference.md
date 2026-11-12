@@ -62,7 +62,7 @@ The OpenAPI calls `recipient.accessPointAddress` a Buyer key in the sender's ERP
 | Routing address | Identifies the network participant or destination. A NIF is a routing-address value only where the selected network contract defines a scheme such as `es.nif`. |
 | Certificate or signature | Any certificate or signature required for the selected action is separate from tax identity, routing address and authenticated-caller identity. Possession alone does not establish authority. |
 
-Apply the six-case Spain recipient-route decision in [SPEC-SEI-023 OUT-09](../SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order).
+Apply [SPEC-SEI-023 OUT-10](../SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order) to the dataset's exact selected sender connection. Apply OUT-09 separately: its six lookup cases require a qualified source. Private delivery does not require an unsupported Sage recipient lookup. Public-recipient checks remain subject to qualification; the reviewed SPFE bundle does not establish a recipient-directory API. SPEC-SEI-023 REF-LOOKUP.
 
 `PRIVATE_READY` and `PROVEN_NONE` retain their existing meanings; the public-route decision also considers whether the customer communicated a private address. The two addressing pages are user-supplied. Their content status is **Content not preserved in this repository**. Their reported wording does not replace final legal evidence. Product and Spain Compliance must resolve the source conflicts. Until then, OUT-09 holds if the route condition is unclear. USR-ADDR01/02; OUT-09.
 

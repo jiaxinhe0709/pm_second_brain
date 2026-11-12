@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-26'
-updated: 2026-11-11
+updated: 2026-11-12
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -164,7 +164,7 @@ FR-03 · [039 private setup](../SPEC-SEI-039-customer-onboarding-and-connectivit
 | Set address usage | Optional `usage`, at most one explicit value; omitted/null permits all supported operations. |
 | Supply company/requester details | Existing company fields and `user` audit context. |
 
-POST creates one dataset/access-point connection with these initial addresses. Add addresses later through [API-05 PUT](#api-05).
+POST creates one dataset/access-point connection with these initial addresses. Add addresses later through [API-05 PUT](#api-05). Under [038 ONB-05](../SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#67-onb-05-configure-private-choice), confirm the chosen provider account first; API-03 does not prove provider account onboarding. Reuse a valid Sage connection without another POST.
 
 **Request — Sage 200 creates missing Sage setup for its customer's existing B2B Router account:**
 

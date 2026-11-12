@@ -143,7 +143,7 @@ def build_all(selected=None):
             'shared-prerequisites': 'Before customer setup: the product is integrated with SXS and Tax Connections Service. These are product prerequisites, not repeated customer registrations.',
             'public-readiness': 'Start: the customer wants Sage access to the public platform. Inputs: business, requested function and environment.',
             'private-setup': 'Start: the selected business/client uses a chosen supported private platform. Keep a valid account or complete its qualified onboarding; then connect to Sage. Inputs: resolved dataset, chosen service and account evidence.',
-            'supported-change': 'Start: the customer requests a setup change. Inputs: business, existing connection and the requested change.',
+            'supported-change': 'Start: the customer requests a setup or platform-use change. Inputs: business, requested functions, environment and existing setup references where present.',
             'uncertainty-recovery': 'Start: an earlier setup request has an uncertain result. Keep its original business, provider, environment and request identity.',
         }
         s.note(starts[slug])
@@ -172,8 +172,8 @@ def build_all(selected=None):
             s.end_frame(f)
             s.reply(t, 'Checks passed: continue\nOtherwise: missing item + owner', '[Setup result] ONB-02/03/08')
         elif slug == 'public-readiness':
-            p.ref('21-shared-prerequisites', 'First: SXS dataset, permission and required Tax credential checks (2.1)', gate=True)
-            f = s.start_frame('opt | Find a service only if its ID is not already known')
+            p.ref('21-shared-prerequisites', 'First: SXS dataset, permission and required Tax credential checks (3.1)', gate=True)
+            f = s.start_frame('opt | Find a service only if its ID is unknown and the public channel supports API-01')
             p.http('API-01')
             s.end_frame(f)
             f = s.start_frame('opt | Inspect saved access-point setup only if missing/stale and the public channel supports it')
@@ -186,9 +186,10 @@ def build_all(selected=None):
             f = s.start_frame('opt | Check only missing/stale evidence; public method and permission must be confirmed')
             s.exchange(1, 4, 'Check access for this business/action\nNo onboarding method supplied', 'Access evidence or specific limitation', '[To confirm] Public access method')
             s.end_frame(f)
+            s.note('Reuse matching current evidence. If no qualified method or other evidence establishes the requested access, return unconfirmed with a next action and owner. Do not invent a public probe. GAP-05/06; ONB-04/08.')
             s.reply(t, 'For each requested function:\nready or missing item + owner', '[Setup result] ONB-04/11')
         elif slug == 'private-setup':
-            p.ref('21-shared-prerequisites', 'First: reuse the SXS dataset; permission and required credential checks pass (2.1)', gate=True)
+            p.ref('21-shared-prerequisites', 'First: reuse the SXS dataset; permission and required credential checks pass (3.1)', gate=True)
             f = s.start_frame('opt | Read saved connections only for missing, stale or changed setup evidence')
             p.http('API-02')
             s.end_frame(f)
@@ -202,33 +203,44 @@ def build_all(selected=None):
             s.exchange(1, 4, 'Link the chosen provider account\nProvider method still to confirm', 'Account linked, pending or failed',
                        '[To confirm] Provider contract / timing')
             s.end_frame(f)
+            f = s.start_frame('opt | Read progress only for pending work or missing/stale connection evidence')
             p.http('API-04')
+            s.end_frame(f)
+            s.note('Assess access evidence for each requested function before confirming readiness. Reuse matching current evidence; obtain only missing or stale evidence through qualified checks. A connection or provider-account result alone is insufficient. ONB-06; GAP-05/06.')
             s.exchange(0, 1, 'Check whether setup is complete\nfor the requested functions', 'Setup result + missing item/owner\nRoute activation is separate',
                        '[To confirm] Setup request; ONB-06/11', '[Setup result] ONB-06/11')
         elif slug == 'supported-change':
-            p.ref('21-shared-prerequisites', 'First: keep the SXS dataset; recheck only affected permission/credential evidence (2.1)', gate=True)
+            p.ref('21-shared-prerequisites', 'First: keep the SXS dataset; recheck only affected permission/credential evidence (3.1)', gate=True)
             t = s.call(0, 1, 'Check the requested setup change\nBusiness + connection + change', '[To confirm] Setup request; ONB-05/07')
             g = s.start_frame('opt | If the change affects routing or access to earlier invoices')
-            s.exchange(1, 2, 'Check change permission, when it\ntakes effect and earlier access', 'Change allowed or blocked\nwith reason + action owner',
+            s.exchange(1, 2, 'Check permission, required readiness,\nstart and earlier-invoice access', 'Change allowed or blocked\nwith reason + action owner',
                        '[To confirm] Change permission / earlier access')
             s.end_frame(g)
             s.reply(t, 'Allowed change or reason + owner', '[Setup result] ONB-07/09')
-            s.note('ERP/product presents the allowed scope, start and earlier-invoice impact. Submit platform use only if requested, enabled and confirmed. Setup-only work keeps any selection unchanged; if none exists, it activates none. ONB-07/11.')
-            f = s.start_frame('opt | Apply only an allowed change; skip unchanged setup; Private A to Private B disabled')
+            f = s.start_frame('opt | Missing or changed configuration; apply only allowed, supported setup work')
             p.gates.append(f[0])
-            p.ref('23-private-setup', 'Use private setup (2.3) only for a missing target connection', gate=True)
+            p.ref('23-private-setup', 'Private target: use setup (3.3) only if its connection is missing', gate=True)
             g = s.start_frame('opt | Update only if this provider/API supports the requested edit')
             p.http('API-05')
             s.end_frame(g)
-            g = s.start_frame('opt | If an authorised routing change is needed and its result can be checked')
+            s.end_frame(f)
+            p.ref('22-public-readiness', 'If public functions are selected: confirm target access using public readiness (3.2)', gate=True)
+            p.ref('23-private-setup', 'If private functions are selected: confirm target access using private setup (3.3)', gate=True)
+            s.note('Assess target readiness after any setup edit. Reuse valid setup and matching current evidence; do not repeat completed work. Failed or pending dependencies block affected activation. Keep independent successful results. ONB-04/06/08.')
+            s.note('ERP/product presents the platform choice, scope, agreed start and earlier-invoice impact for confirmation. Setup-only requests return results without activation. A ready target can proceed without another configuration edit. Private A to Private B stays disabled. ONB-07/11.')
+            f = s.start_frame('opt | Platform use requested, enabled and confirmed; required target readiness passed')
+            t = s.call(0, 1, 'Submit confirmed platform use\nRequested scope + agreed start', '[To confirm] Platform-use request; ONB-07')
+            s.exchange(1, 2, 'Recheck permission, readiness,\nstart and earlier-invoice access', 'Allowed or blocked\nwith reason + action owner', '[To confirm] Activation controls; ONB-07/09')
+            g = s.start_frame('opt | Current checks pass; reject stale or competing changes')
             s.exchange(1, 2, 'Apply the authorised route change\nand check what actually changed', 'Effective boundary + earlier access\nor result still unknown',
                        '[To confirm] Route change method')
             s.end_frame(g)
+            s.reply(t, 'Confirmed effective start\nor blocked/pending + action owner', '[Setup result] ONB-07/08/09/11')
             s.end_frame(f)
             s.exchange(0, 1, 'Read the result of this change', 'Confirmed result or pending action\nwith its owner',
                        '[To confirm] Setup request; ONB-11', '[Setup result] ONB-07/09/11')
         else:
-            p.ref('21-shared-prerequisites', 'First: use the original SXS dataset and permission to inspect; do not create setup (2.1)', gate=True)
+            p.ref('21-shared-prerequisites', 'First: use the original SXS dataset and permission to inspect; do not create setup (3.1)', gate=True)
             f = s.start_frame('opt | Read only a known connection whose detail can safely add evidence')
             p.http('API-04')
             s.end_frame(f)
