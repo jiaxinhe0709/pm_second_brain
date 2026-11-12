@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-02
+updated: 2026-11-12
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -56,7 +56,7 @@ Before a command or report, check the caller, represented business, actor role a
 | Late/conflicting evidence or provider switch | Preserve chronology and original route. Hold unsafe changes; a new route does not rebind old reports. | R07/10; A06/07/09 |
 | Optional/provider-specific action requested | Check enabled scope, direction, actor and fields. Keep valid incoming evidence even when its outgoing command is disabled. | R12/13; A19/21/22/25 |
 
-Invoice-submission withdrawal (`CancelInvoice`) belongs to [Sending OUT-SPFE-R02](../invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#4-shared-controls-and-spain-binding). [FP-SEI-002](../../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md) records the separate Global API review proposal while the sending branch is in progress. This lifecycle view owns cancellation of the earlier business report; that action preserves the invoice and business fact.
+Invoice-submission withdrawal (`CancelInvoice`) belongs to [SPEC-SEI-023 OUT-SPFE-R02](../invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#withdrawal-and-correction-boundaries). Use that rule for the issuer action, its boundary outside Article 10 statuses and its linked-instance safeguards; [SPEC-SEI-024 §2.4](../invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#24-proposed-withdrawal-interaction) assesses execution. [FP-SEI-002](../../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#analysis-and-proposed-direction) retains the contract and Compliance questions. This lifecycle view owns cancellation of the earlier business report; that action preserves the invoice and business fact.
 
 ## 3 Activity order and process support
 
