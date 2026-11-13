@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: 2026-11-12
+updated: 2026-11-13
 reviewers: []
 related:
 - SPEC-SEI-037
@@ -178,6 +178,16 @@ Keep client data and permissions separate. Protect certificate keys and secrets.
 
 ## 6 Feature activities — Phases 1–3
 
+<a id="onboarding-process"></a>
+
+![Customer onboarding and connectivity swimlane with four journey stages](../../assets/diagrams/onboarding-and-connectivity-swimlane.svg)
+
+[Editable Draw.io — combined onboarding swimlane](../../assets/diagrams/onboarding-and-connectivity-swimlane.drawio) · [PNG preview](../../assets/diagrams/onboarding-and-connectivity-swimlane.png).
+
+Follow the ERP / product row from left to right. Each stage requests its supporting checks below and uses their results before continuing. Stage 3 can run the public path, private path or both. Both return to the same ONB-07 platform-use decision. The four journey stages are separate from delivery Phases 1–3.
+
+The swimlane groups interactions for readability; SPEC039 retains the detailed requests, progress reads and API qualification. The shared recovery note applies to every failed or pending step under ONB-08/11. Lane responsibilities are proposed; they do not approve service ownership or implementation coverage.
+
 <a id="61-onb-01-capture-requested-functions"></a>
 
 ### 6.1 ONB-01 Capture requested functions — Phases 1–3
@@ -208,9 +218,7 @@ After ONB-01 captures the action, **Which platform setup applies?** selects the 
 
 ### 6.5 ONB-03 Assess prerequisites — Phases 1–3, where required
 
-![Shared onboarding checks: company dataset, NIF, permission and any required credential](../../assets/diagrams/onboarding-shared-prerequisites-swimlane.svg)
-
-[Editable Draw.io — shared checks](../../assets/diagrams/onboarding-shared-prerequisites-swimlane.drawio) · [PNG preview](../../assets/diagrams/onboarding-shared-prerequisites-swimlane.png).
+See Stage 2 of the [combined onboarding swimlane](#onboarding-process). Stage 1 supplies the selected business, current setup and confirmed action.
 
 Run these shared checks before public or private setup. The table explains [ONB-R17 — independent prerequisites](../archive/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#4-feature-wide-functional-requirements-and-rules). A NIF and an in-date certificate alone do not establish readiness.
 
@@ -231,13 +239,11 @@ Acceptance uses [ONB-A25 / OFR-A20](../archive/onboarding/SPEC-SEI-019-customer-
 
 ### 6.6 ONB-04 Publish public readiness — Phase 1; reused in Phases 2–3
 
-![Public setup: checks, correction and unknown-result recovery](../../assets/diagrams/onboarding-public-setup-swimlane.svg)
-
-[Editable Draw.io — public setup](../../assets/diagrams/onboarding-public-setup-swimlane.drawio) · [PNG preview](../../assets/diagrams/onboarding-public-setup-swimlane.png).
+See the public path in Stage 3 of the [combined onboarding swimlane](#onboarding-process).
 
 Return readiness only for the functions whose mandatory checks passed, including actual Sage support. Name any limitation and next action. The supplied public contracts contain no onboarding enrolment operation; do not invent one or send a test invoice. Web-form access does not prove automated access. SPFE-S03/S08/S16.
 
-The ERP loads applicable saved public setup, requests the public-access assessment and shows its scoped result. Matching current evidence goes directly to the saved result. Missing, changed or expired evidence follows only the affected checks, using a qualified public method where needed. The Domain Service lanes retain coordination, supporting checks and saved findings. Corrections return through the product request; an unknown result follows ONB-08. Results return to the common ONB-07 decision. [039 §3.2](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#32-public-readiness) shows the corresponding interactions.
+The ERP uses the applicable saved setup from Stage 1 and requests the public-access assessment. Matching current evidence goes directly to the saved result. Missing, changed or expired evidence follows only the affected checks, using a qualified public method where needed. The Domain Service lanes retain coordination, supporting checks and saved findings. Corrections return through the product request; an unknown result follows ONB-08. Scoped results return to the ERP before the common ONB-07 decision. [039 §3.2](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#32-public-readiness) shows the corresponding interactions.
 
 If no qualified evidence can establish access for a requested function, keep that result unconfirmed and name the action owner. [039's WSDL assessment](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#spfe-wsdl-onboarding-boundary) records the operation evidence, limits and GAP-05/06 owners; [039 §5](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#5-acceptance-coverage) defines the contract-specific checks. This is a proposed readiness control, not an external onboarding contract.
 
@@ -245,9 +251,7 @@ If no qualified evidence can establish access for a requested function, keep tha
 
 ### 6.7 ONB-05 Configure private choice — Phases 2–3
 
-![Private setup: reuse the account, check access and separately approve route changes](../../assets/diagrams/onboarding-private-setup-swimlane.svg)
-
-[Editable Draw.io — private setup](../../assets/diagrams/onboarding-private-setup-swimlane.drawio) · [PNG preview](../../assets/diagrams/onboarding-private-setup-swimlane.png).
+See the private path in Stage 3 and the common platform-use decision in Stage 4 of the [combined onboarding swimlane](#onboarding-process).
 
 **Account on chosen private platform?** distinguishes the provider account from its Sage connection. An existing provider account does not prove that Sage is connected. Use of platform A does not prove an account exists on chosen platform B. Assess the chosen platform's account, including when a platform is new to Sage. User clarification, 11 November 2026.
 
@@ -261,7 +265,7 @@ For an accountant, assess whether the platform account is valid for the selected
 
 Both account branches lead to **Confirm private access** under ONB-06. Each platform still requires its own Sage setup and readiness checks, even when a suitable certificate is reused. Add or update only missing or changed configuration; keep suitable credentials. [039 GAP-02/06/08](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-08) must qualify each provider's onboarding/connection path, completion evidence and responsible party before enablement. Before a call that can redirect invoice work, check permission and continued access to earlier invoices. Setup can finish without activating a route; ONB-07 owns that separate decision. REF-CONNECTIVITY.
 
-The ERP loads saved private setup. After the chosen platform account is confirmed, it submits only missing connection work and reads progress where needed, using the original request and returned references. The E-Invoice Service lane shows the existing E-Invoice API connection boundary and the proposed access assessment. It confirms readiness after assessing the chosen platform's qualified evidence. Other Services retain the proposed routing handoff. If platform use is requested, the ERP submits the confirmed scope and start; otherwise it displays setup-only results. [039 §3.3](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#33-private-setup) and [§3.4](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#34-supported-change) show those interactions. The account decision's missing/unknown cases and shared reuse rule remain in ONB-05/10 above.
+The ERP uses saved private setup from Stage 1. After the chosen platform account is confirmed, it submits only missing connection work and reads progress where needed, using the original request and returned references. The E-Invoice Service lane shows connection setup and the proposed access assessment. It confirms readiness after assessing the chosen platform's qualified evidence, then returns the scoped result to the ERP. Stage 4 owns the separate platform-use handoff for either path. [039 §3.3](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#33-private-setup) and [§3.4](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#34-supported-change) show the detailed connection, progress and platform-use interactions. The account decision's missing/unknown cases and shared reuse rule remain in ONB-05/10 above.
 
 For Phase 3, if Sage offers the private-platform service, first confirm the named legal operator, permitted interfaces, security and operations under [PRD-SEI-221](../../prds/PRD-SEI-221-operator-readiness-regulatory-governance.md). A customer connection does not establish operator eligibility. REF-OPERATOR.
 
@@ -315,15 +319,15 @@ For an accountant batch, save the client list before returning a receipt. Check 
 
 ## 7 Traceability and supporting artefacts — Phases 1–3
 
-The activities above define the journey. The existing swimlane names remain; wider gaps and taller lanes separate ERP and Domain Service handoffs. Main diagrams show the normal flow and required account/platform-use decisions. The tables below them retain correction, approval and unknown-result recovery rules without crossing loops. SPEC039's participants show interface boundaries rather than a different customer process or approved deployments.
+The activities above define the journey. The [combined swimlane](#onboarding-process) shows shared checks, public/private setup and the common platform-use decision. Its supporting checks stay within each journey stage. ONB-08 owns correction and unknown-result recovery; ONB-12/13 retain the separate approval and batch flows. SPEC039's participants show interface boundaries rather than a different customer process or approved deployments.
 
-| ERP activity in these swimlanes | Functional IDs | Corresponding SPEC039 interactions |
+| Journey stage in the combined swimlane | Functional IDs | Corresponding SPEC039 interactions |
 |---|---|---|
-| Request current setup; show current e-invoicing setup | ONB-01/10/11 | [Shared prerequisites](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#31-shared-prerequisites): product/SXS mapping and qualified API-02 setup discovery. |
-| Request shared checks; show shared check result | ONB-02/03/11 | [Shared prerequisites](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#31-shared-prerequisites): prerequisite request, identity/credential findings and next action. |
-| Load current public setup; request public access check | ONB-03/04/10/11 | [Public readiness](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#32-public-readiness): qualified API-01/02/04 discovery and the access-check request/result. |
-| Load current private setup; submit connection setup; read setup progress | ONB-05/06/10/11 | [Private setup](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#33-private-setup): API-02/03/04, existing-account reuse and the qualified new-account handoff. |
-| Submit confirmed platform use; show result and next action | ONB-07/09/11 | [Supported change](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#34-supported-change): confirmed scope/start, separate platform-use handoff and saved result. API-05 covers supported configuration edits, not activation. |
+| 1 — Review setup and choose action | ONB-01/10/11 | [Shared prerequisites](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#31-shared-prerequisites): product/SXS mapping and qualified API-02 setup discovery. |
+| 2 — Complete shared checks | ONB-02/03/11/12 | [Shared prerequisites](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#31-shared-prerequisites): prerequisite request, identity/credential findings and next action. |
+| 3 — Public setup and access | ONB-03/04/10/11 | [Public readiness](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#32-public-readiness): qualified API-01/02/04 discovery and the access-check request/result. |
+| 3 — Private setup and access | ONB-05/06/10/11 | [Private setup](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#33-private-setup): API-02/03/04, existing-account reuse, the qualified new-account handoff and progress reads where needed. |
+| 4 — Confirm platform use and show results | ONB-07/09/11 | [Supported change](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#34-supported-change): confirmed scope/start, separate platform-use handoff and saved result. API-05 covers supported configuration edits, not activation. |
 
 Use the existing sources below for detailed checks rather than copying them into this view.
 
