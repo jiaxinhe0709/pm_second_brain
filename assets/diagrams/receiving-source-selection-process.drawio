@@ -114,9 +114,9 @@
             <mxGeometry as="geometry" x="40" y="850" width="1760" height="36" />
           </mxCell>
         </object>
-        <object id="handoff" label="Each saved file goes to step 1: Record the received file. Receiving checks the company, file safety and original/copy role before later actions." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#3-process-and-activity-order">
+        <object id="handoff" label="Check recipient, file readability, safety and required integrity controls while getting and saving the file.&#10;Each saved file then goes to step 1: Record the received file." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#3-process-and-activity-order">
           <mxCell parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=4;fontFamily=Arial;fontSize=17;">
-            <mxGeometry as="geometry" x="40" y="897" width="1760" height="37" />
+            <mxGeometry as="geometry" x="40" y="897" width="1760" height="55" />
           </mxCell>
         </object>
       </root>

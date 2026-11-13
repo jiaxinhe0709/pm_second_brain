@@ -6,12 +6,13 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-12
+updated: 2026-11-13
 reviewers: []
 related:
   - SPEC-SEI-007
   - SPEC-SEI-023
   - SPEC-SEI-024
+  - SPEC-SEI-029
   - SPEC-SEI-043
   - PRD-SEI-246
   - PRD-SEI-212
@@ -82,9 +83,11 @@ Full setup belongs to [onboarding](../archive/onboarding/README.md). Creation, t
 
 The plan distinguishes the sender connection from the recipient destination. For Spain, use the configured sender access point when the country contract permits omission and no explicit eligible selection is supplied. [SPEC-SEI-023 OUT-10](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order) checks that the dataset can send through the exact selected access point. OUT-09 handles recipient evidence separately; private delivery does not require an unsupported Sage recipient lookup. One invoice has one recipient-delivery route; configured access points do not cause fan-out. **Private delivery has a separate faithful public-copy action; public recipient delivery has no extra copy.** These Spain selection rules are Proposed pending API and routing qualification. OUT-09's six cases apply where a qualified lookup source exists; no public recipient-directory API is established. REF-LOGICAL; INT-SND02; SPFE-S02 Article 4.
 
-![Single-invoice sending through private or public routes, with a separate faithful public copy and local-product PDF responsibility](../../assets/diagrams/invoice-sending-end-to-end-workflow.svg)
+![Single-invoice sending through private or public routes, with separate action results and a handoff to sent-invoice lifecycle tracking](../../assets/diagrams/invoice-sending-end-to-end-workflow.svg)
 
 [Full-size SVG](../../assets/diagrams/invoice-sending-end-to-end-workflow.svg) · [Editable Draw.io](../../assets/diagrams/invoice-sending-end-to-end-workflow.drawio) · [PNG](../../assets/diagrams/invoice-sending-end-to-end-workflow.png).
+
+**Track lifecycle for sent invoices:** view responses, permitted actions and reporting results. The final box links to [SPEC-SEI-029 scenarios and safe next actions](../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#2-scenarios-and-safe-next-actions). Tracking can continue while sending actions remain pending; the central lifecycle specification owns the status meanings and shared rules.
 
 The **red dashed box keeps service-assisted draft entry, preparation and validation TBC**. Final candidates and qualified already-issued invoices still need current authority, final validation and an eligible route. A failed, stale or ambiguous lookup does not prove that no private address has been communicated to the sender by the recipient. Dispatch holds until the approved Spain rule and evidence resolve the destination. The public route for a customer who has communicated no private address remains a Source conflict for Product and Spain Compliance; the public-by-default rule reported in local guidance also conflicts with the proposed hold after a successful no-match when the customer had supplied a private address. See SPEC-SEI-023 OUT-09 and [SPEC-SEI-043 section 2](api-reference/SPEC-SEI-043-invoice-sending-api-reference.md#2-proposed-spain-extension-of-the-send-e-invoice-api).
 

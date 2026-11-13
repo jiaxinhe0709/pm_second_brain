@@ -14,7 +14,7 @@ Use the same three reading views and detailed API reference as [onboarding](../o
 |---|---|
 | [Solution Summary — SPEC-SEI-025](SPEC-SEI-025-invoice-retrieval-solution-summary.md) | Start here: one presentation overview with five framed actions A–E, their scope and links to detail. |
 | [Logical Feature Specification — SPEC-SEI-026](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md) | Required behaviour for receiving and consultation; the supporting swimlane expands A. E links to the lifecycle owner. |
-| [Sequence and Reuse Assessment — SPEC-SEI-027](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md) | Supporting sequences: B–D customer Query/Retrieve/download, plus source collection and file recovery; reuse and engineering gates. |
+| [Sequence and Reuse Assessment — SPEC-SEI-027](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md) | Supporting sequences: customer list/open/download, plus source collection and file recovery; reuse and engineering gates. |
 | [API Reuse and Spain Changes — SPEC-SEI-042](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md) | Request/response fields and examples, public SOAP bindings, proposed changes and missing contracts. |
 
 **Where do we get the invoice?** Read the [plain-English source-choice flow in SPEC026](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#choose-source-and-get-invoice) before receiving step 1. It covers public originals, private originals, copy-only access and failed private downloads.

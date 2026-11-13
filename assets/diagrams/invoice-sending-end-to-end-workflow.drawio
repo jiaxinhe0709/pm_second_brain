@@ -1,191 +1,198 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mxfile host="confluence.sage.com">
-  <diagram id="invoice-sending-end-to-end-workflow" name="End-to-end sending overview">
-    <mxGraphModel dx="2360" dy="4510" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="1110" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="title" parent="1" style="text;html=0;align=left;fontSize=30;fontColor=#222;" value="Invoice sending: private and public routes" vertex="1">
-          <mxGeometry height="40" width="1890" x="45" y="-60" as="geometry" />
-        </mxCell>
-        <mxCell id="legend" parent="1" style="text;html=0;align=left;fontSize=17;fontColor=#555;" value="Red dashed frame: TBC · Solid arrows: action flow · Grey dashed arrows: conditional handoff or independent observations" vertex="1">
-          <mxGeometry height="27" width="1890" x="45" y="-9" as="geometry" />
-        </mxCell>
-        <mxCell id="draft-tbc-boundary" parent="1" style="rounded=0;fillColor=none;strokeColor=#c62828;strokeWidth=2.5;dashed=1;dashPattern=11 7;" value="" vertex="1">
-          <mxGeometry height="314.75" width="285" x="55" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="draft-tbc-label" parent="1" style="text;html=0;align=left;fontSize=21;fontColor=#c62828;whiteSpace=wrap;" value="TBC · Draft entry, preparation and validation" vertex="1">
-          <mxGeometry height="115" width="259.5" x="65.5" y="65" as="geometry" />
-        </mxCell>
-        <mxCell id="private-route-label" parent="1" style="text;html=0;align=left;fontSize=20;fontColor=#222;" value="Private route · two independent actions" vertex="1">
-          <mxGeometry height="30" width="393.74" x="1234.39" y="299.75" as="geometry" />
-        </mxCell>
-        <mxCell id="edge-0" edge="1" parent="1" source="draft" style="edgeStyle=none;strokeColor=#555555;endArrow=block;" target="validation" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
-            <mxPoint x="325" y="219.25" as="sourcePoint" />
-            <mxPoint x="385" y="219.25" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-1" edge="1" parent="1" source="validation" style="edgeStyle=none;strokeColor=#555555;endArrow=block;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="invoice" value="Conditional draft path">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="190" y="410" />
-            </Array>
-            <mxPoint x="527" y="300" as="sourcePoint" />
-            <mxPoint x="190" y="430" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-2" edge="1" parent="1" source="invoice" style="edgeStyle=none;strokeColor=#555555;endArrow=block;" target="ready" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
-            <mxPoint x="325" y="492" as="sourcePoint" />
-            <mxPoint x="385" y="492" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-3" edge="1" parent="1" source="ready" style="edgeStyle=none;strokeColor=#555555;endArrow=block;" target="route" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
-            <mxPoint x="695" y="492" as="sourcePoint" />
-            <mxPoint x="790" y="492" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-4" edge="1" parent="1" source="route" style="edgeStyle=none;strokeColor=#555555;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="private" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1166.26" y="492" />
-              <mxPoint x="1166.26" y="407" />
-            </Array>
-            <mxPoint x="1129.999165763814" y="491.781283856988" as="sourcePoint" />
-            <mxPoint x="1216.26" y="407" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-5" edge="1" parent="1" style="edgeStyle=none;strokeColor=#555555;endArrow=block;" target="copy" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1166.26" y="492" />
-              <mxPoint x="1166.26" y="577" />
-            </Array>
-            <mxPoint x="1129.999165763814" y="491.781283856988" as="sourcePoint" />
-            <mxPoint x="1216.26" y="577" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Y5uJY5WRkpCntP5lVEcy-1" connectable="0" parent="edge-5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Private route" vertex="1">
-          <mxGeometry relative="1" x="-0.8303" as="geometry">
-            <mxPoint x="-54" y="-1" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-6" edge="1" parent="1" source="route" style="edgeStyle=none;strokeColor=#555555;endArrow=block;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="public" value="Public route">
-          <mxGeometry relative="1" x="0.4363" as="geometry">
-            <mxPoint as="offset" />
-            <Array as="points">
-              <mxPoint x="910" y="777.5" />
-            </Array>
-            <mxPoint x="915" y="565" as="sourcePoint" />
-            <mxPoint x="1120" y="747" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-7" edge="1" parent="1" source="private" style="edgeStyle=none;strokeColor=#555555;endArrow=block;dashed=1;" target="results" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1686.26" y="407" />
-              <mxPoint x="1686.26" y="527" />
-            </Array>
-            <mxPoint x="1646.26" y="407" as="sourcePoint" />
-            <mxPoint x="1736.26" y="527" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-8" edge="1" parent="1" source="copy" style="edgeStyle=none;strokeColor=#555555;endArrow=block;dashed=1;" target="results" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
-            <mxPoint x="1646.26" y="577" as="sourcePoint" />
-            <mxPoint x="1736.26" y="577" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-9" edge="1" parent="1" source="public" style="edgeStyle=none;strokeColor=#555555;endArrow=block;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="results" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1686.26" y="777.5" />
-              <mxPoint x="1686.26" y="650" />
-            </Array>
-            <mxPoint x="1646.26" y="747" as="sourcePoint" />
-            <mxPoint x="1736.26" y="650" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="connected-access-points-to-ready" edge="1" parent="1" source="connected-access-points" target="ready" style="edgeStyle=none;strokeColor=#555555;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <object label="Check connected access points&#xa;Available sending / receiving platforms" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#20-check-connected-access-points" id="connected-access-points">
-          <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
-            <mxGeometry height="150" width="310" x="385" y="145" as="geometry" />
-          </mxCell>
-        </object>
-        <object label="Draft entry&#xa;Complete business invoice data&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="draft">
-          <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
-            <mxGeometry height="95" width="245" x="70.5" y="148" as="geometry" />
-          </mxCell>
-        </object>
-        <object label="Prepare and validate&#xa;Review and correct the draft&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="validation">
-          <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
-            <mxGeometry height="95" width="250" x="65.5" y="267.25" as="geometry" />
-          </mxCell>
-        </object>
-        <object label="1. Provide final invoice&#xa;Final candidate or existing issued proof&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="invoice">
-          <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
-            <mxGeometry height="125" width="270" x="55" y="430" as="geometry" />
-          </mxCell>
-        </object>
-        <object label="2. Confirm sending readiness&#xa;Authority, final validation and required files, including PDF&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="ready">
-          <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
-            <mxGeometry height="125" width="310" x="385" y="430" as="geometry" />
-          </mxCell>
-        </object>
-        <object label="Recipient route?&#xa;&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="route">
-          <mxCell parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#e6e6e6;strokeColor=#555555;" vertex="1">
-            <mxGeometry height="142.1" width="245" x="790" y="420" as="geometry" />
-          </mxCell>
-        </object>
-        <object label="Private recipient delivery&#xa;Structured invoice to the recipient&#39;s private platform&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="private">
-          <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
-            <mxGeometry height="115" width="430" x="1216.26" y="350" as="geometry" />
-          </mxCell>
-        </object>
-        <object label="Faithful copy to the public platform&#xa;&#xa;Separate action: the domain service derives the required public-copy payload from the complete UBL invoice generated by the local ERP, then calls the selected private platform’s existing submission capability.&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="copy">
-          <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;fontStyle=0" vertex="1">
-            <mxGeometry height="170" width="430" x="1216.26" y="503" as="geometry" />
-          </mxCell>
-        </object>
-        <object label="Public recipient delivery&#xa;Structured invoice through public platform; no extra copy&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="public">
-          <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
-            <mxGeometry height="115" width="430" x="1216.26" y="720" as="geometry" />
-          </mxCell>
-        </object>
-        <object label="Separate results&#xa;Recipient delivery, public copy and PDF delivery each keep their own result&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="results">
-          <mxCell parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#e6e6e6;strokeColor=#555555;" vertex="1">
-            <mxGeometry height="200" width="305" x="1736.26" y="490" as="geometry" />
-          </mxCell>
-        </object>
-        <object label="Local product generates PDF when required&#xa;Send to buyer via a qualified private attachment or a separate channel. Never send this PDF to the public platform.&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="pdf">
-          <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#fafafa;strokeColor=#555555;" vertex="1">
-            <mxGeometry height="125" width="640" x="55" y="940" as="geometry" />
-          </mxCell>
-        </object>
-        <mxCell id="issuance-note" parent="1" style="text;html=0;align=left;fontSize=18;fontColor=#444;" value="ERP owns issuance. Coordinate the required public copy with issuance, not with successful private delivery (OUT-Q03)." vertex="1">
-          <mxGeometry height="28" width="1890" x="55" y="1097" as="geometry" />
-        </mxCell>
-        <mxCell id="action-note" parent="1" style="text;html=0;align=left;fontSize=18;fontColor=#444;" value="Unresolved route: hold dispatch. Action observations are independent; the results box is not a completion join." vertex="1">
-          <mxGeometry height="28" width="1890" x="55" y="1127" as="geometry" />
-        </mxCell>
-        <mxCell id="issued-note" parent="1" style="text;html=0;align=left;fontSize=18;fontColor=#444;" value="Already-issued paths retain proof. Late-copy recovery does not redefine the normal issuance boundary." vertex="1">
-          <mxGeometry height="28" width="1890" x="55" y="1157" as="geometry" />
-        </mxCell>
-        <mxCell id="exception-note" parent="1" style="rounded=1;whiteSpace=wrap;html=0;spacing=16;fontSize=18;align=left;fillColor=#f5f5f5;strokeColor=#aaaaaa;" value="If work is blocked or uncertain&#xa;Hold the affected action, preserve known results and return an owned next step. Reconcile possible external effects before repetition." vertex="1">
-          <mxGeometry height="90" width="1890" x="55" y="1220" as="geometry" />
-        </mxCell>
-        <mxCell id="footer-0" parent="1" style="text;html=0;align=left;fontSize=17;fontColor=#555;" value="One invoice for a business user or authorised accountant. Detailed rules and PDF applicability remain in SEI023 / PRD-SEI-246." vertex="1">
-          <mxGeometry height="27" width="1890" x="55" y="1328" as="geometry" />
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
+<mxfile host="65bd71144e">
+    <diagram id="invoice-sending-end-to-end-workflow" name="End-to-end sending overview">
+        <mxGraphModel dx="916" dy="1853" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="1110" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" parent="1" style="text;html=0;align=left;fontSize=30;fontColor=#222;" value="Invoice sending: private and public routes" vertex="1">
+                    <mxGeometry height="40" width="1890" x="45" y="-60" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend" parent="1" style="text;html=0;align=left;fontSize=17;fontColor=#555;" value="Red dashed frame: TBC · Solid arrows: action flow · Grey dashed arrows: conditional handoff or independent observations" vertex="1">
+                    <mxGeometry height="27" width="1890" x="45" y="-9" as="geometry"/>
+                </mxCell>
+                <mxCell id="draft-tbc-boundary" parent="1" style="rounded=0;fillColor=none;strokeColor=#c62828;strokeWidth=2.5;dashed=1;dashPattern=11 7;" value="" vertex="1">
+                    <mxGeometry height="314.75" width="285" x="55" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="draft-tbc-label" parent="1" style="text;html=0;align=left;fontSize=21;fontColor=#c62828;whiteSpace=wrap;" value="TBC · Draft entry, preparation and validation" vertex="1">
+                    <mxGeometry height="115" width="259.5" x="65.5" y="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="private-route-label" parent="1" style="text;html=0;align=left;fontSize=20;fontColor=#222;" value="Private route · two independent actions" vertex="1">
+                    <mxGeometry height="30" width="393.74" x="1234.39" y="299.75" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-0" edge="1" parent="1" source="draft" style="edgeStyle=none;strokeColor=#555555;endArrow=block;" target="validation" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                        <mxPoint x="325" y="219.25" as="sourcePoint"/>
+                        <mxPoint x="385" y="219.25" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge-1" edge="1" parent="1" source="validation" style="edgeStyle=none;strokeColor=#555555;endArrow=block;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="invoice" value="Conditional draft path">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="190" y="410"/>
+                        </Array>
+                        <mxPoint x="527" y="300" as="sourcePoint"/>
+                        <mxPoint x="190" y="430" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge-2" edge="1" parent="1" source="invoice" style="edgeStyle=none;strokeColor=#555555;endArrow=block;" target="ready" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                        <mxPoint x="325" y="492" as="sourcePoint"/>
+                        <mxPoint x="385" y="492" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge-3" edge="1" parent="1" source="ready" style="edgeStyle=none;strokeColor=#555555;endArrow=block;" target="route" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                        <mxPoint x="695" y="492" as="sourcePoint"/>
+                        <mxPoint x="790" y="492" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge-4" edge="1" parent="1" source="route" style="edgeStyle=none;strokeColor=#555555;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="private" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1166.26" y="492"/>
+                            <mxPoint x="1166.26" y="407"/>
+                        </Array>
+                        <mxPoint x="1129.999165763814" y="491.781283856988" as="sourcePoint"/>
+                        <mxPoint x="1216.26" y="407" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge-5" edge="1" parent="1" style="edgeStyle=none;strokeColor=#555555;endArrow=block;" target="copy" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1166.26" y="492"/>
+                            <mxPoint x="1166.26" y="577"/>
+                        </Array>
+                        <mxPoint x="1129.999165763814" y="491.781283856988" as="sourcePoint"/>
+                        <mxPoint x="1216.26" y="577" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Y5uJY5WRkpCntP5lVEcy-1" connectable="0" parent="edge-5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Private route" vertex="1">
+                    <mxGeometry relative="1" x="-0.8303" as="geometry">
+                        <mxPoint x="-54" y="-1" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge-6" edge="1" parent="1" source="route" style="edgeStyle=none;strokeColor=#555555;endArrow=block;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="public" value="Public route">
+                    <mxGeometry relative="1" x="0.4363" as="geometry">
+                        <mxPoint as="offset"/>
+                        <Array as="points">
+                            <mxPoint x="910" y="777.5"/>
+                        </Array>
+                        <mxPoint x="915" y="565" as="sourcePoint"/>
+                        <mxPoint x="1120" y="747" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge-7" edge="1" parent="1" source="private" style="edgeStyle=none;strokeColor=#555555;endArrow=block;dashed=1;" target="results" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1686.26" y="407"/>
+                            <mxPoint x="1686.26" y="527"/>
+                        </Array>
+                        <mxPoint x="1646.26" y="407" as="sourcePoint"/>
+                        <mxPoint x="1736.26" y="527" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge-8" edge="1" parent="1" source="copy" style="edgeStyle=none;strokeColor=#555555;endArrow=block;dashed=1;" target="results" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                        <mxPoint x="1646.26" y="577" as="sourcePoint"/>
+                        <mxPoint x="1736.26" y="577" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge-9" edge="1" parent="1" source="public" style="edgeStyle=none;strokeColor=#555555;endArrow=block;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="results" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1686.26" y="777.5"/>
+                            <mxPoint x="1686.26" y="650"/>
+                        </Array>
+                        <mxPoint x="1646.26" y="747" as="sourcePoint"/>
+                        <mxPoint x="1736.26" y="650" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="connected-access-points-to-ready" edge="1" parent="1" source="connected-access-points" style="edgeStyle=none;strokeColor=#555555;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="ready" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <object label="Check connected access points&#xa;Available sending / receiving platforms" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#20-check-connected-access-points" id="connected-access-points">
+                    <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
+                        <mxGeometry height="150" width="310" x="385" y="145" as="geometry"/>
+                    </mxCell>
+                </object>
+                <object label="Draft entry&#xa;Complete business invoice data&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="draft">
+                    <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
+                        <mxGeometry height="95" width="245" x="70.5" y="148" as="geometry"/>
+                    </mxCell>
+                </object>
+                <object label="Prepare and validate&#xa;Review and correct the draft&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="validation">
+                    <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
+                        <mxGeometry height="95" width="250" x="65.5" y="267.25" as="geometry"/>
+                    </mxCell>
+                </object>
+                <object label="1. Provide final invoice&#xa;Final candidate or existing issued proof&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="invoice">
+                    <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
+                        <mxGeometry height="125" width="270" x="55" y="430" as="geometry"/>
+                    </mxCell>
+                </object>
+                <object label="2. Confirm sending readiness&#xa;Authority, final validation and required files, including PDF&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="ready">
+                    <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
+                        <mxGeometry height="125" width="310" x="385" y="430" as="geometry"/>
+                    </mxCell>
+                </object>
+                <object label="Recipient route?&#xa;&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="route">
+                    <mxCell parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#e6e6e6;strokeColor=#555555;" vertex="1">
+                        <mxGeometry height="142.1" width="245" x="790" y="420" as="geometry"/>
+                    </mxCell>
+                </object>
+                <object label="Private recipient delivery&#xa;Structured invoice to the recipient&#39;s private platform&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="private">
+                    <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
+                        <mxGeometry height="115" width="430" x="1216.26" y="350" as="geometry"/>
+                    </mxCell>
+                </object>
+                <object label="Faithful copy to the public platform&#xa;&#xa;Separate action: the domain service derives the required public-copy payload from the complete UBL invoice generated by the local ERP, then calls the selected private platform’s existing submission capability.&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="copy">
+                    <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;fontStyle=0" vertex="1">
+                        <mxGeometry height="170" width="430" x="1216.26" y="503" as="geometry"/>
+                    </mxCell>
+                </object>
+                <object label="Public recipient delivery&#xa;Structured invoice through public platform; no extra copy&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="public">
+                    <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
+                        <mxGeometry height="115" width="430" x="1216.26" y="720" as="geometry"/>
+                    </mxCell>
+                </object>
+                <object label="Separate results&#xa;Recipient delivery, public copy and PDF delivery each keep their own result&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="results">
+                    <mxCell parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#e6e6e6;strokeColor=#555555;" vertex="1">
+                        <mxGeometry height="200" width="305" x="1736.26" y="490" as="geometry"/>
+                    </mxCell>
+                </object>
+                <mxCell id="results-to-lifecycle" edge="1" parent="1" source="results" style="edgeStyle=none;strokeColor=#555555;endArrow=block;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="sent-invoice-lifecycle" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <object label="Track lifecycle for sent invoices&#xa;View responses, permitted actions and reporting results" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#2-scenarios-and-safe-next-actions" id="sent-invoice-lifecycle">
+                    <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
+                        <mxGeometry height="150" width="305" x="2150" y="515" as="geometry"/>
+                    </mxCell>
+                </object>
+                <object label="Local product generates PDF when required&#xa;Send to buyer via a qualified private attachment or a separate channel. Never send this PDF to the public platform.&#xa;" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="pdf">
+                    <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#fafafa;strokeColor=#555555;" vertex="1">
+                        <mxGeometry height="125" width="640" x="55" y="940" as="geometry"/>
+                    </mxCell>
+                </object>
+                <mxCell id="issuance-note" parent="1" style="text;html=0;align=left;fontSize=18;fontColor=#444;" value="ERP owns issuance. Coordinate the required public copy with issuance, not with successful private delivery (OUT-Q03)." vertex="1">
+                    <mxGeometry height="28" width="1890" x="55" y="1097" as="geometry"/>
+                </mxCell>
+                <mxCell id="action-note" parent="1" style="text;html=0;align=left;fontSize=18;fontColor=#444;" value="Unresolved route: hold dispatch. Action observations are independent; the results box is not a completion join." vertex="1">
+                    <mxGeometry height="28" width="1890" x="55" y="1127" as="geometry"/>
+                </mxCell>
+                <mxCell id="issued-note" parent="1" style="text;html=0;align=left;fontSize=18;fontColor=#444;" value="Already-issued paths retain proof. Late-copy recovery does not redefine the normal issuance boundary." vertex="1">
+                    <mxGeometry height="28" width="1890" x="55" y="1157" as="geometry"/>
+                </mxCell>
+                <mxCell id="exception-note" parent="1" style="rounded=1;whiteSpace=wrap;html=0;spacing=16;fontSize=18;align=left;fillColor=#f5f5f5;strokeColor=#aaaaaa;" value="If work is blocked or uncertain&#xa;Hold the affected action, preserve known results and return an owned next step. Reconcile possible external effects before repetition." vertex="1">
+                    <mxGeometry height="90" width="1890" x="55" y="1220" as="geometry"/>
+                </mxCell>
+                <mxCell id="footer-0" parent="1" style="text;html=0;align=left;fontSize=17;fontColor=#555;" value="One invoice for a business user or authorised accountant. Detailed rules and PDF applicability remain in SEI023 / PRD-SEI-246." vertex="1">
+                    <mxGeometry height="27" width="1890" x="55" y="1328" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
 </mxfile>

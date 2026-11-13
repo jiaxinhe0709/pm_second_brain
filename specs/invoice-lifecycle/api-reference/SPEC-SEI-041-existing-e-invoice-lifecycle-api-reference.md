@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-28
-updated: 2026-11-02
+updated: 2026-11-13
 reviewers: []
 related:
   - SPEC-SEI-028
@@ -101,7 +101,7 @@ Save the operation ID. The returned `Approved` label does not establish that pro
 
 FR-LIF01 supplies these nine request examples. UUIDs and shapes below are existing France evidence. INT-LCS01 supplies the field requirements; FR-LIF01 does not define nested validation schemas.
 
-[SPEC029's general / France / Spain comparison](../SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#general-status-comparison) owns the business meanings and country differences. This table retains exact request UUIDs and payload constraints.
+[SPEC029's SPFE states and reporting classifications](../SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#spfe-lifecycle-states) and [draft platform mapping](../SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#draft-lifecycle-mapping) own the business meanings and proposed relationships. This table retains exact request UUIDs and payload constraints.
 
 | Exact example name / UUID `statusCode` | `statusAttributes` / guide constraint |
 |---|---|
@@ -195,7 +195,7 @@ The connector maps recipient actions to ebMS `Action = ACCOUNTINGCUSTOMERPARTYAC
 
 The five new bindings also need defined response `status` values or an approved response shape; the supplied response enum has no DEFAULT or cancellation values. Check existing consumers before extending it. A cancellation action changes the report result/history; it cannot erase the saved payment/decision fact or withdraw the invoice. LCS-R03/06/07; LIF-G02/03/04.
 
-Use [SPEC029's comparison](../SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#general-status-comparison) for statuses with no direct public event. An allowed private communication uses its separate contract. LCS-R02/03/12/13.
+Use [SPEC029's draft platform mapping](../SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#draft-lifecycle-mapping) for statuses with no direct public event and [its reporting-action restrictions](../SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#spfe-reporting-action-restrictions) for public action constraints. An allowed private communication uses its separate contract. LCS-R02/03/12/13.
 
 <a id="spfe-field-mapping"></a>
 

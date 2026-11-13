@@ -104,7 +104,7 @@ def view_download_sequence():
         SPEC + '#24-required-view-and-user-download',
         ['Customer /\naccountant', 'ERP / product', 'Domain Service -\nE-Invoice Service', 'File source /\nrecords'])
     s.note('Customer consultation covers sent and received invoices. ERP calls the E-Invoice Service through the shared Query/Retrieve API. Reuse the NIF/business dataset binding and existing certificate/authority setup; the GETs use a Sage ID M2M token. Recheck current user/client permission. Automatic receiving is inbound only.', 'SPEC026 §2; RSD-07; RET-G01/03/05')
-    f = s.start_frame('case | B. View invoice list — business level')
+    f = s.start_frame('case | View invoice list — business level')
     request = s.call(0, 1, 'View invoice list', '[Proposed] SPEC026 §2')
     s.exchange(1, 2, 'GET /datasets/{datasetId}/e-invoices',
         'Permitted sent/received list, status, attachment count and qualified links.next paging',
@@ -112,7 +112,7 @@ def view_download_sequence():
     s.reply(request, 'Invoice list and collection result; keep empty, failed and incomplete results distinct',
         '[Proposed] RSD-07; RET-G03/05')
     s.end_frame(f)
-    f = s.start_frame('case | C. Select and open invoice — one invoice')
+    f = s.start_frame('case | Select and open invoice — one invoice')
     request = s.call(0, 1, 'Select and open invoice', '[Proposed] SPEC026 §2')
     s.exchange(1, 2, 'GET /datasets/{datasetId}/e-invoices/{e-invoiceId}',
         'Selected invoice details, history, attachment count and included descriptors/URLs',
@@ -121,7 +121,7 @@ def view_download_sequence():
         '[Proposed] RSD-07; RET-G01/08')
     s.end_frame(f)
     s.note('Keep the selected ID and business context; qualify the list-to-detail ID under RET-G01. Metadata alone is not a complete view. Retrieve includeAttachments defaults to true. With false, descriptors and URL/Factur-X generation are omitted, but availableAttachments is retained. A positive count does not itself return file choices or links.', 'INT-RCV03, snapshot 13 November; RET-API-01/02')
-    f = s.start_frame('opt | D. Download file — one attachment')
+    f = s.start_frame('opt | Download file — one attachment')
     request = s.call(0, 1, 'Download file; get file choices first if omitted', '[Proposed] SPEC026 §2')
     links = s.start_frame('opt | Attachment choices/links omitted, or link expiry confirmed')
     s.exchange(1, 2, 'GET /datasets/{datasetId}/e-invoices/{e-invoiceId}?includeAttachments=true',

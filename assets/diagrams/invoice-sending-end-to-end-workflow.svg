@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" aria-label="Invoice sending: private and public routes" width="2037" height="1455" viewBox="25 -80 2037 1455" role="img">
   <title>Invoice sending: private and public routes</title>
-  <desc>Preview generated from the editable Draw.io source. Private delivery and public copy keep separate results. The local product generates any required recipient PDF.</desc>
+  <desc>Preview generated from the editable Draw.io source. Private delivery and public copy keep separate results. The local product generates any required recipient PDF. A final handoff links to central lifecycle tracking for sent invoices.</desc>
   <rect x="25" y="-80" width="2037" height="1455" fill="white" />
   <g id="title">
     <g fill="#222" font-family="Helvetica" font-size="30.0" text-anchor="start">
@@ -161,6 +161,18 @@
       <text x="1888.76" y="586.6" fill="#000000" font-family="Arial" font-size="17.0" text-anchor="middle">Recipient delivery, public copy and</text>
       <text x="1888.76" y="607.0" fill="#000000" font-family="Arial" font-size="17.0" text-anchor="middle">PDF delivery each keep their own</text>
       <text x="1888.76" y="627.4" fill="#000000" font-family="Arial" font-size="17.0" text-anchor="middle">result</text>
+    </g>
+  </g>
+  <g id="results-to-lifecycle">
+    <path d="M 1888.76,690.0 L 1888.76,693.0 M 1888.76,696.0 L 1888.76,699.0 M 1888.76,702.0 L 1888.76,705.0 M 1888.76,708.0 L 1888.76,711.0 M 1888.76,714.0 L 1888.76,717.0 M 1888.76,720.0 L 1888.76,723.0 M 1888.76,726.0 L 1888.76,729.0 M 1888.76,732.0 L 1888.76,735.0 M 1888.76,738.0 L 1888.76,741.0 M 1888.76,744.0 L 1888.76,747.0 M 1888.76,750.0 L 1888.76,753.0 M 1888.76,756.0 L 1888.76,759.0 M 1888.76,762.0 L 1888.76,765.0 M 1888.76,768.0 L 1888.76,771.0 M 1888.76,774.0 L 1888.76,777.0 M 1888.76,780.0 L 1888.76,783.0 M 1888.76,786.0 L 1888.76,789.0" fill="none" stroke="#555555" stroke-width="1" />
+    <path d="M 1888.76,790.0 L 1885.76,783.0 L 1891.76,783.0 Z" fill="#555555" />
+  </g>
+  <g id="sent-invoice-lifecycle" data-source="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#2-scenarios-and-safe-next-actions">
+    <rect x="1736.26" y="790.0" width="305.0" height="150.0" rx="9.0" fill="#f1f1f1" stroke="#555555" stroke-width="1" />
+    <g fill="#000000" font-family="Helvetica" font-size="17.0" text-anchor="middle">
+      <text x="1888.76" y="851.4" fill="#000000" font-family="Arial" font-size="17.0" text-anchor="middle">Track lifecycle for sent invoices</text>
+      <text x="1888.76" y="871.8" fill="#000000" font-family="Arial" font-size="17.0" text-anchor="middle">View responses, permitted actions</text>
+      <text x="1888.76" y="892.1999999999999" fill="#000000" font-family="Arial" font-size="17.0" text-anchor="middle">and reporting results</text>
     </g>
   </g>
   <g id="pdf" data-source="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order">

@@ -64,12 +64,14 @@ def build():
         svg = ET.parse(temporary.with_suffix('.svg'))
         ns = '{http://www.w3.org/2000/svg}'
         svg.find(ns + 'desc').text = (
-            'Detailed action A: automatic inbound receiving after source capture. '
+            'Detailed automatic inbound receiving after source capture. '
             'The receiving phase band is above all swimlanes. Customer/accountant '
-            'has no required action. ERP/product, E-Invoice Service and Other '
-            'Services handle checks, repeats, original/copy holds, conditional '
-            'Phase 3 conversion and verified ERP receipt. Customer consultation '
-            'is shown separately in overview frames B–E and its API sequence.')
+            'has no required action. Readability checks happen during capture. '
+            'The eight-step flow records the file, identifies the invoice and '
+            'original/copy role, then shows original-only ERP delivery, validation, '
+            'conditional Phase 3 conversion and verified ERP receipt. It does '
+            'not show automatic content comparison. Customer consultation '
+            'is shown separately in the overview and its API sequence.')
         svg.write(BASE.with_suffix('.svg'), encoding='unicode')
         BASE.with_suffix('.png').write_bytes(temporary.with_suffix('.png').read_bytes())
     print('Receiving Draw.io source preserved; SVG and PNG previews refreshed.')

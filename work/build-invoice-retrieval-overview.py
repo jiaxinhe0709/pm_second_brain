@@ -37,14 +37,17 @@ def build():
             key: geom.get(key) for key in ('x', 'y', 'width', 'height')
         } | {'fill': style.get('fillColor', '#ffffff')}))
     svg.find('{http://www.w3.org/2000/svg}desc').text = (
-        'One presentation overview with five action frames: automatic inbound '
-        'receiving, business-level sent/received invoice list, one selected '
-        'invoice, optional attachment download, and review and take action. '
-        'Download and review branch separately from the opened invoice. '
-        'Exact document types and status codes are in linked source tables. Available safe inbound '
-        'data feeds consultation before ERP delivery is complete. Query and '
-        'Retrieve show ERP-to-E-Invoice-Service communication; file bytes '
-        'come from following the selected file URL.')
+        'Five actions: receive invoice, view invoice list, select and open invoice, '
+        'download file, and review and take action. Invoices are received automatically. '
+        'Users can view saved invoices after access and safety checks, even if ERP '
+        'delivery is not complete. From the opened invoice, users can download a file '
+        'or review and take action. Download is optional. The ERP uses Query e-invoices '
+        'and Retrieve e-invoice for lists, details and file links. The file source sends '
+        'the selected file through its downloadUrl. Pale green shows customer actions '
+        'and ERP steps. Pale purple shows getting, checking and processing invoice files. '
+        'White or light grey shows notes and what is needed before starting. Colours '
+        'do not show whether a function is ready or built. E marks a problem or pending '
+        'result. Matching S markers link saved files to the invoice list.')
     svg.write(BASE.with_suffix('.svg'), encoding='unicode')
     with pymupdf.open(BASE.with_suffix('.svg')) as image:
         with pymupdf.open('pdf', image.convert_to_pdf()) as pdf:

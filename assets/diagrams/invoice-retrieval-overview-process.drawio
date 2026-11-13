@@ -1,271 +1,471 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="app.diagrams.net" type="device">
-  <diagram id="invoice-retrieval-overview-process" name="Receive, list, open, download and take action — presentation overview">
-    <mxGraphModel page="1" pageWidth="1920" pageHeight="1080" grid="1" gridSize="10">
+  <diagram id="invoice-retrieval-overview-process" name="Overall invoice retrieval — receiving and customer actions">
+    <mxGraphModel page="1" pageWidth="3180" pageHeight="1680" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="Receive, view and act on e-invoices" vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=28;fontStyle=1;">
-          <mxGeometry as="geometry" x="40" y="15" width="1840" height="45" />
+        <mxCell id="lane-customer" value="" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#fafafa;strokeColor=#555555;strokeWidth=1.5;rounded=0;strokeColor=#bdbdbd;strokeWidth=1;">
+          <mxGeometry as="geometry" x="20" y="190" width="3130" height="190" />
         </mxCell>
-        <mxCell id="subtitle" value="Automatic receiving and separate customer actions. Download and review both start from the opened invoice." vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=18;">
-          <mxGeometry as="geometry" x="40" y="67" width="1840" height="36" />
+        <mxCell id="lane-customer-label" value="Customer / accountant" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#e5e5e5;strokeColor=#555555;strokeWidth=1.5;rounded=0;strokeColor=#bdbdbd;strokeWidth=1;">
+          <mxGeometry as="geometry" x="20" y="190" width="250" height="190" />
         </mxCell>
-        <mxCell id="frame-A" value="" vertex="1" parent="1" style="rounded=1;arcSize=4;html=0;fillColor=#ffffff;strokeColor=#777777;strokeWidth=2;">
-          <mxGeometry as="geometry" x="40" y="130" width="1840" height="320" />
+        <mxCell id="lane-erp" value="" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#fafafa;strokeColor=#555555;strokeWidth=1.5;rounded=0;strokeColor=#bdbdbd;strokeWidth=1;">
+          <mxGeometry as="geometry" x="20" y="390" width="3130" height="300" />
         </mxCell>
-        <mxCell id="heading-A" value="A. Receive invoice — automatic, inbound only; starts after source capture" vertex="1" parent="1" style="rounded=0;html=0;fillColor=#d7d7d7;strokeColor=none;whiteSpace=wrap;align=left;spacing=20;fontSize=21;fontStyle=1;fontFamily=Arial;">
-          <mxGeometry as="geometry" x="40" y="130" width="1840" height="45" />
+        <mxCell id="lane-erp-label" value="ERP / product" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#e5e5e5;strokeColor=#555555;strokeWidth=1.5;rounded=0;strokeColor=#bdbdbd;strokeWidth=1;">
+          <mxGeometry as="geometry" x="20" y="390" width="250" height="300" />
         </mxCell>
-        <mxCell id="frame-B" value="" vertex="1" parent="1" style="rounded=1;arcSize=4;html=0;fillColor=#ffffff;strokeColor=#777777;strokeWidth=2;">
-          <mxGeometry as="geometry" x="40" y="550" width="430" height="430" />
+        <mxCell id="lane-eis" value="" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#fafafa;strokeColor=#555555;strokeWidth=1.5;rounded=0;strokeColor=#bdbdbd;strokeWidth=1;">
+          <mxGeometry as="geometry" x="20" y="700" width="3130" height="410" />
         </mxCell>
-        <mxCell id="heading-B" value="B. View invoice list" vertex="1" parent="1" style="rounded=0;html=0;fillColor=#d7d7d7;strokeColor=none;whiteSpace=wrap;align=left;spacing=20;fontSize=20;fontStyle=1;fontFamily=Arial;">
-          <mxGeometry as="geometry" x="40" y="550" width="430" height="50" />
+        <mxCell id="lane-eis-label" value="Domain Service&#10;E-Invoice Service" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#e5e5e5;strokeColor=#555555;strokeWidth=1.5;rounded=0;strokeColor=#bdbdbd;strokeWidth=1;">
+          <mxGeometry as="geometry" x="20" y="700" width="250" height="410" />
         </mxCell>
-        <mxCell id="frame-C" value="" vertex="1" parent="1" style="rounded=1;arcSize=4;html=0;fillColor=#ffffff;strokeColor=#777777;strokeWidth=2;">
-          <mxGeometry as="geometry" x="510" y="550" width="430" height="430" />
+        <mxCell id="lane-other" value="" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#fafafa;strokeColor=#555555;strokeWidth=1.5;rounded=0;strokeColor=#bdbdbd;strokeWidth=1;">
+          <mxGeometry as="geometry" x="20" y="1120" width="3130" height="190" />
         </mxCell>
-        <mxCell id="heading-C" value="C. Select and open invoice" vertex="1" parent="1" style="rounded=0;html=0;fillColor=#d7d7d7;strokeColor=none;whiteSpace=wrap;align=left;spacing=20;fontSize=20;fontStyle=1;fontFamily=Arial;">
-          <mxGeometry as="geometry" x="510" y="550" width="430" height="50" />
+        <mxCell id="lane-other-label" value="Domain Service&#10;Other Services" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#e5e5e5;strokeColor=#555555;strokeWidth=1.5;rounded=0;strokeColor=#bdbdbd;strokeWidth=1;">
+          <mxGeometry as="geometry" x="20" y="1120" width="250" height="190" />
         </mxCell>
-        <mxCell id="frame-D" value="" vertex="1" parent="1" style="rounded=1;arcSize=4;html=0;fillColor=#ffffff;strokeColor=#777777;strokeWidth=2;dashed=1;dashPattern=6 4;">
-          <mxGeometry as="geometry" x="980" y="550" width="430" height="430" />
+        <mxCell id="lane-file" value="" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#fafafa;strokeColor=#555555;strokeWidth=1.5;rounded=0;strokeColor=#bdbdbd;strokeWidth=1;">
+          <mxGeometry as="geometry" x="20" y="1320" width="3130" height="130" />
         </mxCell>
-        <mxCell id="heading-D" value="D. Download file" vertex="1" parent="1" style="rounded=0;html=0;fillColor=#d7d7d7;strokeColor=none;whiteSpace=wrap;align=left;spacing=20;fontSize=20;fontStyle=1;fontFamily=Arial;">
-          <mxGeometry as="geometry" x="980" y="550" width="430" height="50" />
+        <mxCell id="lane-file-label" value="File source&#10;(selected file link)" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#e5e5e5;strokeColor=#555555;strokeWidth=1.5;rounded=0;strokeColor=#bdbdbd;strokeWidth=1;">
+          <mxGeometry as="geometry" x="20" y="1320" width="250" height="130" />
         </mxCell>
-        <mxCell id="frame-E" value="" parent="1" vertex="1" style="rounded=1;arcSize=4;html=0;fillColor=#ffffff;strokeColor=#777777;strokeWidth=2;">
-          <mxGeometry as="geometry" x="1450" y="550" width="430" height="430" />
-        </mxCell>
-        <mxCell id="heading-E" value="E. Review and take action" parent="1" vertex="1" style="rounded=0;html=0;fillColor=#d7d7d7;strokeColor=none;whiteSpace=wrap;align=left;spacing=20;fontSize=20;fontStyle=1;fontFamily=Arial;">
-          <mxGeometry as="geometry" x="1450" y="550" width="430" height="50" />
-        </mxCell>
-        <mxCell id="receiving-path-0" source="receive-save" target="receive-identify" parent="1" edge="1" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
+        <mxCell id="receiving-path-0" parent="1" edge="1" source="receive-save" target="receive-identify" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="receiving-path-1" source="receive-identify" target="receive-format" parent="1" edge="1" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
+        <mxCell id="receiving-path-1" parent="1" edge="1" source="receive-identify" target="original-gate" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="receiving-path-2" source="receive-format" target="receive-deliver" parent="1" edge="1" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1.0;exitY=0.5;entryX=0.0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
+        <mxCell id="original-missing" parent="1" edge="1" source="original-gate" target="copy-pending" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1;entryX=0.54;entryY=0;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="available-data-feed" source="receive-save" target="frame-B" parent="1" edge="1" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=0.5;exitY=1.0;entryX=0.09302325581395349;entryY=0.0;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+        <mxCell id="original-ready" parent="1" edge="1" source="original-gate" target="receive-format" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points">
-              <mxPoint x="277.5" y="365" />
-              <mxPoint x="60" y="365" />
-              <mxPoint x="60" y="495" />
-              <mxPoint x="80" y="495" />
+              <mxPoint x="1135" y="825" />
+              <mxPoint x="1135" y="1225" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="B-path-1" source="B-step-1" target="B-step-2" parent="1" edge="1" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;exitPerimeter=0;entryPerimeter=0;">
+        <mxCell id="format-to-delivery" parent="1" edge="1" source="receive-format" target="receive-deliver" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=0;entryX=0.5;entryY=1;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="B-path-2" source="B-step-2" target="B-step-3" parent="1" edge="1" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;exitPerimeter=0;entryPerimeter=0;">
+        <mxCell id="delivery-request" parent="1" edge="1" source="receive-deliver" target="erp-receipt" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.35;exitY=0;entryX=0.35;entryY=1;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="C-path-1" source="C-step-1" target="C-step-2" parent="1" edge="1" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;exitPerimeter=0;entryPerimeter=0;">
+        <mxCell id="delivery-confirmation" parent="1" edge="1" source="erp-receipt" target="receive-deliver" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.75;exitY=1;entryX=0.75;entryY=0;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="C-path-2" source="C-step-2" target="C-step-3" parent="1" edge="1" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;exitPerimeter=0;entryPerimeter=0;">
+        <mxCell id="available-data-feed" parent="1" edge="1" source="receive-save" target="saved-feed-marker" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.483333;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="D-path-1" source="D-step-1" target="D-step-2" parent="1" edge="1" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;exitPerimeter=0;entryPerimeter=0;">
+        <mxCell id="list-to-invoice" parent="1" edge="1" source="B-step-1" target="C-step-1" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="D-path-2" source="D-step-2" target="D-step-3" parent="1" edge="1" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;exitPerimeter=0;entryPerimeter=0;">
+        <mxCell id="invoice-to-file" parent="1" edge="1" source="C-step-1" target="D-step-1" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="list-to-invoice" source="frame-B" target="frame-C" parent="1" edge="1" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1.0;exitY=0.05813953488372093;entryX=0.0;entryY=0.05813953488372093;exitPerimeter=0;entryPerimeter=0;">
-          <mxGeometry as="geometry" relative="1">
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="invoice-to-file" source="frame-C" target="frame-D" parent="1" edge="1" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1.0;exitY=0.05813953488372093;entryX=0.0;entryY=0.05813953488372093;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
-          <mxGeometry as="geometry" relative="1">
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="E-path-1" parent="1" edge="1" source="E-step-1" target="E-step-2" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;exitPerimeter=0;entryPerimeter=0;">
-          <mxGeometry as="geometry" relative="1">
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="E-path-2" parent="1" edge="1" source="E-step-2" target="E-step-3" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;exitPerimeter=0;entryPerimeter=0;">
-          <mxGeometry as="geometry" relative="1">
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="invoice-to-review" parent="1" edge="1" source="frame-C" target="frame-E" style="edgeStyle=none;html=0;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=0.5;exitY=0.0;entryX=0.5;entryY=0.0;exitPerimeter=0;entryPerimeter=0;">
+        <mxCell id="invoice-to-review" parent="1" edge="1" source="C-step-1" target="E-step-1" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=0;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
           <mxGeometry as="geometry" relative="1">
             <Array as="points">
-              <mxPoint x="725" y="525" />
-              <mxPoint x="1665" y="525" />
+              <mxPoint x="2075" y="210" />
+              <mxPoint x="2910" y="210" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="phase-receive-save" value="1–2  RECORD &amp; CHECK FILE" vertex="1" parent="1" style="rounded=1;fillColor=#eeeeee;strokeColor=none;html=0;whiteSpace=wrap;align=center;fontFamily=Arial;fontSize=16;fontStyle=1;spacing=6;">
-          <mxGeometry as="geometry" x="80" y="190" width="395" height="30" />
+        <mxCell id="B-customer-request" parent="1" edge="1" source="B-step-1" target="B-step-2" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <object id="receive-save" label="Record the received file&#10;Check the recipient, file safety and integrity&#10;E-Invoice Service ↔ Other Services" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=17;">
-            <mxGeometry as="geometry" x="80" y="235" width="395" height="110" />
-          </mxCell>
-        </object>
-        <mxCell id="phase-receive-identify" value="3–4  CHECK REPEATS / ORIGINAL" vertex="1" parent="1" style="rounded=1;fillColor=#eeeeee;strokeColor=none;html=0;whiteSpace=wrap;align=center;fontFamily=Arial;fontSize=16;fontStyle=1;spacing=6;">
-          <mxGeometry as="geometry" x="535" y="190" width="395" height="30" />
+        <mxCell id="B-service-request" parent="1" edge="1" source="B-step-2" target="B-step-3" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.3;exitY=1;entryX=0.3;entryY=0;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <object id="receive-identify" label="Check repeats and original/copy roles&#10;Keep conflicts or missing originals pending&#10;E-Invoice Service" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=17;">
-            <mxGeometry as="geometry" x="535" y="235" width="395" height="110" />
-          </mxCell>
-        </object>
-        <mxCell id="phase-receive-format" value="5–6  CHECK FORMAT / CONVERT" vertex="1" parent="1" style="rounded=1;fillColor=#eeeeee;strokeColor=none;html=0;whiteSpace=wrap;align=center;fontFamily=Arial;fontSize=16;fontStyle=1;spacing=6;">
-          <mxGeometry as="geometry" x="990" y="190" width="395" height="30" />
+        <mxCell id="B-service-result" parent="1" edge="1" source="B-step-3" target="B-step-2" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.7;exitY=0;entryX=0.7;entryY=1;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <object id="receive-format" label="Validate the original; convert if needed&#10;DTS only: Phase 3 + non-UBL 2.5 input&#10;Other Services" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=17;">
-            <mxGeometry as="geometry" x="990" y="235" width="395" height="110" />
-          </mxCell>
-        </object>
-        <mxCell id="phase-receive-deliver" value="7–9  DELIVER / CONFIRM" vertex="1" parent="1" style="rounded=1;fillColor=#eeeeee;strokeColor=none;html=0;whiteSpace=wrap;align=center;fontFamily=Arial;fontSize=16;fontStyle=1;spacing=6;">
-          <mxGeometry as="geometry" x="1445" y="190" width="395" height="30" />
+        <mxCell id="C-customer-request" parent="1" edge="1" source="C-step-1" target="C-step-2" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <object id="receive-deliver" label="Deliver the eligible invoice once&#10;and confirm ERP receipt&#10;E-Invoice Service ↔ ERP" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=17;">
-            <mxGeometry as="geometry" x="1445" y="235" width="395" height="110" />
-          </mxCell>
-        </object>
-        <object id="receiving-rule" label="Original missing? ERP delivery stays pending. A safe, authorised faithful copy can still be viewed or downloaded.&#10;ERP receipt is separate from accounting/import choices. Decisions continue in E; cancellation is a separate journey." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
-          <mxCell vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=15;">
-            <mxGeometry as="geometry" x="130" y="382" width="1710" height="50" />
-          </mxCell>
-        </object>
-        <mxCell id="available-caption" value="Available inbound information and safe files&#10;Sent invoices are also read through the shared API." vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=15;">
-          <mxGeometry as="geometry" x="100" y="465" width="510" height="58" />
+        <mxCell id="C-service-request" parent="1" edge="1" source="C-step-2" target="C-step-3" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.3;exitY=1;entryX=0.3;entryY=0;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="customer-heading" value="CUSTOMER ACTIONS — list → open → download or review" vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=21;fontStyle=1;">
-          <mxGeometry as="geometry" x="680" y="472" width="1200" height="36" />
+        <mxCell id="C-service-result" parent="1" edge="1" source="C-step-3" target="C-step-2" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.7;exitY=0;entryX=0.7;entryY=1;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="scope-B" value="BUSINESS LEVEL · sent and received" vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=15;fontStyle=1;">
-          <mxGeometry as="geometry" x="60" y="605" width="390" height="28" />
+        <mxCell id="D-customer-request" parent="1" edge="1" source="D-step-1" target="D-step-2" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="scope-C" value="INVOICE LEVEL · one selected invoice" vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=15;fontStyle=1;">
-          <mxGeometry as="geometry" x="530" y="605" width="390" height="28" />
+        <mxCell id="D-service-request" parent="1" edge="1" source="D-step-2" target="D-step-3" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.3;exitY=1;entryX=0.3;entryY=0;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="scope-D" value="FILE LEVEL · one attachment · optional" vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=15;fontStyle=1;">
-          <mxGeometry as="geometry" x="1000" y="605" width="390" height="28" />
+        <mxCell id="D-service-result" parent="1" edge="1" source="D-step-3" target="D-step-2" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.7;exitY=0;entryX=0.7;entryY=1;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <object id="B-step-1" label="Customer: View invoice list&#10;Choose the business/client" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=16;fillColor=#ffffff;">
-            <mxGeometry as="geometry" x="60" y="645" width="390" height="70" />
-          </mxCell>
-        </object>
-        <object id="B-step-2" label="ERP → E-Invoice Service&#10;Query the authorised sent/received list" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=16;">
-            <mxGeometry as="geometry" x="60" y="750" width="390" height="70" />
-          </mxCell>
-        </object>
-        <object id="B-step-3" label="E-Invoice Service → ERP&#10;List, document types, status and pages&#10;ERP displays permitted results" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=16;">
-            <mxGeometry as="geometry" x="60" y="850" width="390" height="70" />
-          </mxCell>
-        </object>
-        <object id="C-step-1" label="Customer: Select and open invoice&#10;Choose one invoice from the list" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=16;fillColor=#ffffff;">
-            <mxGeometry as="geometry" x="530" y="645" width="390" height="70" />
-          </mxCell>
-        </object>
-        <object id="C-step-2" label="ERP → E-Invoice Service&#10;Retrieve this invoice in its business context" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=16;">
-            <mxGeometry as="geometry" x="530" y="750" width="390" height="70" />
-          </mxCell>
-        </object>
-        <object id="C-step-3" label="E-Invoice Service → ERP&#10;Details, status/history and file information&#10;ERP displays the selected invoice" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=16;">
-            <mxGeometry as="geometry" x="530" y="850" width="390" height="70" />
-          </mxCell>
-        </object>
-        <object id="D-step-1" label="Customer: Download file&#10;Choose a labelled file" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=16;fillColor=#ffffff;">
-            <mxGeometry as="geometry" x="1000" y="645" width="390" height="70" />
-          </mxCell>
-        </object>
-        <object id="D-step-2" label="ERP ↔ E-Invoice Service, if links are needed&#10;Retrieve with attachments included" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=16;">
-            <mxGeometry as="geometry" x="1000" y="750" width="390" height="70" />
-          </mxCell>
-        </object>
-        <object id="D-step-3" label="ERP/browser → file source&#10;Follow the selected downloadUrl&#10;File source returns bytes or an access problem" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
-          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=16;">
-            <mxGeometry as="geometry" x="1000" y="850" width="390" height="70" />
-          </mxCell>
-        </object>
-        <mxCell id="note-B" value="Empty results, incomplete collection and failed requests have different meanings." vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=13;">
-          <mxGeometry as="geometry" x="60" y="932" width="390" height="38" />
+        <mxCell id="E-customer-request" parent="1" edge="1" source="E-step-1" target="E-step-2" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="note-C" value="Opening does not accept an invoice or automatically download a file." vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=13;">
-          <mxGeometry as="geometry" x="530" y="932" width="390" height="38" />
+        <mxCell id="E-service-request" parent="1" edge="1" source="E-step-2" target="E-step-3" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.3;exitY=1;entryX=0.3;entryY=0;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="note-D" value="Optional. File bytes come from the file source; Retrieve supplies details and links." vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=13;">
-          <mxGeometry as="geometry" x="1000" y="932" width="390" height="38" />
+        <mxCell id="E-service-result" parent="1" edge="1" source="E-step-3" target="E-step-2" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.7;exitY=0;entryX=0.7;entryY=1;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <object id="footer" label="Company context: reuse the existing NIF, certificate/authority setup and authorised dataset. Check current permission for each action.&#10;Exact document types and status codes follow the source tables. Receiving, file access and commercial decisions retain separate results." link="../../specs/invoice-receiving/api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#document-types-and-status-values">
-          <mxCell vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=14;">
-            <mxGeometry as="geometry" x="40" y="1005" width="1840" height="55" />
+        <mxCell id="available-data-query" parent="1" edge="1" source="query-feed-marker" target="B-step-3" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="file-transfer-request" parent="1" edge="1" source="D-step-2" target="download-bytes" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1;exitY=0.5;entryX=1;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="2660" y="580" />
+              <mxPoint x="2660" y="1385" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="file-transfer-result" parent="1" edge="1" source="download-bytes" target="D-step-2" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0;exitY=0.5;entryX=0;entryY=0.8;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="2270" y="1385" />
+              <mxPoint x="2270" y="613" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="error-receive-identify" parent="1" edge="1" source="receive-identify" target="exception-receive-identify" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="error-receive-format" parent="1" edge="1" source="receive-format" target="exception-receive-format" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="error-B-step-3" parent="1" edge="1" source="B-step-3" target="exception-B-step-3" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="error-C-step-3" parent="1" edge="1" source="C-step-3" target="exception-C-step-3" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="error-D-step-3" parent="1" edge="1" source="D-step-3" target="exception-D-step-3" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="error-E-step-3" parent="1" edge="1" source="E-step-3" target="exception-E-step-3" style="edgeStyle=none;rounded=0;html=0;endArrow=block;strokeColor=#555555;strokeWidth=1.6;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="title" value="Retrieve, view and act on e-invoices" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=30;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="30" y="18" width="3110" height="42" />
+        </mxCell>
+        <mxCell id="subtitle" value="Invoices are received automatically. Users can view saved invoices after access and safety checks, even if ERP delivery is not complete." vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=18;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="30" y="68" width="3110" height="40" />
+        </mxCell>
+        <mxCell id="heading-A" value="RECEIVE INVOICE — AUTOMATIC" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#d7d7d7;strokeColor=#555555;strokeWidth=1.5;strokeColor=none;fontStyle=1;arcSize=4;">
+          <mxGeometry as="geometry" x="280" y="125" width="1170" height="40" />
+        </mxCell>
+        <mxCell id="heading-B" value="VIEW INVOICE LIST" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#d7d7d7;strokeColor=#555555;strokeWidth=1.5;strokeColor=none;fontStyle=1;arcSize=4;">
+          <mxGeometry as="geometry" x="1530" y="125" width="310" height="40" />
+        </mxCell>
+        <mxCell id="heading-C" value="SELECT AND OPEN INVOICE" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#d7d7d7;strokeColor=#555555;strokeWidth=1.5;strokeColor=none;fontStyle=1;arcSize=4;">
+          <mxGeometry as="geometry" x="1920" y="125" width="310" height="40" />
+        </mxCell>
+        <mxCell id="heading-D" value="DOWNLOAD FILE" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#d7d7d7;strokeColor=#555555;strokeWidth=1.5;strokeColor=none;fontStyle=1;arcSize=4;">
+          <mxGeometry as="geometry" x="2310" y="125" width="310" height="40" />
+        </mxCell>
+        <mxCell id="heading-E" value="REVIEW AND TAKE ACTION" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#d7d7d7;strokeColor=#555555;strokeWidth=1.5;strokeColor=none;fontStyle=1;arcSize=4;">
+          <mxGeometry as="geometry" x="2700" y="125" width="420" height="40" />
+        </mxCell>
+        <mxCell id="automatic-note" value="No customer action is needed.&#10;Invoices are collected even when the customer is not signed in." vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=19;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="310" y="225" width="740" height="85" />
+        </mxCell>
+        <object id="onboarding-precondition" label="BEFORE YOU START · Use the business’s existing setup and permitted sources.&#10;Check permission before each action." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#31-source-acquisition-and-stored-file-access">
+          <mxCell vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;align=left;spacing=2;">
+            <mxGeometry as="geometry" x="310" y="420" width="790" height="70" />
           </mxCell>
         </object>
-        <mxCell id="choose-label" value="Select" vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=11;align=center;">
-          <mxGeometry as="geometry" x="468" y="542" width="46" height="22" />
+        <object id="receive-save" label="Get and save the invoice file.&#10;Keep it unchanged.&#10;Record where it came from.&#10;RSD-01–06; PRI-01–04" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#choose-source-and-get-invoice">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="300" y="770" width="240" height="110" />
+          </mxCell>
+        </object>
+        <object id="receive-identify" label="Identify the invoice.&#10;Label the file.&#10;RCV-04; country rules" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="590" y="770" width="240" height="110" />
+          </mxCell>
+        </object>
+        <object id="original-gate" label="Is the original available&#10;for ERP delivery?&#10;REF-COPY-POLICY" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell vertex="1" parent="1" style="shape=rhombus;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="880" y="760" width="240" height="130" />
+          </mxCell>
+        </object>
+        <object id="copy-pending" label="Wait for the original.&#10;Allow users to view or download&#10;copies after checks pass.&#10;REF-COPY-POLICY" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;dashed=1;dashPattern=6 4;">
+            <mxGeometry as="geometry" x="865" y="975" width="250" height="110" />
+          </mxCell>
+        </object>
+        <object id="receive-format" label="Check the format and rules.&#10;Convert the file only if needed.&#10;RCV-05/06" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="1150" y="1170" width="260" height="110" />
+          </mxCell>
+        </object>
+        <object id="receive-deliver" label="Send the invoice to the ERP.&#10;Record the ERP’s confirmation.&#10;RCV-07" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="1150" y="975" width="260" height="110" />
+          </mxCell>
+        </object>
+        <object id="erp-receipt" label="Save the invoice.&#10;Confirm receipt.&#10;Do not save it twice.&#10;RCV-07; RCV-A14" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="1150" y="525" width="260" height="110" />
+          </mxCell>
+        </object>
+        <mxCell id="missing-label" value="No" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="1005" y="920" width="75" height="25" />
         </mxCell>
-        <mxCell id="optional-label" value="File" vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=11;align=center;">
-          <mxGeometry as="geometry" x="940" y="542" width="40" height="22" />
+        <mxCell id="ready-label" value="Yes" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="1148" y="885" width="80" height="25" />
         </mxCell>
-        <mxCell id="scope-E" value="DECISION LEVEL · permitted actions only" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=15;fontStyle=1;">
-          <mxGeometry as="geometry" x="1470" y="605" width="390" height="28" />
+        <mxCell id="delivery-request-label" value="Deliver" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="1143" y="718" width="100" height="26" />
         </mxCell>
-        <object id="E-step-1" label="Customer: Review and take action&#10;Accept · reject · record full payment&#10;Or leave the decision pending" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action">
-          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=16;fillColor=#ffffff;">
-            <mxGeometry as="geometry" x="1470" y="645" width="390" height="85" />
+        <mxCell id="delivery-result-label" value="Receipt" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="1360" y="718" width="85" height="26" />
+        </mxCell>
+        <object id="conversion-note" label="Use DTS to convert a file to UBL 2.5 only in Phase 3.&#10;Convert only if the file is not UBL 2.5.&#10;Keep the original file." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
+          <mxCell vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;align=left;spacing=2;">
+            <mxGeometry as="geometry" x="310" y="1180" width="745" height="65" />
           </mxCell>
         </object>
-        <object id="E-step-2" label="ERP → Domain Service&#10;Submit the action and required fields&#10;Check current authority and enabled scope" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action">
-          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=16;">
-            <mxGeometry as="geometry" x="1470" y="765" width="390" height="70" />
+        <object id="receiving-detail-link" label="Receiving detail → checks, problems and recovery" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#3-process-and-activity-order">
+          <mxCell vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;align=left;spacing=2;">
+            <mxGeometry as="geometry" x="310" y="1020" width="500" height="35" />
           </mxCell>
         </object>
-        <object id="E-step-3" label="Save the decision; send required communications&#10;ERP shows results and pending work" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action">
-          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=10;fillColor=#e8e8e8;strokeColor=#555555;strokeWidth=1.5;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=12;fontFamily=Arial;fontSize=16;">
-            <mxGeometry as="geometry" x="1470" y="865" width="390" height="60" />
+        <mxCell id="saved-feed-marker" value="S" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;arcSize=100;">
+          <mxGeometry as="geometry" x="400" y="930" width="32" height="32" />
+        </mxCell>
+        <mxCell id="saved-feed-caption" value="Saved invoice files&#10;S continues at the list request" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=15;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="300" y="975" width="250" height="46" />
+        </mxCell>
+        <mxCell id="query-feed-marker" value="S" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;arcSize=100;">
+          <mxGeometry as="geometry" x="1470" y="808" width="32" height="32" />
+        </mxCell>
+        <object id="B-step-1" label="View invoice list&#10;Choose the business or client." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=18;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="1530" y="235" width="310" height="100" />
           </mxCell>
         </object>
-        <object id="note-E" label="Spain: REJECTION / PAYMENT; no public acceptance code. Exact lists are linked in the specs." link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#52-public-event-contract">
-          <mxCell parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=13;">
-            <mxGeometry as="geometry" x="1470" y="935" width="390" height="38" />
+        <object id="C-step-1" label="Select and open invoice&#10;Choose one invoice from the list." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=18;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="1920" y="235" width="310" height="100" />
           </mxCell>
         </object>
-        <mxCell id="review-label" value="Review / action" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=2;fontFamily=Arial;fontSize=13;align=center;">
-          <mxGeometry as="geometry" x="1100" y="497" width="180" height="22" />
+        <object id="D-step-1" label="Download file&#10;Choose a labelled file (optional)." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=18;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;dashed=1;dashPattern=6 4;">
+            <mxGeometry as="geometry" x="2310" y="235" width="310" height="100" />
+          </mxCell>
+        </object>
+        <object id="E-step-1" label="Review and take action&#10;Choose an allowed action,&#10;or leave the decision pending." link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=18;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="2700" y="235" width="420" height="100" />
+          </mxCell>
+        </object>
+        <mxCell id="review-branch-label" value="Or review the invoice. No download needed." vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=13;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="2310" y="166" width="410" height="22" />
+        </mxCell>
+        <object id="B-step-2" label="Query e-invoices&#10;Show the allowed invoice list." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="1530" y="525" width="310" height="110" />
+          </mxCell>
+        </object>
+        <object id="B-step-3" label="Check the user’s access.&#10;Return invoices, status and pages.&#10;RET-API-01" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="1530" y="770" width="310" height="110" />
+          </mxCell>
+        </object>
+        <mxCell id="B-request-label" value="Request" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="1538" y="712" width="130" height="28" />
+        </mxCell>
+        <mxCell id="B-result-label" value="Result" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="1759.0" y="712" width="81.0" height="28" />
+        </mxCell>
+        <object id="C-step-2" label="Retrieve e-invoice&#10;Show invoice details and status.&#10;Show history and file labels." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="1920" y="525" width="310" height="110" />
+          </mxCell>
+        </object>
+        <object id="C-step-3" label="Check access to this invoice.&#10;Return allowed details and file information.&#10;RET-API-02" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="1920" y="770" width="310" height="110" />
+          </mxCell>
+        </object>
+        <mxCell id="C-request-label" value="Request" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="1928" y="712" width="130" height="28" />
+        </mxCell>
+        <mxCell id="C-result-label" value="Result" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="2149.0" y="712" width="81.0" height="28" />
+        </mxCell>
+        <object id="D-step-2" label="Get file choices and links if needed.&#10;Use the selected downloadUrl." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="2310" y="525" width="310" height="110" />
+          </mxCell>
+        </object>
+        <object id="D-step-3" label="Retrieve e-invoice&#10;Include attachments.&#10;Return allowed choices and links.&#10;RET-API-03" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;dashed=1;dashPattern=6 4;">
+            <mxGeometry as="geometry" x="2310" y="770" width="310" height="110" />
+          </mxCell>
+        </object>
+        <mxCell id="D-request-label" value="If needed" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="2318" y="712" width="130" height="28" />
+        </mxCell>
+        <mxCell id="D-result-label" value="Result" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="2539.0" y="712" width="81.0" height="28" />
+        </mxCell>
+        <object id="E-step-2" label="Send the chosen action.&#10;Show the result and any unfinished work." link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="2700" y="525" width="420" height="110" />
+          </mxCell>
+        </object>
+        <object id="E-step-3" label="Continue in the lifecycle flow.&#10;Check permission. Check that the action is available.&#10;SPEC029 covers decisions, reports and recovery." link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="2700" y="770" width="420" height="110" />
+          </mxCell>
+        </object>
+        <mxCell id="E-request-label" value="Request" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="2708" y="712" width="130" height="28" />
+        </mxCell>
+        <mxCell id="E-result-label" value="Result" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="3006.0" y="712" width="114.0" height="28" />
+        </mxCell>
+        <mxCell id="B-note" value="Show sent and received invoices.&#10;Show whether the list is empty,&#10;collection is incomplete,&#10;or the request failed." vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="1530" y="970" width="310" height="92" />
+        </mxCell>
+        <mxCell id="C-note" value="Opening does not download or accept the invoice.&#10;A derived file is made from the invoice." vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="1920" y="970" width="310" height="92" />
+        </mxCell>
+        <mxCell id="D-note" value="Faithful copy: a labelled UBL copy&#10;sent to Spain’s public platform.&#10;Download after checks pass,&#10;even while ERP delivery waits." vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="2310" y="970" width="310" height="92" />
+        </mxCell>
+        <object id="E-note" label="See SPEC029 for decisions and reports.&#10;ERP receipt is separate from accounting, import and buyer decisions." link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action">
+          <mxCell vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;align=left;spacing=2;">
+            <mxGeometry as="geometry" x="2700" y="970" width="420" height="92" />
+          </mxCell>
+        </object>
+        <object id="download-bytes" label="Return the selected file.&#10;If access or transfer fails,&#10;explain the problem." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;">
+            <mxGeometry as="geometry" x="2310" y="1340" width="310" height="90" />
+          </mxCell>
+        </object>
+        <mxCell id="file-request-label" value="File link" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="2675" y="1200" width="105" height="30" />
+        </mxCell>
+        <mxCell id="file-result-label" value="File" vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=14;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="2155" y="1200" width="115" height="30" />
+        </mxCell>
+        <mxCell id="file-source-note" value="Retrieve e-invoice returns file details and links. The file source sends the file when the ERP uses the selected downloadUrl." vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=17;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="310" y="1350" width="1740" height="60" />
+        </mxCell>
+        <mxCell id="exception-receive-identify" value="E" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;arcSize=100;">
+          <mxGeometry as="geometry" x="694" y="908" width="32" height="32" />
+        </mxCell>
+        <mxCell id="exception-receive-format" value="E" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;arcSize=100;">
+          <mxGeometry as="geometry" x="1440" y="1210" width="32" height="32" />
+        </mxCell>
+        <mxCell id="exception-B-step-3" value="E" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;arcSize=100;">
+          <mxGeometry as="geometry" x="1669" y="908" width="32" height="32" />
+        </mxCell>
+        <mxCell id="exception-C-step-3" value="E" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;arcSize=100;">
+          <mxGeometry as="geometry" x="2059" y="908" width="32" height="32" />
+        </mxCell>
+        <mxCell id="exception-D-step-3" value="E" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;arcSize=100;">
+          <mxGeometry as="geometry" x="2449" y="908" width="32" height="32" />
+        </mxCell>
+        <mxCell id="exception-E-step-3" value="E" vertex="1" parent="1" style="rounded=1;arcSize=12;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;arcSize=100;">
+          <mxGeometry as="geometry" x="2894" y="908" width="32" height="32" />
+        </mxCell>
+        <mxCell id="legend" value="Solid lines: usual steps, requests and results. Dashed lines: optional steps, conditions or exceptions. E: exception (problem or pending result). Matching S markers link saved files to the invoice list." vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="30" y="1510" width="3110" height="32" />
+        </mxCell>
+        <object id="shared-exception" label="E · Show the problem or pending result, the reason, the next action and who must act. Keep successful results. Retry only the failed or pending step. If the result is unknown, check what happened before trying again." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#33-failure-and-recovery-decisions">
+          <mxCell vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;align=left;spacing=2;">
+            <mxGeometry as="geometry" x="30" y="1550" width="3110" height="40" />
+          </mxCell>
+        </object>
+        <mxCell id="ownership-note" value="The lanes show proposed responsibilities. Implementation support still needs to be confirmed. Shared checks use each country’s rules. The ERP shows file labels and controls its own workflow." vertex="1" parent="1" style="text;strokeColor=none;fillColor=none;html=0;whiteSpace=wrap;align=center;verticalAlign=middle;spacing=10;fontFamily=Arial;fontSize=16;fontColor=#111111;align=left;spacing=2;">
+          <mxGeometry as="geometry" x="30" y="1600" width="3110" height="40" />
+        </mxCell>
+        <mxCell id="colour-customer" value="" vertex="1" parent="1" style="rounded=0;fillColor=#E6F4F1;strokeColor=#999999;strokeWidth=1;">
+          <mxGeometry as="geometry" x="30" y="1473" width="24" height="24" />
+        </mxCell>
+        <mxCell id="colour-customer-label" value="Customer actions and ERP steps" vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=2;fontFamily=Arial;fontSize=16;">
+          <mxGeometry as="geometry" x="66" y="1473" width="360" height="24" />
+        </mxCell>
+        <mxCell id="colour-shared" value="" vertex="1" parent="1" style="rounded=0;fillColor=#F0EBFA;strokeColor=#999999;strokeWidth=1;">
+          <mxGeometry as="geometry" x="470" y="1473" width="24" height="24" />
+        </mxCell>
+        <mxCell id="colour-shared-label" value="Get, check and process invoice files" vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=2;fontFamily=Arial;fontSize=16;">
+          <mxGeometry as="geometry" x="506" y="1473" width="380" height="24" />
+        </mxCell>
+        <mxCell id="colour-notes" value="" vertex="1" parent="1" style="rounded=0;fillColor=#FAFAFA;strokeColor=#999999;strokeWidth=1;">
+          <mxGeometry as="geometry" x="930" y="1473" width="24" height="24" />
+        </mxCell>
+        <mxCell id="colour-notes-label" value="Before you start / notes" vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=2;fontFamily=Arial;fontSize=16;">
+          <mxGeometry as="geometry" x="966" y="1473" width="260" height="24" />
+        </mxCell>
+        <mxCell id="colour-meaning" value="Colours group activities. They do not show whether a function is ready or built." vertex="1" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=2;fontFamily=Arial;fontSize=16;">
+          <mxGeometry as="geometry" x="1310" y="1473" width="1820" height="24" />
         </mxCell>
       </root>
     </mxGraphModel>

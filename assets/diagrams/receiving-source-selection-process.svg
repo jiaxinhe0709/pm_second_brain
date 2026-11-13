@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" aria-label="Before receiving: choose the source and get the invoice" width="1800" height="954" viewBox="20 0 1800 954" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="Before receiving: choose the source and get the invoice" width="1800" height="972" viewBox="20 0 1800 972" role="img">
   <title>Before receiving: choose the source and get the invoice</title>
   <desc>Before receiving, use the company’s authorised setup to obtain a public original, private original or public copy. Four plain-English routes include private-download failure, whose automatic recovery rules remain open. Safe copy access does not release ERP delivery without the original. Saved files continue at receiving step 1.</desc>
-  <rect x="20" y="0" width="1800" height="954" fill="white" />
+  <rect x="20" y="0" width="1800" height="972" fill="white" />
   <g id="title">
     <g fill="#000000" font-family="Helvetica" font-size="29.0" text-anchor="start">
       <text x="44.0" y="54.1" fill="#000000" font-family="Arial" font-size="29.0" text-anchor="start">Before receiving: choose the source and get the invoice</text>
@@ -156,7 +156,8 @@
   </a>
   <a id="handoff" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#3-process-and-activity-order">
     <g fill="#000000" font-family="Helvetica" font-size="17.0" text-anchor="start">
-      <text x="44.0" y="922.3" fill="#000000" font-family="Arial" font-size="17.0" text-anchor="start">Each saved file goes to step 1: Record the received file. Receiving checks the company, file safety and original/copy role before later actions.</text>
+      <text x="44.0" y="921.1" fill="#000000" font-family="Arial" font-size="17.0" text-anchor="start">Check recipient, file readability, safety and required integrity controls while getting and saving the file.</text>
+      <text x="44.0" y="941.5" fill="#000000" font-family="Arial" font-size="17.0" text-anchor="start">Each saved file then goes to step 1: Record the received file.</text>
     </g>
   </a>
 </svg>

@@ -43,7 +43,7 @@ def build():
     svg = ET.Element(tag('svg'), width=str(width), height=str(height), viewBox=f'{left} {top} {width} {height}',
                      role='img', attrib={'aria-label': cells['title']['label']})
     ET.SubElement(svg, tag('title')).text = cells['title']['label']
-    ET.SubElement(svg, tag('desc')).text = 'Preview generated from the editable Draw.io source. Private delivery and public copy keep separate results. The local product generates any required recipient PDF.'
+    ET.SubElement(svg, tag('desc')).text = 'Preview generated from the editable Draw.io source. Private delivery and public copy keep separate results. The local product generates any required recipient PDF. A final handoff links to central lifecycle tracking for sent invoices.'
     ET.SubElement(svg, tag('rect'), x=str(left), y=str(top), width=str(width), height=str(height), fill='white')
     font = pymupdf.Font('helv')
 

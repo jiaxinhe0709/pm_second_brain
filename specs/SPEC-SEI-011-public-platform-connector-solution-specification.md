@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-11-11
+updated: 2026-11-13
 reviewers: []
 related:
   - RES-SEI-002
@@ -26,6 +26,13 @@ related:
   - SPEC-SEI-016
   - SPEC-SEI-012
   - SPEC-SEI-014
+  - SPEC-SEI-005
+  - SPEC-SEI-013
+  - SPEC-SEI-023
+  - SPEC-SEI-026
+  - SPEC-SEI-029
+  - SPEC-SEI-044
+  - FP-SEI-002
 confluence:
   publish: true
   space_key: DNBU
@@ -69,6 +76,8 @@ The supplied PRD describes the wider integration. The capability mapping below s
 ### Public source baseline
 
 The current reviewed local baseline is the supplied PRE release of 29 October 2026, selected in the [source manifest](../assets/regulatory/spain/spfe/source-manifest.json). Eight WSDLs define ebMS/MIME exchanges; a ninth defines direct-body `ValidationInvoice`. The older WSDLs already bound SOAP 1.2. The release makes HTTP/fault rules explicit and removes illustrative payload and custom fault declarations. Business schemas, replay safety, documentation alignment and actual access remain open.
+
+**Newer remote evidence — review pending:** on 13 November 2026, the live AEAT catalogue displayed version 0.1.5, dated 3 November, and the formats document displayed version 0.1.2, dated 20 October. These PDFs are not registered local replacements for SPFE-S03/S08. The Public Platform Integration owner must preserve the new snapshots, compare changes and update the source register, manifest and affected specifications before adopting them. The mapping below does not establish that this specification is current against those revisions. REF-SPFE-REMOTE.
 
 See [REF Source references](#ref-source-references) for the original files, exact locations and source limits. The [technical evidence guide](../context/RES-SEI-002-spain-public-platform-technical-evidence.md) tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.
 
@@ -305,6 +314,26 @@ Credential rotation keeps earlier attempts unchanged. Disablement stops new affe
 
 Encryption, least privilege and purpose-bound source access protect PCN-D01–D09. Metrics distinguish attempts before/after transmission, provider and local latency, throttle, authority denial, evidence gaps, unknown-operation age and notification backlog. Avoid legal-subject identifiers as public metric labels. Security owns destination restrictions and XML/resource limits; Operations/Product approve service objectives from provider terms and measured volumes. No numeric SLA or retention period is invented.
 
+### Sage API capability mapping for SPFE operations
+
+The [SPEC-SEI-044 shared API architecture](provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md#1-scope-and-boundary) places the SPFE connector behind the shared Sage e-Invoicing API. The table maps external operations to Sage capabilities and their owning rules. It is an API reuse assessment; existing implementation coverage and required Spain extensions remain unconfirmed. [The source contract table](#spfe-source-contract-binding) owns external payloads, limits and source references. REF-API-MAP; SPFE-S03/S10–17/S23.
+
+| SPFE operation / example number | Sage capability and owning rules | Reuse / qualification boundary |
+|---|---|---|
+| **01 — `SendInvoice`** | Sending: submit an invoice or required public copy. [SPEC-SEI-023 process and activity order](invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order). | Assess existing sending calls; qualify Spain payloads and separate delivery/copy results. |
+| **02 — `CancelInvoice`** | Sending: execute a permitted submission withdrawal. [SPEC-SEI-023 withdrawal and correction boundaries](invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#withdrawal-and-correction-boundaries). | The Sage command remains open in [FP-SEI-002](../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#analysis-and-proposed-direction). Keep invoice withdrawal separate from lifecycle-report cancellation. |
+| **03 — `GetInvoices`** | Consultation and lifecycle: query known invoice information and reported states. [SPEC-SEI-026 list/open journey](invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download); [SPEC-SEI-029 evidence processing](invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#3-activity-order-and-process-support). | Assess query/detail/history reuse. Keep source refresh, saved-history reads and business-state interpretation separate. |
+| **04 — `GetRegisteredInvoice`** | Discovery and consultation: find invoices and obtain source state evidence. [SPEC-SEI-026 source acquisition](invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#31-source-acquisition-and-stored-file-access); [SPEC-SEI-029 evidence processing](invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#3-activity-order-and-process-support). | Qualify filters, pagination and collection coverage. Lifecycle owns interpretation of returned states. |
+| **05 — `DownloadInvoicesByID`** | Retrieval: obtain source invoice XML by business identity. [SPEC-SEI-026 source acquisition and stored-file access](invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#31-source-acquisition-and-stored-file-access). | Source acquisition supplies captured files for permitted product access. Qualify identity, integrity and per-item failures. |
+| **06 — `DownloadInvoicesByLOC`** | Retrieval: obtain source invoice XML by locator. [SPEC-SEI-026 source acquisition and stored-file access](invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#31-source-acquisition-and-stored-file-access). | Qualify locator authority and correlation. Download results remain separate from buyer acceptance. |
+| **07 — `CustomerInvoiceEvents`** | Lifecycle: report recipient actions and their cancellation. [SPEC-SEI-029 public event contract](invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#52-public-event-contract). | Assess lifecycle API reuse; qualify Spain actions, actor authority, fields and each reporting result. |
+| **08 — `SupplierInvoiceEvents`** | Lifecycle: report issuer collection/non-payment and their cancellation. [SPEC-SEI-029 public event contract](invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#52-public-event-contract). | Assess lifecycle API reuse; qualify issuer actions and enabled optional scope separately from recipient reporting. |
+| **09 — `ValidationInvoice`** | Validation: check one invoice through the optional PRE capability. [SPEC-SEI-005 public validation binding](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md#spfe-source-contract-binding). | No production dependency. A validation result does not register an invoice or establish buyer acceptance. |
+
+One Sage request can coordinate several external calls. Product reads can use saved evidence; a required source refresh uses a qualified connector query. The connector preserves each operation result; the owning feature applies its business meaning. `DocumentStatus` is a response-document type, so apply the [SPFE response and error matrix](#spfe-response-and-error-matrix) to distinguish query, validation and reporting results from invoice lifecycle facts.
+
+For direct Sage-to-SPFE work, this connector executes the assigned operation. Provider-owned actions retain their execution owner; apply [SPEC-SEI-013's integration-mode ownership rules](SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md#2-proposed-api-decision-and-alternatives) to prevent duplicate execution. The public connector role is separate from Sage's private-platform operator role. REF-API-MAP.
+
 ### SPFE source contract binding
 
 The supplied operation catalogue below is the external contract baseline. An operation remains disabled for live use until its listed gaps, authority and environment checks pass. The names identify SPFE operations, not new Sage API endpoints.
@@ -428,6 +457,8 @@ Use the original files for the claims they establish. Final published regulation
 
 | REF ID | Source and version | Exact location | Supported information and limit |
 |---|---|---|---|
+| REF-API-MAP | [SPEC-SEI-044 connector architecture](provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md), updated 9 November 2026; [SPEC-SEI-013 shared API assessment](SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md), current repository draft; owning feature sections linked in the mapping. | SPEC044 §§1–3, CA-ARCH01/02; SPEC013 Part 1 §2; [operation-to-capability mapping](#sage-api-capability-mapping-for-spfe-operations). | Internal shared-contract direction, operation ownership and proposed API reuse assessment. Does not establish deployed Spain coverage, new endpoint approval or private-platform operator readiness. |
+| REF-SPFE-REMOTE | [Live AEAT catalogue](https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Facturacion-electronica/CatalogoServicios.pdf), cover 0.1.5, 3 November 2026; [live AEAT formats](https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Facturacion-electronica/FormatosEntradaSalida.pdf), cover 0.1.2, 20 October 2026; inspected 13 November 2026. | Cover/revision pages; catalogue §6.5 identifies changed filter consultation. | Newer remote evidence exists. Full comparison, original-byte snapshots, manifest registration and affected-spec reconciliation remain pending; SPFE-S03/S08 retain their registered local versions. No new WSDL release or runtime qualification is established. |
 | REF-SPFE-EX09 | [RespuestaFacturaValidation.xml](https://sage365.sharepoint.com/sites/global/epd/ib/TechDoc/Shared%20Documents/3.Legal/2.-%20FACTURACI%C3%93N/TRANSVERSAL/FACTURA%20ELECTR%C3%93NICA/ACTUAL/SPFE/Documentaci%C3%B3n%20t%C3%A9cnica/Ejemplos%20de%20peticiones%20y%20respuestas%20de%20SW/09%20-%20ValidationInvoiceSOAP/09%20-%20ValidationInvoiceSOAP/RESPUESTA/RespuestaFacturaValidation.xml); SharePoint copy inspected 10 November 2026; publication date and release version unknown. | SOAP Body/DocumentStatus; DocumentResponse/Response/ResponseCode; repeated DocumentReference/DocumentStatusCode and DocumentDescription. | One overall failure and four errors for the same invoice. Example evidence only; no HTTP headers, complete error catalogue, raw-byte hash or live acceptance evidence. |
 | REF-SPFE-EX03 | [RespuestaConsultaFacturasPorIDs.xml](https://sage365.sharepoint.com/sites/global/epd/ib/TechDoc/Shared%20Documents/3.Legal/2.-%20FACTURACI%C3%93N/TRANSVERSAL/FACTURA%20ELECTR%C3%93NICA/ACTUAL/SPFE/Documentaci%C3%B3n%20t%C3%A9cnica/Ejemplos%20de%20peticiones%20y%20respuestas%20de%20SW/03%20-%20GetInvoicesSOAP/03%20-%20GetInvoicesSOAP/RESPUESTA/RespuestaConsultaFacturasPorIDs.xml); SharePoint copy inspected 11 November 2026; release version unknown. | GetInvoices: DocumentResponse/Response/Status/StatusReasonCode and AdditionalDocumentResponse/Response/ResponseCode. | Observed query status fields; ACCEPTED does not establish explicit buyer acceptance. No live conformance or raw-byte hash. |
 | REF-SPFE-EX04 | [RespuestaConsultaConFiltro.xml](https://sage365.sharepoint.com/sites/global/epd/ib/TechDoc/Shared%20Documents/3.Legal/2.-%20FACTURACI%C3%93N/TRANSVERSAL/FACTURA%20ELECTR%C3%93NICA/ACTUAL/SPFE/Documentaci%C3%B3n%20t%C3%A9cnica/Ejemplos%20de%20peticiones%20y%20respuestas%20de%20SW/04%20-%20GetRegisteredInvoiceSOAP/04%20-%20GetRegisteredInvoiceSOAP/RESPUESTA/RespuestaConsultaConFiltro.xml); SharePoint copy inspected 11 November 2026; release version unknown. | GetRegisteredInvoice: the same query result paths, plus Status/SequenceID. | Observed query result and continuation spelling; not complete pagination semantics. No live conformance or raw-byte hash. |

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-12
+updated: 2026-11-13
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -121,7 +121,7 @@ Detailed LCS-D01–10 and interaction inventories remain in [SPEC009](../archive
 
 ### 3.2 Spain field coverage against the French guide
 
-Use [SPEC029's general / France / Spain comparison](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#general-status-comparison) for business meanings and statuses with no direct public event. It does not establish API compatibility or shared transition rules.
+Use [SPEC029's SPFE states and reporting classifications](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#spfe-lifecycle-states) for the documented business-reporting set and [its draft platform mapping](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#draft-lifecycle-mapping) for proposed reuse and gaps. The draft does not establish API compatibility or shared transition rules.
 
 **SPFE definition baseline: available for specification work.** Final Annex II and the supplied supplement define all eight event codes, their actors, 52 field/group occurrences and L1 reasons `01`/`02`. The recorded comparison found no field differences. Catalogue §§6.8–6.9 and both event WSDLs establish the reporting operations and PRE transport. SPFE-S02/S03/S11/S17/S22; REF-FIELDS.
 

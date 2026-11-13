@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-09
+updated: 2026-11-13
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -40,7 +40,7 @@ This view summarises [SPEC009](../archive/SPEC-SEI-009-invoice-lifecycle-status-
 
 **What:** show what happened to an invoice, who reported it and who must act next. **Why:** a status-change request or completed API call cannot prove buyer acceptance, payment or completion of every report. **Reuse:** assess the existing E-Invoice status-update, notification and history APIs before adding product calls. REF-PRODUCT; INT-LCS01–05.
 
-Keep business facts, action attempts and destination reports separate. If a transition fails, retain the last successful status and the failed attempt. SPEC029 owns these rules and the [general / France / Spain comparison](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#general-status-comparison); SPEC030 owns reuse and contract gaps.
+Keep business facts, action attempts and destination reports separate. If a transition fails, retain the last successful status and the failed attempt. SPEC029 owns the [SPFE states and reporting classifications](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#spfe-lifecycle-states), [draft platform mapping](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#draft-lifecycle-mapping) and [reporting-action restrictions](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#spfe-reporting-action-restrictions). SPEC030 owns reuse and contract gaps.
 
 ## 2 Scope and actors
 

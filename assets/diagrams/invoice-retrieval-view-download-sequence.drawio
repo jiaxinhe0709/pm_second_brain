@@ -104,14 +104,14 @@
         <mxCell id="v24" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
           <mxGeometry as="geometry" x="24" y="394" width="1367" height="34" />
         </mxCell>
-        <mxCell id="v25" value="case | B. View invoice list — business level" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#626262;">
-          <mxGeometry as="geometry" x="36" y="402" width="427.8" height="26" />
+        <mxCell id="v25" value="case | View invoice list — business level" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#626262;">
+          <mxGeometry as="geometry" x="36" y="402" width="399.45" height="26" />
         </mxCell>
         <mxCell id="v26" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
           <mxGeometry as="geometry" x="24" y="900" width="1367" height="34" />
         </mxCell>
-        <mxCell id="v27" value="case | C. Select and open invoice — one invoice" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#626262;">
-          <mxGeometry as="geometry" x="36" y="908" width="456.15" height="26" />
+        <mxCell id="v27" value="case | Select and open invoice — one invoice" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#626262;">
+          <mxGeometry as="geometry" x="36" y="908" width="427.8" height="26" />
         </mxCell>
         <mxCell id="v28" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
           <mxGeometry as="geometry" x="36" y="1751" width="1343" height="34" />
@@ -122,8 +122,8 @@
         <mxCell id="v30" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#EFF6FF;strokeColor=#1565C0;">
           <mxGeometry as="geometry" x="24" y="1587" width="1367" height="34" />
         </mxCell>
-        <mxCell id="v31" value="opt | D. Download file — one attachment" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
-          <mxGeometry as="geometry" x="36" y="1595" width="380.55" height="26" />
+        <mxCell id="v31" value="opt | Download file — one attachment" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=15;fontColor=#1565C0;">
+          <mxGeometry as="geometry" x="36" y="1595" width="352.2" height="26" />
         </mxCell>
         <mxCell id="v32" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#626262;">
           <mxGeometry as="geometry" x="38" y="258" width="1339" height="112" />
