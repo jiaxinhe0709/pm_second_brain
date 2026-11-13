@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-11-11
+updated: 2026-11-13
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -144,7 +144,7 @@ Use the exact customer action labels **Connect or add a platform**, **Switch pla
 | Route | The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans. In onboarding summaries, **start or change platform use** means activating or changing this authorised selection from the agreed start; configuring access alone does not do so. |
 | Entry point | The published receiving destination for a legal entity. It need not be a raw URL. Publication does not by itself prove operational eligibility for a particular invoice. |
 | FR sending routing address | The `sender` or `recipient` address in the supplied FR sending API guide, using `accessPointAddressType` and `accessPointAddress`. These identify network routing roles, separately from seller and buyer in the invoice. The sender belongs to the calling dataset; self-billing routes buyer to seller. This guide does not establish Spain address types or document-code mappings. See [sending evidence](<FR API/Sending/send-e-invoice-guide-extract.md>). |
-| Direction | Business direction relative to the represented legal entity: outbound when it is the issuer, inbound when it is the recipient. API call direction, push/pull and network origin are separate concepts. |
+| Direction | Invoice-exchange direction relative to the represented business: outbound when the platform sends the invoice for that business; inbound when it receives the invoice for that business. API call direction, push/pull and status-report direction are separate concepts. See [sending, receiving and invoice roles](#sending-receiving-and-invoice-roles). |
 | Cutover / rollback | Cutover changes future work to a qualified route or capability at an agreed boundary. Rollback is a controlled change back; after an external effect it needs its own checks and evidence. Earlier work keeps its actual history. |
 | Rotation | Preparing replacement trust material and switching future eligible operations to it. Cutover is the switch boundary, rather than the whole replacement lifecycle. |
 | Historical continuity | Keeping the permitted access, evidence, responsible actors and channels needed to complete work on earlier invoices after a route change or service exit. It does not give a former provider indefinite authority. |
@@ -156,7 +156,7 @@ Use the exact customer action labels **Connect or add a platform**, **Switch pla
 | ERP | Enterprise resource planning or business software that owns invoice data and issuance. Domain services may prepare a representation but do not silently issue or change the legal invoice. |
 | Issued invoice | The invoice whose business identity and final revision have been recorded by the issuing product under its controls. A successful draft check does not establish issuance. |
 | Business invoice creation / representation generation | The ERP prepares and issues the business invoice. Representation generation creates an electronic file from an identified source revision. A generated file or validation pass does not establish issuance. SPEC-SEI-015 owns the Spain creation handoff. |
-| Seller / buyer / material issuer | Seller supplies the goods or services; buyer receives the supply; material issuer prepares and issues the document in practice. Buyer-issued invoices preserve seller and buyer in their normal invoice fields. Material issuer, legally obligated supplier and authenticated caller are separate roles; country rules qualify their authority and identifier binding. |
+| Seller / buyer / material issuer | Seller, also called supplier here, supplies the goods or services; buyer purchases them; material issuer prepares and issues the document in practice. Buyer-issued invoices preserve seller and buyer in their normal invoice fields. Material issuer, legally obligated supplier and authenticated caller are separate roles; country rules qualify their authority and identifier binding. |
 | Corrective invoice / correction method | A separate invoice that rectifies earlier invoice facts. In the selected Spain public profile, method `I` means correction by difference and `S` means correction by substitution. New document amounts and referenced original amounts have different meanings. Exact field bindings and permitted procedures belong to SPEC-SEI-015 and its qualified country pack. |
 | Replacement of simplified invoices | Spain type `388` in the final public-platform order's L1 list. This scenario is separate from corrective substitution method `S`; do not use “replacement” alone when both meanings are possible. |
 | Unique invoice code | Spain composite invoice identity using the qualified issuer NIF, series/number and issue date. Encoding and issuer-role mapping require the selected country contract. It is separate from a Sage invoice ID, request-idempotency key, operation ID and DTS task ID. Knowledge of a code does not grant access. |
@@ -182,6 +182,28 @@ Use the exact customer action labels **Connect or add a platform**, **Switch pla
 | Semantic preservation / parity | Semantic preservation keeps required business meaning during conversion. Parity checks whether the required old and new behaviour matches. Neither necessarily requires byte-identical output. |
 | Preflight / final validation | A preflight is an advisory draft or preview check. Final validation checks the exact final representation and current rules before dispatch. A draft pass cannot authorise changed final bytes. |
 | XSD / EN 16931 / BIS / CIUS | XML Schema Definition checks XML structure; EN 16931 defines a European invoice model; Business Interoperability Specifications and Core Invoice Usage Specifications add more specific rules. Keep the exact selected versions and country/route acceptance gates. |
+
+### Sending, receiving and invoice roles
+
+Use sender and recipient for the invoice-exchange journey. In this section, the connected business is the business that Sage represents for that exchange. A recipient of a status report or public copy is qualified separately.
+
+| Question | Terms | Meaning |
+|---|---|---|
+| What does the platform do for the connected business? | Sending / outbound; receiving / inbound | Sending accepts a document from its system, checks it, transmits it and returns results. Receiving obtains an incoming document, checks it, delivers it to its system and returns results. |
+| Who exchanges the document? | Sender / recipient | The party sending this invoice and its intended receiving party. These roles do not automatically identify the seller and buyer in the invoice. Exact API routing-address fields retain their contract meanings. |
+| What is the business perspective? | Sales / accounts receivable (AR); purchase / accounts payable (AP) | The same invoice concerns a sale for the seller and a purchase for the buyer. This perspective does not determine exchange direction. AR/AP API labels need a qualified mapping. |
+| What document is exchanged? | Document scenario and type | Standard invoice, corrective invoice, replacement of simplified invoices or buyer-issued invoice. The country and profile determine the applicable codes and rules. A document type is separate from the send/receive action. |
+
+Company A supplies goods to Company B in both examples:
+
+| Scenario | Seller / supplier | Buyer | Invoice sender | Invoice recipient |
+|---|---|---|---|---|
+| Ordinary seller-issued invoice | Company A | Company B | Company A | Company B |
+| Buyer-issued invoice (self-billing), with applicable authority | Company A | Company B | Company B | Company A |
+
+These examples explain roles; they do not establish support for a country, provider or API code. Self-billing authority and mappings remain subject to the selected contract. See [the supplied sending guide's routing distinction](<FR API/Sending/send-e-invoice-guide-extract.md#prerequisites-and-submission-design-requirements>) and [SPEC-SEI-015 invoice-type behaviour](../specs/SPEC-SEI-015-invoice-creation-solution-specification.md#2-invoice-type-behaviour).
+
+Document types select applicable checks within sending and receiving. Receiving a replacement invoice is still a receive action. The platform preserves seller, buyer and material-issuer facts for authority, validation and routing checks. ERP issuance, purchasing and accounting remain separate responsibilities.
 
 ## Evidence, outcomes and recovery
 

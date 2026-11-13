@@ -13,7 +13,7 @@
     }
   },
   "externalDocs": {
-    "url": "https://developer.sage.com/domain-services/",
+    "url": "https://developer.sage.com/network/",
     "description": "Sage Network e-Invoicing Service Documentation"
   },
   "servers": [
@@ -85,6 +85,7 @@
                               {
                                 "eInvoiceId": "f74d7cf3-2df2-4a30-b57e-aba2274d114f",
                                 "eInvoiceTypeCode": "AP_Invoice",
+                                "availableAttachments": 2,
                                 "attachments": [
                                   {
                                     "filename": "invoice.xml",
@@ -96,11 +97,13 @@
                                 "sender": {
                                   "accessPointAddressType": "fr.siren",
                                   "accessPointAddress": "025568524",
+                                  "accessPointAddressLegal": "string",
                                   "accessPointAddressName": "string"
                                 },
                                 "recipient": {
                                   "accessPointAddressType": "fr.siren",
                                   "accessPointAddress": "025568524",
+                                  "accessPointAddressLegal": "string",
                                   "accessPointAddressName": "string"
                                 },
                                 "accessPointId": "702dc7ac-1b25-441d-b256-1463188d42e1",
@@ -313,9 +316,17 @@
             "value": "recipient/accessPointAddress eq '123456789'",
             "summary": "Filter by a nested attribute"
           },
+          "recipientLegalAddress": {
+            "value": "recipient/accessPointAddressLegal eq '123456789'",
+            "summary": "Filter by the access point address in legal format extracted from UBL"
+          },
           "currentStatus": {
             "value": "currentStatus/statusCode eq '00000000-0000-0000-0000-300000000000'",
             "summary": "Filter by a current status"
+          },
+          "availableAttachments": {
+            "value": "availableAttachments eq 2",
+            "summary": "Filter by the number of available attachments"
           }
         }
       },
@@ -411,6 +422,15 @@
                     "AR_CreditNote"
                   ]
                 },
+                "availableAttachments": {
+                  "type": "integer",
+                  "format": "int32",
+                  "minimum": 0,
+                  "description": "Number of attachments currently available for the e-invoice.",
+                  "examples": [
+                    2
+                  ]
+                },
                 "attachments": {
                   "type": "array",
                   "items": {
@@ -425,6 +445,8 @@
                         "type": "string",
                         "enum": [
                           "ubl-2.1/xml",
+                          "application/xml",
+                          "text/xml",
                           "application/pdf"
                         ]
                       },
@@ -473,6 +495,13 @@
                         "025568524"
                       ]
                     },
+                    "accessPointAddressLegal": {
+                      "description": "The sender access point address in legal format, extracted from the UBL supplier endpoint ID.",
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
                     "accessPointAddressName": {
                       "description": "The sender access point display name.",
                       "type": [
@@ -505,6 +534,13 @@
                       "maxLength": 50,
                       "examples": [
                         "025568524"
+                      ]
+                    },
+                    "accessPointAddressLegal": {
+                      "description": "The recipient access point address in legal format, extracted from the UBL customer endpoint ID.",
+                      "type": [
+                        "string",
+                        "null"
                       ]
                     },
                     "accessPointAddressName": {

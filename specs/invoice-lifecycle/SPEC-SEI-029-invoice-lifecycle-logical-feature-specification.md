@@ -6,10 +6,11 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-12
+updated: 2026-11-13
 reviewers: []
 related:
   - SPEC-SEI-009
+  - SPEC-SEI-025
   - SPEC-SEI-028
   - SPEC-SEI-030
   - SPEC-SEI-041
@@ -44,10 +45,15 @@ Before a command or report, check the caller, represented business, actor role a
 
 ## 2 Scenarios and safe next actions
 
+<a id="review-and-take-action"></a>
+
+**E. Review and take action** continues from **C. Select and open invoice** in the [SPEC025 presentation overview](../invoice-receiving/SPEC-SEI-025-invoice-retrieval-solution-summary.md#4-end-to-end-workflow). Download is a separate choice. The customer or authorised accountant selects a permitted invoice action in the ERP. The ERP submits the action to the Domain Service using the same business and invoice identity, then shows its attempt result and each communication result separately. [§4.1](#general-status-comparison) owns the source status names and country meanings; [SPEC041 §1.2](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#12-documented-status-inputs) owns exact documented command UUIDs and required fields. Apply LCS-R04/12–14 before offering or sending an action. These links do not enable unqualified Spain commands.
+
 | Trigger / actor | Required result / safe alternative | Existing coverage |
 |---|---|---|
 | Platform supplies evidence | Save source meaning; update only supported facts. Hold unknown/unmatched codes for review. | LCS-01–05; R01–03/09/11; A01/02/11/15 |
 | Buyer records acceptance/rejection | Save the authorised decision/date and assess required communications. Missing authority/fields holds the command. Presumed acceptance stays derived. | LCS-02/04/07–09; R04–06/12; A03/05/18 |
+| Customer leaves the decision for later | Create no decision or transition. Keep the current status and any existing obligations visible; deferral does not remove an applicable duty. | LCS-R03/06/08/12 |
 | Buyer pays; seller records collection | Keep actor, dates, amounts and evidence. Assess full payment and each report separately; partial/bank evidence cannot prove public full payment. | LCS-02–05/07–10; A04/06/20 |
 | Product requests a transition | Show its attempt result separately. Failure retains the previous successful status and corrective action. | R14; A26/27 |
 | Several destinations require reporting | One owner/result per destination. Keep known successes; check the original uncertain attempt before repeating. | LCS-07–10; R05/06; A08/16/24 |
@@ -183,7 +189,7 @@ These are required checks, not executed implementation tests. The [original assu
 | Existing checks | Required proof |
 |---|---|
 | LCS-A01/02/11/22 | Delivery, Peppol codes, unknown/technical/payment-processing states affect only their supported result. |
-| LCS-A03/04/05/18 | Authorised rejection/full payment; bank-evidence limit; explicit versus presumed acceptance; no invented public acceptance code. |
+| LCS-A03/04/05/18 | From an opened invoice, permit qualified decisions without requiring download. Deferral creates no transition or acceptance and leaves obligations visible. Check current action authority; preserve numeric catalogue code versus UUID input and business refusal versus technical rejection. Authorised rejection/full payment; bank-evidence limit; explicit versus presumed acceptance; no invented public acceptance code. |
 | LCS-A06/07/12 | Duplicate, conflicting, late and corrected evidence keeps history and holds unsafe progression. |
 | LCS-A08/09/24 | Independent reports, timeout recovery, historical routes and provider-owned execution avoid duplicate effects. |
 | LCS-A10/15/16/17/23 | Separate source consultation/history; no reporting loops or clearing facts omitted from partial events. |

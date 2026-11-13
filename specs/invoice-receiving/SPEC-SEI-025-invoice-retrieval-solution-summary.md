@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-11
+updated: 2026-11-13
 reviewers: []
 related:
   - SPEC-SEI-016
@@ -40,7 +40,7 @@ This view summarises [SPEC016](../archive/SPEC-SEI-016-invoice-receiving-retriev
 
 ## 1 Purpose and intended outcomes
 
-**What:** let a business or authorised accountant view received invoices and download captured files from public (SPFE) and private platforms. **Why:** users need access to invoices even when collection or product processing has a problem. **Reuse:** assess the existing E-Invoice list, detail and file calls, records access and inbound DTS mapping before adding capabilities. REF-PRODUCT; REF-SCOPE; INT-RCV01.
+**What:** let a customer or authorised accountant consult the business’s sent and received e-invoices through the ERP and download available files. Automatic collection and receiving cover inbound files from public (SPFE) and private platforms. **Why:** users need access to invoices even when collection or product processing has a problem. **Reuse:** assess the existing E-Invoice list, detail and file calls, and records access before adding capabilities; assess DTS for the conversion scope in SPEC026 RCV-06. REF-PRODUCT; REF-SCOPE; INT-RCV01.
 
 SPEC026 owns scenarios and required behaviour; SPEC027 owns reuse and engineering gaps; SPEC042 supplies API fields, examples and Spain changes.
 
@@ -56,31 +56,32 @@ SPEC026 owns scenarios and required behaviour; SPEC027 owns reuse and engineerin
 | External private providers — Phase 2 | **View and user download required.** Qualify provider intake and saved-file access. Complete supplied bytes avoid another source fetch. REF-SCOPE. |
 | Sage private-platform offering — Phase 3 | **View and user download required.** Qualify shared reuse, provider/service-chain support and operator readiness. REF-SCOPE. |
 | Public copy and private original | Keep both sources and prove whether they represent one business invoice. |
-| Customer/accountant opens an invoice or downloads an enabled file | Apply the scope in SPEC026 §1 and current client/invoice/file permission. Keep original, public-copy and derived roles clear. |
+| Customer/accountant views the list, opens an invoice and chooses a file to download | Follow the [SPEC026 §2 customer journey](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download). The ERP checks current access for each action and keeps original, public-copy and derived labels clear. |
 | Processing, product delivery or collection fails | Keep completed work; show the affected item, next action and owner. |
 
-The business or authorised accountant requests permitted actions. The ERP displays results and confirms receipt. The E-Invoice Service coordinates collection and receiving; supporting capabilities check permission, files, mapping and records. Source platforms supply files/results; Operations resolves assigned failures. These are logical responsibilities.
+The customer or authorised accountant selects a business/client and consults its sent and received invoices. The ERP calls the Domain Service – E-Invoice Service through the existing E-Invoice API, then displays returned lists, selected-invoice details and file choices. Its separate receiving work saves delivered invoices and confirms receipt. The E-Invoice Service coordinates collection and receiving; supporting capabilities check permission, files, mapping and records. Source platforms supply files/results; Operations resolves assigned failures. These are logical responsibilities.
 
 Start after [onboarding](../onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#4-feature-wide-functional-requirements-and-rules) has established the selected platform access and business mapping. Reuse the company’s SXS dataset and required credential references through qualified bindings. RRI-Q02 still gates provider rollout; RET-G10 qualifies required private user download. ZIP export, sending and business lifecycle actions keep their existing scope.
 
 ## 4 End-to-end workflow
 
-![Find an invoice, save its file, and deliver it once](../../assets/diagrams/invoice-retrieval-overview-process.svg)
+![Five action frames: receive, list, open, download, and review and take action](../../assets/diagrams/invoice-retrieval-overview-process.svg)
 
-[Draw.io](../../assets/diagrams/invoice-retrieval-overview-process.drawio) · [PNG](../../assets/diagrams/invoice-retrieval-overview-process.png).
+[Presentation overview — Draw.io](../../assets/diagrams/invoice-retrieval-overview-process.drawio) · [PNG](../../assets/diagrams/invoice-retrieval-overview-process.png).
 
-The diagram reuses onboarding's **Customer settings** (light teal) and **Setup and checks** (light purple). These colours identify activity type, not readiness. Its grey notes illustrate the [three Spain original and faithful copy scenarios in SPEC026](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios). A platform name alone does not establish a file's role. Provider support remains unconfirmed; destination selection stays with sending. SPFE-S02 Articles 3–5.
+Use this single overview for the business presentation. Frame A is automatic inbound receiving. Frames B–E show the customer journey. From C, the customer can choose **D. Download file** or **E. Review and take action**. Download is not required before a decision. The dashed feed starts after safe capture; it does not require completed ERP delivery. Sent invoices are also available through the shared read API. The frame letters are presentation labels, not new requirement IDs. [SPEC042’s source lists](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#document-types-and-status-values) distinguish document types, API type values and status codes.
 
-| Walkthrough | Result / detailed rule |
+| Frame | Purpose / detailed owner |
 |---|---|
-| 1. Reuse the business setup | Resolve current business/action permission and the source binding. RSD-01; PRI-01. |
-| 2. Collect from the selected platform | SPFE discovers by presentation date and downloads files separately. Private intake uses its qualified notification/fetch or supplied-file mode. RSD-03; PRI-02/03. |
-| 3. Identify and save each file | Apply SPEC026's linked Spain scenarios; preserve the source and original, faithful-copy or derived role. Save exact files and receiving classification before completing collection progress. A notification alone is insufficient. RSD-04–06. |
-| 4. List and open invoices | Query e-invoices supplies the list; Retrieve e-invoice opens one selected invoice with status history. These are RET-API-01/02 in [SPEC042](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#1-existing-product-facing-calls). Show permitted captured information and file roles. For SPFE, show freshness and distinguish an empty result from failed collection. SPEC026 §2. |
-| 5. Download a selected file | Follow the attachment link returned by Retrieve or Query; this is a file-transfer step, not a third Sage invoice endpoint. User download follows the platform-wide scope in SPEC026 §1. Read safe saved bytes under current permission. RSD-07; REF-SCOPE; SPEC042 RET-API-03. |
-| 6. Complete downstream processing | Validation, mapping and product receipt have their own outcomes. Recover their failures from saved bytes. RCV-02–09. |
+| **A. Receive invoice** — automatic, inbound only | Source collection/intake feeds the captured file into receiving. Record the received file → identify the invoice and label its file role → validate/convert only under RCV-06 → deliver and confirm. [SPEC026 §3 receiving swimlane](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#3-process-and-activity-order) owns the detailed steps, holds and recovery. RSD-01–06; PRI-01–04; RCV-01–09. |
+| **B. View invoice list** — business level | ERP requests the business’s authorised sent/received list from the E-Invoice Service using Query e-invoices and displays the result. [SPEC026 §2 customer journey](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download) owns the outcome and exceptions; RET-API-01 supplies the call. |
+| **C. Select and open invoice** — one invoice | ERP requests the selected invoice through Retrieve e-invoice, then displays permitted details and available files. Keep the selected ID and business context. SPEC026 §2; RET-API-02. |
+| **D. Download file** — one attachment, optional | Obtain file choices/links when needed, then follow the selected saved-file URL. [SPEC042 RET-API-03](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#ret-api-03) describes transfer and recovery; it is not a third Sage invoice endpoint. RSD-07. |
+| **E. Review and take action** — one invoice decision | [SPEC029](../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action) owns acceptance, rejection, payment and other enabled actions, with independent report results. [SPEC041](../invoice-lifecycle/api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#12-documented-status-inputs) owns exact documented command UUIDs and input fields. |
 
-Steps 4–5 use captured information independently of later mapping or product-delivery success. An available readable representation can support viewing; optional PDF/Factur-X generation does not replace the source. SPEC026 owns the detailed checks and recovery.
+Before receiving step 1, use the [SPEC026 source-choice flow](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#choose-source-and-get-invoice): get the public original, private original or permitted public copy. It also shows the open recovery decision when private download fails. Use the [Spain public UBL copy-indicator table](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-copy-indicator) to read the original/copy flag. The [three Spain original/copy scenarios](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios) govern file roles. A safe, authorised faithful copy can be consulted while ERP delivery waits for the original. Optional readable-file generation does not replace the source. REF-COPY-POLICY.
+
+Use the supporting [receiving swimlane for A](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#3-process-and-activity-order), [Query/Retrieve/file-transfer sequence for B–D](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md#24-required-view-and-user-download) and [SPEC029 lifecycle flow for E](../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#3-activity-order-and-process-support). Accounting/import choices and cancellation remain linked journeys; ERP receipt alone does not complete them. Provider/build qualification remains open.
 
 ## 5 Reuse direction and Spain boundaries
 
@@ -88,7 +89,7 @@ Steps 4–5 use captured information independently of later mapping or product-d
 |---|---|
 | E-Invoice list/detail and file download; optional notifications | Confirm public/private view and saved-file download support, identity, file roles and missed-event recovery. The guide proves documented operations, not a running Spain integration. |
 | Shared capture, duplicate handling and records access | Qualify the actual build, current permissions, integrity, retention and recovery. |
-| Existing DTS — preferred mapping candidate | Prove the selected Spain inbound format, tax/extension fields and target-product mapping. Outbound UBL support alone is insufficient. |
+| Existing DTS — Phase 3 format conversion only | Follow [SPEC026 RCV-06](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff). Prove the selected non-UBL 2.5 input, UBL 2.5 output, tax/extension fields and recovery. Existing outbound support alone does not prove this conversion. REF-DTS-SCOPE. |
 | Spain public collection | Bind the supplied discovery/download operations, representation and UBL profile. Keep these country rules separate. SPFE-S02/S03/S08. |
 
 ## 6 Material decisions and dependencies
@@ -97,9 +98,10 @@ Steps 4–5 use captured information independently of later mapping or product-d
 |---|---|
 | Enabled sources and access — RRI-Q01/02; RET-G01/06 | Product, Identity and Integration: supported modes, recipient permission and public contract. |
 | Complete collection — RSD-G01/06/07; RET-G03 | Architecture, API and Operations, with Product freshness input: pull schedule, source/API limits, proposed list-open refresh, page boundaries and gap recovery. |
-| Correct files and mapping — RET-G04/07 | Records, Security, Format and DTS: source provenance, safety and inbound meaning. |
+| Correct files and mapping — RET-G04/07 | Records, Security and Format: source, safety and invoice meaning. DTS joins only for the conversion defined in RCV-06. |
 | Saved access and product receipt — RET-G05/09 | Records and Product: historical access, retention/holds, delivery identity and receipt. |
 | Private user download — RRI-Q02; RET-G10 | Records, API and provider integration, with Product/Compliance: prove private saved-file access, roles, permissions and recovery before enablement. Required scope is settled in SPEC026 §1. |
+| Copy-only policy — selected; recovery qualification open | Product aligns the canonical PRD with REF-COPY-POLICY. Integration/Identity qualify public recovery triggers; Receiving/Records qualify later-original equivalence. See [SPEC026 §3.4 decisions](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal); RET-G01/04/07/09/10 remain open. |
 
 SPEC027 records the full gates and owners. Existing query windows, temporary links and optional renderings are API constraints; they do not set Spain retention or release scope.
 
@@ -113,11 +115,13 @@ Use [SPEC026 recovery](SPEC-SEI-026-invoice-retrieval-logical-feature-specificat
 
 | REF ID | Source and version/date | Exact location | Supported claim and limit |
 |---|---|---|---|
-| REF-SCOPE | [SPEC026 scope decision](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#1-purpose-actors-and-boundary), user direction, 11 November 2026 | Source/phase scope table; REF-SCOPE | Public/private view and user download required. Product decision, not a legal or implementation claim. |
+| REF-SCOPE | [SPEC026 scope and customer journey](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download), user direction, 11 and 13 November 2026 | §§1–2; REF-SCOPE | Public/private view and user download required. Customer sent/received list → selected invoice → optional file download through the ERP and Domain Service. Product direction, not a legal or implementation claim. |
+| REF-DTS-SCOPE | [SPEC026 RCV-06](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff), user direction, 13 November 2026 | Conversion scope and acceptance; REF-DTS-SCOPE | Phase 3 conversion of received formats other than UBL 2.5. Product decision; actual input/output mapping and build remain unqualified. |
+| REF-COPY-POLICY | [SPEC026 selected copy-only policy](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal), user direction, 13 November 2026 | Selected policy and acceptance coverage; REF-COPY-POLICY | Authorised faithful-copy view/download can proceed; ERP delivery waits for the original. Product decision; recovery triggers and implementation qualification remain open. |
 | REF-BASE | [SPEC-SEI-016](../archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md), updated 20 October 2026 | Parts 1–4; RRI/PRI/RSD/RCV controls and REF | Combined draft baseline and existing IDs; not implementation evidence. |
 | REF-PRODUCT | [PRD-SEI-211](../../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md), updated 20 October 2026; [PRD-SEI-223](../../prds/PRD-SEI-223-interoperability-routing-transformation.md), updated 7 October 2026; [PRD-SEI-213](../../prds/PRD-SEI-213-private-platform-connectivity-structured-review.md) | PRD211 Phase 1, retrieval/download boundary, FR1–55; PRD223 receiving FR17–20 and DTS FR43–44; private capability boundaries | Canonical product sources with their recorded draft/discovery status. Does not approve added release scope. |
 | INT-RCV01 | [Supplied FR receiving guide extract](<../../context/FR API/Receiving/receive-e-invoice-guide-extract.md>), received 22 October 2026; revision unknown | Sections 1–4; Polling, formats, and extracted data | Documented guide flow and limits; schema, build and Spain coverage unverified. |
 | SPFE-S02 | [Final Order HAC/1028/2026](../../context/BOE-A-2026-20587.pdf), published 5 October 2026 | Articles 3(4), 4(1)–(3), 5(2)/(5), PDF pp. 6–8; Articles 9–11, pp. 9–11 | Original/faithful-copy distinction, public exchange and copy duties; recovery, conservation access and representation. No private-provider API contract or implementation proof. |
 | SPFE-S03 | [Original catalogue](<../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), 0.1.0, 9 October 2026 | Sections 6.4–6.7, pp. 12–15 | Public discovery, queries and downloads are distinct operations; incomplete wire semantics remain open. |
 | SPFE-S08 | [Original formats](<../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), 0.1.0, 9 October 2026, BORRADOR | Section 5.1.1 p. 8; sections 5.4–5.7 pp. 14–15 | Supplied UBL 2.5 selection; query/download formats pending. Not a full activated profile. |
-| REF-API | [SPEC027](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md#ref-source-references) and [SPEC042](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#ref-source-references), drafts, updated 11 November 2026 | Operation sources, request/response examples, local changes and qualification gates | Engineering analysis and original-contract links. Proposed controls have separate authority from external sources. |
+| REF-API | [SPEC027](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md#ref-source-references) and [SPEC042](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#ref-source-references), drafts, updated 13 November 2026 | Operation sources, request/response examples, local changes and qualification gates | Engineering analysis and original-contract links. Proposed controls have separate authority from external sources. |

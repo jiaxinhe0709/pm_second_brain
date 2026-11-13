@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-12
+updated: 2026-11-13
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -42,7 +42,7 @@ This draft states the proposed behaviour for the companion set. Exact contracts,
 
 The business needs the correct invoice sent through the permitted route, with clear results and safe recovery. The ERP owns issuance. A direct business or authorised accountant uses the same single-invoice journey for the represented business. No batch coordinator is required. The supplied FR guide establishes a per-invoice submission, not bulk accountant sending. Portfolio and accounting-handoff proposals remain separate under OUT-Q02. A client relationship, login or dataset ID alone cannot grant action authority. NIF identifies the legal tax subject; a routing address identifies a network participant or destination. Sender and recipient values in the Sending contract are routing addresses and do not, by themselves, identify the seller and buyer in the invoice. OUT-R11–14; REF-BASE/PRODUCT; INT-SND01/02.
 
-Use the [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md). Product requirements retain their source authority. Requirements below do not allocate new services or endpoints.
+Use [GLO-SEI-001 — sending, receiving and invoice roles](../../context/GLO-SEI-001-e-invoicing-terminology.md#sending-receiving-and-invoice-roles) to distinguish exchange direction, sender/recipient, sales/purchase perspective and document type. Product requirements retain their source authority. Requirements below do not allocate new services or endpoints.
 
 ## 2 Scenarios and observable outcomes
 

@@ -18,8 +18,14 @@ def build():
     svg = ET.parse(BASE.with_suffix('.svg'))
     ns = '{http://www.w3.org/2000/svg}'
     # The shared preview renderer draws dashed outlines as short paths. Add the
-    # source fill separately so the customer-settings colour remains visible.
+    # source fill separately so linked dashed shapes retain their background.
     native = ET.parse(BASE.with_suffix('.drawio'))
+    page = native.find('.//mxGraphModel')
+    width, height = page.get('pageWidth'), page.get('pageHeight')
+    svg.getroot().attrib.update(width=width, height=height,
+                                viewBox=f'0 0 {width} {height}')
+    background = svg.getroot().find(ns + 'rect')
+    background.attrib.update(x='0', y='0', width=width, height=height)
     for obj in native.iter('object'):
         cell = obj.find('mxCell')
         style = dict(part.split('=', 1) for part in cell.get('style', '').split(';') if '=' in part)
@@ -31,9 +37,14 @@ def build():
             key: geom.get(key) for key in ('x', 'y', 'width', 'height')
         } | {'fill': style.get('fillColor', '#ffffff')}))
     svg.find('{http://www.w3.org/2000/svg}desc').text = (
-        'Collect received invoices using existing onboarding access. Preserve each '
-        'original or faithful copy with its source. The three Spain examples '
-        'illustrate file roles; provider support remains unconfirmed.')
+        'One presentation overview with five action frames: automatic inbound '
+        'receiving, business-level sent/received invoice list, one selected '
+        'invoice, optional attachment download, and review and take action. '
+        'Download and review branch separately from the opened invoice. '
+        'Exact document types and status codes are in linked source tables. Available safe inbound '
+        'data feeds consultation before ERP delivery is complete. Query and '
+        'Retrieve show ERP-to-E-Invoice-Service communication; file bytes '
+        'come from following the selected file URL.')
     svg.write(BASE.with_suffix('.svg'), encoding='unicode')
     with pymupdf.open(BASE.with_suffix('.svg')) as image:
         with pymupdf.open('pdf', image.convert_to_pdf()) as pdf:

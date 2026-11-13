@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-30
-updated: 2026-11-11
+updated: 2026-11-13
 reviewers: []
 related:
   - SPEC-SEI-016
@@ -39,24 +39,24 @@ Confluence views: [Summary](https://confluence.sage.com/pages/viewpage.action?pa
 
 This reference follows the [onboarding API analysis](../../onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md): existing calls, request/result fields, Spain changes and open evidence. SPEC027 owns RET-G01–10 and the reuse decisions. This page does not create another gate register.
 
-**Evidence reviewed:** INT-RCV01, INT-ERR01 and the supplied Query/Retrieve OpenAPI definitions (INT-RCV02/03, received 2 November 2026), the SPFE catalogue/formats and the four original query/download WSDLs selected by the manifest: **PRE release 29 October 2026**. A canonical guide URL and deployed-build version remain missing. The supplied REST contracts do not prove Spain support. The WSDLs establish transport, not complete business schemas or a running Spain integration. REF-EVIDENCE.
+**Evidence reviewed:** INT-RCV01, INT-ERR01 and the supplied Query/Retrieve OpenAPI definitions (INT-RCV02/03, current user-supplied snapshots received 13 November 2026; earlier snapshots received 2 November are preserved), the SPFE catalogue/formats and the four original query/download WSDLs selected by the manifest: **PRE release 29 October 2026**. A canonical guide URL and deployed-build version remain missing. The supplied REST contracts do not prove Spain support. The WSDLs establish transport, not complete business schemas or a running Spain integration. REF-EVIDENCE.
 
 <span style="color:#666666;">Grey: documented existing calls/fields.</span> · <span style="color:#1565C0;">Blue: proposed Spain reuse or additional work.</span> · <span style="color:#B42318;">Red: open evidence.</span> Examples use synthetic IDs and placeholders. Response snippets are field extracts, not complete schemas or executed requests. INT-RCV02/03 list production and sandbox servers; no Spain environment is qualified by their presence.
 
 ## 1 Existing product-facing calls
 
-**Query supplies the invoice list. Retrieve supplies one invoice's details, status history and attachment download links.** Downloading an attachment follows its returned link as part of the retrieval flow. These are two Sage invoice operations; the file transfer uses a further HTTP request to the returned URL.
+**ERP calls the Domain Service – E-Invoice Service through the existing E-Invoice API. Query supplies the business’s authorised sent/received list. Retrieve supplies one invoice’s details, history, attachment count and links when attachments are included.** Downloading an attachment follows its returned link as part of the retrieval flow. These are two Sage invoice operations; the file transfer uses a further HTTP request to the returned URL.
 
 | Product action | API name / existing ID | Input → result |
 |---|---|---|
-| Open or filter the invoice list | **Query e-invoices — RET-API-01** | `datasetId`, optional `filter` and `page[after]` → paginated `data[]`, invoice information, current status and attachment links. No status history is declared. INT-RCV02. |
-| Open one selected invoice and access its attachments | **Retrieve e-invoice — RET-API-02** | `datasetId` and one `e-invoiceId` UUID → one `data` object, invoice details, current status, `history[]` including operation results/error codes, and attachment download links. Follow a link to obtain the file. INT-RCV03; INT-RCV01 §4. |
+| Open or filter the invoice list | **Query e-invoices — RET-API-01** | `datasetId`, optional `filter` and `page[after]` → paginated `data[]`, invoice information, current status, `availableAttachments` and file links. No status history is declared. INT-RCV02. |
+| Open one selected invoice and access its attachments | **Retrieve e-invoice — RET-API-02** | `datasetId` and one `e-invoiceId` UUID → one `data` object, invoice details, current status, `history[]` including operation results/error codes, and `availableAttachments`. `includeAttachments` defaults to `true`; when `false`, descriptors and URLs are omitted. Follow an included link to obtain the file. INT-RCV03; INT-RCV01 §4. |
 
 The usual screen flow is **Query → select invoice → Retrieve → follow an attachment link if needed**. RET-API-03 retains the file-transfer rules under their existing ID; it does not define a third Sage invoice endpoint. A caller that already has a qualified invoice ID can retrieve directly. Query already includes invoice information and file links; a detail call is needed only when the caller needs additional information or a renewed link. Qualify the list-to-detail ID mapping below before using it. INT-RCV02/03; RET-G01/04.
 
 | ID / operation or flow step | Use in this feature | Spain qualification | Functional link |
 |---|---|---|---|
-| [RET-API-01 — Query e-invoices / list](#ret-api-01) | Supply invoices for the required public/private list view; recover missed notifications within qualified query coverage. | Inbound/source selection, business mapping and historical coverage. RET-G01/03. | SPEC026 §2; RSD-03; RRI-A04 |
+| [RET-API-01 — Query e-invoices / list](#ret-api-01) | Supply invoices for the required public/private list view; recover missed notifications within qualified query coverage. | Sent/received selection for customer views, inbound filters for event recovery, business mapping and historical coverage. RET-G01/03. | SPEC026 §2; RSD-03; RRI-A04 |
 | [RET-API-02 — Retrieve e-invoice / detail](#ret-api-02) | Supply selected invoice information, status/history and file descriptors. | Public/private support, source identity and role mapping. Metadata alone is not a readable document. RET-G01/04/07. | SPEC026 §2; RSD-07; RCV-02 |
 | [RET-API-03 — Follow attachment link (file-transfer step)](#ret-api-03) | Obtain bytes using a link returned by Retrieve or Query; assess reuse for public/private user download from saved files. | Prove that the link returns the selected captured file under current authority. Private download coverage also needs qualification. RET-G04/05/10. | RSD-04/07; RRI-A05/08 |
 | [RET-API-04 — Subscription/event](#ret-api-04) | Accelerate discovery where supported. Required view does not depend on webhook availability. | Selected source/environment, permissions, event contract and missed-event recovery. RET-G02/03. | PRI-02; RRI-A02/04/09 |
@@ -64,13 +64,65 @@ The usual screen flow is **Query → select invoice → Retrieve → follow an a
 
 Resolve `datasetId` from the qualified SXS/onboarding binding. Keep the business, caller, source and environment explicit. Obtain invoice IDs from qualified list/event results. Neither a known ID nor an existing connection grants permission. [Onboarding GAP-01/02/06](../../onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#2-open-engineering-decisions) remains authoritative for setup/resource relationships. Do not create another dataset or connection to read an invoice. REF-TERMS.
 
+Presentation frames **B–D** in [SPEC025](../SPEC-SEI-025-invoice-retrieval-solution-summary.md#4-end-to-end-workflow) map to Query, Retrieve and file transfer below; receiving frame A has its own source/intake flow. **E. Review and take action** branches from the opened invoice and uses [SPEC029’s decision journey](../../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action) and [SPEC041’s lifecycle commands](../../invoice-lifecycle/api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#lif-api-01). Query and Retrieve do not submit decisions.
+
+The [SPEC026 §2 customer journey](../SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download) uses the existing calls below. The customer or accountant chooses the action; ERP calls the Domain Service through the shared API and displays its response. This names the logical service boundary, not another endpoint or a proven deployment.
+
+| Customer action | ERP ↔ Domain Service call / result | Check at this boundary |
+|---|---|---|
+| **View invoice list** | Query / RET-API-01 returns permitted sent/received results and paging. | Keep the business, source and qualified paging context. An empty result does not prove collection succeeded. |
+| **Select and open invoice** | Retrieve / RET-API-02 returns detail, history, attachment count and descriptors if included. | Recheck access and qualify the list-to-detail ID under RET-G01. Metadata alone does not render a readable invoice. |
+| **Download file** | Use a returned link; request links through Retrieve if omitted or expired. RET-API-03 transfers bytes from the file source. | Recheck current file access, role, safety and integrity. Do not auto-download on opening. |
+
+This journey does not remove the documented ability to open a known qualified ID or use a file link returned by Query. No new endpoint is selected.
+
 ### Shared request and recovery rules
 
-INT-RCV02/03 declare Sage ID M2M bearer JWT authentication for both GETs. `traceparent` and `tracestate` are optional; neither GET declares `Idempotency-Key`. INT-RCV01 permits Domain Services or Sage ID M2M tokens in its introduction but describes Network-token login in the subscription table. Confirm accepted caller/token scope per operation and resolve guide differences; do not copy subscription headers to GETs. RET-G01/02.
+Reuse the NIF, certificate/authority setup and authorised business/dataset/environment binding from onboarding. Neither GET declares NIF or certificate parameters, and the new legal-address fields do not prove Spain address support. INT-RCV02/03 declare Sage ID M2M bearer JWT authentication for both GETs. `traceparent` and `tracestate` are optional; neither GET declares `Idempotency-Key`. INT-RCV01 permits Domain Services or Sage ID M2M tokens in its introduction but describes Network-token login in the subscription table. Confirm accepted caller/token scope per operation and resolve guide differences; do not copy subscription headers to GETs. RET-G01/02.
 
 For `429`, honour valid `Retry-After`; no fixed quota or polling interval is supplied. Preserve history `operationStatus` values `IN_PROGRESS`, `COMPLETED`, `ERROR`. Read the correlated attempt's `history[].errorCode`; `currentStatus` has neither field. A final attempt error is not a failed business invoice or an instruction to recapture. Keep the code-specific platform retry/support owner from INT-ERR01. RET-G02/09.
 
 <a id="ret-api-01"></a>
+
+<a id="document-types-and-status-values"></a>
+
+### Document types and status values
+
+Keep these source lists separate. A document type, an API classification and a status do not identify the same concept. Do not infer an allowed customer action from one of these values.
+
+**Existing API invoice classification — exact `eInvoiceTypeCode` enum.** INT-RCV02 `InvoicesResponse.properties.documents.items.properties.eInvoiceTypeCode`; INT-RCV03 `InvoiceResponse.properties.eInvoiceTypeCode`.
+
+| Exact API value | Business perspective |
+|---|---|
+| `AP_Invoice` | Accounts payable invoice. |
+| `AR_Invoice` | Accounts receivable invoice. |
+| `AP_CreditNote` | Accounts payable credit note. |
+| `AR_CreditNote` | Accounts receivable credit note. |
+
+These values do not establish send/receive direction or a Spain self-billing mapping. `documentType` and `documentTypeCode` are nullable strings in both supplied schemas; no enum or Spain mapping is supplied. RET-G01/07 remain open.
+
+**Spain public invoice types — complete Annex I L1 list.** [Official publication](https://www.boe.es/eli/es/o/2026/10/02/hac1028), checked 13 November 2026. Preserve the Spanish source name; the English column is a reading aid. SPFE-S02 Annex I, BT-3 p. 13 and L1 p. 30.
+
+| Exact code | Original source name | English meaning |
+|---|---|---|
+| `380` | Factura (artículo 6, 7.2 y 7.3 del RD 1619/2012) | Invoice. |
+| `384` | Factura rectificativa | Corrective invoice. |
+| `388` | Factura emitida en sustitución de facturas simplificadas | Invoice replacing simplified invoices. |
+| `389` | Factura emitida por el destinatario | Invoice issued by the recipient. |
+| `471` | Factura rectificativa emitida por el destinatario | Corrective invoice issued by the recipient. |
+
+Do not replace `384` or `471` with France credit-note code `381`. SPFE-S08 §5.1.1 p. 8 selects UBL 2.5 `InvoiceType`, including rectification. This source list does not qualify the mapping to the four API values above or the UI action rules.
+
+**Status and command lists — authoritative owners:**
+
+| Source list | Exact values / how to use it |
+|---|---|
+| [SPEC029 full status comparison](../../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#general-status-comparison) | Retains source names and France numeric codes, including `Approved` (`205`), `Refused` (`210`) and technical `Rejected` (`213`). These are distinct outcomes. The table also identifies Spain equivalents and missing mappings. INT-LCS03/04. |
+| [INT-LCS03 exact catalogue UUIDs](<../../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md#int-lcs03-status-catalogue-and-blocked-transitions>); [SPEC041 documented command inputs](../../invoice-lifecycle/api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#12-documented-status-inputs) | A lifecycle POST `statusCode` takes a UUID, not numeric `205` or `210`. A catalogue entry is not proof of a writable command or a permitted transition. |
+| [SPEC029 Spain public event list](../../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#52-public-event-contract) | Complete eight-code list from SPFE-S02 Annex II. Recipient `REJECTION` and `PAYMENT` are separate from issuer events and cancellation reports. No explicit public acceptance code is supplied. |
+| INT-RCV03 `invoiceHistoryItem.operationStatus` | Exact enum: `IN_PROGRESS`, `COMPLETED`, `ERROR`. It describes an attempt, not the invoice’s commercial status or completion of all required reports. |
+
+**Source conflict to resolve:** the Query/Retrieve examples label UUID `00000000-0000-0000-0000-100000000001` as `New`; INT-LCS03 assigns `New` UUID `00000000-0000-0000-0000-170000000000`. Keep returned IDs and source context. Do not repair the sample or use it as a command fixture. API/Lifecycle owners must qualify the selected build’s catalogue under RET-G01 and LIF-G03 before enabling actions. The original Sage guide URL is recorded in SPEC029 REF; live access was unavailable during this review, so the supplied guide extract remains the evidence limit.
 
 ### 1.1 RET-API-01 — Query e-invoices (list)
 
@@ -78,8 +130,8 @@ For `429`, honour valid `Retry-After`; no fixed quota or polling interval is sup
 
 | Contract element | Documented result / limit |
 |---|---|
-| Request | Required `datasetId`; optional OData `filter` and `page[after]`. INT-RCV02 examples cover `erpInvoiceId`, `createdAt`, `customizationId`, `recipient/accessPointAddress` and `currentStatus/statusCode`. Additional guide filters and conflicting dot/slash examples need runtime qualification. |
-| Response | `200`; `data[]` with `attributes.documents[]`. Each document can contain `eInvoiceId`, parties, totals, current status and `attachments[].downloadUrl`. No `history[]` is declared. The older guide list example omits URLs; that omission does not require a detail call before every download. INT-RCV02 `GetInvoicesResponse` / `InvoicesResponse`. |
+| Request | Required `datasetId`; optional OData `filter` and `page[after]`. INT-RCV02 examples cover `erpInvoiceId`, `createdAt`, `customizationId`, `recipient/accessPointAddress`, `recipient/accessPointAddressLegal`, `availableAttachments` and `currentStatus/statusCode`. Additional guide filters and conflicting dot/slash examples need runtime qualification. |
+| Response | `200`; `data[]` with `attributes.documents[]`. Each document can contain `eInvoiceId`, parties including `accessPointAddressLegal`, totals, current status, `availableAttachments` and `attachments[].downloadUrl`. No `history[]` is declared. The older guide list example omits URLs; that omission does not require a detail call before every download. INT-RCV02 `GetInvoicesResponse` / `InvoicesResponse`. |
 | Page / range | `meta.count`, `meta.hasMore`, `links.self`, `links.next` are in INT-RCV02. Up to 20 items/page and a 90-day creation window are guide statements, not specified limits in the supplied OpenAPI. Qualify them against the selected build. Neither establishes retention or complete historical coverage. |
 | Invoice identity | The list example has different outer `data[].id` and nested `documents[].eInvoiceId` values. Neither contract explains this relationship. Confirm which value binds the detail path and how multiple documents map to the list before activation. RET-G01. |
 | Direction | Both sent and received codes can appear. Qualify `AP_Invoice`, `AR_Invoice`, `AP_CreditNote`, `AR_CreditNote`, self-billing and the selected source. Do not present every dataset result as received. |
@@ -107,10 +159,21 @@ GET /datasets/00000000-0000-4000-8000-000000000001/e-invoices/00000000-0000-4000
 | `data.id` | INT-RCV03 declares one `data` object with `id`; invoice fields sit directly in `data.attributes`. The older guide field table also lists `data.attributes.eInvoiceId`; the supplied detail schema does not. Resolve the Query document-ID mapping under RET-G01. |
 | `eInvoiceTypeCode`, `sender`, `recipient`, `accessPointId`, `erpInvoiceId` | Invoice type, parties and source/product references. `erpInvoiceId` is not a universal duplicate key. |
 | `currentStatus`, `history[]`, `data.meta` | INT-RCV03 adds `currentStatus.statusAttributes` and declares history fields `operationStatus`, `errorCode`, `statusAttributes` and attempt metadata. `data.meta` is required. Neither history ordering nor full attempt correlation is supplied. Viewing does not create buyer acceptance. |
-| File descriptors | `filename`, `mimetype`, `filetype`, `downloadUrl`. INT-RCV03 includes `Undefined`, `UBL`, `Human_Readable`, `Original_Document`, `FacturX`; map these values to saved business file roles. |
+| Request option | `includeAttachments` is an inline boolean query parameter, default `true`. `false` omits `attachments`, skips URL generation and skips Factur-X generation even if `format=facturx` is present. It does not suppress invoice details/history or `availableAttachments`. INT-RCV03. |
+| Attachment count | `availableAttachments` is an integer ≥ 0. With `includeAttachments=false`, a positive count can accompany omitted descriptors. This does not prove missing files or return a file identity. An absent count is not a reported zero. |
+| Legal addresses | `sender.accessPointAddressLegal` and `recipient.accessPointAddressLegal` are extracted legal-format endpoint values. Spain NIF/address mapping remains RET-G01; the supplied address-type enums still use France values. |
+| File descriptors | Descriptors, when returned, contain `filename`, `mimetype`, `filetype`, `downloadUrl`. `includeAttachments=false` omits them. INT-RCV03 includes `Undefined`, `UBL`, `Human_Readable`, `Original_Document`, `FacturX`; map these values to saved business file roles. |
 | Tax detail | VAT totals and tax breakdowns are not exposed as extracted fields in the guide. Use the qualified structured representation and inbound mapping where the product view needs them. RET-G07. |
 
-**Response `200` — one attachment descriptor extract; container/schema not asserted:**
+**Details without attachment links — documented option:**
+
+```http
+GET /datasets/00000000-0000-4000-8000-000000000001/e-invoices/00000000-0000-4000-8000-000000000002?includeAttachments=false
+```
+
+To obtain links after this request, repeat Retrieve with `includeAttachments=true` or omit that parameter. Use the selected invoice context and current permission. A zero count means no attachment is reported as available; keep the unavailable-file outcome separate from omitted descriptors.
+
+**Response `200` — one included attachment descriptor extract; container/schema not asserted:**
 
 ```json
 {
@@ -129,7 +192,7 @@ The MIME string above is a guide example, not the Spain public format. <span sty
 
 `GET {downloadUrl}` · INT-RCV01 §4.
 
-This step follows an attachment link returned by Retrieve or Query. The existing ID records transfer and recovery rules; the supplied OpenAPI definitions do not define a separate Sage attachment-download endpoint. The Retrieve response is JSON with links; following a link returns the actual file.
+This step follows an attachment link returned by Retrieve or Query. If Retrieve omitted attachments, request `includeAttachments=true` first. `availableAttachments` alone is not a download link. The existing ID records transfer and recovery rules; the supplied OpenAPI definitions do not define a separate Sage attachment-download endpoint. The Retrieve response is JSON with links; following a link returns the actual file.
 
 ```http
 GET {shortLivedDownloadUrl}
@@ -162,7 +225,7 @@ GET {shortLivedDownloadUrl}
 
 `GET /datasets/{datasetId}/e-invoices/{e-invoiceId}?format=facturx` · INT-RCV03 `parameters.format`; INT-RCV01 §§3.1/4.
 
-INT-RCV03 says `format=facturx` generates and persists a Factur-X/ZUGFeRD 2.3 hybrid from UBL/PDF attachments, or returns an existing `FacturX` attachment without regeneration. INT-RCV01 describes `Human_Readable`; confirm the selected build's file-role mapping. This is a derived representation. The supplier's Factur-X can separately be `Original_Document`; returned UBL is not necessarily the supplier's original bytes.
+INT-RCV03 says `format=facturx` generates and persists a Factur-X/ZUGFeRD 2.3 hybrid from UBL/PDF attachments, or returns an existing `FacturX` attachment without regeneration. INT-RCV01 describes `Human_Readable`; confirm the selected build's file-role mapping. With `includeAttachments=false`, the current contract skips that generation and URL creation, still returning the attachment count. This is a derived representation. The supplier's Factur-X can separately be `Original_Document`; returned UBL is not necessarily the supplier's original bytes.
 
 <span style="color:#1565C0;">Required invoice viewing can reuse qualified product detail displays or readable representations.</span> <span style="color:#B42318;">Do not select this France generation option as the Spain viewer by default. Confirm actual renderer/build, required content, unsupported formats and independent rendering errors under RET-G08. Ordinary detail/saved-file access does not request generation.</span>
 
@@ -194,6 +257,8 @@ Use SOAP 1.2, an empty SOAP body and `eb3:Messaging` in the header. The SOAP par
 
 Standard SOAP 1.2 faults use `env:Code/env:Value` and `env:Reason/env:Text`, no service-specific `env:Detail`, HTTP 400 or 500. Catalogue download-error wording and business result levels still need reconciliation. Do not use removed custom fault fields or treat HTTP success as proof that every requested file was captured. RET-G06; SPFE-S03/S08/S12–15.
 
+Spain file-role classification uses [SPEC026’s public UBL copy-indicator table](../SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-copy-indicator). Keep that field separate from attachment `filetype` values and from evidence that two representations match.
+
 ### 2.2 Deliberately incomplete business binding
 
 SPFE-S08 §§5.4–5.7 mark query/download formats pending. The WSDLs treat business attachments as opaque; they do not define the missing filter names, full `DocumentReference` structure, locator encoding, item-error payloads or continuation guarantees. Therefore this reference supplies **no executable XML business payload**. Obtain the original business schemas/examples and qualify them before enabling collection. RET-G06.
@@ -209,21 +274,25 @@ For recipient work, check representation separately from certificate validity. I
 | Private provider coverage | Prove required saved-file download for each enabled external provider and the Sage offering. A backend provider fetch alone does not establish user access. | Records, API and provider owners, with Product/Compliance: selected contracts/builds, file roles, permissions and failure recovery. RET-G10. |
 | Public collection | Reuse the shared capture/progress/recovery design, with the qualified Spain SOAP binding. Actual implementation reuse remains unknown. | Connector/API/Identity: current client build, missing business contracts, authority, partial results and recovery proof. RET-G06. |
 | Private intake | Prefer proven notification/fetch or supplied-file handling. Product-facing RET-API calls do not establish a provider-owned download contract. | Integration/provider: selected provider operation, bytes/role provenance, authority and acknowledgement/history. RET-G01/02/04. |
-| Inbound mapping / readable display | Assess existing DTS first for the required input/output pair and tax/extension meaning. Keep rendering as a separately qualified capability. | DTS, Format, Product: actual build, Spain UBL/profile mappings, fixtures, loss checks and run owner. RET-G07/08. |
+| Format conversion / readable display | Follow [SPEC026 RCV-06](../SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff) for DTS conversion. Readable display is a separate capability; UBL 2.5 viewing does not require DTS conversion. | Format/Product: prove display support. For Phase 3 non-UBL 2.5 input, DTS proves the selected conversion, build, field preservation and recovery. RET-G07/08; REF-DTS-SCOPE. |
 
 No source establishes a new product view, freshness, refresh, saved-read or rendering endpoint. Architecture/API owners must identify existing coverage, then specify only the required extension. Demonstrate country-rule isolation and existing-country compatibility; Spain identity, public-copy, authority and UBL rules must not become shared defaults. SPEC027 RET-API-A01–10 owns qualification acceptance.
+
+The [REST snapshot register](<../../../context/FR API/Receiving/openapi-source-snapshots.json>) records current and preserved earlier hashes. [The source comparison](<../../../context/FR API/Receiving/receive-e-invoice-guide-extract.md#query-and-retrieve-openapi-snapshots>) identifies the 13 November additions. Both supplied files still declare `info.version: 1.0.0`; publication date and deployed build remain unknown.
 
 ## REF Source references
 
 | REF ID | Original source / version | Exact location | Supported claims and limits |
 |---|---|---|---|
+| REF-DTS-SCOPE | [SPEC026 RCV-06](../SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff), user direction, 13 November 2026 | Conversion scope and §6 acceptance | DTS conversion only for Phase 3 received formats other than UBL 2.5. Product direction, not an API contract or runtime claim. |
 | REF-SCOPE | [SPEC026](../SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#1-purpose-actors-and-boundary), draft, user direction 11 November 2026 | Scope table; REF-SCOPE | Recorded user decision: public/private view and user download required. Not external legal evidence. |
 | REF-PRODUCT | [PRD211](../../../prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md), draft, updated 20 October 2026; [PRD223](../../../prds/PRD-SEI-223-interoperability-routing-transformation.md), updated 7 October 2026 | PRD211 FR30–33/43–55; PRD223 FR17–20/43–44 | Public freshness, exact source capture, authorised access and distribution; shared receiving/DTS direction. Not a wire contract. |
 | INT-RCV01 | [Supplied receiving guide extract](<../../../context/FR API/Receiving/receive-e-invoice-guide-extract.md>), received 22 October 2026; revision/build unknown | Prerequisites; §§1–4; Polling, formats, and extracted data | Guide call paths, IDs, query limits, temporary-file and optional Factur-X flow. Original attachment hash retained. Reconcile with INT-RCV02/03; no source URL or Spain support established. |
-| INT-RCV02 | [Supplied Query e-invoices OpenAPI](<../../../context/FR API/Receiving/query-e-invoices.openapi.json>), OpenAPI 3.1.0, info.version 1.0.0; received 2 November 2026 | `GET /datasets/{datasetId}/e-invoices`; `parameters.filterQuery/pageAfter`; `GetInvoicesResponse`; `InvoicesResponse`; 200 example | Paginated list, nested documents, current status and file links. Example ID relationship is unresolved. No deployed build, exhaustive filter support, page-size/window limit or Spain readiness established. |
-| INT-RCV03 | [Supplied Retrieve e-invoice OpenAPI](<../../../context/FR API/Receiving/retrieve-e-invoice.openapi.json>), OpenAPI 3.1.0, info.version 1.0.0; received 2 November 2026 | `GET /datasets/{datasetId}/e-invoices/{e-invoiceId}`; `parameters.format`; `GetInvoiceResponse`; `InvoiceResponse`; `invoiceCurrentStatus`; `invoiceHistoryItem` | Single detail object, history/error fields, file links and optional persisted Factur-X generation. Original JSON bodies retained from supplied fenced text; no canonical publication URL, deployed build or Spain support established. |
+| INT-RCV02 | [Supplied Query e-invoices OpenAPI](<../../../context/FR API/Receiving/query-e-invoices.openapi.json>), OpenAPI 3.1.0, info.version 1.0.0; current snapshot received 13 November 2026; earlier 2 November snapshot preserved | `GET /datasets/{datasetId}/e-invoices`; `parameters.filterQuery/pageAfter`; `GetInvoicesResponse`; `InvoicesResponse`; 200 example | Sent/received document types, paginated list, legal addresses, attachment count/current status/file links. Example ID relationship is unresolved. No deployed build, exhaustive filter support, page-size/window limit or Spain readiness established. |
+| INT-RCV03 | [Supplied Retrieve e-invoice OpenAPI](<../../../context/FR API/Receiving/retrieve-e-invoice.openapi.json>), OpenAPI 3.1.0, info.version 1.0.0; current snapshot received 13 November 2026; earlier 2 November snapshot preserved | `GET /datasets/{datasetId}/e-invoices/{e-invoiceId}`; `parameters.format` and inline `includeAttachments`; `GetInvoiceResponse`; `InvoiceResponse`; `invoiceCurrentStatus`; `invoiceHistoryItem` | Detail/history, legal addresses, attachment count, conditional links and Factur-X generation. Original JSON bodies retained from supplied fenced text; no canonical publication URL, deployed build or Spain support established. |
 | INT-ERR01 | [Supplied error guide extract](<../../../context/FR API/Shared/invoice-flow-error-handling-guide-extract.md>), received 22 October 2026; revision/build unknown | Processing and error fields; receiving dictionaries; Recovery interpretation | Attempt outcomes, history/error locations and platform-owned retry/support guidance. Not AEAT errors or universal retry timing. |
-| SPFE-S02 | [Final Order HAC/1028/2026](../../../context/BOE-A-2026-20587.pdf), published 5 October 2026 | Articles 9–11, PDF pp. 9–11; Annex I BT-23/24 | Recovery, access, representation and profile baseline. Not product endpoint, retention duration or missing business schemas. |
+| INT-LCS03/04 | [Original Sage status catalogue](https://internaldeveloper.sage.com/domain-services/docs/v1.0.0/solutions/e-invoicing/status-updates/invoice-statuses); [supplied guide extract](<../../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md#int-lcs03-status-catalogue-and-blocked-transitions>), received 29 October 2026; URL version v1.0.0, publication date unknown | Catalogue Code, Status, Identifier and actor columns; blocked-transition conflicts; SPEC029 REF | Exact France labels, numeric codes and UUIDs, with source conflicts retained. Live guide access unavailable on 13 November; no Spain command or transition qualification. |
+| SPFE-S02 | [Final Order HAC/1028/2026](../../../context/BOE-A-2026-20587.pdf), published 5 October 2026 | Articles 9–11, PDF pp. 9–11; Annex I BT-3 p. 13, L1 p. 30, BT-23/24; Annex II pp. 36–42 | Recovery, access, representation, five invoice-type codes and public event codes. Official BOE publication checked 13 November 2026; mapping and runtime coverage remain unqualified. Not product endpoint, retention duration or missing business schemas. |
 | SPFE-S03 | [Original catalogue](<../../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), v0.1.0, 9 October 2026 | §§6.4–6.7, PDF pp. 12–15 | Exact ebMS actions, business purposes, role branches, date/identity/LOC limits and source result descriptions. Locator path has a duplicated `ws/`; WSDL supplies exact address. Business error semantics need reconciliation. |
 | SPFE-S08 | [Original formats](<../../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), v0.1.0, 9 October 2026, BORRADOR | §5.1.1 p. 8; §§5.4–5.7 pp. 14–15 | UBL 2.5 InvoiceType/ApplicationResponse/DocumentStatus selection; query/download formats pending. Not complete payload schemas. |
 | SPFE-S12 | [DownloadInvoicesByID.wsdl](<../../../context/WSDL servicios web - PRE_29_10_2026/DownloadInvoicesByID.wsdl>), PRE 29 October 2026 | `documentation`, messages, portType/binding operation, SOAP action and service ports | Exact ID-download transport. Does not establish missing business payload or live acceptance. |

@@ -92,25 +92,51 @@ def build():
     s.note('Not every 403 means expiry. Verify renewed content and retain good files. Saved reads do not refetch or generate Factur-X; mapping/product failure has its own recovery.', 'RRI-A03/05/06; RET-G04/05/08')
     sequences.append(s)
 
-    s = renderer.Sequence('invoice-retrieval-view-download-sequence',
-        'View and download public or private invoices',
-        'View and user download are required for both sources.',
-        SPEC + '#24-required-view-and-user-download',
-        ['ERP / product', 'E-Invoice API', 'File source / records'])
-    s.note('Reuse the authorised business dataset. The grey calls are documented; their Spain applicability still needs qualification. Viewing is separate from buyer acceptance.', 'REF-SCOPE; RET-G01/03/05')
-    s.exchange(0, 1, 'GET /datasets/{datasetId}/e-invoices',
-        'Permitted invoice list; follow links.next within qualified coverage', '[Existing] INT-RCV01 §3.2')
-    s.exchange(0, 1, 'GET /datasets/{datasetId}/e-invoices/{e-invoiceId}',
-        'Invoice information, history and file descriptors', '[Existing] INT-RCV01 §3.1')
-    s.note('The product displays permitted invoice content from qualified data or a readable file. Metadata alone does not complete the view. Qualify readable-file support and SPFE freshness.', 'RET-G05/07/08; RET-API-01/02')
-    f = s.start_frame('case | User downloads a captured public or private file')
-    s.exchange(0, 2, 'GET {downloadUrl} for the selected saved file',
-        'Labelled bytes, or classified denial/integrity case', '[Spain] Reuse INT-RCV01 §4; saved binding RET-G04/05',
-        response_source='[Proposed] RSD-07; RET-G04/05')
-    s.end_frame(f)
-    s.note('Public and private download need a proven saved-file binding and current permission. Preserve file roles. Provider source capture and user download need separate qualification.', 'REF-SCOPE; RET-G04/05/10')
-    sequences.append(s)
+    sequences.append(view_download_sequence())
     return [finish(s) for s in sequences]
+
+
+def view_download_sequence():
+    """Build this view separately when the other receiving sequences are unchanged."""
+    s = renderer.Sequence('invoice-retrieval-view-download-sequence',
+        'Customer: view list, open invoice and download file',
+        'The ERP uses existing calls; Spain coverage still needs qualification.',
+        SPEC + '#24-required-view-and-user-download',
+        ['Customer /\naccountant', 'ERP / product', 'Domain Service -\nE-Invoice Service', 'File source /\nrecords'])
+    s.note('Customer consultation covers sent and received invoices. ERP calls the E-Invoice Service through the shared Query/Retrieve API. Reuse the NIF/business dataset binding and existing certificate/authority setup; the GETs use a Sage ID M2M token. Recheck current user/client permission. Automatic receiving is inbound only.', 'SPEC026 §2; RSD-07; RET-G01/03/05')
+    f = s.start_frame('case | B. View invoice list — business level')
+    request = s.call(0, 1, 'View invoice list', '[Proposed] SPEC026 §2')
+    s.exchange(1, 2, 'GET /datasets/{datasetId}/e-invoices',
+        'Permitted sent/received list, status, attachment count and qualified links.next paging',
+        '[Existing] INT-RCV02; RET-API-01')
+    s.reply(request, 'Invoice list and collection result; keep empty, failed and incomplete results distinct',
+        '[Proposed] RSD-07; RET-G03/05')
+    s.end_frame(f)
+    f = s.start_frame('case | C. Select and open invoice — one invoice')
+    request = s.call(0, 1, 'Select and open invoice', '[Proposed] SPEC026 §2')
+    s.exchange(1, 2, 'GET /datasets/{datasetId}/e-invoices/{e-invoiceId}',
+        'Selected invoice details, history, attachment count and included descriptors/URLs',
+        '[Existing] INT-RCV03; RET-API-02')
+    s.reply(request, 'Permitted invoice content and file choices, or reason content is unavailable',
+        '[Proposed] RSD-07; RET-G01/08')
+    s.end_frame(f)
+    s.note('Keep the selected ID and business context; qualify the list-to-detail ID under RET-G01. Metadata alone is not a complete view. Retrieve includeAttachments defaults to true. With false, descriptors and URL/Factur-X generation are omitted, but availableAttachments is retained. A positive count does not itself return file choices or links.', 'INT-RCV03, snapshot 13 November; RET-API-01/02')
+    f = s.start_frame('opt | D. Download file — one attachment')
+    request = s.call(0, 1, 'Download file; get file choices first if omitted', '[Proposed] SPEC026 §2')
+    links = s.start_frame('opt | Attachment choices/links omitted, or link expiry confirmed')
+    s.exchange(1, 2, 'GET /datasets/{datasetId}/e-invoices/{e-invoiceId}?includeAttachments=true',
+        'Attachment count, file choices and current download URLs',
+        '[Existing] INT-RCV03; RET-API-02')
+    s.end_frame(links)
+    s.exchange(1, 3, 'GET {downloadUrl} for the selected saved file',
+        'Labelled bytes, or an access/file problem',
+        '[Spain] Reuse INT-RCV01 §4; RET-G04/05',
+        response_source='[Proposed] RSD-07; RET-API-03')
+    s.reply(request, 'Selected file, or denial/file problem with a safe next action',
+        '[Proposed] RSD-07; RET-G04/05/10')
+    s.end_frame(f)
+    s.note('Apply file access, role, safety and integrity checks. A zero attachment count is distinct from omitted descriptors. Qualify readable content and SPFE inbound freshness. Safe saved access can continue during source outage or pending inbound ERP delivery, including an authorised faithful copy. Viewing/download does not create buyer acceptance.', 'REF-SCOPE/COPY-POLICY; RET-G04/05/08/10')
+    return s
 
 if __name__ == '__main__':
     for path in build():

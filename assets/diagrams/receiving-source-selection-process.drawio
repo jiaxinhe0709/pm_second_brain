@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="receiving-source-selection-process" name="Before receiving — choose the source and get the invoice">
+    <mxGraphModel page="1" pageWidth="1840" pageHeight="960" grid="1" gridSize="10">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Before receiving: choose the source and get the invoice" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=4;fontFamily=Arial;fontSize=29;fontStyle=1;">
+          <mxGeometry as="geometry" x="40" y="20" width="1760" height="45" />
+        </mxCell>
+        <mxCell id="subtitle" value="Use the company’s existing setup. Check each invoice separately." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=4;fontFamily=Arial;fontSize=19;">
+          <mxGeometry as="geometry" x="40" y="73" width="1760" height="32" />
+        </mxCell>
+        <object id="access-rule" label="Use only platforms the company is allowed to access. Knowing the supplier’s provider name is not enough." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=4;fontFamily=Arial;fontSize=17;">
+            <mxGeometry as="geometry" x="40" y="116" width="1760" height="38" />
+          </mxCell>
+        </object>
+        <mxCell id="heading-condition" value="WHAT IS AVAILABLE?" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=4;fontFamily=Arial;fontSize=18;fontStyle=1;">
+          <mxGeometry as="geometry" x="40" y="172" width="500" height="34" />
+        </mxCell>
+        <mxCell id="heading-action" value="GET THE FILE" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=4;fontFamily=Arial;fontSize=18;fontStyle=1;">
+          <mxGeometry as="geometry" x="610" y="172" width="500" height="34" />
+        </mxCell>
+        <mxCell id="heading-outcome" value="WHAT HAPPENS NEXT?" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=4;fontFamily=Arial;fontSize=18;fontStyle=1;">
+          <mxGeometry as="geometry" x="1180" y="172" width="620" height="34" />
+        </mxCell>
+        <object id="public-condition" label="The original is on the public platform&#10;This applies with or without a private platform." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=8;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=18;fontFamily=Arial;fontSize=18;strokeColor=#666666;strokeWidth=1.5;fillColor=#fafafa;">
+            <mxGeometry as="geometry" x="40" y="225" width="500" height="120" />
+          </mxCell>
+        </object>
+        <object id="public-action" label="Get the original from the public platform." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=8;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=18;fontFamily=Arial;fontSize=18;strokeColor=#666666;strokeWidth=1.5;fillColor=#e8e8e8;">
+            <mxGeometry as="geometry" x="610" y="225" width="500" height="120" />
+          </mxCell>
+        </object>
+        <object id="public-outcome" label="Start receiving with the original.&#10;Continue at step 1 in the receiving diagram." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=8;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=18;fontFamily=Arial;fontSize=18;strokeColor=#666666;strokeWidth=1.5;fillColor=#ffffff;">
+            <mxGeometry as="geometry" x="1180" y="225" width="620" height="120" />
+          </mxCell>
+        </object>
+        <mxCell id="public-condition-to-action" parent="1" edge="1" source="public-condition" target="public-action" style="edgeStyle=none;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="public-action-to-outcome" parent="1" edge="1" source="public-action" target="public-outcome" style="edgeStyle=none;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <object id="private-condition" label="The public platform has only a copy.&#10;The company can access the private original." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=8;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=18;fontFamily=Arial;fontSize=18;strokeColor=#666666;strokeWidth=1.5;fillColor=#fafafa;">
+            <mxGeometry as="geometry" x="40" y="375" width="500" height="120" />
+          </mxCell>
+        </object>
+        <object id="private-action" label="Get the original from the private platform.&#10;Keep the public copy if it is also obtained." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=8;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=18;fontFamily=Arial;fontSize=18;strokeColor=#666666;strokeWidth=1.5;fillColor=#e8e8e8;">
+            <mxGeometry as="geometry" x="610" y="375" width="500" height="120" />
+          </mxCell>
+        </object>
+        <object id="private-outcome" label="Start receiving with the original.&#10;Keep the original and copy clearly labelled." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=8;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=18;fontFamily=Arial;fontSize=18;strokeColor=#666666;strokeWidth=1.5;fillColor=#ffffff;">
+            <mxGeometry as="geometry" x="1180" y="375" width="620" height="120" />
+          </mxCell>
+        </object>
+        <mxCell id="private-condition-to-action" parent="1" edge="1" source="private-condition" target="private-action" style="edgeStyle=none;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="private-action-to-outcome" parent="1" edge="1" source="private-action" target="private-outcome" style="edgeStyle=none;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <object id="copy-condition" label="The public platform has only a copy.&#10;No private platform is set up, or the private original cannot be accessed." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=8;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=18;fontFamily=Arial;fontSize=18;strokeColor=#666666;strokeWidth=1.5;fillColor=#fafafa;">
+            <mxGeometry as="geometry" x="40" y="525" width="500" height="130" />
+          </mxCell>
+        </object>
+        <object id="copy-action" label="Get the copy from the public platform,&#10;if the company has permission." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=8;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=18;fontFamily=Arial;fontSize=18;strokeColor=#666666;strokeWidth=1.5;fillColor=#e8e8e8;">
+            <mxGeometry as="geometry" x="610" y="525" width="500" height="130" />
+          </mxCell>
+        </object>
+        <object id="copy-outcome" label="Start receiving with the copy.&#10;Allow view/download after the required checks.&#10;ERP delivery waits for the original." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=8;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=18;fontFamily=Arial;fontSize=18;strokeColor=#666666;strokeWidth=1.5;fillColor=#ffffff;">
+            <mxGeometry as="geometry" x="1180" y="525" width="620" height="130" />
+          </mxCell>
+        </object>
+        <mxCell id="copy-condition-to-action" parent="1" edge="1" source="copy-condition" target="copy-action" style="edgeStyle=none;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="copy-action-to-outcome" parent="1" edge="1" source="copy-action" target="copy-outcome" style="edgeStyle=none;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <object id="failed-condition" label="The private-original download fails." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=8;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=18;fontFamily=Arial;fontSize=18;strokeColor=#666666;strokeWidth=1.5;fillColor=#fafafa;dashed=1;dashPattern=6 4;">
+            <mxGeometry as="geometry" x="40" y="685" width="500" height="140" />
+          </mxCell>
+        </object>
+        <object id="failed-action" label="Keep the original request pending.&#10;Check whether getting a public copy is allowed.&#10;Automatic recovery rules are not agreed yet." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=8;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=18;fontFamily=Arial;fontSize=18;strokeColor=#666666;strokeWidth=1.5;fillColor=#e8e8e8;dashed=1;dashPattern=6 4;">
+            <mxGeometry as="geometry" x="610" y="685" width="500" height="140" />
+          </mxCell>
+        </object>
+        <object id="failed-outcome" label="If allowed, get the public copy and use the copy route above.&#10;Otherwise, keep recovery pending." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+          <mxCell parent="1" vertex="1" style="rounded=1;arcSize=8;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=18;fontFamily=Arial;fontSize=18;strokeColor=#666666;strokeWidth=1.5;fillColor=#ffffff;dashed=1;dashPattern=6 4;">
+            <mxGeometry as="geometry" x="1180" y="685" width="620" height="140" />
+          </mxCell>
+        </object>
+        <mxCell id="failed-condition-to-action" parent="1" edge="1" source="failed-condition" target="failed-action" style="edgeStyle=none;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="failed-action-to-outcome" parent="1" edge="1" source="failed-action" target="failed-outcome" style="edgeStyle=none;endArrow=block;strokeColor=#555555;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;dashed=1;dashPattern=6 4;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <object id="no-file" label="No permitted file is available? Keep the invoice pending and show what is missing. A failed request does not mean there are no invoices." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#33-failure-and-recovery-decisions">
+          <mxCell parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=4;fontFamily=Arial;fontSize=17;">
+            <mxGeometry as="geometry" x="40" y="850" width="1760" height="36" />
+          </mxCell>
+        </object>
+        <object id="handoff" label="Each saved file goes to step 1: Record the received file. Receiving checks the company, file safety and original/copy role before later actions." link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#3-process-and-activity-order">
+          <mxCell parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=4;fontFamily=Arial;fontSize=17;">
+            <mxGeometry as="geometry" x="40" y="897" width="1760" height="37" />
+          </mxCell>
+        </object>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

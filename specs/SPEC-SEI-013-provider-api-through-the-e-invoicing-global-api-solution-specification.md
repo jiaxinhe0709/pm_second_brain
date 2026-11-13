@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-10-20
+updated: 2026-11-13
 reviewers: []
 related:
   - GLO-SEI-001
@@ -210,7 +210,7 @@ The main risks are role confusion, exposing another customer's data, duplicate t
 
 Do not implement a single role test that grants every provider all partner operations. Capability and customer authority are independent dimensions. An accountant's portfolio login is evaluated per client; neither a portfolio mandate nor a provider certificate supplies universal invoice access/signing rights.
 
-Direction is relative to the represented legal entity: OUTBOUND means the entity is issuer; INBOUND means it is recipient. Network origin and the calling application's location do not define business direction. Where a provider also represents another party, that is a separate authority context.
+For invoice exchange, OUTBOUND means sending for the represented legal entity; INBOUND means receiving for it. Apply [GLO-SEI-001 — sending, receiving and invoice roles](../context/GLO-SEI-001-e-invoicing-terminology.md#sending-receiving-and-invoice-roles), including self-billing. Seller/buyer roles, AR/AP labels, network origin and the calling application's location do not determine exchange direction. Exact API-code mappings remain subject to contract qualification. Where a provider also represents another party, that is a separate authority context.
 
 ### 2 Invariants and state boundaries
 

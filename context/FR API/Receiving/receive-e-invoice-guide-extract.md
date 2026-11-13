@@ -64,3 +64,19 @@ This selective extract retains contract facts and source conflicts. Example iden
 Later supplied evidence: [INT-ERR01 error-handling guide](<../Shared/invoice-flow-error-handling-guide-extract.md>) clarifies history-only error/outcome fields, attempt finality and code-specific platform retry/support actions. The limits below describe what this receiving guide alone establishes; the later guide does not qualify Spain build support or event/attempt correlation.
 
 Obtain the versioned OpenAPI, Events Library, status/error guides, caller permissions and actual build from the API owners. Qualify Spain identity, source-file roles, public/private contracts, profile/rule packs, missed-event coverage, retention and recovery independently. No Spain support or public-platform notification endpoint is established by this guide.
+
+
+## Query and Retrieve OpenAPI snapshots
+
+INT-RCV02 and INT-RCV03 were first supplied on 2 November 2026. Revised user-supplied text was received and compared on 13 November 2026. The current [Query contract](query-e-invoices.openapi.json) and [Retrieve contract](retrieve-e-invoice.openapi.json) retain OpenAPI 3.1.0 and `info.version: 1.0.0`. The publication date and deployed build are unknown. Equal version labels do not establish equal content.
+
+The [snapshot register](openapi-source-snapshots.json) records current/original-paste hashes and links the preserved earlier [Query](history/2026-11-02/query-e-invoices.openapi.json) and [Retrieve](history/2026-11-02/retrieve-e-invoice.openapi.json) snapshots.
+
+| Contract change in the 13 November text | Exact location / limit |
+|---|---|
+| Both responses add `availableAttachments` and sender/recipient `accessPointAddressLegal`. Attachment MIME enums now include generic XML and PDF values. | `InvoicesResponse.documents[].properties` and `InvoiceResponse.properties`; field presence does not prove Spain NIF/address support or original-file identity. |
+| Query adds filter examples for `availableAttachments` and `recipient/accessPointAddressLegal`. | `components.parameters.filterQuery.examples`; examples are not an exhaustive filter contract. |
+| Retrieve adds optional `includeAttachments`, default `true`. | Inline GET query parameter. `false` omits `attachments`, skips URL and Factur-X generation, and retains `availableAttachments`. A positive count with omitted descriptors does not mean files are missing. |
+| External documentation URL changes from `/domain-services/` to `/network/`. | `externalDocs.url`; does not prove a changed endpoint owner or deployment. |
+
+Both contracts retain AP/AR invoice and credit-note codes, dataset-scoped GET paths and Sage ID M2M bearer authentication. They do not define NIF/certificate request parameters. The list example still has different outer and document IDs; list-to-detail binding remains an API-owner qualification question. No new SPFE WSDL evidence is supplied by these REST snapshots.

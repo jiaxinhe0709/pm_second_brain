@@ -1,21 +1,27 @@
 # Invoice receiving
 
+The customer can consult **sent and received** e-invoices through **Customer ↔ ERP ↔ Domain Service – E-Invoice Service**, using the existing E-Invoice API. [SPEC026 §2](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download) owns that read journey. Automatic collection and processing in this folder apply to received invoices; sending keeps its own workflow.
+
 Use the same three reading views and detailed API reference as [onboarding](../onboarding-and-connectivity/README.md). These drafts are based on SPEC016 and the supplied `/context` evidence. Publication was authorised on 2 November 2026; lifecycle status remains draft.
 
 **View and user download are required for all enabled public and private platforms, including the Sage offering.** [SPEC026 §1](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#1-purpose-actors-and-boundary) owns this product decision. Backend source-file acquisition is a separate action.
 
-**Which API does what?** **Query e-invoices** supplies the invoice list (RET-API-01). **Retrieve e-invoice** supplies one invoice's details, status history and attachment download links (RET-API-02). Downloading an attachment follows a returned link as part of this flow. RET-API-03 documents that file-transfer step; it is not a third Sage invoice endpoint. Query can also return attachment links. See [the API comparison and flow](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#1-existing-product-facing-calls). Spain implementation coverage still needs qualification.
+**Which API does what?** The ERP calls the Domain Service through the shared API. **Query e-invoices** supplies the business’s authorised sent/received list (RET-API-01). **Retrieve e-invoice** supplies one invoice's details, history, attachment count and links when included (RET-API-02). Downloading an attachment follows a returned link as part of this flow. RET-API-03 documents that file-transfer step; it is not a third Sage invoice endpoint. Query can also return attachment links. See [the API comparison and flow](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#1-existing-product-facing-calls). Spain implementation coverage still needs qualification.
 
 **How do new SPFE invoices reach the list?** Sage must initiate discovery and file pulls using the supplied contracts; no SPFE webhook or WebSocket interface is established. [SPEC027 §3.1](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md#31-query-coverage-and-recovery) compares France notifications, the scheduled baseline and the proposed refresh when a customer opens a stale list. Architecture must determine cadence, rate limits and execution; the customer-view trigger remains a proposal.
 
 | Read | Purpose |
 |---|---|
-| [Solution Summary — SPEC-SEI-025](SPEC-SEI-025-invoice-retrieval-solution-summary.md) | Business outcome, scope, actors and step-by-step walkthrough. Start here. |
-| [Logical Feature Specification — SPEC-SEI-026](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md) | Existing intake, retrieval, receiving and file-access scenarios, rules, failures and functional acceptance. |
-| [Sequence and Reuse Assessment — SPEC-SEI-027](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md) | Existing API calls, grey/blue sequences, Spain public/private changes, product impact and engineering gates. |
+| [Solution Summary — SPEC-SEI-025](SPEC-SEI-025-invoice-retrieval-solution-summary.md) | Start here: one presentation overview with five framed actions A–E, their scope and links to detail. |
+| [Logical Feature Specification — SPEC-SEI-026](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md) | Required behaviour for receiving and consultation; the supporting swimlane expands A. E links to the lifecycle owner. |
+| [Sequence and Reuse Assessment — SPEC-SEI-027](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md) | Supporting sequences: B–D customer Query/Retrieve/download, plus source collection and file recovery; reuse and engineering gates. |
 | [API Reuse and Spain Changes — SPEC-SEI-042](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md) | Request/response fields and examples, public SOAP bindings, proposed changes and missing contracts. |
 
-[Supplied API guide evidence](<../../context/FR API/Receiving/receive-e-invoice-guide-extract.md>) — first used for France; Spain support still needs confirmation.
+**Where do we get the invoice?** Read the [plain-English source-choice flow in SPEC026](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#choose-source-and-get-invoice) before receiving step 1. It covers public originals, private originals, copy-only access and failed private downloads.
+
+**After opening an invoice:** the customer can choose **Download file** or [**Review and take action — SPEC029**](../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action). The lifecycle view owns enabled actions and their results. Use [SPEC042’s source lists](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#document-types-and-status-values) for exact invoice types, status codes and their separate meanings.
+
+[Supplied API guide and REST snapshot evidence](<../../context/FR API/Receiving/receive-e-invoice-guide-extract.md#query-and-retrieve-openapi-snapshots>) — the 13 November Query/Retrieve text includes attachment count, legal address and `includeAttachments` updates. [Earlier snapshots and current hashes](<../../context/FR API/Receiving/openapi-source-snapshots.json>) are preserved. Spain support still needs confirmation.
 
 The combined predecessor is retained in [the archive](../archive/README.md). Its
 linked detail remains part of this review set; its lifecycle and publication

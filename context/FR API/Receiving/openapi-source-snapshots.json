@@ -1,0 +1,38 @@
+{
+  "purpose": "Identify the reviewed local Query/Retrieve snapshots and preserve the earlier supplied contracts. This is not a publisher release or runtime-readiness claim.",
+  "reviewed_on": "2026-11-13",
+  "sources": [
+    {
+      "source_id": "INT-RCV02",
+      "current_file": "query-e-invoices.openapi.json",
+      "received_on": "2026-11-13",
+      "openapi": "3.1.0",
+      "declared_version": "1.0.0",
+      "publication_date": "unknown",
+      "sha256": "5e80bb979dadeedd254d2dfe423dd952850f0e5747b20bf1c4d6e6a92635e859",
+      "pasted_attachment_sha256": "9901f25e0d54afbfb8e712dab9b254a34c36b2a3381b48693769bd28e850212e",
+      "previous_snapshot": {
+        "file": "history/2026-11-02/query-e-invoices.openapi.json",
+        "received_on": "2026-11-02",
+        "sha256": "746031e6ca9af489bcfe6c65c09be131a8d78352762f14bd0af8c9147573fa4d"
+      },
+      "limit": "User-supplied contract text; canonical publication and deployed build remain unverified. The unchanged version number does not identify byte-equal snapshots."
+    },
+    {
+      "source_id": "INT-RCV03",
+      "current_file": "retrieve-e-invoice.openapi.json",
+      "received_on": "2026-11-13",
+      "openapi": "3.1.0",
+      "declared_version": "1.0.0",
+      "publication_date": "unknown",
+      "sha256": "8f7a671f7b44e2602794ae594a2289aa9935330152562a50ad99d02f5a8815f6",
+      "pasted_attachment_sha256": "035c6d7aa051eba1ae5722d5d5dc1b9a4adfe679cec9798ef3b4e189a6f997ca",
+      "previous_snapshot": {
+        "file": "history/2026-11-02/retrieve-e-invoice.openapi.json",
+        "received_on": "2026-11-02",
+        "sha256": "273837b12e15eee6e39f3af3236f34a5f84599376d7d0babe32a51627470c375"
+      },
+      "limit": "User-supplied contract text; canonical publication and deployed build remain unverified. The unchanged version number does not identify byte-equal snapshots."
+    }
+  ]
+}
