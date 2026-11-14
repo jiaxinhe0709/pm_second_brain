@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="onboarding-and-connectivity-swimlane" name="Customer onboarding and connectivity — detailed swimlane">
-        <mxGraphModel dx="758" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3260" pageHeight="1530" math="0" shadow="0">
+        <mxGraphModel dx="704" dy="743" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3260" pageHeight="1530" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -19,12 +19,12 @@
                 <mxCell id="lane-customer-label" parent="lane-customer" style="text;html=0;whiteSpace=wrap;align=center;fontSize=18;" value="Customer / accountant" vertex="1">
                     <mxGeometry height="160" width="194" x="8" as="geometry"/>
                 </mxCell>
-                <object label="Select the business or client&#xa;&#xa;Use the existing selection&#xa;ONB-01" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#61-onb-01-capture-requested-functions" id="select-business">
+                <object label="Select the business or client&#10;&#10;Use the existing selection where available&#10;ONB-01" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#61-onb-01-capture-requested-functions" id="select-business">
                     <mxCell parent="lane-customer" style="rounded=1;arcSize=18;html=0;whiteSpace=wrap;align=center;fontSize=17;spacing=8;fillColor=#e5f4f0;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
                         <mxGeometry height="110" width="270" x="220" y="30" as="geometry"/>
                     </mxCell>
                 </object>
-                <object label="Choose the requested action&#xa;&#xa;After setup review;&#xa;confirm functions and environment&#xa;ONB-01" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#61-onb-01-capture-requested-functions" id="choose-action">
+                <object label="Choose the requested action&#xa;&#xa;After reviewing the setup, choose what to connect, check or change.&#xa;ONB-01" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#61-onb-01-capture-requested-functions" id="choose-action">
                     <mxCell parent="lane-customer" style="rounded=1;arcSize=18;html=0;whiteSpace=wrap;align=center;fontSize=17;spacing=8;fillColor=#e5f4f0;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
                         <mxGeometry height="130" width="270" x="540" y="20" as="geometry"/>
                     </mxCell>
@@ -40,22 +40,22 @@
                     </mxCell>
                 </object>
                 <mxCell id="lane-erp" parent="1" style="swimlane;horizontal=0;noLabel=1;startSize=210;html=0;fillColor=#e5e5e5;swimlaneFillColor=#fafafa;strokeColor=#bdbdbd;" value="ERP / product" vertex="1">
-                    <mxGeometry height="190" width="3220" x="20" y="400" as="geometry"/>
+                    <mxGeometry height="180" width="3220" x="20" y="400" as="geometry"/>
                 </mxCell>
                 <mxCell id="lane-erp-label" parent="lane-erp" style="text;html=0;whiteSpace=wrap;align=center;fontSize=18;" value="ERP / product" vertex="1">
                     <mxGeometry height="190" width="194" x="8" as="geometry"/>
                 </mxCell>
                 <object label="Review current e-invoicing setup&#xa;&#xa;Check view permission and SXS mapping; show permitted saved setup&#xa;ONB-10/11" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup" id="review-current">
-                    <mxCell parent="lane-erp" style="rounded=1;arcSize=18;html=0;whiteSpace=wrap;align=center;fontSize=17;spacing=8;fillColor=#e5f4f0;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
+                    <mxCell parent="lane-erp" style="rounded=1;arcSize=18;html=0;whiteSpace=wrap;align=center;fontSize=17;spacing=8;fillColor=#e5f4f0;strokeColor=#555555;strokeWidth=1.5;dashPattern=8 8;" vertex="1">
                         <mxGeometry height="110" width="590" x="220" y="35" as="geometry"/>
                     </mxCell>
                 </object>
-                <object label="Complete shared checks&#xa;&#xa;For the confirmed business/client,&#xa;requested functions and environment&#xa;ONB-01/03" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#61-onb-01-capture-requested-functions" id="shared-request">
+                <object label="Request checks for the chosen action&#xa;&#xa;Use the selected business or client and the e-invoicing functions they want to use.&#xa;ONB-01/03" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#65-onb-03-assess-prerequisites" id="shared-request">
                     <mxCell parent="lane-erp" style="rounded=1;arcSize=18;html=0;whiteSpace=wrap;align=center;fontSize=17;spacing=8;fillColor=#e5f4f0;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
                         <mxGeometry height="110" width="360" x="890" y="35" as="geometry"/>
                     </mxCell>
                 </object>
-                <object label="Complete platform setup and confirm access&#xa;&#xa;Public and/or private functions · Reuse valid setup; complete only missing, changed or expired work&#xa;ONB-04/05/06/10" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#66-onb-04-publish-public-readiness" id="platform-setup">
+                <object label="Complete platform setup and confirm access&#xa;&#xa;Public and/or private functions · Reuse valid setup; complete only missing, changed or expired work&#xa;ONB-04/05/06/10" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#6-feature-activities" id="platform-setup">
                     <mxCell parent="lane-erp" style="rounded=1;arcSize=18;html=0;whiteSpace=wrap;align=center;fontSize=17;spacing=8;fillColor=#e5f4f0;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
                         <mxGeometry height="110" width="990" x="1390" y="35" as="geometry"/>
                     </mxCell>
@@ -76,14 +76,14 @@
                 <mxCell id="lane-einvoice-label" parent="lane-einvoice" style="text;html=0;whiteSpace=wrap;align=center;fontSize=18;" value="Domain Service&#xa;E-Invoice Service" vertex="1">
                     <mxGeometry height="380" width="194" x="8" as="geometry"/>
                 </mxCell>
-                <object label="Assess permitted saved setup&#xa;&#xa;Qualified lookup; unavailable&#xa;does not mean missing setup&#xa;ONB-10" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup" id="assess-saved">
-                    <mxCell parent="lane-einvoice" style="rounded=1;arcSize=18;html=0;whiteSpace=wrap;align=center;fontSize=17;spacing=8;fillColor=#f0eafa;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="110" width="300" x="380" y="60" as="geometry"/>
+                <object label="Load saved e-invoicing setup&#xa;&#xa;Read the selected business’s saved settings. If the lookup fails, return a pending result.&#xa;ONB-10" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup" id="assess-saved">
+                    <mxCell parent="lane-einvoice" style="rounded=1;arcSize=18;html=0;whiteSpace=wrap;align=center;fontSize=17;spacing=8;fillColor=#f0eafa;strokeColor=#555555;strokeWidth=1.5;dashPattern=8 8;" vertex="1">
+                        <mxGeometry height="130" width="300" x="380" y="60" as="geometry"/>
                     </mxCell>
                 </object>
-                <object label="Assess required shared checks&#xa;&#xa;Reuse matching current evidence;&#xa;keep caller and business distinct&#xa;ONB-02/03" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#62-onb-02-check-business-identity-and-authority" id="assess-shared">
+                <object label="Identify which checks are needed&#xa;&#xa;Reuse valid results for this business and action. Request only missing checks or checks that need updating.&#xa;ONB-02/03" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#65-onb-03-assess-prerequisites" id="assess-shared">
                     <mxCell parent="lane-einvoice" style="rounded=1;arcSize=18;html=0;whiteSpace=wrap;align=center;fontSize=17;spacing=8;fillColor=#f0eafa;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="110" width="360" x="890" y="60" as="geometry"/>
+                        <mxGeometry height="130" width="360" x="890" y="60" as="geometry"/>
                     </mxCell>
                 </object>
                 <object label="Confirm or establish&#xa;Sage public access&#xa;&#xa;Reuse valid evidence;&#xa;qualified checks only for gaps&#xa;ONB-04/10" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#66-onb-04-publish-public-readiness" id="public-access">
@@ -101,7 +101,7 @@
                         <mxGeometry height="110" width="300" x="2080" y="60" as="geometry"/>
                     </mxCell>
                 </object>
-                <object label="Confirm private access&#xa;&#xa;Reuse current evidence;&#xa;check only missing or stale items&#xa;ONB-06/10" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#68-onb-06-prove-private-readiness" id="private-access">
+                <object label="Confirm private access&#10;&#10;For requested functions;&#10;reuse valid evidence&#10;ONB-06/10" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#68-onb-06-prove-private-readiness" id="private-access">
                     <mxCell parent="lane-einvoice" style="rounded=1;arcSize=18;html=0;whiteSpace=wrap;align=center;fontSize=17;spacing=8;fillColor=#f0eafa;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
                         <mxGeometry height="110" width="300" x="2080" y="230" as="geometry"/>
                     </mxCell>
@@ -112,9 +112,9 @@
                 <mxCell id="lane-other-label" parent="lane-other" style="text;html=0;whiteSpace=wrap;align=center;fontSize=18;" value="Domain Service&#xa;Other Services" vertex="1">
                     <mxGeometry height="180" width="194" x="8" as="geometry"/>
                 </mxCell>
-                <object label="Check shared prerequisites&#xa;&#xa;NIF, authority and required credential;&#xa;keep the checks independent&#xa;ONB-02/03" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#62-onb-02-check-business-identity-and-authority" id="check-shared">
-                    <mxCell parent="lane-other" style="rounded=1;arcSize=18;html=0;whiteSpace=wrap;align=center;fontSize=17;spacing=8;fillColor=#f0eafa;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="110" width="360" x="890" y="35" as="geometry"/>
+                <object label="Check shared prerequisites&#xa;&#xa;Verify NIF, permission and a valid&#xa;e-invoicing certificate, where required.&#xa;Reuse NIF + certificate across platforms.&#xa;Each platform needs a separate&#xa;connection setup (onboarding).&#xa;ONB-02/03" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#65-onb-03-assess-prerequisites" id="check-shared">
+                    <mxCell parent="lane-other" style="rounded=1;arcSize=18;html=0;whiteSpace=wrap;align=center;fontSize=16;spacing=8;fillColor=#f0eafa;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
+                        <mxGeometry height="160" width="360" x="890" y="10" as="geometry"/>
                     </mxCell>
                 </object>
                 <object label="Start or change platform use&#xa;&#xa;Apply authorised selection;&#xa;keep earlier-invoice access&#xa;ONB-07/09" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#69-onb-07-cut-over-new-traffic" id="apply-use">
@@ -274,7 +274,7 @@
                 <mxCell id="account-yes-label" parent="1" style="text;html=0;whiteSpace=wrap;align=left;fontSize=16;spacing=2;" value="Yes" vertex="1">
                     <mxGeometry height="25" width="50" x="2050" y="665" as="geometry"/>
                 </mxCell>
-                <mxCell id="account-no-label" parent="1" style="text;html=0;whiteSpace=wrap;align=left;fontSize=16;spacing=2;" value="No · new account needed" vertex="1">
+                <mxCell id="account-no-label" parent="1" style="text;html=0;whiteSpace=wrap;align=left;fontSize=16;spacing=2;" value="No — new account needed" vertex="1">
                     <mxGeometry height="55" width="140" x="1925" y="1115" as="geometry"/>
                 </mxCell>
                 <mxCell id="onboarding-label" parent="1" style="text;html=0;whiteSpace=wrap;align=left;fontSize=16;spacing=2;" value="Onboarding confirmed" vertex="1">
@@ -286,7 +286,7 @@
                 <mxCell id="use-yes-label" parent="1" style="text;html=0;whiteSpace=wrap;align=left;fontSize=16;spacing=2;" value="Yes" vertex="1">
                     <mxGeometry height="25" width="45" x="2765" y="280" as="geometry"/>
                 </mxCell>
-                <mxCell id="use-no-label" parent="1" style="text;html=0;whiteSpace=wrap;align=left;fontSize=16;spacing=2;" value="No · setup only" vertex="1">
+                <mxCell id="use-no-label" parent="1" style="text;html=0;whiteSpace=wrap;align=left;fontSize=16;spacing=2;" value="No — setup only" vertex="1">
                     <mxGeometry height="25" width="160" x="2625" y="395" as="geometry"/>
                 </mxCell>
                 <mxCell id="setup-only-rule" parent="1" style="text;html=0;whiteSpace=wrap;align=left;fontSize=18;spacing=2;" value="Setup only preserves the current selection.&#xa;If none exists, setup alone activates none." vertex="1">
@@ -298,7 +298,7 @@
                 <mxCell id="legend" parent="1" style="text;html=0;whiteSpace=wrap;align=left;fontSize=17;spacing=2;" value="Green: customer and ERP steps · Purple: setup and checks · Solid: normal work, requests and results · Dashed: conditional work." vertex="1">
                     <mxGeometry height="30" width="3200" x="28" y="1440" as="geometry"/>
                 </mxCell>
-                <mxCell id="ownership" parent="1" style="text;html=0;whiteSpace=wrap;align=left;fontSize=16;spacing=2;" value="Proposed responsibilities; implementation coverage remains open in SPEC039. Colours do not show readiness or implementation. Phase 1: public access; phases 2–3 add private setup and enabled changes." vertex="1">
+                <mxCell id="ownership" parent="1" style="text;html=0;whiteSpace=wrap;align=left;fontSize=16;spacing=2;" value="Proposed responsibilities; implementation coverage remains open in SPEC039. Colours do not show readiness or implementation. Phase 1: public access; phases 2–3 add private setup and enabled changes. Private A to Private B stays disabled." vertex="1">
                     <mxGeometry height="30" width="3200" x="28" y="1475" as="geometry"/>
                 </mxCell>
             </root>

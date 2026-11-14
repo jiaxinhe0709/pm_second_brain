@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-13
+updated: 2026-11-14
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -47,7 +47,7 @@ Before a command or report, check the caller, represented business, actor role a
 
 <a id="review-and-take-action"></a>
 
-**Review and take action** continues from **Select and open invoice** in the [SPEC025 presentation overview](../invoice-receiving/SPEC-SEI-025-invoice-retrieval-solution-summary.md#4-end-to-end-workflow). Download is a separate choice. The customer or authorised accountant selects a permitted invoice action in the ERP. The ERP submits the action to the Domain Service using the same business and invoice identity, then shows its attempt result and each communication result separately. [§4.1](#general-status-comparison) owns the SPFE state meanings and draft platform mapping; [SPEC041 §1.2](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#12-documented-status-inputs) owns exact documented command UUIDs and required fields. Apply LCS-R04/12–14 before offering or sending an action. These links do not enable unqualified Spain commands.
+**Review and take action** continues from **Select and open invoice** in the [SPEC026 detailed retrieval process](../invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#retrieval-detailed-process). Download is a separate choice. The customer or authorised accountant selects a permitted invoice action in the ERP. The ERP submits the action to the Domain Service using the same business and invoice identity, then shows its attempt result and each communication result separately. [§4.1](#general-status-comparison) owns the SPFE state meanings and draft platform mapping; [SPEC041 §1.2](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#12-documented-status-inputs) owns exact documented command UUIDs and required fields. Apply LCS-R04/12–14 before offering or sending an action. These links do not enable unqualified Spain commands.
 
 | Trigger / actor | Required result / safe alternative | Existing coverage |
 |---|---|---|

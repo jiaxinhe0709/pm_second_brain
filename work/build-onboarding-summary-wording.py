@@ -1,8 +1,13 @@
 """Build SPEC037's summary flow with customer settings and setup colour groups."""
 from pathlib import Path
+import argparse
 import importlib.util
 import json
+import math
+import re
 import xml.etree.ElementTree as ET
+
+import pymupdf
 
 ROOT = Path(__file__).resolve().parents[1]
 SLUG = 'onboarding-summary-scenario-selection-process'
@@ -22,12 +27,12 @@ def build():
     nodes = [
         node('start', 1, 0, 'Open E-invoicing settings or guided onboarding', 'SPEC038 §1', 'In the business’s or accountant’s Sage product', 'outcome'),
         node('select', 1, 1, 'Select the business or client', 'ONB-01/02', 'Use the existing selection where available'),
-        node('assess', 1, 2, 'Review current e-invoicing setup', 'ONB-10', 'Sage loads saved setup through SXS; customer reviews'),
+        node('assess', 1, 2, 'Review current e-invoicing setup', 'ONB-10', 'Use the business’s SXS dataset; show saved setup'),
         node('pending', 2, 2, 'E · Show pending result or limitation', 'ONB-08/10/11', 'Next action and owner; no duplicate setup', 'recovery'),
         node('request', 1, 3, 'Choose the requested action', 'ONB-01', 'Review / Connect or add a platform / Switch platform'),
-        node('identity', 1, 4, 'Complete the applicable shared checks', 'ONB-02/03', 'NIF, action permission; certificate only if required'),
+        node('identity', 1, 4, 'Check shared prerequisites', 'ONB-02/03', 'NIF, permission and a valid certificate where required'),
         node('choice', 1, 4, 'Which platform setup applies?', 'ONB-10', kind='decision'),
-        node('public', 0, 5, 'Confirm or establish Sage public access', 'ONB-03/04', 'Reuse valid evidence; no public registration assumed'),
+        node('public', 0, 5, 'Confirm or establish Sage public access', 'ONB-03/04', 'Reuse valid evidence; no public enrolment call assumed'),
         node('private', 2, 5, 'Account on chosen private platform?', 'ONB-05', 'Assess the chosen platform, not any previous provider', 'decision'),
         node('privateexisting', 2, 6, 'Connect existing account to Sage', 'ONB-05', 'Reuse a valid Sage connection if present'),
         node('privatenew', 3, 6, 'Complete provider onboarding, then connect', 'ONB-05', 'Complete required provider and Sage setup'),
@@ -43,9 +48,9 @@ def build():
         'request': '61-onb-01-capture-requested-functions',
         'assess': '64-onb-10-assess-current-setup',
         'pending': '610-onb-08-reconcile-and-recover',
-        'identity': '62-onb-02-check-business-identity-and-authority',
+        'identity': '65-onb-03-assess-prerequisites',
         'choice': '64-onb-10-assess-current-setup',
-        'public': '65-onb-03-assess-prerequisites',
+        'public': '66-onb-04-publish-public-readiness',
         'private': '67-onb-05-configure-private-choice',
         'privateexisting': '67-onb-05-configure-private-choice',
         'privatenew': '67-onb-05-configure-private-choice',
@@ -123,6 +128,7 @@ def build():
             'E: stop dependent work; show the limitation or pending evidence, next action and owner. Resume only affected work.',
             'Setup only: keep any existing platform selection unchanged. If none exists, setup alone activates none.',
             'Phase 1: public access. Phases 2–3 add private setup and enabled platform changes. Private A to Private B stays disabled.',
+            'Reuse the same NIF + valid certificate across platforms. Complete separate connection setup (onboarding) for each platform.',
         ])
     original = 'Common: shared behaviour · Scenario-specific: selected path · Conditional: only when required'
     replacement = 'S01–S08 refer to SPEC038 scenarios. The customer and authorised accountant use the same flow.'
@@ -160,6 +166,7 @@ def build():
             'x': str(x), 'y': str(y), 'font-family': 'Arial, sans-serif',
             'font-size': '12', 'font-weight': 'bold', 'fill': '#444444'}).text = label
     precondition = ET.SubElement(svg, NS+'a', {
+        'id': 'product-precondition',
         'href': LOGICAL+'4-feature-wide-functional-requirements-and-rules',
         'aria-label': 'Product precondition: integrations available before customer onboarding'})
     ET.SubElement(precondition, NS+'path', {
@@ -289,7 +296,7 @@ def build():
         'Missing input / authority, unsupported or unknown.',
         'Keep independent successful results.',
         'Resume only affected work.',
-        'Reconcile uncertain changes before retry.',
+        'Check unknown effects before retrying.',
     ]
     for i, value in enumerate(exception_notes):
         y = 746+i*22
@@ -314,5 +321,89 @@ def build():
             'exception_references': len(exception_cases)}
 
 
+def render_png():
+    """Render the maintained SVG without changing its editable source or preview.
+
+    PyMuPDF omits SVG anchor children and dash styles. Flatten links and expand
+    dashed strokes only in the in-memory raster input; keep the SVG interactive.
+    """
+    base = ROOT / 'assets/diagrams' / SLUG
+    tree = ET.parse(base.with_suffix('.svg'))
+
+    def dashed(points, pattern):
+        index, remaining, commands = 0, pattern[0], []
+        for a, b in zip(points, points[1:]):
+            length = math.dist(a, b)
+            offset = 0
+            while offset < length - 1e-8:
+                step = min(remaining, length-offset)
+                if index % 2 == 0:
+                    p = tuple(a[i]+(b[i]-a[i])*offset/length for i in (0, 1))
+                    q = tuple(a[i]+(b[i]-a[i])*(offset+step)/length for i in (0, 1))
+                    commands.append(f'M {p[0]},{p[1]} L {q[0]},{q[1]}')
+                offset += step
+                remaining -= step
+                if remaining < 1e-8:
+                    index = (index+1) % len(pattern)
+                    remaining = pattern[index]
+        return ' '.join(commands)
+
+    parents = {child: parent for parent in tree.iter() for child in parent}
+    for el in list(tree.iter()):
+        if el.tag == NS+'a':
+            el.tag = NS+'g'
+        if 'stroke-dasharray' not in el.attrib:
+            continue
+        pattern = list(map(float, el.attrib.pop('stroke-dasharray').replace(',', ' ').split()))
+        if len(pattern) % 2:
+            pattern *= 2
+        if el.tag == NS+'path':
+            tokens = re.findall(r'[A-Za-z]|-?\d+(?:\.\d+)?', el.get('d'))
+            points, index, command = [], 0, None
+            x = y = 0
+            while index < len(tokens):
+                if tokens[index].isalpha():
+                    command = tokens[index]
+                    index += 1
+                assert command in ('M', 'L', 'H', 'V'), command
+                if command in ('M', 'L'):
+                    x, y = map(float, tokens[index:index+2])
+                    index += 2
+                    command = 'L'
+                elif command == 'H':
+                    x = float(tokens[index])
+                    index += 1
+                else:
+                    y = float(tokens[index])
+                    index += 1
+                points.append((x, y))
+            el.set('d', dashed(points, pattern))
+        else:
+            assert el.tag == NS+'rect', el.tag
+            x, y, w, h = (float(el.get(k)) for k in ('x', 'y', 'width', 'height'))
+            radius = float(el.get('rx', 0))
+            points = [(x+radius, y)]
+            for cx, cy, start in [(x+w-radius, y+radius, -math.pi/2),
+                                  (x+w-radius, y+h-radius, 0),
+                                  (x+radius, y+h-radius, math.pi/2),
+                                  (x+radius, y+radius, math.pi)]:
+                points.extend((cx+radius*math.cos(start+i*math.pi/16),
+                               cy+radius*math.sin(start+i*math.pi/16)) for i in range(9))
+            outline = ET.Element(NS+'path', d=dashed(points, pattern), fill='none',
+                                 stroke=el.get('stroke'), attrib={'stroke-width': el.get('stroke-width', '1')})
+            el.set('stroke', 'none')
+            parent = parents[el]
+            parent.insert(list(parent).index(el)+1, outline)
+    with pymupdf.open('svg', ET.tostring(tree.getroot())) as svg:
+        with pymupdf.open('pdf', svg.convert_to_pdf()) as pdf:
+            pdf[0].get_pixmap(alpha=False).save(base.with_suffix('.png'))
+    print('Summary PNG refreshed; maintained Draw.io and SVG preserved.')
+
+
 if __name__ == '__main__':
-    print(json.dumps(build(), indent=2))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--render-preview', action='store_true', help='Render the maintained SVG only.')
+    args = parser.parse_args()
+    if not args.render_preview:
+        print(json.dumps(build(), indent=2))
+    render_png()

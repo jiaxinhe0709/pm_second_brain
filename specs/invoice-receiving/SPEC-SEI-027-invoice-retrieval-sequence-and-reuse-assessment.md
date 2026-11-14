@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-13
+updated: 2026-11-14
 reviewers: []
 related:
   - SPEC-SEI-016
@@ -56,7 +56,7 @@ Reuse existing Query/Retrieve calls for the customer’s sent and received invoi
 
 ## 2 Proposed reuse sequences
 
-The [SPEC026 source-choice flow](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#choose-source-and-get-invoice) shows which file to obtain before receiving step 1. The sequences below add the calls and recovery evidence; they do not select the open private-failure recovery policy.
+The [SPEC026 source scenarios](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal) define original/copy handling and the open private-failure recovery policy. The sequences below add the calls and recovery evidence.
 
 Grey shows documented existing E-Invoice calls. Blue shows proposed Spain binding or a handoff to confirm. Red in SPEC042 marks open evidence. Supplied public SOAP operations are transport evidence; their business formats and running implementation remain unqualified. Arrows show requests and results. A source fetch and a user download are different actions.
 
@@ -94,7 +94,7 @@ Renew a confirmed expired link for the same invoice/file role; other `403` resul
 
 [Draw.io](../../assets/diagrams/invoice-retrieval-view-download-sequence.drawio) · [PNG](../../assets/diagrams/invoice-retrieval-view-download-sequence.png).
 
-This supporting sequence expands **View invoice list**, **Select and open invoice** and **Download file** from the [SPEC025 presentation overview](SPEC-SEI-025-invoice-retrieval-solution-summary.md#4-end-to-end-workflow). **Review and take action** branches from **Select and open invoice** and continues in [SPEC029](../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action); it does not require **Download file**.
+This supporting sequence expands **View invoice list**, **Select and open invoice** and **Download file** from the [SPEC026 detailed process](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#retrieval-detailed-process). **Review and take action** branches from **Select and open invoice** and continues in [SPEC029](../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action); it does not require **Download file**.
 
 The [SPEC026 §2 customer journey](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download) owns the user actions and outcomes. The ERP calls the **Domain Service – E-Invoice Service**, through the existing E-Invoice API: **Query e-invoices (RET-API-01)** for the business’s sent/received list, then **Retrieve e-invoice (RET-API-02)** for the selected invoice. Each service result returns to the ERP before display. Preserve the selected ID, business and source across pages; RET-G01 still qualifies the ID relationship. For **Download file**, ERP uses a returned attachment link under RET-API-03. When descriptors were omitted or expiry is confirmed, it calls Retrieve with `includeAttachments=true` for links; the subsequent URL request transfers bytes from the file source. Download is optional and opening does not trigger it. A known qualified ID can still open detail directly; Query can also supply file links. These are existing API capabilities, not extra UI steps. [SPEC042 §1](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#1-existing-product-facing-calls) owns the contract limits.
 
@@ -184,7 +184,7 @@ The [source dictionary](<../../context/FR API/Shared/invoice-flow-error-handling
 
 | Gate / owner | Evidence required before enabling the affected capability |
 |---|---|
-| RET-G01 — API, Identity, Routing, Product/Compliance | Business/dataset/partner mapping, service/environment support and current/historical action authority. RRI-Q01–03; RCV-Q02/12. |
+| <a id="ret-g01"></a>RET-G01 — Architecture, API, Identity, Tax/Connections, Routing, Product/Compliance | **Open: how are the business/NIF, dataset(s), public/private platform connections, credential references and action authority linked for retrieval?** Confirm one-to-one and one-to-many relationships with onboarding [GAP-01](../onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-01), [GAP-02](../onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-02) and [GAP-06](../onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-06). No NIF/certificate lookup key or one dataset per NIF is selected. Supply the agreed resource model, source-qualified IDs, lookup contract and worked mappings for a business with multiple platforms and a reused certificate, plus an accountant acting for different clients. Prove current/historical authority, partner and environment isolation, and safe handling of a missing or unavailable lookup. RRI-Q01–03; RCV-Q02/12. |
 | RET-G02 — API, Events, Security, Integration | Selected schemas/casing, authentication, event/attempt IDs, replay, errors, subscription lifecycle and read/acknowledgement effects. RCV-Q01/05. |
 | RET-G03 — Architecture, API, Retrieval, Operations; Product for freshness | Decide the pull policy in §3.1: background cadence, proposed list-open acceleration, freshness target/threshold, refresh result/contract, source versus REST quotas, concurrency and retry delays. Prove inbound/date selection, pagination, stable progress, late/older history and visible gap recovery. Confirm actual France mechanisms before reusing them. RSD-G01/06/07. |
 | RET-G04 — Integration/provider, Records, Security | Exact source/file roles, content binding, link renewal, partial/required file sets and safe transfer. RCV-Q01/03. |
@@ -203,7 +203,7 @@ These checks supplement SPEC026; none is claimed as executed implementation test
 
 | Check | Required proof / functional link |
 |---|---|
-| RET-API-A01 | Wrong business/dataset/country/environment and revoked grants are denied on calls, renewal and saved reads. RSD-A01/08/13; RRI-A07/08; SPFE-S02 Article 11. |
+| RET-API-A01 | Wrong business/dataset/country/environment and revoked grants are denied on calls, renewal and saved reads. Use the worked mappings approved under [RET-G01](#ret-g01) to check multiple platforms with a reused certificate and separate accountant clients. A missing or unavailable setup lookup keeps affected work pending; it must not select another business or infer a new dataset/connection. RSD-A01/08/13; RRI-A07/08; SPFE-S02 Article 11. |
 | RET-API-A02 | Authenticate/error-check webhooks; recover duplicates, reordering, missed events and lost subscription responses. Verify receipt/attempt meaning. RRI-A02/04/09; RCV-A20. |
 | RET-API-A03 | Scheduled pulls continue without customer sessions. If list-open acceleration is selected, fresh data avoids an unnecessary pull; stale data requests or joins one within the qualified limits. Concurrent viewers do not duplicate collection; captured content stays readable during refresh or source failure. Prove recovery after inactivity/outage. Over 20 items, mixed directions, date boundaries, repeated pages, concurrent arrivals, crashes and older-than-90-day work retain complete or visibly incomplete coverage. RSD-A03/07/10; RRI-A04; REF-PRODUCT; RET-G03. |
 | RET-API-A04 | Notification-only versus supplied-file modes, missing/expired/refused/partial files, safe renewal and required/optional sets preserve good files and source identity. No bearer forwarding or unsafe access. RRI-A01–03/06; RSD-A06/09/14. |

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: '2026-10-23'
-updated: 2026-11-13
+updated: 2026-11-14
 reviewers: []
 related:
 - SPEC-SEI-037
@@ -164,7 +164,7 @@ The customer and an authorised accountant use the same paths. Batch processing i
 
 <a id="platform-onboarding-and-certificate-reuse"></a>
 
-**Platform onboarding and certificate reuse:** the Spain team confirmed, as reported by the user on 11 November 2026, that the same certificate can be reused across platforms, but each platform requires separate onboarding (configuration and setup). When an administrator adds a second platform, reuse a suitable certificate and complete the second platform's required configuration, authority and readiness checks. Show each platform's setup result separately. If the second setup fails or remains pending, identify its next action and owner; do not mark it ready because the first platform is ready. This confirmation does not select API connection resources or credential-ID relationships; [039 GAP-02/06](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-06) retain those implementation checks.
+**Platform onboarding and certificate reuse:** the Spain team confirmed, as reported by the user on 11 November 2026 and clarified on 14 November 2026, that the same business NIF and suitable certificate can be used across multiple platforms. Each added platform requires separate connection setup (onboarding). When an administrator adds a second platform, reuse the business NIF and suitable certificate, then complete the second platform's required configuration, authority and readiness checks. Show each platform's setup result separately. If the second setup fails or remains pending, identify its next action and owner; do not mark it ready because the first platform is ready. This confirmation does not select API connection resources or credential-ID relationships; [039 GAP-02/06](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#gap-06) retain those implementation checks.
 
 Reuse current evidence only for the same business, action and environment. Keep customer statements separate from observed results. A failed lookup means “not confirmed”, not “does not exist”. Spain rules and test credentials must not affect other countries or production. ONB-R01/03/12/14/24; OFR-R09/10.
 
@@ -210,7 +210,7 @@ If approval is missing, ask an eligible person for the specific action. Changed,
 
 ### 6.4 ONB-10 Assess current setup — Phases 1–3
 
-For **Review current e-invoicing setup**, verify the caller's permission to view the selected business or client. Resolve its SXS dataset/client mapping before dataset-scoped credential lookup or access-point calls. Load and show the permitted saved setup and credential references; do not expose secrets. Saved configuration does not prove readiness or authority for a later action. Reuse the company mapping when adding a platform; apply the resource relationships decided under 039 GAP-01/02. Missing mapping follows the qualified channel/SXS setup process; an unavailable lookup returns a pending result, next action and owner. Do not treat an unavailable lookup as evidence of missing setup or create another account to repair an unknown result.
+For **Review current e-invoicing setup**, verify the caller's permission to view the selected business or client. Resolve its SXS dataset/client mapping before dataset-scoped credential lookup or access-point calls. **Load saved e-invoicing setup** for that business, including permitted configuration and credential references. Show the saved setup without exposing secrets. Saved configuration does not prove readiness or authority for a later action. Reuse the company mapping when adding a platform; apply the resource relationships decided under 039 GAP-01/02. Missing mapping follows the qualified channel/SXS setup process; an unavailable lookup returns a pending result, next action and owner. Do not treat an unavailable lookup as evidence of missing setup or create another account to repair an unknown result.
 
 After ONB-01 captures the action, **Which platform setup applies?** selects the public and/or private paths for the requested functions. Reuse valid setup and matching current evidence in both paths; complete only missing, changed or expired items. Valid unchanged setup requires no new configuration or unnecessary external checks. This rule covers S05 within either path rather than a separate reuse branch. Keep results per function, preserve independent successful results and enforce dependencies before continuing affected work. Existing B2G setup remains unchanged when B2B functions are assessed. Both paths lead to ONB-07's platform-use decision.
 
@@ -222,7 +222,9 @@ See Stage 2 of the [combined onboarding swimlane](#onboarding-process). Stage 1 
 
 Run these shared checks before public or private setup. The table explains [ONB-R17 — independent prerequisites](../archive/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md#4-feature-wide-functional-requirements-and-rules). A NIF and an in-date certificate alone do not establish readiness.
 
-The ERP/product requests permitted current setup through its qualified SXS/API integration, shows that setup, and submits the customer's confirmed action for shared checks. The E-Invoice Service lane coordinates the checks; the Other Services lane provides the required identity and credential capabilities. The ERP shows the returned results and next actions. These are functional responsibilities; actual interface and service ownership remain qualified in [039 §3.1](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#31-shared-prerequisites).
+For **Request checks for the chosen action**, the ERP/product submits the selected business or client, requested functions and environment after the customer confirms the action. For **Identify which checks are needed**, reuse valid results for that business, action and environment. Request only missing checks or checks affected by changed information or expired evidence. **Check shared prerequisites** applies the independent checks in the table below. For reuse of the NIF and certificate across platforms, apply the [confirmed platform onboarding and certificate reuse rule](#platform-onboarding-and-certificate-reuse).
+
+The swimlane shows the E-Invoice Service coordinating the checks and Other Services providing the identity and credential capabilities. The ERP shows the returned results and next actions. These are proposed functional responsibilities; actual interface and service ownership remain qualified in [039 §3.1](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#31-shared-prerequisites).
 
 | Check | Required evidence for the selected business, action and environment | If the check does not pass |
 |---|---|---|
@@ -356,7 +358,7 @@ Check the [SPEC037 scenario-path mapping](SPEC-SEI-037-customer-onboarding-and-c
 
 Repeat the private-account cases for an accountant onboarding one permitted client. Verify that the provider account covers that client, missing approval invokes ONB-12, and an unlinked client cannot be viewed or changed. The accountant's firm identity or own platform account must not silently replace the represented client. Batch processing is optional for one client; a client list applies ONB-13 isolation and current authority checks per client.
 
-For [platform setup with certificate reuse](#platform-onboarding-and-certificate-reuse), verify two platforms using the same suitable certificate: completion of the first setup must leave the second pending until its own checks pass; a failure in the second must show its next action without changing the first result solely because the certificate is shared. Also check that Spain rules do not change another country's behaviour. Close the applicable [existing release checks](../archive/SPEC-SEI-002-onboarding-solution-specification.md#2-review-and-release-gates) and [039 implementation questions](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#2-open-engineering-decisions). These are required checks, not tests already passed.
+For [platform setup with certificate reuse](#platform-onboarding-and-certificate-reuse), verify two platforms using the same business NIF and suitable certificate: completion of the first setup must leave the second pending until its own checks pass; a failure in the second must show its next action without changing the first result solely because the certificate is shared. Also check that Spain rules do not change another country's behaviour. Close the applicable [existing release checks](../archive/SPEC-SEI-002-onboarding-solution-specification.md#2-review-and-release-gates) and [039 implementation questions](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#2-open-engineering-decisions). These are required checks, not tests already passed.
 
 <a id="ref-source-references"></a>
 

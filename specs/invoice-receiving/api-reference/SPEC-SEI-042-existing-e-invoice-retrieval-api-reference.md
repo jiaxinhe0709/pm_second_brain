@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-30
-updated: 2026-11-13
+updated: 2026-11-14
 reviewers: []
 related:
   - SPEC-SEI-016
@@ -64,7 +64,7 @@ The usual screen flow is **Query → select invoice → Retrieve → follow an a
 
 Resolve `datasetId` from the qualified SXS/onboarding binding. Keep the business, caller, source and environment explicit. Obtain invoice IDs from qualified list/event results. Neither a known ID nor an existing connection grants permission. [Onboarding GAP-01/02/06](../../onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md#2-open-engineering-decisions) remains authoritative for setup/resource relationships. Do not create another dataset or connection to read an invoice. REF-TERMS.
 
-**View invoice list**, **Select and open invoice** and **Download file** in [SPEC025](../SPEC-SEI-025-invoice-retrieval-solution-summary.md#4-end-to-end-workflow) map to Query, Retrieve and file transfer below; **Receive invoice** has its own source/intake flow. **Review and take action** branches from the opened invoice and uses [SPEC029’s decision journey](../../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action) and [SPEC041’s lifecycle commands](../../invoice-lifecycle/api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#lif-api-01). Query and Retrieve do not submit decisions.
+**View invoice list**, **Select and open invoice** and **Download file** in the [SPEC026 detailed process](../SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#retrieval-detailed-process) map to Query, Retrieve and file transfer below; **Receive invoice** has its own source/intake flow. **Review and take action** branches from the opened invoice and uses [SPEC029’s decision journey](../../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action) and [SPEC041’s lifecycle commands](../../invoice-lifecycle/api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#lif-api-01). Query and Retrieve do not submit decisions.
 
 The [SPEC026 §2 customer journey](../SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download) uses the existing calls below. The customer or accountant chooses the action; ERP calls the Domain Service through the shared API and displays its response. This names the logical service boundary, not another endpoint or a proven deployment.
 

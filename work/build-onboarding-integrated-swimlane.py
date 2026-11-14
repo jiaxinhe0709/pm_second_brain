@@ -80,34 +80,37 @@ def build_source():
         cell('stage-' + str(i), label, x, 180, w, 40,
              'fillColor=#d8d8d8;strokeColor=none;html=0;whiteSpace=wrap;fontSize=17;')
 
-    def node(key, lane, x, y, title, detail, ids, w=280, h=110, decision=False, optional=False, terminal=False):
+    def node(key, lane, x, y, title, detail, ids, w=280, h=110, decision=False, optional=False, terminal=False, font_size=17):
         label = title + ('\n\n' + detail if detail else '') + '\n' + ids
         color = GREEN if lane in ('customer', 'erp') else PURPLE
         style = 'rhombus;' if decision else 'rounded=1;arcSize=18;'
         if terminal:
             style = 'rounded=1;arcSize=100;'
-        style += f'html=0;whiteSpace=wrap;align=center;fontSize=17;spacing=8;fillColor={color};strokeColor=#555555;strokeWidth=1.5;'
+        style += f'html=0;whiteSpace=wrap;align=center;fontSize={font_size};spacing=8;fillColor={color};strokeColor=#555555;strokeWidth=1.5;'
         if optional:
             style += 'dashed=1;dashPattern=6 4;'
+        anchor = {'shared-request': ANCHORS['03'], 'assess-shared': ANCHORS['03'],
+                  'check-shared': ANCHORS['03'], 'platform-setup': '6-feature-activities'}.get(
+                      key, ANCHORS[ids.split('-')[1].split('/')[0]])
         nodes.append((key, label, x-20, y-lane_y[lane], w, h, style, 'lane-'+lane,
-                      DOC + '#' + ANCHORS[ids.split('-')[1].split('/')[0]]))
+                      DOC + '#' + anchor))
 
     def edge(key, source, target, start, end, points=(), dashed=False):
         edges.append((key, source, target, start, end, points, dashed))
 
     # The ERP row carries the journey. Supporting checks return within their stage.
-    node('select-business', 'customer', 240, 260, 'Select the business or client', 'Use the existing selection', 'ONB-01', w=270)
-    node('choose-action', 'customer', 560, 250, 'Choose the requested action', 'After setup review;\nconfirm functions and environment', 'ONB-01', w=270, h=130)
+    node('select-business', 'customer', 240, 260, 'Select the business or client', 'Use the existing selection where available', 'ONB-01', w=270)
+    node('choose-action', 'customer', 560, 250, 'Choose the requested action', 'After reviewing the setup, choose what to connect, check or change.', 'ONB-01', w=270, h=130)
     node('review-current', 'erp', 240, 435, 'Review current e-invoicing setup', 'Check view permission and SXS mapping; show permitted saved setup', 'ONB-10/11', w=590)
-    node('assess-saved', 'einvoice', 400, 650, 'Assess permitted saved setup', 'Qualified lookup; unavailable\ndoes not mean missing setup', 'ONB-10', w=300)
-    node('shared-request', 'erp', 910, 435, 'Complete shared checks', 'For the confirmed business/client,\nrequested functions and environment', 'ONB-01/03', w=360)
-    node('assess-shared', 'einvoice', 910, 650, 'Assess required shared checks', 'Reuse matching current evidence;\nkeep caller and business distinct', 'ONB-02/03', w=360)
-    node('check-shared', 'other', 910, 1015, 'Check shared prerequisites', 'NIF, authority and required credential;\nkeep the checks independent', 'ONB-02/03', w=360)
+    node('assess-saved', 'einvoice', 400, 650, 'Load saved e-invoicing setup', 'Read the selected business’s saved settings. If the lookup fails, return a pending result.', 'ONB-10', w=300, h=130)
+    node('shared-request', 'erp', 910, 435, 'Request checks for the chosen action', 'Use the selected business or client and the e-invoicing functions they want to use.', 'ONB-01/03', w=360, h=110)
+    node('assess-shared', 'einvoice', 910, 650, 'Identify which checks are needed', 'Reuse valid results for this business and action. Request only missing checks or checks that need updating.', 'ONB-02/03', w=360, h=130)
+    node('check-shared', 'other', 910, 990, 'Check shared prerequisites', 'Verify NIF, permission and a valid\ne-invoicing certificate, where required.\nReuse NIF + certificate across platforms.\nEach platform needs a separate\nconnection setup (onboarding).', 'ONB-02/03', w=360, h=160, font_size=16)
     node('platform-setup', 'erp', 1410, 435, 'Complete platform setup and confirm access', 'Public and/or private functions · Reuse valid setup; complete only missing, changed or expired work', 'ONB-04/05/06/10', w=990)
     node('public-access', 'einvoice', 1410, 650, 'Confirm or establish\nSage public access', 'Reuse valid evidence;\nqualified checks only for gaps', 'ONB-04/10', w=300, h=130)
     node('private-account', 'einvoice', 1770, 650, 'Account on chosen\nprivate platform?', '', 'ONB-05/10', w=280, decision=True)
     node('private-setup', 'einvoice', 2100, 650, 'Set up or reuse Sage connection', 'Confirmed account;\ncomplete only missing setup', 'ONB-05/10', w=300)
-    node('private-access', 'einvoice', 2100, 820, 'Confirm private access', 'Reuse current evidence;\ncheck only missing or stale items', 'ONB-06/10', w=300)
+    node('private-access', 'einvoice', 2100, 820, 'Confirm private access', 'For requested functions;\nreuse valid evidence', 'ONB-06/10', w=300)
     node('provider-onboarding', 'platform', 1770, 1195, 'Complete provider onboarding', 'No account: qualified process\nor handoff for this business/client', 'ONB-05', w=280, optional=True)
     node('platform-use', 'customer', 2460, 260, 'Start or change\nplatform use?', '', 'ONB-07', w=300, decision=True)
     node('confirm-use', 'customer', 2810, 250, 'Confirm the platform\nchoice and start', 'Enabled scope;\ncurrent permission and readiness', 'ONB-07', w=300, h=130, optional=True)
@@ -168,18 +171,18 @@ def build_source():
         ('public-result-label', 'Result', 1695, 595, 70, 30),
         ('private-label', 'Private functions', 1925, 595, 160, 30),
         ('account-yes-label', 'Yes', 2050, 665, 50, 25),
-        ('account-no-label', 'No · new account needed', 1925, 1115, 140, 55),
+        ('account-no-label', 'No — new account needed', 1925, 1115, 140, 55),
         ('onboarding-label', 'Onboarding confirmed', 2090, 1180, 260, 25),
         ('private-result-label', 'Result', 2330, 785, 70, 25),
         ('use-yes-label', 'Yes', 2765, 280, 45, 25),
-        ('use-no-label', 'No · setup only', 2625, 395, 160, 25),
+        ('use-no-label', 'No — setup only', 2625, 395, 160, 25),
     ]:
         text(key, label, x, y, w, h, 16)
     text('setup-only-rule', 'Setup only preserves the current selection.\nIf none exists, setup alone activates none.', 2490, 650, 270, 120, 18)
     cell('recovery-note', 'IF ANY STEP FAILS OR REMAINS PENDING · Stop dependent work. Keep independent successful results. Show the limitation, next action and owner. Resume only affected work; check unknown effects before retrying. ONB-08/11.',
          240, 1360, 2980, 60, f'fillColor={GREY};strokeColor=#bdbdbd;whiteSpace=wrap;html=0;align=left;spacing=12;fontSize=18;')
     text('legend', 'Green: customer and ERP steps · Purple: setup and checks · Solid: normal work, requests and results · Dashed: conditional work.', 28, 1440, 3200, 30, 17)
-    text('ownership', 'Proposed responsibilities; implementation coverage remains open in SPEC039. Colours do not show readiness or implementation. Phase 1: public access; phases 2–3 add private setup and enabled changes.', 28, 1475, 3200, 30, 16)
+    text('ownership', 'Proposed responsibilities; implementation coverage remains open in SPEC039. Colours do not show readiness or implementation. Phase 1: public access; phases 2–3 add private setup and enabled changes. Private A to Private B stays disabled.', 28, 1475, 3200, 30, 16)
     ET.indent(mx)
     BASE.with_suffix('.drawio').write_text(ET.tostring(mx, encoding='unicode', xml_declaration=True) + '\n')
 

@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" aria-label="Retrieve, view and act on e-invoices" width="3180" height="1680" viewBox="0 0 3180 1680" role="img">
-  <title>Retrieve, view and act on e-invoices</title>
-  <desc>Five actions: receive invoice, view invoice list, select and open invoice, download file, and review and take action. Invoices are received automatically. Users can view saved invoices after access and safety checks, even if ERP delivery is not complete. From the opened invoice, users can download a file or review and take action. Download is optional. The ERP uses Query e-invoices and Retrieve e-invoice for lists, details and file links. The file source sends the selected file through its downloadUrl. Pale green shows customer actions and ERP steps. Pale purple shows getting, checking and processing invoice files. White or light grey shows notes and what is needed before starting. Colours do not show whether a function is ready or built. E marks a problem or pending result. Matching S markers link saved files to the invoice list.</desc>
-  <rect x="0" y="0" width="3180" height="1680" fill="white" />
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="Invoice retrieval — detailed process" width="3180" height="2120" viewBox="0 0 3180 2120" role="img">
+  <title>Invoice retrieval — detailed process</title>
+  <desc>Five actions: receive invoice, view invoice list, select and open invoice, download file, and review and take action. Invoices are received automatically. Users can view saved invoices after access and safety checks, even if ERP delivery is not complete. If the original is not saved, choose a permitted public source or recipient-side private connection and obtain the original. No source, denied access and failed retrieval keep original recovery open with a reason, next action and owner. R returns a retrieved file to source and role checks before delivery; its relationship to any saved copy must be proved. From the opened invoice, users can download a file or review and take action. Download is optional. Buyer actions when only a copy is available remain an open decision in SPEC026. The ERP uses Query e-invoices and Retrieve e-invoice for lists, details and file links. The file source sends the selected file through its downloadUrl. Pale green shows customer actions and ERP steps. Pale purple shows getting, checking and processing invoice files. White or light grey shows notes and what is needed before starting. Colours do not show whether a function is ready or built. E marks a problem or pending result. Matching S markers link checked saved files to the invoice list.</desc>
+  <rect x="0" y="0" width="3180" height="2120" fill="white" />
   <g id="lane-customer">
     <rect x="20.0" y="190.0" width="3130.0" height="190.0" rx="0" fill="#fafafa" stroke="#bdbdbd" stroke-width="1" />
   </g>
@@ -21,53 +21,85 @@
     </g>
   </g>
   <g id="lane-eis">
-    <rect x="20.0" y="700.0" width="3130.0" height="410.0" rx="0" fill="#fafafa" stroke="#bdbdbd" stroke-width="1" />
+    <rect x="20.0" y="700.0" width="3130.0" height="850.0" rx="0" fill="#fafafa" stroke="#bdbdbd" stroke-width="1" />
   </g>
   <g id="lane-eis-label">
-    <rect x="20.0" y="700.0" width="250.0" height="410.0" rx="0" fill="#e5e5e5" stroke="#bdbdbd" stroke-width="1" />
+    <rect x="20.0" y="700.0" width="250.0" height="850.0" rx="0" fill="#e5e5e5" stroke="#bdbdbd" stroke-width="1" />
     <g fill="#111111" font-family="Helvetica" font-size="17.0" text-anchor="middle">
-      <text x="145.0" y="901.6" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Domain Service</text>
-      <text x="145.0" y="922.0" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">E-Invoice Service</text>
+      <text x="145.0" y="1121.6" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Domain Service</text>
+      <text x="145.0" y="1142.0" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">E-Invoice Service</text>
     </g>
   </g>
   <g id="lane-other">
-    <rect x="20.0" y="1120.0" width="3130.0" height="190.0" rx="0" fill="#fafafa" stroke="#bdbdbd" stroke-width="1" />
+    <rect x="20.0" y="1560.0" width="3130.0" height="190.0" rx="0" fill="#fafafa" stroke="#bdbdbd" stroke-width="1" />
   </g>
   <g id="lane-other-label">
-    <rect x="20.0" y="1120.0" width="250.0" height="190.0" rx="0" fill="#e5e5e5" stroke="#bdbdbd" stroke-width="1" />
+    <rect x="20.0" y="1560.0" width="250.0" height="190.0" rx="0" fill="#e5e5e5" stroke="#bdbdbd" stroke-width="1" />
     <g fill="#111111" font-family="Helvetica" font-size="17.0" text-anchor="middle">
-      <text x="145.0" y="1211.6" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Domain Service</text>
-      <text x="145.0" y="1232.0" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Other Services</text>
+      <text x="145.0" y="1651.6" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Domain Service</text>
+      <text x="145.0" y="1672.0" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Other Services</text>
     </g>
   </g>
   <g id="lane-file">
-    <rect x="20.0" y="1320.0" width="3130.0" height="130.0" rx="0" fill="#fafafa" stroke="#bdbdbd" stroke-width="1" />
+    <rect x="20.0" y="1760.0" width="3130.0" height="130.0" rx="0" fill="#fafafa" stroke="#bdbdbd" stroke-width="1" />
   </g>
   <g id="lane-file-label">
-    <rect x="20.0" y="1320.0" width="250.0" height="130.0" rx="0" fill="#e5e5e5" stroke="#bdbdbd" stroke-width="1" />
+    <rect x="20.0" y="1760.0" width="250.0" height="130.0" rx="0" fill="#e5e5e5" stroke="#bdbdbd" stroke-width="1" />
     <g fill="#111111" font-family="Helvetica" font-size="17.0" text-anchor="middle">
-      <text x="145.0" y="1381.6" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">File source</text>
-      <text x="145.0" y="1402.0" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">(selected file link)</text>
+      <text x="145.0" y="1821.6" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">File source</text>
+      <text x="145.0" y="1842.0" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">(selected file link)</text>
     </g>
   </g>
+  <g id="private-original-failed">
+    <path d="M 930.0,1330.0 L 930.0,1333.0 M 930.0,1336.0 L 930.0,1339.0 M 930.0,1342.0 L 930.0,1345.0 M 930.0,1348.0 L 930.0,1351.0 M 930.0,1354.0 L 930.0,1357.0 M 930.0,1360.0 L 930.0,1363.0 M 930.0,1366.0 L 930.0,1369.0 M 930.0,1372.0 L 930.0,1375.0 M 930.0,1378.0 L 930.0,1381.0 M 930.0,1384.0 L 930.0,1387.0 M 930.0,1390.0 L 930.0,1393.0 M 930.0,1396.0 L 930.0,1399.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 930.0,1400.0 L 927.0,1393.0 L 933.0,1393.0 Z" fill="#555555" />
+  </g>
+  <g id="public-original-failed">
+    <path d="M 540.0,1330.0 L 540.0,1333.0 M 540.0,1336.0 L 540.0,1339.0 M 540.0,1342.0 L 540.0,1345.0 M 540.0,1348.0 L 540.0,1351.0 M 540.0,1354.0 L 540.0,1357.0 M 540.0,1360.0 L 540.0,1363.0 M 540.0,1366.0 L 540.0,1369.0 M 540.0,1372.0 L 540.0,1375.0 M 540.0,1378.0 L 540.0,1381.0 M 540.0,1384.0 L 540.0,1387.0 M 540.0,1390.0 L 540.0,1393.0 M 540.0,1396.0 L 540.0,1399.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 540.0,1400.0 L 537.0,1393.0 L 543.0,1393.0 Z" fill="#555555" />
+  </g>
+  <g id="returned-original-capture">
+    <path d="M 420.0,746.0 L 420.0,770.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 420.0,770.0 L 417.0,763.0 L 423.0,763.0 Z" fill="#555555" />
+  </g>
+  <g id="private-original-return">
+    <path d="M 770.0,1330.0 L 770.0,1333.0 M 770.0,1336.0 L 770.0,1339.0 M 770.0,1342.0 L 770.0,1345.0 M 770.0,1348.0 L 770.0,1351.0 M 770.0,1354.0 L 770.0,1357.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 770.0,1360.0 L 767.0,1353.0 L 773.0,1353.0 Z" fill="#555555" />
+  </g>
+  <g id="public-original-return">
+    <path d="M 380.0,1330.0 L 380.0,1333.0 M 380.0,1336.0 L 380.0,1339.0 M 380.0,1342.0 L 380.0,1345.0 M 380.0,1348.0 L 380.0,1351.0 M 380.0,1354.0 L 380.0,1357.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 380.0,1360.0 L 377.0,1353.0 L 383.0,1353.0 Z" fill="#555555" />
+  </g>
+  <g id="no-original-source">
+    <path d="M 1060.0,1073.0 L 1060.0,1076.0 M 1060.0,1079.0 L 1060.0,1082.0 M 1060.0,1085.0 L 1060.0,1088.0 M 1060.0,1091.0 L 1060.0,1094.0 M 1060.0,1097.0 L 1060.0,1100.0 M 1060.0,1103.0 L 1060.0,1106.0 M 1060.0,1109.0 L 1060.0,1112.0 M 1060.0,1115.0 L 1060.0,1118.0 M 1060.0,1121.0 L 1060.0,1124.0 M 1060.0,1127.0 L 1060.0,1130.0 M 1060.0,1133.0 L 1060.0,1136.0 M 1060.0,1139.0 L 1060.0,1142.0 M 1060.0,1145.0 L 1060.0,1148.0 M 1060.0,1151.0 L 1060.0,1154.0 M 1060.0,1157.0 L 1060.0,1160.0 M 1060.0,1163.0 L 1060.0,1166.0 M 1060.0,1169.0 L 1060.0,1172.0 M 1060.0,1175.0 L 1060.0,1178.0 M 1060.0,1181.0 L 1060.0,1184.0 M 1060.0,1187.0 L 1060.0,1190.0 M 1060.0,1193.0 L 1060.0,1196.0 M 1060.0,1199.0 L 1060.0,1202.0 M 1060.0,1205.0 L 1060.0,1208.0 M 1060.0,1211.0 L 1060.0,1214.0 M 1060.0,1217.0 L 1060.0,1220.0 M 1060.0,1223.0 L 1060.0,1226.0 M 1060.0,1229.0 L 1060.0,1232.0 M 1060.0,1235.0 L 1060.0,1238.0 M 1060.0,1241.0 L 1060.0,1244.0 M 1060.0,1247.0 L 1060.0,1250.0 M 1060.0,1253.0 L 1060.0,1256.0 M 1060.0,1259.0 L 1060.0,1262.0 M 1060.0,1265.0 L 1060.0,1268.0 M 1060.0,1271.0 L 1060.0,1274.0 M 1060.0,1277.0 L 1060.0,1280.0 M 1060.0,1283.0 L 1060.0,1286.0 M 1060.0,1289.0 L 1060.0,1292.0 M 1060.0,1295.0 L 1060.0,1298.0 M 1060.0,1301.0 L 1060.0,1304.0 M 1060.0,1307.0 L 1060.0,1310.0 M 1060.0,1313.0 L 1060.0,1316.0 M 1060.0,1319.0 L 1060.0,1322.0 M 1060.0,1325.0 L 1060.0,1328.0 M 1060.0,1331.0 L 1060.0,1334.0 M 1060.0,1337.0 L 1060.0,1340.0 M 1060.0,1343.0 L 1060.0,1346.0 M 1060.0,1349.0 L 1060.0,1352.0 M 1060.0,1355.0 L 1060.0,1358.0 M 1060.0,1361.0 L 1060.0,1364.0 M 1060.0,1367.0 L 1060.0,1370.0 M 1060.0,1373.0 L 1060.0,1376.0 M 1060.0,1379.0 L 1060.0,1382.0 M 1060.0,1385.0 L 1060.0,1388.0 M 1060.0,1391.0 L 1060.0,1394.0 M 1060.0,1397.0 L 1060.0,1400.0 M 1060.0,1403.0 L 1060.0,1406.0 M 1060.0,1409.0 L 1060.0,1412.0 M 1060.0,1415.0 L 1060.0,1418.0 M 1060.0,1421.0 L 1060.0,1424.0 M 1060.0,1427.0 L 1060.0,1430.0 M 1060.0,1433.0 L 1060.0,1436.0 M 1060.0,1439.0 L 1060.0,1442.0 M 1060.0,1445.0 L 1060.0,1448.0 M 1060.0,1451.0 L 1060.0,1454.0 M 1060.0,1457.0 L 1060.0,1460.0 M 1060.0,1463.0 L 1060.0,1466.0 M 1060.0,1469.0 L 1060.0,1470.0 M 1060.0,1470.0 L 1057.0,1470.0 M 1054.0,1470.0 L 1051.0,1470.0 M 1048.0,1470.0 L 1045.0,1470.0 M 1042.0,1470.0 L 1039.0,1470.0 M 1036.0,1470.0 L 1033.0,1470.0 M 1030.0,1470.0 L 1027.0,1470.0 M 1024.0,1470.0 L 1021.0,1470.0 M 1018.0,1470.0 L 1015.0,1470.0 M 1012.0,1470.0 L 1009.0,1470.0 M 1006.0,1470.0 L 1003.0,1470.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 1000.0,1470.0 L 1007.0,1467.0 L 1007.0,1473.0 Z" fill="#555555" />
+  </g>
+  <g id="choose-private-original">
+    <path d="M 970.0,1115.0 L 970.0,1180.0 L 850.0,1180.0 L 850.0,1210.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 850.0,1210.0 L 847.0,1203.0 L 853.0,1203.0 Z" fill="#555555" />
+  </g>
+  <g id="choose-public-original">
+    <path d="M 820.0,1045.0 L 780.0,1045.0 L 780.0,1150.0 L 460.0,1150.0 L 460.0,1210.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 460.0,1210.0 L 457.0,1203.0 L 463.0,1203.0 Z" fill="#555555" />
+  </g>
   <g id="receiving-path-0">
-    <path d="M 540.0,825.0 L 590.0,825.0" fill="none" stroke="#555555" stroke-width="1.6" />
-    <path d="M 590.0,825.0 L 583.0,828.0 L 583.0,822.0 Z" fill="#555555" />
+    <path d="M 540.0,825.0 L 580.0,825.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 580.0,825.0 L 573.0,828.0 L 573.0,822.0 Z" fill="#555555" />
   </g>
   <g id="receiving-path-1">
-    <path d="M 830.0,825.0 L 880.0,825.0" fill="none" stroke="#555555" stroke-width="1.6" />
-    <path d="M 880.0,825.0 L 873.0,828.0 L 873.0,822.0 Z" fill="#555555" />
+    <path d="M 820.0,825.0 L 850.0,825.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 850.0,825.0 L 843.0,828.0 L 843.0,822.0 Z" fill="#555555" />
   </g>
   <g id="original-missing">
-    <path d="M 1000.0,890.0 L 1000.0,893.0 M 1000.0,896.0 L 1000.0,899.0 M 1000.0,902.0 L 1000.0,905.0 M 1000.0,908.0 L 1000.0,911.0 M 1000.0,914.0 L 1000.0,917.0 M 1000.0,920.0 L 1000.0,923.0 M 1000.0,926.0 L 1000.0,929.0 M 1000.0,932.0 L 1000.0,935.0 M 1000.0,938.0 L 1000.0,941.0 M 1000.0,944.0 L 1000.0,947.0 M 1000.0,950.0 L 1000.0,953.0 M 1000.0,956.0 L 1000.0,959.0 M 1000.0,962.0 L 1000.0,965.0 M 1000.0,968.0 L 1000.0,971.0 M 1000.0,974.0 L 1000.0,975.0" fill="none" stroke="#555555" stroke-width="1.6" />
-    <path d="M 1000.0,975.0 L 997.0,968.0 L 1003.0,968.0 Z" fill="#555555" />
+    <path d="M 970.0,890.0 L 970.0,893.0 M 970.0,896.0 L 970.0,899.0 M 970.0,902.0 L 970.0,905.0 M 970.0,908.0 L 970.0,911.0 M 970.0,914.0 L 970.0,917.0 M 970.0,920.0 L 970.0,923.0 M 970.0,926.0 L 970.0,929.0 M 970.0,932.0 L 970.0,935.0 M 970.0,938.0 L 970.0,941.0 M 970.0,944.0 L 970.0,947.0 M 970.0,950.0 L 970.0,953.0 M 970.0,956.0 L 970.0,959.0 M 970.0,962.0 L 970.0,965.0 M 970.0,968.0 L 970.0,971.0 M 970.0,974.0 L 970.0,975.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 970.0,975.0 L 967.0,968.0 L 973.0,968.0 Z" fill="#555555" />
   </g>
   <g id="original-ready">
-    <path d="M 1120.0,825.0 L 1135.0,825.0 L 1135.0,1225.0 L 1150.0,1225.0" fill="none" stroke="#555555" stroke-width="1.6" />
-    <path d="M 1150.0,1225.0 L 1143.0,1228.0 L 1143.0,1222.0 Z" fill="#555555" />
+    <path d="M 1090.0,825.0 L 1135.0,825.0 L 1135.0,1665.0 L 1150.0,1665.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 1150.0,1665.0 L 1143.0,1668.0 L 1143.0,1662.0 Z" fill="#555555" />
   </g>
   <g id="format-to-delivery">
-    <path d="M 1280.0,1170.0 L 1280.0,1085.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 1280.0,1610.0 L 1280.0,1085.0" fill="none" stroke="#555555" stroke-width="1.6" />
     <path d="M 1280.0,1085.0 L 1283.0,1092.0 L 1277.0,1092.0 Z" fill="#555555" />
   </g>
   <g id="delivery-request">
@@ -79,8 +111,8 @@
     <path d="M 1345.0,975.0 L 1342.0,968.0 L 1348.0,968.0 Z" fill="#555555" />
   </g>
   <g id="available-data-feed">
-    <path d="M 415.99992,880.0 L 415.9999248,882.9999999999961 M 415.9999296,885.9999999999923 L 415.9999344,888.9999999999885 M 415.9999392,891.9999999999847 L 415.99994399999997,894.9999999999808 M 415.99994879999997,897.9999999999769 L 415.99995359999997,900.9999999999732 M 415.99995839999997,903.9999999999693 L 415.99996319999997,906.9999999999654 M 415.99996799999997,909.9999999999616 L 415.99997279999997,912.9999999999577 M 415.99997759999997,915.999999999954 L 415.9999824,918.9999999999501 M 415.9999872,921.9999999999462 L 415.999992,924.9999999999424 M 415.9999968,927.9999999999386 L 416.0,930.0" fill="none" stroke="#555555" stroke-width="1.6" />
-    <path d="M 416.0,930.0 L 412.99998880000385,923.000004800009 L 418.9999887999961,922.9999952000089 Z" fill="#555555" />
+    <path d="M 628.0,880.0 L 628.0,883.0 M 628.0,886.0 L 628.0,889.0 M 628.0,892.0 L 628.0,895.0 M 628.0,898.0 L 628.0,900.0 M 628.0,900.0 L 625.0,900.0 M 622.0,900.0 L 619.0,900.0 M 616.0,900.0 L 613.0,900.0 M 610.0,900.0 L 607.0,900.0 M 604.0,900.0 L 601.0,900.0 M 598.0,900.0 L 595.0,900.0 M 592.0,900.0 L 589.0,900.0 M 586.0,900.0 L 583.0,900.0 M 580.0,900.0 L 577.0,900.0 M 574.0,900.0 L 571.0,900.0 M 568.0,900.0 L 565.0,900.0 M 562.0,900.0 L 559.0,900.0 M 556.0,900.0 L 553.0,900.0 M 550.0,900.0 L 547.0,900.0 M 544.0,900.0 L 541.0,900.0 M 538.0,900.0 L 535.0,900.0 M 532.0,900.0 L 529.0,900.0 M 526.0,900.0 L 523.0,900.0 M 520.0,900.0 L 517.0,900.0 M 514.0,900.0 L 511.0,900.0 M 508.0,900.0 L 505.0,900.0 M 502.0,900.0 L 499.0,900.0 M 496.0,900.0 L 493.0,900.0 M 490.0,900.0 L 487.0,900.0 M 484.0,900.0 L 481.0,900.0 M 478.0,900.0 L 475.0,900.0 M 472.0,900.0 L 469.0,900.0 M 466.0,900.0 L 463.0,900.0 M 460.0,900.0 L 457.0,900.0 M 454.0,900.0 L 451.0,900.0 M 448.0,900.0 L 445.0,900.0 M 442.0,900.0 L 439.0,900.0 M 436.0,900.0 L 433.0,900.0 M 430.0,900.0 L 427.0,900.0 M 424.0,900.0 L 421.0,900.0 M 418.0,900.0 L 416.0,900.0 M 416.0,900.0 L 416.0,903.0 M 416.0,906.0 L 416.0,909.0 M 416.0,912.0 L 416.0,915.0 M 416.0,918.0 L 416.0,921.0 M 416.0,924.0 L 416.0,927.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 416.0,930.0 L 413.0,923.0 L 419.0,923.0 Z" fill="#555555" />
   </g>
   <g id="list-to-invoice">
     <path d="M 1840.0,285.0 L 1920.0,285.0" fill="none" stroke="#555555" stroke-width="1.6" />
@@ -147,20 +179,20 @@
     <path d="M 1530.0,825.0 L 1522.89738542803,827.7482478494558 L 1523.1115346111044,821.7520707233705 Z" fill="#555555" />
   </g>
   <g id="file-transfer-request">
-    <path d="M 2620.0,580.0 L 2660.0,580.0 L 2660.0,1385.0 L 2620.0,1385.0" fill="none" stroke="#555555" stroke-width="1.6" />
-    <path d="M 2620.0,1385.0 L 2627.0,1382.0 L 2627.0,1388.0 Z" fill="#555555" />
+    <path d="M 2620.0,580.0 L 2660.0,580.0 L 2660.0,1825.0 L 2620.0,1825.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 2620.0,1825.0 L 2627.0,1822.0 L 2627.0,1828.0 Z" fill="#555555" />
   </g>
   <g id="file-transfer-result">
-    <path d="M 2310.0,1385.0 L 2270.0,1385.0 L 2270.0,613.0 L 2310.0,613.0" fill="none" stroke="#555555" stroke-width="1.6" />
-    <path d="M 2310.0,613.0 L 2303.0,616.0 L 2303.0,610.0 Z" fill="#555555" />
+    <path d="M 2310.0,1825.0 L 2270.0,1825.0 L 2270.0,580.0 L 2310.0,580.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 2310.0,580.0 L 2303.0,583.0 L 2303.0,577.0 Z" fill="#555555" />
   </g>
   <g id="error-receive-identify">
-    <path d="M 710.0,880.0 L 710.0,883.0 M 710.0,886.0 L 710.0,889.0 M 710.0,892.0 L 710.0,895.0 M 710.0,898.0 L 710.0,901.0 M 710.0,904.0 L 710.0,907.0" fill="none" stroke="#555555" stroke-width="1.6" />
-    <path d="M 710.0,908.0 L 707.0,901.0 L 713.0,901.0 Z" fill="#555555" />
+    <path d="M 700.0,880.0 L 700.0,883.0 M 700.0,886.0 L 700.0,889.0 M 700.0,892.0 L 700.0,895.0 M 700.0,898.0 L 700.0,901.0 M 700.0,904.0 L 700.0,907.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 700.0,908.0 L 697.0,901.0 L 703.0,901.0 Z" fill="#555555" />
   </g>
   <g id="error-receive-format">
-    <path d="M 1410.0,1225.0 L 1412.9983347209375,1225.099944490698 M 1415.996669441875,1225.1998889813958 L 1418.9950041628124,1225.2998334720937 M 1421.9933388837499,1225.3997779627916 L 1424.9916736046873,1225.4997224534895 M 1427.9900083256248,1225.5996669441874 L 1430.9883430465622,1225.6996114348854 M 1433.9866777674997,1225.7995559255833 L 1436.9850124884372,1225.8995004162812 M 1439.9833472093746,1225.999444906979 L 1440.0,1226.0" fill="none" stroke="#555555" stroke-width="1.6" />
-    <path d="M 1440.0,1226.0 L 1432.903941160448,1228.765130909309 L 1433.103830141844,1222.768461467434 Z" fill="#555555" />
+    <path d="M 1410.0,1665.0 L 1412.9983347209375,1665.099944490698 M 1415.996669441875,1665.1998889813958 L 1418.9950041628124,1665.2998334720937 M 1421.9933388837499,1665.3997779627916 L 1424.9916736046873,1665.4997224534895 M 1427.9900083256248,1665.5996669441874 L 1430.9883430465622,1665.6996114348854 M 1433.9866777674997,1665.7995559255833 L 1436.9850124884372,1665.8995004162812 M 1439.9833472093746,1665.999444906979 L 1440.0,1666.0" fill="none" stroke="#555555" stroke-width="1.6" />
+    <path d="M 1440.0,1666.0 L 1432.903941160448,1668.765130909309 L 1433.103830141844,1662.768461467434 Z" fill="#555555" />
   </g>
   <g id="error-B-step-3">
     <path d="M 1685.0,880.0 L 1685.0,883.0 M 1685.0,886.0 L 1685.0,889.0 M 1685.0,892.0 L 1685.0,895.0 M 1685.0,898.0 L 1685.0,901.0 M 1685.0,904.0 L 1685.0,907.0" fill="none" stroke="#555555" stroke-width="1.6" />
@@ -180,7 +212,7 @@
   </g>
   <g id="title">
     <g fill="#111111" font-family="Helvetica" font-size="30.0" text-anchor="start">
-      <text x="32.0" y="51.0" fill="#111111" font-family="Arial" font-size="30.0" text-anchor="start">Retrieve, view and act on e-invoices</text>
+      <text x="32.0" y="51.0" fill="#111111" font-family="Arial" font-size="30.0" text-anchor="start">Invoice retrieval — detailed process</text>
     </g>
   </g>
   <g id="subtitle">
@@ -226,8 +258,8 @@
   </g>
   <a id="onboarding-precondition" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#31-source-acquisition-and-stored-file-access">
     <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="start">
-      <text x="312.0" y="451.8" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">BEFORE YOU START · Use the business’s existing setup and permitted sources.</text>
-      <text x="312.0" y="471.0" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Check permission before each action.</text>
+      <text x="312.0" y="451.8" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">BEFORE YOU START · Use the business’s existing platform connections.</text>
+      <text x="312.0" y="471.0" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Check current permission for receiving, viewing and downloading invoices.</text>
     </g>
   </a>
   <a id="receive-save" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#choose-source-and-get-invoice">
@@ -240,36 +272,35 @@
     </g>
   </a>
   <a id="receive-identify" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
-    <rect x="590.0" y="770.0" width="240.0" height="110.0" rx="6.6" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
+    <rect x="580.0" y="770.0" width="240.0" height="110.0" rx="6.6" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
     <g fill="#111111" font-family="Helvetica" font-size="17.0" text-anchor="middle">
-      <text x="710.0" y="811.4" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Identify the invoice.</text>
-      <text x="710.0" y="831.8" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Label the file.</text>
-      <text x="710.0" y="852.1999999999999" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">RCV-04; country rules</text>
+      <text x="700.0" y="811.4" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Check recipient and safety.</text>
+      <text x="700.0" y="831.8" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Identify invoice. Label file.</text>
+      <text x="700.0" y="852.1999999999999" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">RCV-02–04; country rules</text>
     </g>
   </a>
   <a id="original-gate" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
-    <path d="M 1000.0,760.0 L 1120.0,825.0 L 1000.0,890.0 L 880.0,825.0 Z" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
+    <path d="M 970.0,760.0 L 1090.0,825.0 L 970.0,890.0 L 850.0,825.0 Z" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
     <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="middle">
-      <text x="1000.0" y="812.2" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Is the original available</text>
-      <text x="1000.0" y="831.4000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">for ERP delivery?</text>
-      <text x="1000.0" y="850.6000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">REF-COPY-POLICY</text>
+      <text x="970.0" y="812.2" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Is the original</text>
+      <text x="970.0" y="831.4000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">already saved?</text>
+      <text x="970.0" y="850.6000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">REF-COPY-POLICY</text>
     </g>
   </a>
-  <a id="copy-pending" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
-    <rect x="865" y="975" width="250" height="110" fill="#F0EBFA" /><path d="M 865.0,975.0 L 871.0,975.0 M 875.0,975.0 L 881.0,975.0 M 885.0,975.0 L 891.0,975.0 M 895.0,975.0 L 901.0,975.0 M 905.0,975.0 L 911.0,975.0 M 915.0,975.0 L 921.0,975.0 M 925.0,975.0 L 931.0,975.0 M 935.0,975.0 L 941.0,975.0 M 945.0,975.0 L 951.0,975.0 M 955.0,975.0 L 961.0,975.0 M 965.0,975.0 L 971.0,975.0 M 975.0,975.0 L 981.0,975.0 M 985.0,975.0 L 991.0,975.0 M 995.0,975.0 L 1001.0,975.0 M 1005.0,975.0 L 1011.0,975.0 M 1015.0,975.0 L 1021.0,975.0 M 1025.0,975.0 L 1031.0,975.0 M 1035.0,975.0 L 1041.0,975.0 M 1045.0,975.0 L 1051.0,975.0 M 1055.0,975.0 L 1061.0,975.0 M 1065.0,975.0 L 1071.0,975.0 M 1075.0,975.0 L 1081.0,975.0 M 1085.0,975.0 L 1091.0,975.0 M 1095.0,975.0 L 1101.0,975.0 M 1105.0,975.0 L 1111.0,975.0 M 1115.0,975.0 L 1115.0,981.0 M 1115.0,985.0 L 1115.0,991.0 M 1115.0,995.0 L 1115.0,1001.0 M 1115.0,1005.0 L 1115.0,1011.0 M 1115.0,1015.0 L 1115.0,1021.0 M 1115.0,1025.0 L 1115.0,1031.0 M 1115.0,1035.0 L 1115.0,1041.0 M 1115.0,1045.0 L 1115.0,1051.0 M 1115.0,1055.0 L 1115.0,1061.0 M 1115.0,1065.0 L 1115.0,1071.0 M 1115.0,1075.0 L 1115.0,1081.0 M 1115.0,1085.0 L 1109.0,1085.0 M 1105.0,1085.0 L 1099.0,1085.0 M 1095.0,1085.0 L 1089.0,1085.0 M 1085.0,1085.0 L 1079.0,1085.0 M 1075.0,1085.0 L 1069.0,1085.0 M 1065.0,1085.0 L 1059.0,1085.0 M 1055.0,1085.0 L 1049.0,1085.0 M 1045.0,1085.0 L 1039.0,1085.0 M 1035.0,1085.0 L 1029.0,1085.0 M 1025.0,1085.0 L 1019.0,1085.0 M 1015.0,1085.0 L 1009.0,1085.0 M 1005.0,1085.0 L 999.0,1085.0 M 995.0,1085.0 L 989.0,1085.0 M 985.0,1085.0 L 979.0,1085.0 M 975.0,1085.0 L 969.0,1085.0 M 965.0,1085.0 L 959.0,1085.0 M 955.0,1085.0 L 949.0,1085.0 M 945.0,1085.0 L 939.0,1085.0 M 935.0,1085.0 L 929.0,1085.0 M 925.0,1085.0 L 919.0,1085.0 M 915.0,1085.0 L 909.0,1085.0 M 905.0,1085.0 L 899.0,1085.0 M 895.0,1085.0 L 889.0,1085.0 M 885.0,1085.0 L 879.0,1085.0 M 875.0,1085.0 L 869.0,1085.0 M 865.0,1085.0 L 865.0,1079.0 M 865.0,1075.0 L 865.0,1069.0 M 865.0,1065.0 L 865.0,1059.0 M 865.0,1055.0 L 865.0,1049.0 M 865.0,1045.0 L 865.0,1039.0 M 865.0,1035.0 L 865.0,1029.0 M 865.0,1025.0 L 865.0,1019.0 M 865.0,1015.0 L 865.0,1009.0 M 865.0,1005.0 L 865.0,999.0 M 865.0,995.0 L 865.0,989.0 M 865.0,985.0 L 865.0,979.0" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
+  <a id="original-source" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#original-file-retrieval">
+    <path d="M 970.0,975.0 L 1120.0,1045.0 L 970.0,1115.0 L 820.0,1045.0 Z" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
     <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="middle">
-      <text x="990.0" y="1007.6" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Wait for the original.</text>
-      <text x="990.0" y="1026.8" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Allow users to view or download</text>
-      <text x="990.0" y="1046.0" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">copies after checks pass.</text>
-      <text x="990.0" y="1065.2" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">REF-COPY-POLICY</text>
+      <text x="970.0" y="1032.2" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Permitted source</text>
+      <text x="970.0" y="1051.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">for the original?</text>
+      <text x="970.0" y="1070.6000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">RSD-01/03; PRI-01–03</text>
     </g>
   </a>
   <a id="receive-format" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
-    <rect x="1150.0" y="1170.0" width="260.0" height="110.0" rx="6.6" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
+    <rect x="1150.0" y="1610.0" width="260.0" height="110.0" rx="6.6" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
     <g fill="#111111" font-family="Helvetica" font-size="17.0" text-anchor="middle">
-      <text x="1280.0" y="1211.4" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Check the format and rules.</text>
-      <text x="1280.0" y="1231.8000000000002" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Convert the file only if needed.</text>
-      <text x="1280.0" y="1252.2000000000003" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">RCV-05/06</text>
+      <text x="1280.0" y="1651.4" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Check the format and rules.</text>
+      <text x="1280.0" y="1671.8000000000002" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Convert the file only if needed.</text>
+      <text x="1280.0" y="1692.2000000000003" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">RCV-05/06</text>
     </g>
   </a>
   <a id="receive-deliver" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
@@ -311,14 +342,14 @@
   </g>
   <a id="conversion-note" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#32-receiving-handoff">
     <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="start">
-      <text x="312.0" y="1199.7" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Use DTS to convert a file to UBL 2.5 only in Phase 3.</text>
-      <text x="312.0" y="1218.9" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Convert only if the file is not UBL 2.5.</text>
-      <text x="312.0" y="1238.1000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Keep the original file.</text>
+      <text x="312.0" y="1639.7" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Use DTS to convert a file to UBL 2.5 only in Phase 3.</text>
+      <text x="312.0" y="1658.9" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Convert only if the file is not UBL 2.5.</text>
+      <text x="312.0" y="1678.1000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Keep the original file.</text>
     </g>
   </a>
-  <a id="receiving-detail-link" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#3-process-and-activity-order">
-    <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="start">
-      <text x="312.0" y="1043.9" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Receiving detail → checks, problems and recovery</text>
+  <a id="receiving-detail-link" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal">
+    <g fill="#111111" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="302.0" y="1085.6" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">Source and original/copy rules → §3.4</text>
     </g>
   </a>
   <g id="saved-feed-marker">
@@ -329,7 +360,7 @@
   </g>
   <g id="saved-feed-caption">
     <g fill="#111111" font-family="Helvetica" font-size="15.0" text-anchor="start">
-      <text x="302.0" y="995.0" fill="#111111" font-family="Arial" font-size="15.0" text-anchor="start">Saved invoice files</text>
+      <text x="302.0" y="995.0" fill="#111111" font-family="Arial" font-size="15.0" text-anchor="start">Checked saved files</text>
       <text x="302.0" y="1013.0" fill="#111111" font-family="Arial" font-size="15.0" text-anchor="start">S continues at the list request</text>
     </g>
   </g>
@@ -496,49 +527,50 @@
       <text x="2312.0" y="993.6" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Faithful copy: a labelled UBL copy</text>
       <text x="2312.0" y="1012.8000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">sent to Spain’s public platform.</text>
       <text x="2312.0" y="1032.0" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Download after checks pass,</text>
-      <text x="2312.0" y="1051.2" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">even while ERP delivery waits.</text>
+      <text x="2312.0" y="1051.2" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">even while ERP delivery is pending.</text>
     </g>
   </g>
   <a id="E-note" href="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action">
     <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="start">
-      <text x="2702.0" y="1003.2" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">See SPEC029 for decisions and reports.</text>
-      <text x="2702.0" y="1022.4000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">ERP receipt is separate from accounting, import and buyer</text>
-      <text x="2702.0" y="1041.6000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">decisions.</text>
+      <text x="2702.0" y="993.6" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">SPEC029 covers decisions and reports.</text>
+      <text x="2702.0" y="1012.8000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">ERP receipt does not mean buyer acceptance.</text>
+      <text x="2702.0" y="1032.0" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Buyer actions with only a copy available:</text>
+      <text x="2702.0" y="1051.2" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">decision open in §3.4.</text>
     </g>
   </a>
   <a id="download-bytes" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download">
-    <rect x="2310.0" y="1340.0" width="310.0" height="90.0" rx="5.4" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
+    <rect x="2310.0" y="1780.0" width="310.0" height="90.0" rx="5.4" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
     <g fill="#111111" font-family="Helvetica" font-size="17.0" text-anchor="middle">
-      <text x="2465.0" y="1371.4" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Return the selected file.</text>
-      <text x="2465.0" y="1391.8000000000002" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">If access or transfer fails,</text>
-      <text x="2465.0" y="1412.2000000000003" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">explain the problem.</text>
+      <text x="2465.0" y="1811.4" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">Return the selected file.</text>
+      <text x="2465.0" y="1831.8000000000002" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">If access or transfer fails,</text>
+      <text x="2465.0" y="1852.2000000000003" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="middle">explain the problem.</text>
     </g>
   </a>
   <g id="file-request-label">
     <g fill="#111111" font-family="Helvetica" font-size="14.0" text-anchor="start">
-      <text x="2677.0" y="1220.6" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">File link</text>
+      <text x="2677.0" y="1660.6" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">File link</text>
     </g>
   </g>
   <g id="file-result-label">
     <g fill="#111111" font-family="Helvetica" font-size="14.0" text-anchor="start">
-      <text x="2157.0" y="1220.6" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">File</text>
+      <text x="2157.0" y="1660.6" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">File</text>
     </g>
   </g>
   <g id="file-source-note">
     <g fill="#111111" font-family="Helvetica" font-size="17.0" text-anchor="start">
-      <text x="312.0" y="1386.8" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="start">Retrieve e-invoice returns file details and links. The file source sends the file when the ERP uses the selected downloadUrl.</text>
+      <text x="312.0" y="1826.8" fill="#111111" font-family="Arial" font-size="17.0" text-anchor="start">Retrieve e-invoice returns file details and links. The file source sends the file when the ERP uses the selected downloadUrl.</text>
     </g>
   </g>
   <g id="exception-receive-identify">
-    <rect x="694.0" y="908.0" width="32.0" height="32.0" rx="16.0" fill="#E6F4F1" stroke="#555555" stroke-width="1.5" />
+    <rect x="684.0" y="908.0" width="32.0" height="32.0" rx="16.0" fill="#E6F4F1" stroke="#555555" stroke-width="1.5" />
     <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="middle">
-      <text x="710.0" y="930.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">E</text>
+      <text x="700.0" y="930.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">E</text>
     </g>
   </g>
   <g id="exception-receive-format">
-    <rect x="1440.0" y="1210.0" width="32.0" height="32.0" rx="16.0" fill="#E6F4F1" stroke="#555555" stroke-width="1.5" />
+    <rect x="1440.0" y="1650.0" width="32.0" height="32.0" rx="16.0" fill="#E6F4F1" stroke="#555555" stroke-width="1.5" />
     <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="middle">
-      <text x="1456.0" y="1232.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">E</text>
+      <text x="1456.0" y="1672.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">E</text>
     </g>
   </g>
   <g id="exception-B-step-3">
@@ -567,46 +599,133 @@
   </g>
   <g id="legend">
     <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="start">
-      <text x="32.0" y="1532.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Solid lines: usual steps, requests and results. Dashed lines: optional steps, conditions or exceptions. E: exception (problem or pending result). Matching S markers link saved files to the invoice list.</text>
+      <text x="32.0" y="1972.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">Solid: usual flow. Dashed: conditional work or exceptions. E: shared problem result. S: checked saved files for viewing. R: returned file for intake checks. Prove its relationship to any saved copy before ERP delivery.</text>
     </g>
   </g>
   <a id="shared-exception" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#33-failure-and-recovery-decisions">
     <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="start">
-      <text x="32.0" y="1576.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">E · Show the problem or pending result, the reason, the next action and who must act. Keep successful results. Retry only the failed or pending step. If the result is unknown, check what happened before trying again.</text>
+      <text x="32.0" y="2016.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">E · Show the problem or pending result, the reason, the next action and who must act. Keep successful results. Retry only the failed or pending step. If the result is unknown, check what happened before trying again.</text>
     </g>
   </a>
   <g id="ownership-note">
     <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="start">
-      <text x="32.0" y="1626.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">The lanes show proposed responsibilities. Implementation support still needs to be confirmed. Shared checks use each country’s rules. The ERP shows file labels and controls its own workflow.</text>
+      <text x="32.0" y="2066.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="start">The lanes show proposed responsibilities. Implementation support still needs to be confirmed. Shared checks use each country’s rules. The ERP shows file labels and controls its own workflow.</text>
     </g>
   </g>
   <g id="colour-customer">
-    <rect x="30.0" y="1473.0" width="24.0" height="24.0" rx="0" fill="#E6F4F1" stroke="#999999" stroke-width="1" />
+    <rect x="30.0" y="1913.0" width="24.0" height="24.0" rx="0" fill="#E6F4F1" stroke="#999999" stroke-width="1" />
   </g>
   <g id="colour-customer-label">
     <g fill="#000000" font-family="Helvetica" font-size="16.0" text-anchor="start">
-      <text x="68.0" y="1491.4" fill="#000000" font-family="Arial" font-size="16.0" text-anchor="start">Customer actions and ERP steps</text>
+      <text x="68.0" y="1931.4" fill="#000000" font-family="Arial" font-size="16.0" text-anchor="start">Customer actions and ERP steps</text>
     </g>
   </g>
   <g id="colour-shared">
-    <rect x="470.0" y="1473.0" width="24.0" height="24.0" rx="0" fill="#F0EBFA" stroke="#999999" stroke-width="1" />
+    <rect x="470.0" y="1913.0" width="24.0" height="24.0" rx="0" fill="#F0EBFA" stroke="#999999" stroke-width="1" />
   </g>
   <g id="colour-shared-label">
     <g fill="#000000" font-family="Helvetica" font-size="16.0" text-anchor="start">
-      <text x="508.0" y="1491.4" fill="#000000" font-family="Arial" font-size="16.0" text-anchor="start">Get, check and process invoice files</text>
+      <text x="508.0" y="1931.4" fill="#000000" font-family="Arial" font-size="16.0" text-anchor="start">Get, check and process invoice files</text>
     </g>
   </g>
   <g id="colour-notes">
-    <rect x="930.0" y="1473.0" width="24.0" height="24.0" rx="0" fill="#FAFAFA" stroke="#999999" stroke-width="1" />
+    <rect x="930.0" y="1913.0" width="24.0" height="24.0" rx="0" fill="#FAFAFA" stroke="#999999" stroke-width="1" />
   </g>
   <g id="colour-notes-label">
     <g fill="#000000" font-family="Helvetica" font-size="16.0" text-anchor="start">
-      <text x="968.0" y="1491.4" fill="#000000" font-family="Arial" font-size="16.0" text-anchor="start">Before you start / notes</text>
+      <text x="968.0" y="1931.4" fill="#000000" font-family="Arial" font-size="16.0" text-anchor="start">Before you start / notes</text>
     </g>
   </g>
   <g id="colour-meaning">
     <g fill="#000000" font-family="Helvetica" font-size="16.0" text-anchor="start">
-      <text x="1312.0" y="1491.4" fill="#000000" font-family="Arial" font-size="16.0" text-anchor="start">Colours group activities. They do not show whether a function is ready or built.</text>
+      <text x="1312.0" y="1931.4" fill="#000000" font-family="Arial" font-size="16.0" text-anchor="start">Colours group activities. They do not show whether a function is ready or built.</text>
     </g>
+  </g>
+  <a id="original-public-fetch" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#original-file-retrieval">
+    <rect x="300.0" y="1210.0" width="320.0" height="120.0" rx="7.2" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
+    <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="middle">
+      <text x="460.0" y="1257.2" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Get original from the public source.</text>
+      <text x="460.0" y="1276.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Use current permission.</text>
+      <text x="460.0" y="1295.6000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Return the file for checks: R</text>
+    </g>
+  </a>
+  <a id="original-private-fetch" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#original-file-retrieval">
+    <rect x="690.0" y="1210.0" width="320.0" height="120.0" rx="7.2" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
+    <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="middle">
+      <text x="850.0" y="1257.2" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Get original through the recipient’s</text>
+      <text x="850.0" y="1276.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">private connection.</text>
+      <text x="850.0" y="1295.6000000000001" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Return the file for checks: R</text>
+    </g>
+  </a>
+  <a id="original-recovery-pending" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#original-file-retrieval">
+    <rect x="300" y="1400" width="700" height="140" fill="#F0EBFA" /><path d="M 300.0,1400.0 L 306.0,1400.0 M 310.0,1400.0 L 316.0,1400.0 M 320.0,1400.0 L 326.0,1400.0 M 330.0,1400.0 L 336.0,1400.0 M 340.0,1400.0 L 346.0,1400.0 M 350.0,1400.0 L 356.0,1400.0 M 360.0,1400.0 L 366.0,1400.0 M 370.0,1400.0 L 376.0,1400.0 M 380.0,1400.0 L 386.0,1400.0 M 390.0,1400.0 L 396.0,1400.0 M 400.0,1400.0 L 406.0,1400.0 M 410.0,1400.0 L 416.0,1400.0 M 420.0,1400.0 L 426.0,1400.0 M 430.0,1400.0 L 436.0,1400.0 M 440.0,1400.0 L 446.0,1400.0 M 450.0,1400.0 L 456.0,1400.0 M 460.0,1400.0 L 466.0,1400.0 M 470.0,1400.0 L 476.0,1400.0 M 480.0,1400.0 L 486.0,1400.0 M 490.0,1400.0 L 496.0,1400.0 M 500.0,1400.0 L 506.0,1400.0 M 510.0,1400.0 L 516.0,1400.0 M 520.0,1400.0 L 526.0,1400.0 M 530.0,1400.0 L 536.0,1400.0 M 540.0,1400.0 L 546.0,1400.0 M 550.0,1400.0 L 556.0,1400.0 M 560.0,1400.0 L 566.0,1400.0 M 570.0,1400.0 L 576.0,1400.0 M 580.0,1400.0 L 586.0,1400.0 M 590.0,1400.0 L 596.0,1400.0 M 600.0,1400.0 L 606.0,1400.0 M 610.0,1400.0 L 616.0,1400.0 M 620.0,1400.0 L 626.0,1400.0 M 630.0,1400.0 L 636.0,1400.0 M 640.0,1400.0 L 646.0,1400.0 M 650.0,1400.0 L 656.0,1400.0 M 660.0,1400.0 L 666.0,1400.0 M 670.0,1400.0 L 676.0,1400.0 M 680.0,1400.0 L 686.0,1400.0 M 690.0,1400.0 L 696.0,1400.0 M 700.0,1400.0 L 706.0,1400.0 M 710.0,1400.0 L 716.0,1400.0 M 720.0,1400.0 L 726.0,1400.0 M 730.0,1400.0 L 736.0,1400.0 M 740.0,1400.0 L 746.0,1400.0 M 750.0,1400.0 L 756.0,1400.0 M 760.0,1400.0 L 766.0,1400.0 M 770.0,1400.0 L 776.0,1400.0 M 780.0,1400.0 L 786.0,1400.0 M 790.0,1400.0 L 796.0,1400.0 M 800.0,1400.0 L 806.0,1400.0 M 810.0,1400.0 L 816.0,1400.0 M 820.0,1400.0 L 826.0,1400.0 M 830.0,1400.0 L 836.0,1400.0 M 840.0,1400.0 L 846.0,1400.0 M 850.0,1400.0 L 856.0,1400.0 M 860.0,1400.0 L 866.0,1400.0 M 870.0,1400.0 L 876.0,1400.0 M 880.0,1400.0 L 886.0,1400.0 M 890.0,1400.0 L 896.0,1400.0 M 900.0,1400.0 L 906.0,1400.0 M 910.0,1400.0 L 916.0,1400.0 M 920.0,1400.0 L 926.0,1400.0 M 930.0,1400.0 L 936.0,1400.0 M 940.0,1400.0 L 946.0,1400.0 M 950.0,1400.0 L 956.0,1400.0 M 960.0,1400.0 L 966.0,1400.0 M 970.0,1400.0 L 976.0,1400.0 M 980.0,1400.0 L 986.0,1400.0 M 990.0,1400.0 L 996.0,1400.0 M 1000.0,1400.0 L 1000.0,1406.0 M 1000.0,1410.0 L 1000.0,1416.0 M 1000.0,1420.0 L 1000.0,1426.0 M 1000.0,1430.0 L 1000.0,1436.0 M 1000.0,1440.0 L 1000.0,1446.0 M 1000.0,1450.0 L 1000.0,1456.0 M 1000.0,1460.0 L 1000.0,1466.0 M 1000.0,1470.0 L 1000.0,1476.0 M 1000.0,1480.0 L 1000.0,1486.0 M 1000.0,1490.0 L 1000.0,1496.0 M 1000.0,1500.0 L 1000.0,1506.0 M 1000.0,1510.0 L 1000.0,1516.0 M 1000.0,1520.0 L 1000.0,1526.0 M 1000.0,1530.0 L 1000.0,1536.0 M 1000.0,1540.0 L 994.0,1540.0 M 990.0,1540.0 L 984.0,1540.0 M 980.0,1540.0 L 974.0,1540.0 M 970.0,1540.0 L 964.0,1540.0 M 960.0,1540.0 L 954.0,1540.0 M 950.0,1540.0 L 944.0,1540.0 M 940.0,1540.0 L 934.0,1540.0 M 930.0,1540.0 L 924.0,1540.0 M 920.0,1540.0 L 914.0,1540.0 M 910.0,1540.0 L 904.0,1540.0 M 900.0,1540.0 L 894.0,1540.0 M 890.0,1540.0 L 884.0,1540.0 M 880.0,1540.0 L 874.0,1540.0 M 870.0,1540.0 L 864.0,1540.0 M 860.0,1540.0 L 854.0,1540.0 M 850.0,1540.0 L 844.0,1540.0 M 840.0,1540.0 L 834.0,1540.0 M 830.0,1540.0 L 824.0,1540.0 M 820.0,1540.0 L 814.0,1540.0 M 810.0,1540.0 L 804.0,1540.0 M 800.0,1540.0 L 794.0,1540.0 M 790.0,1540.0 L 784.0,1540.0 M 780.0,1540.0 L 774.0,1540.0 M 770.0,1540.0 L 764.0,1540.0 M 760.0,1540.0 L 754.0,1540.0 M 750.0,1540.0 L 744.0,1540.0 M 740.0,1540.0 L 734.0,1540.0 M 730.0,1540.0 L 724.0,1540.0 M 720.0,1540.0 L 714.0,1540.0 M 710.0,1540.0 L 704.0,1540.0 M 700.0,1540.0 L 694.0,1540.0 M 690.0,1540.0 L 684.0,1540.0 M 680.0,1540.0 L 674.0,1540.0 M 670.0,1540.0 L 664.0,1540.0 M 660.0,1540.0 L 654.0,1540.0 M 650.0,1540.0 L 644.0,1540.0 M 640.0,1540.0 L 634.0,1540.0 M 630.0,1540.0 L 624.0,1540.0 M 620.0,1540.0 L 614.0,1540.0 M 610.0,1540.0 L 604.0,1540.0 M 600.0,1540.0 L 594.0,1540.0 M 590.0,1540.0 L 584.0,1540.0 M 580.0,1540.0 L 574.0,1540.0 M 570.0,1540.0 L 564.0,1540.0 M 560.0,1540.0 L 554.0,1540.0 M 550.0,1540.0 L 544.0,1540.0 M 540.0,1540.0 L 534.0,1540.0 M 530.0,1540.0 L 524.0,1540.0 M 520.0,1540.0 L 514.0,1540.0 M 510.0,1540.0 L 504.0,1540.0 M 500.0,1540.0 L 494.0,1540.0 M 490.0,1540.0 L 484.0,1540.0 M 480.0,1540.0 L 474.0,1540.0 M 470.0,1540.0 L 464.0,1540.0 M 460.0,1540.0 L 454.0,1540.0 M 450.0,1540.0 L 444.0,1540.0 M 440.0,1540.0 L 434.0,1540.0 M 430.0,1540.0 L 424.0,1540.0 M 420.0,1540.0 L 414.0,1540.0 M 410.0,1540.0 L 404.0,1540.0 M 400.0,1540.0 L 394.0,1540.0 M 390.0,1540.0 L 384.0,1540.0 M 380.0,1540.0 L 374.0,1540.0 M 370.0,1540.0 L 364.0,1540.0 M 360.0,1540.0 L 354.0,1540.0 M 350.0,1540.0 L 344.0,1540.0 M 340.0,1540.0 L 334.0,1540.0 M 330.0,1540.0 L 324.0,1540.0 M 320.0,1540.0 L 314.0,1540.0 M 310.0,1540.0 L 304.0,1540.0 M 300.0,1540.0 L 300.0,1534.0 M 300.0,1530.0 L 300.0,1524.0 M 300.0,1520.0 L 300.0,1514.0 M 300.0,1510.0 L 300.0,1504.0 M 300.0,1500.0 L 300.0,1494.0 M 300.0,1490.0 L 300.0,1484.0 M 300.0,1480.0 L 300.0,1474.0 M 300.0,1470.0 L 300.0,1464.0 M 300.0,1460.0 L 300.0,1454.0 M 300.0,1450.0 L 300.0,1444.0 M 300.0,1440.0 L 300.0,1434.0 M 300.0,1430.0 L 300.0,1424.0 M 300.0,1420.0 L 300.0,1414.0 M 300.0,1410.0 L 300.0,1404.0" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
+    <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="middle">
+      <text x="650.0" y="1447.6" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Keep original recovery open.</text>
+      <text x="650.0" y="1466.8" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Show the reason, next action and owner. ERP delivery stays pending.</text>
+      <text x="650.0" y="1486.0" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">Allow safe, permitted copy viewing and download.</text>
+      <text x="650.0" y="1505.2" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">RCV-09; REF-COPY-POLICY</text>
+    </g>
+  </a>
+  <a id="returned-file-entry" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#original-file-retrieval">
+    <rect x="404.0" y="714.0" width="32.0" height="32.0" rx="16.0" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
+    <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="middle">
+      <text x="420.0" y="736.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">R</text>
+    </g>
+  </a>
+  <a id="returned-file-note" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#original-file-retrieval">
+    <g fill="#111111" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="462.0" y="727.2" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">R: save file; repeat intake checks.</text>
+      <text x="462.0" y="744.0" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">Copy or unclear role: E; review first.</text>
+    </g>
+  </a>
+  <a id="public-file-return" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#original-file-retrieval">
+    <rect x="364.0" y="1360.0" width="32.0" height="32.0" rx="16.0" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
+    <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="middle">
+      <text x="380.0" y="1382.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">R</text>
+    </g>
+  </a>
+  <a id="private-file-return" href="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#original-file-retrieval">
+    <rect x="754.0" y="1360.0" width="32.0" height="32.0" rx="16.0" fill="#F0EBFA" stroke="#555555" stroke-width="1.5" />
+    <g fill="#111111" font-family="Helvetica" font-size="16.0" text-anchor="middle">
+      <text x="770.0" y="1382.4" fill="#111111" font-family="Arial" font-size="16.0" text-anchor="middle">R</text>
+    </g>
+  </a>
+  <g id="public-return-label">
+    <g fill="#111111" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="417.0" y="1380.6" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">File returned</text>
+    </g>
+  </g>
+  <g id="private-return-label">
+    <g fill="#111111" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="807.0" y="1380.6" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">File returned</text>
+    </g>
+  </g>
+  <g id="public-source-label">
+    <g fill="#111111" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="602.0" y="1138.6" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">Public</text>
+    </g>
+  </g>
+  <g id="private-source-label">
+    <g fill="#111111" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="837.0" y="1158.6" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">Private</text>
+    </g>
+  </g>
+  <g id="no-original-source-label">
+    <g fill="#111111" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="967.0" y="1152.6" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">No source</text>
+    </g>
+  </g>
+  <g id="public-fetch-failed-label">
+    <g fill="#111111" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="562.0" y="1357.6" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">Failed / denied</text>
+    </g>
+  </g>
+  <g id="private-fetch-failed-label">
+    <g fill="#111111" font-family="Helvetica" font-size="14.0" text-anchor="start">
+      <text x="952.0" y="1357.6" fill="#111111" font-family="Arial" font-size="14.0" text-anchor="start">Failed / denied</text>
+    </g>
+  </g>
+  <g id="W7vUMqM0Dd-Zf5KkJg81-1">
+    <path d="M 280.0,1123.0 L 288.0,1123.0 M 296.0,1123.0 L 304.0,1123.0 M 312.0,1123.0 L 320.0,1123.0 M 328.0,1123.0 L 336.0,1123.0 M 344.0,1123.0 L 352.0,1123.0 M 360.0,1123.0 L 368.0,1123.0 M 376.0,1123.0 L 384.0,1123.0 M 392.0,1123.0 L 400.0,1123.0 M 408.0,1123.0 L 416.0,1123.0 M 424.0,1123.0 L 432.0,1123.0 M 440.0,1123.0 L 448.0,1123.0 M 456.0,1123.0 L 464.0,1123.0 M 472.0,1123.0 L 480.0,1123.0 M 488.0,1123.0 L 496.0,1123.0 M 504.0,1123.0 L 512.0,1123.0 M 520.0,1123.0 L 528.0,1123.0 M 536.0,1123.0 L 544.0,1123.0 M 552.0,1123.0 L 560.0,1123.0 M 568.0,1123.0 L 576.0,1123.0 M 584.0,1123.0 L 592.0,1123.0 M 600.0,1123.0 L 608.0,1123.0 M 616.0,1123.0 L 624.0,1123.0 M 632.0,1123.0 L 640.0,1123.0 M 648.0,1123.0 L 656.0,1123.0 M 664.0,1123.0 L 672.0,1123.0 M 680.0,1123.0 L 688.0,1123.0 M 696.0,1123.0 L 704.0,1123.0 M 712.0,1123.0 L 720.0,1123.0 M 728.0,1123.0 L 736.0,1123.0 M 744.0,1123.0 L 752.0,1123.0 M 760.0,1123.0 L 768.0,1123.0 M 776.0,1123.0 L 784.0,1123.0 M 792.0,1123.0 L 800.0,1123.0 M 808.0,1123.0 L 816.0,1123.0 M 824.0,1123.0 L 832.0,1123.0 M 840.0,1123.0 L 848.0,1123.0 M 856.0,1123.0 L 864.0,1123.0 M 872.0,1123.0 L 880.0,1123.0 M 888.0,1123.0 L 896.0,1123.0 M 904.0,1123.0 L 912.0,1123.0 M 920.0,1123.0 L 928.0,1123.0 M 936.0,1123.0 L 944.0,1123.0 M 952.0,1123.0 L 960.0,1123.0 M 968.0,1123.0 L 976.0,1123.0 M 984.0,1123.0 L 992.0,1123.0 M 1000.0,1123.0 L 1008.0,1123.0 M 1016.0,1123.0 L 1024.0,1123.0 M 1032.0,1123.0 L 1040.0,1123.0 M 1048.0,1123.0 L 1056.0,1123.0 M 1064.0,1123.0 L 1072.0,1123.0 M 1080.0,1123.0 L 1088.0,1123.0 M 1096.0,1123.0 L 1104.0,1123.0 M 1110.0,1123.0 L 1110.0,1131.0 M 1110.0,1139.0 L 1110.0,1147.0 M 1110.0,1155.0 L 1110.0,1163.0 M 1110.0,1171.0 L 1110.0,1179.0 M 1110.0,1187.0 L 1110.0,1195.0 M 1110.0,1203.0 L 1110.0,1211.0 M 1110.0,1219.0 L 1110.0,1227.0 M 1110.0,1235.0 L 1110.0,1243.0 M 1110.0,1251.0 L 1110.0,1259.0 M 1110.0,1267.0 L 1110.0,1275.0 M 1110.0,1283.0 L 1110.0,1291.0 M 1110.0,1299.0 L 1110.0,1307.0 M 1110.0,1315.0 L 1110.0,1323.0 M 1110.0,1331.0 L 1110.0,1339.0 M 1110.0,1347.0 L 1110.0,1355.0 M 1110.0,1363.0 L 1110.0,1371.0 M 1110.0,1379.0 L 1110.0,1387.0 M 1110.0,1395.0 L 1110.0,1403.0 M 1110.0,1411.0 L 1110.0,1419.0 M 1110.0,1427.0 L 1110.0,1435.0 M 1110.0,1443.0 L 1110.0,1451.0 M 1110.0,1459.0 L 1110.0,1467.0 M 1110.0,1475.0 L 1110.0,1483.0 M 1110.0,1491.0 L 1110.0,1499.0 M 1110.0,1507.0 L 1110.0,1515.0 M 1110.0,1523.0 L 1110.0,1531.0 M 1110.0,1539.0 L 1110.0,1547.0 M 1110.0,1555.0 L 1110.0,1563.0 M 1110.0,1570.0 L 1102.0,1570.0 M 1094.0,1570.0 L 1086.0,1570.0 M 1078.0,1570.0 L 1070.0,1570.0 M 1062.0,1570.0 L 1054.0,1570.0 M 1046.0,1570.0 L 1038.0,1570.0 M 1030.0,1570.0 L 1022.0,1570.0 M 1014.0,1570.0 L 1006.0,1570.0 M 998.0,1570.0 L 990.0,1570.0 M 982.0,1570.0 L 974.0,1570.0 M 966.0,1570.0 L 958.0,1570.0 M 950.0,1570.0 L 942.0,1570.0 M 934.0,1570.0 L 926.0,1570.0 M 918.0,1570.0 L 910.0,1570.0 M 902.0,1570.0 L 894.0,1570.0 M 886.0,1570.0 L 878.0,1570.0 M 870.0,1570.0 L 862.0,1570.0 M 854.0,1570.0 L 846.0,1570.0 M 838.0,1570.0 L 830.0,1570.0 M 822.0,1570.0 L 814.0,1570.0 M 806.0,1570.0 L 798.0,1570.0 M 790.0,1570.0 L 782.0,1570.0 M 774.0,1570.0 L 766.0,1570.0 M 758.0,1570.0 L 750.0,1570.0 M 742.0,1570.0 L 734.0,1570.0 M 726.0,1570.0 L 718.0,1570.0 M 710.0,1570.0 L 702.0,1570.0 M 694.0,1570.0 L 686.0,1570.0 M 678.0,1570.0 L 670.0,1570.0 M 662.0,1570.0 L 654.0,1570.0 M 646.0,1570.0 L 638.0,1570.0 M 630.0,1570.0 L 622.0,1570.0 M 614.0,1570.0 L 606.0,1570.0 M 598.0,1570.0 L 590.0,1570.0 M 582.0,1570.0 L 574.0,1570.0 M 566.0,1570.0 L 558.0,1570.0 M 550.0,1570.0 L 542.0,1570.0 M 534.0,1570.0 L 526.0,1570.0 M 518.0,1570.0 L 510.0,1570.0 M 502.0,1570.0 L 494.0,1570.0 M 486.0,1570.0 L 478.0,1570.0 M 470.0,1570.0 L 462.0,1570.0 M 454.0,1570.0 L 446.0,1570.0 M 438.0,1570.0 L 430.0,1570.0 M 422.0,1570.0 L 414.0,1570.0 M 406.0,1570.0 L 398.0,1570.0 M 390.0,1570.0 L 382.0,1570.0 M 374.0,1570.0 L 366.0,1570.0 M 358.0,1570.0 L 350.0,1570.0 M 342.0,1570.0 L 334.0,1570.0 M 326.0,1570.0 L 318.0,1570.0 M 310.0,1570.0 L 302.0,1570.0 M 294.0,1570.0 L 286.0,1570.0 M 280.0,1570.0 L 280.0,1562.0 M 280.0,1554.0 L 280.0,1546.0 M 280.0,1538.0 L 280.0,1530.0 M 280.0,1522.0 L 280.0,1514.0 M 280.0,1506.0 L 280.0,1498.0 M 280.0,1490.0 L 280.0,1482.0 M 280.0,1474.0 L 280.0,1466.0 M 280.0,1458.0 L 280.0,1450.0 M 280.0,1442.0 L 280.0,1434.0 M 280.0,1426.0 L 280.0,1418.0 M 280.0,1410.0 L 280.0,1402.0 M 280.0,1394.0 L 280.0,1386.0 M 280.0,1378.0 L 280.0,1370.0 M 280.0,1362.0 L 280.0,1354.0 M 280.0,1346.0 L 280.0,1338.0 M 280.0,1330.0 L 280.0,1322.0 M 280.0,1314.0 L 280.0,1306.0 M 280.0,1298.0 L 280.0,1290.0 M 280.0,1282.0 L 280.0,1274.0 M 280.0,1266.0 L 280.0,1258.0 M 280.0,1250.0 L 280.0,1242.0 M 280.0,1234.0 L 280.0,1226.0 M 280.0,1218.0 L 280.0,1210.0 M 280.0,1202.0 L 280.0,1194.0 M 280.0,1186.0 L 280.0,1178.0 M 280.0,1170.0 L 280.0,1162.0 M 280.0,1154.0 L 280.0,1146.0 M 280.0,1138.0 L 280.0,1130.0" fill="none" stroke="#FF3333" stroke-width="2" />
   </g>
 </svg>

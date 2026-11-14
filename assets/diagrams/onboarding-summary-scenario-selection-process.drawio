@@ -24,7 +24,7 @@
             <mxGeometry as="geometry" x="350" y="460" width="500" height="104" />
           </mxCell>
         </object>
-        <object id="assess" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup" label="Review current e-invoicing setup&#10;Sage loads saved setup through SXS; customer reviews&#10;ONB-10 · S01–08" tooltip="Sage loads saved setup through SXS; customer reviews">
+        <object id="assess" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#64-onb-10-assess-current-setup" label="Review current e-invoicing setup&#10;Use the business’s SXS dataset; show saved setup&#10;ONB-10 · S01–08" tooltip="Sage loads saved setup through SXS; customer reviews">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;strokeColor=#333333;spacing=8;fillColor=#E6F4F1;">
             <mxGeometry as="geometry" x="350" y="610" width="500" height="104" />
           </mxCell>
@@ -39,7 +39,7 @@
             <mxGeometry as="geometry" x="350" y="760" width="500" height="104" />
           </mxCell>
         </object>
-        <object id="identity" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#62-onb-02-check-business-identity-and-authority" label="Complete the applicable shared checks&#10;NIF, action permission; certificate only if required&#10;ONB-02/03 · S01–08" tooltip="NIF, action permission; certificate only if required">
+        <object id="identity" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#65-onb-03-assess-prerequisites" label="Check shared prerequisites&#10;NIF, permission and a valid certificate where required&#10;ONB-02/03 · S01–08" tooltip="NIF, action permission; certificate only if required">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;strokeColor=#333333;spacing=8;fillColor=#F0EBFA;">
             <mxGeometry as="geometry" x="350" y="910" width="500" height="104" />
           </mxCell>
@@ -49,7 +49,7 @@
             <mxGeometry as="geometry" x="400" y="1060" width="400" height="104" />
           </mxCell>
         </object>
-        <object id="public" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#65-onb-03-assess-prerequisites" label="Confirm or establish Sage public access&#10;Reuse valid evidence; no public registration assumed&#10;ONB-03/04 · S01/S02/S04/S05/S06/S07" tooltip="Reuse valid evidence; no public registration assumed">
+        <object id="public" link="../../specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#66-onb-04-publish-public-readiness" label="Confirm or establish Sage public access&#10;Reuse valid evidence; no public enrolment call assumed&#10;ONB-03/04 · S01/S02/S04/S05/S06/S07" tooltip="Reuse valid evidence; no public registration assumed">
           <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;strokeColor=#333333;spacing=8;fillColor=#F0EBFA;">
             <mxGeometry as="geometry" x="70" y="1260" width="440" height="104" />
           </mxCell>
@@ -245,7 +245,7 @@
         <mxCell id="caption-3" value="ONLY IF INCLUDED IN THIS REQUEST" style="text;html=0;align=center;fontSize=14;fillColor=#ffffff;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="250" y="1987" width="700" height="24" />
         </mxCell>
-        <mxCell id="boundary" value="E: stop dependent work; show the limitation or pending evidence, next action and owner. Resume only affected work.&#10;Setup only: keep any existing platform selection unchanged. If none exists, setup alone activates none.&#10;Phase 1: public access. Phases 2–3 add private setup and enabled platform changes. Private A to Private B stays disabled." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="boundary" value="E: stop dependent work; show the limitation or pending evidence, next action and owner. Resume only affected work.&#10;Setup only: keep any existing platform selection unchanged. If none exists, setup alone activates none.&#10;Phase 1: public access. Phases 2–3 add private setup and enabled platform changes. Private A to Private B stays disabled.&#10;Reuse the same NIF + valid certificate across platforms. Complete separate connection setup (onboarding) for each platform." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="28" y="2790" width="1384" height="96" />
         </mxCell>
         <mxCell id="colour-swatch-0" value="" style="rounded=0;html=0;fillColor=#E6F4F1;strokeColor=#777777;" vertex="1" parent="1">
@@ -367,7 +367,7 @@
         <mxCell id="exception-note-3" value="Resume only affected work." style="text;html=0;align=left;fontSize=12;fontColor=#444444;" vertex="1" parent="1">
           <mxGeometry x="1000" y="796" width="400" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="exception-note-4" value="Reconcile uncertain changes before retry." style="text;html=0;align=left;fontSize=12;fontColor=#444444;" vertex="1" parent="1">
+        <mxCell id="exception-note-4" value="Check unknown effects before retrying." style="text;html=0;align=left;fontSize=12;fontColor=#444444;" vertex="1" parent="1">
           <mxGeometry x="1000" y="818" width="400" height="22" as="geometry" />
         </mxCell>
       </root>

@@ -12,12 +12,12 @@ Use the same three reading views and detailed API reference as [onboarding](../o
 
 | Read | Purpose |
 |---|---|
-| [Solution Summary — SPEC-SEI-025](SPEC-SEI-025-invoice-retrieval-solution-summary.md) | Start here: one presentation overview with five framed actions A–E, their scope and links to detail. |
-| [Logical Feature Specification — SPEC-SEI-026](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md) | Required behaviour for receiving and consultation; the supporting swimlane expands A. E links to the lifecycle owner. |
+| [Solution Summary — SPEC-SEI-025](SPEC-SEI-025-invoice-retrieval-solution-summary.md) | Start here: four-stage summary, existing onboarding setup, separate background ERP receiving and links to detail. |
+| [Logical Feature Specification — SPEC-SEI-026](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md) | Detailed overall diagram and requirements for source acquisition, receiving and recovery. Review and action link to the lifecycle owner. |
 | [Sequence and Reuse Assessment — SPEC-SEI-027](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md) | Supporting sequences: customer list/open/download, plus source collection and file recovery; reuse and engineering gates. |
 | [API Reuse and Spain Changes — SPEC-SEI-042](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md) | Request/response fields and examples, public SOAP bindings, proposed changes and missing contracts. |
 
-**Where do we get the invoice?** Read the [plain-English source-choice flow in SPEC026](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#choose-source-and-get-invoice) before receiving step 1. It covers public originals, private originals, copy-only access and failed private downloads.
+**Where do we get the invoice?** The [SPEC026 source scenarios](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal) cover public originals, private originals, copy-only access and failed private downloads. [Source acquisition rules](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#31-source-acquisition-and-stored-file-access) define capture and saved-file access.
 
 **After opening an invoice:** the customer can choose **Download file** or [**Review and take action — SPEC029**](../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action). The lifecycle view owns enabled actions and their results. Use [SPEC042’s source lists](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#document-types-and-status-values) for exact invoice types, status codes and their separate meanings.
 
