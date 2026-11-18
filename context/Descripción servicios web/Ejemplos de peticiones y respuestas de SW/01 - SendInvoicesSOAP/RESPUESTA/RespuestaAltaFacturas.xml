@@ -3,6 +3,7 @@ xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponent
 xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" 
 xmlns:ns3="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
     <cbc:ID>A-CZLWRF8M8BAZ7P</cbc:ID>
+	<cbc:IssueDate>2026-10-28</cbc:IssueDate>
     <cac:DocumentResponse>
         <cac:Response>
             <cbc:ResponseCode>200</cbc:ResponseCode>

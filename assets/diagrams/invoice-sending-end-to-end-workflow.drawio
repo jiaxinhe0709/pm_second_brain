@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="invoice-sending-end-to-end-workflow" name="End-to-end sending overview">
-        <mxGraphModel dx="916" dy="1853" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="1110" math="0" shadow="0">
+        <mxGraphModel dx="2060" dy="1997" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="1110" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -114,7 +114,7 @@
                 <mxCell id="connected-access-points-to-ready" edge="1" parent="1" source="connected-access-points" style="edgeStyle=none;strokeColor=#555555;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="ready" value="">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <object label="Check connected access points&#xa;Available sending / receiving platforms" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#20-check-connected-access-points" id="connected-access-points">
+                <object label="Check connected (platforms)access points&#xa;Available sending / receiving platforms" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#20-check-connected-access-points" id="connected-access-points">
                     <mxCell parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=0;fontSize=17;spacing=12;fillColor=#f1f1f1;strokeColor=#555555;" vertex="1">
                         <mxGeometry height="150" width="310" x="385" y="145" as="geometry"/>
                     </mxCell>

@@ -11,7 +11,6 @@
 	<cac:AdditionalDocumentReference>
 		<cbc:ID>urn:aeat:names:specification:schema:QR</cbc:ID>
 		<cbc:UUID>https://www2.agenciatributaria.gob.aeat/wlpl/TIKE-CONT/ValidarQR?fecha=05-10-2026&amp;numserie=CLASEA00000182&amp;nif=xxxx&amp;idioma=es&amp;importe=135.52</cbc:UUID>
-		<cbc:DocumentTypeCode>QR</cbc:DocumentTypeCode>
 		<cbc:DocumentDescription>VERIFACTU</cbc:DocumentDescription>
 	</cac:AdditionalDocumentReference>
 	<cac:Annotation>
@@ -37,7 +36,7 @@
 			</cac:PartyTaxScheme>
 			<cac:PartyLegalEntity>
 				<cbc:RegistrationName>aaa</cbc:RegistrationName>
-				<cbc:CompanyID schemeID="FC">xxxx</cbc:CompanyID>
+				<cbc:CompanyID>xxxx</cbc:CompanyID>
 				<cbc:CompanyLegalForm>Datos de carácter mercantil o específica/sectoria</cbc:CompanyLegalForm>
 			</cac:PartyLegalEntity>
 			<cac:Contact>
@@ -66,7 +65,7 @@
 			</cac:PartyTaxScheme>
 			<cac:PartyLegalEntity>
 				<cbc:RegistrationName>bbb</cbc:RegistrationName>
-				<cbc:CompanyID schemeID="FC">yyyy</cbc:CompanyID>
+				<cbc:CompanyID>yyyy</cbc:CompanyID>
 			</cac:PartyLegalEntity>
 			<cac:Contact/>
 		</cac:Party>

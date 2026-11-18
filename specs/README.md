@@ -27,6 +27,7 @@ their separate capability or contract scope.
 
 | Scope | Specification |
 |---|---|
+| SPFE SOAP to Sage E-Invoice API mapping | [SPEC-SEI-047](SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md) — nine-service overview; links to the owning API references; unpublished draft |
 | Certificate management | [SPEC-SEI-001](SPEC-SEI-001-certificate-management-solution-specification.md) |
 | UBL validation and correction | [SPEC-SEI-005](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) |
 | Spain UBL mapper migration to DTS | [SPEC-SEI-008](SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) |

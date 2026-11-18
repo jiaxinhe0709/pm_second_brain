@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-13
+updated: 2026-11-18
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -58,7 +58,7 @@ An **exchange action** has one purpose and result, such as recipient delivery or
 | Routing address | Identifies a network participant or destination. A NIF is a routing-address value only when the selected network contract defines a scheme such as `es.nif`; tax identity alone does not establish that mapping. |
 | Certificate or signature | Any certificate or signature required for the selected action is a separate trust and authority concern. Certificate possession does not establish action authority. |
 
-A **configured sender access point** is the sender connection selected for normal use; a **public recipient route** is the destination selected under Spain recipient-routing rules. These are separate choices.
+A **configured sender access point** is a sender connection available for qualification and per-invoice selection; a **public recipient route** is the destination selected under Spain recipient-routing rules. These are separate choices.
 
 ## 3 Scope and actors
 
@@ -68,7 +68,7 @@ A **configured sender access point** is the sender connection selected for norma
 | Service-assisted draft entry and validation — TBC | Confirm scope and handoff. The proposed path returns issues before issuance; correction creates a new draft revision. |
 | Final candidate ready | Qualify its exact data, recipient route, files, authority and required actions before dependent issuance. |
 | Public or private recipient route | Select one eligible delivery route from current evidence. Apply Spain copy rules separately. |
-| Explicit per-invoice selection (option B) | <span style="color:#1565C0;">Proposed under SND-G09:</span> In Phase 2, selection is limited to the active route or a ready public connection. Use of another connected private platform remains <span style="color:#B42318;">Open</span>. One invoice has one recipient-delivery route; configuration does not cause fan-out. |
+| Explicit per-invoice selection | <span style="color:#1565C0;">Proposed:</span> Choose any one of the sender's ready, permitted connections for each invoice, including different private platforms on different invoices. The selected sender platform must support the recipient destination under [SPEC-SEI-023 OUT-10](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order). No fan-out or saved onboarding changes. |
 | Sender connection and recipient destination differ | Keep the selected sender connection separate from the recipient destination and qualify both in the frozen plan. |
 | Already-issued invoice or uncertain action | Preserve issuance and earlier results. Use the applicable correction or reconciliation path. |
 | Transitional PDF required | The local product generates the matching PDF. Recipient delivery uses a separately qualified capability and owner. See OUT-PDF-R01/02. |
@@ -114,7 +114,7 @@ SEI023 retains the [process and activity order](SPEC-SEI-023-invoice-sending-log
 |---|---|
 | Service-assisted draft entry and validation — TBC | ERP Product, API and Architecture must confirm the scope, owner and draft-to-final handoff before enabling this path. |
 | OUT-Q01 Approval policy | Product, Identity and Spain Compliance must qualify eligible roles, manual/automatic decisions and revision binding. Missing evidence holds the dependent action. |
-| SND-G09 Onboarding route handoff | <span style="color:#1565C0;">Proposed:</span> the administrator chooses an initial public or one-private-platform route; Phase 2 per-invoice choice (option B) is limited to the active route or a ready public connection. <span style="color:#B42318;">Open:</span> Onboarding must confirm this shared decision because onboarding specs are not edited in this task, including authority/effective date for route changes and ownership of another connected private platform selection. |
+| SND-G09 Onboarding route handoff | The product direction allows per-invoice choice among ready, permitted sender connections. <span style="color:#B42318;">Implementation qualification remains open:</span> selected-build support, connection/address coexistence and ownership constraints, public readiness and onboarding companion alignment. [SPEC-SEI-023 SND-G09](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#5-decisions-and-technical-analysis-boundary) owns the boundary and accountable roles. |
 | Public-route rule | <span style="color:#B42318;">Open / Proposed + Source conflict:</span> Product, Engineering and Spain Compliance must confirm the six OUT-09 cases, the conflict with local public-by-default guidance, accepted evidence and the lookup retry window. |
 | OUT-Q03 Issuance and private-platform copy | ERP, E-Invoice and Spain Compliance owners must prove the issuance/copy boundary and partial/lost-result recovery. Private-platform copy capability is an Assumption; Integration/API owners must define copy-result/error reporting to Sage and failed-copy retry ownership. A saved queue intent alone is insufficient. |
 | `es.nif` and withdrawal | <span style="color:#1565C0;">Proposed:</span> `es.nif`. <span style="color:#B42318;">Open:</span> API, Routing and Spain Compliance must confirm routing-address semantics and NIE handling. Withdrawal via FP-SEI-002 is <span style="color:#B42318;">Open</span>; FP-SEI-002 assesses a separate Global API command and approves no call here. |

@@ -131,11 +131,11 @@
         <mxCell id="v32" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#B42318;">
           <mxGeometry as="geometry" x="38" y="466" width="1339" height="90" />
         </mxCell>
-        <mxCell id="v33" value="Qualify authority, recipient eligibility, final files and trust. Freeze one recipient route and separate&#10;action identities. Per-invoice choice does not change the active route; onboarding confirmation remains open." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#B42318;">
-          <mxGeometry as="geometry" x="52" y="474" width="1110.72" height="49" />
+        <mxCell id="v33" value="Qualify authority, recipient path, files and trust. Choose one ready, permitted sender platform per invoice.&#10;Freeze destination and action identities. Keep saved setup unchanged; qualify runtime support." parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=16;fontColor=#B42318;">
+          <mxGeometry as="geometry" x="52" y="474" width="1100.64" height="49" />
         </mxCell>
-        <mxCell id="v34" value="[Open] Final handoff and route selection; OUT-08–11; OUT-Q01/03; SND-G09" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=12;fontColor=#B42318;">
-          <mxGeometry as="geometry" x="52" y="532" width="556.32" height="26" />
+        <mxCell id="v34" value="[Proposed] Per-invoice choice; [Open] Runtime qualification; OUT-08–11; SND-G09" parent="1" vertex="1" style="text;html=0;whiteSpace=wrap;spacing=0;verticalAlign=top;align=left;fontSize=12;fontColor=#B42318;">
+          <mxGeometry as="geometry" x="52" y="532" width="609.24" height="26" />
         </mxCell>
         <mxCell id="v35" value="" parent="1" vertex="1" style="rounded=0;arcSize=8;fillColor=#fafafa;strokeColor=#B42318;">
           <mxGeometry as="geometry" x="38" y="922" width="1339" height="90" />

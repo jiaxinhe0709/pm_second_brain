@@ -33,7 +33,7 @@ def build():
         SPEC + '#22-spain-final-plan-and-independent-actions',
         ['ERP / product', 'E-Invoice Service', 'Public platform', 'Private platform'])
     s.exchange(0, 1, 'Final candidate: stable identity, revision and business scope', 'Qualified plan or owned hold; no issuance on a failed check', '[Proposed] OUT-07–11; SND-G01/03/06')
-    s.note('Qualify authority, recipient eligibility, final files and trust. Freeze one recipient route and separate action identities. Per-invoice choice does not change the active route; onboarding confirmation remains open.', '[Open] Final handoff and route selection; OUT-08–11; OUT-Q01/03; SND-G09')
+    s.note('Qualify authority, recipient path, files and trust. Choose one ready, permitted sender platform per invoice. Freeze destination and action identities. Keep saved setup unchanged; qualify runtime support.', '[Proposed] Per-invoice choice; [Open] Runtime qualification; OUT-08–11; SND-G09')
     f = s.start_frame('alt | [Proposed] Qualified private route with a required public copy')
     parallel = s.start_frame('par | [Proposed] Independent copy and recipient actions; no shared completion')
     s.exchange(1, 3, 'Hand off exact invoice for private recipient delivery', 'Independent recipient-delivery result or outcome unknown', '[Proposed] OUT-12/13; SND-G02/04/05')
