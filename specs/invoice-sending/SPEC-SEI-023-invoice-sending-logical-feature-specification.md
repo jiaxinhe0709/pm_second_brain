@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-18
+updated: 2026-11-19
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -70,7 +70,7 @@ Existing acceptance IDs also identify the review scenarios. Section 6 supplies t
 
 This existing detail diagram explains route holds, validation correction and action-specific recovery. It does not define the boundary between issuance and copy. The ordered activities below govern that boundary: final preparation precedes dependent ERP issuance. Coordinate any required copy with issuance, independently of private delivery success. OUT-SPFE-R01; SPFE-S02 Article 4.
 
-**Diagram step 05 — Can this dataset send through the selected access point?** check the dataset's selected access point under OUT-00/08/10. This step does not verify the recipient. A dataset with SPFE and B2Brouter connections cannot send through Zerocoma until that connection is ready and permitted for sending. Each invoice selects one ready, permitted sender connection. This selection does not change saved onboarding configuration. Proposed product control; OUT-A23/25; SND-G09.
+**Diagram customer inputs and step 05 — Sender → recipient path ready?** the customer or ERP supplies both platform choices before the request. Step 05 checks the selected sender connection and its qualified delivery path under OUT-00/08/09/10; it does not establish buyer acceptance. A dataset with SPFE and B2Brouter connections cannot send through Zerocoma until that connection is ready and permitted for sending. Selection leaves saved onboarding configuration unchanged. Where a certificate is required, the customer can choose any eligible certificate, including one different from onboarding. Preparation binds its version and checks its purpose, validity and authority under [SPEC-SEI-001 CERT-04/05](../SPEC-SEI-001-certificate-management-solution-specification.md#6-cert-0405-validate-trust-and-calculate-scoped-readiness). Per-send certificate-selection support remains unqualified. Proposed product controls; OUT-A23/25; SND-G09.
 
 The original activity numbers retain their meanings. OUT-06 therefore appears after final preparation in execution order.
 

@@ -17,8 +17,37 @@ ET.register_namespace('', NS)
 def tag(name):
     return '{' + NS + '}' + name
 
+def validate_model(document):
+    """Reject malformed layer trees that a permissive SVG preview can hide."""
+    root = document.find('.//mxGraphModel/root')
+    if root is None:
+        raise ValueError('Draw.io graph root is missing')
+    items = list(root)
+    ids = [item.get('id') for item in items]
+    if len(ids) != len(set(ids)) or None in ids:
+        raise ValueError('Draw.io cells must have unique IDs')
+    cells = {item.get('id'): item.find('mxCell') if item.tag == 'object' else item
+             for item in items}
+    if not items or items[0].get('id') != '0' or cells['0'].get('parent') is not None:
+        raise ValueError('Draw.io requires root cell 0 before its layers')
+    if '1' not in cells or cells['1'].get('parent') != '0':
+        raise ValueError('Draw.io default layer 1 must belong to root 0')
+    if [key for key,cell in cells.items() if cell.get('parent') == '0'] != ['1']:
+        raise ValueError('Sending overview requires one default layer')
+    for key,cell in cells.items():
+        if key in ('0','1'):
+            continue
+        if cell.get('parent') != '1':
+            raise ValueError(f'Draw.io cell {key} must belong to default layer 1')
+        if cell.get('edge') == '1':
+            for terminal in ('source','target'):
+                target = cells.get(cell.get(terminal))
+                if target is None or target.get('vertex') != '1':
+                    raise ValueError(f'Draw.io connector {key} has an invalid {terminal}')
+
 def build():
     document = ET.parse(BASE.with_suffix('.drawio'))
+    validate_model(document)
     cells = {}
     for item in document.find('.//mxGraphModel/root'):
         cell = item.find('mxCell') if item.tag == 'object' else item
@@ -43,7 +72,7 @@ def build():
     svg = ET.Element(tag('svg'), width=str(width), height=str(height), viewBox=f'{left} {top} {width} {height}',
                      role='img', attrib={'aria-label': cells['title']['label']})
     ET.SubElement(svg, tag('title')).text = cells['title']['label']
-    ET.SubElement(svg, tag('desc')).text = 'Preview generated from the editable Draw.io source. Private delivery and public copy keep separate results. The local product generates any required recipient PDF. A final handoff links to central lifecycle tracking for sent invoices.'
+    ET.SubElement(svg, tag('desc')).text = 'Sending journey generated from the editable Draw.io source. The customer or ERP provides a UBL invoice, explicitly chooses the sender platform and indicates the recipient platform, then chooses an eligible certificate where required. Readiness checks the selected platform pair before sending. Private exchange, direct SPFE submission and proposed private-platform interconnection through SPFE keep their action results separate. Dashed recipient-access boxes are context outside sending. The local product generates any required recipient PDF.'
     ET.SubElement(svg, tag('rect'), x=str(left), y=str(top), width=str(width), height=str(height), fill='white')
     font = pymupdf.Font('helv')
 
@@ -145,16 +174,26 @@ def build():
             start = boundary(source, waypoints[0] if waypoints else center(target),s.get('exitX'),s.get('exitY')) if source else point(g,'sourcePoint')
             end = boundary(target, waypoints[-1] if waypoints else start,s.get('entryX'),s.get('entryY')) if target else point(g,'targetPoint')
             points = [start]+waypoints+[end]
+            points = [p for i,p in enumerate(points) if i == 0 or p != points[i-1]]
+            if len(points) < 2:
+                raise ValueError(f'Connector has no length: {c["key"]}')
+            a,b = points[-2:]
+            length = math.dist(a,b)
+            dx,dy = (b[0]-a[0])/length,(b[1]-a[1])/length
+            gap = min(float(s.get('endSpacing',0)),length/4)
+            points[-1] = (b[0]-gap*dx,b[1]-gap*dy)
             paths[c['key']] = points
             group = element(svg, 'g', id=c['key'])
             attrs = dict(d='M '+' L '.join(f'{x},{y}' for x,y in points), fill='none', stroke=s.get('strokeColor','#555555'), stroke_width=s.get('strokeWidth',1))
             if s.get('dashed') == '1':
-                attrs['d'] = dashed_path(points)
+                dash,gap = map(float,s.get('dashPattern','3 3').split())
+                attrs['d'] = dashed_path(points,dash,gap)
             element(group,'path',**attrs)
-            a,b = points[-2:]
-            length = math.dist(a,b)
-            dx,dy = (b[0]-a[0])/length,(b[1]-a[1])/length
-            element(group,'path', d=f'M {b[0]},{b[1]} L {b[0]-7*dx-3*dy},{b[1]-7*dy+3*dx} L {b[0]-7*dx+3*dy},{b[1]-7*dy-3*dx} Z',fill=s.get('strokeColor','#555555'))
+            if s.get('endArrow','block') != 'none':
+                b = points[-1]
+                arrow_size = min(float(s.get('endSize',7)),length/2)
+                half_width = arrow_size*0.46
+                element(group,'path', d=f'M {b[0]},{b[1]} L {b[0]-arrow_size*dx-half_width*dy},{b[1]-arrow_size*dy+half_width*dx} L {b[0]-arrow_size*dx+half_width*dy},{b[1]-arrow_size*dy-half_width*dx} Z',fill=s.get('strokeColor','#555555'))
             if c['label']:
                 x,y = midpoint(points,float(g.get('x',0)))
                 ox,oy = point(g,'offset')
@@ -173,7 +212,8 @@ def build():
                     radius = min(w,h)*float(s.get('arcSize',20))/200 if s.get('rounded')=='1' else 0
                     if s.get('dashed') == '1':
                         dash,gap = map(float,s.get('dashPattern','3 3').split())
-                        element(group,'path',d=dashed_path([(x,y),(x+w,y),(x+w,y+h),(x,y+h),(x,y)],dash,gap),**attrs)
+                        element(group,'rect',x=x,y=y,width=w,height=h,rx=radius,fill=attrs['fill'],stroke='none')
+                        element(group,'path',d=dashed_path([(x,y),(x+w,y),(x+w,y+h),(x,y+h),(x,y)],dash,gap),**{**attrs,'fill':'none'})
                     else:
                         element(group,'rect',x=x,y=y,width=w,height=h,rx=radius,**attrs)
             text(group,c)

@@ -580,6 +580,52 @@
       #spain-einvoice-complete-explorer .hub-batch-table td { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 8px; box-shadow: none; }
       #spain-einvoice-complete-explorer .hub-batch-table td::before { content: attr(data-label); color: var(--hub-muted); font-weight: 500; }
     }
+    #spain-einvoice-complete-explorer .hub-identity-layout { display: grid; gap: 16px; }
+    #spain-einvoice-complete-explorer .hub-identity-controls { max-width: 430px; width: 100%; }
+    #spain-einvoice-complete-explorer .hub-identity-flow { display: grid; grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, 1fr); align-items: center; gap: 8px; }
+    #spain-einvoice-complete-explorer .hub-identity-sources { display: grid; gap: 12px; }
+    #spain-einvoice-complete-explorer .hub-identity-flow .hub-panel { height: 100%; }
+    #spain-einvoice-complete-explorer .hub-identity-flow p { margin-top: 7px; color: var(--hub-secondary); font-size: 12px; line-height: 19px; }
+    #spain-einvoice-complete-explorer .hub-identity-arrow { color: var(--hub-secondary); text-align: center; font-size: 22px; }
+    #spain-einvoice-complete-explorer .hub-identity-step { color: var(--hub-secondary); font-size: 11px; line-height: 18px; text-transform: uppercase; letter-spacing: .05em; }
+    #spain-einvoice-complete-explorer .hub-identity-flow h2 { margin-top: 7px; }
+    #spain-einvoice-complete-explorer .hub-identity-match { border-top: 3px solid var(--hub-blue); }
+    #spain-einvoice-complete-explorer .hub-identity-checks { display: grid; gap: 7px; margin-top: 12px; padding-left: 18px; color: var(--hub-secondary); font-size: 12px; line-height: 18px; }
+    #spain-einvoice-complete-explorer .hub-identity-match[data-result="held"] { border-top-color: var(--hub-orange); }
+    #spain-einvoice-complete-explorer .hub-identity-customer { border-top: 3px solid var(--hub-green); }
+    #spain-einvoice-complete-explorer .hub-identity-customer .hub-panel-head { margin-bottom: 12px; }
+    #spain-einvoice-complete-explorer .hub-identity-customer h2 { font-size: 23px; line-height: 29px; }
+    #spain-einvoice-complete-explorer .hub-identity-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 16px 0; }
+    #spain-einvoice-complete-explorer .hub-identity-facts dt { color: var(--hub-secondary); font-size: 11px; line-height: 18px; }
+    #spain-einvoice-complete-explorer .hub-identity-facts dd { margin: 3px 0 0; font-size: 13px; line-height: 20px; overflow-wrap: anywhere; }
+    #spain-einvoice-complete-explorer .hub-identity-files { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 10px; }
+    #spain-einvoice-complete-explorer .hub-identity-file { padding: 12px; background: var(--hub-page); border-radius: 7px; }
+    #spain-einvoice-complete-explorer .hub-identity-file h3 { font-size: 13px; line-height: 19px; }
+    #spain-einvoice-complete-explorer .hub-identity-file p { margin: 5px 0 10px; color: var(--hub-secondary); font-size: 12px; line-height: 18px; }
+    #spain-einvoice-complete-explorer .hub-identity-customer .hub-helper { color: var(--hub-secondary); font-size: 12px; line-height: 19px; }
+    #spain-einvoice-complete-explorer .hub-identity-customer .hub-actions { flex-wrap: wrap; justify-content: flex-start; margin-top: 12px; }
+    #spain-einvoice-complete-explorer .hub-identity-outcomes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 14px 0 0; }
+    #spain-einvoice-complete-explorer .hub-identity-outcomes > div { padding: 12px; background: var(--hub-page); border-radius: 7px; }
+    #spain-einvoice-complete-explorer .hub-identity-outcomes dt { color: var(--hub-secondary); font-size: 11px; line-height: 18px; }
+    #spain-einvoice-complete-explorer .hub-identity-outcomes dd { margin: 5px 0 0; font-size: 12px; line-height: 19px; }
+    #spain-einvoice-complete-explorer .hub-identity-notes { color: var(--hub-secondary); font-size: 12px; line-height: 19px; }
+    #spain-einvoice-complete-explorer .hub-identity-notes summary { cursor: pointer; color: var(--hub-text); }
+    #spain-einvoice-complete-explorer .hub-identity-notes p { margin-top: 10px; }
+    #spain-einvoice-complete-explorer .hub-identity-notes a { color: var(--hub-blue); }
+    #spain-einvoice-complete-explorer .hub-identity-audit { margin-top: 10px; display: grid; gap: 5px; padding-left: 18px; }
+    @media (max-width: 1050px) {
+      #spain-einvoice-complete-explorer .hub-nav { flex-wrap: wrap; }
+    }
+    @media (max-width: 850px) {
+      #spain-einvoice-complete-explorer .hub-identity-flow { grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-identity-arrow { transform: rotate(90deg); }
+      #spain-einvoice-complete-explorer .hub-identity-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 550px) {
+      #spain-einvoice-complete-explorer .hub-identity-files,
+      #spain-einvoice-complete-explorer .hub-identity-outcomes { grid-template-columns: 1fr; }
+      #spain-einvoice-complete-explorer .hub-identity-customer .hub-panel-head { flex-direction: column; }
+    }
   </style>
 
   <div class="hub-app">
@@ -597,6 +643,7 @@
       <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-onboarding" data-view="onboarding">Onboarding</button>
       <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-exchange" data-view="exchange">Invoice exchange</button>
       <button class="hub-nav-button" id="hub-tab-example" type="button" role="tab" aria-selected="false" aria-controls="hub-view-example" data-view="example">Multi-platform example</button>
+      <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-invoice-record" data-view="invoice-record">One invoice, two files</button>
       <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-switch" data-view="switch">Settings</button>
       <button class="hub-nav-button" type="button" role="tab" aria-selected="false" aria-controls="hub-view-fields" data-view="fields">Field catalogue</button>
     </nav>
@@ -1548,6 +1595,47 @@
         </div>
       </section>
 
+      <section class="hub-view" id="hub-view-invoice-record" role="tabpanel" hidden>
+        <div class="hub-page-head">
+          <div class="hub-page-copy"><p class="hub-kicker">Receiving · proposed customer experience</p><h1>Sage connects the files.<br>The customer acts on one invoice.</h1><p>The customer chooses an invoice by supplier, number and amount. Sage shows its available files, checks action eligibility and keeps each communication result.</p></div>
+          <label class="hub-field hub-identity-controls">Explore an independent synthetic case<select id="hub-identity-case"><option value="copy">Public copy only · sender platform unknown</option><option value="matched">Original + public copy · verified match</option><option value="conflict">Files disagree · link held</option><option value="public">Public original · no separate copy</option></select></label>
+        </div>
+        <div class="hub-identity-layout">
+          <div class="hub-identity-flow" aria-label="Source evidence flows through Sage checks into the customer invoice view">
+            <div class="hub-identity-sources">
+              <section class="hub-panel"><span class="hub-identity-step">1 · Source evidence</span><h2 id="hub-identity-private-title">Your receiving platform · ZeroComa</h2><p id="hub-identity-private-copy">Original not obtained. Sage does not know the sender's platform address.</p></section>
+              <section class="hub-panel"><h2>Public platform · SPFE</h2><p id="hub-identity-public-copy">Faithful copy saved. This is evidence about INV-123, not another amount to pay.</p></section>
+            </div>
+            <span class="hub-identity-arrow" aria-hidden="true">→</span>
+            <section class="hub-panel hub-identity-match" id="hub-identity-match"><span class="hub-identity-step">2 · Sage checks</span><h2 id="hub-identity-match-title">One provisional invoice record</h2><ul class="hub-identity-checks"><li>Correct customer, environment and access</li><li>Supplier, invoice identity and date</li><li>File role, integrity and business content</li><li>Conflicts, corrections and duplicates</li></ul><p id="hub-identity-match-copy">The original is missing. No original/copy relationship has been proved yet.</p></section>
+            <span class="hub-identity-arrow" aria-hidden="true">→</span>
+            <section class="hub-panel"><span class="hub-identity-step">3 · Customer sees</span><h2 id="hub-identity-result-title">One invoice · original pending</h2><p id="hub-identity-result-copy">View the labelled copy. Sage keeps original recovery open through your receiving connection.</p><p>The customer is not asked to choose a public invoice or a private invoice.</p></section>
+          </div>
+
+          <section class="hub-panel hub-identity-customer" aria-labelledby="hub-identity-record-title">
+            <div class="hub-panel-head"><div><p class="hub-kicker">Customer view · purchases / received invoices</p><h2 id="hub-identity-record-title">Olivo Supplies S.L. · INV-123</h2><p class="hub-helper" id="hub-identity-record-key">Sage reference: DEMO-RCV-001 · one provisional invoice</p></div><span class="hub-state" id="hub-identity-badge">Original pending</span></div>
+            <dl class="hub-identity-facts"><div><dt>Customer</dt><dd>Costa Retail S.L.</dd></div><div><dt>Issue date</dt><dd>17 November 2026</dd></div><div><dt>Invoice total</dt><dd id="hub-identity-total">€1,210.00</dd></div><div><dt>ERP delivery</dt><dd id="hub-identity-erp">Waiting for original</dd></div></dl>
+            <p class="hub-rule" id="hub-identity-guidance" role="status" aria-live="polite"></p>
+            <div class="hub-actions"><button class="hub-button is-secondary" type="button" id="hub-identity-arrival">Simulate original arrival</button></div>
+
+            <h3 style="margin-top:18px" id="hub-identity-files-title">Available files · view only</h3><p class="hub-helper" id="hub-identity-file-help">File viewing does not accept, reject or pay the invoice.</p>
+            <div class="hub-identity-files">
+              <article class="hub-identity-file" id="hub-identity-original-file" hidden><h3>Original invoice</h3><p id="hub-identity-original-meta"></p><button class="hub-button is-secondary" type="button" id="hub-identity-view-original">View original details</button></article>
+              <article class="hub-identity-file" id="hub-identity-copy-file"><h3>Faithful copy</h3><p>Saved from SPFE · public-copy reference DEMO-SPFE-018 · €1,210.00</p><button class="hub-button is-secondary" type="button" id="hub-identity-view-copy">View copy details</button></article>
+            </div>
+            <div class="hub-rule" id="hub-identity-preview" hidden role="status" aria-live="polite"></div>
+
+            <h3 style="margin-top:20px">Review and take action · INV-123</h3><p class="hub-helper" id="hub-identity-eligibility"></p>
+            <div class="hub-actions"><button class="hub-button" type="button" id="hub-identity-reject" disabled>Reject invoice · demo</button><button class="hub-button is-secondary" type="button" id="hub-identity-pay" disabled>Record full payment · demo</button></div>
+            <dl class="hub-identity-outcomes" aria-live="polite"><div><dt>Business decision / fact</dt><dd id="hub-identity-decision">No decision recorded</dd></div><div><dt>Private communication</dt><dd id="hub-identity-private-result">No report sent</dd></div><div><dt>Public report</dt><dd id="hub-identity-public-result">No report sent</dd></div></dl>
+            <div class="hub-actions"><button class="hub-button is-secondary" type="button" id="hub-identity-report" disabled>Simulate public report success</button></div>
+            <p class="hub-helper" id="hub-identity-action-feedback" role="status" aria-live="polite">Viewing a file leaves the business decision unchanged.</p>
+          </section>
+
+          <details class="hub-panel hub-identity-notes"><summary>Why Sage shows these actions · evidence and open decisions</summary><p><strong>Proposed matching responsibility:</strong> Sage checks the source evidence before linking files to one invoice. A matching number alone is insufficient. The comparison rules and implementation still need qualification under SPEC026 RET-G04/07/09. Conflicting files remain separate observations in a review case.</p><p><strong>Recorded copy-only policy:</strong> permit safe authorised copy view/download; keep ERP delivery pending the original. Eligibility for each copy-only buyer action remains open. Disabled actions here illustrate that unresolved state; they do not establish a legal prohibition or extend a reporting deadline. Product/Compliance and Lifecycle own the decision. Original recovery needs a provider integration owner.</p><p><strong>Qualified-action demo:</strong> the matched and public-original cases assume authority, required data, applicable checks and the selected action contract are qualified. Simulated rejection/payment fields and communication results are illustrative. Provider names do not prove support. Accept/reject, ERP intake, accounting and payment remain separate outcomes.</p><p><strong>Provider boundary:</strong> ask through the customer's receiving connection. A sender-platform address is not itself permission to retrieve an original. ZeroComa original-file access, provenance fields, private communications and public-report ownership remain unconfirmed. This demo sends no reports. A later original keeps the same Sage reference after matching; a public copy is never relabelled as an original.</p><p><a href="../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#copy-only-actions">SPEC026 · copy-only actions and retrieval policy</a> · <a href="../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#4-functional-requirements-and-invariants">SPEC029 · separate business and reporting outcomes</a></p><ol class="hub-identity-audit" id="hub-identity-audit"></ol></details>
+        </div>
+      </section>
+
       <section class="hub-view" id="hub-view-switch" role="tabpanel" hidden>
         <div class="hub-page-head"><div class="hub-page-copy"><p class="hub-kicker">Company settings</p><h1>Manage platforms, routes and payment services.</h1><p>Add capabilities to the existing company. Review each change before it affects new work.</p></div></div>
         <section class="hub-panel" style="margin-bottom:16px"><div class="hub-panel-head"><div><h2 id="hub-settings-company">Demo Supplier S.L.</h2><p id="hub-settings-context">Complete onboarding to manage this company.</p></div><span class="hub-state" id="hub-company-status">Not activated</span></div><p class="hub-helper" id="hub-current-routes"></p></section>
@@ -1717,7 +1805,7 @@
 
       const saved = window.openai && window.openai.widgetState && window.openai.widgetState.modelContent;
       const state = {
-        view: saved && ['map','journey','onboarding','exchange','example','switch','fields'].includes(saved.view) ? saved.view : 'example',
+        view: window.location.hash === '#invoice-record' ? 'invoice-record' : saved && ['map','journey','onboarding','exchange','example','invoice-record','switch','fields'].includes(saved.view) ? saved.view : 'example',
         mapRoute: saved && ['public','private','sage','accountant'].includes(saved.mapRoute) ? saved.mapRoute : 'public',
         journeyStage: saved && journey[saved.journeyStage] ? saved.journeyStage : 'identify',
         onboardMode: saved && ['single','batch'].includes(saved.onboardMode) ? saved.onboardMode : 'single',
@@ -2380,7 +2468,82 @@
         root.querySelector('#hub-fields-principle').textContent = item.principle;
       }
 
-      function renderAll() { renderView(); renderMap(); renderJourney(); renderOnboarding(); renderExchange(); renderFields(); renderWorkspace(); }
+      // Independent synthetic cases. These controls illustrate decisions; they do not qualify a provider contract.
+      const identityDemo = { scenario: 'copy', arrived: false, decision: '', publicReported: false, viewed: '', audit: [] };
+      const identityQualified = () => identityDemo.scenario === 'matched' || identityDemo.scenario === 'public' || (identityDemo.scenario === 'copy' && identityDemo.arrived);
+      function renderIdentity() {
+        const conflict = identityDemo.scenario === 'conflict';
+        const publicOriginal = identityDemo.scenario === 'public';
+        const qualified = identityQualified();
+        const original = qualified || conflict;
+        const copyOnly = !original;
+        const action = identityDemo.decision;
+        el('hub-identity-case').value = identityDemo.scenario;
+        textAt('hub-identity-private-title', publicOriginal ? 'Private receiving path · not used' : 'Your receiving platform · ZeroComa');
+        textAt('hub-identity-private-copy', publicOriginal ? 'This invoice used public exchange. A private original is not needed for this case.' : original ? `Original saved through the receiving connection · ${conflict ? '€1,240.00' : '€1,210.00'}. The sender platform address is unknown to Sage.` : 'Original not obtained. Sage does not know the sender platform address. Recovery remains with the provider integration owner.');
+        textAt('hub-identity-public-copy', publicOriginal ? 'Original saved from SPFE · €1,210.00. No separate faithful copy is expected for this public exchange.' : 'Faithful copy saved · €1,210.00. This file does not create another amount to pay.');
+        el('hub-identity-match').dataset.result = conflict ? 'held' : 'checked';
+        textAt('hub-identity-match-title', conflict ? 'Conflict · do not link automatically' : copyOnly ? 'One provisional invoice record' : publicOriginal ? 'Public original identified' : 'Same invoice · match verified in demo');
+        textAt('hub-identity-match-copy', conflict ? 'Supplier, customer, number and date agree. Totals disagree: original €1,240.00; public copy €1,210.00. Keep both observations for review.' : copyOnly ? 'The copy identifies INV-123. No original/copy relationship has been proved yet. A known sender address would not resolve the missing file.' : publicOriginal ? 'The confirmed public file role and receiving checks pass in this synthetic case. No second file is needed.' : 'Identity, roles and business content agree in this synthetic case. Different file formats and hashes are allowed; neither proves the match alone.');
+        textAt('hub-identity-result-title', conflict ? 'One review case · link held' : copyOnly ? 'One invoice · original pending' : 'One invoice · available to review');
+        textAt('hub-identity-result-copy', conflict ? 'Sage highlights the discrepancy. An authorised reviewer resolves the evidence; the customer is not asked to select a preferred file.' : copyOnly ? 'Show the labelled copy. Keep ERP delivery pending and explain why buyer actions are not enabled in this case.' : 'Show the invoice once, with the available files underneath. Actions use this invoice identity.');
+        textAt('hub-identity-record-key', `Sage reference: DEMO-RCV-001 · ${conflict ? 'candidate evidence review; files not linked' : copyOnly ? 'one provisional invoice' : 'one verified invoice in this demo'}`);
+        const badge = el('hub-identity-badge');
+        badge.className = `hub-state ${conflict ? 'is-error' : copyOnly ? '' : 'is-ready'}`;
+        badge.textContent = conflict ? 'Needs review' : copyOnly ? 'Original pending' : 'Original available';
+        textAt('hub-identity-total', conflict ? 'Amount needs review' : '€1,210.00');
+        textAt('hub-identity-erp', conflict ? 'Held · evidence conflict' : copyOnly ? 'Waiting for original' : 'Eligible after required checks');
+        textAt('hub-identity-guidance', conflict ? 'These files disagree. Sage has held the link and buyer actions. Next: receiving support reviews the discrepancy with the provider. Do not select or overwrite an amount.' : copyOnly ? 'You can view the public copy. Sage is waiting for the original through your ZeroComa connection. Contact receiving support to recover the original or confirm whether a specific action can proceed.' : identityDemo.arrived ? 'The later original passed the simulated matching checks. Sage kept DEMO-RCV-001, the public copy and earlier viewing history. No second invoice was created.' : 'Sage presents one invoice. Use its business actions below; choose a file only when viewing supporting content.');
+        el('hub-identity-arrival').hidden = !copyOnly;
+        textAt('hub-identity-files-title', conflict ? 'Candidate source files · relationship not verified' : `Available files · ${publicOriginal || copyOnly ? '1' : '2'}`);
+        textAt('hub-identity-file-help', conflict ? 'Both observations belong to this customer in the demo. Safe file inspection remains available; neither file is selected as the authoritative amount.' : 'The files support this invoice. Viewing a file does not accept, reject or pay it.');
+        el('hub-identity-original-file').hidden = !original;
+        el('hub-identity-copy-file').hidden = publicOriginal;
+        textAt('hub-identity-original-meta', `Saved from ${publicOriginal ? 'SPFE · public-original reference DEMO-SPFE-019' : 'ZeroComa · private-source reference DEMO-ZC-027'} · ${conflict ? '€1,240.00' : '€1,210.00'}`);
+        const preview = el('hub-identity-preview');
+        preview.hidden = !identityDemo.viewed;
+        if (identityDemo.viewed) preview.textContent = `${identityDemo.viewed === 'copy' ? 'Faithful copy · SPFE · €1,210.00' : `Original · ${publicOriginal ? 'SPFE' : 'ZeroComa'} · ${conflict ? '€1,240.00' : '€1,210.00'}`} · INV-123 · Olivo Supplies S.L. → Costa Retail S.L. · 17 November 2026. Synthetic file metadata preview; the invoice decision is unchanged.`;
+        textAt('hub-identity-eligibility', conflict ? 'Actions unavailable: receiving support must resolve the conflicting evidence.' : copyOnly ? 'Actions are not enabled for this copy-only case. Whether a specific action can proceed still needs confirmation; viewing the copy does not make a business decision.' : 'You can act on INV-123 in this simulated case. Your authority, the invoice evidence and the required checks are assumed to be confirmed.');
+        el('hub-identity-reject').disabled = !qualified || Boolean(action);
+        el('hub-identity-pay').disabled = !qualified || Boolean(action);
+        textAt('hub-identity-decision', action === 'reject' ? 'Buyer rejected INV-123 · demo reason: invoice disputed' : action === 'payment' ? 'Full payment recorded · €1,210.00 · 18 November 2026' : 'No decision recorded');
+        textAt('hub-identity-private-result', !action ? 'No report sent' : publicOriginal ? 'Not used for this public-exchange demo' : 'Successful via receiving connection · simulated');
+        textAt('hub-identity-public-result', !action ? 'No report sent' : identityDemo.publicReported ? 'Successful · simulated' : 'Pending · simulated');
+        el('hub-identity-report').hidden = !action;
+        el('hub-identity-report').disabled = !action || identityDemo.publicReported;
+        textAt('hub-identity-action-feedback', action ? `One ${action === 'reject' ? 'rejection decision' : 'payment fact'} is recorded for INV-123. ${identityDemo.publicReported ? 'Public reporting is complete in this demo. The earlier private result was not repeated.' : 'Its public report is pending; the saved business fact remains recorded.'}` : 'Viewing a file leaves the business decision unchanged.');
+        const audit = el('hub-identity-audit');
+        audit.replaceChildren();
+        (identityDemo.audit.length ? identityDemo.audit : ['Independent synthetic case selected. No external requests or decisions have been made.']).forEach(message => { const li = document.createElement('li'); li.textContent = message; audit.append(li); });
+      }
+      root.addEventListener('change', event => {
+        if (event.target.id !== 'hub-identity-case') return;
+        Object.assign(identityDemo, { scenario: event.target.value, arrived: false, decision: '', publicReported: false, viewed: '', audit: [] });
+        renderIdentity();
+      });
+      root.addEventListener('click', event => {
+        const button = event.target.closest('button');
+        if (!button || button.disabled) return;
+        const id = button.id;
+        if (id === 'hub-identity-arrival' && identityDemo.scenario === 'copy' && !identityDemo.arrived) {
+          identityDemo.arrived = true;
+          identityDemo.audit.push('Original obtained through the simulated ZeroComa receiving path. Demo identity, role and content checks passed. Linked to existing DEMO-RCV-001; preserved copy and viewing history.');
+        } else if (id === 'hub-identity-view-original' || id === 'hub-identity-view-copy') {
+          const file = id === 'hub-identity-view-copy' ? 'copy' : 'original';
+          if ((file === 'original' && !identityQualified() && identityDemo.scenario !== 'conflict') || (file === 'copy' && identityDemo.scenario === 'public')) return;
+          identityDemo.viewed = file;
+          identityDemo.audit.push(`Viewed ${file} metadata. No business decision or communication created.`);
+        } else if ((id === 'hub-identity-reject' || id === 'hub-identity-pay') && identityQualified() && !identityDemo.decision) {
+          identityDemo.decision = id === 'hub-identity-reject' ? 'reject' : 'payment';
+          identityDemo.audit.push(`Recorded one ${identityDemo.decision === 'reject' ? 'rejection' : 'full-payment fact'} against DEMO-RCV-001 in the qualified-action simulation. Public report pending; private communication ${identityDemo.scenario === 'public' ? 'not used' : 'simulated successful'}. Reporting ownership is an assumption in this demo.`);
+        } else if (id === 'hub-identity-report' && identityDemo.decision && !identityDemo.publicReported) {
+          identityDemo.publicReported = true;
+          identityDemo.audit.push('Simulated completion of the pending public report. Business fact and earlier private result unchanged; no second decision or private communication created.');
+        } else return;
+        renderIdentity();
+      });
+
+      function renderAll() { renderView(); renderMap(); renderJourney(); renderOnboarding(); renderExchange(); renderFields(); renderWorkspace(); renderIdentity(); }
 
       root.addEventListener('click', event => {
         const view = event.target.closest('[data-view]');
@@ -2477,7 +2640,7 @@
       window.addEventListener('openai:set_globals', event => {
         const incoming = event.detail && event.detail.globals && event.detail.globals.widgetState && event.detail.globals.widgetState.modelContent;
         if (!incoming) return;
-        if (['map','journey','onboarding','exchange','example','switch','fields'].includes(incoming.view)) state.view = incoming.view;
+        if (['map','journey','onboarding','exchange','example','invoice-record','switch','fields'].includes(incoming.view)) state.view = incoming.view;
         if (['public','private','sage','accountant'].includes(incoming.mapRoute)) state.mapRoute = incoming.mapRoute;
         if (journey[incoming.journeyStage]) state.journeyStage = incoming.journeyStage;
         if (['single','batch'].includes(incoming.onboardMode)) state.onboardMode = incoming.onboardMode;

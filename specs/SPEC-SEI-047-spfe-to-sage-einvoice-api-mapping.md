@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-11-17
-updated: 2026-11-17
+updated: 2026-11-18
 reviewers: []
 related:
   - RES-SEI-002
@@ -18,6 +18,7 @@ related:
   - SPEC-SEI-041
   - SPEC-SEI-042
   - SPEC-SEI-043
+  - SPEC-SEI-024
   - FP-SEI-002
 confluence:
   publish: false
@@ -37,7 +38,7 @@ In the table, `{invoices}` means `/datasets/{datasetId}/e-invoices`. Sage calls 
 
 | SPFE service / source | Actor and observable outcome | Existing Sage API or interaction | Spain mapping and authoritative detail |
 |---|---|---|---|
-| **01 — `SendInvoice`**; SPFE-S16 | Authorised sender submits the invoice or applicable public copy. | `POST {invoices}`; then `PUT {uploadUrl}` for each declared file. | Reuse the resource and upload pattern. Qualify UBL 2.5, document types, addresses, route selection and separate delivery/copy results. [SPEC-SEI-043 contract baseline and reuse assessment](invoice-sending/api-reference/SPEC-SEI-043-invoice-sending-api-reference.md#contract-baseline-and-reuse-assessment). |
+| **01 — `SendInvoice`**; SPFE-S16 | Authorised sender submits the invoice or applicable public copy. | `POST {invoices}`; then `PUT {uploadUrl}` for each declared file. | [SPEC-SEI-043 §1.2](invoice-sending/api-reference/SPEC-SEI-043-invoice-sending-api-reference.md#12-proposed-per-invoice-identities-and-platforms) owns request fields and platform-selection semantics; its [contract baseline and reuse assessment](invoice-sending/api-reference/SPEC-SEI-043-invoice-sending-api-reference.md#contract-baseline-and-reuse-assessment) owns sending-specific API changes and gaps. [SPEC-SEI-024 §2.2](invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions) owns delivery/copy interactions. |
 | **02 — `CancelInvoice`**; SPFE-S10 | Authorised actor withdraws an eligible earlier SPFE submission. | **No documented equivalent.** | A distinct issuer action on the existing resource is proposed; endpoint, payload and result remain undecided. [FP-SEI-002 analysis and proposed direction](../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#analysis-and-proposed-direction). |
 | **03 — `GetInvoices`**; SPFE-S14 | Authorised issuer or recipient queries SPFE metadata and states by invoice identity. | `GET {invoices}/{e-invoiceId}` exposes the saved invoice and history. | Qualify external-to-Sage identity and state mapping. SPFE consultation does not establish full lifecycle history. [SPEC-SEI-042 public source calls](invoice-receiving/api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#2-spain-public-source-calls) and [Retrieve contract](invoice-receiving/api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#ret-api-02). |
 | **04 — `GetRegisteredInvoice`**; SPFE-S15 | Authorised issuer or recipient discovers registered invoices using role/date filters. | `GET {invoices}` with qualified `filter` and `page[after]` values. | Reuse the list view after source collection. Qualify date meanings, freshness, coverage and independent SPFE continuation. [SPEC-SEI-042 Query contract](invoice-receiving/api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#ret-api-01) and [public source calls](invoice-receiving/api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#2-spain-public-source-calls). |

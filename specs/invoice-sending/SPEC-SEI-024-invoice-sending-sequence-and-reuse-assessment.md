@@ -13,6 +13,7 @@ related:
   - SPEC-SEI-022
   - SPEC-SEI-023
   - SPEC-SEI-043
+  - SPEC-SEI-047
   - SPEC-SEI-008
   - SPEC-SEI-009
   - SPEC-SEI-011
@@ -134,6 +135,8 @@ Reuse authority checks, operation history, notifications and reconciliation only
 
 ## 3 Existing operations and material contract gaps
 
+[SPEC-SEI-047 service mapping](../SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md#1-service-mapping) owns the cross-service SOAP-to-Sage API mapping. The table below assesses sending-specific reuse and engineering gaps.
+
 The preserved OpenAPI snapshot is the schema baseline for the France-oriented operations below (OpenAPI 3.1.0, info version 1.0.0). INT-SND01 is separate supplied guide evidence and contains points of conflict with that snapshot. Neither source establishes the deployed build or Spain capability. Preserve exact fields and values, label each source, and resolve conflicts before generating a client. INT-SND01/02.
 
 | Operation / source locator | Documented contract | Spain reuse assessment and functional coverage |
@@ -144,9 +147,7 @@ The preserved OpenAPI snapshot is the schema baseline for the France-oriented op
 | Status-updated webhook; step 4 | <span style="color:#666666;">Existing:</span> environment/access-point-specific `source` and event type prefix; `subject` is the e-invoice ID. Example contains `datasetid`, event `id` and nullable `data.errorCode`. | <span style="color:#1565C0;">Proposed reuse:</span> observation for OUT-13–15; not a dispatch command or success-only event. Verify authenticity and scope, deduplicate, then read the authoritative result. <span style="color:#B42318;">Open:</span> delivery/order/freshness semantics. SND-G05. |
 | `GET /datasets/{datasetId}/e-invoices/{e-invoiceId}`; step 5 | <span style="color:#666666;">Existing:</span> `200 OK`; status/history, files and `downloadUrl`. `operationStatus`: `IN_PROGRESS`, `COMPLETED`, `ERROR`. | <span style="color:#1565C0;">Proposed reuse:</span> observation using a retained ID. <span style="color:#B42318;">Open:</span> exact meaning of each source status and relation to delivery/copy need qualification. The overview's collection path is not evidence of a search-by-idempotency operation. SND-G04/05/07. |
 | Same GET with `format=facturx`; step 5 | <span style="color:#666666;">Existing:</span> can generate and persist a Factur-X/ZUGFeRD 2.3 hybrid; returns an existing hybrid without regeneration. | <span style="color:#1565C0;">Proposed reuse:</span> optional FR representation capability. Exclude from routine status observation. <span style="color:#B42318;">Open:</span> qualify Spain need, source preservation, mapping, concurrency and access before enabling. SND-G03. |
-| `SendInvoice`; SPFE-S16 | <span style="color:#666666;">Existing:</span> exact PRE SOAP 1.2/MIME binding; `SendInvoiceCertPort` or `SendInvoiceSealPort`. ebMS action `SUBMITINVOICE` is in SPFE-S03. | <span style="color:#1565C0;">Proposed reuse:</span> public execution candidate behind the Sage-facing contract. Transport certificate selection does not establish invoice-signing authority. Keep transport/SOAP, request result and each item result separate. SND-G02/06. |
-
-Public WSDL service addresses are `https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/SendInvoiceSOAP` and `https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/SendInvoiceSOAP`. They establish PRE contract locations only. Do not infer production addresses or live acceptance. SPFE-S16 service ports.
+| SPFE service 01 — `SendInvoice` | [SPEC-SEI-047 service mapping](../SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md#1-service-mapping) owns the operation mapping; [SPEC-SEI-011 source contract binding](../SPEC-SEI-011-public-platform-connector-solution-specification.md#spfe-source-contract-binding) owns exact transport and ports. | Qualify the sender-to-recipient paths and independent delivery/copy handoffs in §2.2 against the selected integration. SND-G02/05/06. |
 
 ### 3.1 Identity, routing and representation differences
 

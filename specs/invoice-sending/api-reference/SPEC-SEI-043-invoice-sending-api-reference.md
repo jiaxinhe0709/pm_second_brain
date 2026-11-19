@@ -10,6 +10,7 @@ updated: 2026-11-18
 reviewers: []
 related:
   - SPEC-SEI-024
+  - SPEC-SEI-047
   - SPEC-SEI-022
   - SPEC-SEI-023
   - GLO-SEI-001
@@ -32,6 +33,8 @@ confluence:
 This API view owns field-level detail, request/response examples and contract issues. The Spain request proposal carries sender and recipient NIFs in the existing address type/value pairs, with separate platform selection. Explicit sender selection replaces the earlier null/default proposal. Recipient-platform omission depends on qualified resolution. Functional rules remain in SPEC-SEI-023; sequences and reuse checks remain in SPEC-SEI-024. Spain values and the proposed recipient-platform field need API-owner review.
 
 ## Summary
+
+[SPEC-SEI-047 service mapping](../../SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md#1-service-mapping) owns the cross-service SPFE SOAP-to-Sage API mapping. This page owns Sending request/response fields, examples and contract changes.
 
 Reuse `POST /datasets/{datasetId}/e-invoices` for one invoice. [SPEC-SEI-023 OUT-00/10](../SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order) records the agreed ERP selection responsibility and proposed per-invoice information. Reuse `sender` and `recipient` address type/value pairs for NIFs and `accessPointId` for sender selection. Add a proposed recipient-platform property. [SPEC-SEI-024](../SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md) owns sequences and engineering qualification.
 
