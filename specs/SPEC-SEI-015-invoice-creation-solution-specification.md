@@ -299,6 +299,16 @@ Prepare a durable handoff record before calling sending. SPEC-SEI-007 receives t
 
 **IC-12 — Correction.** Before issuance, an authorised ERP edit creates a new immutable source revision linked to the earlier check. Recheck it; preserve old bytes and results. A final invoice-number collision or stale draft update requires an explicit conflict. After issuance, reject an attempted overwrite. The ERP starts a separately numbered corrective invoice or an eligible simplified-invoice replacement. Selecting a type does not itself update the original's lifecycle. Later relationship events are handled by the owning product/lifecycle service using issued evidence.
 
+<a id="proposed-rectification-modify"></a>
+
+> **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** — IC-12 “modify” extension: rectification of an issued invoice belongs to this feature. It creates a new, separately numbered rectifying invoice referencing the rectified invoice's original number in UBL. Reuse IC-04/05, Part 2 §§2/4 and the existing reference/method checks; do not duplicate their field mapping. The earlier issued content remains immutable. Drafts and delivery notes are not e-invoices; pre-issue editing is separate from rectification. SD-CANCEL01 C-3/C-4.
+
+> **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** - Independence and eligibility: cancellation is neither a prerequisite nor a required consequence of rectification. Apply the rectification column in the [SPEC-SEI-023 proposed eligibility table](invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#proposed-cancel-eligibility). Offer rectification for sent/pending, full rejection, acceptance and payment; offer it without requiring it for partial rejection. A technical rejection permits same-number correction/resend only for sending/routing data or format/UBL representation issues. If issued fiscal content is wrong (amounts, NIF or tax), do not edit it; create a new rectifying invoice. Never rectify a cancelled invoice. SD-CANCEL01 C-1/C-2/C-4/P-2.
+
+> **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** — Independent lifecycle: the rectifying invoice can be accepted, rejected and paid independently of the invoice it rectifies. Where fiscal correction is required after payment, the issuer still has that obligation; the recipient can reject the new invoice commercially. Keep both identities and histories; do not infer cancellation or reactivation of the earlier invoice from the new document. [SPEC-SEI-029 proposed states](invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#proposed-spain-invoice-states) owns state interpretation. SD-CANCEL01 P-2/P-4.
+
+> **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** — Reuse qualification: IC-04/05/12 remain shared design patterns with Spain type, method and reference rules. Existing DTS remains the preferred transformation candidate; qualify its actual build, mappings, rule packs and reference preservation for the selected Spain scope under SPEC-SEI-008. Neither existing correction prose nor a provider conversion proves implementation. Keep the proposed cancelled-invoice restriction and country rules isolated from other countries. SD-CANCEL01; IC-Q02/03/07/08.
+
 | Failure or race | Owner and required recovery |
 |---|---|
 | Same scoped request key and same input/bundle | Return the original operation and result. Within the agreed retry window, do not start a second transformation or handoff. |
@@ -608,6 +618,8 @@ Each code-table occurrence has a separate domain. The linked ledger preserves ev
 
 ## Part 4 Assurance and Traceability View
 
+> **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** — Extend IC-A03/04/07/10/17/21: exercise the proposed rectification eligibility column without requiring cancellation. Refuse rectification of cancelled invoices; retain their consumed fiscal number and final state. Check the new UBL's existing original-number reference mapping and separate identity. Accept, reject and pay the rectifying invoice without changing the rectified invoice's issued content or commercial/payment history. Preserve optional rectification after partial rejection, including no agreement and no new invoice. After technical rejection, verify same-number recovery only for sending/routing/representation issues; fiscal-content errors require a new rectifying invoice with the issued content unchanged. Verify actual DTS coverage and Spain/other-country isolation. SD-CANCEL01 C-1–C-4/P-2/P-4.
+
 ### 1 Acceptance and evidence matrix
 
 These are **required future acceptance scenarios**. They are not implementation tests claimed to have run. `R`, `INT` and `D` below use the `IC-` prefix. The activities refer to Part 1.5.
@@ -686,6 +698,7 @@ Use the original files for the claims they establish. Final published regulation
 
 | REF ID | Source and version | Exact location | Supported information and limit |
 |---|---|---|---|
+| **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** - SD-CANCEL01 | [FP-SEI-002 Solution Design source record](../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#ref-source-references), attribution 18 November 2026 | C-1 to C-5; P-1 to P-4 | Product/design input only; not external legal evidence, a contract extension or implementation proof. Preserve recorded source conflicts and qualify Spain separately. |
 | SPFE-S02 | [BOE-A-2026-20587.pdf](<../context/BOE-A-2026-20587.pdf>); Final order; published 5 October 2026. | Articles 3–6; Annex I pp. 13–34, BT-23/24 p. 14 | Final invoice fields, fixed identifiers, five types, copy and unique-code components. |
 | SPFE-S01 | [Anexo-1-Proyecto-OM-FE.pdf](<../context/Anexo I/20261013/Anexo-1-Proyecto-OM-FE.pdf>); Supplied 13 October 2026; SHA-256 in source manifest. | pp. 4–34, especially pp. 6 and 25–28 | Separate invoice field table and codes; exact binding and discrepancies need qualification. |
 | SPFE-S08 | [FormatosEntradaSalida.pdf](<../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>); 0.1.0; cover 9 October 2026. | section 5.1.1, p. 8 | UBL 2.5 InvoiceType, not CreditNote, for public invoice submission. |
