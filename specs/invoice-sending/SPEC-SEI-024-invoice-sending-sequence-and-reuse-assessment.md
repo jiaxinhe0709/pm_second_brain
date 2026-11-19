@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-18
+updated: 2026-11-19
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -112,6 +112,8 @@ The diagram covers private delivery with a required copy and direct public recip
 All four combinations remain subject to selected-build and end-to-end contract qualification. Follow the six-case public-route decision in [SPEC-SEI-023 OUT-09](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order); `PRIVATE_READY` and `PROVEN_NONE` keep their existing meanings. Public admission, product upload and notification arrival are distinct evidence levels. An unknown transfer/result holds the affected action under §2.3; it cannot trigger a second delivery route or a new copy. The applicable transitional PDF uses §3.3 independently of this table. OUT-A03–05/07/08; OUT-SPFE-A01/02; INT-SND01; SPFE-S02 Articles 3–5; SPFE-S16.
 
 ### 2.3 Missing or uncertain result
+
+This sequence expands an **E** recovery case from the [SPEC-SEI-022 sending overview](SPEC-SEI-022-invoice-sending-solution-summary.md#4-end-to-end-workflow): a missing or uncertain external result. [SPEC-SEI-023 — Exceptions, errors and recovery](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#exceptions-errors-and-recovery) also covers blocked inputs, readiness and other failure conditions.
 
 ![Observe original action and hold or recover without repeating success](../../assets/diagrams/invoice-sending-recovery-sequence.svg)
 

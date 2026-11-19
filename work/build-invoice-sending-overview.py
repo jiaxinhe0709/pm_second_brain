@@ -1,6 +1,6 @@
 """Generate SVG and PNG previews from the manually maintained Draw.io overview.
 
-Supports the text, rounded rectangles, diamond and straight connectors used here.
+Supports text, rounded rectangles, ellipses, diamonds and straight connectors.
 The Draw.io file is the source; this script never writes it.
 Run from any directory with the repository Python environment.
 """
@@ -41,6 +41,10 @@ def validate_model(document):
             raise ValueError(f'Draw.io cell {key} must belong to default layer 1')
         if cell.get('edge') == '1':
             for terminal in ('source','target'):
+                if cell.get(terminal) is None:
+                    point = cell.find(f"mxGeometry/mxPoint[@as='{terminal}Point']")
+                    if point is not None:
+                        continue
                 target = cells.get(cell.get(terminal))
                 if target is None or target.get('vertex') != '1':
                     raise ValueError(f'Draw.io connector {key} has an invalid {terminal}')
@@ -208,6 +212,8 @@ def build():
                 attrs = dict(fill=s.get('fillColor','#ffffff'),stroke=s.get('strokeColor','#000000'),stroke_width=s.get('strokeWidth',1))
                 if 'rhombus' in rawstyle:
                     element(group,'path',d=f'M {x+w/2},{y} L {x+w},{y+h/2} L {x+w/2},{y+h} L {x},{y+h/2} Z',**attrs)
+                elif 'ellipse' in rawstyle:
+                    element(group, 'ellipse', cx=x+w/2, cy=y+h/2, rx=w/2, ry=h/2, **attrs)
                 else:
                     radius = min(w,h)*float(s.get('arcSize',20))/200 if s.get('rounded')=='1' else 0
                     if s.get('dashed') == '1':

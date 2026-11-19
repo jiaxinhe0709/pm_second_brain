@@ -121,6 +121,8 @@ These rules also apply when the structured invoice uses the public route. [SEI04
 
 ### Exceptions, errors and recovery
 
+The **E** markers in the [SPEC-SEI-022 sending overview](SPEC-SEI-022-invoice-sending-solution-summary.md#4-end-to-end-workflow) refer to the decisions in this section.
+
 Use the evidence of a possible external effect to select the next step. An error label alone cannot establish that repeating a request is safe. These decisions apply to the existing activities for both the business user and an authorised accountant; they do not require batch sending.
 
 | Condition | Required decision and next owner | Acceptance / contract gate |

@@ -1,353 +1,481 @@
 <mxfile host="65bd71144e">
     <diagram id="invoice-sending-end-to-end-workflow" name="End-to-end sending overview">
-        <mxGraphModel dx="883" dy="685" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2480" pageHeight="1690" math="0" shadow="0">
+        <mxGraphModel dx="894" dy="687" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2630" pageHeight="2560" math="0" shadow="0">
             <root>
-                <mxCell id="0"/>
-                <mxCell id="1" parent="0"/>
+                <mxCell id="0" />
+                <mxCell id="1" parent="0" />
                 <object label="" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="spfe-tbc-boundary">
                     <mxCell parent="1" style="rounded=0;fillColor=none;strokeColor=#c62828;strokeWidth=2;dashed=1;dashPattern=11 7;" vertex="1">
-                        <mxGeometry height="280" width="1615" x="1090" y="1065" as="geometry"/>
+                        <mxGeometry height="700" width="760" x="2010" y="1355" as="geometry" />
                     </mxCell>
                 </object>
                 <mxCell id="invoice-to-sender-choice" edge="1" parent="1" source="invoice" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="choose-sender-platform" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="sender-to-recipient-choice" edge="1" parent="1" source="choose-sender-platform" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="indicate-recipient-platform" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="recipient-to-certificate-choice" edge="1" parent="1" source="indicate-recipient-platform" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="choose-sending-certificate" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="certificate-choice-to-ready" edge="1" parent="1" source="choose-sending-certificate" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="ready" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="edge-3" edge="1" parent="1" source="ready" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="route" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="setup-to-sender-choice" edge="1" parent="1" source="connected-access-points" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" target="choose-sender-platform" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="recipient-resolution-context" edge="1" parent="1" source="indicate-recipient-platform" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="action-note" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="route-to-private" edge="1" parent="1" source="route" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="private-platform-a" value="">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                <mxCell id="route-to-private" edge="1" parent="1" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="private-platform-a" value="">
+                    <mxGeometry relative="1" x="0.2963" as="geometry">
+                        <mxPoint as="offset" />
                         <Array as="points">
-                            <mxPoint x="870" y="1135"/>
-                            <mxPoint x="870" y="475"/>
+                            <mxPoint x="1300" y="1330" />
+                            <mxPoint x="390" y="1330" />
+                            <mxPoint x="390" y="1360" />
+                        </Array>
+                        <mxPoint x="1300" y="1270" as="sourcePoint" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="route-to-public" edge="1" parent="1" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="public" value="">
+                    <mxGeometry relative="1" x="-0.0986" as="geometry">
+                        <mxPoint as="offset" />
+                        <Array as="points">
+                            <mxPoint x="1300" y="1330" />
+                            <mxPoint x="1300" y="1390" />
+                        </Array>
+                        <mxPoint x="1300" y="1270" as="sourcePoint" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="route-to-private-spfe" edge="1" parent="1" source="route" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitDx=0;exitDy=0;" target="private-spfe-submit" value="">
+                    <mxGeometry relative="1" x="-0.1487" as="geometry">
+                        <mxPoint as="offset" />
+                        <Array as="points">
+                            <mxPoint x="1300" y="1330" />
+                            <mxPoint x="2020" y="1330" />
+                            <mxPoint x="2210" y="1330" />
+                        </Array>
+                        <mxPoint x="1300" y="1270" as="sourcePoint" />
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="private-to-delivery" edge="1" parent="1" source="private-platform-a" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="private" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint as="offset" />
+                        <Array as="points">
+                            <mxPoint x="390" y="1595" />
+                            <mxPoint x="570" y="1595" />
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="route-to-public" edge="1" parent="1" source="route" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="public" value="">
-                    <mxGeometry relative="1" x="-0.0029" as="geometry">
-                        <mxPoint as="offset"/>
+                <mxCell id="private-to-copy" edge="1" parent="1" source="private-platform-a" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="copy" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint as="offset" />
                         <Array as="points">
-                            <mxPoint x="870" y="1135"/>
-                            <mxPoint x="870" y="875"/>
+                            <mxPoint x="390" y="1595" />
+                            <mxPoint x="210" y="1595" />
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="route-to-private-spfe" edge="1" parent="1" source="route" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="private-spfe-submit" value="">
-                    <mxGeometry relative="1" x="-0.0596" as="geometry">
-                        <mxPoint as="offset"/>
-                        <Array as="points">
-                            <mxPoint x="870" y="1135"/>
-                            <mxPoint x="870" y="1225"/>
-                        </Array>
+                <mxCell id="delivery-observation" edge="1" parent="1" source="private" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="private-delivery-result" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="private-to-delivery" edge="1" parent="1" source="private-platform-a" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="private" value="">
+                <mxCell id="copy-observation" edge="1" parent="1" source="copy" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="public-copy-result" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
-                        <Array as="points">
-                            <mxPoint x="1460" y="475"/>
-                            <mxPoint x="1460" y="375"/>
-                        </Array>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="private-to-copy" edge="1" parent="1" source="private-platform-a" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="copy" value="">
+                <mxCell id="public-to-spfe" edge="1" parent="1" source="public" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="spfe-direct-intake" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
-                        <Array as="points">
-                            <mxPoint x="1460" y="475"/>
-                            <mxPoint x="1460" y="595"/>
-                        </Array>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="delivery-observation" edge="1" parent="1" source="private" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="private-delivery-result" value="">
+                <mxCell id="public-observation" edge="1" parent="1" source="spfe-direct-intake" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="public-submission-result" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="copy-observation" edge="1" parent="1" source="copy" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="public-copy-result" value="">
+                <mxCell id="private-spfe-handoff" edge="1" parent="1" source="private-spfe-submit" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="spfe-interconnection-intake" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="public-to-spfe" edge="1" parent="1" source="public" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="spfe-direct-intake" value="">
+                <mxCell id="interconnection-observation" edge="1" parent="1" source="spfe-interconnection-intake" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="interconnection-result" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="public-observation" edge="1" parent="1" source="spfe-direct-intake" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="public-submission-result" value="">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="private-spfe-handoff" edge="1" parent="1" source="private-spfe-submit" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.6;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="spfe-interconnection-intake" value="">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="interconnection-observation" edge="1" parent="1" source="spfe-interconnection-intake" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="interconnection-result" value="">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="private-context-handoff" edge="1" parent="1" source="private" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="private-recipient-context" value="">
-                    <mxGeometry relative="1" x="0.025" as="geometry">
-                        <mxPoint as="offset"/>
-                        <Array as="points">
-                            <mxPoint x="1920" y="375"/>
-                            <mxPoint x="1920" y="290"/>
-                            <mxPoint x="2110" y="290"/>
-                            <mxPoint x="2290" y="290"/>
-                            <mxPoint x="2290" y="375"/>
-                        </Array>
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="public-context-handoff" edge="1" parent="1" source="spfe-direct-intake" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="public-recipient-context" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
-                        <Array as="points">
-                            <mxPoint x="1920" y="875"/>
-                            <mxPoint x="1920" y="790"/>
-                            <mxPoint x="2290" y="790"/>
-                            <mxPoint x="2290" y="875"/>
-                        </Array>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="interconnection-context-handoff" edge="1" parent="1" source="spfe-interconnection-intake" style="edgeStyle=none;html=0;fontSize=15;strokeColor=#555555;strokeWidth=1.4;endArrow=block;endFill=1;endSize=9;endSpacing=2;startArrow=none;dashed=1;dashPattern=6 4;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="spfe-recipient-context" value="">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint as="offset"/>
-                        <Array as="points">
-                            <mxPoint x="1920" y="1225"/>
-                            <mxPoint x="1920" y="1140"/>
-                            <mxPoint x="2290" y="1140"/>
-                            <mxPoint x="2290" y="1225"/>
-                        </Array>
+                        <mxPoint as="offset" />
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="title" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=30;fontColor=#222222;" value="Invoice sending: UBL invoice routes" vertex="1">
-                    <mxGeometry height="45" width="2360" x="50" y="25" as="geometry"/>
+                <mxCell id="edge-exception-invoice" parent="1" edge="1" source="invoice" target="exception-invoice" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
                 </mxCell>
-                <mxCell id="legend" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=17;fontColor=#222222;" value="Solid arrows: sending steps · Dashed arrows: observations / conditional context · Red dashed frame: TBC" vertex="1">
-                    <mxGeometry height="32" width="2360" x="50" y="78" as="geometry"/>
+                <mxCell id="edge-exception-choose-sender-platform" parent="1" edge="1" source="choose-sender-platform" target="exception-choose-sender-platform" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-indicate-recipient-platform" parent="1" edge="1" source="indicate-recipient-platform" target="exception-indicate-recipient-platform" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-choose-sending-certificate" parent="1" edge="1" source="choose-sending-certificate" target="exception-choose-sending-certificate" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-ready" parent="1" edge="1" source="ready" target="exception-ready" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-route" parent="1" edge="1" source="route" target="exception-route" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-connected-access-points" parent="1" edge="1" source="connected-access-points" target="exception-connected-access-points" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-pdf" parent="1" edge="1" source="pdf" target="exception-pdf" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-private-platform-a" parent="1" edge="1" source="private-platform-a" target="exception-private-platform-a" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-private" parent="1" edge="1" source="private" target="exception-private" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-copy" parent="1" edge="1" source="copy" target="exception-copy" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-public" parent="1" edge="1" source="public" target="exception-public" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-spfe-direct-intake" parent="1" edge="1" source="spfe-direct-intake" target="exception-spfe-direct-intake" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-private-spfe-submit" parent="1" edge="1" source="private-spfe-submit" target="exception-private-spfe-submit" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-spfe-interconnection-intake" parent="1" edge="1" source="spfe-interconnection-intake" target="exception-spfe-interconnection-intake" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-private-delivery-result" parent="1" edge="1" source="private-delivery-result" target="exception-private-delivery-result" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-public-copy-result" parent="1" edge="1" source="public-copy-result" target="exception-public-copy-result" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-public-submission-result" parent="1" edge="1" source="public-submission-result" target="exception-public-submission-result" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="edge-exception-interconnection-result" parent="1" edge="1" source="interconnection-result" target="exception-interconnection-result" value="" style="edgeStyle=none;html=0;strokeColor=#555555;strokeWidth=1.2;dashed=1;dashPattern=2 2;endArrow=block;endFill=1;endSize=4;exitX=1;exitY=0.18;entryX=0;entryY=0.5;">
+                    <mxGeometry relative="1" as="geometry" />
+                </mxCell>
+                <mxCell id="title" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=30;fontColor=#222222;" value="Invoice sending: UBL invoice routes" vertex="1">
+                    <mxGeometry height="45" width="2500" x="50" y="25" as="geometry" />
+                </mxCell>
+                <mxCell id="legend" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=17;fontColor=#222222;" value="Solid arrows: sending steps · Dashed arrows: observations / conditional context · Red dashed frame: TBC · E: blocked or uncertain work; see E recovery note below." vertex="1">
+                    <mxGeometry height="32" width="2500" x="50" y="78" as="geometry" />
                 </mxCell>
                 <mxCell id="private-route-label" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=20;fontColor=#222222;" value="PRIVATE EXCHANGE · INDEPENDENT ACTIONS" vertex="1">
-                    <mxGeometry height="35" width="780" x="1120" y="240" as="geometry"/>
+                    <mxGeometry height="100" width="200" x="170" y="1330" as="geometry" />
                 </mxCell>
-                <object label="Existing setup&#xa;Connected platforms available for sending" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#20-check-connected-access-points" id="connected-access-points">
+                <object label="Existing setup&#10;Connected platforms available for sending" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#20-check-connected-access-points" id="connected-access-points">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#FAFAFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="130" width="250" x="470" y="385" as="geometry"/>
+                        <mxGeometry height="120" width="350" x="1630" y="405" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="1. Provide final UBL invoice&#xa;XML file and final candidate or issued proof" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="invoice">
+                <object label="1. Provide final UBL invoice&#10;XML file and final candidate or issued proof" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="invoice">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="130" width="360" x="50" y="220" as="geometry"/>
+                        <mxGeometry height="120" width="520" x="1040" y="240" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="5. Confirm sending readiness&#xa;Check the selected platform pair, certificate, authority and final files." link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="ready">
+                <object label="5. Confirm sending readiness&#10;Check the selected platform pair, certificate, authority and final files." link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="ready">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="145" width="360" x="50" y="880" as="geometry"/>
+                        <mxGeometry height="125" width="520" x="1040" y="910" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="6. Execute&#xa;selected route" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="route">
+                <object label="6. Execute&#10;selected  sending route" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="route">
                     <mxCell parent="1" style="rhombus;whiteSpace=wrap;html=0;fontSize=18;spacing=12;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="150" width="250" x="105" y="1060" as="geometry"/>
+                        <mxGeometry height="140" width="280" x="1160" y="1080" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="Deliver UBL invoice&#xa;Within platform A or to the indicated platform B" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="private">
+                <object label="Deliver UBL invoice&#10;Within platform A or to the indicated platform B" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="private">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="120" width="380" x="1500" y="315" as="geometry"/>
+                        <mxGeometry height="160" width="320" x="410" y="1630" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="Submit faithful UBL copy to SPFE&#xa;From complete UBL; selected private platform submits. Capability TBC." link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="copy">
+                <object label="Submit faithful UBL copy to SPFE&#10;From complete UBL; selected private platform submits. Capability TBC." link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="copy">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="120" width="380" x="1500" y="535" as="geometry"/>
+                        <mxGeometry height="160" width="320" x="50" y="1630" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="Selected sender platform: SPFE&#xa;Submit original UBL invoice" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="public">
+                <object label="Selected sender platform: SPFE&#10;Submit original UBL invoice" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="public">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="120" width="300" x="1120" y="815" as="geometry"/>
+                        <mxGeometry height="120" width="320" x="1140" y="1440" as="geometry" />
                     </mxCell>
                 </object>
                 <object label="Keep delivery, faithful-copy and PDF results separate. SPFE admission alone does not prove recipient delivery." link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="results">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#FAFAFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="70" width="1560" x="1120" y="1565" as="geometry"/>
+                        <mxGeometry height="80" width="2500" x="50" y="2120" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="Required PDF · local product&#xa;Send through a qualified recipient channel, separately from the UBL action. Never send this PDF to SPFE." link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="pdf">
+                <object label="Required PDF · local product&#10;Send through a qualified recipient channel, separately from the UBL action. Never send this PDF to SPFE." link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="pdf">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="120" width="670" x="50" y="1460" as="geometry"/>
+                        <mxGeometry height="165" width="450" x="420" y="565" as="geometry" />
                     </mxCell>
                 </object>
                 <mxCell id="issuance-note" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=18;fontColor=#222222;" value="ERP owns issuance. Coordinate a required faithful copy with issuance, independently of private delivery success (OUT-Q03)." vertex="1">
-                    <mxGeometry height="40" width="2360" x="50" y="1610" as="geometry"/>
+                    <mxGeometry height="60" width="2500" x="50" y="2240" as="geometry" />
                 </mxCell>
-                <mxCell id="action-note" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#FAFAFA;strokeColor=#555555;strokeWidth=1.5;dashed=1;dashPattern=6 4;" value="If the recipient platform is omitted&#xa;Use qualified resolution only(SPFE); otherwise hold sending." vertex="1">
-                    <mxGeometry height="130" width="250" x="470" y="550" as="geometry"/>
+                <mxCell id="action-note" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#FAFAFA;strokeColor=#555555;strokeWidth=1.5;dashed=1;dashPattern=6 4;" value="If the recipient platform is omitted&#10;Use qualified resolution only(SPFE); otherwise hold sending." vertex="1">
+                    <mxGeometry height="130" width="350" x="1630" y="565" as="geometry" />
                 </mxCell>
-                <mxCell id="exception-note" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;align=left;" value="If sending is blocked or uncertain&#xa;Hold the affected action, preserve known results and return an owned next step. Reconcile before retry; do not switch platforms automatically." vertex="1">
-                    <mxGeometry height="85" width="2360" x="50" y="1670" as="geometry"/>
+                <mxCell id="exception-note" parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;align=left;" value="E · If sending is blocked or uncertain&#10;Hold the affected action, preserve known results and return an owned next step. Reconcile before retry; do not switch platforms automatically." vertex="1">
+                    <mxGeometry height="100" width="2500" x="50" y="2330" as="geometry" />
                 </mxCell>
                 <mxCell id="footer-0" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=17;fontColor=#222222;" value="UBL = Universal Business Language in XML format. Detailed sending rules and PDF applicability: SPEC-SEI-023 / PRD-SEI-246." vertex="1">
-                    <mxGeometry height="35" width="2360" x="50" y="1810" as="geometry"/>
+                    <mxGeometry height="45" width="2500" x="50" y="2520" as="geometry" />
                 </mxCell>
                 <object label="DIRECT SPFE SUBMISSION" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions" id="public-route-label">
                     <mxCell parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=20;fontColor=#222222;" vertex="1">
-                        <mxGeometry height="35" width="1160" x="1120" y="745" as="geometry"/>
+                        <mxGeometry height="50" width="170" x="1130" y="1340" as="geometry" />
                     </mxCell>
                 </object>
                 <object label="TBC · PRIVATE PLATFORM A SUBMITS THROUGH SPFE" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions" id="spfe-route-label">
                     <mxCell parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=20;fontColor=#222222;" vertex="1">
-                        <mxGeometry height="40" width="1160" x="1120" y="1085" as="geometry"/>
+                        <mxGeometry height="60" width="330" x="2430" y="1380" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="Selected private platform A&#xa;Receives the UBL invoice" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions" id="private-platform-a">
+                <object label="Selected private platform A&#10;Receives the UBL invoice" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions" id="private-platform-a">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="120" width="300" x="1120" y="415" as="geometry"/>
+                        <mxGeometry height="120" width="400" x="190" y="1440" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="Private delivery result&#xa;Confirmed, failed or pending" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="private-delivery-result">
+                <object label="Private delivery result&#10;Confirmed, failed or pending" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="private-delivery-result">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="120" width="300" x="1960" y="315" as="geometry"/>
+                        <mxGeometry height="120" width="320" x="410" y="1890" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="Public-copy result&#xa;Track and recover separately" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="public-copy-result">
+                <object label="Public-copy result&#10;Track and recover separately" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="public-copy-result">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="120" width="300" x="1960" y="535" as="geometry"/>
+                        <mxGeometry height="120" width="320" x="50" y="1890" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="Indicated recipient platform&#xa;Platform A → recipient&#xa;or platform B → recipient" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios" id="private-recipient-context">
+                <object label="Indicated recipient platform&#10;Platform A → recipient&#10;or platform B → recipient" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios" id="private-recipient-context">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#FAFAFA;strokeColor=#555555;strokeWidth=1.5;dashed=1;dashPattern=6 4;" vertex="1">
-                        <mxGeometry height="150" width="330" x="2350" y="300" as="geometry"/>
+                        <mxGeometry height="160" width="300" x="770" y="1630" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="SPFE receives original UBL&#xa;No separate faithful copy" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions" id="spfe-direct-intake">
+                <object label="SPFE receives original UBL&#10;No separate faithful copy" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions" id="spfe-direct-intake">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="120" width="380" x="1500" y="815" as="geometry"/>
+                        <mxGeometry height="160" width="320" x="1140" y="1630" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="SPFE submission result&#xa;Record admission evidence" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="public-submission-result">
+                <object label="SPFE submission result&#10;Record admission evidence" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="public-submission-result">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="120" width="300" x="1960" y="815" as="geometry"/>
+                        <mxGeometry height="120" width="320" x="1140" y="1890" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="Indicated recipient platform&#xa;SPFE, or platform B retrieves UBL → recipient&#xa;Transfer capability TBC" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios" id="public-recipient-context">
+                <object label="Indicated recipient platform&#10;SPFE, or platform B retrieves UBL → recipient&#10;Transfer capability TBC" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios" id="public-recipient-context">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#FAFAFA;strokeColor=#555555;strokeWidth=1.5;dashed=1;dashPattern=6 4;" vertex="1">
-                        <mxGeometry height="150" width="330" x="2350" y="800" as="geometry"/>
+                        <mxGeometry height="160" width="290" x="1500" y="1630" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="Selected private platform A&#xa;Submit original UBL to SPFE&#xa;Handoff capability TBC" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions" id="private-spfe-submit">
+                <object label="Selected private platform A&#10;Submit original UBL to SPFE&#10;Handoff capability TBC" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions" id="private-spfe-submit">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="120" width="300" x="1120" y="1165" as="geometry"/>
+                        <mxGeometry height="120" width="340" x="2040" y="1440" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="SPFE receives original UBL&#xa;Original exchange; no extra faithful copy" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions" id="spfe-interconnection-intake">
+                <object label="SPFE receives original UBL&#10;Original exchange; no extra faithful copy" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions" id="spfe-interconnection-intake">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="120" width="380" x="1500" y="1165" as="geometry"/>
+                        <mxGeometry height="160" width="340" x="2040" y="1630" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="SPFE submission result&#xa;Record admission evidence" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="interconnection-result">
+                <object label="SPFE submission result&#10;Record admission evidence" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="interconnection-result">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#F0EBFA;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="120" width="300" x="1960" y="1165" as="geometry"/>
+                        <mxGeometry height="120" width="340" x="2040" y="1890" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="Indicated recipient platform&#xa;SPFE, or platform B retrieves UBL → recipient&#xa;Transfer capability TBC" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios" id="spfe-recipient-context">
+                <object label="Indicated recipient platform&#10;SPFE, or platform B retrieves UBL → recipient&#10;Transfer capability TBC" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios" id="spfe-recipient-context">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#FAFAFA;strokeColor=#555555;strokeWidth=1.5;dashed=1;dashPattern=6 4;" vertex="1">
-                        <mxGeometry height="150" width="330" x="2350" y="1150" as="geometry"/>
+                        <mxGeometry height="160" width="320" x="2420" y="1630" as="geometry" />
                     </mxCell>
                 </object>
                 <object label="ACTION RESULTS" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="sender-boundary-label">
                     <mxCell parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=20;fontColor=#222222;" vertex="1">
-                        <mxGeometry height="35" width="300" x="1960" y="240" as="geometry"/>
-                    </mxCell>
-                </object>
-                <object label="RECIPIENT ACCESS&#xa;Context only" link="../../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios" id="recipient-context-label">
-                    <mxCell parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=20;fontColor=#222222;" vertex="1">
-                        <mxGeometry height="70" width="330" x="2350" y="110" as="geometry"/>
+                        <mxGeometry height="35" width="300" x="800" y="1835" as="geometry" />
                     </mxCell>
                 </object>
                 <object label="" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="sending-boundary">
                     <mxCell parent="1" style="rounded=0;fillColor=#aaaaaa;strokeColor=none;" vertex="1">
-                        <mxGeometry height="1030" width="1" x="2310" y="300" as="geometry"/>
-                    </mxCell>
-                </object>
-                <object label="Sending actions and results below. Recipient access on the right is context only." link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="scope-note">
-                    <mxCell parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=18;fontColor=#222222;" vertex="1">
-                        <mxGeometry height="40" width="1560" x="1120" y="190" as="geometry"/>
+                        <mxGeometry height="1" width="2500" x="50" y="2080" as="geometry" />
                     </mxCell>
                 </object>
                 <object label="TBC: provider handoffs, public-copy capability and result reporting require qualification (SND-G02/05/06)." link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions" id="qualification-note">
                     <mxCell parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=17;fontColor=#222222;" vertex="1">
-                        <mxGeometry height="35" width="2360" x="50" y="1770" as="geometry"/>
+                        <mxGeometry height="45" width="2500" x="50" y="2460" as="geometry" />
                     </mxCell>
                 </object>
                 <mxCell id="colour-customer" parent="1" style="rounded=0;fillColor=#E6F4F1;strokeColor=#999999;" value="" vertex="1">
-                    <mxGeometry height="16" width="16" x="50" y="126" as="geometry"/>
+                    <mxGeometry height="16" width="16" x="50" y="126" as="geometry" />
                 </mxCell>
                 <mxCell id="colour-customer-label" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=16;fontColor=#222222;" value="Customer actions / ERP" vertex="1">
-                    <mxGeometry height="30" width="460" x="77" y="119" as="geometry"/>
+                    <mxGeometry height="30" width="300" x="77" y="119" as="geometry" />
                 </mxCell>
                 <mxCell id="colour-sending" parent="1" style="rounded=0;fillColor=#F0EBFA;strokeColor=#999999;" value="" vertex="1">
-                    <mxGeometry height="16" width="16" x="410" y="126" as="geometry"/>
+                    <mxGeometry height="16" width="16" x="410" y="126" as="geometry" />
                 </mxCell>
                 <mxCell id="colour-sending-label" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=16;fontColor=#222222;" value="Sending and checks" vertex="1">
-                    <mxGeometry height="30" width="460" x="437" y="119" as="geometry"/>
+                    <mxGeometry height="30" width="280" x="437" y="119" as="geometry" />
                 </mxCell>
                 <mxCell id="colour-notes" parent="1" style="rounded=0;fillColor=#FAFAFA;strokeColor=#999999;" value="" vertex="1">
-                    <mxGeometry height="16" width="16" x="750" y="126" as="geometry"/>
+                    <mxGeometry height="16" width="16" x="750" y="126" as="geometry" />
                 </mxCell>
                 <mxCell id="colour-notes-label" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=16;fontColor=#222222;" value="Existing setup / notes / context" vertex="1">
-                    <mxGeometry height="30" width="460" x="777" y="119" as="geometry"/>
+                    <mxGeometry height="30" width="430" x="777" y="119" as="geometry" />
                 </mxCell>
                 <mxCell id="colour-meaning" parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=16;fontColor=#222222;" value="Colours group activities; they do not show implementation readiness." vertex="1">
-                    <mxGeometry height="30" width="1140" x="1270" y="119" as="geometry"/>
+                    <mxGeometry height="30" width="1280" x="1270" y="119" as="geometry" />
                 </mxCell>
-                <object label="4. Choose sending certificate (or ERP set the default)&#xa;Any eligible certificate, including one different from onboarding; where required." link="../../specs/SPEC-SEI-001-certificate-management-solution-specification.md#6-cert-0405-validate-trust-and-calculate-scoped-readiness" id="choose-sending-certificate">
+                <object label="4. Choose sending certificate (or ERP set the default)&#10;Any eligible certificate, including one different from onboarding; where required." link="../../specs/SPEC-SEI-001-certificate-management-solution-specification.md#6-cert-0405-validate-trust-and-calculate-scoped-readiness" id="choose-sending-certificate">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="130" width="360" x="50" y="715" as="geometry"/>
+                        <mxGeometry height="130" width="520" x="1040" y="735" as="geometry" />
                     </mxCell>
                 </object>
                 <object label="CUSTOMER / ERP INPUTS" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="customer-journey-label">
                     <mxCell parent="1" style="text;html=0;whiteSpace=wrap;align=left;spacing=0;fontSize=21;fontColor=#222222;" vertex="1">
-                        <mxGeometry height="40" width="670" x="50" y="165" as="geometry"/>
+                        <mxGeometry height="40" width="520" x="1040" y="190" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="2. Choose sender platform&#xa;Customer selects one connected, ready sending platform for this invoice." link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="choose-sender-platform">
+                <object label="2. Choose sender platform&#10;Customer selects one connected, ready sending platform for this invoice." link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="choose-sender-platform">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="130" width="360" x="50" y="385" as="geometry"/>
+                        <mxGeometry height="120" width="520" x="1040" y="405" as="geometry" />
                     </mxCell>
                 </object>
-                <object label="3. Indicate recipient platform&#xa;Customer supplies the destination; same or different platform." link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="indicate-recipient-platform">
+                <object label="3. Indicate recipient platform&#10;Customer supplies the destination; same or different platform." link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#3-process-and-activity-order" id="indicate-recipient-platform">
                     <mxCell parent="1" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fontSize=18;spacing=16;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.5;" vertex="1">
-                        <mxGeometry height="130" width="360" x="50" y="550" as="geometry"/>
+                        <mxGeometry height="120" width="520" x="1040" y="570" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-invoice" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="1568.0" y="248.60000000000002" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-choose-sender-platform" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="1568.0" y="413.6" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-indicate-recipient-platform" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="1568.0" y="578.6" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-choose-sending-certificate" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="1568.0" y="745.4" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-ready" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="1568.0" y="919.5" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-route" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="1448.0" y="1137.0" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-connected-access-points" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="1988.0" y="413.6" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-pdf" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="878.0" y="581.7" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-private-platform-a" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="598.0" y="1448.6" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-private" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="738.0" y="1645.8" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-copy" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="378.0" y="1645.8" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-public" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="1468.0" y="1448.6" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-spfe-direct-intake" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="1468.0" y="1645.8" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-private-spfe-submit" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="2388.0" y="1448.6" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-spfe-interconnection-intake" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="2388.0" y="1645.8" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-private-delivery-result" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="738.0" y="1898.6" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-public-copy-result" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="378.0" y="1898.6" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-public-submission-result" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="1468.0" y="1898.6" width="26" height="26" as="geometry" />
+                    </mxCell>
+                </object>
+                <object id="exception-interconnection-result" label="E" tooltip="If this action is blocked or uncertain, use the E recovery note below.">
+                    <mxCell parent="1" vertex="1" style="ellipse;html=0;fontSize=14;align=center;verticalAlign=middle;spacing=0;fillColor=#E6F4F1;strokeColor=#555555;strokeWidth=1.2;">
+                        <mxGeometry x="2388.0" y="1898.6" width="26" height="26" as="geometry" />
                     </mxCell>
                 </object>
             </root>
