@@ -8,6 +8,7 @@ Review sending through three specification views and a separate API reference, f
 | [Logical Feature Specification — SPEC-SEI-023](SPEC-SEI-023-invoice-sending-logical-feature-specification.md) | Scenarios, OUT activities, rules, failures, recovery and functional acceptance. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937951484) |
 | [Sequence and Reuse Assessment — SPEC-SEI-024](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md) | FR submission/upload/event/detail sequences, Spain public/private differences and engineering evidence gaps. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937951488) |
 | [API Reference — SPEC-SEI-043](api-reference/SPEC-SEI-043-invoice-sending-api-reference.md) | Detailed API fields, request/response examples, field-level reuse and confirmed contract defects. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937965432) |
+| [Questions and Decisions — NOTE-SEI-002](NOTE-SEI-002-sending-questions-and-decisions.md) | ERP batches versus SPFE remittances, limits/timing, accountant scope, error/result paths and private-platform signing. [Generated question view](../../work/spain-solution-review-questions.html#sending-topic-log). | Local only; not selected for publication. |
 
 [Local review preview](../../work/invoice-sending-review/index.html) · [FR guide evidence extract](<../../context/FR API/Sending/send-e-invoice-guide-extract.md>).
 

@@ -11,6 +11,8 @@ body{font:16px/1.55 system-ui,sans-serif;color:#222;margin:0;background:#f5f5f5}
 <body><main>
 <h1>Spain e-invoicing questions and decisions</h1>
 <p class="intro">Keep each question as a record. Strike through an answered question and record the decision below it. Keep remaining questions and work visible.</p>
+<p class="notice"><strong>Onboarding topic log:</strong> <a href="#onboarding-topic-log">11 detailed follow-ups from the 18–19 November discussion</a> are generated from <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md">NOTE-SEI-001</a>. Record their answers and decisions in that source table. Existing workshop IDs, answers and counts below are retained.</p>
+<p class="notice"><strong>20 November topic inputs:</strong> <a href="#sending-topic-log">Sending — 11 detailed entries</a> covers ERP batching, SPFE remittances, certificate/timing choices, limits, accountant work, errors/results and private-platform signing. <a href="#receiving-topic-log">Receiving — 2 detailed entries</a> records deduplication before ERP handoff and original-file preservation. These sections are generated from their canonical topic tables; they do not close existing workshop questions.</p>
 <p>The earlier source review was on <strong>16 October 2026</strong>. The supplied meeting recap was compared with this list on <strong>22 October 2026</strong>. RD238 Article 6 and the PDF transition, and SPFE-S02 Articles 3–5, were also checked against the live BOE texts on 22 October. Other earlier source checks are unchanged.</p>
 <p class="notice"><strong>Confirmed answers:</strong> The user confirmed <a href="#q26">Q26 PDF</a>, <a href="#q11">Q11 directory direction</a> and <a href="#q27">Q27 connection strategy</a>, and clarified <a href="#q15">Q15 separate platform views</a>, on 22 October 2026. Their questions are struck through and retained. Each decision has its own follow-up. The combined invoice view under Q15 is still a local Product question. <a href="#q28">Q28 optional statuses</a>, <a href="#q29">Q29 accountant setup</a> and <a href="#q30">Q30 batch sending</a> remain open. <a href="#USER-01">User confirmation</a> · <a href="#MEETING-01">Original recap and limits</a>.</p>
 <p class="counts">30 retained entries: 4 decisions recorded · 9 partly answered · 8 draft answers · 9 with no answer yet.</p>
@@ -142,6 +144,7 @@ How many clients would an accountant normally set up at once? What is the larges
 <li id="q30">
 <span class="badge proposed">Draft answer</span>
 <h3>Q30. Can the Spain team confirm how single and batch invoice sending should work?</h3>
+<p class="followup"><strong>20 November detail:</strong> <a href="#snd-q30-1">Q30.1–Q30.8</a> distinguish ERP batches from public-platform remittances and track package format, ownership, limits, deadlines, client scope and results. The meeting's no-limit claim conflicts with the supplied initial catalogue; see Q30.5.</p>
 <p class="meeting"><strong>Recap coverage:</strong> This question was not answered in the supplied recap. Keep the existing confirmation request open. <a href="#MEETING-01">MEETING-01</a>.</p>
 <p class="question">Can the Spain team confirm these sending cases and the month-end working process?</p>
 <p class="details"><strong>Cases:</strong><br>
@@ -306,6 +309,8 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="q06">
 <span class="badge partial">Partly answered</span>
 <h3>Q06. Who keeps and uses the certificates and keys?</h3>
+<p class="followup"><strong>Private-platform signing:</strong> <a href="#snd-q06-8">Q06.8</a> tracks provider-specific invoice-signature requirements and protected signing reuse. Authentication and invoice signing remain separate.</p>
+<p class="followup"><strong>Onboarding detail:</strong> <a href="#onb-q06-1">Q06.1–Q06.7</a> cover listing eligible certificates, changing the choice, sending/retrieval selection, endpoint selection and credential references. These entries are generated from the canonical onboarding log.</p>
 <p class="question">Where is each certificate and key stored? Who may use it, and for what purpose? Which APIs allow this without exposing the key? Who replaces or revokes keys and handles failures?</p>
 <p class="details"><strong>Who to ask:</strong> Security, Tax Service, Connections Service/AFL and Trust owners</p>
 <details><summary>What we know and sources</summary>
@@ -317,6 +322,7 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="q08">
 <span class="badge proposed">Draft answer</span>
 <h3>Q08. When can a customer start using a connection?</h3>
+<p class="followup"><strong>Provider setup detail:</strong> <a href="#onb-q08-1">Q08.1</a> covers the provider account/setup handoff; <a href="#onb-q08-2">Q08.2</a> covers provider-specific parameters and the proposed ONB-05 diagram annotation.</p>
 <p class="ask"><strong>Ask if time — Onboarding / connections:</strong> How will the ERP find existing setup, reuse valid credentials and complete only missing platform steps, without duplicate connections?</p>
 <p class="details"><strong>Why it matters:</strong> Avoid repeating setup after an interrupted request or an unavailable lookup. Xavier raised the risk of connecting twice. <a href="#XAVIER-20261110">XAVIER-20261110</a>.</p>
 <p class="meeting"><strong>Confirmed premise:</strong> Sending requires an active connection. Never-connected or offboarded platforms cannot send. Jiaxin, 11 November 2026. <a href="#JIAXIN-20261111">JIAXIN-20261111</a>.</p>
@@ -348,6 +354,7 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="q14">
 <span class="badge partial">Partly answered</span>
 <h3>Q14. How do we find and retrieve invoices?</h3>
+<p class="followup"><strong>ERP requirement:</strong> <a href="#rcv-q14-1">Q14.1</a> records Domain Service deduplication before ERP handoff and the matching/conflict questions to resolve.</p>
 <p class="ask"><strong>Ask if time — Retrieving:</strong> Which sale and purchase invoices must we retrieve from each platform, over what history, and through what authorised access after disconnection?</p>
 <p class="details"><strong>Why it matters:</strong> Define complete coverage and continuing access. NIF plus certificate alone does not establish permission, platform support or history coverage.</p>
 <p class="meeting"><strong>Input to confirm:</strong> Xavier’s 10 November notes propose retrieving all originals per platform by NIF plus certificate. Q15 covers original/copy ownership and view scope. <a href="#XAVIER-20261110">XAVIER-20261110</a>.</p>
@@ -363,6 +370,7 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="q16">
 <span class="badge partial">Partly answered</span>
 <h3>Q16. Where do we keep the original file?</h3>
+<p class="followup"><strong>Transformation requirement:</strong> <a href="#rcv-q16-1">Q16.1</a> records preservation of the exact original before conversion, including shared sending/DTS coverage.</p>
 <p class="question">Where will we keep the exact file we receive? How can the customer download it immediately? What happens if it is unsafe or later processing fails? How do we apply the agreed rules for keeping, exporting and restoring files?</p>
 <p class="details"><strong>Who to ask:</strong> Records, Security, Legal, Retrieval and Product</p>
 <details><summary>What we know and sources</summary>
@@ -374,6 +382,7 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="q17">
 <span class="badge proposed">Draft answer</span>
 <h3>Q17. How do we know the ERP received the invoice?</h3>
+<p class="followup"><strong>ERP integration input:</strong> <a href="#snd-q20-2">Q20.2</a> tracks reported Sage Active notification use and X3 synchronous integration. Confirm the sending/receiving scope before allocating a response path.</p>
 <p class="question">What proves that the ERP saved the invoice? Who corrects or retries a failed check, conversion, ERP delivery or transfer to accounting software? What does the customer need to do?</p>
 <p class="details"><strong>Who to ask:</strong> Receiving, DTS, ERP Product, accounting connector and Operations</p>
 <details><summary>What we know and sources</summary>
@@ -385,6 +394,7 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="q20">
 <span class="badge proposed">Draft answer</span>
 <h3>Q20. What do we do if a response is lost?</h3>
+<p class="followup"><strong>20 November detail:</strong> <a href="#snd-q20-1">Q20.1</a> tracks stage-specific error mapping for ERP review; <a href="#snd-q20-2">Q20.2</a> tracks notification and synchronous-integration requirements.</p>
 <p class="question">How can we check whether the original request succeeded? When is it safe to send it again? What should we do if the provider cannot confirm the result? Who handles that case?</p>
 <p class="details"><strong>Who to ask:</strong> Exchange, API, connector/provider owners and Operations</p>
 <details><summary>What we know and sources</summary>
@@ -396,6 +406,7 @@ What normal and peak batch sizes must we support at month end?</p>
 <li id="q31">
 <span class="badge open">No answer yet</span>
 <h3>Q31. How does one business map to several platform connections?</h3>
+<p class="followup"><strong>Mapping detail:</strong> <a href="#onb-q31-1">Q31.1</a> covers the ERP business/dataset mapping; <a href="#onb-q31-2">Q31.2</a> covers the dataset/NIF/certificate relationship. The technical evidence gates remain in SPEC-SEI-039.</p>
 <p class="question">For one NIF using SPFE and several private platforms, how do datasets, access points, connections and certificate references relate?</p>
 <p class="ask"><strong>Must ask — Onboarding / connections</strong></p>
 <p class="details"><strong>Why it matters:</strong> Products need one consistent setup model. Separate platform onboarding does not establish API relationships.</p>
@@ -442,6 +453,273 @@ What normal and peak batch sizes must we support at month end?</p>
 <p class="evidence"><strong>Proposal, not a decision:</strong> <a href="../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#analysis-and-proposed-direction">FP-SEI-002 analysis and open questions</a> recommends a distinct issuer action on the existing resource, subject to Architecture decision. No endpoint, payload or wire status is approved. Invoice withdrawal and cancellation of a lifecycle report remain separate actions.</p>
 </li>
 </ul></section>
+<!-- onboarding-topic-log:start -->
+<section id="onboarding-topic-log" aria-labelledby="onboarding-topic-heading">
+<h2 id="onboarding-topic-heading">Onboarding question and decision log</h2>
+<p>Read the <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md">onboarding source table — NOTE-SEI-001</a>. This view shows the questions and answers from that table.</p>
+<p>These 11 entries add detail to Q06, Q08 and Q31. They are counted separately from the original workshop questions. The owner column suggests who to ask. An agreed decision does not mean the software is built or tested.</p>
+<details><summary>How to update this view</summary><p>Edit the source table, then run <code>python3 tools/render_onboarding_question_log.py</code>.</p></details>
+<article id="onb-q31-1">
+<h3>Q31.1. Company and dataset</h3>
+<span class="badge open">Open</span>
+<p class="question">Does one dataset represent one company and NIF, several business locations, or something else? The ERP team must explain this relationship. The API teams must check that their systems support it.</p>
+<p class="answer"><strong>Current understanding:</strong> The ERP identifies the selected company, its dataset and its NIF.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> Discussed on 18 November. The relationship is not agreed. <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#r1">R1</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> ERP and Product teams: provide examples. Ask Identity and E-Invoice teams to check them.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC038 business identity; SPEC039 GAP-01/02; shared-prerequisites diagram.</p>
+<p class="evidence"><a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#q31-1">Source entry Q31.1</a></p>
+</article>
+<article id="onb-q06-1">
+<h3>Q06.1. Show the customer a list of certificates</h3>
+<span class="badge open">Open</span>
+<p class="question">Can the existing service return that list and explain what each certificate can be used for? Which checks can it provide so the Domain Service does not repeat them?</p>
+<p class="answer"><strong>Current understanding:</strong> Proposal: use certificate management and Connections Service to store and use certificates. The ERP shows the customer a list of certificates they are allowed to use.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> The documented provider list is not a list of saved certificates. Support for this business-to-business use still needs checking. <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#r2">R2</a> <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#r3">R3</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Certificate and Connections teams: confirm the available API, returned information and supported uses.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC001; SPEC039 GAP-06; SPEC040 §2; shared-prerequisites sequence.</p>
+<p class="evidence"><a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#q06-1">Source entry Q06.1</a></p>
+</article>
+<article id="onb-q31-2">
+<h3>Q31.2. How datasets, NIFs and certificates relate</h3>
+<span class="badge open">Open</span>
+<p class="question">Can one dataset or NIF use several certificates? Can one certificate be used for several NIFs? We must not assume each dataset has exactly one NIF and one certificate.</p>
+<p class="answer"><strong>Current understanding:</strong> The business we act for and the certificate we use are separate things.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> These relationships are not agreed. Having a certificate does not prove permission to act for a business. <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#r1">R1</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> ERP, Identity and Certificate teams: show the allowed relationships and how access to each business stays separate.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC038 prerequisites; SPEC039 GAP-01/02/03/06.</p>
+<p class="evidence"><a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#q31-2">Source entry Q31.2</a></p>
+</article>
+<article id="onb-q06-2">
+<h3>Q06.2. Use a different certificate after setup</h3>
+<span class="badge open">Open</span>
+<p class="question">Does the customer replace the saved certificate, keep several certificates, choose one each time, or use a combination? Which changes require the setup checks to run again?</p>
+<p class="answer"><strong>Current understanding:</strong> Meeting understanding: a customer who sets up with certificate A should later be able to use another certificate, if it is accepted and authorised for the action.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> Recorded on 18 November. The meeting point still needs confirmation.</p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Product and ERP teams: agree the choices with Certificate and E-Invoice teams. Confirm which checks must run again.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC038 ONB-03/10; SPEC039 GAP-06; setup/change sequences.</p>
+<p class="evidence"><a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#q06-2">Source entry Q06.2</a></p>
+</article>
+<article id="onb-q06-3">
+<h3>Q06.3. Save or pass the certificate choice</h3>
+<span class="badge open">Open</span>
+<p class="question">Does the choice change saved settings or apply to one action only? Can an existing API support it? The method and request fields are not agreed; do not assume POST.</p>
+<p class="answer"><strong>Current understanding:</strong> Proposal: the ERP records the customer choice and passes a certificate reference through the agreed API. It does not pass the private key.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> The Spain Anti-Fraud Legislation (ES AFL) service documents selection using <code>Connection-Id</code>. That does not confirm the same API works for B2B e-invoicing. <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#r2">R2</a> <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#r3">R3</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> API, Architecture and Connections teams: check the existing API before proposing a change.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC040 §2; SPEC039 GAP-06/07; supported-change sequence.</p>
+<p class="evidence"><a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#q06-3">Source entry Q06.3</a></p>
+</article>
+<article id="onb-q06-4">
+<h3>Q06.4. Choose a certificate when sending</h3>
+<span class="badge open">Open</span>
+<p class="question">Who checks access to the dataset and NIF, permission to act, and certificate validity when sending starts? Does the customer use a saved default, choose each time, or have both options?</p>
+<p class="answer"><strong>Current understanding:</strong> Proposal: the customer chooses a certificate that is accepted and authorised to send for the selected business NIF.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> The customer choice does not prove permission. The teams still need to agree who performs each check. <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#r1">R1</a> <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#r2">R2</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Product, ERP, Identity, Certificate and Sending teams: agree certificate selection and the checks at sending time.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC038 prerequisites; SPEC001; sending SPEC023/024; sending sequence.</p>
+<p class="evidence"><a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#q06-4">Source entry Q06.4</a></p>
+</article>
+<article id="onb-q06-5">
+<h3>Q06.5. Choose a certificate for automatic retrieval</h3>
+<span class="badge open">Open</span>
+<p class="question">Can sending and retrieval use different certificates? What should happen if the saved retrieval certificate expires or can no longer be used for that business?</p>
+<p class="answer"><strong>Current understanding:</strong> If invoices are retrieved in the background, the system may need a saved certificate choice.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> No certificate-choice or recovery rule is agreed for retrieval.</p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Receiving, Product and Certificate teams: agree the saved choice, checks and recovery steps.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC038 requested functions; receiving SPEC026/027; retrieval sequence.</p>
+<p class="evidence"><a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#q06-5">Source entry Q06.5</a></p>
+</article>
+<article id="onb-q06-6">
+<h3>Q06.6. Choose the public-platform URL</h3>
+<span class="badge open">Open</span>
+<p class="question">Which service chooses the URL? Changing to another certificate of the same type does not by itself mean the URL must change.</p>
+<p class="answer"><strong>Current understanding:</strong> The reviewed SPFE API files give different URLs for an electronic certificate and an electronic seal, a type of certificate used by an organisation. The URL also depends on the environment, such as test or production.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> The test-environment SendInvoice file defines separate certificate and seal URLs. This does not prove the software supports them or the caller has permission. <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#r4">R4</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Public Integration and Certificate teams: check how certificate type and environment select the URL in the actual software.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC001 CM-SPFE-R01; SPEC011 transport; public integration sequence.</p>
+<p class="evidence"><a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#q06-6">Source entry Q06.6</a></p>
+</article>
+<article id="onb-q06-7">
+<h3>Q06.7. Return the certificate connection ID</h3>
+<span class="badge open">Open</span>
+<p class="question">Is that reference the certificate <code>Connection-Id</code>? How does it relate to the dataset and NIF? Is it the same as the E-Invoice platform <code>connectionId</code>, linked to it, or separate?</p>
+<p class="answer"><strong>Current understanding:</strong> The system needs to return and retain a reference that selects the certificate without exposing it.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> ES AFL documents a certificate connection ID. It does not confirm that this is the E-Invoice platform connection ID. <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#r2">R2</a> <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#r3">R3</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Connections and E-Invoice API teams: provide one example from the same environment showing both IDs.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC039 GAP-02/06; SPEC040 §2.3; prerequisite/setup sequences.</p>
+<p class="evidence"><a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#q06-7">Source entry Q06.7</a></p>
+</article>
+<article id="onb-q08-1">
+<h3>Q08.1. Set up an account with a private platform</h3>
+<span class="badge open">Open</span>
+<p class="question">For each provider, what must the customer do, what access details are needed, and how do we know setup is complete? What happens if setup stops or fails?</p>
+<p class="answer"><strong>Current understanding:</strong> Each provider may use a website, an API, a manual process or a combination. Having a provider account does not mean Sage is connected to it.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> ONB-05 already separates the provider account from the Sage connection. Each provider process still needs checking. <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#r1">R1</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Provider Integration and Product teams: confirm each provider process with Architecture and Engineering.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC038 ONB-05; SPEC039 GAP-02/06/08; private-setup diagram.</p>
+<p class="evidence"><a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#q08-1">Source entry Q08.1</a></p>
+</article>
+<article id="onb-q08-2">
+<h3>Q08.2. Extra setup fields for a private platform</h3>
+<span class="badge open">Open</span>
+<p class="question">Which fields are required? Which saved values can we reuse, and which must the customer enter? Flag this in the diagram. Confirm the fields against the provider API or setup instructions.</p>
+<p class="answer"><strong>Current understanding:</strong> A private platform may need extra or different setup fields compared with SPFE. Check each provider separately.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> Suggested on 19 November for Architecture and Engineering review. No specific fields or diagram changes are approved here.</p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Architecture, Engineering and Provider Integration teams: confirm the fields and the setup step that uses them.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC038 ONB-05; SPEC039 GAP-02/08; private-setup diagram.</p>
+<p class="evidence"><a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#q08-2">Source entry Q08.2</a></p>
+</article>
+</section>
+<!-- onboarding-topic-log:end -->
+
+<!-- sending-topic-log:start -->
+<section id="sending-topic-log" aria-labelledby="sending-topic-heading">
+<h2 id="sending-topic-heading">Sending question and decision log</h2>
+<p>Read the <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md">sending source table — NOTE-SEI-002</a>. This view shows the questions and answers from that table.</p>
+<p>These 11 entries add detail to Q06, Q20 and Q30. They are counted separately from the original workshop questions. The owner column suggests who to ask. An agreed decision does not mean the software is built or tested.</p>
+<details><summary>How to update this view</summary><p>Edit the source table, then run <code>python3 tools/render_question_logs.py</code>.</p></details>
+<article id="snd-q30-1">
+<h3>Q30.1. Select several invoices and send a package to SPFE</h3>
+<span class="badge partial">Partly answered</span>
+<p class="question">Must invoices be grouped, or is grouping optional? Are we submitting original invoices, faithful copies, or both? What business purpose would make this comparable with France e-reporting?</p>
+<p class="answer"><strong>Current understanding:</strong> Meeting input: send a package such as ten invoices to the tax authority. The catalogue describes packages of 1–100 invoices, so it also allows a package containing one invoice.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> Packages are documented. Mandatory grouping and equivalence with France e-reporting are not confirmed. <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#s1">S1</a> <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#s2">S2</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Product, Spain Compliance and Public Integration teams: confirm what is sent and what starts the submission.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC023 OUT-10/11; SPEC024 SND-G02/06; public submission sequence.</p>
+<p class="evidence"><a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#q30-1">Source entry Q30.1</a></p>
+</article>
+<article id="snd-q30-2">
+<h3>Q30.2. Package format and who sends it</h3>
+<span class="badge partial">Partly answered</span>
+<p class="question">How are invoices grouped, tracked and given individual results? Who submits when an external private platform must send the public copy? Can the existing software create and send this package?</p>
+<p class="answer"><strong>Current understanding:</strong> The reviewed SendInvoice API sends UBL invoice files in one message, with each file kept separate. UBL is a structured invoice format. Proposal: the Domain Service coordinates submission when Sage is responsible for sending to SPFE.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> The message format is documented. Team responsibilities and working software still need confirmation. Do not assume a ZIP file or one combined invoice XML file. <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#s1">S1</a> <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#s2">S2</a> <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#s3">S3</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Architecture, API and Public Integration teams: check the software. Separate the case where an external provider sends the copy from the case where Sage operates the platform.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC011 transport; SPEC024 SND-G02/05/06; packaging/submission sequence.</p>
+<p class="evidence"><a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#q30-2">Source entry Q30.2</a></p>
+</article>
+<article id="snd-q30-3">
+<h3>Q30.3. When the customer sends and which certificate is used</h3>
+<span class="badge open">Open</span>
+<p class="question">Does sending use saved settings, a customer action, or a schedule? When is the certificate choice fixed for the package? What happens if work waits in a queue or must be retried?</p>
+<p class="answer"><strong>Current understanding:</strong> Input: the customer chooses when to submit and may use a different accepted and authorised certificate after setup.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> No sending trigger or package certificate rule is agreed. Use the <a href="../specs/onboarding-and-connectivity/NOTE-SEI-001-onboarding-questions-and-decisions.md#q06-4">onboarding certificate question</a> for the shared selection rule.</p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Product, ERP, Identity and Certificate teams: agree when sending starts and how its certificate choice is retained. Include Public Integration.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC023 sending prerequisites; SPEC001; SPEC024 SND-G04/06/09; dispatch sequence.</p>
+<p class="evidence"><a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#q30-3">Source entry Q30.3</a></p>
+</article>
+<article id="snd-q30-4">
+<h3>Q30.4. Can the ERP manage batch sending with existing APIs?</h3>
+<span class="badge open">Open</span>
+<p class="question">Can the existing software handle the expected volume through repeated API requests, including failures? Do we need a bulk API? Decide who coordinates the work after checking capacity and recovery.</p>
+<p class="answer"><strong>Current understanding:</strong> The ERP could manage the customer selection of several invoices. The public integration could group invoices into messages for SPFE. The current guide describes creating, uploading and checking an invoice request.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> The evidence does not prove that bulk sending is available or absent. SPFE package support alone does not mean Sage needs a new API. <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#s3">S3</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> ERP, Product, API, Architecture and Operations teams: check peak volume, simultaneous work, handling of excess demand and recovery.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC024 SND-G04/06/07; SPEC043 intake; ERP batch and downstream packaging sequences.</p>
+<p class="evidence"><a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#q30-4">Source entry Q30.4</a></p>
+</article>
+<article id="snd-q30-5">
+<h3>Q30.5. How many invoices and how much data can a package contain?</h3>
+<span class="badge open">Open</span>
+<p class="question">Ask AEAT to resolve the conflict. Confirm limits for invoice count, each file size, the whole message and processing capacity. When must we split or reject a package, and how do we avoid duplicate sends?</p>
+<p class="answer"><strong>Current understanding:</strong> The meeting input says there is no package-size limit. Catalogue section 6.2.3 instead states 1–100 invoices per package and 5120 bytes per invoice.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> The small file-size limit needs clarification. The WSDL, the technical API definition, allows a variable number of file attachments. That does not prove there are no business limits. This log does not introduce a new product limit. <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#s1">S1</a> <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#s2">S2</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> AEAT contact and Public Integration teams: obtain the current limits. API and Operations teams must check the actual software against them.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC024 SND-G02/07; SPEC011 transport limits; batching/recovery sequence.</p>
+<p class="evidence"><a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#q30-5">Source entry Q30.5</a></p>
+</article>
+<article id="snd-q30-6">
+<h3>Q30.6. When must the invoices reach SPFE?</h3>
+<span class="badge open">Open</span>
+<p class="question">Does the deadline start from creation, issue, delivery or another event? What must finish, by what time and in which timezone? What happens during an outage or if the customer submits late?</p>
+<p class="answer"><strong>Current understanding:</strong> Meeting input: submission must happen on the day the invoice is created. That deadline is not yet verified.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> User input from 20 November. Spain Compliance must identify the applicable published rule before we set the deadline or customer scheduling options.</p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Spain Compliance and Product teams: confirm the rule and exceptions. Operations must assess recovery.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC023 timing and recovery; SPEC024 SND-G02/06/07; scheduling/result flow.</p>
+<p class="evidence"><a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#q30-6">Source entry Q30.6</a></p>
+</article>
+<article id="snd-q30-7">
+<h3>Q30.7. Accountants work one client at a time</h3>
+<span class="badge open">Open</span>
+<p class="question">Does one-client-at-a-time apply to both the ERP action and the SPFE package? Can other client work continue if one client fails? How does the ERP show approvals and retries?</p>
+<p class="answer"><strong>Current understanding:</strong> Requested flow: the accountant works client by client. Each client keeps separate permissions, certificate choices, invoice records and results.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> The catalogue allows invoices from different issuers in one package, with permission checked for each issuer. That does not decide the customer flow or approve combining clients. <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#s1">S1</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Accountant Product, ERP, Identity and API teams: confirm client separation, approvals and handling of individual failures.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC023 accountant flow; SPEC024 SND-G04/06; client batch sequence.</p>
+<p class="evidence"><a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#q30-7">Source entry Q30.7</a></p>
+</article>
+<article id="snd-q30-8">
+<h3>Q30.8. When does the customer see the result?</h3>
+<span class="badge open">Open</span>
+<p class="question">What does the ERP receive immediately and later? Which IDs link the customer batch, SPFE package, invoice and sending attempt? What should the customer see if a result is partial, late or unknown?</p>
+<p class="answer"><strong>Current understanding:</strong> The customer needs a result for each invoice, even if only part of a package succeeds. Accepting a request, uploading a file, SPFE accepting it, and delivery to the recipient are different steps.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> The current guide does not define final customer success or results for a package. <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#s3">S3</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Product, ERP, API, Events and Public Integration teams: agree result meanings, how to refresh them and the next customer action.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC043 response proposal; SPEC024 SND-G04/05; response and result-observation sequence.</p>
+<p class="evidence"><a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#q30-8">Source entry Q30.8</a></p>
+</article>
+<article id="snd-q20-1">
+<h3>Q20.1. Explain errors from each stage to the ERP</h3>
+<span class="badge open">Open</span>
+<p class="question">What does each error code mean, and at which stage can it occur? What result, next action and responsible team should the ERP receive? How do we link an error to a whole package or one invoice?</p>
+<p class="answer"><strong>Current understanding:</strong> A draft error list exists. Review errors from request checks, file upload, conversion, signing, transmission and platform processing with the ERP teams.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> Start with the <a href="../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md#spfe-response-and-error-matrix">SPFE error table</a> and <a href="../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#34-fr-attempt-errors-and-annex-ii-handoff">France error analysis</a>. Neither is a complete shared error list.</p>
+<p class="followup"><strong>Suggested owner and next action:</strong> API, Integration and ERP teams: review the draft, fill the gaps and prepare a versioned ERP reference. It has not been shared externally.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC043 response/notification/error proposal; SPEC024 SND-G04/05/07; error-return paths.</p>
+<p class="evidence"><a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#q20-1">Source entry Q20.1</a></p>
+</article>
+<article id="snd-q20-2">
+<h3>Q20.2. Support notifications and the X3 response flow</h3>
+<span class="badge open">Open</span>
+<p class="question">Does X3 wait for the final result, receive an immediate acknowledgement, or make follow-up calls? Does this apply to sending, receiving or both? What happens if a call times out? How do ERPs get results without notifications?</p>
+<p class="answer"><strong>Current understanding:</strong> User reports that Sage Active uses notifications and other ERPs may not. X3 is reported to use a synchronous flow, where a call returns a result rather than relying only on a later notification. Support for X3 is requested.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> The ERP behaviour is user-reported. The current guide does not prove X3 compatibility or show that a new synchronous API is needed. <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#s3">S3</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Sage Active, X3 and other ERP teams: show their current APIs. Agree supported response options with API and Events teams.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC043 results; SPEC024 SND-G05/07; ERP response sequence; receiving handoff if applicable.</p>
+<p class="evidence"><a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#q20-2">Source entry Q20.2</a></p>
+</article>
+<article id="snd-q06-8">
+<h3>Q06.8. Sign invoices when a private platform requires it</h3>
+<span class="badge open">Open</span>
+<p class="question">What signature format and rules does the provider require? Who signs, when, and which final file is signed? Can the existing signing service meet those requirements without exposing the private key?</p>
+<p class="answer"><strong>Current understanding:</strong> Requested capability: sign an invoice when the selected private platform requires a signature. Check the requirement for each provider, invoice format and action.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> A certificate used to authenticate a connection does not prove the invoice must be signed. It also does not prove B2B signing support. A common signature rule for all private platforms is not confirmed. <a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#s4">S4</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Provider Integration, Trust, Certificate, DTS and Security teams: check each provider requirement and test the existing signing capability.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC001; SPEC024 SND-G03; preparation/signing/private-dispatch sequence.</p>
+<p class="evidence"><a href="../specs/invoice-sending/NOTE-SEI-002-sending-questions-and-decisions.md#q06-8">Source entry Q06.8</a></p>
+</article>
+</section>
+<!-- sending-topic-log:end -->
+
+<!-- receiving-topic-log:start -->
+<section id="receiving-topic-log" aria-labelledby="receiving-topic-heading">
+<h2 id="receiving-topic-heading">Receiving question and decision log</h2>
+<p>Read the <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md">receiving source table — NOTE-SEI-003</a>. This view shows the questions and answers from that table.</p>
+<p>These 2 entries add detail to Q14 and Q16. They are counted separately from the original workshop questions. The owner column suggests who to ask. An agreed decision does not mean the software is built or tested.</p>
+<details><summary>How to update this view</summary><p>Edit the source table, then run <code>python3 tools/render_question_logs.py</code>.</p></details>
+<article id="rcv-q14-1">
+<h3>Q14.1. Avoid sending the same invoice to the ERP twice</h3>
+<span class="badge open">Open</span>
+<p class="question">How do we recognise the same invoice arriving again, including a public copy and a private original? How do we distinguish a correction or changed file? What if two copies arrive together, or delivery to the ERP must be retried?</p>
+<p class="answer"><strong>Current understanding:</strong> ERP requirement supplied by the user: the Domain Service must check for duplicates before passing retrieved invoices to the ERP. Keep a record of each arrival and its source.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> Requirement and Domain Service responsibility supplied on 20 November. SPEC026 proposes related checks. Exact matching rules, reliable delivery and software support still need confirmation. <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#r1">R1</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Receiving, API and ERP teams: agree matching, handling of conflicts and delivery rules. Test that retries do not create duplicate ERP records.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC026 RCV-07/08 and RSD-A05/06; SPEC027 RET-G04/07/09; deduplication/ERP handoff sequence.</p>
+<p class="evidence"><a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#q14-1">Source entry Q14.1</a></p>
+</article>
+<article id="rcv-q16-1">
+<h3>Q16.1. Keep the original file before converting it</h3>
+<span class="badge open">Open</span>
+<p class="question">Who stores the files, who can access them, and how long are they kept? How do we trace each converted file back to its original? Apply this to sending and receiving. What conversion or delivery work must wait if saving the original fails?</p>
+<p class="answer"><strong>Current understanding:</strong> User requirement: save the exact original before converting it. Link each converted file to its original. Do not replace the original with the converted file.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> SPEC026 and SPEC008 already propose related controls. We still need to confirm working storage, approved retention rules and recovery from backups. <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#r1">R1</a> <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#r2">R2</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Records, Receiving, DTS, Sending and Security teams: confirm who saves the original, which rules apply and how files can be recovered.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> SPEC026 source capture/conversion; SPEC008; sending preparation; archive-before-transformation sequence.</p>
+<p class="evidence"><a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#q16-1">Source entry Q16.1</a></p>
+</article>
+</section>
+<!-- receiving-topic-log:end -->
+
 <section aria-labelledby="references"><h2 id="references">Sources and what they confirm</h2>
 <p>Use the final regulation for legal rules. Use technical files for the messages and behaviour they define. Draft specs describe proposed Sage behaviour. Guides, text extracts and file lists do not prove that all fields are mapped or that the software works.</p>
 <ul class="sources">

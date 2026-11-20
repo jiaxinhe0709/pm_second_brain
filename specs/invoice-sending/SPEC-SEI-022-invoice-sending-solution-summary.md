@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-19
+updated: 2026-11-20
 reviewers: []
 related:
   - SPEC-SEI-007
@@ -90,6 +90,8 @@ Full setup belongs to [onboarding](../archive/onboarding/README.md). Creation, t
 [Full-size SVG](../../assets/diagrams/invoice-sending-end-to-end-workflow.svg) · [Editable Draw.io](../../assets/diagrams/invoice-sending-end-to-end-workflow.drawio) · [PNG](../../assets/diagrams/invoice-sending-end-to-end-workflow.png).
 
 Read the inputs and selected route from top to bottom. **E** marks a point where work may be blocked or uncertain. Each marker refers to [SPEC-SEI-023 — Exceptions, errors and recovery](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#exceptions-errors-and-recovery).
+
+For an issued invoice, use the [SPEC-SEI-047 cancellation and rectification visual](../SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md#cancellation-and-rectification-flows). It shows the separate cancellation action and the new rectifying invoice's return to normal sending. [SPEC-SEI-023 cancellation eligibility](SPEC-SEI-023-invoice-sending-logical-feature-specification.md#proposed-cancel-eligibility) owns the state and reason rules, including full customer rejection. These flows do not add steps to every send.
 
 **Sending boundary:** the diagram ends at each sending action's recorded result. Dashed recipient-access boxes show the destination context only: the same private platform, another private platform, or access through SPFE. Private platform B's retrieval of an original UBL invoice from SPFE is a proposed handoff, not a qualified implementation. [SPEC-SEI-024 §2.2](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#22-spain-final-plan-and-independent-actions) owns route qualification; [SPEC-SEI-026 file-role scenarios](../invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios) distinguish original retrieval from faithful-copy retrieval. Detailed receiving and [lifecycle reporting](../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#2-scenarios-and-safe-next-actions) remain outside this sending flow.
 

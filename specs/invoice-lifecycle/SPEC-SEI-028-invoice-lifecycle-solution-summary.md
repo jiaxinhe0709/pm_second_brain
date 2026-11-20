@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-13
+updated: 2026-11-20
 reviewers: []
 related:
   - SPEC-SEI-009
@@ -64,6 +64,8 @@ The business/accountant supplies authorised facts. The ERP displays results. The
 [Draw.io](../../assets/diagrams/invoice-lifecycle-overview-process.drawio) · [PNG](../../assets/diagrams/invoice-lifecycle-overview-process.png).
 
 Start with an existing invoice and its authorised source context. Save the evidence before applying country rules. An incoming status does not automatically trigger another report. When reporting applies, keep each destination’s result separate. A timeout stays unresolved until the original result is checked.
+
+For issuer cancellation or rectification, use the [SPEC-SEI-047 separate-flow visual](../SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md#cancellation-and-rectification-flows). Sending owns cancellation request, response and recovery; [SPEC-SEI-029 proposed states](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#proposed-spain-invoice-states) owns the resulting cancelled state and the rectifying invoice's independent lifecycle. Cancelling an earlier business report remains a separate reporting action.
 
 ## 4 Reuse direction and product impact
 

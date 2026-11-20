@@ -16,6 +16,7 @@ Use the same three reading views and detailed API reference as [onboarding](../o
 | [Logical Feature Specification — SPEC-SEI-026](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md) | Detailed overall diagram and requirements for source acquisition, receiving and recovery. Review and action link to the lifecycle owner. |
 | [Sequence and Reuse Assessment — SPEC-SEI-027](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md) | Supporting sequences: customer list/open/download, plus source collection and file recovery; reuse and engineering gates. |
 | [API Reuse and Spain Changes — SPEC-SEI-042](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md) | Request/response fields and examples, public SOAP bindings, proposed changes and missing contracts. |
+| [Questions and Decisions — NOTE-SEI-003](NOTE-SEI-003-receiving-questions-and-decisions.md) | User-stated deduplication before ERP handoff and preservation of source files before transformation. [Generated question view](../../work/spain-solution-review-questions.html#receiving-topic-log). |
 
 **Where do we get the invoice?** The [SPEC026 source scenarios](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal) cover public originals, private originals, copy-only access and failed private downloads. [Source acquisition rules](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#31-source-acquisition-and-stored-file-access) define capture and saved-file access.
 

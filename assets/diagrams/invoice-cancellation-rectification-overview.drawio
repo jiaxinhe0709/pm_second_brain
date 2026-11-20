@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="invoice-cancellation-rectification-overview" name="Spain: cancel or correct an issued invoice">
+    <mxGraphModel page="1" pageWidth="1400" pageHeight="1090">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Spain: cancel or correct an issued invoice&#10;Two independent flows. Full customer rejection does not automatically cancel the invoice." style="text;whiteSpace=wrap;html=0;align=left;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="12" width="1344" height="95" />
+        </mxCell>
+        <mxCell id="legend" value="Proposed design · Solid arrows: steps within one flow. Cards link to the owning specifications." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="104" width="1344" height="22" />
+        </mxCell>
+        <mxCell id="behaviour-legend" value="Read each flow from top to bottom. Check eligibility before starting the selected action." style="text;html=0;align=left;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="130" width="1344" height="24" />
+        </mxCell>
+        <object id="cancel-check" link="../../specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#proposed-cancel-eligibility" label="Check cancellation eligibility&#10;Sent/pending or full customer rejection; no real operation&#10;Issuer / authorised representative" tooltip="Sent/pending or full customer rejection; no real operation">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="50" y="210" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="cancel-request" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#24-proposed-withdrawal-interaction" label="Request cancellation of the existing invoice&#10;Proposed Sage action; public mapping: CancelInvoice&#10;SPEC-SEI-023 / SPEC-SEI-024" tooltip="Proposed Sage action; public mapping: CancelInvoice">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="50" y="385" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="cancel-result" link="../../specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#24-proposed-withdrawal-interaction" label="Check the original cancellation result&#10;A receipt or timeout does not prove cancellation&#10;Sending: request, response and recovery" tooltip="A receipt or timeout does not prove cancellation">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="50" y="560" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="cancel-history" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#proposed-spain-invoice-states" label="Retain the evidenced result and history&#10;Only confirmed cancellation sets cancelled&#10;Lifecycle: resulting cancelled state" tooltip="Only confirmed cancellation sets cancelled">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="50" y="735" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="rectify-prepare" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md#proposed-rectification-modify" label="Prepare a rectifying invoice&#10;New number and original reference; preserve the original&#10;ERP / SPEC-SEI-015 IC-12" tooltip="New number and original reference; preserve the original">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="750" y="210" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="rectify-issue" link="../../specs/SPEC-SEI-015-invoice-creation-solution-specification.md#proposed-rectification-modify" label="Issue the new invoice in the ERP&#10;Qualified correction type, method and invoice content&#10;SPEC-SEI-015" tooltip="Qualified correction type, method and invoice content">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="750" y="385" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="rectify-send" link="../../specs/invoice-sending/api-reference/SPEC-SEI-043-invoice-sending-api-reference.md#contract-baseline-and-reuse-assessment" label="Submit through the normal sending flow&#10;POST + upload; SendInvoice for the applicable original/copy&#10;SPEC-SEI-043 / service 01" tooltip="POST + upload; SendInvoice for the applicable original/copy">
+          <mxCell vertex="1" parent="1" style="rounded=1;whiteSpace=wrap;html=0;fontSize=15;fillColor=#e8e8e8;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="750" y="560" width="600" height="104" />
+          </mxCell>
+        </object>
+        <object id="rectify-track" link="../../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#proposed-spain-invoice-states" label="Track the new invoice independently&#10;Its own acceptance, rejection and payment&#10;SPEC-SEI-029" tooltip="Its own acceptance, rejection and payment">
+          <mxCell vertex="1" parent="1" style="rounded=1;arcSize=80;whiteSpace=wrap;html=0;fontSize=15;fillColor=#ffffff;strokeColor=#333333;spacing=8;">
+            <mxGeometry as="geometry" x="750" y="735" width="600" height="104" />
+          </mxCell>
+        </object>
+        <mxCell id="edge-0" source="cancel-check" target="cancel-request" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-1" source="cancel-request" target="cancel-result" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-2" source="cancel-result" target="cancel-history" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" source="rectify-prepare" target="rectify-issue" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-4" source="rectify-issue" target="rectify-send" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-5" source="rectify-send" target="rectify-track" edge="1" parent="1" style="edgeStyle=none;endArrow=block;strokeColor=#555555;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="caption-0" value="CANCEL E-INVOICE" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="50" y="170" width="1330" height="24" />
+        </mxCell>
+        <mxCell id="caption-1" value="CORRECT INVOICE (RECTIFY)" style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="750" y="170" width="630" height="24" />
+        </mxCell>
+        <mxCell id="boundary" value="Cancellation denied: show the reason and permitted next action. Unknown result: reconcile the original cancellation attempt.&#10;Rectification: correct the new candidate before issuance; reconcile uncertain sending without repeating successful actions.&#10;SD-CANCEL01 design input. Sage cancellation contract and Spain implementation support remain open; see SPEC-SEI-047." style="text;html=0;align=left;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="980" width="1344" height="96" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

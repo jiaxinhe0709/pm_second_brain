@@ -8,6 +8,7 @@ This is the primary review set for customer onboarding and connection setup. Rea
 | [Logical Feature Specification — SPEC-SEI-038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md) | Eight customer scenarios, ERP and Domain Service handoffs, public/private paths, and conditional approval, recovery and batches. Section 7 maps functional actions to 039. |
 | [Sequence and Reuse Assessment — SPEC-SEI-039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md) | Sequences, product impact, request/response responsibilities and owner decisions. Read with 040. |
 | [API Reuse and Spain Changes — SPEC-SEI-040](api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md) | Each API's request/response: grey existing fields, blue Spain changes, plus certificate management. No diagrams. |
+| [Questions and Decisions — NOTE-SEI-001](NOTE-SEI-001-onboarding-questions-and-decisions.md) | Canonical discussion table for dataset/NIF mapping, certificate choice and provider-specific setup. The [question HTML](../../work/spain-solution-review-questions.html#onboarding-topic-log) generates its onboarding detail section from this table. |
 
 [Public setup diagram](../../assets/diagrams/onboarding-public-setup-swimlane.svg) · [Private setup diagram](../../assets/diagrams/onboarding-private-setup-swimlane.svg).
 
