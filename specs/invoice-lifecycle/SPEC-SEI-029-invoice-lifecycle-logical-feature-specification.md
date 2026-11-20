@@ -45,6 +45,8 @@ Before a command or report, check the caller, represented business, actor role a
 
 ## 2 Scenarios and safe next actions
 
+> **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** — Scope extension: drafts and delivery notes are not e-invoices. Apply invoice lifecycle states only after issuance; preparation progress remains separate. Issued invoice content is immutable. Technical rejection and external admission remain distinct from ERP issuance, as identified in the [SPEC-SEI-023 proposed eligibility boundary](../invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#proposed-cancel-eligibility). SD-CANCEL01 C-4/P-2.
+
 <a id="review-and-take-action"></a>
 
 **Review and take action** continues from **Select and open invoice** in the [SPEC026 detailed retrieval process](../invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#retrieval-detailed-process). Download is a separate choice. The customer or authorised accountant selects a permitted invoice action in the ERP. The ERP submits the action to the Domain Service using the same business and invoice identity, then shows its attempt result and each communication result separately. [§4.1](#general-status-comparison) owns the SPFE state meanings and draft platform mapping; [SPEC041 §1.2](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#12-documented-status-inputs) owns exact documented command UUIDs and required fields. Apply LCS-R04/12–14 before offering or sending an action. These links do not enable unqualified Spain commands.
@@ -111,6 +113,25 @@ The business fact remains saved while reports complete independently. A known su
 ### 4.1 SPFE lifecycle states and draft platform mapping
 
 This section owns the business meanings and reporting classification. Labels describe the documented meaning; they do not create API statuses. [§5.1](#51-destination-and-obligation-rules) owns destination, timing and exception details. [§5.2](#52-public-event-contract) owns exact external codes and fields. Keep technical codes and UUIDs in the [source catalogue](<../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md#int-lcs03-status-catalogue-and-blocked-transitions>) and [SPEC041 API reference](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md#spfe-action-mapping).
+
+<a id="proposed-spain-invoice-states"></a>
+
+#### PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026): Spain invoice states and triggers
+
+> Ownership extension: Lifecycle owns the resulting cancelled state and the business triggers that change action availability. Sending owns the cancellation request, response and recovery. This proposed product-state table adds no Article 10 report type. [SPEC-SEI-023 proposed eligibility](../invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md#proposed-cancel-eligibility) owns the combined state and reason conditions. SD-CANCEL01 P-1/P-2.
+
+| Proposed state / trigger | Meaning, action availability and safe next step |
+|---|---|
+| Full customer rejection | Record full commercial rejection. Offer cancellation only when the operation did not take place and the state condition is met. If the operation took place and fiscal content is wrong, use a rectifying invoice. Nestor's "Reject -> Cancel" choice is valid only for a nonexistent operation. Rejection alone does not set cancelled; Sending records the issuer request and evidenced response. SD-CANCEL01 C-1/C-5/P-1/P-2; SPFE-S02 Articles 3.5/5.5. |
+| Partially rejected | A valid final commercial state when no agreement is reached. Offer a rectifying invoice without requiring it; do not offer cancellation. Keep the partial decision and history. SD-CANCEL01 C-5/P-2. |
+| Accepted explicitly or by silence after four days | Acceptance removes cancellation eligibility. For acceptance by silence, Lifecycle derives and labels that outcome, then notifies the issuer that cancellation is no longer available. Preserve the distinction from an explicit buyer decision and any reporting result. SD-CANCEL01 P-2/P-3. |
+| Cancelled | Final, evidenced outcome of issuer cancellation: AEAT retains as cancelled the document SPFE holds for that invoice: the original when the original passed through SPFE (direct submission, or a private platform submitting the original through SPFE), or the faithful copy when the original was exchanged only through private platforms. Keep the fiscal number associated with that invoice, consumed forever. Do not permit another cancellation, rectification or reactivation. Retain history and distinguish the Phase 2 public-copy outcome from any private-original outcome. SD-CANCEL01 C-2/P-1/P-2. |
+
+> **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** - Verification pending: "four days" for acceptance by silence is Solution Design input from the 16 November 2026 workshop, Xavier's slides. Verify it against SPFE-S02 Article 7, including the start event and calendar. The [recorded source review](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#raw-event-codes-and-outcome-meanings) establishes no four-day acceptance timer; do not substitute the separate reporting deadline. Keep the proposed derived outcome and issuer notification pending that verification. SD-CANCEL01 P-2/P-3.
+
+> **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** — Independent rectification lifecycle: use the [SPEC-SEI-015 modify extension](../SPEC-SEI-015-invoice-creation-solution-specification.md#proposed-rectification-modify) for creation and linkage. The rectifying invoice's decisions and payments are its own; its rejection cannot overwrite the earlier invoice's outcome or reopen a cancelled invoice. SD-CANCEL01 C-1/C-2/P-4.
+
+> **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** — Qualification boundary: reuse source history, separate views and action-result recovery patterns. Bind eligibility, finality and acceptance-by-silence rules to Spain; preserve France and other-country behaviour. API status values, private-provider support, notification delivery and actual build coverage remain unqualified; no new external status code is assigned here. SD-CANCEL01 P-1–P-4; LIF-G03/04/07/08.
 
 <a id="spfe-lifecycle-states"></a>
 
@@ -239,6 +260,10 @@ Shared behaviour preserves evidence, independent views and safe recovery. Spain 
 
 ## 6 Functional acceptance
 
+> **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** - Extensions to LCS-A03/05/18/26/27: full rejection offers cancellation only if the operation did not take place; if it took place and fiscal content is wrong, offer rectification. Partial rejection can remain final without rectification. Explicit or four-day silent acceptance removes cancellation; notify the issuer of silent acceptance and label it derived. Verify the four-day workshop input, start event and calendar against SPFE-S02 Article 7. SD-CANCEL01 P-1/P-2/P-3.
+
+> **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** — Extensions to LCS-A06/07/13/14/24: verify the cancellation response and final original/copy result separately from request acceptance, technical failure, private outcomes and report cancellation. Keep cancelled final under late/repeated events and refuse number reuse, rectification and reactivation. Exercise an independently accepted/rejected/paid rectifying invoice, and ensure Spain proposals do not alter another country's history or action rules. These are proposed checks, not completed tests. SD-CANCEL01 C-2/P-4.
+
 These are required checks, not executed implementation tests. The [original assurance table](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#part-4-assurance-and-traceability-view) retains detailed traceability.
 
 | Existing checks | Required proof |
@@ -262,6 +287,7 @@ These are required checks, not executed implementation tests. The [original assu
 
 | Source ID | Original source and version/date | Exact locator | Supported claim and limit |
 |---|---|---|---|
+| **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** - SD-CANCEL01 | [FP-SEI-002 Solution Design source record](../../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#ref-source-references), attribution 18 November 2026 | C-1 to C-5; P-1 to P-4 | Product/design input only; not external legal evidence, a contract extension or implementation proof. Preserve recorded source conflicts and qualify Spain separately. |
 | REF-BASE / REF-PRODUCT | [SPEC-SEI-009](../archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md), updated 20 October; [PRD224](../../prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md), [PRD232](../../prds/PRD-SEI-232-country-lifecycle-status-mapping.md), [PRD242](../../prds/PRD-SEI-242-peppol-lifecycle-feedback.md), current repository drafts/discovery | LCS requirements/invariants/acceptance; PRD FR1–23, LS-FR and PEP-FR | Existing product/design baseline and preserved IDs; not approved architecture or runtime evidence. |
 | ES-RD10 | [Original RD 238/2026](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-7295), published 31 March 2026; source identity retained from baseline | Articles 8.3, 10 and 12 | Recipient/issuer and public duties remain separate; no private API catalogue supplied. |
 | SPFE-S02 | [Original final order](../../context/BOE-A-2026-20587.pdf), published 5 October 2026; [official publication](https://www.boe.es/eli/es/o/2026/10/02/hac1028), checked 22 October | Articles 7–11; Annex II pp. 36–42 | Legal duties, authority and event fields; not complete wire contract. |

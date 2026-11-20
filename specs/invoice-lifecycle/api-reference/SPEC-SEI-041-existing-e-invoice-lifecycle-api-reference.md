@@ -178,6 +178,8 @@ The [row mapping](../../../assets/mappings/spfe-lifecycle-api-mapping.json) cove
 
 ### 2.1 Action and destination mapping
 
+> **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** — Mapping boundary: [SPEC-SEI-029 proposed invoice states](../SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#proposed-spain-invoice-states) owns cancelled, partial rejection and acceptance-by-silence notification. Sending owns invoice cancellation request/response/recovery. These product meanings do not add an Annex II action, UUID, status enum, payload or endpoint to this table. Existing `CANCEL*` values remain cancellation of reports, never invoice cancellation. Qualify display/result bindings and actual build/provider support without borrowing France values or treating full rejection as an automatic cancellation. SD-CANCEL01 P-1–P-3; FR-LIF01; SPFE-S02 Annex II.
+
 The three existing UUIDs below are **conditional reuse candidates**. Their France meaning does not prove a valid Spain command. For the other five actions, the API owner must register a supported action binding or select an approved contract extension. No new UUID is assigned by this proposal. FR-LIF01; INT-LCS01/03; LIF-G04.
 
 | SPFE `eventCode` / authorised actor | Proposed Sage action / `statusCode` | SPFE operation / XML `ResponseCode` | Mapping condition |
@@ -343,6 +345,7 @@ FR-LIF01 lists HTTP errors below. Error bodies use `application/vnd.api+json` an
 
 | ID | Original source / version / exact location | Supports / limit |
 |---|---|---|
+| **PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)** - SD-CANCEL01 | [FP-SEI-002 Solution Design source record](../../../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#ref-source-references), attribution 18 November 2026; C-1 to C-5 / P-1 to P-4. | Product/design input only; not external legal evidence, a contract extension or implementation proof. Preserve recorded source conflicts and qualify Spain separately. |
 | FR-LIF01 | [Supplied OpenAPI](<../../../context/FR API/Lifecycle/update-e-invoice-status.openapi.json>), received 28 October 2026; OpenAPI `3.1.0`, `info.version: 1.0.0`; `paths` status POST, `operationId: LifecycleChange-Document`; `components.parameters`, `.securitySchemes.m2m`, `.schemas.PostInvoiceStatusRequest/Response`, `.schemas.InvoiceStatusRequest/Response`, `.responses`. | Exact POST contract and examples. Retained from the user's paste with JSON content unchanged; original URL/revision/build unverified. No GET, subscription, Spain action or deployed-support proof. |
 | INT-LCS01–05 | [Supplied lifecycle guides](<../../../context/FR API/Lifecycle/lifecycle-api-guides-evidence-extract.md>), received 22 October 2026, revision unknown; named send, receive/history, catalogue, reason and outcome sections. | Nested-field guidance, notifications and attempt semantics; linked API `1.13.0` does not establish equivalence to FR-LIF01 `1.0.0`. |
 | INT-ERR01 | [Supplied error guide](<../../../context/FR API/Shared/invoice-flow-error-handling-guide-extract.md>), received 22 October 2026, revision/build unknown; processing/error fields and status-change recovery. | Exact currentStatus/history/error paths and guide recovery; no full read or correlation schema. |
