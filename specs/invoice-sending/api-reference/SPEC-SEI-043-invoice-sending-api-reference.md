@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-30
-updated: 2026-11-20
+updated: 2026-11-23
 reviewers: []
 related:
   - SPEC-SEI-024
@@ -35,6 +35,8 @@ confluence:
 This API view owns field-level detail, request/response examples and contract issues. The Spain request proposal carries sender and recipient NIFs in the existing address type/value pairs, with separate platform selection. Explicit sender selection replaces the earlier null/default proposal. Recipient-platform omission depends on qualified resolution. Functional rules remain in SPEC-SEI-023; sequences and reuse checks remain in SPEC-SEI-024. Spain values and the proposed recipient-platform field need API-owner review.
 
 ## Summary
+
+The [SPEC-SEI-022 combined overview](../SPEC-SEI-022-invoice-sending-solution-summary.md#4-end-to-end-workflow) shows Send, Correct and Cancel. These are ERP journey choices under [SPEC-SEI-023 entry actions](../SPEC-SEI-023-invoice-sending-logical-feature-specification.md#entry-actions); they do not define a new request field or three API endpoints. Send and a new rectifying invoice use the invoice POST/upload flow. Cancellation addresses the existing resource through its separately qualified contract; the status POST is not an established cancellation command.
 
 [SPEC-SEI-047 service mapping](../../SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md#1-service-mapping) owns the cross-service SPFE SOAP-to-Sage API mapping. This page owns Sending request/response fields, examples and contract changes.
 
@@ -134,7 +136,7 @@ This section proposes how Sending could reuse the France API for Spain. `Existin
 
 **Engineering conclusion:** Reuse the send call and existing address fields with proposed Spain values, explicit sender selection and a new recipient-platform field. Withdrawal follows the separate action direction above; its API contract is pending. SPFE, SERES, EDICOM, ZeroComa and B2Brouter are platform names, not values of `accessPointAddressType`; platform ID mappings require qualification.
 
-Use [SPEC-SEI-023 cancellation eligibility](../SPEC-SEI-023-invoice-sending-logical-feature-specification.md#proposed-cancel-eligibility), including full customer rejection with the required reason, and [SPEC-SEI-024 §2.4](../SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#24-proposed-withdrawal-interaction) for original/copy targeting, correlation and recovery. [SPEC-SEI-047 separate-flow visual and mapping](../../SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md#cancellation-and-rectification-flows) shows how cancellation and rectification differ. No cancellation request/response example is defined before the Architecture contract decision.
+Use [SPEC-SEI-023 cancellation eligibility](../SPEC-SEI-023-invoice-sending-logical-feature-specification.md#proposed-cancel-eligibility), including full customer rejection with the required reason, and [SPEC-SEI-024 §2.4](../SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#24-proposed-withdrawal-interaction) for original/copy targeting, correlation and recovery. [SPEC-SEI-022 combined overview](../SPEC-SEI-022-invoice-sending-solution-summary.md#4-end-to-end-workflow) shows the entry paths; [SPEC-SEI-047 mapping](../../SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md#cancellation-and-rectification-flows) owns their cross-service API/SPFE assessment. No cancellation request/response example is defined before the Architecture contract decision.
 
 ### Contract baseline and reuse assessment
 
@@ -289,7 +291,7 @@ Keep France behaviour compatible: Spain additions must be country-qualified. Do 
 | PRD-SEI-101 | [Public Platform Onboarding PRD](<../../../prds/PRD-SEI-101-public-platform-onboarding.md>), linked product topic “Seller NIF vs Buyer NIF/NIE” | Tax identity distinction, including seller/buyer NIF/NIE purpose. The PRD topic does not establish that a NIF is a routing address. |
 | SPFE-S02 | [Original BOE Order HAC/1028/2026](<../../../context/BOE-A-2026-20587.pdf>), published 5 October 2026; Articles 3.4–3.6, 4 and 5.5–5.6 | Legal copy, withdrawal and correction conditions. It does not define a Sage API contract. |
 | SPFE-S03 | [Original public service catalogue](<../../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), draft 0.1.0, 9 October 2026; §6.3, pp. 11–12 | Withdrawal operation purpose and business conditions. It does not select a Sage endpoint or wire contract. |
-| SPFE-S08 | [Original public formats](<../../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), draft 0.1.0, 9 October 2026; §5.1.1, p. 8 | Public UBL 2.5 format evidence. It does not establish a MIME value for the France Sending API. |
+| SPFE-S08 | [Original public formats](<../../../context/archive/original-technical-baseline/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), draft 0.1.0, 9 October 2026; §5.1.1, p. 8 | Public UBL 2.5 format evidence. It does not establish a MIME value for the France Sending API. |
 | USR-ADDR01/02 | User-supplied [Invoice addresses Spain](https://confluence.sage.com/spaces/DNBU/pages/837611067/Invoice+addresses+Spain), supplied 28 October 2026; “Spain - March 2026 e-invoice update”, Intra-Compliance page URL/content not preserved | The reported public-by-default wording conflicts with the proposed hold after a no-match when a private address was supplied. Content is not preserved and is not final legal evidence. |
 | SPFE-S16 / SPFE-S10 | [SPEC-SEI-023](../SPEC-SEI-023-invoice-sending-logical-feature-specification.md#ref-source-references), combined `SPFE-S16 / SPFE-S10` row with original WSDL links; [SPEC-SEI-024](../SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#ref-source-references), `SPFE-S16` and `SPFE-S10` rows; reviewed local PRE release 29 October 2026 | PRE transport evidence for `SendInvoice` and `CancelInvoice`; does not establish a Sage withdrawal call or production readiness. |
 | FP-SEI-002 / SD-CANCEL01 | [Global API submission withdrawal review proposal](<../../../feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md>), “Analysis and proposed direction”, “Review outcome and acceptance evidence” and “REF Source references”; SD-CANCEL01 design input attributed 18 November 2026. | Proposed cancellation ownership, independent rectification and eligibility; subject to Architecture contract decision. Product/design input selects no endpoint, payload, field or wire status and proves no implementation support. |

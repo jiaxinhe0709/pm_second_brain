@@ -1,10 +1,10 @@
 {
   "id": "RES-SEI-002-source-manifest",
-  "indexed_on": "2026-10-29",
-  "scope": "Current supplied SPFE evidence, with the 29 October 2026 PRE WSDL baseline; original WSDL/XSD snapshot retained separately for historical references. Excludes the unrelated workshop PDF.",
+  "indexed_on": "2026-11-23",
+  "scope": "Supplied SPFE evidence with the reviewed 23 November 2026 PRE WSDL folder, draft Annex I/II business rules, error properties and BG/BT paths. Earlier registered originals are preserved under context/archive. Excludes the unrelated workshop PDF.",
   "provenance": {
     "legal": "BOE publication identity and dates checked on the official BOE website; no byte-equality claim.",
-    "technical": "User-supplied AEAT-labelled files. The current PRE WSDL release is labelled 29 October 2026 by the user. Public download provenance and PRE access are not independently verified.",
+    "technical": "User-supplied AEAT-labelled files. Release labels and the 23 November announcement are supplied by the user. Public download provenance, runtime access and implementation support are not independently verified.",
     "cover_date": "The service catalogue and input/output formats have cover date 2026-10-09 and version 0.1.0.",
     "format_document_status": "The input/output formats cover labels the initial version BORRADOR (draft)."
   },
@@ -46,45 +46,65 @@
     },
     {
       "source_id": "SPFE-S04",
-      "path": "context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/PETICIÓN/Peticion_ebXML- SUBMITINVOICE.xml",
+      "path": "context/archive/original-technical-baseline/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/PETICIÓN/Peticion_ebXML- SUBMITINVOICE.xml",
       "bytes": 1734,
       "sha256": "953155c707a0daf221dc3ed8c94c814dede329924436f0bfbbc8815707201738",
       "kind": "xml",
-      "root_element": "{http://www.w3.org/2003/05/soap-envelope}Envelope"
+      "root_element": "{http://www.w3.org/2003/05/soap-envelope}Envelope",
+      "preservation": {
+        "restored_from_git": "ad5c6e2115169a7b11653875c6006b226fa4cd47",
+        "reason": "Registered original absent after earlier local moves; newer examples are retained separately."
+      }
     },
     {
       "source_id": "SPFE-S05",
-      "path": "context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/PETICIÓN/altaFacturas.xml",
+      "path": "context/archive/original-technical-baseline/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/PETICIÓN/altaFacturas.xml",
       "bytes": 5376,
       "sha256": "1136fee5a307ecd4e3918a987b704da239ebdd05db66021d95b63ff60486c97f",
       "kind": "xml",
-      "root_element": "{urn:oasis:names:specification:ubl:schema:xsd:Invoice-2}Invoice"
+      "root_element": "{urn:oasis:names:specification:ubl:schema:xsd:Invoice-2}Invoice",
+      "preservation": {
+        "restored_from_git": "ad5c6e2115169a7b11653875c6006b226fa4cd47",
+        "reason": "Registered original absent after earlier local moves; newer examples are retained separately."
+      }
     },
     {
       "source_id": "SPFE-S06",
-      "path": "context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/RespuestaAltaFacturas.xml",
+      "path": "context/archive/original-technical-baseline/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/RespuestaAltaFacturas.xml",
       "bytes": 1401,
       "sha256": "f7bf229a7c6d0401f9364d572a293ad33051c43b08051cbf661ec8427db8e5f5",
       "kind": "xml",
-      "root_element": "{urn:oasis:names:specification:ubl:schema:xsd:DocumentStatus-2}DocumentStatus"
+      "root_element": "{urn:oasis:names:specification:ubl:schema:xsd:DocumentStatus-2}DocumentStatus",
+      "preservation": {
+        "restored_from_git": "ad5c6e2115169a7b11653875c6006b226fa4cd47",
+        "reason": "Registered original absent after earlier local moves; newer examples are retained separately."
+      }
     },
     {
       "source_id": "SPFE-S07",
-      "path": "context/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/Respuesta_ebXML- SUBMITINVOICE.xml",
+      "path": "context/archive/original-technical-baseline/Descripción servicios web/Ejemplos y peticiones de repuesta/20261013/01 - SendInvoicesSOAP/RESPUESTA/Respuesta_ebXML- SUBMITINVOICE.xml",
       "bytes": 1839,
       "sha256": "8c86f1c3a1e2c4d2c5352a053be572e6431b5178d3d030d248dde1c57cfad966",
       "kind": "xml",
-      "root_element": "{http://www.w3.org/2003/05/soap-envelope}Envelope"
+      "root_element": "{http://www.w3.org/2003/05/soap-envelope}Envelope",
+      "preservation": {
+        "restored_from_git": "ad5c6e2115169a7b11653875c6006b226fa4cd47",
+        "reason": "Registered original absent after earlier local moves; newer examples are retained separately."
+      }
     },
     {
       "source_id": "SPFE-S08",
-      "path": "context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf",
+      "path": "context/archive/original-technical-baseline/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf",
       "bytes": 898951,
       "sha256": "53bbad27f7672865a370a30ef9ccd2f3b0f9d22cdc79be7db344e631e7fdbd5b",
       "kind": "pdf",
       "pages": 15,
       "text_extract": "assets/regulatory/spain/spfe/input-output-formats.es.txt",
-      "extract_sha256": "6d15ce1536c868d492556d95d9e0df26eb007a5a3209af62e58bb496442e9079"
+      "extract_sha256": "6d15ce1536c868d492556d95d9e0df26eb007a5a3209af62e58bb496442e9079",
+      "preservation": {
+        "restored_from_git": "ad5c6e2115169a7b11653875c6006b226fa4cd47",
+        "reason": "Registered original absent after earlier local moves; newer examples are retained separately."
+      }
     },
     {
       "source_id": "SPFE-S09",
@@ -96,7 +116,7 @@
     },
     {
       "source_id": "SPFE-S10",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/CancelInvoice.wsdl",
+      "path": "context/WSDL servicios web - PRE_23_11_26/CancelInvoice.wsdl",
       "bytes": 6717,
       "sha256": "0edea5d196e04c0bbc620ae5373cb8ef8469bd845a9dc399b3108c4c5a0d8f07",
       "kind": "wsdl",
@@ -122,11 +142,11 @@
           "local_exists": true
         }
       ],
-      "release_date": "2026-10-29"
+      "release_date": "2026-11-23"
     },
     {
       "source_id": "SPFE-S11",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/CustomerInvoiceEvents.wsdl",
+      "path": "context/WSDL servicios web - PRE_23_11_26/CustomerInvoiceEvents.wsdl",
       "bytes": 6965,
       "sha256": "69fe0e5ca0f21670a2188e97e91545eb4ee40ee01e5c66a8f50692378c32fa92",
       "kind": "wsdl",
@@ -152,11 +172,11 @@
           "local_exists": true
         }
       ],
-      "release_date": "2026-10-29"
+      "release_date": "2026-11-23"
     },
     {
       "source_id": "SPFE-S12",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/DownloadInvoicesByID.wsdl",
+      "path": "context/WSDL servicios web - PRE_23_11_26/DownloadInvoicesByID.wsdl",
       "bytes": 6934,
       "sha256": "23cc3e03c33d9693cfac82ee0b104ba054c8d968b58b49b39c1fe161ad492396",
       "kind": "wsdl",
@@ -182,11 +202,11 @@
           "local_exists": true
         }
       ],
-      "release_date": "2026-10-29"
+      "release_date": "2026-11-23"
     },
     {
       "source_id": "SPFE-S13",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/DownloadInvoicesByLOC.wsdl",
+      "path": "context/WSDL servicios web - PRE_23_11_26/DownloadInvoicesByLOC.wsdl",
       "bytes": 6965,
       "sha256": "d0a8a4534aa1552a5c54e1b206e4f8c91ae702a2008d841fd5fe54228875385d",
       "kind": "wsdl",
@@ -212,11 +232,11 @@
           "local_exists": true
         }
       ],
-      "release_date": "2026-10-29"
+      "release_date": "2026-11-23"
     },
     {
       "source_id": "SPFE-S14",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/GetInvoices.wsdl",
+      "path": "context/WSDL servicios web - PRE_23_11_26/GetInvoices.wsdl",
       "bytes": 6655,
       "sha256": "d7805e71b0a57b772872a0e2ac1c9b1e6f0d9312c1f08e4c930bf20f17f90a6a",
       "kind": "wsdl",
@@ -242,11 +262,11 @@
           "local_exists": true
         }
       ],
-      "release_date": "2026-10-29"
+      "release_date": "2026-11-23"
     },
     {
       "source_id": "SPFE-S15",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/GetRegisteredInvoice.wsdl",
+      "path": "context/WSDL servicios web - PRE_23_11_26/GetRegisteredInvoice.wsdl",
       "bytes": 6934,
       "sha256": "d047166769fb58a695f28b9551fcda913365f325ee0fd07894c4ee5c9ac74085",
       "kind": "wsdl",
@@ -272,11 +292,11 @@
           "local_exists": true
         }
       ],
-      "release_date": "2026-10-29"
+      "release_date": "2026-11-23"
     },
     {
       "source_id": "SPFE-S16",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/SendInvoice.wsdl",
+      "path": "context/WSDL servicios web - PRE_23_11_26/SendInvoice.wsdl",
       "bytes": 6655,
       "sha256": "c5c9688ea97d184197e8dc0a565eef0796ad9e4319f8e59ac09c7a6784f20b5c",
       "kind": "wsdl",
@@ -302,11 +322,11 @@
           "local_exists": true
         }
       ],
-      "release_date": "2026-10-29"
+      "release_date": "2026-11-23"
     },
     {
       "source_id": "SPFE-S17",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/SupplierInvoiceEvents.wsdl",
+      "path": "context/WSDL servicios web - PRE_23_11_26/SupplierInvoiceEvents.wsdl",
       "bytes": 6965,
       "sha256": "1eeb0c8886c6c5171948e607480e184f1835dc03ae82c9454215fa848cf77262",
       "kind": "wsdl",
@@ -332,11 +352,11 @@
           "local_exists": true
         }
       ],
-      "release_date": "2026-10-29"
+      "release_date": "2026-11-23"
     },
     {
       "source_id": "SPFE-S18",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/xsd/ebms/ebms-header-3_0-200704.xsd",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ebms/ebms-header-3_0-200704.xsd",
       "bytes": 9707,
       "sha256": "fb965bd19e1f47f5e9ce570d9782a53aefeee860d552a1f8f6a64c7a3795f060",
       "kind": "xsd",
@@ -358,11 +378,11 @@
           "local_exists": true
         }
       ],
-      "release_date": "2026-10-29"
+      "release_date": "2026-11-23"
     },
     {
       "source_id": "SPFE-S19",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/xsd/w3/soap-envelope.xsd",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/w3/soap-envelope.xsd",
       "bytes": 5808,
       "sha256": "388c76d3ef483c9ce09f625a0758077c6df040e788c58fc4ff22b663d71688fe",
       "kind": "xsd",
@@ -374,27 +394,27 @@
           "local_exists": true
         }
       ],
-      "release_date": "2026-10-29"
+      "release_date": "2026-11-23"
     },
     {
       "source_id": "SPFE-S20",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/xsd/w3/xml.xsd",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/w3/xml.xsd",
       "bytes": 8836,
       "sha256": "61960fb3131e38022caad5360e2f33a3382578ab3c80cd58bd74320ede61b20c",
       "kind": "xsd",
       "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
       "schema_references": [],
-      "release_date": "2026-10-29"
+      "release_date": "2026-11-23"
     },
     {
       "source_id": "SPFE-S21",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/xsd/xmlsoap/envelope.xsd",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/xmlsoap/envelope.xsd",
       "bytes": 6123,
       "sha256": "b3b47ed56c4c1c1dc75843eec976575cf60ae1460a8bb39ce52e4ba25a4414cb",
       "kind": "xsd",
       "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
       "schema_references": [],
-      "release_date": "2026-10-29"
+      "release_date": "2026-11-23"
     },
     {
       "source_id": "SPFE-S22",
@@ -412,9 +432,9 @@
     },
     {
       "source_id": "SPFE-S23",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/ValidationInvoice.wsdl",
+      "path": "context/WSDL servicios web - PRE_23_11_26/ValidationInvoice.wsdl",
       "kind": "wsdl",
-      "release_date": "2026-10-29",
+      "release_date": "2026-11-23",
       "bytes": 6061,
       "sha256": "64f5735947d2d0aab29dccf33641771eb2b9104b58bb6e7a64fa46b862e18ec4",
       "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
@@ -436,20 +456,20 @@
         {
           "namespace": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
           "location": "xsd/ubl-2.5/maindoc/UBL-Invoice-2.5.xsd",
-          "local_exists": false
+          "local_exists": true
         },
         {
           "namespace": "urn:oasis:names:specification:ubl:schema:xsd:DocumentStatus-2",
           "location": "xsd/ubl-2.5/maindoc/UBL-DocumentStatus-2.5.xsd",
-          "local_exists": false
+          "local_exists": true
         }
       ]
     },
     {
       "source_id": "SPFE-S24",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/spfe-ebms3-jaxb-bindings.xml",
+      "path": "context/WSDL servicios web - PRE_23_11_26/spfe-ebms3-jaxb-bindings.xml",
       "kind": "xml",
-      "release_date": "2026-10-29",
+      "release_date": "2026-11-23",
       "bytes": 2112,
       "sha256": "ad42c1d5b8cfa5ffa103551f2b3c78e802cdb4a9ec6106b00e671a7647a5e2c7",
       "root_element": "{https://jakarta.ee/xml/ns/jaxb}bindings",
@@ -457,41 +477,3506 @@
     },
     {
       "source_id": "SPFE-S25",
-      "path": "context/WSDL servicios web - PRE_29_10_2026/xsd/ubl-2.5/LEEME.txt",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/LEEME.txt",
       "kind": "text",
-      "release_date": "2026-10-29",
+      "release_date": "2026-11-23",
       "bytes": 289,
-      "sha256": "ff3ea73499f3871a71da1d283a2fe029722f20289d6c8beacb6515dfd0f7e37e"
+      "sha256": "0babf9c5a12eb79844b03a972390f4f60b00ee9f6fa8134e9782bbaf5e00d0b3"
+    },
+    {
+      "source_id": "SPFE-S26",
+      "path": "context/Reglas de negocio ES/ReglasNegocio_AnexoUno.pdf",
+      "bytes": 587000,
+      "sha256": "e94b674c1f61801a762875a855044cb7316c8329950475958016bbf60da73383",
+      "kind": "pdf",
+      "pages": 33,
+      "text_extract": "assets/regulatory/spain/spfe/invoice-business-rules.es.txt",
+      "extract_sha256": "5eec8ef2542296bcb331cc33066a330dc24766e1dfa5a1a9582694340fe77d8f",
+      "version": "0.1",
+      "document_date": "2026-11-19",
+      "document_status": "Borrador",
+      "received_on": "2026-11-23",
+      "publication_date_reported": "2026-11-23",
+      "date_basis": "Cover/revision table establishes document date; user-supplied announcement reports publication date. Original publication URL not supplied."
+    },
+    {
+      "source_id": "SPFE-S27",
+      "path": "context/Reglas de negocio ES/ReglasNegocio_AnexoDos.pdf",
+      "bytes": 240904,
+      "sha256": "6b7795ea87f499866796c9da7522d01f3b399261e85cd32e831c20819ae7a690",
+      "kind": "pdf",
+      "pages": 6,
+      "text_extract": "assets/regulatory/spain/spfe/lifecycle-business-rules.es.txt",
+      "extract_sha256": "86f011f8252d635e4533e218f4db61299a2c2c2011b33b03555a44b7323d7234",
+      "version": "0.1",
+      "document_date": "2026-11-19",
+      "document_status": "Borrador",
+      "received_on": "2026-11-23",
+      "publication_date_reported": "2026-11-23",
+      "date_basis": "Cover/revision table establishes document date; user-supplied announcement reports publication date. Original publication URL not supplied."
+    },
+    {
+      "source_id": "SPFE-S28",
+      "path": "context/Listados códigos de error/errores_negocio.properties",
+      "bytes": 85987,
+      "sha256": "374926f3137704835fac9900257e4b4b4b4ba1cc5fe9b8c3e9e146820c90a687",
+      "kind": "properties",
+      "received_on": "2026-11-23",
+      "version": null,
+      "publication_date_reported": "2026-11-23",
+      "text_encoding": "ISO-8859-1 reading; UTF-8 decoding fails"
+    },
+    {
+      "source_id": "SPFE-S29",
+      "path": "context/Listados códigos de error/errores_tecnicos.properties",
+      "bytes": 5362,
+      "sha256": "8e693bc09e2aa8bb717bacbf7966cf72a977d10ac7e7b864be89a2363466f38a",
+      "kind": "properties",
+      "received_on": "2026-11-23",
+      "version": null,
+      "publication_date_reported": "2026-11-23",
+      "text_encoding": "ISO-8859-1 reading; UTF-8 decoding fails"
+    },
+    {
+      "source_id": "SPFE-S30",
+      "path": "context/Listados auxiliares BG y BT/bg_invoice.properties",
+      "bytes": 2518,
+      "sha256": "a41616384f776ebf9f03482591e95dce7e2ea4f8964f72db2c8a61a6a107df1d",
+      "kind": "properties",
+      "received_on": "2026-11-23",
+      "version": null,
+      "publication_date_reported": "2026-11-23",
+      "text_encoding": "UTF-8-compatible bytes"
+    },
+    {
+      "source_id": "SPFE-S31",
+      "path": "context/Listados auxiliares BG y BT/bt_invoice.properties",
+      "bytes": 22744,
+      "sha256": "e42d26bcf26aa7be392ec3c781ec2e8ed1908d2f3d424c53724165441433e43f",
+      "kind": "properties",
+      "received_on": "2026-11-23",
+      "version": null,
+      "publication_date_reported": "2026-11-23",
+      "text_encoding": "UTF-8-compatible bytes"
+    },
+    {
+      "source_id": "SPFE-S32",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/BDNDR-CCTS_CCT_SchemaModule-1.1.xsd",
+      "bytes": 45268,
+      "sha256": "dd546e4809df86b6445589f69f0d6c9df162840ae386574ddfc1da7638103e15",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:un:unece:uncefact:data:specification:CoreComponentTypeSchemaModule:2",
+      "received_on": "2026-11-23",
+      "schema_references": []
+    },
+    {
+      "source_id": "SPFE-S33",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/BDNDR-UnqualifiedDataTypes-1.1.xsd",
+      "bytes": 75029,
+      "sha256": "3d45eb53c7f8b627972d2c4b591c0e9e83a8a9b44a7e6809f39560089ce062bd",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:bdndr:schema:xsd:UnqualifiedDataTypes-1",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:un:unece:uncefact:data:specification:CoreComponentTypeSchemaModule:2",
+          "location": "BDNDR-CCTS_CCT_SchemaModule-1.1.xsd",
+          "local_exists": true
+        }
+      ]
+    },
+    {
+      "source_id": "SPFE-S34",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-CommonAggregateComponents-2.5.xsd",
+      "bytes": 3314376,
+      "sha256": "26361e7edc31fe55be8b7aa535a49475176b63f4483bc4f8e6bf5c9efc71df28",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S35",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-CommonBasicComponents-2.5.xsd",
+      "bytes": 302264,
+      "sha256": "4a2fab8b83d2bca9242944296e9adb9a6af9290a95698a6b083fcb66c8500878",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:QualifiedDataTypes-2",
+          "location": "UBL-QualifiedDataTypes-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:bdndr:schema:xsd:UnqualifiedDataTypes-1",
+          "location": "BDNDR-UnqualifiedDataTypes-1.1.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S36",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-CommonExtensionComponents-2.5.xsd",
+      "bytes": 9529,
+      "sha256": "eb38ec3ca9f5d64ae91e14db0c5212902a3f44a036f6848c88f195343cbb28ff",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:bdndr:schema:xsd:UnqualifiedDataTypes-1",
+          "location": "BDNDR-UnqualifiedDataTypes-1.1.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": null,
+          "location": "UBL-ExtensionContentDataType-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 07 April 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S37",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-CommonSignatureComponents-2.5.xsd",
+      "bytes": 5728,
+      "sha256": "547c37bb5b9627b29e80b0f901234f2652fb1ac38388f5f309732fd6bcbfa3ba",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonSignatureComponents-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:SignatureAggregateComponents-2",
+          "location": "UBL-SignatureAggregateComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S38",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-ExtensionContentDataType-2.5.xsd",
+      "bytes": 4913,
+      "sha256": "3e75c4fe67fd85ba32914de2fe1f6c23c75b750953448b203ed244e81797a328",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonSignatureComponents-2",
+          "location": "UBL-CommonSignatureComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "http://uri.etsi.org/01903/v1.3.2#",
+          "location": "UBL-XAdES01903v132-201601-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "http://uri.etsi.org/01903/v1.4.1#",
+          "location": "UBL-XAdES01903v141-201601-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 07 April 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S39",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-QualifiedDataTypes-2.5.xsd",
+      "bytes": 7115,
+      "sha256": "8fd4bffa22eb4dda8e24f6110f3abb94d9e9a89ee19148490d91c5e0e1232e59",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:QualifiedDataTypes-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:bdndr:schema:xsd:UnqualifiedDataTypes-1",
+          "location": "BDNDR-UnqualifiedDataTypes-1.1.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S40",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-SignatureAggregateComponents-2.5.xsd",
+      "bytes": 7493,
+      "sha256": "3fc486e3a03d5a4e66428087dfeb2533ebe53fcfd7b8410e28ecefeaaca8f665",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:SignatureAggregateComponents-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:SignatureBasicComponents-2",
+          "location": "UBL-SignatureBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "http://www.w3.org/2000/09/xmldsig#",
+          "location": "UBL-xmldsig1-schema-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S41",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-SignatureBasicComponents-2.5.xsd",
+      "bytes": 4221,
+      "sha256": "9f68d2660f3d782c19cf87452cd7342602da5cd667396051ea4d304395579330",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:SignatureBasicComponents-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:QualifiedDataTypes-2",
+          "location": "UBL-QualifiedDataTypes-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:bdndr:schema:xsd:UnqualifiedDataTypes-1",
+          "location": "BDNDR-UnqualifiedDataTypes-1.1.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S42",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-XAdES01903v132-201601-2.5.xsd",
+      "bytes": 23961,
+      "sha256": "b03407b102ee5ac07be963724cbaaea9f520f9d6ecdfe0a138351208d2871676",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "http://uri.etsi.org/01903/v1.3.2#",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "http://www.w3.org/2000/09/xmldsig#",
+          "location": "UBL-xmldsig-core-schema-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 07 April 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S43",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-XAdES01903v141-201601-2.5.xsd",
+      "bytes": 3593,
+      "sha256": "44c6eb5b277f8b2a718240532f293000397ddef81a160b43d7840b4191298b14",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "http://uri.etsi.org/01903/v1.4.1#",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "http://www.w3.org/2000/09/xmldsig#",
+          "location": "UBL-xmldsig-core-schema-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "http://uri.etsi.org/01903/v1.3.2#",
+          "location": "UBL-XAdES01903v132-201601-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 07 April 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S44",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-xmldsig-core-schema-2.5.xsd",
+      "bytes": 10804,
+      "sha256": "6e260ab819b8e2477f49f1d0a1309c16305d4b17fe542a46b83f5c6ed58861a0",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "http://www.w3.org/2000/09/xmldsig#",
+      "received_on": "2026-11-23",
+      "schema_references": [],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 07 April 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S45",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-xmldsig1-schema-2.5.xsd",
+      "bytes": 1368,
+      "sha256": "0c270b5176178de670d3651a608820eb0c38346ccd876f32401a3b09eaae756c",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "http://www.w3.org/2000/09/xmldsig#",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": null,
+          "location": "UBL-xmldsig-core-schema-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "http://www.w3.org/2009/xmldsig11#",
+          "location": "UBL-xmldsig11-schema-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 07 April 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S46",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/common/UBL-xmldsig11-schema-2.5.xsd",
+      "bytes": 5068,
+      "sha256": "de177b660642374fd8086f14721bc9be4898f5e496385bd75d58d35502a75771",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "http://www.w3.org/2009/xmldsig11#",
+      "received_on": "2026-11-23",
+      "schema_references": [],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 07 April 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S47",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ApplicationResponse-2.5.xsd",
+      "bytes": 21730,
+      "sha256": "e539adfbab0dd50601190b2d98a8d8c036935329cfa370ff832e65ec6a3c3560",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S48",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-AttachedDocument-2.5.xsd",
+      "bytes": 25104,
+      "sha256": "9c4c9ac55b3a9655979c6650f5085057be4dc7faf79f9488e596551bb80a35f7",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:AttachedDocument-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S49",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-AwardedNotification-2.5.xsd",
+      "bytes": 25480,
+      "sha256": "ea4fdc02c9230a2504ec8e8d9881a1c9f311c42b7f8126d85e8d3ddb108ae3a0",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:AwardedNotification-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S50",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-BillOfLading-2.5.xsd",
+      "bytes": 35931,
+      "sha256": "7b9428c7e5fe35847488bb569e29eee8789129bcf1b89edea611e9fad51b8e4b",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:BillOfLading-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S51",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-BusinessCard-2.5.xsd",
+      "bytes": 24148,
+      "sha256": "6af192284ada585285dfcd5da0ed329efd41dc4b760a84f992ca42da5639bde2",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:BusinessCard-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S52",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-BusinessInformation-2.5.xsd",
+      "bytes": 33868,
+      "sha256": "cc5e6ab7983d2b1322bb96df48db44e01107e98b97a1e7358d816f91922cb75a",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:BusinessInformation-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S53",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-CallForTenders-2.5.xsd",
+      "bytes": 34795,
+      "sha256": "0137aeb1c70076e10d8786268cdf74c90c606ea806e14dd694a73cde349e8ef8",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CallForTenders-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S54",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Catalogue-2.5.xsd",
+      "bytes": 33725,
+      "sha256": "c949208aa313c7026392853f7174cc36b6e87bd0b6bca81221d10019d97af838",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:Catalogue-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S55",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-CatalogueDeletion-2.5.xsd",
+      "bytes": 28042,
+      "sha256": "8ee31bc3fb28944500f6b3f98aafc71fe5b96726cfecbc6d9a2ef49f818c3756",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CatalogueDeletion-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S56",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-CatalogueItemSpecificationUpdate-2.5.xsd",
+      "bytes": 33520,
+      "sha256": "ab6cbc3ceb63e2c1877776a5c6880ba1018611df132812e154885b39de4d9e56",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CatalogueItemSpecificationUpdate-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S57",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-CataloguePricingUpdate-2.5.xsd",
+      "bytes": 32606,
+      "sha256": "edf174fe045d32af03d72feb0d179447b98dcb896f8c57542bdff9cc119d5825",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CataloguePricingUpdate-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S58",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-CatalogueRequest-2.5.xsd",
+      "bytes": 34978,
+      "sha256": "68f554de853394be2f6c39aa2566d4c23ee9ea9fa9996c0f925b077b0d483c32",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CatalogueRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S59",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-CertificateOfOrigin-2.5.xsd",
+      "bytes": 25477,
+      "sha256": "7ad075493f53722fdf1252141349e9f31721696b48ea104084f8e1f1abca0db2",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CertificateOfOrigin-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S60",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-CommonTransportationReport-2.5.xsd",
+      "bytes": 29220,
+      "sha256": "fee932e92851eec7fcb487c77391b96b7712d4362d2d177fa8063c43539a086d",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonTransportationReport-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S61",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ContractAwardNotice-2.5.xsd",
+      "bytes": 37907,
+      "sha256": "d48a89e71a94b1c22965b6862af90e0ec840fea26c1fdbab64a13184034f60ea",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ContractAwardNotice-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S62",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ContractNotice-2.5.xsd",
+      "bytes": 34225,
+      "sha256": "6f1e48ca19f9b5dc703b2b601fb10d17fb46fa8c89ba747c0e01b8a6dbf722d1",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S63",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-CreditNote-2.5.xsd",
+      "bytes": 68794,
+      "sha256": "848067315ac232ead5c73a245d1809c0d5713e0521d03183dcffb45f98f30acf",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S64",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-DebitNote-2.5.xsd",
+      "bytes": 70514,
+      "sha256": "78b758404ac433b65bd4782de7018f9e7d00d5725861bf55c9bc7b1d5bbebb25",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:DebitNote-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S65",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-DeliveryNote-2.5.xsd",
+      "bytes": 30816,
+      "sha256": "f76af301eeec7d2cf7e65e641053a035f4d3f92d913d328ead53886acf661ef7",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:DeliveryNote-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S66",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-DespatchAdvice-2.5.xsd",
+      "bytes": 33428,
+      "sha256": "f10cae86c968939c57324c76c817c3a8d828447318b1e0ab110d5a331aa57d52",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S67",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-DigitalAgreement-2.5.xsd",
+      "bytes": 25620,
+      "sha256": "9181876c3d2487c97a2942a20d0e5f55205987fa3ff34117711199d8d64043fa",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:DigitalAgreement-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S68",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-DigitalCapability-2.5.xsd",
+      "bytes": 20954,
+      "sha256": "fcf71bfab22222b8bacfe959af432a893ee1d82359e506d29cae68d076f48fd3",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:DigitalCapability-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S69",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-DocumentStatus-2.5.xsd",
+      "bytes": 21013,
+      "sha256": "4d62dc4422c13aaa564d3c53b90543e9c960bc6ac7576994644c81a45f923550",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:DocumentStatus-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S70",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-DocumentStatusRequest-2.5.xsd",
+      "bytes": 21198,
+      "sha256": "4aad253bb189e4c8ab66ba20cfb2282fe2e56f25cae0e7ccfd84fb2112f015ab",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:DocumentStatusRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S71",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Enquiry-2.5.xsd",
+      "bytes": 22863,
+      "sha256": "a98091eaef4161ac2326c68db417214ddd48fe91acc80792457bbe3eb23d42bc",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:Enquiry-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S72",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-EnquiryResponse-2.5.xsd",
+      "bytes": 22221,
+      "sha256": "3b6d4b5e3ba38776cdae9fc05d5cbb33e5007f09cfb16784656d6fcc3016144a",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:EnquiryResponse-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S73",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ExceptionCriteria-2.5.xsd",
+      "bytes": 25598,
+      "sha256": "111d7247ef3a401dbd526e75a9fa862467d5b29281eaff3599708c54bd0694d4",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ExceptionCriteria-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S74",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ExceptionNotification-2.5.xsd",
+      "bytes": 24735,
+      "sha256": "ec17ab1f3781c7926da7c6a8b5bb303152713224d0ad0745945e1c538735d17e",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ExceptionNotification-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S75",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ExportCustomsDeclaration-2.5.xsd",
+      "bytes": 20917,
+      "sha256": "816174ce0c6495ef714fb2f821dd0e843c9cb45f2de6ae0de9db77bfb99ca825",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ExportCustomsDeclaration-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S76",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ExpressionOfInterestRequest-2.5.xsd",
+      "bytes": 27160,
+      "sha256": "b3c8d65840c3b459651595705594c67f86ae4052e9516f680ebc5bba3d52c21d",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S77",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ExpressionOfInterestResponse-2.5.xsd",
+      "bytes": 26098,
+      "sha256": "b9f6cc1c6feac988801fdd0da55bdc52481f5007e2b783ca49773248eaa753a2",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestResponse-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S78",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Forecast-2.5.xsd",
+      "bytes": 26988,
+      "sha256": "da9653d3d75fe971ea467d51b8cbbf8b6b6de5cf5f08e9a109e78bc35936bd7f",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:Forecast-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S79",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ForecastRevision-2.5.xsd",
+      "bytes": 27329,
+      "sha256": "e3c5d4ad1d17117a50d4c9a8f68810de1a05d63284432fb5219a1b410954b3f4",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ForecastRevision-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S80",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ForwardingInstructions-2.5.xsd",
+      "bytes": 35591,
+      "sha256": "228ddd2f083eae429a8834b60c1305ed0909c90f0c1f84c330a22398d04e9ddf",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ForwardingInstructions-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S81",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-FreightInvoice-2.5.xsd",
+      "bytes": 56337,
+      "sha256": "9ecc55ca96823093d8017833ebe03519e7577607ec413d908eb321f41c2eb25e",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:FreightInvoice-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S82",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-FulfilmentCancellation-2.5.xsd",
+      "bytes": 30162,
+      "sha256": "54f5ea0e0c9771878bcd3dcd8f36d1489f4c33948f01723c557756401732afba",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:FulfilmentCancellation-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S83",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-GoodsCertificate-2.5.xsd",
+      "bytes": 36643,
+      "sha256": "cb7081535bb119a7768ab2fa130db3bed6e6409b5a30a806282d8d23ac89427a",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:GoodsCertificate-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S84",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-GoodsItemItinerary-2.5.xsd",
+      "bytes": 26805,
+      "sha256": "345d48d5be39dd7cbaa57f7324cdaa3037e4831e172503acc10b262361b5c638",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:GoodsItemItinerary-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S85",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-GoodsItemPassport-2.5.xsd",
+      "bytes": 34699,
+      "sha256": "74250f57e89c208787e9b62c7740f11b430cb493514e56cdb6b33c26c8b3709e",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:GoodsItemPassport-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S86",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-GuaranteeCertificate-2.5.xsd",
+      "bytes": 29338,
+      "sha256": "554977c7801106d45bd263551e99a88ee8d0bb70c67f3ed5d1a383379ca60116",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:GuaranteeCertificate-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S87",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ImportCustomsDeclaration-2.5.xsd",
+      "bytes": 32875,
+      "sha256": "ef328c97237a342fd4902e74b6d1360c6464e44c2dc60133c3f7332ec9f74017",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ImportCustomsDeclaration-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S88",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-InstructionForReturns-2.5.xsd",
+      "bytes": 23573,
+      "sha256": "e30fd70a3a58c170d407553f0b0f8d6b98f3bdc7312810a24ade37361ed3be71",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:InstructionForReturns-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S89",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-InventoryReport-2.5.xsd",
+      "bytes": 24757,
+      "sha256": "1260ef69201463b6d9e756bdb56e370ff4cdd2a11e31f92cc4fa745478c75148",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:InventoryReport-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S90",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Invoice-2.5.xsd",
+      "bytes": 70354,
+      "sha256": "8325c422848e2e55b5a5f36eec94ce25a8ca6f1a9939b5c8817356aeb5400aef",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S91",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-InvoiceStatusRequest-2.5.xsd",
+      "bytes": 18604,
+      "sha256": "d23b132054cc8aac40a8849463c66abeb454e240379a6229a5d33bd6c5b5fabb",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:InvoiceStatusRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S92",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-InvoiceStatusResponse-2.5.xsd",
+      "bytes": 20623,
+      "sha256": "49ec5469519747de323eca62a79990f67ccaed8771d143032c3432f99777d725",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:InvoiceStatusResponse-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S93",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ItemInformationRequest-2.5.xsd",
+      "bytes": 24607,
+      "sha256": "c7d8ff543598b33f0a0141089e7cca2623410a228613f07c6e705f11208ae45c",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ItemInformationRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S94",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Manifest-2.5.xsd",
+      "bytes": 30480,
+      "sha256": "4bc4603245a33492f3c4480ad959f00f249e01e6d1b57cb303fff66c71128a40",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:Manifest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S95",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Order-2.5.xsd",
+      "bytes": 54938,
+      "sha256": "99cce080115c6f312edb59238476683703fd6f6ebb9a82f9f47d96a87830427e",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:Order-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S96",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-OrderCancellation-2.5.xsd",
+      "bytes": 26454,
+      "sha256": "7fca55be4f3383afff90e2064e92f89c638af49027a1be1a718104edf43ab76f",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:OrderCancellation-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S97",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-OrderChange-2.5.xsd",
+      "bytes": 54349,
+      "sha256": "dc66f34100adbdf137e8d1840771a9ebc9ddda5ce92881b62581d8d0489b0c6c",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:OrderChange-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S98",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-OrderResponse-2.5.xsd",
+      "bytes": 61087,
+      "sha256": "b8260ce8789b535f55d95a2a4fc0b9f97834e107f5539a6eda465ad97eb6ebd9",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S99",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-OrderResponseSimple-2.5.xsd",
+      "bytes": 32549,
+      "sha256": "790705e1ab10d0c2bc19c4cc156510a2e861becccb2f46f50e7519f3be1cf803",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:OrderResponseSimple-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S100",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-PackingList-2.5.xsd",
+      "bytes": 26171,
+      "sha256": "fd6ab77c9d8ad32985939bba5d57fea9ec413264df3d0266d7289bdd449a8f53",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:PackingList-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S101",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-PriorInformationNotice-2.5.xsd",
+      "bytes": 35855,
+      "sha256": "3f4b70dcc1cf15dae2387ac411bef1b24618e771c39717d44626fd82d50cf643",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:PriorInformationNotice-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S102",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ProductActivity-2.5.xsd",
+      "bytes": 23474,
+      "sha256": "0737ed0f97ce61f42ce841f8c7454b5a80fbff1059b9ec5a7bcc297b8f4533ee",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ProductActivity-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S103",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ProofOfReexportation-2.5.xsd",
+      "bytes": 24760,
+      "sha256": "514fb52c577b04bcde08400760ed9a1c8341d83139c922ba4b7cdb1fa326bde9",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ProofOfReexportation-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S104",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ProofOfReexportationReminder-2.5.xsd",
+      "bytes": 29632,
+      "sha256": "8e17bb2d67f8a3e5965f5f1b5597e81d766aded0adc06cd3a606a6272d0ab12c",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ProofOfReexportationReminder-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S105",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ProofOfReexportationRequest-2.5.xsd",
+      "bytes": 23744,
+      "sha256": "5285d14dfe3b1c6b73c31dbbac4628dc14f680ab6ad35a23766792596e4947d5",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ProofOfReexportationRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S106",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-PurchaseReceipt-2.5.xsd",
+      "bytes": 39079,
+      "sha256": "a4feaedb182a01e34044df1b4838752718a86be64f23b4e0eb85595c11314507",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:PurchaseReceipt-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S107",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-QualificationApplicationRequest-2.5.xsd",
+      "bytes": 32651,
+      "sha256": "669644a47d2b8e7fb765548c30daa9dcd563ab1c8834a118153660cf56641484",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S108",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-QualificationApplicationResponse-2.5.xsd",
+      "bytes": 35848,
+      "sha256": "a725995ae131f91da10a470226fac2cf3b8fd84e7c293a9311952ead8c3612d0",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:QualificationApplicationResponse-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S109",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Quotation-2.5.xsd",
+      "bytes": 36104,
+      "sha256": "805ba4972840488bd90d26f22e28af6ccff0eb097d1a509feda6286a886e0d4a",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:Quotation-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S110",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ReceiptAdvice-2.5.xsd",
+      "bytes": 33715,
+      "sha256": "9a371b9fff946de741deb4d4dc5d1debe1e401b2bff160bec034fa0c1b96d46e",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S111",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Reminder-2.5.xsd",
+      "bytes": 45853,
+      "sha256": "b5b16552d2dc583ebe242ef9b9a0fa01e81e6aab6a5017d1b870e4c429b80b6c",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:Reminder-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S112",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-RemittanceAdvice-2.5.xsd",
+      "bytes": 34543,
+      "sha256": "aa80b133cbebe8aa8faf59618bcef7a927a3836920e06284e2f29be18165c058",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:RemittanceAdvice-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S113",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-RequestForQuotation-2.5.xsd",
+      "bytes": 32922,
+      "sha256": "750a84a34cf2463e1953081ccf31a3a90db09900f42fc3aca3d4d69740f96b8c",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:RequestForQuotation-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S114",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-RetailEvent-2.5.xsd",
+      "bytes": 31167,
+      "sha256": "7078d2cfe829db1aad2dcb20b24b68e574734aeb0c14a65353ba2c858d5cba9b",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:RetailEvent-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S115",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-SelfBilledCreditNote-2.5.xsd",
+      "bytes": 70495,
+      "sha256": "4340438b01995d6c86bb06c47782e9c1267240b590d19c40dde12ec1e0ba8992",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:SelfBilledCreditNote-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S116",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-SelfBilledInvoice-2.5.xsd",
+      "bytes": 71863,
+      "sha256": "23e060913519f33c7198d0c83f19b592487733646c1c8bcd2dc27f14f2c5f4c9",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:SelfBilledInvoice-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S117",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Statement-2.5.xsd",
+      "bytes": 37002,
+      "sha256": "43d8b4951f4ea1cf60696ed3d60e9d1ef02d95e68c5e4780d5cb9edd898b6575",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:Statement-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S118",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-StockAvailabilityReport-2.5.xsd",
+      "bytes": 25420,
+      "sha256": "83d5009bc57431f602d79a5c6125d670ba7cdf24086252c5660e4ff22eb50521",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:StockAvailabilityReport-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S119",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Tender-2.5.xsd",
+      "bytes": 30417,
+      "sha256": "ce6d513893f2f58bcfb6a7b021d498786e4786d7c4790b175542ae84a371784c",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:Tender-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S120",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TenderContract-2.5.xsd",
+      "bytes": 30906,
+      "sha256": "4f6ab981dc33e444c37fd34dd8ab135beebcd68d9371b00b2f482454e6bca69e",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TenderContract-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S121",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TenderReceipt-2.5.xsd",
+      "bytes": 23829,
+      "sha256": "e3566279eac791cd145d9edbe572e54939ddd365d2cfb244b12b40d8bf9553ff",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TenderReceipt-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S122",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TenderStatus-2.5.xsd",
+      "bytes": 35617,
+      "sha256": "b362e5a83278328faa9b9a200c85a6ff46d09179ec0ee1aed03ef274f6589792",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TenderStatus-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S123",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TenderStatusRequest-2.5.xsd",
+      "bytes": 23116,
+      "sha256": "08fdf49dd06f1265aee7284f3fc7427db6e73a15755fc7f284dbec8c1f0addfe",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TenderStatusRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S124",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TenderWithdrawal-2.5.xsd",
+      "bytes": 24357,
+      "sha256": "1eba8b94ea8b432d4ad000fe9a5bb1cd463ca7381a0750b3c2ad5c0f3227601c",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TenderWithdrawal-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S125",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TendererQualification-2.5.xsd",
+      "bytes": 24391,
+      "sha256": "3e681ccb639418e1689f3ac7934b8f1411c3d75ceaac66571dce19cbb8c8af6a",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TendererQualification-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S126",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TendererQualificationResponse-2.5.xsd",
+      "bytes": 24818,
+      "sha256": "98a2ad6c7b308aaf2ff5e212cb166900d462e50667be26406aa7f45158b595ec",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TendererQualificationResponse-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S127",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TradeItemLocationProfile-2.5.xsd",
+      "bytes": 25492,
+      "sha256": "920bb3a1631d06ca86b131ed53b6ee5a8903baf9c23e1e08df2b5fdceb5dbbd5",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TradeItemLocationProfile-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S128",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TransitCustomsDeclaration-2.5.xsd",
+      "bytes": 35475,
+      "sha256": "807329eb29079074d37b284dc6ec9edafbf2f993101cde024a70cd825ada6b1e",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TransitCustomsDeclaration-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S129",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TransportExecutionPlan-2.5.xsd",
+      "bytes": 50537,
+      "sha256": "3d2c2cc39899617dc78654c9f3b8b5f7e8584b9427f089ad5056f382bb6315c5",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlan-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S130",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TransportExecutionPlanRequest-2.5.xsd",
+      "bytes": 45084,
+      "sha256": "87f2803e2db9cf6ad31f48b4026eb93ce469d668503821f7b88be39f01253581",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlanRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S131",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TransportProgressStatus-2.5.xsd",
+      "bytes": 24750,
+      "sha256": "7f1cd96ad3d3abf57f76eef8c08520924864ee2c77c6191e0b6add3efb039df7",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TransportProgressStatus-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S132",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TransportProgressStatusRequest-2.5.xsd",
+      "bytes": 21445,
+      "sha256": "60f2e0270caf3e5a37753ff62f2aa4a8e9dcce4d68d1f5f7fbf1028a4a0834b0",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TransportProgressStatusRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S133",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TransportServiceDescription-2.5.xsd",
+      "bytes": 26830,
+      "sha256": "23cb304f6b318bbaa812a97c3ca84d19d74b40e2845095926d415b82a42ae76f",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TransportServiceDescription-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S134",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TransportServiceDescriptionRequest-2.5.xsd",
+      "bytes": 22896,
+      "sha256": "afa0bd39e81aa6d78cd0408a4a227868edf098a6dabec05116bb3f8072fdb606",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TransportServiceDescriptionRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S135",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TransportationStatus-2.5.xsd",
+      "bytes": 35022,
+      "sha256": "e4c23ce83669a708cd7603f0b6143b2aa628552f5e6648a7c5dfd6e8abf192be",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TransportationStatus-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S136",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-TransportationStatusRequest-2.5.xsd",
+      "bytes": 29743,
+      "sha256": "b9ad71b44f6c310320e81fc1f6cac171015d48c1a1b5bbc856dbba1687b4c09e",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:TransportationStatusRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S137",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-UnawardedNotification-2.5.xsd",
+      "bytes": 25471,
+      "sha256": "ed515325c0813d0ae2c0b8020540077ea768102053519a8e53ad2acfbb503e07",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:UnawardedNotification-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S138",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-UnsubscribeFromProcedureRequest-2.5.xsd",
+      "bytes": 22981,
+      "sha256": "e28af3ab047b88b8dd57f8260931b71fb866ad1d41dcd37c1d27a5879a170c60",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:UnsubscribeFromProcedureRequest-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S139",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-UnsubscribeFromProcedureResponse-2.5.xsd",
+      "bytes": 23872,
+      "sha256": "45f30997d5e99bdd206b60ebf1ee90481b04a29d935ed4a85d1662112fb575fb",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:UnsubscribeFromProcedureResponse-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S140",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-UtilityStatement-2.5.xsd",
+      "bytes": 30212,
+      "sha256": "f75b004c27f6df1b9514b55c2a2ab12948bff783ce6691b5b8a8eaa5e77e9745",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:UtilityStatement-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S141",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Waybill-2.5.xsd",
+      "bytes": 38461,
+      "sha256": "92389d04d3a1736d4a984b2db6d5819f585f77bcf44c2981a8bb2dd4c7b82746",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:Waybill-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S142",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-WeightStatement-2.5.xsd",
+      "bytes": 22138,
+      "sha256": "c31965ed3c3be1419eec43bc8299950f2117dd6d13c494f2b6fbe3845ec9d8cc",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:WeightStatement-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
+    },
+    {
+      "source_id": "SPFE-S143",
+      "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-WorkReport-2.5.xsd",
+      "bytes": 30138,
+      "sha256": "9df9a552ce7b7860adf9e668c3b6a97b5882f82d81710c994fd33a67cfdb59d7",
+      "kind": "xsd",
+      "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+      "target_namespace": "urn:oasis:names:specification:ubl:schema:xsd:WorkReport-2",
+      "received_on": "2026-11-23",
+      "schema_references": [
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
+          "location": "../common/UBL-CommonAggregateComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2",
+          "location": "../common/UBL-CommonBasicComponents-2.5.xsd",
+          "local_exists": true
+        },
+        {
+          "namespace": "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2",
+          "location": "../common/UBL-CommonExtensionComponents-2.5.xsd",
+          "local_exists": true
+        }
+      ],
+      "header_release_label": "UBL 2.5 CSD01; Release Date 20 August 2025 (local header evidence)"
     }
   ],
   "counts": {
-    "pdf": 5,
-    "wsdl": 8,
-    "xsd": 4,
-    "xml": 5,
-    "pdf_pages": 127
+    "pdf": 7,
+    "xml": 6,
+    "wsdl": 9,
+    "xsd": 116,
+    "text": 1,
+    "properties": 4,
+    "pdf_pages": 166
   },
-  "updated_on": "2026-10-22",
+  "updated_on": "2026-11-23",
   "current_wsdl_baseline": {
-    "release_date": "2026-10-29",
-    "reviewed_on": "2026-10-29",
-    "root": "context/WSDL servicios web - PRE_29_10_2026",
-    "date_basis": "User-supplied release label; no official publication URL supplied.",
-    "qualification": "Local contract comparison complete; runtime and business-rule qualification remain open.",
-    "missing_schema_gates": {
-      "context/WSDL servicios web - PRE_29_10_2026/xsd/ubl-2.5/maindoc/UBL-Invoice-2.5.xsd": "SPFE-Q04/SPFE-Q05",
-      "context/WSDL servicios web - PRE_29_10_2026/xsd/ubl-2.5/maindoc/UBL-DocumentStatus-2.5.xsd": "SPFE-Q04/SPFE-Q05"
-    }
+    "release_date": "2026-11-23",
+    "reviewed_on": "2026-11-23",
+    "root": "context/WSDL servicios web - PRE_23_11_26",
+    "date_basis": "User-supplied release folder and announcement; all nine WSDLs compared with the registered 29 October originals. Original publication URL not supplied.",
+    "qualification": "Nine WSDLs, four transport XSDs and JAXB XML are byte-identical to 29 October. LEEME.txt corrects InvoiceValidation.wsdl to ValidationInvoice.wsdl. All 112 added UBL XSD files parse and their local import/include references resolve. Executable Spain rules, client generation, runtime and provenance qualification remain open.",
+    "missing_schema_gates": {},
+    "ubl_schema_provenance": "User-supplied schema tree: 110 UBL XSD headers identify UBL 2.5 CSD01. Invoice/DocumentStatus/ApplicationResponse headers state Release Date 20 August 2025; seven common/dependency headers state 07 April 2025. Two BDNDR datatype dependencies have separate labels. No independent distribution-byte comparison or accepted Spain release/profile qualification."
   },
   "historical_wsdl_releases": [
     {
+      "release_date": "2026-10-29",
+      "reviewed_on": "2026-10-29",
+      "root": "context/archive/WSDL servicios web - PRE_29_10_2026",
+      "date_basis": "User-supplied release label; no official publication URL supplied.",
+      "qualification": "Local contract comparison complete; runtime and business-rule qualification remain open.",
+      "missing_schema_gates": {
+        "context/archive/WSDL servicios web - PRE_29_10_2026/xsd/ubl-2.5/maindoc/UBL-Invoice-2.5.xsd": "SPFE-Q04/SPFE-Q05",
+        "context/archive/WSDL servicios web - PRE_29_10_2026/xsd/ubl-2.5/maindoc/UBL-DocumentStatus-2.5.xsd": "SPFE-Q04/SPFE-Q05"
+      },
+      "sources": [
+        {
+          "source_id": "SPFE-S10",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/CancelInvoice.wsdl",
+          "bytes": 6717,
+          "sha256": "0edea5d196e04c0bbc620ae5373cb8ef8469bd845a9dc399b3108c4c5a0d8f07",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/CancelInvoice/v1",
+          "operations": [
+            "CancelInvoice"
+          ],
+          "ports": [
+            {
+              "name": "CancelInvoiceCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/CancelInvoiceSOAP"
+            },
+            {
+              "name": "CancelInvoiceSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/CancelInvoiceSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ],
+          "release_date": "2026-10-29"
+        },
+        {
+          "source_id": "SPFE-S11",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/CustomerInvoiceEvents.wsdl",
+          "bytes": 6965,
+          "sha256": "69fe0e5ca0f21670a2188e97e91545eb4ee40ee01e5c66a8f50692378c32fa92",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/CustomerInvoiceEvents/v1",
+          "operations": [
+            "CustomerInvoiceEvents"
+          ],
+          "ports": [
+            {
+              "name": "CustomerInvoiceEventsCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/CustomerInvoiceEventsSOAP"
+            },
+            {
+              "name": "CustomerInvoiceEventsSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/CustomerInvoiceEventsSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ],
+          "release_date": "2026-10-29"
+        },
+        {
+          "source_id": "SPFE-S12",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/DownloadInvoicesByID.wsdl",
+          "bytes": 6934,
+          "sha256": "23cc3e03c33d9693cfac82ee0b104ba054c8d968b58b49b39c1fe161ad492396",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/DownloadInvoicesByID/v1",
+          "operations": [
+            "DownloadInvoicesByID"
+          ],
+          "ports": [
+            {
+              "name": "DownloadInvoicesByIDCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/DownloadInvoicesByIDSOAP"
+            },
+            {
+              "name": "DownloadInvoicesByIDSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/DownloadInvoicesByIDSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ],
+          "release_date": "2026-10-29"
+        },
+        {
+          "source_id": "SPFE-S13",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/DownloadInvoicesByLOC.wsdl",
+          "bytes": 6965,
+          "sha256": "d0a8a4534aa1552a5c54e1b206e4f8c91ae702a2008d841fd5fe54228875385d",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/DownloadInvoicesByLOC/v1",
+          "operations": [
+            "DownloadInvoicesByLOC"
+          ],
+          "ports": [
+            {
+              "name": "DownloadInvoicesByLOCCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/DownloadInvoicesByLOCSOAP"
+            },
+            {
+              "name": "DownloadInvoicesByLOCSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/DownloadInvoicesByLOCSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ],
+          "release_date": "2026-10-29"
+        },
+        {
+          "source_id": "SPFE-S14",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/GetInvoices.wsdl",
+          "bytes": 6655,
+          "sha256": "d7805e71b0a57b772872a0e2ac1c9b1e6f0d9312c1f08e4c930bf20f17f90a6a",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/GetInvoices/v1",
+          "operations": [
+            "GetInvoices"
+          ],
+          "ports": [
+            {
+              "name": "GetInvoicesCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/GetInvoicesSOAP"
+            },
+            {
+              "name": "GetInvoicesSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/GetInvoicesSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ],
+          "release_date": "2026-10-29"
+        },
+        {
+          "source_id": "SPFE-S15",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/GetRegisteredInvoice.wsdl",
+          "bytes": 6934,
+          "sha256": "d047166769fb58a695f28b9551fcda913365f325ee0fd07894c4ee5c9ac74085",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/GetRegisteredInvoice/v1",
+          "operations": [
+            "GetRegisteredInvoice"
+          ],
+          "ports": [
+            {
+              "name": "GetRegisteredInvoiceCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/GetRegisteredInvoiceSOAP"
+            },
+            {
+              "name": "GetRegisteredInvoiceSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/GetRegisteredInvoiceSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ],
+          "release_date": "2026-10-29"
+        },
+        {
+          "source_id": "SPFE-S16",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/SendInvoice.wsdl",
+          "bytes": 6655,
+          "sha256": "c5c9688ea97d184197e8dc0a565eef0796ad9e4319f8e59ac09c7a6784f20b5c",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/SendInvoice/v1",
+          "operations": [
+            "SendInvoice"
+          ],
+          "ports": [
+            {
+              "name": "SendInvoiceCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/SendInvoiceSOAP"
+            },
+            {
+              "name": "SendInvoiceSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/SendInvoiceSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ],
+          "release_date": "2026-10-29"
+        },
+        {
+          "source_id": "SPFE-S17",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/SupplierInvoiceEvents.wsdl",
+          "bytes": 6965,
+          "sha256": "1eeb0c8886c6c5171948e607480e184f1835dc03ae82c9454215fa848cf77262",
+          "kind": "wsdl",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/SupplierInvoiceEvents/v1",
+          "operations": [
+            "SupplierInvoiceEvents"
+          ],
+          "ports": [
+            {
+              "name": "SupplierInvoiceEventsCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/SupplierInvoiceEventsSOAP"
+            },
+            {
+              "name": "SupplierInvoiceEventsSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/SupplierInvoiceEventsSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/",
+              "location": "xsd/ebms/ebms-header-3_0-200704.xsd",
+              "local_exists": true
+            }
+          ],
+          "release_date": "2026-10-29"
+        },
+        {
+          "source_id": "SPFE-S18",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/xsd/ebms/ebms-header-3_0-200704.xsd",
+          "bytes": 9707,
+          "sha256": "fb965bd19e1f47f5e9ce570d9782a53aefeee860d552a1f8f6a64c7a3795f060",
+          "kind": "xsd",
+          "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+          "schema_references": [
+            {
+              "namespace": "http://schemas.xmlsoap.org/soap/envelope/",
+              "location": "../xmlsoap/envelope.xsd",
+              "local_exists": true
+            },
+            {
+              "namespace": "http://www.w3.org/2003/05/soap-envelope",
+              "location": "../w3/soap-envelope.xsd",
+              "local_exists": true
+            },
+            {
+              "namespace": "http://www.w3.org/XML/1998/namespace",
+              "location": "../w3/xml.xsd",
+              "local_exists": true
+            }
+          ],
+          "release_date": "2026-10-29"
+        },
+        {
+          "source_id": "SPFE-S19",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/xsd/w3/soap-envelope.xsd",
+          "bytes": 5808,
+          "sha256": "388c76d3ef483c9ce09f625a0758077c6df040e788c58fc4ff22b663d71688fe",
+          "kind": "xsd",
+          "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+          "schema_references": [
+            {
+              "namespace": "http://www.w3.org/XML/1998/namespace",
+              "location": "xml.xsd",
+              "local_exists": true
+            }
+          ],
+          "release_date": "2026-10-29"
+        },
+        {
+          "source_id": "SPFE-S20",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/xsd/w3/xml.xsd",
+          "bytes": 8836,
+          "sha256": "61960fb3131e38022caad5360e2f33a3382578ab3c80cd58bd74320ede61b20c",
+          "kind": "xsd",
+          "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+          "schema_references": [],
+          "release_date": "2026-10-29"
+        },
+        {
+          "source_id": "SPFE-S21",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/xsd/xmlsoap/envelope.xsd",
+          "bytes": 6123,
+          "sha256": "b3b47ed56c4c1c1dc75843eec976575cf60ae1460a8bb39ce52e4ba25a4414cb",
+          "kind": "xsd",
+          "root_element": "{http://www.w3.org/2001/XMLSchema}schema",
+          "schema_references": [],
+          "release_date": "2026-10-29"
+        },
+        {
+          "source_id": "SPFE-S23",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/ValidationInvoice.wsdl",
+          "kind": "wsdl",
+          "release_date": "2026-10-29",
+          "bytes": 6061,
+          "sha256": "64f5735947d2d0aab29dccf33641771eb2b9104b58bb6e7a64fa46b862e18ec4",
+          "root_element": "{http://schemas.xmlsoap.org/wsdl/}definitions",
+          "target_namespace": "https://www.agenciatributaria.gob.es/spfe/ns/services/ValidationInvoice/v1",
+          "operations": [
+            "ValidationInvoice"
+          ],
+          "ports": [
+            {
+              "name": "ValidationInvoiceCertPort",
+              "url": "https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/ValidationInvoiceSOAP"
+            },
+            {
+              "name": "ValidationInvoiceSealPort",
+              "url": "https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/ValidationInvoiceSOAP"
+            }
+          ],
+          "schema_references": [
+            {
+              "namespace": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2",
+              "location": "xsd/ubl-2.5/maindoc/UBL-Invoice-2.5.xsd",
+              "local_exists": false
+            },
+            {
+              "namespace": "urn:oasis:names:specification:ubl:schema:xsd:DocumentStatus-2",
+              "location": "xsd/ubl-2.5/maindoc/UBL-DocumentStatus-2.5.xsd",
+              "local_exists": false
+            }
+          ]
+        },
+        {
+          "source_id": "SPFE-S24",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/spfe-ebms3-jaxb-bindings.xml",
+          "kind": "xml",
+          "release_date": "2026-10-29",
+          "bytes": 2112,
+          "sha256": "ad42c1d5b8cfa5ffa103551f2b3c78e802cdb4a9ec6106b00e671a7647a5e2c7",
+          "root_element": "{https://jakarta.ee/xml/ns/jaxb}bindings",
+          "schema_references": []
+        },
+        {
+          "source_id": "SPFE-S25",
+          "path": "context/archive/WSDL servicios web - PRE_29_10_2026/xsd/ubl-2.5/LEEME.txt",
+          "kind": "text",
+          "release_date": "2026-10-29",
+          "bytes": 289,
+          "sha256": "ff3ea73499f3871a71da1d283a2fe029722f20289d6c8beacb6515dfd0f7e37e"
+        }
+      ]
+    },
+    {
       "release_date": "2026-10-16",
-      "root": "context/WSDL servicios web - PRE_16/10/2026/20261013",
+      "root": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013",
       "date_basis": "User labels the previous release 16 October; files retain the nested 20261013 snapshot. No InvoiceValidation WSDL is present, so its reported 16 October addition and rename cannot be compared locally.",
       "sources": [
         {
           "source_id": "SPFE-S10",
-          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/CancelInvoice.wsdl",
+          "path": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013/CancelInvoice.wsdl",
           "bytes": 7766,
           "sha256": "2735ae21903ef7a99e6dd41a845e4e702624c41420c3c242517d1cbd0267e620",
           "kind": "wsdl",
@@ -520,7 +4005,7 @@
         },
         {
           "source_id": "SPFE-S11",
-          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/CustomerInvoiceEvents.wsdl",
+          "path": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013/CustomerInvoiceEvents.wsdl",
           "bytes": 8070,
           "sha256": "bf7c596f0a34f63cb633e3e7896bfdf13f45b1a0bbb5349d630a1270ec7a21e3",
           "kind": "wsdl",
@@ -549,7 +4034,7 @@
         },
         {
           "source_id": "SPFE-S12",
-          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/DownloadInvoicesByID.wsdl",
+          "path": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013/DownloadInvoicesByID.wsdl",
           "bytes": 8032,
           "sha256": "9e19cc3fc7ded95e4e85bb4b9d44f450fd16551572c56eb4ddc2b1364a953977",
           "kind": "wsdl",
@@ -578,7 +4063,7 @@
         },
         {
           "source_id": "SPFE-S13",
-          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/DownloadInvoicesByLOC.wsdl",
+          "path": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013/DownloadInvoicesByLOC.wsdl",
           "bytes": 8070,
           "sha256": "2e1e066f23d50159027c5139b7ba954c631675366fc12965e7e1b1a396a7743f",
           "kind": "wsdl",
@@ -607,7 +4092,7 @@
         },
         {
           "source_id": "SPFE-S14",
-          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/GetInvoices.wsdl",
+          "path": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013/GetInvoices.wsdl",
           "bytes": 7690,
           "sha256": "625eae833dbf132df6e2e28540765e7620497b3c59b7d02c91f826c77d6fcd2f",
           "kind": "wsdl",
@@ -636,7 +4121,7 @@
         },
         {
           "source_id": "SPFE-S15",
-          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/GetRegisteredInvoice.wsdl",
+          "path": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013/GetRegisteredInvoice.wsdl",
           "bytes": 8032,
           "sha256": "fc8e8452f16f1525df58104f301e31638e5087c9eab6fb0f687bf99279bb0790",
           "kind": "wsdl",
@@ -665,7 +4150,7 @@
         },
         {
           "source_id": "SPFE-S16",
-          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/SendInvoice.wsdl",
+          "path": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013/SendInvoice.wsdl",
           "bytes": 7690,
           "sha256": "057fb0ef6bece816908ba7d7e181784e1b8c00d69aae82d2f147e9cc0dfaae5b",
           "kind": "wsdl",
@@ -694,7 +4179,7 @@
         },
         {
           "source_id": "SPFE-S17",
-          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/SupplierInvoiceEvents.wsdl",
+          "path": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013/SupplierInvoiceEvents.wsdl",
           "bytes": 8070,
           "sha256": "63e8a845e317d3604382493133ad0426345094b4031215c921f8b48e4f0305ea",
           "kind": "wsdl",
@@ -723,7 +4208,7 @@
         },
         {
           "source_id": "SPFE-S18",
-          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/xsd/ebms/ebms-header-3_0-200704.xsd",
+          "path": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013/xsd/ebms/ebms-header-3_0-200704.xsd",
           "bytes": 9707,
           "sha256": "fb965bd19e1f47f5e9ce570d9782a53aefeee860d552a1f8f6a64c7a3795f060",
           "kind": "xsd",
@@ -748,7 +4233,7 @@
         },
         {
           "source_id": "SPFE-S19",
-          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/xsd/w3/soap-envelope.xsd",
+          "path": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013/xsd/w3/soap-envelope.xsd",
           "bytes": 5808,
           "sha256": "388c76d3ef483c9ce09f625a0758077c6df040e788c58fc4ff22b663d71688fe",
           "kind": "xsd",
@@ -763,7 +4248,7 @@
         },
         {
           "source_id": "SPFE-S20",
-          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/xsd/w3/xml.xsd",
+          "path": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013/xsd/w3/xml.xsd",
           "bytes": 8836,
           "sha256": "61960fb3131e38022caad5360e2f33a3382578ab3c80cd58bd74320ede61b20c",
           "kind": "xsd",
@@ -772,7 +4257,7 @@
         },
         {
           "source_id": "SPFE-S21",
-          "path": "context/WSDL servicios web - PRE_16/10/2026/20261013/xsd/xmlsoap/envelope.xsd",
+          "path": "context/archive/WSDL servicios web - PRE_16/10/2026/20261013/xsd/xmlsoap/envelope.xsd",
           "bytes": 6123,
           "sha256": "b3b47ed56c4c1c1dc75843eec976575cf60ae1460a8bb39ce52e4ba25a4414cb",
           "kind": "xsd",

@@ -1,0 +1,303 @@
+
+--- PDF PAGE 1 ---
+    Agencia Tributaria                                           Facturación Electrónica
+
+
+   REGLAS DE NEGOCIO ANEXO II OM SPFE
+
+
+
+
+
+ Autor: AEAT              Fecha: 19/11/2026             Versión: 0.1
+
+
+Revisiones
+
+
+
+ Edic.  Rev.   Fecha       Descripción                                       A(*)   Páginas
+
+ 0.1           19/11/2026  Documento inicial                      A
+
+
+
+
+
+(*) Acción:  A = Añadir; R = Reemplazar
+
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                1
+--- PDF PAGE 2 ---
+    Agencia Tributaria                                           Facturación Electrónica
+
+
+
+
+   Contenido
+
+1  INTRODUCCIÓN .......................................................................................................................... 3
+2  REGLAS DE NEGOCIO................................................................................................................ 3
+  2.1   REGLAS DE NEGOCIO GENERALES ................................................................................. 3
+  2.2   MENSAJE DE PAGO - DESTINATARIO .............................................................................. 4
+  2.3   MENSAJE DE RECHAZO - DESTINATARIO ....................................................................... 4
+  2.4   MENSAJE DE COBRO - EMISOR........................................................................................ 5
+  2.5   MENSAJE DE IMPAGO - EMISOR ...................................................................................... 6
+
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                2
+--- PDF PAGE 3 ---
+    Agencia Tributaria                                           Facturación Electrónica
+
+1  INTRODUCCIÓN
+
+
+A continuación, se recogen las reglas de negocio aplicables a cada uno de los mensajes de alta
+previstos en el Anexo II de la Orden Ministerial HAC/1028/2026, de 2 de octubre.
+
+
+No se incluyen como reglas de negocio:
+
+     -  Supuestos en los que el contenido de un campo viene prefijado o restringido por el mapeo del
+      Anexo I.
+     -  Supuestos en los que el contenido de un campo viene prefijado por el uso de códigos previstos
+      de una lista.
+     -   Validaciones relativas al número de identificación fiscal.
+     -   Reglas de negocio que derivan del esquema “application response” de UBL 2.5.
+
+
+La factura que se informa debe constar en la Solución Pública de Facturación Electrónica, en caso
+contrario se rechazará el mensaje.
+
+Los mensajes de anulación deben contener la totalidad de los datos identificativos de la factura
+informada, y esta factura debe existir en la Solución Pública de Facturación Electrónica, y no debe
+haber sido anulada, en caso contrario se rechazará el mensaje.
+
+
+2  REGLAS DE NEGOCIO
+
+2.1 REGLAS DE NEGOCIO GENERALES
+
+
+En este apartado se especifican las reglas de negocio aplicables a todos los mensajes previstos en el
+Anexo II.
+
+
+
+                                                                      Grupo/Término de
+                ID                        Descripción
+                                                                           negocio
+
+          BR-        La  factura  informada debe  existir en  el  sistema Factura informada
+           ANEXOII-1   (coincidencia serie y número de factura, fecha de
+                           expedición, NIF emisor)
+
+          BR-          El mensaje informado no debe haber sido remitido Mensaje
+           ANEXOII-2   previamente respecto de una misma factura informada
+
+          BR-          El mensaje informado no debe ser incompatible con el Mensaje
+           ANEXOII-3   mensaje anterior informado respecto de una misma
+                             factura.
+
+          BR-          El mensaje informado debe ser remitido por la parte Mensaje
+           ANEXOII-4   correspondiente:
+
+                       Mensajes de pago y rechazo: NIF destinatario
+
+                       Mensajes de cobro e impago: NIF emisor
+
+          BR-          El “ResponseCode” del mensaje informado se debe Mensaje
+           ANEXOII-5   corresponder con el servicio correspondiente.
+
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                3
+--- PDF PAGE 4 ---
+    Agencia Tributaria                                           Facturación Electrónica
+
+
+
+2.2 MENSAJE DE PAGO - DESTINATARIO
+
+
+En este apartado se especifican las reglas de negocio aplicables a los mensajes de pago emitidos por
+el destinatario.
+
+
+Tabla ES-1 – Reglas de negocio aplicables a los mensajes de pago del destinatario
+
+
+                                                                      Grupo/Término de
+                ID                        Descripción
+                                                                           negocio
+
+          BR-PAGO-   El mensaje debe incluir una “fecha de efecto”.        Fecha de efecto
+           1
+
+          BR-PAGO-  La “fecha de efecto” no puede ser posterior a la fecha Fecha de efecto
+           2          de  envío  del mensaje a  la  Solución  Pública de
+                          Facturación Electrónica.
+
+          BR-PAGO-   El mensaje debe incluir una “fecha de vencimiento del Fecha de vencimiento  del
+           3            plazo de pago”.                                     plazo de pago
+
+          BR-PAGO-   Si el mensaje incluye una “fecha de recepción de la Fecha de recepción de  la
+           4              factura”, esta debe ser igual o posterior a la fecha de  factura, fecha de expedición
+                          expedición de la factura que se informa.             de la factura
+
+          BR-PAGO-   Si el mensaje incluye el campo “factura rectificada”, la Factura  rectificada, código
+           5             factura que se informa no podrá tener un código de tipo de tipo de factura
+                      de factura 384 o 471.
+
+          BR-PAGO-   Si el mensaje incluye el campo “factura rectificativa”, la Factura rectificativa, código
+           6             factura que se informa deberá tener un código de tipo de tipo de factura
+                      de factura 384 o 471.
+
+          BR-PAGO-   El  mensaje  debe  incluir  un  grupo  de  “Factura Factura informada, Número
+           7            informada”, que contenga necesariamente los campos de  factura  (ID), fecha de
+                      “Número de factura (ID)”, “Fecha de expedición de la expedición de la factura, NIF
+                              factura”, “NIF emisor” y “Nombre/Razón social del emisor,     Nombre/Razón
+                           emisor”.                                                 social del emisor
+
+          BR-PAGO-  No puede informarse el pago de una factura en el que Factura informada, importes
+           8               el campo “Total a pagar” (BT-113) sea negativo        negativos
+
+
+2.3 MENSAJE DE RECHAZO - DESTINATARIO
+
+
+En este apartado se especifican las reglas de negocio aplicables a los mensajes de rechazo emitidos
+por el destinatario.
+
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                4
+--- PDF PAGE 5 ---
+     Agencia Tributaria                                           Facturación Electrónica
+
+Tabla ES-2 – Reglas de negocio aplicables a los mensajes de rechazo del destinatario
+
+
+                                                                          Grupo/Término de
+                ID                           Descripción
+                                                                               negocio
+
+             BR-      El mensaje debe incluir una “fecha de rechazo”.             Fecha de rechazo
+         RECHAZO-
+               1
+
+             BR-     La “fecha de rechazo” no puede ser posterior a la fecha de Fecha de rechazo
+         RECHAZO-  envío  del mensaje a  la Solución Pública de Facturación
+               2       Electrónica.
+
+             BR-     La “fecha de rechazo” debe ser posterior a  la “fecha de Fecha  de   rechazo,
+         RECHAZO-  expedición de la factura”.                                   fecha de expedición de
+               3                                                                                 la factura
+
+             BR-      El mensaje debe incluir un “motivo de rechazo”.               Motivo de rechazo
+         RECHAZO-
+               4
+
+             BR-      El mensaje debe incluir un grupo de “Factura informada”, que Factura     informada,
+         RECHAZO-  contenga necesariamente los campos “Número de factura Número de factura (ID),
+               5        (ID)”, “Fecha de expedición de la factura”, “NIF emisor” y fecha de expedición de
+                      “Nombre/Razón social del emisor”.                                 la factura, NIF emisor,
+                                                                        Nombre/Razón   social
+                                                                                          del emisor
+
+
+
+ 2.4 MENSAJE DE COBRO - EMISOR
+
+
+ En este apartado se especifican las reglas de negocio aplicables a los mensajes de cobro emitidos por
+  el emisor de la factura.
+
+
+
+Tabla ES-3 – Reglas de negocio aplicables a los mensajes de cobro del emisor de la factura
+
+
+                 ID                       Descripción                  Grupo/Término de negocio
+
+              BR-     El mensaje debe incluir una “fecha de cobro”.        Fecha de cobro
+          COBRO-1
+
+              BR-    La “fecha de cobro” no puede ser posterior a la fecha Fecha de cobro
+          COBRO-2 de  envío  del mensaje a  la  Solución  Pública de
+                         Facturación Electrónica.
+
+              BR-     Si el mensaje incluye una “fecha de recepción de la Fecha de  recepción de  la
+          COBRO-3  factura”, esta debe ser igual o posterior a la fecha de  factura, fecha de expedición
+                         expedición de la factura que se informa.             de la factura
+
+              BR-     El  mensaje  debe  incluir  un  grupo  de  “Factura Factura  informada, Número
+          COBRO-4  informada”, que contenga necesariamente los campos de  factura  (ID),  fecha  de
+                     “Número de factura (ID)”, “Fecha de expedición de la expedición de la factura, NIF
+                             factura”, “NIF emisor” y “Nombre/Razón social del emisor, Nombre/Razón social
+                          emisor”.                                               del emisor
+
+              BR-   No puede informarse el cobro de una factura en el que Factura  informada, importes
+          COBRO-5  el campo “Total a pagar” (BT-113) sea negativo        negativos
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                5
+--- PDF PAGE 6 ---
+     Agencia Tributaria                                           Facturación Electrónica
+
+
+
+
+ 2.5 MENSAJE DE IMPAGO - EMISOR
+
+
+ En este apartado se especifican las reglas de negocio aplicables a los mensajes de impago emitidos
+ por el emisor de la factura.
+
+
+Tabla ES-4 – Reglas de negocio aplicables a los mensajes de impago del emisor de la factura
+
+
+
+                 ID                       Descripción                  Grupo/Término de negocio
+
+              BR-     El mensaje debe incluir una “fecha de vencimiento del Fecha  de  vencimiento  del
+           IMPAGO-  pago”.                                       pago
+               1
+
+              BR-    La “fecha de vencimiento del pago” no puede ser Fecha  de  vencimiento  del
+           IMPAGO-  posterior a la fecha de envío del mensaje a la Solución pago
+               2      Pública de Facturación Electrónica.
+
+              BR-     Si el mensaje incluye una “fecha de recepción de la Fecha de  recepción de  la
+           IMPAGO-  factura”, esta debe ser igual o posterior a la fecha de  factura, fecha de expedición
+               3      expedición de la factura que se informa.             de la factura
+
+              BR-     El  mensaje  debe  incluir  un  grupo  de  “Factura Factura  informada, Número
+           IMPAGO-  informada”, que contenga necesariamente los campos de  factura  (ID),  fecha  de
+               4     “Número de factura (ID)”, “Fecha de expedición de la expedición de la factura, NIF
+                             factura”, “NIF emisor” y “Nombre/Razón social del emisor, Nombre/Razón social
+                          emisor”.                                               del emisor
+
+              BR-   No puede informarse el impago de una factura en el Factura  informada, importes
+           IMPAGO-  que el campo “Total a pagar” (BT-113) sea negativo    negativos
+               5
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                6

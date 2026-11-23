@@ -5,7 +5,7 @@ type: note
 status: draft
 owner: Jiaxin He
 created: 2026-11-18
-updated: 2026-11-20
+updated: 2026-11-23
 related:
   - SPEC-SEI-001
   - SPEC-SEI-037
@@ -69,4 +69,4 @@ Wait for answers about certificate choice and team responsibilities before chang
 **R3 — Find a provider and upload a certificate:** [AEAT upload reviewed extract](../../context/Tax%20API/Certificates/aeat-certificate-upload-guide-extract.md), guide received 27 October 2026; The original version and URL were not supplied. Sections “Obtain provider ID for Spain AEAT”, “Upload certificate” and “Source conflicts and limits” separate finding a provider from uploading a certificate. B2B use and the relationship between connection IDs still need confirmation.
 
 <a id="r4"></a>
-**R4 — Certificate types and URLs:** [Original SendInvoice WSDL](../../context/WSDL%20servicios%20web%20-%20PRE_29_10_2026/SendInvoice.wsdl), reviewed local test release labelled 29 October 2026, `wsdl:documentation` access text and `SendInvoiceCertPort` / `SendInvoiceSealPort` addresses. The [manifest](../../assets/regulatory/spain/spfe/source-manifest.json) selects this baseline; [RES-SEI-002 release review](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#pre-wsdl-release-reviewed-29-october-2026) records the missing evidence. Defined URLs do not prove certificate acceptance, permission to act for a business, or working software.
+**R4 — Certificate types and URLs:** [Original SendInvoice WSDL](../../context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SendInvoice.wsdl), reviewed local test release labelled 23 November 2026, `wsdl:documentation` access text and `SendInvoiceCertPort` / `SendInvoiceSealPort` addresses. The [manifest](../../assets/regulatory/spain/spfe/source-manifest.json) selects this baseline; [RES-SEI-002 release review](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#pre-wsdl-and-supporting-evidence-reviewed-23-november-2026) records the missing evidence. Defined URLs do not prove certificate acceptance, permission to act for a business, or working software.

@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-11-05
-updated: 2026-11-09
+updated: 2026-11-23
 reviewers: []
 related:
   - SPEC-SEI-013
@@ -76,7 +76,7 @@ Each private-provider connector must support both customer starting points: **al
 | Integration role | Planning baseline | Qualification boundary |
 |---|---|---|
 | Customer → private provider | Six private-provider connectors; [PRD214 portfolio](../../prds/PRD-SEI-214-connections-registration-routing-structured-review.md#problem-and-business-objective) | Qualify the selected Spain service, integration mode and supported operations for each provider. Connector scope is separate from deployment and release readiness. |
-| Sage → SPFE | One public-platform binding with multiple operation profiles | Use the reviewed 29 October PRE contracts; implementation and production access remain unqualified. SPFE-S16/S23; CA-SPFE. |
+| Sage → SPFE | One public-platform binding with multiple operation profiles | Use the reviewed 23 November PRE contract copies; implementation and production access remain unqualified. SPFE-S16/S23; CA-SPFE. |
 | Sage private platform → peer platform | Future interconnection role using the shared foundation | Qualify peer contract, trust and operations separately. Reuse a direct-provider adapter only where its contract fits; becoming an operator does not prove compatibility. SPEC014 §1. |
 
 ## 4 REF Source references
@@ -87,6 +87,6 @@ Each private-provider connector must support both customer starting points: **al
 | CA-ARCH02 | User's architect-discussion clarification, 9 November 2026; product, provider and connector use the same API. Corroborating [detailed invoice flow](../../assets/architecture/711539a8-ff4e-4723-9181-b21c71f389af.png), reviewed the same day; API gateway, connector, invoice/status calls and notification paths | Confirmed shared-contract design direction. No independent discussion transcript is stored. Exact schema, version, caller credentials and compatibility still need API-owner evidence. |
 | CA-H01 | [Connectors Architecture](https://confluence.sage.com/spaces/EINV/pages/226610799/Connectors+Architecture), displayed update 7 August 2020; user-supplied opening paragraphs, two API bullets and diagram | Historical boundary and hosting option. Supplied extract/image only; current deployment, contract completeness and compatibility are unknown. |
 | CA-BASE | [SPEC013](../SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md), updated 20 October 2026, Part 1 §§1–3 and GPA-Q01–12; [SPEC014](../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), Part 1 §1 | Canonical proposed API, role and ownership boundaries; not external contracts or build evidence. |
-| CA-SPFE / SPFE-S16, SPFE-S23 | [SendInvoice.wsdl](<../../context/WSDL servicios web - PRE_29_10_2026/SendInvoice.wsdl>), `documentation`, `portType`, `binding`, `service`; [ValidationInvoice.wsdl](<../../context/WSDL servicios web - PRE_29_10_2026/ValidationInvoice.wsdl>), same elements; PRE release 29 October 2026 | Operation-specific public transport. Validation uses direct SOAP bodies; invoice submission uses ebMS/MIME. No generic onboarding operation, private-provider contract or production qualification follows from these files. |
+| CA-SPFE / SPFE-S16, SPFE-S23 | [SendInvoice.wsdl](<../../context/WSDL servicios web - PRE_23_11_26/SendInvoice.wsdl>), `documentation`, `portType`, `binding`, `service`; [ValidationInvoice.wsdl](<../../context/WSDL servicios web - PRE_23_11_26/ValidationInvoice.wsdl>), same elements; PRE release 23 November 2026 | Operation-specific public transport. Validation uses direct SOAP bodies; invoice submission uses ebMS/MIME. No generic onboarding operation, private-provider contract or production qualification follows from these files. |
 
 The [source manifest](../../assets/regulatory/spain/spfe/source-manifest.json), `current_wsdl_baseline`, and [release review](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#pre-wsdl-release-reviewed-29-october-2026) select the reviewed local public evidence. They do not monitor future AEAT releases. Terms follow the [shared glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md).

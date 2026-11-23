@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-23
-updated: 2026-10-23
+updated: 2026-11-23
 reviewers: []
 related:
 - SPEC-SEI-034
@@ -129,7 +129,7 @@ Sources support only the claims and elements stated below. Product requirements 
 |---|---|---|
 | REF-BASE | [SPEC-SEI-011](../../SPEC-SEI-011-public-platform-connector-solution-specification.md), [013](../../SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md), [017](../../SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md), updated 20 October 2026; [014](../../SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md), current repository source. | 011 Part 1 §§1–2 and Part 4 gates; 013 Part 1 §§1–4 and GPA-05/08; 017 Parts 1–4; 014 SPC-01–08. Canonical draft design and scope references. Not approved external contracts or build evidence. |
 | REF-JOURNEYS | [Sending assessment, SPEC-SEI-024](../../invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md) and [receiving assessment, SPEC-SEI-027](../../invoice-receiving/SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md), repository review set, 22 October 2026. | Sequences and reuse gaps; their linked logical specs retain detailed behaviour. Product/BA sources, not external contract proof. |
-| SPFE-S08 | [FormatosEntradaSalida.pdf](<../../../context/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), v0.1.0, 9 October 2026, marked `BORRADOR`. | §5.1.1, p. 8: UBL 2.5 document types; §§5.3–5.9, pp. 14–15: pending service formats. Draft technical evidence; no blanket production or cross-profile compatibility claim. |
+| SPFE-S08 | [FormatosEntradaSalida.pdf](<../../../context/archive/original-technical-baseline/Descripción servicios web/Formatos entrada y salida/20261013/FormatosEntradaSalida.pdf>), v0.1.0, 9 October 2026, marked `BORRADOR`. | §5.1.1, p. 8: UBL 2.5 document types; §§5.3–5.9, pp. 14–15: pending service formats. Draft technical evidence; no blanket production or cross-profile compatibility claim. |
 | INT-SND01 / INT-RCV01 | [Supplied FR sending guide extract](<../../../context/FR API/Sending/send-e-invoice-guide-extract.md>) and [receiving guide extract](<../../../context/FR API/Receiving/receive-e-invoice-guide-extract.md>), received 22 October 2026; original attachment hashes recorded there. | Sending prerequisites and steps 2–5; receiving §§3.1–4 and format notes. Reading aids for supplied API evidence; original canonical URLs, OpenAPI revisions and deployed builds are unavailable. They establish reuse candidates and conflicts, not Spain support. |
 | REF-DTS | [SPEC-SEI-008 — Spain mapper migration to DTS](../../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md), current repository source. | Reuse qualification and migration scope. Preferred existing transformation candidate; selected builds, mappings, rule packs and operations still require evidence. |
 | SPFE-S03 | [CatalogoServicios.pdf](<../../../context/Descripción servicios web/Catálogo de servicios/20261013/CatalogoServicios.pdf>), v0.1.0, 9 October 2026. | §6.1, p. 10; §§6.2 and 6.4–6.7, pp. 10–15. Original public service names, submission, consultation and download roles. Technical descriptions do not qualify live access or complete business schemas. |

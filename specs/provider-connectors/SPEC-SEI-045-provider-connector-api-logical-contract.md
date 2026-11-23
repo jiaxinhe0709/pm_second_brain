@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-11-05
-updated: 2026-11-09
+updated: 2026-11-23
 reviewers: []
 related:
   - SPEC-SEI-013
@@ -104,7 +104,7 @@ CA-01–05 and the logical message fields are proposed Sage controls, derived fr
 
 | Source IDs / version | Original contracts and exact locator | Supported claim / limit |
 |---|---|---|
-| SPFE-S12–S15 / PRE 29 October 2026 | [DownloadInvoicesByID](<../../context/WSDL servicios web - PRE_29_10_2026/DownloadInvoicesByID.wsdl>), [DownloadInvoicesByLOC](<../../context/WSDL servicios web - PRE_29_10_2026/DownloadInvoicesByLOC.wsdl>), [GetInvoices](<../../context/WSDL servicios web - PRE_29_10_2026/GetInvoices.wsdl>), [GetRegisteredInvoice](<../../context/WSDL servicios web - PRE_29_10_2026/GetRegisteredInvoice.wsdl>), each `portType/operation`, `documentation`, `binding`, `service` | Query/download operations and transport; not complete filters, continuation rules or tested runtime coverage. |
-| SPFE-S10/S11/S17 / same release | [CancelInvoice](<../../context/WSDL servicios web - PRE_29_10_2026/CancelInvoice.wsdl>), [CustomerInvoiceEvents](<../../context/WSDL servicios web - PRE_29_10_2026/CustomerInvoiceEvents.wsdl>), [SupplierInvoiceEvents](<../../context/WSDL servicios web - PRE_29_10_2026/SupplierInvoiceEvents.wsdl>), same elements | Named cancellation/event operations; not business state interpretation, offboarding or replay guarantees. |
+| SPFE-S12–S15 / PRE 23 November 2026 | [DownloadInvoicesByID](<../../context/WSDL servicios web - PRE_23_11_26/DownloadInvoicesByID.wsdl>), [DownloadInvoicesByLOC](<../../context/WSDL servicios web - PRE_23_11_26/DownloadInvoicesByLOC.wsdl>), [GetInvoices](<../../context/WSDL servicios web - PRE_23_11_26/GetInvoices.wsdl>), [GetRegisteredInvoice](<../../context/WSDL servicios web - PRE_23_11_26/GetRegisteredInvoice.wsdl>), each `portType/operation`, `documentation`, `binding`, `service` | Query/download operations and transport; not complete filters, continuation rules or tested runtime coverage. |
+| SPFE-S10/S11/S17 / same release | [CancelInvoice](<../../context/WSDL servicios web - PRE_23_11_26/CancelInvoice.wsdl>), [CustomerInvoiceEvents](<../../context/WSDL servicios web - PRE_23_11_26/CustomerInvoiceEvents.wsdl>), [SupplierInvoiceEvents](<../../context/WSDL servicios web - PRE_23_11_26/SupplierInvoiceEvents.wsdl>), same elements | Named cancellation/event operations; not business state interpretation, offboarding or replay guarantees. |
 
 Transport detail remains authoritative in [SPEC011, SPFE source contract binding](../SPEC-SEI-011-public-platform-connector-solution-specification.md#spfe-source-contract-binding). Acceptance of a selected SPFE capability must include its cited contract checks; passing CA-01–05 alone cannot qualify it.

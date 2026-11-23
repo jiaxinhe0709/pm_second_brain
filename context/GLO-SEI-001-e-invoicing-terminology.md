@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-06
-updated: 2026-11-13
+updated: 2026-11-23
 reviewers: []
 related:
   - SPEC-SEI-001
@@ -160,6 +160,8 @@ Use the exact customer action labels **Connect or add a platform**, **Switch pla
 | Corrective invoice / correction method | A separate invoice that rectifies earlier invoice facts. In the selected Spain public profile, method `I` means correction by difference and `S` means correction by substitution. New document amounts and referenced original amounts have different meanings. Exact field bindings and permitted procedures belong to SPEC-SEI-015 and its qualified country pack. |
 | Replacement of simplified invoices | Spain type `388` in the final public-platform order's L1 list. This scenario is separate from corrective substitution method `S`; do not use “replacement” alone when both meanings are possible. |
 | Unique invoice code | Spain composite invoice identity using the qualified issuer NIF, series/number and issue date. Encoding and issuer-role mapping require the selected country contract. It is separate from a Sage invoice ID, request-idempotency key, operation ID and DTS task ID. Knowledge of a code does not grant access. |
+| XML path / selection condition | An XML path identifies elements or attributes. A selection condition distinguishes the intended occurrence, such as a regime property from another line property. A source path or matching schema name is a candidate location; qualify its namespace, meaning, context, cardinality and execution before using it as a field binding. |
+| Source rule occurrence | One rule row identified by its original source, version, section/page and occurrence. A printed rule ID can repeat or differ from an error property key. Preserve each occurrence and its field/group context; qualify equivalence before using an ID as an executable rule or wire error code. [SPEC005 Annex I coverage](../specs/SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md#annex-i-rule-coverage) applies this distinction. |
 | REGI | Fixed property code identifying a Spain invoice-line regime entry. The entry's value contains the regime code; REGI is not itself the regime value. Cardinality, national tax qualifier and permitted codes belong to the selected Spain profile. |
 | Representation | A specific file or data form of an invoice. Preserve its role, source, version and integrity evidence. Different representations may carry the same business meaning without having identical bytes. |
 | Transitional PDF companion | A readable PDF accompanying the structured invoice under the selected country transition rule. In this Spain sending scope, the local product generates it and qualifies delivery to the recipient. It is distinct from a faithful public copy, a Factur-X hybrid and the structured invoice. See [the product rule](../prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md#transitional-pdf-product-rule). |
@@ -233,6 +235,8 @@ Document types select applicable checks within sending and receiving. Receiving 
 | Duplicate detection | Recognising repeated observations, events or invoice candidates under defined identity/equivalence rules. It is separate from request idempotency; changed content under the same identity requires conflict handling. |
 | Reconciliation | Check the original operation against an authoritative source to establish what happened before deciding the next action. Preserve original identity, input and context. |
 | Outcome unknown | An external effect may have happened but reliable evidence is missing. It is a recovery condition, separate from confirmed failure or success; it does not permit a fresh mutation or automatic fallback. |
+| SPFE business / technical error category | The classification of a message resource by its original AEAT file, `errores_negocio.properties` or `errores_tecnicos.properties`. It does not by itself identify customer fault, severity, response level, retry permission or a lifecycle outcome. [SPEC011 business and technical mapping](../specs/SPEC-SEI-011-public-platform-connector-solution-specification.md#business-and-technical-error-mapping) owns proposed handling. |
+| Error property key / message variant / wire error code | A property key selects a source message template. A suffix can identify a different variant or parameter set. A wire error code is the exact value received in a qualified response field for an operation. Similar names or numbers do not establish equivalence. Preserve the source version and every duplicate definition; qualify template correspondence before runtime use. |
 | External mutation | An operation that changes another system. Retry safety depends on the qualified operation contract and transmission evidence, rather than the error name alone. |
 | Durable intent / outbox | A durable intent saves request identity and input before a possible external effect. An outbox saves an event or delivery intent waiting to be sent. Sending a notification does not prove business processing. |
 | Durable | Saved through the agreed recovery boundary so the record survives a process restart or worker failure. Long-term retention and disaster-recovery targets are separate policies. |

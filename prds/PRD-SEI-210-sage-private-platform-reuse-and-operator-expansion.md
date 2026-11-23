@@ -6,7 +6,7 @@ status: draft
 owner: TBD
 product: spain-e-invoicing
 created: 2026-08-10
-updated: 2026-11-03
+updated: 2026-11-23
 reviewers:
   - Jiaxin He
 related:
@@ -966,8 +966,8 @@ Use published primary regulation and official technical material first, then app
 | RD238 | [Original RD 238/2026](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-7295), published 31 March 2026; Articles 6–13, especially Article 9 and 13.1(b); preamble on Peppol BIS | Spain entry points, interconnection, formats, transport, lifecycle and operator duties. Peppol BIS validity as UBL does not establish a universal Peppol network requirement or selected Sage route. |
 | RD238-T2 | Same original regulation, transitional provision 2(1)–(2) | Conditional readable-PDF duty and recipient-only channel; not a discretionary cohort feature or period from onboarding. |
 | SPFE-S02 | [Original Order HAC/1028/2026 PDF](../context/BOE-A-2026-20587.pdf); [official text](https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587), published 5 October 2026; Articles 3–5, 7–11 and Annex II | Public-copy, admission, permitted withdrawal/correction, reporting and access rules. Does not establish an implemented Sage command or complete runtime contract. |
-| SPFE-S10 | [Original CancelInvoice WSDL](<../context/WSDL servicios web - PRE_29_10_2026/CancelInvoice.wsdl>), reviewed local PRE release 29 October 2026; documentation, operation, binding and service ports | External withdrawal transport. Business eligibility, complete message mapping, Sage availability and repeat safety need separate evidence. |
-| SPFE-S16 | [Original SendInvoice WSDL](<../context/WSDL servicios web - PRE_29_10_2026/SendInvoice.wsdl>), same reviewed release; documentation, operation and ports | Public submission transport, not proof of issuance coordination, receipt semantics or production access. |
+| SPFE-S10 | [Original CancelInvoice WSDL](<../context/archive/WSDL servicios web - PRE_29_10_2026/CancelInvoice.wsdl>), reviewed local PRE release 29 October 2026; documentation, operation, binding and service ports | External withdrawal transport. Business eligibility, complete message mapping, Sage availability and repeat safety need separate evidence. |
+| SPFE-S16 | [Original SendInvoice WSDL](<../context/archive/WSDL servicios web - PRE_29_10_2026/SendInvoice.wsdl>), same reviewed release; documentation, operation and ports | Public submission transport, not proof of issuance coordination, receipt semantics or production access. |
 | REF-SPFE | [RES-SEI-002](../context/RES-SEI-002-spain-public-platform-technical-evidence.md), 29 October release review and SPFE-Q01–19; [source manifest](../assets/regulatory/spain/spfe/source-manifest.json), current_wsdl_baseline | Selected original catalogue, formats, contracts, schemas and examples, with versions/hashes and limits. Current reviewed local release is 29 October 2026; neither future publication monitoring nor mapping completeness is established. |
 | REF-REUSE | [FP-SEI-001](../feature-proposals/FP-SEI-001-phase3-existing-capability-reuse-gap-assessment.md), preliminary inventory, evidence pack and fitness gates | Implementation qualification method; candidate names and documented designs are not deployed reuse. |
 | REF-DECISION | [ADR-SEI-001](../decisions/ADR-SEI-001-phase3-delivery-model-accountability.md), decision status and accountability matrix | Proposed operating-model decision, not a selected operator or approved route. |

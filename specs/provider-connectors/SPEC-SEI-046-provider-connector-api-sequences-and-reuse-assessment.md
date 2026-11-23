@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-11-05
-updated: 2026-11-09
+updated: 2026-11-23
 reviewers: []
 related:
   - SPEC-SEI-013
@@ -60,7 +60,7 @@ A shows polling and qualified push as alternative entry paths. B submits source 
 | Shared API and notification pattern, CA-ARCH01/02 | Shared-contract direction **confirmed**; implementation coverage **unknown** | API Architecture: inventory deployed operations, caller roles, event schemas, builds and versions. Compare with SPEC013; qualify Spain behaviour and existing-consumer compatibility. |
 | Correlation, durable execution, duplicate handling and evidence | **Reusable proposed design pattern** across bindings | Provider Connector Engineering: prove actual persistence, concurrent execution and crash recovery under 045 CA-02–04. |
 | Shared connectivity, SPEC014 | **Shared capability requiring country/provider/role bindings** | Connectivity owner: qualify supported contract versions, trust, limits, credentials and operation readiness. |
-| SPFE provider connector, SPEC011 | **Spain-specific transport binding** | Spain Integration owner: test selected client, SOAP/ebMS/MIME handling, faults and credential ports against the 29 October local baseline. Production access and missing business schemas remain open. CA-SPFE. |
+| SPFE provider connector, SPEC011 | **Spain-specific transport binding** | Spain Integration owner: test selected client, SOAP/ebMS/MIME handling, faults and credential ports against the 23 November local baseline. Production access and accepted schema/profile qualification remain open. CA-SPFE. |
 | B2B Router, SPEC017 | Proposed private-provider binding; implementation coverage **unknown** | Provider owner: supply contracted version, entitlement, supported directions, account model and conformance evidence. It does not qualify the other five providers. |
 | Existing DTS, SPEC008 | Preferred transformation implementation candidate upstream | DTS + invoice-feature owners: qualify exact build, input/output mappings, rule packs and operations. No transformation responsibility moves into provider connector transport. |
 | Spain identity, routing, public-copy and reporting rules | **Spain-specific feature rules**, referenced rather than copied | Country/domain owners: bind approved rules; prove another country's profile does not inherit Spain behaviour. |
@@ -82,4 +82,4 @@ These gates refine existing SPEC013 GPA-Q01–12 and SPEC014 decisions; they do 
 
 Historical CA-H01, canonical CA-BASE and original public CA-SPFE sources, versions and limits are recorded in [044 REF](SPEC-SEI-044-provider-connector-architecture-summary.md#4-ref-source-references). Public operation sources SPFE-S10–S17/S23 are mapped in [045 REF](SPEC-SEI-045-provider-connector-api-logical-contract.md#5-ref-source-references). These sequences and gates are proposed design controls, not AEAT-prescribed components.
 
-Reuse sources: [SPEC017](../SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md), Part 1 §§2–4 and REF, establishes the proposed provider binding and its contract gaps; [SPEC008](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md), Spain use/reuse and qualification gates, establishes the DTS assessment boundary. Neither proves a deployed Spain implementation. Public source selection remains the [reviewed manifest](../../assets/regulatory/spain/spfe/source-manifest.json), `current_wsdl_baseline`, and the [29 October release review](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#pre-wsdl-release-reviewed-29-october-2026).
+Reuse sources: [SPEC017](../SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md), Part 1 §§2–4 and REF, establishes the proposed provider binding and its contract gaps; [SPEC008](../SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md), Spain use/reuse and qualification gates, establishes the DTS assessment boundary. Neither proves a deployed Spain implementation. Public source selection remains the [reviewed manifest](../../assets/regulatory/spain/spfe/source-manifest.json), `current_wsdl_baseline`, and the [23 November release review](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#pre-wsdl-and-supporting-evidence-reviewed-23-november-2026).

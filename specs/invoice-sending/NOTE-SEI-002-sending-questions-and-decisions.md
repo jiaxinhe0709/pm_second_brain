@@ -5,7 +5,7 @@ type: note
 status: draft
 owner: Jiaxin He
 created: 2026-11-20
-updated: 2026-11-20
+updated: 2026-11-23
 related:
   - NOTE-SEI-001
   - NOTE-SEI-003
@@ -61,7 +61,7 @@ Use the decision states in [NOTE-SEI-001](../onboarding-and-connectivity/NOTE-SE
 **S1 — SPFE-S03 original catalogue:** [CatalogoServicios.pdf](../../context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf), v0.1.0, 9 October 2026; §6.2.1–6.2.2 PDF p.10 describes packages containing several invoice files and permission checks for each issuer; §6.2.3 PDF p.11 states 1–100 invoices and 5120 bytes per invoice. Original pages read on 20 November. This is the supplied initial catalogue. Ask AEAT to confirm the current limits, especially the file-size limit. These pages do not establish a submission deadline.
 
 <a id="s2"></a>
-**S2 — SPFE-S16 original SendInvoice contract:** [SendInvoice.wsdl](../../context/WSDL%20servicios%20web%20-%20PRE_29_10_2026/SendInvoice.wsdl), reviewed local test release labelled 29 October 2026; documentation, `PayloadInfo/PartInfo`, `SendInvoiceSoapBinding` and certificate/seal ports. SOAP 1.2, ebMS and MIME define how the message and files travel. They do not establish unlimited size, which invoices must be grouped, or working software. The [manifest](../../assets/regulatory/spain/spfe/source-manifest.json) and [release review](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#pre-wsdl-release-reviewed-29-october-2026) record the release and missing schema files.
+**S2 — SPFE-S16 original SendInvoice contract:** [SendInvoice.wsdl](../../context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SendInvoice.wsdl), reviewed local test release labelled 23 November 2026; documentation, `PayloadInfo/PartInfo`, `SendInvoiceSoapBinding` and certificate/seal ports. SOAP 1.2, ebMS and MIME define how the message and files travel. They do not establish unlimited size, which invoices must be grouped, or working software. The [manifest](../../assets/regulatory/spain/spfe/source-manifest.json) and [release review](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md#pre-wsdl-release-reviewed-29-october-2026) record the release and missing schema files.
 
 <a id="s3"></a>
 **S3 — Sending proposal and France evidence:** [SPEC024 §2.1](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#21-documented-fr-submission-and-observation), [engineering gates](SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md#4-open-engineering-decisions), [SPEC043 response proposal](api-reference/SPEC-SEI-043-invoice-sending-api-reference.md#response-notification-and-error-proposal), and [INT-SND01 guide extract](../../context/FR%20API/Sending/send-e-invoice-guide-extract.md), received 22 October 2026, steps 1–5. These describe creating an invoice request, uploading its files, receiving notifications and reading results. They do not confirm Spain batch support, X3 support or equivalence with France e-reporting. They also do not prove that a capability is absent from the current software.

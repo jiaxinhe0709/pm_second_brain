@@ -65,7 +65,7 @@ The business/accountant supplies authorised facts. The ERP displays results. The
 
 Start with an existing invoice and its authorised source context. Save the evidence before applying country rules. An incoming status does not automatically trigger another report. When reporting applies, keep each destination’s result separate. A timeout stays unresolved until the original result is checked.
 
-For issuer cancellation or rectification, use the [SPEC-SEI-047 separate-flow visual](../SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md#cancellation-and-rectification-flows). Sending owns cancellation request, response and recovery; [SPEC-SEI-029 proposed states](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#proposed-spain-invoice-states) owns the resulting cancelled state and the rectifying invoice's independent lifecycle. Cancelling an earlier business report remains a separate reporting action.
+For issuer cancellation or rectification, use the [SPEC-SEI-022 combined Send / Correct / Cancel overview](../invoice-sending/SPEC-SEI-022-invoice-sending-solution-summary.md#4-end-to-end-workflow). Sending owns cancellation request, response and recovery; [SPEC-SEI-029 proposed states](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#proposed-spain-invoice-states) owns the resulting cancelled state and the rectifying invoice's independent lifecycle. Cancelling an earlier business report remains a separate reporting action.
 
 ## 4 Reuse direction and product impact
 

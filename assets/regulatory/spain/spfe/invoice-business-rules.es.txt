@@ -1,0 +1,2147 @@
+
+--- PDF PAGE 1 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+
+   REGLAS DE NEGOCIO ANEXO I OM SPFE
+
+
+
+
+
+ Autor: AEAT              Fecha: 19/11/2026            Versión: 0.1
+
+
+
+Revisiones
+
+ Edic.   Rev.   Fecha        Descripción                                           A(*)    Páginas
+
+ 0.1             19/11/2026   Documento inicial.                         A
+
+
+
+
+
+(*) Acción:   A = Añadir;  R = Reemplazar
+
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                1
+--- PDF PAGE 2 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+   Contenido
+
+1  INTRODUCCIÓN .......................................................................................................................... 3
+2  REGLAS DE NEGOCIO................................................................................................................ 3
+  2.1    LÍMITES DE INTEGRIDAD ................................................................................................... 3
+  2.2   CONDICIONES .................................................................................................................... 6
+  2.3   REGLAS DE NEGOCIO POR CLAVE DE RÉGIMEN ......................................................... 10
+    2.3.1   Calificador IVA ................................................................................................................ 10
+    2.3.2   Calificador IGIC .............................................................................................................. 16
+    2.3.3   Calificador IPSI ............................................................................................................... 20
+  2.4   REGLAS DE NEGOCIO POR CATEGORÍA DE IVA .......................................................... 22
+    2.4.1  Gravamen General – S ................................................................................................... 23
+    2.4.2  Gravamen cero – Z ......................................................................................................... 23
+    2.4.3  Exento de IVA – E .......................................................................................................... 24
+    2.4.4   Inversión del sujeto pasivo – AE ..................................................................................... 25
+    2.4.5  Operación no sujeta a IVA – O ....................................................................................... 25
+    2.4.6   Exportación – G .............................................................................................................. 26
+    2.4.7  Operación sujeta a IGIC – L ........................................................................................... 26
+    2.4.8  Operación sujeta a IPSI – M ........................................................................................... 27
+    2.4.9  Regímenes nacionales de IVA (Régimen especial del grupo de entidades, nivel avanzado,
+    y régimen especial del recargo de equivalencia) – N .................................................................. 27
+    2.4.10   Régimen especial de agencia de viajes – D ................................................................ 31
+    2.4.11   Régimen especial de bienes usados, antigüedades, objetos de arte y de colección – F
+            32
+
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                2
+--- PDF PAGE 3 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+1  INTRODUCCIÓN
+
+
+Las reglas siguientes complementan las reglas de negocio de la EN 16931-1:2026 y no reproducen las
+ya contenidas en dicha norma. Se recogen únicamente requisitos específicos del anexo I.
+
+Se recogen los siguientes tipos de reglas de negocio:
+
+- Límites de integridad: reglas que establecen términos de negocio o grupos de términos de negocio
+que deben integrar necesariamente el documento de factura.
+
+- Condiciones: reglas que establecen las relaciones entre diversos términos o grupos de términos
+incluidos en la factura. Pueden ser en sentido excluyente (la presencia de un término impide la de otro),
+o simultáneo (la presencia de un término exige que esté presente otro), o bien basadas en una relación
+matemática entre diversos términos (por ejemplo, que un término sea la suma del contenido de otros
+términos).
+
+- Reglas de negocio: reglas de negocio que establecen los requisitos que deben cumplir las facturas
+electrónicas, una vez informada determinado su régimen de IVA. Por un lado, se establecen reglas de
+negocio aplicables a las distintas categorías de IVA admitidas. Por otro, se establecen reglas aplicables
+a las distintas claves de régimen admitidas. En este último caso, las reglas establecen la compatibilidad
+de una categoría de IVA con una, o en su caso, dos claves de régimen, y las relaciones permitidas
+entre claves de régimen informadas en distintas líneas.
+
+No se incluyen como reglas de negocio en el presente documento:
+
+     -  Supuestos en los que el contenido de un campo viene prefijado o restringido por el mapeo del
+      Anexo I.
+     -  Supuestos en los que el contenido de un campo viene prefijado por el uso de códigos previstos
+      de una lista.
+     -   Validaciones relativas al número de identificación fiscal.
+     -   Reglas de negocio incluidas en la EN16931 o que derivan del esquema UBL 2.5.
+
+Estas situaciones se validan de acuerdo con sus propias reglas.
+
+
+2  REGLAS DE NEGOCIO
+
+2.1  LÍMITES DE INTEGRIDAD
+
+
+En este apartado se especifican los límites de integridad que debe cumplir una factura electrónica
+conforme al anexo I. Son reglas adicionales a las establecidas en la EN 16931-1:2026.
+
+
+Tabla ES-1 – Reglas de negocio. Límites de integridad específicos de la Factura Electrónica Obligatoria
+
+
+                                                                                   Grupo/Término de
+    ID                          Descripción                        Objeto/Contexto
+                                                                                        negocio
+
+BR-ES-1    En el caso de incluirse una fecha efectiva de pago (BT-ES- Fecha efectiva de pago   BT-ES-2
+              2) en factura, solo puede incluirse una vez.
+
+BR-ES-2    Cada grupo de Periodo de la factura recapitulativa (BG-14), Periodo  de   la  factura BG-14, BT-72, BT-73
+           debe contener una fecha de inicio (BT-73) y una fecha de  recapitulativa
+                  fin del periodo de facturación (BT-74).
+
+BR-ES-3    La fecha de inicio (BT-73) y la fecha de fin (BT-74) del Periodo  de   la  factura BT-73, BT-74, BG-14
+             periodo de la factura recapitulativa (BG-14) deberán estar recapitulativa
+               incluidas en el mismo mes y año.
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                3
+--- PDF PAGE 4 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                   Grupo/Término de
+    ID                          Descripción                        Objeto/Contexto
+                                                                                        negocio
+
+BR-ES-4    La fecha de inicio (BT-73) debe ser anterior a la fecha de Periodo  de   la  factura BT-73, BT-74, BG-14,
+             expedición de la factura (BT-2) y a la fecha de fin (BT-74) recapitulativa            BT-2
+           de la factura recapitulativa.
+
+
+
+BR-ES-5    La  fecha de  fin  (BT-74)  del  periodo  de  la  factura Periodo  de   la  factura BT-73, BT-74, BG-14,
+               recapitulativa debe ser igual o anterior a  la fecha de recapitulativa            BT-2
+             expedición de la factura (BT-2).
+
+BR-ES-6    Cuando se incluya un grupo de periodo de  la factura Periodo  de   la  factura BT-73, BT-74, BG-14,
+               recapitulativa  (BG-14),   la  fecha  de  realización  de  recapitulativa            BT-7
+             operaciones  (BT-7),  en  el  caso  de  incluirse,  debe
+             encontrarse entre la fecha de inicio (BT-73) y la fecha de fin
+             (BT-74) del período de la factura recapitulativa.
+
+BR-ES-7    Cada grupo de Referencia de una factura anterior (BG-3) Referencia   a   factura BG-3, BT-25, BT-26
+           debe contener  la Fecha de expedición de  la  factura precedente
+              referenciada (BT-26) y la serie y número de la factura
+              referenciada (BT-25).
+
+BR-ES-8    La Dirección postal del Vendedor (BG-5) debe contener la Dirección    postal    del BT-35, BG-5
+              Dirección del Vendedor (BT-35).                       Vendedor
+
+BR-ES-9    Cuando el Código de país del Vendedor (BT-40) sea «ES», Dirección    postal    del BT-37,  BT-38,  BT-39,
+                la Dirección postal del Vendedor debe contener el Municipio Vendedor              BT-40
+              (BT-37), el Código postal (BT-38) y la Provincia (BT-39).
+
+BR-ES-10   La Dirección postal del Comprador (BG-8) debe contener la Dirección    postal    del BT-50, BG-8
+              Dirección del Comprador (BT-50).                     Comprador
+
+BR-ES-11   Cuando el Código de país del Comprador (BT-55) sea Dirección    postal    del BT-52,  BT-53,  BT-54,
+            «ES», la Dirección postal del Comprador debe contener el Comprador             BT-55
+             Municipio (BT-52), el Código postal (BT-53) y la Provincia
+              (BT-54).
+
+BR-ES-12   Cuando la factura incluya un grupo de Detalle del impuesto Detalle  del  impuesto o BG-ES-2, BT-ES-8
+           o tasa a nivel de documento (BG-ES-2) en el que el código tasa     a    nivel   de
+              del  tipo de impuesto  incluido como cargo a  nivel de documento
+           documento sea IMPTAS, será obligatorio incluir al menos la
+             cuota del impuesto o tasa (BT-ES-8).
+
+BR-ES-13   Cuando la factura incluya un grupo de Detalle del impuesto Detalle  del  impuesto o BG-ES-2, BT-ES-6, BT-
+           o tasa a nivel de documento (BG-ES-2) en el que el código tasa     a    nivel   de ES-7
+              del  tipo de impuesto  incluido como cargo a  nivel de documento
+           documento sea distinto de IMPTAS, incluya el tipo del
+            impuesto o tasa (BT-ES-7), también deberá incluir la base
+              del impuesto o tasa (BT-ES-6)
+
+BR-ES-14    El grupo de totales a nivel de documento (BG-22) debe Totales   a    nivel   de BG-22, BT-110
+                 incluir una Cuota total de IVA de la factura (BT-110)       documento
+
+BR-ES-15   Cada grupo de Desglose del IVA (BG-23) debe incluir una Desglose del IVA         BG-23, BT-117, BT-119
+            Cuota por categoría de IVA (BT-117) y un tipo de IVA por
+              categoría (BT-119).
+
+BR-ES-16   Cada grupo BG-34 abierto, debe contener un campo de Minoraciones y cargos en BG-34, BT-180, BT-ES-
+             importe (BT-179), un campo de descripción (BT-180), y un nombre  de  un  tercero 10, BT-ES-11, BT-ES-
+          campo de identificación (BT-ES-10, BT-ES-11, BT-ES-15, o (BG-34)                   15, BT-ES-16
+            BT-ES-16)
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                4
+--- PDF PAGE 5 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                   Grupo/Término de
+    ID                          Descripción                        Objeto/Contexto
+                                                                                        negocio
+
+BR-ES-17   Una misma factura solo podrá incluir un grupo de Impuestos Impuestos    y    tasas BG-34, BG-ES-3, BT-
+             y Tasas (BG-34), con identificación del impuesto o tasas incluidos en nombre de un ES-12, BT-ES-13 BT-
+           IEDMT, y un grupo con identificación OTROS.              tercero                ES-14
+
+BR-ES-18   En el caso de incluirse un grupo de Impuestos y Tasas (BG- Impuestos    y    tasas BG-34, BG-ES-3
+               34), deberá incluirse al menos un grupo de Desglose de incluidos en nombre de un
+            Impuestos y Tasas (BG-ES-3)                              tercero
+
+BR-ES-19    Si la identificación del cargo en nombre de un tercero (BG- Impuestos    y    tasas BG-34, BG-ES-3, BT-
+             34) es “IEDMT”, el grupo Desglose de Impuestos y Tasas incluidos en nombre de un ES-14
+            (BG-ES-3) debe contener Base (BT-ES-12), Tipo (BT-ES- tercero
+             13) y Cuota (BT-ES-14).
+
+BR-ES-20    Si la identificación del cargo en nombre de un tercero (BG- Impuestos    y    tasas BG-34, BG-ES-3, BT-
+             34) es “OTROS”, el grupo Desglose de Impuestos y Tasas incluidos en nombre de un ES-14
+            (BG-ES-3) debe contener al menos la Cuota (BT-ES-14).   tercero
+
+BR-ES-21   Cuando se incluya un grupo de Retenciones (BG-34), Retención aplicada       BG-34, BT-ES-16, BT-
+            deberá contener un campo de identificación de retenciones                         ES-17, BG-ES-4
+             (BT-ES-16), un campo de suma de retenciones (BT-ES-17)
+                y, al menos un grupo de Retención aplicada (BG-ES-4).
+
+BR-ES-22   Cada Retención aplicada (BG-ES-4) debe contener Base Retención aplicada       BG-ES-4,   BT-ES-18,
+             (BT-ES-18), Total de retención (BT-ES-19), Porcentaje (BT-                         BT-ES-19,  BT-ES-20,
+            ES-20) y Concepto (BT-ES-21).                                             BT-ES-21
+
+BR-ES-23   Cada cargo a nivel de línea (BG-28) debe contener el Cargo a nivel de línea     BG-28, BT-ES-29
+            Código del tipo de impuesto o tasa incluido como cargo de
+              línea (BT-ES-22).
+
+BR-ES-24    El grupo de Referencia Catastral (BG-32), cuando se utilice, Referencia catastral      BG-32, BT-ES-30
+           debe contener la Situación del inmueble (BT-ES-23).
+
+BR-ES-25   Cuando la situación del inmueble (BT-ES-23), sea 3 o 4, el Referencia catastral      BG-32, BT-ES-23
+          campo referencia catastral (BT-161) tiene que rellenarse
+            con un guion, “-“.
+
+BR-ES-26    El grupo de Clave de régimen (BG-32), debe contener el Clave de régimen        BG-32, BT-ES-24
+                tipo de impuesto nacional (BT-ES-24).
+
+BR-ES-27   Cada  grupo QR  Fiscal  (BG-24)  debe  contener  la QR fiscal                BT-122, BT-ES-25
+              Localización del documento externo (BT-ES-25).
+
+BR-ES-28   Cada grupo Autorización de facturación (BG-24) debe Autorización         de BT-122, BT-ES-26
+             contener el Número de referencia de la autorización (BT- facturación
+             ES-26).
+
+BR-ES-29    El grupo Tipo de factura rectificativa (BG-24) debe contener Factura rectificativa       BT-ES-27, BG-24
+                el Código de tipo de factura rectificativa (BT-ES-27).
+
+BR-ES-30    El grupo Modalidad de factura rectificativa (BG-24) debe Factura rectificativa       BT-ES-28, BG-24
+             contener el Código de modalidad (BT-ES-28).
+
+BR-ES-31   Cada  grupo de  Importes  Rectificados  (BG-24) debe Importes rectificados      BT-123, BT-ES-29, BG-
+             contener el Código del importe rectificado (BT-ES-29), y el                       24
+             importe rectificado (BT-123)
+
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                5
+--- PDF PAGE 6 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+ En las reglas anteriores se han recogido aquellos supuestos en los que la cardinalidad de un término
+ de negocio ha pasado de ser 0..1 en la norma semántica europea (EN16931) a 1..1 en el anexo I. En
+  el siguiente cuadro se recogen los supuestos en los que se modifica la cardinalidad:
+
+
+  Tabla ES-2 – Resumen de términos de negocio con cardinalidad restringida en el anexo I
+
+                                                                 Anexo
+   BT                        Término                   EN                     I                Contexto
+
+ BT-23          Tipo de proceso de negocio                               0..1            1..1         BG-2 Control de proceso
+
+ BT-26         Fecha de expedición de la factura referenciada          0..1            1..1          Dentro de cada BG-3
+
+ BT-35          Dirección del vendedor                                    0..1            1..1         BG-5
+
+ BT-50          Dirección del comprador                                  0..1            1..1         BG-8
+
+ BT-97        Razón de la minoración a nivel de documento            0..1            1..1          Dentro de cada BG-20
+
+ BT-104       Razón del cargo a nivel de documento                   0..1            1..1          Dentro de cada BG-21
+
+ BT-110        Cuota total del IVA de la factura                          0..1            1..1         BG-22
+
+ BT-117        Cuota tributaria por categoría de IVA                     0..1            1..1          Dentro de cada BG-23
+
+ BT-119         Tipo de IVA por categoría                                 0..1            1..1          Dentro de cada BG-23
+
+ BT-139       Razón de la minoración de línea de factura              0..1            1..1          Dentro de cada BG-27
+
+ BT-144       Razón del cargo de línea de factura                      0..1            1..1          Dentro de cada BG-28
+                                                                                             Solo en la especialización
+                                                                                BG-24      «IMPORTES
+ BT-123         Descripción de documento justificativo                   0..1            1..1*       RECTIFICADOS»
+      BT-110, BT-117, BT-119: su uso se ha restringido a cardinalidad obligatoria en el anexo I de forma aclaratoria. Por
+       aplicación de reglas de UBL y de la EN se trata de campos que siempre están incluidos en el documento de factura,
+      aunque sea con valor 0.0.
+
+      BT-97, BT-104, BT-139, BT-144: su uso se ha indicado en el anexo I con cardinalidad 1..1 de forma aclaratoria. En la
+     EN es 0..1 pero por aplicación de reglas de negocio es 1..1 (BR-CO-21, BR-CO-22, BR-C0-23, BR-CO-24)
+
+
+ 2.2  CONDICIONES
+
+
+En este apartado se especifican las condiciones adicionales aplicables a una factura electrónica
+conforme al anexo I. Son reglas adicionales a las establecidas en la EN 16931-1:2026.
+
+
+Las normas de redondeo y tolerancia aplicables a las condiciones recogidas a continuación, serán las
+previstas en la norma semántica europea, EN16931 2026:1, apartado 6.5.14. Redondeo.
+
+
+Los decimales admitidos serán los previstos en la norma semántica europea, EN16931 2026:1, apartado
+6.5.13, apartado 6.5.13 Decimales, salvo en el caso del campo BT-ES-7, en el que se admitirán hasta 8
+decimales.
+
+
+Tabla ES-3 – Reglas de negocio. Condiciones específicas de la Factura Electrónica Obligatoria
+
+
+                                                                                     Grupo/Término de
+   ID                           Descripción                           Objeto/Contexto
+                                                                                          negocio
+
+ BR-ES-  La fecha de expedición de la factura (BT-2) no puede ser anterior Fecha de expedición de la BT-2
+ CO-1   a la fecha de entrada en vigor de la Orden HAC/1028/2026, de factura
+         2 de octubre, 6 de octubre de 2026.
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                6
+--- PDF PAGE 7 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                    Grupo/Término de
+  ID                           Descripción                           Objeto/Contexto
+                                                                                         negocio
+
+BR-ES-  La fecha de realización de las operaciones (BT-7), cuando se Fecha de realización de BT-7, BT-2, BT-161
+ CO-2    informe, debe ser anterior o igual a la fecha de expedición de la  las operaciones
+           factura (BT-2), salvo que se incluya una línea de factura en la
+         que se informa de una clave de régimen (BT-161), “14. Factura
+         con IVA pendiente de devengo en certificaciones de obra cuyo
+           destinatario sea una Administración Pública”, o “15. Factura con
+         IVA pendiente de devengo en operaciones de tracto sucesivo”.
+
+BR-ES-  La fecha de expedición de la factura (BT-2) no puede ser Fecha de expedición     BT-2
+ CO-3    posterior a  la fecha de remisión a  la Solución Pública de
+          Facturación de Electrónica.
+
+BR-ES-  Cuando se informa la fecha efectiva de pago (BT-ES-2), y no se Fecha efectiva de pago   BT-ES-2, BT-7, BT-2
+ CO-4   haya informado la fecha de realización de las operaciones (BT-
+            7), aquella debe ser igual o anterior a la fecha de expedición de
+            la factura (BT-2)
+
+BR-ES-  Cuando se informe tanto la fecha efectiva de pago (BT-ES-2) Fecha efectiva de pago   BT-ES-2, BT-7, BT-2
+ CO-5   como  la fecha de realización de las operaciones, la fecha
+           efectiva de pago (BT-ES-2), debe ser igual o posterior a la fecha
+         de realización de las operaciones, e igual o anterior a la fecha
+         de expedición de la factura (BT-2)
+
+BR-ES-  Cuando se informen la fecha de realización de las operaciones Fecha de vencimiento del BT-9, BT-7
+ CO-6    (BT-7) y la fecha de vencimiento del pago (BT-9), esta última pago
+         deberá ser igual o posterior a la fecha de realización de las
+          operaciones.
+
+BR-ES-  Cuando el código de modalidad de factura rectificativa (BT-ES- Facturas rectificativas     BG-24, BG-3, BT-ES-
+ CO-7    28) sea I, no podrá incluirse un grupo de Importes rectificados                       35
+          (BG-24).
+
+BR-ES-  Cuando el código de modalidad de factura rectificativa (BT-ES- Facturas rectificativas     BG-24, BG-3, BT-ES-
+ CO-8    28) sea S, podrán incluirse un máximo de 3 grupos de Importes                            28, BT-ES-29
+           rectificados (BG-24), con un código de importes rectificados
+            distinto (BT-ES-29)
+
+BR-ES-  Cuando se informe  la fecha de expedición de  la  factura Referencia de una factura BT-26, BT-2
+ CO-9    referenciada (BT-26), deber ser igual o anterior a la fecha de  anterior
+          expedición de la factura (BT-2).
+
+BR-ES-   Si se informa el Identificador fiscal del Vendedor (BT-32), debe Vendedor                BT-30, BT-32
+CO-10    incluirse el Identificador de inscripción legal del Vendedor (BT-
+          30) con el mismo contenido.
+
+BR-ES-  En el caso de que se incluya la base y el tipo del impuesto o tasa Impuesto o tasa distinto BT-ES-6, BT-ES-7, BT-
+CO-11   (BT-ES-6, BT-ES-7), la cuota del impuesto o tasa incluido (BT- del  IVA  a   nivel  de ES-8
+         ES-8) debe ser igual a la Base (BT-ES-6) multiplicada por el Tipo documento
+          (BT-ES-7) dividido por 100.
+
+BR-ES-  En el caso de que se incluya la base y el tipo del impuesto o tasa Impuestos  y  tasas  en BT-ES-12,  BT-ES-13,
+CO-12   (BT-ES-12, BT-ES-13), la cuota del impuesto o tasa incluido en nombre de un tercero     BT-ES-14
+        nombre de un tercero (BT-ES-14) debe ser igual a la Base (BT-
+         ES-12) multiplicada por el Tipo (BT-ES-13) dividido por 100.
+
+BR-ES-  La suma informada para “Impuestos y tasas (BT-179)” debe ser Impuestos  y  tasas  en BT-179, BT-ES-14
+CO-13    igual a la suma de las cuotas detalladas en los campos de cuota nombre de un tercero
+           del impuesto o tasa incluido en nombre de un tercero (BT-ES-
+          14) asociadas a dicho concepto.
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                7
+--- PDF PAGE 8 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                    Grupo/Término de
+  ID                           Descripción                           Objeto/Contexto
+                                                                                         negocio
+
+BR-ES-   El Total de retención (BT-ES-19) debe ser igual a la Base de la Retención aplicada       BT-ES-18,  BT-ES-19,
+CO-14   retención (BT-ES-18) multiplicada por el Porcentaje (BT-ES-20)                       BT-ES-20
+           dividido por 100.
+
+BR-ES-  La Suma de retenciones (BT-ES-17) debe ser igual a la suma de Retenciones             BT-ES-17,  BT-ES-19,
+CO-15    los Totales de retención (BT-ES-19) incluidos en los grupos                       BT-179
+          Retención aplicada asociados, y a la suma de retenciones (BT-
+          179).
+
+BR-ES-   El importe del cargo de línea de factura (BT-141) debe ser igual Cargos  de   línea  de BT-141,  BT-142,  BT-
+CO-16    al resultado multiplicar la base del importe de cargo de línea de  factura                143
+           factura (BT-142) por el tipo aplicable (BT-143), en el caso de que
+          dichos términos estén incluidos, salvo que el tipo de impuesto
+           incluido sea “IEE. Impuesto especial sobre la electricidad”, en
+         cuyo caso no deberá informarse del tipo aplicable, pero se
+         comprobará que el importe informado en el campo “Importe del
+         cargo de línea de factura”, sea el resultado de multiplicar el
+        campo “Base del importe de cargo de línea de factura” por
+         5,11269632%.
+
+BR-ES-  Cuando una línea de factura incluya un grupo de clave de Referencia      Catastral, BG-32, BT-161
+CO-17   régimen (BG-32) con el código de clave de Régimen (BT-161), Clave de régimen
+           “02.Exportación“, “03.Operaciones a  las que se aplique  el
+         régimen  especial  de  bienes  usados,  objetos  de   arte,
+          antigüedades y objetos de colección“, “04.Régimen especial del
+          oro de inversión“ “05.Régimen especial de las agencias de
+            viajes“, o “09.Facturación de las prestaciones de servicios de
+          agencias de viaje que actúan como mediadoras en nombre y por
+          cuenta ajena (D.A.4ª RD1619/2012)“, no podrá informarse de un
+         grupo de referencia catastral (BG-32).
+
+BR-ES-  Cuando el grupo Impuestos y Tasas (BG-34) se incluya con un Impuestos    y    tasas, BG-34, BT-ES-11, BT-
+CO-18   campo “Identificación del Impuesto o Tasa” (BT-ES-11) igual a IEDMT,    código    de 151, BT-102
+        IEDMT, deberá existir al menos una línea de factura o un cargo categoría de IVA
+         a nivel de documento que incluya un código de categoría de IVA
+          (BT-151, BT.102) igual a “S. Operaciones en régimen general”,
+          “E.Exento de IVA”, “O.Operación no sujeta a IVA”, “L. Operación
+           sujeta a IGIC”, “M.Operación sujeta a IPSI” o “N.Regímenes
+          nacionales de IVA”.
+
+BR-ES-  Cuando el grupo Impuestos y Tasas (BG-34) se incluya con un Impuestos    y    tasas, BG-34, BT-ES-11
+CO-19   campo de “Identificación del Impuesto o Tasa” (BT-ES-11) igual IEDMT, clave de régimen
+         a IEDMT, deberá existir al menos una línea de factura o un cargo
+         a nivel de documento que incluya una clave de régimen (BT-161)
+           “01. Operación en régimen general y no incluidas en otras
+           claves”, “06. Régimen especial grupo de entidades en IVA (Nivel
+          Avanzado)”, “07. Régimen especial del criterio de caja”, “08.
+         Operaciones  sujetas  al  IPSI   /  IGIC  (Impuesto  sobre  la
+          Producción, los Servicios y la Importación / Impuesto General
+           Indirecto  Canario)”, o  “15. Factura con IVA pendiente de
+         devengo en operaciones de tracto sucesivo”.
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                8
+--- PDF PAGE 9 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                    Grupo/Término de
+  ID                           Descripción                           Objeto/Contexto
+                                                                                         negocio
+
+BR-ES-  Cuando el grupo Cargos de línea de factura (BG-28) o el grupo IIEE, Categoría de IVA    BG-28, BG-21, BT-ES-
+CO-20   cargos a nivel de documento (BG-21) se incluya con un campo                            22, BG-ES-2, BT-ES-9
+         “Código del tipo e impuesto incluido como cargo de línea de
+           factura” (BT-ES-22) correspondiente a un Impuesto Especial, o
+          bien con un subgrupo de detalle del Impuesto o tasa a nivel de
+         documento (BG-ES-2), que  incluya un código  del  tipo de
+         impuesto (BT-ES-9) correspondiente a un impuesto especial, el
+          código de categoría de IVA de la línea de factura o del cargo a
+            nivel de documento deberá ser igual a “S. Operaciones en
+         régimen general”, “E.Exento de IVA”, “O.Operación no sujeta a
+           IVA”, “L. Operación sujeta a IGIC”, “M.Operación sujeta a IPSI”
+         o “N.Regímenes nacionales de IVA”.
+
+BR-ES-  Cuando el grupo Cargos de línea de factura (BG-28) se incluya IIEE, Clave de régimen    BG-28, BT-ES-22, BT-
+CO-21   con un “Código del tipo e impuesto incluido como cargo de línea                       161
+         de factura” (BT-ES-22) correspondiente a un Impuesto Especial,
+            el código de clave de régimen de la línea de factura (BT-161)
+         deberá ser igual a “01. Operación en régimen general y no
+           incluidas en otras claves”, “06. Régimen especial grupo de
+          entidades en IVA (Nivel Avanzado)”, “07. Régimen especial del
+             criterio de  caja”,  “08. Operaciones sujetas  al IPSI  / IGIC
+          (Impuesto sobre la Producción, los Servicios y la Importación /
+         Impuesto General Indirecto Canario)”, o “15. Factura con IVA
+          pendiente de devengo en operaciones de tracto sucesivo”.
+
+BR-ES-  Cuando se incluya un cargo a nivel de documento (BG-21) con IIEE, Clave de régimen    BG-21, BG-ES-2, BT-
+CO-22   un subgrupo de detalle del Impuesto o tasa a nivel de documento                       161
+          (BG-ES-2), que incluyan un código del tipo de impuesto (BT-ES-
+           9) correspondiente a un impuesto especial, deberá existir al
+        menos una línea de factura o un cargo a nivel de documento que
+           incluya una clave de régimen (BT-161) “01. Operación en
+         régimen general y no incluidas en otras claves”, “06. Régimen
+          especial grupo de entidades en IVA (Nivel Avanzado)”, “07.
+        Régimen especial del criterio de caja”, “08. Operaciones sujetas
+            al IPSI / IGIC (Impuesto sobre la Producción, los Servicios y la
+          Importación  / Impuesto General  Indirecto Canario)”, o “15.
+          Factura con IVA pendiente de devengo en operaciones de tracto
+           sucesivo”.
+
+BR-ES-  Cuando se incluya una línea de factura o un cargo a nivel de  IIEE,    Recargo    de BT-ES-22,   BT-ES-9,
+CO-23   documento con un código de categoría de IVA igual a N (BT- equivalencia, Tabaco.     BT-161,  BT-151,  BT-
+          102, BT-151), y la clave de régimen de la línea de factura (BT-                       102
+          161), sea 01 (en este caso, supone aplicar el Recargo de
+           equivalencia), en caso de incluirse un impuesto como cargo de
+           línea de factura o documento, solo podrá incluirse un Código del
+            tipo e impuesto incluido como cargo de línea de factura o
+         documento (BT-ES-22 o BT-ES-9) correspondiente al Impuesto
+         sobre las Labores del Tabaco (IET).
+
+BR-ES-  Cuando el grupo Cargos de línea de factura (BG-28) o el grupo IIEE, razón de exención   BG-28, BG-21, BT-ES-
+CO-24   cargos a nivel de documento (BG-21) se incluya con un BT-ES-                            22, BG-ES-2, BT-ES-9,
+         22 “Código del tipo e impuesto incluido como cargo de línea de                         BT-195,  BT-174,  BT-
+           factura” correspondiente a un Impuesto Especial, o bien con un                       176
+         subgrupo de detalle del Impuesto o tasa a nivel de documento
+          (BG-ES-2), que incluya un código del tipo de impuesto (BT-ES-
+           9) correspondiente a un impuesto especial, los códigos de razón
+         de exención (BT-195, BT-174, BT-176) que se usen, en caso de
+          ser VATEX-ES, solo podrán ser VATEX-ES-IVA20, VATEX-ES-
+         IVA21, VATEX-ES-IVA22, VATEX-ES-IVA23/24, VATEX-ES-
+       OTROS, VATEX-ES-IGIC11, VATEX-ES-IGIC12 o VATEX-ES-
+          IGIC13.
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                9
+--- PDF PAGE 10 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+ 2.3 REGLAS DE NEGOCIO POR CLAVE DE RÉGIMEN
+
+
+ En este apartado se especifican las reglas de negocio adicionales aplicables a una factura electrónica
+ conforme al anexo I, en función de la categoría de IVA (códigos de la lista L4) y clave de régimen
+ (códigos de la lista L3) que se informan, y del tipo de impuesto aplicable (IVA, IGIC o IPSI). Son reglas
+ adicionales a las establecidas en la EN 16931-1:2026.
+
+
+ 2.3.1  Calificador IVA
+
+
+Las siguientes reglas de negocio resultarán de aplicación exclusivamente en aquellas facturas en las
+que el campo BT-ES-24 “Tipo de impuesto nacional” haya sido declarado como “IVA”, en función de la
+normativa nacional a la que está sujeto el obligado a emitir la factura, cuando realiza la operación u
+operaciones incluidas en la misma.
+
+Con el calificador IVA, no podrán utilizarse los códigos de tipo de operación “L. Operación sujeta al
+IGIC” ni “M. Operación sujeta al IPSI”.
+
+Tabla ES-4 – Reglas de negocio. Claves de regimen – Calificador IVA
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+  BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+ IVA-CR-1  adopte el valor “S. Operación en régimen general”, el código de   régimen,   régimen
+          de  clave de régimen (BT-161)  solo podrá adoptar  los general.
+             siguientes valores:
+
+             •   01.Operación en régimen general y no incluidas en otras
+                 claves
+             •   07.Régimen especial del criterio de caja
+             •   09.Facturación de las prestaciones de servicios de
+                agencias de viaje que actúan como mediadoras en
+              nombre y por cuenta ajena (D.A.4.ª RD1619/2012)
+             •   11.Operaciones de arrendamiento de local de negocio
+             •   14.Factura  con  IVA  pendiente  de  devengo  en
+                   certificaciones de obra cuyo  destinatario sea una
+                 Administración Pública
+             •   15.Factura  con  IVA  pendiente  de  devengo  en
+                operaciones de tracto sucesivo
+
+  BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+ IVA-CR-2  adopte el valor “Z.Bienes con tipo impositivo 0 %”, el código de régimen, Bienes con
+          de  clave de régimen (BT-161)  solo podrá adoptar  los  tipo impositivo 0%
+             siguientes valores:
+
+             •   01.Operación en régimen general y no incluidas en otras
+                 claves
+             •   07.Régimen especial del criterio de caja
+             •   09.Facturación de las prestaciones de servicios de
+                agencias de viaje que actúan como mediadoras en
+              nombre y por cuenta ajena (D.A.4.ª RD1619/2012)
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                10
+--- PDF PAGE 11 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                  Grupo/Término de
+   ID                         Descripción                         Objeto/Contexto
+                                                                                        negocio
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+IVA-CR-3  adopte el valor “E.Exento de IVA”, el código de clave de de  régimen,  exento de
+          régimen (BT-161) solo podrá adoptar los siguientes valores:  IVA
+
+            •   01.Operación en régimen general y no incluidas en otras
+                claves
+            •   04.Régimen especial del oro de inversión
+            •   07.Régimen especial del criterio de caja
+            •   09.Facturación de las prestaciones de servicios de
+               agencias de viaje que actúan como mediadoras en
+             nombre y por cuenta ajena (D.A.4.ª RD1619/2012)
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+IVA-CR-4  adopte el valor “AE.Inversión del sujeto pasivo”, el código de de régimen, Inversión del
+           clave de régimen (BT-161) solo podrá adoptar los siguientes sujeto pasivo
+            valores:
+
+            •   01.Operación en régimen general y no incluidas en otras
+                claves
+            •   04.Régimen especial del oro de inversión
+            •   11.Operaciones de arrendamiento de local de negocio
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+IVA-CR-5  adopte el valor “O.Operación no sujeta a IVA”, el código de de régimen, Operación no
+           clave de régimen (BT-161) solo podrá adoptar los siguientes sujeta a IVA
+            valores:
+
+            •   01.Operación en régimen general y no incluidas en otras
+                claves
+            •   08.Operaciones sujetas al IPSI / IGIC (Impuesto sobre
+                   la Producción, los Servicios y la Importación / Impuesto
+               General Indirecto Canario)
+            •   09.Facturación de las prestaciones de servicios de
+               agencias de viaje que actúan como mediadoras en
+             nombre y por cuenta ajena (D.A.4.ª RD1619/2012)
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+IVA-CR-6  adopte  el valor “G. Exportación”,  el código de clave de de régimen, exportación.
+          régimen (BT-161) solo podrá adoptar los siguientes valores:
+
+                •   02.Exportación
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+IVA-CR-7  adopte el valor “N.Regímenes nacionales de IVA (régimen de   régimen,   régimen
+           especial de grupo de entidades, nivel avanzado, y régimen nacional,    grupo   de
+           especial del recargo de equivalencia).”, el código de clave de entidades            (nivel
+          régimen (BT-161) solo podrá adoptar los siguientes valores:  avanzado),  recargo  de
+                                                                       equivalencia
+                •   01.Operación en régimen general y no incluidas en
+                     otras claves (recargo de equivalencia)
+                •   06.Régimen especial grupo de entidades en IVA
+                      (Nivel Avanzado)
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+IVA-CR-8  adopte el valor “D.Régimen especial de agencias de viajes”, de régimen, agencias de
+             el código de clave de régimen (BT-161) solo podrá adoptar  viajes
+            los siguientes valores:
+
+                •   03.Régimen especial de agencias de viajes.
+
+
+
+
+
+             SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                11
+--- PDF PAGE 12 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                   Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                        negocio
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+ IVA-CR-9  adopte  el valor “F.Régimen especial de bienes usados, de    régimen,    bienes
+            objetos de arte, antigüedades y objetos de colección.”, el usados.
+           código de clave de régimen (BT-161) solo podrá adoptar los
+            siguientes valores:
+
+                •   05.Régimen especial de bienes usados, objetos de
+                        arte, antigüedades y objetos de colección.
+
+ BR-ES-  En una misma línea de factura, la clave de régimen (BT-161) Categoría de IVA, clave BT-161
+IVA-CR-10 05.Régimen especial de las agencias de viajes es compatible de             régimen,
+            con: 09.Facturación de las prestaciones de servicios de compatibilidades     en
+           agencias de viaje que actúan como mediadoras en nombre y misma línea, agencias de
+           por cuenta ajena (D.A.4.ª RD1619/2012).                      viajes
+
+ BR-ES-  En una misma línea de factura, la clave de régimen (BT-161) Categoría de IVA, clave BT-161
+IVA-CR-11 06.Régimen especial grupo de entidades en IVA  (Nivel de             régimen,
+          Avanzado)  es   compatible   con:  11.Operaciones  de compatibilidades     en
+           arrendamiento de  local de negocio; 14.Factura con IVA misma  línea,  grupo de
+           pendiente de devengo en  certificaciones de obra cuyo entidades            (nivel
+             destinatario sea una Administración Pública; 15.Factura con avanzado)
+          IVA  pendiente  de  devengo en  operaciones de  tracto
+            sucesivo.
+
+ BR-ES-  En una misma línea de factura, la clave de régimen (BT-161) Categoría de IVA, clave BT-161
+IVA-CR-12 07.Régimen especial del criterio de caja es compatible solo de             régimen,
+            con: 11.Operaciones de arrendamiento de local de negocio.  compatibilidades     en
+                                                        misma   línea,  régimen
+                                                                        especial  del  criterio de
+                                                                        caja
+
+ BR-ES-  En una misma línea de factura, la clave de régimen (BT-161) Categoría de IVA, clave BT-161
+IVA-CR-13 08.Operaciones sujetas al IPSI  / IGIC (Impuesto sobre la de             régimen,
+           Producción, los Servicios y la Importación / Impuesto General compatibilidades     en
+             Indirecto Canario) es compatible con: 11.Operaciones de misma línea, operaciones
+           arrendamiento de local de negocio.                          sujetas a IPSI/IGIC
+
+ BR-ES-  En una misma línea de factura, la clave de régimen (BT-161) Categoría de IVA, clave BT-161
+IVA-CR-14 11.Operaciones de arrendamiento de local de negocio es de             régimen,
+           compatible con: 06.Régimen especial grupo de entidades en arrendamiento de local de
+          IVA (Nivel Avanzado); 07.Régimen especial del criterio de negocios,
+             caja; 08.Operaciones sujetas al IPSI / IGIC (Impuesto sobre compatibilidades     en
+              la Producción, los Servicios y la Importación  / Impuesto misma línea
+           General Indirecto Canario); 15.Factura con IVA pendiente de
+          devengo en operaciones de tracto sucesivo.
+
+ BR-ES-  Cuando se incluya una línea de factura con clave de régimen Régimen   especial   del BT-161, BT-102, BT-95
+IVA-CR-15 (BT-161) igual a “07. Régimen especial del criterio de caja”,  criterio de caja. Categoría
+          no se podrá  incluir ninguna  línea o cargo a  nivel de de IVA
+          documento con categoría de IVA (BT-102, BT-95), igual a
+          “D.Régimen especial de agencia de  viajes”, “F.Régimen
+            especial de bienes usados, objetos de arte, antigüedades y
+            objetos de colección”, ni “N.Régimen nacional”.
+
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                12
+--- PDF PAGE 13 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                   Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                        negocio
+
+ BR-ES-  Cuando se incluya una línea de factura con clave de régimen Régimen   especial   del BT-161
+IVA-CR-16 (BT-161) igual a “07. Régimen especial del criterio de caja”,  criterio de caja. Clave de
+          no se podrá incluir otra línea en factura con clave de régimen régimen
+           (BT-161) igual a “03.Operaciones a las que se aplique el
+           régimen  especial de  bienes  usados,  objetos  de  arte,
+           antigüedades y objetos de colección“, “05.Régimen especial
+          de las agencias de viajes“, “06. Régimen especial grupo de
+           entidades en IVA (Nivel Avanzado)”, “09.Facturación de las
+            prestaciones de servicios de agencias de viaje que actúan
+         como mediadoras en nombre y por cuenta ajena (D.A.4ª
+           RD1619/2012)“, “14. Factura con IVA pendiente de devengo
+          en  certificaciones de  obra  cuyo  destinatario  sea una
+            Administración Pública”, o “15. Factura con IVA pendiente de
+          devengo en operaciones de tracto sucesivo”.
+
+ BR-ES-   Si existe una línea de factura con una categoría N. Régimen Régimen   especial   del BT-151,  BT-95,  BT-
+IVA-CR-17 Nacional (BT-151) y clave de régimen (BT-161) 01.Operación recargo de equivalencia. 102, BT-161
+          en régimen general y no incluidas en otras claves, lo que Categoría de IVA, clave
+          supone aplicar el recargo de equivalencia, no puede haber de régimen
+            otras líneas de factura ni otros cargos o minoraciones a nivel
+          de  documento  que  no  sean  de  la misma  categoría
+          “N.Régimen nacional” (BT-102, BT-95), ni clave de régimen
+           (BT-161) que no sea 01 (equivalente en este caso al recargo
+          de equivalencia)
+
+ BR-ES-   Si existe una línea de factura con una categoría N. Régimen Régimen   especial   del BT-161, BT-95, BT-102
+IVA-CR-18 Nacional (BT-151) y clave de régimen (BT-161) “06. Régimen grupo de entidades, nivel
+            especial del grupo de entidades, nivel avanzado”, no puede avanzado.
+           haber otras líneas de factura con una clave de régimen (BT-
+           161) distinta de 06, ni otros cargos o minoraciones a nivel de
+          documento con código de categoría de IVA (BT95, BT-102)
+              distinto de “N.Régimen Nacional”.
+
+ BR-ES-  Cuando el código de clave de régimen (BT-161) adopte el Categoría de IVA, clave BT-161, BT-2, BT-7.
+IVA-CR-19 valor  14.Factura  con  IVA  pendiente  de  devengo  en de     régimen,     IVA
+             certificaciones  de  obra  cuyo   destinatario  sea  una pendiente  de  devengo,
+            Administración Pública o 15.Factura con IVA pendiente de fecha de  realización de
+          devengo en operaciones de tracto sucesivo, debe incluirse el  las operaciones, fecha de
+         campo fecha de realización de las operaciones (BT-7), y la expedición
+           fecha debe ser posterior a la fecha de expedición de la factura
+            (BT-2).
+
+ BR-ES-  Cuando el código de clave de régimen (BT-161) adopte el Clave de  régimen, IVA BT-161, BT-3
+IVA-CR-20 valor  14.Factura  con  IVA  pendiente  de  devengo  en pendiente  de  devengo,
+             certificaciones  de  obra  cuyo   destinatario  sea  una código de tipo de factura
+            Administración Pública, el código de tipo de factura (BT-3) no
+          puede ser 388. Factura emitida en sustitución de facturas
+             simplificadas.
+
+ BR-ES-  Cuando se incluya un grupo de facturas recapitulativas (BG- Categoría de IVA, clave BG-14, BT-161
+IVA-CR-21 14), no podrán incluirse líneas de factura con clave de de     régimen,     IVA
+           régimen (BT-161) 14.Factura con IVA pendiente de devengo pendiente  de  devengo,
+          en  certificaciones de  obra  cuyo  destinatario  sea una periodo    de     factura
+            Administración Pública o 15.Factura con IVA pendiente de  recapitulativa
+          devengo en operaciones de tracto sucesivo.
+
+ BR-ES-  Cuando se incluya una línea de factura con clave de régimen Clave de  régimen, IVA BT-161, BT-7
+IVA-CR-22 (BT-161) 15.Factura con IVA pendiente de devengo en pendiente  de  devengo,
+           operaciones de tracto sucesivo, y se informe la fecha de fecha de  realización de
+             realización de operaciones (BT-7), esta no podrá superar el operaciones
+          31 de diciembre del año siguiente a la fecha de expedición.
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                13
+--- PDF PAGE 14 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+
+
+Tabla ES-5-Resumen combinaciones categorías de IVA (BT-151) y claves de régimen (BT-161) en una misma línea
+de factura.
+
+
+
+
+
+             SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                14
+--- PDF PAGE 15 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+ CATEGORÍA DE IVA (L4)        CLAVE DE RÉGIMEN (L3)              2ª CLAVE DE RÉGIMEN (L3)
+
+
+S. Operación en régimen     01.Operación en régimen general y no
+general                        incluidas en otras claves
+
+
+                          07.Régimen especial del criterio de caja     11.Operaciones de arrendamiento de
+                                                                                    local de negocio
+
+                              09.Facturación  de  las  prestaciones  de
+                                 servicios de agencias de viaje que actúan
+                       como mediadoras en nombre y por cuenta
+                             ajena (D.A.4.ª RD1619/2012)
+
+                            11.Operaciones de arrendamiento de local   15. Factura con IVA pendiente de
+                         de negocio                            devengo en operaciones de tracto
+                                                                       sucesivo
+
+                              14.Factura con IVA pendiente de devengo
+                         en certificaciones de obra cuyo destinatario
+                          sea una Administración Pública.
+
+
+                              15.Factura con IVA pendiente de devengo  11.Operaciones de arrendamiento de
+                         en operaciones de tracto sucesivo             local de negocio
+
+Z. Operación con tipo        01.Operación en régimen general y no
+impositivo 0%                 incluidas en otras claves
+
+
+                          07.Régimen especial del criterio de caja
+
+
+                              09.Facturación  de  las  prestaciones  de
+                                 servicios de agencias de viaje que actúan
+                       como mediadoras en nombre y por cuenta
+                             ajena (D.A.4.ª RD1619/2012)
+
+E. Exento de IVA            01.Operación en régimen general y no
+                                 incluidas en otras claves
+
+                          04.Régimen especial del oro de inversión
+
+                          07.Régimen especial del criterio de caja
+
+                              09.Facturación  de  las  prestaciones  de
+                                 servicios de agencias de viaje que actúan
+                       como mediadoras en nombre y por cuenta
+                             ajena (D.A.4.ª RD1619/2012)
+
+AE. Inversión del sujeto      01.Operación en régimen general y no
+pasivo                         incluidas en otras claves
+
+                          04.Régimen especial del oro de inversión
+
+O. Operación no sujeta a     01.Operación en régimen general y no
+IVA                             incluidas en otras claves
+
+                            08.Operaciones  sujetas  al  IPSI   /  IGIC  11.Operaciones de arrendamiento de
+                             (Impuesto   sobre   la   Producción,   los   local de negocio
+                               Servicios  y  la  Importación   /  Impuesto
+                            General Indirecto Canario)
+
+
+
+
+
+             SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                15
+--- PDF PAGE 16 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+  CATEGORÍA DE IVA (L4)        CLAVE DE RÉGIMEN (L3)              2ª CLAVE DE RÉGIMEN (L3)
+
+
+                               09.Facturación  de  las  prestaciones  de
+                                  servicios de agencias de viaje que actúan
+                        como mediadoras en nombre y por cuenta
+                              ajena (D.A.4.ª RD1619/2012)
+
+ G. Exportación               02. Exportación
+
+ N. Régimen nacional         01. Régimen general y no incluidas en
+                                 otras claves
+
+                                06. Régimen especial de grupo de          11.Operaciones de arrendamiento de
+                                entidades, nivel avanzado                      local de negocio
+
+                                                                          14.Factura  con  IVA  pendiente  de
+                                                                devengo en  certificaciones de obra
+                                                                   cuyo     destinatario    sea    una
+                                                                           Administración Pública.
+
+                                                                          15.Factura con IVA pendiente de
+                                                                devengo en operaciones de tracto
+                                                                        sucesivo
+
+ D. Régimen especial de      03.Régimen especial de agencia de viajes    09. Facturación de las prestaciones
+ agencia de viajes                                               de servicios de agencias de viaje que
+                                                                      actúan como mediadoras en nombre y
+                                                                         por cuenta ajena (D.A.4.ª
+                                                                 RD1619/2012)
+
+ F. Régimen especial de       05. Régimen especial de bienes usados,
+ bienes usados,              antigüedades, objetos de arte y colección
+ antigüedades, objetos de
+ arte y colección
+
+
+
+
+
+ 2.3.2  Calificador IGIC
+
+Las siguientes reglas de negocio resultarán de aplicación exclusivamente en aquellas facturas en las
+que el campo BT-ES-24 “Tipo de impuesto nacional” haya sido declarado como “IGIC”, en función de
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                16
+--- PDF PAGE 17 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+la normativa nacional a la que está sujeto el obligado a emitir la factura, cuando realiza la operación u
+operaciones incluidas en la misma.
+
+Con el calificador IGIC, no podrán utilizarse los códigos de tipo de operación “S. Operaciones en
+régimen general” ni “M. Operación sujeta al IPSI”.
+
+Tabla ES-6 Reglas de negocio. Claves de régimen – Calificador IGIC
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+  BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+ IGIC-CR-1 adopte el valor “L.Operación sujeta al IGIC”, el código de de   régimen,   régimen
+            clave de régimen (BT-161) solo podrá adoptar los siguientes general.
+             valores:
+
+             •   01.Operación en régimen general y no incluidas en otras
+                 claves
+             •   07.Régimen especial del criterio de caja
+             •   09.Facturación de las prestaciones de servicios de
+                agencias de viaje que actúan como mediadoras en
+              nombre y por cuenta ajena (D.A.4.ª RD1619/2012)
+             •   11.Operaciones de arrendamiento de local de negocio
+             •   14.Factura  con  IVA  pendiente  de  devengo  en
+                   certificaciones de obra cuyo  destinatario sea una
+                 Administración Pública
+             •   15.Factura  con  IVA  pendiente  de  devengo  en
+                operaciones de tracto sucesivo
+
+  BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+ IGIC-CR-2 adopte el valor “Z.Bienes con tipo impositivo 0 %”, el código de régimen, Bienes con
+          de  clave de régimen (BT-161)  solo podrá adoptar  los  tipo impositivo 0%
+             siguientes valores:
+
+             •   01.Operación en régimen general y no incluidas en otras
+                 claves
+             •   07.Régimen especial del criterio de caja
+             •   09.Facturación de las prestaciones de servicios de
+                agencias de viaje que actúan como mediadoras en
+              nombre y por cuenta ajena (D.A.4.ª RD1619/2012)
+
+  BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+ IGIC-CR-3 adopte el valor “E.Exento de IVA”, el código de clave de de  régimen,  exento de
+           régimen (BT-161) solo podrá adoptar los siguientes valores:  IVA
+
+             •   01.Operación en régimen general y no incluidas en otras
+                 claves
+             •   04.Régimen especial del oro de inversión
+             •   07.Régimen especial del criterio de caja.
+             •   09.Facturación de las prestaciones de servicios de
+                agencias de viaje que actúan como mediadoras en
+              nombre y por cuenta ajena (D.A.4.ª RD1619/2012)
+             •   17. Régimen especial de comerciante minorista.
+             •   18. Régimen  especial  del pequeño  empresario o
+                   profesional.
+             •   19.  Operaciones  interiores  exentas  por  aplicación
+                    artículo 25 Ley 19/1994.
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                17
+--- PDF PAGE 18 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                   Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                        negocio
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+IGIC-CR-4 adopte el valor “AE.Inversión del sujeto pasivo”, el código de de régimen, Inversión del
+            clave de régimen (BT-161) solo podrá adoptar los siguientes sujeto pasivo
+            valores:
+
+             •   01.Operación en régimen general y no incluidas en otras
+                claves
+             •   04.Régimen especial del oro de inversión
+             •   11.Operaciones de arrendamiento de local de negocio
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+IGIC-CR-5 adopte el valor “O.Operación no sujeta a IVA”, el código de de régimen, Operación no
+            clave de régimen (BT-161) solo podrá adoptar los siguientes sujeta a IVA
+            valores:
+
+             •   01.Operación en régimen general y no incluidas en otras
+                claves
+             •   08.Operaciones sujetas al IPSI / IVA (Impuesto sobre la
+                Producción, los Servicios y la Importación  / Impuesto
+               sobre el valor añadido
+             •   09.Facturación de las prestaciones de servicios de
+                agencias de viaje que actúan como mediadoras en
+              nombre y por cuenta ajena (D.A.4.ª RD1619/2012)
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+IGIC-CR-6 adopte  el valor “G. Exportación”,  el código de clave de de régimen, exportación.
+           régimen (BT-161) solo podrá adoptar los siguientes valores:
+
+                •   02.Exportación
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+IGIC-CR-7 adopte el valor “N.Regímenes nacionales de IVA (régimen de   régimen,   régimen
+            especial de grupo de entidades en IGIC, nivel avanzado, y nacional,    grupo   de
+           régimen especial del recargo de equivalencia).”, el código de entidades            (nivel
+            clave de régimen (BT-161) solo podrá adoptar los siguientes avanzado),  recargo  de
+            valores:                                                    equivalencia
+
+                •   01.Operación en régimen general y no incluidas en
+                     otras claves (recargo de equivalencia)
+                •   06.Régimen especial grupo de entidades en IGIC
+                      (Nivel Avanzado)
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+IGIC-CR-8 adopte el valor “D.Régimen especial de agencias de viajes”, de régimen, agencias de
+              el código de clave de régimen (BT-161) solo podrá adoptar  viajes
+             los siguientes valores:
+
+                •   03.Régimen especial de agencias de viajes.
+
+ BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+IGIC-CR-9 adopte  el valor “F.Régimen especial de bienes usados, de    régimen,    bienes
+            objetos de arte, antigüedades y objetos de colección.”, el usados.
+           código de clave de régimen (BT-161) solo podrá adoptar los
+            siguientes valores:
+
+                •   05.Régimen especial de bienes usados, objetos de
+                       arte, antigüedades y objetos de colección.
+
+ BR-ES-  En una misma línea de factura, la clave de régimen (BT-161) Categoría de IVA, clave BT-161
+ IGIC-CR-  05.Régimen especial de las agencias de viajes es compatible de             régimen,
+   10     con: 09.Facturación de las prestaciones de servicios de compatibilidades     en
+           agencias de viaje que actúan como mediadoras en nombre y misma línea, agencias de
+           por cuenta ajena (D.A.4.ª RD1619/2012).                      viajes
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                18
+--- PDF PAGE 19 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                  Grupo/Término de
+   ID                         Descripción                         Objeto/Contexto
+                                                                                        negocio
+
+ BR-ES-  En una misma línea de factura, la clave de régimen (BT-161) Categoría de IVA, clave BT-161
+IGIC-CR-  06.Régimen especial grupo de entidades en IGIC (Nivel de             régimen,
+   11     Avanzado)  es   compatible   con:  11.Operaciones  de compatibilidades     en
+          arrendamiento de  local de negocio; 14.Factura con IVA misma  línea,  grupo de
+           pendiente de devengo en  certificaciones de obra cuyo entidades            (nivel
+            destinatario sea una Administración Pública; 15.Factura con avanzado)
+          IVA  pendiente  de  devengo en  operaciones de  tracto
+           sucesivo.
+
+ BR-ES-  En una misma línea de factura, la clave de régimen (BT-161) Categoría de IVA, clave BT-161
+IGIC-CR-  07.Régimen especial del criterio de caja es compatible solo de             régimen,
+   12     con: 11.Operaciones de arrendamiento de local de negocio.  compatibilidades     en
+                                                       misma   línea,  régimen
+                                                                       especial  del  criterio de
+                                                                       caja
+
+ BR-ES-  En una misma línea de factura, la clave de régimen (BT-161) Categoría de IVA, clave BT-161
+IGIC-CR-  08.Operaciones sujetas al IPSI  / IGIC (Impuesto sobre la de             régimen,
+   13     Producción, los Servicios y la Importación / Impuesto General compatibilidades     en
+            Indirecto Canario) es compatible con: 11.Operaciones de misma línea, operaciones
+          arrendamiento de local de negocio.                          sujetas a IPSI/IVA
+
+ BR-ES-  En una misma línea de factura, la clave de régimen (BT-161) Categoría de IVA, clave BT-161
+IGIC-CR-  11.Operaciones de arrendamiento de local de negocio es de             régimen,
+   14     compatible con: 06.Régimen especial grupo de entidades en arrendamiento de local de
+          IVA (Nivel Avanzado); 07.Régimen especial del criterio de negocios,
+            caja; 08.Operaciones sujetas al IPSI / IGIC (Impuesto sobre compatibilidades     en
+             la Producción, los Servicios y la Importación  / Impuesto misma línea
+          General Indirecto Canario); 15.Factura con IVA pendiente de
+         devengo en operaciones de tracto sucesivo.
+
+ BR-ES-  Cuando se incluya una línea de factura con clave de régimen Régimen   especial   del BT-161, BT-102, BT-95
+IGIC-CR-  (BT-161) igual a “07. Régimen especial del criterio de caja”,  criterio de caja. Categoría
+   15    no se podrá  incluir ninguna  línea o cargo a  nivel de de IVA
+         documento con categoría de IVA (BT-102, BT-95), igual a
+          “D.Régimen especial de agencia de  viajes”, “F.Régimen
+           especial de bienes usados, objetos de arte, antigüedades y
+           objetos de colección”, ni “N.Régimen nacional”.
+
+ BR-ES-  Cuando se incluya una línea de factura con clave de régimen Régimen   especial   del BT-161
+IGIC-CR-  (BT-161) igual a “07. Régimen especial del criterio de caja”,  criterio de caja. Clave de
+   16    no se podrá incluir otra línea en factura con clave de régimen régimen
+          (BT-161) igual a “03.Operaciones a las que se aplique el
+          régimen  especial de  bienes  usados,  objetos  de  arte,
+          antigüedades y objetos de colección“, “05.Régimen especial
+         de las agencias de viajes“, “06. Régimen especial grupo de
+           entidades en IVA (Nivel Avanzado)”, “09.Facturación de las
+           prestaciones de servicios de agencias de viaje que actúan
+        como mediadoras en nombre y por cuenta ajena (D.A.4ª
+          RD1619/2012)“, “14. Factura con IVA pendiente de devengo
+         en  certificaciones de  obra  cuyo  destinatario  sea una
+           Administración Pública”, o “15. Factura con IVA pendiente de
+         devengo en operaciones de tracto sucesivo”.
+
+
+
+
+
+             SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                19
+--- PDF PAGE 20 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+  BR-ES-   Si existe una línea de factura con una categoría N. Régimen Régimen   especial   del BT-151,  BT-95,  BT-
+ IGIC-CR-  Nacional (BT-151) y clave de régimen (BT-161) 01.Operación recargo de equivalencia. 102, BT-161
+    17    en régimen general y no incluidas en otras claves, lo que Categoría de IVA, clave
+           supone aplicar el recargo de equivalencia, no puede haber de régimen
+             otras líneas de factura ni otros cargos o minoraciones a nivel
+          de  documento  que  no  sean  de  la misma  categoría
+           “N.Régimen nacional” (BT-102, BT-95), ni clave de régimen
+            (BT-161) que no sea 01 (equivalente en este caso al recargo
+          de equivalencia)
+
+  BR-ES-   Si existe una línea de factura con una categoría N. Régimen Régimen   especial   del BT-161, BT-95, BT-102
+ IGIC-CR-  Nacional (BT-151) y clave de régimen (BT-161) “06. Régimen grupo de entidades, nivel
+    18     especial del grupo de entidades, nivel avanzado”, no puede avanzado.
+           haber otras líneas de factura con una clave de régimen (BT-
+            161) distinta de 06, ni otros cargos o minoraciones a nivel de
+           documento con código de categoría de IVA (BT95, BT-102)
+               distinto de “N.Régimen Nacional”.
+
+  BR-ES-  Cuando el código de clave de régimen (BT-161) adopte el Categoría de IVA, clave BT-161, BT-2, BT-7.
+ IGIC-CR-  valor  14.Factura  con  IVA  pendiente  de  devengo  en de     régimen,     IVA
+    19      certificaciones  de  obra  cuyo   destinatario  sea  una pendiente  de  devengo,
+            Administración Pública o 15.Factura con IVA pendiente de fecha de  realización de
+           devengo en operaciones de tracto sucesivo, debe incluirse el  las operaciones, fecha de
+          campo fecha de realización de las operaciones (BT-7), y la expedición
+            fecha debe ser posterior a la fecha de expedición de la factura
+             (BT-2).
+
+  BR-ES-  Cuando el código de clave de régimen (BT-161) adopte el Clave de  régimen, IVA BT-161, BT-3
+ IGIC-CR-  valor  14.Factura  con  IVA  pendiente  de  devengo  en pendiente  de  devengo,
+    20      certificaciones  de  obra  cuyo   destinatario  sea  una código de tipo de factura
+            Administración Pública, el código de tipo de factura (BT-3) no
+          puede ser 388. Factura emitida en sustitución de facturas
+              simplificadas.
+
+  BR-ES-  Cuando se incluya un grupo de facturas recapitulativas (BG- Categoría de IVA, clave BG-14, BT-161
+ IGIC-CR-  14), no podrán incluirse líneas de factura con clave de de     régimen,     IVA
+    21     régimen (BT-161) 14.Factura con IVA pendiente de devengo pendiente  de  devengo,
+          en  certificaciones de  obra  cuyo  destinatario  sea una periodo    de     factura
+            Administración Pública o 15.Factura con IVA pendiente de  recapitulativa
+           devengo en operaciones de tracto sucesivo.
+
+  BR-ES-  Cuando se incluya una línea de factura con clave de régimen Clave de  régimen, IVA BT-161, BT-7
+ IGIC-CR-  (BT-161) 15.Factura con IVA pendiente de devengo en pendiente  de  devengo,
+    22     operaciones de tracto sucesivo, y se informe la fecha de fecha de  realización de
+             realización de operaciones (BT-7), esta no podrá superar el operaciones
+          31 de diciembre del año siguiente a la fecha de expedición.
+
+
+
+ 2.3.3  Calificador IPSI
+
+Las siguientes reglas de negocio resultarán de aplicación exclusivamente en aquellas facturas en las
+que el campo BT-ES-24 “Tipo de impuesto nacional” haya sido declarado como “IVA”, en función de la
+normativa nacional a la que está sujeto el obligado a emitir la factura, cuando realiza la operación u
+operaciones incluidas en la misma.
+
+Con el calificador IPSI, no podrán utilizarse los códigos de tipo de operación “L. Operación sujeta al
+IGIC” ni “S. Operaciones en régimen general”, N. Regímenes nacionales de IVA, D. Régimen especial
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                20
+--- PDF PAGE 21 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+de agencia de viajes o F. Régimen especial de bienes usados, objetos de arte, antigüedades, y
+objetos de colección.
+
+Tabla ES-7 – Reglas de negocio. Claves de régimen – Calificador IPSI
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+  BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+ IPSI-CR-1  adopte el valor “L.Operación sujeta al IPSI”, el código de de   régimen,   régimen
+            clave de régimen (BT-161) solo podrá adoptar los siguientes general.
+             valores:
+
+             •   01.Operación en régimen general y no incluidas en otras
+                 claves
+             •   11.Operaciones de arrendamiento de local de negocio
+             •   20. Régimen simplificado
+
+  BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+ IPSI-CR-2  adopte el valor “Z.Bienes con tipo impositivo 0 %”, el código de régimen, Bienes con
+          de  clave de régimen (BT-161)  solo podrá adoptar  los  tipo impositivo 0%
+             siguientes valores:
+
+             •   01.Operación en régimen general y no incluidas en otras
+                 claves
+
+
+  BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+ IPSI-CR-3  adopte el valor “E.Exento de IVA”, el código de clave de de  régimen,  exento de
+           régimen (BT-161) solo podrá adoptar los siguientes valores:  IVA
+
+             •   19. Operaciones interiores exentas
+
+
+
+  BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+ IPSI-CR-4  adopte el valor “AE.Inversión del sujeto pasivo”, el código de de régimen, Inversión del
+            clave de régimen (BT-161) solo podrá adoptar los siguientes sujeto pasivo
+             valores:
+
+             •   01.Operación en régimen general y no incluidas en otras
+                 claves
+             •   11.Operaciones de arrendamiento de local de negocio
+
+  BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+ IPSI-CR-5  adopte el valor “O.Operación no sujeta a IVA”, el código de de régimen, Operación no
+            clave de régimen (BT-161) solo podrá adoptar los siguientes sujeta a IVA
+             valores:
+
+             •   01.Operación en régimen general y no incluidas en otras
+                 claves
+             •   08.Operaciones sujetas al IGIC / IVA (Impuesto sobre la
+                 Producción, los Servicios y la Importación  / Impuesto
+                sobre el valor añadido
+
+
+
+  BR-ES-  Cuando la categoría de IVA (BT-151) de la línea de factura Categoría de IVA, clave BT-161, BT-151
+ IPSI-CR-6  adopte  el valor “G. Exportación”,  el código de clave de de régimen, exportación.
+           régimen (BT-161) solo podrá adoptar los siguientes valores:
+
+                 •   01. Operación en régimen general y no incluidas en
+                      otras claves
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                21
+--- PDF PAGE 22 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+  BR-ES-  En una misma línea de factura, la clave de régimen (BT-161) Categoría de IVA, clave BT-161
+ IPSI-CR-7  08.Operaciones sujetas al IGIC  / IVA (Impuesto sobre la de             régimen,
+            Producción, los Servicios y la Importación / Impuesto General compatibilidades     en
+              Indirecto Canario) es compatible con: 11.Operaciones de misma línea, operaciones
+            arrendamiento de local de negocio.                          sujetas a IPSI/IVA
+
+  BR-ES-  En una misma línea de factura, la clave de régimen (BT-161) Categoría de IVA, clave BT-161
+ IPSI-CR-8  11.Operaciones de arrendamiento de local de negocio es de             régimen,
+            compatible con: 20.Régimen simplificado                   arrendamiento de local de
+                                                                      negocios,
+                                                                        compatibilidades     en
+                                                         misma línea
+
+
+
+
+ 2.4 REGLAS DE NEGOCIO POR CATEGORÍA DE IVA
+
+
+ En este apartado se especifican las reglas de negocio aplicables a una factura electrónica conforme al
+ anexo I, en función de su categoría de IVA. Son reglas adicionales a las establecidas en la EN 16931-
+ 1:2026.
+
+ Las categorías de IVA admitidas en el anexo I son las siguientes:
+
+Tabla ES-8 – Categorías de IVA admitidas en el anexo I
+
+  VALOR
+         DESCRIPCIÓN
+    ES
+    S     Operaciones en régimen general
+
+     Z     Bienes con tipo impositivo 0%
+
+    E     Exento de IVA
+
+    AE     Inversión del sujeto pasivo
+
+    O     Operación no sujeta a IVA
+
+    G     Exportación.
+
+     L     Operación sujeta al IGIC
+
+   M     Operación sujeta al IPSI
+          Regímenes nacionales de IVA (régimen especial de grupo de entidades, nivel avanzado, y régimen especial
+    N
+             del recargo de equivalencia)
+    D    Régimen especial de agencias de viajes
+
+     F    Régimen especial de bienes usados, objetos de arte antigüedades, y objetos de colección
+
+
+ La categoría N se corresponde con el régimen especial de grupo de entidades, nivel avanzado, y con
+  el régimen especial del recargo de equivalencia. Se distinguirán, en cada caso, por el uso de una
+ determinada clave de régimen: 1, en el caso del recargo de equivalencia, y 6, en el caso del grupo de
+ entidades, nivel avanzado.
+
+ La categoría K, suministro intracomunitario, no debe utilizarse al no estar previsto su uso en la Orden
+  ministerial HAC/1028/2026, de 2 de octubre.
+
+ Las letras I y J no deben utilizarse al no estar previsto su uso. Se reserva exclusivamente la letra F
+ para el régimen especial de bienes usados, objetos de arte antigüedades, y objetos de colección.
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                22
+--- PDF PAGE 23 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+ 2.4.1  Gravamen General – S
+
+
+Tabla ES-9 – Reglas de negocio. Categoría de IVA – Gravamen General
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+ BR-ES-S- En una línea de factura (BG-25), una minoración a nivel de Gravamen general, Tipos BG-25, BG-20, BG-21,
+    1     documento (BG-20) o un cargo a nivel de documento (BG- de IVA                  BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA del  artículo                          102,  BT-152,  BT-96,
+            facturado  (BT-151,  BT-95 o  BT-102)  es  “S.Gravamen                       BT-103
+            General” los tipos de IVA del artículo facturado (BT-152, BT-
+          96 o BT-103) aceptados son 4,10 y 21 (en tanto por ciento).
+
+ BR-ES-S- En una línea de factura (BG-25), una minoración a nivel de Gravamen general, Tipos BG-25, BG-20, BG-21,
+    2     documento (BG-20) o un cargo a nivel de documento (BG- de IVA, códigos de tipos BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA del  artículo de factura                102,  BT-152,  BT-96,
+            facturado (BT-151, BT-95 o BT-102) es “Gravamen General”,                         BT-103, BT-3
+            y  el código de tipo de factura (BT-3) sea 384.  Factura
+               rectificativa o  471.  Factura  rectificativa  emitida  por  el
+             destinatario se admitirán adicionalmente los tipos impositivos
+              5, 2 y 7,5 (en tanto por ciento).
+
+ BR-ES-3  En una línea de factura (BG-25), una minoración a nivel de Gravamen general, Tipos BG-25, BG-20, BG-21,
+           documento (BG-20) o un cargo a nivel de documento (BG- de IVA, arrendamiento de BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA del  artículo  local de negocio          102, BT-161, BT-152,
+            facturado (BT-151, BT-95 o BT-102) es “Gravamen General”                          BT-96, BT-103
+            y  el  código  de  clave  de  régimen  (BT-161)  es  11
+            “Arrendamiento de local de negocio”, el tipo de IVA del
+              artículo facturado (BT-152, BT-96 o BT-103) aceptado es el
+          21 (en tanto por ciento).
+
+ BR-ES-4  En una línea de factura (BG-25), una minoración a nivel de Gravamen general, Tipos BG-25, BG-20, BG-21,
+           documento (BG-20) o un cargo a nivel de documento (BG- de    IVA,    NIF,   IVA BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA  del  artículo pendiente  de  devengo 102,  BT-161,  BT-47,
+            facturado  (BT-151,  BT-95 o  BT-102)  es  “S.Gravamen AAPP                 BT-48
+            General” y el código de clave de régimen (BT-161) es 14
+            “Factura con IVA pendiente de devengo en certificaciones de
+            obra cuyo destinatario sea una Administración Pública”, el
+           NIF del destinatario (BT-47, BT-48) deberá comenzar por “P”,
+              “Q”, “S” o “V”, si el calificador es “LOC”, O “ESP”, “ESQ”,
+           “ESS” o “ESV”, si el calificador es “VAT”.
+
+ BR-ES-5  En una línea de factura (BG-25), una minoración a nivel de Gravamen      General, BG-25, BG-20, BG-21,
+           documento (BG-20) o un cargo a nivel de documento (BG- Razón de exención       BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA del  artículo                          102, BT-120, BT-121,
+            facturado (BT-151, BT-95 o BT-102) es “Gravamen General”,                       BT-173  BT-174,  BT-
+          no podrá informarse de una razón de exención o de un código                          175, BT-176, BT-194,
+          de razón de exención (BT-120, BT-121, BT-173 BT-174, BT-                       BT-195
+            175, BT-176, BT-194, BT-195).
+
+
+
+ 2.4.2  Gravamen cero – Z
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                23
+--- PDF PAGE 24 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+Tabla ES-10 – Reglas de negocio. Categoría de IVA – Gravamen Cero
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+ BR-ES-Z- En una línea de factura (BG-25), una minoración a nivel de Gravamen Cero, AAPP, BG-25, BG-20, BG-21,
+    1     documento (BG-20) o un cargo a nivel de documento (BG- NIF                     BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA del  artículo                          102, BT-47, BT-48
+            facturado  (BT-151,  BT-95  o  BT-102)  es  “Gravamen
+            Reducido”, el NIF del destinatario (BT-47, BT-48) no puede
+            corresponder a un NIF de persona física, ni empezar por las
+              letras “A”, “B”, “C”, “D”, “E”, “F”, “H”, “J” o “U”.
+
+         Con código 384.Factura emitida en sustitución de facturas
+              simplificadas. o 471.  Factura  rectificativa emitida por  el
+              destinatario, se admite cualquier NIF.
+
+ BR-ES-Z- En una línea de factura (BG-25), una minoración a nivel de Gravamen Cero, razón de BG-25, BG-20, BG-21,
+    2     documento (BG-20) o un cargo a nivel de documento (BG- exención                BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA del  artículo                          102, BT-120, BT-121,
+            facturado (BT-151, BT-95 o BT-102) es “Gravamen General”,                       BT-173  BT-174,  BT-
+          no podrá informarse de una razón de exención ni de un                          175, BT-176, BT-194,
+            código de razón de exención (BT-120, BT-121, BT-173 BT-                       BT-195
+            174, BT-175, BT-176, BT-194, BT-195).
+
+
+
+ 2.4.3  Exento de IVA – E
+
+
+
+Tabla ES-11 – Reglas de negocio. Categoría de IVA – Exento de IVA
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+ BR-ES-E- En una línea de factura (BG-25), una minoración a nivel de Exento de IVA, códigos BG-25, BG-20, BT-151,
+    1     documento (BG-20) o un cargo a nivel de documento (BG- VATEX, IVA             BT-95,  BT-102,  BT-
+             21), donde  el código de categoría de IVA del  artículo                          161, BT-121, BT-174,
+            facturado (BT-151, BT-95 o BT-102) es “Exento de IVA”, y el                         BT-176, BT-195
+              calificador de la clave de régimen (BT-161) es “IVA”, podrán
+               utilizarse exclusivamente los siguientes códigos VATEX (BT-
+            121, BT-174, BT-176, BT-195):
+
+                 -   Códigos VATEX-EU: todos salvo AE, D, F, G, I, IC, J, O.
+                 -   Códigos VATEX-ES: todos salvo N1, N2, IGIC1TR,
+                IGIC11,  IGIC12,  IGIC13,  IGIC25,  IGIC47, IGIC110,
+                 IPSI7, IPSI8.
+
+ BR-ES-E- En una línea de factura (BG-25), una minoración a nivel de Exento de IVA, códigos BG-25, BG-20, BT-151,
+    2     documento (BG-20) o un cargo a nivel de documento (BG- VATEX,  IVA,  Oro  de BT-95,  BT-102,  BT-
+             21), donde  el código de categoría de IVA del  artículo inversión                 161, BT-121, BT-174,
+            facturado (BT-151, BT-95 o BT-102) es “Exento de IVA”, el                         BT-176,  BT-195,  BT-
+              calificador de la clave de régimen es “IVA” y la clave de                       161
+           régimen (BT-161) es  4, “Régimen  especial  del oro de
+              inversión”, solo podrá utilizarse el código VATEX (BT-121,
+           BT-174, BT-176, BT-195): VATEX-ES-140BIS.
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                24
+--- PDF PAGE 25 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+ BR-ES-E- En una línea de factura (BG-25), una minoración a nivel de Exento de IVA, códigos BG-25, BG-20, BT-151,
+    3     documento (BG-20) o un cargo a nivel de documento (BG- VATEX,IGIC             BT-95,  BT-102,  BT-
+             21), donde  el código de categoría de IVA del  artículo                          161, BT-121, BT-174,
+            facturado (BT-151, BT-95 o BT-102) es “Exento de IVA” y el                         BT-176, BT-195
+              calificador de la clave de régimen (BT-161) es “IGIC”, podrán
+               utilizarse exclusivamente los siguientes códigos VATEX (BT-
+            121, BT-174, BT-176, BT-195):
+
+                 -   Códigos VATEX-EU: todos salvo AE, D, F, G, I, IC, J, O.
+                 -   Códigos VATEX-ES: exclusivamente IGIC1TR, IGIC11,
+                IGIC12, IGIC13, IGIC25, IGIC47, IGIC110, OTROS.
+
+ BR-ES-E- En una línea de factura (BG-25), una minoración a nivel de Exento de IVA, códigos BG-25, BG-20, BT-151,
+    4     documento (BG-20) o un cargo a nivel de documento (BG- VATEX, IPSI             BT-95,  BT-102,  BT-
+             21), donde  el código de categoría de IVA del  artículo                          161, BT-121, BT-174,
+            facturado (BT-151, BT-95 o BT-102) es “Exento de IVA” y el                         BT-176, BT-195
+              calificador de la clave de régimen (BT-161) es “IPSI”, podrán
+               utilizarse exclusivamente los siguientes códigos VATEX (BT-
+            121, BT-174, BT-176, BT-195):
+
+                 -   Códigos VATEX-EU: todos salvo AE, D, F, G, I, IC, J, O.
+                 -   Códigos  VATEX-ES:  exclusivamente  IPSI7,  IPSI8,
+            OTROS.
+
+ BR-ES-E-  El tipo de IVA por cada categoría de IVA (BT-119) en el Exento de IVA, Totales de BT-119, BT-118, BG-23
+    5      desglose del IVA (BG-23) donde el código de categoría de IVA
+           IVA (BT-118) es “Exento de IVA” debe ser 0.0.
+
+
+
+ 2.4.4  Inversión del sujeto pasivo – AE
+
+
+
+Tabla ES-12 – Reglas de negocio. Categoría de IVA – Inversión del sujeto pasivo
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+  BR-ES-   El tipo de IVA por cada categoría de IVA (BT-119) en el Inversión    del   Sujeto BT-119, BT-118, BG-23
+   AE-1    desglose del IVA (BG-23) donde el código de categoría de Pasivo, Totales de IVA
+           IVA (BT-118) es “Inversión del Sujeto Pasivo” debe ser 0.0.
+
+
+
+ 2.4.5  Operación no sujeta a IVA – O
+
+
+
+Tabla ES-13 – Reglas de negocio. Categoría de IVA – Operación no sujeta a IVA
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+ BR-ES-O- En una línea de factura (BG-25), una minoración a nivel de Operación  no  sujeta  a BG-25, BG-20, BT-151,
+    1     documento (BG-20) o un cargo a nivel de documento (BG- IVA, códigos VATEX, IPSI BT-95,  BT-102,  BT-
+             21), donde  el código de categoría de IVA del  artículo                          161, BT-121, BT-174,
+            facturado (BT-151, BT-95 o BT-102) es “Operación no sujeta                         BT-176, BT-195
+          a IVA”, podrán  utilizarse exclusivamente los códigos de
+            exención VATEX  (BT-121,  BT-174,  BT-176,  BT-195):
+          VATEX-EU-O, VATEX-EU-AE y VATEX-ES-N1 y N2.
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                25
+--- PDF PAGE 26 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+ BR-ES-O-  El tipo de IVA por cada categoría de IVA (BT-119) en el Exento de IVA, Totales de BT-119, BT-118, BG-23
+    2      desglose del IVA (BG-23) donde el código de categoría de IVA
+           IVA (BT-118) es “Operación no sujeta a IVA” debe ser 0.0.
+
+
+
+ 2.4.6  Exportación – G
+
+
+
+Tabla ES-14 – Reglas de negocio. Categoría de IVA – Exportación
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+ BR-ES-G-  El tipo de IVA por cada categoría de IVA (BT-119) en el Exportación,  Totales de BT-119, BT-118, BG-23
+    1      desglose del IVA (BG-23) donde el código de categoría de IVA
+           IVA (BT-118) es “Exportación” debe ser 0.0.
+
+
+
+ 2.4.7  Operación sujeta a IGIC – L
+
+
+Tabla ES-15 – Reglas de negocio. Categoría de IVA – Operación sujeta a IGIC
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+ BR-ES-L-1 En una línea de factura (BG-25), una minoración a nivel de Operación sujeta a IGIC, BG-25, BG-20, BG-21,
+           documento (BG-20) o un cargo a nivel de documento (BG- Tipos de IVA             BT-151,  BT-95,  BT-
+             21), donde  el código de  categoría de IVA del  artículo                          102,  BT-152,  BT-96,
+            facturado (BT-151, BT-95 o BT-102) es “Operación sujeta a                       BT-103
+            IGIC” los tipos de IVA del artículo facturado (BT-152, BT-96
+          o BT-103) aceptados son 1, 3, 5, 7, 15 y 20 (en tanto por
+              ciento).
+
+ BR-ES-L-2 En una línea de factura (BG-25), una minoración a nivel de Operación sujeta a IGIC, BG-25, BG-20, BG-21,
+           documento (BG-20) o un cargo a nivel de documento (BG- Razón de exención       BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA del  artículo                          102, BT-120, BT-121,
+            facturado (BT-151, BT-95 o BT-102) es “Operación sujeta a                       BT-173  BT-174,  BT-
+             IGIC”, no podrá informarse de una razón de exención (BT-                          175, BT-176, BT-194,
+            120, BT-121, BT-173 BT-174, BT-175, BT-176, BT-194, BT-                       BT-195
+             195).
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                26
+--- PDF PAGE 27 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+ 2.4.8  Operación sujeta a IPSI – M
+
+
+
+Tabla ES-16 – Reglas de negocio. Categoría de IVA – Operación sujeta a IPSI
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+ BR-ES-M- En una línea de factura (BG-25), una minoración a nivel de Operación sujeta a IPSI, BG-25, BG-20, BG-21,
+    1     documento (BG-20) o un cargo a nivel de documento (BG- Tipos de IVA             BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA del  artículo                          102,  BT-152,  BT-96,
+            facturado (BT-151, BT-95 o BT-102) es “Operación sujeta a                       BT-103
+            IGIC” los tipos de IVA del artículo facturado (BT-152, BT-96
+          o BT-103) aceptados son 0,5, 1, 2, 4, 8 y 10 (en tanto por
+              ciento).
+
+ BR-ES-M- En una línea de factura (BG-25), una minoración a nivel de Operación sujeta a IPSI, BG-25, BG-20, BG-21,
+    2     documento (BG-20) o un cargo a nivel de documento (BG- Razón de exención       BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA del  artículo                          102, BT-120, BT-121,
+            facturado (BT-151, BT-95 o BT-102) es “Operación sujeta a                       BT-173  BT-174,  BT-
+              IPSI”, no podrá informarse de una razón de exención (BT-                          175, BT-176, BT-194,
+            120, BT-121, BT-173 BT-174, BT-175, BT-176, BT-194, BT-                       BT-195
+             195).
+
+
+
+ 2.4.9  Regímenes nacionales de IVA (Régimen especial del grupo de entidades, nivel avanzado,
+       y régimen especial del recargo de equivalencia) – N
+
+
+ El código de categoría N se usará tanto para el régimen especial del grupo de entidades, nivel
+ avanzado, como para el régimen especial del recargo de equivalencia. Se distinguirán en función de
+  la clave de régimen informada en la línea de factura:
+
+  -   Clave de régimen 01: Operación a la que resulta de aplicación el régimen especial del recargo de
+     equivalencia.
+
+  -   Clave de régimen 06: Operación a la que resulta de aplicación el régimen especial de grupo de
+     entidades, nivel avanzado.
+
+ Cuando se informe de una línea de factura con categoría N y clave de régimen 01, se informará en la
+ línea de factura del tipo de IVA correspondiente al gravamen general, y se abrirán dos desgloses:
+  -  Uno correspondiente al gravamen general.
+  -   Otro correspondiente al recargo de equivalencia, cuyos tipos deberán guardar la correspondiente
+     correlación con el tipo impositivo del gravamen general informado en la línea de la factura.
+
+
+ En aquellos casos en los que se incorpore una minoración o cargo a nivel de documento, la forma de
+  distinguir si corresponde a uno u otro régimen dependerá de las líneas de factura incluidas en el
+ documento:
+
+  -   Si hay una línea de factura con categoría N y clave de régimen 01, la minoración o cargo
+    necesariamente será una operación acogida al régimen de recargo de equivalencia, puesto que,
+     por aplicación del artículo 16.4 ROF, en una factura con operaciones acogidas a dicho régimen,
+     solo pueden documentarse operaciones acogidas al mismo.
+  -   Si hay una línea de factura con cualquier otra categoría que no sea N, o con categoría N y clave
+    de régimen 06, la minoración o cargo necesariamente será una operación acogida al régimen de
+    grupo de entidades de IVA, nivel avanzado. De acuerdo con el art. 6.1.a).5º ROF, las operaciones
+    acogidas a dicho régimen siempre se encuentran en una serie separada, por lo que, en caso de
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                27
+--- PDF PAGE 28 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+      incluir cargos o minoraciones con categoría N, necesariamente se corresponderán con operaciones
+    de este régimen.
+
+ Especialmente en el caso de las operaciones acogidas al régimen especial de grupo de entidades,
+  nivel avanzado, cuando se realicen operaciones de exportación, exentas de IVA, con inversión del
+ sujeto pasivo, o bien una operación no sujeta a IVA, será necesario utilizar el código VATEX específico
+ de ese tipo de operación:
+  -   Exenta de IVA: existen múltiples códigos VATEX-EU y VATEX-ES, usar el que corresponda.
+  -   Inversión del sujeto pasivo: Usar VATEX-EU-AE
+  -   Exportación: usar VATEX-EU-G
+  -   Operación no sujeta: usar VATEX-EU-O, o VATEX-ES-N1, VATEX-ES-N2.
+
+ Además, en el caso de las operaciones acogidas al régimen especial de grupo de entidades, para
+ bienes con tipo impositivo 0%, debe consignarse el tipo 0%, que en las reglas de negocio se admite
+ expresamente para esta categoría de IVA.
+
+
+
+Tabla ES-17 – Reglas de negocio. Categoría de IVA – Regímenes nacionales de IVA
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+ BR-ES-N- Una factura que contiene una línea de factura (BG-25), una Regímenes nacionales de BG-25, BG-20, BG-21,
+    1      minoración a nivel de documento (BG-20) o una cuota o cargo IVA, desglose de IVA     BT-151,  BT-95,  BT-
+          a nivel de documento (BG-21), donde el código de categoría                          102,  BT-152,  BG-23,
+          de IVA (BT-151, BT-95 o BT-102) es “Régimen Nacional”                       BT-118
+          debe contener en el desglose del IVA (BG-23), al menos un
+            código de categoría de IVA (BT-118) igual a “Régimen
+             Nacional”.
+
+ BR-ES-N- Una factura que contiene una línea de factura (BG-25), una Regímenes nacionales de BG-25, BG-20, BG-21,
+    2      minoración a nivel de documento (BG-20) o una cuota o cargo IVA,  desglose  de  IVA, BT-151,  BT-95,  BT-
+          a nivel de documento (BG-21), donde el código de categoría Régimen   especial   del 102,  BT-152,  BG-23,
+          de IVA (BT-151, BT-95 o BT-102) es “N. Régimen Nacional”, recargo de equivalencia   BT-118, BT-161
+            y el código de clave de régimen (BT-161) es 01 “Régimen
+            general y no incluidos en otras claves”, debe contener
+            adicionalmente otro desglose del IVA (BG-23), con el código
+          de categoría de IVA N. Régimen Nacional, correspondiente
+               al recargo.
+
+ BR-ES-N- En una línea de factura (BG-25), una minoración a nivel de Regímenes nacionales de BG-25, BG-20, BG-21,
+    3     documento (BG-20) o un cargo a nivel de documento (BG- IVA, Tipos de IVA        BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA del  artículo                          102, BT-152, BT-96 o
+            facturado (BT-151, BT-95 o BT-102) es “Régimen Nacional”                       BT-103
+              los tipos de IVA del artículo facturado (BT-152, BT-96 o BT-
+            103) serán: 0, 4, 10 y 21 (en tanto por ciento).
+
+ BR-ES-N- En una línea de factura (BG-25), una minoración a nivel de Regímenes nacionales de BG-25, BG-20, BG-21,
+    4     documento (BG-20) o un cargo a nivel de documento (BG- IVA, grupo de entidades BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA del  artículo  (nivel  avanzado),  Tipos 102, BT-152, BT-96 o
+            facturado (BT-151, BT-95 o BT-102) es “Régimen Nacional”, de     IVA,     Facturas BT-103, BT-3
+           se admitirán adicionalmente los tipos impositivos que se  rectificativas,  código de
+             indican, cuando el código de tipo de factura (BT-3) sea 384.  tipo de factura
+            Factura rectificativa o 471. Factura rectificativa emitida por el
+              destinatario: 5; 2; y, 7,5.
+
+
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                28
+--- PDF PAGE 29 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                   Grupo/Término de
+   ID                         Descripción                         Objeto/Contexto
+                                                                                        negocio
+
+BR-ES-N- Cuando la factura incluya una línea de factura (BG-25), una Regímenes nacionales de BT-116,  BG-23,  BT-
+   5      minoración a nivel de documento (BG-20) o un cargo a nivel IVA, régimen especial del 131, BT-99, BT-92, BT-
+         de documento (BG-21), donde el código de categoría de IVA recargo de equivalencia, 151,  BT-102,  BT-95,
+            del artículo facturado (BT-151, BT-95 o BT-102) es “Régimen Totales de IVA           BT-161.
+           Nacional, y la clave de régimen es 01. “Régimen general y no
+            incluidos en otras claves”, la factura incluirá al menos dos
+           desgloses con categoría N, uno correspondiente al gravamen
+           general y otro correspondiente al recargo de equivalencia.
+
+         En el desglose correspondiente al gravamen general:
+
+         La base imponible de categoría de IVA (BT-116) en un
+           desglose de IVA (BG-23) en la moneda de la factura debe ser
+            igual a:
+
+          La suma de los importes neto de línea de factura (BT-131),
+        más la suma de las cuotas o cargos a nivel de documento
+           (BT-99) menos la suma de los importes de minoraciones a
+             nivel de documento (BT-92),
+
+          Donde:
+
+            El código de categoría de IVA (BT-151, BT-102, BT-95) es
+          “Régimen Nacional”, la clave de régimen (BT-161) en las
+            líneas de factura es 01 “Régimen general y no incluidos en
+            otras claves”, y el tipo de IVA (BT-152, BT-103, BT-96) es
+            igual al tipo impositivo por categoría de IVA (BT-119).
+
+         En el desglose correspondiente al recargo de equivalencia:
+
+         La base imponible de categoría de IVA (BT-116) en un
+           desglose de IVA (BG-23) en la moneda de la factura debe ser
+            igual a:
+
+          La suma de los importes neto de línea de factura (BT-131),
+        más la suma de las cuotas o cargos a nivel de documento
+           (BT-99) menos la suma de los importes de minoraciones a
+             nivel de documento (BT-92),
+
+          Donde:
+
+            El código de categoría de IVA (BT-151, BT-102, BT-95) es
+          “Régimen Nacional”, la clave de régimen (BT-161) en las
+            líneas de factura es 01 “Régimen general y no incluidos en
+            otras claves” y el tipo impositivo por categoría de IVA (BT-
+           119) guardará la siguiente equivalencia con el tipo impositivo
+           informado en las líneas de factura:
+
+                Gravamen General  Recargo      de
+                                        equivalencia
+
+                  21                     5,2; 1,75
+
+                  10                   1,4
+
+                  4                     0,5
+
+                  5                    0,62
+
+                  2                    0,26
+
+                     7,5                1
+
+                  0                 0
+
+
+          Las bases imponibles por categoría de IVA (BT-116) de cada
+           desglose de IVA con la correspondencia de tipos impositivos
+           indicada en el cuadro anterior, deberán ser iguales.
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                29
+--- PDF PAGE 30 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                   Grupo/Término de
+   ID                         Descripción                         Objeto/Contexto
+                                                                                        negocio
+
+BR-ES-N-  La base imponible de categoría de IVA (BT-116) en un Regímenes nacionales de BT-116,  BG-23,  BT-
+   6      desglose de IVA (BG-23) en la moneda de la factura, será un IVA, régimen especial del 131, BT-99, BT-92, BT-
+           importe  determinado  por   el  emisor  de   la   factura, grupo   de   entidades, 151,  BT-102,  BT-95,
+           correspondiente a la base imponible de la operación.         Totales de IVA           BT-161.
+
+          Donde:
+
+            El código de categoría de IVA (BT-151, BT-102, BT-95) es
+          “Régimen Nacional”, la clave de régimen (BT-161) en las
+            líneas de factura es 06 “Régimen especial de grupo de
+           entidades, nivel avanzado” y el tipo de IVA (BT-152, BT-103,
+          BT-96) es igual al tipo impositivo por categoría de IVA (BT-
+            119).
+
+BR-ES-N-  El importe del IVA por cada categoría de IVA (BT-117) en el Regímenes nacionales de BT-117,  BG-23,  BT-
+   7      desglose del IVA (BG-23) donde el código de categoría de IVA, Totales de IVA       116, BT-119
+          IVA (BT-118) es “Régimen nacional”, debe ser igual a la base
+           imponible de categoría de IVA (BT-116) multiplicada por el
+             tipo impositivo por categoría de IVA (BT-119).
+
+BR-ES-N- En una línea de factura (BG-25), una minoración a nivel de Regímenes nacionales de BG-25, BG-20, BG-21,
+   8     documento (BG-20) o un cargo a nivel de documento (BG- IVA, razón de exención, BT-151,  BT-95,  BT-
+            21), donde  el código de categoría de IVA del  artículo Régimen   especial   del 102, BT-120, BT-121,
+           facturado (BT-151, BT-95 o BT-102) es “Régimen nacional”, recargo de equivalencia   BT-173  BT-174,  BT-
+           y la clave de régimen es 01.Régimen general y no incluidas                          175, BT-176, BT-194,
+         en otras claves (BT-161), no podrá informarse de una razón                         BT-195, BT-161
+         de exención (BT-120, BT-121, BT-173 BT-174, BT-175, BT-
+           176, BT-194, BT-195).
+
+BR-ES-N- En una línea de factura (BG-25), una minoración a nivel de Regímenes nacionales de BG-25, BG-20, BG-21,
+   9     documento (BG-20) o un cargo a nivel de documento (BG- IVA, razón de exención, BT-151,  BT-95,  BT-
+            21), donde  el código de categoría de IVA del  artículo Régimen   especial   del 102, BT-120, BT-121,
+           facturado (BT-151, BT-95 o BT-102) es “Régimen nacional”, recargo de equivalencia   BT-173  BT-174,  BT-
+           y la clave de régimen es 06.Régimen especial del grupo de                          175, BT-176, BT-194,
+           entidades, nivel avanzado (BT-161), y se informe de una                         BT-195, BT-161
+           razón de exención (BT-120, BT-121, BT-173 BT-174, BT-175,
+          BT-176, BT-194, BT-195), el tipo de IVA del artículo facturado
+           (BT-152, BT-96 o BT-103) será 0.0, y El importe del IVA por
+          cada categoría de IVA (BT-117) en el desglose del IVA (BG-
+           23) será 0.0.
+
+BR-ES-N- En una línea de factura (BG-25), una minoración a nivel de Regímenes nacionales de BT-116,  BG-23,  BT-
+   12     documento (BG-20) o un cargo a nivel de documento (BG- IVA, grupo de entidades 131, BT-99, BT-92, BT-
+            21), donde  el código de categoría de IVA del  artículo  (nivel        avanzado), 151, BT-102, BT-161,
+           facturado (BT-151, BT-95 o BT-102) es “Régimen nacional” y arrendamiento de local de BT-152, BT-96, BT-103
+          se hacen constar de forma conjunta los códigos de clave de negocio, Tipos de IVA
+          régimen  (BT-161) 06 “Régimen  especial de  grupo de
+           entidades, nivel avanzado” y 11 “Arrendamiento de local de
+            negocio”, el tipo de IVA del artículo facturado (BT-152, BT-96
+          o BT-103) aceptado es el 21 (en tanto por ciento).
+
+
+
+
+
+              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                30
+--- PDF PAGE 31 ---
+     Agencia Tributaria                                            Facturación Electrónica
+
+ 2.4.10 Régimen especial de agencia de viajes – D
+
+
+
+Tabla ES-17 – Reglas de negocio. Categoría de IVA – Régimen especial de agencia de viajes
+
+
+                                                                                    Grupo/Término de
+    ID                         Descripción                         Objeto/Contexto
+                                                                                         negocio
+
+ BR-ES-D- Una factura que contiene una línea de factura (BG-25), una Régimen   Especial  de BG-25, BG-20, BG-21,
+    1      minoración a nivel de documento (BG-20) o una cuota o cargo agencias   de    viajes, BT-151,  BT-95,  BT-
+          a nivel de documento (BG-21), donde el código de categoría desglose de IVA          102,  BT-152,  BG-23,
+          de IVA (BT-151, BT-95 o BT-102) es “Régimen especial de                       BT-118
+            agencia de viajes” debe contener en el desglose del IVA (BG-
+             23), al menos un código de categoría de IVA (BT-118) igual
+          a “Régimen especial de agencia de viajes”.
+
+ BR-ES-D- En una línea de factura (BG-25) donde el código de categoría Régimen   Especial  de BG-25, BT-151, BT-152
+    2     de IVA del artículo facturado (BT-151) es “Régimen especial agencias de viajes, Tipos
+          de agencia de viajes”, el tipo de IVA del artículo facturado de IVA
+            (BT-152) debe ser 0.0.
+
+ BR-ES-D- En un cargo o minoración a nivel de documento (BG-21) Régimen   Especial  de BG-21, BT-95, BT-102,
+    3     donde el código de categoría de IVA (BT-95, BT-102)  es agencias de viajes, Tipos BT-96, BT-103
+           “Régimen especial de agencia de viajes”, el tipo de IVA del de IVA
+            cargo o minoración a nivel de documento (BT-96, BT-103)
+          debe ser 0.0.
+
+ BR-ES-D-  La base imponible de categoría de IVA (BT-116) en un Régimen   Especial  de BT-116,  BG-23,  BT-
+    4      desglose de IVA (BG-23) en la moneda de la factura debe ser agencias   de    viajes, 131, BT-99, BT-92, BT-
+              igual a:                                                          totales de IVA            151,  BT-102,  BT-95,
+                                                                                         BT-195, BT-174 y BT-
+          La suma de los importes neto de línea de factura (BT-131),                                                                                             176, BT-194, BT-173 y
+         más la suma de las cuotas o cargos a nivel de documento                                                                                         BT-175,  BT-121,  BT-
+            (BT-99) menos la suma de los importes de minoraciones a                                                                                  120
+              nivel de documento (BT-92),
+
+           Donde:
+
+             El código de categoría de IVA (BT-151, BT-102, BT-95) es
+           “Régimen especial de agencia de viajes”, y, si procede:
+
+             El código de motivo y especificación de exención del IVA (BT-
+            195, BT-174 y BT-176) y la razón de exención (BT-194, BT-
+          173  y  BT-175)  son  idénticos  al  código de  motivo  y
+             especificación de exención del IVA (BT-121) y la razón de
+            exención del IVA (BT-120) de la categoría de IVA
+
+ BR-ES-D-  El importe del IVA por cada categoría de IVA (BT-117) en el Régimen   Especial  de BT-117, BT-118, BG-23
+    5      desglose del IVA (BG-23) donde el código de categoría de agencias   de    viajes,
+           IVA (BT-118) es “Régimen especial de agencia de viajes” Totales de IVA
+          debe ser 0.0.
+
+ BR-ES-F-  El tipo de IVA por cada categoría de IVA (BT-119) en el Régimen   Especial  de BT-119, BT-118, BG-23
+    6      desglose del IVA (BG-23) donde el código de categoría de agencias   de    viajes,
+           IVA (BT-118) es “Régimen especial de agencia de viajes” Totales de IVA
+          debe ser 0.0.
+
+ BR-ES-D- En una línea de factura (BG-25), una minoración a nivel de Régimen   Especial  de BG-25, BG-20, BG-21,
+    7     documento (BG-20) o un cargo a nivel de documento (BG- agencias de viajes, razón BT-151,  BT-95,  BT-
+             21), donde  el código de categoría de IVA del  artículo de   exención,   código 102, BT-121, BT-174,
+            facturado (BT-151, BT-95 o BT-102) es “Régimen especial de VATEX                 BT-176, BT-195
+            agencia de  viajes”, podrá  utilizarse  exclusivamente  los
+            códigos VATEX (BT-121, BT-174, BT-176, BT-195) VATEX-
+           EU-D, y VATEX-ES-IVA20, VATEX-ES-IGIC, VATEX-ES-
+        OTROS y VATEX-ES-IGIC1TR.
+
+
+
+               SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                31
+--- PDF PAGE 32 ---
+           Agencia Tributaria                                            Facturación Electrónica
+
+
+
+2.4.11 Régimen especial de bienes usados, antigüedades, objetos de arte y de colección – F
+
+
+        Tabla ES-18 – Reglas de negocio. Categoría de IVA – Régimen especial de bienes usados, antigüedades, objetos de
+         arte y de colección
+
+
+                                                                                           Grupo/Término de
+            ID                         Descripción                         Objeto/Contexto
+                                                                                                negocio
+
+        BR-ES-F- Una factura que contiene una línea de factura (BG-25), una Régimen   especial  de BG-25, BG-20, BG-21,
+            1      minoración a nivel de documento (BG-20) o una cuota o cargo bienes          usados, BT-151,  BT-95,  BT-
+                  a nivel de documento (BG-21), donde el código de categoría antigüedades, objetos de 102,  BT-152,  BG-23,
+                  de IVA (BT-151, BT-95 o BT-102) es “Régimen especial de arte  y  de   colección, BT-118
+                    bienes usados, antigüedades, objetos de arte y de colección” desglose de IVA
+                  debe contener en el desglose del IVA (BG-23), al menos un
+                    código de categoría de IVA (BT-118) igual a “Régimen
+                     especial de bienes usados, antigüedades, objetos de arte y
+                  de colección”.
+
+        BR-ES-F- En una línea de factura (BG-25) donde el código de categoría Régimen   especial  de BG-25, BT-151, BT-152
+            2     de IVA del artículo facturado (BT-151) es “Régimen especial bienes          usados,
+                  de bienes usados, antigüedades, objetos de  arte y de antigüedades, objetos de
+                       colección”, el tipo de IVA del artículo facturado (BT-152) debe arte y de colección, Tipos
+                     ser 0.0.                                           de IVA
+
+        BR-ES-F- En un cargo o minoración a nivel de documento (BG-21) Régimen   especial  de BG-21, BT-95, BT-102,
+            3     donde el código de categoría de IVA (BT-95, BT-102) es bienes          usados, BT-96, BT-103
+                  “Régimen especial de bienes usados, antigüedades, objetos antigüedades, objetos de
+                  de arte y de colección”, el tipo de IVA del cargo o minoración  arte y de colección, Tipos
+                  a nivel de documento (BT-96, BT-103) debe ser 0.0.        de IVA
+
+        BR-ES-F-  La base imponible de categoría de IVA (BT-116) en un Régimen   especial  de BT-116,  BG-23,  BT-
+            4      desglose de IVA (BG-23) en la moneda de la factura debe ser bienes          usados, 131, BT-99, BT-92, BT-
+                       igual a:                                                  antigüedades, objetos de 151,  BT-102,  BT-95,
+                                                                                       arte  y  de   colección, BT-195, BT-174 y BT-
+                  La suma de los importes neto de línea de factura (BT-131),                                                                                         totales de IVA            176, BT-194, BT-173 y
+                más la suma de las cuotas o cargos a nivel de documento                                                                                                 BT-175,  BT-121,  BT-
+                    (BT-99) menos la suma de los importes de minoraciones a                                                                                         120
+                        nivel de documento (BT-92),
+
+                  Donde:
+
+                      El código de categoría de IVA (BT-151, BT-102, BT-95) es
+                  “Régimen especial de bienes usados, antigüedades, objetos
+                  de arte y de colección”, y, si procede:
+
+                      El código de motivo y especificación de exención del IVA (BT-
+                    195, BT-174 y BT-176) y la razón de exención (BT-194, BT-
+                  173  y  BT-175)  son  idénticos  al  código de  motivo  y
+                      especificación de exención del IVA (BT-121) y la razón de
+                    exención del IVA (BT-120) de la categoría de IVA.
+
+        BR-ES-F-  El importe del IVA por cada categoría de IVA (BT-117) en el Régimen   especial  de BT-117, BT-118, BG-23
+            5      desglose del IVA (BG-23) donde el código de categoría de bienes          usados,
+                  IVA (BT-118) es “Régimen especial de bienes usados, antigüedades, objetos de
+                    antigüedades, objetos de arte y de colección” debe ser 0.0.   arte  y  de   colección,
+                                                                                Totales de IVA
+
+        BR-ES-F-  El tipo de IVA por cada categoría de IVA (BT-119) en el Régimen   especial  de BT-119, BT-118, BG-23
+            6      desglose del IVA (BG-23) donde el código de categoría de bienes          usados,
+                  IVA (BT-118) es “Régimen especial de bienes usados, antigüedades, objetos de
+                    antigüedades, objetos de arte y de colección” debe ser 0.0.   arte  y  de   colección,
+                                                                                Totales de IVA
+
+
+
+
+                      SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                32
+--- PDF PAGE 33 ---
+    Agencia Tributaria                                            Facturación Electrónica
+
+
+                                                                                   Grupo/Término de
+   ID                         Descripción                         Objeto/Contexto
+                                                                                        negocio
+
+BR-ES-F- En una línea de factura (BG-25), una minoración a nivel de Régimen   especial  de BG-25, BG-20, BG-21,
+   7     documento (BG-20) o un cargo a nivel de documento (BG- bienes          usados, BT-151,  BT-95,  BT-
+            21), donde  el código de categoría de IVA del  artículo antigüedades, objetos de 102, BT-121, BT-174,
+           facturado (BT-151, BT-95 o BT-102) es “Régimen especial de arte y de colección, razón BT-176, BT-195
+           bienes usados, antigüedades, objetos de arte y de colección”, de   exención,   código
+          podrá utilizarse exclusivamente el código VATEX (BT-121, VATEX
+          BT-174, BT-176, BT-195) VATEX-EU-F.
+
+
+
+
+
+             SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                33
