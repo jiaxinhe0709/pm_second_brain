@@ -1,5 +1,7 @@
 # Customer onboarding and connectivity
 
+[Onboarding error handling — SPEC004](../SPEC-SEI-004-onboarding-failure-and-reconciliation-solution-specification.md#operational-investigation-and-recovery) covers support investigation and guarded recovery. [All stage error-handling documents](../error-handling/README.md).
+
 This is the primary review set for customer onboarding and connection setup. Read 037 for the quick overview, 038 for the customer paths and 039 for API reuse and Spain changes. The predecessor folders are retained under `specs/archive/`.
 
 | Read | Purpose |

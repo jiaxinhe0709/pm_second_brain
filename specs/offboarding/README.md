@@ -1,5 +1,7 @@
 # Customer offboarding
 
+[Offboarding error handling — SPEC053](../error-handling/SPEC-SEI-053-customer-offboarding-error-handling.md) covers stage-specific investigation and recovery. [All stage error-handling documents](../error-handling/README.md).
+
 Review offboarding through three complementary views. All three are unpublished drafts. The analysis distinguishes platform switching from ending access or services, including Sage access to SPFE. SPEC-SEI-032 owns OFF-S01–10, partial/full scope, business closure and incident entry. The summary diagram provides the reading route; analysis coverage does not enable a switch or prove an external deregistration operation.
 
 | Read | Purpose |

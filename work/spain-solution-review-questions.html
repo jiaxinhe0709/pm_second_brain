@@ -695,7 +695,7 @@ What normal and peak batch sizes must we support at month end?</p>
 <section id="receiving-topic-log" aria-labelledby="receiving-topic-heading">
 <h2 id="receiving-topic-heading">Receiving question and decision log</h2>
 <p>Read the <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md">receiving source table — NOTE-SEI-003</a>. This view shows the questions and answers from that table.</p>
-<p>These 2 entries add detail to Q14 and Q16. They are counted separately from the original workshop questions. The owner column suggests who to ask. An agreed decision does not mean the software is built or tested.</p>
+<p>These 7 entries add detail to Q14 and Q16. They are counted separately from the original workshop questions. The owner column suggests who to ask. An agreed decision does not mean the software is built or tested.</p>
 <details><summary>How to update this view</summary><p>Edit the source table, then run <code>python3 tools/render_question_logs.py</code>.</p></details>
 <article id="rcv-q14-1">
 <h3>Q14.1. Avoid sending the same invoice to the ERP twice</h3>
@@ -706,6 +706,56 @@ What normal and peak batch sizes must we support at month end?</p>
 <p class="followup"><strong>Suggested owner and next action:</strong> Receiving, API and ERP teams: agree matching, handling of conflicts and delivery rules. Test that retries do not create duplicate ERP records.</p>
 <p class="details"><strong>Affected specs or diagrams:</strong> SPEC026 RCV-07/08 and RSD-A05/06; SPEC027 RET-G04/07/09; deduplication/ERP handoff sequence.</p>
 <p class="evidence"><a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#q14-1">Source entry Q14.1</a></p>
+</article>
+<article id="rcv-q14-2">
+<h3>Q14.2. Identify an original or faithful copy</h3>
+<span class="badge partial">Partly answered</span>
+<p class="question">What exchange and file-role evidence does each provider supply? Do not classify a file from its platform name alone.</p>
+<p class="answer"><strong>Current understanding:</strong> SPFE can hold either role. Private exchange creates a separately marked faithful copy; public issuance/interconnection needs no additional copy. The copy is not a draft or a file created only after retrieval fails.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> Legal route and copy-role evidence reviewed 23 November. The confirmed Spain public profile uses <code>cbc:CopyIndicator</code>; it does not prove invoice matching, receiving readiness or a particular provider implementation. <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#r3">R3</a> <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#r4">R4</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Integration/provider and Records: qualify roles, recipient access and matching for each enabled route under RET-G01/04/05/07.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> <a href="../specs/invoice-receiving/SPEC-SEI-025-invoice-retrieval-solution-summary.md#retrieval-use-cases">SPEC025 use cases 1–3</a>; <a href="../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#spain-original-and-faithful-copy-scenarios">SPEC026 Spain roles</a>.</p>
+<p class="evidence"><a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#q14-2">Source entry Q14.2</a></p>
+</article>
+<article id="rcv-q14-3">
+<h3>Q14.3. Show the copy while ERP intake waits for the original</h3>
+<span class="badge answered">Decision recorded</span>
+<p class="question">Reconcile the policy into the canonical PRD and prove later-original handling. Preserve decisions/payment history and prevent a second ERP invoice.</p>
+<p class="answer"><strong>Current understanding:</strong> Selected product policy permits safe authorised copy view/download and keeps automatic ERP intake pending the original and required checks. Label the file and retrieval state separately.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> User product direction recorded in SPEC026 REF-COPY-POLICY on 13 November; clarified for engineering on 23 November. This is an ERP product rule, not a legal ban on every copy-only business action or proof that the feature is built. <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#r1">R1</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Product owns PRD alignment. Receiving, Records and ERP owners qualify access, matching and delivery under RET-G04/07/09/10.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> <a href="../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#copy-only-engineering-behaviour">SPEC026 engineering behaviour</a>; <a href="../specs/invoice-receiving/SPEC-SEI-025-invoice-retrieval-solution-summary.md#copy-only-access-and-actions">SPEC025 copy-only explanation</a>.</p>
+<p class="evidence"><a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#q14-3">Source entry Q14.3</a></p>
+</article>
+<article id="rcv-q14-4">
+<h3>Q14.4. Approve, reject, post or pay when only the copy is available</h3>
+<span class="badge open">Open</span>
+<p class="question">Decide approval, commercial rejection, posting and payment separately. What verified invoice data, authority, document evidence and reporting channel does each require?</p>
+<p class="answer"><strong>Current understanding:</strong> View/download permission does not enable buyer commands. Eligibility remains open for each action; the copy label alone is not a general legal prohibition.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> Reviewed sources distinguish invoice/copy access from status/payment reporting. They do not establish a blanket original-fetch condition for every action. Invoice preservation and VAT evidence have their own rules; faithful-copy equivalence is not established. <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#r3">R3</a> <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#r6">R6</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Product/Compliance, Lifecycle and target ERP owners: close each action/evidence decision before enabling the affected command. Reporting must be assessed separately from ERP intake.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> <a href="../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#copy-only-actions">SPEC026 open copy-only actions</a>; <a href="../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#4-functional-requirements-and-invariants">SPEC029 action controls</a>.</p>
+<p class="evidence"><a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#q14-4">Source entry Q14.4</a></p>
+</article>
+<article id="rcv-q14-5">
+<h3>Q14.5. Recover the original and explain who acts next</h3>
+<span class="badge partial">Partly answered</span>
+<p class="question">Which independently authorised sources, recovery triggers and provider checks are supported? A copy does not prove current platform/account readiness.</p>
+<p class="answer"><strong>Current understanding:</strong> Sage lacking the original does not prove that it was never issued or delivered. Check recipient setup/access and the receiving provider before unresolved delivery is escalated to the sender.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> Recovery explanation reviewed 23 November. Sender confirmation does not turn a copy into an original or supply missing bytes. Ask for the destination or existing original if needed. Retrieval failure alone does not require cancellation or correction. Source combinations and retry limits remain unqualified. <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#r1">R1</a> <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#r4">R4</a> <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#r5">R5</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Integration/Identity and Receiving: qualify recovery and show reason, attempted source, next action and owner. Customer restores setup/access; receiving provider investigates delivery; sender helps if unresolved.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> <a href="../specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#original-file-retrieval">SPEC026 original retrieval</a>; <a href="../specs/invoice-receiving/SPEC-SEI-025-invoice-retrieval-solution-summary.md#retrieval-use-cases">SPEC025 all 11 use cases</a>.</p>
+<p class="evidence"><a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#q14-5">Source entry Q14.5</a></p>
+</article>
+<article id="rcv-q14-6">
+<h3>Q14.6. Keep one invoice lifecycle and separate file/report results</h3>
+<span class="badge partial">Partly answered</span>
+<p class="question">How are current status evidence, source/time and the invoice identity matched? Do not assume a downloaded file has the latest status or that platforms synchronise automatically.</p>
+<p class="answer"><strong>Current understanding:</strong> An original and matched copy represent one business invoice, not two payable invoices. SPFE can hold payment/rejection information for an invoice represented by a copy. Show business status separately from original retrieval and communication results.</p>
+<p class="evidence"><strong>Decision or evidence:</strong> Status/reporting evidence reviewed 23 November. A paid invoice may still have original retrieval pending. Copy admission/rejection is a communication result, not buyer acceptance/rejection. Actual file/status matching and action/report support remain open. <a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#r3">R3</a></p>
+<p class="followup"><strong>Suggested owner and next action:</strong> Lifecycle, Receiving and Records: qualify matching and source evidence, preserve history, prevent duplicate decisions/reports and assess reporting deadlines independently of retrieval.</p>
+<p class="details"><strong>Affected specs or diagrams:</strong> <a href="../specs/invoice-receiving/SPEC-SEI-025-invoice-retrieval-solution-summary.md#original-faithful-copy-and-status">SPEC025 status distinction and paid example</a>; <a href="../specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#general-status-comparison">SPEC029 status comparison</a>.</p>
+<p class="evidence"><a href="../specs/invoice-receiving/NOTE-SEI-003-receiving-questions-and-decisions.md#q14-6">Source entry Q14.6</a></p>
 </article>
 <article id="rcv-q16-1">
 <h3>Q16.1. Keep the original file before converting it</h3>

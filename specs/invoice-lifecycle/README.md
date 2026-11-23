@@ -1,13 +1,17 @@
 # Invoice lifecycle
 
-Use the same reading structure as [onboarding and connectivity](../onboarding-and-connectivity/README.md): three specification views and a separate API reference. These drafts use SPEC009, the supplied lifecycle guides, status POST OpenAPI and Spain source evidence.
+[Lifecycle and reporting error handling — SPEC052](../error-handling/SPEC-SEI-052-invoice-lifecycle-and-reporting-error-handling.md) covers stage-specific investigation and recovery. [All stage error-handling documents](../error-handling/README.md).
 
-| Read | Purpose | Confluence |
-|---|---|---|
-| [Solution Summary — SPEC-SEI-028](SPEC-SEI-028-invoice-lifecycle-solution-summary.md) | Business outcomes, scope, reuse direction and material decisions. Start here. | [Open summary](https://confluence.sage.com/pages/viewpage.action?pageId=923861398) |
-| [Logical Feature Specification — SPEC-SEI-029](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md) | Scenarios, LCS rules, SPFE states and reporting classifications, draft platform mapping, restrictions and acceptance. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937965384) |
-| [Sequence and Reuse Assessment — SPEC-SEI-030](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md) | Reuse sequences, country-pack/architecture assessment, product impact and the authoritative LIF-G01–08 register. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937965388) |
-| [API Reuse and Spain Changes — SPEC-SEI-041](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md) | Existing calls, proposed SPFE action/field mappings, Spain payload examples and headers/errors. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937965396) |
+Choose the view for your audience. Business stakeholders start with SPEC028; engineers start with SPEC029 and follow its contract/reuse links. The views share the same requirement IDs and source evidence. Detailed behaviour stays in its owning file so that the business summary and engineering documents cannot become separate specifications.
+
+| Audience / reading route | File | What to use it for | Confluence |
+|---|---|---|---|
+| **Business — start here** | [Business summary — SPEC028](SPEC-SEI-028-invoice-lifecycle-solution-summary.md) | Customer problem, outcomes, scope, main journey, delivery decisions and unresolved business effects. | [Open summary](https://confluence.sage.com/pages/viewpage.action?pageId=923861398) |
+| **Engineering — start here** | [Logical specification — SPEC029](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md) | Scenarios, exact required behaviour, exceptions, Annex II checks, safe recovery and functional acceptance. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937965384) |
+| Engineering — contracts and mappings | [API reference — SPEC041](api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md) | Documented calls, proposed Spain action/input/XML bindings, payload examples, results and errors. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937965396) |
+| Engineering/Architecture — reuse and decisions | [Sequence and reuse assessment — SPEC030](SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md) | Interaction sequences, existing capability assessment, actual-build questions, qualification evidence and decision owners. | [Open view](https://confluence.sage.com/pages/viewpage.action?pageId=937965388) |
+
+The business summary is a complete overview for business review. Engineering detail remains available through links. These drafts support review and planning; disputed rules and unqualified API/build coverage remain explicit. The existing [onboarding views](../onboarding-and-connectivity/README.md) use the same summary/logical/API structure.
 
 [SPEC-SEI-029 SPFE states and reporting classifications](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#spfe-lifecycle-states) · [Draft platform mapping](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#draft-lifecycle-mapping) · [Reporting-action restrictions](SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#spfe-reporting-action-restrictions).
 

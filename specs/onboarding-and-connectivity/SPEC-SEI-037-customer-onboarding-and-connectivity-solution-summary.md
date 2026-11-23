@@ -67,6 +67,8 @@ This view combines SPEC-SEI-018 onboarding and SPEC-SEI-034 connection setup. It
 
 **Read next:** [SPEC038](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md) explains behaviour, ERP/Domain Service handoffs and exceptions; its [§7 mapping](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#7-traceability-and-supporting-artefacts) links those functional actions to the sequences in [SPEC039](SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md). SPEC039 gives calls, reuse recommendations and required changes; 040 holds API examples. These drafts do not prove production support.
 
+<a id="e-invoicing-settings-overview"></a>
+
 ### E-invoicing settings — overview
 
 The intended settings area lives in the **business's Sage product** or the **accountant's Sage product**, for the selected business or client. Guided onboarding, where provided, uses the same setup journey; see [SPEC038 §1 — entry points](SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#1-purpose-and-authority). The exact menu location and screen design remain to agree with the product team.

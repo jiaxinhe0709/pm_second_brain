@@ -1,6 +1,7 @@
-"""Build SPEC025's four-stage summary; SPEC026 owns the detailed process.
+"""Render SPEC025's edited four-stage summary; SPEC026 owns the detailed process.
 
-Run with --render-only to refresh previews after editing the Draw.io source.
+The checked-in Draw.io file is canonical. Default runs preserve its manual layout.
+The --render-only flag remains available for existing preview commands.
 """
 from pathlib import Path
 import argparse
@@ -18,8 +19,12 @@ DESCRIPTION = (
     'Public and private sources can both apply; save each file when it arrives. '
     'Original checks and ERP delivery continue separately from permitted saved-file access. '
     'If the original is not saved, resolve its retrieval from an available, permitted '
-    'source and repeat the source checks. If retrieval cannot complete, show the next '
-    'action and owner. ERP delivery stays pending while safe copy access can continue. '
+    'source and repeat the source checks. Keep an authorised faithful copy available '
+    'for viewing, download and later matching while the original is unavailable. '
+    'If retrieval cannot complete, check the recipient account and connection first. '
+    'The customer completes missing setup or restores access. The receiving provider '
+    'checks delivery; ask the sender for the existing original only if unresolved. '
+    'ERP delivery stays pending while safe copy access can continue. '
     'The list includes sent and received invoices and distinguishes an empty list, '
     'incomplete collection and a failed request. Opening does not download or accept '
     'the invoice. Download, review and leaving a decision pending are separate choices. '
@@ -192,7 +197,7 @@ def build_source():
     BASE.with_suffix('.drawio').write_text(ET.tostring(document,encoding='unicode',xml_declaration=True)+'\n')
 
 
-def build(render_only=False):
+def build(render_only=True):
     if not render_only:
         build_source()
     spec=importlib.util.spec_from_file_location('retrieval_preview',ROOT/'work/build-invoice-retrieval-overview.py')
@@ -202,5 +207,5 @@ def build(render_only=False):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser()
-    parser.add_argument('--render-only',action='store_true')
+    parser.add_argument('--render-only',action='store_true',default=True)
     print(build(parser.parse_args().render_only))

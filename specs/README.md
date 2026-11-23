@@ -7,6 +7,8 @@ inventories, decisions and acceptance mappings when needed.
 
 ## Feature reading routes
 
+For stage-specific investigation and recovery, use the [error handling and operational support index](error-handling/README.md). SPEC048 owns common support controls; SPEC004 and SPEC049–053 cover the six stages. New documents are unpublished drafts.
+
 | Feature folder | Primary review set | Archived supporting baseline |
 |---|---|---|
 | [Provider Connector architecture and API](provider-connectors/README.md) | SPEC-SEI-044–046; compact technical companions | SPEC-SEI-013 remains active; public and provider bindings remain in 011/017 |

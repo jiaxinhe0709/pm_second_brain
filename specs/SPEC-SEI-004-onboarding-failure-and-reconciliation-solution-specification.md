@@ -23,6 +23,7 @@ related:
   - SPEC-SEI-014
   - SPEC-SEI-013
   - SPEC-SEI-001
+  - SPEC-SEI-048
 confluence:
   publish: true
   space_key: DNBU
@@ -46,7 +47,7 @@ The design remains a draft. **Proposed** choices still need review; **open** dec
 
 ### 1 Purpose and design status
 
-This **proposed logical design** defines failure handling for the ONB-S01–08 journeys in [SPEC-SEI-002](SPEC-SEI-002-onboarding-solution-specification.md). It covers first setup, existing public or private services, combined setup, confirmation or extension, and supported platform changes. The E-Invoice Service classifies failures, coordinates correction, retries safely and reconciles uncertain effects. SPEC-SEI-002 defines the parent journey, readiness and final ERP result. [PRD-SEI-107](../prds/PRD-SEI-107-public-onboarding-failure-recovery.md) owns public recovery requirements. [PRD-SEI-222](../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) supplies private setup and transition constraints. [PRD-SEI-225](../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md) supplies shared operations principles.
+This **proposed logical design** defines failure handling for the ONB-S01–08 journeys in [SPEC-SEI-002](archive/SPEC-SEI-002-onboarding-solution-specification.md). It covers first setup, existing public or private services, combined setup, confirmation or extension, and supported platform changes. The E-Invoice Service classifies failures, coordinates correction, retries safely and reconciles uncertain effects. SPEC-SEI-002 defines the parent journey, readiness and final ERP result. [PRD-SEI-107](../prds/PRD-SEI-107-public-onboarding-failure-recovery.md) owns public recovery requirements. [PRD-SEI-222](../prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md) supplies private setup and transition constraints. [PRD-SEI-225](../prds/PRD-SEI-225-operations-resilience-support-reconciliation.md) supplies shared operations principles.
 
 **Confirmed ownership direction:** the E-Invoice Service owns setup and recovery coordination. **Onboarding** and **recovery** name workflow responsibilities within that service. They do not name separate services. **Proposed:** an internal onboarding component could implement setup and recovery coordination. Its need and implementation remain open. Existing scheduling, saved-operation and case capabilities must be assessed before new component work is agreed. Operations owns assigned manual cases; adapters and dependency services execute their qualified operations.
 
@@ -143,7 +144,7 @@ This follows the [shared platform and country-pack direction](../prds/PRD-SEI-22
 
 Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.
 
-Use the Common, Scenario-specific and Conditional meanings in [SPEC-SEI-002's diagram guide](SPEC-SEI-002-onboarding-solution-specification.md#3-process-diagrams-and-text-equivalent). Capture, classification, scope protection and result publication are common recovery behaviour. The failed operation selects its source and parent checkpoint. Correction, safe retry, original-effect observation and escalation are conditional. Shared behaviour does not qualify a provider contract or an existing implementation.
+Use the Common, Scenario-specific and Conditional meanings in [SPEC-SEI-002's diagram guide](archive/SPEC-SEI-002-onboarding-solution-specification.md#3-process-diagrams-and-text-equivalent). Capture, classification, scope protection and result publication are common recovery behaviour. The failed operation selects its source and parent checkpoint. Correction, safe retry, original-effect observation and escalation are conditional. Shared behaviour does not qualify a provider contract or an existing implementation.
 
 The **Domain Service - E-Invoice Service** lane owns setup and recovery coordination. The proposed internal onboarding component stays within that lane. Other Services covers qualified certificate, identity and connection dependencies. Operations handles manual cases. The diagrams keep their existing layouts; their labels do not imply separate onboarding or recovery services.
 
@@ -159,7 +160,7 @@ The **Domain Service - E-Invoice Service** lane owns setup and recovery coordina
 
 [Editable Draw.io](../assets/diagrams/onboarding-service-continuity-recovery-process.drawio) · [PNG](../assets/diagrams/onboarding-service-continuity-recovery-process.png). Text equivalent: OFR-01/02 capture original scenario, operation and pre-state → determine which functions depend on the failure → preserve independently valid functions, and send invalid/uncertain scope to its Connection/Routing owner → OFR-03/04 handles correction or approved safe retry, while possible effects use OFR-05/06 and unresolved work uses OFR-07 → OFR-08 returns the result to the exact parent ONB gate → parent ONB-11 returns per-function ERP results. Recovered external success does not itself mean an active route; supported activation still requires ONB-07/SPC-04.
 
-The [public sequence](SPEC-SEI-002-onboarding-solution-specification.md#3-process-diagrams-and-text-equivalent) shows certificate reuse, correction and unavailable-evidence alternatives under ONB-03. The private sequence uses the same alternatives under ONB-06. The table below maps their findings to recovery. It is a checkpoint map, not a new error catalogue or state model.
+The [public sequence](archive/SPEC-SEI-002-onboarding-solution-specification.md#3-process-diagrams-and-text-equivalent) shows certificate reuse, correction and unavailable-evidence alternatives under ONB-03. The private sequence uses the same alternatives under ONB-06. The table below maps their findings to recovery. It is a checkpoint map, not a new error catalogue or state model.
 
 | Finding or operation | Recovery action and owner | Parent checkpoint after resolution |
 |---|---|---|
@@ -283,6 +284,25 @@ Return each NIF, certificate and authority finding with its evidence, limitation
 | OFR-R12 | Keep NIF, required-certificate and authority findings separate. Failed lookup cannot trigger repeat upload or establish absence. Reuse qualified protected references and original-operation observations. Sources: SPEC-SEI-002 ONB-R16/17, SPEC-SEI-001 and OFR-Q04. |
 
 Durable intent and idempotency records must survive restart and cover the approved duplicate window. Monitoring covers unknown age, retries, reconciliation lag, partial batches and missing owners without high-cardinality personal identifiers. Targets and retention follow approved operational/legal policy and measured pilot baselines.
+
+<a id="operational-investigation-and-recovery"></a>
+
+### Operational investigation and recovery
+
+Support, Enablement and Engineering need to find the affected onboarding work and explain its result without first knowing a connection ID. Apply [SPEC048 OPS-R01–09 — shared operational requirements](error-handling/SPEC-SEI-048-shared-error-handling-and-operational-support.md#2-common-operational-requirements) for search, history, diagnostics, versions, portal/bulk controls and protected evidence. The [current SPEC038 parent checks](onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md#6-feature-activities) own readiness and activation; OFR-01–08 above own recovery. This section adds the stage-specific investigation view. It does not create another recovery workflow.
+
+| Investigation / condition | Evidence visible to authorised Support/Engineering | Permitted next action and owner |
+|---|---|---|
+| Find a customer's setup | Dataset/customer, e-invoicing addresses, permitted regional ERP connections, platform, functions, current findings and relevant timestamps. Show lookup gaps explicitly. | Apply ONB-10 and OFR-02/08. Missing SXS mapping goes to the product/SXS owner; failed lookup cannot prove that no setup exists. |
+| Explain a readiness label | Show the exact business/function/environment, NIF, authority, credential and access findings, evidence source/freshness, limitations and policy version. | Product/Integration owner explains the label from its evidence. “Ready”, “Ready with Limitations”, “Not Ready” and “Registered for the Public Platform” are stakeholder wording, not new approved API states. Never infer external registration from Sage readiness. |
+| Inspect failed setup or configuration change | Show all failed prerequisites, operation/attempt history, actor, configuration/API/integration versions and protected credential references. Keep data, authority, authentication, configuration and external faults distinct. | Customer or qualified dependency owner corrects the specific check under OFR-02/03. Certificate replacement cannot override failed NIF or authority checks. |
+| Investigate external identifiers | Show evidenced mappings between dataset, address, NIF, Sage/provider connection and any actual external references, with source/version. Mark absent or unresolved relationships. | API/Integration owner qualifies mapping under SPEC039 GAP-01/02/06. Do not fabricate AEAT/SPFE registration IDs or introduce a registration operation. |
+| Retry/replay one onboarding operation | Show original request/checkpoint, known versus unknown effect, approved safety class, current authority and any previous recovery result. | Offer only qualified OFR-03–07 actions under OPS-R05/06. OFR-08 resumes the exact parent checks; successful recovery cannot activate a route by itself. |
+| Recover several businesses during an incident | Show eligible and blocked items with separate evidence, scope, owner and reason. Preserve successful setup and other clients. | OPS-R07 applies to qualified OFR actions only. Operations cannot use bulk recovery to enable an unsupported provider or disabled platform change. |
+
+**Additional acceptance:** OFR-A25 demonstrates dataset/address search without a connection ID, retained successful/failed attempts after temporary-log expiry, an unconfirmed external mapping and an explained readiness label. OFR-A26 demonstrates portal and bulk recovery with mixed success, expired authority and an unknown original effect; each item still passes OFR-A03/07/09/16/20. Apply SPEC048 OPS-A01–05, including country isolation and qualification of actual reused implementation. These checks require implementation evidence; they are not executed tests.
+
+**Open operational decisions:** Operations/Product must confirm investigation retention, searchable history and portal/bulk release scope. API/Integration must qualify label semantics, identifier relationships, version evidence and supported recovery contracts. Security must confirm action roles and bulk controls. The reported six-day retention is unverified and is not adopted as a requirement. Existing OFR-Q01–04 still apply. Source: [SPEC048 OPS-S01–04 — product plans, stakeholder note received 23 November 2026 and FR evidence limits](error-handling/SPEC-SEI-048-shared-error-handling-and-operational-support.md#ref-source-references).
 
 ### SPFE source contract binding
 

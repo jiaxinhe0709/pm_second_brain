@@ -1,5 +1,7 @@
 # Invoice receiving
 
+[Receiving and retrieval error handling — SPEC051](../error-handling/SPEC-SEI-051-invoice-receiving-and-retrieval-error-handling.md) covers stage-specific investigation and recovery. [All stage error-handling documents](../error-handling/README.md).
+
 The customer can consult **sent and received** e-invoices through **Customer ↔ ERP ↔ Domain Service – E-Invoice Service**, using the existing E-Invoice API. [SPEC026 §2](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#customer-list-open-and-download) owns that read journey. Automatic collection and processing in this folder apply to received invoices; sending keeps its own workflow.
 
 Use the same three reading views and detailed API reference as [onboarding](../onboarding-and-connectivity/README.md). These drafts are based on SPEC016 and the supplied `/context` evidence. Publication was authorised on 2 November 2026; lifecycle status remains draft.
@@ -12,13 +14,17 @@ Use the same three reading views and detailed API reference as [onboarding](../o
 
 | Read | Purpose |
 |---|---|
-| [Solution Summary — SPEC-SEI-025](SPEC-SEI-025-invoice-retrieval-solution-summary.md) | Start here: four-stage summary, existing onboarding setup, separate background ERP receiving and links to detail. |
+| [Solution Summary — SPEC-SEI-025](SPEC-SEI-025-invoice-retrieval-solution-summary.md) | Start here: combined workflow with shared intake, separate ERP receiving and customer access, original recovery and links to detail. |
 | [Logical Feature Specification — SPEC-SEI-026](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md) | Detailed overall diagram and requirements for source acquisition, receiving and recovery. Review and action link to the lifecycle owner. |
 | [Sequence and Reuse Assessment — SPEC-SEI-027](SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md) | Supporting sequences: customer list/open/download, plus source collection and file recovery; reuse and engineering gates. |
 | [API Reuse and Spain Changes — SPEC-SEI-042](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md) | Request/response fields and examples, public SOAP bindings, proposed changes and missing contracts. |
-| [Questions and Decisions — NOTE-SEI-003](NOTE-SEI-003-receiving-questions-and-decisions.md) | User-stated deduplication before ERP handoff and preservation of source files before transformation. [Generated question view](../../work/spain-solution-review-questions.html#receiving-topic-log). |
+| [Questions and Decisions — NOTE-SEI-003](NOTE-SEI-003-receiving-questions-and-decisions.md) | Duplicate prevention, source preservation, original/copy research, ERP policy, open buyer actions, recovery and separate status/reporting. [Generated question view](../../work/spain-solution-review-questions.html#receiving-topic-log). |
 
 **Where do we get the invoice?** The [SPEC026 source scenarios](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#34-process-review-proposal) cover public originals, private originals, copy-only access and failed private downloads. [Source acquisition rules](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#31-source-acquisition-and-stored-file-access) define capture and saved-file access.
+
+**Only the faithful copy is available:** use the [SPEC026 engineering behaviour table](SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md#copy-only-engineering-behaviour). View/download is allowed after checks; automatic ERP intake waits for the original. Copy-only approval, commercial rejection, posting and payment remain separate open decisions. [All 11 plain-English use cases](SPEC-SEI-025-invoice-retrieval-solution-summary.md#retrieval-use-cases) include recovery and the later arrival of the original.
+
+**Summary diagram:** [combined workflow preview](../../assets/diagrams/invoice-retrieval-combined-workflow.svg) · [editable Draw.io](../../assets/diagrams/invoice-retrieval-combined-workflow.drawio) · [PNG](../../assets/diagrams/invoice-retrieval-combined-workflow.png). SPEC025 displays this drawing. The previous summary assets and SPEC026's detailed diagram remain intact.
 
 **After opening an invoice:** the customer can choose **Download file** or [**Review and take action — SPEC029**](../invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#review-and-take-action). The lifecycle view owns enabled actions and their results. Use [SPEC042’s source lists](api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md#document-types-and-status-values) for exact invoice types, status codes and their separate meanings.
 

@@ -78,6 +78,8 @@ Customers must not have to start separate onboarding and offboarding requests to
 
 Offer only enabled actions for the selected country, platform, business and caller. An unsupported action must explain the limitation and available next step. This settings model does not enable private A → private B switching or assert that all listed actions are implemented. Incident response can also start outside settings; OFF-S10 still permits urgent action under incident authority.
 
+<a id="switch-platform-one-customer-journey"></a>
+
 #### Switch platform — one customer journey
 
 This section owns the complete customer switch journey (ONB-S06). The onboarding and offboarding specs each retain their detailed checks. A switch scenario in the offboarding table describes the old-service responsibilities within this journey; it is not another customer process.

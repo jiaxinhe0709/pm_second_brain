@@ -1,8 +1,8 @@
 {
   "owner_spec": "SPEC-SEI-041",
-  "updated": "2026-10-28",
+  "updated": "2026-11-23",
   "purpose": "Proposed mapping of SPFE lifecycle events to the existing Sage status API and Annex II XML fields.",
-  "status": "proposal; source coverage complete; executable mapping unqualified",
+  "status": "proposal; field and supplied draft-rule source coverage complete; executable/API mapping unqualified",
   "source_ledger": "assets/regulatory/spain/spfe/field-traceability.json",
   "source_ledger_sha256": "f1c9801a79f50c532b20355e84089f7f07d0dbb7fca3d5477619f33d10d01a48",
   "source_api": "context/FR API/Lifecycle/update-e-invoice-status.openapi.json",
@@ -29,7 +29,22 @@
       "candidate_sage_status": "PaymentSent",
       "candidate_status_uuid": "00000000-0000-0000-0000-900000000000",
       "binding_status": "conditional reuse proposal",
-      "cancels_event_code": null
+      "cancels_event_code": null,
+      "business_rule_refs": [
+        "SPFE-S27:P03:T01:R03",
+        "SPFE-S27:P03:T01:R04",
+        "SPFE-S27:P03:T01:R05",
+        "SPFE-S27:P03:T01:R06",
+        "SPFE-S27:P03:T01:R07",
+        "SPFE-S27:P04:T01:R03",
+        "SPFE-S27:P04:T01:R04",
+        "SPFE-S27:P04:T01:R05",
+        "SPFE-S27:P04:T01:R06",
+        "SPFE-S27:P04:T01:R07",
+        "SPFE-S27:P04:T01:R08",
+        "SPFE-S27:P04:T01:R09",
+        "SPFE-S27:P04:T01:R10"
+      ]
     },
     {
       "event_code": "CANCELPAYMENT",
@@ -40,7 +55,17 @@
       "candidate_sage_status": null,
       "candidate_status_uuid": null,
       "binding_status": "new action binding required; UUID unassigned",
-      "cancels_event_code": "PAYMENT"
+      "cancels_event_code": "PAYMENT",
+      "business_rule_refs": [
+        "SPFE-S27:P03:T01:R03",
+        "SPFE-S27:P03:T01:R04",
+        "SPFE-S27:P03:T01:R05",
+        "SPFE-S27:P03:T01:R06",
+        "SPFE-S27:P03:T01:R07"
+      ],
+      "additional_source_constraints": [
+        "SPFE-S27 section 1, page 3: full invoice identity; invoice must exist in SPFE and must not have been cancelled. This refers to the invoice, not a substitute for the prior-report correlation control."
+      ]
     },
     {
       "event_code": "REJECTION",
@@ -51,7 +76,19 @@
       "candidate_sage_status": "Refused",
       "candidate_status_uuid": "00000000-0000-0000-0000-120000000000",
       "binding_status": "conditional reuse proposal",
-      "cancels_event_code": null
+      "cancels_event_code": null,
+      "business_rule_refs": [
+        "SPFE-S27:P03:T01:R03",
+        "SPFE-S27:P03:T01:R04",
+        "SPFE-S27:P03:T01:R05",
+        "SPFE-S27:P03:T01:R06",
+        "SPFE-S27:P03:T01:R07",
+        "SPFE-S27:P05:T01:R05",
+        "SPFE-S27:P05:T01:R06",
+        "SPFE-S27:P05:T01:R07",
+        "SPFE-S27:P05:T01:R08",
+        "SPFE-S27:P05:T01:R09"
+      ]
     },
     {
       "event_code": "CANCELREJECTION",
@@ -62,7 +99,17 @@
       "candidate_sage_status": null,
       "candidate_status_uuid": null,
       "binding_status": "new action binding required; UUID unassigned",
-      "cancels_event_code": "REJECTION"
+      "cancels_event_code": "REJECTION",
+      "business_rule_refs": [
+        "SPFE-S27:P03:T01:R03",
+        "SPFE-S27:P03:T01:R04",
+        "SPFE-S27:P03:T01:R05",
+        "SPFE-S27:P03:T01:R06",
+        "SPFE-S27:P03:T01:R07"
+      ],
+      "additional_source_constraints": [
+        "SPFE-S27 section 1, page 3: full invoice identity; invoice must exist in SPFE and must not have been cancelled. This refers to the invoice, not a substitute for the prior-report correlation control."
+      ]
     },
     {
       "event_code": "SETTLEMENT",
@@ -73,7 +120,19 @@
       "candidate_sage_status": "PaymentReceived",
       "candidate_status_uuid": "00000000-0000-0000-0000-110000000000",
       "binding_status": "conditional reuse proposal",
-      "cancels_event_code": null
+      "cancels_event_code": null,
+      "business_rule_refs": [
+        "SPFE-S27:P03:T01:R03",
+        "SPFE-S27:P03:T01:R04",
+        "SPFE-S27:P03:T01:R05",
+        "SPFE-S27:P03:T01:R06",
+        "SPFE-S27:P03:T01:R07",
+        "SPFE-S27:P05:T02:R02",
+        "SPFE-S27:P05:T02:R03",
+        "SPFE-S27:P05:T02:R04",
+        "SPFE-S27:P05:T02:R05",
+        "SPFE-S27:P05:T02:R06"
+      ]
     },
     {
       "event_code": "CANCELSETTLEMENT",
@@ -84,7 +143,17 @@
       "candidate_sage_status": null,
       "candidate_status_uuid": null,
       "binding_status": "new action binding required; UUID unassigned",
-      "cancels_event_code": "SETTLEMENT"
+      "cancels_event_code": "SETTLEMENT",
+      "business_rule_refs": [
+        "SPFE-S27:P03:T01:R03",
+        "SPFE-S27:P03:T01:R04",
+        "SPFE-S27:P03:T01:R05",
+        "SPFE-S27:P03:T01:R06",
+        "SPFE-S27:P03:T01:R07"
+      ],
+      "additional_source_constraints": [
+        "SPFE-S27 section 1, page 3: full invoice identity; invoice must exist in SPFE and must not have been cancelled. This refers to the invoice, not a substitute for the prior-report correlation control."
+      ]
     },
     {
       "event_code": "DEFAULT",
@@ -95,7 +164,19 @@
       "candidate_sage_status": null,
       "candidate_status_uuid": null,
       "binding_status": "new action binding required; UUID unassigned",
-      "cancels_event_code": null
+      "cancels_event_code": null,
+      "business_rule_refs": [
+        "SPFE-S27:P03:T01:R03",
+        "SPFE-S27:P03:T01:R04",
+        "SPFE-S27:P03:T01:R05",
+        "SPFE-S27:P03:T01:R06",
+        "SPFE-S27:P03:T01:R07",
+        "SPFE-S27:P06:T01:R03",
+        "SPFE-S27:P06:T01:R04",
+        "SPFE-S27:P06:T01:R05",
+        "SPFE-S27:P06:T01:R06",
+        "SPFE-S27:P06:T01:R07"
+      ]
     },
     {
       "event_code": "CANCELDEFAULT",
@@ -106,7 +187,17 @@
       "candidate_sage_status": null,
       "candidate_status_uuid": null,
       "binding_status": "new action binding required; UUID unassigned",
-      "cancels_event_code": "DEFAULT"
+      "cancels_event_code": "DEFAULT",
+      "business_rule_refs": [
+        "SPFE-S27:P03:T01:R03",
+        "SPFE-S27:P03:T01:R04",
+        "SPFE-S27:P03:T01:R05",
+        "SPFE-S27:P03:T01:R06",
+        "SPFE-S27:P03:T01:R07"
+      ],
+      "additional_source_constraints": [
+        "SPFE-S27 section 1, page 3: full invoice identity; invoice must exist in SPFE and must not have been cancelled. This refers to the invoice, not a substitute for the prior-report correlation control."
+      ]
     }
   ],
   "additional_proposed_inputs": {
@@ -158,7 +249,11 @@
       "requirement_id": "LCS-AXII-PAYMENT-R01",
       "positive_acceptance_id": "LCS-AXII-PAYMENT-A01P",
       "negative_acceptance_id": "LCS-AXII-PAYMENT-A01N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P04:T01:R03",
+        "SPFE-S27:P04:T01:R04"
+      ]
     },
     {
       "trace_id": "AXII-PAYMENT-02",
@@ -178,7 +273,10 @@
       "requirement_id": "LCS-AXII-PAYMENT-R02",
       "positive_acceptance_id": "LCS-AXII-PAYMENT-A02P",
       "negative_acceptance_id": "LCS-AXII-PAYMENT-A02N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P04:T01:R05"
+      ]
     },
     {
       "trace_id": "AXII-PAYMENT-03",
@@ -198,7 +296,8 @@
       "requirement_id": "LCS-AXII-PAYMENT-R03",
       "positive_acceptance_id": "LCS-AXII-PAYMENT-A03P",
       "negative_acceptance_id": "LCS-AXII-PAYMENT-A03N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-PAYMENT-04",
@@ -218,7 +317,10 @@
       "requirement_id": "LCS-AXII-PAYMENT-R04",
       "positive_acceptance_id": "LCS-AXII-PAYMENT-A04P",
       "negative_acceptance_id": "LCS-AXII-PAYMENT-A04N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P04:T01:R06"
+      ]
     },
     {
       "trace_id": "AXII-PAYMENT-05",
@@ -238,7 +340,10 @@
       "requirement_id": "LCS-AXII-PAYMENT-R05",
       "positive_acceptance_id": "LCS-AXII-PAYMENT-A05P",
       "negative_acceptance_id": "LCS-AXII-PAYMENT-A05N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P04:T01:R07"
+      ]
     },
     {
       "trace_id": "AXII-PAYMENT-06",
@@ -258,7 +363,10 @@
       "requirement_id": "LCS-AXII-PAYMENT-R06",
       "positive_acceptance_id": "LCS-AXII-PAYMENT-A06P",
       "negative_acceptance_id": "LCS-AXII-PAYMENT-A06N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P04:T01:R08"
+      ]
     },
     {
       "trace_id": "AXII-PAYMENT-07",
@@ -278,7 +386,10 @@
       "requirement_id": "LCS-AXII-PAYMENT-R07",
       "positive_acceptance_id": "LCS-AXII-PAYMENT-A07P",
       "negative_acceptance_id": "LCS-AXII-PAYMENT-A07N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P04:T01:R09"
+      ]
     },
     {
       "trace_id": "AXII-PAYMENT-08",
@@ -298,7 +409,10 @@
       "requirement_id": "LCS-AXII-PAYMENT-R08",
       "positive_acceptance_id": "LCS-AXII-PAYMENT-A08P",
       "negative_acceptance_id": "LCS-AXII-PAYMENT-A08N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P04:T01:R09"
+      ]
     },
     {
       "trace_id": "AXII-PAYMENT-09",
@@ -318,7 +432,11 @@
       "requirement_id": "LCS-AXII-PAYMENT-R09",
       "positive_acceptance_id": "LCS-AXII-PAYMENT-A09P",
       "negative_acceptance_id": "LCS-AXII-PAYMENT-A09N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P04:T01:R06",
+        "SPFE-S27:P04:T01:R09"
+      ]
     },
     {
       "trace_id": "AXII-PAYMENT-10",
@@ -338,7 +456,10 @@
       "requirement_id": "LCS-AXII-PAYMENT-R10",
       "positive_acceptance_id": "LCS-AXII-PAYMENT-A10P",
       "negative_acceptance_id": "LCS-AXII-PAYMENT-A10N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P04:T01:R09"
+      ]
     },
     {
       "trace_id": "AXII-PAYMENT-11",
@@ -358,7 +479,10 @@
       "requirement_id": "LCS-AXII-PAYMENT-R11",
       "positive_acceptance_id": "LCS-AXII-PAYMENT-A11P",
       "negative_acceptance_id": "LCS-AXII-PAYMENT-A11N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P04:T01:R09"
+      ]
     },
     {
       "trace_id": "AXII-CANCELPAYMENT-01",
@@ -378,7 +502,8 @@
       "requirement_id": "LCS-AXII-CANCELPAYMENT-R01",
       "positive_acceptance_id": "LCS-AXII-CANCELPAYMENT-A01P",
       "negative_acceptance_id": "LCS-AXII-CANCELPAYMENT-A01N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-CANCELPAYMENT-02",
@@ -398,7 +523,8 @@
       "requirement_id": "LCS-AXII-CANCELPAYMENT-R02",
       "positive_acceptance_id": "LCS-AXII-CANCELPAYMENT-A02P",
       "negative_acceptance_id": "LCS-AXII-CANCELPAYMENT-A02N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-CANCELPAYMENT-03",
@@ -418,7 +544,8 @@
       "requirement_id": "LCS-AXII-CANCELPAYMENT-R03",
       "positive_acceptance_id": "LCS-AXII-CANCELPAYMENT-A03P",
       "negative_acceptance_id": "LCS-AXII-CANCELPAYMENT-A03N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-CANCELPAYMENT-04",
@@ -438,7 +565,8 @@
       "requirement_id": "LCS-AXII-CANCELPAYMENT-R04",
       "positive_acceptance_id": "LCS-AXII-CANCELPAYMENT-A04P",
       "negative_acceptance_id": "LCS-AXII-CANCELPAYMENT-A04N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-REJECTION-01",
@@ -458,7 +586,12 @@
       "requirement_id": "LCS-AXII-REJECTION-R01",
       "positive_acceptance_id": "LCS-AXII-REJECTION-A01P",
       "negative_acceptance_id": "LCS-AXII-REJECTION-A01N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T01:R05",
+        "SPFE-S27:P05:T01:R06",
+        "SPFE-S27:P05:T01:R07"
+      ]
     },
     {
       "trace_id": "AXII-REJECTION-02",
@@ -478,7 +611,10 @@
       "requirement_id": "LCS-AXII-REJECTION-R02",
       "positive_acceptance_id": "LCS-AXII-REJECTION-A02P",
       "negative_acceptance_id": "LCS-AXII-REJECTION-A02N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T01:R08"
+      ]
     },
     {
       "trace_id": "AXII-REJECTION-03",
@@ -498,7 +634,10 @@
       "requirement_id": "LCS-AXII-REJECTION-R03",
       "positive_acceptance_id": "LCS-AXII-REJECTION-A03P",
       "negative_acceptance_id": "LCS-AXII-REJECTION-A03N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T01:R09"
+      ]
     },
     {
       "trace_id": "AXII-REJECTION-04",
@@ -518,7 +657,10 @@
       "requirement_id": "LCS-AXII-REJECTION-R04",
       "positive_acceptance_id": "LCS-AXII-REJECTION-A04P",
       "negative_acceptance_id": "LCS-AXII-REJECTION-A04N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T01:R09"
+      ]
     },
     {
       "trace_id": "AXII-REJECTION-05",
@@ -538,7 +680,11 @@
       "requirement_id": "LCS-AXII-REJECTION-R05",
       "positive_acceptance_id": "LCS-AXII-REJECTION-A05P",
       "negative_acceptance_id": "LCS-AXII-REJECTION-A05N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T01:R07",
+        "SPFE-S27:P05:T01:R09"
+      ]
     },
     {
       "trace_id": "AXII-REJECTION-06",
@@ -558,7 +704,10 @@
       "requirement_id": "LCS-AXII-REJECTION-R06",
       "positive_acceptance_id": "LCS-AXII-REJECTION-A06P",
       "negative_acceptance_id": "LCS-AXII-REJECTION-A06N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T01:R09"
+      ]
     },
     {
       "trace_id": "AXII-REJECTION-07",
@@ -578,7 +727,10 @@
       "requirement_id": "LCS-AXII-REJECTION-R07",
       "positive_acceptance_id": "LCS-AXII-REJECTION-A07P",
       "negative_acceptance_id": "LCS-AXII-REJECTION-A07N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T01:R09"
+      ]
     },
     {
       "trace_id": "AXII-CANCELREJECTION-01",
@@ -598,7 +750,8 @@
       "requirement_id": "LCS-AXII-CANCELREJECTION-R01",
       "positive_acceptance_id": "LCS-AXII-CANCELREJECTION-A01P",
       "negative_acceptance_id": "LCS-AXII-CANCELREJECTION-A01N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-CANCELREJECTION-02",
@@ -618,7 +771,8 @@
       "requirement_id": "LCS-AXII-CANCELREJECTION-R02",
       "positive_acceptance_id": "LCS-AXII-CANCELREJECTION-A02P",
       "negative_acceptance_id": "LCS-AXII-CANCELREJECTION-A02N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-CANCELREJECTION-03",
@@ -638,7 +792,8 @@
       "requirement_id": "LCS-AXII-CANCELREJECTION-R03",
       "positive_acceptance_id": "LCS-AXII-CANCELREJECTION-A03P",
       "negative_acceptance_id": "LCS-AXII-CANCELREJECTION-A03N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-CANCELREJECTION-04",
@@ -658,7 +813,8 @@
       "requirement_id": "LCS-AXII-CANCELREJECTION-R04",
       "positive_acceptance_id": "LCS-AXII-CANCELREJECTION-A04P",
       "negative_acceptance_id": "LCS-AXII-CANCELREJECTION-A04N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-SETTLEMENT-01",
@@ -678,7 +834,11 @@
       "requirement_id": "LCS-AXII-SETTLEMENT-R01",
       "positive_acceptance_id": "LCS-AXII-SETTLEMENT-A01P",
       "negative_acceptance_id": "LCS-AXII-SETTLEMENT-A01N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T02:R02",
+        "SPFE-S27:P05:T02:R03"
+      ]
     },
     {
       "trace_id": "AXII-SETTLEMENT-02",
@@ -698,7 +858,8 @@
       "requirement_id": "LCS-AXII-SETTLEMENT-R02",
       "positive_acceptance_id": "LCS-AXII-SETTLEMENT-A02P",
       "negative_acceptance_id": "LCS-AXII-SETTLEMENT-A02N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-SETTLEMENT-03",
@@ -718,7 +879,8 @@
       "requirement_id": "LCS-AXII-SETTLEMENT-R03",
       "positive_acceptance_id": "LCS-AXII-SETTLEMENT-A03P",
       "negative_acceptance_id": "LCS-AXII-SETTLEMENT-A03N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-SETTLEMENT-04",
@@ -738,7 +900,8 @@
       "requirement_id": "LCS-AXII-SETTLEMENT-R04",
       "positive_acceptance_id": "LCS-AXII-SETTLEMENT-A04P",
       "negative_acceptance_id": "LCS-AXII-SETTLEMENT-A04N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-SETTLEMENT-05",
@@ -758,7 +921,10 @@
       "requirement_id": "LCS-AXII-SETTLEMENT-R05",
       "positive_acceptance_id": "LCS-AXII-SETTLEMENT-A05P",
       "negative_acceptance_id": "LCS-AXII-SETTLEMENT-A05N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T02:R04"
+      ]
     },
     {
       "trace_id": "AXII-SETTLEMENT-06",
@@ -778,7 +944,10 @@
       "requirement_id": "LCS-AXII-SETTLEMENT-R06",
       "positive_acceptance_id": "LCS-AXII-SETTLEMENT-A06P",
       "negative_acceptance_id": "LCS-AXII-SETTLEMENT-A06N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T02:R05"
+      ]
     },
     {
       "trace_id": "AXII-SETTLEMENT-07",
@@ -798,7 +967,10 @@
       "requirement_id": "LCS-AXII-SETTLEMENT-R07",
       "positive_acceptance_id": "LCS-AXII-SETTLEMENT-A07P",
       "negative_acceptance_id": "LCS-AXII-SETTLEMENT-A07N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T02:R05"
+      ]
     },
     {
       "trace_id": "AXII-SETTLEMENT-08",
@@ -818,7 +990,11 @@
       "requirement_id": "LCS-AXII-SETTLEMENT-R08",
       "positive_acceptance_id": "LCS-AXII-SETTLEMENT-A08P",
       "negative_acceptance_id": "LCS-AXII-SETTLEMENT-A08N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T02:R04",
+        "SPFE-S27:P05:T02:R05"
+      ]
     },
     {
       "trace_id": "AXII-SETTLEMENT-09",
@@ -838,7 +1014,10 @@
       "requirement_id": "LCS-AXII-SETTLEMENT-R09",
       "positive_acceptance_id": "LCS-AXII-SETTLEMENT-A09P",
       "negative_acceptance_id": "LCS-AXII-SETTLEMENT-A09N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T02:R05"
+      ]
     },
     {
       "trace_id": "AXII-SETTLEMENT-10",
@@ -858,7 +1037,10 @@
       "requirement_id": "LCS-AXII-SETTLEMENT-R10",
       "positive_acceptance_id": "LCS-AXII-SETTLEMENT-A10P",
       "negative_acceptance_id": "LCS-AXII-SETTLEMENT-A10N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P05:T02:R05"
+      ]
     },
     {
       "trace_id": "AXII-CANCELSETTLEMENT-01",
@@ -878,7 +1060,8 @@
       "requirement_id": "LCS-AXII-CANCELSETTLEMENT-R01",
       "positive_acceptance_id": "LCS-AXII-CANCELSETTLEMENT-A01P",
       "negative_acceptance_id": "LCS-AXII-CANCELSETTLEMENT-A01N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-CANCELSETTLEMENT-02",
@@ -898,7 +1081,8 @@
       "requirement_id": "LCS-AXII-CANCELSETTLEMENT-R02",
       "positive_acceptance_id": "LCS-AXII-CANCELSETTLEMENT-A02P",
       "negative_acceptance_id": "LCS-AXII-CANCELSETTLEMENT-A02N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-CANCELSETTLEMENT-03",
@@ -918,7 +1102,8 @@
       "requirement_id": "LCS-AXII-CANCELSETTLEMENT-R03",
       "positive_acceptance_id": "LCS-AXII-CANCELSETTLEMENT-A03P",
       "negative_acceptance_id": "LCS-AXII-CANCELSETTLEMENT-A03N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-CANCELSETTLEMENT-04",
@@ -938,7 +1123,8 @@
       "requirement_id": "LCS-AXII-CANCELSETTLEMENT-R04",
       "positive_acceptance_id": "LCS-AXII-CANCELSETTLEMENT-A04P",
       "negative_acceptance_id": "LCS-AXII-CANCELSETTLEMENT-A04N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-DEFAULT-01",
@@ -958,7 +1144,11 @@
       "requirement_id": "LCS-AXII-DEFAULT-R01",
       "positive_acceptance_id": "LCS-AXII-DEFAULT-A01P",
       "negative_acceptance_id": "LCS-AXII-DEFAULT-A01N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P06:T01:R03",
+        "SPFE-S27:P06:T01:R04"
+      ]
     },
     {
       "trace_id": "AXII-DEFAULT-02",
@@ -978,7 +1168,8 @@
       "requirement_id": "LCS-AXII-DEFAULT-R02",
       "positive_acceptance_id": "LCS-AXII-DEFAULT-A02P",
       "negative_acceptance_id": "LCS-AXII-DEFAULT-A02N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-DEFAULT-03",
@@ -998,7 +1189,10 @@
       "requirement_id": "LCS-AXII-DEFAULT-R03",
       "positive_acceptance_id": "LCS-AXII-DEFAULT-A03P",
       "negative_acceptance_id": "LCS-AXII-DEFAULT-A03N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P06:T01:R05"
+      ]
     },
     {
       "trace_id": "AXII-DEFAULT-04",
@@ -1018,7 +1212,10 @@
       "requirement_id": "LCS-AXII-DEFAULT-R04",
       "positive_acceptance_id": "LCS-AXII-DEFAULT-A04P",
       "negative_acceptance_id": "LCS-AXII-DEFAULT-A04N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P06:T01:R06"
+      ]
     },
     {
       "trace_id": "AXII-DEFAULT-05",
@@ -1038,7 +1235,10 @@
       "requirement_id": "LCS-AXII-DEFAULT-R05",
       "positive_acceptance_id": "LCS-AXII-DEFAULT-A05P",
       "negative_acceptance_id": "LCS-AXII-DEFAULT-A05N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P06:T01:R06"
+      ]
     },
     {
       "trace_id": "AXII-DEFAULT-06",
@@ -1058,7 +1258,11 @@
       "requirement_id": "LCS-AXII-DEFAULT-R06",
       "positive_acceptance_id": "LCS-AXII-DEFAULT-A06P",
       "negative_acceptance_id": "LCS-AXII-DEFAULT-A06N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P06:T01:R05",
+        "SPFE-S27:P06:T01:R06"
+      ]
     },
     {
       "trace_id": "AXII-DEFAULT-07",
@@ -1078,7 +1282,10 @@
       "requirement_id": "LCS-AXII-DEFAULT-R07",
       "positive_acceptance_id": "LCS-AXII-DEFAULT-A07P",
       "negative_acceptance_id": "LCS-AXII-DEFAULT-A07N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P06:T01:R06"
+      ]
     },
     {
       "trace_id": "AXII-DEFAULT-08",
@@ -1098,7 +1305,10 @@
       "requirement_id": "LCS-AXII-DEFAULT-R08",
       "positive_acceptance_id": "LCS-AXII-DEFAULT-A08P",
       "negative_acceptance_id": "LCS-AXII-DEFAULT-A08N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": [
+        "SPFE-S27:P06:T01:R06"
+      ]
     },
     {
       "trace_id": "AXII-CANCELDEFAULT-01",
@@ -1118,7 +1328,8 @@
       "requirement_id": "LCS-AXII-CANCELDEFAULT-R01",
       "positive_acceptance_id": "LCS-AXII-CANCELDEFAULT-A01P",
       "negative_acceptance_id": "LCS-AXII-CANCELDEFAULT-A01N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-CANCELDEFAULT-02",
@@ -1138,7 +1349,8 @@
       "requirement_id": "LCS-AXII-CANCELDEFAULT-R02",
       "positive_acceptance_id": "LCS-AXII-CANCELDEFAULT-A02P",
       "negative_acceptance_id": "LCS-AXII-CANCELDEFAULT-A02N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-CANCELDEFAULT-03",
@@ -1158,7 +1370,8 @@
       "requirement_id": "LCS-AXII-CANCELDEFAULT-R03",
       "positive_acceptance_id": "LCS-AXII-CANCELDEFAULT-A03P",
       "negative_acceptance_id": "LCS-AXII-CANCELDEFAULT-A03N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     },
     {
       "trace_id": "AXII-CANCELDEFAULT-04",
@@ -1178,8 +1391,1424 @@
       "requirement_id": "LCS-AXII-CANCELDEFAULT-R04",
       "positive_acceptance_id": "LCS-AXII-CANCELDEFAULT-A04P",
       "negative_acceptance_id": "LCS-AXII-CANCELDEFAULT-A04N",
-      "binding_status": "proposed; not implemented or validated"
+      "binding_status": "proposed; not implemented or validated",
+      "business_rule_refs": []
     }
   ],
-  "country_pack_assessment": "specs/invoice-lifecycle/SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md#country-pack-assessment"
+  "country_pack_assessment": "specs/invoice-lifecycle/SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md#country-pack-assessment",
+  "business_rule_review": {
+    "reviewed_on": "2026-11-23",
+    "owner_spec": "SPEC-SEI-029",
+    "status": "source-to-functional-rule mapping complete for supplied draft; executable/ERP/API/error bindings unqualified",
+    "source": {
+      "source_id": "SPFE-S27",
+      "path": "context/Reglas de negocio ES/ReglasNegocio_AnexoDos.pdf",
+      "sha256": "6b7795ea87f499866796c9da7522d01f3b399261e85cd32e831c20819ae7a690",
+      "version": "0.1",
+      "document_date": "2026-11-19",
+      "document_status": "Borrador"
+    },
+    "related_sources": [
+      {
+        "source_id": "SPFE-S02",
+        "path": "context/BOE-A-2026-20587.pdf",
+        "sha256": "6384b2bb755404829f184fc18d7e2b99ce013436387ffed12ff4124ee99cd5d7"
+      },
+      {
+        "source_id": "SPFE-S11",
+        "path": "context/WSDL servicios web - PRE_23_11_26/CustomerInvoiceEvents.wsdl",
+        "sha256": "69fe0e5ca0f21670a2188e97e91545eb4ee40ee01e5c66a8f50692378c32fa92"
+      },
+      {
+        "source_id": "SPFE-S17",
+        "path": "context/WSDL servicios web - PRE_23_11_26/SupplierInvoiceEvents.wsdl",
+        "sha256": "1eeb0c8886c6c5171948e607480e184f1835dc03ae82c9454215fa848cf77262"
+      },
+      {
+        "source_id": "SPFE-S22",
+        "path": "context/Anexo II/A2-Proyecto-OM-FE 21-10-26.pdf",
+        "sha256": "a28dc3dae7a8c149fff5bb7099305bfd1486554c2b505507cdd0ae0452bccf0b"
+      },
+      {
+        "source_id": "SPFE-S28",
+        "path": "context/Listados códigos de error/errores_negocio.properties",
+        "sha256": "374926f3137704835fac9900257e4b4b4b4ba1cc5fe9b8c3e9e146820c90a687"
+      },
+      {
+        "source_id": "SPFE-S47",
+        "path": "context/WSDL servicios web - PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ApplicationResponse-2.5.xsd",
+        "sha256": "e539adfbab0dd50601190b2d98a8d8c036935329cfa370ff832e65ec6a3c3560"
+      }
+    ],
+    "counts": {
+      "numbered_rules": 28,
+      "by_family": {
+        "ANEXOII": 5,
+        "PAGO": 8,
+        "RECHAZO": 5,
+        "COBRO": 5,
+        "IMPAGO": 5
+      },
+      "existing_actions": 8,
+      "existing_field_occurrences": 52
+    },
+    "introductory_source_text": "    Agencia Tributaria                                           Facturación Electrónica\n\n1  INTRODUCCIÓN\n\n\nA continuación, se recogen las reglas de negocio aplicables a cada uno de los mensajes de alta\nprevistos en el Anexo II de la Orden Ministerial HAC/1028/2026, de 2 de octubre.\n\n\nNo se incluyen como reglas de negocio:\n\n     -  Supuestos en los que el contenido de un campo viene prefijado o restringido por el mapeo del\n      Anexo I.\n     -  Supuestos en los que el contenido de un campo viene prefijado por el uso de códigos previstos\n      de una lista.\n     -   Validaciones relativas al número de identificación fiscal.\n     -   Reglas de negocio que derivan del esquema “application response” de UBL 2.5.\n\n\nLa factura que se informa debe constar en la Solución Pública de Facturación Electrónica, en caso\ncontrario se rechazará el mensaje.\n\nLos mensajes de anulación deben contener la totalidad de los datos identificativos de la factura\ninformada, y esta factura debe existir en la Solución Pública de Facturación Electrónica, y no debe\nhaber sido anulada, en caso contrario se rechazará el mensaje.\n\n\n2  REGLAS DE NEGOCIO\n\n2.1 REGLAS DE NEGOCIO GENERALES\n\n\nEn este apartado se especifican las reglas de negocio aplicables a todos los mensajes previstos en el\nAnexo II.\n\n\n\n                                                                      Grupo/Término de\n                ID                        Descripción\n                                                                           negocio\n\n          BR-        La  factura  informada debe  existir en  el  sistema Factura informada\n           ANEXOII-1   (coincidencia serie y número de factura, fecha de\n                           expedición, NIF emisor)\n\n          BR-          El mensaje informado no debe haber sido remitido Mensaje\n           ANEXOII-2   previamente respecto de una misma factura informada\n\n          BR-          El mensaje informado no debe ser incompatible con el Mensaje\n           ANEXOII-3   mensaje anterior informado respecto de una misma\n                             factura.\n\n          BR-          El mensaje informado debe ser remitido por la parte Mensaje\n           ANEXOII-4   correspondiente:\n\n                       Mensajes de pago y rechazo: NIF destinatario\n\n                       Mensajes de cobro e impago: NIF emisor\n\n          BR-          El “ResponseCode” del mensaje informado se debe Mensaje\n           ANEXOII-5   corresponder con el servicio correspondiente.\n\n\n\n\n\n              SGTT – Reglas de negocio Factura Electrónica - Borrador                                                                3",
+    "non_field_requirements": [
+      {
+        "source": "SPFE-S27 section 1 p. 3",
+        "meaning": "The invoice must be present in SPFE; otherwise the message is rejected.",
+        "requirement": "LCS-SPFE-R05"
+      },
+      {
+        "source": "SPFE-S27 section 1 p. 3",
+        "meaning": "Cancellation messages retain all invoice identity data; the invoice must exist in SPFE and must not have been cancelled.",
+        "requirement": "LCS-SPFE-R07"
+      }
+    ],
+    "validation_context_not_new_API_fields": [
+      "Saved seller and buyer identity; buyer identity is needed for recipient reports even though seller identity appears in the four wire reference fields.",
+      "Saved invoice type and the exact referenced invoice revision; do not infer them from positive/negative amounts or the caller.",
+      "Saved BT-113 and BT-115 facts kept distinct until the disputed negative-amount operand is confirmed.",
+      "Qualified invoice-presence/cancellation evidence, report history, actor/service and prior attempt outcomes. No new lookup endpoint is established.",
+      "Actual SPFE dispatch business date and qualified comparison calendar/timezone; original event dates remain unchanged during recovery."
+    ],
+    "open_decisions": [
+      {
+        "topic": "negative_amount",
+        "source": "BR-PAGO-8 / BR-COBRO-5 / BR-IMPAGO-5; final Annex I BT-113/115; S31 lines 141/143",
+        "decision": "Confirm intended amount and interaction with final PAYMENT NegativeAmountInvoice. Hold affected report eligibility; do not invent a report amount or globally reject negative invoices.",
+        "gate": "SPFE-Q21"
+      },
+      {
+        "topic": "rejection_same_day",
+        "source": "BR-RECHAZO-3 p. 5 versus S28 ACTION-09 variants at lines 310/312",
+        "decision": "Confirm strictly-after versus on-or-after issue-date boundary. Preserve exact observed wording; do not choose the permissive or restrictive interpretation as a silent default.",
+        "gate": "SPFE-Q21"
+      },
+      {
+        "topic": "payment_indicators",
+        "source": "BR-PAGO-5/6 p. 4; final AXII-PAYMENT-05/06",
+        "decision": "Qualify source indicator meaning, type conditions and XML presence/value representation. A proposed boolean false is not established as absence. Keep corrected versus corrective/negative meanings separate.",
+        "gate": "SPFE-Q16/SPFE-Q21"
+      },
+      {
+        "topic": "presence_compatibility_and_dispatch_context",
+        "source": "BR-ANEXOII-1/2/3 and cancellation prose p. 3; event date upper bounds pp. 4–6",
+        "decision": "Qualify invoice evidence freshness, duplicate/compatibility scope, sender clock/calendar and original-outcome recovery. The draft supplies no replay guarantee, full transition matrix or new query contract.",
+        "gate": "LIF-G04/LIF-G06"
+      }
+    ],
+    "limits": [
+      "All 28 raw rule rows and their exact source locators are retained. Numbered rules complement the 52 final-source field rows; no original field IDs, action codes or UUIDs are replaced.",
+      "Section 1 excludes fixed mapping values, code-list, NIF and UBL ApplicationResponse schema checks. Those layers remain independently required for the selected profile.",
+      "Raw source uses Annex I in an exclusion statement in this Annex II document; preserve that wording rather than silently repairing it.",
+      "General rules apply to all Annex II messages; event-specific rules are attached only to the four named report families. Cancellation does not inherit payment dates or indicators merely because its name includes PAYMENT.",
+      "Context values are logical evidence requirements, not newly defined API fields or XML elements. Existing open statusAttributes schema does not prove validation or Spain runtime support.",
+      "No resource key is assigned as a wire code by matching rule numbers. SPEC011 owns response/error interpretation and recovery.",
+      "The source is version 0.1 Borrador. Final BOE remains legal authority; conflicts, accepted schema profile and implementation coverage remain open."
+    ],
+    "rules": [
+      {
+        "rule_ref": "SPFE-S27:P03:T01:R03",
+        "rule_id": "BR-ANEXOII-1",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.1",
+          "page": 3,
+          "table_on_page": 1,
+          "row_in_table": 3,
+          "bbox": [
+            103.66000213623047,
+            542.7519897460937,
+            505.64312744140625,
+            587.22998046875
+          ]
+        },
+        "raw_cells": [
+          "BR-\nANEXOII-1",
+          "La factura informada debe existir en el sistema\n(coincidencia serie y número de factura, fecha de\nexpedición, NIF emisor)",
+          "Factura informada"
+        ],
+        "event_codes": [
+          "PAYMENT",
+          "CANCELPAYMENT",
+          "REJECTION",
+          "CANCELREJECTION",
+          "SETTLEMENT",
+          "CANCELSETTLEMENT",
+          "DEFAULT",
+          "CANCELDEFAULT"
+        ],
+        "field_trace_refs": [],
+        "meaning_en": "The reported invoice must exist in SPFE, matched by invoice series/number, issue date and seller NIF.",
+        "validation_context": [
+          "saved invoice identity",
+          "qualified SPFE admission/presence evidence"
+        ],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R05"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A05",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P03:T01:R04",
+        "rule_id": "BR-ANEXOII-2",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.1",
+          "page": 3,
+          "table_on_page": 1,
+          "row_in_table": 4,
+          "bbox": [
+            103.66000213623047,
+            587.22998046875,
+            505.64312744140625,
+            620.4999694824219
+          ]
+        },
+        "raw_cells": [
+          "BR-\nANEXOII-2",
+          "El mensaje informado no debe haber sido remitido\npreviamente respecto de una misma factura informada",
+          "Mensaje"
+        ],
+        "event_codes": [
+          "PAYMENT",
+          "CANCELPAYMENT",
+          "REJECTION",
+          "CANCELREJECTION",
+          "SETTLEMENT",
+          "CANCELSETTLEMENT",
+          "DEFAULT",
+          "CANCELDEFAULT"
+        ],
+        "field_trace_refs": [],
+        "meaning_en": "The same message must not already have been reported for the same invoice.",
+        "validation_context": [
+          "prior report identities and outcomes"
+        ],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R05"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A05",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P03:T01:R05",
+        "rule_id": "BR-ANEXOII-3",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.1",
+          "page": 3,
+          "table_on_page": 1,
+          "row_in_table": 5,
+          "bbox": [
+            103.66000213623047,
+            620.4999694824219,
+            505.64312744140625,
+            664.0599670410156
+          ]
+        },
+        "raw_cells": [
+          "BR-\nANEXOII-3",
+          "El mensaje informado no debe ser incompatible con el\nmensaje anterior informado respecto de una misma\nfactura.",
+          "Mensaje"
+        ],
+        "event_codes": [
+          "PAYMENT",
+          "CANCELPAYMENT",
+          "REJECTION",
+          "CANCELREJECTION",
+          "SETTLEMENT",
+          "CANCELSETTLEMENT",
+          "DEFAULT",
+          "CANCELDEFAULT"
+        ],
+        "field_trace_refs": [],
+        "meaning_en": "The message must not be incompatible with an earlier message for the invoice.",
+        "validation_context": [
+          "qualified action compatibility and prior report state"
+        ],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R05"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A05",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P03:T01:R06",
+        "rule_id": "BR-ANEXOII-4",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.1",
+          "page": 3,
+          "table_on_page": 1,
+          "row_in_table": 6,
+          "bbox": [
+            103.66000213623047,
+            664.0599670410156,
+            505.64312744140625,
+            729.9399719238281
+          ]
+        },
+        "raw_cells": [
+          "BR-\nANEXOII-4",
+          "El mensaje informado debe ser remitido por la parte\ncorrespondiente:\nMensajes de pago y rechazo: NIF destinatario\nMensajes de cobro e impago: NIF emisor",
+          "Mensaje"
+        ],
+        "event_codes": [
+          "PAYMENT",
+          "CANCELPAYMENT",
+          "REJECTION",
+          "CANCELREJECTION",
+          "SETTLEMENT",
+          "CANCELSETTLEMENT",
+          "DEFAULT",
+          "CANCELDEFAULT"
+        ],
+        "field_trace_refs": [],
+        "meaning_en": "Recipient-side payment/rejection and issuer-side collection/non-payment must use the corresponding authorised reporting party.",
+        "validation_context": [
+          "saved seller and buyer identity",
+          "represented reporting party",
+          "authenticated caller and action authority"
+        ],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R05"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A05",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P03:T01:R07",
+        "rule_id": "BR-ANEXOII-5",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.1",
+          "page": 3,
+          "table_on_page": 1,
+          "row_in_table": 7,
+          "bbox": [
+            103.66000213623047,
+            729.9399719238281,
+            505.64312744140625,
+            763.1159439086914
+          ]
+        },
+        "raw_cells": [
+          "BR-\nANEXOII-5",
+          "El “ResponseCode” del mensaje informado se debe\ncorresponder con el servicio correspondiente.",
+          "Mensaje"
+        ],
+        "event_codes": [
+          "PAYMENT",
+          "CANCELPAYMENT",
+          "REJECTION",
+          "CANCELREJECTION",
+          "SETTLEMENT",
+          "CANCELSETTLEMENT",
+          "DEFAULT",
+          "CANCELDEFAULT"
+        ],
+        "field_trace_refs": [],
+        "meaning_en": "The message ResponseCode must match the selected service.",
+        "validation_context": [
+          "selected event code and CustomerInvoiceEvents/SupplierInvoiceEvents binding"
+        ],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R05"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A05",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P04:T01:R03",
+        "rule_id": "BR-PAGO-1",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.2",
+          "page": 4,
+          "table_on_page": 1,
+          "row_in_table": 3,
+          "bbox": [
+            103.60285949707031,
+            249.3019775390625,
+            505.7459120316939,
+            283.489990234375
+          ]
+        },
+        "raw_cells": [
+          "BR-PAGO-\n1",
+          "El mensaje debe incluir una “fecha de efecto”.",
+          "Fecha de efecto"
+        ],
+        "event_codes": [
+          "PAYMENT"
+        ],
+        "field_trace_refs": [
+          "AXII-PAYMENT-01"
+        ],
+        "meaning_en": "Payment effective date is required.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P04:T01:R04",
+        "rule_id": "BR-PAGO-2",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.2",
+          "page": 4,
+          "table_on_page": 1,
+          "row_in_table": 4,
+          "bbox": [
+            103.60285949707031,
+            283.489990234375,
+            505.7459120316939,
+            327.04998779296875
+          ]
+        },
+        "raw_cells": [
+          "BR-PAGO-\n2",
+          "La “fecha de efecto” no puede ser posterior a la fecha\nde envío del mensaje a la Solución Pública de\nFacturación Electrónica.",
+          "Fecha de efecto"
+        ],
+        "event_codes": [
+          "PAYMENT"
+        ],
+        "field_trace_refs": [
+          "AXII-PAYMENT-01"
+        ],
+        "meaning_en": "Payment effective date must not be after the date the message is sent to SPFE.",
+        "validation_context": [
+          "actual SPFE dispatch business date; comparison calendar/timezone qualified separately"
+        ],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P04:T01:R05",
+        "rule_id": "BR-PAGO-3",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.2",
+          "page": 4,
+          "table_on_page": 1,
+          "row_in_table": 5,
+          "bbox": [
+            103.60285949707031,
+            327.04998779296875,
+            505.7459120316939,
+            360.16998291015625
+          ]
+        },
+        "raw_cells": [
+          "BR-PAGO-\n3",
+          "El mensaje debe incluir una “fecha de vencimiento del\nplazo de pago”.",
+          "Fecha de vencimiento del\nplazo de pago"
+        ],
+        "event_codes": [
+          "PAYMENT"
+        ],
+        "field_trace_refs": [
+          "AXII-PAYMENT-02"
+        ],
+        "meaning_en": "Payment due date is required.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P04:T01:R06",
+        "rule_id": "BR-PAGO-4",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.2",
+          "page": 4,
+          "table_on_page": 1,
+          "row_in_table": 6,
+          "bbox": [
+            103.60285949707031,
+            360.16998291015625,
+            505.7459120316939,
+            403.72996520996094
+          ]
+        },
+        "raw_cells": [
+          "BR-PAGO-\n4",
+          "Si el mensaje incluye una “fecha de recepción de la\nfactura”, esta debe ser igual o posterior a la fecha de\nexpedición de la factura que se informa.",
+          "Fecha de recepción de la\nfactura, fecha de expedición\nde la factura"
+        ],
+        "event_codes": [
+          "PAYMENT"
+        ],
+        "field_trace_refs": [
+          "AXII-PAYMENT-04",
+          "AXII-PAYMENT-09"
+        ],
+        "meaning_en": "If invoice receipt date is supplied, it must be on or after invoice issue date.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P04:T01:R07",
+        "rule_id": "BR-PAGO-5",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.2",
+          "page": 4,
+          "table_on_page": 1,
+          "row_in_table": 7,
+          "bbox": [
+            103.60285949707031,
+            403.72996520996094,
+            505.7459120316939,
+            447.3099822998047
+          ]
+        },
+        "raw_cells": [
+          "BR-PAGO-\n5",
+          "Si el mensaje incluye el campo “factura rectificada”, la\nfactura que se informa no podrá tener un código de tipo\nde factura 384 o 471.",
+          "Factura rectificada, código\nde tipo de factura"
+        ],
+        "event_codes": [
+          "PAYMENT"
+        ],
+        "field_trace_refs": [
+          "AXII-PAYMENT-05"
+        ],
+        "meaning_en": "If the previously corrected invoice indicator is supplied, the reported invoice type must not be 384 or 471.",
+        "validation_context": [
+          "saved invoice type code",
+          "qualified indicator presence/serialization"
+        ],
+        "open_gates": [
+          "LIF-G04",
+          "SPFE-Q16",
+          "SPFE-Q21"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P04:T01:R08",
+        "rule_id": "BR-PAGO-6",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.2",
+          "page": 4,
+          "table_on_page": 1,
+          "row_in_table": 8,
+          "bbox": [
+            103.60285949707031,
+            447.3099822998047,
+            505.7459120316939,
+            490.8699951171875
+          ]
+        },
+        "raw_cells": [
+          "BR-PAGO-\n6",
+          "Si el mensaje incluye el campo “factura rectificativa”, la\nfactura que se informa deberá tener un código de tipo\nde factura 384 o 471.",
+          "Factura rectificativa, código\nde tipo de factura"
+        ],
+        "event_codes": [
+          "PAYMENT"
+        ],
+        "field_trace_refs": [
+          "AXII-PAYMENT-06"
+        ],
+        "meaning_en": "If the corrective-invoice indicator is supplied, the reported invoice type must be 384 or 471.",
+        "validation_context": [
+          "saved invoice type code",
+          "qualified mapping of source Factura rectificativa to NegativeAmountInvoice; presence/serialization"
+        ],
+        "open_gates": [
+          "LIF-G04",
+          "SPFE-Q16",
+          "SPFE-Q21"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P04:T01:R09",
+        "rule_id": "BR-PAGO-7",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.2",
+          "page": 4,
+          "table_on_page": 1,
+          "row_in_table": 9,
+          "bbox": [
+            103.60285949707031,
+            490.8699951171875,
+            505.7459120316939,
+            555.1900024414062
+          ]
+        },
+        "raw_cells": [
+          "BR-PAGO-\n7",
+          "El mensaje debe incluir un grupo de “Factura\ninformada”, que contenga necesariamente los campos\n“Número de factura (ID)”, “Fecha de expedición de la\nfactura”, “NIF emisor” y “Nombre/Razón social del\nemisor”.",
+          "Factura informada, Número\nde factura (ID), fecha de\nexpedición de la factura, NIF\nemisor, Nombre/Razón\nsocial del emisor"
+        ],
+        "event_codes": [
+          "PAYMENT"
+        ],
+        "field_trace_refs": [
+          "AXII-PAYMENT-07",
+          "AXII-PAYMENT-08",
+          "AXII-PAYMENT-09",
+          "AXII-PAYMENT-10",
+          "AXII-PAYMENT-11"
+        ],
+        "meaning_en": "Referenced invoice group must contain invoice number, issue date, seller NIF and seller legal name.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P04:T01:R10",
+        "rule_id": "BR-PAGO-8",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.2",
+          "page": 4,
+          "table_on_page": 1,
+          "row_in_table": 10,
+          "bbox": [
+            103.60285949707031,
+            555.1900024414062,
+            505.7459120316939,
+            588.3699951171875
+          ]
+        },
+        "raw_cells": [
+          "BR-PAGO-\n8",
+          "No puede informarse el pago de una factura en el que\nel campo “Total a pagar” (BT-113) sea negativo",
+          "Factura informada, importes\nnegativos"
+        ],
+        "event_codes": [
+          "PAYMENT"
+        ],
+        "field_trace_refs": [],
+        "meaning_en": "The draft disallows reporting payment when the invoice Total a pagar (labelled BT-113 in this rule) is negative.",
+        "validation_context": [
+          "saved BT-113 prepaid amount and BT-115 payable amount kept distinct; intended source operand unresolved"
+        ],
+        "open_gates": [
+          "LIF-G04",
+          "SPFE-Q21"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P05:T01:R05",
+        "rule_id": "BR-RECHAZO-1",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.3",
+          "page": 5,
+          "table_on_page": 1,
+          "row_in_table": 5,
+          "bbox": [
+            104.26400095621744,
+            142.26199951171876,
+            505.33361324187246,
+            186.739990234375
+          ]
+        },
+        "raw_cells": [
+          "BR-\nRECHAZO-\n1",
+          "El mensaje debe incluir una “fecha de rechazo”.",
+          "Fecha de rechazo"
+        ],
+        "event_codes": [
+          "REJECTION"
+        ],
+        "field_trace_refs": [
+          "AXII-REJECTION-01"
+        ],
+        "meaning_en": "Rejection date is required.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P05:T01:R06",
+        "rule_id": "BR-RECHAZO-2",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.3",
+          "page": 5,
+          "table_on_page": 1,
+          "row_in_table": 6,
+          "bbox": [
+            104.26400095621744,
+            186.739990234375,
+            505.33361324187246,
+            230.29998779296875
+          ]
+        },
+        "raw_cells": [
+          "BR-\nRECHAZO-\n2",
+          "La “fecha de rechazo” no puede ser posterior a la fecha de\nenvío del mensaje a la Solución Pública de Facturación\nElectrónica.",
+          "Fecha de rechazo"
+        ],
+        "event_codes": [
+          "REJECTION"
+        ],
+        "field_trace_refs": [
+          "AXII-REJECTION-01"
+        ],
+        "meaning_en": "Rejection date must not be after the date the message is sent to SPFE.",
+        "validation_context": [
+          "actual dispatch date and saved issue date"
+        ],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P05:T01:R07",
+        "rule_id": "BR-RECHAZO-3",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.3",
+          "page": 5,
+          "table_on_page": 1,
+          "row_in_table": 7,
+          "bbox": [
+            104.26400095621744,
+            230.29998779296875,
+            505.33361324187246,
+            273.8900146484375
+          ]
+        },
+        "raw_cells": [
+          "BR-\nRECHAZO-\n3",
+          "La “fecha de rechazo” debe ser posterior a la “fecha de\nexpedición de la factura”.",
+          "Fecha de rechazo,\nfecha de expedición de\nla factura"
+        ],
+        "event_codes": [
+          "REJECTION"
+        ],
+        "field_trace_refs": [
+          "AXII-REJECTION-01",
+          "AXII-REJECTION-05"
+        ],
+        "meaning_en": "The draft requires rejection date strictly after invoice issue date; error resources also contain same-day wording.",
+        "validation_context": [
+          "actual dispatch date and saved issue date"
+        ],
+        "open_gates": [
+          "LIF-G04",
+          "SPFE-Q21"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P05:T01:R08",
+        "rule_id": "BR-RECHAZO-4",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.3",
+          "page": 5,
+          "table_on_page": 1,
+          "row_in_table": 8,
+          "bbox": [
+            104.26400095621744,
+            273.8900146484375,
+            505.33361324187246,
+            317.45001220703125
+          ]
+        },
+        "raw_cells": [
+          "BR-\nRECHAZO-\n4",
+          "El mensaje debe incluir un “motivo de rechazo”.",
+          "Motivo de rechazo"
+        ],
+        "event_codes": [
+          "REJECTION"
+        ],
+        "field_trace_refs": [
+          "AXII-REJECTION-02"
+        ],
+        "meaning_en": "Rejection reason is required; the final Annex II L1 list retains string values 01 and 02.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P05:T01:R09",
+        "rule_id": "BR-RECHAZO-5",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.3",
+          "page": 5,
+          "table_on_page": 1,
+          "row_in_table": 9,
+          "bbox": [
+            104.26400095621744,
+            317.45001220703125,
+            505.33361324187246,
+            392.1499824523926
+          ]
+        },
+        "raw_cells": [
+          "BR-\nRECHAZO-\n5",
+          "El mensaje debe incluir un grupo de “Factura informada”, que\ncontenga necesariamente los campos “Número de factura\n(ID)”, “Fecha de expedición de la factura”, “NIF emisor” y\n“Nombre/Razón social del emisor”.",
+          "Factura informada,\nNúmero de factura (ID),\nfecha de expedición de\nla factura, NIF emisor,\nNombre/Razón social\ndel emisor"
+        ],
+        "event_codes": [
+          "REJECTION"
+        ],
+        "field_trace_refs": [
+          "AXII-REJECTION-03",
+          "AXII-REJECTION-04",
+          "AXII-REJECTION-05",
+          "AXII-REJECTION-06",
+          "AXII-REJECTION-07"
+        ],
+        "meaning_en": "Referenced invoice group must contain invoice number, issue date, seller NIF and seller legal name.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P05:T02:R02",
+        "rule_id": "BR-COBRO-1",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.4",
+          "page": 5,
+          "table_on_page": 2,
+          "row_in_table": 2,
+          "bbox": [
+            104.26400095621744,
+            550.2849731445312,
+            505.33361324187246,
+            584.8299560546875
+          ]
+        },
+        "raw_cells": [
+          "BR-\nCOBRO-1",
+          "El mensaje debe incluir una “fecha de cobro”.",
+          "Fecha de cobro"
+        ],
+        "event_codes": [
+          "SETTLEMENT"
+        ],
+        "field_trace_refs": [
+          "AXII-SETTLEMENT-01"
+        ],
+        "meaning_en": "The collection date is required.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null,
+        "extraction_note": {
+          "method": "ID text clipped to the description-row vertical bounds; original ID column spans several rows.",
+          "original_ID_cell": "BR-\nCOBRO-1\nBR-\nCOBRO-2\nBR-\nCOBRO-3\nBR-\nCOBRO-4\nBR-\nCOBRO-5"
+        }
+      },
+      {
+        "rule_ref": "SPFE-S27:P05:T02:R03",
+        "rule_id": "BR-COBRO-2",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.4",
+          "page": 5,
+          "table_on_page": 2,
+          "row_in_table": 3,
+          "bbox": [
+            104.26400095621744,
+            584.8299560546875,
+            505.33361324187246,
+            628.4199829101562
+          ]
+        },
+        "raw_cells": [
+          "BR-\nCOBRO-2",
+          "La “fecha de cobro” no puede ser posterior a la fecha\nde envío del mensaje a la Solución Pública de\nFacturación Electrónica.",
+          "Fecha de cobro"
+        ],
+        "event_codes": [
+          "SETTLEMENT"
+        ],
+        "field_trace_refs": [
+          "AXII-SETTLEMENT-01"
+        ],
+        "meaning_en": "The collection date must not be after the date the message is sent to SPFE.",
+        "validation_context": [
+          "actual SPFE dispatch business date; comparison calendar/timezone qualified separately"
+        ],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null,
+        "extraction_note": {
+          "method": "ID text clipped to the description-row vertical bounds; original ID column spans several rows.",
+          "original_ID_cell": null
+        }
+      },
+      {
+        "rule_ref": "SPFE-S27:P05:T02:R04",
+        "rule_id": "BR-COBRO-3",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.4",
+          "page": 5,
+          "table_on_page": 2,
+          "row_in_table": 4,
+          "bbox": [
+            104.26400095621744,
+            628.4199829101562,
+            505.33361324187246,
+            671.8599853515625
+          ]
+        },
+        "raw_cells": [
+          "BR-\nCOBRO-3",
+          "Si el mensaje incluye una “fecha de recepción de la\nfactura”, esta debe ser igual o posterior a la fecha de\nexpedición de la factura que se informa.",
+          "Fecha de recepción de la\nfactura, fecha de expedición\nde la factura"
+        ],
+        "event_codes": [
+          "SETTLEMENT"
+        ],
+        "field_trace_refs": [
+          "AXII-SETTLEMENT-05",
+          "AXII-SETTLEMENT-08"
+        ],
+        "meaning_en": "If invoice receipt date is supplied, it must be on or after invoice issue date.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null,
+        "extraction_note": {
+          "method": "ID text clipped to the description-row vertical bounds; original ID column spans several rows.",
+          "original_ID_cell": null
+        }
+      },
+      {
+        "rule_ref": "SPFE-S27:P05:T02:R05",
+        "rule_id": "BR-COBRO-4",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.4",
+          "page": 5,
+          "table_on_page": 2,
+          "row_in_table": 5,
+          "bbox": [
+            104.26400095621744,
+            671.8599853515625,
+            505.33361324187246,
+            736.1799926757812
+          ]
+        },
+        "raw_cells": [
+          "BR-\nCOBRO-4",
+          "El mensaje debe incluir un grupo de “Factura\ninformada”, que contenga necesariamente los campos\n“Número de factura (ID)”, “Fecha de expedición de la\nfactura”, “NIF emisor” y “Nombre/Razón social del\nemisor”.",
+          "Factura informada, Número\nde factura (ID), fecha de\nexpedición de la factura, NIF\nemisor, Nombre/Razón social\ndel emisor"
+        ],
+        "event_codes": [
+          "SETTLEMENT"
+        ],
+        "field_trace_refs": [
+          "AXII-SETTLEMENT-06",
+          "AXII-SETTLEMENT-07",
+          "AXII-SETTLEMENT-08",
+          "AXII-SETTLEMENT-09",
+          "AXII-SETTLEMENT-10"
+        ],
+        "meaning_en": "Referenced invoice group must contain invoice number, issue date, seller NIF and seller legal name.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null,
+        "extraction_note": {
+          "method": "ID text clipped to the description-row vertical bounds; original ID column spans several rows.",
+          "original_ID_cell": null
+        }
+      },
+      {
+        "rule_ref": "SPFE-S27:P05:T02:R06",
+        "rule_id": "BR-COBRO-5",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.4",
+          "page": 5,
+          "table_on_page": 2,
+          "row_in_table": 6,
+          "bbox": [
+            104.26400095621744,
+            736.1799926757812,
+            505.33361324187246,
+            769.4760131835938
+          ]
+        },
+        "raw_cells": [
+          "BR-\nCOBRO-5",
+          "No puede informarse el cobro de una factura en el que\nel campo “Total a pagar” (BT-113) sea negativo",
+          "Factura informada, importes\nnegativos"
+        ],
+        "event_codes": [
+          "SETTLEMENT"
+        ],
+        "field_trace_refs": [],
+        "meaning_en": "The draft disallows reporting collection when the invoice Total a pagar (labelled BT-113 in this rule) is negative.",
+        "validation_context": [
+          "saved BT-113 prepaid amount and BT-115 payable amount kept distinct; intended source operand unresolved"
+        ],
+        "open_gates": [
+          "LIF-G04",
+          "SPFE-Q21"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null,
+        "extraction_note": {
+          "method": "ID text clipped to the description-row vertical bounds; original ID column spans several rows.",
+          "original_ID_cell": null
+        }
+      },
+      {
+        "rule_ref": "SPFE-S27:P06:T01:R03",
+        "rule_id": "BR-IMPAGO-1",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.5",
+          "page": 6,
+          "table_on_page": 1,
+          "row_in_table": 3,
+          "bbox": [
+            107.26250123977661,
+            280.385009765625,
+            502.44062423706055,
+            325.25
+          ]
+        },
+        "raw_cells": [
+          "BR-\nIMPAGO-\n1",
+          "El mensaje debe incluir una “fecha de vencimiento del\npago”.",
+          "Fecha de vencimiento del\npago"
+        ],
+        "event_codes": [
+          "DEFAULT"
+        ],
+        "field_trace_refs": [
+          "AXII-DEFAULT-01"
+        ],
+        "meaning_en": "The payment due date is required.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P06:T01:R04",
+        "rule_id": "BR-IMPAGO-2",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.5",
+          "page": 6,
+          "table_on_page": 1,
+          "row_in_table": 4,
+          "bbox": [
+            107.26250123977661,
+            325.25,
+            502.44062423706055,
+            368.8099822998047
+          ]
+        },
+        "raw_cells": [
+          "BR-\nIMPAGO-\n2",
+          "La “fecha de vencimiento del pago” no puede ser\nposterior a la fecha de envío del mensaje a la Solución\nPública de Facturación Electrónica.",
+          "Fecha de vencimiento del\npago"
+        ],
+        "event_codes": [
+          "DEFAULT"
+        ],
+        "field_trace_refs": [
+          "AXII-DEFAULT-01"
+        ],
+        "meaning_en": "The payment due date must not be after the date the message is sent to SPFE.",
+        "validation_context": [
+          "actual SPFE dispatch business date; comparison calendar/timezone qualified separately"
+        ],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P06:T01:R05",
+        "rule_id": "BR-IMPAGO-3",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.5",
+          "page": 6,
+          "table_on_page": 1,
+          "row_in_table": 5,
+          "bbox": [
+            107.26250123977661,
+            368.8099822998047,
+            502.44062423706055,
+            412.36997985839844
+          ]
+        },
+        "raw_cells": [
+          "BR-\nIMPAGO-\n3",
+          "Si el mensaje incluye una “fecha de recepción de la\nfactura”, esta debe ser igual o posterior a la fecha de\nexpedición de la factura que se informa.",
+          "Fecha de recepción de la\nfactura, fecha de expedición\nde la factura"
+        ],
+        "event_codes": [
+          "DEFAULT"
+        ],
+        "field_trace_refs": [
+          "AXII-DEFAULT-03",
+          "AXII-DEFAULT-06"
+        ],
+        "meaning_en": "If invoice receipt date is supplied, it must be on or after invoice issue date.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P06:T01:R06",
+        "rule_id": "BR-IMPAGO-4",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.5",
+          "page": 6,
+          "table_on_page": 1,
+          "row_in_table": 6,
+          "bbox": [
+            107.26250123977661,
+            412.36997985839844,
+            502.44062423706055,
+            476.58998107910156
+          ]
+        },
+        "raw_cells": [
+          "BR-\nIMPAGO-\n4",
+          "El mensaje debe incluir un grupo de “Factura\ninformada”, que contenga necesariamente los campos\n“Número de factura (ID)”, “Fecha de expedición de la\nfactura”, “NIF emisor” y “Nombre/Razón social del\nemisor”.",
+          "Factura informada, Número\nde factura (ID), fecha de\nexpedición de la factura, NIF\nemisor, Nombre/Razón social\ndel emisor"
+        ],
+        "event_codes": [
+          "DEFAULT"
+        ],
+        "field_trace_refs": [
+          "AXII-DEFAULT-04",
+          "AXII-DEFAULT-05",
+          "AXII-DEFAULT-06",
+          "AXII-DEFAULT-07",
+          "AXII-DEFAULT-08"
+        ],
+        "meaning_en": "Referenced invoice group must contain invoice number, issue date, seller NIF and seller legal name.",
+        "validation_context": [],
+        "open_gates": [
+          "LIF-G04"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      },
+      {
+        "rule_ref": "SPFE-S27:P06:T01:R07",
+        "rule_id": "BR-IMPAGO-5",
+        "source_id": "SPFE-S27",
+        "source_locator": {
+          "section": "2.5",
+          "page": 6,
+          "table_on_page": 1,
+          "row_in_table": 7,
+          "bbox": [
+            107.26250123977661,
+            476.58998107910156,
+            502.44062423706055,
+            520.2099761962891
+          ]
+        },
+        "raw_cells": [
+          "BR-\nIMPAGO-\n5",
+          "No puede informarse el impago de una factura en el\nque el campo “Total a pagar” (BT-113) sea negativo",
+          "Factura informada, importes\nnegativos"
+        ],
+        "event_codes": [
+          "DEFAULT"
+        ],
+        "field_trace_refs": [],
+        "meaning_en": "The draft disallows reporting non-payment when the invoice Total a pagar (labelled BT-113 in this rule) is negative.",
+        "validation_context": [
+          "saved BT-113 prepaid amount and BT-115 payable amount kept distinct; intended source operand unresolved"
+        ],
+        "open_gates": [
+          "LIF-G04",
+          "SPFE-Q21"
+        ],
+        "requirement_refs": [
+          "LCS-SPFE-R06"
+        ],
+        "acceptance_refs": [
+          "LCS-SPFE-A06",
+          "LCS-SPFE-A07",
+          "LIF-API-A09"
+        ],
+        "execution_status": "not_executed",
+        "wire_error_code": null
+      }
+    ]
+  }
 }

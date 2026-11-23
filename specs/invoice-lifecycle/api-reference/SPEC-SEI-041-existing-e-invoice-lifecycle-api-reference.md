@@ -248,6 +248,19 @@ For Spain, validate the selected `spfe` shape and reject mismatched or unsupport
 
 <a id="spfe-payload-examples"></a>
 
+#### Annex II rule qualification
+
+The [mapping's business_rule_review](../../../assets/mappings/spfe-lifecycle-api-mapping.json) links all 28 rules in SPFE-S27 to the existing actions and field rows. [SPEC029 LCS-SPFE-R05–07](../SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#521-annex-ii-business-rules) owns the required behaviour; [SPEC030 LIF-API-A09–A11](../SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md#5-api-qualification-acceptance) owns API/build qualification. This adds validation detail, not another command or a deployed schema.
+
+| Required validation context | Binding consequence |
+|---|---|
+| Exact saved invoice identity, seller and buyer | The four invoice-reference wire fields stay unchanged. Recipient reports additionally require the correct buyer/represented-party authority. Seller NIF in the reference is not the reporting buyer or authenticated caller. Confirm actual saved/read fields under LIF-G04/07. |
+| SPFE presence, invoice-cancellation evidence and earlier report results | A source invoice record alone cannot prove current external eligibility. Qualify the evidence and duplicate/compatibility lookup; no new endpoint is inferred. originalReportId is internal correlation, not a replacement for invoice references. R05/R07; LIF-G02/04/06. |
+| Invoice type, indicator meaning and original amount facts | Keep 384/471 type checks and corrected versus corrective/negative indicators separate. Resolve BT-113/115 and presence/value semantics before enabling affected rules. Do not add a report amount or a guessed correctiveInvoice field. R06; SPFE-Q16/Q21. |
+| Actual SPFE dispatch business date | Compare each event's own date using the qualified calendar/timezone and dispatch context. Keep original issue/event/due/receipt values unchanged during recovery. Do not use POST acceptance or notification time as the event date. R06; LIF-G04/06. |
+
+These context facts are not new caller inputs. Missing evidence returns an owned correction/recovery action; unresolved rules hold the affected report. Existing DTO keys, boolean examples, UUIDs and XML targets remain proposed until the selected country mechanism, accepted ApplicationResponse schema and implementation are qualified. Cancellation does not inherit the original report's event-date fields simply because its code starts with CANCEL.
+
 ### 2.3 Proposed payload examples
 
 Use the existing POST path, content type, authentication and idempotency header from §1.1. The blue object is new proposed input. These bodies illustrate a country binding; the supplied OpenAPI does not establish that a deployed build processes them.
@@ -328,6 +341,8 @@ Public operations stay under [SPEC011](../../SPEC-SEI-011-public-platform-connec
 
 ## 3 Errors and safe follow-up
 
+SPFE report eligibility and result handling use [SPEC029 Annex II rules](../SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md#521-annex-ii-business-rules) and [SPEC011 business/technical error mapping](../../SPEC-SEI-011-public-platform-connector-solution-specification.md#business-and-technical-error-mapping). A rejected report does not create a buyer rejection, erase a payment fact or prove non-execution. Keep rule IDs, resource keys, wire codes and HTTP results separate.
+
 FR-LIF01 lists HTTP errors below. Error bodies use `application/vnd.api+json` and `errors[]`; `400` uses the detailed schema, `413`/`415` include `source.header`, and the other listed errors use the simple schema. HTTP intake errors differ from later `history[].errorCode` and external reporting results.
 
 | Response / condition | Product action / qualification needed |
@@ -339,7 +354,7 @@ FR-LIF01 lists HTTP errors below. Error bodies use `application/vnd.api+json` an
 | `500`, `502`, `503`, `504`, timeout | Preserve original request/key/context; reconcile possible effects before an unsafe resend. |
 | Same key / changed content / concurrency | Key scope, retention, conflict response and concurrent-transition rules are unspecified. Do not infer them from the header name or invent a documented `409`. LIF-G06. |
 
-<span style="color:#B42318;">Source-quality gaps: the response schema does not require top-level `data`; its attribute fields are not required either. The `400` example uses `links: []` while its schema defines an object. API owners must confirm the intended schema and fixtures under LIF-G03.</span> Qualification checks remain [LIF-API-A01–08](../SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md#5-api-qualification-acceptance).
+<span style="color:#B42318;">Source-quality gaps: the response schema does not require top-level `data`; its attribute fields are not required either. The `400` example uses `links: []` while its schema defines an object. API owners must confirm the intended schema and fixtures under LIF-G03.</span> Qualification checks remain [LIF-API-A01–11](../SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md#5-api-qualification-acceptance).
 
 ## REF Source references
 
@@ -356,3 +371,5 @@ FR-LIF01 lists HTTP errors below. Error bodies use `application/vnd.api+json` an
 | REF-MAP | [Proposed API/XML row mapping](../../../assets/mappings/spfe-lifecycle-api-mapping.json), 28 October 2026; `actions`, `additional_proposed_inputs`, all 52 `rows`; based on [canonical source ledger](../../../assets/regulatory/spain/spfe/field-traceability.json), AXII rows. | Source-to-input-to-logical-XML proposal, preserved cardinalities/conditions/paths and existing acceptance IDs. New API keys and XML interpretations require engineering qualification; no executed mapper or fixtures. |
 | REF-PACK | [SPEC030 country-pack assessment](../SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md#country-pack-assessment), draft, 28 October 2026, §3.5 and ARCH-LCS01/02 source rows. | Preferred Spain pack/connector direction based on supplied architecture; exact native pack interfaces and deployed coverage remain unqualified. Does not approve the illustrative `spfe` format. |
 | REF-DESIGN | [SPEC030](../SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md), draft, 28 October 2026, §§1–5/LIF-G01–08; [SPEC029](../SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md), draft, §§4–6. | Canonical proposed requirements, reuse gates and acceptance; not approved implementation or a new external contract. |
+| SPFE-S27 | [ReglasNegocio_AnexoDos.pdf](<../../../context/Reglas de negocio ES/ReglasNegocio_AnexoDos.pdf>); version 0.1, 19 November 2026, `Borrador`; supplied 23 November; 6 pages. §1/§2.1 p. 3: invoice presence, cancellation, duplicates, compatibility and party/service; §2.2 p. 4: BR-PAGO-1–8; §2.3 p. 5: BR-RECHAZO-1–5; §2.4 p. 5: BR-COBRO-1–5; §2.5 p. 6: BR-IMPAGO-1–5. | Draft technical rule evidence, not a complete transition/replay contract or new API schema. BT-113/115, same-day rejection and indicator interactions remain SPFE-Q16/Q21. |
+| SPFE-S28 | [Business error properties](<../../../context/Listados códigos de error/errores_negocio.properties>); supplied 23 November 2026, embedded version unknown. RULE_SPFE-ACTION-01–09 variants, lines 298–313; ACTION-09 at lines 310/312 permits same-day wording. | Related message evidence only. Rule/resource numbering does not establish wire codes, operation support or retry safety; SPEC011 owns error interpretation. |

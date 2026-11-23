@@ -1,5 +1,7 @@
 # Invoice sending
 
+[Sending error handling — SPEC050](../error-handling/SPEC-SEI-050-invoice-sending-error-handling.md) covers stage-specific investigation and recovery. [All stage error-handling documents](../error-handling/README.md).
+
 Review sending through three specification views and a separate API reference, following [customer onboarding and connectivity](../onboarding-and-connectivity/README.md). All four draft views are authorised for Confluence publication and are based on SPEC-SEI-007 and the supplied FR sending evidence.
 
 | Read | Purpose | Confluence |
