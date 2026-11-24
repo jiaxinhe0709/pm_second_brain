@@ -79,6 +79,42 @@ These gates refine existing SPEC013 GPA-Q01–12 and SPEC014 decisions; they do 
 | Runtime and operations / Engineering + Operations | Select shared versus isolated deployment from trust and load needs. Set measured timeouts, quotas, payload limits, evidence retention and support ownership; no numeric targets are established here. |
 | Conformance / Integration + domain owners | Execute applicable CS01–16 under CA-01–05, selected external-contract checks and existing-consumer compatibility. Record build/version and results. |
 
+<a id="private-platforms-integrating-as-connectors"></a>
+
+### 3.1 Private platforms integrating as connectors (B2B Router, SERES, Banqup, ZeroComa) — PROPOSAL
+
+**PROPOSAL — Working assumption:** the four platforms build their own connector against the Sage API using the existing connector role. This is an alternative to the Sage-built B2B Router binding proposed in [SPEC-SEI-017](../SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md); it does not replace it. The research covers four of the six providers in the [PRD214 portfolio](../../prds/PRD-SEI-214-connections-registration-routing-structured-review.md#problem-and-business-objective); Sovos and the remaining provider are out of this analysis. **OPEN:** whether Sage or each platform builds the connector remains for Jiaxin / Architecture; effort depends on that choice.
+
+**PROPOSAL — Reuse baseline:** the research records code evidence for connector invoice submission/upload, retrieval, status posting and notifications. External admission and production readiness remain **OPEN**. Supporting detail: [RES-SEI-013 — Gap matrix, proposed changes P01–P09](../../research/private-platform-integration/03-gap-matrix.md#2-proposed-changes--proposal) and [RES-SEI-014 — Summary for Jiaxin](../../research/private-platform-integration/04-summary.md). High confidence means DOCUMENTED platform patterns; Medium means INFERRED patterns. Missing details remain questions.
+
+| Gap / affected platforms | PROPOSAL / evidence needed |
+|---|---|
+| P01 Credentials and dataset permissions / all four | **PROPOSAL:** define connector admission, credentials and dataset grants. API-key compatibility for B2B Router is an optional costly alternative to using existing Sage auth; credential setup remains **OPEN**. |
+| P02 Business identifiers and references / all four | **PROPOSAL:** map platform accounts/NIFs to Sage datasets/connections and retain stable external references; SERES NIF and ZeroComa CIF refinements are provisional. |
+| P03 Asynchronous exchange / all four | **PROPOSAL:** correlate submission/upload receipts, processing, results and safe replay; SERES/ZeroComa completion models remain **OPEN**. |
+| P04 External notifications / all four | **PROPOSAL:** define connector subscriptions, signed HTTPS events, acknowledgements, retries/replay and polling recovery; external access and guarantees remain **OPEN**. |
+| P05 Status mapping / all four | **PROPOSAL:** map source statuses/reasons to Sage results while separating processing, delivery, business and tax outcomes; inferred enums remain provisional and missing enums **OPEN**. |
+| P06 Errors and recovery / all four; source mappings for B2B Router/Banqup | **PROPOSAL:** expose structured errors, correlation and safe next actions; SERES/ZeroComa error catalogues remain **OPEN**. |
+| P07 Spain profiles and formats / B2B Router/ZeroComa conversions; Banqup UBL/PDF; SERES provisional | **PROPOSAL:** qualify document profiles and original/derived file roles. Facturae/standalone-CII conversion is an optional costly alternative to platforms sending qualified UBL; Spain coverage remains **OPEN**. |
+| P08 Connector contract and test pack / all four | **PROPOSAL:** provide a versioned contract, sandbox examples and conformance checks per country/environment; SERES integration-role detail remains provisional. |
+| P09 Cancellation/correction / B2B Router/Banqup; SERES/ZeroComa operations OPEN | **PROPOSAL:** define distinct actions, eligibility, original references and results; generic Cancelled, invoice rectification and tax-report changes are not established as equivalent. |
+
+**OPEN — Risks**
+
+- **API evidence:** B2B Router has the fully public API in the research; Banqup has partial public documentation with its full specification behind login. SERES/ZeroComa detailed API contracts are not public. Many operation details remain unconfirmed.
+- **Connector setup:** a complete external setup/credential process was not established in the reviewed repository evidence; it may live elsewhere.
+- **Ownership and effort:** platform-built versus Sage-built connectors remains open. Effort and implementation scope depend on that choice.
+- **SPFE:** the research reports platform support as PLANNED, not evidenced live. Related dates, regulations and reporting periods remain unverified.
+
+**OPEN — Questions for Jiaxin / Architecture**
+
+| Question / suggested owner | Evidence needed |
+|---|---|
+| J01 Action ownership / Jiaxin + Architecture | Which invoice, work-retrieval and result actions will each connector own, and for which businesses? |
+| J02 Admission and identity / Jiaxin + Architecture | Who grants credentials and business authority, and how do platform accounts/NIFs map to Sage datasets/connections? |
+| J03 Notifications / Jiaxin + Architecture | Which subscriptions, acknowledgements, retry/replay and recovery guarantees can Sage expose externally? |
+| Partner API access / Jiaxin + Provider Integration | Can the partners supply the gated API contracts, sample payloads and sandbox access needed to confirm mappings and missing details? |
+
 ## 4 REF Source references
 
 Historical CA-H01, canonical CA-BASE and original public CA-SPFE sources, versions and limits are recorded in [044 REF](SPEC-SEI-044-provider-connector-architecture-summary.md#4-ref-source-references). Public operation sources SPFE-S10–S17/S23 are mapped in [045 REF](SPEC-SEI-045-provider-connector-api-logical-contract.md#5-ref-source-references). These sequences and gates are proposed design controls, not AEAT-prescribed components.
