@@ -10,7 +10,7 @@ Compact technical review set for architects. Products, authorised providers and 
 | [SPEC-SEI-045 — Logical contract](SPEC-SEI-045-provider-connector-api-logical-contract.md) | Required operation safety, proposed request/result information and platform capabilities. |
 | [SPEC-SEI-046 — Sequences and reuse](SPEC-SEI-046-provider-connector-api-sequences-and-reuse-assessment.md) | Execution paths, reuse qualification and architecture gates. |
 
-These are unpublished draft companions to SPEC-SEI-013. That file remains unchanged and remains the configured source for stable Global API page `923861402`. SPEC011, SPEC014 and SPEC017 retain public transport, shared routing and B2B Router binding ownership. Customer journeys remain in [onboarding and connectivity](../onboarding-and-connectivity/README.md). No publication configuration or existing lifecycle status changes.
+These are draft companions to SPEC-SEI-013, authorised for Confluence publication under Provider API for e-Invoicing service. That file remains unchanged and remains the configured source for stable Global API page `923861402`. SPEC011, SPEC014 and SPEC017 retain public transport, shared routing and B2B Router binding ownership. Customer journeys remain in [onboarding and connectivity](../onboarding-and-connectivity/README.md). Publication is authorised for these companions; existing lifecycle statuses stay unchanged.
 
 ## Diagrams and scenario coverage
 

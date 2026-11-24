@@ -20,7 +20,7 @@ For stage-specific investigation and recovery, use the [error handling and opera
 
 The [publication configuration](../config/confluence.yml) selects SPEC-SEI-037 for
 the stable onboarding summary page, with SPEC-SEI-038 and 039 as companions. It
-selects SPEC-SEI-022 for the stable sending summary page, with SPEC-SEI-023, 024 and API reference 043 as companions. It selects SPEC-SEI-025 for receiving, with SPEC-SEI-026, 027 and 042 as companions, and SPEC-SEI-028 for lifecycle, with SPEC-SEI-029, 030 and 041 as companions. These sets remain drafts with publication authorised. Offboarding still selects SPEC-SEI-003; its folder set remains unpublished. File location does not change lifecycle or publication state.
+selects SPEC-SEI-022 for the stable sending summary page, with SPEC-SEI-023, 024 and API reference 043 as companions. It selects SPEC-SEI-025 for receiving, with SPEC-SEI-026, 027 and 042 as companions, and SPEC-SEI-028 for lifecycle, with SPEC-SEI-029, 030 and 041 as companions. These sets remain drafts with publication authorised. Offboarding selects SPEC-SEI-031 for the stable summary page, with SPEC-SEI-032 and 033 authorised as companions. The retained SPEC-SEI-003 source is unchanged. File location does not change lifecycle or publication state.
 
 ## Specifications without a replacement folder
 
@@ -29,7 +29,7 @@ their separate capability or contract scope.
 
 | Scope | Specification |
 |---|---|
-| SPFE SOAP to Sage E-Invoice API mapping | [SPEC-SEI-047](SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md) — nine-service overview; links to the owning API references; unpublished draft |
+| SPFE SOAP to Sage E-Invoice API mapping | [SPEC-SEI-047](SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md) — nine-service overview; links to the owning API references; draft authorised for Confluence publication |
 | Certificate management | [SPEC-SEI-001](SPEC-SEI-001-certificate-management-solution-specification.md) |
 | UBL validation and correction | [SPEC-SEI-005](SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md) |
 | Spain UBL mapper migration to DTS | [SPEC-SEI-008](SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md) |

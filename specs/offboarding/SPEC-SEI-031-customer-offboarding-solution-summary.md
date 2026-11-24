@@ -6,7 +6,7 @@ status: draft
 owner: Jiaxin He
 product: spain-e-invoicing
 created: 2026-10-22
-updated: 2026-11-10
+updated: 2026-11-24
 reviewers: []
 related:
   - SPEC-SEI-003
@@ -18,10 +18,10 @@ related:
   - GLO-SEI-001
   - RES-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
-  page_id: ""
+  parent_page_id: "918651071"
+  page_id: "923861391"
   layout: two_left_sidebar
   toc: true
 ---
@@ -32,9 +32,9 @@ confluence:
 
 ## Revision overview
 
-This separate draft develops [SPEC-SEI-003](../archive/SPEC-SEI-003-offboarding-solution-specification.md) into three review views. It adds platform responsibility scenarios, separate support and access periods, explicit cutoff handling and a fuller export assessment. The predecessor remains unchanged and selected for stable Confluence page `923861391`.
+This separate draft develops [SPEC-SEI-003](../archive/SPEC-SEI-003-offboarding-solution-specification.md) into three review views. It adds platform responsibility scenarios, separate support and access periods, explicit cutoff handling and a fuller export assessment. The predecessor remains unchanged. This summary is selected for stable Confluence page `923861391`.
 
-OFF-01–08, OFF-I01–08, OFF-R01–10 and OFF-A01–11 retain their meanings. Existing detailed interaction and data inventories remain in SPEC-SEI-003. No provider contract, retention schedule, lifecycle status or publication approval changes. Support durations, commercial terms and the practical delivery of invoice-copy rights remain open product and legal decisions.
+OFF-01–08, OFF-I01–08, OFF-R01–10 and OFF-A01–11 retain their meanings. Existing detailed interaction and data inventories remain in SPEC-SEI-003. No provider contract, retention schedule or lifecycle status changes. Support durations, commercial terms and the practical delivery of invoice-copy rights remain open product and legal decisions.
 
 ## 1 Problem and intended outcomes
 
