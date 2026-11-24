@@ -21,7 +21,7 @@ confluence:
   publish: true
   space_key: DNBU
   parent_page_id: "899154047"
-  page_id: ""
+  page_id: "958536729"
 ---
 
 # Provider Connector Shared API Interaction Contract
