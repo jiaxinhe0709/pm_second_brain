@@ -22,9 +22,9 @@ related:
   - GLO-SEI-001
   - RES-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
-  parent_page_id: ""
+  parent_page_id: "918651071"
   page_id: ""
   layout: two_left_sidebar
   toc: true

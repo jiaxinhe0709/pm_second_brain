@@ -24,8 +24,9 @@ related:
   - SPEC-SEI-024
   - FP-SEI-002
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
+  parent_page_id: "902988120"
   page_id: ""
 ---
 

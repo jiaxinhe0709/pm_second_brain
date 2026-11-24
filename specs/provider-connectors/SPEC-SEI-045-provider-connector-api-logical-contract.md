@@ -18,8 +18,9 @@ related:
   - SPEC-SEI-044
   - SPEC-SEI-046
 confluence:
-  publish: false
+  publish: true
   space_key: DNBU
+  parent_page_id: "899154047"
   page_id: ""
 ---
 

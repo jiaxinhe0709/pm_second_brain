@@ -2,7 +2,7 @@
 
 [Offboarding error handling — SPEC053](../error-handling/SPEC-SEI-053-customer-offboarding-error-handling.md) covers stage-specific investigation and recovery. [All stage error-handling documents](../error-handling/README.md).
 
-Review offboarding through three complementary views. All three are unpublished drafts. The analysis distinguishes platform switching from ending access or services, including Sage access to SPFE. SPEC-SEI-032 owns OFF-S01–10, partial/full scope, business closure and incident entry. The summary diagram provides the reading route; analysis coverage does not enable a switch or prove an external deregistration operation.
+Review offboarding through three complementary views. All three remain drafts with Confluence publication authorised. The analysis distinguishes platform switching from ending access or services, including Sage access to SPFE. SPEC-SEI-032 owns OFF-S01–10, partial/full scope, business closure and incident entry. The summary diagram provides the reading route; analysis coverage does not enable a switch or prove an external deregistration operation.
 
 | Read | Purpose |
 |---|---|
@@ -22,6 +22,6 @@ settings are unchanged.
 
 [SPEC-SEI-003](../archive/SPEC-SEI-003-offboarding-solution-specification.md) remains unchanged. Its OFF activity, invariant, requirement, interaction, data and acceptance IDs retain their meanings. [PRD-SEI-243](../../prds/PRD-SEI-243-customer-offboarding-and-provider-exit.md) remains the product source. New support periods and commercial choices are proposals for the PRD owner, not approved policy.
 
-SPEC-SEI-003 remains the selected Git source for stable Confluence page `923861391` in [config/confluence.yml](../../config/confluence.yml). These drafts have no Confluence page IDs. This README adds local navigation. Publication requires explicit approval.
+SPEC-SEI-031 is selected for stable Confluence page `923861391` in [config/confluence.yml](../../config/confluence.yml). SPEC-SEI-032 and 033 are authorised companion pages under Customer Offboarding and Provider Exit. SPEC-SEI-003 remains unchanged as the retained predecessor. SPEC053 error handling is excluded from this publication.
 
 Shared diagrams stay in [assets/diagrams](../../assets/diagrams/). The [glossary](../../context/GLO-SEI-001-e-invoicing-terminology.md) defines shared terms. The [Spain evidence guide](../../context/RES-SEI-002-spain-public-platform-technical-evidence.md) supplies the original public-platform baseline; its earlier public-only review deferred offboarding. This set is a separate analysis and does not change that phase boundary.
