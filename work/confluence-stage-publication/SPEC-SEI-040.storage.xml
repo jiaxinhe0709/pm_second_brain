@@ -1,0 +1,571 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-040<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">e-invoice-onboarding-api-reuse-and-spain-changes</ac:parameter></ac:structured-macro><h1>E-Invoice Onboarding API Reuse and Spain Changes</h1>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">summary</ac:parameter></ac:structured-macro><h2>Summary</h2>
+<p>Products: <strong>Sage 50, Sage 200, Sage Active and Sage X3</strong> are the ERPs; <strong>Despachos</strong> serves accountants. Each product needs the <ac:link ac:anchor="4-feature-wide-functional-requirements-and-rules"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SXS and Tax/Connections integrations in 038</ac:link-body></ac:link>. Resolve the client's dataset and reuse required credentials before onboarding; an unavailable lookup stays pending.</p>
+<p><ac:link><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039</ac:link-body></ac:link> owns the sequences, product impact and GAP decisions. This page shows request/response examples and Spain changes.</p>
+<p><strong>Phase coverage:</strong> <strong>1 — SPFE public solution; 2 — external private providers; 3 — Sage private-platform offering.</strong> Labels show analysis coverage, not delivery approval or confirmed API availability. REF-PHASE.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">open-questions-and-evidence-gaps</ac:parameter></ac:structured-macro><h2>Open questions and evidence gaps</h2>
+<p><ac:link ac:anchor="2-open-engineering-decisions"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039 §2 — Open engineering decisions</ac:link-body></ac:link> is the authoritative GAP-01–08 register. See <ac:link ac:anchor="gap-02"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>GAP-02 — Spain connection model</ac:link-body></ac:link> and <ac:link ac:anchor="gap-06"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>GAP-06 — Certificate reuse and ID relationships</ac:link-body></ac:link> before applying the examples.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">how-to-read-the-examples</ac:parameter></ac:structured-macro><h2>How to read the examples</h2>
+<p><span style="color:#666666;"><strong>Grey:</strong> existing calls/fields.</span> · <span style="color:#1565C0;"><strong>Blue:</strong> proposed Spain values or additional work.</span> · <span style="color:#B42318;"><strong>Red:</strong> open questions, uncertainty or assumptions requiring validation.</span> Examples use synthetic data and documented sandbox URLs. Replace IDs with service-returned values. Responses are extracts. Blue values, including <code>es.nif</code>, require API-owner confirmation; they do not prove provider availability or introduce new keys.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-existing-calls-to-reuse</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-existing-calls-to-reuse-phases-13</ac:parameter></ac:structured-macro><h2>1 Existing calls to reuse — Phases 1–3</h2>
+<p><strong>Existing contract:</strong> calls use dataset, access-point and connection IDs; addresses belong to a connection. The supplied guide describes one connection per dataset/access-point pair. This does not select how Spain maps platforms to those resources. FR-02/03/05; INT-AP01/06.</p>
+<table>
+<thead>
+<tr>
+<th>Customer needs</th>
+<th>Existing call</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Another supported platform, with no saved setup</td>
+<td>If it maps to a separate access point, API-01/02 find the service and <strong>API-03 POST</strong> creates its dataset connection. Other mappings need GAP-02 assessment.</td>
+<td>2–3; <span style="color:#B42318;">SPFE use TBD</span></td>
+</tr>
+<tr>
+<td>Another address within an existing platform connection</td>
+<td><strong>API-05 PUT</strong>, <code>action: "add"</code>, using that connection's existing IDs.</td>
+<td>2–3; <span style="color:#B42318;">SPFE use TBD</span></td>
+</tr>
+</tbody>
+</table>
+<p><span style="color:#B42318;">Spain resource mapping and Phase 1 applicability remain open under <ac:link ac:anchor="gap-02"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>GAP-02</ac:link-body></ac:link>. No public enrolment API is established.</span></p>
+<table>
+<thead>
+<tr>
+<th>Path ID — required UUID wherever present</th>
+<th>Where it comes from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>datasetId</code></td>
+<td>Company's SXS mapping; confirm the E-Invoice binding and accountant/client scope.</td>
+</tr>
+<tr>
+<td><code>accessPointId</code></td>
+<td>Service ID from API-01.</td>
+</tr>
+<tr>
+<td><code>connectionId</code></td>
+<td>API-02 or API-03; retain the returned resource associations. Spain relationships remain GAP-02.</td>
+</tr>
+</tbody>
+</table>
+<p>All five E-Invoice templates use required Bearer M2M authentication and optional <code>traceparent</code>/<code>tracestate</code>. POST/PUT bodies use <code>application/vnd.api+json</code>; API-03 also requires <code>Idempotency-Key</code>. FR-01–05.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">api-01</ac:parameter></ac:structured-macro></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">11-api-01-discover-services</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">11-api-01-discover-services-phases-23-spfe-use-tbd</ac:parameter></ac:structured-macro><h3>1.1 API-01 — Discover services — Phases 2–3; <span style="color:#B42318;">SPFE use TBD</span></h3>
+<p>FR-01 · <ac:link ac:anchor="33-private-setup"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039 private setup</ac:link-body></ac:link>.</p>
+<p><strong>Request — no body or path parameters:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>GET https://api-sbx.e-invoicing.sage.com/accesspoints
+Authorization: Bearer {sageIdM2MToken}
+traceparent: {traceparent}
+tracestate: {tracestate}</code></pre>]]></ac:plain-text-body></ac:structured-macro>
+<p><strong>Response — <code>200 OK</code>, one proposed entry:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>{
+  "data": [
+    {
+      "type": "AccessPoint",
+      "id": <span style="color:#1565C0;">"00000000-0000-4000-8000-000000000002"</span>,
+      "attributes": {
+        "name": <span style="color:#1565C0;">"B2B Router"</span>
+      }
+    }
+  ]
+}</code></pre>]]></ac:plain-text-body></ac:structured-macro>
+<p>Portfolio candidates: B2B Router, Banqup (Unifiedpost), EDICOM, SERES (Docaposte) and ZeroComa. <strong>New candidate: Sovos.</strong> REF-PROVIDERS. <span style="color:#B42318;">Confirm target Spain services, contracts and IDs/environments before offering them; this catalogue entry is illustrative. GAP-02/06/08.</span></p>
+<p><span style="color:#B42318;">Source conflict: FR-01 declares a path <code>datasetId</code> absent from its URL.</span></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">api-02</ac:parameter></ac:structured-macro></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">12-api-02-find-existing-connections</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">12-api-02-find-existing-connections-phases-23-spfe-use-tbd</ac:parameter></ac:structured-macro><h3>1.2 API-02 — Find existing connections — Phases 2–3; <span style="color:#B42318;">SPFE use TBD</span></h3>
+<p>FR-02 · <ac:link ac:anchor="33-private-setup"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039 private setup</ac:link-body></ac:link>.</p>
+<p><strong>Request — no body:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>GET https://api-sbx.e-invoicing.sage.com/datasets/{datasetId}/accesspoints
+Authorization: Bearer {sageIdM2MToken}
+traceparent: {traceparent}
+tracestate: {tracestate}</code></pre>]]></ac:plain-text-body></ac:structured-macro>
+<p><span style="color:#B42318;">BA working hypothesis: one company dataset can connect to B2B Router and Banqup, with a separate access point and E-Invoice connection ID for each platform. This is an unvalidated BA proposal, not an observed Spain API result or an agreed design. Architecture and Engineering must validate or replace it under <ac:link ac:anchor="gap-02"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>GAP-02</ac:link-body></ac:link>.</span></p>
+<p><strong>Illustrative response using the existing <code>200 OK</code> structure — BA hypothesis, not a validated Spain response:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>{
+  "data": [
+    {
+      "type": "AccessPoint",
+      "id": <span style="color:#1565C0;">"00000000-0000-4000-8000-000000000002"</span>,
+      "attributes": {
+        "name": <span style="color:#1565C0;">"B2B Router"</span>,
+        "status": "CONNECTED",
+        "connectionId": "00000000-0000-4000-8000-000000000003"
+      }
+    },
+    {
+      "type": "AccessPoint",
+      "id": <span style="color:#1565C0;">"00000000-0000-4000-8000-000000000101"</span>,
+      "attributes": {
+        "name": <span style="color:#1565C0;">"Banqup (Unifiedpost)"</span>,
+        "status": "CONNECTED",
+        "connectionId": "00000000-0000-4000-8000-000000000005"
+      }
+    }
+  ]
+}</code></pre>]]></ac:plain-text-body></ac:structured-macro>
+<p>Keep each returned <code>connectionId</code>. A disconnected entry has <code>DISCONNECTED</code> and <code>connectionId: null</code>. Under this hypothesis, API-03 creates a missing dataset/access-point connection; the actual Spain call depends on GAP-02. More saved connections do not activate routing or enable Private A to Private B switching. REF-CONNECTIONS.</p>
+<p><span style="color:#B42318;">Confirm Spain dataset mapping and concurrent provider support. Public entries depend on the GAP-02 decision. The existing array is a reuse candidate, not proof that the selected Spain model needs no contract change. GAP-01/02/06.</span></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">api-03</ac:parameter></ac:structured-macro></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">13-api-03-connect</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">13-api-03-connect-phases-23-spfe-use-tbd</ac:parameter></ac:structured-macro><h3>1.3 API-03 — Connect — Phases 2–3; <span style="color:#B42318;">SPFE use TBD</span></h3>
+<p>FR-03 · <ac:link ac:anchor="33-private-setup"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039 private setup</ac:link-body></ac:link>.</p>
+<table>
+<thead>
+<tr>
+<th>Existing POST capability</th>
+<th>Supported input / limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Register initial addresses</td>
+<td>One or more entries in <code>accessPointAddresses[]</code> for the selected connection.</td>
+</tr>
+<tr>
+<td>Use supported address formats</td>
+<td>Current, legal, or both formats in one request, as shown in the supplied France examples.</td>
+</tr>
+<tr>
+<td>Set address dates</td>
+<td>Optional <code>effectiveDate</code> and <code>endDate</code> per address.</td>
+</tr>
+<tr>
+<td>Set address usage</td>
+<td>Optional <code>usage</code>, at most one explicit value; omitted/null permits all supported operations.</td>
+</tr>
+<tr>
+<td>Supply company/requester details</td>
+<td>Existing company fields and <code>user</code> audit context.</td>
+</tr>
+</tbody>
+</table>
+<p>POST creates one dataset/access-point connection with these initial addresses. Add addresses later through <ac:link ac:anchor="api-05"><ac:link-body>API-05 PUT</ac:link-body></ac:link>. Under <ac:link ac:anchor="67-onb-05-configure-private-choice"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>038 ONB-05</ac:link-body></ac:link>, confirm the chosen provider account first; API-03 does not prove provider account onboarding. Reuse a valid Sage connection without another POST.</p>
+<p><strong>Request — Sage 200 creates missing Sage setup for its customer's existing B2B Router account:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>POST https://api-sbx.e-invoicing.sage.com/connectors/{accessPointId}/datasets/{datasetId}/connect
+Authorization: Bearer {sageIdM2MToken}
+Idempotency-Key: {idempotencyKey}
+traceparent: {traceparent}
+tracestate: {tracestate}
+Content-Type: application/vnd.api+json
+
+{
+  "data": {
+    "type": "AccessPointConnection",
+    "attributes": {
+      "companyName": "Example Spain SL",
+      "companyAddress": "Calle de Ejemplo 1",
+      "companyPostalCode": "28000",
+      "companyCountryCode": <span style="color:#1565C0;">"ES"</span>,
+      "user": {
+        "firstName": "Casey",
+        "lastName": "Example",
+        "jobTitle": null,
+        "emailAddress": "user@example.invalid",
+        "clientIPAddress": "192.0.2.10"
+      },
+      "accessPointAddresses": [
+        {
+          "accessPointAddressType": <span style="color:#1565C0;">"es.nif"</span>,
+          "accessPointAddress": <span style="color:#1565C0;">"NIF_TBD"</span>,
+          "usage": null
+        }
+      ]
+    }
+  }
+}</code></pre>]]></ac:plain-text-body></ac:structured-macro>
+<p><strong>Response — <code>201 Created</code>:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>{
+  "data": {
+    "type": "AccessPointConnection",
+    "id": "00000000-0000-4000-8000-000000000003",
+    "attributes": {
+      "accessPointAddresses": [
+        {
+          "accessPointAddressType": <span style="color:#1565C0;">"es.nif"</span>,
+          "accessPointAddress": <span style="color:#1565C0;">"NIF_TBD"</span>,
+          "status": "IN_PROGRESS",
+          "errorCode": null
+        }
+      ]
+    }
+  }
+}</code></pre>]]></ac:plain-text-body></ac:structured-macro>
+<p>Save <code>data.id</code> as <code>connectionId</code>; setup is still in progress. Certificates use the separate calls in §2.</p>
+<p><span style="color:#B42318;">Confirm ES/es.nif values, NIF/NIE formats, multi-address grouping, date/usage rules, provider binding and safe replay. France current/legal formats do not define Spain address formats. GAP-02/04/06.</span></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">api-04</ac:parameter></ac:structured-macro></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">14-api-04-read-connection-progress</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">14-api-04-read-connection-progress-phases-23-spfe-use-tbd</ac:parameter></ac:structured-macro><h3>1.4 API-04 — Read connection progress — Phases 2–3; <span style="color:#B42318;">SPFE use TBD</span></h3>
+<p>FR-04 · <ac:link ac:anchor="35-uncertainty-and-recovery"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039 recovery</ac:link-body></ac:link>.</p>
+<p><strong>Request — no body:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>GET https://api-sbx.e-invoicing.sage.com/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/
+Authorization: Bearer {sageIdM2MToken}
+traceparent: {traceparent}
+tracestate: {tracestate}</code></pre>]]></ac:plain-text-body></ac:structured-macro>
+<p><strong>Response — <code>200 OK</code>:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>{
+  "data": {
+    "type": "AccessPointConnection",
+    "id": "00000000-0000-4000-8000-000000000003",
+    "attributes": {
+      "accessPointAddresses": [
+        {
+          "accessPointAddressType": <span style="color:#1565C0;">"es.nif"</span>,
+          "accessPointAddress": <span style="color:#1565C0;">"NIF_TBD"</span>,
+          "status": "CONNECTED",
+          "errorCode": null
+        }
+      ]
+    }
+  }
+}</code></pre>]]></ac:plain-text-body></ac:structured-macro>
+<p>Read the original connection after uncertainty. An address in <code>RETRYING</code> stays under observation; do not reconnect it. An empty/failed read does not prove no earlier effect. INT-AP05/06; GAP-04.</p>
+<p><span style="color:#B42318;">Confirm status/error mappings. CONNECTED alone does not prove certificate suitability, public access or route activation. GAP-05/06.</span></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">api-05</ac:parameter></ac:structured-macro></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">15-api-05-update-supported-setup</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">15-api-05-update-supported-setup-phases-23-spfe-use-tbd</ac:parameter></ac:structured-macro><h3>1.5 API-05 — Update supported setup — Phases 2–3; <span style="color:#B42318;">SPFE use TBD</span></h3>
+<p>FR-05 · <ac:link ac:anchor="34-supported-change"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039 supported change</ac:link-body></ac:link>.</p>
+<table>
+<thead>
+<tr>
+<th>Existing PUT capability</th>
+<th>Supported input / limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add an address</td>
+<td><code>accessPointAddresses[].action: "add"</code> under the existing connection.</td>
+</tr>
+<tr>
+<td>Change an existing address's dates</td>
+<td><code>action: "update"</code>; only <code>effectiveDate</code> and/or <code>endDate</code>.</td>
+</tr>
+<tr>
+<td>Add and update together</td>
+<td>Both actions in one array; see source example <code>mixed-actions-success</code>.</td>
+</tr>
+<tr>
+<td>Restrict operations on a new address</td>
+<td>Optional <code>usage</code> applies only to <code>add</code>; omitted/null permits all supported operations.</td>
+</tr>
+<tr>
+<td>Edit company/requester details</td>
+<td>Existing company name/address/postcode/country and <code>user</code> fields in <code>UpdateAccessPointConnectionRequest</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The current contract groups addresses by base SIREN. <span style="color:#B42318;">Confirm Spain grouping and provider effects; no SIREN hierarchy is assumed for NIF. GAP-02/06/07/08.</span></p>
+<p><strong>Request — add an address to this connection:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>PUT https://api-sbx.e-invoicing.sage.com/connectors/{accessPointId}/datasets/{datasetId}/connections/{connectionId}/
+Authorization: Bearer {sageIdM2MToken}
+traceparent: {traceparent}
+tracestate: {tracestate}
+Content-Type: application/vnd.api+json
+
+{
+  "data": {
+    "type": "AccessPointConnection",
+    "attributes": {
+      "accessPointAddresses": [
+        {
+          "action": "add",
+          "accessPointAddressType": <span style="color:#1565C0;">"es.nif"</span>,
+          "accessPointAddress": <span style="color:#1565C0;">"NIF_TBD"</span>,
+          "effectiveDate": "2026/11/01"
+        }
+      ]
+    }
+  }
+}</code></pre>]]></ac:plain-text-body></ac:structured-macro>
+<p><strong>Response — <code>200 OK</code>:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>{
+  "data": {
+    "type": "AccessPointConnection",
+    "id": "00000000-0000-4000-8000-000000000003",
+    "attributes": {
+      "accessPointAddresses": [
+        {
+          "action": "add",
+          "accessPointAddressType": <span style="color:#1565C0;">"es.nif"</span>,
+          "accessPointAddress": <span style="color:#1565C0;">"NIF_TBD"</span>,
+          "status": "IN_PROGRESS",
+          "errorCode": null
+        }
+      ]
+    }
+  }
+}</code></pre>]]></ac:plain-text-body></ac:structured-macro>
+<p>For this existing-connection example, keep <code>connectionId</code>; use API-04 for the address result. Routing changes require separate authorisation and a confirmed <ac:link ac:anchor="34-supported-change"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>Routing interface in 039</ac:link-body></ac:link>.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-certificate-management-proposed-call-to-confirm</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-certificate-management-proposed-call-to-confirm-phases-13-where-required</ac:parameter></ac:structured-macro><h2>2 Certificate management — proposed call to confirm — Phases 1–3, where required</h2>
+<p>INT-CERT01–03 document existing <strong>ES AFL</strong> credential handling. <span style="color:#B42318;">Qualify B2B reuse, dataset binding and secure provisioning before activation. GAP-03/06; SPEC001 G1/G3/G9/G10/G11.</span> No certificate field is added to API-03.</p>
+<table>
+<thead>
+<tr>
+<th>Reference</th>
+<th>Documented purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E-Invoice API-03 <code>data.id</code>; API-02 <code>connectionId</code></td>
+<td>Identifies an <code>AccessPointConnection</code>. Used by API-04/05. FR-02/03.</td>
+</tr>
+<tr>
+<td>Tax certificate upload <code>data.id</code>; ES AFL <code>Connection-Id</code></td>
+<td>Identifies a <code>Connection</code> used to select stored credentials. INT-CERT01–03.</td>
+</tr>
+</tbody>
+</table>
+<p><span style="color:#B42318;">ID relationship unconfirmed: the sources do not establish whether these IDs are shared, mapped or independent. Until the Tax/Connections and E-Invoice API owners confirm the contract, retain each reference with its source and do not substitute one for the other. See 039 GAP-06.</span> Different synthetic IDs in these examples do not prove separate ID namespaces.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">21-existing-certificate-provisioning</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">21-existing-certificate-provisioning-phases-13-where-required</ac:parameter></ac:structured-macro><h3>2.1 Existing certificate provisioning — Phases 1–3, where required</h3>
+<p>The AEAT guide supplies both calls below. Internal Sandbox uses <code>https://api-int.network-eng.sage.com</code>; production uses <code>https://api.network.sage.com</code>. Enablement supplies each product/environment's API key. Both calls require Bearer Domain Services authentication, <code>x-api-key</code>, <code>traceparent</code> and <code>Idempotency-Key</code>; <code>tracestate</code> is optional. <span style="color:#B42318;">Request media type is not specified.</span> INT-CERT03.</p>
+<p><strong>Find the provider — skip if its correct environment-specific ID is already known. No body:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>{
+  "data": [
+    {
+      "type": "AccessPoint",
+      "id": <span style="color:#1565C0;">"00000000-0000-4000-8000-000000000002"</span>,
+      "attributes": {
+        "name": <span style="color:#1565C0;">"B2B Router"</span>
+      }
+    }
+  ]
+}</code></pre>]]></ac:plain-text-body>0</ac:structured-macro>
+<p><strong>Response extract — <code>200 OK</code>:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>{
+  "data": [
+    {
+      "type": "AccessPoint",
+      "id": <span style="color:#1565C0;">"00000000-0000-4000-8000-000000000002"</span>,
+      "attributes": {
+        "name": <span style="color:#1565C0;">"B2B Router"</span>
+      }
+    }
+  ]
+}</code></pre>]]></ac:plain-text-body>1</ac:structured-macro>
+<p>Select <code>providerCode: "es-aeat"</code> and keep its <code>data[].id</code> as <code>providerId</code>. This catalogue does not list saved customer credentials. <span style="color:#B42318;">The documented category is es-aeat-afl; confirm whether B2B can use this provider. Do not invent a B2B provider ID.</span></p>
+<p><strong>Upload only a confirmed missing required credential — request:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>{
+  "data": [
+    {
+      "type": "AccessPoint",
+      "id": <span style="color:#1565C0;">"00000000-0000-4000-8000-000000000002"</span>,
+      "attributes": {
+        "name": <span style="color:#1565C0;">"B2B Router"</span>
+      }
+    }
+  ]
+}</code></pre>]]></ac:plain-text-body>2</ac:structured-macro>
+<p><strong>Response extract — <code>201 Created</code>:</strong></p>
+<ac:structured-macro ac:name="html"><ac:plain-text-body><![CDATA[<pre style="color:#666666;background-color:#f5f5f5;padding:12px;overflow-x:auto;"><code>{
+  "data": [
+    {
+      "type": "AccessPoint",
+      "id": <span style="color:#1565C0;">"00000000-0000-4000-8000-000000000002"</span>,
+      "attributes": {
+        "name": <span style="color:#1565C0;">"B2B Router"</span>
+      }
+    }
+  ]
+}</code></pre>]]></ac:plain-text-body>3</ac:structured-macro>
+<p>Keep <code>data.id</code> as the credential reference. <code>201</code> confirms provisioning, not validated certificate readiness. <code>expiresBy</code> is optional declared expiry. The response also supplies <code>data.links.credentialsPatchEndpoint.href</code>; <span style="color:#B42318;">it does not define an update method/body.</span> INT-CERT03.</p>
+<p><span style="color:#B42318;">Source conflict: the example uses <code>credentials.credentialsObject</code>; the field table uses <code>certificate.credentialsObject</code>. Tax/Connections must confirm nesting.</span> <span style="color:#B42318;">Confirm the B2B secure-provisioning path; the AFL certificate/password example does not establish that boundary.</span> SPEC001 G3/G11.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">22-existing-internal-encryption</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">22-existing-internal-encryption-phases-13-if-afl-reuse-is-qualified</ac:parameter></ac:structured-macro><h3>2.2 Existing internal encryption — Phases 1–3, if AFL reuse is qualified</h3>
+<p>Connections Service invokes AFL encryption internally. This is not an additional ERP call. The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Tax%20API/Certificates/connections-service-certificate-guide-extract.md#internal-encryption">source extract</a> owns its payload; <span style="color:#B42318;">secret serialisation remains unconfirmed.</span> INT-CERT01/02.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">23-credential-selection-and-the-additional-onboarding-result</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">23-credential-selection-and-the-additional-onboarding-result-phases-13-where-required</ac:parameter></ac:structured-macro><h3>2.3 Credential selection and the additional onboarding result — Phases 1–3, where required</h3>
+<p>ES AFL selects customer certificates or the Sage seal with <span style="color:#666666;"><code>Connection-Id: &lt;credential-connection-id&gt;</code></span>. INT-CERT02. <span style="color:#B42318;">Confirm product-supplied versus backend-resolved selection for B2B; this is not a confirmed E-Invoice API header.</span></p>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Reuse / Spain check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Suitable certificate already held</td>
+<td>Reuse its reference after confirming client/environment/action mapping. Failed lookup stays pending; it does not justify another upload.</td>
+</tr>
+<tr>
+<td>Add another platform that requires a certificate</td>
+<td>Apply the <ac:link ac:anchor="platform-onboarding-and-certificate-reuse"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>Spain-confirmed rule in 038</ac:link-body></ac:link>: reuse the same suitable certificate and complete separate platform onboarding (configuration and setup). <span style="color:#B42318;">Per-action acceptance, credential-ID relationships and implementation support for reuse remain unvalidated under <ac:link ac:anchor="gap-06"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>GAP-06</ac:link-body></ac:link>; E-Invoice resource mapping remains GAP-02.</span></td>
+</tr>
+<tr>
+<td>Missing or unsuitable certificate</td>
+<td>Provision missing material or correct expired/revoked/unsuitable material through the qualified flow.</td>
+</tr>
+<tr>
+<td>Sage seal</td>
+<td><span style="color:#B42318;">Confirm dedicated provider/type, B2B permission and stored purpose-specific agreement.</span> Customers do not upload Sage's seal.</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Tax%20API/Certificates/connections-service-retrieval-guide-extract.md">trusted-service retrieval contract</a> documents GET/<code>200</code> for <strong>HMRC access tokens</strong>. Its response exposes credentials; it is not an ERP onboarding call. <span style="color:#B42318;">AEAT certificate shape, B2B permission and safe reference/readiness lookup remain unconfirmed.</span> INT-CERT04.</p>
+<p><span style="color:#1565C0;">Readiness must identify the selected reference/material version, validated expiry, trust/revocation, action suitability and next action/owner.</span> <span style="color:#B42318;">No certificate-readiness response schema is supplied.</span> <ac:link ac:anchor="6-cert-0405-validate-trust-and-calculate-scoped-readiness"><ri:page ri:content-title="Certificate Management Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC001 CERT-04/05</ac:link-body></ac:link> proposes <code>NOT_REQUIRED</code>, <code>READY</code>, <code>EXPIRING</code>, <code>ACTION_REQUIRED</code>, <code>BLOCKED</code>, <code>UNDETERMINED</code>; <span style="color:#B42318;">these are not Tax wire values.</span> NIF validity and business permission remain separate. Public WSDLs use certificate-authenticated HTTPS, not a certificate business-field. SPFE-S03/S16.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-other-additional-calls-to-confirm</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-other-additional-calls-to-confirm-phases-13</ac:parameter></ac:structured-macro><h2>3 Other additional calls to confirm — Phases 1–3</h2>
+<p><ac:link ac:anchor="37-who-sends-what-and-what-comes-back"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039 §3.7</ac:link-body></ac:link> owns responsibilities. <span style="color:#B42318;">Methods, URLs and new fields below remain unconfirmed unless named as documented.</span></p>
+<table>
+<thead>
+<tr>
+<th>Proposed interaction</th>
+<th>Needed request → result</th>
+<th>Owner / gap</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span style="color:#1565C0;">NIF / permission</span></td>
+<td>Business, caller, action → separate identity/authority findings.</td>
+<td>Identity/Product; GAP-03/06</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td><span style="color:#1565C0;">Public access</span></td>
+<td>Function, environment, credential use → scoped finding or unconfirmed result with next action/owner. No external onboarding endpoint or response schema is supplied; <ac:link ac:anchor="spfe-wsdl-onboarding-boundary"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039's nine-WSDL assessment</ac:link-body></ac:link> owns the operation boundary and evidence limits.</td>
+<td>Public Integration / API; GAP-05/06</td>
+<td>1; reused in 2–3</td>
+</tr>
+<tr>
+<td><span style="color:#1565C0;">B2B Router account mapping</span></td>
+<td>Documented candidate <span style="color:#666666;"><code>GET /accounts</code></span> → visible accounts. Confirm authorised business/dataset binding, credentials and version. REF-B2BR.</td>
+<td>Integration; GAP-02/05/06</td>
+<td>2; reused in 3 where qualified</td>
+</tr>
+<tr>
+<td><span style="color:#1565C0;">ZeroComa setup</span></td>
+<td><span style="color:#B42318;">Vendor must supply service, account fields, credentials and response. No verified onboarding payload available.</span> REF-ZEROCOMA.</td>
+<td>Provider Engineering; GAP-02/05/06</td>
+<td>2; reused in 3 where qualified</td>
+</tr>
+<tr>
+<td><span style="color:#1565C0;">Allowed route change</span></td>
+<td>Current/target connection, start, permission → effective result or pending action/owner; preserve earlier access.</td>
+<td>Routing; GAP-06/08</td>
+<td>2–3; enabled changes only</td>
+</tr>
+</tbody>
+</table>
+<p>Keep Spain rules isolated. Actual build coverage and the supported configuration/code/contract changes remain with <ac:link ac:anchor="2-open-engineering-decisions"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039's GAP owners</ac:link-body></ac:link>.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references-phases-13</ac:parameter></ac:structured-macro><h2>REF Source references — Phases 1–3</h2>
+<p>FR-01–05 are supplied OpenAPI 3.1.0 contracts declaring API version <code>1.0.0</code>, reviewed 26 October 2026. Grey structures follow those schemas; blue values/information require confirmation. Requests show the method, sandbox URL, path inputs, headers and body where applicable. Full field constraints, audit fields and error schemas remain in the sources.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Source / exact locator</th>
+<th>Supports / limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Onboarding/get-accesspoints.md">Discovery</a>, <code>Get-AccessPoints</code>; <code>servers</code>, <code>securitySchemes.m2m</code>, operation parameters.</td>
+<td>API-01 request/catalogue; declared <code>datasetId</code> does not appear in the URL and needs correction.</td>
+</tr>
+<tr>
+<td>FR-02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Onboarding/get-dataset-accesspoints.md">Dataset listing</a>, <code>Get-Dataset-AccessPoints</code>; <code>servers</code>, <code>securitySchemes.m2m</code>, operation parameters.</td>
+<td>API-02 path, authentication/tracing headers and nullable connection ID.</td>
+</tr>
+<tr>
+<td>FR-03</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Onboarding/new-accesspoint-connection.md">Connect</a>, <code>New-AccessPoint-Connection</code>; <code>AccessPointConnectionRequest.accessPointAddresses</code>/<code>user</code>, response, parameters/security; examples <code>add-address</code>, <code>add-legal-format-address</code>, <code>add-both-formats-address</code>.</td>
+<td>Initial address array, current/legal formats, dates/usage, company/requester context and required <code>Idempotency-Key</code>; no Spain enum or certificate field.</td>
+</tr>
+<tr>
+<td>FR-04</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Onboarding/get-accesspoint-connection.md">Detail</a>, <code>Get-AccessPoint-Connection</code>; parameters and security.</td>
+<td>API-04 request and address results, not complete readiness. The guide's extra idempotency header remains a source conflict.</td>
+</tr>
+<tr>
+<td>FR-05</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Onboarding/put-accesspoint-connection.md">Update</a>, 1.0.0, <code>Put-AccessPoint-Connection</code>; <code>UpdateAccessPointConnectionRequest/Response.accessPointAddresses</code>, <code>action</code>/<code>usage</code> descriptions and request example <code>mixed-actions-success</code>.</td>
+<td>API-05 adds addresses or updates existing dates; mixed add/update requests supported. Current base-SIREN grouping needs Spain rules. No idempotency header declared or approved route-change contract.</td>
+</tr>
+<tr>
+<td>INT-AP01/06</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md">Access-point guide extract</a>, received 22 October 2026, <strong>Connect and channel selection / Catalogue, address mapping and environments</strong>; revision unverified.</td>
+<td>One connection per dataset/access point, several addresses and per-service references. Spain implementation coverage remains unknown.</td>
+</tr>
+<tr>
+<td>INT-CERT01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Tax%20API/Certificates/connections-service-certificate-guide-extract.md">Connections Service API extract</a>, Confluence 467063094 v4, read 26 October 2026; <strong>Certificate upload / Internal - Encrypt</strong>, requests, responses and field tables.</td>
+<td>Existing provisioning/encryption examples; nesting and syntax issues remain owner questions. No B2B provider/readiness contract.</td>
+</tr>
+<tr>
+<td>INT-CERT02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Tax%20API/Certificates/sage-certificate-management-guide-extract.md">Certificate-management extract</a>, Confluence 759615024 v6, read 26 October 2026; <strong>Current solution / Proposed solution / Final Decision Summary</strong>.</td>
+<td>Exact ES AFL <code>Connection-Id</code>, customer/seal selection, custody and agreement gate. Page remains UNDER REVIEW; not proof of B2B deployment.</td>
+</tr>
+<tr>
+<td>INT-CERT03</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Tax%20API/Certificates/aeat-certificate-upload-guide-extract.md">AEAT upload extract</a>, internal guide received 27 October 2026; revision/URL not supplied. <strong>Environments / Obtain provider ID / Upload certificate</strong>, headers, fields and responses.</td>
+<td>GET provider catalogue, ES AFL provider code/category and POST upload, URLs, required headers, <code>200</code>/<code>201</code>. Nesting conflict remains; no B2B acceptance or readiness contract.</td>
+</tr>
+<tr>
+<td>INT-CERT04</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Tax%20API/Certificates/connections-service-retrieval-guide-extract.md">Trusted retrieval extract</a>, Confluence 484738408 v14, read 27 October 2026; <strong>Request method / URL / headers / response</strong>.</td>
+<td>Internal GET/<code>200</code> for HMRC tokens. Not evidence of AEAT certificate shape, validated expiry or product permission.</td>
+</tr>
+<tr>
+<td>REF-PHASE</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-213-private-platform-connectivity-structured-review.md">PRD213</a>, Phase 2 scope; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-210-sage-private-platform-reuse-and-operator-expansion.md">PRD210</a>, Phase 3 document map / phase comparison; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-221-operator-readiness-regulatory-governance.md">PRD221</a>, Phase and outcome; repository drafts. User direction, 28 October 2026.</td>
+<td>Phase labels describe analysis coverage: SPFE, external providers, then Sage private-platform offering. They do not approve delivery, implementation or Private A to Private B switching.</td>
+</tr>
+<tr>
+<td>REF-CERT</td>
+<td><ac:link><ri:page ri:content-title="Certificate Management Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC001</ac:link-body></ac:link>, draft, 20 October 2026, CERT-04/05 and G1/G9/G10.</td>
+<td>Proposed certificate validation/readiness meanings; no confirmed Tax wire response.</td>
+</tr>
+<tr>
+<td>SPFE-S03/S16</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">Original catalogue</a>, 0.1.0, 9 October 2026, §4.3 p.8; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SendInvoice.wsdl">SendInvoice WSDL</a>, PRE release 23 November 2026, <code>SendInvoiceCertPort</code> / <code>SendInvoiceSealPort</code>.</td>
+<td>Certificate-authenticated HTTPS and separate PRE access ports; no certificate property or onboarding command.</td>
+</tr>
+<tr>
+<td>REF-INTEGRATION</td>
+<td>User direction, 26–27 October 2026; <ac:link ac:anchor="4-feature-wide-functional-requirements-and-rules"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>038 product precondition</ac:link-body></ac:link> and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md#services-connections-and-routing">SXS definition</a>.</td>
+<td>Confirmed product list and requested SXS/Tax integration precondition; deployment/interface coverage still needs evidence.</td>
+</tr>
+<tr>
+<td>REF-PROVIDERS</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-213-private-platform-connectivity-structured-review.md#phase-2-prd-set">PRD213</a>, draft, 11 September 2026, Phase 2 PRD set/provider PRDs 216–220; <a href="https://confluence.sage.com/pages/viewpage.action?pageId=938804297">040 Confluence review</a>, v7, read 27 October 2026, API-01 catalogue.</td>
+<td>Five portfolio candidates; the page review adds Sovos. Candidate names and synthetic IDs do not establish Spain services, contracts or implemented integrations.</td>
+</tr>
+<tr>
+<td>REF-CONNECTIONS</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-214-connections-registration-routing-structured-review.md#connections-registration-and-capability">PRD214</a>, draft, 7 October 2026, FR1–5/7–9; <ac:link ac:anchor="1-model-outcomes-and-invariants"><ri:page ri:content-title="Shared Platform Connectivity and Routing Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC014</ac:link-body></ac:link>, draft, 20 October 2026, invariants 3–6.</td>
+<td>Proposed concurrent public/private connections and one route per scope. Dataset binding, public access-point representation and Spain implementation remain open.</td>
+</tr>
+<tr>
+<td>REF-B2BR</td>
+<td><a href="https://developer.b2brouter.net/reference/get-accounts">B2B Router List accounts</a>, read 26 October 2026, <code>GET /accounts</code>; <ac:link ac:anchor="3-provider-operation-binding"><ri:page ri:content-title="B2B Router Provider Adapter Binding Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC017</ac:link-body></ac:link>, draft, 20 October 2026, §3 <strong>List account scope</strong> and B2BR-Q01.</td>
+<td>Existing provider account-list operation; proposed use to check account mapping. Contract/version selection, account mapping and Sage build remain unqualified. No response schema inferred here.</td>
+</tr>
+<tr>
+<td>REF-ZEROCOMA</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-220-zerocoma-integration-structured-review.md#evidence-and-research-findings">PRD220</a>, draft, 11 September 2026, <strong>Evidence and research findings</strong>, E1/E2 and <strong>Connection and onboarding</strong>, FR15–17.</td>
+<td>Public integration claim only; target private-platform product and onboarding contract remain open. No wire fields inferred.</td>
+</tr>
+<tr>
+<td>REF-SPAIN-PROPOSAL</td>
+<td><ac:link><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039</ac:link-body></ac:link>, draft, 28 October 2026, §§3.1–3.7 and GAP-01–08.</td>
+<td>Sequence and ownership baseline for blue proposals; no deployment approval.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

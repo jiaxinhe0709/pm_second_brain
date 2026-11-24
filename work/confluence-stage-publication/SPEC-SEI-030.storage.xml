@@ -1,0 +1,584 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-030<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/invoice-lifecycle/SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">invoice-lifecycle-sequence-and-reuse-assessment</ac:parameter></ac:structured-macro><h1>Invoice Lifecycle Sequence and Reuse Assessment</h1>
+<p><ac:link><ri:page ri:content-title="Invoice Lifecycle Solution Summary" ri:space-key="DNBU" /><ac:link-body>Solution summary</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>Logical specification</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>API examples and Spain changes — 041</ac:link-body></ac:link></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">revision-overview</ac:parameter></ac:structured-macro><h2>Revision overview</h2>
+<p>This view assesses reuse against <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC009</a>, which stays unchanged in Git. SPEC-SEI-028 is the selected Confluence summary; this assessment is a companion view. It owns sequences, product impact and LIF-G01–08. SPEC041 owns call details, examples and the proposed SPFE API/XML mapping. The binding proposal covers all eight actions and 52 source rows; engineering qualification and implementation readiness remain open. No new endpoint or breaking change is approved.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-reuse-decision-and-product-impact</ac:parameter></ac:structured-macro><h2>1 Reuse decision and product impact</h2>
+<p>Assess the existing status POST → notification → invoice GET/history pattern first. Retain it where the selected build supports Spain actors, fields and independent reporting results. FR-LIF01 defines an open <code>statusAttributes</code> object; this proves schema flexibility, not processing support for Spain fields. <ac:link><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC029</ac:link-body></ac:link> owns required behaviour.</p>
+<p><strong>Recommendation:</strong> reuse the current lifecycle API and assess a <strong>Spain lifecycle country pack with qualified connectors</strong> as the preferred extension model. The architecture separates the shared service and event flow from provider connectors; §3.5 assesses that evidence. The supplied API contract does not establish complete Spain coverage. Check existing country-extension mechanisms before classifying missing coverage as shared API development. Keep business facts, report commands and destination results distinct. SPEC041's <code>spfe</code> payload is a candidate country binding, not a confirmed pack interface. ARCH-LCS01/02; FR-LIF01; SPFE-S02/S03.</p>
+<table>
+<thead>
+<tr>
+<th>Delivery scope</th>
+<th>Reuse / Spain work</th>
+<th>Product impact / gates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPFE — Phase 1</td>
+<td>Map public evidence to invoice views. Bind applicable recipient actions and public reports to qualified commands; confirm authority, fields and cancellation recovery.</td>
+<td>Products supply selected action fields and retain independent operation/report results. No AEAT webhook is established. LIF-G01/02/04/05/06/07/08.</td>
+</tr>
+<tr>
+<td>External private providers — Phase 2</td>
+<td>Qualify provider status mapping, supported actions, original route and reporting ownership for each destination.</td>
+<td>Keep common calls where supported; prevent duplicate reporting and preserve historical context. LIF-G01/02/04/06/07/08.</td>
+</tr>
+<tr>
+<td>Sage private platform — Phase 3</td>
+<td>Assess reuse of qualified lifecycle actions/reporting; qualify Sage operator responsibilities for private exchange, interconnection and status distribution.</td>
+<td>Confirm named operator and service-chain readiness under <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md#rollout-gates">PRD224’s rollout gates</a> and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-221-operator-readiness-regulatory-governance.md">PRD221</a>. Existing action support alone does not prove operator readiness.</td>
+</tr>
+<tr>
+<td>Optional issuer/customer actions</td>
+<td>Select enabled scope and qualify collection/default/cancellation.</td>
+<td>Read support does not imply a writable command. LIF-G04/08.</td>
+</tr>
+<tr>
+<td>Shared history and recovery</td>
+<td>Correlate exact attempts, notifications and destination results; prove safe replay.</td>
+<td>Recover missed events through reads. No confirmed breaking change. LIF-G02/05/06.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md#phase-and-outcome">PRD224’s phase table</a> owns scope and uses the same platform phases as onboarding. Required reporting, optional actions and unknown implementation coverage remain separate. Phase scope does not approve release. The supplied payment examples use status POST. No separate payment endpoint or revised invoice UBL is established. Spain reporting coverage remains LIF-G04.</p>
+<p>Shared evidence/history and recovery are <strong>Reusable unchanged</strong> design patterns; actor/provider selection is <strong>Reusable with country binding</strong>. Spain public events, identity, reasons and calendars are <strong>Country-specific</strong>. Existing API/DTS implementation coverage is <strong>Unknown</strong> until the relevant LIF gates pass. These classifications do not establish production readiness.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-operation-assessment</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-proposed-reuse-sequences</ac:parameter></ac:structured-macro><h2>2 Proposed reuse sequences</h2>
+<p><span style="color:#666666;">Grey: documented existing calls.</span> <span style="color:#1565C0;">Blue: proposed Spain work.</span> <span style="color:#B42318;">Red text: unresolved evidence or decisions.</span> Lanes show responsibilities, not approved service boundaries.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">21-french-request-notification-and-history-read</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">21-existing-request-notification-and-history-read</ac:parameter></ac:structured-macro><h3>2.1 Existing request, notification and history read</h3>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="af108242-323b-5a82-bd01-d9e6a69447fe"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">invoice-lifecycle-fr-update-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1030</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/invoice-lifecycle-fr-update-sequence.drawio">Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/invoice-lifecycle-fr-update-sequence.png">PNG</a>.</p>
+<p>Save the returned operation ID. The completion event prompts a result read; it cannot prove transition success. A missed event uses qualified history recovery. LIF-G02/05/06.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">22-spain-business-event-and-independent-public-reporting</ac:parameter></ac:structured-macro><h3>2.2 Spain business event and independent public reporting</h3>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="25634c1d-ec37-5989-930e-b5da12e75c43"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">invoice-lifecycle-spain-reporting-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1415</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/invoice-lifecycle-spain-reporting-sequence.drawio">Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/invoice-lifecycle-spain-reporting-sequence.png">PNG</a>.</p>
+<p>Save the authorised fact, select required destinations and execute each report through its qualified contract. Public and private results stay independent; correlate provider-owned reporting instead of sending it again. Responsibility lanes do not approve new services.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">23-failed-transition-and-uncertain-cancellation</ac:parameter></ac:structured-macro><h3>2.3 Failed transition and uncertain cancellation</h3>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="80e6e6dd-7d9b-5715-b84c-f3d34e9752ae"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">invoice-lifecycle-recovery-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1415</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/invoice-lifecycle-recovery-sequence.drawio">Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/invoice-lifecycle-recovery-sequence.png">PNG</a>.</p>
+<p>A failed transition retains the last successful status. A timeout/local error does not prove external rejection or non-execution. Hold replacement while checking the original cancellation; without a qualified lookup, keep an owned manual case. LCS-R14; LIF-G06.</p>
+<p>This sequence concerns report cancellation. Invoice-submission withdrawal remains with <ac:link ac:anchor="withdrawal-and-correction-boundaries"><ri:page ri:content-title="Invoice Sending Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-023 OUT-SPFE-R02</ac:link-body></ac:link> and <ac:link ac:anchor="24-proposed-withdrawal-interaction"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-024 §2.4</ac:link-body></ac:link>; it adds no lifecycle status or report-cancellation behaviour here.</p>
+<blockquote>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — Ownership clarification alongside the retained diagram: this sequence still describes cancellation of a report. For cancellation of an invoice, Sending owns request, response and recovery; Lifecycle owns the resulting cancelled state and triggers under <ac:link ac:anchor="proposed-spain-invoice-states"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-029 proposed Spain states</ac:link-body></ac:link>. An issuer's eligible action follows the <ac:link ac:anchor="24-proposed-withdrawal-interaction"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-024 cancellation interaction</ac:link-body></ac:link>; full rejection alone does not establish cancellation. No new Article 10 report follows from this proposal. SD-CANCEL01 P-1/P-2.</p>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — Qualification extension to LIF-G03/05/06/08: prove response-led state handling, final cancelled retention, separate report/private-copy outcomes and the issuer notification for acceptance by silence. Include the SPEC-SEI-029 partial-rejection and independent rectifying-invoice checks. Keep the four-day workshop input pending verification against SPFE-S02 Article 7, including the start event and calendar. Reuse observed-result/history patterns only after build/provider qualification and prove Spain/France isolation; no notification method or external status value is selected. SD-CANCEL01 P-1–P-4.</p>
+</blockquote>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-contract-details-that-affect-reuse</ac:parameter></ac:structured-macro><h2>3 Contract details that affect reuse</h2>
+<p><ac:link><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC041</ac:link-body></ac:link> holds request/response examples, status inputs and HTTP errors. The table below assesses their fit to this feature.</p>
+<table>
+<thead>
+<tr>
+<th>Existing operation / source</th>
+<th>Request → result</th>
+<th>Reuse / Spain gap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ac:link ac:anchor="lif-api-01"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>LIF-API-01 — Status POST</ac:link-body></ac:link> — FR-LIF01; LCS-R04/13/14</td>
+<td>UUID <code>statusCode</code>, selected attributes → <code>201</code>, operation <code>data.id</code>.</td>
+<td>Reuse envelope/attempt pattern. Spain UUIDs, field validation, actors and corrections remain unconfirmed. LIF-G03/04/06.</td>
+</tr>
+<tr>
+<td><ac:link ac:anchor="lif-api-02"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>LIF-API-02 — Subscribe</ac:link-body></ac:link> — INT-LCS02; LCS-R08</td>
+<td>Scoped <code>einvoice</code> status-updated subscription.</td>
+<td>Qualify service/environment, dataset, webhook security, delivery and replay. LIF-G01/05.</td>
+</tr>
+<tr>
+<td><ac:link ac:anchor="lif-api-03"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>LIF-API-03 — Notification</ac:link-body></ac:link> — INT-LCS02; LCS-R08/14</td>
+<td>Invoice subject and status UUID → prompt a result read.</td>
+<td>Finished processing may mean <code>ERROR</code>. Prove event-to-operation/history correlation. LIF-G05.</td>
+</tr>
+<tr>
+<td><ac:link ac:anchor="lif-api-04"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>LIF-API-04 — Invoice GET</ac:link-body></ac:link> — INT-LCS02/INT-ERR01; LCS-R03/08/14</td>
+<td>Existing IDs → saved current status and history.</td>
+<td>Prove complete/fresh reads and the matching attempt's outcome/error. LIF-G02/05.</td>
+</tr>
+<tr>
+<td><code>GetInvoices</code> / <code>GetRegisteredInvoice</code> — SPFE-S03/S14/S15</td>
+<td>Identity or presentation-date query → public observations.</td>
+<td>Separate external discovery from saved-history reads. Qualify fields, scope and continuation. LIF-G01/02.</td>
+</tr>
+<tr>
+<td><code>CustomerInvoiceEvents</code> — SPFE-S11</td>
+<td>Recipient PAYMENT, REJECTION or cancellation → public result.</td>
+<td>Supplied SOAP transport; body/envelope, actor/fields and result correlation still gated. LIF-G04/06.</td>
+</tr>
+<tr>
+<td><code>SupplierInvoiceEvents</code> — SPFE-S17</td>
+<td>Issuer SETTLEMENT, DEFAULT or cancellation → public result.</td>
+<td>Qualify contract and enabled optional scope. LIF-G04/08.</td>
+</tr>
+</tbody>
+</table>
+<p>SOAP operations belong to the public connector boundary in <ac:link><ri:page ri:content-title="Public Platform Connector Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC011</ac:link-body></ac:link>. Their supplied PRE WSDLs do not prove production support, complete event schemas or batch limits.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">31-identifiers-payloads-and-outcome-domains</ac:parameter></ac:structured-macro><h3>3.1 Identifiers, payloads and outcome domains</h3>
+<table>
+<thead>
+<tr>
+<th>Meaning that must remain separate</th>
+<th>Reuse consequence / gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business, caller and seller</td>
+<td>Reuse saved IDs after current action-authority checks; preserve historical routes. LIF-G01/07.</td>
+</tr>
+<tr>
+<td>Command UUID and external event code</td>
+<td>France numeric <code>200</code> identifies three UUIDs. AEAT <code>PAYMENT</code> is a separate namespace; no automatic mapping is approved. LIF-G02/04.</td>
+</tr>
+<tr>
+<td>Event date and processing timestamp</td>
+<td>Guide <code>lifecycleMetadata.statusDateTime</code>, resource creation and webhook time cannot replace distinct Spain legal dates. LIF-G04.</td>
+</tr>
+<tr>
+<td>Operation, invoice, status and notification IDs</td>
+<td><ac:link ac:anchor="1-existing-calls-and-results"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>041 §1</ac:link-body></ac:link> retains their fields. Repeated status UUIDs cannot identify one attempt. LIF-G05.</td>
+</tr>
+<tr>
+<td>Request acknowledgement, attempt result and destination result</td>
+<td>POST <code>201</code> does not prove success. Read the matching attempt; expose each report separately. LIF-G02/05.</td>
+</tr>
+<tr>
+<td>Lifecycle <code>Completed</code> and operational <code>COMPLETED</code></td>
+<td>The first is France status <code>209</code>; the second means processing succeeded. Neither alone proves payment or all reports complete. LCS-A27.</td>
+</tr>
+</tbody>
+</table>
+<p>Detailed LCS-D01–10 and interaction inventories remain in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#1-interaction-contracts">SPEC009</a>. Qualify existing fields before proposing additions.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">32-spain-field-coverage-against-the-french-guide</ac:parameter></ac:structured-macro><h3>3.2 Spain field coverage against the French guide</h3>
+<p>Use <ac:link ac:anchor="spfe-lifecycle-states"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC029's SPFE states and reporting classifications</ac:link-body></ac:link> for the documented business-reporting set and <ac:link ac:anchor="draft-lifecycle-mapping"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>its draft platform mapping</ac:link-body></ac:link> for proposed reuse and gaps. The draft does not establish API compatibility or shared transition rules.</p>
+<p><strong>SPFE definition baseline: available for specification work.</strong> Final Annex II and the supplied supplement define all eight event codes, their actors, 52 field/group occurrences and L1 reasons <code>01</code>/<code>02</code>. The recorded comparison found no field differences. Catalogue §§6.8–6.9 and both event WSDLs establish the reporting operations and PRE transport. SPFE-S02/S03/S11/S17/S22; REF-FIELDS. The new SPFE-S27 draft adds 28 numbered report rules and cancellation prose, now bound to <ac:link ac:anchor="521-annex-ii-business-rules"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC029 Annex II rules</ac:link-body></ac:link>. It does not qualify execution.</p>
+<p>The <ac:link ac:anchor="spfe-action-mapping"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC041 mapping</ac:link-body></ac:link> owns the proposed command/field bindings and payloads. <ac:link ac:anchor="52-public-event-contract"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC029 §5.2</ac:link-body></ac:link> and the AXII ledger own exact Spain meanings/cardinalities. The WSDLs carry opaque UBL attachments; SPFE-S08 §§5.8–5.9 still mark detailed event formats pending in the supplied snapshot.</p>
+<table>
+<thead>
+<tr>
+<th>Mapping area</th>
+<th>Proposal / product impact</th>
+<th>Remaining evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eight actions</td>
+<td>Conditional reuse: PaymentSent → PAYMENT, PaymentReceived → SETTLEMENT, Refused → REJECTION. DEFAULT and four cancellations need registered action bindings. Other workflow statuses create no direct public report.</td>
+<td>Confirm action registry, country isolation and enabled scope. LIF-G01/03/04/08.</td>
+</tr>
+<tr>
+<td>Invoice references</td>
+<td>Resolve four fields from saved invoice context for all eight actions; construct four source invoice groups. Products need not re-enter those facts.</td>
+<td>Exact stored seller/number/date binding and missing-data recovery. LIF-G04/07.</td>
+</tr>
+<tr>
+<td>Event-specific content</td>
+<td>Proposed <code>statusAttributes.spfe</code> inputs cover the remaining 16 occurrences. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/mappings/spfe-lifecycle-api-mapping.json">The 52-row mapping</a> retains source conditions and acceptance IDs.</td>
+<td>Typed validation, full-payment evidence, indicator/path decisions and actual XML fixtures. LIF-G03/04.</td>
+</tr>
+<tr>
+<td>Results and correction</td>
+<td>Reuse operation/history pattern; expose stable report references for cancellation and separate destination results.</td>
+<td>Exact result/read schema, provider-report ownership and safe reconciliation. LIF-G02/05/06/07.</td>
+</tr>
+</tbody>
+</table>
+<p>Spain field meanings come from SPFE-S02 Annex II / SPFE-S22; existing API coverage comes from FR-LIF01 and INT-LCS01. LIF-API-A04/06 verify mapping and report isolation. Source coverage is complete; executable conformance is unqualified.</p>
+<p>Assess existing DTS first for ApplicationResponse generation. Qualify its actual build, contract, mappings, rules, country versions and operations. Transformation cannot provide missing event facts or authority. LIF-G04.</p>
+<p><strong>Coverage interpretation:</strong> the 52 source rows are repeated field/group occurrences, not 52 new caller inputs. SPEC041's proposal resolves 32 invoice-reference occurrences from four saved facts, constructs four invoice groups, and maps 16 event-specific occurrences to ten distinct input keys. Its <code>eventCode</code> and <code>originalReportId</code> are additional proposed controls, outside the source-row count. This is mapping coverage, not proof that the current API supplies those facts or executes the reports. REF-FIELDS; SPEC041 §2.2.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">annex-ii-rule-qualification-and-dts-reuse</ac:parameter></ac:structured-macro><h4>Annex II rule qualification and DTS reuse</h4>
+<p><ac:link ac:anchor="521-annex-ii-business-rules"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC029 LCS-SPFE-R05–07</ac:link-body></ac:link> owns observable report eligibility. The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/mappings/spfe-lifecycle-api-mapping.json">existing mapping</a> now includes every S27 rule, action/field links and non-wire validation context. Preserve its existing eight actions, UUID proposals, 52 field IDs and ten event-input keys. Invoice presence, buyer identity, type, amount facts, report history and dispatch-date context require actual read/evidence bindings; the draft does not create those API fields.</p>
+<table>
+<thead>
+<tr>
+<th>Reuse candidate</th>
+<th>Spain change/gap and qualification owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Existing request/history/recovery pattern</td>
+<td>Lifecycle/API qualifies duplicate/compatibility and cancellation outcome handling. A saved fact, an HTTP receipt or an error resource alone does not prove SPFE invoice presence or report execution. Retain original references and hold uncertain replacements. LIF-G02/05/06.</td>
+</tr>
+<tr>
+<td>Existing DTS ApplicationResponse generation</td>
+<td>DTS/Format qualifies actual build, input/output contracts, the selected schema profile, all applicable fields and the 28 rule bindings. Resolve the amount/date/indicator conflicts before enabling affected checks. Record local changes, unsupported scenarios, mapper/rule hashes, reviewed fixtures and operations owner. LIF-G04; SPFE-Q04/Q16/Q21.</td>
+</tr>
+<tr>
+<td>Shared typed validation and country-pack selection</td>
+<td>API/Lifecycle demonstrates that validation runs before external dispatch even where the generic API permits open attributes. Keep actor/qualifier, event fields and source versions scoped to Spain; preserve France payloads, transition rules and history. LIF-G01/03/04/08.</td>
+</tr>
+</tbody>
+</table>
+<p>No new component or deployment boundary is selected. Existing diagrams retain verify/plan/deliver/reconcile; R05–07 adds detail to those checks and does not change their sequence.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">33-authentication-retries-and-completion</ac:parameter></ac:structured-macro><h3>3.3 Authentication, retries and completion</h3>
+<p>Use <ac:link ac:anchor="lif-api-01"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>041 §1.1</ac:link-body></ac:link> for POST authentication/headers and <ac:link ac:anchor="3-errors-and-safe-follow-up"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>§3</ac:link-body></ac:link> for HTTP errors. Qualify public certificate authentication/representation separately; product M2M authentication does not establish external credentials or authority. SPFE-S02 Article 11; SPFE-S11/S17.</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Required handling / gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Repeated command</td>
+<td>Keep original identity/content; a changed correction is a linked action. Prove key scope, retention, conflicts and concurrency. LIF-G06.</td>
+</tr>
+<tr>
+<td><code>201</code> or completion notification</td>
+<td>Save/correlate the operation and read the result. Neither proves business/public success. LIF-G05.</td>
+</tr>
+<tr>
+<td>Confirmed transition <code>ERROR</code></td>
+<td>Retain successful status and failed history; expose correction/owner. A report’s external result remains separate. LCS-R14/A26/27.</td>
+</tr>
+<tr>
+<td>Timeout or uncertain cancellation</td>
+<td>Check the original effect before unsafe replay, new key, replacement or route fallback. LIF-G06.</td>
+</tr>
+<tr>
+<td><code>429</code>, missing event or concurrent changes</td>
+<td>Honour <code>Retry-After</code>; still apply mutation-safety rules. Read qualified history or consult uncaptured source evidence. LIF-G02/05/06.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Shared/invoice-flow-error-handling-guide-extract.md">INT-ERR01</a> retains <code>ERR-SENDING-STATUS-*</code> actions for mapping, unsupported status, update and notification failures. Platform retries do not authorise product resends. Its code-specific six-day support guidance is not a Spain deadline.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">contract-fit-analysis</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">34-contract-fit-and-recommendation</ac:parameter></ac:structured-macro><h3>3.4 Contract fit and recommendation</h3>
+<p>The Annex II comparison establishes agreement between the supplied SPFE sources. The WSDLs establish reporting transport. Neither comparison tests the Sage lifecycle API. Assess fit at the boundaries below. SPFE-S02/S03/S08/S11/S17/S22; FR-LIF01.</p>
+<table>
+<thead>
+<tr>
+<th>Boundary</th>
+<th>Finding from supplied evidence</th>
+<th>Consequence for reuse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Status meaning</td>
+<td>PaymentSent/PaymentReceived/Refused are candidates for PAYMENT/SETTLEMENT/REJECTION. The guide allows partial PaymentReceived; SPFE SETTLEMENT requires full collection.</td>
+<td>No unconditional status-to-report mapping. Require the authorised fact, event-specific conditions and applicable reporting rule. INT-LCS01; SPFE-S03 §§6.8–6.9.</td>
+</tr>
+<tr>
+<td>Command catalogue</td>
+<td>No documented DEFAULT or four cancellation commands; the response enum also lacks these values.</td>
+<td>Qualify five action bindings and response compatibility. New UUIDs alone do not establish execution semantics. FR-LIF01.</td>
+</tr>
+<tr>
+<td>Data contract</td>
+<td>Payment examples contain amounts/currency/VAT. Spain needs distinct dates, reasons and conditional indicators. Open JSON attributes have no typed event schema.</td>
+<td>Resolve saved facts and add qualified inputs/validation where needed. An accepted JSON shape cannot prove a complete SPFE report. FR-LIF01; SPEC041 §2.2.</td>
+</tr>
+<tr>
+<td>State and correction</td>
+<td>The current API requests a lifecycle transition. SPFE cancellation retracts an earlier communication while retained business evidence remains.</td>
+<td>Prove that the action model can represent a report command without replacing the invoice's business facts. If it cannot, assess a contract extension before forcing cancellation into a status. LCS-R03/06/07/14.</td>
+</tr>
+<tr>
+<td>Completion and recovery</td>
+<td>POST <code>201</code> identifies an operation; notification/history describes handling. Separate SPFE destination results and original-report lookup are not established.</td>
+<td>Correlate operation, business event and each report. Public receipt, failed transmission and cancellation remain independently recoverable. INT-LCS02/05; LIF-G02/05/06.</td>
+</tr>
+</tbody>
+</table>
+<p>For example, an existing PaymentReceived event for a partial collection cannot become SETTLEMENT. A full-collection event may produce SETTLEMENT after actor, dates, optional-scope and reporting checks pass. Later CANCELSETTLEMENT retracts that public communication; it does not state that the money was never collected. LCS-R03/04/12/13; SPFE-S02/S03.</p>
+<p>Retaining the current endpoint is reasonable if Engineering demonstrates country-scoped action validation, compatible responses, separate report state and safe correction. If the implementation requires every successful POST to replace one invoice status, that limitation must be resolved first. The API owner must then assess a compatible extension or another command mechanism. This analysis recommends reuse; it does not approve a particular registry, <code>spfe</code> namespace, new service or endpoint. LIF-G01–07.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">country-pack-assessment</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">35-spain-lifecycle-country-pack-and-architecture-reuse</ac:parameter></ac:structured-macro><h3>3.5 Spain lifecycle country pack and architecture reuse</h3>
+<p><strong>Preferred direction:</strong> bind Spain rules and mappings to the shared lifecycle capability, with a qualified SPFE connector. Use the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules">glossary's country-pack meaning</a>: versioned local rules and resources, selected through a country binding. A country pack is not necessarily a separate service or configuration-only delivery.</p>
+<table>
+<thead>
+<tr>
+<th>Architecture evidence</th>
+<th>What it establishes / limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ARCH-LCS01 — <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/architecture/b22496cd-5719-45a2-ae1a-27d91f69f11c.png">service and connector overview</a>: central e-Invoicing Service/Provider API, Notifications Service, Network Connector, Sovos France PDP Connector and additional connector position.</td>
+<td>The design separates common invoice/lifecycle access from connector-specific execution and routes events by access point. It supports assessing Spain through the same extension boundary. It does not identify an implemented country-pack registry or a Spain connector.</td>
+</tr>
+<tr>
+<td>ARCH-LCS02 — <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/architecture/711539a8-ff4e-4723-9181-b21c71f389af.png">detailed invoice/status flow</a>: <code>PostStatus</code>, <code>eInvoicesTable</code>, stream/event bus, <code>InvoiceStatusDeliveryRule</code>/Handler and <code>InvoiceStatusNotifierRule</code>/Handler.</td>
+<td>Separate paths publish <code>e-invoice.statuschangerequested</code> for work and <code>e-invoice.statusupdated</code> after the depicted delivery outcome. This supports reuse of asynchronous request/result handling. It does not establish configurable transition rules, independent destination reports, cancellation semantics or pack-version selection.</td>
+</tr>
+</tbody>
+</table>
+<p>Both images are unversioned supplied architecture evidence. They show design boundaries, not a verified deployment. Their status POST labels omit the invoice path segment present in FR-LIF01. Their <code>deliveryStatus</code> labels and internal event names must not replace the guide's <code>operationStatus</code> fields or public event contracts without confirmation. ARCH-LCS01/02; FR-LIF01; INT-LCS02/05.</p>
+<p>The proposed allocation below keeps the existing architecture as the starting point. Architecture and service owners must confirm the actual extension points before assigning implementation work.</p>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Proposed pack/shared split</th>
+<th>Qualification / owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared lifecycle</td>
+<td>Reuse invoice/operation identity, status intake, saved history, request/result events and recovery where the build supports them.</td>
+<td>Lifecycle/API: prove actual build and separate fact, attempt and report results. Missing generic report-state or recovery behaviour is shared capability work, not hidden Spain configuration. LIF-G01/02/05/06.</td>
+</tr>
+<tr>
+<td>Spain lifecycle country pack</td>
+<td>Eight SPFE action bindings; recipient/issuer authority rules; dates, reasons and indicators; applicability/calendars; reporting destinations; correction/exclusivity rules; versioned validation and mapping resources. SPEC041 owns the proposed action/field mapping.</td>
+<td>Architecture, Lifecycle/API and Spain/Compliance: confirm native rule/schema/action registration, trusted country selection, retained rule versions and enabled scope. An access-point ID alone does not establish the country or business authority. LIF-G01/03/04/07/08.</td>
+</tr>
+<tr>
+<td>SPFE connector</td>
+<td>Bind qualified country actions to CustomerInvoiceEvents/SupplierInvoiceEvents, public credentials, SOAP/ebMS transport, source outcomes and reconciliation. Private providers retain their own bindings.</td>
+<td>Public Integration/Operations: qualify real operations, errors, correlation and recovery. This may require adapter code; pack rules cannot create missing transport support. LIF-G04/06/07.</td>
+</tr>
+<tr>
+<td>XML transformation</td>
+<td>Supply the pack's Annex II mappings, profile/rules and qualified indicator/path decisions to the selected transformation capability. Assess existing DTS first.</td>
+<td>DTS/Format: confirm build, contracts, executable mappings and fixtures; country resources do not prove ApplicationResponse support. LIF-G04.</td>
+</tr>
+</tbody>
+</table>
+<p>First ask Architecture/Lifecycle Engineering to demonstrate one existing country binding: how the build selects it, registers actions/attributes/transitions, invokes the connector and retains its version in history. Then apply the Spain mapping and identify which changes are configuration, country-specific code, connector work or shared enhancements. SPEC041's five missing action bindings may fit an existing catalogue; they do not by themselves prove a new endpoint or core redesign is needed. LIF-G01/04.</p>
+<p>Qualification must show that adding/changing the Spain pack leaves France payloads, reason lists, transitions and saved history unchanged. A missing or unsupported binding must hold the affected action. Original invoices/reports retain their qualified country/rule/provider context during retries or later pack updates. Test recipient/issuer separation, report cancellation without erasing facts, and independent report outcomes through the shared request/result path. LCS-R03/07/10/13; LIF-API-A01/06/07/08.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-source-conflicts-and-qualification-gates</ac:parameter></ac:structured-macro><h2>4 Source conflicts and qualification gates</h2>
+<p>This is the authoritative LIF-G01–08 register. <span style="color:#B42318;">Implementation qualification remains open for the affected Spain scope.</span> The documented SPFE baseline in §3.2 is available; these gates concern its integration and execution.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Gap / required evidence</th>
+<th>Owner</th>
+<th>Affected outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">lif-g01</ac:parameter></ac:structured-macro><strong>LIF-G01</strong></td>
+<td>Map ARCH-LCS01/02 to the selected build. Demonstrate an existing country binding and its action/schema/transition registration, connector selection, version retention and country isolation. Confirm access-point mapping and Spain entitlement; reconcile FR-LIF01 <code>1.0.0</code> with guide-linked <code>1.13.0</code>.</td>
+<td>API/Architecture, Integration</td>
+<td>Country-pack reuse is preferred; configuration-only support and deployed Spain coverage remain unconfirmed.</td>
+</tr>
+<tr>
+<td><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">lif-g02</ac:parameter></ac:structured-macro><strong>LIF-G02</strong></td>
+<td>Exact attempt/history schema, latest-success handling, independent views/reports, concurrency and retained rule versions.</td>
+<td>Lifecycle/API</td>
+<td>Reads may omit required results or identify the wrong attempt.</td>
+</tr>
+<tr>
+<td><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">lif-g03</ac:parameter></ac:structured-macro><strong>LIF-G03</strong></td>
+<td>Resolve guide transition/actor conflicts: Payment Received terminal/nonterminal, Disputed → Refused, Submitted → Rejected, Completed/Rejected actor. Confirm tracing requiredness, nested validation, <code>Submitted</code> response-only evidence, response required fields and error-example/schema mismatch in <ac:link><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>041</ac:link-body></ac:link>. Require selected schema/matrix/fixtures.</td>
+<td>API owner</td>
+<td>Cannot infer writable actions, validation or transition rules from examples.</td>
+</tr>
+<tr>
+<td><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">lif-g04</ac:parameter></ac:structured-macro><strong>LIF-G04</strong></td>
+<td>Validate <ac:link ac:anchor="spfe-field-mapping"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>041's proposed eight-action/52-row mapping</ac:link-body></ac:link> through the selected country-extension model: three conditional UUID reuses, five unassigned action bindings and typed Spain inputs. Reuse native pack/schema mechanisms before selecting the illustrative <code>spfe</code> namespace. Confirm XML schema, literal-path/indicator decisions, all 28 S27 rule bindings and required saved-invoice/dispatch context, DTS build/contracts/mappings/rules/operations and cancellation/result fixtures. Resolve SPFE-Q21 amount and date conflicts.</td>
+<td>Spain, DTS, API, Legal/Tax</td>
+<td>Proposal complete; hold commands until binding/execution is qualified. Keep valid incoming facts.</td>
+</tr>
+<tr>
+<td><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">lif-g05</ac:parameter></ac:structured-macro><strong>LIF-G05</strong></td>
+<td>Event security/identity, operation/history correlation, replay and complete reads. Resolve <code>DIS-001</code>, <code>SUP-001</code>, <code>PA-001</code> and placeholder <code>REASON-CODE</code> against qualified reason lists.</td>
+<td>Notifications/API</td>
+<td>Events cannot safely establish completion or exact-attempt recovery.</td>
+</tr>
+<tr>
+<td><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">lif-g06</ac:parameter></ac:structured-macro><strong>LIF-G06</strong></td>
+<td>Key scope/retention/conflicts, repeat/concurrency rules, original-result lookup, uncertain cancellation and owned manual fallback.</td>
+<td>API, Connector, Operations</td>
+<td>Unsafe repeats or replacements remain held.</td>
+</tr>
+<tr>
+<td><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">lif-g07</ac:parameter></ac:structured-macro><strong>LIF-G07</strong></td>
+<td>Represented business/actor authority, original provider/channel, selected private contract and automatic-report ownership. Retain LCS-Q-PROVIDER.</td>
+<td>Identity/Spain, provider owners</td>
+<td>A connection/token cannot enable actions or a second report sender.</td>
+</tr>
+<tr>
+<td><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">lif-g08</ac:parameter></ac:structured-macro><strong>LIF-G08</strong></td>
+<td>Enabled release/optional actions, legal applicability and calendars. Retain LCS-Q-OPTIONAL and valid incoming optional evidence.</td>
+<td>Product/Spain</td>
+<td>Readable evidence does not enable an outgoing optional command.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#lifecycle-statuses-and-actions-by-provider">Existing provider assessments</a> retain B2B Router, Banqup, SERES, EDICOM and ZeroComa evidence limits. No new private contract is established. The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Anexo%20II/annex-ii-review.md">Annex II comparison</a> does not close runtime gaps.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-api-qualification-acceptance</ac:parameter></ac:structured-macro><h2>5 API qualification acceptance</h2>
+<p>These checks supplement LCS-A01–27; none is claimed as executed implementation testing.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Required proof / functional link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LIF-API-A01</td>
+<td>Demonstrate selected country-pack/binding and version handling. Adding/updating Spain leaves France payloads, codes, reasons, transitions, duties, authority and history unchanged. A missing binding holds work; retries retain original country/rule/provider context. LCS-A13/14; ARCH-LCS01/02; G01/02/04.</td>
+</tr>
+<tr>
+<td>LIF-API-A02</td>
+<td>POST, events and history correlate the exact attempt despite repeated UUIDs/missed events; pending/failure preserves success. LCS-A10/26; G02/05.</td>
+</tr>
+<tr>
+<td>LIF-API-A03</td>
+<td>Separate lifecycle Completed, operational COMPLETED, technical Rejected, business Refused and external unknown. Resolve guide/schema conflicts with versioned fixtures; a response enum alone cannot enable a command. LCS-A01/22/27; FR-LIF01; G03/05.</td>
+</tr>
+<tr>
+<td>LIF-API-A04</td>
+<td>Check every <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/mappings/spfe-lifecycle-api-mapping.json">mapped AXII row</a> against its existing positive/negative acceptance IDs. Verify actors, distinct dates, string reasons <code>01</code>/<code>02</code>, conditional indicators, saved invoice references and no SPFE partial-payment amount. Reject action/code mismatch and invalid/missing applicable fields before mutation. LCS-SPFE-A01/02; G04.</td>
+</tr>
+<tr>
+<td>LIF-API-A05</td>
+<td>Same-key replay, changed content, concurrent commands, timeout and <code>429</code> follow qualified safe rules without duplicate effects. LCS-A06–08; G06.</td>
+</tr>
+<tr>
+<td>LIF-API-A06</td>
+<td>Independent destination results and provider-owned reports avoid duplicates; uncertain cancellation holds replacement. LCS-A08/12/24; SPFE-A03; G04/06.</td>
+</tr>
+<tr>
+<td>LIF-API-A07</td>
+<td>Wrong client/actor/environment denied; historical invoice reports retain their permitted route without automatic fallback. LCS-A09/15/19; G07.</td>
+</tr>
+<tr>
+<td>LIF-API-A08</td>
+<td>Record actual build, schema, DTS/rules, positive/negative fixtures and operations owner for enabled scope. Prove missing/invalid Spain fields are rejected before mutation even where FR-LIF01 permits open attributes. Unqualified actions remain held. LCS-A14/25; G01–08.</td>
+</tr>
+<tr>
+<td>LIF-API-A09</td>
+<td>Verify all 28 S27 rule rows and their field/action links against LCS-SPFE-A05–A07/A09. Preserve the 52 original field IDs, inputs and UUID proposals. Demonstrate actual saved buyer/type/amount and dispatch-context bindings; do not add undocumented API properties or treat open attributes as implemented checks. G03/04.</td>
+</tr>
+<tr>
+<td>LIF-API-A10</td>
+<td>Inject stale/missing invoice-presence evidence, contradictory reports and timeout after possible cancellation execution. Prove R05/R07 gates, original-attempt correlation, complete invoice references and owned recovery before replacement. Check structured errors through SPEC011 without matching source rule numbers to wire codes. LCS-SPFE-A05/A08; G02/05/06/07.</td>
+</tr>
+<tr>
+<td>LIF-API-A11</td>
+<td>Record selected DTS/client build, exact schema/rule/source versions and positive/negative/recovery fixtures. A parse or mapper success cannot close rule qualification. Prove source-conflict holds and unchanged France behaviour; keep optional actions disabled until separately enabled. LCS-SPFE-A07/A09; G01/04/08.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro><h2>REF Source references</h2>
+<table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>Original source and version/date</th>
+<th>Exact locator</th>
+<th>Supported claims and limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> - SD-CANCEL01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#ref-source-references">FP-SEI-002 Solution Design source record</a>, attribution 18 November 2026</td>
+<td>C-1 to C-5; P-1 to P-4</td>
+<td>Product/design input only; not external legal evidence, a contract extension or implementation proof. Preserve recorded source conflicts and qualify Spain separately.</td>
+</tr>
+<tr>
+<td>REF-BASE</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a>, updated 20 October 2026; <ac:link><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>functional successor view</ac:link-body></ac:link>, draft 22 October</td>
+<td>LCS-INT-01–11; D01–10; provider catalogues; LCS requirements/acceptance</td>
+<td>Canonical draft requirements and logical contracts; no physical allocation approval.</td>
+</tr>
+<tr>
+<td>ARCH-LCS01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/architecture/b22496cd-5719-45a2-ae1a-27d91f69f11c.png">Supplied service/connector architecture PNG</a>, reviewed 28 October 2026; title, author, design date, revision and approval not recorded in the image</td>
+<td>Network API → e-Invoicing Service/Provider API; Notifications Service; Network/Sovos/additional connector positions; access-point event routes</td>
+<td>Common service and connector design boundary. Supports the country-binding reuse assessment; not proof of a pack loader, Spain implementation or exact current API paths.</td>
+</tr>
+<tr>
+<td>ARCH-LCS02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/architecture/711539a8-ff4e-4723-9181-b21c71f389af.png">Supplied detailed flow PNG</a>, reviewed 28 October 2026; title, author, design date, revision and approval not recorded in the image</td>
+<td>PostStatus → eInvoicesTable/stream/event bus; InvoiceStatusDeliveryRule/Handler; InvoiceStatusNotifierRule/Handler; France connector callbacks</td>
+<td>Depicted status-request/result flow and connector separation. Does not prove runtime behaviour, country-pack configuration, per-destination outcomes or schema compatibility. Diagram event/field labels remain source-specific.</td>
+</tr>
+<tr>
+<td>FR-LIF01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/update-e-invoice-status.openapi.json">Supplied status POST OpenAPI</a>, received 28 October 2026; OpenAPI <code>3.1.0</code>, API <code>1.0.0</code></td>
+<td><code>LifecycleChange-Document</code>; status POST; request/response schemas, parameters, security and responses</td>
+<td>Exact POST schema and nine examples. Open attributes do not establish Spain semantics; no read/event contract or runtime proof.</td>
+</tr>
+<tr>
+<td>INT-LCS01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/lifecycle-api-guides-evidence-extract.md#int-lcs01-send-a-status-update">Supplied send-status guide extract</a>, received 22 October, revision unknown</td>
+<td>§1 request/response, headers and per-status examples; linked API <code>1.13.0</code></td>
+<td>Exact product POST and documented payloads; not Spain schema or deployed build evidence.</td>
+</tr>
+<tr>
+<td>INT-LCS02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/lifecycle-api-guides-evidence-extract.md#int-lcs02-receive-notifications-and-read-history">Supplied receive/history guide extract</a>, same receipt/version limit</td>
+<td>§§1–3; linked Notifications <code>6.3.0</code>; webhook example; invoice GET</td>
+<td>Completion event and history read; full correlation/history contract absent.</td>
+</tr>
+<tr>
+<td>INT-LCS03/04/05</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/lifecycle-api-guides-evidence-extract.md">Supplied status, reason and outcome evidence</a>, same receipt/version limit</td>
+<td>Status list; blocked table; status-specific reasons; user transition note</td>
+<td>Exact France UUIDs, conflicts and attempt outcomes. Matrix/Schematron not independently verified; no Spain defaults.</td>
+</tr>
+<tr>
+<td>INT-ERR01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Shared/invoice-flow-error-handling-guide-extract.md">Existing supplied FR error-guide extract</a>, received 22 October 2026; revision/build unknown</td>
+<td>Processing and error fields; Processing status change; Recovery interpretation</td>
+<td>Exact history/currentStatus/error paths and code-specific actions. No complete correlation contract, Spain error mapping or product-side resend permission.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/BOE-A-2026-20587.pdf">Final BOE order</a>, published 5 October 2026; <a href="https://www.boe.es/eli/es/o/2026/10/02/hac1028">official publication</a>, checked 22 October</td>
+<td>Articles 7–11; Annex II pp. 36–42</td>
+<td>Legal/event/authority baseline; not proof of an activated wire contract.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">Original catalogue</a>, 0.1.0, 9 October 2026</td>
+<td>§§6.4–6.5 and 6.8–6.9, pp. 12–14 and 16–19</td>
+<td>Query/report names, actor/event meaning, exclusivity and correction; not complete request formats.</td>
+</tr>
+<tr>
+<td>SPFE-S08</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/archive/original-technical-baseline/Descripcio%CC%81n%20servicios%20web/Formatos%20entrada%20y%20salida/20261013/FormatosEntradaSalida.pdf">Original formats</a>, 0.1.0, 9 October, BORRADOR</td>
+<td>§§5.4–5.5/5.8–5.9, pp. 14–15</td>
+<td>Pending business formats; source-response levels need qualification.</td>
+</tr>
+<tr>
+<td>SPFE-S11/S17</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/CustomerInvoiceEvents.wsdl">CustomerInvoiceEvents.wsdl</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SupplierInvoiceEvents.wsdl">SupplierInvoiceEvents.wsdl</a>, PRE release 23 November 2026</td>
+<td>Corresponding operations, SOAP bindings, certificate/seal service ports</td>
+<td>Recipient/issuer PRE transport contracts; no production or complete event-body claim.</td>
+</tr>
+<tr>
+<td>SPFE-S14/S15</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/GetInvoices.wsdl">GetInvoices.wsdl</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/GetRegisteredInvoice.wsdl">GetRegisteredInvoice.wsdl</a>, PRE release 23 November 2026</td>
+<td>Operations and ports; catalogue QUERYBYID/QUERYBYFILTER</td>
+<td>Consultation transport; does not prove every required event or recovery lookup is exposed.</td>
+</tr>
+<tr>
+<td>SPFE-S22</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Anexo%20II/A2-Proyecto-OM-FE%2021-10-26.pdf">Supplied Annex II</a>, filename dated 21 October, formal revision unknown</td>
+<td>I.1–4 pp. 4–14; II/L1 p. 15; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Anexo%20II/annex-ii-review.md">review</a></td>
+<td>Source fields, dates, cardinalities and codes; existing path ambiguities remain.</td>
+</tr>
+<tr>
+<td>REF-FIELDS / REF-DTS</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/field-traceability.json">Original AXII ledger</a>; <ac:link><ri:page ri:content-title="Spain UBL Mapper Migration to DTS Solution Specification" ri:space-key="DNBU" /><ac:link-body>DTS specification</ac:link-body></ac:link>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md">shared evidence baseline</a></td>
+<td>AXII rows and SPFE-Q gates; DTS reuse/qualification</td>
+<td>Preferred transformation candidate and source inventory; neither proves ApplicationResponse implementation readiness.</td>
+</tr>
+<tr>
+<td>SPFE-S27</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Reglas%20de%20negocio%20ES/ReglasNegocio_AnexoDos.pdf">ReglasNegocio_AnexoDos.pdf</a>; version 0.1, 19 November 2026, <code>Borrador</code>; supplied 23 November; 6 pages.</td>
+<td>§1/§2.1 p. 3: invoice presence, cancellation, duplicates, compatibility and party/service; §2.2 p. 4: BR-PAGO-1–8; §2.3 p. 5: BR-RECHAZO-1–5; §2.4 p. 5: BR-COBRO-1–5; §2.5 p. 6: BR-IMPAGO-1–5.</td>
+<td>Draft technical rule evidence, not a complete transition/replay contract or new API schema. BT-113/115, same-day rejection and indicator interactions remain SPFE-Q16/Q21.</td>
+</tr>
+<tr>
+<td>SPFE-S28</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Listados%20c%C3%B3digos%20de%20error/errores_negocio.properties">Business error properties</a>; supplied 23 November 2026, embedded version unknown.</td>
+<td>RULE_SPFE-ACTION-01–09 variants, lines 298–313; ACTION-09 at lines 310/312 permits same-day wording.</td>
+<td>Related message evidence only. Rule/resource numbering does not establish wire codes, operation support or retry safety; SPEC011 owns error interpretation.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

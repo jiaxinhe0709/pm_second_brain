@@ -1,0 +1,102 @@
+<div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-046<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/provider-connectors/SPEC-SEI-046-provider-connector-api-sequences-and-reuse-assessment.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">provider-connector-shared-api-sequences-and-reuse-assessment</ac:parameter></ac:structured-macro><h1>Provider Connector Shared API Sequences and Reuse Assessment</h1>
+<p><ac:link><ri:page ri:content-title="Provider Connectors and Shared API Architecture Summary" ri:space-key="DNBU" /><ac:link-body>Summary</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Provider Connector Shared API Interaction Contract" ri:space-key="DNBU" /><ac:link-body>Logical contract</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Provider Connector Shared API Sequences and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>Sequences and reuse</ac:link-body></ac:link></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-execution-sequences</ac:parameter></ac:structured-macro><h2>1 Execution sequences</h2>
+<p>The diagrams use the established onboarding responsibility labels and UML sequence style. Blue marks proposed handoffs; activation bars show handling, not elapsed time.</p>
+<p>The shared-contract direction is confirmed by CA-ARCH01/02 in <ac:link ac:anchor="4-ref-source-references"><ri:page ri:content-title="Provider Connectors and Shared API Architecture Summary" ri:space-key="DNBU" /><ac:link-body>044 REF</ac:link-body></ac:link>. Sequence calls below are logical until mapped to actual API versions; notifications are not a second invoice API.</p>
+<p>The sequences implement <ac:link ac:anchor="1-required-behaviour-and-acceptance"><ri:page ri:content-title="Provider Connector Shared API Interaction Contract" ri:space-key="DNBU" /><ac:link-body>045 CA-01–05</ac:link-body></ac:link>. They show logical boundaries; protocol and deployment remain architecture decisions.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">11-operation-execution-and-recovery</ac:parameter></ac:structured-macro><h3>1.1 Operation execution and recovery</h3>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="b2765df7-d702-59f7-bb25-12a4cf49a2e1"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">provider-connector-operation-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1800</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/provider-connector-operation-sequence.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/provider-connector-operation-sequence.png">PNG</a>.</p>
+<p>A validates the product request at the shared API. B dispatches saved work through notifications to one executor; the Provider Connector calls the external platform and posts the correlated result to that same API. C holds uncertain effects, reconciles the original operation when permitted and submits recovered evidence through the shared API. A provider acting directly uses the same contract under its assigned role; it must not execute work already assigned to a connector.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">12-inbound-acquisition-and-durable-handoff</ac:parameter></ac:structured-macro><h3>1.2 Inbound acquisition and durable handoff</h3>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="daa557cd-22b0-568e-aa02-2fe4482dfeac"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">provider-connector-inbound-sequence</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1415</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/provider-connector-inbound-sequence.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/provider-connector-inbound-sequence.png">PNG</a>.</p>
+<p>A shows polling and qualified push as alternative entry paths. B submits source data through the shared API and confirms durable capture before covered progress advances. C retries that same submission after interruption; shared-API duplicate handling prevents repeated business processing. A product retrieves permitted saved content through that same API. Expired cursors or source gaps require qualified recovery before a completeness claim. No SPFE push interface is established by the reviewed baseline.</p>
+<p><ac:link ac:anchor="4-scenario-coverage"><ri:page ri:content-title="Provider Connector Shared API Interaction Contract" ri:space-key="DNBU" /><ac:link-body>045 §4</ac:link-body></ac:link> holds CS01–16, including changes during pending work, partial outcomes and country/profile isolation. Those cases refer to the applicable diagram branch or the owning feature rather than adding one diagram per exception.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-reuse-and-country-binding</ac:parameter></ac:structured-macro><h2>2 Reuse and country binding</h2>
+<table>
+<thead>
+<tr>
+<th>Capability/source</th>
+<th>Spain use and classification</th>
+<th>Local change, owner and evidence before activation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared API and notification pattern, CA-ARCH01/02</td>
+<td>Shared-contract direction <strong>confirmed</strong>; implementation coverage <strong>unknown</strong></td>
+<td>API Architecture: inventory deployed operations, caller roles, event schemas, builds and versions. Compare with SPEC013; qualify Spain behaviour and existing-consumer compatibility.</td>
+</tr>
+<tr>
+<td>Correlation, durable execution, duplicate handling and evidence</td>
+<td><strong>Reusable proposed design pattern</strong> across bindings</td>
+<td>Provider Connector Engineering: prove actual persistence, concurrent execution and crash recovery under 045 CA-02–04.</td>
+</tr>
+<tr>
+<td>Shared connectivity, SPEC014</td>
+<td><strong>Shared capability requiring country/provider/role bindings</strong></td>
+<td>Connectivity owner: qualify supported contract versions, trust, limits, credentials and operation readiness.</td>
+</tr>
+<tr>
+<td>SPFE provider connector, SPEC011</td>
+<td><strong>Spain-specific transport binding</strong></td>
+<td>Spain Integration owner: test selected client, SOAP/ebMS/MIME handling, faults and credential ports against the 23 November local baseline. Production access and accepted schema/profile qualification remain open. CA-SPFE.</td>
+</tr>
+<tr>
+<td>B2B Router, SPEC017</td>
+<td>Proposed private-provider binding; implementation coverage <strong>unknown</strong></td>
+<td>Provider owner: supply contracted version, entitlement, supported directions, account model and conformance evidence. It does not qualify the other five providers.</td>
+</tr>
+<tr>
+<td>Existing DTS, SPEC008</td>
+<td>Preferred transformation implementation candidate upstream</td>
+<td>DTS + invoice-feature owners: qualify exact build, input/output mappings, rule packs and operations. No transformation responsibility moves into provider connector transport.</td>
+</tr>
+<tr>
+<td>Spain identity, routing, public-copy and reporting rules</td>
+<td><strong>Spain-specific feature rules</strong>, referenced rather than copied</td>
+<td>Country/domain owners: bind approved rules; prove another country's profile does not inherit Spain behaviour.</td>
+</tr>
+<tr>
+<td>Future peer interconnection</td>
+<td>Shared design candidate; implementation reuse <strong>unknown</strong></td>
+<td>Operator/Architecture owners: qualify peer protocol, trust, role and capability differences. No automatic reuse of customer-provider credentials or adapters.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-architecture-decisions-and-release-evidence</ac:parameter></ac:structured-macro><h2>3 Architecture decisions and release evidence</h2>
+<p>These gates refine existing SPEC013 GPA-Q01–12 and SPEC014 decisions; they do not create a second approval process.</p>
+<table>
+<thead>
+<tr>
+<th>Decision / owner</th>
+<th>Evidence needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interface direction and ownership / API Architecture</td>
+<td>Use the confirmed common contract for product, provider and connector consumers. Map historical labels and exact operation versions; qualify notification/callback interfaces separately. Select one executor and reconciler per mutation.</td>
+</tr>
+<tr>
+<td>Private scope / Product + Provider Integration</td>
+<td>Use the six-provider portfolio in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-214-connections-registration-routing-structured-review.md#problem-and-business-objective">PRD214</a>, including Sovos. Confirm selected Spain services and direct versus aggregated access. Complete the 045 matrix with contract version, environment, owner and source evidence for each binding.</td>
+</tr>
+<tr>
+<td>Contract and trust / API Architecture + Security</td>
+<td>Define actual request/result schemas, authentication, authorised destinations, credential custody/rotation, callback replay protection and compatibility policy. Do not expose arbitrary endpoint execution.</td>
+</tr>
+<tr>
+<td>Runtime and operations / Engineering + Operations</td>
+<td>Select shared versus isolated deployment from trust and load needs. Set measured timeouts, quotas, payload limits, evidence retention and support ownership; no numeric targets are established here.</td>
+</tr>
+<tr>
+<td>Conformance / Integration + domain owners</td>
+<td>Execute applicable CS01–16 under CA-01–05, selected external-contract checks and existing-consumer compatibility. Record build/version and results.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-ref-source-references</ac:parameter></ac:structured-macro><h2>4 REF Source references</h2>
+<p>Historical CA-H01, canonical CA-BASE and original public CA-SPFE sources, versions and limits are recorded in <ac:link ac:anchor="4-ref-source-references"><ri:page ri:content-title="Provider Connectors and Shared API Architecture Summary" ri:space-key="DNBU" /><ac:link-body>044 REF</ac:link-body></ac:link>. Public operation sources SPFE-S10–S17/S23 are mapped in <ac:link ac:anchor="5-ref-source-references"><ri:page ri:content-title="Provider Connector Shared API Interaction Contract" ri:space-key="DNBU" /><ac:link-body>045 REF</ac:link-body></ac:link>. These sequences and gates are proposed design controls, not AEAT-prescribed components.</p>
+<p>Reuse sources: <ac:link><ri:page ri:content-title="B2B Router Provider Adapter Binding Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC017</ac:link-body></ac:link>, Part 1 §§2–4 and REF, establishes the proposed provider binding and its contract gaps; <ac:link><ri:page ri:content-title="Spain UBL Mapper Migration to DTS Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC008</ac:link-body></ac:link>, Spain use/reuse and qualification gates, establishes the DTS assessment boundary. Neither proves a deployed Spain implementation. Public source selection remains the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/source-manifest.json">reviewed manifest</a>, <code>current_wsdl_baseline</code>, and the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#pre-wsdl-and-supporting-evidence-reviewed-23-november-2026">23 November release review</a>.</p><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro>

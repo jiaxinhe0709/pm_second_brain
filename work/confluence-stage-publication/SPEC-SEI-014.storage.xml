@@ -1,0 +1,644 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-014<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">shared-platform-connectivity-and-routing-solution-specification</ac:parameter></ac:structured-macro><h1>Shared Platform Connectivity and Routing Solution Specification</h1>
+<p>Terminology follows the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md">shared e-invoicing glossary</a>. This is a <strong>proposed logical design</strong>. It establishes a reviewable shared foundation, not a deployed service, an approved external interface or permission for Sage to launch as an operator.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-1-feature-solution-summary</ac:parameter></ac:structured-macro><h2>Part 1 Feature Solution Summary</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-purpose-evidence-and-scope</ac:parameter></ac:structured-macro><h3>1 Purpose, evidence and scope</h3>
+<p>Implement one shared connection and routing foundation for two uses in Spain: Sage software connects a business to its external private provider; later, the Sage private-platform proposition exchanges with public and other private platforms. Products and partners use the common access contract; selected adapters execute the supported external interfaces. Adding an operator role must not create a second connection registry, route engine or invoice history.</p>
+<p>“Build once” describes reuse of shared behaviour. It does not mean one credential, endpoint, connection record or deployment can serve every role. A provider's customer interface and platform-interconnection interface may have different permissions, trust, registration and transport requirements. Qualify each separately and reuse an adapter only where its actual contract fits.</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Authority and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-214-connections-registration-routing-structured-review.md">PRD-SEI-214 — Connections, registration and routing</a>, FR1–27</td>
+<td>Primary connection, readiness, route, concurrency and historical-context requirements. Initial scope is legal entity, direction, environment and effective time; advanced routing is not approved.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-213-private-platform-connectivity-structured-review.md">PRD-SEI-213 — Private connectivity</a> and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-235-provider-api-for-e-invoicing-service.md">PRD-SEI-235 — Provider API</a></td>
+<td>Customer-provider integration and qualified Provider API, Sage adapter or hybrid modes. A mode name does not establish provider readiness.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-210-sage-private-platform-reuse-and-operator-expansion.md">PRD-SEI-210 — Sage as a private platform</a>, capability/reuse boundaries</td>
+<td>Proposed operator expansion using the earlier foundation. Investment, accountable operator and build/partner route remain open.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223 — Exchange</a>, FR1–5/12–26</td>
+<td>Recipient evidence, immutable exchange plans, independent actions, interconnection and safe recovery. Exchange owns the invoice/action plan, rather than this foundation creating another one.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-221-operator-readiness-regulatory-governance.md">PRD-SEI-221 — Operator readiness</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-215-resilience-recovery-reconciliation-structured-review.md">PRD-SEI-215 — Recovery</a></td>
+<td>Operator eligibility and recovery evidence gates; no new legal clock or external API is defined here.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-227-e-invoicing-as-a-service.md">PRD-SEI-227 — Shared platform</a> and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-001-phase3-existing-capability-reuse-gap-assessment.md">FP-SEI-001 — Reuse assessment</a></td>
+<td>Shared design direction and implementation qualification. Written requirements do not prove a production implementation.</td>
+</tr>
+</tbody>
+</table>
+<p>In scope: role-qualified connection profiles, separate registration observations and capability checks, controlled activation, deterministic route selection, adapter handoffs, suspension, migration qualification and historical dependencies. <strong>Open/gated expansion:</strong> operator interconnection, direct private exchange and a public bridge use the same model only after applicable evidence and approval. Connecting to providers first is a delivery sequence, not a technical prerequisite to operating a platform.</p>
+<p>Out of scope: legal invoice issuance, a new Global API product, a new invoice store, provider endpoint design, approval of operator launch, general routing optimisation, per-invoice caller override, automatic failover, approval of Private A → Private B customer switching, signing/transformation implementation and final retention/deletion. Platform-to-platform invoice exchange is different from changing a customer's selected platform.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">public-source-baseline</ac:parameter></ac:structured-macro><h3>Public source baseline</h3>
+<p>The supplied public WSDLs can qualify the SPFE adapter portion of a connection profile. They do not qualify private-provider interfaces, operator accreditation, customer enrolment or receiving-point publication. This review changes only the public binding of the shared model.</p>
+<p>See <ac:link ac:anchor="ref-source-references"><ac:link-body>REF Source references</ac:link-body></ac:link> for the original files, exact locations and source limits. The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md">technical evidence guide</a> tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-terms-roles-and-responsibility</ac:parameter></ac:structured-macro><h3>2 Terms, roles and responsibility</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Connection / registration / readiness / route</td>
+<td>Communication configuration; observed external enrolment or reachability; evidence for a selected capability; time-bound platform selection for a defined invoice scope. These are separate facts.</td>
+</tr>
+<tr>
+<td>Integration role</td>
+<td>The capacity in which Sage uses an interface: customer-provider integration or platform interconnection. The role selects qualified contracts and controls; it does not grant customer authority.</td>
+</tr>
+<tr>
+<td>Contract profile</td>
+<td>Selected operation, protocol/schema, environment, destination and safety rules. It is separate from invoice format and operator eligibility.</td>
+</tr>
+<tr>
+<td>Exchange action</td>
+<td>One separately tracked delivery, public-copy submission or event report, with its own result.</td>
+</tr>
+<tr>
+<td>Cutover / historical continuity</td>
+<td>The boundary when future eligible work changes platform; the permitted actors, access and evidence retained for earlier invoices.</td>
+</tr>
+<tr>
+<td>Authenticated principal / represented party</td>
+<td>Trusted caller identity; business or person on whose behalf the action is performed. They are checked separately.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Responsibility</th>
+<th>Owner and handoff</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared connection records, profiles, checks and route versions</td>
+<td>Proposed Connection / Routing logical owners within Domain Services. Actual service/build ownership stays open under SPC-Q01.</td>
+</tr>
+<tr>
+<td>Customer setup and platform-change journey</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-002-onboarding-solution-specification.md">SPEC-SEI-002</a> owns customer intent and journey results; uses this foundation for readiness and route commit. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-003-offboarding-solution-specification.md">SPEC-SEI-003</a> owns exit and dependency release.</td>
+</tr>
+<tr>
+<td>Common API access</td>
+<td><ac:link><ri:page ri:content-title="Provider API through the E-Invoicing Global API Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-013</ac:link-body></ac:link> exposes authorised operations and results; it does not implement a second route engine.</td>
+</tr>
+<tr>
+<td>Public protocol access</td>
+<td><ac:link><ri:page ri:content-title="Public Platform Connector Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-011</ac:link-body></ac:link> owns public operation execution and evidence. This foundation supplies qualified connection/route context, not a replacement public connector.</td>
+</tr>
+<tr>
+<td>Invoice exchange and recipient resolution</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> owns the final exchange plan/actions; <ac:link><ri:page ri:content-title="Consult public platform for recipient information" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-012</ac:link-body></ac:link> supplies recipient evidence; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a> owns trusted intake and product delivery.</td>
+</tr>
+<tr>
+<td>Status facts and required reports</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a> interprets events and owns reporting obligations. Resolve permitted historical context here without changing the fact or replaying a report.</td>
+</tr>
+<tr>
+<td>Trust and transformation</td>
+<td><ac:link><ri:page ri:content-title="Certificate Management Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-001</ac:link-body></ac:link> owns protected credentials/trust. Existing DTS is the preferred transformation reuse candidate; <ac:link><ri:page ri:content-title="Spain UBL Mapper Migration to DTS Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-008</ac:link-body></ac:link> does not qualify every input/output pair.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-spain-use-and-reuse-qualification</ac:parameter></ac:structured-macro><h3>3 Spain use and reuse qualification</h3>
+<table>
+<thead>
+<tr>
+<th>Source capability</th>
+<th>Intended Spain use</th>
+<th>Reuse classification / local changes</th>
+<th>Gap, owner and evidence before activation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Connection/readiness/route patterns in PRD-SEI-214</td>
+<td>Keep public and private connections; select independently for sending/receiving.</td>
+<td>Reusable unchanged: proposed design pattern, extended with separately qualified roles.</td>
+<td>Architecture + Connection/Routing: actual build, contracts, concurrency and migration coverage remain unknown.</td>
+</tr>
+<tr>
+<td>Global API and identity services</td>
+<td>Common scoped access for products and partners.</td>
+<td>Unknown implementation coverage; bind consumer roles and represented-party authority.</td>
+<td>API/Identity owners: build, grants, revocation, compatibility and tenant/environment tests.</td>
+</tr>
+<tr>
+<td>Provider adapter and public connector</td>
+<td>Use customer integration and operator interconnection through the same domain handoffs.</td>
+<td>Reusable with country/provider binding; external interfaces may need different adapters and trust.</td>
+<td>Integration owners: exact operation, role, protocol, credentials, query/replay and conformance evidence. No role inherits another role's readiness.</td>
+</tr>
+<tr>
+<td>Existing DTS</td>
+<td>Transform a representation requested by Exchange/Receiving.</td>
+<td>Unknown implementation coverage; preferred reuse candidate, outside route selection.</td>
+<td>DTS/Spain mapping owners: selected build, input/output contracts, mappings, rule packs, semantic preservation and operations. No blanket inbound or syntax coverage.</td>
+</tr>
+<tr>
+<td>Identity, recipient selection, public-copy and reporting policy</td>
+<td>Apply approved Spain identity, destination, copy and reporting rules.</td>
+<td>Spain-specific policy; shared orchestration needs a country binding.</td>
+<td>Spain Product/Compliance: applicable rule/version and contracts; do not make Spain rules another country's defaults.</td>
+</tr>
+<tr>
+<td>Operator controls and platform interconnection</td>
+<td>Enable the proposed Sage-platform role.</td>
+<td>Proposed extension; legal operator readiness is separate from technical connection readiness.</td>
+<td>Operator/Compliance/Integration: accountable entity, trust, test results, support and activation evidence under PRD-SEI-221.</td>
+</tr>
+</tbody>
+</table>
+<p>For every candidate record its source implementation or design pattern, retained behaviour, local changes, missing coverage, owner and evidence. Reusing an implementation requires actual build/contract results; copying a proposed pattern does not establish production readiness.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-process-diagrams-and-lifecycle</ac:parameter></ac:structured-macro><h3>4 Process diagrams and lifecycle</h3>
+<p>Diagram step names use plain-language actions. The smaller activity references link to the detailed behaviour and checks below.</p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="107f8099-b31d-5009-bfef-73eeed63b75b"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">shared-platform-connection-qualification-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2340</ac:parameter><ac:parameter ac:name="height">632</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/shared-platform-connection-qualification-process.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/shared-platform-connection-qualification-process.png">PNG preview</a>.</p>
+<p>Text equivalent: authorised customer/administrator request → SPC-01 establish business and role → SPC-02 save connection/profile independently from the active route → SPC-03 check each capability and observed external state → return setup result with passed checks, limitations and required actions. Missing evidence blocks only the affected capability; an uncertain external change goes to SPC-07 before repetition. Even a fully qualified connection cannot change the customer's platform without SPC-04.</p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="6c0db7a0-413f-530c-852e-e6ed50e2591f"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">shared-platform-route-and-continuity-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2340</ac:parameter><ac:parameter ac:name="height">632</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/shared-platform-route-and-continuity-process.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/shared-platform-route-and-continuity-process.png">PNG preview</a>.</p>
+<p>Text equivalent: explicit platform-change request → SPC-04 prepare and commit the authorised direction/effective boundary after current qualification and external confirmation → SPC-05 resolve a single route for new work → SPC-06 bind the route/profile to the owning invoice/action before external processing. A conflict or uncertain external change goes to SPC-07. SPC-08 preserves permitted historical work and applies suspension/release checks. A qualified future route does not replace earlier invoice context.</p>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Trigger and observable result</th>
+<th>Logical owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPC-01 Establish scope and role</td>
+<td>Request identifies caller, represented party, tenant, country, environment, direction/capability and integration role; authority and operator eligibility are checked separately.</td>
+<td>Identity / Connection</td>
+</tr>
+<tr>
+<td>SPC-02 Configure connection/profile</td>
+<td>Authorised administrator saves versioned configuration and protected references; external registration and routes remain unchanged.</td>
+<td>Connection / Trust</td>
+</tr>
+<tr>
+<td>SPC-03 Qualify capability</td>
+<td>Non-mutating checks or approved conformance evidence return supported operations, observed state, freshness, limitations and required actions per role/capability.</td>
+<td>Connection / adapter</td>
+</tr>
+<tr>
+<td>SPC-04 Change e-invoicing platform</td>
+<td>Explicit request commits a scope-specific route version at an agreed boundary only after readiness, authority, concurrency and required external checks.</td>
+<td>Onboarding/exit coordinator → Routing</td>
+</tr>
+<tr>
+<td>SPC-05 Resolve route</td>
+<td>New work selects exactly one eligible customer route; recipient evidence and country policy remain separate Exchange inputs.</td>
+<td>Routing → Exchange/Receiving</td>
+</tr>
+<tr>
+<td>SPC-06 Bind and hand off</td>
+<td>Owning feature saves the route/profile, permitted executor and correlation before external processing; returns independent action evidence.</td>
+<td>Exchange/Receiving / adapter</td>
+</tr>
+<tr>
+<td>SPC-07 Reconcile and recover</td>
+<td>Unknown, conflicting or stale evidence is checked under the original operation; safe continuation or an owned unresolved case is returned.</td>
+<td>Feature owner / adapter / Operations</td>
+</tr>
+<tr>
+<td>SPC-08 Preserve continuity and suspend/release</td>
+<td>Suspension controls new work; prior invoices retain permitted context. Dependency release occurs only through the owning exit controls.</td>
+<td>Routing / lifecycle / exit coordinator</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-material-decisions</ac:parameter></ac:structured-macro><h3>5 Material decisions</h3>
+<p>SPC-Q01–Q07 gate actual component reuse, external contracts, country/operator controls, incoming reachability, continuity, operating limits and delivery scope. This spec changes no live route. A customer sees <strong>setup result and required actions</strong> or <strong>platform-change result</strong>; an internal readiness label never promises that a route is already active.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-2-logical-feature-specification</ac:parameter></ac:structured-macro><h2>Part 2 Logical Feature Specification</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-model-outcomes-and-invariants</ac:parameter></ac:structured-macro><h3>1 Model, outcomes and invariants</h3>
+<p>The proposed logical records use existing concepts: connection, registration observation, capability qualification, route/version, transition, immutable invoice context and continuity dependency. Add integration role and contract-profile references rather than parallel Phase 2/Phase 3 record families. Logical field names here are proposed; actual mappings need SPC-Q01. Preserve existing contracts until compatibility is proven.</p>
+<p>Connection configuration, qualification, selected route and operator eligibility remain independently visible. Keep <code>UNKNOWN</code> for unproven registration and <code>OUTCOME_UNKNOWN</code> for a possible external effect with no reliable result. A failed probe is not evidence that registration ended. Do not introduce a customer-wide readiness flag or a universal external state mapping.</p>
+<ol>
+<li>Every access and mutation checks tenant, represented party, authenticated caller, environment, capability and current authority. Operator approval cannot replace customer authority.</li>
+<li>Readiness is qualified for the exact role, contract/profile and capability. Customer-interface success cannot activate platform interconnection.</li>
+<li>Preparing or qualifying a connection never changes a route. Route activation and external registration are separate operations with separate evidence.</li>
+<li>A scoped route has one eligible connection for each decision time. Reject overlapping effective periods or ambiguous matches; do not use database order or invent fallback.</li>
+<li>Before external processing, the owning feature saves the effective route/profile and the action's execution owner. A route change cannot rewrite that record or move an uncertain action to a second executor.</li>
+<li>Earlier work uses recorded context and separately verified current historical authority. Old credentials or provider access are not retained indefinitely merely because records exist.</li>
+<li>Required public copies and event reports have independent actions/results under country policy. Connection readiness does not create these obligations.</li>
+</ol>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-behaviour-by-activity</ac:parameter></ac:structured-macro><h3>2 Behaviour by activity</h3>
+<p><strong>SPC-01 — Establish scope and role.</strong> On a product/partner request, verify the authenticated principal's capability and represented-party grant. Resolve tenant/legal entity, country, trusted environment and requested direction. Reject caller-supplied conflicting identity/environment or unauthorised role selection before exposing records. Operator administration may qualify a platform profile without access to customer invoice data; customer route activation still needs the customer's authority and entitlement. Save decision source/version and rejection reason with sensitive values removed.</p>
+<p><strong>SPC-02 — Configure the connection.</strong> Validate the chosen provider/network and supported integration mode (<code>PROVIDER_API</code>, <code>SAGE_ADAPTER</code> or qualified <code>HYBRID</code>). Save configuration under expected version and request identity; protect credential references through SPEC-SEI-001. The profile identifies role, operation, protocol/schema version, approved destination reference, trust/authority requirements, accepted representation/profile, limits, idempotency/query support and execution/reconciliation owners. Do not accept arbitrary caller URLs. Same request identity/content returns the prior result; changed content conflicts. Multiple roles may share proven adapter code, but require distinct bindings where authority, accounts or interfaces differ. Updating a credential/profile invalidates affected qualification until checked; it cannot mutate existing invoice context.</p>
+<p><strong>SPC-03 — Qualify each capability.</strong> Adapter/Connection owners assess incoming, outgoing, status, notification and reconciliation paths independently. Use approved checks that do not issue invoices or mutate registration. Store check result, source, observed time, rule/profile/credential version, expiry/recheck condition and limitations. Where enrolment or receiving-point publication requires a mutation, its feature owns a durable operation and independent observation; configured, acknowledged and observed reachable remain separate results. Ambiguous publication enters SPC-07. Missing provider observation requires an approved manual evidence gate, not inferred success. No global READY promotion is allowed from one successful call. Return passed/failed/unknown checks and named required actions; expose no credentials.</p>
+<p>For platform interconnection, also qualify operator eligibility, peer identity, selected trust/transport, supported invoice/status operations, test evidence and responsible support owner. An interconnection case being opened or closed is not technical readiness. No legal deadline or protocol is asserted by this spec; the applicable rule and external artefacts remain SPC-Q02/Q03 gates.</p>
+<p><strong>SPC-04 — Change e-invoicing platform.</strong> On an explicit authorised customer/delegate request, identify sending, receiving or both; display current and proposed platform, effective boundary, limitations and historical impact. Onboarding/exit owns this customer journey; Routing owns the single route commit. Recheck current authority, entitlement, role qualification, dependency validity and expected route version. Prevent overlapping active/scheduled scopes and serialise competing changes through the existing Routing owner.</p>
+<p>Prepare any required external receiving-point change with durable request identity and observed result before declaring activation. There is no distributed atomicity assumption: save preparation state, reconcile a possible external effect, and hold affected work where external and local selections disagree. Commit the local route with an expected-version check only when the contract-specific ordering and reachability checks pass. Return result per direction, actual boundary and remaining historical tasks. Unaffected directions continue. Cancellation before external effect leaves the old route; after a possible effect it requires reconciliation. Restoration after cutover is a new authorised transition, not deletion of evidence or a rewrite of the previous boundary. Private A → Private B customer switching remains disabled until the source product decision and its transition contract are approved.</p>
+<p><strong>SPC-05 — Resolve new work.</strong> For new work, apply the route's effective interval to the trusted decision time and implemented scope: legal entity, direction and environment within tenant/country. Exclude ineligible capabilities using current role/profile evidence. Return exactly one route/version with selection reason. No match returns an owned hold under the approved no-route policy; several matches return a configuration conflict. A timeout is not proof of no private destination. Outbound Exchange separately resolves recipient evidence and applies Spain delivery/copy policy through SPEC-SEI-012/007. A customer-provider route and the recipient's destination are different selections; do not merge them. For incoming traffic, Receiving matches the authenticated source and permitted receiving interval, rather than treating the current outbound route as authorisation.</p>
+<p><strong>SPC-06 — Bind and hand off.</strong> Return connection/profile version, permitted executor, protected references and decision evidence to the owning feature. Exchange/Receiving stores immutable invoice context before external processing. Exchange plans independent delivery/copy/reporting actions where applicable, each with one execution and reconciliation owner. A partner work claim under SPEC-SEI-013 and an adapter under SPEC-SEI-011 must not execute the same action concurrently. The selected executor validates current authority and credential safety immediately before transmission, while preserving the original action identity/profile; a changed contract requires explicit recovery, not silent replacement. Receiving validates the actual source/file under SPEC-SEI-016. Record external references and exact acknowledgement meaning through the owning feature. Transport success is not buyer acceptance, payment or report completion.</p>
+<p><strong>SPC-07 — Reconcile and recover.</strong> The operation owner records whether an external change may have happened. For a lost response, claim expiry, conflicting observation or stale commit, use the original operation/profile/reference to query authoritative state where supported. Repeat a mutation only under a proven repeat contract; otherwise retain an owned unresolved case with escalation. Do not switch to a new platform or credential merely because a worker lease expired. Safe read rechecks may refresh qualification under approved limits. Manual action needs scoped permission, evidence, reason and audit; it cannot invent external completion. After correction, requalify only the affected capability and separately request route activation if needed. Feature-specific recovery remains in SPEC-SEI-002/007/009/011/013/016; this foundation owns connection/route discrepancy recovery without duplicating their action stores.</p>
+<p><strong>SPC-08 — Preserve continuity and suspend/release.</strong> Before disablement, list active/scheduled routes and in-flight/historical dependencies. Revoked authority or unsafe trust stops protected actions; keeping a record does not retain permission. Route historical work using the original invoice/operator context and an approved current actor/channel. Missing historical authority opens a continuity case rather than silently using the new platform. A contract-approved replacement channel is an append-only handoff with evidence and owner, not a rewrite of the original invoice snapshot. SPEC-SEI-003 coordinates deregistration, credential release, export, retention and deletion at their own gates. Rollout of the operator role must preserve existing customer-provider connections; qualifying the new role does not activate it or migrate customers.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-requirements-and-controls</ac:parameter></ac:structured-macro><h3>3 Requirements and controls</h3>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Testable behaviour / source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPC-R01</td>
+<td>Use one connection/route model across both roles with separate bindings where needed; PRD214 FR1/2/19–21, PRD210 reuse constraint.</td>
+</tr>
+<tr>
+<td>SPC-R02</td>
+<td>Isolate caller, represented party, tenant, country, environment and capability; PRD214 FR6/27 and PRD235 authority controls.</td>
+</tr>
+<tr>
+<td>SPC-R03</td>
+<td>Separate configuration, external registration, capability readiness, operator eligibility and active route; PRD214 FR3–5/23.</td>
+</tr>
+<tr>
+<td>SPC-R04</td>
+<td>Commit only explicitly authorised, current, non-overlapping, version-controlled route changes; PRD214 FR7–13.</td>
+</tr>
+<tr>
+<td>SPC-R05</td>
+<td>Resolve one explainable route and persist immutable context before external processing; PRD214 FR10/14–18, PRD223 FR1–3/14.</td>
+</tr>
+<tr>
+<td>SPC-R06</td>
+<td>Each exchange action has one executor and independent evidence; no second path or fallback resends an uncertain/completed action; PRD223 FR12/15/16/22/23.</td>
+</tr>
+<tr>
+<td>SPC-R07</td>
+<td>Mutation identity binds input and expected version; uncertain external effects reconcile before unsafe repeat; PRD214 FR22/25 and PRD215.</td>
+</tr>
+<tr>
+<td>SPC-R08</td>
+<td>Suspension and dependency release preserve history and enforce current permission; PRD214 FR13/17/18/26, SPEC003 exit controls.</td>
+</tr>
+<tr>
+<td>SPC-R09</td>
+<td>Customer results explain passed checks, limitations, required action/owner and platform-change scope; PRD214 FR23/24.</td>
+</tr>
+<tr>
+<td>SPC-R10</td>
+<td>Keep Spain policy separate and record implementation reuse gaps, owners and qualification evidence; PRD227/FP001 and repository controls.</td>
+</tr>
+</tbody>
+</table>
+<p>Encrypt protected records and transport under approved policy; return credential handles, never secrets. Restrict endpoints and parser/file access in the owning adapter/receiving service. Audit actor, reason, before/after version, correlation and evidence reference without raw invoice content. Operations views require separate permission. Measure qualification freshness, transition age, conflicting/unknown operations, historical dependencies, backlog and provider health without business identifiers in metric labels. SPC-Q06 gates quotas, expiry/recheck, retention, retry budgets and service targets; no numeric commitment is invented.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">spfe-source-contract-binding</ac:parameter></ac:structured-macro><h3>SPFE source contract binding</h3>
+<p>The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through SPC-02–03, SPC-06–07. Source conflicts stay open under SPC-Q02/Q03/Q04; SPFE-Q09/Q12; they are not resolved by a local default.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Constraint and required behaviour</th>
+<th>Source reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPC-SPFE-R01 Qualify only the evidenced public profile</td>
+<td>SPC-02/03 records the exact SPFE operation, WSDL version/port, certificate class, represented-party authority and environment. Public readiness cannot qualify a private provider or operator role, publish an entry point or activate a customer route. PRE addresses remain separate from production evidence.</td>
+<td>SPFE-S03/SPFE-S16; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>SPC-SPFE-R02 Preserve owning-feature public action rules</td>
+<td>SPC-06 passes the frozen action to one public executor. OUT owns the Article 3/4 copy decision and LCS owns reporting. Public interconnection must not create a redundant faithful copy. Invoice-query absence cannot become recipient-routing evidence or permission to switch routes.</td>
+<td>SPFE-S02/SPFE-S03; proposed execution boundary; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-3-logical-service-interactions-and-data-inventory</ac:parameter></ac:structured-macro><h2>Part 3 Logical Service Interactions and Data Inventory</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-interaction-contracts</ac:parameter></ac:structured-macro><h3>1 Interaction contracts</h3>
+<p>All mutations carry scoped caller/represented-party context, request identity, input digest and expected version. Save a stable local operation receipt before possible external change. Read results state observation time and uncertainty. These are logical contracts, not approved endpoints.</p>
+<table>
+<thead>
+<tr>
+<th>Interaction</th>
+<th>Caller → owner; input / output</th>
+<th>Authority, recovery and data</th>
+<th>Activities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPC-INT-01</td>
+<td>Global API/journey → Identity/Connection; scope/role/grant → permitted context or denial.</td>
+<td>Current customer grant and separate operator eligibility; no object-existence leakage; D01/D07.</td>
+<td>01–04/08</td>
+</tr>
+<tr>
+<td>SPC-INT-02</td>
+<td>Connection → profile registry/Trust; provider/role/environment → protected references and versioned operation contract.</td>
+<td>Administrator scope; no arbitrary endpoint/key export; changed binding invalidates affected checks; D01/D02.</td>
+<td>02/03/06</td>
+</tr>
+<tr>
+<td>SPC-INT-03</td>
+<td>Connection → qualified adapter/provider; approved check/query → observed registration/capability evidence.</td>
+<td>Operation-specific authority; read/check limits; possible external changes use owned mutation receipt and reconcile; D02/D03/D06.</td>
+<td>03/07</td>
+</tr>
+<tr>
+<td>SPC-INT-04</td>
+<td>Onboarding/exit → Routing; authorised platform-change intent/expected version/boundary → preparation, scoped commit or hold.</td>
+<td>Current role readiness, observed receiving state and conflict control; cancellation/restoration retain evidence; D03/D04/D06/D07.</td>
+<td>04/07/08</td>
+</tr>
+<tr>
+<td>SPC-INT-05</td>
+<td>Exchange/Receiving → Routing; new work scope/time → one route/version/reason or owned hold.</td>
+<td>Tenant/entity/environment/country checks; recipient lookup is separate; D03/D04/D05.</td>
+<td>05</td>
+</tr>
+<tr>
+<td>SPC-INT-06</td>
+<td>Routing → Exchange/Receiving → selected executor; route/profile/evidence → bound invoice/action context and external evidence.</td>
+<td>Owning feature persists context; one executor per action, current authority before send; independent results; D02/D04/D05.</td>
+<td>06/07</td>
+</tr>
+<tr>
+<td>SPC-INT-07</td>
+<td>Feature/Operations → original adapter/reconciler; operation/reference → authoritative result or unresolved case.</td>
+<td>Original action context and approved query/repeat contract; never a new executor by default; D05/D06/D07.</td>
+<td>07</td>
+</tr>
+<tr>
+<td>SPC-INT-08</td>
+<td>Lifecycle/exit → Routing/continuity; earlier invoice/dependency/suspension → permitted historical context, impact and release hold.</td>
+<td>Current authority and approved continuity channel; SPEC003 owns final release; D04/D05/D07/D08.</td>
+<td>08</td>
+</tr>
+<tr>
+<td>SPC-INT-09</td>
+<td>Connection/Routing → Global API/product; committed outcome → safe result and recoverable notification.</td>
+<td>Scoped reads/events, deduplicated notifications after durable save; no business-operation replay; D03/D04/D06/D07.</td>
+<td>03/04/07/08</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-data-inventory-and-systems-of-record</ac:parameter></ac:structured-macro><h3>2 Data inventory and systems of record</h3>
+<p>All records are partitioned by tenant/legal entity/country/environment where applicable. Retention, legal holds and deletion follow approved data-class policy and exit gates; this spec sets no period.</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Logical owner; contents and classification</th>
+<th>Consumers and lifecycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPC-D01 Connection binding</td>
+<td>Connection; stable identity, provider/account reference, integration role/mode, environment, protected credential reference, configuration version; restricted/versioned.</td>
+<td>01/02/03/06; never expose credential material.</td>
+</tr>
+<tr>
+<td>SPC-D02 Contract/operator profile</td>
+<td>Profile registry; operation, role, trust, destination reference, protocol/schema, safe-repeat/query support, executor/reconciler and separate operator evidence; restricted/versioned.</td>
+<td>02/03/06/07; each role qualified separately.</td>
+</tr>
+<tr>
+<td>SPC-D03 Registration/qualification observations</td>
+<td>Connection; intended/observed state, source/time, capability, profile/credential/policy versions, limitations, expiry/recheck and required action; append observations.</td>
+<td>03/04/05 and INT-09 result publication; no implicit route activation.</td>
+</tr>
+<tr>
+<td>SPC-D04 Route and transition</td>
+<td>Routing; direction/scope, selected connection/profile, effective period, expected/new version, authority/approval, preparation/commit/cancellation/restoration evidence; restricted.</td>
+<td>04/05/06/08; unique eligible selection and concurrency checks.</td>
+</tr>
+<tr>
+<td>SPC-D05 Invoice/action context reference</td>
+<td>Exchange/Receiving remains system of record; original route/operator/profile, decision time, external references and execution owner; immutable origin with later evidence appended.</td>
+<td>05/06/07/08; foundation references this record rather than creating a second invoice store.</td>
+</tr>
+<tr>
+<td>SPC-D06 Connection/transition operation</td>
+<td>Owning Connection/Routing feature; request identity/input digest, attempts, external-effect boundary, result/unknown, observation and safe continuation; restricted/durable.</td>
+<td>03/04/07/09; invoice actions stay in their existing owners' stores.</td>
+</tr>
+<tr>
+<td>SPC-D07 Authority/audit/case references</td>
+<td>Identity/Audit/Operations; grant/version, actor/reason, before/after state, correlation, evidence, case owner/action; restricted with redaction.</td>
+<td>01–04/07/08/09; invoice/API permission and operator approval remain distinguishable.</td>
+</tr>
+<tr>
+<td>SPC-D08 Continuity dependencies</td>
+<td>Exit/Records with Routing references; invoice/connection dependency, permitted actor/channel, access limits and release evidence; restricted/versioned.</td>
+<td>08; ownership gap blocks unsafe release, not a proven unrelated direction.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-4-assurance-and-traceability-view</ac:parameter></ac:structured-macro><h2>Part 4 Assurance and Traceability View</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-acceptance-and-evidence</ac:parameter></ac:structured-macro><h3>1 Acceptance and evidence</h3>
+<p>The scenarios below are checks to run, not claims that they passed on a deployed implementation. Activity numbers refer to SPC-01–08; interaction/data numbers refer to the inventories above.</p>
+<table>
+<thead>
+<tr>
+<th>Acceptance</th>
+<th>Requirement → activities / interactions / data</th>
+<th>Observable acceptance evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPC-A01 Add operator role without replacing the foundation</td>
+<td>R01/03/05/10 → 01–06/08; INT01–06/08/09; D01–05/08</td>
+<td>An existing customer-provider connection keeps identity, selected routes and history when a separately qualified operator profile is added. Shared owner/model/contracts are evidenced; no duplicate route engine or invoice store.</td>
+</tr>
+<tr>
+<td>SPC-A02 No qualification inheritance between roles</td>
+<td>R01–03 → 01–03; INT01–03; D01–03/07</td>
+<td>Customer-interface success leaves operator interconnection unqualified until its own trust, contract and operator checks pass; incompatible credentials cannot cross roles.</td>
+</tr>
+<tr>
+<td>SPC-A03 Configure/check without platform change</td>
+<td>R03/09 → 02–04; INT02–04/09; D01–04/06</td>
+<td>Setup returns passed, failed and unknown checks with required action/owner; public/private routes remain unchanged. No test issues an invoice.</td>
+</tr>
+<tr>
+<td>SPC-A04 Scope and isolation denial</td>
+<td>R02/10 → 01–08; INT01–09; D01–08</td>
+<td>Cross-tenant/entity/country/environment, forged role and revoked grant requests fail before protected access/send; no credential or object-existence leakage.</td>
+</tr>
+<tr>
+<td>SPC-A05 Independent direction and concurrency</td>
+<td>R04/05 → 04/05; INT04/05; D03/D04/D06</td>
+<td>Private sending/public receiving coexist. Competing or overlapping changes cannot both commit; unaffected directions continue and results state the actual scope.</td>
+</tr>
+<tr>
+<td>SPC-A06 Ambiguous publication, cancellation and restoration</td>
+<td>R04/07 → 03/04/07; INT03/04/07; D03/D04/D06/D07</td>
+<td>Lost external response holds affected activation and observes the original operation before repeat. Pre-effect cancellation keeps the old route; post-effect cancellation reconciles; restoration appends a new authorised boundary.</td>
+</tr>
+<tr>
+<td>SPC-A07 Deterministic selection and separate recipient lookup</td>
+<td>R05 → 05/06; INT05/06; D03–05</td>
+<td>Zero/multiple matches return owned hold/conflict. Recipient lookup failure does not invent public fallback or override the customer's provider. Route/profile context persists before processing.</td>
+</tr>
+<tr>
+<td>SPC-A08 Single executor and unknown-action recovery</td>
+<td>R06/07 → 06/07; INT06/07; D02/D05/D06</td>
+<td>Partner claim and adapter cannot send one action twice; expiry or timeout does not move it to a second executor. Public-copy/report failure does not resend successful invoice delivery.</td>
+</tr>
+<tr>
+<td>SPC-A09 Historical continuity and suspension</td>
+<td>R05/08 → 07/08; INT07/08; D04–08</td>
+<td>After a platform change, earlier delivery/status/reporting uses original context plus current permission. Revocation blocks unsafe access; an unresolved actor/channel prevents dependent release and stays visible.</td>
+</tr>
+<tr>
+<td>SPC-A10 Country isolation and implementation qualification</td>
+<td>R10 → 01–08; INT01–09; D01–08</td>
+<td>A separate country binding does not inherit Spain identity, recipient, copy or reporting rules. Existing build/contracts/mappings/operations and gaps are recorded; unsupported role/profile/DTS pair stays disabled.</td>
+</tr>
+<tr>
+<td>SPC-A11 Operator exchange is distinct from customer switching</td>
+<td>R01/03/04 → 01–05; INT01–05; D01–04</td>
+<td>Qualifying a peer interconnection does not migrate customers, enable Private A → Private B switching or activate the Sage proposition. Evidence gates remain explicit.</td>
+</tr>
+<tr>
+<td>SPC-A12 Durable results and permitted operations view</td>
+<td>R07/09 → 03/04/07/08; INT07–09; D03/D04/D06/D07</td>
+<td>A crash after save permits result/notification recovery without repeating a mutation. Scoped support sees intended/observed state, evidence age and safe owner/action; secrets and other customers' data remain hidden.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-open-decisions-and-release-gates</ac:parameter></ac:structured-macro><h3>2 Open decisions and release gates</h3>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Accountable owner / evidence</th>
+<th>Impact and gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPC-Q01 Actual Connection/Routing/API build, record mappings, service owners and migration fit</td>
+<td>Architecture + Connection/Routing/API owners: contracts/builds, baseline, gaps and compatibility proof.</td>
+<td>Blocks build-ready physical design and implementation-reuse claims; select existing owners before adding components.</td>
+</tr>
+<tr>
+<td>SPC-Q02 External interface per provider, role and capability</td>
+<td>Integration/provider/public-connector owners: exact operation, initiator, profile, credentials, conformance and query/repeat semantics.</td>
+<td>Blocks affected adapter/profile activation; common provider identity does not prove common interface.</td>
+</tr>
+<tr>
+<td>SPC-Q03 Spain country rules and operator eligibility</td>
+<td>Spain Product/Compliance + accountable operator: approved identity/routing/copy/reporting rules, interconnection applicability and operator evidence.</td>
+<td>Blocks country-dependent/operator activation; no new legal interpretation is established here.</td>
+</tr>
+<tr>
+<td>SPC-Q04 Incoming reachability and external/local cutover ordering</td>
+<td>Routing/Onboarding + provider owners: publication observations, expiry, mismatch recovery, cancellation and restoration tests.</td>
+<td>Blocks affected receiving cutover; outbound qualification cannot substitute for it.</td>
+</tr>
+<tr>
+<td>SPC-Q05 Historical actor/channel and dependency release</td>
+<td>Lifecycle/exit/Records + Compliance/providers: current authority, approved replacement channel, continuity and release evidence.</td>
+<td>Blocks unsafe historical execution or release; preserve an owned unresolved case.</td>
+</tr>
+<tr>
+<td>SPC-Q06 Operational and data-policy targets</td>
+<td>Operations/Security/Records + Product: measured volume, provider limits, freshness/retry policy, monitoring, retention and support/runbooks.</td>
+<td>Blocks production sign-off and numeric commitments.</td>
+</tr>
+<tr>
+<td>SPC-Q07 First delivery cohort and expansion scope</td>
+<td>Spain Product + Architecture/operator owners: provider/role/direction matrix, approved product scope and controlled rollout.</td>
+<td>Pilot only qualified capabilities; per-invoice override, automatic failover and Private A → Private B customer switching remain outside initial scope.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-readiness</ac:parameter></ac:structured-macro><h3>3 Readiness</h3>
+<p><strong>Reviewable logical proposal.</strong> Design review can assess one foundation and its separate role/country bindings. Pilot requires SPC-Q01/Q02/Q04 plus applicable SPC-Q03 decisions, isolation/concurrency/unknown-outcome acceptance and continuity owners. Production and operator expansion additionally require actual operator approval, implementation qualification, measured operating controls and supported historical/exit paths. No publication, status change, operator investment or live activation is implied.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">spfe-evidence-acceptance</ac:parameter></ac:structured-macro><h3>SPFE evidence acceptance</h3>
+<p>These are required evidence scenarios, not executed implementation tests. The source-binding gate is SPC-Q02/Q03/Q04; SPFE-Q09/Q12. A source-backed review does not establish that this feature is ready for production.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Scenario</th>
+<th>Required result</th>
+<th>Requirement coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPC-SPFE-A01</td>
+<td>A public SendInvoice profile passes checks while private/operator profiles are unknown</td>
+<td>Enable only the independently qualified public capability; no registration, publication, route activation or private readiness is fabricated.</td>
+<td>SPC-SPFE-R01; SPC-02–03, SPC-06–07; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>SPC-SPFE-A02</td>
+<td>Public interconnection or an empty public invoice query enters the shared routing model</td>
+<td>Retain the owning feature's exact action set; no extra copy, recipient absence inference or automatic route switch.</td>
+<td>SPC-SPFE-R02; SPC-02–03, SPC-06–07; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro><h2>REF Source references</h2>
+<p>For public-platform legal and external-contract facts, the original official sources below take precedence over earlier assumptions in linked PRDs and internal notes. PRDs retain product scope and are unchanged by this review. A source conflict remains an explicit gate; this spec cannot approve a local substitute.</p>
+<p>Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.</p>
+<table>
+<thead>
+<tr>
+<th>REF ID</th>
+<th>Source and version</th>
+<th>Exact location</th>
+<th>Supported information and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/BOE-A-2026-20587.pdf">BOE-A-2026-20587.pdf</a>; Final order; published 5 October 2026.</td>
+<td>Articles 3.4, 4 and 11</td>
+<td>Public-copy distinction and public action authority; no private adapter implementation.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">CatalogoServicios.pdf</a>; 0.1.0; cover 9 October 2026.</td>
+<td>sections 4.3 and 6.1–6.10; pp. 8, 10–20</td>
+<td>Public operations and limits, not a recipient directory or private service contract.</td>
+</tr>
+<tr>
+<td>SPFE-S16</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SendInvoice.wsdl">SendInvoice.wsdl</a>; PRE release 23 November 2026; SHA-256 in source manifest.</td>
+<td>certificate/seal service ports and PRE addresses</td>
+<td>Public environment/credential-class binding.</td>
+</tr>
+<tr>
+<td>REF-PRD</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-214-connections-registration-routing-structured-review.md">PRD-SEI-214 — Connections, registration and routing</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-213-private-platform-connectivity-structured-review.md">PRD-SEI-213 — Private connectivity</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-235-provider-api-for-e-invoicing-service.md">PRD-SEI-235 — Provider API</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-210-sage-private-platform-reuse-and-operator-expansion.md">PRD-SEI-210 — Sage as a private platform</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223 — Exchange</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-221-operator-readiness-regulatory-governance.md">PRD-SEI-221 — Operator readiness</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-215-resilience-recovery-reconciliation-structured-review.md">PRD-SEI-215 — Recovery</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-227-e-invoicing-as-a-service.md">PRD-SEI-227 — Shared platform</a>.</td>
+<td>Product scope and requirement IDs cited in Parts 1–4.</td>
+<td>Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval.</td>
+</tr>
+<tr>
+<td>REF-CONTEXT</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/source-manifest.json">source manifest</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>.</td>
+<td>Source register, shared conflicts and terminology.</td>
+<td>Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

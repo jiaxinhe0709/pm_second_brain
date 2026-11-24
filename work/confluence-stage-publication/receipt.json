@@ -1,0 +1,1221 @@
+{
+  "revision": "1fdeb6b0a56d24732be7b93be05f657ab948002a",
+  "excluded": [
+    "SPEC-SEI-004",
+    "SPEC-SEI-010",
+    "SPEC-SEI-048",
+    "SPEC-SEI-049",
+    "SPEC-SEI-050",
+    "SPEC-SEI-051",
+    "SPEC-SEI-052",
+    "SPEC-SEI-053"
+  ],
+  "scope": "32 solution specification targets; decision logs and dedicated error-handling documents excluded",
+  "pages": [
+    {
+      "id": "SPEC-SEI-001",
+      "file": "specs/SPEC-SEI-001-certificate-management-solution-specification.md",
+      "page_id": "923861389",
+      "parent_page_id": "837610651",
+      "title": "Certificate Management Solution Specification",
+      "diagrams": 3,
+      "sha256": "b4fd27d44375b91b92150557a02988ac525bc289b9023dec685832d321e48c68",
+      "expected_version": 6,
+      "preview": "DRY-RUN SPEC-SEI-001 page=923861389 v6 -> v7 drawio=3"
+    },
+    {
+      "id": "SPEC-SEI-005",
+      "file": "specs/SPEC-SEI-005-ubl-validation-and-correction-solution-specification.md",
+      "page_id": "923861393",
+      "parent_page_id": "918651070",
+      "title": "UBL Validation and Correction Solution Specification",
+      "diagrams": 2,
+      "sha256": "d941954cb8e09851da79e5a4ccd446be4b2faa31f66fe149f53ec4f46d18fb5c",
+      "expected_version": 6,
+      "preview": "DRY-RUN SPEC-SEI-005 page=923861393 v6 -> v7 drawio=2"
+    },
+    {
+      "id": "SPEC-SEI-008",
+      "file": "specs/SPEC-SEI-008-spain-ubl-mapper-migration-to-dts-solution-specification.md",
+      "page_id": "923861396",
+      "parent_page_id": "899154457",
+      "title": "Spain UBL Mapper Migration to DTS Solution Specification",
+      "diagrams": 2,
+      "sha256": "4742fa12ec07750694988782584a33a186ba5029eb9c31ccfb472e05ef26ab35",
+      "expected_version": 5,
+      "preview": "DRY-RUN SPEC-SEI-008 page=923861396 v5 -> v6 drawio=2"
+    },
+    {
+      "id": "SPEC-SEI-011",
+      "file": "specs/SPEC-SEI-011-public-platform-connector-solution-specification.md",
+      "page_id": "923861399",
+      "parent_page_id": "902988120",
+      "title": "Public Platform Connector Solution Specification",
+      "diagrams": 1,
+      "sha256": "0dfad30121141be8804ed1b09982f9d4e7aecfb66a801d3ecd83dbcd9bf45e82",
+      "expected_version": 7,
+      "preview": "DRY-RUN SPEC-SEI-011 page=923861399 v7 -> v8 drawio=1"
+    },
+    {
+      "id": "SPEC-SEI-012",
+      "file": "specs/SPEC-SEI-012-consult-public-platform-for-recipient-information.md",
+      "page_id": "923861400",
+      "parent_page_id": "866148656",
+      "title": "Consult public platform for recipient information",
+      "diagrams": 1,
+      "sha256": "9324abe8e262e995b29e594657cf01835054fa456945cb5e1f9877e49e8cf93d",
+      "expected_version": 5,
+      "preview": "DRY-RUN SPEC-SEI-012 page=923861400 v5 -> v6 drawio=1"
+    },
+    {
+      "id": "SPEC-SEI-013",
+      "file": "specs/SPEC-SEI-013-provider-api-through-the-e-invoicing-global-api-solution-specification.md",
+      "page_id": "923861402",
+      "parent_page_id": "899154047",
+      "title": "Provider API through the E-Invoicing Global API Solution Specification",
+      "diagrams": 2,
+      "sha256": "cc87a9e95aa57b7453189bfcf35cb046d855c06a6a38832f3d3e53f6bfbb6847",
+      "expected_version": 5,
+      "preview": "DRY-RUN SPEC-SEI-013 page=923861402 v5 -> v6 drawio=2"
+    },
+    {
+      "id": "SPEC-SEI-014",
+      "file": "specs/SPEC-SEI-014-shared-platform-connectivity-and-routing-solution-specification.md",
+      "page_id": "925631670",
+      "parent_page_id": "902988120",
+      "title": "Shared Platform Connectivity and Routing Solution Specification",
+      "diagrams": 2,
+      "sha256": "58ac734e956994506b330158b29ca440562f49b742d61bc57ccc834ab9245329",
+      "expected_version": 3,
+      "preview": "DRY-RUN SPEC-SEI-014 page=925631670 v3 -> v4 drawio=2"
+    },
+    {
+      "id": "SPEC-SEI-015",
+      "file": "specs/SPEC-SEI-015-invoice-creation-solution-specification.md",
+      "page_id": "927924682",
+      "parent_page_id": "837610654",
+      "title": "Invoice Creation Solution Specification",
+      "diagrams": 2,
+      "sha256": "cacb61142d36d5c7c4abac4418d38076c8dee853abe97001c8cc69e7c75af67f",
+      "expected_version": 4,
+      "preview": "DRY-RUN SPEC-SEI-015 page=927924682 v4 -> v5 drawio=2"
+    },
+    {
+      "id": "SPEC-SEI-017",
+      "file": "specs/SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md",
+      "page_id": "",
+      "parent_page_id": "899154047",
+      "title": "B2B Router Provider Adapter Binding Solution Specification",
+      "diagrams": 1,
+      "sha256": "a656443e139a7973163daee9c6a511bbb682a755e000e21baab86a04512dc198",
+      "preview": "DRY-RUN CREATE SPEC-SEI-017 title='B2B Router Provider Adapter Binding Solution Specification' space=DNBU parent=899154047 drawio=1"
+    },
+    {
+      "id": "SPEC-SEI-022",
+      "file": "specs/invoice-sending/SPEC-SEI-022-invoice-sending-solution-summary.md",
+      "page_id": "923861395",
+      "parent_page_id": "837610656",
+      "title": "Invoice Sending Solution Summary",
+      "diagrams": 1,
+      "sha256": "83490831a5f6c5a09a511d628118fec3dddb295583fbef147a79a71566d30c6e",
+      "expected_version": 13,
+      "preview": "DRY-RUN SPEC-SEI-022 page=923861395 v13 -> v14 drawio=1"
+    },
+    {
+      "id": "SPEC-SEI-023",
+      "file": "specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md",
+      "page_id": "937951484",
+      "parent_page_id": "837610656",
+      "title": "Invoice Sending Logical Feature Specification",
+      "diagrams": 1,
+      "sha256": "ac9a7eb25314dd3e3d830bd6efcbf8c7b3913e8ca4085841e832170726506fd2",
+      "expected_version": 4,
+      "preview": "DRY-RUN SPEC-SEI-023 page=937951484 v4 -> v5 drawio=1"
+    },
+    {
+      "id": "SPEC-SEI-024",
+      "file": "specs/invoice-sending/SPEC-SEI-024-invoice-sending-sequence-and-reuse-assessment.md",
+      "page_id": "937951488",
+      "parent_page_id": "837610656",
+      "title": "Invoice Sending Sequence and Reuse Assessment",
+      "diagrams": 3,
+      "sha256": "678e3624c1e3c26a720c5cdbaf90d249bc365f46c40e39552b121d80bef73aab",
+      "expected_version": 5,
+      "preview": "DRY-RUN SPEC-SEI-024 page=937951488 v5 -> v6 drawio=3"
+    },
+    {
+      "id": "SPEC-SEI-025",
+      "file": "specs/invoice-receiving/SPEC-SEI-025-invoice-retrieval-solution-summary.md",
+      "page_id": "933331276",
+      "parent_page_id": "837610662",
+      "title": "Invoice Retrieval Solution Summary",
+      "diagrams": 1,
+      "sha256": "6afb11d9e5dbbd2c299ad731286e7ec291088c7a6b1533bed5275dd62059310b",
+      "expected_version": 5,
+      "preview": "DRY-RUN SPEC-SEI-025 page=933331276 v5 -> v6 drawio=1"
+    },
+    {
+      "id": "SPEC-SEI-026",
+      "file": "specs/invoice-receiving/SPEC-SEI-026-invoice-retrieval-logical-feature-specification.md",
+      "page_id": "943980648",
+      "parent_page_id": "837610662",
+      "title": "Invoice Retrieval Logical Feature Specification",
+      "diagrams": 1,
+      "sha256": "c09d00bc58c28b29f814660b9eb7e356fc5fd58a3fe67f0f8c7639c6385ec762",
+      "expected_version": 5,
+      "preview": "DRY-RUN SPEC-SEI-026 page=943980648 v5 -> v6 drawio=1"
+    },
+    {
+      "id": "SPEC-SEI-027",
+      "file": "specs/invoice-receiving/SPEC-SEI-027-invoice-retrieval-sequence-and-reuse-assessment.md",
+      "page_id": "943980652",
+      "parent_page_id": "837610662",
+      "title": "Invoice Retrieval Sequence and Reuse Assessment",
+      "diagrams": 4,
+      "sha256": "6fdae60bc5f9f61fbebc90802f39b9955724e2bc89c576139e6f5736f36437b6",
+      "expected_version": 5,
+      "preview": "DRY-RUN SPEC-SEI-027 page=943980652 v5 -> v6 drawio=4"
+    },
+    {
+      "id": "SPEC-SEI-028",
+      "file": "specs/invoice-lifecycle/SPEC-SEI-028-invoice-lifecycle-solution-summary.md",
+      "page_id": "923861398",
+      "parent_page_id": "837610664",
+      "title": "Invoice Lifecycle Solution Summary",
+      "diagrams": 1,
+      "sha256": "69f874ac2475c2e73325a3c431612546e955a7b25610ab5060d63d2e626d9ab6",
+      "expected_version": 10,
+      "preview": "DRY-RUN SPEC-SEI-028 page=923861398 v10 -> v11 drawio=1"
+    },
+    {
+      "id": "SPEC-SEI-029",
+      "file": "specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md",
+      "page_id": "937965384",
+      "parent_page_id": "837610664",
+      "title": "Invoice Lifecycle Logical Feature Specification",
+      "diagrams": 1,
+      "sha256": "4a726b801bcaee0b59868c3f31189de331c34125b09a8deb4b6c6341cb6f8cdc",
+      "expected_version": 3,
+      "preview": "DRY-RUN SPEC-SEI-029 page=937965384 v3 -> v4 drawio=1"
+    },
+    {
+      "id": "SPEC-SEI-030",
+      "file": "specs/invoice-lifecycle/SPEC-SEI-030-invoice-lifecycle-sequence-and-reuse-assessment.md",
+      "page_id": "937965388",
+      "parent_page_id": "837610664",
+      "title": "Invoice Lifecycle Sequence and Reuse Assessment",
+      "diagrams": 3,
+      "sha256": "da3f17572a25fbb64bf0fc4796246341d12cdf4c59d659f100600cae4f132ee8",
+      "expected_version": 4,
+      "preview": "DRY-RUN SPEC-SEI-030 page=937965388 v4 -> v5 drawio=3"
+    },
+    {
+      "id": "SPEC-SEI-031",
+      "file": "specs/offboarding/SPEC-SEI-031-customer-offboarding-solution-summary.md",
+      "page_id": "923861391",
+      "parent_page_id": "918651071",
+      "title": "Customer Offboarding Solution Summary",
+      "diagrams": 2,
+      "sha256": "2ca988682a4536fc6800857f2f58996bf9cec096bec06992ae148d7a2725319b",
+      "expected_version": 4,
+      "preview": "DRY-RUN SPEC-SEI-031 page=923861391 v4 -> v5 title='Customer Offboarding Solution Specification' -> 'Customer Offboarding Solution Summary' drawio=2"
+    },
+    {
+      "id": "SPEC-SEI-032",
+      "file": "specs/offboarding/SPEC-SEI-032-customer-offboarding-logical-feature-specification.md",
+      "page_id": "",
+      "parent_page_id": "918651071",
+      "title": "Customer Offboarding Logical Feature Specification",
+      "diagrams": 1,
+      "sha256": "b8acfb34e832fb30c610d12f05768e0f753651b699071d0f081cc2a989576d69",
+      "preview": "DRY-RUN CREATE SPEC-SEI-032 title='Customer Offboarding Logical Feature Specification' space=DNBU parent=918651071 drawio=1"
+    },
+    {
+      "id": "SPEC-SEI-033",
+      "file": "specs/offboarding/SPEC-SEI-033-customer-offboarding-sequence-and-reuse-assessment.md",
+      "page_id": "",
+      "parent_page_id": "918651071",
+      "title": "Customer Offboarding Sequence and Reuse Assessment",
+      "diagrams": 0,
+      "sha256": "e63516a8ba62b1a0f77beaed91eaf1df490bee5235c21f42cfe54ef81f3ad42c",
+      "preview": "DRY-RUN CREATE SPEC-SEI-033 title='Customer Offboarding Sequence and Reuse Assessment' space=DNBU parent=918651071 drawio=0"
+    },
+    {
+      "id": "SPEC-SEI-037",
+      "file": "specs/onboarding-and-connectivity/SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md",
+      "page_id": "923861390",
+      "parent_page_id": "837610648",
+      "title": "Onboarding and Connectivity Solution Summary",
+      "diagrams": 2,
+      "sha256": "f034e70ecc78e9fc3d7e39168592d7a2e9279995d541805c2f72524128924cf4",
+      "expected_version": 20,
+      "preview": "DRY-RUN SPEC-SEI-037 page=923861390 v20 -> v21 drawio=2"
+    },
+    {
+      "id": "SPEC-SEI-038",
+      "file": "specs/onboarding-and-connectivity/SPEC-SEI-038-customer-onboarding-and-connectivity-logical-feature-specification.md",
+      "page_id": "936509725",
+      "parent_page_id": "837610648",
+      "title": "Onboarding and Connectivity Logical Feature Specification",
+      "diagrams": 1,
+      "sha256": "dc569864379033b365790fcd001b14042a784864a57a0fd3a7e42202a1729748",
+      "expected_version": 11,
+      "preview": "DRY-RUN SPEC-SEI-038 page=936509725 v11 -> v12 drawio=1"
+    },
+    {
+      "id": "SPEC-SEI-039",
+      "file": "specs/onboarding-and-connectivity/SPEC-SEI-039-customer-onboarding-and-connectivity-sequence-and-reuse-assessment.md",
+      "page_id": "936509735",
+      "parent_page_id": "837610648",
+      "title": "Onboarding and Connectivity API Reuse Assessment",
+      "diagrams": 4,
+      "sha256": "f354ebb0b68374e359821c5d80e06ea856553290d3957875c92ebebf773f9c72",
+      "expected_version": 16,
+      "preview": "DRY-RUN SPEC-SEI-039 page=936509735 v16 -> v17 drawio=4"
+    },
+    {
+      "id": "SPEC-SEI-040",
+      "file": "specs/onboarding-and-connectivity/api-reference/SPEC-SEI-040-existing-e-invoice-onboarding-api-reference.md",
+      "page_id": "938804297",
+      "parent_page_id": "837610648",
+      "title": "E-Invoice Onboarding API Reuse and Spain Changes",
+      "diagrams": 0,
+      "sha256": "20c7e13d5e9f30fa6fbb02abb87c07a876c74a9b64d5be2e3b1d02f335354ed4",
+      "expected_version": 11,
+      "preview": "DRY-RUN SPEC-SEI-040 page=938804297 v11 -> v12 drawio=0"
+    },
+    {
+      "id": "SPEC-SEI-041",
+      "file": "specs/invoice-lifecycle/api-reference/SPEC-SEI-041-existing-e-invoice-lifecycle-api-reference.md",
+      "page_id": "937965396",
+      "parent_page_id": "837610664",
+      "title": "E-Invoice Lifecycle API Reuse and Spain Changes",
+      "diagrams": 0,
+      "sha256": "baee1193d79e8d066a5c36efee0632ce99e67f74e72a40b0b54fbaf83864f59e",
+      "expected_version": 4,
+      "preview": "DRY-RUN SPEC-SEI-041 page=937965396 v4 -> v5 drawio=0"
+    },
+    {
+      "id": "SPEC-SEI-042",
+      "file": "specs/invoice-receiving/api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md",
+      "page_id": "943980662",
+      "parent_page_id": "837610662",
+      "title": "E-Invoice Retrieval API Reuse and Spain Changes",
+      "diagrams": 0,
+      "sha256": "6873a2fc9857649cf8d18a4df747e2679cc059c27f3706b87e525e5542998efd",
+      "expected_version": 4,
+      "preview": "DRY-RUN SPEC-SEI-042 page=943980662 v4 -> v5 drawio=0"
+    },
+    {
+      "id": "SPEC-SEI-043",
+      "file": "specs/invoice-sending/api-reference/SPEC-SEI-043-invoice-sending-api-reference.md",
+      "page_id": "937965432",
+      "parent_page_id": "837610656",
+      "title": "Invoice Sending API Reference and Spain Changes",
+      "diagrams": 0,
+      "sha256": "ec14466196238431f700e7f71bd44ccb026c4bff9462b31f8ac94eff437e7f6b",
+      "expected_version": 2,
+      "preview": "DRY-RUN SPEC-SEI-043 page=937965432 v2 -> v3 drawio=0"
+    },
+    {
+      "id": "SPEC-SEI-044",
+      "file": "specs/provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md",
+      "page_id": "",
+      "parent_page_id": "899154047",
+      "title": "Provider Connectors and Shared API Architecture Summary",
+      "diagrams": 1,
+      "sha256": "3a31ce2fe6371bf13cec50f3b6cb80144ae1ba39eb5349ec0c0dd67e77886c5c",
+      "preview": "DRY-RUN CREATE SPEC-SEI-044 title='Provider Connectors and Shared API Architecture Summary' space=DNBU parent=899154047 drawio=1"
+    },
+    {
+      "id": "SPEC-SEI-045",
+      "file": "specs/provider-connectors/SPEC-SEI-045-provider-connector-api-logical-contract.md",
+      "page_id": "",
+      "parent_page_id": "899154047",
+      "title": "Provider Connector Shared API Interaction Contract",
+      "diagrams": 0,
+      "sha256": "95108f42dcc9e33e3910867ad5ea136e4cf4b82e8857cb1bc05adfb360a4c3c6",
+      "preview": "DRY-RUN CREATE SPEC-SEI-045 title='Provider Connector Shared API Interaction Contract' space=DNBU parent=899154047 drawio=0"
+    },
+    {
+      "id": "SPEC-SEI-046",
+      "file": "specs/provider-connectors/SPEC-SEI-046-provider-connector-api-sequences-and-reuse-assessment.md",
+      "page_id": "",
+      "parent_page_id": "899154047",
+      "title": "Provider Connector Shared API Sequences and Reuse Assessment",
+      "diagrams": 2,
+      "sha256": "63d1fafa3c84398329a3135a537f3c307c889dcf0455fddbe46a4b8ac025334c",
+      "preview": "DRY-RUN CREATE SPEC-SEI-046 title='Provider Connector Shared API Sequences and Reuse Assessment' space=DNBU parent=899154047 drawio=2"
+    },
+    {
+      "id": "SPEC-SEI-047",
+      "file": "specs/SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md",
+      "page_id": "",
+      "parent_page_id": "902988120",
+      "title": "SPFE SOAP to Sage E-Invoice API Mapping",
+      "diagrams": 0,
+      "sha256": "118d91d141a6e3cf9fc12ffb69516cf151a6c6e2a6889a264ca9202a341933cb",
+      "preview": "DRY-RUN CREATE SPEC-SEI-047 title='SPFE SOAP to Sage E-Invoice API Mapping' space=DNBU parent=902988120 drawio=0"
+    }
+  ],
+  "results": [
+    {
+      "id": "SPEC-SEI-017",
+      "page_id": "958536715",
+      "result": "CREATED SPEC-SEI-017 page=958536715 parent=899154047 drawio=1",
+      "title": "B2B Router Provider Adapter Binding Solution Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536715"
+    },
+    {
+      "id": "SPEC-SEI-032",
+      "page_id": "958536719",
+      "result": "CREATED SPEC-SEI-032 page=958536719 parent=918651071 drawio=1",
+      "title": "Customer Offboarding Logical Feature Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536719"
+    },
+    {
+      "id": "SPEC-SEI-033",
+      "page_id": "958536723",
+      "result": "CREATED SPEC-SEI-033 page=958536723 parent=918651071 drawio=0",
+      "title": "Customer Offboarding Sequence and Reuse Assessment",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536723"
+    },
+    {
+      "id": "SPEC-SEI-044",
+      "page_id": "958536725",
+      "result": "CREATED SPEC-SEI-044 page=958536725 parent=899154047 drawio=1",
+      "title": "Provider Connectors and Shared API Architecture Summary",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536725"
+    },
+    {
+      "id": "SPEC-SEI-045",
+      "page_id": "958536729",
+      "result": "CREATED SPEC-SEI-045 page=958536729 parent=899154047 drawio=0",
+      "title": "Provider Connector Shared API Interaction Contract",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536729"
+    },
+    {
+      "id": "SPEC-SEI-046",
+      "page_id": "958536731",
+      "result": "CREATED SPEC-SEI-046 page=958536731 parent=899154047 drawio=2",
+      "title": "Provider Connector Shared API Sequences and Reuse Assessment",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536731"
+    },
+    {
+      "id": "SPEC-SEI-047",
+      "page_id": "958536737",
+      "result": "CREATED SPEC-SEI-047 page=958536737 parent=902988120 drawio=0",
+      "title": "SPFE SOAP to Sage E-Invoice API Mapping",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536737"
+    },
+    {
+      "id": "SPEC-SEI-001",
+      "page_id": "923861389",
+      "result": "UPDATED SPEC-SEI-001 page=923861389 v6 -> v7 drawio=3",
+      "title": "Certificate Management Solution Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861389"
+    },
+    {
+      "id": "SPEC-SEI-005",
+      "page_id": "923861393",
+      "result": "UPDATED SPEC-SEI-005 page=923861393 v6 -> v7 drawio=2",
+      "title": "UBL Validation and Correction Solution Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861393"
+    },
+    {
+      "id": "SPEC-SEI-008",
+      "page_id": "923861396",
+      "result": "UPDATED SPEC-SEI-008 page=923861396 v5 -> v6 drawio=2",
+      "title": "Spain UBL Mapper Migration to DTS Solution Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861396"
+    },
+    {
+      "id": "SPEC-SEI-011",
+      "page_id": "923861399",
+      "result": "UPDATED SPEC-SEI-011 page=923861399 v7 -> v8 drawio=1",
+      "title": "Public Platform Connector Solution Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861399"
+    },
+    {
+      "id": "SPEC-SEI-012",
+      "page_id": "923861400",
+      "result": "UPDATED SPEC-SEI-012 page=923861400 v5 -> v6 drawio=1",
+      "title": "Consult public platform for recipient information",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861400"
+    },
+    {
+      "id": "SPEC-SEI-013",
+      "page_id": "923861402",
+      "result": "UPDATED SPEC-SEI-013 page=923861402 v5 -> v6 drawio=2",
+      "title": "Provider API through the E-Invoicing Global API Solution Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861402"
+    },
+    {
+      "id": "SPEC-SEI-014",
+      "page_id": "925631670",
+      "result": "UPDATED SPEC-SEI-014 page=925631670 v3 -> v4 drawio=2",
+      "title": "Shared Platform Connectivity and Routing Solution Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=925631670"
+    },
+    {
+      "id": "SPEC-SEI-015",
+      "page_id": "927924682",
+      "result": "UPDATED SPEC-SEI-015 page=927924682 v4 -> v5 drawio=2",
+      "title": "Invoice Creation Solution Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=927924682"
+    },
+    {
+      "id": "SPEC-SEI-022",
+      "page_id": "923861395",
+      "result": "UPDATED SPEC-SEI-022 page=923861395 v13 -> v14 drawio=1",
+      "title": "Invoice Sending Solution Summary",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861395"
+    },
+    {
+      "id": "SPEC-SEI-023",
+      "page_id": "937951484",
+      "result": "UPDATED SPEC-SEI-023 page=937951484 v4 -> v5 drawio=1",
+      "title": "Invoice Sending Logical Feature Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=937951484"
+    },
+    {
+      "id": "SPEC-SEI-024",
+      "page_id": "937951488",
+      "result": "UPDATED SPEC-SEI-024 page=937951488 v5 -> v6 drawio=3",
+      "title": "Invoice Sending Sequence and Reuse Assessment",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=937951488"
+    },
+    {
+      "id": "SPEC-SEI-025",
+      "page_id": "933331276",
+      "result": "UPDATED SPEC-SEI-025 page=933331276 v5 -> v6 drawio=1",
+      "title": "Invoice Retrieval Solution Summary",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=933331276"
+    },
+    {
+      "id": "SPEC-SEI-026",
+      "page_id": "943980648",
+      "result": "UPDATED SPEC-SEI-026 page=943980648 v5 -> v6 drawio=1",
+      "title": "Invoice Retrieval Logical Feature Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=943980648"
+    },
+    {
+      "id": "SPEC-SEI-027",
+      "page_id": "943980652",
+      "result": "UPDATED SPEC-SEI-027 page=943980652 v5 -> v6 drawio=4",
+      "title": "Invoice Retrieval Sequence and Reuse Assessment",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=943980652"
+    },
+    {
+      "id": "SPEC-SEI-028",
+      "page_id": "923861398",
+      "result": "UPDATED SPEC-SEI-028 page=923861398 v10 -> v11 drawio=1",
+      "title": "Invoice Lifecycle Solution Summary",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861398"
+    },
+    {
+      "id": "SPEC-SEI-029",
+      "page_id": "937965384",
+      "result": "UPDATED SPEC-SEI-029 page=937965384 v3 -> v4 drawio=1",
+      "title": "Invoice Lifecycle Logical Feature Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=937965384"
+    },
+    {
+      "id": "SPEC-SEI-030",
+      "page_id": "937965388",
+      "result": "UPDATED SPEC-SEI-030 page=937965388 v4 -> v5 drawio=3",
+      "title": "Invoice Lifecycle Sequence and Reuse Assessment",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=937965388"
+    },
+    {
+      "id": "SPEC-SEI-031",
+      "page_id": "923861391",
+      "result": "UPDATED SPEC-SEI-031 page=923861391 v4 -> v5 title='Customer Offboarding Solution Specification' -> 'Customer Offboarding Solution Summary' drawio=2",
+      "title": "Customer Offboarding Solution Summary",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861391"
+    },
+    {
+      "id": "SPEC-SEI-037",
+      "page_id": "923861390",
+      "result": "UPDATED SPEC-SEI-037 page=923861390 v20 -> v21 drawio=2",
+      "title": "Onboarding and Connectivity Solution Summary",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861390"
+    },
+    {
+      "id": "SPEC-SEI-038",
+      "page_id": "936509725",
+      "result": "UPDATED SPEC-SEI-038 page=936509725 v11 -> v12 drawio=1",
+      "title": "Onboarding and Connectivity Logical Feature Specification",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=936509725"
+    },
+    {
+      "id": "SPEC-SEI-039",
+      "page_id": "936509735",
+      "result": "UPDATED SPEC-SEI-039 page=936509735 v16 -> v17 drawio=4",
+      "title": "Onboarding and Connectivity API Reuse Assessment",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=936509735"
+    },
+    {
+      "id": "SPEC-SEI-040",
+      "page_id": "938804297",
+      "result": "UPDATED SPEC-SEI-040 page=938804297 v11 -> v12 drawio=0",
+      "title": "E-Invoice Onboarding API Reuse and Spain Changes",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=938804297"
+    },
+    {
+      "id": "SPEC-SEI-041",
+      "page_id": "937965396",
+      "result": "UPDATED SPEC-SEI-041 page=937965396 v4 -> v5 drawio=0",
+      "title": "E-Invoice Lifecycle API Reuse and Spain Changes",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=937965396"
+    },
+    {
+      "id": "SPEC-SEI-042",
+      "page_id": "943980662",
+      "result": "UPDATED SPEC-SEI-042 page=943980662 v4 -> v5 drawio=0",
+      "title": "E-Invoice Retrieval API Reuse and Spain Changes",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=943980662"
+    },
+    {
+      "id": "SPEC-SEI-043",
+      "page_id": "937965432",
+      "result": "UPDATED SPEC-SEI-043 page=937965432 v2 -> v3 drawio=0",
+      "title": "Invoice Sending API Reference and Spain Changes",
+      "url": "https://confluence.sage.com/pages/viewpage.action?pageId=937965432"
+    }
+  ],
+  "verification": [
+    {
+      "id": "SPEC-SEI-001",
+      "page_id": "923861389",
+      "version": 7,
+      "attachments_verified": [
+        "certificate-setup-onboarding-process",
+        "certificate-setup-onboarding-process.png",
+        "certificate-protected-use-process",
+        "certificate-protected-use-process.png",
+        "certificate-renewal-recovery-process",
+        "certificate-renewal-recovery-process.png"
+      ],
+      "native_links": 40,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-005",
+      "page_id": "923861393",
+      "version": 7,
+      "attachments_verified": [
+        "ubl-preflight-correction-process",
+        "ubl-preflight-correction-process.png",
+        "ubl-final-validation-process",
+        "ubl-final-validation-process.png"
+      ],
+      "native_links": 28,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-008",
+      "page_id": "923861396",
+      "version": 6,
+      "attachments_verified": [
+        "spain-ubl-dts-generation-process",
+        "spain-ubl-dts-generation-process.png",
+        "spain-ubl-dts-migration-process",
+        "spain-ubl-dts-migration-process.png"
+      ],
+      "native_links": 32,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-011",
+      "page_id": "923861399",
+      "version": 8,
+      "attachments_verified": [
+        "public-platform-connector-process",
+        "public-platform-connector-process.png"
+      ],
+      "native_links": 78,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-012",
+      "page_id": "923861400",
+      "version": 6,
+      "attachments_verified": [
+        "public-platform-recipient-lookup-process",
+        "public-platform-recipient-lookup-process.png"
+      ],
+      "native_links": 18,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-013",
+      "page_id": "923861402",
+      "version": 6,
+      "attachments_verified": [
+        "global-api-access-and-route-process",
+        "global-api-access-and-route-process.png",
+        "global-api-exchange-and-reconciliation-process",
+        "global-api-exchange-and-reconciliation-process.png"
+      ],
+      "native_links": 12,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-014",
+      "page_id": "925631670",
+      "version": 4,
+      "attachments_verified": [
+        "shared-platform-connection-qualification-process",
+        "shared-platform-connection-qualification-process.png",
+        "shared-platform-route-and-continuity-process",
+        "shared-platform-route-and-continuity-process.png"
+      ],
+      "native_links": 20,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-015",
+      "page_id": "927924682",
+      "version": 5,
+      "attachments_verified": [
+        "invoice-creation-preparation-process",
+        "invoice-creation-preparation-process.png",
+        "invoice-creation-correction-process",
+        "invoice-creation-correction-process.png"
+      ],
+      "native_links": 28,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-017",
+      "page_id": "958536715",
+      "version": 2,
+      "attachments_verified": [
+        "b2b-router-adapter-binding-process",
+        "b2b-router-adapter-binding-process.png"
+      ],
+      "native_links": 12,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-022",
+      "page_id": "923861395",
+      "version": 14,
+      "attachments_verified": [
+        "invoice-send-cancel-correct-workflow",
+        "invoice-send-cancel-correct-workflow.png"
+      ],
+      "native_links": 60,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-023",
+      "page_id": "937951484",
+      "version": 5,
+      "attachments_verified": [
+        "e-invoicing-outbound-exchange-pilot",
+        "e-invoicing-outbound-exchange-pilot.png"
+      ],
+      "native_links": 58,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-024",
+      "page_id": "937951488",
+      "version": 6,
+      "attachments_verified": [
+        "invoice-sending-fr-submission-sequence",
+        "invoice-sending-fr-submission-sequence.png",
+        "invoice-sending-spain-actions-sequence",
+        "invoice-sending-spain-actions-sequence.png",
+        "invoice-sending-recovery-sequence",
+        "invoice-sending-recovery-sequence.png"
+      ],
+      "native_links": 66,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-025",
+      "page_id": "933331276",
+      "version": 6,
+      "attachments_verified": [
+        "invoice-retrieval-combined-workflow",
+        "invoice-retrieval-combined-workflow.png"
+      ],
+      "native_links": 74,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-026",
+      "page_id": "943980648",
+      "version": 6,
+      "attachments_verified": [
+        "invoice-retrieval-overview-process",
+        "invoice-retrieval-overview-process.png"
+      ],
+      "native_links": 96,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-027",
+      "page_id": "943980652",
+      "version": 6,
+      "attachments_verified": [
+        "invoice-retrieval-fr-notification-sequence",
+        "invoice-retrieval-fr-notification-sequence.png",
+        "invoice-retrieval-spain-public-sequence",
+        "invoice-retrieval-spain-public-sequence.png",
+        "invoice-retrieval-file-recovery-sequence",
+        "invoice-retrieval-file-recovery-sequence.png",
+        "invoice-retrieval-view-download-sequence",
+        "invoice-retrieval-view-download-sequence.png"
+      ],
+      "native_links": 48,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-028",
+      "page_id": "923861398",
+      "version": 11,
+      "attachments_verified": [
+        "invoice-lifecycle-overview-process",
+        "invoice-lifecycle-overview-process.png"
+      ],
+      "native_links": 22,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-029",
+      "page_id": "937965384",
+      "version": 4,
+      "attachments_verified": [
+        "lifecycle-reporting-reconciliation-process",
+        "lifecycle-reporting-reconciliation-process.png"
+      ],
+      "native_links": 58,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-030",
+      "page_id": "937965388",
+      "version": 5,
+      "attachments_verified": [
+        "invoice-lifecycle-fr-update-sequence",
+        "invoice-lifecycle-fr-update-sequence.png",
+        "invoice-lifecycle-spain-reporting-sequence",
+        "invoice-lifecycle-spain-reporting-sequence.png",
+        "invoice-lifecycle-recovery-sequence",
+        "invoice-lifecycle-recovery-sequence.png"
+      ],
+      "native_links": 54,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-031",
+      "page_id": "923861391",
+      "version": 5,
+      "attachments_verified": [
+        "offboarding-and-switch-customer-actions",
+        "offboarding-and-switch-customer-actions.png",
+        "offboarding-planned-exit-process",
+        "offboarding-planned-exit-process.png"
+      ],
+      "native_links": 20,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-032",
+      "page_id": "958536719",
+      "version": 2,
+      "attachments_verified": [
+        "offboarding-recovery-process",
+        "offboarding-recovery-process.png"
+      ],
+      "native_links": 16,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-033",
+      "page_id": "958536723",
+      "version": 2,
+      "attachments_verified": [],
+      "native_links": 30,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-037",
+      "page_id": "923861390",
+      "version": 21,
+      "attachments_verified": [
+        "e-invoicing-settings-actions",
+        "e-invoicing-settings-actions.png",
+        "onboarding-summary-scenario-selection-process",
+        "onboarding-summary-scenario-selection-process.png"
+      ],
+      "native_links": 76,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-038",
+      "page_id": "936509725",
+      "version": 12,
+      "attachments_verified": [
+        "onboarding-and-connectivity-swimlane",
+        "onboarding-and-connectivity-swimlane.png"
+      ],
+      "native_links": 90,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-039",
+      "page_id": "936509735",
+      "version": 17,
+      "attachments_verified": [
+        "onboarding-setup-shared-prerequisites-sequence",
+        "onboarding-setup-shared-prerequisites-sequence.png",
+        "onboarding-setup-public-readiness-sequence",
+        "onboarding-setup-public-readiness-sequence.png",
+        "onboarding-setup-private-setup-sequence",
+        "onboarding-setup-private-setup-sequence.png",
+        "onboarding-setup-supported-change-sequence",
+        "onboarding-setup-supported-change-sequence.png"
+      ],
+      "native_links": 106,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-040",
+      "page_id": "938804297",
+      "version": 12,
+      "attachments_verified": [],
+      "native_links": 52,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-041",
+      "page_id": "937965396",
+      "version": 5,
+      "attachments_verified": [],
+      "native_links": 46,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-042",
+      "page_id": "943980662",
+      "version": 5,
+      "attachments_verified": [],
+      "native_links": 50,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-043",
+      "page_id": "937965432",
+      "version": 3,
+      "attachments_verified": [],
+      "native_links": 62,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-044",
+      "page_id": "958536725",
+      "version": 2,
+      "attachments_verified": [
+        "provider-connector-logical-architecture",
+        "provider-connector-logical-architecture.png"
+      ],
+      "native_links": 26,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-045",
+      "page_id": "958536729",
+      "version": 2,
+      "attachments_verified": [],
+      "native_links": 16,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-046",
+      "page_id": "958536731",
+      "version": 2,
+      "attachments_verified": [
+        "provider-connector-operation-sequence",
+        "provider-connector-operation-sequence.png",
+        "provider-connector-inbound-sequence",
+        "provider-connector-inbound-sequence.png"
+      ],
+      "native_links": 20,
+      "status": "passed"
+    },
+    {
+      "id": "SPEC-SEI-047",
+      "page_id": "958536737",
+      "version": 2,
+      "attachments_verified": [],
+      "native_links": 70,
+      "status": "passed"
+    }
+  ],
+  "protected_versions": {
+    "837610648": 39,
+    "837610651": 14,
+    "837610654": 2,
+    "837610656": 8,
+    "837610662": 11,
+    "837610664": 4,
+    "866148652": 2,
+    "866148656": 4,
+    "899154047": 7,
+    "899154457": 1,
+    "902988120": 1,
+    "912540298": 8,
+    "918651070": 3,
+    "918651071": 4,
+    "923861392": 5
+  },
+  "rendered_section_links_checked": 145,
+  "section_link_issues": [],
+  "protected_pages_unchanged": true,
+  "status": "published and verified",
+  "publication_setup_pr": "https://github.com/jiaxinhe0709/pm_second_brain/pull/53",
+  "page_id_record_pr": "https://github.com/jiaxinhe0709/pm_second_brain/pull/54",
+  "groups": [
+    {
+      "stage": "Onboarding and connectivity",
+      "count": 5,
+      "pages": [
+        {
+          "id": "SPEC-SEI-001",
+          "title": "Certificate Management Solution Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861389",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-037",
+          "title": "Onboarding and Connectivity Solution Summary",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861390",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-038",
+          "title": "Onboarding and Connectivity Logical Feature Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=936509725",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-039",
+          "title": "Onboarding and Connectivity API Reuse Assessment",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=936509735",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-040",
+          "title": "E-Invoice Onboarding API Reuse and Spain Changes",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=938804297",
+          "operation": "updated"
+        }
+      ]
+    },
+    {
+      "stage": "Invoice sending",
+      "count": 4,
+      "pages": [
+        {
+          "id": "SPEC-SEI-022",
+          "title": "Invoice Sending Solution Summary",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861395",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-023",
+          "title": "Invoice Sending Logical Feature Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=937951484",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-024",
+          "title": "Invoice Sending Sequence and Reuse Assessment",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=937951488",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-043",
+          "title": "Invoice Sending API Reference and Spain Changes",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=937965432",
+          "operation": "updated"
+        }
+      ]
+    },
+    {
+      "stage": "Invoice receiving",
+      "count": 4,
+      "pages": [
+        {
+          "id": "SPEC-SEI-025",
+          "title": "Invoice Retrieval Solution Summary",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=933331276",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-026",
+          "title": "Invoice Retrieval Logical Feature Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=943980648",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-027",
+          "title": "Invoice Retrieval Sequence and Reuse Assessment",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=943980652",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-042",
+          "title": "E-Invoice Retrieval API Reuse and Spain Changes",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=943980662",
+          "operation": "updated"
+        }
+      ]
+    },
+    {
+      "stage": "Invoice lifecycle",
+      "count": 4,
+      "pages": [
+        {
+          "id": "SPEC-SEI-028",
+          "title": "Invoice Lifecycle Solution Summary",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861398",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-029",
+          "title": "Invoice Lifecycle Logical Feature Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=937965384",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-030",
+          "title": "Invoice Lifecycle Sequence and Reuse Assessment",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=937965388",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-041",
+          "title": "E-Invoice Lifecycle API Reuse and Spain Changes",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=937965396",
+          "operation": "updated"
+        }
+      ]
+    },
+    {
+      "stage": "Transformation and validation",
+      "count": 3,
+      "pages": [
+        {
+          "id": "SPEC-SEI-005",
+          "title": "UBL Validation and Correction Solution Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861393",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-008",
+          "title": "Spain UBL Mapper Migration to DTS Solution Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861396",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-015",
+          "title": "Invoice Creation Solution Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=927924682",
+          "operation": "updated"
+        }
+      ]
+    },
+    {
+      "stage": "Offboarding",
+      "count": 3,
+      "pages": [
+        {
+          "id": "SPEC-SEI-032",
+          "title": "Customer Offboarding Logical Feature Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536719",
+          "operation": "created"
+        },
+        {
+          "id": "SPEC-SEI-033",
+          "title": "Customer Offboarding Sequence and Reuse Assessment",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536723",
+          "operation": "created"
+        },
+        {
+          "id": "SPEC-SEI-031",
+          "title": "Customer Offboarding Solution Summary",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861391",
+          "operation": "updated"
+        }
+      ]
+    },
+    {
+      "stage": "Shared platform capabilities",
+      "count": 9,
+      "pages": [
+        {
+          "id": "SPEC-SEI-017",
+          "title": "B2B Router Provider Adapter Binding Solution Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536715",
+          "operation": "created"
+        },
+        {
+          "id": "SPEC-SEI-044",
+          "title": "Provider Connectors and Shared API Architecture Summary",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536725",
+          "operation": "created"
+        },
+        {
+          "id": "SPEC-SEI-045",
+          "title": "Provider Connector Shared API Interaction Contract",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536729",
+          "operation": "created"
+        },
+        {
+          "id": "SPEC-SEI-046",
+          "title": "Provider Connector Shared API Sequences and Reuse Assessment",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536731",
+          "operation": "created"
+        },
+        {
+          "id": "SPEC-SEI-047",
+          "title": "SPFE SOAP to Sage E-Invoice API Mapping",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=958536737",
+          "operation": "created"
+        },
+        {
+          "id": "SPEC-SEI-011",
+          "title": "Public Platform Connector Solution Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861399",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-012",
+          "title": "Consult public platform for recipient information",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861400",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-013",
+          "title": "Provider API through the E-Invoicing Global API Solution Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=923861402",
+          "operation": "updated"
+        },
+        {
+          "id": "SPEC-SEI-014",
+          "title": "Shared Platform Connectivity and Routing Solution Specification",
+          "url": "https://confluence.sage.com/pages/viewpage.action?pageId=925631670",
+          "operation": "updated"
+        }
+      ]
+    }
+  ],
+  "canonical_record_revision": "3443b3454528b3112514227a62aed6795e5a464e",
+  "git_bookkeeping": "Publication setup and seven new page mappings merged; local canonical branch fast-forwarded."
+}

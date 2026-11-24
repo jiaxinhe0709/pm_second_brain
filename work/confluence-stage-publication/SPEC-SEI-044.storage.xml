@@ -1,0 +1,139 @@
+<div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-044<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/provider-connectors/SPEC-SEI-044-provider-connector-architecture-summary.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">provider-connectors-and-shared-api-architecture-summary</ac:parameter></ac:structured-macro><h1>Provider Connectors and Shared API Architecture Summary</h1>
+<p><ac:link><ri:page ri:content-title="Provider Connectors and Shared API Architecture Summary" ri:space-key="DNBU" /><ac:link-body>Summary</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Provider Connector Shared API Interaction Contract" ri:space-key="DNBU" /><ac:link-body>Logical contract</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Provider Connector Shared API Sequences and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>Sequences and reuse</ac:link-body></ac:link></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">revision-overview</ac:parameter></ac:structured-macro><h2>Revision overview</h2>
+<p>This compact architecture set extends the provider connector boundary discussed in SPEC-SEI-013. That source remains unchanged and remains the configured source for its stable Confluence page. These companions do not replace its Global API requirements. They describe Provider Connectors as consumers of the shared API and identify the Spain bindings still needing evidence. Deployment topology, private contracts and implementation reuse remain open.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-scope-and-boundary</ac:parameter></ac:structured-macro><h2>1 Scope and boundary</h2>
+<p>A Sage product needs to exchange invoices through its customer's selected platform without implementing a separate provider integration in each product. The customer needs separately observable setup, delivery, retrieval and lifecycle results. The owning feature coordinates those results; a provider connector executes the qualified external operations.</p>
+<p><strong>Architecture direction confirmed by the user after architect discussion, 9 November 2026:</strong> products, authorised providers and Provider Connectors interact through the same Sage e-Invoicing API contract. Consumer roles have different operation permissions. The E-Invoice Service coordinates work; notifications can dispatch assigned work to a Provider Connector. The connector uses the selected external platform contract and submits source invoices, statuses and results through the shared API. CA-ARCH01/02. An exchange action is one separately tracked invoice delivery, public-copy submission or event report.</p>
+<table>
+<thead>
+<tr>
+<th>Boundary</th>
+<th>Contract responsibility</th>
+<th>Authoritative detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product / authorised provider / Provider Connector → shared Sage API</td>
+<td>Common invoice and operation contract; role-scoped access and results</td>
+<td><ac:link><ri:page ri:content-title="Provider API through the E-Invoicing Global API Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC013</ac:link-body></ac:link>; CA-ARCH01/02</td>
+</tr>
+<tr>
+<td>E-Invoice Service → notifications → assigned executor</td>
+<td>Correlated work notification; execution and reconciliation owner remain fixed</td>
+<td><ac:link><ri:page ri:content-title="Provider Connector Shared API Sequences and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>046</ac:link-body></ac:link>; CA-ARCH01</td>
+</tr>
+<tr>
+<td>Provider Connector → external platform</td>
+<td>Selected platform's protocol, authentication and payload contract; source result/evidence</td>
+<td><ac:link><ri:page ri:content-title="Public Platform Connector Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC011</ac:link-body></ac:link> for SPFE; <ac:link><ri:page ri:content-title="B2B Router Provider Adapter Binding Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC017</ac:link-body></ac:link> for B2B Router</td>
+</tr>
+<tr>
+<td>Shared connectivity</td>
+<td>Qualified profiles, connection readiness and route selection</td>
+<td><ac:link><ri:page ri:content-title="Shared Platform Connectivity and Routing Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC014</ac:link-body></ac:link>, SPC-01–08</td>
+</tr>
+</tbody>
+</table>
+<p>Provider Connector availability precedes customer setup. Provider Connector architecture belongs here; customer onboarding calls and outcomes remain in <ac:link><ri:page ri:content-title="Onboarding and Connectivity Solution Summary" ri:space-key="DNBU" /><ac:link-body>037–040</ac:link-body></ac:link>. Sending, receiving, lifecycle and offboarding retain their business rules in their feature folders.</p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="ca5db173-7d2d-5611-ac35-a533a52395bc"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">provider-connector-logical-architecture</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2110</ac:parameter><ac:parameter ac:name="height">603</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/provider-connector-logical-architecture.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/provider-connector-logical-architecture.png">PNG</a>.</p>
+<p>The diagram shows products, authorised providers and Provider Connectors using one shared API. Notifications dispatch assigned work; external platform calls remain a separate contract. The direct-provider consumer path is an integration-mode alternative, not permission for two executors to send the same action. Inbound processing returns source data to the feature owner; <ac:link ac:anchor="1-execution-sequences"><ri:page ri:content-title="Provider Connector Shared API Sequences and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>046</ac:link-body></ac:link> shows the durable handoff and recovery.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-api-terminology-and-deployment</ac:parameter></ac:structured-macro><h2>2 API terminology and deployment</h2>
+<table>
+<thead>
+<tr>
+<th>Current term</th>
+<th>Meaning / call direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Provider Connector</strong></td>
+<td>Integration component that translates qualified operations to the external platform contract and returns source results/evidence.</td>
+</tr>
+<tr>
+<td><strong>Shared e-Invoicing API / Provider API</strong></td>
+<td>The common Sage API contract used by products, authorised providers and Provider Connectors. Roles select allowed operations; they do not create separate API products. SPEC013 owns its common access behaviour.</td>
+</tr>
+<tr>
+<td><strong>Provider Connector API</strong></td>
+<td>Earlier working label in this set. Read it as the Provider Connector's use of the shared API, not a separate API contract exposed by every connector.</td>
+</tr>
+<tr>
+<td><strong>Provider-owned API / SPFE interface</strong></td>
+<td>External platform contract called by the selected Provider Connector. These external interfaces remain platform-specific.</td>
+</tr>
+</tbody>
+</table>
+<p>The set includes private-provider integrations and the dedicated SPFE public-platform binding. SPFE remains a public platform under SPEC011; this naming does not classify it as a private provider.</p>
+<p>The supplied 2020 page uses <strong>Provider API</strong> for DES's connector-facing API and <strong>Connector API</strong> for the API exposed by a connector to DES. That historical two-API description is not the selected current architecture. CA-ARCH01/02 establish the shared-contract direction. Retained callback interfaces, operation versions, credentials and deployment mappings still require an implementation inventory; do not infer a second API product from the old labels. CA-H01.</p>
+<p>A provider connector is a logical integration boundary here. The historical description permits hosting outside the eDocs infrastructure; it does not require an external runtime, one service per platform, Lambda, DynamoDB, KMS RSA_4096 or Parameter Store. The supplied diagram illustrates token acquisition/onboarding and transaction retrieval; it does not establish a complete sending or lifecycle contract. CA-H01.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-spain-provider-connector-scope</ac:parameter></ac:structured-macro><h2>3 Spain provider connector scope</h2>
+<p><strong>Required scope: seven logical platform connectors — six private-provider connectors and one SPFE connector.</strong> The private providers are B2B Router, Banqup (Unifiedpost), EDICOM, SERES (Docaposte), ZeroComa and Sovos. <strong>Seven connectors do not mean seven Sage APIs:</strong> all use the shared API contract. External platform contracts and deployment may differ.</p>
+<p>Each private-provider connector must support both customer starting points: <strong>already using that provider</strong> and <strong>newly onboarding to it</strong>. <ac:link ac:anchor="4-scenario-coverage"><ri:page ri:content-title="Provider Connector Shared API Interaction Contract" ri:space-key="DNBU" /><ac:link-body>045 CS01</ac:link-body></ac:link> defines the distinct setup outcomes. Both paths use the same provider connector and continue to its sending, receiving and lifecycle capabilities; they do not require separate connectors.</p>
+<table>
+<thead>
+<tr>
+<th>Integration role</th>
+<th>Planning baseline</th>
+<th>Qualification boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer → private provider</td>
+<td>Six private-provider connectors; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-214-connections-registration-routing-structured-review.md#problem-and-business-objective">PRD214 portfolio</a></td>
+<td>Qualify the selected Spain service, integration mode and supported operations for each provider. Connector scope is separate from deployment and release readiness.</td>
+</tr>
+<tr>
+<td>Sage → SPFE</td>
+<td>One public-platform binding with multiple operation profiles</td>
+<td>Use the reviewed 23 November PRE contract copies; implementation and production access remain unqualified. SPFE-S16/S23; CA-SPFE.</td>
+</tr>
+<tr>
+<td>Sage private platform → peer platform</td>
+<td>Future interconnection role using the shared foundation</td>
+<td>Qualify peer contract, trust and operations separately. Reuse a direct-provider adapter only where its contract fits; becoming an operator does not prove compatibility. SPEC014 §1.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-ref-source-references</ac:parameter></ac:structured-macro><h2>4 REF Source references</h2>
+<table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>Original or canonical source and locator</th>
+<th>Supports / limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CA-ARCH01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/architecture/b22496cd-5719-45a2-ae1a-27d91f69f11c.png">Service and connector overview</a>, reviewed 9 November 2026; central e-Invoicing Service/Provider API, Network API, connector API labels, connector-to-service invoice/status calls and Notifications Service</td>
+<td>Shared service contract and asynchronous work/results pattern. Image has no recorded author, design date, revision or approval; it does not prove every Spain operation or current deployment.</td>
+</tr>
+<tr>
+<td>CA-ARCH02</td>
+<td>User's architect-discussion clarification, 9 November 2026; product, provider and connector use the same API. Corroborating <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/architecture/711539a8-ff4e-4723-9181-b21c71f389af.png">detailed invoice flow</a>, reviewed the same day; API gateway, connector, invoice/status calls and notification paths</td>
+<td>Confirmed shared-contract design direction. No independent discussion transcript is stored. Exact schema, version, caller credentials and compatibility still need API-owner evidence.</td>
+</tr>
+<tr>
+<td>CA-H01</td>
+<td><a href="https://confluence.sage.com/spaces/EINV/pages/226610799/Connectors+Architecture">Connectors Architecture</a>, displayed update 7 August 2020; user-supplied opening paragraphs, two API bullets and diagram</td>
+<td>Historical boundary and hosting option. Supplied extract/image only; current deployment, contract completeness and compatibility are unknown.</td>
+</tr>
+<tr>
+<td>CA-BASE</td>
+<td><ac:link><ri:page ri:content-title="Provider API through the E-Invoicing Global API Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC013</ac:link-body></ac:link>, updated 20 October 2026, Part 1 §§1–3 and GPA-Q01–12; <ac:link><ri:page ri:content-title="Shared Platform Connectivity and Routing Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC014</ac:link-body></ac:link>, Part 1 §1</td>
+<td>Canonical proposed API, role and ownership boundaries; not external contracts or build evidence.</td>
+</tr>
+<tr>
+<td>CA-SPFE / SPFE-S16, SPFE-S23</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SendInvoice.wsdl">SendInvoice.wsdl</a>, <code>documentation</code>, <code>portType</code>, <code>binding</code>, <code>service</code>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/ValidationInvoice.wsdl">ValidationInvoice.wsdl</a>, same elements; PRE release 23 November 2026</td>
+<td>Operation-specific public transport. Validation uses direct SOAP bodies; invoice submission uses ebMS/MIME. No generic onboarding operation, private-provider contract or production qualification follows from these files.</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/source-manifest.json">source manifest</a>, <code>current_wsdl_baseline</code>, and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#pre-wsdl-release-reviewed-29-october-2026">release review</a> select the reviewed local public evidence. They do not monitor future AEAT releases. Terms follow the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>.</p><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro>

@@ -1,0 +1,914 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-017<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/SPEC-SEI-017-b2b-router-provider-adapter-binding-solution-specification.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-10-20</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">b2b-router-provider-adapter-binding-solution-specification</ac:parameter></ac:structured-macro><h1>B2B Router Provider Adapter Binding Solution Specification</h1>
+<p>Terminology follows the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md">shared e-invoicing glossary</a>. This document is a <strong>proposed provider binding</strong>. It does not approve B2B Router as the Phase 2 pilot, select a contracted API version, or prove that Sage has production entitlement.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-1-feature-solution-summary</ac:parameter></ac:structured-macro><h2>Part 1 Feature Solution Summary</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-purpose-and-reading-route</ac:parameter></ac:structured-macro><h3>1 Purpose and reading route</h3>
+<p>This specification binds B2B Router to the shared Phase 2 connection, routing, invoice and recovery design. It defines what a Sage-managed B2B Router adapter must prove before pilot and production. It does not copy the shared platform design or make B2B Router concepts the Sage domain model.</p>
+<p><ac:link ac:anchor="part-2-logical-feature-specification"><ac:link-body>Part 2</ac:link-body></ac:link> defines the logical behaviour. <ac:link ac:anchor="part-3-logical-service-interactions-and-data-inventory"><ac:link-body>Part 3</ac:link-body></ac:link> defines interactions and data. <ac:link ac:anchor="part-4-assurance-and-traceability-view"><ac:link-body>Part 4</ac:link-body></ac:link> defines acceptance evidence and release gates. <ac:link ac:anchor="ref-source-references"><ac:link-body>REF Source references</ac:link-body></ac:link> identifies the exact source and its limits.</p>
+<p>The labels in this document have these meanings:</p>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Confirmed</strong></td>
+<td>The cited source supports the statement within its stated scope.</td>
+</tr>
+<tr>
+<td><strong>Proposed</strong></td>
+<td>The design is reviewable but needs approval or implementation evidence.</td>
+</tr>
+<tr>
+<td><strong>Open</strong></td>
+<td>A named owner must supply a decision or evidence before the affected gate can pass.</td>
+</tr>
+<tr>
+<td><strong>Out of scope</strong></td>
+<td>Another feature owns the behaviour or the first adapter release excludes it.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-source-authority-and-evidence-update</ac:parameter></ac:structured-macro><h3>2 Source authority and evidence update</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Authority for this specification</th>
+<th>Limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-216-b2b-router-integration-structured-review.md">PRD-SEI-216</a></td>
+<td>Product outcomes, provider discovery requirements, business rules, acceptance expectations and gates.</td>
+<td>Consultation-ready, not delivery-ready. Public documentation does not prove Sage entitlement or Spain production eligibility.</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Shared Platform Connectivity and Routing Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-014</ac:link-body></ac:link></td>
+<td>Connection/profile qualification, route selection, handoff, recovery and historical continuity.</td>
+<td>Logical proposal. Actual services and record mappings remain open.</td>
+</tr>
+<tr>
+<td><ac:link><ri:page ri:content-title="Provider API through the E-Invoicing Global API Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-013</ac:link-body></ac:link></td>
+<td>Global API access, authority, durable receipts, executor assignment and partner/adapter separation.</td>
+<td>Does not define the provider-owned API.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">SPEC-SEI-016</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a></td>
+<td>Invoice ownership, source capture, action evidence, lifecycle interpretation and retrieval.</td>
+<td>This binding supplies B2B Router observations. It does not create parallel invoice or lifecycle stores.</td>
+</tr>
+<tr>
+<td>B2B Router public documentation, rechecked 14 October 2026</td>
+<td>Public API operations, versioning, environments, import behaviour, webhooks, invoice listing and error examples.</td>
+<td>Public behaviour can change and can exceed Sage's contracted subscription. It is not a Spain private-platform approval or SLA.</td>
+</tr>
+<tr>
+<td>Spain final regulation and public-platform technical evidence</td>
+<td>Spain legal/public-platform rules where material to route separation and public-copy actions.</td>
+<td>No cited public source defines the B2B Router private contract. Provider and local-team evidence remain required.</td>
+</tr>
+</tbody>
+</table>
+<p>The current public documentation is newer than the provider PRD review. It documents API version <code>2026-06-26</code>, received-invoice webhook events, new import behaviour and revised environment guidance [B2BR-S02–S05]. This specification treats that version as an <strong>evidence candidate</strong>, not the selected build version. The selected version remains B2BR-Q01.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-scope-and-boundaries</ac:parameter></ac:structured-macro><h3>3 Scope and boundaries</h3>
+<p>In scope:</p>
+<ul>
+<li>bind one B2B Router account scope to one authorised Sage connection scope;</li>
+<li>qualify outbound, inbound, lifecycle, document retrieval and reconciliation separately;</li>
+<li>execute an approved JSON-create or structured-file import strategy;</li>
+<li>receive authenticated webhooks and recover missed observations through bounded reads;</li>
+<li>preserve requested and actual provider transport/document-type facts;</li>
+<li>keep route change, credential change, provider deregistration and historical release as separate actions;</li>
+<li>preserve raw provider states and derive Sage lifecycle views under a versioned mapping.</li>
+</ul>
+<p>Open for the first delivery cohort: contracted product/version, Spain registration and reachability, account/legal-entity cardinality, payload strategy, supported directions and formats, status provenance, idempotency, retention, service targets and exit sequence.</p>
+<p>Out of scope: VeriFactu and other tax-report operations; provider commercial contracting; automatic route failover; per-invoice caller override; Private A → Private B customer switching; provider-side implementation; and direct B2B Router integration in each Sage ERP.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-terms-ownership-and-provider-binding</ac:parameter></ac:structured-macro><h3>4 Terms, ownership and provider binding</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning in this specification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Provider connection</td>
+<td>Sage configuration that references an approved B2B Router account scope, credential, environment and API version. It is not the active route.</td>
+</tr>
+<tr>
+<td>Account scope</td>
+<td>The stable B2B Router account, group or other contracted resource that owns the operation. The exact mapping is open.</td>
+</tr>
+<tr>
+<td>Contract profile</td>
+<td>The approved operation, API version, environment, authentication, payload, transport/document rules and recovery behaviour.</td>
+</tr>
+<tr>
+<td>Provider observation</td>
+<td>A response, webhook or retrieved record from B2B Router. It is stored with source, time, version and provenance.</td>
+</tr>
+<tr>
+<td>Actual exchange values</td>
+<td>The transport and document type returned or observed after provider processing. They can differ from requested values and must be checked.</td>
+</tr>
+<tr>
+<td>Reconciliation window</td>
+<td>A bounded, overlapping invoice-list query used to detect missed observations. Its checkpoint advances only after durable classification.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Responsibility</th>
+<th>Owner and boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer authority and route activation</td>
+<td>Shared Identity, Onboarding and Routing owners. The adapter cannot activate itself.</td>
+</tr>
+<tr>
+<td>Connection/profile qualification</td>
+<td>Shared Connection owner with the B2B Router adapter owner.</td>
+</tr>
+<tr>
+<td>Provider credential protection</td>
+<td>Trust/credential owner under SPEC-SEI-001. Adapter contracts use a credential reference only.</td>
+</tr>
+<tr>
+<td>Outbound invoice/action</td>
+<td>SPEC-SEI-007 owner. The adapter executes only its assigned exchange action.</td>
+</tr>
+<tr>
+<td>Inbound source capture</td>
+<td>SPEC-SEI-016 owner. The adapter supplies authenticated source bytes and metadata.</td>
+</tr>
+<tr>
+<td>Raw event and derived lifecycle</td>
+<td>SPEC-SEI-009 owner. The adapter preserves provider facts and does not define customer meaning alone.</td>
+</tr>
+<tr>
+<td>Unknown outcome and missed event recovery</td>
+<td>Adapter + shared resilience/Operations owners. One operation has one reconciliation owner.</td>
+</tr>
+<tr>
+<td>Spain product scope and provider acceptance</td>
+<td>Spain Product/Compliance plus provider owner. Public API availability is insufficient.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-spain-use-and-reuse-qualification</ac:parameter></ac:structured-macro><h3>5 Spain use and reuse qualification</h3>
+<table>
+<thead>
+<tr>
+<th>Capability/source</th>
+<th>Intended Spain use</th>
+<th>Reuse classification</th>
+<th>Local change, gap, owner and activation evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared connection/routing foundation</td>
+<td>Hold B2B Router connection/profile facts and select it for approved new work.</td>
+<td>Reusable with country binding; proposed pattern.</td>
+<td>Spain Product + Routing must approve scope, registration/reachability evidence and cutover behaviour. Actual service reuse remains B2BR-Q08.</td>
+</tr>
+<tr>
+<td>Global API</td>
+<td>Give Sage products one stable access boundary.</td>
+<td>Unknown existing implementation reuse candidate.</td>
+<td>API owner must prove actual contracts, permission model and compatibility. No ERP calls B2B Router directly.</td>
+</tr>
+<tr>
+<td>B2B Router adapter</td>
+<td>Translate qualified shared operations to the selected provider contract.</td>
+<td>Provider-specific.</td>
+<td>Provider owner must select version, capability subset and fixtures.</td>
+</tr>
+<tr>
+<td>DTS</td>
+<td>Preferred transformation candidate for an approved representation pair.</td>
+<td>Unknown existing implementation reuse candidate.</td>
+<td>DTS owner must prove exact input/output, mapping, signature preservation, limits and operations for each selected pair.</td>
+</tr>
+<tr>
+<td>Lifecycle/reconciliation patterns</td>
+<td>Preserve raw observations, unknown outcomes and replay-safe recovery.</td>
+<td>Reusable unchanged as a proposed pattern.</td>
+<td>Lifecycle/Operations must qualify actual stores, mappings, checkpoints and runbooks.</td>
+</tr>
+<tr>
+<td>Spain identity, routing, public-copy and reporting rules</td>
+<td>Bind the provider action to the Spain country pack.</td>
+<td>Country-specific.</td>
+<td>They must not become provider defaults or another country's rules. B2B Router tax-report features remain separate.</td>
+</tr>
+</tbody>
+</table>
+<p>Reuse of a proposed pattern is not proof that a deployed implementation is fit. Every candidate needs an actual build, contract, owner, gap record and test evidence before activation.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">6-process-diagram-and-lifecycle</ac:parameter></ac:structured-macro><h3>6 Process diagram and lifecycle</h3>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="87704fab-fc41-561d-a4b1-1270481581b8"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">b2b-router-adapter-binding-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1800</ac:parameter><ac:parameter ac:name="height">476</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/b2b-router-adapter-binding-process.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/b2b-router-adapter-binding-process.png">PNG preview</a>.</p>
+<p>The flow starts when the shared platform supplies an authorised and version-bound action. B2BR-01 checks the provider binding. B2BR-02 freezes the selected provider operation and payload. B2BR-03 executes it once. A known response goes to B2BR-04. A possible external effect with no reliable result goes to B2BR-07 before any repeat. Webhooks accelerate observation through B2BR-05, while B2BR-06 performs independent bounded reconciliation. B2BR-08 preserves historical access after route change. Tax reporting stays outside the binding.</p>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Trigger, operation and postcondition</th>
+<th>Failure and recovery owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B2BR-01 Qualify provider binding</td>
+<td>Connection owner checks account scope, environment, API version, credential reference and each requested capability. It saves evidence without changing a route.</td>
+<td>Connection/adapter owner records failed or unknown checks and required action.</td>
+</tr>
+<tr>
+<td>B2BR-02 Prepare provider action</td>
+<td>Exchange/Receiving supplies immutable route/action context. Adapter selects the approved operation, representation and requested transport/document values.</td>
+<td>Adapter rejects missing or mismatched profile data before an external call.</td>
+</tr>
+<tr>
+<td>B2BR-03 Execute provider operation</td>
+<td>Adapter records durable intent, then performs the selected read or mutation with explicit version and correlation.</td>
+<td>A pre-transmission failure can retry within policy. A possible external effect enters B2BR-07.</td>
+</tr>
+<tr>
+<td>B2BR-04 Record provider response</td>
+<td>Adapter saves request ID, provider invoice ID, returned state, actual transport/document type and redacted errors. Owning feature records the independent result.</td>
+<td>Unknown or incompatible returned values create a discrepancy; they do not silently complete the action.</td>
+</tr>
+<tr>
+<td>B2BR-05 Process provider webhook</td>
+<td>Ingress authenticates, timestamps, deduplicates and correlates the raw event before lifecycle interpretation.</td>
+<td>Invalid, expired or uncorrelated events enter quarantine. They do not change customer state.</td>
+</tr>
+<tr>
+<td>B2BR-06 Reconcile missed observations</td>
+<td>Scheduled or incident-triggered worker reads a bounded overlapping window. It captures missing provider facts and advances the checkpoint after durable classification.</td>
+<td>Pagination ambiguity or provider outage keeps the previous safe checkpoint and raises an owned backlog.</td>
+</tr>
+<tr>
+<td>B2BR-07 Resolve unknown outcome</td>
+<td>Reconciler searches the original account/version/context. It links one proven match, repeats only after proven absence and safe-repeat evidence, or leaves an owned unresolved case.</td>
+<td>Operations owns manual decision and evidence. It cannot choose a new provider or operation silently.</td>
+</tr>
+<tr>
+<td>B2BR-08 Preserve continuity and release</td>
+<td>Route changes stop new selection. Earlier invoices retain provider context and permitted retrieval/status access until approved release.</td>
+<td>Exit/Records blocks deregistration or credential destruction while dependencies remain.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">7-material-risks-and-decisions</ac:parameter></ac:structured-macro><h3>7 Material risks and decisions</h3>
+<p>The most material risks are wrong account scope, silent provider fallback, duplicate mutation, webhook gaps, overstatement of provider states, cross-environment key use, coupling to tax reporting and loss of historical access. Part 4 contains the blocking decisions. No implementation commitment should precede B2BR-Q01–Q04.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-2-logical-feature-specification</ac:parameter></ac:structured-macro><h2>Part 2 Logical Feature Specification</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-invariants-and-state-boundaries</ac:parameter></ac:structured-macro><h3>1 Invariants and state boundaries</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Invariant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B2BR-I01</td>
+<td>A validated connection does not activate a route.</td>
+</tr>
+<tr>
+<td>B2BR-I02</td>
+<td>Authenticated caller, represented party, B2B Router account scope and credential scope are separate facts.</td>
+</tr>
+<tr>
+<td>B2BR-I03</td>
+<td>Each capability and direction is qualified independently for one environment and contract version.</td>
+</tr>
+<tr>
+<td>B2BR-I04</td>
+<td>The adapter uses an explicit approved API version. It does not rely on a mutable group default.</td>
+</tr>
+<tr>
+<td>B2BR-I05</td>
+<td>The owning feature saves immutable invoice/action context before the adapter can create an external effect.</td>
+</tr>
+<tr>
+<td>B2BR-I06</td>
+<td>One exchange action has one execution owner and one reconciliation owner.</td>
+</tr>
+<tr>
+<td>B2BR-I07</td>
+<td>Provider API acceptance, asynchronous processing, provider send, recipient delivery, buyer decision, payment and reporting are separate outcomes.</td>
+</tr>
+<tr>
+<td>B2BR-I08</td>
+<td>Requested and actual provider transport/document values are preserved. An incompatible substitution blocks progression.</td>
+</tr>
+<tr>
+<td>B2BR-I09</td>
+<td>A possible external effect is not repeated until reconciliation or proven idempotency makes the action safe.</td>
+</tr>
+<tr>
+<td>B2BR-I10</td>
+<td>Raw provider facts remain available after mapping. Unknown states remain unmapped until approved.</td>
+</tr>
+<tr>
+<td>B2BR-I11</td>
+<td>Webhooks are not the only source of completeness. Independent reconciliation is required.</td>
+</tr>
+<tr>
+<td>B2BR-I12</td>
+<td>Route change does not rewrite old invoice context or automatically revoke historical access.</td>
+</tr>
+<tr>
+<td>B2BR-I13</td>
+<td>Provider tax-report identifiers remain separate and cannot activate tax reporting.</td>
+</tr>
+<tr>
+<td>B2BR-I14</td>
+<td>Spain rules remain in the Spain binding and cannot become shared or provider defaults.</td>
+</tr>
+</tbody>
+</table>
+<p>Proposed internal operation states are <code>PREPARED</code>, <code>IN_PROGRESS</code>, <code>OUTCOME_UNKNOWN</code>, <code>OBSERVED_SUCCEEDED</code>, <code>OBSERVED_FAILED</code>, <code>HELD</code> and <code>CLOSED</code>. These are Sage recovery states, not B2B Router values. The actual implementation owner must map them to existing stores under B2BR-Q08 rather than create a duplicate operation store.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-behaviour-by-activity</ac:parameter></ac:structured-macro><h3>2 Behaviour by activity</h3>
+<p><strong>B2BR-01 — Qualify provider binding.</strong> The request names tenant, represented legal entity, environment, integration role, direction and capability. The Connection owner verifies the authenticated principal and current authority. The adapter checks only approved, non-mutating provider operations unless a separately owned setup mutation exists. It records the intended and observed account scope, explicit API version, credential version, supported operation, provider codes, observation time, limitation and recheck condition. A successful list/read call does not prove Spain registration, inbound reachability or production entitlement.</p>
+<p><strong>B2BR-02 — Prepare provider action.</strong> The owning invoice feature supplies the original invoice/action identity, route/profile version, direction, representation reference/hash and approved execution owner. The adapter selects either JSON creation or structured-file import for that profile. It must not choose between them dynamically. It records requested transport and document type. If provider defaults can apply, the profile defines permitted equality or compatibility checks. Missing, stale or contradictory evidence returns a hold before transmission.</p>
+<p><strong>B2BR-03 — Execute provider operation.</strong> The adapter saves a durable attempt before a mutation. It sends the protected API key through the approved secret boundary and sends the explicit <code>X-B2B-API-Version</code>. It records safe correlation data and the returned <code>X-B2B-API-Request-Id</code> where supplied [B2BR-S06]. It never logs a key, webhook secret, invoice body or presigned/private document URL. A local timeout before confirmed transmission can retry under policy. A timeout after possible transmission enters <code>OUTCOME_UNKNOWN</code>.</p>
+<p>For structured import, <code>send_after_import=true</code> can queue asynchronous sending for sending transports. A <code>201</code> import response proves provider creation/import, not final delivery. The documented provider may replace invalid or incompatible requested transport/document codes with defaults [B2BR-S03]. The adapter therefore compares returned/observed values with the approved profile before reporting progress.</p>
+<p><strong>B2BR-04 — Record provider response.</strong> The adapter saves the provider invoice ID, account ID, API version, request ID, returned state, actual transport/document type, source time and redacted diagnostic. It then hands the observation to the owning invoice/lifecycle feature. <code>401</code>/<code>403</code> becomes an access or scope failure; <code>404</code> remains resource absent-or-inaccessible unless a stronger contract distinguishes it; <code>409</code> is a state conflict; <code>422</code> is input/catalogue validation; and <code>429</code> is throttling. These categories do not establish retry safety for a mutation [B2BR-S06].</p>
+<p><strong>B2BR-05 — Process provider webhook.</strong> The ingress uses the exact raw request body required by the selected contract. It verifies <code>X-B2Brouter-Signature</code>, timestamp and HMAC before deserialised data can affect state. It applies the approved replay window and secret version. It stores event code, provider event identity where supplied, invoice/account identity, triggered time, observed time, payload digest, API/event schema version and verification result. Duplicate delivery returns the prior processing result. An older event can add evidence but cannot blindly regress a derived state. Public version <code>2026-06-26</code> documents <code>received_invoice.created</code> and <code>received_invoice.state_change</code>; the selected subscription and fixture tests must prove availability [B2BR-S02/S04].</p>
+<p><strong>B2BR-06 — Reconcile missed observations.</strong> Reconciliation uses the original account and contract profile. Invoice listing is paginated and supports date/update filters in public documentation, but public evidence does not prove a gap-free cursor [B2BR-S05]. The proposed strategy uses bounded overlap, deterministic ordering where available, stable provider invoice identity and durable deduplication. It records requested range/pages, observed maximum, classification count, unresolved pages and completion time. The checkpoint advances only when the covered range is durably classified. Provider outage, rate limit or changing pages pauses advancement.</p>
+<p><strong>B2BR-07 — Resolve unknown outcome.</strong> The reconciler searches with stable account, invoice business identity, request correlation and content/reference evidence allowed by the selected contract. Exactly one proven match links the original operation. Proven absence permits repeat only if the approved repeat policy also prevents a late original effect. Several or weak matches remain unresolved. Manual resolution needs separate permission, reason and evidence. It cannot delete or replace the original attempt.</p>
+<p><strong>B2BR-08 — Preserve continuity and release.</strong> A route transition changes selection for eligible new work only. Existing invoices keep B2B Router account, provider invoice, version, transport/document and lifecycle context. The exit coordinator identifies retrieval, webhook, reconciliation, audit and records dependencies before deregistration, key revocation or secret destruction. Current authority is rechecked for every historical action. Where the original channel cannot remain active, an approved replacement channel is appended with provenance.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-provider-operation-binding</ac:parameter></ac:structured-macro><h3>3 Provider operation binding</h3>
+<p>The table is a binding candidate, not an approved endpoint allow-list. B2BR-Q01 selects the exact version and operation catalogue.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Publicly evidenced candidate</th>
+<th>Proposed adapter use</th>
+<th>Required qualification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List account scope</td>
+<td><code>GET /accounts</code></td>
+<td>Validate that a credential sees the intended stable account.</td>
+<td>Ownership/cardinality, pagination, least privilege and wrong-account denial.</td>
+</tr>
+<tr>
+<td>Configure/observe transport</td>
+<td>Account transport operations</td>
+<td>Setup or observe a capability under a separate setup mutation.</td>
+<td>Spain transport codes, prerequisites, repeat/update/delete semantics.</td>
+</tr>
+<tr>
+<td>Resolve directory entry</td>
+<td>Country/identifier directory operation</td>
+<td>Supporting recipient evidence only.</td>
+<td>Spain authority, coverage, freshness and negative-result meaning.</td>
+</tr>
+<tr>
+<td>Create JSON invoice</td>
+<td><code>POST /accounts/{account}/invoices</code></td>
+<td>One candidate outbound strategy.</td>
+<td>Exact field mapping, correction/credit support, returned identity and provider defaults.</td>
+</tr>
+<tr>
+<td>Import structured invoice</td>
+<td><code>POST /accounts/{account}/invoices/import</code></td>
+<td>One candidate outbound or controlled inbound strategy.</td>
+<td>Format/media type, schema/profile, signature handling, <code>send_after_import</code> semantics and returned identity.</td>
+</tr>
+<tr>
+<td>List invoices</td>
+<td><code>GET /accounts/{account}/invoices</code></td>
+<td>Inbound discovery and lifecycle reconciliation.</td>
+<td>Selected-version filters, stable ordering, pagination concurrency and retention.</td>
+</tr>
+<tr>
+<td>Get invoice/document</td>
+<td>Invoice and document retrieval operations</td>
+<td>Retrieve provider record and approved source/legal representation.</td>
+<td>Exact bytes, redirect/access control, integrity, retention and trusted-copy meaning.</td>
+</tr>
+<tr>
+<td>Configure webhooks</td>
+<td>Webhook configuration operation</td>
+<td>Register only approved callback destinations and event set.</td>
+<td>Secret lifecycle, ownership, update/delete, retry/replay, event availability and environment isolation.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-error-duplicate-and-concurrency-behaviour</ac:parameter></ac:structured-macro><h3>4 Error, duplicate and concurrency behaviour</h3>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Required treatment</th>
+<th>Safe next action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Invalid/revoked key or wrong environment</td>
+<td>Suspend affected capabilities; preserve connection/history. Do not expose provider detail across tenants.</td>
+<td>Authorised credential replacement and requalification.</td>
+</tr>
+<tr>
+<td>Credential sees wrong account</td>
+<td>Keep connection non-ready and quarantine any returned unrelated data reference.</td>
+<td>Security review and corrected account binding.</td>
+</tr>
+<tr>
+<td>Provider validation error</td>
+<td>Retain redacted provider code/path and map to a correctable Sage category.</td>
+<td>Customer corrects input; unchanged input is not auto-repeated.</td>
+</tr>
+<tr>
+<td>Provider silently changes transport/document type</td>
+<td>Record requested and actual values; stop incompatible progression.</td>
+<td>Correct configuration/profile or obtain an approved compatibility decision.</td>
+</tr>
+<tr>
+<td>Throttling or provider outage on read</td>
+<td>Apply bounded backoff and keep the previous safe checkpoint.</td>
+<td>Resume from the saved checkpoint within provider limits.</td>
+</tr>
+<tr>
+<td>Timeout after possible mutation</td>
+<td>Set <code>OUTCOME_UNKNOWN</code>; prohibit automatic resend/fallback.</td>
+<td>B2BR-07 reconciliation.</td>
+</tr>
+<tr>
+<td>Duplicate webhook</td>
+<td>Return prior result and do not duplicate business effects.</td>
+<td>No customer action; monitor abnormal volume.</td>
+</tr>
+<tr>
+<td>Out-of-order or unknown state</td>
+<td>Preserve raw observation; do not regress or coerce derived meaning.</td>
+<td>Lifecycle mapping review or later authoritative evidence.</td>
+</tr>
+<tr>
+<td>Concurrent route/profile change</td>
+<td>Existing action keeps frozen profile. New work uses the committed new version after its boundary.</td>
+<td>Finish/reconcile old action; never rewrite it.</td>
+</tr>
+<tr>
+<td>Deregistration/key revocation with dependencies</td>
+<td>Block or sequence destructive action.</td>
+<td>Exit owner proves replacement/historical release before completion.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-requirements-and-controls</ac:parameter></ac:structured-macro><h3>5 Requirements and controls</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B2BR-R01</td>
+<td>The adapter must implement only the capability subset approved for one contracted product, API version, environment and Spain scope.</td>
+</tr>
+<tr>
+<td>B2BR-R02</td>
+<td>The adapter must bind every request to tenant, represented legal entity, stable provider account, environment, credential version and explicit API version.</td>
+</tr>
+<tr>
+<td>B2BR-R03</td>
+<td>Provider connection readiness must not activate or change a Sage route.</td>
+</tr>
+<tr>
+<td>B2BR-R04</td>
+<td>Outbound, inbound, lifecycle, document retrieval, webhook and reconciliation readiness must be recorded independently.</td>
+</tr>
+<tr>
+<td>B2BR-R05</td>
+<td>The adapter must use one approved outbound payload strategy per contract profile and retain the exact representation reference/hash.</td>
+</tr>
+<tr>
+<td>B2BR-R06</td>
+<td>The adapter must persist durable intent and immutable action context before an external mutation.</td>
+</tr>
+<tr>
+<td>B2BR-R07</td>
+<td>The adapter must retain requested and actual provider transport/document values and hold incompatible substitution.</td>
+</tr>
+<tr>
+<td>B2BR-R08</td>
+<td>A provider <code>201</code>, queued state or API acknowledgement must not be reported as recipient delivery, buyer acceptance or reporting success.</td>
+</tr>
+<tr>
+<td>B2BR-R09</td>
+<td>A possible external effect with unknown outcome must reconcile before repeat unless the selected operation has proven idempotency for the same identity/input/window.</td>
+</tr>
+<tr>
+<td>B2BR-R10</td>
+<td>Webhook ingress must verify the selected contract's signature, timestamp/replay policy and secret version before state use.</td>
+</tr>
+<tr>
+<td>B2BR-R11</td>
+<td>Webhooks must be deduplicated and correlated using stable provider identity or an approved composite; delivery time alone is insufficient.</td>
+</tr>
+<tr>
+<td>B2BR-R12</td>
+<td>Reconciliation must tolerate overlapping pages/windows and must not advance its checkpoint before durable classification.</td>
+</tr>
+<tr>
+<td>B2BR-R13</td>
+<td>Raw provider state, code, actor/provenance, source time, observation time and mapping version must remain available.</td>
+</tr>
+<tr>
+<td>B2BR-R14</td>
+<td>Protected credentials and webhook secrets must use approved custody, rotation and redaction controls; application contracts expose references only.</td>
+</tr>
+<tr>
+<td>B2BR-R15</td>
+<td>Sandbox, staging and production configuration and keys must remain isolated. The same base URL for sandbox/production does not weaken key/environment validation [B2BR-S01].</td>
+</tr>
+<tr>
+<td>B2BR-R16</td>
+<td>Route/profile/API-version changes must apply prospectively. Historical invoices retain original provider context.</td>
+</tr>
+<tr>
+<td>B2BR-R17</td>
+<td>VeriFactu/tax-report configuration, IDs and outcomes must remain separate from private invoice exchange.</td>
+</tr>
+<tr>
+<td>B2BR-R18</td>
+<td>Metrics and logs must exclude secrets and customer invoice content and must not use customer identifiers as metric labels.</td>
+</tr>
+<tr>
+<td>B2BR-R19</td>
+<td>Numeric limits, service levels, retry budgets, replay windows and retention periods require contracted or measured evidence and an owner.</td>
+</tr>
+<tr>
+<td>B2BR-R20</td>
+<td>Country-rule isolation tests must prove that Spain identity, routing, public-copy and reporting rules do not become defaults for another country.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-3-logical-service-interactions-and-data-inventory</ac:parameter></ac:structured-macro><h2>Part 3 Logical Service Interactions and Data Inventory</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-logical-interactions</ac:parameter></ac:structured-macro><h3>1 Logical interactions</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Interaction and purpose</th>
+<th>Authority, correlation and recovery</th>
+<th>Consumer activities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B2BR-INT-01</td>
+<td>Global API/Onboarding → Connection: configure and qualify a B2B Router binding.</td>
+<td>Customer/delegate authority; expected connection version; no route mutation.</td>
+<td>01/08</td>
+</tr>
+<tr>
+<td>B2BR-INT-02</td>
+<td>Connection → Trust: resolve a protected API-key or webhook-secret reference.</td>
+<td>Least-privilege service identity; secret value never enters business response/log. Rotation invalidates affected qualification.</td>
+<td>01/03/05</td>
+</tr>
+<tr>
+<td>B2BR-INT-03</td>
+<td>Connection/adapter → B2B Router read surface: observe account/capability.</td>
+<td>Explicit environment/version/account; bounded read; record provider request ID and freshness.</td>
+<td>01/06/07</td>
+</tr>
+<tr>
+<td>B2BR-INT-04</td>
+<td>Exchange → adapter: execute one outbound action.</td>
+<td>Frozen action/profile, one executor, durable attempt and input digest; unknown mutation reconciles.</td>
+<td>02/03/04/07</td>
+</tr>
+<tr>
+<td>B2BR-INT-05</td>
+<td>Adapter → B2B Router create/import surface: create the selected provider invoice operation.</td>
+<td>Protected credential, explicit version, account and provider correlation; no blind repeat.</td>
+<td>03/04/07</td>
+</tr>
+<tr>
+<td>B2BR-INT-06</td>
+<td>B2B Router → webhook ingress → Lifecycle: submit a raw provider observation.</td>
+<td>HMAC/timestamp verification, event identity/dedupe and invoice/account correlation; quarantine failure.</td>
+<td>05</td>
+</tr>
+<tr>
+<td>B2BR-INT-07</td>
+<td>Reconciliation worker → B2B Router list/get surface: recover missed or unknown outcomes.</td>
+<td>Original account/profile, bounded overlap, stable invoice identity and safe checkpoint.</td>
+<td>06/07</td>
+</tr>
+<tr>
+<td>B2BR-INT-08</td>
+<td>Adapter → Receiving/Records: deliver an authenticated provider source file and metadata.</td>
+<td>Source identity, digest, media/profile, capture receipt and access control; notification alone is insufficient.</td>
+<td>04/05/06</td>
+</tr>
+<tr>
+<td>B2BR-INT-09</td>
+<td>Adapter → Lifecycle: append raw provider status/error evidence.</td>
+<td>Provider version, provenance and mapping version; no destructive overwrite or inferred actor.</td>
+<td>04/05/06/07</td>
+</tr>
+<tr>
+<td>B2BR-INT-10</td>
+<td>Exit/Records → adapter: assess and release historical provider dependencies.</td>
+<td>Separate authority, dependency list and provider confirmation; route change alone does not revoke access.</td>
+<td>08</td>
+</tr>
+</tbody>
+</table>
+<p>Logical error categories are <code>INVALID_INPUT</code>, <code>UNAUTHORISED_SCOPE</code>, <code>CREDENTIAL_INVALID</code>, <code>CAPABILITY_NOT_READY</code>, <code>PROVIDER_VALIDATION</code>, <code>PROVIDER_CONFLICT</code>, <code>PROVIDER_THROTTLED</code>, <code>PROVIDER_UNAVAILABLE</code>, <code>OUTCOME_UNKNOWN</code>, <code>EVIDENCE_UNTRUSTED</code>, <code>MAPPING_UNDETERMINED</code> and <code>HISTORICAL_ACCESS_BLOCKED</code>. The actual API owner must map these to the existing common error contract rather than create a second vocabulary.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-data-inventory-and-systems-of-record</ac:parameter></ac:structured-macro><h3>2 Data inventory and systems of record</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Record, owner and key content</th>
+<th>Classification, versioning and consumers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B2BR-D01</td>
+<td>Provider binding; Connection owner; tenant/entity, provider/account, environment, integration mode, credential reference, selected API version and configuration version.</td>
+<td>Restricted and versioned; activities 01–08. No secret value.</td>
+</tr>
+<tr>
+<td>B2BR-D02</td>
+<td>Capability qualification; Connection owner; direction/operation, status, source, observed time, limitations, recheck and evidence.</td>
+<td>Restricted, append observations; activities 01/02/08. Does not activate route.</td>
+</tr>
+<tr>
+<td>B2BR-D03</td>
+<td>Contract profile; Profile/adapter owner; operations, payload strategy, transport/document rules, event set, query/repeat support and owners.</td>
+<td>Restricted/versioned; activities 01–08. Historical actions pin the version.</td>
+</tr>
+<tr>
+<td>B2BR-D04</td>
+<td>Adapter operation; owning invoice/adapter service; action identity, input digest, attempt, transmission boundary, request ID, outcome and recovery state.</td>
+<td>Restricted/durable; activities 02–04/07. Append attempts; never store API key.</td>
+</tr>
+<tr>
+<td>B2BR-D05</td>
+<td>Provider invoice context; owning invoice service; account ID, provider invoice ID, direction, requested/actual exchange values, source representation and API version.</td>
+<td>Restricted; immutable origin with appended observations; activities 04–08.</td>
+</tr>
+<tr>
+<td>B2BR-D06</td>
+<td>Raw provider observation; Lifecycle owner; event/status/error, producer, actor/provenance, source/observed time, payload digest/reference and verification.</td>
+<td>Restricted/append-only; activities 04–07. Retention follows approved evidence policy.</td>
+</tr>
+<tr>
+<td>B2BR-D07</td>
+<td>Reconciliation checkpoint/run; Operations owner; account/profile, covered window/pages, prior/new checkpoint, counts, freshness and unresolved items.</td>
+<td>Restricted/versioned; activities 06/07. Advance only after durable classification.</td>
+</tr>
+<tr>
+<td>B2BR-D08</td>
+<td>Source document evidence; Receiving/Records owner; exact bytes or immutable object reference, digest, media/profile, provider/source identity and capture result.</td>
+<td>Confidential/controlled; activities 04–06/08. Conservation is separate from provider retention.</td>
+</tr>
+<tr>
+<td>B2BR-D09</td>
+<td>Status/error mapping; Lifecycle owner; provider version/code/state/provenance to canonical event and customer wording.</td>
+<td>Versioned configuration; activities 04–07. Unknown entries remain visible.</td>
+</tr>
+<tr>
+<td>B2BR-D10</td>
+<td>Continuity dependency; Exit/Records owner; invoice/provider dependency, permitted actor/channel, historical access, release condition and evidence.</td>
+<td>Restricted/versioned; activity 08. Route transition cannot delete it.</td>
+</tr>
+</tbody>
+</table>
+<p>Data retention, residency, legal hold, provider archive status and access after deactivation remain B2BR-Q05. The adapter must not treat a provider-rendered document as the legal original or a trusted copy without approved source evidence.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-4-assurance-and-traceability-view</ac:parameter></ac:structured-macro><h2>Part 4 Assurance and Traceability View</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-acceptance-and-traceability</ac:parameter></ac:structured-macro><h3>1 Acceptance and traceability</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Demonstrable acceptance scenario</th>
+<th>Coverage and required evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B2BR-A01</td>
+<td>Valid non-production credentials can access only the intended account. Qualification records the account/version/capabilities and leaves routes unchanged.</td>
+<td>R01–04/15; activities 01; INT01–03; D01–03; synthetic sandbox evidence.</td>
+</tr>
+<tr>
+<td>B2BR-A02</td>
+<td>Credentials for a wrong account/environment are denied before invoice data or mutations are exposed.</td>
+<td>R02/14/15; activities 01/03; INT02–05; D01/D04; isolation and negative tests.</td>
+</tr>
+<tr>
+<td>B2BR-A03</td>
+<td>An approved outbound action creates/imports one provider invoice and records provider ID, request ID, initial state and actual exchange values as non-terminal evidence.</td>
+<td>R05–08; activities 02–04; INT04/05/09; D03–06; selected-version fixtures.</td>
+</tr>
+<tr>
+<td>B2BR-A04</td>
+<td>An incompatible provider default is observed. The adapter holds progression and exposes a configuration discrepancy without claiming delivery.</td>
+<td>R07/08; activity 04; INT05/09; D04–06; provider fallback fixture.</td>
+</tr>
+<tr>
+<td>B2BR-A05</td>
+<td>A validation error returns actionable field/category detail. The unchanged invalid content is not automatically repeated.</td>
+<td>R05/13; activities 03/04; INT05/09; D04/D06/D09; error catalogue fixtures.</td>
+</tr>
+<tr>
+<td>B2BR-A06</td>
+<td>A post-transmission timeout enters <code>OUTCOME_UNKNOWN</code>. Exactly one proven provider match links to the original action; an ambiguous match does not resend.</td>
+<td>R06/09; activities 03/07; INT04/05/07; D04/05/07; fault injection.</td>
+</tr>
+<tr>
+<td>B2BR-A07</td>
+<td>A valid signed received-invoice event is stored once. Invalid, expired, duplicated and reordered events cannot create duplicate/regressed customer effects.</td>
+<td>R10–13; activity 05; INT02/06/09; D05/06/09; signed synthetic fixtures.</td>
+</tr>
+<tr>
+<td>B2BR-A08</td>
+<td>A missed webhook is recovered by a bounded overlapping invoice read. Checkpoint advancement occurs only after all covered observations are durably classified.</td>
+<td>R11/12; activity 06; INT07/09; D05–07/09; concurrent-arrival test.</td>
+</tr>
+<tr>
+<td>B2BR-A09</td>
+<td>A received notification without source bytes remains notification-only. Product receipt occurs only after authenticated source capture and validation.</td>
+<td>R04/13; activities 04–06; INT06–09; D05/06/08/09; inbound retrieval fixture.</td>
+</tr>
+<tr>
+<td>B2BR-A10</td>
+<td>A route/API/profile version changes while older work exists. New work uses the approved new version; old invoices continue with original context.</td>
+<td>R16; activities 02/08; INT04/07/10; D03–05/10; transition test.</td>
+</tr>
+<tr>
+<td>B2BR-A11</td>
+<td>Deregistration or key revocation is requested while historical dependencies exist. The release is blocked or sequenced and audited.</td>
+<td>R14/16/19; activity 08; INT02/10; D01/D05/D10; exit contract test.</td>
+</tr>
+<tr>
+<td>B2BR-A12</td>
+<td>Provider tax-report fields appear in a response. They remain separately classified and do not create a Phase 2 reporting action.</td>
+<td>R17; activities 03/04; INT05/09; D04–06; scope-isolation test.</td>
+</tr>
+<tr>
+<td>B2BR-A13</td>
+<td>The same shared adapter pattern is configured for another country. Spain identifiers, routing, public-copy and reporting rules are absent until that country binding supplies them.</td>
+<td>R20; all activities/data; country-isolation regression.</td>
+</tr>
+<tr>
+<td>B2BR-A14</td>
+<td>An existing Global API, Connection, Lifecycle, DTS or adapter component is proposed for reuse. The review records actual build/contract coverage, gaps, owner and evidence before enablement.</td>
+<td>R01/04/19/20; B2BR-Q08; implementation qualification record.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-security-operations-and-service-evidence</ac:parameter></ac:structured-macro><h3>2 Security, operations and service evidence</h3>
+<p>Pilot evidence must include tenant/account isolation, secret rotation, callback destination control, raw-body signature verification, replay and duplicate handling, parser/file limits, malware controls, unknown-outcome recovery, pagination under concurrent arrival, throttling/backpressure and historical access after route change. Tests use synthetic parties and identifiers only.</p>
+<p>Operations views must show capability qualification age, provider/API version, credential health without secret values, webhook freshness, reconciliation coverage/backlog, unknown outcomes, mapping gaps, throttling, provider incidents and continuity dependencies. Numeric alert thresholds and service objectives remain open until provider commitments and pilot measurements exist.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-open-decisions-and-release-gates</ac:parameter></ac:structured-macro><h3>3 Open decisions and release gates</h3>
+<table>
+<thead>
+<tr>
+<th>Decision/gate</th>
+<th>Accountable owner and required evidence</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B2BR-Q01 Contracted product, entitlement and API version</td>
+<td>Commercial/provider owner + Architecture: signed scope, selected version, deprecation policy, approved API/OpenAPI pack and storage permission.</td>
+<td>Blocks engineering commitment and endpoint allow-list. Public <code>2026-06-26</code> remains a candidate only.</td>
+</tr>
+<tr>
+<td>B2BR-Q02 Spain provider role and capability scope</td>
+<td>Spain Product/Compliance + provider: private B2B role, customer segments, registration/reachability, directions, formats, corrections, lifecycle and coexistence.</td>
+<td>Blocks Spain production scope and route activation.</td>
+</tr>
+<tr>
+<td>B2BR-Q03 Identity, account and credential model</td>
+<td>Security/Identity + provider: legal entity/account/group/office mapping, delegation, key owner/scope/rotation and wrong-account behaviour.</td>
+<td>Blocks connection implementation and tenancy approval.</td>
+</tr>
+<tr>
+<td>B2BR-Q04 Payload, exchange and recovery contract</td>
+<td>Exchange/DTS/Lifecycle + provider: JSON versus import, exact profiles, provider defaults, idempotency, query identity, event catalogue, signature/replay/retry/order and pagination tests.</td>
+<td>Blocks adapter build for each affected capability.</td>
+</tr>
+<tr>
+<td>B2BR-Q05 Data, service and exit terms</td>
+<td>Legal/Security/Records/Operations + provider: residency, retention, document status, historical access, limits, SLA, incidents, support and deregistration.</td>
+<td>Blocks production and final credential/dependency release.</td>
+</tr>
+<tr>
+<td>B2BR-Q06 Synthetic fixture and conformance pack</td>
+<td>QA/Engineering + provider: approved positive, validation, timeout, duplicate, reorder, missed-event, throttle, migration and exit fixtures.</td>
+<td>Blocks delivery approval.</td>
+</tr>
+<tr>
+<td>B2BR-Q07 First pilot cohort and stop criteria</td>
+<td>Product + Engineering + Operations: reference ERP/customers, capabilities, volume, success/stop measures, rollback and support owners.</td>
+<td>Blocks pilot activation. Selection of B2B Router as reference provider remains open.</td>
+</tr>
+<tr>
+<td>B2BR-Q08 Existing implementation reuse</td>
+<td>Architecture + actual service owners: deployed Global API/Connection/adapter/DTS/Lifecycle builds, contracts, mappings, rule packs, operations, gaps and compatibility evidence.</td>
+<td>Blocks claims that the proposed design reuses a production implementation.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-readiness-result</ac:parameter></ac:structured-macro><h3>4 Readiness result</h3>
+<p><strong>Reviewable provider-binding proposal; blocked for build commitment.</strong> Architecture, product, security, provider and operations teams can review the intended boundary and evidence plan. The adapter can enter implementation planning only after B2BR-Q01–Q04 identify the contracted interface and first capability subset. Pilot also requires Q05–Q08, passed isolation/unknown-outcome/reconciliation tests and named continuity owners. Production requires measured operating evidence and approved Spain/provider scope.</p>
+<p>No publication, status change, provider selection, commercial commitment or live activation is implied.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro><h2>REF Source references</h2>
+<p>External sources support only the claims stated below. Public documentation is not the contracted Sage interface. The final published Spain regulation governs legal requirements. Provider technical material governs only its stated API behaviour. Examples do not define a complete contract.</p>
+<table>
+<thead>
+<tr>
+<th>REF ID</th>
+<th>Source and version/date</th>
+<th>Exact location or contract element</th>
+<th>Supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B2BR-S01</td>
+<td><a href="https://docs.b2brouter.net/en/developers/testing/environments/">B2B Router environments</a>; last updated 6 October 2026; accessed 14 October 2026.</td>
+<td>Environment table and Sandbox/Staging/Production sections.</td>
+<td>Documents sandbox/staging/production base URL and key-prefix behaviour. It does not prove Sage access, parity, subscription or production approval.</td>
+</tr>
+<tr>
+<td>B2BR-S02</td>
+<td><a href="https://docs.b2brouter.net/en/developers/changelog/v2026-06-26/">B2B Router API v2026-06-26 changelog</a>; version 2026-06-26; accessed 14 October 2026.</td>
+<td>Version header; Changes overview; Received invoice webhook events.</td>
+<td>Documents explicit version selection, breaking changes and <code>received_invoice.created</code>/<code>received_invoice.state_change</code>. It does not select the version for Sage or establish delivery guarantees.</td>
+</tr>
+<tr>
+<td>B2BR-S03</td>
+<td><a href="https://developer.b2brouter.net/reference/import-invoice">Import an invoice from a file</a>; current public reference accessed 14 October 2026.</td>
+<td><code>POST /accounts/{account}/invoices/import</code>; <code>send_after_import</code>; <code>issue_after_import</code>; transport/document selection; responses.</td>
+<td>Documents import, asynchronous queue behaviour, provider fallback and <code>201</code>. Exact selected schema/profile, entitlement, idempotency and Spain route remain open.</td>
+</tr>
+<tr>
+<td>B2BR-S04</td>
+<td><a href="https://developer.b2brouter.net/reference/getnewreceivedinvoicecreated">New received invoice webhook</a>; current public reference accessed 14 October 2026.</td>
+<td>Event code/payload; <code>X-B2Brouter-Signature</code>; HMAC-SHA256 description; <code>200</code> response.</td>
+<td>Documents event and signature shape. It does not define secret lifecycle, replay window, retries, ordering or retention.</td>
+</tr>
+<tr>
+<td>B2BR-S05</td>
+<td><a href="https://developer.b2brouter.net/v2025-10-13/reference/get-invoices">List invoices</a>; versioned public reference accessed 14 October 2026.</td>
+<td><code>GET /accounts/{account}/invoices</code>; offset/limit; type and update/state filters.</td>
+<td>Documents paginated listing and filters for that version. It does not prove a gap-free incremental cursor or the selected-version behaviour.</td>
+</tr>
+<tr>
+<td>B2BR-S06</td>
+<td><a href="https://docs.b2brouter.net/en/developers/essential-guides/error-codes/">B2B Router error codes</a>; last updated 23 September 2026; accessed 14 October 2026.</td>
+<td>Error table; examples; request tracing.</td>
+<td>Documents public error examples and <code>X-B2B-API-Request-Id</code>. Error category alone does not prove mutation retry safety.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/BOE-A-2026-20587.pdf">BOE-A-2026-20587.pdf</a>; final order published 5 October 2026.</td>
+<td>Articles 3.4, 4 and 11.</td>
+<td>Supports separation of public-copy/public actions where applicable. It does not define B2B Router's private contract or approve it as Sage's provider.</td>
+</tr>
+<tr>
+<td>REF-PRD</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-216-b2b-router-integration-structured-review.md">PRD-SEI-216</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-213-private-platform-connectivity-structured-review.md">PRD-SEI-213</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-214-connections-registration-routing-structured-review.md">PRD-SEI-214</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-215-resilience-recovery-reconciliation-structured-review.md">PRD-SEI-215</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-226-security-trust-identity-data-audit.md">PRD-SEI-226</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-235-provider-api-for-e-invoicing-service.md">PRD-SEI-235</a>.</td>
+<td>Requirements and gates cited in Parts 1–4.</td>
+<td>Canonical product requirements. This specification must not silently close their open decisions.</td>
+</tr>
+<tr>
+<td>REF-CONTEXT</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/research/provider-apis/b2b-router/README.md">B2B Router research index</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>.</td>
+<td>Source inventory, research limits and common terms.</td>
+<td>Reading and traceability aids. Inventory completeness does not prove field mapping, contract entitlement or implementation readiness.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

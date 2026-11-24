@@ -1,0 +1,221 @@
+<div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-047<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/SPEC-SEI-047-spfe-to-sage-einvoice-api-mapping.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">spfe-soap-to-sage-e-invoice-api-mapping</ac:parameter></ac:structured-macro><h1>SPFE SOAP to Sage E-Invoice API Mapping</h1>
+<p>An authorised business needs to send, cancel or rectify Spain invoices, find and download them, report buyer or seller actions, and recover failed or uncertain requests. This reference maps the nine SPFE SOAP services to the existing Sage E-Invoice API surface. It links to the owning specifications for detailed fields, rules and acceptance checks.</p>
+<p><strong>Proposed reuse direction:</strong> retain the common Send, Query, Retrieve and status APIs, with qualified Spain rules and SPFE transport. Submission withdrawal has no documented equivalent in the supplied E-Invoice contracts. Service 09 is available only in sandbox/PRE and is excluded from the live production flow. Existing France contracts establish reuse candidates; deployed Spain implementation coverage remains unknown. REF-SND, REF-RCV, REF-LIF, REF-WITHDRAWAL; SPFE-S03 §6.10.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-service-mapping</ac:parameter></ac:structured-macro><h2>1 Service mapping</h2>
+<p>In the table, <code>{invoices}</code> means <code>/datasets/{datasetId}/e-invoices</code>. Sage calls are product-facing. SPFE calls communicate with AEAT. A mapping does not mean that each Sage call triggers one SOAP call, or that a saved read refreshes SPFE data.</p>
+<table>
+<thead>
+<tr>
+<th>SPFE service / source</th>
+<th>Actor and observable outcome</th>
+<th>Existing Sage API or interaction</th>
+<th>Spain mapping and authoritative detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>01 — <code>SendInvoice</code></strong>; SPFE-S16</td>
+<td>Authorised sender submits the invoice or applicable public copy.</td>
+<td><code>POST {invoices}</code>; then <code>PUT {uploadUrl}</code> for each declared file.</td>
+<td><ac:link ac:anchor="12-proposed-per-invoice-identities-and-platforms"><ri:page ri:content-title="Invoice Sending API Reference and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-043 §1.2</ac:link-body></ac:link> owns request fields and platform-selection semantics; its <ac:link ac:anchor="contract-baseline-and-reuse-assessment"><ri:page ri:content-title="Invoice Sending API Reference and Spain Changes" ri:space-key="DNBU" /><ac:link-body>contract baseline and reuse assessment</ac:link-body></ac:link> owns sending-specific API changes and gaps. <ac:link ac:anchor="22-spain-final-plan-and-independent-actions"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-024 §2.2</ac:link-body></ac:link> owns delivery/copy interactions.</td>
+</tr>
+<tr>
+<td><strong>02 — <code>CancelInvoice</code></strong>; SPFE-S10</td>
+<td>Authorised issuer requests cancellation of an eligible original or faithful copy previously submitted to SPFE.</td>
+<td><strong>No documented equivalent.</strong></td>
+<td>Use the separate cancellation flow below. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#analysis-and-proposed-direction">FP-SEI-002 analysis and proposed direction</a> records the proposed issuer action; the Sage endpoint, payload and result remain undecided.</td>
+</tr>
+<tr>
+<td><strong>03 — <code>GetInvoices</code></strong>; SPFE-S14</td>
+<td>Authorised issuer or recipient queries SPFE metadata and states by invoice identity.</td>
+<td><code>GET {invoices}/{e-invoiceId}</code> exposes the saved invoice and history.</td>
+<td>Qualify external-to-Sage identity and state mapping. SPFE consultation does not establish full lifecycle history. <ac:link ac:anchor="2-spain-public-source-calls"><ri:page ri:content-title="E-Invoice Retrieval API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-042 public source calls</ac:link-body></ac:link> and <ac:link ac:anchor="ret-api-02"><ri:page ri:content-title="E-Invoice Retrieval API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>Retrieve contract</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td><strong>04 — <code>GetRegisteredInvoice</code></strong>; SPFE-S15</td>
+<td>Authorised issuer or recipient discovers registered invoices using role/date filters.</td>
+<td><code>GET {invoices}</code> with qualified <code>filter</code> and <code>page[after]</code> values.</td>
+<td>Reuse the list view after source collection. Qualify date meanings, freshness, coverage and independent SPFE continuation. <ac:link ac:anchor="ret-api-01"><ri:page ri:content-title="E-Invoice Retrieval API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-042 Query contract</ac:link-body></ac:link> and <ac:link ac:anchor="2-spain-public-source-calls"><ri:page ri:content-title="E-Invoice Retrieval API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>public source calls</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td><strong>05 — <code>DownloadInvoicesByID</code></strong>; SPFE-S12</td>
+<td>Authorised actor obtains source invoice XML using external invoice identity.</td>
+<td>Query or Retrieve returns <code>attachments[].downloadUrl</code>; <code>GET {downloadUrl}</code> returns bytes.</td>
+<td>Source acquisition and user download are separate steps. Qualify file capture, invoice association, permissions and file role. <ac:link ac:anchor="ret-api-03"><ri:page ri:content-title="E-Invoice Retrieval API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-042 file-transfer step</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td><strong>06 — <code>DownloadInvoicesByLOC</code></strong>; SPFE-S13</td>
+<td>Authorised actor obtains source invoice XML using an SPFE locator.</td>
+<td>Same Query/Retrieve and download-link flow as service 05.</td>
+<td>The locator selects the SPFE source file; it is not a Sage UUID or download URL. <ac:link ac:anchor="2-spain-public-source-calls"><ri:page ri:content-title="E-Invoice Retrieval API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-042 public source calls</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td><strong>07 — <code>CustomerInvoiceEvents</code></strong>; SPFE-S11</td>
+<td>Buyer reports payment or commercial rejection, or retracts its earlier report.</td>
+<td><code>POST {invoices}/{e-invoiceId}/status</code>.</td>
+<td>Conditional reuse of buyer lifecycle actions. <ac:link ac:anchor="spfe-action-mapping"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-041 action and destination mapping</ac:link-body></ac:link> owns all buyer event codes, UUID candidates and gaps.</td>
+</tr>
+<tr>
+<td><strong>08 — <code>SupplierInvoiceEvents</code></strong>; SPFE-S17</td>
+<td>Seller reports collection or non-payment, or retracts its earlier report.</td>
+<td><code>POST {invoices}/{e-invoiceId}/status</code>.</td>
+<td>Conditional reuse of seller lifecycle actions for enabled scope. <ac:link ac:anchor="spfe-action-mapping"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-041 action and destination mapping</ac:link-body></ac:link> owns all seller event codes, UUID candidates and gaps.</td>
+</tr>
+<tr>
+<td><strong>09 — <code>ValidationInvoice</code> (sandbox/PRE only)</strong>; SPFE-S23; SPFE-S03 §6.10</td>
+<td>Caller checks one UBL invoice in sandbox/PRE without registering it.</td>
+<td><strong>No live production mapping: SPFE does not provide this service in production.</strong></td>
+<td>Optional sandbox/PRE conformance aid; never a live production dependency. Sage final-file validation remains separate. <ac:link ac:anchor="spfe-source-contract-binding"><ri:page ri:content-title="UBL Validation and Correction Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-005 SPFE source contract binding</ac:link-body></ac:link>, UV-SPFE-R03, owns its use and limits.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">cancellation-and-rectification-flows</ac:parameter></ac:structured-macro><h3>Cancellation and rectification flows</h3>
+<p>Cancellation and rectification are independent. Neither requires nor causes the other. This mapping follows the merged SD-CANCEL01 design input; API contracts and implementation support still need qualification. REF-WITHDRAWAL; REF-CORRECTION.</p>
+<p><ac:link ac:anchor="4-end-to-end-workflow"><ri:page ri:content-title="Invoice Sending Solution Summary" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-022 combined Send / Correct / Cancel overview</ac:link-body></ac:link> is the visual home for all three entry paths. The table below maps the cancellation and rectification journeys to their different API and SPFE interactions. <ac:link ac:anchor="entry-actions"><ri:page ri:content-title="Invoice Sending Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-023 entry actions</ac:link-body></ac:link> owns entry selection and safe next actions.</p>
+<table>
+<thead>
+<tr>
+<th>Flow</th>
+<th>Actor, condition and outcome</th>
+<th>Sage / SPFE mapping and owning specifications</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cancel e-invoice</strong></td>
+<td>The issuer can request cancellation after full customer rejection when the operation did not take place. Rejection alone does not cancel the invoice. <ac:link ac:anchor="proposed-cancel-eligibility"><ri:page ri:content-title="Invoice Sending Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-023 cancellation eligibility</ac:link-body></ac:link> owns all state and reason conditions, including the separate treatment of technical and partial rejection.</td>
+<td>Proposed issuer action on the existing resource → service <strong>02 — <code>CancelInvoice</code></strong>. It carries a cancellation message, with no invoice UBL. Sending owns the request, response and recovery under <ac:link ac:anchor="24-proposed-withdrawal-interaction"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-024 §2.4</ac:link-body></ac:link>; <ac:link ac:anchor="proposed-spain-invoice-states"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-029 proposed states</ac:link-body></ac:link> owns the evidenced cancelled outcome. The existing lifecycle status POST has no qualified invoice-cancellation binding.</td>
+</tr>
+<tr>
+<td><strong>Correct invoice — rectifying invoice</strong></td>
+<td>The ERP creates a separately numbered rectifying invoice that references the original under <ac:link ac:anchor="proposed-rectification-modify"><ri:page ri:content-title="Invoice Creation Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-015 IC-12</ac:link-body></ac:link>. The original issued content remains unchanged. The new invoice has its own acceptance, rejection and payment lifecycle.</td>
+<td>Prepare the new invoice under SPEC-SEI-015, then use the sending flow: <code>POST {invoices}</code> and file upload → service <strong>01 — <code>SendInvoice</code></strong> for the applicable original or public copy. <ac:link ac:anchor="contract-baseline-and-reuse-assessment"><ri:page ri:content-title="Invoice Sending API Reference and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-043 sending contract and reuse assessment</ac:link-body></ac:link> owns API qualification. No separate <code>CorrectInvoice</code> SOAP service or new correction endpoint is selected.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-customer-and-supplier-roles</ac:parameter></ac:structured-macro><h2>2 Customer and supplier roles</h2>
+<p>For normal sales and purchase flows, an ERP <strong>supplier/purchase invoice</strong> places the connected business in the buyer role and maps to <code>CustomerInvoiceEvents</code>. An ERP <strong>customer/sales invoice</strong> places it in the seller role and maps to <code>SupplierInvoiceEvents</code>. The service names identify the reporting party, not the ERP's invoice category. REF-EXAMPLES; REF-LIF.</p>
+<p>For self-billing, preserve seller, buyer and material issuer separately under the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md#invoices-representations-and-rules">GLO-SEI-001 invoice definitions</a>. The authenticated caller can represent a business; authentication alone does not grant buyer or seller authority.</p>
+<p>Use <ac:link ac:anchor="spfe-field-mapping"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-041 input and XML field mapping</ac:link-body></ac:link> for saved invoice references and event dates, reasons and indicators. It also defines the conditions for full-payment reporting. Its eight-action table remains the single mapping authority; the supplied API leaves five action bindings unassigned. Open <code>statusAttributes</code> proves JSON schema flexibility, not Spain execution support. REF-LIF.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-shared-interactions-and-reuse-qualification</ac:parameter></ac:structured-macro><h2>3 Shared interactions and reuse qualification</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Reuse direction, country change or gap</th>
+<th>Accountable roles and existing acceptance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Setup</td>
+<td>Access-point discovery and dataset connection APIs support setup; none of the nine SOAP services is an onboarding equivalent. Spain resource mapping and public readiness remain qualified separately.</td>
+<td>API/Identity/Integration: <ac:link ac:anchor="1-existing-calls-to-reuse--phases-13"><ri:page ri:content-title="E-Invoice Onboarding API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-040 existing calls and Spain limits</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>Results and recovery</td>
+<td>Reuse request receipts, notifications and invoice history where compatible. <code>POST /internal/events/subscriptions</code> is guide evidence, with access/schema gaps. A notification prompts a result read; neither Sage <code>201</code> nor HTTP success proves an SPFE business result. No SPFE webhook is established.</td>
+<td>API/Events/Integration: <ac:link ac:anchor="1-existing-calls-and-results"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-041 existing calls and results</ac:link-body></ac:link> and <ac:link ac:anchor="ret-api-04"><ri:page ri:content-title="E-Invoice Retrieval API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-042 subscription/event</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>Spain transport and results</td>
+<td>The reviewed WSDLs use SOAP 1.2. Services 01–08 carry UBL business documents as MIME attachments referenced by ebMS headers; service 09 uses direct SOAP bodies. Preserve transport faults, business response codes and per-invoice results separately. Exact transport/result rules stay in the connector specification.</td>
+<td>Public Integration: <ac:link ac:anchor="spfe-source-contract-binding"><ri:page ri:content-title="Public Platform Connector Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-011 source contract binding</ac:link-body></ac:link> and <ac:link ac:anchor="spfe-response-and-error-matrix"><ri:page ri:content-title="Public Platform Connector Solution Specification" ri:space-key="DNBU" /><ac:link-body>response and error matrix</ac:link-body></ac:link>. SPFE-S10–S17/S23.</td>
+</tr>
+<tr>
+<td>External error handling</td>
+<td>Preserve the SPFE business/technical source classification and apply the proposed owner/next-action mapping. Reuse shared issue presentation and evidence correlation where qualified; actual Spain API error codes and response fields remain unassigned.</td>
+<td>Integration/API/Validation: <ac:link ac:anchor="business-and-technical-error-mapping"><ri:page ri:content-title="Public Platform Connector Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-011 business and technical mapping</ac:link-body></ac:link>, PCN-SPFE-A07–A09. Resource category does not determine HTTP status, retry safety or a lifecycle transition.</td>
+</tr>
+<tr>
+<td>Transformation</td>
+<td>Assess existing DTS first for Spain invoice and event XML generation where transformation is needed. Qualify its actual build, contracts, executable mappings, rule packs and operations. Saved UBL 2.5 viewing does not itself require conversion.</td>
+<td>DTS/Format: <ac:link><ri:page ri:content-title="Spain UBL Mapper Migration to DTS Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-008 DTS specification</ac:link-body></ac:link> and <ac:link ac:anchor="32-spain-field-coverage-against-the-french-guide"><ri:page ri:content-title="Invoice Lifecycle Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-030 field coverage and DTS qualification</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>Activation and country isolation</td>
+<td>Demonstrate Spain identity, route, file, action and result bindings without changing France rules. Resolve withdrawal and missing action contracts before enabling them. Include the separate cancellation and rectification checks in the owning specifications. Record the selected build and positive, negative and recovery evidence for each enabled service.</td>
+<td>API/Architecture/Spain/Integration: <ac:link ac:anchor="6-functional-acceptance"><ri:page ri:content-title="Invoice Sending Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-023 functional acceptance</ac:link-body></ac:link>, <ac:link ac:anchor="1-acceptance-and-evidence-matrix"><ri:page ri:content-title="Invoice Creation Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-015 creation acceptance</ac:link-body></ac:link>, <ac:link ac:anchor="5-api-qualification-checks"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-024 sending checks</ac:link-body></ac:link>, <ac:link ac:anchor="5-api-qualification-checks"><ri:page ri:content-title="Invoice Retrieval Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-027 retrieval checks</ac:link-body></ac:link> and <ac:link ac:anchor="5-api-qualification-acceptance"><ri:page ri:content-title="Invoice Lifecycle Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-030 lifecycle acceptance</ac:link-body></ac:link>.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-evidence-status</ac:parameter></ac:structured-macro><h2>4 Evidence status</h2>
+<p>The manifest selects the locally reviewed <strong>23 November 2026 PRE WSDL folder</strong>. All nine WSDLs match the 29 October bytes; the README filename is corrected and UBL XSDs are now supplied. SPFE-S04–S08 originals were recovered under <code>context/archive</code> from Git, with their registered hashes unchanged. Newer examples at REF-EXAMPLES remain separate from those snapshots. Source registration does not qualify a production implementation. REF-BASELINE.</p>
+<p>The example conflicts remain in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#spfe-example-review-and-specification-impact">RES-SEI-002 specification impact</a>: buyer <code>PAYMENT</code> paired with seller wording, SOAP 1.1 event requests against SOAP 1.2 WSDLs, inconsistent dates, and download identity/correlation mismatches. Public Integration and the AEAT liaison need corrected fixtures and governing business schemas before executable conformance can be claimed. REF-EXAMPLES; REF-BASELINE.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro><h2>REF Source references</h2>
+<table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>Original file and version/date</th>
+<th>Exact locator, supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-BASELINE</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/source-manifest.json">Source manifest</a>, <code>current_wsdl_baseline</code>, reviewed 23 November 2026; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#pre-wsdl-and-supporting-evidence-reviewed-23-november-2026">RES-SEI-002 release review</a>, updated 23 November 2026.</td>
+<td>Selected local transport folder, supplied schemas, draft rule resources and remaining source conflicts. Does not monitor later AEAT releases or prove runtime access. SPFE-S04–S08 original bytes are preserved under <code>context/archive</code>.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">Original service catalogue</a>, version 0.1.0, 9 October 2026.</td>
+<td>§§6.10.2–6.10.3, pp. 19–20: validation is available only in PRE, is unavailable in production and does not register the invoice. The catalogue's older <code>InvoiceValidationSOAP</code> spelling does not replace SPFE-S23's reviewed operation name.</td>
+</tr>
+<tr>
+<td>SPFE-S16 / SPFE-S10</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SendInvoice.wsdl">SendInvoice WSDL</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/CancelInvoice.wsdl">CancelInvoice WSDL</a>, reviewed PRE release 23 November 2026.</td>
+<td>Named <code>portType</code> operations, input/output messages, SOAP 1.2 documentation, bindings/actions and certificate/seal ports. Opaque business attachments do not establish a complete business schema or Sage support.</td>
+</tr>
+<tr>
+<td>SPFE-S14 / SPFE-S15</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/GetInvoices.wsdl">GetInvoices WSDL</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/GetRegisteredInvoice.wsdl">GetRegisteredInvoice WSDL</a>, same reviewed release.</td>
+<td>Named operations, messages, binding/actions and ports. Business purpose and unresolved field semantics are maintained in SPEC-SEI-042 §2 against its catalogue sources.</td>
+</tr>
+<tr>
+<td>SPFE-S12 / SPFE-S13</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/DownloadInvoicesByID.wsdl">DownloadInvoicesByID WSDL</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/DownloadInvoicesByLOC.wsdl">DownloadInvoicesByLOC WSDL</a>, same reviewed release.</td>
+<td>Named download operations, ebMS/MIME transport, faults and ports. Neither establishes Sage saved-file access or complete identity/locator encoding.</td>
+</tr>
+<tr>
+<td>SPFE-S11 / SPFE-S17</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/CustomerInvoiceEvents.wsdl">CustomerInvoiceEvents WSDL</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SupplierInvoiceEvents.wsdl">SupplierInvoiceEvents WSDL</a>, same reviewed release.</td>
+<td>Named event operations, messages, transport and ports. Business event/action and field mapping remain in SPEC-SEI-041 against its Annex II sources.</td>
+</tr>
+<tr>
+<td>SPFE-S23</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/ValidationInvoice.wsdl">ValidationInvoice WSDL</a>, same reviewed release.</td>
+<td><code>ValidationInvoiceRequest</code> part <code>ubl:Invoice</code>, response part <code>ublds:DocumentStatus</code>, direct-body documentation and SOAP binding. Referenced UBL business schemas and local dependencies are now supplied; accepted-profile and client qualification remain open. PRE use is bounded by SPEC-SEI-005 UV-SPFE-R03.</td>
+</tr>
+<tr>
+<td>REF-SND</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Sending/send-e-invoice-openapi.md">Supplied Send OpenAPI</a>, OpenAPI 3.1.0, API 1.0.0; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Sending/send-e-invoice-guide-extract.md">supplied sending guide extract</a>, received 22 October 2026.</td>
+<td><code>Send-Document</code>, POST request/response; guide steps 2–5 establish upload, events and reads. France-oriented evidence; Spain values, runtime and file support need qualification. SPEC-SEI-043 owns detailed reuse proposals.</td>
+</tr>
+<tr>
+<td>REF-RCV</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Receiving/query-e-invoices.openapi.json">Query OpenAPI</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Receiving/retrieve-e-invoice.openapi.json">Retrieve OpenAPI</a>, OpenAPI 3.1.0, API 1.0.0; snapshots received 13 November 2026.</td>
+<td><code>Query-Invoices</code>, <code>Retrieve-Invoice</code>, filters, pagination, attachment links and detail history. No implicit fresh SPFE collection or deployed Spain support. SPEC-SEI-042 owns field mappings and conflicts.</td>
+</tr>
+<tr>
+<td>REF-LIF</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/update-e-invoice-status.openapi.json">Status OpenAPI</a>, OpenAPI 3.1.0, API 1.0.0, received 28 October 2026; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/lifecycle-api-guides-evidence-extract.md">lifecycle guide extract</a>, received 22 October 2026.</td>
+<td><code>LifecycleChange-Document</code>, <code>InvoiceStatusRequest</code>, <code>InvoiceStatusResponse</code>; guide INT-LCS01–05. Existing status shape, event/read pattern and France actor catalogue; not executable Spain action bindings. SPEC-SEI-041 owns the proposed eight-action mapping.</td>
+</tr>
+<tr>
+<td>REF-WITHDRAWAL</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#analysis-and-proposed-direction">FP-SEI-002 analysis and proposed direction</a> and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#ref-source-references">SD-CANCEL01 source record</a>, design input attributed 18 November 2026; <ac:link ac:anchor="proposed-cancel-eligibility"><ri:page ri:content-title="Invoice Sending Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-023 cancellation eligibility</ac:link-body></ac:link>.</td>
+<td>Canonical proposed cancellation direction, eligibility and Architecture decision boundary. Includes cancellation after full customer rejection when the operation did not take place. Product/design input; no approved endpoint, payload, external numbering/timer contract or delivery commitment.</td>
+</tr>
+<tr>
+<td>REF-CORRECTION</td>
+<td><ac:link ac:anchor="proposed-rectification-modify"><ri:page ri:content-title="Invoice Creation Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-015 IC-12 rectification extension</ac:link-body></ac:link>, SD-CANCEL01 input attributed 18 November 2026; existing IC-04/05/12 and their reference/method checks.</td>
+<td>Separate rectifying-invoice creation, original reference, new identity and independent lifecycle. Reuses the sending flow for dispatch; does not establish a separate correction endpoint, executable Spain mapping or production support.</td>
+</tr>
+<tr>
+<td>REF-EXAMPLES</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Descripci%C3%B3n%20servicios%20web/Ejemplos%20de%20peticiones%20y%20respuestas%20de%20SW/">Supplied service examples 01–09</a>, local collection inspected 17 November 2026; publication version unverified.</td>
+<td>Numbered request/response folders illustrate invoice submission, cancellation, query, download, buyer <code>Pagar.xml</code>, seller <code>Cobrada.xml</code> and validation. Examples are not complete contracts; local snapshots are not registered in the source manifest.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro>

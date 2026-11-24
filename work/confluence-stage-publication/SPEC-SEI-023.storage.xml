@@ -1,0 +1,809 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-023<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/invoice-sending/SPEC-SEI-023-invoice-sending-logical-feature-specification.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">invoice-sending-logical-feature-specification</ac:parameter></ac:structured-macro><h1>Invoice Sending Logical Feature Specification</h1>
+<p><ac:link><ri:page ri:content-title="Invoice Sending Solution Summary" ri:space-key="DNBU" /><ac:link-body>Solution Summary</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>Sequence and Reuse Assessment</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Invoice Sending API Reference and Spain Changes" ri:space-key="DNBU" /><ac:link-body>API Reference</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Invoice Sending Solution Summary" ri:space-key="DNBU" /><ac:link-body>Feature landing page</ac:link-body></ac:link></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">revision-overview</ac:parameter></ac:structured-macro><h2>Revision overview</h2>
+<p>This separate view makes the scenarios and OUT activities in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a> easier to review. Existing IDs and safeguards retain their meanings. OUT-00/10 now capture ERP sender selection and the proposed per-invoice sender/recipient identities and platforms. Recipient resolution remains integration-dependent. The France OpenAPI snapshot informs reuse and defect analysis; it does not establish Spain implementation. The predecessor remains unchanged. SPEC-SEI-022 is selected for its stable Confluence page; this logical view is a companion page under the same feature.</p>
+<p>This draft states the proposed behaviour for the companion set. Exact contracts, component allocation, implementation coverage and OUT-Q01–03 remain open. The supplied FR guide informs engineering reuse in SPEC-SEI-024; it does not replace Spain requirements.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-purpose-actors-and-boundary</ac:parameter></ac:structured-macro><h2>1 Purpose, actors and boundary</h2>
+<p>The business needs the correct invoice sent through the permitted route, with clear results and safe recovery. The ERP owns issuance. A direct business or authorised accountant uses the same single-invoice journey for the represented business. No batch coordinator is required. The supplied FR guide establishes a per-invoice submission, not bulk accountant sending. Portfolio and accounting-handoff proposals remain separate under OUT-Q02. A client relationship, login or dataset ID alone cannot grant action authority. NIF identifies the legal tax subject; a routing address identifies a network participant or destination. Existing sender/recipient address properties are routing values, separate from seller/buyer in the invoice. Under OUT-10, NIFs use the existing sender/recipient address type/value pairs; platform selection is separate. OUT-R11–14; REF-BASE/PRODUCT; INT-SND01/02.</p>
+<p>Use <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md#sending-receiving-and-invoice-roles">GLO-SEI-001 — sending, receiving and invoice roles</a> to distinguish exchange direction, sender/recipient, sales/purchase perspective and document type. Product requirements retain their source authority. Requirements below do not allocate new services or endpoints.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-scenarios-and-observable-outcomes</ac:parameter></ac:structured-macro><h2>2 Scenarios and observable outcomes</h2>
+<p>Existing acceptance IDs also identify the review scenarios. Section 6 supplies their checks.</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Condition and required outcome</th>
+<th>Activities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT-A25 ERP checks connected access points</td>
+<td>Before offering a sender selection, show the customer's connected platforms and separate sending and receiving availability under OUT-00.</td>
+<td>OUT-00/08/10</td>
+</tr>
+<tr>
+<td>OUT-A01/02 Draft or final data needs work</td>
+<td>Return owned issues. A changed final candidate invalidates affected preparation; already-issued content uses governed correction.</td>
+<td>OUT-01–08/11</td>
+</tr>
+<tr>
+<td>OUT-A03 Eligible private route</td>
+<td><span style="color:#1565C0;"><strong>Proposed:</strong></span> Plan private recipient delivery and only the separately required public copy. In Phase 2 the selected private platform sends the copy; this capability is an <span style="color:#B42318;"><strong>Assumption</strong></span> pending confirmation. Public issuance/interconnection does not need another copy.</td>
+<td>OUT-09–13; OUT-SPFE-R01; SND-G05</td>
+</tr>
+<tr>
+<td>OUT-A04/05 Public route or unresolved lookup</td>
+<td>Apply the six-case OUT-09 decision table. A failed lookup never proves that no private address was communicated or that no private route exists.</td>
+<td>OUT-09/10</td>
+</tr>
+<tr>
+<td>OUT-A23 ERP supplies identities and platform selection</td>
+<td>Apply OUT-10 to the sender NIF, selected sender platform, recipient NIF and supplied or qualified resolved recipient platform. Reject a missing or ineligible sender selection. Hold an unresolved recipient destination.</td>
+<td>OUT-08–13</td>
+</tr>
+<tr>
+<td>OUT-A24 One invoice fails while later invoices continue</td>
+<td>Keep the failed invoice visible with its affected action, reason and next owner. The failure does not automatically block a later invoice, and an accepted invoice cannot disappear silently.</td>
+<td>OUT-13–15</td>
+</tr>
+<tr>
+<td>OUT-A06 Mapping or trust failure</td>
+<td>Hold before external execution; preserve the exact failed representation and next action.</td>
+<td>OUT-08/11</td>
+</tr>
+<tr>
+<td>OUT-A07/08 Partial or lost result</td>
+<td>Preserve known success and reconcile only the uncertain original action.</td>
+<td>OUT-12–15</td>
+</tr>
+<tr>
+<td>OUT-A13/14 Business or one-client accountant</td>
+<td>Apply current action authority and any required approval to the exact revision. Return the eligible action owner for missing evidence.</td>
+<td>OUT-02/03/05/08/12/15</td>
+</tr>
+<tr>
+<td>OUT-A16 Relationship or authority withdrawal; OUT-A15 only if portfolio scope is enabled</td>
+<td>Stop affected new work after relationship or authority withdrawal; retain earlier effects for authorised recovery. Any separately enabled portfolio keeps item outcomes independent.</td>
+<td>OUT-08/12–15</td>
+</tr>
+<tr>
+<td>OUT-PDF-A01–03 Transitional PDF</td>
+<td>Apply the product rule, obtain the local product's matching PDF and qualify recipient delivery independently of public submission.</td>
+<td>OUT-08/10–15; OUT-PDF-R01/02</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-process-and-activity-order</ac:parameter></ac:structured-macro><h2>3 Process and activity order</h2>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">entry-actions</ac:parameter></ac:structured-macro></p>
+<p><strong>Select Send, Correct or Cancel.</strong> The customer or ERP starts a sending request or reopens an issued invoice using its current state and sending evidence. Recheck action eligibility and authority when the invoice is reopened and before execution. Missing or conflicting evidence holds the affected action and returns the reason and safe next step. The <ac:link ac:anchor="4-end-to-end-workflow"><ri:page ri:content-title="Invoice Sending Solution Summary" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-022 combined overview</ac:link-body></ac:link> shows these entry paths. SD-CANCEL01; OUT-08/12–15.</p>
+<table>
+<thead>
+<tr>
+<th>Entry action</th>
+<th>Required behaviour and handoff</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Send</strong></td>
+<td>Take the final candidate or qualified already-issued invoice into the sending activities below. Apply current preparation, sender selection, recipient routing and readiness checks.</td>
+</tr>
+<tr>
+<td><strong>Correct</strong></td>
+<td>Apply <ac:link ac:anchor="proposed-rectification-modify"><ri:page ri:content-title="Invoice Creation Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-015 IC-12</ac:link-body></ac:link> to the issued original. The separately numbered rectifying invoice references the original and enters Send at overview step 1. Preserve the original content and history. Issuance and required-copy coordination remain under OUT-06/OUT-Q03.</td>
+</tr>
+<tr>
+<td><strong>Cancel</strong></td>
+<td>Apply the <ac:link ac:anchor="proposed-cancel-eligibility"><ac:link-body>cancellation eligibility table</ac:link-body></ac:link> to the exact earlier submission. Retain its represented business, environment, original/copy purpose and original destination. Continue through <ac:link ac:anchor="24-proposed-withdrawal-interaction"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-024 §2.4</ac:link-body></ac:link>, independently of the new-send platform selection. Denied requests return a reason and permitted next action; uncertain results reconcile the original cancellation attempt.</td>
+</tr>
+</tbody>
+</table>
+<p>These entry paths preserve the existing activity IDs. The following detail diagram and ordered activities describe Send, including submission of a new rectifying invoice. Completion of Send is not a common prerequisite for the other choices; apply the selected action's eligibility and recovery rules.</p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="d00b3d7d-2dbd-560c-a84c-886afe324912"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">e-invoicing-outbound-exchange-pilot</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2620</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/e-invoicing-outbound-exchange-pilot.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/e-invoicing-outbound-exchange-pilot.png">PNG</a>.</p>
+<p>This existing detail diagram explains route holds, validation correction and action-specific recovery. It does not define the boundary between issuance and copy. The ordered activities below govern that boundary: final preparation precedes dependent ERP issuance. Coordinate any required copy with issuance, independently of private delivery success. OUT-SPFE-R01; SPFE-S02 Article 4.</p>
+<p><strong>Diagram customer inputs and step 05 — Sender → recipient path ready?</strong> the customer or ERP supplies both platform choices before the request. Step 05 checks the selected sender connection and its qualified delivery path under OUT-00/08/09/10; it does not establish buyer acceptance. A dataset with SPFE and B2Brouter connections cannot send through Zerocoma until that connection is ready and permitted for sending. Selection leaves saved onboarding configuration unchanged. Where a certificate is required, the customer can choose any eligible certificate, including one different from onboarding. Preparation binds its version and checks its purpose, validity and authority under <ac:link ac:anchor="6-cert-0405-validate-trust-and-calculate-scoped-readiness"><ri:page ri:content-title="Certificate Management Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-001 CERT-04/05</ac:link-body></ac:link>. Per-send certificate-selection support remains unqualified. Proposed product controls; OUT-A23/25; SND-G09.</p>
+<p>The original activity numbers retain their meanings. OUT-06 therefore appears after final preparation in execution order.</p>
+<p><strong>OUT-09 Spain recipient-route decision</strong></p>
+<p>Private delivery does not require a Sage recipient lookup before sending when the ERP supplies sufficient destination information under OUT-10. Use the supplied recipient platform and routing address with the selected provider's qualified delivery contract. A different recipient platform requires qualified interconnection; it does not require the sender to onboard to that recipient platform. Record delivery results under OUT-13/15. A ready sender connection does not prove recipient eligibility or delivery. For the public route, qualify the available recipient checks and their coverage; the reviewed SPFE contracts do not establish a recipient-directory API. The cases below apply only where the selected source supports lookup. Missing lookup capability is not a lookup failure or proof of absence, and must not trigger a search across private providers. SND-G02; REF-LOOKUP.</p>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Condition</th>
+<th>Required outcome</th>
+<th>Label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Selected provider responds and finds an eligible recipient</td>
+<td>Deliver through the selected sender platform to the evidenced recipient destination. Hold a conflict with an ERP-supplied recipient platform for correction or an explicit decision before sending.</td>
+<td><span style="color:#1565C0;">Proposed</span></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Selected provider responds with no match, and the customer had a private address for the recipient</td>
+<td>Hold and notify the customer. The customer corrects the address or explicitly chooses the public route. Record the decision.</td>
+<td><span style="color:#1565C0;">Proposed</span> + <span style="color:#B42318;">Source conflict: local guidance says public by default; Compliance to confirm.</span></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Lookup times out or is unavailable</td>
+<td>Retry the lookup automatically for a limited period, then show “action required”. The customer retries or explicitly chooses public. Never fall back to public because of an error.</td>
+<td><span style="color:#1565C0;">Proposed</span> + <span style="color:#B42318;">Open: Engineering and Compliance own the retry window; no duration is set here.</span></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Recipient is found but is not eligible for this document or date</td>
+<td>Hold dispatch.</td>
+<td><span style="color:#1565C0;">Proposed</span></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Several possible recipient matches are found</td>
+<td>Hold dispatch and request a decision.</td>
+<td><span style="color:#1565C0;">Proposed</span></td>
+</tr>
+<tr>
+<td>6</td>
+<td>No private address has been communicated to the sender</td>
+<td>Use the public route.</td>
+<td><span style="color:#B42318;">Source conflict</span></td>
+</tr>
+</tbody>
+</table>
+<p><span style="color:#1565C0;"><strong>Proposed safety rationale:</strong></span> A lookup timeout occurs before sending, so retrying the lookup is safe. Sending publicly after an error risks creating a second original; the public platform rejects duplicates, and correction may require a controlled withdrawal. The retry window remains open for Engineering and Compliance. SPFE-S02 Article 5.5; SPFE-S03 §6.3; SND-G04.</p>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Actor, condition, required behaviour and safe result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT-00 Check connected access points</td>
+<td>Before offering a sender selection, the ERP obtains the represented customer's access-point connections for the authorised dataset, sender NIF and environment. Show each platform and its connection state, with sending and receiving availability assessed separately for the relevant address, date, permissions and qualified capability. Offer only permitted, ready sending connections as selectable sender platforms. For a sender with qualified SPFE, ZeroComa and B2Brouter sending connections, offer all three; without a ZeroComa connection, do not offer ZeroComa as available for sending. Unconfirmed availability remains unknown. A successful empty list directs the customer to onboarding; a failed or stale read shows availability as unknown and offers refresh or an owned setup action. Discovery cannot create or activate connections, change saved onboarding configuration, prove recipient eligibility, or bypass OUT-08/10. The API reuse assessment is in <ac:link ac:anchor="20-check-connected-access-points"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-024 §2.0</ac:link-body></ac:link>. INT-AP07; USR-SND01.</td>
+</tr>
+<tr>
+<td>OUT-01 Create draft</td>
+<td>ERP captures complete invoice business facts and a source revision. Exact draft fields remain a contract gate.</td>
+</tr>
+<tr>
+<td>OUT-02 Submit draft</td>
+<td>The caller supplies authorised business scope, input identity and revision. Save a recoverable request before processing. Same identity/input returns existing work; changed input conflicts. Deny unsupported or inaccessible scope without revealing another client.</td>
+</tr>
+<tr>
+<td>OUT-03 Prepare</td>
+<td>For that business and actor, check applicability, action authority, profile and source data. Early route evidence is guidance with source/time; it cannot freeze the final route.</td>
+</tr>
+<tr>
+<td>OUT-04 Decide draft</td>
+<td>Return issues, limitations, owner and next action without issuing or sending. Preserve prior results when correction creates a new revision.</td>
+</tr>
+<tr>
+<td>OUT-05 Review</td>
+<td>ERP and eligible actor apply the OUT-Q01 approval policy to the invoice revision/purpose. Save a missing-decision request before notification. Verify current eligibility and version before resuming; stale, refused, expired or conflicting decisions retain the hold. An authorised automatic rule records its actor, policy and evidence.</td>
+</tr>
+<tr>
+<td>OUT-07 Submit final candidate</td>
+<td>ERP supplies stable planned identity/date and exact final data before coordinated issuance. A material change invalidates the plan. Qualified already-issued paths retain actual issuance evidence; a late required copy remains a nonconformance/recovery case. Duplicate final identity/hash resumes existing work; conflicting input requires an owned revision decision.</td>
+</tr>
+<tr>
+<td>OUT-08 Final checks</td>
+<td>Recheck current business/action authority, entitlement, required approval, applicability, exact representation and trust. Unknown evidence holds dependent work. If issued content is defective, return the legal/ERP correction owner without changing it.</td>
+</tr>
+<tr>
+<td>OUT-09 Lookup</td>
+<td>Apply the recipient-check scope and conditional decision table above for the correct environment, document, process and time. Preserve <code>PRIVATE_READY</code> and <code>PROVEN_NONE</code>: the latter requires a successful authoritative lookup with no private entry point. Neither missing lookup capability nor “no private address communicated to the sender” means <code>PROVEN_NONE</code>. A failed lookup never means “not found.” Product and Spain Compliance own confirmation of the public-route evidence and rule. REF-BASE; REF-LOOKUP; OUT-A03/04/05.</td>
+</tr>
+<tr>
+<td>OUT-10 Plan</td>
+<td><strong>Proposed Spain request:</strong> for each invoice, the ERP supplies sender NIF, sender platform, recipient NIF and recipient platform. Recipient platform may be omitted only for qualified integration resolution. Hold an unresolved destination and return the missing information and next action to the ERP. NIF alone and sender onboarding cannot establish the recipient platform. Reject a missing/null sender platform. Carry each NIF in the existing address type/value pair. Check these addresses against the represented sender and invoice exchange roles under the Spain scheme mapping. Verify the authorised dataset's current connection for that sender NIF and selected platform: same environment, sending permission, valid sender address and supported process. Reject a missing, disconnected or disallowed connection; offer onboarding or a permitted selection. Hold unknown readiness and offer refresh or an owned setup action. For each invoice, allow selection of any ready, permitted sender connection; it may differ from the one used for another invoice. Apply OUT-09 separately and require a qualified path from that selected sender platform to the recipient platform. Hold an unsupported or unknown path without silently changing either selection. Selection does not create, activate or reconfigure a connection. SND-G09 owns implementation qualification. Freeze both NIFs, selected sender platform, supplied/resolved recipient destination, evidence, revision, files, mapping, trust and required actions. Select one recipient route without fan-out. Platform selection alone does not establish public issuance/interconnection or the copy obligation. A material change before execution creates a new plan version; earlier actions keep their original context. <ac:link ac:anchor="12-proposed-per-invoice-identities-and-platforms"><ri:page ri:content-title="Invoice Sending API Reference and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-043 §1.2</ac:link-body></ac:link> owns the proposed field mapping. USR-SND01; SND-G02/09.</td>
+</tr>
+<tr>
+<td>OUT-11 Prepare/send intent</td>
+<td>Preserve business meaning during transformation. For uploaded invoices, check actual invoice identity, tax identities, type, profile and original/copy purpose against the request and action plan under the qualified exchange-role mapping. These checks run when the bytes are available, before external execution; POST acceptance and upload success do not establish consistency. Hold mismatches or missing qualification and return the issue and next owner. Never silently repair issued bytes. Validate final target bytes, then apply any approved signature/seal. Retain exact final bytes/hash and recoverable action intent before transmission. Reconcile an uncertain protected signing operation before repeating it. <ac:link ac:anchor="supplied-sendinvoices-example-assessment"><ri:page ri:content-title="Invoice Sending API Reference and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-043 supplied-example assessment</ac:link-body></ac:link> owns the XML/API analysis.</td>
+</tr>
+<tr>
+<td>OUT-06 ERP issuance</td>
+<td>ERP issues only after dependent final preparation, through the qualified OUT-Q03 boundary. Bind actual issued identity/revision/time. Cancellation before issuance can close safe pending work; afterwards it cannot erase the issued invoice.</td>
+</tr>
+<tr>
+<td>OUT-12 Execute actions</td>
+<td>Recheck current authority/readiness before each new protected execution. Execute only the action in the frozen plan, with its own identity and recorded attempt. In Phase 2, the selected private platform sends the faithful SPFE copy using its own capability; Sage observes the result it reports. When Sage operates as the private platform, Sage sends the copy. The external platform capability is an <span style="color:#B42318;">Assumption</span>, expected but not confirmed. How the platform reports copy results/errors to Sage and who retries a failed copy are <span style="color:#B42318;">Gaps</span> under SND-G05. Preserve completed actions when another is held, rejected or unknown.</td>
+</tr>
+<tr>
+<td>OUT-13 Record outcomes</td>
+<td>Retain raw results and actual evidence level for each action. After a possible external effect, reconcile the original route, identity and payload before retry. Record confirmed success once; repeat proven absence only under a qualified safe contract. Unresolved evidence stays owned. Rebuild a lost local result from intent and reliable observation.</td>
+</tr>
+<tr>
+<td>OUT-14 Derive views</td>
+<td>Hand evidence to the lifecycle owner. Preserve raw source meaning and separate preparation, issuance, technical admission, delivery, copy/reporting and buyer states. Out-of-order events cannot erase later evidenced facts.</td>
+</tr>
+<tr>
+<td>OUT-15 Show result</td>
+<td>Product returns each action's result, evidence time/freshness, limitations, reason for failure and next owner/action to the ERP. Identify whether the next action belongs to platform recovery, customer correction or support. Keep unresolved required actions visible; do not show full completion. Portfolio reads and counts recheck access. Accounting handoff has its own result; its failure cannot resend recipient delivery.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">transitional-pdf-behaviour</ac:parameter></ac:structured-macro><h3>Transitional PDF behaviour</h3>
+<p>The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md#transitional-pdf-product-rule">product rule</a> owns applicability and local-product generation responsibility. These requirements develop that rule through the existing final-check, plan, execution and result activities. A PDF is a readability companion, not the faithful public copy. RD238-T2; REF-PDF-DECISION.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Condition, required behaviour and recovery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT-PDF-R01</td>
+<td>Before planned sending, resolve whether the PDF is required, exempt or not applicable under the product rule. Retain the applicable cohort/date and any recipient exception evidence. When required, the local product generates a readable PDF for the exact final invoice revision and supplies its file reference/hash. Missing, mismatched or unsafe content returns an owned readiness hold. A changed invoice requires a matching PDF; already-issued facts cannot be silently changed.</td>
+</tr>
+<tr>
+<td>OUT-PDF-R02</td>
+<td>Plan the required PDF's delivery to the recipient through a qualified private attachment path or a separate permitted channel. Exclude the PDF from every public-platform request, including MIME attachments. Record its delivery evidence and unresolved obligations separately from structured-invoice delivery and public-copy submission. Upload success is not recipient delivery. A PDF failure cannot repeat a successful structured-invoice action; preserve any issued/transmitted work and reconcile the affected PDF operation.</td>
+</tr>
+</tbody>
+</table>
+<p>These rules also apply when the structured invoice uses the public route. <ac:link ac:anchor="invoice-document-and-file-handling"><ri:page ri:content-title="Invoice Sending API Reference and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SEI043 section 2 — Invoice document and file handling</ac:link-body></ac:link> assesses file transport; it does not transfer PDF generation to the API or DTS. Exact channel timing, completion evidence and release handling need the selected-channel qualification below. RD238-T2.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">exceptions-errors-and-recovery</ac:parameter></ac:structured-macro><h3>Exceptions, errors and recovery</h3>
+<p>The <strong>E</strong> markers in the <ac:link ac:anchor="4-end-to-end-workflow"><ri:page ri:content-title="Invoice Sending Solution Summary" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-022 sending overview</ac:link-body></ac:link> refer to the decisions in this section.</p>
+<p>Use the evidence of a possible external effect to select the next step. An error label alone cannot establish that repeating a request is safe. These decisions apply to the existing activities for both the business user and an authorised accountant; they do not require batch sending.</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Required decision and next owner</th>
+<th>Acceptance / contract gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Invalid draft, changed final revision or missing approval</td>
+<td>ERP or eligible approver resolves the affected revision/decision. Recheck dependent evidence before resuming. An issued invoice follows its governed correction path.</td>
+<td>OUT-A01/02/09/13/14; OUT-Q01.</td>
+</tr>
+<tr>
+<td>Authority withdrawn or selected connection not ready</td>
+<td>Hold new protected execution. Identity or the setup owner resolves the exact business/action dependency. Retain prior effects for currently authorised recovery; do not reconnect or change route automatically.</td>
+<td>OUT-A14/16; SND-G02/06.</td>
+</tr>
+<tr>
+<td>Recipient platform is missing without qualified resolution, or supplied and resolved destinations conflict</td>
+<td>Hold dispatch. ERP/customer supplies or corrects the destination; Integration resolves capability or evidence gaps. Recheck the plan before sending. Do not select SPFE or replace an explicit destination automatically.</td>
+<td>OUT-09/10; OUT-A03–05/23; SND-G02.</td>
+</tr>
+<tr>
+<td>Lookup fails, is stale or does not establish eligible private delivery</td>
+<td>Routing owner obtains qualified evidence. No public fallback from a failure. Before any external effect, a material change needs a new plan; possible or completed effects retain their original route.</td>
+<td>OUT-A03–05/11/12.</td>
+</tr>
+<tr>
+<td>Repeated send, double click or concurrent requests</td>
+<td>Return the existing operation for the same identity/input; conflicting input requires an owned correction decision. API/execution owners prevent another effect and qualify replay scope/window.</td>
+<td>OUT-A18; SND-G04.</td>
+</tr>
+<tr>
+<td>Some files upload; another expires, fails scanning or has an unknown upload result</td>
+<td>Keep the invoice resource, file bindings and successful uploads. Product/API owners use only qualified resume, renewal or observation behaviour. Do not create another invoice to obtain upload URLs or silently replace issued content.</td>
+<td>OUT-A06/20; OUT-PDF-A03; SND-G03/04.</td>
+</tr>
+<tr>
+<td>Send response is lost, or external success cannot be saved locally</td>
+<td>Reconcile the original action from retained intent, route, input and external evidence. If the invoice ID is unknown and no discovery contract exists, API/Operations keeps an owned hold. A failed read is not proven absence.</td>
+<td>OUT-A08/20; SND-G04.</td>
+</tr>
+<tr>
+<td>ERP issuance or copy handoff has a partial or lost result</td>
+<td>ERP and the action owner establish actual issuance and each original action's result. Preserve known issuance; hold uncertain dependent work. Do not automatically reissue, withdraw or repeat the whole handoff.</td>
+<td>OUT-SPFE-A01; OUT-A21; OUT-Q03.</td>
+</tr>
+<tr>
+<td>Private delivery succeeds; public copy is rejected or unknown</td>
+<td>Recover only the copy action under the applicable correction/reconciliation rule. The public-action owner retains delivery success and returns the outstanding copy obligation.</td>
+<td>OUT-A07; OUT-SPFE-A03.</td>
+</tr>
+<tr>
+<td>Public copy succeeds; private delivery is rejected or unknown</td>
+<td>Retain the copy result. Integration/Operations resolves only recipient delivery. A private failure cannot trigger automatic public recipient delivery or another public copy.</td>
+<td>OUT-A19; OUT-09/10/13.</td>
+</tr>
+<tr>
+<td>Required PDF fails after a structured action succeeds</td>
+<td>Local Product and the qualified PDF-channel owner resolve only the affected PDF work. Preserve invoice/copy results and keep the recipient obligation visible.</td>
+<td>OUT-PDF-A03; OUT-A19/20; SND-G08.</td>
+</tr>
+<tr>
+<td>Definite rejection concerns issued data, original/copy identity or a duplicate</td>
+<td>Classify the source result and use OUT-SPFE-R02/03 with the ERP/Compliance owner. Technical rejection and buyer commercial rejection remain separate facts; neither is a generic resend instruction.</td>
+<td>OUT-A09/10; OUT-SPFE-A02/03.</td>
+</tr>
+<tr>
+<td>Event is missing, repeated, out of order, inconsistent or for another scope</td>
+<td>Verify source, business/environment and invoice/action correlation. Lifecycle/API owners retain raw evidence, deduplicate under the qualified contract and observe authoritative detail. A failed refresh changes freshness, not the last evidenced result. Do not restart sending because a notification is absent.</td>
+<td>OUT-A10/22; SND-G05.</td>
+</tr>
+<tr>
+<td>A completed FR processing attempt reports <code>ERROR</code> while current status remains <code>Submitted</code></td>
+<td>Product reads the relevant <code>history[]</code> outcome/error and retains that attempt's final result. Where INT-ERR01 assigns retry to the platform, observe that original work and use its code-specific support action; do not issue a fresh invoice POST/key or resend completed actions. API/Operations must qualify any later attempt and its correlation.</td>
+<td>OUT-A08/10/20/22; SND-G04/05/07; INT-ERR01.</td>
+</tr>
+<tr>
+<td>Cancellation or refusal races with execution</td>
+<td>Close only pending work proven safe to stop. If an effect may have occurred, report cancellation/recovery pending and reconcile through the currently authorised owner. Already-issued facts and completed actions remain; no undocumented cancel/withdraw endpoint is assumed.</td>
+<td>OUT-A16/21; OUT-Q01/03; SND-G04.</td>
+</tr>
+<tr>
+<td>Temporary outage, rate limit or caller authentication failure</td>
+<td>API/Operations first establishes the affected action's effect boundary. Retry only proven safe work under the selected contract; otherwise reconcile or hold. Restoring caller access does not restore withdrawn business authority. Retry intervals, limits and escalation targets remain to qualify.</td>
+<td>OUT-A08/16/20; SND-G04/07.</td>
+</tr>
+</tbody>
+</table>
+<p>The product view identifies the affected invoice/action, known versus unknown result, retained successes, next action and current owner (OUT-15). Resume only after evidence resolves the blocked check and current authority permits the next action. Escalation or manual case assignment is not proof of completion. API codes and contract evidence remain in <ac:link ac:anchor="32-shared-authentication-safety-and-source-conflicts"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SEI024 section 3.2</ac:link-body></ac:link> and <ac:link ac:anchor="response-notification-and-error-proposal"><ri:page ri:content-title="Invoice Sending API Reference and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SEI043 section 2 — Response, notification and error proposal</ac:link-body></ac:link>.</p>
+<p>The <ac:link ac:anchor="34-fr-attempt-errors-and-annex-ii-handoff"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>FR attempt-error assessment</ac:link-body></ac:link> preserves exact codes and retry ownership. A technical send error cannot generate Spain <code>REJECTION</code>, payment or report-cancellation messages. The separate Annex II supplement concerns lifecycle reporting; final BOE Annex II remains authoritative for legal rules. INT-ERR01; SPFE-S22; SPFE-S02 Annex II.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-shared-controls-and-spain-binding</ac:parameter></ac:structured-macro><h2>4 Shared controls and Spain binding</h2>
+<p>OUT-I01–13 and OUT-R01–14 retain their meanings in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-007-invoice-sending-solution.md#1-aggregate-model-and-invariants">the predecessor invariants and requirement register</a>. The activity table is this set's authoritative behaviour statement; the register provides traceability rather than another restatement.</p>
+<p>Protect tenant, business and test/production isolation on reads and changes. Keep private keys, secrets and sensitive invoice content out of events, logs and customer errors. Prevent concurrent execution of the same invoice revision/action. Preserve source/final files, policy versions and evidence under an approved retention policy; no duration or performance target is invented here.</p>
+<table>
+<thead>
+<tr>
+<th>Existing source-binding ID</th>
+<th>Spain behaviour / recovery boundary</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT-SPFE-R01</td>
+<td><span style="color:#1565C0;"><strong>Proposed:</strong></span> In Phase 2, the selected private platform sends the faithful UBL copy using its own capability; Sage observes its reported result. When Sage operates as a private platform, Sage sends the copy. The external platform capability is an <span style="color:#B42318;"><strong>Assumption</strong></span>: expected, not confirmed; see the user-supplied <code>PPIFE_competitor_analysis.xlsx</code>, which is not preserved in this repository. How the private platform reports copy results/errors to Sage and who retries a failed copy are <span style="color:#B42318;"><strong>Gaps</strong></span> under SND-G05. <span style="color:#666666;"><strong>Existing rule:</strong></span> Public issuance/interconnection needs no extra copy. Queue acceptance is not proof of simultaneous submission. Retain actual issuance evidence and independent delivery/copy results.</td>
+<td>SPFE-S02 Articles 3.4, 4.1–4.3; OUT-Q03.</td>
+</tr>
+<tr>
+<td>OUT-SPFE-R02</td>
+<td>Apply the <ac:link ac:anchor="withdrawal-and-correction-boundaries"><ac:link-body>withdrawal and correction boundaries</ac:link-body></ac:link> below. <span style="color:#1565C0;"><strong>Proposed approach:</strong></span> ~~withdrawal as a distinct issuer action on the existing e-invoice resource, separate from sending and lifecycle status changes, subject to Architecture decision.~~ <strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> - Replacement: cancellation is a distinct issuer action on the existing e-invoice resource. Sending owns the request, response and recovery; Lifecycle owns the resulting cancelled state. Subject to Architecture decision. SD-CANCEL01 P-1. <span style="color:#B42318;"><strong>Open:</strong></span> no endpoint or wire contract is approved, and the preserved Sage contracts do not establish implementation support.</td>
+<td>SPFE-S02 Article 3.5 and Article 5.5 final paragraph; SPFE-S03 §6.3; SPFE-S10; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#analysis-and-proposed-direction">FP-SEI-002 analysis and proposed direction</a>.</td>
+</tr>
+<tr>
+<td>OUT-SPFE-R03</td>
+<td>A defective copy and defective original need different correction paths. Preserve correspondence to the issued original; no silent repair or repetition of successful private delivery.</td>
+<td>SPFE-S02 Article 5.6.</td>
+</tr>
+<tr>
+<td>OUT-SPFE-R04</td>
+<td>Retain independent request/item admission results, locator and receipt evidence. Qualify batch and authority rules before activation. Use exceptional outage handling only when its source conditions are established; retain the predecessor's calendar rule.</td>
+<td>SPFE-S02 Articles 5.4/5.7; SPFE-S03 section 6.2; SPFE-S16.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">withdrawal-and-correction-boundaries</ac:parameter></ac:structured-macro><h3>Withdrawal and correction boundaries</h3>
+<blockquote>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — Review treatment: the case table below remains visible as earlier analysis. The proposed eligibility table and ownership below replace its cancellation/rectification eligibility where they differ. Struck text elsewhere identifies proposed replacements, not applied behaviour. SD-CANCEL01.</p>
+</blockquote>
+<p>This section is a Product analysis and logical proposal; Architecture owns the final decision and design. OUT-SPFE-R02 is the reference for these cases. The issuer or its authorised representative must distinguish the invoice's legal content from its delivery address and the SPFE original from its faithful copy.</p>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Required behaviour and safe next action</th>
+<th>Authority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wrong amount or buyer in an issued invoice</td>
+<td>The corrective-invoice path is the expected treatment, subject to Spain Compliance confirmation. Withdrawal is not a substitute for fiscal correction.</td>
+<td>Proposed classification (Product analysis); Spain Compliance to confirm; SPFE-S03 §6.3.2.</td>
+</tr>
+<tr>
+<td>Correct invoice sent to the wrong address or platform</td>
+<td>Use delivery recovery. Establish the earlier effect before another transmission; do not withdraw solely to change the route.</td>
+<td>Proposed classification (Product analysis); Spain Compliance to confirm; OUT-13.</td>
+</tr>
+<tr>
+<td>No real operation existed; original already submitted to SPFE</td>
+<td>Permit issuer withdrawal only when no corrective invoice or other prescribed invoicing mechanism is required. Preserve traceability.</td>
+<td>SPFE-S02 Article 3.5; SPFE-S03 §6.3.2–6.3.3.</td>
+</tr>
+<tr>
+<td>No real operation existed; faithful copy already submitted to SPFE</td>
+<td>Apply the same eligibility boundary to withdrawal of the copy. Its public result does not prove withdrawal of the privately exchanged original.</td>
+<td>SPFE-S02 Article 5.5 final paragraph; SPFE-S03 §6.3.</td>
+</tr>
+<tr>
+<td>Faithful copy exists before SPFE interconnection of the original</td>
+<td>Article 5.5 requires prior withdrawal of the copy. This is a separate copy-to-original transition, not issuer withdrawal of the business invoice. Its authority, operation binding and recovery remain open in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#analysis-and-proposed-direction">FP-SEI-002</a>.</td>
+<td>SPFE-S02 Article 5.5 second paragraph.</td>
+</tr>
+<tr>
+<td>Pending work or uncertain earlier transmission</td>
+<td>Stop pending work only where no external effect occurred. Reconcile uncertain work; neither withdrawal nor a fresh send is default duplicate or timeout recovery.</td>
+<td>OUT-06/13; Proposed classification (Product analysis); Spain Compliance to confirm.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> - Proposed paragraph replacement; existing wording retained below: ~~Identify the SPFE target by issuer NIF, series and number, and issue date. After confirmed cancellation, SPFE permits reuse of that identifier. SPFE-S03 §6.3.2. <strong>Proposed approach, subject to Architecture decision:</strong> preserve the withdrawn submission and issued original; a new invoice reusing the identifier is a distinct linked instance. A stale or repeated cancellation must never affect the new instance. Withdrawal is an issuer action with its own outcome, not an RD 238/2026 Article 10 lifecycle status. ES-RD10.~~</p>
+<blockquote>
+<p>Replacement proposal: identify the exact earlier invoice and public original/copy action. After confirmed cancellation, AEAT retains as cancelled the document SPFE holds for that invoice: the original when the original passed through SPFE (direct submission, or a private platform submitting the original through SPFE), or the faithful copy when the original was exchanged only through private platforms. The fiscal invoice number remains associated with that invoice: consumed, never reused. Cancelled is final; the invoice cannot be rectified or reactivated. The catalogue's technical identifier-reuse capability does not authorise fiscal-number reuse. Sending owns the cancellation action; Lifecycle owns the resulting state. No new Article 10 report is proposed. SD-CANCEL01 C-2/P-1; SPFE-S03 §6.3.2 remains conflicting technical evidence.</p>
+</blockquote>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">proposed-cancel-eligibility</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">proposed-solution-design-samu-coco-jiaxin-he-18-nov-2026-cancellation-eligibility</ac:parameter></ac:structured-macro><h4>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026): cancellation eligibility</h4>
+<p>This table owns the proposed Spain action eligibility. Cancellation requires both conditions: the state allows it (sent/pending or fully rejected) AND the operation did not take place, for example an invoice issued by mistake or to the wrong customer. If the operation took place and fiscal data is wrong, use a rectifying invoice even when there is no response yet. Full rejection alone does not permit or complete cancellation. SPFE-S02 Articles 3.5/5.5; SD-CANCEL01.</p>
+<p>Cancellation and rectification remain independent. <ac:link ac:anchor="proposed-rectification-modify"><ri:page ri:content-title="Invoice Creation Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-015 IC-12</ac:link-body></ac:link> owns rectification. <ac:link ac:anchor="proposed-spain-invoice-states"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-029 proposed states</ac:link-body></ac:link> owns acceptance by silence; its four days remain workshop input pending verification.</p>
+<table>
+<thead>
+<tr>
+<th>Invoice state</th>
+<th>Cancel: state condition</th>
+<th>Additional reason condition for cancel</th>
+<th>Rectify</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rejected by platform (technical)</td>
+<td>No.</td>
+<td>Not applicable: state does not allow cancellation.</td>
+<td>Yes for errors in issued fiscal content (amounts, NIF or tax). For sending/routing or format/UBL representation issues only, correct those issues and resend with the same number; no rectifying invoice is needed.</td>
+</tr>
+<tr>
+<td>Sent / pending</td>
+<td>Yes; no prior rejection required.</td>
+<td>The operation did not take place.</td>
+<td>Yes for incorrect fiscal content, including before any response.</td>
+</tr>
+<tr>
+<td>Fully rejected by customer</td>
+<td>Yes.</td>
+<td>The operation did not take place.</td>
+<td>Yes; use rectification when the operation took place and fiscal content is wrong.</td>
+</tr>
+<tr>
+<td>Partially rejected by customer</td>
+<td>No.</td>
+<td>Not applicable: state does not allow cancellation.</td>
+<td>Offered, not mandatory. Partial rejection can remain final when no agreement is reached.</td>
+</tr>
+<tr>
+<td>Accepted explicitly or by silence after four days</td>
+<td>No.</td>
+<td>Not applicable: state does not allow cancellation.</td>
+<td>Yes.</td>
+</tr>
+<tr>
+<td>Paid</td>
+<td>No.</td>
+<td>Not applicable: state does not allow cancellation.</td>
+<td>Yes: issuer fiscal obligation where correction is required. The customer can still reject the rectifying invoice commercially.</td>
+</tr>
+<tr>
+<td>Cancelled</td>
+<td>No; final.</td>
+<td>Not applicable: state does not allow cancellation.</td>
+<td>No.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> - Examples of the combined state and reason conditions. SPFE-S02 Articles 3.5/5.5; SD-CANCEL01.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>State</th>
+<th>Operation took place?</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wrong customer, no response</td>
+<td>Sent/pending</td>
+<td>No</td>
+<td>Cancel</td>
+</tr>
+<tr>
+<td>Wrong amount, no response</td>
+<td>Sent/pending</td>
+<td>Yes</td>
+<td>Rectify</td>
+</tr>
+<tr>
+<td>Customer rejects: "we never bought this"</td>
+<td>Fully rejected</td>
+<td>No</td>
+<td>Cancel</td>
+</tr>
+<tr>
+<td>Customer rejects: "price is wrong"</td>
+<td>Fully rejected</td>
+<td>Yes</td>
+<td>Rectify</td>
+</tr>
+<tr>
+<td>Wrong amount, already paid</td>
+<td>Paid</td>
+<td>Yes</td>
+<td>Rectify</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> - Technical-rejection boundary: same-number correction and resend applies only to sending/routing data or format/UBL representation issues. Do not edit the issued invoice's fiscal content. If amounts, NIF or tax are wrong, create a rectifying invoice through SPEC-SEI-015. Correcting a rejected representation does not release a cancelled invoice's consumed number. SD-CANCEL01 C-2/C-4; OUT-06/08/11.</p>
+</blockquote>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">proposed-solution-design-samu-coco-jiaxin-he-18-nov-2026-sending-cancellation-responsibility</ac:parameter></ac:structured-macro><h4>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026): Sending cancellation responsibility</h4>
+<blockquote>
+<p>Proposed ownership allocation: Sending owns the eligible issuer's cancellation request, transmission through the eInvoicing API, response and failure/unknown-result recovery. Cancellation carries no invoice UBL; it is a status-update (cancellation) message. Receive the response before updating the initial cancellation status from its evidenced outcome; a request receipt or timeout does not establish cancellation. Lifecycle owns the resulting cancelled state and its triggers. The public cancellation business-document contract remains separately qualified; no method, payload or endpoint is defined here. SD-CANCEL01 C-5/P-1; <ac:link ac:anchor="24-proposed-withdrawal-interaction"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-024 section 2.4</ac:link-body></ac:link>.</p>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — Reuse and source limits: preserve exact-target authority checks, independent action results and reconciliation as shared design patterns. Spain supplies eligibility, consumed numbering and the original/copy outcome; do not enable these rules for another country by default. Actual cancellation build/provider support remains unqualified. Existing DTS is the preferred candidate only if cancellation business-document mapping is needed; invoice transformation support alone does not prove that coverage. SD-CANCEL01 P-1; SND-G03/04/05/07; SPFE-S10.</p>
+</blockquote>
+<p>The <ac:link ac:anchor="24-proposed-withdrawal-interaction"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-024 withdrawal interaction</ac:link-body></ac:link> assesses implementation. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#analysis-and-proposed-direction">FP-SEI-002 open questions</a> retain private-provider withdrawal, schema/result codes and separate VERI<em>FACTU treatment. </em><em>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</em>* - Acceptance/payment eligibility is now proposed in the eligibility table above. SD-CANCEL01 P-2. No endpoint, payload or wire status is selected.</p>
+<p><strong>Reuse classification:</strong> revision binding, independent outcomes and reconciliation are reusable design patterns. Identity, profiles, mapping, trust and provider contracts need country binding. Spain public fallback and copy/correction rules are country-specific. Existing build coverage is unknown. SPEC-SEI-024 records source capabilities, local changes, owners and qualification evidence. DTS remains the preferred transformation candidate, subject to Spain qualification. REF-PRODUCT.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-decisions-and-technical-analysis-boundary</ac:parameter></ac:structured-macro><h2>5 Decisions and technical analysis boundary</h2>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Decision / evidence and accountable roles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT-Q01</td>
+<td>Product, Identity and Spain Compliance qualify invoice approval purpose, eligible roles, manual/automatic policy and change/withdrawal rules.</td>
+</tr>
+<tr>
+<td>OUT-Q02</td>
+<td>Separate optional scope: Product/API, Architecture and Operations qualify portfolio coordination and accounting handoff before enabling them. They are not prerequisites for a business or accountant sending one invoice.</td>
+</tr>
+<tr>
+<td>OUT-Q03</td>
+<td><span style="color:#1565C0;"><strong>Proposed:</strong></span> ERP, E-Invoice and Spain Compliance qualify stable final identity, coordination between issuance and copy, authority races, and partial or lost results. The ERP makes one sending request. In Phase 2, the selected private platform sends the faithful SPFE copy and reports its result to Sage; when Sage operates as the private platform, Sage sends it. A public connection is required only for public recipient delivery, not for this copy. Private-platform copy capability is an <span style="color:#B42318;"><strong>Assumption</strong></span>, expected but not confirmed. Reporting of copy results/errors to Sage and retry ownership are <span style="color:#B42318;"><strong>Gaps</strong></span> under SND-G05. No atomic distributed transaction or reservation endpoint is approved here.</td>
+</tr>
+<tr>
+<td>SND-G09 Onboarding route handoff</td>
+<td>The per-invoice selection rule is recorded in OUT-10 and USR-SND01. <strong>Implementation qualification remains open:</strong> Onboarding, API and Integration must prove that the selected build supports each offered sender connection for the same sender/address, including any coexistence or address-ownership constraints. The existing <ac:link><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-038</ac:link-body></ac:link>, <ac:link><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-039</ac:link-body></ac:link> and <ac:link><ri:page ri:content-title="E-Invoice Onboarding API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-040</ac:link-body></ac:link> describe connection activation, disabled Private A to Private B switching and “SPFE use TBD”; they do not establish implementation of this proposed selection model. Per-invoice selection does not authorise setup changes or address-ownership transfer. Qualify public readiness without inventing an SPFE enrolment API. Onboarding, API and Integration own companion alignment and implementation evidence.</td>
+</tr>
+<tr>
+<td>OUT-09 Source conflict</td>
+<td>“Invoice addresses Spain” and “Spain - March 2026 e-invoice update” were supplied by the user but are not preserved here. Their reported public-default wording conflicts with the proposed hold after a successful no-match when the customer had supplied a private address, and with the open rule for no communicated private address. Product and Spain Compliance must compare the source text with final legal evidence and confirm accepted evidence for both conditions. Neither an unresolved lookup nor the absence of a central directory proves either condition. Hold dispatch until the rule and evidence are approved.</td>
+</tr>
+<tr>
+<td>Existing unnumbered gates</td>
+<td>ERP/API own draft/final fields and rendering; Product/Compliance own whether early lookup blocks issuance and the legal correction path; Routing/Integration own authoritative source/freshness/eligibility; Trust/Security own signing; API/provider owners qualify replay, query and acknowledgement semantics.</td>
+</tr>
+<tr>
+<td>PDF channel qualification</td>
+<td>Local Product, API, Integration and Spain Compliance qualify attachment or separate-channel delivery, timing, scan/error recovery, completion evidence and release handling. Local-product PDF generation is decided; these delivery contracts remain open under SND-G08.</td>
+</tr>
+</tbody>
+</table>
+<p>Proposed interaction IDs OUT-INT-01–11 and data IDs OUT-D01–12 remain in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-007-invoice-sending-solution.md#part-3-logical-service-interactions-and-data-inventory">SPEC-SEI-007 Part 3</a>. They are technical analysis, not approved component allocations. Annex withdrawal requirements OUT-AXC-R01–07 and positive/negative checks stay at <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-007-invoice-sending-solution.md#annex-i-withdrawal-field-traceability">their original field traceability</a>.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">6-functional-acceptance</ac:parameter></ac:structured-macro><h2>6 Functional acceptance</h2>
+<p>These are required checks, not executed implementation tests. Existing IDs and meanings are preserved; detailed requirement/interface/data links remain in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-007-invoice-sending-solution.md#part-4-assurance-and-traceability-view">SPEC-SEI-007 Part 4</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Checks</th>
+<th>Required evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT-A01/02</td>
+<td>Invalid draft causes no issuance/send; changed final data cannot use stale preparation or approval. Issued defects return the governed correction path.</td>
+</tr>
+<tr>
+<td>OUT-A03/04/05</td>
+<td>For a qualified lookup source, test all six OUT-09 cases. Preserve <code>PRIVATE_READY</code> and <code>PROVEN_NONE</code> meanings; hold an ineligible recipient or several matches; hold and notify after a successful no-match when the customer supplied a private address; allow public only after correction or an explicit customer choice, with the decision recorded. Retry lookup automatically for a limited period after timeout/unavailability, then show “action required”; never send publicly because of an error. Confirm the retry window with Engineering and Compliance. The “no private address communicated” condition remains Source conflict. For a private provider without recipient lookup, use its qualified delivery contract with the supplied routing address; do not block only because lookup is unavailable. Retain provider rejection or unknown delivery for owned recovery. No public-directory capability is inferred. REF-LOOKUP.</td>
+</tr>
+<tr>
+<td>OUT-A06</td>
+<td>Transformation preserves business meaning; mapping/validation/trust failure prevents external action. After upload, test request/UBL identity mismatch, incompatible document type/profile and incorrect original/copy purpose. Include normal and self-billing role mappings, and the supplied example's known ProfileID conflict. Hold inconsistencies and missing qualification before transmission; retain source bytes without silent repair. POST/upload success is not conformance. Record the reused DTS build, profile and rule evidence. OUT-11; <ac:link ac:anchor="supplied-sendinvoices-example-assessment"><ri:page ri:content-title="Invoice Sending API Reference and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-043 supplied-example assessment</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>OUT-A07/08</td>
+<td>Successful delivery survives unknown copy outcome; lost responses reconcile the original action without repeating success.</td>
+</tr>
+<tr>
+<td>OUT-A09/10</td>
+<td>Keep issued original and its correction history. For Correct, verify a separate invoice number, original reference and independent lifecycle under SPEC-SEI-015 IC-12; the new invoice enters normal sending at overview step 1 without overwriting the original. Acknowledgement or processing completion cannot imply buyer acceptance.</td>
+</tr>
+<tr>
+<td>OUT-A11/12</td>
+<td>Isolate Spain rules from another country. A new route/operator cannot rewrite an earlier plan or create a second executor after possible transmission.</td>
+</tr>
+<tr>
+<td>OUT-A13/14</td>
+<td>Direct business and one-client accountant use current action authority and exact-revision approval. Reopen an issued invoice after a later decision or authority change; recheck its current state and the selected action's permission before execution. An earlier displayed choice cannot bypass these checks. Preparation-only or view-only access cannot approve/sign/send.</td>
+</tr>
+<tr>
+<td>OUT-A16; OUT-A15/17 for separately enabled scope</td>
+<td>Relationship/authority loss stops affected new work. If portfolio/accounting scope is enabled, preserve item isolation and permitted counts; its failures cannot repeat recipient delivery. These optional checks do not require a bulk API for the core flow.</td>
+</tr>
+<tr>
+<td>OUT-A18</td>
+<td>Repeat and race the same final request across callers/restarts. Same input returns existing work; changed input conflicts. Only one invoice/action execution is permitted under the qualified identity and concurrency contract. OUT-02/07/10/12; SND-G04.</td>
+</tr>
+<tr>
+<td>OUT-A19</td>
+<td>Public copy succeeds while private delivery fails or is unknown; then exercise PDF-only failure. Preserve every known result and recover only the affected action. No automatic public fallback, duplicate copy or complete-invoice resend. OUT-09–15; OUT-PDF-R02.</td>
+</tr>
+<tr>
+<td>OUT-A20</td>
+<td>Lose the POST response before retaining its ID; interrupt or expire individual file uploads; fail observation during an outage. Keep original intent and good file bindings. Missing discovery/resume evidence produces an owned hold, not a new invoice or an unsupported success/absence claim. INT-SND01; SND-G03/04.</td>
+</tr>
+<tr>
+<td>OUT-A21</td>
+<td>Race cancellation or authority loss with execution and ERP issuance. Distinguish safe pre-effect closure from possible/completed effects; preserve issuance and reconcile through a current authorised owner. Qualify partial/lost copy-handoff results under OUT-Q03. No cancellation endpoint is inferred.</td>
+</tr>
+<tr>
+<td>OUT-A22</td>
+<td>Supply missing, duplicate, late, contradictory and wrong-business/environment events; fail the detail refresh. Verify source/correlation, retain raw evidence and the last evidenced result with freshness. Apply only qualified ordering/reconciliation; no duplicate send or unsupported state regression. INT-SND01; SND-G05.</td>
+</tr>
+<tr>
+<td>OUT-A23</td>
+<td>Submit the four OUT-10 business values. Reject a missing/null sender selection and a sender NIF that does not match the authorised connection. With SPFE, ZeroComa and B2Brouter ready and permitted for that sender, select each for a separate invoice, including consecutive invoices sent through different private platforms; without a ZeroComa connection, reject that selection before transmission and offer onboarding or a permitted selection. Repeat with a disconnected connection, an address without sending permission, unsupported process and unknown readiness. Test a supplied recipient platform with lookup unavailable, a missing platform with and without qualified resolution, ambiguous resolution, and a conflict with the supplied destination. Hold unresolved or conflicting destinations without automatic SPFE selection. Test delivery from selected ZeroComa to recipient EDICOM with a qualified interconnection and without sender onboarding to EDICOM. For the same recipient, hold a selected sender-platform path that is unsupported or unknown; do not switch to another connected platform automatically. Per-invoice choices must leave saved onboarding configuration unchanged. Bind both NIFs and platform choices to the plan; a changed choice cannot reuse an earlier result or bypass replay controls. Several connections do not bypass readiness qualification or cause fan-out. INT-SND02; USR-SND01; SND-G02/04/09.</td>
+</tr>
+<tr>
+<td>OUT-A24</td>
+<td>Fail one invoice action while a later invoice is submitted. Keep the failed work visible and recoverable with its action, reason and next owner. Later work can proceed independently; transmission need not follow fiscal-number order. Sending cannot detect an invoice the ERP never supplied without a separate reconciliation capability. Reconcile uncertain external outcomes before qualified retry; never alter issued fiscal content or silently omit an accepted invoice. OUT-13–15; SND-G04/05.</td>
+</tr>
+<tr>
+<td>OUT-A25</td>
+<td>Return connected, disconnected and in-progress platforms, including a send-only address and unknown receiving availability. Show only evidenced availability for each direction. Test an empty list, failed/stale reads, future/ended address validity and another customer's dataset. Preserve scope isolation; return onboarding or refresh as appropriate without automatic connection creation, saved-configuration changes or fan-out. Recheck a connection that changes after discovery before execution. OUT-00/08/10/12; INT-AP07; SND-G09.</td>
+</tr>
+<tr>
+<td>OUT-SPFE-A01</td>
+<td>Prove the boundary between issuance and copy for qualifying private and recipient-issued journeys. In Phase 2 prove the selected private platform sends the copy, Sage observes the reported result, and Sage sends the copy when acting as the private platform. Cover partial/lost results, the missing report/error contract and failed-copy retry owner across all four platform combinations. No extra copy follows public use. <ac:link ac:anchor="22-spain-final-plan-and-independent-actions"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-024 §2.2</ac:link-body></ac:link> records API coverage and open handoffs. SPFE-S02 Articles 3.4/4; OUT-SPFE-R01; SND-G05.</td>
+</tr>
+<tr>
+<td>OUT-SPFE-A02/03</td>
+<td>~~Exercise every OUT-SPFE-R02 case and the defective-copy versus defective-original branches. After confirmed withdrawal, verify distinct linked identity for a new invoice reusing the identifier and preservation of the earlier submission. Repeat and delay the old cancellation; it must never affect the new instance. Keep the Article 5.5 copy-to-original transition separate and hold unqualified execution. SPFE-S02 Article 3.5 and Articles 5.5–5.6; SPFE-S03 §6.3; SND-G04/05/07.~~ <strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> - Replacement: Exercise every proposed eligibility row and the five examples: cancellation requires both an allowed state and an operation that did not take place. Refuse cancellation when the operation took place, even if sent/pending or fully rejected; use rectification for wrong fiscal content. Separate technical sending/routing/representation fixes with the same number from fiscal correction by a new rectifying invoice. Verify retained cancelled original/copy, consumed numbering, no rectification/reactivation after cancellation, response-led update and safe repeated/lost-result recovery. Keep defective-copy recovery and the Article 5.5 copy-to-original procedure separate. SD-CANCEL01; SPFE-S02 Articles 3.5/5.5; SND-G04/05/07. Verify that full rejection does not automatically cancel the invoice and that requesting cancellation retains the earlier target and destination instead of applying new-send platform selection.</td>
+</tr>
+<tr>
+<td>OUT-SPFE-A04</td>
+<td>Exercise partial batch admission and qualifying versus ordinary outages. Preserve admitted items and keep disputed size/CSV mapping open. SPFE-S02 Article 5.4/5.7; SPFE-S03; OUT-SPFE-R04.</td>
+</tr>
+<tr>
+<td>OUT-PDF-A01</td>
+<td>Exercise required, expressly exempt and non-applicable PDFs at the product rule's cohort/date boundaries. Local Product supplies a readable file for the exact revision; missing exception evidence cannot bypass a required file. RD238-T2; OUT-PDF-R01.</td>
+</tr>
+<tr>
+<td>OUT-PDF-A02</td>
+<td>Exercise private attachment delivery and public structured-invoice delivery with a separate recipient PDF channel. No public-platform request carries the PDF. Preserve distinct upload, recipient and public-copy results. RD238-T2; OUT-PDF-R02.</td>
+</tr>
+<tr>
+<td>OUT-PDF-A03</td>
+<td>Exercise missing, mismatched, unsafe, failed and uncertain PDF delivery. Return an owner and preserve successful structured actions. An authorised accountant for one client uses the same checks without a batch request. OUT-PDF-R01/02; INT-SND01.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro><h2>REF Source references</h2>
+<p>Final published law governs legal duties. Technical files support only their stated fields and behaviour. Examples and English extracts are reading aids. Product requirements and proposed recovery controls have separate authority.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Original source / version and exact locator</th>
+<th>Supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — SD-CANCEL01</td>
+<td>Solution Design input supplied for this review; attribution 18 November 2026; C-1–C-5 and P-1–P-4. C-2 attributed by Samu to Ronald Lozano Manzi; C-5 reports Nestor's ERP FigJam.</td>
+<td>Proposed product behaviour and ownership; no original discussion/FigJam file supplied here, legal timer evidence or deployed contract proof. External-source conflicts remain visible; the proposal is not an Article 10 report or interface approval.</td>
+</tr>
+<tr>
+<td>USR-SND01</td>
+<td>User-recorded ERP clarification, 18 November 2026; sender connection selection and proposed four-value per-invoice request, captured in OUT-00/10</td>
+<td>ERP responsibility for sender selection is agreed. NIFs reuse the existing address type/value pairs; no separate NIF properties are proposed. The user agreed the proposed per-invoice choice among all ready, permitted sender connections, with recipient reachability qualified separately. Spain values and platform-selection changes are product direction, not external requirements or an approved wire contract. Recipient lookup depends on the selected integration; NIF and sender onboarding do not establish a recipient platform. Field mapping and implementation qualification remain under SPEC-SEI-043 and SND-G02/09.</td>
+</tr>
+<tr>
+<td>INT-AP07</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Onboarding/get-dataset-accesspoints.md">Dataset access points</a>, <code>Get-Dataset-AccessPoints</code>, <code>DatasetAccessPointsResponse</code>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Onboarding/get-accesspoint-connection.md">connection detail</a>, <code>Get-AccessPoint-Connection</code>, <code>AccessPointConnectionResponse.accessPointAddresses</code>; preserved OpenAPI 3.1.0, info version 1.0.0. <ac:link ac:anchor="api-02"><ri:page ri:content-title="E-Invoice Onboarding API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-040 API-02</ac:link-body></ac:link> owns the onboarding list reference.</td>
+<td>Existing connection list and per-address status, dates and <code>usage</code>. OUT-00 is the requested ERP behaviour; Spain direction/readiness mapping and build coverage need qualification under SND-G09. <code>CONNECTED</code> alone does not prove either direction is ready.</td>
+</tr>
+<tr>
+<td>INT-ERR01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Shared/invoice-flow-error-handling-guide-extract.md">FR error-handling extract</a>, received 22 October 2026, revision/build unknown; Processing and error fields, sending/status dictionaries, Recovery interpretation</td>
+<td>History-only error/outcome fields, final attempt and code-specific platform retry/support guidance. No permission for consumer-side resend or proof of Spain implementation.</td>
+</tr>
+<tr>
+<td>SPFE-S22</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Anexo%20II/A2-Proyecto-OM-FE%2021-10-26.pdf">Separate Annex II</a>, received 22 October 2026; §§1–4 pp. 4–14 and list L1 p. 15</td>
+<td>Eight lifecycle communications and actor/field evidence. Release/version/supersession unverified; final SPFE-S02 Annex II remains legal baseline. See <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-ii-supplement-reviewed-22-october-2026">comparison</a>.</td>
+</tr>
+<tr>
+<td>REF-BASE</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a>, updated 13 October 2026; Parts 1–4</td>
+<td>Existing OUT IDs, design, decisions and detailed traceability; not deployment evidence.</td>
+</tr>
+<tr>
+<td>REF-PDF-DECISION</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md#transitional-pdf-product-rule">PRD-SEI-246 product rule</a>, updated 22 October 2026; agreed boundaries and PDF product rule</td>
+<td>User-recorded local-product PDF generation responsibility and single-invoice scope. Delivery channel implementation remains unqualified.</td>
+</tr>
+<tr>
+<td>RD238-T2</td>
+<td><a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295">Original published RD 238/2026</a>, published 31 March 2026, checked 22 October 2026; transitional provision 2(1)–(2), final provision 4</td>
+<td>PDF applicability, recipient exception and exclusion from public submission. Does not allocate generation to a Sage component or establish an attachment API.</td>
+</tr>
+<tr>
+<td>INT-SND01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Sending/send-e-invoice-guide-extract.md">FR sending evidence</a>, received 22 October 2026; prerequisites, Submission design requirements and steps 1–5</td>
+<td>One-invoice submission, attachment upload and event/detail evidence. Complete replay, resume, cancellation and ordering contracts are missing; no bulk accountant contract or Spain qualification is established.</td>
+</tr>
+<tr>
+<td>INT-SND02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Sending/send-e-invoice-openapi.md">Preserved Send e-invoice OpenAPI snapshot</a>, OpenAPI 3.1.0, info version 1.0.0; <code>POST /datasets/{datasetId}/e-invoices</code>, request and response schemas</td>
+<td>Existing France-oriented field names and schema defects verified in SPEC-SEI-024. The snapshot does not prove Spain support or deployed behaviour.</td>
+</tr>
+<tr>
+<td>USR-ADDR01</td>
+<td>User-supplied <a href="https://confluence.sage.com/spaces/DNBU/pages/837611067/Invoice+addresses+Spain">Invoice addresses Spain</a>; supplied 28 October 2026; content not preserved in this repository</td>
+<td>Locator for the user-reported addressing statement. Content not preserved in this repository and not final legal evidence.</td>
+</tr>
+<tr>
+<td>USR-ADDR02</td>
+<td>User-supplied “Spain - March 2026 e-invoice update”, Sage Intra-Compliance site; supplied 28 October 2026; page URL/content not preserved in this repository</td>
+<td>Locator for the user-reported March summary. It does not override final October 2026 legal evidence.</td>
+</tr>
+<tr>
+<td>REF-PRODUCT</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md">PRD-SEI-246</a>, 22 October 2026, Agreed business boundaries and validation; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD-SEI-223</a>, BR1–14, FR1–16/43–46; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md">PRD-SEI-212</a>, scope; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-231-country-identifiers-tenancy-and-delegated-accountants.md">PRD-SEI-231</a>, delegated access</td>
+<td>Canonical product sources and DTS direction. Draft product scope is not implementation approval.</td>
+</tr>
+<tr>
+<td>FP-SEI-002</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md">Global API submission withdrawal review proposal</a>, draft, updated 12 November 2026; “Analysis and proposed direction” and “Review outcome and acceptance evidence”</td>
+<td>Proposed action direction and open contract/Compliance questions, subject to Architecture decision. It selects no endpoint, payload or wire contract and does not establish implementation support.</td>
+</tr>
+<tr>
+<td>ES-RD10</td>
+<td><a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295">Original RD 238/2026</a>, published 31 March 2026; Article 10.1–10.2</td>
+<td>Recipient lifecycle statuses; does not define issuer submission withdrawal as one of those statuses.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/BOE-A-2026-20587.pdf">BOE PDF</a>, final Order HAC/1028/2026, published 5 October 2026; Articles 3.4–3.6, 4, 5.4–5.7; <a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-20587">official text</a></td>
+<td>Copy, withdrawal, correction and admission/outage duties. Physical coordination and timing proof need qualification.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">Catalogue PDF</a>, draft 0.1.0, 9 October 2026; sections 6.2–6.3, pp. 10–12</td>
+<td>Submission batches, per-invoice authority, disputed 5120-byte limit and limited withdrawal. Conflicts do not override final law.</td>
+</tr>
+<tr>
+<td>SPFE-S01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Anexo%20I/20261013/Anexo-1-Proyecto-OM-FE.pdf">Invoice annex PDF</a>, supplied 13 October 2026; BT-ES-1 p. 4 and withdrawal pp. 26–27</td>
+<td>Copy marker and withdrawal fields. Not a complete implementation mapping.</td>
+</tr>
+<tr>
+<td>SPFE-S16 / SPFE-S10</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SendInvoice.wsdl">SendInvoice</a> / <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/CancelInvoice.wsdl">CancelInvoice</a>, PRE release 23 November 2026; operation, binding, ports</td>
+<td>PRE transport and opaque business attachments; no generic replay permission.</td>
+</tr>
+<tr>
+<td>REF-FIELDS</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/field-traceability.json">Field ledger</a>, source snapshot 13 October 2026; AXC-01–07 and exact BOE row locators; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/BOE-A-2026-20587.xml">original BOE XML</a></td>
+<td>Existing field inventory and acceptance IDs; actual mappings/rules remain unqualified.</td>
+</tr>
+<tr>
+<td>REF-EVIDENCE</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a>, source register and SPFE-Q03/07/08/13/15/18; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/source-manifest.json">manifest</a></td>
+<td>Original-source inventory and unresolved conflicts, not field-mapping or production readiness.</td>
+</tr>
+<tr>
+<td>REF-LOOKUP</td>
+<td><ac:link ac:anchor="public-source-baseline"><ri:page ri:content-title="Consult public platform for recipient information" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-012 — Public source baseline</ac:link-body></ac:link>, updated 29 October 2026; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#ref-source-references">reviewed source register</a>, SPFE-S10–S17/S23, PRE release 29 October 2026</td>
+<td>Public invoice operations do not establish recipient-directory support. This evidence limit does not prohibit a separately qualified provider capability. The sender-connection gate and private delivery without a mandatory Sage lookup are proposed product controls, not external-contract requirements.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

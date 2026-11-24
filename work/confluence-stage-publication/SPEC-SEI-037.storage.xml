@@ -1,0 +1,387 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-037<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/onboarding-and-connectivity/SPEC-SEI-037-customer-onboarding-and-connectivity-solution-summary.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-14</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">customer-onboarding-and-connectivity-solution-summary</ac:parameter></ac:structured-macro><h1>Customer Onboarding and Connectivity Solution Summary</h1>
+<p><ac:link><ri:page ri:content-title="Onboarding and Connectivity Solution Summary" ri:space-key="DNBU" /><ac:link-body>Solution Summary</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>Logical Feature Specification</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>Sequence and Reuse Assessment</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Onboarding and Connectivity Solution Summary" ri:space-key="DNBU" /><ac:link-body>Folder</ac:link-body></ac:link></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">revision-overview</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">revision-overview-phases-13</ac:parameter></ac:structured-macro><h2>Revision overview — Phases 1–3</h2>
+<p>This view combines SPEC-SEI-018 onboarding and SPEC-SEI-034 connection setup. It keeps their scope and decisions. The summary and diagram now show the main journey; SPEC038 holds the required behaviour and SPEC039 the existing E-Invoice API reuse decisions. Archived sources are unchanged. Provider support, operator approval and actual Spain implementation remain open.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-purpose</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-purpose-phases-13</ac:parameter></ac:structured-macro><h2>1 Purpose — Phases 1–3</h2>
+<p><strong>What:</strong> let a business or its authorised accountant set up Sage access to its chosen supported e-invoicing platform. Show what is ready, what is missing and who must act next.</p>
+<p><strong>Why:</strong> use existing accounts, valid certificates and working connections without repeating setup or accidentally changing provider.</p>
+<p><strong>Customer interaction:</strong> use one E-invoicing settings area to review setup and choose <strong>Connect or add a platform</strong>, <strong>Switch platform</strong> or <strong>Disconnect or stop a service</strong>. A switch is one customer request; Sage coordinates the new setup and any old-service exit. <ac:link ac:anchor="e-invoicing-settings-intended-interaction"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC038 — E-invoicing settings</ac:link-body></ac:link> defines the intended interaction and enabled-action limits.</p>
+<p><strong>Reuse:</strong> use the existing E-Invoice API and Tax certificate capability. Confirm Spain service settings, NIF/address rules, permissions, certificate acceptance and provider support. The API was first used for France; it is shared.</p>
+<p><strong>Product precondition:</strong> integrate SXS and Tax certificate management before enabling e-invoicing; see the <ac:link ac:anchor="4-feature-wide-functional-requirements-and-rules"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>shared rule in 038</ac:link-body></ac:link>.</p>
+<p><strong>Read next:</strong> <ac:link><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC038</ac:link-body></ac:link> explains behaviour, ERP/Domain Service handoffs and exceptions; its <ac:link ac:anchor="7-traceability-and-supporting-artefacts"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>§7 mapping</ac:link-body></ac:link> links those functional actions to the sequences in <ac:link><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC039</ac:link-body></ac:link>. SPEC039 gives calls, reuse recommendations and required changes; 040 holds API examples. These drafts do not prove production support.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">e-invoicing-settings-overview</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">e-invoicing-settings-overview</ac:parameter></ac:structured-macro><h3>E-invoicing settings — overview</h3>
+<p>The intended settings area lives in the <strong>business's Sage product</strong> or the <strong>accountant's Sage product</strong>, for the selected business or client. Guided onboarding, where provided, uses the same setup journey; see <ac:link ac:anchor="1-purpose-and-authority"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC038 §1 — entry points</ac:link-body></ac:link>. The exact menu location and screen design remain to agree with the product team.</p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="5592bc9f-f0b9-5b7e-aaf1-d20ea1b09f42"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">e-invoicing-settings-actions</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1600</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/e-invoicing-settings-actions.drawio">Editable settings overview</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/e-invoicing-settings-actions.png">PNG</a>.</p>
+<p>This is the primary specification home of the <code>e-invoicing-settings-actions</code> diagram. Its shared files stay in <code>assets/diagrams/</code>. <ac:link ac:anchor="e-invoicing-settings-intended-interaction"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC038 — E-invoicing settings</ac:link-body></ac:link> owns the settings behaviour. <ac:link ac:anchor="switch-platform-one-customer-journey"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC038 — Switch platform</ac:link-body></ac:link> owns the complete customer switch journey. <ac:link ac:anchor="classification-and-scope"><ri:page ri:content-title="Customer Offboarding Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC032</ac:link-body></ac:link> owns exit checks within that journey. <ac:link ac:anchor="2-behaviour-by-activity"><ri:page ri:content-title="Shared Platform Connectivity and Routing Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC014 — Routing controls</ac:link-body></ac:link> owns the controlled change for future invoices. Offboarding references this overview rather than maintaining a second settings flow.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-terms-used</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-terms-used-phases-13</ac:parameter></ac:structured-macro><h2>2 Terms used — Phases 1–3</h2>
+<p>Use the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Represented business</td>
+<td>The business being set up, including an accountant's client.</td>
+</tr>
+<tr>
+<td>Authority</td>
+<td>Permission for this action and business. Login, a client relationship or a certificate alone is insufficient.</td>
+</tr>
+<tr>
+<td>Readiness</td>
+<td>Sage has the required access for the selected function, caller, business and environment.</td>
+</tr>
+<tr>
+<td>Activation</td>
+<td>Start or change platform use for an agreed invoice scope and start time. Technical specifications call this route activation; setup alone does not activate it.</td>
+</tr>
+<tr>
+<td>Recovery</td>
+<td>Check what happened to an earlier request before correcting or repeating it.</td>
+</tr>
+</tbody>
+</table>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-master-feature-purpose-and-scope</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-master-feature-purpose-and-scope-phases-13</ac:parameter></ac:structured-macro><h2>3 Master Feature purpose and scope — Phases 1–3</h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Customer situation</th>
+<th>Setup outcome</th>
+<th>Figure 1 path</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ONB-S01</td>
+<td>New setup</td>
+<td>Complete the selected setup; for a private platform with no account, complete its required onboarding and connect to Sage. Starting platform use remains separate.</td>
+<td>Selected public/private path; new-account branch where needed; platform-use decision.</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td>ONB-S02</td>
+<td>Already uses the public service</td>
+<td>Check Sage access; do not assume new public registration.</td>
+<td>Public access path.</td>
+<td>1; reused in 2–3</td>
+</tr>
+<tr>
+<td>ONB-S03</td>
+<td>Keeps a private provider</td>
+<td>Connect its existing account to Sage, or reuse a valid Sage connection; complete missing setup.</td>
+<td>Private existing-account branch, then access confirmation.</td>
+<td>2–3</td>
+</tr>
+<tr>
+<td>ONB-S04</td>
+<td>Uses public and private services</td>
+<td>Keep function results separate; preserve valid results and enforce dependencies.</td>
+<td>Both platform paths.</td>
+<td>2–3</td>
+</tr>
+<tr>
+<td>ONB-S05</td>
+<td>Reviews or extends Sage setup</td>
+<td>Reuse valid setup, refresh expired evidence or add the requested functions.</td>
+<td>Applicable platform paths; no separate unchanged-setup branch.</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td>ONB-S06</td>
+<td>Requests a platform change</td>
+<td>Confirm target access, apply only an enabled, authorised change and preserve earlier invoices.</td>
+<td>Target public/private path; assess the chosen provider's account, then Yes at the platform-use decision.</td>
+<td>2–3; enabled changes only</td>
+</tr>
+<tr>
+<td>ONB-S07</td>
+<td>Already uses B2G</td>
+<td>Assess requested B2B functions separately and retain B2G setup.</td>
+<td>Applicable public/private B2B paths; B2G preservation rule.</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td>ONB-S08</td>
+<td>Unsupported or unknown setup</td>
+<td>Explain the limitation or pending evidence, next action and owner; do not force a provider change.</td>
+<td>E exception result from the affected step.</td>
+<td>1–3</td>
+</tr>
+</tbody>
+</table>
+<p>These scenarios can overlap. <ac:link ac:anchor="31-in-scope"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC038 — Scenario table</ac:link-body></ac:link> owns their required behaviour. Figure 1 applies the relevant paths to the requested functions; a scenario ID does not select an exclusive branch.</p>
+<p><strong>Phase coverage:</strong> <strong>1 — SPFE public solution; 2 — external private providers; 3 — Sage private-platform offering.</strong> Labels show analysis coverage, not delivery approval or confirmed API availability. REF-PHASE. Public checks remain relevant in Phases 2–3. Private A to Private B stays disabled. A customer may act directly or through an authorised accountant; one client needs no batch mode.</p>
+<p>Onboarding does not send an invoice, assume public enrolment or prove operator eligibility. Sending, receiving, reporting and full exit stay in their owning features. Sage acting as a private platform requires separate operator approval under REF-OPERATOR.</p>
+<p>Pending checks, unknown effects and unanswered actions remain open. Rejection/withdrawal records the requested work's outcome; cancellation completes only after possible external effects are resolved. Existing service and earlier obligations keep their own status.</p>
+<p><strong>Timing:</strong> customer setup has no general 30-day promise. An applicable platform-operator interconnection request has a <strong>one-month</strong> receiving-operator period, with the specific queue exception and required interim public exchange. <ac:link ac:anchor="operator-interconnection-handoff"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC038 operator handoff</ac:link-body></ac:link> gives the exact rule. REF-INTERCONNECT.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-parties-and-responsibility-boundary</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-parties-and-responsibility-boundary-phases-13</ac:parameter></ac:structured-macro><h2>4 Parties and responsibility boundary — Phases 1–3</h2>
+<table>
+<thead>
+<tr>
+<th>Party</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business / authorised accountant</td>
+<td>Select the business and setup; supply only missing information or approval.</td>
+</tr>
+<tr>
+<td>Product</td>
+<td>Show supported choices, progress, results and next actions.</td>
+</tr>
+<tr>
+<td>E-Invoice Service</td>
+<td>Coordinate setup and recovery; no separate onboarding service is assumed.</td>
+</tr>
+<tr>
+<td>Identity, Tax/Trust and connection owners</td>
+<td>Confirm permission, certificate and connection evidence for the selected action.</td>
+</tr>
+<tr>
+<td>Routing / invoice-feature owners</td>
+<td>Control route activation and keep earlier-invoice access; enforce checks when invoices are used.</td>
+</tr>
+<tr>
+<td>Named operator / service owner</td>
+<td>Confirm that Sage or its partner may offer the private-platform service before enabling it.</td>
+</tr>
+<tr>
+<td>Operations</td>
+<td>Resolve assigned problems with evidence; an assignment alone is not success.</td>
+</tr>
+</tbody>
+</table>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-key-open-solution-decisions</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-key-open-solution-decisions-phases-13</ac:parameter></ac:structured-macro><h2>5 Key open solution decisions — Phases 1–3</h2>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-002-onboarding-solution-specification.md#5-key-decisions-and-risks">Existing decision IDs</a> retain their owners; <ac:link ac:anchor="2-open-engineering-decisions"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC039 §2</ac:link-body></ac:link> lists the engineering answers needed.</p>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Who must resolve it / when</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span style="color:#B42318;">Existing code, API coverage, business/dataset mapping and Spain/provider inputs — ONB-Q05, OFR-Q03</span></td>
+<td>Architecture and Engineering; close the applicable <ac:link ac:anchor="2-open-engineering-decisions"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039 GAP-01/02/06/08</ac:link-body></ac:link> evidence gates before build or enablement.</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td><span style="color:#B42318;">Access evidence, provider state, safe recovery and earlier-invoice access — ONB-Q01/02/06/07, OFR-Q01/02/04</span></td>
+<td>Integration, Routing, Trust, Identity, Compliance and Operations; before the affected path is used.</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td><span style="color:#B42318;">Product fields, start dates/timezones and receiving history — ONB-Q04/09</span></td>
+<td>API, Product, Routing and Receiving; product/pilot review.</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td><span style="color:#B42318;">Approval and accountant-batch support — ONB-Q07/08</span></td>
+<td>Product, Identity, API and Operations; confirm approvers, permissions, limits and visibility before use.</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td><span style="color:#B42318;">Sage private-platform operator and delivery model</span></td>
+<td>Operator, Compliance, Security and Operations; prove legal/technical support and operations before offering the service.</td>
+<td>3</td>
+</tr>
+<tr>
+<td><span style="color:#B42318;">Phase 2: provider outside the planned list</span></td>
+<td>Open: supported providers only, or an “Other provider” request? Spain Product/local technical lead to decide; offer no unconfirmed connection. Being outside the list alone does not prove lack of support.</td>
+<td>2; reuse in 3 to confirm</td>
+</tr>
+</tbody>
+</table>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">6-end-to-end-workflow</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">6-end-to-end-workflow-phases-13</ac:parameter></ac:structured-macro><h2>6 End to end workflow — Phases 1–3</h2>
+<p>The product integration precondition is a separate note above the customer flow. <strong>Open E-invoicing settings or guided onboarding</strong>, <strong>Select the business or client</strong>, <strong>Review current e-invoicing setup</strong>, then <strong>Choose the requested action</strong>. <ac:link ac:anchor="61-onb-01-capture-requested-functions"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC038 — ONB-01</ac:link-body></ac:link> owns this interaction. <ac:link ac:anchor="64-onb-10-assess-current-setup"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>ONB-10</ac:link-body></ac:link> defines the SXS dataset mapping, saved setup lookup and display, and missing/unavailable lookup outcomes. Saved setup does not prove readiness.</p>
+<p><strong>Colour key:</strong> light teal marks <strong>Customer settings</strong>, including guided onboarding screens, where the customer selects, reviews and sees results. Light purple marks <strong>Setup and checks</strong>, the onboarding/configuration work for the selected action. The product precondition stays neutral grey. These colours identify activity type; they do not indicate implementation, readiness or success. Both groups remain in one journey.</p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="83e025d0-2961-5e0f-bba3-f81d5c010560"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">onboarding-summary-scenario-selection-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1440</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p>Figure 1. <strong>Which platform setup applies?</strong> selects the public and/or private paths. Both reuse valid setup and evidence; complete only missing, changed or expired work under <ac:link ac:anchor="64-onb-10-assess-current-setup"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>ONB-10</ac:link-body></ac:link>. Their results lead to the same <strong>Start or change platform use?</strong> decision. <strong>No — setup only</strong> returns results without activating or changing any platform selection. <strong>Yes</strong> follows the enabled, authorised choice and agreed start under <ac:link ac:anchor="69-onb-07-cut-over-new-traffic"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>ONB-07</ac:link-body></ac:link>. The <ac:link ac:anchor="onboarding-process"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC038 detailed swimlane</ac:link-body></ac:link> expands this journey into four stages and shows the actor handoffs.</p>
+<p>The private path asks <strong>Account on chosen private platform?</strong> Existing accounts need a Sage connection or valid connection reuse; a new account needs provider onboarding and connection. Prior use of another provider does not answer that question. <ac:link ac:anchor="67-onb-05-configure-private-choice"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>ONB-05</ac:link-body></ac:link> defines both cases and the evidence needed for the provider's onboarding process. The <ac:link ac:anchor="platform-onboarding-and-certificate-reuse"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>confirmed NIF and certificate reuse rule</ac:link-body></ac:link> applies across platforms; each added platform still needs separate connection setup (onboarding).</p>
+<p>An authorised accountant follows this same flow for the selected client. The platform account and authority must cover that client; the firm's own account is not a default substitute. Missing client approval follows <ac:link ac:anchor="63-onb-12-coordinate-client-approval-and-evidence"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>ONB-12</ac:link-body></ac:link>. A single client needs no batch; <ac:link ac:anchor="613-onb-13-manage-portfolio-batch"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>ONB-13</ac:link-body></ac:link> adds isolated processing when a client list is requested.</p>
+<p>Each <strong>E</strong> reference leads to <strong>Show pending result or limitation</strong>, with recovery under <ac:link ac:anchor="610-onb-08-reconcile-and-recover"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>ONB-08</ac:link-body></ac:link>. Missing SXS mapping follows the qualified setup process; an unavailable lookup is not proof of missing setup. Failed dependencies block only affected work. Phase 1 covers public access; Phases 2–3 add private setup and enabled platform changes. The diagram does not select the Spain API resource model; see <ac:link ac:anchor="gap-02"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>039 GAP-02</ac:link-body></ac:link>. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/onboarding-summary-scenario-selection-process.drawio">Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/onboarding-summary-scenario-selection-process.png">PNG</a>.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">7-master-feature-lifecycle</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">7-master-feature-lifecycle-phases-13</ac:parameter></ac:structured-macro><h2>7 Master Feature lifecycle — Phases 1–3</h2>
+<table>
+<thead>
+<tr>
+<th>Work</th>
+<th>Activities / result</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Select and inspect</td>
+<td>ONB-01/10/02: select the business, review current setup, choose the action, then check its identity/permission requirements.</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td>Check public access</td>
+<td>ONB-03/04/11: check required access/certificate and return readiness or an action.</td>
+<td>1; reused in 2–3</td>
+</tr>
+<tr>
+<td>Set up private access</td>
+<td>ONB-05/06: reuse or complete setup and confirm access. ONB-07/09 separately controls starting or changing platform use and earlier access.</td>
+<td>2–3</td>
+</tr>
+<tr>
+<td>Resolve missing or failed work</td>
+<td>ONB-12 for approval; ONB-08 for correction/recovery. Resume the affected check.</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td>Process a client list</td>
+<td>ONB-13: save a receipt, check clients independently and return only currently permitted progress.</td>
+<td>1–3; if batch requested</td>
+</tr>
+</tbody>
+</table>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">8-cross-cutting-solution-considerations</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">8-cross-cutting-solution-considerations-phases-13</ac:parameter></ac:structured-macro><h2>8 Cross cutting solution considerations — Phases 1–3</h2>
+<p>Keep Spain rules separate from shared behaviour and keep test/production evidence separate. An added function rechecks only its affected requirements; working setup remains unchanged.</p>
+<p>Reuse decisions belong to SPEC039. Reuse of a design is not proof of running code. Confirm Tax certificate acceptance for each selected action. DTS remains the preferred conversion candidate for later invoice features under <ac:link><ri:page ri:content-title="Spain UBL Mapper Migration to DTS Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC008</ac:link-body></ac:link>; onboarding converts no invoice. Peppol is outside this scope.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">9-dependencies-and-risks</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">9-dependencies-and-risks-phases-13</ac:parameter></ac:structured-macro><h2>9 Dependencies and risks — Phases 1–3</h2>
+<table>
+<thead>
+<tr>
+<th>If…</th>
+<th>Required response</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Permission or certificate evidence is missing</td>
+<td>Stop the affected work and identify who must act.</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td>A request may have changed external state</td>
+<td>Check its original result before repeating it.</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td>A setup change affects receiving</td>
+<td>Routing checks actual reachability before allowing unsafe traffic.</td>
+<td>2–3 for route changes</td>
+</tr>
+<tr>
+<td>Earlier invoices need the old path</td>
+<td>Keep the required access until release is authorised.</td>
+<td>1–3</td>
+</tr>
+<tr>
+<td>Capacity or service targets are unconfirmed</td>
+<td>Operations sets limits and objectives from contract/pilot evidence.</td>
+<td>1–3</td>
+</tr>
+</tbody>
+</table>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">10-features-within-this-master-feature</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">10-features-within-this-master-feature-phases-13</ac:parameter></ac:structured-macro><h2>10 Features within this Master Feature — Phases 1–3</h2>
+<p>Onboarding owns customer setup and its recovery. Certificate, connectivity/routing and invoice-operation features keep their responsibilities. <ac:link><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC038</ac:link-body></ac:link> links their handoffs. Configured account, readiness, route activation and operator approval remain separate results; no new deployment boundary is approved.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">12-assurance-and-completion-checks</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">12-assurance-and-completion-checks-phases-13</ac:parameter></ac:structured-macro><h2>12 Assurance and completion checks — Phases 1–3</h2>
+<p>Before enabling work, close its <ac:link ac:anchor="review-and-release-gates"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>functional/release checks in SPEC038</ac:link-body></ac:link> and <ac:link ac:anchor="2-open-engineering-decisions"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>implementation checks in SPEC039</ac:link-body></ac:link>.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references-phases-13</ac:parameter></ac:structured-macro><h2>REF Source references — Phases 1–3</h2>
+<table>
+<thead>
+<tr>
+<th>REF ID</th>
+<th>Source and version</th>
+<th>Exact location</th>
+<th>Supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-PHASE</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-213-private-platform-connectivity-structured-review.md">PRD213</a>, Phase 2 scope; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-210-sage-private-platform-reuse-and-operator-expansion.md">PRD210</a>, Phase 3 document map / phase comparison; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-221-operator-readiness-regulatory-governance.md">PRD221</a>, Phase and outcome; repository drafts.</td>
+<td>Sections named in the source cell; user direction, 28 October 2026.</td>
+<td>Phase labels describe analysis coverage: SPFE, external providers, then Sage private-platform offering. They do not approve delivery, implementation or Private A to Private B switching.</td>
+</tr>
+<tr>
+<td>REF-BASE</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-002-onboarding-solution-specification.md">SPEC-SEI-002</a>, snapshot 20 October 2026</td>
+<td>Parts 1–4 and REF</td>
+<td>Predecessor scope, IDs, recorded ownership direction, proposed behaviour and open gates. Not implementation evidence.</td>
+</tr>
+<tr>
+<td>REF-PRODUCT</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-101-public-platform-onboarding.md">PRD-SEI-101</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-104-accountant-and-single-client-onboarding.md">104</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-107-public-onboarding-failure-recovery.md">107</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-222-customer-onboarding-entry-point-migration.md">222</a></td>
+<td>Decision summaries, scope and functional requirements</td>
+<td>Canonical product scope; unresolved differences require an owner decision.</td>
+</tr>
+<tr>
+<td>REF-COUNTRY</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-227-e-invoicing-as-a-service.md">PRD-SEI-227</a></td>
+<td>Shared platform and country-pack direction</td>
+<td>Reuse direction; not deployment qualification.</td>
+</tr>
+<tr>
+<td>REF-INTERCONNECT</td>
+<td><a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-7295">RD 238/2026 official original</a>, published 31 March 2026; checked 22 October 2026</td>
+<td>Articles 8(1)–(3), 9(1)–(5)</td>
+<td>Participating-platform interconnection, one-month receiving-operator period, specific queue exception and interim public exchange. Not a general customer ERP-onboarding SLA.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">Original catalogue</a>, 0.1.0, 9 October 2026</td>
+<td>Sections 6.1–6.10, pp. 9–20</td>
+<td>Supplied public operations; no onboarding enrolment contract in this bundle. Supports the S02 boundary. Does not prove live availability.</td>
+</tr>
+<tr>
+<td>REF-EVIDENCE</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a> and <ac:link ac:anchor="ref-source-references"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>logical REF</ac:link-body></ac:link></td>
+<td>Source register, exact contracts and open conflicts</td>
+<td>Original-source route for Spain-dependent rules and acceptance. The guide is a reading aid.</td>
+</tr>
+<tr>
+<td>REF-PREDECESSORS</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/onboarding/SPEC-SEI-018-customer-onboarding-solution-summary.md">018</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/onboarding/SPEC-SEI-019-customer-onboarding-logical-feature-specification.md">019</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/onboarding/SPEC-SEI-021-customer-onboarding-sequence-and-reuse-assessment.md">021</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/provider-connectivity/SPEC-SEI-034-provider-connectivity-solution-summary.md">034</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/provider-connectivity/SPEC-SEI-035-provider-connectivity-logical-feature-specification.md">035</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/provider-connectivity/SPEC-SEI-036-provider-connectivity-sequence-and-reuse-assessment.md">036</a>, repository sources updated 23 October 2026.</td>
+<td>Sections and IDs stated in the source/claim cells.</td>
+<td>Scope, scenarios, ONB/OFR activities, capability boundaries, formats and evidence gates. Retained draft designs; no approval or implementation proof.</td>
+</tr>
+<tr>
+<td>REF-PROVIDER</td>
+<td><ac:link><ri:page ri:content-title="Public Platform Connector Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-011</ac:link-body></ac:link>, <ac:link><ri:page ri:content-title="Provider API through the E-Invoicing Global API Solution Specification" ri:space-key="DNBU" /><ac:link-body>013</ac:link-body></ac:link>, <ac:link><ri:page ri:content-title="B2B Router Provider Adapter Binding Solution Specification" ri:space-key="DNBU" /><ac:link-body>017</ac:link-body></ac:link>, updated 20 October 2026.</td>
+<td>Sections and IDs stated in the source/claim cells.</td>
+<td>Public execution, Global API access/integration modes, B2B Router binding and PCN/GPA/B2BR gates. Setup consumes qualified capabilities; these sources retain runtime contracts and uncertainties.</td>
+</tr>
+<tr>
+<td>REF-CONNECTIVITY</td>
+<td><ac:link><ri:page ri:content-title="Shared Platform Connectivity and Routing Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-014</ac:link-body></ac:link>, updated 20 October 2026; Part 1 §§1–3 and SPC-01–08.</td>
+<td>Sections and IDs stated in the source/claim cells.</td>
+<td>Customer-provider and platform-interconnection roles; separate qualification, routes and continuity. Proposed shared foundation, not build compatibility or operator eligibility.</td>
+</tr>
+<tr>
+<td>REF-OPERATOR</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-210-sage-private-platform-reuse-and-operator-expansion.md">PRD-SEI-210</a>, updated 10 August 2026; delivery-model/reuse boundaries. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-221-operator-readiness-regulatory-governance.md">PRD-SEI-221</a>, updated 6 October 2026; Decision summary, Phase and outcome, readiness domains, E7, BR11 and FR20.</td>
+<td>Sections and IDs stated in the source/claim cells.</td>
+<td>Sage service, named operator, legal/technical/security/operations evidence and operator interconnection process. Canonical proposed product scope; no selected delivery model, operator appointment or permission to launch.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

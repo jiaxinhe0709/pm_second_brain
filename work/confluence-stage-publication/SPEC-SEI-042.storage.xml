@@ -1,0 +1,577 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-042<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/invoice-receiving/api-reference/SPEC-SEI-042-existing-e-invoice-retrieval-api-reference.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">e-invoice-retrieval-api-reuse-and-spain-changes</ac:parameter></ac:structured-macro><h1>E-Invoice Retrieval API Reuse and Spain Changes</h1>
+<p><ac:link><ri:page ri:content-title="Invoice Retrieval Solution Summary" ri:space-key="DNBU" /><ac:link-body>Summary and walkthrough</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Invoice Retrieval Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>Required behaviour</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Invoice Retrieval Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>Sequences, product impact and gates</ac:link-body></ac:link></p>
+<p>Confluence views: <a href="https://confluence.sage.com/pages/viewpage.action?pageId=933331276">Summary</a> · <a href="https://confluence.sage.com/pages/viewpage.action?pageId=943980648">Required behaviour</a> · <a href="https://confluence.sage.com/pages/viewpage.action?pageId=943980652">Sequences and reuse</a> · <a href="https://confluence.sage.com/pages/viewpage.action?pageId=943980662">API reference</a></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">purpose-and-evidence</ac:parameter></ac:structured-macro><h2>Purpose and evidence</h2>
+<p><strong>View and user download are required for all enabled public and private platforms, including the Sage offering.</strong> SPEC026 §1 owns this decision. A private provider's source-file fetch can still be necessary for intake and viewing. It is separate from a user downloading a saved file. REF-SCOPE.</p>
+<p>This reference follows the <ac:link><ri:page ri:content-title="E-Invoice Onboarding API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>onboarding API analysis</ac:link-body></ac:link>: existing calls, request/result fields, Spain changes and open evidence. SPEC027 owns RET-G01–10 and the reuse decisions. This page does not create another gate register.</p>
+<p><strong>Evidence reviewed:</strong> INT-RCV01, INT-ERR01 and the supplied Query/Retrieve OpenAPI definitions (INT-RCV02/03, current user-supplied snapshots received 13 November 2026; earlier snapshots received 2 November are preserved), the SPFE catalogue/formats and the four original query/download WSDLs selected by the manifest: <strong>PRE release 29 October 2026</strong>. A canonical guide URL and deployed-build version remain missing. The supplied REST contracts do not prove Spain support. The WSDLs establish transport, not complete business schemas or a running Spain integration. REF-EVIDENCE.</p>
+<p><span style="color:#666666;">Grey: documented existing calls/fields.</span> · <span style="color:#1565C0;">Blue: proposed Spain reuse or additional work.</span> · <span style="color:#B42318;">Red: open evidence.</span> Examples use synthetic IDs and placeholders. Response snippets are field extracts, not complete schemas or executed requests. INT-RCV02/03 list production and sandbox servers; no Spain environment is qualified by their presence.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-existing-product-facing-calls</ac:parameter></ac:structured-macro><h2>1 Existing product-facing calls</h2>
+<p><strong>ERP calls the Domain Service – E-Invoice Service through the existing E-Invoice API. Query supplies the business’s authorised sent/received list. Retrieve supplies one invoice’s details, history, attachment count and links when attachments are included.</strong> Downloading an attachment follows its returned link as part of the retrieval flow. These are two Sage invoice operations; the file transfer uses a further HTTP request to the returned URL.</p>
+<table>
+<thead>
+<tr>
+<th>Product action</th>
+<th>API name / existing ID</th>
+<th>Input → result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open or filter the invoice list</td>
+<td><strong>Query e-invoices — RET-API-01</strong></td>
+<td><code>datasetId</code>, optional <code>filter</code> and <code>page[after]</code> → paginated <code>data[]</code>, invoice information, current status, <code>availableAttachments</code> and file links. No status history is declared. INT-RCV02.</td>
+</tr>
+<tr>
+<td>Open one selected invoice and access its attachments</td>
+<td><strong>Retrieve e-invoice — RET-API-02</strong></td>
+<td><code>datasetId</code> and one <code>e-invoiceId</code> UUID → one <code>data</code> object, invoice details, current status, <code>history[]</code> including operation results/error codes, and <code>availableAttachments</code>. <code>includeAttachments</code> defaults to <code>true</code>; when <code>false</code>, descriptors and URLs are omitted. Follow an included link to obtain the file. INT-RCV03; INT-RCV01 §4.</td>
+</tr>
+</tbody>
+</table>
+<p>The usual screen flow is <strong>Query → select invoice → Retrieve → follow an attachment link if needed</strong>. RET-API-03 retains the file-transfer rules under their existing ID; it does not define a third Sage invoice endpoint. A caller that already has a qualified invoice ID can retrieve directly. Query already includes invoice information and file links; a detail call is needed only when the caller needs additional information or a renewed link. Qualify the list-to-detail ID mapping below before using it. INT-RCV02/03; RET-G01/04.</p>
+<table>
+<thead>
+<tr>
+<th>ID / operation or flow step</th>
+<th>Use in this feature</th>
+<th>Spain qualification</th>
+<th>Functional link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ac:link ac:anchor="ret-api-01"><ac:link-body>RET-API-01 — Query e-invoices / list</ac:link-body></ac:link></td>
+<td>Supply invoices for the required public/private list view; recover missed notifications within qualified query coverage.</td>
+<td>Sent/received selection for customer views, inbound filters for event recovery, business mapping and historical coverage. RET-G01/03.</td>
+<td>SPEC026 §2; RSD-03; RRI-A04</td>
+</tr>
+<tr>
+<td><ac:link ac:anchor="ret-api-02"><ac:link-body>RET-API-02 — Retrieve e-invoice / detail</ac:link-body></ac:link></td>
+<td>Supply selected invoice information, status/history and file descriptors.</td>
+<td>Public/private support, source identity and role mapping. Metadata alone is not a readable document. RET-G01/04/07.</td>
+<td>SPEC026 §2; RSD-07; RCV-02</td>
+</tr>
+<tr>
+<td><ac:link ac:anchor="ret-api-03"><ac:link-body>RET-API-03 — Follow attachment link (file-transfer step)</ac:link-body></ac:link></td>
+<td>Obtain bytes using a link returned by Retrieve or Query; assess reuse for public/private user download from saved files.</td>
+<td>Prove that the link returns the selected captured file under current authority. Private download coverage also needs qualification. RET-G04/05/10.</td>
+<td>RSD-04/07; RRI-A05/08</td>
+</tr>
+<tr>
+<td><ac:link ac:anchor="ret-api-04"><ac:link-body>RET-API-04 — Subscription/event</ac:link-body></ac:link></td>
+<td>Accelerate discovery where supported. Required view does not depend on webhook availability.</td>
+<td>Selected source/environment, permissions, event contract and missed-event recovery. RET-G02/03.</td>
+<td>PRI-02; RRI-A02/04/09</td>
+</tr>
+<tr>
+<td><ac:link ac:anchor="ret-api-05"><ac:link-body>RET-API-05 — Optional readable file</ac:link-body></ac:link></td>
+<td>Assess an optional readable representation.</td>
+<td>Factur-X generation is not selected by the required view outcome. Spain need and existing rendering options remain RET-G08.</td>
+<td>RRI-A06; RCV-I05</td>
+</tr>
+</tbody>
+</table>
+<p>Resolve <code>datasetId</code> from the qualified SXS/onboarding binding. Keep the business, caller, source and environment explicit. Obtain invoice IDs from qualified list/event results. Neither a known ID nor an existing connection grants permission. <ac:link ac:anchor="2-open-engineering-decisions"><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>Onboarding GAP-01/02/06</ac:link-body></ac:link> remains authoritative for setup/resource relationships. Do not create another dataset or connection to read an invoice. REF-TERMS.</p>
+<p><strong>View invoice list</strong>, <strong>Select and open invoice</strong> and <strong>Download file</strong> in the <ac:link ac:anchor="retrieval-detailed-process"><ri:page ri:content-title="Invoice Retrieval Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC026 detailed process</ac:link-body></ac:link> map to Query, Retrieve and file transfer below; <strong>Receive invoice</strong> has its own source/intake flow. <strong>Review and take action</strong> branches from the opened invoice and uses <ac:link ac:anchor="review-and-take-action"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC029’s decision journey</ac:link-body></ac:link> and <ac:link ac:anchor="lif-api-01"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC041’s lifecycle commands</ac:link-body></ac:link>. Query and Retrieve do not submit decisions.</p>
+<p>The <ac:link ac:anchor="customer-list-open-and-download"><ri:page ri:content-title="Invoice Retrieval Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC026 §2 customer journey</ac:link-body></ac:link> uses the existing calls below. The customer or accountant chooses the action; ERP calls the Domain Service through the shared API and displays its response. This names the logical service boundary, not another endpoint or a proven deployment.</p>
+<table>
+<thead>
+<tr>
+<th>Customer action</th>
+<th>ERP ↔ Domain Service call / result</th>
+<th>Check at this boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>View invoice list</strong></td>
+<td>Query / RET-API-01 returns permitted sent/received results and paging.</td>
+<td>Keep the business, source and qualified paging context. An empty result does not prove collection succeeded.</td>
+</tr>
+<tr>
+<td><strong>Select and open invoice</strong></td>
+<td>Retrieve / RET-API-02 returns detail, history, attachment count and descriptors if included.</td>
+<td>Recheck access and qualify the list-to-detail ID under RET-G01. Metadata alone does not render a readable invoice.</td>
+</tr>
+<tr>
+<td><strong>Download file</strong></td>
+<td>Use a returned link; request links through Retrieve if omitted or expired. RET-API-03 transfers bytes from the file source.</td>
+<td>Recheck current file access, role, safety and integrity. Do not auto-download on opening.</td>
+</tr>
+</tbody>
+</table>
+<p>This journey does not remove the documented ability to open a known qualified ID or use a file link returned by Query. No new endpoint is selected.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">shared-request-and-recovery-rules</ac:parameter></ac:structured-macro><h3>Shared request and recovery rules</h3>
+<p>Reuse the NIF, certificate/authority setup and authorised business/dataset/environment binding from onboarding. Neither GET declares NIF or certificate parameters, and the new legal-address fields do not prove Spain address support. INT-RCV02/03 declare Sage ID M2M bearer JWT authentication for both GETs. <code>traceparent</code> and <code>tracestate</code> are optional; neither GET declares <code>Idempotency-Key</code>. INT-RCV01 permits Domain Services or Sage ID M2M tokens in its introduction but describes Network-token login in the subscription table. Confirm accepted caller/token scope per operation and resolve guide differences; do not copy subscription headers to GETs. RET-G01/02.</p>
+<p>For <code>429</code>, honour valid <code>Retry-After</code>; no fixed quota or polling interval is supplied. Preserve history <code>operationStatus</code> values <code>IN_PROGRESS</code>, <code>COMPLETED</code>, <code>ERROR</code>. Read the correlated attempt's <code>history[].errorCode</code>; <code>currentStatus</code> has neither field. A final attempt error is not a failed business invoice or an instruction to recapture. Keep the code-specific platform retry/support owner from INT-ERR01. RET-G02/09.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ret-api-01</ac:parameter></ac:structured-macro></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">document-types-and-status-values</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">document-types-and-status-values</ac:parameter></ac:structured-macro><h3>Document types and status values</h3>
+<p>Keep these source lists separate. A document type, an API classification and a status do not identify the same concept. Do not infer an allowed customer action from one of these values.</p>
+<p><strong>Existing API invoice classification — exact <code>eInvoiceTypeCode</code> enum.</strong> INT-RCV02 <code>InvoicesResponse.properties.documents.items.properties.eInvoiceTypeCode</code>; INT-RCV03 <code>InvoiceResponse.properties.eInvoiceTypeCode</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Exact API value</th>
+<th>Business perspective</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AP_Invoice</code></td>
+<td>Accounts payable invoice.</td>
+</tr>
+<tr>
+<td><code>AR_Invoice</code></td>
+<td>Accounts receivable invoice.</td>
+</tr>
+<tr>
+<td><code>AP_CreditNote</code></td>
+<td>Accounts payable credit note.</td>
+</tr>
+<tr>
+<td><code>AR_CreditNote</code></td>
+<td>Accounts receivable credit note.</td>
+</tr>
+</tbody>
+</table>
+<p>These values do not establish send/receive direction or a Spain self-billing mapping. <code>documentType</code> and <code>documentTypeCode</code> are nullable strings in both supplied schemas; no enum or Spain mapping is supplied. RET-G01/07 remain open.</p>
+<p><strong>Spain public invoice types — complete Annex I L1 list.</strong> <a href="https://www.boe.es/eli/es/o/2026/10/02/hac1028">Official publication</a>, checked 13 November 2026. Preserve the Spanish source name; the English column is a reading aid. SPFE-S02 Annex I, BT-3 p. 13 and L1 p. 30.</p>
+<table>
+<thead>
+<tr>
+<th>Exact code</th>
+<th>Original source name</th>
+<th>English meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>380</code></td>
+<td>Factura (artículo 6, 7.2 y 7.3 del RD 1619/2012)</td>
+<td>Invoice.</td>
+</tr>
+<tr>
+<td><code>384</code></td>
+<td>Factura rectificativa</td>
+<td>Corrective invoice.</td>
+</tr>
+<tr>
+<td><code>388</code></td>
+<td>Factura emitida en sustitución de facturas simplificadas</td>
+<td>Invoice replacing simplified invoices.</td>
+</tr>
+<tr>
+<td><code>389</code></td>
+<td>Factura emitida por el destinatario</td>
+<td>Invoice issued by the recipient.</td>
+</tr>
+<tr>
+<td><code>471</code></td>
+<td>Factura rectificativa emitida por el destinatario</td>
+<td>Corrective invoice issued by the recipient.</td>
+</tr>
+</tbody>
+</table>
+<p>Do not replace <code>384</code> or <code>471</code> with France credit-note code <code>381</code>. SPFE-S08 §5.1.1 p. 8 selects UBL 2.5 <code>InvoiceType</code>, including rectification. This source list does not qualify the mapping to the four API values above or the UI action rules.</p>
+<p><strong>Status and command lists — authoritative owners:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Source list</th>
+<th>Exact values / how to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ac:link ac:anchor="spfe-lifecycle-states"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC029 SPFE states and reporting classifications</ac:link-body></ac:link>; <ac:link ac:anchor="draft-lifecycle-mapping"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>draft platform mapping</ac:link-body></ac:link></td>
+<td>Owns the business meanings, reporting requirements and proposed relationships. <code>Approved</code>, <code>Refused</code> and technical <code>Rejected</code> remain distinct outcomes. Exact catalogue codes and UUIDs stay in the source/API references below; the draft does not prove Spain support. INT-LCS03/04.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/lifecycle-api-guides-evidence-extract.md#int-lcs03-status-catalogue-and-blocked-transitions">INT-LCS03 exact catalogue UUIDs</a>; <ac:link ac:anchor="12-documented-status-inputs"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC041 documented command inputs</ac:link-body></ac:link></td>
+<td>A lifecycle POST <code>statusCode</code> takes a UUID, not numeric <code>205</code> or <code>210</code>. A catalogue entry is not proof of a writable command or a permitted transition.</td>
+</tr>
+<tr>
+<td><ac:link ac:anchor="52-public-event-contract"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC029 Spain public event list</ac:link-body></ac:link></td>
+<td>Complete eight-code list from SPFE-S02 Annex II. Recipient <code>REJECTION</code> and <code>PAYMENT</code> are separate from issuer events and cancellation reports. No explicit public acceptance code is supplied.</td>
+</tr>
+<tr>
+<td>INT-RCV03 <code>invoiceHistoryItem.operationStatus</code></td>
+<td>Exact enum: <code>IN_PROGRESS</code>, <code>COMPLETED</code>, <code>ERROR</code>. It describes an attempt, not the invoice’s commercial status or completion of all required reports.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Source conflict to resolve:</strong> the Query/Retrieve examples label UUID <code>00000000-0000-0000-0000-100000000001</code> as <code>New</code>; INT-LCS03 assigns <code>New</code> UUID <code>00000000-0000-0000-0000-170000000000</code>. Keep returned IDs and source context. Do not repair the sample or use it as a command fixture. API/Lifecycle owners must qualify the selected build’s catalogue under RET-G01 and LIF-G03 before enabling actions. The original Sage guide URL is recorded in SPEC029 REF; live access was unavailable during this review, so the supplied guide extract remains the evidence limit.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">11-ret-api-01-query-e-invoices-list</ac:parameter></ac:structured-macro><h3>1.1 RET-API-01 — Query e-invoices (list)</h3>
+<p><code>GET /datasets/{datasetId}/e-invoices</code> · INT-RCV02; INT-RCV01 §3.2.</p>
+<table>
+<thead>
+<tr>
+<th>Contract element</th>
+<th>Documented result / limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Request</td>
+<td>Required <code>datasetId</code>; optional OData <code>filter</code> and <code>page[after]</code>. INT-RCV02 examples cover <code>erpInvoiceId</code>, <code>createdAt</code>, <code>customizationId</code>, <code>recipient/accessPointAddress</code>, <code>recipient/accessPointAddressLegal</code>, <code>availableAttachments</code> and <code>currentStatus/statusCode</code>. Additional guide filters and conflicting dot/slash examples need runtime qualification.</td>
+</tr>
+<tr>
+<td>Response</td>
+<td><code>200</code>; <code>data[]</code> with <code>attributes.documents[]</code>. Each document can contain <code>eInvoiceId</code>, parties including <code>accessPointAddressLegal</code>, totals, current status, <code>availableAttachments</code> and <code>attachments[].downloadUrl</code>. No <code>history[]</code> is declared. The older guide list example omits URLs; that omission does not require a detail call before every download. INT-RCV02 <code>GetInvoicesResponse</code> / <code>InvoicesResponse</code>.</td>
+</tr>
+<tr>
+<td>Page / range</td>
+<td><code>meta.count</code>, <code>meta.hasMore</code>, <code>links.self</code>, <code>links.next</code> are in INT-RCV02. Up to 20 items/page and a 90-day creation window are guide statements, not specified limits in the supplied OpenAPI. Qualify them against the selected build. Neither establishes retention or complete historical coverage.</td>
+</tr>
+<tr>
+<td>Invoice identity</td>
+<td>The list example has different outer <code>data[].id</code> and nested <code>documents[].eInvoiceId</code> values. Neither contract explains this relationship. Confirm which value binds the detail path and how multiple documents map to the list before activation. RET-G01.</td>
+</tr>
+<tr>
+<td>Direction</td>
+<td>Both sent and received codes can appear. Qualify <code>AP_Invoice</code>, <code>AR_Invoice</code>, <code>AP_CreditNote</code>, <code>AR_CreditNote</code>, self-billing and the selected source. Do not present every dataset result as received.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request — documented path, synthetic dataset ID:</strong></p>
+<pre><code class="language-http">GET /datasets/00000000-0000-4000-8000-000000000001/e-invoices
+</code></pre>
+<p><span style="color:#1565C0;">Reuse for the public/private list view; preserve the returned invoice IDs and source context. Supply SPFE freshness/collection results through a qualified existing or extended product contract.</span> <span style="color:#B42318;">The guide does not define that freshness contract, stable ordering, snapshot behaviour, continuation expiry or older-than-90-day access. Do not infer an empty complete history from this call. RET-G01/03/05.</span></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">12-ret-api-02-retrieve-e-invoice-detail</ac:parameter></ac:structured-macro><h3>1.2 RET-API-02 — Retrieve e-invoice (detail)</h3>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ret-api-02</ac:parameter></ac:structured-macro></p>
+<p><code>GET /datasets/{datasetId}/e-invoices/{e-invoiceId}</code> · UUID path parameters · INT-RCV03; INT-RCV01 §3.1.</p>
+<pre><code class="language-http">GET /datasets/00000000-0000-4000-8000-000000000001/e-invoices/00000000-0000-4000-8000-000000000002
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Response field / group</th>
+<th>Use / limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data.id</code></td>
+<td>INT-RCV03 declares one <code>data</code> object with <code>id</code>; invoice fields sit directly in <code>data.attributes</code>. The older guide field table also lists <code>data.attributes.eInvoiceId</code>; the supplied detail schema does not. Resolve the Query document-ID mapping under RET-G01.</td>
+</tr>
+<tr>
+<td><code>eInvoiceTypeCode</code>, <code>sender</code>, <code>recipient</code>, <code>accessPointId</code>, <code>erpInvoiceId</code></td>
+<td>Invoice type, parties and source/product references. <code>erpInvoiceId</code> is not a universal duplicate key.</td>
+</tr>
+<tr>
+<td><code>currentStatus</code>, <code>history[]</code>, <code>data.meta</code></td>
+<td>INT-RCV03 adds <code>currentStatus.statusAttributes</code> and declares history fields <code>operationStatus</code>, <code>errorCode</code>, <code>statusAttributes</code> and attempt metadata. <code>data.meta</code> is required. Neither history ordering nor full attempt correlation is supplied. Viewing does not create buyer acceptance.</td>
+</tr>
+<tr>
+<td>Request option</td>
+<td><code>includeAttachments</code> is an inline boolean query parameter, default <code>true</code>. <code>false</code> omits <code>attachments</code>, skips URL generation and skips Factur-X generation even if <code>format=facturx</code> is present. It does not suppress invoice details/history or <code>availableAttachments</code>. INT-RCV03.</td>
+</tr>
+<tr>
+<td>Attachment count</td>
+<td><code>availableAttachments</code> is an integer ≥ 0. With <code>includeAttachments=false</code>, a positive count can accompany omitted descriptors. This does not prove missing files or return a file identity. An absent count is not a reported zero.</td>
+</tr>
+<tr>
+<td>Legal addresses</td>
+<td><code>sender.accessPointAddressLegal</code> and <code>recipient.accessPointAddressLegal</code> are extracted legal-format endpoint values. Spain NIF/address mapping remains RET-G01; the supplied address-type enums still use France values.</td>
+</tr>
+<tr>
+<td>File descriptors</td>
+<td>Descriptors, when returned, contain <code>filename</code>, <code>mimetype</code>, <code>filetype</code>, <code>downloadUrl</code>. <code>includeAttachments=false</code> omits them. INT-RCV03 includes <code>Undefined</code>, <code>UBL</code>, <code>Human_Readable</code>, <code>Original_Document</code>, <code>FacturX</code>; map these values to saved business file roles.</td>
+</tr>
+<tr>
+<td>Tax detail</td>
+<td>VAT totals and tax breakdowns are not exposed as extracted fields in the guide. Use the qualified structured representation and inbound mapping where the product view needs them. RET-G07.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Details without attachment links — documented option:</strong></p>
+<pre><code class="language-http">GET /datasets/00000000-0000-4000-8000-000000000001/e-invoices/00000000-0000-4000-8000-000000000002?includeAttachments=false
+</code></pre>
+<p>To obtain links after this request, repeat Retrieve with <code>includeAttachments=true</code> or omit that parameter. Use the selected invoice context and current permission. A zero count means no attachment is reported as available; keep the unavailable-file outcome separate from omitted descriptors.</p>
+<p><strong>Response <code>200</code> — one included attachment descriptor extract; container/schema not asserted:</strong></p>
+<pre><code class="language-json">{
+  &quot;filename&quot;: &quot;synthetic-original.xml&quot;,
+  &quot;mimetype&quot;: &quot;ubl-2.1/xml&quot;,
+  &quot;filetype&quot;: &quot;Original_Document&quot;,
+  &quot;downloadUrl&quot;: &quot;{shortLivedDownloadUrl}&quot;
+}
+</code></pre>
+<p>The MIME string above is a guide example, not the Spain public format. <span style="color:#1565C0;">Qualify public UBL 2.5 and the original/public-copy/derived mapping. Use detail information to build the required view for both source types.</span> <span style="color:#B42318;">A detail GET supplies data and links; it does not prove document rendering, saved-record storage or Spain service support. RET-G01/04/05/07.</span></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ret-api-03</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">13-ret-api-03-follow-attachment-link-file-transfer-step</ac:parameter></ac:structured-macro><h3>1.3 RET-API-03 — Follow attachment link (file-transfer step)</h3>
+<p><code>GET {downloadUrl}</code> · INT-RCV01 §4.</p>
+<p>This step follows an attachment link returned by Retrieve or Query. If Retrieve omitted attachments, request <code>includeAttachments=true</code> first. <code>availableAttachments</code> alone is not a download link. The existing ID records transfer and recovery rules; the supplied OpenAPI definitions do not define a separate Sage attachment-download endpoint. The Retrieve response is JSON with links; following a link returns the actual file.</p>
+<pre><code class="language-http">GET {shortLivedDownloadUrl}
+</code></pre>
+<p><code>200</code> returns bytes. The guide says the URL is short-lived and presigned; send <strong>no <code>Authorization</code> header</strong> to the file host. Capture bytes promptly. Do not retain the URL in durable records, logs or events. An expired link can return <code>403</code>; only confirmed expiry justifies reading detail again for a fresh link. Other refusals need their own cause/action.</p>
+<p><span style="color:#1565C0;">For public/private user download, reuse this call only if it returns the selected captured file with current actor/file permission, correct role and integrity. Preserve good files when a required file is missing. Keep ordinary saved reads independent of source-platform availability and downstream mapping/product receipt.</span></p>
+<p><span style="color:#B42318;">The guide does not establish immutable attachment identity/version/hash, allowed host/redirect rules, byte-range resume, storage ownership or historical saved-read access. A presigned link alone does not close these gaps. Identify an existing records contract before proposing an endpoint extension. Required user download and backend source-file acquisition need separate qualification. RET-G04/05/10.</span></p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ret-api-04</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">14-ret-api-04-subscribe-and-receive-an-event</ac:parameter></ac:structured-macro><h3>1.4 RET-API-04 — Subscribe and receive an event</h3>
+<p><code>POST /internal/events/subscriptions</code> → <code>201</code> · INT-RCV01 §§1–2. The guide labels the result <code>201 OK</code>; only code <code>201</code> is retained here.</p>
+<table>
+<thead>
+<tr>
+<th>Supplied information</th>
+<th>Use / unresolved point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>Resource <code>einvoice</code>, event <code>e-invoicing.einvoice.received</code>, <code>accountId</code>, <code>datasetId</code>, selected source/environment and optional OData filter. Do not copy France source <code>sage.pdp.france</code> to Spain.</td>
+</tr>
+<tr>
+<td>Callback</td>
+<td><code>audience</code>, <code>endpoint</code>, <code>endpointType: https</code>, optional <code>opaqueToken</code> and <code>clientstate</code> (maximum 256 characters). Caller access and notification authentication remain unqualified.</td>
+</tr>
+<tr>
+<td>Event</td>
+<td><code>subject</code> supplies the invoice ID; context includes <code>id</code>, <code>subscriptionid</code>, <code>accountid</code>, <code>datasetid</code>, <code>source</code>, <code>time</code>, <code>traceparent</code> and nullable <code>data.errorCode</code>. Verify scope/authenticity and errors before detail retrieval.</td>
+</tr>
+<tr>
+<td>Source conflicts</td>
+<td>Request <code>Data/Type/Attributes/Scope</code> versus lowercase; <code>opaqueToken</code> versus <code>opaquetoken</code>; subscription event name differs from notification example <code>com.sage.network.e-invoicing.api.einvoice.received</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><span style="color:#B42318;">No safe complete subscription payload, webhook response deadline, replay contract or versioned event schema can be selected from these conflicts. Obtain the Events Library and selected schema. A public SPFE webhook is not established. RET-G02.</span> Notification receipt does not prove source capture or authorize a destructive source acknowledgement. RRI-A02/04/09.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ret-api-05</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">15-ret-api-05-optional-readable-representation</ac:parameter></ac:structured-macro><h3>1.5 RET-API-05 — Optional readable representation</h3>
+<p><code>GET /datasets/{datasetId}/e-invoices/{e-invoiceId}?format=facturx</code> · INT-RCV03 <code>parameters.format</code>; INT-RCV01 §§3.1/4.</p>
+<p>INT-RCV03 says <code>format=facturx</code> generates and persists a Factur-X/ZUGFeRD 2.3 hybrid from UBL/PDF attachments, or returns an existing <code>FacturX</code> attachment without regeneration. INT-RCV01 describes <code>Human_Readable</code>; confirm the selected build's file-role mapping. With <code>includeAttachments=false</code>, the current contract skips that generation and URL creation, still returning the attachment count. This is a derived representation. The supplier's Factur-X can separately be <code>Original_Document</code>; returned UBL is not necessarily the supplier's original bytes.</p>
+<p><span style="color:#1565C0;">Required invoice viewing can reuse qualified product detail displays or readable representations.</span> <span style="color:#B42318;">Do not select this France generation option as the Spain viewer by default. Confirm actual renderer/build, required content, unsupported formats and independent rendering errors under RET-G08. Ordinary detail/saved-file access does not request generation.</span></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-spain-public-source-calls</ac:parameter></ac:structured-macro><h2>2 Spain public source calls</h2>
+<p>These backend SPFE SOAP operations support RSD-03 discovery/source acquisition and RSD-04–06 capture/progress. Each uses HTTP POST at the selected WSDL service address. The catalogue establishes business purpose and limits; missing formats remain open. Keep <code>QUERYBYFILTER</code> and other ebMS actions separate from HTTP <code>soapAction</code> URIs. SPFE-S03/S08/S12–15.</p>
+<p>The supplied SPFE baseline establishes no webhook or WebSocket interface. These operations require Sage-initiated calls. Product-facing Query/Retrieve calls do not define a trigger for fresh SPFE collection. <ac:link ac:anchor="31-query-coverage-and-recovery"><ri:page ri:content-title="Invoice Retrieval Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC027 §3.1</ac:link-body></ac:link> owns the France comparison, scheduled baseline, proposed list-open refresh and Architecture's cadence/rate-limit decisions. REF-EVIDENCE; RET-G03/06.</p>
+<table>
+<thead>
+<tr>
+<th>ID / exact operation</th>
+<th>Request → result / evidenced limit</th>
+<th>Remaining Spain binding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RET-SPFE-01 — <code>GetRegisteredInvoice</code></td>
+<td><code>QUERYBYFILTER</code>: recipient/issuer role and presentation-date filters in <code>MessageProperties</code> → <code>DocumentStatus</code>; maximum 1000 results, pagination key <code>SECUENCE_ID</code>.</td>
+<td>Exact property names/types, date boundaries, ordering, complete continuation and recipient authority. The singular operation name is exact.</td>
+</tr>
+<tr>
+<td>RET-SPFE-02 — <code>GetInvoices</code></td>
+<td><code>QUERYBYID</code>: role and invoice identities → invoice metadata/final issuer/recipient states in <code>DocumentStatus</code>; maximum 1000 identifiers.</td>
+<td>Identity encoding and response mapping. This is not date discovery, a source file or a full lifecycle-history contract.</td>
+</tr>
+<tr>
+<td>RET-SPFE-03 — <code>DownloadInvoicesByLOC</code></td>
+<td><code>DOWNLOADBYLOC</code>: one <code>ApplicationResponse</code> with locator-based <code>DocumentReference</code> entries → <code>InvoiceType</code> files. Catalogue prefers this route.</td>
+<td>Locator/NIU encoding and certificate/representation checks. No LOC batch limit is supplied; do not copy the ID limit.</td>
+</tr>
+<tr>
+<td>RET-SPFE-04 — <code>DownloadInvoicesByID</code></td>
+<td><code>DOWNLOADBYID</code>: one <code>ApplicationResponse</code> with invoice <code>DocumentReference</code> entries → <code>InvoiceType</code> files; maximum 100 invoices. Failed references have distinct errors.</td>
+<td>Exact ID/role binding, item/file correlation, partial outcomes and read effects. The ID is issuer NIF + series/number + issue date, not a Sage UUID.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">21-transport-and-address-selection</ac:parameter></ac:structured-macro><h3>2.1 Transport and address selection</h3>
+<p>SPFE-S12–15 define certificate ports under <code>https://prewww1.aeat.es/wlpl/SPFE-FACT/ws/</code> and seal ports under <code>https://prewww10.aeat.es/wlpl/SPFE-FACT/ws/</code>. Append the exact suffix below. These are supplied PRE addresses; neither runtime access nor a production address is qualified.</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Exact suffix</th>
+<th>HTTP action URI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetRegisteredInvoice</code></td>
+<td><code>GetRegisteredInvoiceSOAP</code></td>
+<td><code>https://www.agenciatributaria.gob.es/spfe/ns/services/GetRegisteredInvoice/v1/GetRegisteredInvoice</code></td>
+</tr>
+<tr>
+<td><code>GetInvoices</code></td>
+<td><code>GetInvoicesSOAP</code></td>
+<td><code>https://www.agenciatributaria.gob.es/spfe/ns/services/GetInvoices/v1/GetInvoices</code></td>
+</tr>
+<tr>
+<td><code>DownloadInvoicesByLOC</code></td>
+<td><code>DownloadInvoicesByLOCSOAP</code></td>
+<td><code>https://www.agenciatributaria.gob.es/spfe/ns/services/DownloadInvoicesByLOC/v1/DownloadInvoicesByLOC</code></td>
+</tr>
+<tr>
+<td><code>DownloadInvoicesByID</code></td>
+<td><code>DownloadInvoicesByIDSOAP</code></td>
+<td><code>https://www.agenciatributaria.gob.es/spfe/ns/services/DownloadInvoicesByID/v1/DownloadInvoicesByID</code></td>
+</tr>
+</tbody>
+</table>
+<p>Use SOAP 1.2, an empty SOAP body and <code>eb3:Messaging</code> in the header. The SOAP part uses <code>application/soap+xml</code> with <code>action</code> equal to the selected <code>soapAction</code>. With attachments, it sits in <code>multipart/related</code>, <code>type="application/soap+xml"</code>. Match each <code>PartInfo/@href="cid:..."</code> to its MIME <code>Content-ID</code>; the WSDL declares no generic <code>payload</code> part. Zero-to-many transport attachments do not override operation-specific business minima/limits. SPFE-S12–15; <ac:link ac:anchor="spfe-source-contract-binding"><ri:page ri:content-title="Public Platform Connector Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC011 transport rules</ac:link-body></ac:link>.</p>
+<p>Standard SOAP 1.2 faults use <code>env:Code/env:Value</code> and <code>env:Reason/env:Text</code>, no service-specific <code>env:Detail</code>, HTTP 400 or 500. Catalogue download-error wording and business result levels still need reconciliation. Do not use removed custom fault fields or treat HTTP success as proof that every requested file was captured. RET-G06; SPFE-S03/S08/S12–15.</p>
+<p>Spain file-role classification uses <ac:link ac:anchor="spain-copy-indicator"><ri:page ri:content-title="Invoice Retrieval Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC026’s public UBL copy-indicator table</ac:link-body></ac:link>. Keep that field separate from attachment <code>filetype</code> values and from evidence that two representations match.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">22-deliberately-incomplete-business-binding</ac:parameter></ac:structured-macro><h3>2.2 Deliberately incomplete business binding</h3>
+<p>SPFE-S08 §§5.4–5.7 mark query/download formats pending. The WSDLs treat business attachments as opaque; they do not define the missing filter names, full <code>DocumentReference</code> structure, locator encoding, item-error payloads or continuation guarantees. Therefore this reference supplies <strong>no executable XML business payload</strong>. Obtain the original business schemas/examples and qualify them before enabling collection. RET-G06.</p>
+<p>For recipient work, check representation separately from certificate validity. Issuer/social-collaborator and locator/certificate branches cannot be reused as proof of recipient permission. Qualify the selected role and operation before making calls. RSD-R01; SPFE-S02 Articles 9–11; SPFE-S03 §§6.4–6.7.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-reuse-decisions-and-additional-work</ac:parameter></ac:structured-macro><h2>3 Reuse decisions and additional work</h2>
+<table>
+<thead>
+<tr>
+<th>Capability / pattern</th>
+<th>Reuse direction and local change</th>
+<th>Owner / evidence gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public/private invoice view</td>
+<td>Prefer existing E-Invoice list/detail and product display capabilities. Add only missing Spain source/role/freshness bindings.</td>
+<td>API, Product, Identity: selected build/schema, authorised same-environment examples and historical-view coverage. RET-G01/03/05.</td>
+</tr>
+<tr>
+<td>Public/private user download</td>
+<td>Prefer existing file/records capability. Prove that selected links return captured, labelled files under current authority.</td>
+<td>Records, API, Security: actual build, saved-file binding, restore/history and access evidence. RET-G04/05.</td>
+</tr>
+<tr>
+<td>Private provider coverage</td>
+<td>Prove required saved-file download for each enabled external provider and the Sage offering. A backend provider fetch alone does not establish user access.</td>
+<td>Records, API and provider owners, with Product/Compliance: selected contracts/builds, file roles, permissions and failure recovery. RET-G10.</td>
+</tr>
+<tr>
+<td>Public collection</td>
+<td>Reuse the shared capture/progress/recovery design, with the qualified Spain SOAP binding. Actual implementation reuse remains unknown.</td>
+<td>Connector/API/Identity: current client build, missing business contracts, authority, partial results and recovery proof. RET-G06.</td>
+</tr>
+<tr>
+<td>Private intake</td>
+<td>Prefer proven notification/fetch or supplied-file handling. Product-facing RET-API calls do not establish a provider-owned download contract.</td>
+<td>Integration/provider: selected provider operation, bytes/role provenance, authority and acknowledgement/history. RET-G01/02/04.</td>
+</tr>
+<tr>
+<td>Format conversion / readable display</td>
+<td>Follow <ac:link ac:anchor="32-receiving-handoff"><ri:page ri:content-title="Invoice Retrieval Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC026 RCV-06</ac:link-body></ac:link> for DTS conversion. Readable display is a separate capability; UBL 2.5 viewing does not require DTS conversion.</td>
+<td>Format/Product: prove display support. For Phase 3 non-UBL 2.5 input, DTS proves the selected conversion, build, field preservation and recovery. RET-G07/08; REF-DTS-SCOPE.</td>
+</tr>
+</tbody>
+</table>
+<p>No source establishes a new product view, freshness, refresh, saved-read or rendering endpoint. Architecture/API owners must identify existing coverage, then specify only the required extension. Demonstrate country-rule isolation and existing-country compatibility; Spain identity, public-copy, authority and UBL rules must not become shared defaults. SPEC027 RET-API-A01–10 owns qualification acceptance.</p>
+<p>The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Receiving/openapi-source-snapshots.json">REST snapshot register</a> records current and preserved earlier hashes. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Receiving/receive-e-invoice-guide-extract.md#query-and-retrieve-openapi-snapshots">The source comparison</a> identifies the 13 November additions. Both supplied files still declare <code>info.version: 1.0.0</code>; publication date and deployed build remain unknown.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro><h2>REF Source references</h2>
+<table>
+<thead>
+<tr>
+<th>REF ID</th>
+<th>Original source / version</th>
+<th>Exact location</th>
+<th>Supported claims and limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-DTS-SCOPE</td>
+<td><ac:link ac:anchor="32-receiving-handoff"><ri:page ri:content-title="Invoice Retrieval Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC026 RCV-06</ac:link-body></ac:link>, user direction, 13 November 2026</td>
+<td>Conversion scope and §6 acceptance</td>
+<td>DTS conversion only for Phase 3 received formats other than UBL 2.5. Product direction, not an API contract or runtime claim.</td>
+</tr>
+<tr>
+<td>REF-SCOPE</td>
+<td><ac:link ac:anchor="1-purpose-actors-and-boundary"><ri:page ri:content-title="Invoice Retrieval Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC026</ac:link-body></ac:link>, draft, user direction 11 November 2026</td>
+<td>Scope table; REF-SCOPE</td>
+<td>Recorded user decision: public/private view and user download required. Not external legal evidence.</td>
+</tr>
+<tr>
+<td>REF-PRODUCT</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md">PRD211</a>, draft, updated 20 October 2026; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-223-interoperability-routing-transformation.md">PRD223</a>, updated 7 October 2026</td>
+<td>PRD211 FR30–33/43–55; PRD223 FR17–20/43–44</td>
+<td>Public freshness, exact source capture, authorised access and distribution; shared receiving/DTS direction. Not a wire contract.</td>
+</tr>
+<tr>
+<td>INT-RCV01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Receiving/receive-e-invoice-guide-extract.md">Supplied receiving guide extract</a>, received 22 October 2026; revision/build unknown</td>
+<td>Prerequisites; §§1–4; Polling, formats, and extracted data</td>
+<td>Guide call paths, IDs, query limits, temporary-file and optional Factur-X flow. Original attachment hash retained. Reconcile with INT-RCV02/03; no source URL or Spain support established.</td>
+</tr>
+<tr>
+<td>INT-RCV02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Receiving/query-e-invoices.openapi.json">Supplied Query e-invoices OpenAPI</a>, OpenAPI 3.1.0, info.version 1.0.0; current snapshot received 13 November 2026; earlier 2 November snapshot preserved</td>
+<td><code>GET /datasets/{datasetId}/e-invoices</code>; <code>parameters.filterQuery/pageAfter</code>; <code>GetInvoicesResponse</code>; <code>InvoicesResponse</code>; 200 example</td>
+<td>Sent/received document types, paginated list, legal addresses, attachment count/current status/file links. Example ID relationship is unresolved. No deployed build, exhaustive filter support, page-size/window limit or Spain readiness established.</td>
+</tr>
+<tr>
+<td>INT-RCV03</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Receiving/retrieve-e-invoice.openapi.json">Supplied Retrieve e-invoice OpenAPI</a>, OpenAPI 3.1.0, info.version 1.0.0; current snapshot received 13 November 2026; earlier 2 November snapshot preserved</td>
+<td><code>GET /datasets/{datasetId}/e-invoices/{e-invoiceId}</code>; <code>parameters.format</code> and inline <code>includeAttachments</code>; <code>GetInvoiceResponse</code>; <code>InvoiceResponse</code>; <code>invoiceCurrentStatus</code>; <code>invoiceHistoryItem</code></td>
+<td>Detail/history, legal addresses, attachment count, conditional links and Factur-X generation. Original JSON bodies retained from supplied fenced text; no canonical publication URL, deployed build or Spain support established.</td>
+</tr>
+<tr>
+<td>INT-ERR01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Shared/invoice-flow-error-handling-guide-extract.md">Supplied error guide extract</a>, received 22 October 2026; revision/build unknown</td>
+<td>Processing and error fields; receiving dictionaries; Recovery interpretation</td>
+<td>Attempt outcomes, history/error locations and platform-owned retry/support guidance. Not AEAT errors or universal retry timing.</td>
+</tr>
+<tr>
+<td>INT-LCS03/04</td>
+<td><a href="https://internaldeveloper.sage.com/domain-services/docs/v1.0.0/solutions/e-invoicing/status-updates/invoice-statuses">Original Sage status catalogue</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/lifecycle-api-guides-evidence-extract.md#int-lcs03-status-catalogue-and-blocked-transitions">supplied guide extract</a>, received 29 October 2026; URL version v1.0.0, publication date unknown</td>
+<td>Catalogue Code, Status, Identifier and actor columns; blocked-transition conflicts; SPEC029 REF</td>
+<td>Exact France labels, numeric codes and UUIDs, with source conflicts retained. Live guide access unavailable on 13 November; no Spain command or transition qualification.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/BOE-A-2026-20587.pdf">Final Order HAC/1028/2026</a>, published 5 October 2026</td>
+<td>Articles 9–11, PDF pp. 9–11; Annex I BT-3 p. 13, L1 p. 30, BT-23/24; Annex II pp. 36–42</td>
+<td>Recovery, access, representation, five invoice-type codes and public event codes. Official BOE publication checked 13 November 2026; mapping and runtime coverage remain unqualified. Not product endpoint, retention duration or missing business schemas.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Descripci%C3%B3n%20servicios%20web/Cat%C3%A1logo%20de%20servicios/20261013/CatalogoServicios.pdf">Original catalogue</a>, v0.1.0, 9 October 2026</td>
+<td>§§6.4–6.7, PDF pp. 12–15</td>
+<td>Exact ebMS actions, business purposes, role branches, date/identity/LOC limits and source result descriptions. Locator path has a duplicated <code>ws/</code>; WSDL supplies exact address. Business error semantics need reconciliation.</td>
+</tr>
+<tr>
+<td>SPFE-S08</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/archive/original-technical-baseline/Descripci%C3%B3n%20servicios%20web/Formatos%20entrada%20y%20salida/20261013/FormatosEntradaSalida.pdf">Original formats</a>, v0.1.0, 9 October 2026, BORRADOR</td>
+<td>§5.1.1 p. 8; §§5.4–5.7 pp. 14–15</td>
+<td>UBL 2.5 InvoiceType/ApplicationResponse/DocumentStatus selection; query/download formats pending. Not complete payload schemas.</td>
+</tr>
+<tr>
+<td>SPFE-S12</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/DownloadInvoicesByID.wsdl">DownloadInvoicesByID.wsdl</a>, PRE 23 November 2026</td>
+<td><code>documentation</code>, messages, portType/binding operation, SOAP action and service ports</td>
+<td>Exact ID-download transport. Does not establish missing business payload or live acceptance.</td>
+</tr>
+<tr>
+<td>SPFE-S13</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/DownloadInvoicesByLOC.wsdl">DownloadInvoicesByLOC.wsdl</a>, PRE 23 November 2026</td>
+<td>Same named elements for <code>DownloadInvoicesByLOC</code></td>
+<td>Exact locator-download transport; no inferred LOC batch limit or recipient permission.</td>
+</tr>
+<tr>
+<td>SPFE-S14</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/GetInvoices.wsdl">GetInvoices.wsdl</a>, PRE 23 November 2026</td>
+<td>Same named elements for <code>GetInvoices</code></td>
+<td>Exact identity-query transport. Opaque attachments do not complete business schema.</td>
+</tr>
+<tr>
+<td>SPFE-S15</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/GetRegisteredInvoice.wsdl">GetRegisteredInvoice.wsdl</a>, PRE 23 November 2026</td>
+<td>Same named elements for singular <code>GetRegisteredInvoice</code></td>
+<td>Exact filter-query transport, header-only messages and MIME documentation. Filter/continuation guarantees remain open.</td>
+</tr>
+<tr>
+<td>REF-TERMS</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md">Glossary</a>; <ac:link><ri:page ri:content-title="Onboarding and Connectivity API Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC039</ac:link-body></ac:link>, draft, updated 29 October 2026</td>
+<td>Invoice view/source-file/stored-file terms; GAP-01/02/06</td>
+<td>Shared meanings and setup mapping gates. No new dataset/entity or credential relationship inferred.</td>
+</tr>
+<tr>
+<td>REF-EVIDENCE</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/source-manifest.json">Source manifest</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#pre-wsdl-release-reviewed-29-october-2026">release review</a></td>
+<td><code>current_wsdl_baseline</code>; PRE review; SPFE-Q04/05/06/09/12–14/17</td>
+<td>Reviewed local release, hashes and remaining schemas/runtime/business gates. Not monitoring of later publications or production readiness.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

@@ -1,0 +1,1536 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-011<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/SPEC-SEI-011-public-platform-connector-solution-specification.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">public-platform-connector-solution-specification</ac:parameter></ac:structured-macro><h1>Public Platform Connector Solution Specification</h1>
+<p>Terminology follows the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md">shared e-invoicing glossary</a>. Local terms explain this feature; exact technical IDs, fields and source codes keep their stated meanings.</p>
+<p>An <strong>exchange action</strong> is one separately tracked action to deliver an invoice, submit a public copy, or report an invoice event. Each action has its own result. For example, invoice delivery can succeed while public-copy submission still needs attention.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-1-feature-solution-summary</ac:parameter></ac:structured-macro><h2>Part 1 Feature Solution Summary</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">reader-guide</ac:parameter></ac:structured-macro><h3>Reader guide</h3>
+<p>Part 1 explains the scope, people involved, workflow and open decisions. Start here for a stakeholder review. <ac:link ac:anchor="part-2-logical-feature-specification"><ac:link-body>Part 2</ac:link-body></ac:link> gives the detailed behaviour and rules. <ac:link ac:anchor="part-3-logical-service-interactions-and-data-inventory"><ac:link-body>Part 3</ac:link-body></ac:link> describes service interactions and data. <ac:link ac:anchor="part-4-assurance-and-traceability-view"><ac:link-body>Part 4</ac:link-body></ac:link> links requirements to the checks and evidence needed before release.</p>
+<p>The design remains a draft. <strong>Confirmed</strong> means supported by the cited source, within its stated limits. <strong>Proposed</strong> choices still need review. <strong>Open</strong> decisions still need an owner’s recorded answer. <strong>Out of scope</strong> identifies work excluded from this proposal or handled by another feature. Service names describe logical responsibilities; they do not establish deployed services or approved API endpoints. Technical IDs and state names are kept so engineering, testing and stakeholders can refer to the same item.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-purpose-authority-and-boundaries</ac:parameter></ac:structured-macro><h3>1 Purpose, authority and boundaries</h3>
+<p>This <strong>proposed logical design</strong> gives Sage services a controlled way to call Spain’s public platform (SPFE), operated by AEAT. The connector handles the platform’s communication protocol. It is separate from invoice retrieval and recipient lookup.</p>
+<p>For each call, it checks the customer, represented legal entity, permitted action and environment. It selects an approved contract and credentials for that purpose, then performs only an enabled operation. It saves the request and response evidence and returns a result that clearly says whether the outcome is known, pending or unknown. The service that requested the call decides what that result means for its feature.</p>
+<p>The supplied PRD describes the wider integration. The capability mapping below shows how this connector supports it and where related services retain responsibility.</p>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-214-connections-registration-routing-structured-review.md">PRD-SEI-214</a>, FR2–6/19–23/27, separates connections, registration, capability readiness and routes. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-105-public-platform-environment-isolation.md">PRD-SEI-105</a>, FR1–18, owns environment isolation. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md">PRD-SEI-211</a> and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md">PRD-SEI-212</a> supply retrieval and submission safety requirements. These are canonical product requirements, not evidence of a deployed public adapter.</p>
+<table>
+<thead>
+<tr>
+<th>Evidence</th>
+<th>Supported fact</th>
+<th>Limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://confluence.sage.com/spaces/DNBU/pages/902988120/Spain+Public+Platform+API+Integration+AEAT+Public+Electronic+Invoicing+Solution">User-supplied Public Platform API Integration PRD</a></td>
+<td>Defines the requested integration capabilities: connectivity, faithful-copy submission, invoice identification, status/payment communication, retrieval, authentication, monitoring and audit.</td>
+<td>Refers to a draft ministerial order. Its exact timing, attachment restrictions, event labels, certificate requirements and SLA need current evidence and the relevant owners' approval. It is product context, rather than proof of an available AEAT API or approved technical design.</td>
+</tr>
+<tr>
+<td><a href="https://www.boe.es/eli/es/o/2026/10/02/hac1028">Order HAC/1028/2026, Articles 9–11</a>, checked 6 October 2026</td>
+<td>Public recovery/consultation access and authentication/representation requirements exist. Third-party recovery and Article 10 consultation require registered representation.</td>
+<td>Exact operations, credential profiles, limits and technical access are governed by AEAT specifications. Do not extend one action's authority automatically to another.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/research/spain-public-platform-order-evidence.md">Existing evidence note</a></td>
+<td>Records the supplied order snapshot and limits of the retrieval evidence.</td>
+<td>Does not supply a production transport contract or prove a central recipient directory.</td>
+</tr>
+<tr>
+<td>SPEC-SEI-001/002</td>
+<td>Trust, onboarding and uncertain onboarding-operation designs.</td>
+<td>Draft logical contracts; qualification and external evidence remain necessary.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">public-source-baseline</ac:parameter></ac:structured-macro><h3>Public source baseline</h3>
+<p>The current reviewed local baseline is the supplied PRE folder of 23 November 2026, selected in the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/source-manifest.json">source manifest</a>. Its nine WSDLs, four transport XSDs and JAXB XML match the 29 October bytes. The README corrects the validator filename. The folder adds 112 UBL XSDs with locally resolved dependencies. Accepted-profile and client qualification, replay safety, documentation alignment and actual access remain open. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#pre-wsdl-and-supporting-evidence-reviewed-23-november-2026">RES-SEI-002, 23 November review</a>.</p>
+<p><strong>Newer remote evidence — review pending:</strong> on 13 November 2026, the live AEAT catalogue displayed version 0.1.5, dated 3 November, and the formats document displayed version 0.1.2, dated 20 October. These PDFs are not registered local replacements for SPFE-S03/S08. The Public Platform Integration owner must preserve the new snapshots, compare changes and update the source register, manifest and affected specifications before adopting them. The mapping below does not establish that this specification is current against those revisions. REF-SPFE-REMOTE.</p>
+<p>See <ac:link ac:anchor="ref-source-references"><ac:link-body>REF Source references</ac:link-body></ac:link> for the original files, exact locations and source limits. The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md">technical evidence guide</a> tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">shared-foundation-and-public-protocol-boundary</ac:parameter></ac:structured-macro><h3>Shared foundation and public protocol boundary</h3>
+<p>The <ac:link><ri:page ri:content-title="Shared Platform Connectivity and Routing Solution Specification" ri:space-key="DNBU" /><ac:link-body>shared connectivity and routing spec</ac:link-body></ac:link> owns the shared connection/profile qualification and route context across customer-provider integration and Sage platform interconnection. This connector remains the public-platform protocol and operation-evidence owner. It consumes a qualified connection/profile and owning feature action; it cannot activate a route, create invoice/reporting obligations or replace the shared route engine. Reuse public execution controls where proven, while checking exact role, represented-party authority, credential purpose and operation contract independently. Shared foundation reuse does not imply that public and private platforms expose the same interface.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">how-the-connector-supports-the-supplied-prd</ac:parameter></ac:structured-macro><h3>How the connector supports the supplied PRD</h3>
+<p>The PRD describes the full public-platform integration in the <strong>Sage Global e-Invoicing Platform</strong>. This spec describes the connector within that integration. The platform contains the shared invoicing capabilities; the Global API is the contract through which products and partners access them. The connector supports the business capabilities below without taking over invoice issuance, transformation or lifecycle decisions from their responsible services.</p>
+<table>
+<thead>
+<tr>
+<th>PRD capability</th>
+<th>Connector responsibility</th>
+<th>Related feature and evidence needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Submit faithful invoice copies</td>
+<td>Transmit the exact prepared file through a supported public operation. Save acknowledgement, rejection and error evidence separately from recipient delivery.</td>
+<td>SPEC-SEI-007 owns the copy obligation and issuance trigger. SPEC-SEI-005/008 own qualified validation/transformation; SPEC-SEI-001 owns protected signing where required. Exact timing, UBL profile, metadata and attachment restrictions remain contract/country-rule checks.</td>
+</tr>
+<tr>
+<td>Generate and store the Spain invoice identifier</td>
+<td>Carry the approved identifier and preserve the supplied invoice identity in requests and responses. Do not invent its encoding.</td>
+<td>The PRD lists supplier NIF, number, series and date. Format/Spain owners must confirm the final encoding and contract; invoice and records services own generation and storage.</td>
+</tr>
+<tr>
+<td>Communicate invoice and payment status</td>
+<td>Send an authorised report and save its independent response. Preserve raw external codes rather than assigning business meaning in the connector.</td>
+<td>SPEC-SEI-009 owns actor authority, lifecycle interpretation and reporting rules. The PRD's Rejected, Fully Paid, Collected, Not Paid/Non-Payment and cancellation labels need an approved external mapping. Accepted applies only if the AEAT contract exposes it.</td>
+</tr>
+<tr>
+<td>Retrieve invoices, messages and statuses</td>
+<td>Execute supported discovery/read calls, including authorised status/payment queries, and return raw source responses within the correct entity scope. Distinguish an empty result from an outage.</td>
+<td>SPEC-SEI-016 owns automated retrieval, source-file capture, covered progress and delivery to products; SPEC-SEI-009 owns status interpretation. Article 10 establishes status/payment consultation; GetRegisteredInvoice, GetInvoices and the two downloads now have supplied operation evidence. Exact filter/continuation/business shapes remain incomplete; no automatic public notification interface is supplied. Keep source correlation and observation time, distinguish status consultation from file download, and prevent duplicate business processing.</td>
+</tr>
+<tr>
+<td>Authenticate and use credentials</td>
+<td>Apply the selected AEAT authentication contract using protected credential references for the approved action and environment.</td>
+<td>SPEC-SEI-001 owns credential custody and qualification. Customer certificate procurement remains out of scope. One accepted certificate does not establish authority for every operation.</td>
+</tr>
+<tr>
+<td>Handle cancellation requests</td>
+<td>Execute cancellation only where the confirmed contract supports the specific action and the responsible feature authorises it. Save request and result evidence.</td>
+<td>PCN-Q01/Q03 must distinguish invoice cancellation, communication cancellation and cancellation of unsent local work. None automatically deletes an issued invoice or undoes an external effect.</td>
+</tr>
+<tr>
+<td>Monitor, audit and recover failures</td>
+<td>Record timestamps, acknowledgements, rejections, errors and retrieval activity. Detect uncertain outcomes and assign recovery to an owner.</td>
+<td>Operations and feature owners agree service targets, retry safety, retention and support. Schema, authentication, duplicate/already-existing invoice, status and availability errors retain their actual source meaning.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Responsibility</th>
+<th>Owner and handoff</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer identity, authority and readiness</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-002-onboarding-solution-specification.md">Onboarding</a> and identity/authority services; connector checks effective evidence before each operation.</td>
+</tr>
+<tr>
+<td>Certificate custody and purpose-specific use</td>
+<td><ac:link><ri:page ri:content-title="Certificate Management Solution Specification" ri:space-key="DNBU" /><ac:link-body>Certificate management</ac:link-body></ac:link>; connector receives protected references and results, not private keys.</td>
+</tr>
+<tr>
+<td>Public discovery, polling, source archive and checkpoint</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-016-invoice-receiving-retrieval-and-download-solution-specification.md">Receiving, retrieval and download</a>; connector returns correlated source responses and files.</td>
+</tr>
+<tr>
+<td>Issued invoice, validation, exchange plan and independent actions</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-007-invoice-sending-solution.md">Outbound</a> and PRD-SEI-212; connector executes one approved public operation.</td>
+</tr>
+<tr>
+<td>Status consultation and commercial/payment interpretation</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">Lifecycle</a>; lifecycle requests source refresh and interprets the result; connector executes qualified public queries and preserves source observations without deriving buyer acceptance.</td>
+</tr>
+<tr>
+<td>Recipient receiving destination</td>
+<td><ac:link><ri:page ri:content-title="Consult public platform for recipient information" ri:space-key="DNBU" /><ac:link-body>Recipient lookup</ac:link-body></ac:link>; uses this connector only if an approved public lookup contract exists.</td>
+</tr>
+</tbody>
+</table>
+<p>The connector does not issue invoices, change customer routes, interpret absence of a private destination, create public-copy duties, own statutory archive retention, or provide a generic proxy to arbitrary URLs. Onboarding/registration mutations, if required by the final contract, remain owned by their feature service and must use this same operation-safety boundary.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">plain-language-terms</ac:parameter></ac:structured-macro><h3>Plain-language terms</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Legal entity / legal subject</td>
+<td>The business to which the invoice or action belongs. Technical fields use <code>legalSubject</code> for this business.</td>
+</tr>
+<tr>
+<td>Authority</td>
+<td>Permission to perform a specific action for that business. Logging in or holding a certificate does not by itself give this permission.</td>
+</tr>
+<tr>
+<td>Capability</td>
+<td>A supported function, such as receiving invoices or signing them.</td>
+</tr>
+<tr>
+<td>Route</td>
+<td>The time-bound selection of platform and connection for a defined invoice scope and direction. A ready connection does not activate a route or rewrite earlier invoice plans.</td>
+</tr>
+<tr>
+<td>Idempotency</td>
+<td>Repeating the same logical request adds no effect within the contract’s defined scope and retention window. The contract binds request identity and input and defines conflict handling.</td>
+</tr>
+<tr>
+<td>Reconciliation</td>
+<td>Check the original operation against a reliable source to establish what actually happened before deciding the next action.</td>
+</tr>
+<tr>
+<td>Gate</td>
+<td>A condition, decision or evidence check that must pass before the next step can proceed.</td>
+</tr>
+<tr>
+<td>Tenant</td>
+<td>The customer account boundary used to keep one customer’s data and access separate from another’s.</td>
+</tr>
+<tr>
+<td>Immutable / append-only</td>
+<td>Immutable means a saved record cannot be changed. Append-only means later information is added as another record. Neither means indefinite retention.</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td>The record of where data came from and which versions, checks and changes produced the result.</td>
+</tr>
+<tr>
+<td>Contract</td>
+<td>The agreed inputs, outputs, behaviour and responsibilities between services or parties.</td>
+</tr>
+<tr>
+<td>Durable</td>
+<td>Saved through the agreed recovery boundary so the record survives a process restart or worker failure. Long-term retention is a separate policy.</td>
+</tr>
+<tr>
+<td>Readiness</td>
+<td>The current result of capability checks for a stated legal entity, actor, environment and route/profile, with evidence, limitations and a recheck condition. Readiness is separate from authority, route activation and invoice outcomes.</td>
+</tr>
+<tr>
+<td>Public platform / SPFE / AEAT</td>
+<td>SPFE is the Spain public e-invoicing platform. AEAT is the authority operating it. Each platform operation needs its own approved contract.</td>
+</tr>
+<tr>
+<td>Connection / contract profile</td>
+<td>Configuration for communication; the selected operation, protocol and schema, environment and safety rules. A connection does not activate a route.</td>
+</tr>
+<tr>
+<td>Durable intent / execution claim</td>
+<td>A saved request identity and fixed input before a possible external effect; permission for one worker to execute that work. An expired claim does not prove the earlier worker did nothing.</td>
+</tr>
+<tr>
+<td>External effect / outcome unknown</td>
+<td>A change in the public platform; a result for which that change may have happened but reliable evidence is missing. Check the original operation before repeating it.</td>
+</tr>
+<tr>
+<td>Lease generation / version check</td>
+<td>A number identifying the current worker’s claim; a check that a record still has the version expected by the caller. These prevent old workers or stale updates from replacing newer work.</td>
+</tr>
+<tr>
+<td>Outbox / circuit breaker</td>
+<td>A saved event waiting to be delivered; a control that temporarily stops calls after defined failures. Neither changes the invoice route.</td>
+</tr>
+<tr>
+<td>Scope / evidence / cohort</td>
+<td>The customer, legal entity, environment and action covered by a call; saved facts and references showing what happened; the group of consumers selected for activation.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-outcomes-and-handoffs</ac:parameter></ac:structured-macro><h3>2 Outcomes and handoffs</h3>
+<table>
+<thead>
+<tr>
+<th>Outcome</th>
+<th>Meaning</th>
+<th>Does not prove</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Capability qualified</td>
+<td>Exact operation, environment, contract and evidence are enabled for a defined cohort.</td>
+<td>Every public function is supported or a customer route is active.</td>
+</tr>
+<tr>
+<td>Known result</td>
+<td>Correlated response/evidence durably recorded at its actual meaning.</td>
+<td>Buyer acceptance, ERP consumption or completion of unrelated invoice exchange actions.</td>
+</tr>
+<tr>
+<td>Pending</td>
+<td>Work is saved and waiting for capacity, a response, local evidence recovery or owner action.</td>
+<td>External success or invoice absence.</td>
+</tr>
+<tr>
+<td>Outcome unknown</td>
+<td>External effect may have happened; original operation must be reconciled.</td>
+<td>Permission to create a fresh operation or switch environment.</td>
+</tr>
+<tr>
+<td>Denied/unsupported</td>
+<td>Scope, authority, capability or contract is insufficient; no new external effect is initiated.</td>
+<td>Permanent business ineligibility.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">spain-use-and-reuse-boundaries</ac:parameter></ac:structured-macro><h3>Spain use and reuse boundaries</h3>
+<p>This is a <strong>Spain reference design</strong>. <strong>Reusable unchanged</strong> means the proposed design pattern can stay the same. <strong>Reusable with country binding</strong> means shared behaviour needs approved country rules or adapters. <strong>Country-specific</strong> rules stay in the Spain country pack. <strong>Unknown</strong> means that the existing implementation’s suitability or coverage still needs evidence. These labels do not prove production readiness. Another country needs its own assessment. See the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md#reuse-vocabulary">shared e-invoicing glossary</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Intended Spain use</th>
+<th>Reuse classification</th>
+<th>Condition and owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operation ledger, correlation and recovery</td>
+<td>Preserve intent, evidence and safe retries for public operations.</td>
+<td>Reusable unchanged; proposed design pattern</td>
+<td>Connector/Architecture: qualify actual implementation and crash recovery.</td>
+</tr>
+<tr>
+<td>Environment, credentials, capacity and diagnostics</td>
+<td>Isolate operations and protect material.</td>
+<td>Reusable with country binding</td>
+<td>Security/Operations: bind endpoint, trust, quotas, error catalogue and retention policy.</td>
+</tr>
+<tr>
+<td>AEAT protocol and representation</td>
+<td>Call the selected SPFE service for the authorised business/action.</td>
+<td>Country-specific; adapter and rules</td>
+<td>Spain technical/Compliance owners: final contract, registered authority and conformance evidence.</td>
+</tr>
+<tr>
+<td>Existing public adapter</td>
+<td>Reuse any proven Sage connector functions.</td>
+<td>Unknown; existing implementation coverage</td>
+<td>Record build, contracts, gaps and build/run owner before activation.</td>
+</tr>
+<tr>
+<td>DTS</td>
+<td>No invoice transformation within connector.</td>
+<td>Out of scope; preferred candidate upstream where transformation is required</td>
+<td>Outbound/Receiving and DTS owners qualify exact mapping under <ac:link><ri:page ri:content-title="Spain UBL Mapper Migration to DTS Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-008</ac:link-body></ac:link> or the owning feature. DTS is not the public transport or archive.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-process-and-ordered-lifecycle</ac:parameter></ac:structured-macro><h3>3 Process and ordered lifecycle</h3>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="a235466c-a334-5378-b253-d8f8beaef8c5"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">public-platform-connector-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">3200</ac:parameter><ac:parameter ac:name="height">557</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/public-platform-connector-process.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/public-platform-connector-process.png">PNG preview</a>.</p>
+<p>Step names describe the action in plain language. The smaller PCN references link each step to the detailed behaviour and acceptance checks below.</p>
+<p>Text equivalent: Receive the service request (PCN-01) → Check customer and environment (PCN-02) → Check permission and credentials (PCN-03) → Check platform support (PCN-04) → Save the request before sending (PCN-05) → Call the public platform (PCN-06) → Save the response and evidence (PCN-07) → Return the result to the service (PCN-08). If permission is denied or the action is unsupported, hold the request without sending a call. If the external outcome is unknown or evidence is missing, check what happened before retrying (PCN-09), using the original request identity and context. Update settings for future requests (PCN-10) while preserving pending work and history.</p>
+<table>
+<thead>
+<tr>
+<th>Activity / trigger and actor</th>
+<th>Required result</th>
+<th>Failure owner and safe handoff</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCN-01 Receive the service request / owning feature service</td>
+<td>Save a stable feature operation, input reference/digest and correlation.</td>
+<td>Connector/feature: the same key with changed input returns a conflict.</td>
+</tr>
+<tr>
+<td>PCN-02 Check customer and environment / connector</td>
+<td>Resolve tenant, represented entity, country and environment from trusted records.</td>
+<td>Identity/Security: deny ambiguous context before any access.</td>
+</tr>
+<tr>
+<td>PCN-03 Check permission and credentials / connector and specialist services</td>
+<td>Check current authority for the action and credentials for its purpose and environment.</td>
+<td>Authority/Trust: missing or revoked permission holds new calls.</td>
+</tr>
+<tr>
+<td>PCN-04 Check platform support / connector</td>
+<td>Select the enabled operation, exact contract/version, retry-safety class and readiness evidence.</td>
+<td>Integration owner: keep unsupported combinations disabled.</td>
+</tr>
+<tr>
+<td>PCN-05 Save the request before sending / connector</td>
+<td>Save the request and claim execution once, with fixed input and target context.</td>
+<td>Connector/Records: a failed save prevents a new external change.</td>
+</tr>
+<tr>
+<td>PCN-06 Call the public platform / adapter</td>
+<td>Call within approved limits using the correct credential, contract and quota.</td>
+<td>Adapter/Operations: record whether transmission may have happened. Check uncertain outcomes before repeat.</td>
+</tr>
+<tr>
+<td>PCN-07 Save the response and evidence / connector</td>
+<td>Save protected raw evidence, a safe normalised result and links to each item.</td>
+<td>Records/connector: recover the original response without making a fresh external change.</td>
+</tr>
+<tr>
+<td>PCN-08 Return the result to the service / connector</td>
+<td>Return a result within scope and send a recoverable notification to the requesting feature.</td>
+<td>Feature/connector: recognise repeated notifications and do not apply them twice.</td>
+</tr>
+<tr>
+<td>PCN-09 Check what happened before retrying / operations or approved policy</td>
+<td>Establish the original outcome, or keep an unresolved case with a responsible owner.</td>
+<td>Operations/adapter: use manual recovery when safe query or retry is unproven.</td>
+</tr>
+<tr>
+<td>PCN-10 Update settings for future requests / authorised integration owner</td>
+<td>Record profile/group changes for future work, their impact and audit evidence.</td>
+<td>Integration/Security: keep current work/history and other environments separate.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-material-decisions</ac:parameter></ac:structured-macro><h3>4 Material decisions</h3>
+<p>Open decisions PCN-Q01–Q08 in Part 4 gate exact APIs, custody/authority, operation safety, evidence durability, service targets, deployment and rollout. A successful connection check is not blanket readiness. No live platform configuration is changed by this document.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-2-logical-feature-specification</ac:parameter></ac:structured-macro><h2>Part 2 Logical Feature Specification</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-model-and-invariants</ac:parameter></ac:structured-macro><h3>1 Model and invariants</h3>
+<p>Logical operation identity includes tenant, legal entity, country, environment, capability, owning feature operation and idempotency identity. Every attempt freezes contract profile, endpoint reference, credential binding, authority decision, payload digest and expected record version. Idempotency retention and scope must be agreed with each consumer/provider.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Rule that must always hold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCN-I01</td>
+<td>Trusted environment and credential binding must agree; production cannot fail over to simulation or TEST.</td>
+</tr>
+<tr>
+<td>PCN-I02</td>
+<td>Authentication, business authority, capability readiness, registration and route activation are separate facts.</td>
+</tr>
+<tr>
+<td>PCN-I03</td>
+<td>Only a qualified operation/profile may execute; one successful call does not qualify all capabilities.</td>
+</tr>
+<tr>
+<td>PCN-I04</td>
+<td>Same scoped key and digest returns/resumes the original operation; changed input conflicts.</td>
+</tr>
+<tr>
+<td>PCN-I05</td>
+<td>Save immutable intent before any possible external effect; uncertainty uses original identity and context.</td>
+</tr>
+<tr>
+<td>PCN-I06</td>
+<td>Successful transport or a successful request does not supply missing business results for individual items.</td>
+</tr>
+<tr>
+<td>PCN-I07</td>
+<td>Evidence and notification follow a recoverable commit; local save failure cannot justify fresh submission.</td>
+</tr>
+<tr>
+<td>PCN-I08</td>
+<td>Contract/credential changes keep historical context and apply only to eligible future work.</td>
+</tr>
+<tr>
+<td>PCN-I09</td>
+<td>Retry is controlled at one external execution owner; feature and connector retries cannot multiply public effects.</td>
+</tr>
+<tr>
+<td>PCN-I10</td>
+<td>Credentials, raw invoices and bearer access values never appear in client events or diagnostic logs.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-behaviour-by-activity</ac:parameter></ac:structured-macro><h3>2 Behaviour by activity</h3>
+<p><strong>PCN-01 Accept the feature request.</strong> The calling Sage service asks the connector to perform a named platform action. Authenticate that service and check its permitted capability. Accept the feature operation reference, legal entity and action, fixed payload or query reference, digest and idempotency key. The caller cannot choose an arbitrary URL or protocol command.</p>
+<p>Save a stable connector operation. A repeat with the same identity and input returns its current saved state. Changed input or context returns a conflict. A feature may cancel work before execution. Once an external change may have happened, cancellation cannot erase the history or claim that the change was undone.</p>
+<p><strong>PCN-02 Resolve the customer and environment.</strong> Check that the caller’s scope matches the connection’s legal entity, country and trusted deployment/account environment. Select the environment profile and approved destination from protected configuration. Reject missing, cross-tenant or conflicting context before accessing credentials.</p>
+<p>Simulation uses clearly labelled synthetic test data. Official TEST access requires its confirmed contract. Neither simulation nor a TEST response proves production readiness or acceptance by the live public platform.</p>
+<p><strong>PCN-03 Check authority and credentials.</strong> Check local permission and external authority to act for the represented legal entity. Article 9/10 access uses its own registered-authority checks. Other actions use the authority rules approved for that action; one permission does not automatically cover another.</p>
+<p>Obtain protected credential references through SPEC-SEI-001. Check purpose, environment, expiry/status and represented party under the current policy. If authority or credential versions change while the request waits, check again before execution. Hold new calls when required authority evidence is unavailable. A certificate alone cannot supply that authority, and the connector does not require private-key export.</p>
+<p><strong>PCN-04 Select the supported operation.</strong> Select an enabled registry entry for the requested action, country, environment and consumer group. It must identify the protocol and schema version, approved destination, request/response limits and response meaning. It must also identify possible external changes, provider idempotency/query support, timeout/retry rules and the evidence owner. Missing information blocks activation; do not borrow assumptions from another AEAT service. SII, VERI*FACTU and FACe contracts do not prove SPFE support.</p>
+<p>Use approved readiness checks that do not change external state, or conformance evidence for the selected contract. Never send a real or empty invoice to test a connection. DNS/TLS/network checks show only that communication is possible. Show configuration, authentication/authority, operation support and current service health separately. Registration remains UNKNOWN/NOT_APPLICABLE unless the confirmed operating model provides a registration fact. A successful ping does not establish enrolment, and this design does not invent an enrolment endpoint.</p>
+<p><strong>PCN-05 Save the request and assign one worker.</strong> Save the operation, fixed input reference, exact scope/profile, feature correlation and retry-safety class. One execution owner claims the work through a numbered lease or equivalent concurrency control. A stale worker cannot save a result or initiate another attempt. Before sending, save the attempt identity and the point at which transmission may begin. Save queue work and operation records through a recoverable outbox or equivalent protocol. Missing payload, object or hash prevents execution.</p>
+<p>An expired lease does not prove that the previous worker stopped transmitting. If a worker loses its lease or another worker takes over after a possible external effect, hold the original operation for reconciliation or a provider-proven idempotent resume. Do not start another change just because the local lease expired. Test claim checks immediately before transmission, rejection of stale saves and external retry safety together.</p>
+<p>Combine only identical operations under the approved consumer contract. Limit queued work and share capacity fairly across tenants and capabilities. Submission backlog must not prevent retrieval or reconciliation. Exact quotas and priorities remain PCN-Q05 decisions.</p>
+<p><strong>PCN-06 Call the public platform.</strong> Build the request from the qualified contract and the checked feature request. Enforce resource limits, verify the remote transport identity, handle XML safely and use only approved destinations. Redirects or returned URLs cannot bypass destination or credential rules. The connector must not change signed invoice bytes or repair invoice facts.</p>
+<p>Record whether failure happened before transmission, after possible transmission or after a response matched to the request. A call proven to have no external effect may repeat under its approved read/retry contract; “consult” in its name is not proof. A lost response after a possible change becomes OUTCOME_UNKNOWN. Throttling or an outage must not appear as an empty result or successful freshness check. A circuit breaker pauses affected calls; it does not switch route, environment or invoice exchange action. Exact waits and limits remain open.</p>
+<p><strong>PCN-07 Save response evidence.</strong> Save the protected response bytes or reference, digest, received time, external request/item references, contract/error catalogue version and what the response proves. Match each item result to the request. Keep partial or missing results visible; request-level success does not mean every item was admitted. Preserve unknown external error codes in restricted evidence and notify the catalogue owner. The caller receives a safe category and responsible owner.</p>
+<p>Before temporary streamed files expire, obtain confirmation that the responsible service saved and verified them. SPEC-SEI-016 owns permanent invoice capture; connector staging is temporary. If the external result is known but saving its evidence fails, hold the operation for evidence recovery. Recover the original response or query the original operation instead of repeating a change. The implementation must prove that this recovery survives worker loss.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">spfe-response-and-error-matrix</ac:parameter></ac:structured-macro><h4>SPFE response and error matrix</h4>
+<p>This is the shared SPFE response reference for PCN-07. It must capture every distinct response/error code found in the reviewed source set and supplied observations. Source meanings apply only to the stated operation and evidence version. Handling and owner columns are proposed Sage controls. The <ac:link ac:anchor="business-and-technical-error-mapping"><ac:link-body>business and technical mapping</ac:link-body></ac:link> covers all 600 active entries in SPFE-S28/S29 and preserves their parameters and duplicate definitions. Operation, response-field and runtime template bindings remain unqualified; source conflicts stay open. This matrix is not a complete wire-code catalogue or proof of support by another operation. REF-SPFE-EX09/REF-SPFE-OBS01; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#spfe-example-review-and-specification-impact">SPFE-Q20 — source coverage and catalogue qualification</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Response level</th>
+<th>Field or evidence</th>
+<th>Meaning and handling boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP result</td>
+<td>Actual HTTP response status</td>
+<td>Record independently. An XML code with the same number does not establish the HTTP status.</td>
+</tr>
+<tr>
+<td>SOAP fault</td>
+<td>SOAP 1.2 <code>env:Code/env:Value</code> and <code>env:Reason/env:Text</code></td>
+<td>Apply PCN-SPFE-R03. The validator example contains a business response, not a SOAP Fault. SPFE-S23; REF-SPFE-EX09.</td>
+</tr>
+<tr>
+<td>Overall business response</td>
+<td><code>DocumentStatus/DocumentResponse/Response/ResponseCode</code></td>
+<td>The validator example has <code>400</code> and a description of complete failure. The submission formats define <code>200</code> / <code>406</code> / <code>400</code> for all correct / partial success / complete rejection; do not transfer that full set to every operation without evidence. SPFE-S08 p. 14; REF-SPFE-EX09.</td>
+</tr>
+<tr>
+<td>Individual result or error</td>
+<td><code>DocumentResponse/DocumentReference/DocumentStatusCode</code>, with <code>DocumentDescription</code></td>
+<td>Interpret by operation. The validation example repeats the same invoice reference for four errors; do not treat each occurrence as a different invoice. The field name does not make an error a lifecycle status. REF-SPFE-EX09.</td>
+</tr>
+<tr>
+<td>Lifecycle communication</td>
+<td>Event-specific <code>ResponseCode</code> in <code>ApplicationResponse</code>, such as recipient <code>PAYMENT</code> or issuer <code>SETTLEMENT</code></td>
+<td>Apply <ac:link ac:anchor="52-public-event-contract"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC029 — public event contract</ac:link-body></ac:link>. A validation error or failed report does not itself create a buyer rejection or alter a payment/collection fact. SPFE-S02 Annex II.</td>
+</tr>
+</tbody>
+</table>
+<p>For each code, record the operation, response level, exact XML field/namespace, original code and description, source/version, invoice or request correlation, field locations when supplied, proposed handling, owner and acceptance reference. Record unknown values explicitly. Add a separate binding when the same code occurs in another operation or source version; retain earlier meanings and flag conflicts. Do not invent unobserved codes from a numeric sequence or prefix. A new code is captured before its customer wording, retry policy or implementation support is qualified.</p>
+<p>The first four rows below are from <code>ValidationInvoice</code>, REF-SPFE-EX09, inspected 10 November 2026; its release version is unknown. REF-SPFE-OBS01 is a later user-supplied excerpt with an unconfirmed operation and source file. Each error is reported in <code>DocumentReference/DocumentStatusCode</code>. In EX09, the namespace is <code>urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2</code>; the excerpt does not establish its namespace. Field paths occur in <code>DocumentDescription</code>, not a separate structured location field. Preserve original descriptions in protected evidence and provide safe customer text separately.</p>
+<table>
+<thead>
+<tr>
+<th>External code</th>
+<th>Operation / evidence</th>
+<th>Meaning and location shown</th>
+<th>Proposed handling / next owner</th>
+<th>Acceptance reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SPFE-CORE-18</code></td>
+<td><code>ValidationInvoice</code>; REF-SPFE-EX09</td>
+<td>Payment-account identifier BT-84 must be a valid IBAN; <code>/Invoice/cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:ID</code>.</td>
+<td>Business user checks payment-account facts. Integration owner checks mapping if those facts are correct. Use UV-06 for an authorised correction.</td>
+<td>UV-SPFE-A04; PCN-SPFE-A05</td>
+</tr>
+<tr>
+<td><code>SPFE-IDEN-02</code></td>
+<td><code>ValidationInvoice</code>; REF-SPFE-EX09</td>
+<td>Seller NIF has an incorrect format; <code>/Invoice/cac:AccountingSupplierParty/cac:Party/cac:PartyTaxScheme/cbc:CompanyID</code>.</td>
+<td>Business user checks seller identity data; integration owner checks its mapping.</td>
+<td>UV-SPFE-A04; PCN-SPFE-A05</td>
+</tr>
+<tr>
+<td><code>SPFE-IDEN-05</code></td>
+<td><code>ValidationInvoice</code>; REF-SPFE-EX09</td>
+<td>Buyer NIF has an incorrect format; <code>/Invoice/cac:AccountingCustomerParty/cac:Party/cac:PartyTaxScheme/cbc:CompanyID</code>.</td>
+<td>Business user checks buyer identity data; integration owner checks its mapping.</td>
+<td>UV-SPFE-A04; PCN-SPFE-A05</td>
+</tr>
+<tr>
+<td><code>SPFE-REPR-01</code></td>
+<td><code>ValidationInvoice</code>; REF-SPFE-EX09</td>
+<td>Certificate holder must be <code>ObligadoEmision</code>, <code>Colaborador Social</code>, <code>Apoderado</code> or <code>Sucesor</code>. The description points to the seller CompanyID path.</td>
+<td>Administrator/Support checks the authenticated caller, certificate, represented party and operation-specific authority with Security/Compliance. Do not infer a seller-data error from the path alone.</td>
+<td>UV-SPFE-A04; PCN-SPFE-A05</td>
+</tr>
+<tr>
+<td><code>SPFE-CORE-34</code></td>
+<td>Operation/file/version unconfirmed; REF-SPFE-OBS01</td>
+<td>Seller contact name must equal seller name. Both paths are supplied: <code>/Invoice/cac:AccountingSupplierParty/cac:Party/cac:PartyLegalEntity/cbc:RegistrationName</code> and <code>/Invoice/cac:AccountingSupplierParty/cac:Party/cac:Contact/cbc:Name</code>.</td>
+<td>Business user and Integration compare the source names and mapping. Do not silently replace a correct seller legal name or patch issued XML. Confirm the operation and rule applicability before activating a local check.</td>
+<td>UV-SPFE-A05; PCN-SPFE-A06</td>
+</tr>
+</tbody>
+</table>
+<p>Known result codes use separate bindings:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Operation / response level</th>
+<th>Meaning established by source</th>
+<th>Evidence / qualification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>200</code></td>
+<td><code>SendInvoice</code>; overall XML response</td>
+<td>All invoices correct.</td>
+<td>SPFE-S08 p. 14; SPFE-S06 illustrates overall success. Not buyer acceptance or payment.</td>
+</tr>
+<tr>
+<td><code>200</code></td>
+<td><code>SendInvoice</code>; invoice <code>DocumentStatusCode</code></td>
+<td>Successful item result in the example.</td>
+<td>SPFE-S06; retain separately from the overall result.</td>
+</tr>
+<tr>
+<td><code>406</code></td>
+<td><code>SendInvoice</code>; overall XML response</td>
+<td>Partial success.</td>
+<td>SPFE-S08 p. 14; reconcile each item independently.</td>
+</tr>
+<tr>
+<td><code>400</code></td>
+<td><code>SendInvoice</code>; overall XML response</td>
+<td>Complete rejection.</td>
+<td>SPFE-S08 p. 14; not automatically HTTP 400.</td>
+</tr>
+<tr>
+<td><code>400</code></td>
+<td><code>ValidationInvoice</code>; overall XML response</td>
+<td>Complete failure in the supplied example.</td>
+<td>REF-SPFE-EX09; repeated invoice errors are separate details.</td>
+</tr>
+<tr>
+<td><code>200</code></td>
+<td><code>GetInvoices</code>; query <code>DocumentResponse/Response/Status/StatusReasonCode</code></td>
+<td>Search completed successfully in the example.</td>
+<td>REF-SPFE-EX03; record independently from invoice state.</td>
+</tr>
+<tr>
+<td><code>200</code></td>
+<td><code>GetRegisteredInvoice</code>; the same query result path</td>
+<td>Search completed successfully in the example.</td>
+<td>REF-SPFE-EX04; this does not prove complete pagination.</td>
+</tr>
+<tr>
+<td><code>ACCEPTED</code></td>
+<td><code>GetInvoices</code> / <code>GetRegisteredInvoice</code>; <code>AdditionalDocumentResponse/Response/ResponseCode</code></td>
+<td>Raw invoice state returned by the examples.</td>
+<td>REF-SPFE-EX03/04; qualify its exact meaning. Do not infer explicit buyer acceptance, payment or a locally authorised lifecycle transition.</td>
+</tr>
+<tr>
+<td><code>200</code></td>
+<td><code>DownloadInvoicesByID</code>; ebMS <code>MessageProperties/Property[@name='statusCode']</code></td>
+<td>Header description says all invoices correct.</td>
+<td>REF-SPFE-EX05; still verify returned invoice identity and bytes.</td>
+</tr>
+<tr>
+<td><code>200</code></td>
+<td><code>DownloadInvoicesByLOC</code>; the same ebMS property</td>
+<td>Header description says all invoices correct.</td>
+<td>REF-SPFE-EX06; message correlation must pass independently.</td>
+</tr>
+<tr>
+<td><code>200</code></td>
+<td><code>CustomerInvoiceEvents</code>; overall <code>Response/ResponseCode</code> and item <code>DocumentStatusCode</code></td>
+<td>Overall and item success values in the example.</td>
+<td>REF-SPFE-EX07; item text incorrectly names SETTLEMENT. Preserve the conflict; do not change a PAYMENT request's meaning.</td>
+</tr>
+<tr>
+<td><code>200</code></td>
+<td><code>SupplierInvoiceEvents</code>; the same overall/item fields</td>
+<td>Overall and item success values in the example.</td>
+<td>REF-SPFE-EX08; keep reporting outcome separate from collection facts.</td>
+</tr>
+<tr>
+<td>Not supplied</td>
+<td>Unconfirmed operation; overall response description</td>
+<td><code>Todas las facturas han fallado</code>.</td>
+<td>REF-SPFE-OBS01 supplies text but no numeric overall code. Do not infer <code>400</code> from the description.</td>
+</tr>
+<tr>
+<td><code>400</code></td>
+<td>Locator download; HTTP</td>
+<td>Catalogue describes an unavailable-locator case.</td>
+<td>SPFE-S03 §6.6; distinguish from XML business codes.</td>
+</tr>
+<tr>
+<td><code>400</code>, <code>500</code></td>
+<td>Current WSDL operations; HTTP with standard SOAP 1.2 Fault</td>
+<td>Transport-level fault response specified by the contracts.</td>
+<td>SPFE-S10–S17/S23; apply PCN-SPFE-R03.</td>
+</tr>
+</tbody>
+</table>
+<p>The eight lifecycle communication codes remain authoritative in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#raw-event-codes-and-outcome-meanings">RES-SEI-002 — raw event codes</a> and SPEC029's event contract. Query/download action values identify requests; they are not response statuses. Resource coverage and remaining operation-binding findings are recorded under SPFE-Q20.</p>
+<p><ac:link ac:anchor="2-detailed-behaviour"><ri:page ri:content-title="UBL Validation and Correction Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC005 UV-05 — validation correction handling</ac:link-body></ac:link> owns validation consequences. Sending, retrieval and lifecycle use this matrix only for qualified operation bindings. Unknown codes retain their exact value and source under PCN-07; retry selection remains PCN-09 and cannot be inferred from a prefix or number. France processing errors and lifecycle reason codes are separate namespaces.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">business-and-technical-error-mapping</ac:parameter></ac:structured-macro><h5>Business and technical error mapping</h5>
+<p>The customer needs an owned next action when an invoice check or SPFE call fails. Preserve the <strong>business</strong> or <strong>technical</strong> classification from the original file, then select proposed handling from the actual message and operation evidence. A business-file error can require an administrator or technical investigation. A technical-file error can identify a reference or search field that needs correction. SPFE-S28/S29.</p>
+<p>The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/mappings/spfe-error-mapping.json">complete error mapping</a> is the row-level catalogue for this section. It contains <strong>513 business entries (512 distinct keys)</strong> and <strong>87 technical entries (83 distinct keys)</strong>. Each row retains source ID, line, exact property key, Spanish template, placeholders, source issues, handling group and open gates. Group definitions give the proposed owner, English customer wording, next action and repeat condition. Counts below include duplicate occurrences. Commented properties are excluded from active coverage and preserved separately.</p>
+<table>
+<thead>
+<tr>
+<th>Business-file handling</th>
+<th style="text-align: right;">Entries</th>
+<th>Proposed responsible owner and next action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Invoice content and tax rules</td>
+<td style="text-align: right;">337</td>
+<td>Customer/accountant checks source facts. Integration/Format investigates mapping or rules when those facts are correct. Use UV-06 for authorised changes.</td>
+</tr>
+<tr>
+<td>Business-party identity and addresses</td>
+<td style="text-align: right;">68</td>
+<td>Check the reported party, identity scheme or address. Keep invoice-party and caller identity separate.</td>
+</tr>
+<tr>
+<td>Profile, codes and representation</td>
+<td style="text-align: right;">61</td>
+<td>Integration/Format checks the selected Spain profile, required fields and code lists. A resource message does not activate a local validation rule.</td>
+</tr>
+<tr>
+<td>Permission and representation</td>
+<td style="text-align: right;">4</td>
+<td>Administrator/Support checks caller, certificate, represented business and operation-specific authority. Keep correct invoice data unchanged.</td>
+</tr>
+<tr>
+<td>Event details, repeated or incompatible actions</td>
+<td style="text-align: right;">16</td>
+<td>Lifecycle checks dates/reason and the referenced invoice; reconcile existing reports before correcting or cancelling an action.</td>
+</tr>
+<tr>
+<td>Invoice reference or locator</td>
+<td style="text-align: right;">5</td>
+<td>Retrieval/Lifecycle checks reference, scope and authority. An invalid reference is separate from a failed lookup or confirmed absence.</td>
+</tr>
+<tr>
+<td>Operation and message contract</td>
+<td style="text-align: right;">3</td>
+<td>Integration checks action/service compatibility. Do not change the business action to bypass the error.</td>
+</tr>
+<tr>
+<td>Undetermined checks and diagnostic fragments</td>
+<td style="text-align: right;">17</td>
+<td>Integration/Validation obtains the enclosing rule/result. Do not turn a failed check into an invalid invoice fact or display a fragment alone.</td>
+</tr>
+<tr>
+<td>Conflicting source definitions</td>
+<td style="text-align: right;">2</td>
+<td>Integration/AEAT liaison resolves both values of <code>ERROR_CODIGO_NO_RECONOCIDO</code>; preserve both source lines.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Technical-file handling</th>
+<th style="text-align: right;">Entries</th>
+<th>Proposed responsible owner and next action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XML and document structure</td>
+<td style="text-align: right;">5</td>
+<td>Integration/Format checks schema diagnostics and document type. Assess generation or DTS mapping when Sage produced the XML.</td>
+</tr>
+<tr>
+<td>SOAP, MIME and attachments</td>
+<td style="text-align: right;">26</td>
+<td>Integration checks SOAP/MIME structure, document types and attachment correlation against the selected contract.</td>
+</tr>
+<tr>
+<td>Message identity and certificate</td>
+<td style="text-align: right;">9</td>
+<td>Integration/Identity checks sender, receiver, role and certificate binding; correct invoice parties must remain unchanged.</td>
+</tr>
+<tr>
+<td>Operation and message contract</td>
+<td style="text-align: right;">2</td>
+<td>Integration checks service/action. Do not infer a valid replacement action from the error.</td>
+</tr>
+<tr>
+<td>Query and continuation fields</td>
+<td style="text-align: right;">19</td>
+<td>Product developer/Retrieval checks operation-specific filters, dates, roles and continuation. Error wording alone does not resolve contract conflicts.</td>
+</tr>
+<tr>
+<td>Invoice reference or locator</td>
+<td style="text-align: right;">1</td>
+<td>Apply reference recovery. Technical <code>4014</code> and business <code>RULE_SPFE-CORE-62_MENSAJE_1</code> have related locator wording; retain distinct source identities.</td>
+</tr>
+<tr>
+<td>Request limits and temporary access block</td>
+<td style="text-align: right;">3</td>
+<td>Integration/Operations checks the action limit or validator block. <code>4020</code> gives no numerical daily quota or reset time.</td>
+</tr>
+<tr>
+<td>Service unavailable in selected environment</td>
+<td style="text-align: right;">1</td>
+<td><code>5000</code>: Integration/Operations checks service availability. Do not retry an unavailable production operation or switch it to PRE.</td>
+</tr>
+<tr>
+<td>Platform processing failure</td>
+<td style="text-align: right;">15</td>
+<td>Operations/Integration investigates AEAT processing; establish the original external effect before repeating work.</td>
+</tr>
+<tr>
+<td>Response creation failure</td>
+<td style="text-align: right;">4</td>
+<td><code>5050</code>–<code>5053</code>: response construction failed. Processing may already have had an effect; use PCN-09.</td>
+</tr>
+<tr>
+<td>Conflicting or malformed source definitions</td>
+<td style="text-align: right;">2</td>
+<td>Preserve both <code>4027</code> definitions. The first includes concatenated <code>4023=</code> text; do not silently repair it or select the last value.</td>
+</tr>
+</tbody>
+</table>
+<p>The mapping is a <strong>proposed design</strong>, not a deployed API contract. Its handling-group names are not API enums. Sage API error codes, severity, HTTP status, response field and operation remain unassigned for resource-only rows. A numeric property key is not an HTTP status. A technical category does not grant retry permission. PCN-09 owns repeat decisions from the original outcome and the qualified contract. An error does not create a buyer rejection, payment fact or lifecycle transition.</p>
+<p>Preserve one catalogue identity per <strong>source ID + line</strong>, plus the file hash. Do not strip <code>RULE_</code>, remove suffixes, normalise zero-padding or use a key-only dictionary that drops duplicates. In particular, the four <code>RULE_SPFE-CORE-18_MENSAJE_*</code> messages describe different checks. The five <code>RULE_SPFE-REPR-01_MENSAJE_*</code> messages include a failed check, missing invoice, denied queries and unknown action. They cannot share one fixed customer message. The catalogue's <code>observed_response_correspondences</code> links the five existing response observations to candidate templates without converting semantic similarity into a runtime binding.</p>
+<p>Explicit BT/BG mentions have path candidates from SPFE-S30/S31. A missing dictionary key remains unresolved. A path lookup is not a validated payload location or executable XPath; it does not supply missing message parameters. Keep SPFE-Q21 rule-ID/date conflicts open and retain the source's original wording.</p>
+<p>Use the shared issue presentation, correlation and recovery pattern where qualified. Assess existing DTS first when generated XML or a field mapping caused the failure. Actual build, input/output contracts, Spain mappings, rule packs and operations still need evidence. Select these resources only for the qualified Spain country profile; France errors and other countries' rules remain separate. PCN-SPFE-A07–A09 define the acceptance coverage.</p>
+<p><strong>PCN-08 Return the result and notify the feature.</strong> The service that requested the call can read the saved result within its authorised scope. Notifications include connector/feature IDs, event ID, version, known/pending/unknown state and safe evidence references. A notification may arrive more than once or out of order, so consumers check identity and version before applying it.</p>
+<p>The feature service decides what admission, freshness, retrieval progress, lifecycle status and customer wording mean. The connector cannot advance a retrieval checkpoint or mark the buyer as having accepted an invoice.</p>
+<p><strong>PCN-09 Establish the original outcome before retry.</strong> One recovery owner selects SAFE_RETRY, IDEMPOTENT_RESUME, RECONCILE_FIRST or MANUAL_ONLY from evidence about the operation. Do not choose from the error name alone. Query the original operation/reference with its payload digest, contract and environment. A failed query leaves the outcome unknown. Repeat only when the approved contract and evidence of non-execution permit it.</p>
+<p>Changing a route or credential does not resolve an earlier outcome. A replacement credential needs an approved link to the original represented party, action and environment, with evidence for the new attempt. If neither reliable query nor proven idempotency is available, open a manual case with an owner and hold unsafe repeats. Reusing the same local key cannot bypass that hold.</p>
+<p>Inspection, recovery and profile activation require separate audited permissions. Cancellation after transmission is a separate external operation, if supported by a qualified contract, and remains the feature service’s responsibility.</p>
+<p><strong>PCN-10 Change configuration safely.</strong> Check that the current profile/endpoint version matches the expected version before applying a change. Record the actor, reason, impact and approval evidence. Deploy the capability disabled, obtain correctly labelled TEST/simulation evidence, then enable only the approved production group.</p>
+<p>Credential rotation keeps earlier attempts unchanged. Disablement stops new affected calls and assesses queued work, work already running and unresolved operations. Keep their evidence and leave other capabilities/environments separate. Rollback restores a qualified profile for eligible future work; it must not repeat completed or outcome-unknown operations.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-requirements-and-operational-controls</ac:parameter></ac:structured-macro><h3>3 Requirements and operational controls</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Observable requirement / source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCN-R01</td>
+<td>Enforce trusted tenant/entity/country/environment and qualified credential binding before calls; PRD105 FR1–9/14/17, PRD214 FR6.</td>
+</tr>
+<tr>
+<td>PCN-R02</td>
+<td>Check action authority separately from authentication and readiness; PRD101 FR22/24, PRD211 FR54, PRD226.</td>
+</tr>
+<tr>
+<td>PCN-R03</td>
+<td>Activate exact operation contracts independently; no probe may issue an invoice or change routes; PRD214 FR3–5/19–21.</td>
+</tr>
+<tr>
+<td>PCN-R04</td>
+<td>Persist idempotent intent, immutable payload and controlled attempt ownership; PRD212 FR22–28, PRD214 FR22.</td>
+</tr>
+<tr>
+<td>PCN-R05</td>
+<td>Classify external-effect uncertainty and reconcile original operation before unsafe repeat; PRD212 FR25–27/36–40.</td>
+</tr>
+<tr>
+<td>PCN-R06</td>
+<td>Preserve correlated raw/item evidence and safe errors without overclaiming success; PRD212 FR29–35, PRD214 FR23/27.</td>
+</tr>
+<tr>
+<td>PCN-R07</td>
+<td>Recover local evidence/handoff failure and deliver versioned deduplicated notifications; PRD212 FR34/37, PRD211 adapter/checkpoint requirements.</td>
+</tr>
+<tr>
+<td>PCN-R08</td>
+<td>Bound fair capacity and expose health, backlog, unknown outcomes and safe actions; PRD211 scheduling, PRD212 FR38–39.</td>
+</tr>
+<tr>
+<td>PCN-R09</td>
+<td>Preserve in-flight/history through credential/profile change, suspension and rollback; PRD105 FR15–16, PRD214 FR16–18/25–26.</td>
+</tr>
+<tr>
+<td>PCN-R10</td>
+<td>Isolate Spain rules and qualify reused implementation before activation; PRD214 FR19–21 and repository reuse controls.</td>
+</tr>
+</tbody>
+</table>
+<p>Encryption, least privilege and purpose-bound source access protect PCN-D01–D09. Metrics distinguish attempts before/after transmission, provider and local latency, throttle, authority denial, evidence gaps, unknown-operation age and notification backlog. Avoid legal-subject identifiers as public metric labels. Security owns destination restrictions and XML/resource limits; Operations/Product approve service objectives from provider terms and measured volumes. No numeric SLA or retention period is invented.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">sage-api-capability-mapping-for-spfe-operations</ac:parameter></ac:structured-macro><h3>Sage API capability mapping for SPFE operations</h3>
+<p>The <ac:link ac:anchor="1-scope-and-boundary"><ri:page ri:content-title="Provider Connectors and Shared API Architecture Summary" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-044 shared API architecture</ac:link-body></ac:link> places the SPFE connector behind the shared Sage e-Invoicing API. The table maps external operations to Sage capabilities and their owning rules. It is an API reuse assessment; existing implementation coverage and required Spain extensions remain unconfirmed. <ac:link ac:anchor="spfe-source-contract-binding"><ac:link-body>The source contract table</ac:link-body></ac:link> owns external payloads, limits and source references. REF-API-MAP; SPFE-S03/S10–17/S23.</p>
+<table>
+<thead>
+<tr>
+<th>SPFE operation / example number</th>
+<th>Sage capability and owning rules</th>
+<th>Reuse / qualification boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>01 — <code>SendInvoice</code></strong></td>
+<td>Sending: submit an invoice or required public copy. <ac:link ac:anchor="3-process-and-activity-order"><ri:page ri:content-title="Invoice Sending Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-023 process and activity order</ac:link-body></ac:link>.</td>
+<td>Assess existing sending calls; qualify Spain payloads and separate delivery/copy results.</td>
+</tr>
+<tr>
+<td><strong>02 — <code>CancelInvoice</code></strong></td>
+<td>Sending: execute a permitted submission withdrawal. <ac:link ac:anchor="withdrawal-and-correction-boundaries"><ri:page ri:content-title="Invoice Sending Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-023 withdrawal and correction boundaries</ac:link-body></ac:link>.</td>
+<td>The Sage command remains open in <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#analysis-and-proposed-direction">FP-SEI-002</a>. Keep invoice withdrawal separate from lifecycle-report cancellation.</td>
+</tr>
+<tr>
+<td><strong>03 — <code>GetInvoices</code></strong></td>
+<td>Consultation and lifecycle: query known invoice information and reported states. <ac:link ac:anchor="customer-list-open-and-download"><ri:page ri:content-title="Invoice Retrieval Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-026 list/open journey</ac:link-body></ac:link>; <ac:link ac:anchor="3-activity-order-and-process-support"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-029 evidence processing</ac:link-body></ac:link>.</td>
+<td>Assess query/detail/history reuse. Keep source refresh, saved-history reads and business-state interpretation separate.</td>
+</tr>
+<tr>
+<td><strong>04 — <code>GetRegisteredInvoice</code></strong></td>
+<td>Discovery and consultation: find invoices and obtain source state evidence. <ac:link ac:anchor="31-source-acquisition-and-stored-file-access"><ri:page ri:content-title="Invoice Retrieval Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-026 source acquisition</ac:link-body></ac:link>; <ac:link ac:anchor="3-activity-order-and-process-support"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-029 evidence processing</ac:link-body></ac:link>.</td>
+<td>Qualify filters, pagination and collection coverage. Lifecycle owns interpretation of returned states.</td>
+</tr>
+<tr>
+<td><strong>05 — <code>DownloadInvoicesByID</code></strong></td>
+<td>Retrieval: obtain source invoice XML by business identity. <ac:link ac:anchor="31-source-acquisition-and-stored-file-access"><ri:page ri:content-title="Invoice Retrieval Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-026 source acquisition and stored-file access</ac:link-body></ac:link>.</td>
+<td>Source acquisition supplies captured files for permitted product access. Qualify identity, integrity and per-item failures.</td>
+</tr>
+<tr>
+<td><strong>06 — <code>DownloadInvoicesByLOC</code></strong></td>
+<td>Retrieval: obtain source invoice XML by locator. <ac:link ac:anchor="31-source-acquisition-and-stored-file-access"><ri:page ri:content-title="Invoice Retrieval Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-026 source acquisition and stored-file access</ac:link-body></ac:link>.</td>
+<td>Qualify locator authority and correlation. Download results remain separate from buyer acceptance.</td>
+</tr>
+<tr>
+<td><strong>07 — <code>CustomerInvoiceEvents</code></strong></td>
+<td>Lifecycle: report recipient actions and their cancellation. <ac:link ac:anchor="52-public-event-contract"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-029 public event contract</ac:link-body></ac:link>.</td>
+<td>Assess lifecycle API reuse; qualify Spain actions, actor authority, fields and each reporting result.</td>
+</tr>
+<tr>
+<td><strong>08 — <code>SupplierInvoiceEvents</code></strong></td>
+<td>Lifecycle: report issuer collection/non-payment and their cancellation. <ac:link ac:anchor="52-public-event-contract"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-029 public event contract</ac:link-body></ac:link>.</td>
+<td>Assess lifecycle API reuse; qualify issuer actions and enabled optional scope separately from recipient reporting.</td>
+</tr>
+<tr>
+<td><strong>09 — <code>ValidationInvoice</code></strong></td>
+<td>Validation: check one invoice through the optional PRE capability. <ac:link ac:anchor="spfe-source-contract-binding"><ri:page ri:content-title="UBL Validation and Correction Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-005 public validation binding</ac:link-body></ac:link>.</td>
+<td>No production dependency. A validation result does not register an invoice or establish buyer acceptance.</td>
+</tr>
+</tbody>
+</table>
+<p>One Sage request can coordinate several external calls. Product reads can use saved evidence; a required source refresh uses a qualified connector query. The connector preserves each operation result; the owning feature applies its business meaning. <code>DocumentStatus</code> is a response-document type, so apply the <ac:link ac:anchor="spfe-response-and-error-matrix"><ac:link-body>SPFE response and error matrix</ac:link-body></ac:link> to distinguish query, validation and reporting results from invoice lifecycle facts.</p>
+<p>For direct Sage-to-SPFE work, this connector executes the assigned operation. Provider-owned actions retain their execution owner; apply <ac:link ac:anchor="2-proposed-api-decision-and-alternatives"><ri:page ri:content-title="Provider API through the E-Invoicing Global API Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-013's integration-mode ownership rules</ac:link-body></ac:link> to prevent duplicate execution. The public connector role is separate from Sage's private-platform operator role. REF-API-MAP.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">spfe-source-contract-binding</ac:parameter></ac:structured-macro><h3>SPFE source contract binding</h3>
+<p>The supplied operation catalogue below is the external contract baseline. An operation remains disabled for live use until its listed gaps, authority and environment checks pass. The names identify SPFE operations, not new Sage API endpoints.</p>
+<table>
+<thead>
+<tr>
+<th>SPFE operation / ebMS Action</th>
+<th>Business request → response</th>
+<th>Documented constraint and remaining qualification</th>
+<th>REF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SendInvoice</code> / <code>SUBMITINVOICE</code></td>
+<td>N <code>Invoice</code> attachments → one <code>DocumentStatus</code>.</td>
+<td>1–100 invoices; evaluate authority per issuer. Originals/copies retain their role. The 5120-byte invoice limit conflicts with examples.</td>
+<td>SPFE-S03 pp. 10–11; SPFE-S16.</td>
+</tr>
+<tr>
+<td><code>CancelInvoice</code> / <code>CANCELINVOICE</code></td>
+<td>One <code>ApplicationResponse</code> → one <code>DocumentStatus</code>.</td>
+<td>Previously submitted invoice and legally permitted withdrawal case; exact reference/cardinality binding remains open. Not a replay/duplicate-clear operation.</td>
+<td>SPFE-S02 Article 5.5; SPFE-S03 pp. 11–12; SPFE-S10.</td>
+</tr>
+<tr>
+<td><code>GetInvoices</code> / <code>QUERYBYID</code></td>
+<td>N <code>ApplicationResponse</code> attachments → one <code>DocumentStatus</code>.</td>
+<td>Up to 1000 invoice identifiers, with issuer/recipient role. Consults invoice metadata and final states; no invoice-file download.</td>
+<td>SPFE-S03 pp. 12–13; SPFE-S14.</td>
+</tr>
+<tr>
+<td><code>GetRegisteredInvoice</code> / <code>QUERYBYFILTER</code></td>
+<td>ebMS <code>MessageProperties</code> filters → one <code>DocumentStatus</code>.</td>
+<td>Presentation-date discovery; up to 1000 results and <code>SECUENCE_ID</code> pagination. The current WSDL has no payload part. Business filter names, formats and continuation semantics still need qualification under SPFE-Q06.</td>
+<td>SPFE-S03 pp. 13–14; SPFE-S15.</td>
+</tr>
+<tr>
+<td><code>DownloadInvoicesByID</code> / <code>DOWNLOADBYID</code></td>
+<td>One <code>ApplicationResponse</code> with N <code>DocumentReference</code> entries → N <code>Invoice</code> attachments.</td>
+<td>Up to 100 invoices; issuer/recipient role; retain failed references independently.</td>
+<td>SPFE-S03 pp. 14–15; SPFE-S12.</td>
+</tr>
+<tr>
+<td><code>DownloadInvoicesByLOC</code> / <code>DOWNLOADBYLOC</code></td>
+<td>One <code>ApplicationResponse</code> with locator references → N <code>Invoice</code> attachments.</td>
+<td>Preferred platform-download path. Catalogue locator/certificate authority needs legal reconciliation; no distinct numeric limit is supplied.</td>
+<td>SPFE-S03 pp. 15–16; SPFE-S13.</td>
+</tr>
+<tr>
+<td><code>CustomerInvoiceEvents</code> / <code>ACCOUNTINGCUSTOMERPARTYACTION</code></td>
+<td>One <code>ApplicationResponse</code> → one <code>DocumentStatus</code>.</td>
+<td>Up to 100 recipient states; no supplier-state mixing; complete Annex II field/wire and item-result binding remain gated.</td>
+<td>SPFE-S03 pp. 16–17; SPFE-S11.</td>
+</tr>
+<tr>
+<td><code>SupplierInvoiceEvents</code> / <code>ACCOUNTINGSUPPLIERPARTYACTION</code></td>
+<td>One <code>ApplicationResponse</code> → one <code>DocumentStatus</code>.</td>
+<td>Issuer collection/non-payment communications and their cancellation; numeric batch limit is not supplied.</td>
+<td>SPFE-S03 pp. 17–19; SPFE-S17.</td>
+</tr>
+<tr>
+<td><code>ValidationInvoice</code>, path <code>ws/ValidationInvoiceSOAP</code> / no ebMS Action</td>
+<td>SOAP 1.2 body <code>ubl:Invoice</code> → body <code>ublds:DocumentStatus</code>.</td>
+<td>One-invoice PRE-only aid; no registration/admission. Exact action and certificate/seal ports now supplied. Imported UBL schemas and local dependencies are supplied; accepted-profile/client qualification, older catalogue naming and live access remain gated.</td>
+<td>SPFE-S23; SPFE-S03 pp. 19–20; SPFE-Q04/Q05/Q12.</td>
+</tr>
+</tbody>
+</table>
+<p>The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through PCN-02–09. Source conflicts stay open under PCN-Q01/Q02/Q03/Q07; SPFE-Q01–Q12/Q15/Q17; they are not resolved by a local default.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Constraint and required behaviour</th>
+<th>Source reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCN-SPFE-R01 Register the exact supplied operations</td>
+<td>For each call, select the current reviewed contract, exact operation, SOAP action, environment and certificate class. Pin SPFE-S10–S17 and PRE-only <code>ValidationInvoice</code> (SPFE-S23) independently. Hold activation until its schemas, naming and runtime access are qualified. No recipient directory, enrolment, public offboarding or webhook is inferred from this inventory.</td>
+<td>SPFE-S03/SPFE-S16/SPFE-S23; REF-WSDL; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>PCN-SPFE-R02 Build and correlate the public message</td>
+<td>For SPFE-S10–S17, send SOAP 1.2 with an ebMS Messaging header and empty body. Use MIME <code>multipart/related</code> with <code>type="application/soap+xml"</code>; the SOAP part uses <code>application/soap+xml</code> and an <code>action</code> parameter equal to the exact WSDL <code>soapAction</code>. This URI is separate from the ebMS Action. Match each <code>PartInfo/@href="cid:..."</code> to its MIME Content-ID, with one attachment per PartInfo (0..N at envelope level). No attachment is a WSDL part; do not depend on generated <code>payload</code> parameters. Preserve source bytes, PartyId, MessageId/RefToMessageId, ConversationId and item references. SPFE-S23 uses direct SOAP business bodies without ebMS or MIME attachments; SPEC-SEI-005 UV-SPFE-R03 owns its validation rule.</td>
+<td>SPFE-S10–S18/SPFE-S23/SPFE-S08/SPFE-S04; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>PCN-SPFE-R03 Preserve each response level and receipt</td>
+<td>Retain HTTP status, SOAP fault, ebMS signal, structured ResponseCode and per-invoice DocumentStatusCode separately. All current WSDLs document standard SOAP 1.2 <code>env:Code/env:Value</code> and <code>env:Reason/env:Text</code>, no service-specific <code>env:Detail</code>, <code>application/soap+xml</code> and HTTP 400 or 500 for faults. Do not require the removed operation-specific fault fields. XML business codes 200/406/400 remain distinct from HTTP codes. Retain response ID, locator, invoice identity and CSV separately. A fault after possible transmission does not prove that a mutation had no effect; apply PCN-SPFE-R04.</td>
+<td>SPFE-S10–S17/SPFE-S23/SPFE-S08/SPFE-S06/SPFE-S02; SPFE-Q01/Q15; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>PCN-SPFE-R04 Qualify limits, authority and uncertain effects</td>
+<td>Use each operation's documented limits and authority, holding conflicts and missing limits rather than copying defaults. Envelope cardinality 0..N does not permit an empty business request or override an operation limit. The removed base64Binary declaration is not an instruction to rewrite or inline invoice bytes. MessageId and a local idempotency key do not prove provider repeat safety. Catalogue resend guidance cannot authorize a fresh mutation after an unknown result.</td>
+<td>SPFE-S03/SPFE-S16; SPFE-Q03/Q07/Q09/Q17; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-3-logical-service-interactions-and-data-inventory</ac:parameter></ac:structured-macro><h2>Part 3 Logical Service Interactions and Data Inventory</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-interaction-contracts</ac:parameter></ac:structured-macro><h3>1 Interaction contracts</h3>
+<p>These are logical operations, not endpoint names. Commands carry requestId, connector/feature operation IDs, trusted scope, capability, contractProfileRef, payload/query reference and digest, idempotency key, correlation and expectedVersion as appropriate. Protected values stay references. Responses distinguish known outcome, pending work, denial, unsupported capability, conflict, temporary failure, outcome unknown and evidence-recovery hold.</p>
+<table>
+<thead>
+<tr>
+<th>ID / caller → owner</th>
+<th>Inputs, result and authority</th>
+<th>Correlation, failure and evidence</th>
+<th>Activities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCN-INT-01 Feature → connector</td>
+<td>Submit/query/cancel unsent intent; permitted workload and scope.</td>
+<td>Scoped key/digest returns prior operation; conflict on change; D03/D09.</td>
+<td>PCN-01/08/09</td>
+</tr>
+<tr>
+<td>PCN-INT-02 Connector → identity/authority</td>
+<td>Resolve entity/action permission and effective version.</td>
+<td>Denied/undetermined holds new calls; decision reference D02.</td>
+<td>PCN-02/03/06</td>
+</tr>
+<tr>
+<td>PCN-INT-03 Connector → protected trust service</td>
+<td>Obtain/use credential handle for purpose/environment/principal.</td>
+<td>No key export; invalid binding denied; protected evidence D02/D04.</td>
+<td>PCN-03/06/09</td>
+</tr>
+<tr>
+<td>PCN-INT-04 Connector → profile/connection registry</td>
+<td>Resolve activated capability, destination and safety contract.</td>
+<td>Versioned profile/readiness; unsupported held; D01.</td>
+<td>PCN-02/04/05/10</td>
+</tr>
+<tr>
+<td>PCN-INT-05 Connector → public adapter → AEAT</td>
+<td>Execute exact approved operation with fixed intent and credential handle.</td>
+<td>Save attempt boundary; known/item results or unknown; D03–D06.</td>
+<td>PCN-05–07</td>
+</tr>
+<tr>
+<td>PCN-INT-06 Connector/Operations → reconciliation adapter</td>
+<td>Query original external operation under approved authority.</td>
+<td>Query evidence/absence/unresolved; no invented endpoint; D04/D05/D07.</td>
+<td>PCN-09</td>
+</tr>
+<tr>
+<td>PCN-INT-07 Connector → Records/owning feature</td>
+<td>Save response and file capture receipt; publish versioned result event.</td>
+<td>Verify scoped hash/ref before completion; recover save/notification failure; D05/D06/D08.</td>
+<td>PCN-07/08</td>
+</tr>
+<tr>
+<td>PCN-INT-08 Authorised owner → connector/audit</td>
+<td>Inspect/recover/disable/update profile with reason and expected version.</td>
+<td>Reject stale/unauthorised action; preserve original operation and audit D07/D09.</td>
+<td>PCN-09/10</td>
+</tr>
+</tbody>
+</table>
+<p>Proposed events: PUBLIC_CONNECTOR_RESULT_RECORDED, PUBLIC_CONNECTOR_RECOVERY_REQUIRED and PUBLIC_CONNECTOR_CAPABILITY_CHANGED. Each follows durable evidence and carries eventId/version, affected scope/capability, state and safe references. A capability-change event is not route activation.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-data-inventory-and-systems-of-record</ac:parameter></ac:structured-macro><h3>2 Data inventory and systems of record</h3>
+<table>
+<thead>
+<tr>
+<th>ID / record and owner</th>
+<th>Minimum logical information and handling</th>
+<th>Consumers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCN-D01 Connection/capability profile / registry</td>
+<td>Stable connection, country/environment, operation/protocol and schema, governed destination, activation/cohort, read/mutation semantics, idempotency/query rules, limits, source/effective version; restricted/versioned.</td>
+<td>PCN-02/04–10</td>
+</tr>
+<tr>
+<td>PCN-D02 Eligibility snapshot / authority/trust owners</td>
+<td>Entity/action, actor/workload, policy/authority and credential references, principal/environment/purpose, validity/check time; restricted/append-only evidence. No credentials copied.</td>
+<td>PCN-02/03/05/06/09</td>
+</tr>
+<tr>
+<td>PCN-D03 Operation intent / connector</td>
+<td>Scoped key, feature/connector IDs, digest, immutable payload/query reference, safety class, cancellation and current operation version; restricted, immutable input.</td>
+<td>PCN-01/05–09</td>
+</tr>
+<tr>
+<td>PCN-D04 Execution attempt / connector</td>
+<td>Attempt/lease generation, fixed profile/destination/bindings, pre/post-transmission markers, correlation/times and safe result; append-only.</td>
+<td>PCN-05–09</td>
+</tr>
+<tr>
+<td>PCN-D05 External response / connector + Records</td>
+<td>Raw protected reference/hash, per-item correlations, external codes/references, observed state and evidence meaning, catalogue version; sensitive/immutable.</td>
+<td>PCN-07–09</td>
+</tr>
+<tr>
+<td>PCN-D06 File handoff / connector + Records</td>
+<td>Temporary source/reference/hash/expiry, durable capture receipt and owner; sensitive, bounded staging. Permanent archive belongs to feature/Records.</td>
+<td>PCN-06–09</td>
+</tr>
+<tr>
+<td>PCN-D07 Recovery case / Operations</td>
+<td>Original operation, reason/safety, evidence/last query, owner, approved next action and escalation; restricted/versioned.</td>
+<td>PCN-09/10</td>
+</tr>
+<tr>
+<td>PCN-D08 Notification outbox / connector</td>
+<td>Event ID, operation/result version, target owner, delivery attempts/receipt and evidence refs; restricted/replayable.</td>
+<td>PCN-07/08/09</td>
+</tr>
+<tr>
+<td>PCN-D09 Action audit / audit owner</td>
+<td>Actor, scope/action/reason/time, versions and before/after state, evidence references and retention/hold class; restricted/append-only.</td>
+<td>PCN-01–10</td>
+</tr>
+</tbody>
+</table>
+<p>The public platform is authoritative for its external results; connector records are authoritative for Sage intent/attempts. Feature services own business interpretation. Retention, idempotency windows, evidence holds and staging expiry are PCN-Q04 decisions by data class; connector cleanup cannot dispose of a feature's archived invoice or unresolved-case evidence.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-reuse-qualification</ac:parameter></ac:structured-macro><h3>3 Reuse qualification</h3>
+<p>Assess existing Sage public transport, credential access, operation/outbox and monitoring capabilities. Record source build/design pattern, retained behaviour, Spain changes, missing operations, accountable owner and qualification evidence. The same adapter library, gateway or service deployment are alternative physical choices under PCN-Q06; whichever is selected must have one execution/idempotency owner and durable recovery. Capability selection must not copy Spain authority, error or routing rules into another country. No DTS transformation is introduced in this contract.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-4-assurance-and-traceability-view</ac:parameter></ac:structured-macro><h2>Part 4 Assurance and Traceability View</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">acceptance-and-traceability</ac:parameter></ac:structured-macro><h3>Acceptance and traceability</h3>
+<p>These scenarios specify evidence to obtain; they are not executed implementation tests.</p>
+<table>
+<thead>
+<tr>
+<th>ID / scenario</th>
+<th>Requirements → activities / interactions / data</th>
+<th>Required result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCN-A01 Wrong tenant/environment or untrusted override</td>
+<td>R01 → PCN-01–03, INT-01–04, D01/D02/D09</td>
+<td>Denial before credential/public access; no production-to-TEST fallback.</td>
+</tr>
+<tr>
+<td>PCN-A02 Valid certificate, missing/revoked action authority</td>
+<td>R02 → PCN-03/06, INT-02/03, D02/D04/D09</td>
+<td>New call held; represented subject/action evidenced; other grants not inferred.</td>
+</tr>
+<tr>
+<td>PCN-A03 Network check succeeds, operation unqualified</td>
+<td>R03 → PCN-04, INT-04, D01</td>
+<td>Capability stays unsupported; no invoice probe or route activation.</td>
+</tr>
+<tr>
+<td>PCN-A04 Duplicate and changed intent</td>
+<td>R04 → PCN-01/05, INT-01/05, D03/D04</td>
+<td>Same key/digest resumes original; changed context conflicts; concurrent workers produce one effective execution claim.</td>
+</tr>
+<tr>
+<td>PCN-A05 Pre-send failure versus lost response</td>
+<td>R04/05 → PCN-05/06/09, INT-05/06, D03/D04/D07</td>
+<td>Proven pre-send retry permitted; possible effect becomes unknown and reconciles original operation.</td>
+</tr>
+<tr>
+<td>PCN-A06 No reliable query/idempotency contract</td>
+<td>R05 → PCN-09, INT-06/08, D03–D05/D07/D09</td>
+<td>Manual-only hold; repeated feature request cannot bypass it.</td>
+</tr>
+<tr>
+<td>PCN-A07 Partial response/unknown error</td>
+<td>R06 → PCN-07/08, INT-05/07, D04/D05/D08</td>
+<td>Missing items remain unresolved; protected source code retained; safe message does not claim blanket admission.</td>
+</tr>
+<tr>
+<td>PCN-A08 External success, local persistence failure</td>
+<td>R05/07 → PCN-07/09, INT-06/07, D03–D07</td>
+<td>Original outcome/evidence reconstructed without fresh mutation; crash evidence proves recovery.</td>
+</tr>
+<tr>
+<td>PCN-A09 Capture/notification delayed</td>
+<td>R07 → PCN-07–09, INT-07, D05/D06/D08</td>
+<td>Temporary file durably handed off before expiry; repeated/out-of-order events do not regress consumer state.</td>
+</tr>
+<tr>
+<td>PCN-A10 Throttle/outage and competing tenants</td>
+<td>R08 → PCN-05/06/09, INT-05/08, D01/D03/D04/D07</td>
+<td>Bounded fair backlog and circuit breaker with approved rules; no false empty result, freshness or route switch.</td>
+</tr>
+<tr>
+<td>PCN-A11 Rotation/disablement/rollback during work</td>
+<td>R09 → PCN-03/05/09/10, INT-03/04/06/08, D01–D04/D07/D09</td>
+<td>Original context preserved; stale worker rejected; replacement authority checked; unaffected cohorts continue.</td>
+</tr>
+<tr>
+<td>PCN-A12 Unsafe content/destination and support access</td>
+<td>R01/06/09 → PCN-02/06/09/10, INT-05/08, D04–D07/D09</td>
+<td>XML/resource and destination controls enforced; no credentials/raw bodies in errors/logs; unauthorised recovery denied.</td>
+</tr>
+<tr>
+<td>PCN-A13 Country isolation and reuse qualification</td>
+<td>R10 → PCN-02–06/10, INT-02–05/08, D01/D02/D04/D09</td>
+<td>Selected build/contracts proved; missing country binding blocks activation; Spain authority/error rules do not affect another country.</td>
+</tr>
+<tr>
+<td>PCN-A14 Shared foundation handoff</td>
+<td>R01–03/10 → PCN-02–06/09; SPEC-SEI-014 SPC-02/03/06/07, SPC-A02/08</td>
+<td>Public operations consume the qualified role/profile and original action, retain one execution owner and cannot activate routes or inherit private-interface readiness.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">open-decisions-and-release-gates</ac:parameter></ac:structured-macro><h3>Open decisions and release gates</h3>
+<table>
+<thead>
+<tr>
+<th>ID / decision</th>
+<th>Owner</th>
+<th>Effect, evidence and gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCN-Q01 Qualify all nine 23 November PRE WSDL copies, supplied UBL schemas, client generation, MIME handling, standard faults, missing operation formats and actual PRE access</td>
+<td>Spain Technical/Integration owners</td>
+<td>Supports an offline adapter design from the supplied contracts. Live activation remains blocked by per-operation conflicts, unqualified schema/profile semantics and access evidence. Recipient directory support is not assumed.</td>
+</tr>
+<tr>
+<td>PCN-Q02 Action authority and accepted credential contracts</td>
+<td>Compliance/Identity/Security</td>
+<td>Blocks represented-business calls; bind procedure, verification/revocation and credential purpose/principal to every capability.</td>
+</tr>
+<tr>
+<td>PCN-Q03 Side effects, idempotency scope/window, outcome queries and cancellation</td>
+<td>Adapter/Operations/feature owners</td>
+<td>Blocks automatic retry/reconciliation rules; absent evidence means manual-only after possible effect.</td>
+</tr>
+<tr>
+<td>PCN-Q04 Ledger/evidence/capture durability, retention/holds and consumer replay windows</td>
+<td>Architecture/Records/Security</td>
+<td>Blocks implementation baseline/production; prove crash recovery and custody, especially external success with local save failure.</td>
+</tr>
+<tr>
+<td>PCN-Q05 Quotas, fairness, retry budgets, breaker policy and measured objectives</td>
+<td>Product/Operations/adapter owners</td>
+<td>Blocks capacity/pilot sign-off; use provider terms and measured cohort volumes.</td>
+</tr>
+<tr>
+<td>PCN-Q06 Physical deployment and existing implementation fit</td>
+<td>Architecture/Connector owner</td>
+<td>Choose library/gateway/service and single execution owner; record source build, gaps, owners and isolation/recovery evidence before reuse.</td>
+</tr>
+<tr>
+<td>PCN-Q07 Safe error catalogue, per-item correlation and feature handoffs</td>
+<td>Integration/feature owners</td>
+<td>Blocks conformance; preserve external semantics, source hashes and durable capture/result receipts. The <ac:link ac:anchor="spfe-response-and-error-matrix"><ac:link-body>SPFE response and error matrix</ac:link-body></ac:link> records observed examples; all supplied SPFE-S28/S29 entries now have proposed handling. Duplicate/conflict resolution and wire-code/operation bindings remain open under SPFE-Q20/Q21.</td>
+</tr>
+<tr>
+<td>PCN-Q08 Activation, rotation/disablement and operational support</td>
+<td>Security/Operations/Connector owner</td>
+<td>Blocks production; named on-call, audited actions, cohort/rollback drills and pending-work handling.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Design review:</strong> agree boundaries and PCN-Q01–Q04/06/07, leaving unavailable interfaces explicit. <strong>Pilot:</strong> activate only qualified operations and exercise A01–A13 against the selected test contract and owning features. <strong>Production:</strong> resolve Q05/Q08, custody/retention and outstanding action-specific contracts; require conformance, security, crash/recovery evidence and measured support objectives. This is a <strong>reviewable logical proposal</strong>, not an approved design or live connector deployment.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">spfe-evidence-acceptance</ac:parameter></ac:structured-macro><h3>SPFE evidence acceptance</h3>
+<p>These are required evidence scenarios, not executed implementation tests. The source-binding gate is PCN-Q01/Q02/Q03/Q07; SPFE-Q01–Q12/Q15/Q17. A source-backed review does not establish that this feature is ready for production.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Scenario</th>
+<th>Required result</th>
+<th>Requirement coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCN-SPFE-A01</td>
+<td>Build each supplied WSDL request and a PRE validation request</td>
+<td>Verify each exact operation, SOAP action, ebMS Action where applicable and certificate/seal port. Exercise PCN-SPFE-R02 attachment correlation and the separate direct-body validator contract. Qualify the supplied UBL imports, accepted profile and generated client under SPFE-Q04/Q05; no registration/directory API is inferred.</td>
+<td>PCN-SPFE-R01/PCN-SPFE-R02; PCN-02–09; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>PCN-SPFE-A02</td>
+<td>Structured 200/406/400, SOAP fault, missing item and unknown CSV binding</td>
+<td>Exercise PCN-SPFE-R03 with HTTP 400 and 500 standard SOAP 1.2 faults, including absent custom Detail; no dependency on removed custom fault fields. Retain each response level and unresolved item independently, with uncertain mutations held under R04; no blanket invoice admission, buyer acceptance or substituted CSV.</td>
+<td>PCN-SPFE-R03; PCN-02–09; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>PCN-SPFE-A03</td>
+<td>Same MessageId after a lost mutation response or missing operation limit</td>
+<td>Hold/reconcile original work unless provider repeat safety is proven; retain limit conflict and authority evidence instead of borrowing defaults.</td>
+<td>PCN-SPFE-R04; PCN-02–09; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>PCN-SPFE-A04</td>
+<td>Generate the selected client and exchange 0, 1 and several ebMS attachments; use missing, duplicate or mismatched cid references</td>
+<td>Qualify actual MIME handling independently of WSDL-generated method arguments. Envelope count and business limits remain separate. Reject invalid correlation before treating a result as complete; hold uncertain effects. For JAXB, assess SPFE-S24 SOAP 1.2 mustUnderstand customization in the selected toolchain. Record build/version and results; this aid does not prove client compatibility. Repeat country-isolation checks from PCN-A13.</td>
+<td>PCN-SPFE-R01/R02/R04; SPFE-S10–S18/S24; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>PCN-SPFE-A05</td>
+<td>Validator business failure with several errors, then an unknown external code</td>
+<td>Apply the <ac:link ac:anchor="spfe-response-and-error-matrix"><ac:link-body>response and error matrix</ac:link-body></ac:link>. Preserve one overall result and all four errors against the same invoice, each original code/description and the received HTTP status if available. Do not fabricate HTTP 400 from XML 400 or create lifecycle transitions. Preserve an unknown code with an owned investigation path; no automatic retry classification or cross-country mapping.</td>
+<td>PCN-07–09; REF-SPFE-EX09; UV-SPFE-A04; SPFE-Q20.</td>
+</tr>
+<tr>
+<td>PCN-SPFE-A06</td>
+<td>Reconcile the inventory with all reviewed responses and a newly supplied code</td>
+<td>Every distinct code/operation/field binding is represented or explicitly awaiting qualification. Include query StatusReasonCode, raw ACCEPTED, ebMS statusCode and event overall/item results. Reconcile SPFE-S28/S29 property keys, templates and parameters; retain duplicate/conflicting definitions for review. Match the seller-name template without guessing REF-SPFE-OBS01 operation, numeric overall result or namespace. Preserve descriptions and both supplied field paths; record source gaps and conflicting meanings. Do not invent missing numeric codes, retry classes or buyer decisions.</td>
+<td>PCN-07–09; response/error matrix; REF-SPFE-EX03–09/OBS01; SPFE-Q20.</td>
+</tr>
+<tr>
+<td>PCN-SPFE-A07</td>
+<td>Map both original files, including duplicates, commented properties and a new unknown result</td>
+<td>Account for all 513 business and 87 technical active entries by source ID/line and exact value. Keep four commented property definitions outside active coverage. Preserve both business duplicate values, identical technical duplicates and both <code>4027</code> definitions. Flag the concatenated text. Keep an unknown result with an owner; no last-value-wins lookup or invented wire binding.</td>
+<td>PCN-07/09; SPFE-S28/S29; business/technical mapping; SPFE-Q20.</td>
+</tr>
+<tr>
+<td>PCN-SPFE-A08</td>
+<td>Business-file technical-check error; denied authority; technical request limit; unavailable environment; lost response</td>
+<td>Check <code>RULE_SPFE-LIST-10_MENSAJE_16</code> as an undetermined check, not customer-data invalidity. Authority recovery leaves correct invoice bytes unchanged. <code>4020</code> does not invent a quota/reset time; <code>5000</code> does not trigger production retries or a PRE switch. <code>5035</code>/<code>5050</code> after possible transmission require original-outcome evidence under PCN-09. No category alone authorises replay or a lifecycle transition.</td>
+<td>PCN-06–09; SPFE-S28/S29; UV-05/06.</td>
+</tr>
+<tr>
+<td>PCN-SPFE-A09</td>
+<td>Several templates share a rule token; parameters or term paths are missing; the same code is seen in another country</td>
+<td>Preserve variants, exact codes and received parameters. Show an owned safe message when a template/field binding is unqualified; do not display raw sensitive parameters or fabricate a location. Keep the SPFE-CORE-18 and SPFE-REPR-01 variants separate. Do not apply this Spain catalogue to France or infer a local rule from a similarly numbered PDF rule. Record build/contracts, country rules and positive/negative/recovery results before reuse.</td>
+<td>PCN-07/09; PCN-A13; SPFE-S28–S31; SPFE-Q20/Q21.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro><h2>REF Source references</h2>
+<p>For public-platform legal and external-contract facts, the original official sources below take precedence over earlier assumptions in linked PRDs and internal notes. PRDs retain product scope and are unchanged by this review. A source conflict remains an explicit gate; this spec cannot approve a local substitute.</p>
+<p>Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.</p>
+<table>
+<thead>
+<tr>
+<th>REF ID</th>
+<th>Source and version</th>
+<th>Exact location</th>
+<th>Supported information and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-API-MAP</td>
+<td><ac:link><ri:page ri:content-title="Provider Connectors and Shared API Architecture Summary" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-044 connector architecture</ac:link-body></ac:link>, updated 9 November 2026; <ac:link><ri:page ri:content-title="Provider API through the E-Invoicing Global API Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-013 shared API assessment</ac:link-body></ac:link>, current repository draft; owning feature sections linked in the mapping.</td>
+<td>SPEC044 §§1–3, CA-ARCH01/02; SPEC013 Part 1 §2; <ac:link ac:anchor="sage-api-capability-mapping-for-spfe-operations"><ac:link-body>operation-to-capability mapping</ac:link-body></ac:link>.</td>
+<td>Internal shared-contract direction, operation ownership and proposed API reuse assessment. Does not establish deployed Spain coverage, new endpoint approval or private-platform operator readiness.</td>
+</tr>
+<tr>
+<td>REF-SPFE-REMOTE</td>
+<td><a href="https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Facturacion-electronica/CatalogoServicios.pdf">Live AEAT catalogue</a>, cover 0.1.5, 3 November 2026; <a href="https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Facturacion-electronica/FormatosEntradaSalida.pdf">live AEAT formats</a>, cover 0.1.2, 20 October 2026; inspected 13 November 2026.</td>
+<td>Cover/revision pages; catalogue §6.5 identifies changed filter consultation.</td>
+<td>Newer remote evidence exists. Full comparison, original-byte snapshots, manifest registration and affected-spec reconciliation remain pending; SPFE-S03/S08 retain their registered local versions. No new WSDL release or runtime qualification is established.</td>
+</tr>
+<tr>
+<td>REF-SPFE-EX09</td>
+<td><a href="https://sage365.sharepoint.com/sites/global/epd/ib/TechDoc/Shared%20Documents/3.Legal/2.-%20FACTURACI%C3%93N/TRANSVERSAL/FACTURA%20ELECTR%C3%93NICA/ACTUAL/SPFE/Documentaci%C3%B3n%20t%C3%A9cnica/Ejemplos%20de%20peticiones%20y%20respuestas%20de%20SW/09%20-%20ValidationInvoiceSOAP/09%20-%20ValidationInvoiceSOAP/RESPUESTA/RespuestaFacturaValidation.xml">RespuestaFacturaValidation.xml</a>; SharePoint copy inspected 10 November 2026; publication date and release version unknown.</td>
+<td>SOAP Body/DocumentStatus; DocumentResponse/Response/ResponseCode; repeated DocumentReference/DocumentStatusCode and DocumentDescription.</td>
+<td>One overall failure and four errors for the same invoice. Example evidence only; no HTTP headers, complete error catalogue, raw-byte hash or live acceptance evidence.</td>
+</tr>
+<tr>
+<td>REF-SPFE-EX03</td>
+<td><a href="https://sage365.sharepoint.com/sites/global/epd/ib/TechDoc/Shared%20Documents/3.Legal/2.-%20FACTURACI%C3%93N/TRANSVERSAL/FACTURA%20ELECTR%C3%93NICA/ACTUAL/SPFE/Documentaci%C3%B3n%20t%C3%A9cnica/Ejemplos%20de%20peticiones%20y%20respuestas%20de%20SW/03%20-%20GetInvoicesSOAP/03%20-%20GetInvoicesSOAP/RESPUESTA/RespuestaConsultaFacturasPorIDs.xml">RespuestaConsultaFacturasPorIDs.xml</a>; SharePoint copy inspected 11 November 2026; release version unknown.</td>
+<td>GetInvoices: DocumentResponse/Response/Status/StatusReasonCode and AdditionalDocumentResponse/Response/ResponseCode.</td>
+<td>Observed query status fields; ACCEPTED does not establish explicit buyer acceptance. No live conformance or raw-byte hash.</td>
+</tr>
+<tr>
+<td>REF-SPFE-EX04</td>
+<td><a href="https://sage365.sharepoint.com/sites/global/epd/ib/TechDoc/Shared%20Documents/3.Legal/2.-%20FACTURACI%C3%93N/TRANSVERSAL/FACTURA%20ELECTR%C3%93NICA/ACTUAL/SPFE/Documentaci%C3%B3n%20t%C3%A9cnica/Ejemplos%20de%20peticiones%20y%20respuestas%20de%20SW/04%20-%20GetRegisteredInvoiceSOAP/04%20-%20GetRegisteredInvoiceSOAP/RESPUESTA/RespuestaConsultaConFiltro.xml">RespuestaConsultaConFiltro.xml</a>; SharePoint copy inspected 11 November 2026; release version unknown.</td>
+<td>GetRegisteredInvoice: the same query result paths, plus Status/SequenceID.</td>
+<td>Observed query result and continuation spelling; not complete pagination semantics. No live conformance or raw-byte hash.</td>
+</tr>
+<tr>
+<td>REF-SPFE-EX05</td>
+<td><a href="https://sage365.sharepoint.com/sites/global/epd/ib/TechDoc/Shared%20Documents/3.Legal/2.-%20FACTURACI%C3%93N/TRANSVERSAL/FACTURA%20ELECTR%C3%93NICA/ACTUAL/SPFE/Documentaci%C3%B3n%20t%C3%A9cnica/Ejemplos%20de%20peticiones%20y%20respuestas%20de%20SW/05%20-%20DownloadInvoicesByIDSOAP/05%20-%20DownloadInvoicesByIDSOAP/RESPUESTA/Respuesta_ebXML-%20DOWNLOADBYID.xml">Respuesta_ebXML- DOWNLOADBYID.xml</a>; SharePoint copy inspected 11 November 2026; release version unknown.</td>
+<td>DownloadInvoicesByID: ebMS MessageProperties/Property[@name='statusCode'] and statusDescription.</td>
+<td>Observed download header result, separate from invoice XML identity/integrity. No live conformance or raw-byte hash.</td>
+</tr>
+<tr>
+<td>REF-SPFE-EX06</td>
+<td><a href="https://sage365.sharepoint.com/sites/global/epd/ib/TechDoc/Shared%20Documents/3.Legal/2.-%20FACTURACI%C3%93N/TRANSVERSAL/FACTURA%20ELECTR%C3%93NICA/ACTUAL/SPFE/Documentaci%C3%B3n%20t%C3%A9cnica/Ejemplos%20de%20peticiones%20y%20respuestas%20de%20SW/06%20-%20DownloadInvoicesByLOCSOAP/06%20-%20DownloadInvoicesByLOCSOAP/RESPUESTA/Respuesta_ebXML-%20DOWNLOADBYLOC.xml">Respuesta_ebXML- DOWNLOADBYLOC.xml</a>; SharePoint copy inspected 11 November 2026; release version unknown.</td>
+<td>DownloadInvoicesByLOC: the same ebMS result properties and MessageInfo/RefToMessageId.</td>
+<td>Observed download header result; correlation defect prevents trusting blanket success. No live conformance or raw-byte hash.</td>
+</tr>
+<tr>
+<td>REF-SPFE-EX07</td>
+<td><a href="https://sage365.sharepoint.com/sites/global/epd/ib/TechDoc/Shared%20Documents/3.Legal/2.-%20FACTURACI%C3%93N/TRANSVERSAL/FACTURA%20ELECTR%C3%93NICA/ACTUAL/SPFE/Documentaci%C3%B3n%20t%C3%A9cnica/Ejemplos%20de%20peticiones%20y%20respuestas%20de%20SW/07%20-%20CustomerInvoiceEventsSOAP/07%20-%20CustomerInvoiceEventsSOAP/RESPUESTA/RespuestaPagar.xml">RespuestaPagar.xml</a>; SharePoint copy inspected 11 November 2026; release version unknown.</td>
+<td>CustomerInvoiceEvents: Response/ResponseCode; DocumentReference/DocumentStatusCode and DocumentDescription.</td>
+<td>Overall/item success example; description incorrectly names SETTLEMENT. No live conformance or raw-byte hash.</td>
+</tr>
+<tr>
+<td>REF-SPFE-EX08</td>
+<td><a href="https://sage365.sharepoint.com/sites/global/epd/ib/TechDoc/Shared%20Documents/3.Legal/2.-%20FACTURACI%C3%93N/TRANSVERSAL/FACTURA%20ELECTR%C3%93NICA/ACTUAL/SPFE/Documentaci%C3%B3n%20t%C3%A9cnica/Ejemplos%20de%20peticiones%20y%20respuestas%20de%20SW/08%20-%20SupplierInvoiceEventsSOAP/08%20-%20SupplierInvoiceEventsSOAP/RESPUESTA/RespuestaCobrada.xml">RespuestaCobrada.xml</a>; SharePoint copy inspected 11 November 2026; release version unknown.</td>
+<td>SupplierInvoiceEvents: Response/ResponseCode; DocumentReference/DocumentStatusCode and DocumentDescription.</td>
+<td>Overall/item success example; not independent proof of the underlying payment fact. No live conformance or raw-byte hash.</td>
+</tr>
+<tr>
+<td>REF-SPFE-OBS01</td>
+<td>User-supplied SPFE response excerpt, received 11 November 2026; original operation, filename and version unknown.</td>
+<td>Description, DocumentDescription and DocumentStatusCode value; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#code-inventory-coverage">source limits</a>.</td>
+<td>Records the supplied seller-name consistency error only. No original XML namespace, numeric overall result or runtime provenance is established.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/BOE-A-2026-20587.pdf">BOE-A-2026-20587.pdf</a>; Final order; published 5 October 2026.</td>
+<td>Articles 5, 8 and 11</td>
+<td>Submission/event receipt/CSV, legal outcomes and authority.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">CatalogoServicios.pdf</a>; 0.1.0; cover 9 October 2026.</td>
+<td>sections 4–6; pp. 7–20</td>
+<td>Operation/action semantics, limits, faults and ninth validation service.</td>
+</tr>
+<tr>
+<td>SPFE-S08</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/archive/original-technical-baseline/Descripcio%CC%81n%20servicios%20web/Formatos%20entrada%20y%20salida/20261013/FormatosEntradaSalida.pdf">FormatosEntradaSalida.pdf</a>; 0.1.0; cover 9 October 2026.</td>
+<td>sections 4.3 and 5.1–5.9; pp. 7–15</td>
+<td>Draft formats, UBL 2.5, envelope, response codes and pending operation formats.</td>
+</tr>
+<tr>
+<td>SPFE-S16</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SendInvoice.wsdl">SendInvoice.wsdl</a>; PRE release 23 November 2026; SHA-256 in source manifest.</td>
+<td><code>wsdl:documentation</code>, types, messages, portType, SOAP binding and service ports</td>
+<td>SendInvoice HTTP/fault/attachment rules and shape, opaque UBL attachment and exact PRE ports.</td>
+</tr>
+<tr>
+<td>SPFE-S04</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/archive/original-technical-baseline/Descripcio%CC%81n%20servicios%20web/Ejemplos%20y%20peticiones%20de%20repuesta/20261013/01%20-%20SendInvoicesSOAP/PETICIO%CC%81N/Peticion_ebXML-%20SUBMITINVOICE.xml">Peticion_ebXML- SUBMITINVOICE.xml</a>; Supplied 13 October 2026; SHA-256 in source manifest.</td>
+<td>Messaging/UserMessage and PartInfo/@href</td>
+<td>Example header, empty SOAP body and MIME cid reference.</td>
+</tr>
+<tr>
+<td>SPFE-S06</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/archive/original-technical-baseline/Descripcio%CC%81n%20servicios%20web/Ejemplos%20y%20peticiones%20de%20repuesta/20261013/01%20-%20SendInvoicesSOAP/RESPUESTA/RespuestaAltaFacturas.xml">RespuestaAltaFacturas.xml</a>; Supplied 13 October 2026; SHA-256 in source manifest.</td>
+<td>DocumentResponse/Response and DocumentReference</td>
+<td>Example request/item result and locator; no confirmed CSV binding.</td>
+</tr>
+<tr>
+<td>REF-WSDL</td>
+<td>SPFE-S10: <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/CancelInvoice.wsdl">CancelInvoice.wsdl</a>, SPFE-S11: <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/CustomerInvoiceEvents.wsdl">CustomerInvoiceEvents.wsdl</a>, SPFE-S12: <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/DownloadInvoicesByID.wsdl">DownloadInvoicesByID.wsdl</a>, SPFE-S13: <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/DownloadInvoicesByLOC.wsdl">DownloadInvoicesByLOC.wsdl</a>, SPFE-S14: <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/GetInvoices.wsdl">GetInvoices.wsdl</a>, SPFE-S15: <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/GetRegisteredInvoice.wsdl">GetRegisteredInvoice.wsdl</a>, SPFE-S16: <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SendInvoice.wsdl">SendInvoice.wsdl</a>, SPFE-S17: <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SupplierInvoiceEvents.wsdl">SupplierInvoiceEvents.wsdl</a>; PRE release 23 November 2026.</td>
+<td>Each <code>wsdl:documentation</code>, message, portType operation, SOAP 1.2 binding/action and service port.</td>
+<td>Eight exact ebMS public transport contracts and HTTP/fault/attachment rules. Business schemas, full action payloads and replay guarantees remain unqualified.</td>
+</tr>
+<tr>
+<td>SPFE-S18</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/xsd/ebms/ebms-header-3_0-200704.xsd">ebms-header-3_0-200704.xsd</a>; PRE release 23 November 2026.</td>
+<td>xsd:schema targetNamespace <code>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/</code>; imports/types.</td>
+<td>Messaging or SOAP/XML transport schema. Not a UBL Invoice, ApplicationResponse or DocumentStatus business schema; no country rule validation.</td>
+</tr>
+<tr>
+<td>SPFE-S19</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/xsd/w3/soap-envelope.xsd">soap-envelope.xsd</a>; PRE release 23 November 2026.</td>
+<td>xsd:schema targetNamespace <code>http://www.w3.org/2003/05/soap-envelope</code>; imports/types.</td>
+<td>Messaging or SOAP/XML transport schema. Not a UBL Invoice, ApplicationResponse or DocumentStatus business schema; no country rule validation.</td>
+</tr>
+<tr>
+<td>SPFE-S20</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/xsd/w3/xml.xsd">xml.xsd</a>; PRE release 23 November 2026.</td>
+<td>xsd:schema targetNamespace <code>http://www.w3.org/XML/1998/namespace</code>; imports/types.</td>
+<td>Messaging or SOAP/XML transport schema. Not a UBL Invoice, ApplicationResponse or DocumentStatus business schema; no country rule validation.</td>
+</tr>
+<tr>
+<td>SPFE-S21</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/xsd/xmlsoap/envelope.xsd">envelope.xsd</a>; PRE release 23 November 2026.</td>
+<td>xsd:schema targetNamespace <code>http://schemas.xmlsoap.org/soap/envelope/</code>; imports/types.</td>
+<td>Messaging or SOAP/XML transport schema. Not a UBL Invoice, ApplicationResponse or DocumentStatus business schema; no country rule validation.</td>
+</tr>
+<tr>
+<td>SPFE-S10</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/CancelInvoice.wsdl">CancelInvoice.wsdl</a>; PRE release 23 November 2026.</td>
+<td><code>CancelInvoice</code> portType operation, SOAP binding, service ports and soap12:address.</td>
+<td>Exact PRE transport contract; business payload fields, replay and full result semantics need the catalogue/format qualifications.</td>
+</tr>
+<tr>
+<td>SPFE-S11</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/CustomerInvoiceEvents.wsdl">CustomerInvoiceEvents.wsdl</a>; PRE release 23 November 2026.</td>
+<td><code>CustomerInvoiceEvents</code> portType operation, SOAP binding, service ports and soap12:address.</td>
+<td>Exact PRE transport contract; business payload fields, replay and full result semantics need the catalogue/format qualifications.</td>
+</tr>
+<tr>
+<td>SPFE-S12</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/DownloadInvoicesByID.wsdl">DownloadInvoicesByID.wsdl</a>; PRE release 23 November 2026.</td>
+<td><code>DownloadInvoicesByID</code> portType operation, SOAP binding, service ports and soap12:address.</td>
+<td>Exact PRE transport contract; business payload fields, replay and full result semantics need the catalogue/format qualifications.</td>
+</tr>
+<tr>
+<td>SPFE-S13</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/DownloadInvoicesByLOC.wsdl">DownloadInvoicesByLOC.wsdl</a>; PRE release 23 November 2026.</td>
+<td><code>DownloadInvoicesByLOC</code> portType operation, SOAP binding, service ports and soap12:address.</td>
+<td>Exact PRE transport contract; business payload fields, replay and full result semantics need the catalogue/format qualifications.</td>
+</tr>
+<tr>
+<td>SPFE-S14</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/GetInvoices.wsdl">GetInvoices.wsdl</a>; PRE release 23 November 2026.</td>
+<td><code>GetInvoices</code> portType operation, SOAP binding, service ports and soap12:address.</td>
+<td>Exact PRE transport contract; business payload fields, replay and full result semantics need the catalogue/format qualifications.</td>
+</tr>
+<tr>
+<td>SPFE-S15</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/GetRegisteredInvoice.wsdl">GetRegisteredInvoice.wsdl</a>; PRE release 23 November 2026.</td>
+<td><code>GetRegisteredInvoice</code> portType operation, SOAP binding, service ports and soap12:address.</td>
+<td>Exact PRE transport contract; business payload fields, replay and full result semantics need the catalogue/format qualifications.</td>
+</tr>
+<tr>
+<td>SPFE-S17</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SupplierInvoiceEvents.wsdl">SupplierInvoiceEvents.wsdl</a>; PRE release 23 November 2026.</td>
+<td><code>SupplierInvoiceEvents</code> portType operation, SOAP binding, service ports and soap12:address.</td>
+<td>Exact PRE transport contract; business payload fields, replay and full result semantics need the catalogue/format qualifications.</td>
+</tr>
+<tr>
+<td>SPFE-S23</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/ValidationInvoice.wsdl">ValidationInvoice.wsdl</a>; PRE release 23 November 2026.</td>
+<td><code>wsdl:documentation</code>, UBL imports, messages, operation, SOAP 1.2 binding/action and service ports.</td>
+<td>Direct Invoice/DocumentStatus bodies, exact PRE name/action/ports and standard fault profile; two imported schemas and local dependencies now supplied; no accepted-profile/client or live access proof.</td>
+</tr>
+<tr>
+<td>SPFE-S24</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/spfe-ebms3-jaxb-bindings.xml">spfe-ebms3-jaxb-bindings.xml</a>; PRE release 23 November 2026.</td>
+<td><code>jaxb:bindings</code> selectors for SOAP 1.1/1.2 <code>mustUnderstand</code>; generation instructions.</td>
+<td>Separates colliding JAXB properties and identifies the SOAP 1.2 property; XML generation aid, not an attachment implementation or proven client build.</td>
+</tr>
+<tr>
+<td>REF-PRD</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-214-connections-registration-routing-structured-review.md">PRD-SEI-214</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-105-public-platform-environment-isolation.md">PRD-SEI-105</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-211-public-platform-invoice-consultation-structured-review.md">PRD-SEI-211</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-212-public-platform-invoice-submission-structured-review.md">PRD-SEI-212</a>.</td>
+<td>Product scope and requirement IDs cited in Parts 1–4.</td>
+<td>Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval.</td>
+</tr>
+<tr>
+<td>REF-CONTEXT</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/source-manifest.json">source manifest</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>.</td>
+<td>Source register, shared conflicts and terminology.</td>
+<td>Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness.</td>
+</tr>
+<tr>
+<td>SPFE-S28/S29</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Listados%20c%C3%B3digos%20de%20error/errores_negocio.properties">Business error properties</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Listados%20c%C3%B3digos%20de%20error/errores_tecnicos.properties">technical error properties</a>; received 23 November 2026, embedded versions unknown.</td>
+<td>S28: <code>RULE_SPFE-CORE-34_MENSAJE</code>, four <code>RULE_SPFE-CORE-18_MENSAJE_*</code> variants and <code>RULE_SPFE-ACTION-09_MENSAJE_*</code>; conflicting <code>ERROR_CODIGO_NO_RECONOCIDO</code> entries at lines 33/37. S29: <code>4020</code>, <code>5000</code>, duplicate/concatenated entries at lines 18–22.</td>
+<td>Message templates add evidence; property keys are not established wire codes or operation bindings. Preserve all source variants. SPFE-Q20/Q21 remain open; no retry or HTTP-status equivalence follows.</td>
+</tr>
+<tr>
+<td>SPFE-S90/S69/S47</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Invoice-2.5.xsd">Invoice</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-DocumentStatus-2.5.xsd">DocumentStatus</a> and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-ApplicationResponse-2.5.xsd">ApplicationResponse</a> XSDs; received 23 November 2026.</td>
+<td>Schema roots/types and local import/include references; 112 UBL files registered in the manifest.</td>
+<td>Local dependency availability only; accepted Spain profile, schema provenance, actual client and runtime remain unqualified.</td>
+</tr>
+<tr>
+<td>SPFE-S30/S31</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Listados%20auxiliares%20BG%20y%20BT/bg_invoice.properties">BG paths</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Listados%20auxiliares%20BG%20y%20BT/bt_invoice.properties">BT paths</a>; received 23 November 2026, embedded versions unknown.</td>
+<td>Active property keys and their literal invoice paths.</td>
+<td>Lookup candidates only for explicitly mentioned terms/groups. No inferred error parameter, executable XPath, operation binding or implemented DTS coverage.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

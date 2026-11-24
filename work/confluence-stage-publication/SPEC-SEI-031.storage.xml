@@ -1,0 +1,223 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-031<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/offboarding/SPEC-SEI-031-customer-offboarding-solution-summary.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-24</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">customer-offboarding-solution-summary</ac:parameter></ac:structured-macro><h1>Customer Offboarding Solution Summary</h1>
+<p><ac:link><ri:page ri:content-title="Customer Offboarding Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>Logical Feature Specification</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Customer Offboarding Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>Sequence and Reuse Assessment</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Customer Offboarding Solution Summary" ri:space-key="DNBU" /><ac:link-body>Feature folder</ac:link-body></ac:link></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">revision-overview</ac:parameter></ac:structured-macro><h2>Revision overview</h2>
+<p>This separate draft develops <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-003-offboarding-solution-specification.md">SPEC-SEI-003</a> into three review views. It adds platform responsibility scenarios, separate support and access periods, explicit cutoff handling and a fuller export assessment. The predecessor remains unchanged. This summary is selected for stable Confluence page <code>923861391</code>.</p>
+<p>OFF-01–08, OFF-I01–08, OFF-R01–10 and OFF-A01–11 retain their meanings. Existing detailed interaction and data inventories remain in SPEC-SEI-003. No provider contract, retention schedule or lifecycle status changes. Support durations, commercial terms and the practical delivery of invoice-copy rights remain open product and legal decisions.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-problem-and-intended-outcomes</ac:parameter></ac:structured-macro><h2>1 Problem and intended outcomes</h2>
+<p>A business can leave Sage while earlier invoices still need delivery confirmation, payment reporting or correction. It may also need access to invoice records. Ending all access when the subscription expires can prevent this work. Keeping all services active creates cost and security risks. The customer needs to know what stops, what continues, who is responsible and how records remain available. REF-PRODUCT.</p>
+<p>The result must show when new invoice processing changes, who will finish earlier work, how records are handed over or kept accessible, and which access has ended. The <ac:link><ri:page ri:content-title="Customer Offboarding Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>logical specification</ac:link-body></ac:link> defines the required behaviour. This summary explains the customer outcomes and decisions still needed.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-scope-and-platform-responsibilities</ac:parameter></ac:structured-macro><h2>2 Scope and platform responsibilities</h2>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What Sage must coordinate within its authorised scope</th>
+<th>What needs separate evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business leaves the Sage private platform for another private platform</td>
+<td>Check the new platform, confirm when new invoices change platform, and arrange earlier work and records access.</td>
+<td>The new provider's acceptance and who will handle earlier invoices at each provider.</td>
+</tr>
+<tr>
+<td>Business leaves another private platform but keeps its Sage product</td>
+<td>Set up the new platform and coordinate old-provider steps only where Sage has permission.</td>
+<td>The old provider's notice, exit, export and access rules. Sage cannot promise to perform actions outside its contract.</td>
+</tr>
+<tr>
+<td>Business changes external private provider while Sage coordinates both connections</td>
+<td>Coordinate one change and obtain separate confirmation from each provider.</td>
+<td>Whether each provider supports the selected address or invoice direction, and how completion is confirmed.</td>
+</tr>
+<tr>
+<td>Business stops using its Sage product but keeps a private-platform agreement</td>
+<td>Identify the subscription and access that end.</td>
+<td>Whether the platform agreement, authority and separate archive access continue. Product cancellation does not automatically end the platform agreement.</td>
+</tr>
+<tr>
+<td>Business ends all identified Sage e-invoicing services</td>
+<td>Account for future invoice receipt, unfinished work, access and records for each selected business and direction.</td>
+<td>A working replacement where required, or an accepted decision that no replacement is needed.</td>
+</tr>
+<tr>
+<td>A private provider becomes unavailable or access is compromised</td>
+<td>Stop unsafe work, protect evidence and name who will manage recovery and deadlines.</td>
+<td>Permission for emergency action and a working recovery method.</td>
+</tr>
+</tbody>
+</table>
+<p>The business administrator or authorised accountant approves what will change. Product and Operations explain the exit terms to the customer. Each platform operator confirms its own actions. Legal/Tax confirms which duties continue. Privacy/Records decides how records are kept, returned or deleted. Security decides when credentials can be removed. These responsibilities do not prescribe separate technical services.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-end-to-end-flow</ac:parameter></ac:structured-macro><h2>3 End-to-end flow</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">customer-action-switch-or-offboard</ac:parameter></ac:structured-macro><h3>Customer action: switch or offboard</h3>
+<p><strong>Customer entry point:</strong> use E-invoicing settings to <strong>Connect or add a platform</strong>, <strong>Switch platform</strong>, or <strong>Disconnect or stop a service</strong>. A switch is one customer request. Sage coordinates new setup and any old-service exit behind that request, with progress and next actions shown in settings. <ac:link ac:anchor="e-invoicing-settings-intended-interaction"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC038</ac:link-body></ac:link> owns this intended interaction.</p>
+<p>A <strong>switch</strong> changes the platform used to send or receive new invoices. <strong>Offboarding</strong> ends selected access or services. A switch can include ending old access or services. The customer starts one switch request, which can affect part or all of their setup. The <ac:link ac:anchor="customer-action-scenarios"><ri:page ri:content-title="Customer Offboarding Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>logical spec's customer-action table</ac:link-body></ac:link>, OFF-S01–10, defines the ten scenarios, including urgent incidents and business closure. A listed scenario is not a promise that the feature is available.</p>
+<p><ac:link ac:anchor="e-invoicing-settings-overview"><ri:page ri:content-title="Onboarding and Connectivity Solution Summary" ri:space-key="DNBU" /><ac:link-body>The settings overview lives in SPEC037</ac:link-body></ac:link>. <ac:link ac:anchor="switch-platform-one-customer-journey"><ri:page ri:content-title="Onboarding and Connectivity Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC038 owns the complete customer switch journey</ac:link-body></ac:link>. This offboarding set defines the old-service exit checks within that journey, or a standalone disconnect. Its switch references do not create another customer request. The diagram below expands those checks.</p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="f84290f8-3561-5039-85f9-beef6d8d3a27"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">offboarding-and-switch-customer-actions</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1600</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/offboarding-and-switch-customer-actions.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/offboarding-and-switch-customer-actions.png">PNG</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/work/offboarding-review/customer-actions.html">Customer-action scenarios</a>.</p>
+<p>Start by checking for an urgent incident. Stop unsafe access when needed, without waiting for the planned switch or exit checks. Then identify what the customer wants to change. If the business has ceased trading, confirm whether a replacement platform is needed. Every path must leave someone responsible for earlier work and records.</p>
+<p>Ending Sage access to SPFE is different from changing where new invoices are received. Neither action proves that the customer has deregistered from SPFE. The exact public-access steps remain open under OFF-Q02/04; see SPEC-SEI-033 §3.3.</p>
+<p>Onboarding and offboarding describe the work Sage must coordinate. They do not require separate customer journeys for a switch. <ac:link ac:anchor="how-the-onboarding-apis-support-a-platform-switch"><ri:page ri:content-title="Customer Offboarding Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC033</ac:link-body></ac:link> keeps API reuse and Spain implementation checks separate from the settings interaction.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">planned-exit-and-recovery</ac:parameter></ac:structured-macro><h3>Planned exit and recovery</h3>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="139e1c33-ff0a-58ee-830c-ba3fe196e57e"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">offboarding-planned-exit-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2800</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/offboarding-planned-exit-process.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/offboarding-planned-exit-process.png">PNG</a>.</p>
+<p>The existing diagram shows the normal OFF-01–07 process. G4 confirms when new invoice processing changes. G5 assigns earlier work. G6 checks which access and services can end. G7 confirms records handover and the rules for keeping or deleting data. Export preparation can start before the change; it does not need to wait for access removal. Use OFF-08 when an action partly succeeds or its result is unknown.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-how-long-should-support-continue</ac:parameter></ac:structured-macro><h2>4 How long should support continue?</h2>
+<p><strong>Recommendation for product review:</strong> use separate periods with explicit start events. Avoid one account-wide expiry. The following numbers are planning proposals for OFF-Q01; they are neither statutory periods nor existing Sage commitments. Detailed rules and failure handling are authoritative in SPEC-SEI-032, section 4.</p>
+<table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Proposed starting position</th>
+<th>Approval needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Planned notice and preparation</td>
+<td>Aim for 30 calendar days before the planned change. Allow an agreed shorter period or urgent exit.</td>
+<td>Product/Commercial and the provider owner confirm notice terms, customer needs and time to check any new platform.</td>
+</tr>
+<tr>
+<td>New invoices</td>
+<td>Stop starting new work in the old service when the change is confirmed. Extra support or export time does not permit new invoicing there.</td>
+<td>Route and provider owners agree which invoices belong to each platform and how receipt changes take effect.</td>
+</tr>
+<tr>
+<td>Transition assistance and self-service export</td>
+<td>Offer 90 calendar days from the confirmed change. State the dates before approval.</td>
+<td>Product/Operations confirm staffing, access, fees, notices and exceptions. Continuing rights and duties still apply.</td>
+</tr>
+<tr>
+<td>Earlier invoice duties</td>
+<td>Continue only the necessary work until it is finished or a new owner accepts it. Review open cases every 30 calendar days and before each due date.</td>
+<td>Legal/Tax, Operations and providers confirm who can act, how, at what cost and when to escalate.</td>
+</tr>
+<tr>
+<td>Invoice-copy access and retained evidence</td>
+<td>Agree separate rules and dates for access and keeping records.</td>
+<td>Legal/Records confirm applicable rights, who keeps records, how copies are requested and when deletion must be paused. REF-COPY; REF-PRIVACY.</td>
+</tr>
+<tr>
+<td>Credentials</td>
+<td>Remove each credential when no remaining authorised work needs it. Review any continued access with the earlier-work case.</td>
+<td>Security and the work owner confirm removal. Compromised access follows the incident process.</td>
+</tr>
+</tbody>
+</table>
+<p>Spain's Law 56/2007 Article 2 bis.3 gives recipients four years from invoice issue to request copies without additional cost. This is not four years of full Sage service. The accountable copy provider, applicable commencement rules and post-exit channel need Legal confirmation. REF-COPY; OFF-Q03.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-do-we-need-export</ac:parameter></ac:structured-macro><h2>5 Do we need export?</h2>
+<p><strong>Yes: provide an authorised export and evidence-handover capability.</strong> This is already in the draft product baseline, OFR12–13. For each exit, agree whether the customer receives files, an authorised destination receives them, or a verified continuing archive supplies access. Record the result and limitations. A change of provider does not automatically transfer records or transfer responsibility for unfinished actions. REF-PRODUCT.</p>
+<p>The export must identify original invoice files, public copies, readable copies such as PDFs, and event/report evidence separately. PDFs alone are not a complete handover of structured invoice records. SPEC-SEI-032, section 5 defines the file list, delivery confirmation, later additions and recovery. Public downloads can supply some records, but do not prove that all originals, private-provider responses or history are available. REF-SPFE.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">6-reuse-and-spain-boundaries</ac:parameter></ac:structured-macro><h2>6 Reuse and Spain boundaries</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Intended Spain use and reuse classification</th>
+<th>Qualification needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exit case, scoped gates and recovery</td>
+<td>Reuse the proposed OFF design pattern.</td>
+<td>Existing implementation, product access after cancellation and Operations tooling remain unknown.</td>
+</tr>
+<tr>
+<td>Connection update, disconnection and observation</td>
+<td>Assess the existing FR implementation first; bind Spain/provider rules separately.</td>
+<td>Version-specific removal scope, completion evidence, shared-address impact and historical access. REF-FR.</td>
+</tr>
+<tr>
+<td>Export, authorised retrieval and archive</td>
+<td>Assess shared records/retrieval capabilities before creating another export implementation.</td>
+<td>Coverage, completeness, access after subscription end and destination import.</td>
+</tr>
+<tr>
+<td>DTS transformation</td>
+<td>Preferred candidate if export needs an additional supported representation.</td>
+<td>Actual build, contracts, mappings, rule packs and operations. Preserve exact originals separately; conversion cannot manufacture missing evidence.</td>
+</tr>
+<tr>
+<td>Spain-specific behaviour</td>
+<td>Keep identity, receiving publication, public-copy and reporting rules in Spain policy.</td>
+<td>Post-switch actor/channel and receiving-point sequence remain open. Another country's exit rules cannot activate Spain coverage.</td>
+</tr>
+</tbody>
+</table>
+<p>The <ac:link><ri:page ri:content-title="Customer Offboarding Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>reuse assessment</ac:link-body></ac:link> records source capability, local changes, owner and evidence gaps. No production exit implementation is established by this review.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">7-decisions-needed-before-a-customer-commitment</ac:parameter></ac:structured-macro><h2>7 Decisions needed before a customer commitment</h2>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Consequence and accountable role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OFF-Q01 Support/notice/access periods and charges</td>
+<td>Product/Commercial/Operations must accept or amend the planning proposal and update PRD-SEI-243 before it becomes a service commitment.</td>
+</tr>
+<tr>
+<td>OFF-Q02 Earlier work and records</td>
+<td>Legal/Tax and both platform owners must identify who can act after the switch and who keeps each record. PRD OD1/2/6.</td>
+</tr>
+<tr>
+<td>OFF-Q03 Copy access, retention and deletion</td>
+<td>Legal/Privacy/Records must bind applicable copy rights, retention duties, controller instructions and legal holds by data class. PRD OD5.</td>
+</tr>
+<tr>
+<td>OFF-Q04 Provider and route contract</td>
+<td>Platform owners must confirm notice terms, which parts can be removed, how completion is checked, when receipt changes take effect and how emergencies are handled. PRD OD3/4/8.</td>
+</tr>
+<tr>
+<td>OFF-Q05 Export and receiving-party acceptance</td>
+<td>Records/Product and destination owner must agree package coverage, supported imports, omissions, receipts and later additions.</td>
+</tr>
+<tr>
+<td>OFF-Q06 Service and security exceptions</td>
+<td>Operations/Security must define restricted post-exit access, escalation, unavailable customer handling and compromised-access recovery.</td>
+</tr>
+</tbody>
+</table>
+<p>An open decision prevents the affected promise or automatic action. Other safe work can continue. A manual step needs a named owner, permission and completion evidence. It cannot remove an applicable duty.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro><h2>REF Source references</h2>
+<table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>Original source, version/date and locator</th>
+<th>Supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-PRODUCT</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-243-customer-offboarding-and-provider-exit.md">PRD-SEI-243</a>, draft 5 October 2026; OFR1–15, OD1–8. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-003-offboarding-solution-specification.md">SPEC-SEI-003</a>, draft updated 8 October 2026; Parts 1–4.</td>
+<td>Canonical product baseline and proposed OFF design. Neither approves new support periods.</td>
+</tr>
+<tr>
+<td>REF-COPY</td>
+<td><a href="https://www.boe.es/buscar/act.php?id=BOE-A-2007-22440#a2bis">Law 56/2007, consolidated BOE text</a>, checked 22 October 2026; Article 2 bis.3 and associated effectivity notes.</td>
+<td>Recipient copy-request right. No universal Sage support duration or automatic allocation to a former platform.</td>
+</tr>
+<tr>
+<td>REF-PRIVACY</td>
+<td><a href="https://www.boe.es/buscar/doc.php?id=DOUE-L-2016-80807">GDPR, published BOE text</a>, 4 May 2016; Articles 5(1)(e), 28(3)(g).</td>
+<td>Storage limitation and processor return/deletion subject to required retention. Roles and schedules need qualification.</td>
+</tr>
+<tr>
+<td>REF-SPFE</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/BOE-A-2026-20587.pdf">Original Order HAC/1028/2026 PDF</a>, published 5 October 2026, Articles 9–11; <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-20587">official BOE</a>. SPFE-S02 in the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md">evidence baseline</a>.</td>
+<td>Recovery, download and access framework. No full private-platform archive transfer or offboarding API. Exact technical sources are in SPEC-SEI-033 REF.</td>
+</tr>
+<tr>
+<td>REF-FR</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Onboarding/access-point-guides-evidence-extract.md">Saved access-point guide extract</a>, received 22 October 2026; INT-AP02/03/05/06.</td>
+<td>Evidence of versioned address removal, asynchronous disconnection and observation limits. Guide versions conflict; Spain support is unproven.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

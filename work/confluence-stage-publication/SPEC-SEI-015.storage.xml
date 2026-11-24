@@ -1,0 +1,2685 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-015<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/SPEC-SEI-015-invoice-creation-solution-specification.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">invoice-creation-solution-specification</ac:parameter></ac:structured-macro><h1>Invoice Creation Solution Specification</h1>
+<p>Terminology follows the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md">shared e-invoicing glossary</a>. This is a <strong>reviewable logical proposal for Spain</strong>. The proposed service contracts and controls require design review. Regulatory content is distinguished from internal source assumptions. No implementation or public-platform acceptance is claimed.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-1-feature-solution-summary</ac:parameter></ac:structured-macro><h2>Part 1 Feature Solution Summary</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">reader-guide</ac:parameter></ac:structured-macro><h3>Reader guide</h3>
+<p>Part 1 explains the scope, owners, process and evidence. Part 2 defines invoice types, fields, identity, validation and recovery. Part 3 defines logical service interactions and data. Part 4 connects the requirements to acceptance scenarios and open decisions.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-purpose-and-scope</ac:parameter></ac:structured-macro><h3>1 Purpose and scope</h3>
+<p>Give Sage products one controlled way to prepare Spain invoice data, select the correct invoice type, generate a UBL representation and obtain validation evidence. Support standard invoices, seller corrections, replacements of simplified invoices, buyer-issued invoices and buyer-issued corrections. Preserve the invoice identity across the recipient representation, any faithful public copy and later lifecycle references.</p>
+<p><strong>Creation has two separate meanings.</strong> The ERP creates and issues the business invoice. Domain Services creates a derived electronic representation and checks it. A generated file or a validation <code>PASS</code> does not establish legal issuance, submission, recipient delivery, buyer acceptance or payment.</p>
+<p>In scope: product type selection, explicit issuer roles, versioned source intake, profile selection, type-driven validation, original-invoice references, corrective methods, regime keys, monetary reconciliation, unique-code inputs, qualified UBL generation, safe issues, immutable evidence and the handoff of a final candidate for coordinated issuance, or issued data for a qualified already-issued path, to sending.</p>
+<p>Out of scope: ERP numbering allocation, approval of legal issuance, external submission, recipient-directory implementation, signing implementation, public-copy dispatch, buyer status decisions, payment reporting, cancellation of an issued invoice and a new invoice archive. Creation supplies facts to those owners. It does not implement their operations.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">public-source-baseline</ac:parameter></ac:structured-macro><h3>Public source baseline</h3>
+<p>The new technical formats document selects public UBL 2.5 Invoice, including the five invoice type codes. Final Annex I still governs field meanings and fixed identifiers. Both supplied invoice examples conflict with its ProfileID, so example presence cannot close profile or mapper qualification.</p>
+<p>See <ac:link ac:anchor="ref-source-references"><ac:link-body>REF Source references</ac:link-body></ac:link> for the original files, exact locations and source limits. The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md">technical evidence guide</a> tracks shared source conflicts. The constraints below align this feature with the supplied public evidence; Sage implementation and activation remain gated.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-evidence-authority-and-source-differences</ac:parameter></ac:structured-macro><h3>2 Evidence, authority and source differences</h3>
+<p>The user supplied five internal articles. They establish the requested product context. The final public-platform order is the regulatory baseline for public invoices and copies. Read its Annex I together with the selected technical contract. A public profile is not a universal profile for every private exchange.</p>
+<table>
+<thead>
+<tr>
+<th>Evidence ID</th>
+<th>Source</th>
+<th>Authority and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IC-E01</td>
+<td><a href="https://confluence.sage.com/spaces/DNBU/pages/837610750/Handling+Different+Invoice+Types+in+Spain">Handling Different Invoice Types in Spain</a></td>
+<td>User-supplied article. Defines the five-type requirement, type-driven checks and correction journey. Source date is absent.</td>
+</tr>
+<tr>
+<td>IC-E02</td>
+<td><a href="https://confluence.sage.com/spaces/DNBU/pages/837610729/Invoice+format+-+Spain">Invoice format — Spain</a></td>
+<td>User-supplied article. Defines central generation and compliance intent. Several identifiers and field meanings differ from the final order.</td>
+</tr>
+<tr>
+<td>IC-E03</td>
+<td><a href="https://confluence.sage.com/spaces/DNBU/pages/837610674/SPFE+Unique+Invoice+Code+Generation">SPFE Unique Invoice Code Generation</a></td>
+<td>User-supplied article. Defines cross-message consistency. Its concatenation sketch is not an encoding contract or permission to add a UUID.</td>
+</tr>
+<tr>
+<td>IC-E04</td>
+<td><a href="https://confluence.sage.com/spaces/DNBU/pages/837610807/Field-Level+Comparison+of+Invoice+Types+Spain+CIUS-ES">Field-Level Comparison of Invoice Types</a></td>
+<td>User-pasted matrix. Several BT/BG meanings require correction against Annex I.</td>
+</tr>
+<tr>
+<td>IC-E05</td>
+<td><a href="https://confluence.sage.com/spaces/DNBU/pages/837610816/Validation+Rules+Matrix+%E2%80%93+Spain+Invoice+Types">Validation Rules Matrix</a></td>
+<td>User-pasted matrix. Some field IDs are truncated. Do not convert incomplete rows into executable rules.</td>
+</tr>
+<tr>
+<td>IC-E06</td>
+<td><a href="https://www.boe.es/eli/es/o/2026/10/02/hac1028">Order HAC/1028/2026, Articles 3–6 and Annex I</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/BOE-A-2026-20587.xml">local BOE XML</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/research/spain-public-platform-order-evidence.md">repository evidence note</a></td>
+<td>Final published regulatory text. Live BOE identity and relevant annex rows checked on 12 October 2026. Detailed field analysis uses the existing user-supplied XML. Exact schemas, executable rules and API acceptance still need qualification.</td>
+</tr>
+<tr>
+<td>IC-E07</td>
+<td><a href="https://www.boe.es/buscar/act.php?id=BOE-A-2026-7295#a7">RD 238/2026, Article 7.5</a></td>
+<td>Requires the unique identifier to include issuer NIF, series/number and issue date. It does not define delimiter, escaping or normalisation rules.</td>
+</tr>
+<tr>
+<td>IC-E08</td>
+<td><a href="https://github.com/ConnectingEurope/eInvoicing-EN16931/blob/master/ubl/schematron/abstract/EN16931-model.sch">European Commission EN 16931 rule source</a> and <a href="https://ec.europa.eu/digital-building-blocks/sites/spaces/DIGITAL/pages/467108974/Registry%2Bof%2Bsupporting%2Bartefacts%2Bto%2Bimplement%2BEN16931">supporting-artefact registry</a></td>
+<td>Primary source for core monetary checks. A mutable branch is a research reference. Release requires a pinned compatible artefact, not an automatic latest-version download.</td>
+</tr>
+<tr>
+<td>IC-E09</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-236-ubl-format-profile.md">PRD-SEI-236 — UBL profile</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-241-ubl-validation-service.md">PRD-SEI-241 — Validation</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md">PRD-SEI-246 — Preparation and outbound</a></td>
+<td>Canonical product and handoff context. ERP issuance, profile activation and final dispatch validation remain separate. These documents remain at their current status.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Confirmed</strong> below means supported by the cited regulatory or repository evidence. <strong>Proposed</strong> means a reviewable product or design choice. <strong>Open</strong> means the named owner must resolve the stated gate. A confirmed regulatory field does not prove an implementation supports it.</p>
+<table>
+<thead>
+<tr>
+<th>Difference ID</th>
+<th>Supplied internal context</th>
+<th>Final-order baseline / design treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IC-C01</td>
+<td>BT-23 omits <code>profile</code>; BT-24 uses a <code>CIUS-ES-SPFE</code> URN.</td>
+<td>Annex I gives BT-23 <code>urn:aeat:names:specification:ubl:schema:profile:B2B</code> and BT-24 <code>urn:cen.eu:en16931:2026#conformant#urn:aeat.es:spfe:1.0.0:extended</code>. Preserve these exact public-profile values. Technical bundle compatibility remains IC-Q01.</td>
+</tr>
+<tr>
+<td>IC-C02</td>
+<td><code>BG-ES-1</code> and <code>BT-ES-2/3/4/5/6</code> describe corrections.</td>
+<td>Annex I places correction type, method and amounts in specialised <code>BG-24</code> groups using <code>BT-ES-27/28/29</code>. <code>BG-ES-1</code> describes third parties; <code>BT-ES-2</code> is effective payment date; <code>BT-ES-3/4/5</code> describe the third party. Never translate old field IDs by position.</td>
+</tr>
+<tr>
+<td>IC-C03</td>
+<td>BT-32 and BT-48 are mandatory on every invoice.</td>
+<td>Annex I allows seller BT-31 or BT-32, and buyer BT-47 or BT-48, with conditional identity requirements. Validate the scheme and role, not only field presence.</td>
+</tr>
+<tr>
+<td>IC-C04</td>
+<td>BT-113 must be zero if present.</td>
+<td>Annex I permits paid amounts with a restriction on advances that have caused VAT accrual under Article 75.Dos. The zero-only rule must not enter the final-order pack.</td>
+</tr>
+<tr>
+<td>IC-C05</td>
+<td>Amount due is total less unspecified adjustments, or total less paid amount plus charges.</td>
+<td>Core BR-CO-16 uses total with VAT minus paid amount plus rounding. The final public profile also includes separately classified collection and deduction amounts under BT-179. IC-Q06 must qualify the complete public-profile arithmetic.</td>
+</tr>
+<tr>
+<td>IC-C06</td>
+<td>388 replaces a previous invoice generally.</td>
+<td>List L1 defines 388 as replacement of simplified invoices. It is separate from corrective substitution method <code>S</code>. Do not use 388 to avoid correction controls.</td>
+</tr>
+<tr>
+<td>IC-C07</td>
+<td>Every correction/replacement must reference a valid existing local invoice.</td>
+<td>BG-3 is <code>0..n</code>; BT-25 and BT-26 are mandatory within each supplied group. Proposed product policy requires identifiable originals for supported individual corrections/replacements. Local storage is not a legal prerequisite. Aggregate or permitted reference exceptions need IC-Q03.</td>
+</tr>
+<tr>
+<td>IC-C08</td>
+<td>At least one REGI per line; only VAT is assumed.</td>
+<td>Annex I specifies <code>1..2</code> regime groups per line, <code>BT-160=REGI</code>, BT-161 from L3A/L3B/L3C and national tax qualifier BT-ES-24. Isolate IVA, IGIC and IPSI rules.</td>
+</tr>
+<tr>
+<td>IC-C09</td>
+<td>Optional embedding of the composite code in <code>cbc:UUID</code> or an extension.</td>
+<td>Article 6 defines a composite identity from invoice fields. No standalone UUID mapping is approved here. Return derived identity only through the qualified API contract.</td>
+</tr>
+<tr>
+<td>IC-C10</td>
+<td>Seller NIF is used without qualifying buyer issuance.</td>
+<td>Keep seller, buyer, material issuer and authenticated caller separate. Annex II invoice references describe issuer NIF as the seller's NIF. Qualify the cross-message binding for 389/471 under IC-Q04; do not substitute the caller's or buyer's ID automatically.</td>
+</tr>
+<tr>
+<td>IC-C11</td>
+<td>Corrected amount groups have one assumed maximum.</td>
+<td>Annex I BT-3 text says up to three amount groups; the detailed <code>IMPORTES RECTIFICADOS</code> row says <code>0..5</code>. Some XPath spellings also need technical checking. IC-Q02 requires official schema/rule clarification; do not select a limit or repair an official path by guesswork.</td>
+</tr>
+</tbody>
+</table>
+<p>The Word compliance guide linked inside IC-E01 was not supplied. Its full content and approval status are unverified. It cannot close a legal or technical gate. The source articles also describe different MVP/pilot scopes. IC-Q08 must settle the release sequence; this spec describes all five requested types without claiming all are launch-ready.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-terms-and-responsibility</ac:parameter></ac:structured-macro><h3>3 Terms and responsibility</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning in this feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business invoice creation / representation generation</td>
+<td>ERP preparation and issuance of the business document; creation of an electronic file derived from a stated source revision.</td>
+</tr>
+<tr>
+<td>Seller / buyer / material issuer</td>
+<td>Supplier; recipient of the supply; party that prepares and issues the document in practice. Buyer-issued invoices keep seller and buyer in their normal structural roles.</td>
+</tr>
+<tr>
+<td>Authenticated principal / represented party</td>
+<td>Trusted caller; business on whose behalf the action occurs. Neither automatically determines the invoice's issuer identifier.</td>
+</tr>
+<tr>
+<td>Corrective invoice / correction method</td>
+<td>A separate issued invoice that rectifies earlier invoice facts; <code>I</code> for difference or <code>S</code> for substitution under the selected Spain profile.</td>
+</tr>
+<tr>
+<td>Replacement of simplified invoices</td>
+<td>Type 388. It is a distinct business scenario from corrective substitution.</td>
+</tr>
+<tr>
+<td>Unique invoice code</td>
+<td>Spain composite invoice identity under the selected country contract. It is separate from a Sage invoice ID, operation ID, DTS task ID and request-idempotency key.</td>
+</tr>
+<tr>
+<td>REGI</td>
+<td>The fixed property code identifying a regime entry. Its value contains the selected regime code; REGI itself is not the regime value.</td>
+</tr>
+<tr>
+<td>Capability bundle</td>
+<td>Fixed input, mapper, syntax, invoice profile, rule and output versions for the selected generation scope.</td>
+</tr>
+<tr>
+<td>Preflight / final validation</td>
+<td>Draft or preview check; check of the exact final representation and current dispatch context. A preflight pass does not authorise dispatch.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Responsibility</th>
+<th>Accountable logical owner and boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business facts, invoice numbering, issuer choice and issuance evidence</td>
+<td>ERP/product. The authorised finance user or delegate confirms the business scenario. Domain Services never silently changes totals or issues on the product's behalf.</td>
+</tr>
+<tr>
+<td>Creation orchestration, source lineage, role consistency and result</td>
+<td>E-Invoice Service. Component allocation and deployed contract remain IC-Q07.</td>
+</tr>
+<tr>
+<td>Authority and identity checks</td>
+<td>Identity/authority owner. Verify caller permission and represented-party scope separately from tax-ID format checks.</td>
+</tr>
+<tr>
+<td>Public-profile and country-rule approval</td>
+<td>Spain technical and Compliance owners. Own applicability, field meaning, code lists, exceptions and technical-contract evidence.</td>
+</tr>
+<tr>
+<td>UBL transformation</td>
+<td>Existing DTS is the preferred implementation reuse candidate. <ac:link><ri:page ri:content-title="Spain UBL Mapper Migration to DTS Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-008</ac:link-body></ac:link> owns migration and qualification.</td>
+</tr>
+<tr>
+<td>Validation and issues</td>
+<td><ac:link><ri:page ri:content-title="UBL Validation and Correction Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-005</ac:link-body></ac:link>. Reuse its result semantics and layered checks.</td>
+</tr>
+<tr>
+<td>Signing, recipient delivery and public-copy actions</td>
+<td><ac:link><ri:page ri:content-title="Certificate Management Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-001</ac:link-body></ac:link> and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-007-invoice-sending-solution.md">SPEC-SEI-007</a>. Creation supplies exact final source and representation evidence; bind actual ERP issuance proof through the qualified sending boundary.</td>
+</tr>
+<tr>
+<td>Later correction relationships and payment/reporting interpretation</td>
+<td>ERP and <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a>. A creation result alone never changes payment or commercial status.</td>
+</tr>
+<tr>
+<td>Durable invoice conservation</td>
+<td>Existing product/records owner. DTS temporary output is not an archive. Exact custody and retention need IC-Q09.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-spain-use-and-reuse-qualification</ac:parameter></ac:structured-macro><h3>4 Spain use and reuse qualification</h3>
+<table>
+<thead>
+<tr>
+<th>Source capability</th>
+<th>Intended Spain use</th>
+<th>Reuse classification / local changes</th>
+<th>Gap, owner and evidence before activation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source revision, evidence and safe recovery patterns in SPEC-SEI-005/007</td>
+<td>Preserve draft/final lineage and reconcile uncertain work.</td>
+<td>Reusable unchanged: proposed design patterns.</td>
+<td>E-Invoice/ERP owners: qualify actual contracts, concurrency, persistence and issue presentation. No deployed creation implementation is established.</td>
+</tr>
+<tr>
+<td>Existing DTS and proposed Spain mapper migration in SPEC-SEI-008</td>
+<td>Generate a lossless target representation from each approved ERP source.</td>
+<td>Unknown implementation coverage: preferred existing implementation candidate. Add qualified Spain mappings and target support where absent.</td>
+<td>DTS/Spain mapper owners: actual build, source contracts, Invoice/CreditNote coverage, extensions, rule packs, completion/read APIs, XML retrieval and support evidence.</td>
+</tr>
+<tr>
+<td>Validation service design in SPEC-SEI-005</td>
+<td>Check source semantics and exact generated bytes.</td>
+<td>Reusable with country binding.</td>
+<td>Validation/Spain owners: pinned compatible schemas, core/extended rules, code lists, negative cases and complete field preservation.</td>
+</tr>
+<tr>
+<td>Global API, identity and records capabilities</td>
+<td>Expose scoped creation/check/read operations; retain approved evidence.</td>
+<td>Unknown implementation coverage; shared capabilities need contract and country bindings.</td>
+<td>API/Identity/Records owners: actual builds, authority, isolation, input/read safety, recoverable acceptance and custody.</td>
+</tr>
+<tr>
+<td>Type codes, correction references, national tax/regime rules and composite identity</td>
+<td>Apply the approved Spain public or bilateral profile.</td>
+<td>Country-specific.</td>
+<td>Spain Product/Compliance/technical owners: final-order mapping, permitted exceptions, code encoding and public-copy/reporting continuity. These rules cannot become another country's defaults.</td>
+</tr>
+</tbody>
+</table>
+<p>Qualify each source-to-target pair independently. The supplied formats select public UBL 2.5 Invoice. That target and UBL 2.1 in an existing DTS path do not prove the deployed public mapping or its complete rule coverage. The final-order BT-24 value also does not by itself qualify a particular EN 16931 executable rule release. Keep identity, routing, public-copy and reporting country rules outside shared orchestration.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-process-diagrams-and-lifecycle</ac:parameter></ac:structured-macro><h3>5 Process diagrams and lifecycle</h3>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="63ec05a7-491b-5c3c-9ba6-8ad01d1a2f81"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">invoice-creation-preparation-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2670</ac:parameter><ac:parameter ac:name="height">632</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/invoice-creation-preparation-process.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/invoice-creation-preparation-process.png">PNG preview</a>.</p>
+<p>Text equivalent: the customer provides a business scenario; the ERP sends IC-01 source data. The service checks scope in IC-02 and selects the exact bundle in IC-03. IC-04–06 check type, references, identity, lines and amounts. A blocked check returns IC-09 issues. Valid data enters IC-07 qualified generation and IC-08 validation of the generated file. IC-09 returns the representation and evidence. The ERP decides whether to issue. IC-10 hands the final candidate to sending for its final checks before dependent Article 4 issuance, then binds actual ERP issuance proof. Qualified already-issued public paths keep their distinct context. IC-11 reconciles uncertain operation or handoff results before repetition. No public-platform mutation occurs in creation.</p>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="a38bbd14-63df-551c-b137-4dda2ace8f0d"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">invoice-creation-correction-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">2670</ac:parameter><ac:parameter ac:name="height">632</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/invoice-creation-correction-process.drawio">Editable Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/invoice-creation-correction-process.png">PNG preview</a>.</p>
+<p>Text equivalent: the ERP identifies whether the source is an unissued draft, an individual issued invoice to correct, or a simplified invoice to replace. Draft edits create a new source revision through IC-12. An issued correction uses 384 or 471 and selects <code>I</code> or <code>S</code> in IC-04; an eligible simplified-invoice replacement uses 388. IC-05 checks references and the unchanged seller/buyer roles. IC-06 checks the selected amounts. IC-07/08 produce and validate a separate representation. IC-09 returns issues or evidence; IC-10 hands the new final candidate to sending before dependent Article 4 issuance, then binds ERP issuance evidence. The original remains unchanged. Unsupported aggregate exceptions and uncertain original outcomes return to IC-11 for owned resolution.</p>
+<table>
+<thead>
+<tr>
+<th>Activity ID</th>
+<th>Trigger, precondition and result</th>
+<th>Logical owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IC-01 Capture source revision</td>
+<td>Authorised product submits draft facts or exact prebuilt UBL with revision and requested scenario. Save immutable input and request identity.</td>
+<td>ERP / E-Invoice</td>
+</tr>
+<tr>
+<td>IC-02 Establish authority and roles</td>
+<td>Determine caller, represented party, seller, buyer and material issuer before evaluating protected records. Reject invalid scope or unsupported authority.</td>
+<td>E-Invoice / Identity</td>
+</tr>
+<tr>
+<td>IC-03 Select capability bundle</td>
+<td>Resolve country, use, source contract and exact target/rules. Return unsupported or undetermined where no qualified selection exists.</td>
+<td>E-Invoice / profile owner</td>
+</tr>
+<tr>
+<td>IC-04 Select type and correction method</td>
+<td>Confirm business scenario and exact type. For 384/471 select reason and <code>I</code>/<code>S</code>; for 388 prove simplified-invoice replacement.</td>
+<td>ERP / E-Invoice</td>
+</tr>
+<tr>
+<td>IC-05 Check identity and references</td>
+<td>Validate identity schemes, unique-code inputs and original references using authorised evidence. Preserve all party roles.</td>
+<td>E-Invoice / country rules</td>
+</tr>
+<tr>
+<td>IC-06 Check fields, regimes and amounts</td>
+<td>Run base, type and cross-field checks. Reconcile lines, tax breakdowns and payable amounts without altering facts.</td>
+<td>Validation / country rules</td>
+</tr>
+<tr>
+<td>IC-07 Generate target representation</td>
+<td>Use the qualified mapper and pinned input/bundle. Save separate exact target bytes and provenance. Prebuilt input bypasses generation.</td>
+<td>DTS / E-Invoice</td>
+</tr>
+<tr>
+<td>IC-08 Validate generated representation</td>
+<td>Run safety, schema, compatible core and country/profile checks on exact bytes. Verify preservation of business meaning.</td>
+<td>Validation</td>
+</tr>
+<tr>
+<td>IC-09 Return evidence and next action</td>
+<td>Persist result and safe issues before notification. ERP displays correction actions, qualification gaps or a checked representation.</td>
+<td>E-Invoice / ERP</td>
+</tr>
+<tr>
+<td>IC-10 Bind final candidate and actual issuance evidence</td>
+<td>Hand the checked final candidate to SPEC-SEI-007 before dependent Article 4 issuance. Bind later ERP-issued proof to the same facts. Qualified already-issued paths retain their own evidence. Reject changed or unverified bindings; reuse IC-03–09.</td>
+<td>ERP / E-Invoice / Sending</td>
+</tr>
+<tr>
+<td>IC-11 Reconcile uncertain work</td>
+<td>On timeout, partial persistence, ambiguous original status or lost handoff response, query the original operation/evidence before retry.</td>
+<td>Owning service / Operations</td>
+</tr>
+<tr>
+<td>IC-12 Correct draft or start new invoice</td>
+<td>Before issuance, create a linked source revision. After issuance, start a separate correction/replacement under applicable rules.</td>
+<td>ERP / authorised user</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">6-material-decisions-and-customer-outcomes</ac:parameter></ac:structured-macro><h3>6 Material decisions and customer outcomes</h3>
+<p>IC-Q01–Q10 gate profile artefacts, correction mappings, reference exceptions, issuer identity, code encoding, arithmetic, actual service contracts, release scope, operations and safe classification. Product users see the selected type, identified original, correction method, safe field issues and the next action. Internal rule hashes and transport details remain in evidence and developer diagnostics.</p>
+<p>Successful preparation returns a <strong>checked representation</strong>, with validation outcome, source revision and limitations. A business-data failure returns <strong>correction required</strong>. A missing capability returns <strong>unsupported</strong>. A missing rule or uncertain service result returns <strong>Sage action required</strong>. None of these results records external acceptance.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-2-logical-feature-specification</ac:parameter></ac:structured-macro><h2>Part 2 Logical Feature Specification</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-source-operation-and-outcome-model</ac:parameter></ac:structured-macro><h3>1 Source, operation and outcome model</h3>
+<p>Accept two logical input modes: business facts under a qualified source contract; or exact prebuilt UBL bytes under a declared profile. Both carry tenant, represented party, environment, source product/reference/revision, lifecycle phase, requested type/scenario and request-idempotency identity. Business facts also carry party roles, header, lines, tax breakdowns, totals and conditional references. The API paths and actual field schema remain IC-Q07. Do not infer a provider's public operation from these logical names.</p>
+<p>Keep operation processing separate from document issuance and validation. Proposed processing outcomes are <code>PENDING</code>, <code>COMPLETED</code>, <code>FAILED</code> and <code>CANCELLED</code>; exact deployed mappings need IC-Q07. An uncertain acceptance or commit stays under IC-11 reconciliation. DTS task/transformation states keep their existing contract meanings; they do not become invoice statuses.</p>
+<p>Use the SPEC-SEI-005 validation outcomes <code>PASS</code>, <code>WARNINGS</code>, <code>BLOCKED</code>, <code>UNSUPPORTED</code> and <code>UNDETERMINED</code>. A layer that cannot run is <code>NOT_EVALUATED</code>. <code>WARNINGS</code> may permit preparation only under the approved policy. It cannot bypass a blocking rule. An infrastructure failure cannot become a content rejection or a <code>PASS</code>.</p>
+<ol>
+<li>One operation binds one immutable source revision and one capability bundle. Historical results keep these bindings after upgrades.</li>
+<li>Seller and buyer stay in their legal invoice positions. Material issuer and authenticated caller have separate records.</li>
+<li>A draft may lack a final number or date. Return a preview limitation; no final unique code or issue-ready result exists until required identity is fixed.</li>
+<li>The service does not allocate invoice numbers or infer correction intent from a negative amount alone.</li>
+<li>The service does not change totals, signs, original references, regime codes or tax identities silently.</li>
+<li>A correction has its own invoice identity. Its links point to originals without reusing their code as the correction's code.</li>
+<li>Generated bytes remain distinct from source bytes. Prebuilt bytes are never silently edited to match another profile.</li>
+<li>Code identity, request idempotency and content equivalence are independent controls. Same invoice identity with different final content is a conflict requiring review.</li>
+<li>A validated draft does not authorise issuance or sending. Sending rechecks exact final bytes and current route/profile/trust context.</li>
+<li>Preservation is subject to approved retention and deletion. Immutability does not mean indefinite storage.</li>
+</ol>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-invoice-type-behaviour</ac:parameter></ac:structured-macro><h3>2 Invoice-type behaviour</h3>
+<p>The five L1 values below are <strong>confirmed from IC-E06</strong>. The role, reference and activation policies are <strong>proposed</strong>, except where the table cites a specific final-order field rule. Support is activated per type, source contract and target profile. A disabled type remains visible as unsupported; never downgrade it to 380.</p>
+<table>
+<thead>
+<tr>
+<th>BT-3</th>
+<th>Intended business scenario</th>
+<th>Material issuer and authority</th>
+<th>References and corrective content</th>
+<th>Amount treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>380</code></td>
+<td>Standard invoice under the applicable invoice rules.</td>
+<td>Normally seller; an authorised third party may perform material issuance.</td>
+<td>BG-3 may be present for a legitimate relationship. Do not add corrective <code>RECT:*</code> groups without corrective type. Applicable third-party BG-ES-1 is independent.</td>
+<td>Full transaction values. Negative or zero values follow the active profile; the code alone is not a sign rule.</td>
+</tr>
+<tr>
+<td><code>384</code></td>
+<td>Seller-side corrective invoice.</td>
+<td>Seller or authorised delegate.</td>
+<td>Identify affected original(s) under IC-Q03; require <code>RECT:TIPO</code> and <code>RECT:MODALIDAD</code>. Amount-reference groups depend on method and approved scenario.</td>
+<td><code>I</code>: changes; <code>S</code>: corrected invoice values with the required original-amount information.</td>
+</tr>
+<tr>
+<td><code>388</code></td>
+<td>Replacement of simplified invoice(s).</td>
+<td>Seller or authorised delegate. Confirm original eligibility.</td>
+<td>Proposed product policy requires the simplified-invoice references. No corrective <code>RECT:*</code> groups. Do not use it for ordinary issued-invoice amendment.</td>
+<td>Full values for the replacement business scenario. It does not apply the difference method.</td>
+</tr>
+<tr>
+<td><code>389</code></td>
+<td>Invoice issued by the recipient.</td>
+<td>Buyer performs material issuance; supplier remains seller. Require the applicable self-billing agreement/authority evidence.</td>
+<td>No corrective groups. BG-3 is conditional on a genuine previous-invoice relationship. Third-party data applicability needs IC-Q04.</td>
+<td>Full transaction values. The buyer's issuance role does not change supplier/customer fields.</td>
+</tr>
+<tr>
+<td><code>471</code></td>
+<td>Corrective invoice issued by the recipient.</td>
+<td>Buyer performs material issuance under the applicable authority. The code alone grants no correction rights.</td>
+<td>Apply correction groups and reference policy as for 384, with buyer-issued authority.</td>
+<td><code>I</code> or <code>S</code>, with the same distinction between new invoice amounts and referenced original amounts.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>IC-04 — Type selection.</strong> The ERP offers the supported scenarios in plain language. It may suggest a type from explicit scenario facts. Standard is a default only when those facts establish a normal invoice and there is no correction, replacement or buyer-issuance conflict. Ambiguous data requires a user/product decision. A plain credit/debit label, payment refund or negative total cannot select the legal type or method. Record the selected scenario, supplied type, material issuer and decision source. Reject inconsistent combinations before generation. IC-Q10 gates any automatic selection policy.</p>
+<p><strong>Corrective content.</strong> Map a logical correction reason to BT-ES-27 using L2.A (<code>R1</code>–<code>R4</code>). Map the logical method to BT-ES-28 using L2.B (<code>I</code>, <code>S</code>). The country owner, not the generator, determines the legal reason. Preserve exact raw values and the mapping version.</p>
+<table>
+<thead>
+<tr>
+<th>Final-order group</th>
+<th>Required fields and meaning</th>
+<th>Mapping rule / qualification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BG-24 correction type</td>
+<td>BT-122 <code>RECT:TIPO</code>; BT-ES-27 code from L2.A; optional BT-123 description.</td>
+<td>Required for 384/471 by BT-3 description. Do not use legacy BT-ES-2 for reason.</td>
+</tr>
+<tr>
+<td>BG-24 correction method</td>
+<td>BT-122 <code>RECT:MODALIDAD</code>; BT-ES-28 <code>I</code> or <code>S</code>; optional BT-123 description.</td>
+<td>Required for 384/471. Keep method separate from invoice type 388.</td>
+</tr>
+<tr>
+<td>BG-24 rectified amounts</td>
+<td>BT-122 <code>RECT:IMPORTES</code>; BT-123 amount of the rectified original; BT-ES-29 <code>Base</code>, <code>Cuota</code> or <code>CuotaRecargo</code> from L2.C.</td>
+<td>Applies to the stated substitution scenario with a single corrected invoice. Amounts describe the rectified original, not automatically the new document total. Cardinality conflict and exact applicable amounts need IC-Q02.</td>
+</tr>
+</tbody>
+</table>
+<p>The confirmed identifiers above come from the local IC-E06 Annex I. Exact UBL cardinality, allowed amount lexical form and binding require a qualified schema and rule pack. Do not interpret an <code>AdditionalDocumentReference</code> as permission to embed a file.</p>
+<p><strong>Difference <code>I</code>.</strong> Document lines and totals express the adjustment to the original. Positive and negative adjustments are allowed only as the active profile permits. Do not send a full corrected amount in a field meant for a delta. Do not compute or apply the delta twice. Preserve original identity and independent correction identity.</p>
+<p><strong>Substitution <code>S</code>.</strong> Document lines and totals express the full corrected invoice facts under the chosen procedure. Required <code>RECT:IMPORTES</code> entries describe original values being rectified. Do not copy the new taxable base into a field that requires the old base. Alternative substitution procedures require their own qualification; do not assume every <code>S</code> case has the same reference-group rules.</p>
+<p>Illustrative business arithmetic: original base 100.00 plus VAT 21.00; intended corrected base 80.00 plus VAT 16.80. A difference invoice expresses base −20.00 and VAT −4.20. A single-invoice substitution expresses new base 80.00 and VAT 16.80, with applicable original-amount information 100.00 and 21.00. This illustrates the distinction only. It does not establish an accepted UBL payload, reason code or numbering rule.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-field-and-conditional-rule-inventory</ac:parameter></ac:structured-macro><h3>3 Field and conditional-rule inventory</h3>
+<p>The table is a review inventory for the <strong>final public profile</strong>, not a complete machine-readable schema. IC-Q01 requires a complete Annex I coverage manifest, source mappings, code lists, rule IDs and approved exceptions before activation. Unqualified mandatory or applicable optional content cannot be silently dropped.</p>
+<table>
+<thead>
+<tr>
+<th>Field/group</th>
+<th>Presence or condition</th>
+<th>Required behaviour and evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BT-1, BT-2, BT-3, BT-5</td>
+<td>Final invoice: series/number, issue date, type and currency.</td>
+<td>Preserve product-issued values. Draft omissions produce preview limitations. Use allowed currency and L1 codes.</td>
+</tr>
+<tr>
+<td>BT-23, BT-24</td>
+<td>Fixed values for the selected public-profile bundle.</td>
+<td>Use the exact values in IC-C01. A private bilateral profile selects its own identifiers. Reject contradictory prebuilt declarations.</td>
+</tr>
+<tr>
+<td>BT-27, BT-44</td>
+<td>Seller and buyer names.</td>
+<td>Required in Annex I. Do not interchange names for buyer issuance.</td>
+</tr>
+<tr>
+<td>BT-31 / BT-32</td>
+<td>Seller VAT ID or tax ID.</td>
+<td>At least the permitted valid identity alternative. Bind <code>VAT</code> for BT-31, or <code>LOC</code> with <code>schemeID=FC</code> for BT-32 as the annex states. Confirm matching identities when both are supplied.</td>
+</tr>
+<tr>
+<td>BT-47 / BT-48</td>
+<td>Buyer tax identity or VAT identity.</td>
+<td>Apply the final public-profile alternatives and scheme binding. The BT-48 description includes seller wording despite its buyer heading/path; IC-Q04 must confirm the contract meaning. Do not copy seller data into buyer fields.</td>
+</tr>
+<tr>
+<td>Seller and buyer address groups</td>
+<td>Address fields under their selected country.</td>
+<td>For a Spain address, require municipality, postal code and province: BT-37/38/39 or BT-52/53/54. Preserve country codes and applicable remaining mandatory address fields.</td>
+</tr>
+<tr>
+<td>BT-6, BT-111</td>
+<td>Invoice currency is not EUR.</td>
+<td>Annex I requires EUR accounting currency and the additional tax amount in EUR. Preserve exchange-rate evidence and applicable surcharge handling. Do not mix currencies in one arithmetic check.</td>
+</tr>
+<tr>
+<td>BT-7; BT-9 / BT-20</td>
+<td>Operation date differs; payment due date/terms as applicable.</td>
+<td>Apply final-profile conditions and compatible core rules. Do not infer statutory dates from a caller timestamp.</td>
+</tr>
+<tr>
+<td>BG-3, BT-25, BT-26</td>
+<td>Each preceding-invoice reference.</td>
+<td>Annex I allows multiple groups. Each group carries original series/number and date. Product reference policy is scoped by IC-Q03.</td>
+</tr>
+<tr>
+<td>BT-ES-1</td>
+<td>Copy indicator.</td>
+<td>Annex I: true means copy; false or absent means original. Draft preview is not automatically a public copy. Sending owns creation/dispatch of <code>PUBLIC_COPY</code> and its validated mapping.</td>
+</tr>
+<tr>
+<td>BG-ES-1, BT-ES-3/4/5</td>
+<td>Applicable third-party material issuer.</td>
+<td>Record third-party name, NIF and role. Final-order source value is <code>FacturaciónPorTercero</code> for the stated third-party issuer. This group is not restricted to corrective types. Buyer issuance binding needs IC-Q04.</td>
+</tr>
+<tr>
+<td>BG-24 corrective groups</td>
+<td>BT-3 is 384 or 471.</td>
+<td>Use the final mappings in Part 2.2. Reject corrective groups on a non-corrective type under the proposed product policy. Other BG-24 uses remain separately valid.</td>
+</tr>
+<tr>
+<td>BG-24 fiscal QR / billing authorisation</td>
+<td>Applicable fiscal or authorisation condition.</td>
+<td>Preserve QR/AUT references and BT-ES-25/26 under their qualified rules. No generation of VERI*FACTU or TICKETBAI fiscal records is implied. Gate unsupported applicable content.</td>
+</tr>
+<tr>
+<td>BG-25 and normal line fields</td>
+<td>At least one invoice line under the active profile.</td>
+<td>Check stable line ID, quantity, unit, price, net amount, item details, allowances/charges and tax category/rate. A required zero rate is distinct from a missing rate.</td>
+</tr>
+<tr>
+<td>BG-32 REGI branch</td>
+<td>Every line, <code>1..2</code> regime entries.</td>
+<td>BT-160 <code>REGI</code>; BT-161 permitted regime code; BT-ES-24 national tax qualifier. Validate IVA/IGIC/IPSI and category consistency through L3A/L3B/L3C. Preserve all entries.</td>
+</tr>
+<tr>
+<td>Other BG-32 branches</td>
+<td>Applicable line information or property transaction.</td>
+<td>Keep INFO and RCAT separate from REGI. A property reference does not satisfy regime presence. Apply source-specific conditions.</td>
+</tr>
+<tr>
+<td>BT-151 and VAT/tax breakdowns</td>
+<td>Each line and applicable breakdown.</td>
+<td>Use L4 categories and the active country rules for national tax/regime combinations, exemptions and tax rates. No guessed standard rate.</td>
+</tr>
+<tr>
+<td>BT-106/107/108/109/110/112/114/115</td>
+<td>Monetary totals and conditional adjustments.</td>
+<td>Use exact decimal arithmetic, precision and rounding from the pinned pack. Retain supplied and calculated values for safe reconciliation diagnostics.</td>
+</tr>
+<tr>
+<td>BT-113, BT-ES-2</td>
+<td>Paid amount and optional effective payment date.</td>
+<td>Apply the final-order advance restriction. Do not enforce zero-only. A supplied effective date cannot precede the operation date under the stated rule. These fields do not prove payment reporting.</td>
+</tr>
+<tr>
+<td>BG-ES-2/3/4 and collection/withholding groups</td>
+<td>Applicable non-VAT taxes, charges, deductions or withholding.</td>
+<td>Preserve group-specific BT-179 amounts and exact tax codes. Unsupported applicable content blocks generation. Do not confuse document charges with amounts collected on behalf of a third party.</td>
+</tr>
+<tr>
+<td>Embedded files</td>
+<td>Public-profile original or faithful copy.</td>
+<td>Articles 3–4 prohibit embedded files. Reject them. A safe external reference is separately qualified; do not discard an attachment silently. ERP source-custody files are a different concept.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-identity-unique-code-and-original-references</ac:parameter></ac:structured-macro><h3>4 Identity, unique code and original references</h3>
+<p><strong>IC-02 — Authority.</strong> Authenticate the caller, then check its permission for the represented party, operation and environment. Establish seller, buyer and material issuer from explicit facts and permitted evidence. Standard and seller correction need seller-side authority. Buyer issuance/correction need the applicable buyer-side authority and self-billing/correction evidence. Third-party material issuance needs its applicable delegation. A credential or generic API grant cannot supply that legal authority. IC-Q04 determines exact proof and revocation rules.</p>
+<p><strong>IC-05 — Invoice identity.</strong> Store the legal invoice identity tuple separately from its encoding: issuer-tax-ID role/scheme/value, original product series and number, issued BT-1 value and date. Preserve original strings and leading zeros. Do not strip punctuation, merge series twice, trim meaningful characters or replace a date with a UTC timestamp without an approved country rule. Where the ERP supplies only combined BT-1, preserve it; do not reverse-parse series heuristically.</p>
+<p>The code function is conceptually <code>encode(countryRuleVersion, issuerNIF, seriesAndNumber, issueDate)</code>. Its exact output, ordering, separators, escaping, date normalisation and use of separate series remain <strong>open under IC-Q05</strong>. The article's bare concatenation is insufficient: series <code>A1</code> plus number <code>23</code> and series <code>A</code> plus number <code>123</code> must not accidentally become the same internal identity. Structured storage can distinguish them while the official encoding is qualified.</p>
+<p>For 389/471, do not switch the code to the buyer NIF merely because the buyer performs material issuance. Annex II references use the seller's NIF for the reported invoice. IC-Q04 must confirm the mapping across invoice, copy and reports. Do not use the caller, signing-certificate holder, tenant ID or provider ID as issuer NIF. A code without qualified role or encoding cannot authorise a production handoff.</p>
+<p>Persist the derived code and its rule version as correlation evidence once qualified. Persisting it does not turn it into the ERP's numbering authority or an EN 16931 business term. Keep the same identity for representations of one invoice. A correction/replacement has a new identity and separately stored original links. Expose only authorised scoped reads/searches; knowledge of a code grants no access.</p>
+<p><strong>Original-reference checking.</strong> Verify each reference's BT-25, BT-26, supplier context, relation type and evidence. Where an authorised local original exists, compare to its immutable issued identity and prevent self-reference, cycles, a wrong supplier and conflicting duplicate references. A buyer can hold an authorised received-invoice record without access to the seller's tenant.</p>
+<p>Where an original exists outside Sage, accept only the product/reference evidence allowed by the approved policy. No public query endpoint is assumed. Missing local storage is different from invalid identity or an unproven original. Return the required evidence action or unsupported exception. Do not disclose whether another tenant holds the reference. Aggregate correction, original-date exceptions, repeated correction chains and multiple simplified-invoice replacement require IC-Q03 before activation. The relationship does not automatically mark the original corrected, replaced, unpaid or cancelled.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-monetary-and-layered-validation</ac:parameter></ac:structured-macro><h3>5 Monetary and layered validation</h3>
+<p><strong>IC-06 — Validate source facts.</strong> Evaluate the known base fields, type and issuer rules, references, line/regime/tax rules and totals. Type drives applicable checks but does not replace base or cross-field validation. Preserve stable rule IDs, field location, blocking effect, rule version and correction owner. Early checks may return several useful independent issues. A prerequisite failure marks dependent checks <code>NOT_EVALUATED</code>.</p>
+<p>For a core case without the public profile's additional collection/deduction groups, apply the following relationships from IC-E08:</p>
+<pre><code class="language-text">BT-106 = sum(line net amounts BT-131)
+BT-109 = BT-106 - document allowances BT-107 + document charges BT-108
+BT-112 = BT-109 + BT-110
+BT-115 = BT-112 - paid amount BT-113 + rounding BT-114
+</code></pre>
+<p>Absent optional amounts are treated according to the selected rule, not through a universal null-to-zero edit. Core VAT breakdowns and currency-specific amounts must also reconcile. Use decimal values and approved precision; binary floating-point approximations cannot define the payable amount. The service compares the ERP's totals with rule-derived expected totals. It returns the mismatch for authorised correction instead of fixing it silently.</p>
+<p>For the final public extended profile, group-specific collection amounts, deductions and withholding can affect BT-115 without changing the taxable base. Annex I repeats BT-179 across these groups. IC-Q06 must bind each group, sign, surcharge and rounding rule to the qualified executable pack and examples. Never add normal document charges twice. Never subtract withholding twice through both the collection group and its detailed breakdown. The core formula above is not claimed as sufficient for invoices with these extensions.</p>
+<p>Negative, positive and zero values require type, method, field and tax-rule context. A negative amount due does not by itself prove a corrective invoice. Do not apply an absolute value, reverse the parties or turn a negative Invoice into a CreditNote automatically. The supplied public formats select Invoice, including corrections. CreditNote root selection is independently qualified only for another route/profile under IC-Q01/02. Corrective scenarios retain original and adjustment amounts separately.</p>
+<p><strong>IC-07 — Generation.</strong> Preserve source bytes/facts and select only the qualified pinned mapper. Submit the original operation identity to DTS. Correlate its task/transformation references without replacing the invoice ID. Prebuilt UBL follows the same validation path but bypasses generation. A required extension, type or source field without a qualified mapping returns unsupported. Do not silently remove it, lower the syntax version or fall back to an old mapper.</p>
+<p>Save candidate bytes, digest, media type, source/bundle lineage and comparison of business meaning. A mapper's successful completion alone does not prove a compliant invoice. Verify that type, issuer roles, identities, dates, references, method, all regime entries, currencies and financial meaning survive transformation. Missing content is a mapper fault, not a customer content error where the source was valid.</p>
+<p><strong>IC-08 — Validate output.</strong> Use the SPEC-SEI-005 order: file safety/parse; exact syntax/schema; controlled values; compatible core rules; selected public/bilateral profile and Spain rules; semantic-preservation checks. No external XML resolution is permitted. Missing or incompatible resources yield <code>UNDETERMINED</code> or <code>UNSUPPORTED</code>, as appropriate. The final-order public pack must have compatible extended-rule coverage; an older core validator cannot silently ignore an incompatible declaration.</p>
+<p><strong>IC-09 — Result.</strong> Persist the authoritative result before notification. Return operation ID, source revision/digest, target reference/digest when available, invoice/type/issuer-role summary, profile/bundle versions, qualified unique-code evidence, validation outcome and safe issues. Each issue contains a stable issue/rule ID, stage, field or line, severity, blocking effect, safe customer text, correction owner and next action. Customer diagnostics omit tax IDs, raw line descriptions, secrets and file-access tokens. Developer access is separately scoped. An issue can identify a path without exposing its value.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">6-issuance-correction-and-recovery</ac:parameter></ac:structured-macro><h3>6 Issuance, correction and recovery</h3>
+<p><strong>IC-10 — Final candidate and issued evidence handoff.</strong> For an Article 4 journey, Creation hands the exact final candidate and its checked evidence to SPEC-SEI-007 before dependent ERP issuance. Sending qualifies the final route, required files, trust and operation readiness. OUT-06/12 coordinates required copy submission with issuance; OUT-Q03 qualifies its physical contract. The ERP must supply stable final identity/date/revision, then actual issuance proof for the same facts. A material change invalidates the prepared plan before issuance. Creation cannot independently issue and queue a later copy as the compliant normal path.</p>
+<p>For a qualified already-issued public-original path, The ERP records issuance under its controls and supplies final BT-1, BT-2, type, parties, source revision/digest and issue evidence. Recheck current authority and identity. Compare the actual issued source with the checked draft. Any relevant change requires new generation/check evidence for the final revision. A preview with missing identity can never be promoted by changing a status label.</p>
+<p>Prepare a durable handoff record before calling sending. SPEC-SEI-007 receives the final candidate or eligible issued facts, exact representation evidence, qualified identity and reference lineage. The handoff records which path applies. It selects the final route, trust and required independent actions, then validates exact dispatch bytes under current rules. Creation's profile or preview destination cannot freeze that exchange plan. Sending owns final public-copy classification and cross-representation identity checks. Later payment reports use the same invoice identity under SPEC-SEI-009; creation does not mark them reported.</p>
+<p><strong>IC-12 — Correction.</strong> Before issuance, an authorised ERP edit creates a new immutable source revision linked to the earlier check. Recheck it; preserve old bytes and results. A final invoice-number collision or stale draft update requires an explicit conflict. After issuance, reject an attempted overwrite. The ERP starts a separately numbered corrective invoice or an eligible simplified-invoice replacement. Selecting a type does not itself update the original's lifecycle. Later relationship events are handled by the owning product/lifecycle service using issued evidence.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">proposed-rectification-modify</ac:parameter></ac:structured-macro></p>
+<blockquote>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — IC-12 “modify” extension: rectification of an issued invoice belongs to this feature. It creates a new, separately numbered rectifying invoice referencing the rectified invoice's original number in UBL. Reuse IC-04/05, Part 2 §§2/4 and the existing reference/method checks; do not duplicate their field mapping. The earlier issued content remains immutable. Drafts and delivery notes are not e-invoices; pre-issue editing is separate from rectification. SD-CANCEL01 C-3/C-4.</p>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> - Independence and eligibility: cancellation is neither a prerequisite nor a required consequence of rectification. Apply the rectification column in the <ac:link ac:anchor="proposed-cancel-eligibility"><ri:page ri:content-title="Invoice Sending Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-023 proposed eligibility table</ac:link-body></ac:link>. Offer rectification for sent/pending, full rejection, acceptance and payment; offer it without requiring it for partial rejection. A technical rejection permits same-number correction/resend only for sending/routing data or format/UBL representation issues. If issued fiscal content is wrong (amounts, NIF or tax), do not edit it; create a new rectifying invoice. Never rectify a cancelled invoice. SD-CANCEL01 C-1/C-2/C-4/P-2.</p>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — Independent lifecycle: the rectifying invoice can be accepted, rejected and paid independently of the invoice it rectifies. Where fiscal correction is required after payment, the issuer still has that obligation; the recipient can reject the new invoice commercially. Keep both identities and histories; do not infer cancellation or reactivation of the earlier invoice from the new document. <ac:link ac:anchor="proposed-spain-invoice-states"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-029 proposed states</ac:link-body></ac:link> owns state interpretation. SD-CANCEL01 P-2/P-4.</p>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — Reuse qualification: IC-04/05/12 remain shared design patterns with Spain type, method and reference rules. Existing DTS remains the preferred transformation candidate; qualify its actual build, mappings, rule packs and reference preservation for the selected Spain scope under SPEC-SEI-008. Neither existing correction prose nor a provider conversion proves implementation. Keep the proposed cancelled-invoice restriction and country rules isolated from other countries. SD-CANCEL01; IC-Q02/03/07/08.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Failure or race</th>
+<th>Owner and required recovery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Same scoped request key and same input/bundle</td>
+<td>Return the original operation and result. Within the agreed retry window, do not start a second transformation or handoff.</td>
+</tr>
+<tr>
+<td>Same request key with changed content or selection</td>
+<td>Return conflict. Require a deliberate new source revision/request. Do not replace the first operation.</td>
+</tr>
+<tr>
+<td>New key but same final invoice identity and different content</td>
+<td>Hold conflicting final preparation/handoff for ERP review. Preserve both observations; do not invent renumbering or dispatch either as a harmless duplicate. Draft revisions remain valid distinct inputs.</td>
+</tr>
+<tr>
+<td>Acceptance response lost</td>
+<td>E-Invoice/API owner reads the original key/operation before resubmission. No new key merely to escape uncertainty.</td>
+</tr>
+<tr>
+<td>DTS response, queue completion or result access lost</td>
+<td>Reconcile the original task/transformation and exact candidate digest through SPEC-SEI-008. Retry only under its qualified contract. A lost download does not require regeneration.</td>
+</tr>
+<tr>
+<td>Candidate saved but result commit fails</td>
+<td>Records/E-Invoice owner repairs the operation using the saved digest and validation evidence. Never report completion from an orphan object alone.</td>
+</tr>
+<tr>
+<td>Duplicate worker, delayed event or concurrent result commit</td>
+<td>Owning service uses an expected-version/claim control. Only one authoritative commit wins. A stale worker cannot overwrite the saved result. Exact mechanism needs IC-Q07.</td>
+</tr>
+<tr>
+<td>Service/profile/rule fault</td>
+<td>Return Sage-owned action with <code>UNDETERMINED</code> or processing failure. Repair the pinned resources; re-evaluation under a new bundle creates separate evidence.</td>
+</tr>
+<tr>
+<td>Customer facts fail</td>
+<td>ERP corrects a linked draft revision, or starts the governed issued correction. Preserve original failure evidence.</td>
+</tr>
+<tr>
+<td>Original outcome uncertain</td>
+<td>ERP/Sending owner reconciles the original issue/send evidence. Creation cannot decide that an invoice never existed from a timeout.</td>
+</tr>
+<tr>
+<td>Final handoff response lost</td>
+<td>Query the durable sending receipt/action before repeating. Do not resend an invoice or generate a public copy inside creation.</td>
+</tr>
+<tr>
+<td>Authority revoked during work</td>
+<td>Prevent new protected processing, reads or handoff as policy requires. Retain permitted audit and resolve custody through the accountable owners. A historical grant does not authorise new actions.</td>
+</tr>
+<tr>
+<td>Customer cancels preparation</td>
+<td>Before an irreversible ERP issuance or external effect, stop eligible work and prevent handoff. A running worker may finish only into protected staged evidence; it cannot reopen cancellation. Cancelled preparation does not cancel a legal invoice.</td>
+</tr>
+<tr>
+<td>Bundle upgrade, rollback or delayed request</td>
+<td>Existing operations retain their pinned bundle. New work selects the approved new/previous bundle. Do not rewrite old results or retry an old job with a latest-version default.</td>
+</tr>
+<tr>
+<td>Bulk request contains mixed outcomes</td>
+<td>Each invoice has its own identity, authority, operation and result. Resume only unresolved items. Aggregate progress cannot convert blocked items into success. Batch limits/contract need IC-Q09.</td>
+</tr>
+</tbody>
+</table>
+<p>Request idempotency scope is proposed as tenant, represented party, environment, operation kind and caller-supplied key. Include source revision/digest, scenario and selected bundle in the bound request evidence. Scope, retention and delayed-retry behaviour need IC-Q07/09. A deduplication key is not the legal unique invoice code.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">7-requirements-protection-and-service-quality</ac:parameter></ac:structured-macro><h3>7 Requirements, protection and service quality</h3>
+<p>The requirements below define the proposed solution. Regulatory identifiers and conditions have the evidence limits stated above.</p>
+<table>
+<thead>
+<tr>
+<th>Requirement ID</th>
+<th>Testable requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IC-R01</td>
+<td>Preserve exact source revision, caller request identity and input mode; distinguish draft preparation, representation generation and ERP issuance.</td>
+</tr>
+<tr>
+<td>IC-R02</td>
+<td>Check tenant, represented party, environment, operation authority and material issuer; preserve seller and buyer roles.</td>
+</tr>
+<tr>
+<td>IC-R03</td>
+<td>Select an activated source/type/target bundle with exact versions and reject unsupported or conflicting declarations.</td>
+</tr>
+<tr>
+<td>IC-R04</td>
+<td>Support all five requested type scenarios through separately qualified capabilities; require explicit correction/replacement intent and reject inconsistent classification.</td>
+</tr>
+<tr>
+<td>IC-R05</td>
+<td>Validate original references, local or approved external evidence, eligible simplified originals and immutable relationship lineage.</td>
+</tr>
+<tr>
+<td>IC-R06</td>
+<td>Map corrective reason, method and original amounts through final-order BG-24/BT-ES-27/28/29; keep difference and substitution semantics distinct.</td>
+</tr>
+<tr>
+<td>IC-R07</td>
+<td>Apply exact mandatory/conditional fields, final identifiers, identity alternatives, address, currency, third-party and attachment rules.</td>
+</tr>
+<tr>
+<td>IC-R08</td>
+<td>Validate each line, <code>1..2</code> REGI entries, national tax qualifiers, code lists and cross-field consistency without guessing regime values.</td>
+</tr>
+<tr>
+<td>IC-R09</td>
+<td>Reconcile lines, tax breakdowns, totals, paid amounts and extended payable adjustments under compatible pinned arithmetic rules.</td>
+</tr>
+<tr>
+<td>IC-R10</td>
+<td>Generate and persist qualified composite invoice identity; keep it distinct from request/service IDs and consistent across representations and lifecycle handoffs.</td>
+</tr>
+<tr>
+<td>IC-R11</td>
+<td>Use a qualified mapper; preserve required business meaning and exact target-byte provenance; prebuilt bytes remain unchanged.</td>
+</tr>
+<tr>
+<td>IC-R12</td>
+<td>Validate exact output through all applicable layers and return the SPEC-SEI-005 outcomes with safe owned issues.</td>
+</tr>
+<tr>
+<td>IC-R13</td>
+<td>Hand the checked final candidate to sending before dependent Article 4 issuance; bind actual ERP-issued evidence to the same facts. Eligible already-issued paths keep distinct evidence and renewed checks.</td>
+</tr>
+<tr>
+<td>IC-R14</td>
+<td>Correct a draft by new revision; after issuance create a separate governed invoice and never overwrite the original.</td>
+</tr>
+<tr>
+<td>IC-R15</td>
+<td>Make acceptance, generation and handoff recoverable; enforce request conflict, concurrency, cancellation and reconciliation controls.</td>
+</tr>
+<tr>
+<td>IC-R16</td>
+<td>Protect invoice data and file references; deny unauthorised cross-party/tenant/environment access and unsafe XML or file retrieval.</td>
+</tr>
+<tr>
+<td>IC-R17</td>
+<td>Pin and isolate country rules; qualify actual implementation reuse and retain version/custody continuity during release or rollback.</td>
+</tr>
+<tr>
+<td>IC-R18</td>
+<td>Expose per-invoice results and measurable operational evidence; obtain limits, retention and service targets before activation.</td>
+</tr>
+</tbody>
+</table>
+<p>Classify invoice payloads, names, tax IDs, amounts and original references as sensitive business data. Authorise every source, task, result and original-reference read. Restrict access to approved storage references; do not fetch caller-provided URLs. Protect against oversized input, unsafe XML and resource exhaustion under approved limits. Logs and metrics contain opaque correlation and safe issue codes, not invoice XML, access URLs or personal data. Production samples cannot enter this repository.</p>
+<p>Measure generation and validation latency by qualified input/type/bundle, processing failure rates, issue rates by rule, time waiting for reconciliation, lost handoffs, semantic-loss failures and scoped duplicate conflicts. Track eventual external rejection separately through Sending; a local pass rate is not an SPFE acceptance rate. High-volume work needs per-item progress and measured capacity. IC-Q09 sets actual limits, retention, latency/capacity, recovery and support targets; none are invented here.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">spfe-source-contract-binding</ac:parameter></ac:structured-macro><h3>SPFE source contract binding</h3>
+<p>The source facts below govern the public binding. Recovery, storage and qualification actions are proposed Sage controls where stated. Apply them through IC-03–08, IC-11. Source conflicts stay open under IC-Q01/Q02/Q04/Q05/Q06; SPFE-Q03/Q04/Q13/Q14; they are not resolved by a local default.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Constraint and required behaviour</th>
+<th>Source reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IC-SPFE-R01 Select the public Invoice family from supplied evidence</td>
+<td>For the SPFE target, IC-03 binds UBL 2.5 Invoice and the qualified 380/384/388/389/471 fields. Corrections do not switch to CreditNote by generic UBL assumptions. Bilateral/private document families remain separately qualified. This source version selection does not prove a deployed mapper.</td>
+<td>SPFE-S02/SPFE-S08; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>IC-SPFE-R02 Use the final identifiers and preserve conflicting examples</td>
+<td>Final Annex I BT-23 requires ProfileID urn:aeat:names:specification:ubl:schema:profile:B2B. BT-24 uses the exact extended CustomizationID already listed in IC-C01. The example omits ubl:; preserve its bytes and report the conflict. Generate a separate candidate only under a qualified mapping; never silently repair a supplied file.</td>
+<td>SPFE-S02/SPFE-S01/SPFE-S09; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>IC-SPFE-R03 Complete applicable field coverage before activation</td>
+<td>The Creation/Format owners record every supported core and Spain field/group, presence condition, source row, code list, target path, rule and positive/negative case. Include BT-ES-1–29 and distinguish repeated group uses. Keep cardinality, identity wording and extended monetary conflicts open. Unsupported applicable content prevents generation rather than disappearing from the result.</td>
+<td>SPFE-S02/SPFE-S01; proposed coverage gate IC-Q01/Q02/Q04/Q06; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>IC-SPFE-R04 Preserve field occurrence and rule context</td>
+<td>When an authorised preparer supplies facts for a selected Spain invoice scenario, preserve each applicable final Annex I field occurrence, its parent group, presence/cardinality and context marker. Use the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/mappings/spfe-annex-i-mapping.json">Annex I mapping</a> to connect the existing field IDs to candidate BG/BT paths and rule occurrences. A shared term ID or path must not merge different facts. Missing facts return an owned correction action; an unsupported or disputed binding holds that scenario. Dictionary-only entries do not add mandatory fields or product scope. Apply qualified checks through SPEC005 UV-SPFE-R04; keep issued-invoice correction under IC-12/UV-06.</td>
+<td>SPFE-S02 Annex I; SPFE-S26/S30/S31; proposed preparation/qualification control; IC-Q01/Q02/Q06; SPFE-Q14/Q22; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">annex-i-field-and-rule-reconciliation</ac:parameter></ac:structured-macro><h4>Annex I field and rule reconciliation</h4>
+<p>The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/mappings/spfe-annex-i-mapping.json">mapping</a> links every one of the 176 final field rows to a dictionary candidate and the rule occurrences that explicitly mention its term ID. It also retains all 343 dictionary entries, including auxiliary keys and terms outside that final ledger. An exact-term match is a navigation result; it does not establish identical meaning, required presence or implementation coverage. The existing <code>IC-AXI-*</code> and <code>IC-CODE-*</code> IDs and the original field ledger are unchanged.</p>
+<p>Preserve the final source's context markers for the repeated line-property, collection/deduction and supporting-reference groups. The mapping records their source row and literal marker; actual output selection conditions remain unqualified. SPEC005 <ac:link ac:anchor="annex-i-rule-coverage"><ri:page ri:content-title="UBL Validation and Correction Solution Specification" ri:space-key="DNBU" /><ac:link-body>Annex I rule coverage</ac:link-body></ac:link> owns conditional and cross-field validation. Format/Compliance and the AEAT liaison must resolve the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-i-reconciliation-reviewed-23-november-2026">SPFE-Q22 source questions</a> before enabling an affected check or mapping. The new draft's three-group correction rule is additional evidence for IC-Q02; it does not close the final-source cardinality discrepancy.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-3-logical-service-interactions-and-data-inventory</ac:parameter></ac:structured-macro><h2>Part 3 Logical Service Interactions and Data Inventory</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-interaction-inventory</ac:parameter></ac:structured-macro><h3>1 Interaction inventory</h3>
+<p>These are proposed logical handoffs. IC-Q07 selects actual components, operation schemas and synchronous/asynchronous behaviour. Reuse the existing Global API, DTS, validation and sending contracts where qualified. No new public-platform endpoint is defined.</p>
+<table>
+<thead>
+<tr>
+<th>Interaction ID / activities</th>
+<th>Caller → owner; purpose</th>
+<th>Input → output</th>
+<th>Authority, failure and recovery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IC-INT-01 / IC-01/02</td>
+<td>ERP → E-Invoice via authorised API; prepare/check revision</td>
+<td>Source facts or exact UBL, scoped identity, scenario and request key → durable operation receipt or safe rejection.</td>
+<td>Authenticate and verify represented-party action before protected reads. Lost receipt resolves through original request identity.</td>
+</tr>
+<tr>
+<td>IC-INT-02 / IC-02/05/10</td>
+<td>E-Invoice → Identity/authority; establish roles</td>
+<td>Caller, represented party, party-role facts and required scope → permitted/denied/undetermined evidence.</td>
+<td>Service identity plus scoped business authority. Unavailable authority cannot permit handoff; refresh where required.</td>
+</tr>
+<tr>
+<td>IC-INT-03 / IC-03/06/08</td>
+<td>E-Invoice/Validation → capability/country registry; select rules</td>
+<td>Country/use/source/type/effective context → immutable bundle, field/code/arithmetic coverage and gates.</td>
+<td>Controlled configuration read. Missing or incompatible selection returns unsupported/undetermined; no latest-version fallback.</td>
+</tr>
+<tr>
+<td>IC-INT-04 / IC-05/12</td>
+<td>E-Invoice → authorised product/records source; verify original</td>
+<td>Exact scoped reference and relation type → issued identity/evidence or owned missing/conflict result.</td>
+<td>No cross-tenant inference. External evidence follows approved product policy; no assumed public query.</td>
+</tr>
+<tr>
+<td>IC-INT-05 / IC-06/08</td>
+<td>E-Invoice → Validation; check source/output</td>
+<td>Exact facts or bytes/digest, context and pinned bundle → layers, safe issues and semantic evidence.</td>
+<td>Safe parse and authorised source retrieval. Missing pack is service-owned; deterministic replay keeps bytes/bundle.</td>
+</tr>
+<tr>
+<td>IC-INT-06 / IC-07/11</td>
+<td>E-Invoice → DTS; generate and inspect work</td>
+<td>Immutable source reference, supported pair, bundle and operation identity → existing task/transformation result, target reference/digest or classified fault.</td>
+<td>Qualify actual DTS contract under SPEC-SEI-008. Timeout reads the same task; no automatic new transformation.</td>
+</tr>
+<tr>
+<td>IC-INT-07 / IC-01/07/09/11/12</td>
+<td>Owning service → Records/state; save evidence</td>
+<td>Input, candidate, result, request binding and expected version → committed record/receipt.</td>
+<td>Scoped writes/reads, conditional commit, protected bytes. Repair partial persistence before completion.</td>
+</tr>
+<tr>
+<td>IC-INT-08 / IC-09/11</td>
+<td>ERP → E-Invoice; read result / optional notification</td>
+<td>Authorised operation identity → current result and protected retained artefact access.</td>
+<td>Repeated read safe. Notification is advisory; renew eligible access to the same bytes without regeneration.</td>
+</tr>
+<tr>
+<td>IC-INT-09 / IC-10/11</td>
+<td>ERP/E-Invoice → Sending; bind final candidate and issued proof</td>
+<td>Exact final candidate, representation/identity/references and selected path; later ERP issuance evidence, or eligible already-issued source → durable sending receipt.</td>
+<td>Recheck current authority. Sending owns final route, validation, trust and exchange actions. Reconcile lost receipt before repeat.</td>
+</tr>
+<tr>
+<td>IC-INT-10 / IC-11/12</td>
+<td>ERP/Operations → owning service; cancel/reconcile</td>
+<td>Original operation, permitted action and evidence → audited repair, cancellation or explicit next action.</td>
+<td>Separate support rights from customer business decisions. Cancellation cannot undo issuance or external effects.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-events-and-cross-feature-handoffs</ac:parameter></ac:structured-macro><h3>2 Events and cross-feature handoffs</h3>
+<p>Proposed logical events are IC-EVT-01 <strong>preparation result committed</strong>, IC-EVT-02 <strong>issued handoff recorded</strong> and IC-EVT-03 <strong>recovery action required</strong>. These descriptions are not approved wire names. Each carries opaque operation/invoice/source-version identifiers, result version and safe outcome references. Event transport and delivery contract remain IC-Q07. A consumer reads the authoritative committed record and tolerates duplicates or reordered events. Events contain no raw invoice, tax ID or file-access token.</p>
+<p>Creation records the relation in the prepared invoice. After the ERP issues it, the existing lifecycle owner may record the governed correction/replacement fact. Creation emits no buyer acceptance, invoice payment or successful report. A public copy retains the original invoice identity but its own representation role and external action under SPEC-SEI-007. Event loss cannot make a completed preparation disappear or authorise a second send.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-data-inventory</ac:parameter></ac:structured-macro><h3>3 Data inventory</h3>
+<p>These are logical records, not a proposed second invoice ledger. Use qualified existing stores where possible. IC-Q09 sets retention and conservation ownership separately from temporary DTS storage.</p>
+<table>
+<thead>
+<tr>
+<th>Data ID</th>
+<th>Record / accountable owner</th>
+<th>Content and classification</th>
+<th>Consumers, versioning and custody</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IC-D01</td>
+<td>Source revision / ERP; approved capture custodian</td>
+<td>Exact facts/bytes, product reference/revision, lifecycle phase, digest and scope. Sensitive.</td>
+<td>IC-01/03–10/12; immutable revision, corrections link to prior revision. ERP remains business system of record.</td>
+</tr>
+<tr>
+<td>IC-D02</td>
+<td>Role and authority evidence / Identity + E-Invoice</td>
+<td>Caller and represented party, seller/buyer/material issuer bindings, grant/evidence reference and check time. Restricted.</td>
+<td>IC-02/04/05/10/11; retain permitted proof without credentials. Recheck current authority for new actions.</td>
+</tr>
+<tr>
+<td>IC-D03</td>
+<td>Capability bundle / profile, Spain and DTS owners</td>
+<td>Build/input/mapper/syntax/profile/rule/code/arithmetic versions, digests, supported scope, source evidence and activation. Controlled configuration.</td>
+<td>IC-03–08/11; immutable release bindings; country/use isolation.</td>
+</tr>
+<tr>
+<td>IC-D04</td>
+<td>Operation and request binding / E-Invoice</td>
+<td>Scoped request key, bound digest/scenario/bundle, state/version, DTS correlation and recoverable acceptance. Restricted.</td>
+<td>IC-01/07/09–12; preserves request conflict and cancellation history. Expiry needs approved retry policy.</td>
+</tr>
+<tr>
+<td>IC-D05</td>
+<td>Invoice identity and code evidence / ERP + E-Invoice</td>
+<td>Internal ID; original series/number/BT-1/date; qualified issuer identity; encoded code/rule version. Sensitive.</td>
+<td>IC-05/09/10/12; one final identity with conflict control. Not an authorisation token or numbering service.</td>
+</tr>
+<tr>
+<td>IC-D06</td>
+<td>Original relationship / ERP + existing records</td>
+<td>Referenced BT-25/26, supplier context, original/evidence reference, relation type, reason/method and original amounts. Sensitive.</td>
+<td>IC-04–06/09/10/12; append-only links; no automatic original-status rewrite.</td>
+</tr>
+<tr>
+<td>IC-D07</td>
+<td>Target representation / qualified records custodian</td>
+<td>Exact bytes, digest, media type, source and bundle, document root and role. Sensitive.</td>
+<td>IC-07–11; DTS staging then approved custody. Keep source, recipient representation and public copy distinct.</td>
+</tr>
+<tr>
+<td>IC-D08</td>
+<td>Validation and semantic evidence / Validation</td>
+<td>Layer outcomes, issues/rule versions, field/line locations, checks/digests and safe ownership. Restricted.</td>
+<td>IC-06/08–12; bind to exact input/result. Re-evaluation appends evidence; customer and support views are scoped.</td>
+</tr>
+<tr>
+<td>IC-D09</td>
+<td>Issuance and sending handoff / ERP + Sending</td>
+<td>Final issued identity/revision/evidence, durable handoff identity/receipt and result versions. Restricted.</td>
+<td>IC-10/11/12; no handoff before qualified evidence. Retain original action correlation on recovery.</td>
+</tr>
+<tr>
+<td>IC-D10</td>
+<td>Recovery, qualification and operational evidence / service owners</td>
+<td>Safe failure categories, attempts, cancellations, claim/commit evidence, synthetic conformance and support/runbook references. Internal/restricted.</td>
+<td>IC-03/07–12 and release gates; audit support actions, redact business data and preserve approved continuity.</td>
+</tr>
+</tbody>
+</table>
+<p>Temporary access expiry, object deletion, deduplication expiry, records conservation and mapper/rule retention have separate policies. Renew only authorised access to retained identical bytes. If policy has removed required input or artefacts, return unavailable recovery explicitly; do not regenerate and claim the old file. Metrics and notifications cannot substitute for custody evidence.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">annex-i-invoice-field-traceability</ac:parameter></ac:structured-macro><h3>Annex I invoice field traceability</h3>
+<p>The table records all 176 source field/group occurrences for this feature. Each trace ID identifies one row in the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/field-traceability.json">field ledger</a>. The ledger retains the original Spanish description, conditional rules, semantic type, literal UBL path and exact BOE XML row locator. Repeated source IDs remain separate occurrences. English names aid reading; the Spanish source controls the meaning.</p>
+<p>Each listed requirement applies the source meaning, type, presence conditions, cardinality and controlled values through IC-03–08. Cardinality is evaluated within its selected parent group, not as a universal invoice requirement. Preserve applicable content and reject unsupported mappings. For each row, the positive case uses an approved applicable fixture and tests valid content and permitted absence. The negative case violates an applicable source condition, type, cardinality or controlled value and must fail safely. These are specified acceptance cases, not executed tests. Actual ERP/API bindings, business schemas, executable rules and DTS coverage remain unqualified under IC-Q01/Q02/Q04/Q05/Q06 and SPFE-Q04/Q14. A recorded source path is not proof of a valid implementation path.</p>
+<table>
+<thead>
+<tr>
+<th>Trace / source ID</th>
+<th>Logical fact or group</th>
+<th>Source cardinality</th>
+<th>Requirement</th>
+<th>Acceptance: positive / negative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AXI-001</code> / <code>BT-1</code></td>
+<td>Invoice series and number</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R001</code></td>
+<td><code>IC-AXI-A001P</code> / <code>IC-AXI-A001N</code></td>
+</tr>
+<tr>
+<td><code>AXI-002</code> / <code>BT-ES-1</code></td>
+<td>Public-copy indicator</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R002</code></td>
+<td><code>IC-AXI-A002P</code> / <code>IC-AXI-A002N</code></td>
+</tr>
+<tr>
+<td><code>AXI-003</code> / <code>BT-2</code></td>
+<td>Invoice issue date</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R003</code></td>
+<td><code>IC-AXI-A003P</code> / <code>IC-AXI-A003N</code></td>
+</tr>
+<tr>
+<td><code>AXI-004</code> / <code>BT-166</code></td>
+<td>Invoice issue time</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R004</code></td>
+<td><code>IC-AXI-A004P</code> / <code>IC-AXI-A004N</code></td>
+</tr>
+<tr>
+<td><code>AXI-005</code> / <code>BT-3</code></td>
+<td>Invoice type code</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R005</code></td>
+<td><code>IC-AXI-A005P</code> / <code>IC-AXI-A005N</code></td>
+</tr>
+<tr>
+<td><code>AXI-006</code> / <code>BT-5</code></td>
+<td>Invoice currency</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R006</code></td>
+<td><code>IC-AXI-A006P</code> / <code>IC-AXI-A006N</code></td>
+</tr>
+<tr>
+<td><code>AXI-007</code> / <code>BT-6</code></td>
+<td>VAT accounting currency</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R007</code></td>
+<td><code>IC-AXI-A007P</code> / <code>IC-AXI-A007N</code></td>
+</tr>
+<tr>
+<td><code>AXI-008</code> / <code>BT-167</code></td>
+<td>VAT accounting exchange rate</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R008</code></td>
+<td><code>IC-AXI-A008P</code> / <code>IC-AXI-A008N</code></td>
+</tr>
+<tr>
+<td><code>AXI-009</code> / <code>BT-7</code></td>
+<td>Operation date</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R009</code></td>
+<td><code>IC-AXI-A009P</code> / <code>IC-AXI-A009N</code></td>
+</tr>
+<tr>
+<td><code>AXI-010</code> / <code>BT-9</code></td>
+<td>Payment due date</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R010</code></td>
+<td><code>IC-AXI-A010P</code> / <code>IC-AXI-A010N</code></td>
+</tr>
+<tr>
+<td><code>AXI-011</code> / <code>BT-ES-2</code></td>
+<td>Effective payment date</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R011</code></td>
+<td><code>IC-AXI-A011P</code> / <code>IC-AXI-A011N</code></td>
+</tr>
+<tr>
+<td><code>AXI-012</code> / <code>BT-10</code></td>
+<td>Buyer reference</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R012</code></td>
+<td><code>IC-AXI-A012P</code> / <code>IC-AXI-A012N</code></td>
+</tr>
+<tr>
+<td><code>AXI-013</code> / <code>BG-1</code></td>
+<td>Invoice notes</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R013</code></td>
+<td><code>IC-AXI-A013P</code> / <code>IC-AXI-A013N</code></td>
+</tr>
+<tr>
+<td><code>AXI-014</code> / <code>BT-21</code></td>
+<td>Invoice note code — within Invoice notes [AXI-013]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R014</code></td>
+<td><code>IC-AXI-A014P</code> / <code>IC-AXI-A014N</code></td>
+</tr>
+<tr>
+<td><code>AXI-015</code> / <code>BT-22</code></td>
+<td>Invoice note — within Invoice notes [AXI-013]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R015</code></td>
+<td><code>IC-AXI-A015P</code> / <code>IC-AXI-A015N</code></td>
+</tr>
+<tr>
+<td><code>AXI-016</code> / <code>BG-2</code></td>
+<td>Process control</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R016</code></td>
+<td><code>IC-AXI-A016P</code> / <code>IC-AXI-A016N</code></td>
+</tr>
+<tr>
+<td><code>AXI-017</code> / <code>BT-23</code></td>
+<td>Business process identifier — within Process control [AXI-016]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R017</code></td>
+<td><code>IC-AXI-A017P</code> / <code>IC-AXI-A017N</code></td>
+</tr>
+<tr>
+<td><code>AXI-018</code> / <code>BT-24</code></td>
+<td>Specification identifier — within Process control [AXI-016]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R018</code></td>
+<td><code>IC-AXI-A018P</code> / <code>IC-AXI-A018N</code></td>
+</tr>
+<tr>
+<td><code>AXI-019</code> / <code>BG-3</code></td>
+<td>Previous invoice references</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R019</code></td>
+<td><code>IC-AXI-A019P</code> / <code>IC-AXI-A019N</code></td>
+</tr>
+<tr>
+<td><code>AXI-020</code> / <code>BT-25</code></td>
+<td>Previous invoice series and number — within Previous invoice references [AXI-019]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R020</code></td>
+<td><code>IC-AXI-A020P</code> / <code>IC-AXI-A020N</code></td>
+</tr>
+<tr>
+<td><code>AXI-021</code> / <code>BT-26</code></td>
+<td>Previous invoice issue date — within Previous invoice references [AXI-019]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R021</code></td>
+<td><code>IC-AXI-A021P</code> / <code>IC-AXI-A021N</code></td>
+</tr>
+<tr>
+<td><code>AXI-022</code> / <code>BG-4</code></td>
+<td>Seller</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R022</code></td>
+<td><code>IC-AXI-A022P</code> / <code>IC-AXI-A022N</code></td>
+</tr>
+<tr>
+<td><code>AXI-023</code> / <code>BT-27</code></td>
+<td>Seller name — within Seller [AXI-022]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R023</code></td>
+<td><code>IC-AXI-A023P</code> / <code>IC-AXI-A023N</code></td>
+</tr>
+<tr>
+<td><code>AXI-024</code> / <code>BT-31</code></td>
+<td>Seller VAT identifier — within Seller [AXI-022]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R024</code></td>
+<td><code>IC-AXI-A024P</code> / <code>IC-AXI-A024N</code></td>
+</tr>
+<tr>
+<td><code>AXI-025</code> / <code>BT-32</code></td>
+<td>Seller tax identifier — within Seller [AXI-022]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R025</code></td>
+<td><code>IC-AXI-A025P</code> / <code>IC-AXI-A025N</code></td>
+</tr>
+<tr>
+<td><code>AXI-026</code> / <code>BT-30</code></td>
+<td>Seller legal registration identifier — within Seller [AXI-022]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R026</code></td>
+<td><code>IC-AXI-A026P</code> / <code>IC-AXI-A026N</code></td>
+</tr>
+<tr>
+<td><code>AXI-027</code> / <code>BT-33</code></td>
+<td>Seller legal information — within Seller [AXI-022]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R027</code></td>
+<td><code>IC-AXI-A027P</code> / <code>IC-AXI-A027N</code></td>
+</tr>
+<tr>
+<td><code>AXI-028</code> / <code>BG-5</code></td>
+<td>Seller address — within Seller [AXI-022]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R028</code></td>
+<td><code>IC-AXI-A028P</code> / <code>IC-AXI-A028N</code></td>
+</tr>
+<tr>
+<td><code>AXI-029</code> / <code>BT-35</code></td>
+<td>Seller address — within Seller [AXI-022] / Seller address [AXI-028]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R029</code></td>
+<td><code>IC-AXI-A029P</code> / <code>IC-AXI-A029N</code></td>
+</tr>
+<tr>
+<td><code>AXI-030</code> / <code>BT-37</code></td>
+<td>Seller municipality — within Seller [AXI-022] / Seller address [AXI-028]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R030</code></td>
+<td><code>IC-AXI-A030P</code> / <code>IC-AXI-A030N</code></td>
+</tr>
+<tr>
+<td><code>AXI-031</code> / <code>BT-38</code></td>
+<td>Seller postal code — within Seller [AXI-022] / Seller address [AXI-028]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R031</code></td>
+<td><code>IC-AXI-A031P</code> / <code>IC-AXI-A031N</code></td>
+</tr>
+<tr>
+<td><code>AXI-032</code> / <code>BT-39</code></td>
+<td>Seller province — within Seller [AXI-022] / Seller address [AXI-028]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R032</code></td>
+<td><code>IC-AXI-A032P</code> / <code>IC-AXI-A032N</code></td>
+</tr>
+<tr>
+<td><code>AXI-033</code> / <code>BT-40</code></td>
+<td>Seller country code — within Seller [AXI-022] / Seller address [AXI-028]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R033</code></td>
+<td><code>IC-AXI-A033P</code> / <code>IC-AXI-A033N</code></td>
+</tr>
+<tr>
+<td><code>AXI-034</code> / <code>BG-6</code></td>
+<td>Seller contact — within Seller [AXI-022]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R034</code></td>
+<td><code>IC-AXI-A034P</code> / <code>IC-AXI-A034N</code></td>
+</tr>
+<tr>
+<td><code>AXI-035</code> / <code>BT-42</code></td>
+<td>Seller contact telephone — within Seller [AXI-022] / Seller contact [AXI-034]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R035</code></td>
+<td><code>IC-AXI-A035P</code> / <code>IC-AXI-A035N</code></td>
+</tr>
+<tr>
+<td><code>AXI-036</code> / <code>BT-43</code></td>
+<td>Seller contact email — within Seller [AXI-022] / Seller contact [AXI-034]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R036</code></td>
+<td><code>IC-AXI-A036P</code> / <code>IC-AXI-A036N</code></td>
+</tr>
+<tr>
+<td><code>AXI-037</code> / <code>BG-7</code></td>
+<td>Buyer</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R037</code></td>
+<td><code>IC-AXI-A037P</code> / <code>IC-AXI-A037N</code></td>
+</tr>
+<tr>
+<td><code>AXI-038</code> / <code>BT-44</code></td>
+<td>Buyer name — within Buyer [AXI-037]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R038</code></td>
+<td><code>IC-AXI-A038P</code> / <code>IC-AXI-A038N</code></td>
+</tr>
+<tr>
+<td><code>AXI-039</code> / <code>BT-47</code></td>
+<td>Buyer tax identifier — within Buyer [AXI-037]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R039</code></td>
+<td><code>IC-AXI-A039P</code> / <code>IC-AXI-A039N</code></td>
+</tr>
+<tr>
+<td><code>AXI-040</code> / <code>BT-48</code></td>
+<td>Buyer VAT identifier — within Buyer [AXI-037]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R040</code></td>
+<td><code>IC-AXI-A040P</code> / <code>IC-AXI-A040N</code></td>
+</tr>
+<tr>
+<td><code>AXI-041</code> / <code>BG-8</code></td>
+<td>Buyer address — within Buyer [AXI-037]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R041</code></td>
+<td><code>IC-AXI-A041P</code> / <code>IC-AXI-A041N</code></td>
+</tr>
+<tr>
+<td><code>AXI-042</code> / <code>BT-50</code></td>
+<td>Buyer address — within Buyer [AXI-037] / Buyer address [AXI-041]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R042</code></td>
+<td><code>IC-AXI-A042P</code> / <code>IC-AXI-A042N</code></td>
+</tr>
+<tr>
+<td><code>AXI-043</code> / <code>BT-52</code></td>
+<td>Buyer municipality — within Buyer [AXI-037] / Buyer address [AXI-041]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R043</code></td>
+<td><code>IC-AXI-A043P</code> / <code>IC-AXI-A043N</code></td>
+</tr>
+<tr>
+<td><code>AXI-044</code> / <code>BT-53</code></td>
+<td>Buyer postal code — within Buyer [AXI-037] / Buyer address [AXI-041]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R044</code></td>
+<td><code>IC-AXI-A044P</code> / <code>IC-AXI-A044N</code></td>
+</tr>
+<tr>
+<td><code>AXI-045</code> / <code>BT-54</code></td>
+<td>Buyer province — within Buyer [AXI-037] / Buyer address [AXI-041]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R045</code></td>
+<td><code>IC-AXI-A045P</code> / <code>IC-AXI-A045N</code></td>
+</tr>
+<tr>
+<td><code>AXI-046</code> / <code>BT-55</code></td>
+<td>Buyer country code — within Buyer [AXI-037] / Buyer address [AXI-041]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R046</code></td>
+<td><code>IC-AXI-A046P</code> / <code>IC-AXI-A046N</code></td>
+</tr>
+<tr>
+<td><code>AXI-047</code> / <code>BG-9</code></td>
+<td>Buyer contact — within Buyer [AXI-037]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R047</code></td>
+<td><code>IC-AXI-A047P</code> / <code>IC-AXI-A047N</code></td>
+</tr>
+<tr>
+<td><code>AXI-048</code> / <code>BT-57</code></td>
+<td>Buyer contact telephone — within Buyer [AXI-037] / Buyer contact [AXI-047]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R048</code></td>
+<td><code>IC-AXI-A048P</code> / <code>IC-AXI-A048N</code></td>
+</tr>
+<tr>
+<td><code>AXI-049</code> / <code>BT-58</code></td>
+<td>Buyer contact email — within Buyer [AXI-037] / Buyer contact [AXI-047]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R049</code></td>
+<td><code>IC-AXI-A049P</code> / <code>IC-AXI-A049N</code></td>
+</tr>
+<tr>
+<td><code>AXI-050</code> / <code>BG-ES-1</code></td>
+<td>Third parties</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R050</code></td>
+<td><code>IC-AXI-A050P</code> / <code>IC-AXI-A050N</code></td>
+</tr>
+<tr>
+<td><code>AXI-051</code> / <code>BT-ES-3</code></td>
+<td>Third-party name — within Third parties [AXI-050]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R051</code></td>
+<td><code>IC-AXI-A051P</code> / <code>IC-AXI-A051N</code></td>
+</tr>
+<tr>
+<td><code>AXI-052</code> / <code>BT-ES-4</code></td>
+<td>Third-party NIF — within Third parties [AXI-050]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R052</code></td>
+<td><code>IC-AXI-A052P</code> / <code>IC-AXI-A052N</code></td>
+</tr>
+<tr>
+<td><code>AXI-053</code> / <code>BT-ES-5</code></td>
+<td>Third-party role code — within Third parties [AXI-050]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R053</code></td>
+<td><code>IC-AXI-A053P</code> / <code>IC-AXI-A053N</code></td>
+</tr>
+<tr>
+<td><code>AXI-054</code> / <code>BG-14</code></td>
+<td>Summary-invoice period</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R054</code></td>
+<td><code>IC-AXI-A054P</code> / <code>IC-AXI-A054N</code></td>
+</tr>
+<tr>
+<td><code>AXI-055</code> / <code>BT-73</code></td>
+<td>Billing period start — within Summary-invoice period [AXI-054]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R055</code></td>
+<td><code>IC-AXI-A055P</code> / <code>IC-AXI-A055N</code></td>
+</tr>
+<tr>
+<td><code>AXI-056</code> / <code>BT-74</code></td>
+<td>Billing period end — within Summary-invoice period [AXI-054]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R056</code></td>
+<td><code>IC-AXI-A056P</code> / <code>IC-AXI-A056N</code></td>
+</tr>
+<tr>
+<td><code>AXI-057</code> / <code>BG-20</code></td>
+<td>Document allowances</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R057</code></td>
+<td><code>IC-AXI-A057P</code> / <code>IC-AXI-A057N</code></td>
+</tr>
+<tr>
+<td><code>AXI-058</code> / <code>BT-92</code></td>
+<td>Document allowance amount — within Document allowances [AXI-057]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R058</code></td>
+<td><code>IC-AXI-A058P</code> / <code>IC-AXI-A058N</code></td>
+</tr>
+<tr>
+<td><code>AXI-059</code> / <code>BT-95</code></td>
+<td>Document allowance VAT category — within Document allowances [AXI-057]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R059</code></td>
+<td><code>IC-AXI-A059P</code> / <code>IC-AXI-A059N</code></td>
+</tr>
+<tr>
+<td><code>AXI-060</code> / <code>BT-96</code></td>
+<td>Document allowance VAT rate — within Document allowances [AXI-057]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R060</code></td>
+<td><code>IC-AXI-A060P</code> / <code>IC-AXI-A060N</code></td>
+</tr>
+<tr>
+<td><code>AXI-061</code> / <code>BT-97</code></td>
+<td>Document allowance reason — within Document allowances [AXI-057]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R061</code></td>
+<td><code>IC-AXI-A061P</code> / <code>IC-AXI-A061N</code></td>
+</tr>
+<tr>
+<td><code>AXI-062</code> / <code>BG-21</code></td>
+<td>Document charges</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R062</code></td>
+<td><code>IC-AXI-A062P</code> / <code>IC-AXI-A062N</code></td>
+</tr>
+<tr>
+<td><code>AXI-063</code> / <code>BT-99</code></td>
+<td>Document charge amount — within Document charges [AXI-062]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R063</code></td>
+<td><code>IC-AXI-A063P</code> / <code>IC-AXI-A063N</code></td>
+</tr>
+<tr>
+<td><code>AXI-064</code> / <code>BT-102</code></td>
+<td>Document charge VAT category — within Document charges [AXI-062]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R064</code></td>
+<td><code>IC-AXI-A064P</code> / <code>IC-AXI-A064N</code></td>
+</tr>
+<tr>
+<td><code>AXI-065</code> / <code>BT-103</code></td>
+<td>Document charge VAT rate — within Document charges [AXI-062]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R065</code></td>
+<td><code>IC-AXI-A065P</code> / <code>IC-AXI-A065N</code></td>
+</tr>
+<tr>
+<td><code>AXI-066</code> / <code>BT-104</code></td>
+<td>Document charge reason — within Document charges [AXI-062]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R066</code></td>
+<td><code>IC-AXI-A066P</code> / <code>IC-AXI-A066N</code></td>
+</tr>
+<tr>
+<td><code>AXI-067</code> / <code>BG-ES-2</code></td>
+<td>Document tax/fee details — within Document charges [AXI-062]</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R067</code></td>
+<td><code>IC-AXI-A067P</code> / <code>IC-AXI-A067N</code></td>
+</tr>
+<tr>
+<td><code>AXI-068</code> / <code>BT-ES-6</code></td>
+<td>Document tax/fee base — within Document charges [AXI-062] / Document tax/fee details [AXI-067]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R068</code></td>
+<td><code>IC-AXI-A068P</code> / <code>IC-AXI-A068N</code></td>
+</tr>
+<tr>
+<td><code>AXI-069</code> / <code>BT-ES-7</code></td>
+<td>Document tax/fee rate — within Document charges [AXI-062] / Document tax/fee details [AXI-067]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R069</code></td>
+<td><code>IC-AXI-A069P</code> / <code>IC-AXI-A069N</code></td>
+</tr>
+<tr>
+<td><code>AXI-070</code> / <code>BT-ES-8</code></td>
+<td>Document tax/fee amount — within Document charges [AXI-062] / Document tax/fee details [AXI-067]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R070</code></td>
+<td><code>IC-AXI-A070P</code> / <code>IC-AXI-A070N</code></td>
+</tr>
+<tr>
+<td><code>AXI-071</code> / <code>BT-ES-9</code></td>
+<td>Document non-VAT tax/fee code — within Document charges [AXI-062] / Document tax/fee details [AXI-067]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R071</code></td>
+<td><code>IC-AXI-A071P</code> / <code>IC-AXI-A071N</code></td>
+</tr>
+<tr>
+<td><code>AXI-072</code> / <code>BG-22</code></td>
+<td>Invoice totals</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R072</code></td>
+<td><code>IC-AXI-A072P</code> / <code>IC-AXI-A072N</code></td>
+</tr>
+<tr>
+<td><code>AXI-073</code> / <code>BT-106</code></td>
+<td>Sum of invoice line net amounts — within Invoice totals [AXI-072]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R073</code></td>
+<td><code>IC-AXI-A073P</code> / <code>IC-AXI-A073N</code></td>
+</tr>
+<tr>
+<td><code>AXI-074</code> / <code>BT-107</code></td>
+<td>Sum of document allowances — within Invoice totals [AXI-072]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R074</code></td>
+<td><code>IC-AXI-A074P</code> / <code>IC-AXI-A074N</code></td>
+</tr>
+<tr>
+<td><code>AXI-075</code> / <code>BT-108</code></td>
+<td>Sum of document charges — within Invoice totals [AXI-072]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R075</code></td>
+<td><code>IC-AXI-A075P</code> / <code>IC-AXI-A075N</code></td>
+</tr>
+<tr>
+<td><code>AXI-076</code> / <code>BT-109</code></td>
+<td>Invoice total excluding VAT — within Invoice totals [AXI-072]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R076</code></td>
+<td><code>IC-AXI-A076P</code> / <code>IC-AXI-A076N</code></td>
+</tr>
+<tr>
+<td><code>AXI-077</code> / <code>BT-110</code></td>
+<td>Invoice VAT total — within Invoice totals [AXI-072]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R077</code></td>
+<td><code>IC-AXI-A077P</code> / <code>IC-AXI-A077N</code></td>
+</tr>
+<tr>
+<td><code>AXI-078</code> / <code>BT-111</code></td>
+<td>VAT total in accounting currency — within Invoice totals [AXI-072]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R078</code></td>
+<td><code>IC-AXI-A078P</code> / <code>IC-AXI-A078N</code></td>
+</tr>
+<tr>
+<td><code>AXI-079</code> / <code>BT-112</code></td>
+<td>Invoice total including VAT — within Invoice totals [AXI-072]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R079</code></td>
+<td><code>IC-AXI-A079P</code> / <code>IC-AXI-A079N</code></td>
+</tr>
+<tr>
+<td><code>AXI-080</code> / <code>BT-113</code></td>
+<td>Paid amount — within Invoice totals [AXI-072]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R080</code></td>
+<td><code>IC-AXI-A080P</code> / <code>IC-AXI-A080N</code></td>
+</tr>
+<tr>
+<td><code>AXI-081</code> / <code>BT-114</code></td>
+<td>Rounding amount — within Invoice totals [AXI-072]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R081</code></td>
+<td><code>IC-AXI-A081P</code> / <code>IC-AXI-A081N</code></td>
+</tr>
+<tr>
+<td><code>AXI-082</code> / <code>BT-115</code></td>
+<td>Amount due — within Invoice totals [AXI-072]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R082</code></td>
+<td><code>IC-AXI-A082P</code> / <code>IC-AXI-A082N</code></td>
+</tr>
+<tr>
+<td><code>AXI-083</code> / <code>BG-34</code></td>
+<td>Context-specific third-party collections/deductions — within Invoice totals [AXI-072]</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R083</code></td>
+<td><code>IC-AXI-A083P</code> / <code>IC-AXI-A083N</code></td>
+</tr>
+<tr>
+<td><code>AXI-084</code> / <code>BT-179</code></td>
+<td>Third-party charge amount — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-083]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R084</code></td>
+<td><code>IC-AXI-A084P</code> / <code>IC-AXI-A084N</code></td>
+</tr>
+<tr>
+<td><code>AXI-085</code> / <code>BT-180</code></td>
+<td>Context-specific collection/deduction description — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-083]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R085</code></td>
+<td><code>IC-AXI-A085P</code> / <code>IC-AXI-A085N</code></td>
+</tr>
+<tr>
+<td><code>AXI-086</code> / <code>BT-ES-10</code></td>
+<td>Third-party charge identifier — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-083]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R086</code></td>
+<td><code>IC-AXI-A086P</code> / <code>IC-AXI-A086N</code></td>
+</tr>
+<tr>
+<td><code>AXI-087</code> / <code>BG-34</code></td>
+<td>Context-specific third-party collections/deductions — within Invoice totals [AXI-072]</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R087</code></td>
+<td><code>IC-AXI-A087P</code> / <code>IC-AXI-A087N</code></td>
+</tr>
+<tr>
+<td><code>AXI-088</code> / <code>BT-179</code></td>
+<td>Tax/fee total in collection group — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R088</code></td>
+<td><code>IC-AXI-A088P</code> / <code>IC-AXI-A088N</code></td>
+</tr>
+<tr>
+<td><code>AXI-089</code> / <code>BT-180</code></td>
+<td>Context-specific collection/deduction description — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R089</code></td>
+<td><code>IC-AXI-A089P</code> / <code>IC-AXI-A089N</code></td>
+</tr>
+<tr>
+<td><code>AXI-090</code> / <code>BT-ES-11</code></td>
+<td>Tax/fee identifier — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R090</code></td>
+<td><code>IC-AXI-A090P</code> / <code>IC-AXI-A090N</code></td>
+</tr>
+<tr>
+<td><code>AXI-091</code> / <code>BG-ES-3</code></td>
+<td>Third-party tax/fee breakdown — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087]</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R091</code></td>
+<td><code>IC-AXI-A091P</code> / <code>IC-AXI-A091N</code></td>
+</tr>
+<tr>
+<td><code>AXI-092</code> / <code>BT-ES-12</code></td>
+<td>Third-party tax/fee base — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087] / Third-party tax/fee breakdown [AXI-091]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R092</code></td>
+<td><code>IC-AXI-A092P</code> / <code>IC-AXI-A092N</code></td>
+</tr>
+<tr>
+<td><code>AXI-093</code> / <code>BT-ES-13</code></td>
+<td>Third-party tax/fee rate — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087] / Third-party tax/fee breakdown [AXI-091]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R093</code></td>
+<td><code>IC-AXI-A093P</code> / <code>IC-AXI-A093N</code></td>
+</tr>
+<tr>
+<td><code>AXI-094</code> / <code>BT-ES-14</code></td>
+<td>Third-party tax/fee total — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-087] / Third-party tax/fee breakdown [AXI-091]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R094</code></td>
+<td><code>IC-AXI-A094P</code> / <code>IC-AXI-A094N</code></td>
+</tr>
+<tr>
+<td><code>AXI-095</code> / <code>BG-34</code></td>
+<td>Context-specific third-party collections/deductions — within Invoice totals [AXI-072]</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R095</code></td>
+<td><code>IC-AXI-A095P</code> / <code>IC-AXI-A095N</code></td>
+</tr>
+<tr>
+<td><code>AXI-096</code> / <code>BT-179</code></td>
+<td>Third-party deduction amount — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-095]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R096</code></td>
+<td><code>IC-AXI-A096P</code> / <code>IC-AXI-A096N</code></td>
+</tr>
+<tr>
+<td><code>AXI-097</code> / <code>BT-180</code></td>
+<td>Context-specific collection/deduction description — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-095]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R097</code></td>
+<td><code>IC-AXI-A097P</code> / <code>IC-AXI-A097N</code></td>
+</tr>
+<tr>
+<td><code>AXI-098</code> / <code>BT-ES-15</code></td>
+<td>Third-party deduction identifier — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-095]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R098</code></td>
+<td><code>IC-AXI-A098P</code> / <code>IC-AXI-A098N</code></td>
+</tr>
+<tr>
+<td><code>AXI-099</code> / <code>BG-34</code></td>
+<td>Context-specific third-party collections/deductions — within Invoice totals [AXI-072]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R099</code></td>
+<td><code>IC-AXI-A099P</code> / <code>IC-AXI-A099N</code></td>
+</tr>
+<tr>
+<td><code>AXI-100</code> / <code>BT-179</code></td>
+<td>Total withholding in collection group — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R100</code></td>
+<td><code>IC-AXI-A100P</code> / <code>IC-AXI-A100N</code></td>
+</tr>
+<tr>
+<td><code>AXI-101</code> / <code>BT-180</code></td>
+<td>Context-specific collection/deduction description — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R101</code></td>
+<td><code>IC-AXI-A101P</code> / <code>IC-AXI-A101N</code></td>
+</tr>
+<tr>
+<td><code>AXI-102</code> / <code>BT-ES-16</code></td>
+<td>Withholding identifier — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R102</code></td>
+<td><code>IC-AXI-A102P</code> / <code>IC-AXI-A102N</code></td>
+</tr>
+<tr>
+<td><code>AXI-103</code> / <code>BT-ES-17</code></td>
+<td>Total withholding — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R103</code></td>
+<td><code>IC-AXI-A103P</code> / <code>IC-AXI-A103N</code></td>
+</tr>
+<tr>
+<td><code>AXI-104</code> / <code>BG-ES-4</code></td>
+<td>Withholding details — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099]</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R104</code></td>
+<td><code>IC-AXI-A104P</code> / <code>IC-AXI-A104N</code></td>
+</tr>
+<tr>
+<td><code>AXI-105</code> / <code>BT-ES-18</code></td>
+<td>Withholding base — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] / Withholding details [AXI-104]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R105</code></td>
+<td><code>IC-AXI-A105P</code> / <code>IC-AXI-A105N</code></td>
+</tr>
+<tr>
+<td><code>AXI-106</code> / <code>BT-ES-19</code></td>
+<td>Withholding amount — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] / Withholding details [AXI-104]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R106</code></td>
+<td><code>IC-AXI-A106P</code> / <code>IC-AXI-A106N</code></td>
+</tr>
+<tr>
+<td><code>AXI-107</code> / <code>BT-ES-20</code></td>
+<td>Withholding rate — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] / Withholding details [AXI-104]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R107</code></td>
+<td><code>IC-AXI-A107P</code> / <code>IC-AXI-A107N</code></td>
+</tr>
+<tr>
+<td><code>AXI-108</code> / <code>BT-ES-21</code></td>
+<td>Withholding concept code — within Invoice totals [AXI-072] / Context-specific third-party collections/deductions [AXI-099] / Withholding details [AXI-104]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R108</code></td>
+<td><code>IC-AXI-A108P</code> / <code>IC-AXI-A108N</code></td>
+</tr>
+<tr>
+<td><code>AXI-109</code> / <code>BG-25</code></td>
+<td>Invoice lines</td>
+<td><code>1..n</code></td>
+<td><code>IC-AXI-R109</code></td>
+<td><code>IC-AXI-A109P</code> / <code>IC-AXI-A109N</code></td>
+</tr>
+<tr>
+<td><code>AXI-110</code> / <code>BT-126</code></td>
+<td>Invoice line identifier — within Invoice lines [AXI-109]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R110</code></td>
+<td><code>IC-AXI-A110P</code> / <code>IC-AXI-A110N</code></td>
+</tr>
+<tr>
+<td><code>AXI-111</code> / <code>BT-129</code></td>
+<td>Invoiced quantity — within Invoice lines [AXI-109]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R111</code></td>
+<td><code>IC-AXI-A111P</code> / <code>IC-AXI-A111N</code></td>
+</tr>
+<tr>
+<td><code>AXI-112</code> / <code>BT-130</code></td>
+<td>Quantity unit code — within Invoice lines [AXI-109]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R112</code></td>
+<td><code>IC-AXI-A112P</code> / <code>IC-AXI-A112N</code></td>
+</tr>
+<tr>
+<td><code>AXI-113</code> / <code>BT-131</code></td>
+<td>Invoice line net amount — within Invoice lines [AXI-109]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R113</code></td>
+<td><code>IC-AXI-A113P</code> / <code>IC-AXI-A113N</code></td>
+</tr>
+<tr>
+<td><code>AXI-114</code> / <code>BG-27</code></td>
+<td>Line allowances — within Invoice lines [AXI-109]</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R114</code></td>
+<td><code>IC-AXI-A114P</code> / <code>IC-AXI-A114N</code></td>
+</tr>
+<tr>
+<td><code>AXI-115</code> / <code>BT-136</code></td>
+<td>Line allowance amount — within Invoice lines [AXI-109] / Line allowances [AXI-114]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R115</code></td>
+<td><code>IC-AXI-A115P</code> / <code>IC-AXI-A115N</code></td>
+</tr>
+<tr>
+<td><code>AXI-116</code> / <code>BT-139</code></td>
+<td>Line allowance reason — within Invoice lines [AXI-109] / Line allowances [AXI-114]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R116</code></td>
+<td><code>IC-AXI-A116P</code> / <code>IC-AXI-A116N</code></td>
+</tr>
+<tr>
+<td><code>AXI-117</code> / <code>BG-28</code></td>
+<td>Line charges — within Invoice lines [AXI-109]</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R117</code></td>
+<td><code>IC-AXI-A117P</code> / <code>IC-AXI-A117N</code></td>
+</tr>
+<tr>
+<td><code>AXI-118</code> / <code>BT-141</code></td>
+<td>Line charge amount — within Invoice lines [AXI-109] / Line charges [AXI-117]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R118</code></td>
+<td><code>IC-AXI-A118P</code> / <code>IC-AXI-A118N</code></td>
+</tr>
+<tr>
+<td><code>AXI-119</code> / <code>BT-142</code></td>
+<td>Line charge base — within Invoice lines [AXI-109] / Line charges [AXI-117]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R119</code></td>
+<td><code>IC-AXI-A119P</code> / <code>IC-AXI-A119N</code></td>
+</tr>
+<tr>
+<td><code>AXI-120</code> / <code>BT-143</code></td>
+<td>Line charge rate — within Invoice lines [AXI-109] / Line charges [AXI-117]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R120</code></td>
+<td><code>IC-AXI-A120P</code> / <code>IC-AXI-A120N</code></td>
+</tr>
+<tr>
+<td><code>AXI-121</code> / <code>BT-ES-22</code></td>
+<td>Line non-VAT tax/fee code — within Invoice lines [AXI-109] / Line charges [AXI-117]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R121</code></td>
+<td><code>IC-AXI-A121P</code> / <code>IC-AXI-A121N</code></td>
+</tr>
+<tr>
+<td><code>AXI-122</code> / <code>BT-144</code></td>
+<td>Line charge reason — within Invoice lines [AXI-109] / Line charges [AXI-117]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R122</code></td>
+<td><code>IC-AXI-A122P</code> / <code>IC-AXI-A122N</code></td>
+</tr>
+<tr>
+<td><code>AXI-123</code> / <code>BG-29</code></td>
+<td>Item price details — within Invoice lines [AXI-109]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R123</code></td>
+<td><code>IC-AXI-A123P</code> / <code>IC-AXI-A123N</code></td>
+</tr>
+<tr>
+<td><code>AXI-124</code> / <code>BT-146</code></td>
+<td>Item net price — within Invoice lines [AXI-109] / Item price details [AXI-123]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R124</code></td>
+<td><code>IC-AXI-A124P</code> / <code>IC-AXI-A124N</code></td>
+</tr>
+<tr>
+<td><code>AXI-125</code> / <code>BT-149</code></td>
+<td>Item price base quantity — within Invoice lines [AXI-109]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R125</code></td>
+<td><code>IC-AXI-A125P</code> / <code>IC-AXI-A125N</code></td>
+</tr>
+<tr>
+<td><code>AXI-126</code> / <code>BG-30</code></td>
+<td>Line VAT information — within Invoice lines [AXI-109]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R126</code></td>
+<td><code>IC-AXI-A126P</code> / <code>IC-AXI-A126N</code></td>
+</tr>
+<tr>
+<td><code>AXI-127</code> / <code>BT-151</code></td>
+<td>Item VAT category — within Invoice lines [AXI-109] / Line VAT information [AXI-126]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R127</code></td>
+<td><code>IC-AXI-A127P</code> / <code>IC-AXI-A127N</code></td>
+</tr>
+<tr>
+<td><code>AXI-128</code> / <code>BT-152</code></td>
+<td>Item VAT rate — within Invoice lines [AXI-109] / Line VAT information [AXI-126]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R128</code></td>
+<td><code>IC-AXI-A128P</code> / <code>IC-AXI-A128N</code></td>
+</tr>
+<tr>
+<td><code>AXI-129</code> / <code>BT-195</code></td>
+<td>Item VAT exemption code — within Invoice lines [AXI-109] / Line VAT information [AXI-126]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R129</code></td>
+<td><code>IC-AXI-A129P</code> / <code>IC-AXI-A129N</code></td>
+</tr>
+<tr>
+<td><code>AXI-130</code> / <code>BG-31</code></td>
+<td>Item information — within Invoice lines [AXI-109]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R130</code></td>
+<td><code>IC-AXI-A130P</code> / <code>IC-AXI-A130N</code></td>
+</tr>
+<tr>
+<td><code>AXI-131</code> / <code>BT-153</code></td>
+<td>Item name — within Invoice lines [AXI-109] / Item information [AXI-130]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R131</code></td>
+<td><code>IC-AXI-A131P</code> / <code>IC-AXI-A131N</code></td>
+</tr>
+<tr>
+<td><code>AXI-132</code> / <code>BT-154</code></td>
+<td>Item description — within Invoice lines [AXI-109] / Item information [AXI-130]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R132</code></td>
+<td><code>IC-AXI-A132P</code> / <code>IC-AXI-A132N</code></td>
+</tr>
+<tr>
+<td><code>AXI-133</code> / <code>BG-32</code></td>
+<td>Context-specific additional line properties — within Invoice lines [AXI-109] / Item information [AXI-130]</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R133</code></td>
+<td><code>IC-AXI-A133P</code> / <code>IC-AXI-A133N</code></td>
+</tr>
+<tr>
+<td><code>AXI-134</code> / <code>BT-160</code></td>
+<td>Additional property code — within Invoice lines [AXI-109] / Item information [AXI-130]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R134</code></td>
+<td><code>IC-AXI-A134P</code> / <code>IC-AXI-A134N</code></td>
+</tr>
+<tr>
+<td><code>AXI-135</code> / <code>BT-161</code></td>
+<td>Additional property value — within Invoice lines [AXI-109] / Item information [AXI-130]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R135</code></td>
+<td><code>IC-AXI-A135P</code> / <code>IC-AXI-A135N</code></td>
+</tr>
+<tr>
+<td><code>AXI-136</code> / <code>BG-32</code></td>
+<td>Context-specific additional line properties — within Invoice lines [AXI-109] / Item information [AXI-130]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R136</code></td>
+<td><code>IC-AXI-A136P</code> / <code>IC-AXI-A136N</code></td>
+</tr>
+<tr>
+<td><code>AXI-137</code> / <code>BT-160</code></td>
+<td>Additional property code — within Invoice lines [AXI-109] / Item information [AXI-130] / Context-specific additional line properties [AXI-136]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R137</code></td>
+<td><code>IC-AXI-A137P</code> / <code>IC-AXI-A137N</code></td>
+</tr>
+<tr>
+<td><code>AXI-138</code> / <code>BT-161</code></td>
+<td>Additional property value — within Invoice lines [AXI-109] / Item information [AXI-130]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R138</code></td>
+<td><code>IC-AXI-A138P</code> / <code>IC-AXI-A138N</code></td>
+</tr>
+<tr>
+<td><code>AXI-139</code> / <code>BT-ES-23</code></td>
+<td>Property location code — within Invoice lines [AXI-109] / Item information [AXI-130]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R139</code></td>
+<td><code>IC-AXI-A139P</code> / <code>IC-AXI-A139N</code></td>
+</tr>
+<tr>
+<td><code>AXI-140</code> / <code>BG-32</code></td>
+<td>Context-specific additional line properties — within Invoice lines [AXI-109] / Item information [AXI-130]</td>
+<td><code>1..2</code></td>
+<td><code>IC-AXI-R140</code></td>
+<td><code>IC-AXI-A140P</code> / <code>IC-AXI-A140N</code></td>
+</tr>
+<tr>
+<td><code>AXI-141</code> / <code>BT-160</code></td>
+<td>Additional property code — within Invoice lines [AXI-109] / Item information [AXI-130] / Context-specific additional line properties [AXI-140]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R141</code></td>
+<td><code>IC-AXI-A141P</code> / <code>IC-AXI-A141N</code></td>
+</tr>
+<tr>
+<td><code>AXI-142</code> / <code>BT-161</code></td>
+<td>Additional property value — within Invoice lines [AXI-109] / Item information [AXI-130] / Context-specific additional line properties [AXI-140]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R142</code></td>
+<td><code>IC-AXI-A142P</code> / <code>IC-AXI-A142N</code></td>
+</tr>
+<tr>
+<td><code>AXI-143</code> / <code>BT-ES-24</code></td>
+<td>National tax qualifier — within Invoice lines [AXI-109] / Item information [AXI-130] / Context-specific additional line properties [AXI-140]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R143</code></td>
+<td><code>IC-AXI-A143P</code> / <code>IC-AXI-A143N</code></td>
+</tr>
+<tr>
+<td><code>AXI-144</code> / <code>BG-23</code></td>
+<td>VAT breakdown</td>
+<td><code>1..n</code></td>
+<td><code>IC-AXI-R144</code></td>
+<td><code>IC-AXI-A144P</code> / <code>IC-AXI-A144N</code></td>
+</tr>
+<tr>
+<td><code>AXI-145</code> / <code>BT-116</code></td>
+<td>Taxable amount by VAT category — within VAT breakdown [AXI-144]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R145</code></td>
+<td><code>IC-AXI-A145P</code> / <code>IC-AXI-A145N</code></td>
+</tr>
+<tr>
+<td><code>AXI-146</code> / <code>BT-117</code></td>
+<td>Tax amount by VAT category — within VAT breakdown [AXI-144]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R146</code></td>
+<td><code>IC-AXI-A146P</code> / <code>IC-AXI-A146N</code></td>
+</tr>
+<tr>
+<td><code>AXI-147</code> / <code>BT-118</code></td>
+<td>VAT category code — within VAT breakdown [AXI-144]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R147</code></td>
+<td><code>IC-AXI-A147P</code> / <code>IC-AXI-A147N</code></td>
+</tr>
+<tr>
+<td><code>AXI-148</code> / <code>BT-119</code></td>
+<td>VAT category rate — within VAT breakdown [AXI-144]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R148</code></td>
+<td><code>IC-AXI-A148P</code> / <code>IC-AXI-A148N</code></td>
+</tr>
+<tr>
+<td><code>AXI-149</code> / <code>BT-120</code></td>
+<td>VAT exemption reason — within VAT breakdown [AXI-144]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R149</code></td>
+<td><code>IC-AXI-A149P</code> / <code>IC-AXI-A149N</code></td>
+</tr>
+<tr>
+<td><code>AXI-150</code> / <code>BT-121</code></td>
+<td>VAT exemption code — within VAT breakdown [AXI-144]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R150</code></td>
+<td><code>IC-AXI-A150P</code> / <code>IC-AXI-A150N</code></td>
+</tr>
+<tr>
+<td><code>AXI-151</code> / <code>BG-33</code></td>
+<td>Payment terms</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R151</code></td>
+<td><code>IC-AXI-A151P</code> / <code>IC-AXI-A151N</code></td>
+</tr>
+<tr>
+<td><code>AXI-152</code> / <code>BT-20</code></td>
+<td>Payment terms description — within Payment terms [AXI-151]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R152</code></td>
+<td><code>IC-AXI-A152P</code> / <code>IC-AXI-A152N</code></td>
+</tr>
+<tr>
+<td><code>AXI-153</code> / <code>BG-16</code></td>
+<td>Payment instructions</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R153</code></td>
+<td><code>IC-AXI-A153P</code> / <code>IC-AXI-A153N</code></td>
+</tr>
+<tr>
+<td><code>AXI-154</code> / <code>BT-81</code></td>
+<td>Payment means code — within Payment instructions [AXI-153]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R154</code></td>
+<td><code>IC-AXI-A154P</code> / <code>IC-AXI-A154N</code></td>
+</tr>
+<tr>
+<td><code>AXI-155</code> / <code>BG-17</code></td>
+<td>Bank transfer — within Payment instructions [AXI-153]</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R155</code></td>
+<td><code>IC-AXI-A155P</code> / <code>IC-AXI-A155N</code></td>
+</tr>
+<tr>
+<td><code>AXI-156</code> / <code>BT-84</code></td>
+<td>Payment account identifier — within Payment instructions [AXI-153] / Bank transfer [AXI-155]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R156</code></td>
+<td><code>IC-AXI-A156P</code> / <code>IC-AXI-A156N</code></td>
+</tr>
+<tr>
+<td><code>AXI-157</code> / <code>BG-24</code></td>
+<td>Context-specific supporting references</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R157</code></td>
+<td><code>IC-AXI-A157P</code> / <code>IC-AXI-A157N</code></td>
+</tr>
+<tr>
+<td><code>AXI-158</code> / <code>BT-122</code></td>
+<td>Supporting document reference identifier — within Context-specific supporting references [AXI-157]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R158</code></td>
+<td><code>IC-AXI-A158P</code> / <code>IC-AXI-A158N</code></td>
+</tr>
+<tr>
+<td><code>AXI-159</code> / <code>BT-123</code></td>
+<td>Supporting document description/value — within Context-specific supporting references [AXI-157]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R159</code></td>
+<td><code>IC-AXI-A159P</code> / <code>IC-AXI-A159N</code></td>
+</tr>
+<tr>
+<td><code>AXI-160</code> / <code>BT-ES-25</code></td>
+<td>Fiscal QR URL reference — within Context-specific supporting references [AXI-157]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R160</code></td>
+<td><code>IC-AXI-A160P</code> / <code>IC-AXI-A160N</code></td>
+</tr>
+<tr>
+<td><code>AXI-161</code> / <code>BG-24</code></td>
+<td>Context-specific supporting references</td>
+<td><code>0..n</code></td>
+<td><code>IC-AXI-R161</code></td>
+<td><code>IC-AXI-A161P</code> / <code>IC-AXI-A161N</code></td>
+</tr>
+<tr>
+<td><code>AXI-162</code> / <code>BT-122</code></td>
+<td>Supporting document reference identifier — within Context-specific supporting references [AXI-161]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R162</code></td>
+<td><code>IC-AXI-A162P</code> / <code>IC-AXI-A162N</code></td>
+</tr>
+<tr>
+<td><code>AXI-163</code> / <code>BT-123</code></td>
+<td>Supporting document description/value — within Context-specific supporting references [AXI-161]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R163</code></td>
+<td><code>IC-AXI-A163P</code> / <code>IC-AXI-A163N</code></td>
+</tr>
+<tr>
+<td><code>AXI-164</code> / <code>BT-ES-26</code></td>
+<td>Billing authorization reference — within Context-specific supporting references [AXI-161]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R164</code></td>
+<td><code>IC-AXI-A164P</code> / <code>IC-AXI-A164N</code></td>
+</tr>
+<tr>
+<td><code>AXI-165</code> / <code>BG-24</code></td>
+<td>Context-specific supporting references</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R165</code></td>
+<td><code>IC-AXI-A165P</code> / <code>IC-AXI-A165N</code></td>
+</tr>
+<tr>
+<td><code>AXI-166</code> / <code>BT-122</code></td>
+<td>Supporting document reference identifier — within Context-specific supporting references [AXI-165]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R166</code></td>
+<td><code>IC-AXI-A166P</code> / <code>IC-AXI-A166N</code></td>
+</tr>
+<tr>
+<td><code>AXI-167</code> / <code>BT-123</code></td>
+<td>Supporting document description/value — within Context-specific supporting references [AXI-165]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R167</code></td>
+<td><code>IC-AXI-A167P</code> / <code>IC-AXI-A167N</code></td>
+</tr>
+<tr>
+<td><code>AXI-168</code> / <code>BT-ES-27</code></td>
+<td>Corrective invoice reason code — within Context-specific supporting references [AXI-165]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R168</code></td>
+<td><code>IC-AXI-A168P</code> / <code>IC-AXI-A168N</code></td>
+</tr>
+<tr>
+<td><code>AXI-169</code> / <code>BG-24</code></td>
+<td>Context-specific supporting references</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R169</code></td>
+<td><code>IC-AXI-A169P</code> / <code>IC-AXI-A169N</code></td>
+</tr>
+<tr>
+<td><code>AXI-170</code> / <code>BT-122</code></td>
+<td>Supporting document reference identifier — within Context-specific supporting references [AXI-169]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R170</code></td>
+<td><code>IC-AXI-A170P</code> / <code>IC-AXI-A170N</code></td>
+</tr>
+<tr>
+<td><code>AXI-171</code> / <code>BT-123</code></td>
+<td>Supporting document description/value — within Context-specific supporting references [AXI-169]</td>
+<td><code>0..1</code></td>
+<td><code>IC-AXI-R171</code></td>
+<td><code>IC-AXI-A171P</code> / <code>IC-AXI-A171N</code></td>
+</tr>
+<tr>
+<td><code>AXI-172</code> / <code>BT-ES-28</code></td>
+<td>Corrective invoice method code — within Context-specific supporting references [AXI-169]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R172</code></td>
+<td><code>IC-AXI-A172P</code> / <code>IC-AXI-A172N</code></td>
+</tr>
+<tr>
+<td><code>AXI-173</code> / <code>BG-24</code></td>
+<td>Context-specific supporting references</td>
+<td><code>0..5</code></td>
+<td><code>IC-AXI-R173</code></td>
+<td><code>IC-AXI-A173P</code> / <code>IC-AXI-A173N</code></td>
+</tr>
+<tr>
+<td><code>AXI-174</code> / <code>BT-122</code></td>
+<td>Supporting document reference identifier — within Context-specific supporting references [AXI-173]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R174</code></td>
+<td><code>IC-AXI-A174P</code> / <code>IC-AXI-A174N</code></td>
+</tr>
+<tr>
+<td><code>AXI-175</code> / <code>BT-123</code></td>
+<td>Supporting document description/value — within Context-specific supporting references [AXI-173]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R175</code></td>
+<td><code>IC-AXI-A175P</code> / <code>IC-AXI-A175N</code></td>
+</tr>
+<tr>
+<td><code>AXI-176</code> / <code>BT-ES-29</code></td>
+<td>Rectified original amount code — within Context-specific supporting references [AXI-173]</td>
+<td><code>1..1</code></td>
+<td><code>IC-AXI-R176</code></td>
+<td><code>IC-AXI-A176P</code> / <code>IC-AXI-A176N</code></td>
+</tr>
+</tbody>
+</table>
+<p>Each code-table occurrence has a separate domain. The linked ledger preserves every source code and description. The listed requirement accepts only values in the applicable source domain; its positive/negative cases test a valid value and a value outside that domain. Identical code text in another domain does not grant validity. Namespace and executable rule bindings remain open.</p>
+<table>
+<thead>
+<tr>
+<th>Code-table trace</th>
+<th>Source context</th>
+<th>Requirement</th>
+<th>Acceptance: positive / negative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AX-CODE-01</code></td>
+<td>L1 – Tipo de factura</td>
+<td><code>IC-CODE-R01</code></td>
+<td><code>IC-CODE-A01P</code> / <code>IC-CODE-A01N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-02</code></td>
+<td>L2.A – Tipo de factura rectificativa</td>
+<td><code>IC-CODE-R02</code></td>
+<td><code>IC-CODE-A02P</code> / <code>IC-CODE-A02N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-03</code></td>
+<td>L2.B – Modalidad de factura rectificativa</td>
+<td><code>IC-CODE-R03</code></td>
+<td><code>IC-CODE-A03P</code> / <code>IC-CODE-A03N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-04</code></td>
+<td>L2.C – Importes rectificados</td>
+<td><code>IC-CODE-R04</code></td>
+<td><code>IC-CODE-A04P</code> / <code>IC-CODE-A04N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-05</code></td>
+<td>L3A – Clave de régimen-IVA</td>
+<td><code>IC-CODE-R05</code></td>
+<td><code>IC-CODE-A05P</code> / <code>IC-CODE-A05N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-06</code></td>
+<td>L3B – Clave de régimen-IGIC</td>
+<td><code>IC-CODE-R06</code></td>
+<td><code>IC-CODE-A06P</code> / <code>IC-CODE-A06N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-07</code></td>
+<td>L3C – Clave de régimen-IPSI</td>
+<td><code>IC-CODE-R07</code></td>
+<td><code>IC-CODE-A07P</code> / <code>IC-CODE-A07N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-08</code></td>
+<td>L4 – Código de tipo de operación</td>
+<td><code>IC-CODE-R08</code></td>
+<td><code>IC-CODE-A08P</code> / <code>IC-CODE-A08N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-09</code></td>
+<td>L5 – Tipo de retención</td>
+<td><code>IC-CODE-R09</code></td>
+<td><code>IC-CODE-A09P</code> / <code>IC-CODE-A09N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-10</code></td>
+<td>L6 – Situación del inmueble</td>
+<td><code>IC-CODE-R10</code></td>
+<td><code>IC-CODE-A10P</code> / <code>IC-CODE-A10N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-11</code></td>
+<td>L7 – Tipo de cargo o minoración</td>
+<td><code>IC-CODE-R11</code></td>
+<td><code>IC-CODE-A11P</code> / <code>IC-CODE-A11N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-12</code></td>
+<td>L8 – Tipo de propiedad</td>
+<td><code>IC-CODE-R12</code></td>
+<td><code>IC-CODE-A12P</code> / <code>IC-CODE-A12N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-13</code></td>
+<td>L9 – Impuestos y cargos a nivel de línea o documento</td>
+<td><code>IC-CODE-R13</code></td>
+<td><code>IC-CODE-A13P</code> / <code>IC-CODE-A13N</code></td>
+</tr>
+<tr>
+<td><code>AX-CODE-14</code></td>
+<td>L10 – Documentos justificativos adicionales</td>
+<td><code>IC-CODE-R14</code></td>
+<td><code>IC-CODE-A14P</code> / <code>IC-CODE-A14N</code></td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">part-4-assurance-and-traceability-view</ac:parameter></ac:structured-macro><h2>Part 4 Assurance and Traceability View</h2>
+<blockquote>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — Extend IC-A03/04/07/10/17/21: exercise the proposed rectification eligibility column without requiring cancellation. Refuse rectification of cancelled invoices; retain their consumed fiscal number and final state. Check the new UBL's existing original-number reference mapping and separate identity. Accept, reject and pay the rectifying invoice without changing the rectified invoice's issued content or commercial/payment history. Preserve optional rectification after partial rejection, including no agreement and no new invoice. After technical rejection, verify same-number recovery only for sending/routing/representation issues; fiscal-content errors require a new rectifying invoice with the issued content unchanged. Verify actual DTS coverage and Spain/other-country isolation. SD-CANCEL01 C-1–C-4/P-2/P-4.</p>
+</blockquote>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-acceptance-and-evidence-matrix</ac:parameter></ac:structured-macro><h3>1 Acceptance and evidence matrix</h3>
+<p>These are <strong>required future acceptance scenarios</strong>. They are not implementation tests claimed to have run. <code>R</code>, <code>INT</code> and <code>D</code> below use the <code>IC-</code> prefix. The activities refer to Part 1.5.</p>
+<table>
+<thead>
+<tr>
+<th>Acceptance ID / scenario</th>
+<th>Requirements</th>
+<th>Activities / interactions / data</th>
+<th>Required evidence and expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IC-A01 Standard invoice</td>
+<td>R01/03/04/07/11/12</td>
+<td>IC-01–09; INT-01/03/05/06/07; D01/03/07/08</td>
+<td>Qualified 380 source produces the selected exact profile, preserves facts and passes all applicable layers. No issuance/send result.</td>
+</tr>
+<tr>
+<td>IC-A02 All five types and disabled type</td>
+<td>R03/04</td>
+<td>IC-03/04/09; INT-03/05; D03/08</td>
+<td>Positive corpus for each type; disabled/unknown type returns unsupported; no fallback to 380.</td>
+</tr>
+<tr>
+<td>IC-A03 Seller corrective difference</td>
+<td>R05/06/09</td>
+<td>IC-04–08; INT-04/05/06; D06/07/08</td>
+<td>Delta values, allowed signs, L2 reason/method and original links survive generation; full-value/delta mismatch blocks.</td>
+</tr>
+<tr>
+<td>IC-A04 Seller corrective substitution</td>
+<td>R05/06/09</td>
+<td>IC-04–08; INT-04/05/06; D06/07/08</td>
+<td>New full corrected values and required original amounts stay distinct; approved cardinality/amount formatting passes.</td>
+</tr>
+<tr>
+<td>IC-A05 Simplified-invoice replacement</td>
+<td>R04/05/06/14</td>
+<td>IC-04–10/12; INT-04/09; D05/06/09</td>
+<td>Eligible 388 replaces identified simplified originals without corrective groups. Ordinary issued amendment as 388 blocks.</td>
+</tr>
+<tr>
+<td>IC-A06 Buyer-issued invoice</td>
+<td>R02/04/07/10</td>
+<td>IC-02/04/05/08; INT-02/05; D02/05/08</td>
+<td>Qualified 389 agreement/authority; seller/buyer stay in place; issuer-key mapping matches approved cross-message cases.</td>
+</tr>
+<tr>
+<td>IC-A07 Buyer-issued correction</td>
+<td>R02/05/06/09/10</td>
+<td>IC-02/04–08; INT-02/04/05/06; D02/05/06/08</td>
+<td>471 covers both <code>I</code> and <code>S</code>; wrong party or missing rights blocks; code and totals follow qualified rules.</td>
+</tr>
+<tr>
+<td>IC-A08 Third-party and corrective-field collision</td>
+<td>R02/06/07</td>
+<td>IC-02/04/06/08; INT-02/03/05; D02/03/08</td>
+<td>Applicable BG-ES-1 on 380 is retained. Legacy corrective BT-ES-3/4/5 interpretation is rejected. <code>RECT:*</code> groups cannot satisfy third-party data.</td>
+</tr>
+<tr>
+<td>IC-A09 Identity alternatives and Spain address</td>
+<td>R02/07</td>
+<td>IC-05/06/08; INT-02/05; D02/08</td>
+<td>Seller BT-31/32 and buyer BT-47/48 alternatives/schemes pass when qualified; missing, conflicting or role-swapped identity and incomplete Spain address block.</td>
+</tr>
+<tr>
+<td>IC-A10 References, chains and external original</td>
+<td>R05/14/16</td>
+<td>IC-05/11/12; INT-04/10; D06/10</td>
+<td>Multiple valid references and approved external evidence work; self-reference, cycle, wrong supplier and cross-tenant access fail safely. Ungated aggregate exceptions cannot pass.</td>
+</tr>
+<tr>
+<td>IC-A11 Line regimes and national tax isolation</td>
+<td>R08/09/17</td>
+<td>IC-03/06/08; INT-03/05; D03/08</td>
+<td>One/two valid REGI groups pass; zero/three groups, invalid qualifier, incompatible code/category or RCAT-as-regime block. IVA/IGIC/IPSI rules remain distinct.</td>
+</tr>
+<tr>
+<td>IC-A12 Monetary reconciliation</td>
+<td>R09/12</td>
+<td>IC-06/08; INT-05; D03/08</td>
+<td>Precision, allowances/charges, breakdowns, zero/negative cases and rounding reconcile under the selected compatible pack; no silent edits.</td>
+</tr>
+<tr>
+<td>IC-A13 Prepayment, extensions and currency</td>
+<td>R07/09</td>
+<td>IC-06/08; INT-03/05; D03/08</td>
+<td>Permitted nonzero BT-113, VAT-accrual restriction, EUR accounting tax, surcharge, collection and withholding cases match approved examples. Zero-only and double-counted adjustments fail.</td>
+</tr>
+<tr>
+<td>IC-A14 Code stability, roles and collision</td>
+<td>R02/10/15</td>
+<td>IC-05/09/10; INT-03/07/09; D04/05/09</td>
+<td>Approved vectors preserve zeros, series/date/scheme and role across repeated calls, original/copy/report references. Ambiguous encoding and changed final content under one identity conflict.</td>
+</tr>
+<tr>
+<td>IC-A15 Prebuilt UBL, wrong profile and attachments</td>
+<td>R03/07/11/12/16</td>
+<td>IC-01/03/07/08; INT-01/03/05; D01/03/07/08</td>
+<td>Exact prebuilt bytes remain unchanged; contradictory/disabled profile and public embedded files block. Unsafe XML/external access and oversized input follow approved limits.</td>
+</tr>
+<tr>
+<td>IC-A16 Missing rules or mapping; semantic loss</td>
+<td>R03/11/12/17</td>
+<td>IC-03/07/08/11; INT-03/05/06; D03/07/08/10</td>
+<td>XSD-valid but country-invalid file fails; lost correction/regime/amount data is mapper-owned; missing pack is undetermined, never PASS.</td>
+</tr>
+<tr>
+<td>IC-A17 Draft edit and actual issued change</td>
+<td>R01/13/14</td>
+<td>IC-09/10/12; INT-01/05/09; D01/08/09</td>
+<td>Changed final number/date/amount/party triggers renewed evidence. Issued original stays unchanged; new correction gets independent identity.</td>
+</tr>
+<tr>
+<td>IC-A18 Creation, issuance and exchange outcomes</td>
+<td>R01/10/13</td>
+<td>IC-09/10; INT-08/09; D05/08/09</td>
+<td>Preparation success cannot claim issuance, external admission, public-copy submission, delivery or payment. Sending receives evidence and performs final checks.</td>
+</tr>
+<tr>
+<td>IC-A19 Request replay and conflict</td>
+<td>R15</td>
+<td>IC-01/07/09/11; INT-01/06/07; D04/10</td>
+<td>Same scoped key/content returns original; changed request conflicts; different tenants/environments remain separate; new key cannot hide uncertain earlier work.</td>
+</tr>
+<tr>
+<td>IC-A20 Lost response, split persistence and duplicate worker</td>
+<td>R15/18</td>
+<td>IC-07/09–11; INT-06/07/09/10; D04/07/09/10</td>
+<td>Failure at acceptance, candidate, commit and handoff boundaries resolves original work; stale worker cannot overwrite; no duplicate sending effect.</td>
+</tr>
+<tr>
+<td>IC-A21 Cancellation, revocation and read isolation</td>
+<td>R02/15/16</td>
+<td>IC-02/09–12; INT-02/08/10; D02/04/07/10</td>
+<td>Cancelled preparation cannot hand off; revocation applies before new protected action; code/result reference cannot bypass scope.</td>
+</tr>
+<tr>
+<td>IC-A22 Country isolation and reuse qualification</td>
+<td>R03/11/17</td>
+<td>IC-03/07/08; INT-03/05/06; D03/10</td>
+<td>Qualified Spain corpus and actual DTS build/contracts pass; existing France/UBL 2.1 workloads retain approved behaviour. Spain IDs, regime, copy and reporting rules do not become global defaults.</td>
+</tr>
+<tr>
+<td>IC-A23 Upgrade, rollback and historical custody</td>
+<td>R11/15/17/18</td>
+<td>IC-03/07/09/11; INT-03/06/07/08; D03/04/07/10</td>
+<td>Delayed work keeps old bundle; rollback affects eligible new work; original reads/custody remain available under approved retention. Expired URL renews access to the same file.</td>
+</tr>
+<tr>
+<td>IC-A24 Mixed batch, notifications and operations</td>
+<td>R12/15/18</td>
+<td>IC-01/09/11; INT-01/08/10; D04/08/10</td>
+<td>Per-item blocked/complete results survive event loss and duplicate notifications; measured capacity and recovery targets pass; resume only unresolved items.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-open-decisions-and-activation-gates</ac:parameter></ac:structured-macro><h3>2 Open decisions and activation gates</h3>
+<p>Owners below are responsible roles, not named approvals. Record the approved decision and evidence link before clearing a gate. A missing contract does not permit an invented default.</p>
+<table>
+<thead>
+<tr>
+<th>Decision ID</th>
+<th>Open decision</th>
+<th>Responsible role / gate</th>
+<th>Impact and proposed holding position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IC-Q01</td>
+<td>Exact public and bilateral UBL versions, Invoice/CreditNote support, input schemas, compatible core/extended validation artefacts and complete Annex I coverage?</td>
+<td>Spain technical/profile + DTS/Validation owners / design and activation</td>
+<td>Determines accepted inputs, output root/version and unsupported fields. Fixed public URNs and the supplied UBL 2.5 Invoice target are known. Resolve the conflicting sample ProfileID; business schemas, compatible extended rules and build fitness remain unproven. No old-core or production qualification is inferred.</td>
+</tr>
+<tr>
+<td>IC-Q02</td>
+<td>Corrective-group binding, amount lexical form, required original amounts and the three-versus-five cardinality discrepancy?</td>
+<td>Spain Compliance/technical + Validation owners / corrective activation</td>
+<td>Determines safe <code>I</code>/<code>S</code> mapping and acceptance corpus. Obtain official schema/rules or clarification. Hold affected capabilities; do not select the convenient limit.</td>
+</tr>
+<tr>
+<td>IC-Q03</td>
+<td>Required original references and permitted aggregate/date exceptions, correction chains and multi-original simplified replacements?</td>
+<td>Spain Compliance + ERP Product / reference-policy activation</td>
+<td>Determines evidence, local/external verification and supported scenarios. Initially qualify individually identified originals; do not promise all legal exceptions.</td>
+</tr>
+<tr>
+<td>IC-Q04</td>
+<td>Legal/material issuer role mapping for 389/471; code issuer NIF; self-billing/third-party authority and BG-ES-1; buyer identity wording discrepancy?</td>
+<td>Spain Compliance/Identity + ERP/Sending/Lifecycle owners / buyer-issued and delegation activation</td>
+<td>Determines scope and cross-message identity. Preserve seller/buyer fields; never derive the invoice issuer from the caller/certificate. Require role-specific approved examples and authority evidence.</td>
+</tr>
+<tr>
+<td>IC-Q05</td>
+<td>Official unique-code encoding, series/number normalisation, escaping, date format, collision handling and wire placement?</td>
+<td>Spain technical + API/Sending/Lifecycle owners / external handoff</td>
+<td>Determines interoperability. Keep structured identity and original strings. No guessed separator, hash, UUID field or production code activation.</td>
+</tr>
+<tr>
+<td>IC-Q06</td>
+<td>Complete monetary rules for the final extended profile, prepayment tax treatment, surcharge, BT-179 groups, withholding and rounding?</td>
+<td>Spain tax/Compliance + Validation/ERP owners / financial conformance</td>
+<td>Determines payable reconciliation and core-rule compatibility. Approve examples and executable rules; support only qualified combinations.</td>
+</tr>
+<tr>
+<td>IC-Q07</td>
+<td>Actual service/build ownership; API fields/result semantics; DTS request/task contract; recoverable acceptance, idempotency and conditional commits?</td>
+<td>E-Invoice/API/DTS/Records Architecture + consumer owners / design and pilot</td>
+<td>Determines deployable boundaries and retry safety. Preserve existing contracts. Proposed processing/event names here are not wire contracts.</td>
+</tr>
+<tr>
+<td>IC-Q08</td>
+<td>Release sequence for five types, products, public/bilateral uses and non-VAT/optional extensions?</td>
+<td>Spain Product + Compliance + service owners / pilot scope</td>
+<td>Internal sources disagree on MVP/pilot coverage. Describe all requested scenarios; activate only named qualified capabilities with explicit unsupported results elsewhere.</td>
+</tr>
+<tr>
+<td>IC-Q09</td>
+<td>Custody, legal retention/deletion, deduplication window, payload/batch limits, capacity, latency/recovery targets and named support?</td>
+<td>Records/Privacy/Security + ERP/DTS Operations / production</td>
+<td>Determines useful retrieval, safe replay and operating envelope. Approve measured targets and runbooks. DTS temporary URLs are not conservation.</td>
+</tr>
+<tr>
+<td>IC-Q10</td>
+<td>Which explicit scenario facts permit automatic type suggestion/default, and who confirms an ambiguous classification?</td>
+<td>ERP Product + Spain Compliance / customer-flow release</td>
+<td>Determines safe UI/API behaviour. No automatic inference from negative totals, credit/debit labels or absence of optional fields.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-readiness-and-review-evidence</ac:parameter></ac:structured-macro><h3>3 Readiness and review evidence</h3>
+<p><strong>Design review:</strong> confirm source differences IC-C01–C11, complete the field coverage manifest, assign actual component owners and settle the logical input/result contract. Align reference, authority, invoice identity and arithmetic with the canonical validation, sending and lifecycle owners. The existing specs are dependencies, not proof of build readiness.</p>
+<p><strong>Pilot:</strong> select explicit products, types, input/output pairs and profile uses. Approve the corresponding IC-Q01–Q08/10 decisions. Retain actual DTS build/contract, mapping and rule hashes; synthetic positive/negative corpus; buyer-issued and correction evidence; safe retry and handoff tests; country-isolation results and named recovery owners. A passed standard-invoice pilot cannot qualify corrections or self-billing automatically.</p>
+<p><strong>Production:</strong> approve IC-Q09 policies and measured service targets. Verify durable custody, recovery, cancellation, access revocation, old-result lookup, bundle rollback and cross-feature identity continuity. All applicable scenarios in IC-A01–A24 require recorded evidence. Additional profiles, country rules and permitted legal exceptions need independent qualification.</p>
+<p>Current readiness: <strong>reviewable logical proposal</strong>. The spec and diagrams define the requested creation design. They do not approve a lifecycle status change, publish to Confluence, qualify a live external API or activate an implementation.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">spfe-evidence-acceptance</ac:parameter></ac:structured-macro><h3>SPFE evidence acceptance</h3>
+<p>The field and code-table acceptance IDs in Part 3 also form required evidence coverage. Execute them with approved fixtures and pinned rules before activation. The ledger records their current status as not executed; row coverage alone does not close implementation qualification.</p>
+<p>These are required evidence scenarios, not executed implementation tests. The source-binding gate is IC-Q01/Q02/Q04/Q05/Q06; SPFE-Q03/Q04/Q13/Q14. A source-backed review does not establish that this feature is ready for production.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Scenario</th>
+<th>Required result</th>
+<th>Requirement coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IC-SPFE-A01</td>
+<td>Five public invoice types, generic CreditNote and an old public declaration</td>
+<td>Qualify the Invoice/type cases with final fields; hold unsupported root or profile. Old/private profiles retain their separate contracts.</td>
+<td>IC-SPFE-R01; IC-03–08, IC-11; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>IC-SPFE-A02</td>
+<td>Generate from facts and validate the unchanged supplied invoice example</td>
+<td>Generated candidates use the qualified final declaration; the source example remains unchanged and its conflicting declaration is visible.</td>
+<td>IC-SPFE-R02; IC-03–08, IC-11; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>IC-SPFE-A03</td>
+<td>Applicable Spain extension, repeated conditional group or monetary rule is unqualified</td>
+<td>Return unsupported/undetermined with the correct owner; no success or lost fields. Retain field-to-rule and country-isolation evidence.</td>
+<td>IC-SPFE-R03; IC-03–08, IC-11; <ac:link ac:anchor="ref-source-references"><ac:link-body>REF</ac:link-body></ac:link>.</td>
+</tr>
+<tr>
+<td>IC-SPFE-A04</td>
+<td>Prepare an applicable final field in a repeated term/group context</td>
+<td>Retain the original <code>IC-AXI-*</code> requirement/acceptance IDs and the final source context. Keep INFO/RCAT/REGI, collection/deduction/withholding, QR/AUT and RECT supporting references separate despite shared IDs/paths. Optional absence and required children follow the selected parent group. No additional mandatory field follows solely from a dictionary entry.</td>
+<td>IC-SPFE-R04; final Annex I field ledger; SPFE-S30/S31; UV-SPFE-A06/A09.</td>
+</tr>
+<tr>
+<td>IC-SPFE-A05</td>
+<td>Date, monetary or I/S correction facts fail or their binding remains disputed</td>
+<td>Return the affected fields and safe next action under IC-06/IC-12, preserving issuer, dates, amounts, original references and method. Apply the detailed boundary checks in UV-SPFE-A07. Hold the three-versus-five and percentage/rounding questions; no silent recalculation, method change or edit to issued bytes.</td>
+<td>IC-SPFE-R04; IC-Q02/Q06; SPFE-S26 §2.2 pp. 6–10; SPFE-Q22.</td>
+</tr>
+<tr>
+<td>IC-SPFE-A06</td>
+<td>A selected country qualifier, regime or category is supported, unsupported or ambiguous</td>
+<td>Preserve the preparer's facts and selected scenario. Use UV-SPFE-A08/A10 for validation and country isolation. A disputed 03/05 label or IPSI/Z scope requires an owned review; it cannot swap regime codes, infer another invoice type or enable a new product scope.</td>
+<td>IC-SPFE-R04; IC-Q01/Q08; SPFE-S26 §2.3–2.4 pp. 10–33; SPFE-Q22.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro><h2>REF Source references</h2>
+<p>For public-platform legal and external-contract facts, the original official sources below take precedence over earlier assumptions in linked PRDs and internal notes. PRDs retain product scope and are unchanged by this review. A source conflict remains an explicit gate; this spec cannot approve a local substitute.</p>
+<p>Use the original files for the claims they establish. Final published regulation governs legal requirements; technical files supply their stated contract facts. Examples are illustrative. Missing or conflicting evidence remains a named gate. Product requirements and Sage design controls have separate authority. The English guide and extracts are reading aids.</p>
+<table>
+<thead>
+<tr>
+<th>REF ID</th>
+<th>Source and version</th>
+<th>Exact location</th>
+<th>Supported information and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> - SD-CANCEL01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#ref-source-references">FP-SEI-002 Solution Design source record</a>, attribution 18 November 2026</td>
+<td>C-1 to C-5; P-1 to P-4</td>
+<td>Product/design input only; not external legal evidence, a contract extension or implementation proof. Preserve recorded source conflicts and qualify Spain separately.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/BOE-A-2026-20587.pdf">BOE-A-2026-20587.pdf</a>; Final order; published 5 October 2026.</td>
+<td>Articles 3–6; Annex I pp. 13–34, BT-23/24 p. 14</td>
+<td>Final invoice fields, fixed identifiers, five types, copy and unique-code components.</td>
+</tr>
+<tr>
+<td>SPFE-S01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Anexo%20I/20261013/Anexo-1-Proyecto-OM-FE.pdf">Anexo-1-Proyecto-OM-FE.pdf</a>; Supplied 13 October 2026; SHA-256 in source manifest.</td>
+<td>pp. 4–34, especially pp. 6 and 25–28</td>
+<td>Separate invoice field table and codes; exact binding and discrepancies need qualification.</td>
+</tr>
+<tr>
+<td>SPFE-S08</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/archive/original-technical-baseline/Descripcio%CC%81n%20servicios%20web/Formatos%20entrada%20y%20salida/20261013/FormatosEntradaSalida.pdf">FormatosEntradaSalida.pdf</a>; 0.1.0; cover 9 October 2026.</td>
+<td>section 5.1.1, p. 8</td>
+<td>UBL 2.5 InvoiceType, not CreditNote, for public invoice submission.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">CatalogoServicios.pdf</a>; 0.1.0; cover 9 October 2026.</td>
+<td>section 6.2, pp. 10–11</td>
+<td>Validation layers, identity components and disputed size.</td>
+</tr>
+<tr>
+<td>SPFE-S09</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Ejemplos/20261013/factura.xml">factura.xml</a>; Supplied 13 October 2026; SHA-256 in source manifest.</td>
+<td>ProfileID, CustomizationID and InvoiceTypeCode</td>
+<td>Original example ProfileID omits ubl:; not a passing public conformance case.</td>
+</tr>
+<tr>
+<td>REF-PRD</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-236-ubl-format-profile.md">PRD-SEI-236 — UBL profile</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-241-ubl-validation-service.md">PRD-SEI-241 — Validation</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-246-spain-invoice-preparation-and-outbound-flow.md">PRD-SEI-246 — Preparation and outbound</a>.</td>
+<td>Product scope and requirement IDs cited in Parts 1–4.</td>
+<td>Canonical product requirements. Earlier external-contract assumptions are reconciled with the supplied sources; an unresolved PRD difference needs a product decision, not silent approval.</td>
+</tr>
+<tr>
+<td>REF-FIELDS</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/field-traceability.json">Complete source-field ledger</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/BOE-A-2026-20587.xml">original BOE XML</a>.</td>
+<td>Exact XML row locators and original cells in the ledger; trace IDs in Part 3.</td>
+<td>Complete source-row inventory, logical controls and required acceptance cases. Actual wire/ERP mappings and execution remain unqualified.</td>
+</tr>
+<tr>
+<td>REF-CONTEXT</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md">RES-SEI-002</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/source-manifest.json">source manifest</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md">shared glossary</a>.</td>
+<td>Source register, shared conflicts and terminology.</td>
+<td>Reading and traceability aids. Hashes identify snapshots; they do not prove live service acceptance or implementation readiness.</td>
+</tr>
+<tr>
+<td>SPFE-S26</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Reglas%20de%20negocio%20ES/ReglasNegocio_AnexoUno.pdf">ReglasNegocio_AnexoUno.pdf</a>; version 0.1, 19 November 2026, <code>Borrador</code>, 33 pages; supplied 23 November.</td>
+<td>§1 p. 3 exclusions; §2.1 pp. 3–6 integrity; §2.2 pp. 6–10 conditions; §2.3 pp. 10–22 regime/qualifier rules and preambles; §2.4 pp. 22–33 category rules.</td>
+<td>Draft technical rule evidence. Reused IDs, term/code/scope conflicts and unresolved arithmetic remain SPFE-Q22; the final BOE controls legal meanings.</td>
+</tr>
+<tr>
+<td>SPFE-S30/S31</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Listados%20auxiliares%20BG%20y%20BT/bg_invoice.properties">BG paths</a>, 47 active entries; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Listados%20auxiliares%20BG%20y%20BT/bt_invoice.properties">BT paths</a>, 296 active entries; supplied 23 November 2026, embedded versions unknown.</td>
+<td>Exact key/path and line in the mapping; S30 lines 21/23/48 and S31 lines 10/11/103/167 retain literal path questions.</td>
+<td>Candidate locations only. No new mandatory requirement, scope approval, executable XPath or semantic/implementation qualification.</td>
+</tr>
+<tr>
+<td>SPFE-S90</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/xsd/ubl-2.5/maindoc/UBL-Invoice-2.5.xsd">Supplied UBL Invoice XSD</a>; header identifies UBL 2.5 CSD01, Release Date 20 August 2025; supplied 23 November 2026.</td>
+<td>File header; Invoice element/InvoiceType and the registered common-component type dependencies.</td>
+<td>Exact local schema identity and structural names only. An accepted Spain release/profile and actual generated/validated output remain unqualified.</td>
+</tr>
+<tr>
+<td>REF-ANNEX-I-MAP</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/mappings/spfe-annex-i-mapping.json">Annex I source/rule/path mapping</a>; reviewed 23 November 2026.</td>
+<td>Source/page/table/row occurrences, raw cells and exact dictionary lines; unchanged final-field trace IDs; schema namespace/element/attribute-name review.</td>
+<td>Source navigation and proposed functional/acceptance links. No completed ERP/API binding, executable rule pack, predicate/semantic validation or implementation evidence.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

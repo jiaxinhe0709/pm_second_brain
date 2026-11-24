@@ -1,0 +1,253 @@
+<div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-045<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/provider-connectors/SPEC-SEI-045-provider-connector-api-logical-contract.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">provider-connector-shared-api-interaction-contract</ac:parameter></ac:structured-macro><h1>Provider Connector Shared API Interaction Contract</h1>
+<p><ac:link><ri:page ri:content-title="Provider Connectors and Shared API Architecture Summary" ri:space-key="DNBU" /><ac:link-body>Summary</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Provider Connector Shared API Interaction Contract" ri:space-key="DNBU" /><ac:link-body>Logical contract</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Provider Connector Shared API Sequences and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>Sequences and reuse</ac:link-body></ac:link></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-required-behaviour-and-acceptance</ac:parameter></ac:structured-macro><h2>1 Required behaviour and acceptance</h2>
+<p>These proposed requirements apply to selected capabilities, not to every possible platform function. Owning-feature rules remain authoritative; this table defines the provider connector handoff.</p>
+<table>
+<thead>
+<tr>
+<th>ID / condition and actor</th>
+<th>Required result and safe next action</th>
+<th>Acceptance evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CA-01 Feature requests an operation</td>
+<td>Check caller, represented business, environment, role and qualified capability before execution. Deny unsupported or unauthorised combinations without an external call.</td>
+<td>Wrong tenant, expired authority, wrong environment and unsupported operation produce no external effect.</td>
+</tr>
+<tr>
+<td>CA-02 Feature requests an external mutation</td>
+<td>Preserve operation identity, fixed input and original execution context. Repetition with the same identity/input follows the approved duplicate contract; changed input conflicts.</td>
+<td>Concurrent duplicates produce one authorised execution owner; key reuse with changed payload is rejected.</td>
+</tr>
+<tr>
+<td>CA-03 Platform returns a response or the call times out</td>
+<td>Preserve source code, correlation and protected evidence. Return the actual known result or an unknown outcome. Reconcile a possible external effect before retry or reassignment.</td>
+<td>Lost response after external acceptance does not cause blind resend or automatic platform failover.</td>
+</tr>
+<tr>
+<td>CA-04 Platform supplies an invoice or event</td>
+<td>Authenticate the source and hand off durable content/evidence to its feature owner. Advance acquisition progress only after the agreed durable handoff.</td>
+<td>Duplicate notification or failed handoff causes no lost invoice and no duplicate business processing.</td>
+</tr>
+<tr>
+<td>CA-05 Connection, credential or contract changes</td>
+<td>Apply approved changes to future work. Retain original context for pending actions; revoked authority can block further external access.</td>
+<td>Pending work is not silently rebound to another provider, role, environment or customer.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-shared-api-usage-and-execution-context</ac:parameter></ac:structured-macro><h2>2 Shared API usage and execution context</h2>
+<p>Products, authorised providers and Provider Connectors use the same Sage API contract under <ac:link ac:anchor="4-ref-source-references"><ri:page ri:content-title="Provider Connectors and Shared API Architecture Summary" ri:space-key="DNBU" /><ac:link-body>044 CA-ARCH01/02</ac:link-body></ac:link>. This section defines logical information needed for those interactions; it does not define another Connector API. Reuse actual shared-API fields and operations. SPEC013 GPA-Q02/Q05 still govern exact wire schemas, versions and duplicate handling.</p>
+<table>
+<thead>
+<tr>
+<th>Consumer / interaction</th>
+<th>Shared contract use and boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product → Sage</td>
+<td>Request setup or invoice work; read permitted saved results. Use the customer's scope and operation identity.</td>
+</tr>
+<tr>
+<td>Authorised provider → Sage</td>
+<td>Submit or retrieve assigned invoices/results under the selected provider integration mode. Partner status alone does not grant all product or connector permissions.</td>
+</tr>
+<tr>
+<td>Provider Connector → Sage</td>
+<td>Use the common contract to obtain permitted work/content and submit source invoices, statuses or execution evidence. Work may arrive through notifications.</td>
+</tr>
+<tr>
+<td>Provider Connector → external platform</td>
+<td>Use that platform's separate external contract. Do not forward caller input to arbitrary endpoints.</td>
+</tr>
+</tbody>
+</table>
+<p>Caller permissions, tenant isolation and one executor per exchange action remain CA-01–05 / SPEC013 controls. Consumer-role isolation must be tested as part of CS02; sharing an API does not grant interchangeable permissions.</p>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Minimum logical information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accepted work / execution context</td>
+<td>Feature operation ID; exchange-action ID where applicable; authenticated-caller reference; tenant and represented-business reference; country/environment; integration role; connection and contract-profile version; capability/operation; input reference and digest; correlation; protected credential reference.</td>
+</tr>
+<tr>
+<td>Result submitted through shared API</td>
+<td>Original operation/action and platform context; attempt identity; source request/reference; observed time; known/pending/unknown/denied-or-unsupported classification; raw source code and protected evidence reference; recovery responsibility and permitted next action. Classifications are logical, not new wire enums.</td>
+</tr>
+<tr>
+<td>Source invoice/event submitted through shared API</td>
+<td>Authenticated platform/account context; stable source event/document identity where available; original bytes or protected reference and digest; source and observed timestamps; continuation/checkpoint context where applicable.</td>
+</tr>
+</tbody>
+</table>
+<p>The owning feature determines payload readiness and business meaning. The provider connector applies the approved transport envelope and preserves external responses. DTS remains the preferred transformation candidate upstream; provider connector transport does not introduce a parallel invoice mapper, route engine or invoice store.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-capability-matrix</ac:parameter></ac:structured-macro><h2>3 Capability matrix</h2>
+<p>Record support per platform, role, environment and contract version. Use <strong>qualified</strong>, <strong>contract evidence only</strong>, <strong>unknown</strong> or <strong>excluded</strong>; no provider connector-wide ready flag may imply all functions are supported.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Private direct-provider binding</th>
+<th>SPFE binding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Setup/access check</td>
+<td>Account linking, token exchange or registration only where the provider contract requires it. Unknown for the complete six-provider set.</td>
+<td>Qualify credentials and access for each operation. No external enrolment API is established by the supplied baseline. CA-SPFE; onboarding 038–040.</td>
+</tr>
+<tr>
+<td>Send</td>
+<td>Qualify submission, acknowledgements, duplicate behaviour and query/recovery.</td>
+<td><code>SendInvoice</code>; CA-SPFE / SPFE-S16. Feature owns delivery/public-copy meaning.</td>
+</tr>
+<tr>
+<td>Receive/query/download</td>
+<td>Qualify polling or push, pagination, capture and replay.</td>
+<td><code>GetRegisteredInvoice</code>, <code>GetInvoices</code>, <code>DownloadInvoicesByID</code>, <code>DownloadInvoicesByLOC</code>; SPFE-S12–S15.</td>
+</tr>
+<tr>
+<td>Lifecycle/event reporting</td>
+<td>Qualify source codes, event direction and reporting/query operations separately.</td>
+<td><code>CustomerInvoiceEvents</code>, <code>SupplierInvoiceEvents</code>; SPFE-S11/S17. Lifecycle owns interpretation.</td>
+</tr>
+<tr>
+<td>Cancellation/exit</td>
+<td>Qualify cancellation and disconnection independently.</td>
+<td><code>CancelInvoice</code> is not proof of customer offboarding or deletion; SPFE-S10.</td>
+</tr>
+<tr>
+<td>PRE validation</td>
+<td>Include only if supported and selected.</td>
+<td><code>ValidationInvoice</code>, direct SOAP rather than ebMS/MIME; SPFE-S23. Missing imported business schemas remain open.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-scenario-coverage</ac:parameter></ac:structured-macro><h2>4 Scenario coverage</h2>
+<p>This is the authoritative provider connector scenario list. CA-01–05 define shared controls; the checks below apply them to observable cases. Feature-specific invoice, onboarding and lifecycle scenarios stay in their owning folders. These are acceptance checks to execute, not passed test results.</p>
+<table>
+<thead>
+<tr>
+<th>Case / trigger</th>
+<th>Expected evidence and safe next action</th>
+<th>Control / sequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CS01 Setup: existing private-provider customer, new private-provider customer or public access check</td>
+<td><strong>Existing private customer:</strong> link the existing provider account, verify Sage access and reuse valid setup; do not create a duplicate account or repeat completed registration. <strong>New private customer:</strong> support the provider-required account setup/registration and authorisation, including an external handoff where required; return pending actions until readiness is established. Test both paths for each of the six private providers. Return setup evidence to onboarding; neither path silently activates a route. <strong>SPFE:</strong> check operation access without inventing enrolment.</td>
+<td>CA-01/02; operation A/B; onboarding ONB-S01/S03; CA-SPFE</td>
+</tr>
+<tr>
+<td>CS02 Wrong scope, missing authority or unsupported capability/version</td>
+<td>No external call; reason and responsible owner returned. Check wrong tenant, business, country, environment and customer-provider versus peer role separately. Test product, provider and connector caller permissions independently against the shared contract.</td>
+<td>CA-01; operation A</td>
+</tr>
+<tr>
+<td>CS03 Duplicate/concurrent request or identity reused with changed payload</td>
+<td>Same identity/input correlates to the original operation; changed input conflicts. Test concurrent claims and worker restart before sending.</td>
+<td>CA-02; operation A</td>
+</tr>
+<tr>
+<td>CS04 Known external acceptance</td>
+<td>Evidence and original action references persist; feature receives only the result proved by that acknowledgement. Technical acceptance does not become buyer acceptance.</td>
+<td>CA-02/03; operation B</td>
+</tr>
+<tr>
+<td>CS05 Platform rejection, malformed response or transport fault</td>
+<td>Original fault/evidence retained with its level. A parser failure cannot be reported as invoice rejection; possible effects remain uncertain.</td>
+<td>CA-03; operation B/C; SPEC011 public fault checks</td>
+</tr>
+<tr>
+<td>CS06 Timeout or lost response after possible external acceptance</td>
+<td>No blind resend. Qualified query reconciles the original identity; unsupported query or unresolved result holds work for its recovery owner.</td>
+<td>CA-03; operation C</td>
+</tr>
+<tr>
+<td>CS07 Save/worker failure before call or after response</td>
+<td>Failed intent save prevents sending. Crash after external call or failed evidence save recovers the original attempt; no fresh mutation just to rebuild local evidence.</td>
+<td>CA-02/03; operation A/C</td>
+</tr>
+<tr>
+<td>CS08 Poll returns pages, empty result, duplicate item or expired cursor</td>
+<td>Covered progress follows durable capture. Empty result is separate from outage; gaps/expired cursors require qualified rescan or owner action before claiming complete coverage.</td>
+<td>CA-04; acquisition A–C</td>
+</tr>
+<tr>
+<td>CS09 Valid, unauthenticated or replayed push</td>
+<td>Check source/account scope and replay identity before handoff. Invalid source rejected; valid repeat cannot create duplicate business processing. SPFE push remains unqualified.</td>
+<td>CA-01/04; acquisition A/C</td>
+</tr>
+<tr>
+<td>CS10 Failure between inbound capture and acknowledgement/checkpoint</td>
+<td>Restart replays the same saved item; committed capture deduplicates it. External acknowledgement follows the selected platform contract without losing captured work.</td>
+<td>CA-04; acquisition B/C</td>
+</tr>
+<tr>
+<td>CS11 Credential expiry, rotation or authority revocation during work</td>
+<td>New external calls recheck effective permission. Rotation cannot change represented business/environment; blocked pending work retains its history and recovery owner.</td>
+<td>CA-01/05; operation A/C</td>
+</tr>
+<tr>
+<td>CS12 Route/provider/profile change with pending actions</td>
+<td>New work uses only the approved new context. Earlier actions retain original context; unknown effects cannot trigger automatic failover or an alternative executor.</td>
+<td>CA-03/05; operation C; SPEC014</td>
+</tr>
+<tr>
+<td>CS13 Batch partial result or delivery succeeds while public-copy/reporting fails</td>
+<td>Per-item and per-action evidence remain independent. Recover only unresolved work under its original identity; a batch receipt is not whole-batch external success.</td>
+<td>CA-02/03; operation B/C; sending/lifecycle owners</td>
+</tr>
+<tr>
+<td>CS14 Wrong country rule pack, payload profile or unqualified mapping</td>
+<td>Reject or hold before sending; country-rule isolation and DTS mapping qualification have recorded results for the selected profile.</td>
+<td>CA-01; operation A; SPEC008/014</td>
+</tr>
+<tr>
+<td>CS15 Late or out-of-order response/event after recovery</td>
+<td>Correlate to the original attempt/action; retain source and observation times. Stale evidence cannot overwrite newer execution ownership or directly regress lifecycle meaning.</td>
+<td>CA-03/04; operation C, acquisition C; lifecycle owner</td>
+</tr>
+<tr>
+<td>CS16 Rate limit, outage, payload limit or contract upgrade</td>
+<td>Enforce qualified limits and backpressure. Retry timing does not override unknown-outcome checks; changed schema/version stays disabled until compatibility and recovery evidence pass.</td>
+<td>CA-01/03/05; operation A/C; SPEC013 GPA-Q09/Q12</td>
+</tr>
+</tbody>
+</table>
+<p>For each enabled binding, record case ID, operation/role/environment/contract version, build, source contract, result and evidence link. Mark cases <strong>applicable</strong>, <strong>excluded with reason</strong> or <strong>blocked by evidence</strong> before execution. Vary the feature operation across setup, send, acquisition, lifecycle and exit where selected. Add provider-specific cases from its error, paging, duplicate and trust contracts; the shared list alone cannot prove exhaustive platform coverage.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-ref-source-references</ac:parameter></ac:structured-macro><h2>5 REF Source references</h2>
+<p>CA-01–05 and the logical message fields are proposed Sage controls, derived from <ac:link><ri:page ri:content-title="Provider API through the E-Invoicing Global API Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC013</ac:link-body></ac:link>, GPA-Q03–06/Q10, and <ac:link><ri:page ri:content-title="Shared Platform Connectivity and Routing Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC014</ac:link-body></ac:link>, SPC-01–08. They are not external legal requirements. CA-H01 and CA-SPFE are defined with source limits in <ac:link ac:anchor="4-ref-source-references"><ri:page ri:content-title="Provider Connectors and Shared API Architecture Summary" ri:space-key="DNBU" /><ac:link-body>044 REF</ac:link-body></ac:link>.</p>
+<table>
+<thead>
+<tr>
+<th>Source IDs / version</th>
+<th>Original contracts and exact locator</th>
+<th>Supported claim / limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPFE-S12–S15 / PRE 23 November 2026</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/DownloadInvoicesByID.wsdl">DownloadInvoicesByID</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/DownloadInvoicesByLOC.wsdl">DownloadInvoicesByLOC</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/GetInvoices.wsdl">GetInvoices</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/GetRegisteredInvoice.wsdl">GetRegisteredInvoice</a>, each <code>portType/operation</code>, <code>documentation</code>, <code>binding</code>, <code>service</code></td>
+<td>Query/download operations and transport; not complete filters, continuation rules or tested runtime coverage.</td>
+</tr>
+<tr>
+<td>SPFE-S10/S11/S17 / same release</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/CancelInvoice.wsdl">CancelInvoice</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/CustomerInvoiceEvents.wsdl">CustomerInvoiceEvents</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/WSDL%20servicios%20web%20-%20PRE_23_11_26/SupplierInvoiceEvents.wsdl">SupplierInvoiceEvents</a>, same elements</td>
+<td>Named cancellation/event operations; not business state interpretation, offboarding or replay guarantees.</td>
+</tr>
+</tbody>
+</table>
+<p>Transport detail remains authoritative in <ac:link ac:anchor="spfe-source-contract-binding"><ri:page ri:content-title="Public Platform Connector Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC011, SPFE source contract binding</ac:link-body></ac:link>. Acceptance of a selected SPFE capability must include its cited contract checks; passing CA-01–05 alone cannot qualify it.</p><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro>

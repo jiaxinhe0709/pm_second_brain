@@ -1,0 +1,192 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-028<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/invoice-lifecycle/SPEC-SEI-028-invoice-lifecycle-solution-summary.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">invoice-lifecycle-solution-summary</ac:parameter></ac:structured-macro><h1>Invoice Lifecycle Solution Summary</h1>
+<p><ac:link><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>Logical specification</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Invoice Lifecycle Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>API reuse assessment</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>API examples — 041</ac:link-body></ac:link></p>
+<p><strong>Business stakeholder view.</strong> Read this file for the customer outcomes, scope, main journey and decisions that affect delivery. Engineering starts with the <ac:link><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>logical specification</ac:link-body></ac:link>. This remains a draft proposal; the rules and API examples still require engineering verification.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">revision-overview</ac:parameter></ac:structured-macro><h2>Revision overview</h2>
+<p>This view summarises <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC009</a>, which stays unchanged in Git. SPEC-SEI-028 is selected for stable Confluence page <code>923861398</code>; SPEC-SEI-029, 030 and 041 are companion views. Publication is authorised; all four remain drafts. Existing LCS IDs, country rules and release boundaries remain. Spain API coverage and implementation readiness are open.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-problem-and-intended-outcomes</ac:parameter></ac:structured-macro><h2>1 Problem and intended outcomes</h2>
+<p>Customers need to know what happened to an invoice, which actions are available and who must act next. An invoice update, a customer decision and a report to a platform can each have a different result. The product must make those results understandable.</p>
+<p>For example, a buyer can record that an invoice was paid while the report to SPFE fails. Keep the payment fact and show that its report still needs attention. A failed report must not make the invoice appear unpaid. A failed requested status change also retains the earlier successful status. The <ac:link ac:anchor="2-scenarios-and-safe-next-actions"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>detailed scenarios</ac:link-body></ac:link> define these outcomes and recovery rules. REF-PRODUCT; INT-LCS05.</p>
+<p>Assess reuse of the existing invoice-update and history capabilities before adding product calls. Whether those capabilities support each Spain action remains an engineering question.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-scope-and-actors</ac:parameter></ac:structured-macro><h2>2 Scope and actors</h2>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Customer or business outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>An invoice update arrives</td>
+<td>Show what the update proves, where it came from and when it happened.</td>
+</tr>
+<tr>
+<td>A buyer, seller or authorised accountant records a decision or payment fact</td>
+<td>Save the authorised fact and identify any reports it requires.</td>
+</tr>
+<tr>
+<td>An action or report fails</td>
+<td>Keep earlier successful results; show the outstanding work and who must resolve it.</td>
+</tr>
+<tr>
+<td>Several platforms need a report</td>
+<td>Show each platform's result separately. One success cannot hide another failure.</td>
+</tr>
+<tr>
+<td>A report needs correction, an update arrives late or the provider changes</td>
+<td>Keep the earlier evidence and original route; check uncertain earlier results before repeating work.</td>
+</tr>
+<tr>
+<td>The product misses an update</td>
+<td>Recover the saved history. A separate platform check may be needed for information Sage has not yet received.</td>
+</tr>
+</tbody>
+</table>
+<p>The business or authorised accountant supplies decisions and payment facts. The ERP presents the invoice and available actions. Sage checks permissions, applies the selected country rules and tracks each required report. Support/Operations owns unresolved technical recovery. Detailed responsibilities and contracts remain in the engineering views.</p>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md#phase-and-outcome">PRD224's phase table</a> owns the product scope: public-platform reporting, external private providers and later Sage private-platform responsibilities. Each phase needs its own release evidence. Optional actions need Product approval. Payment initiation, deciding a commercial dispute and automatically creating a rectifying invoice remain outside this feature.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-end-to-end-flow</ac:parameter></ac:structured-macro><h2>3 End-to-end flow</h2>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="9132602e-5b44-5285-9123-9ae25b166c5e"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">invoice-lifecycle-overview-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">1400</ac:parameter><ac:parameter ac:name="height">680</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/invoice-lifecycle-overview-process.drawio">Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/invoice-lifecycle-overview-process.png">PNG</a>.</p>
+<p>Start with an existing invoice and its authorised source context. Save the evidence before applying country rules. An incoming status does not automatically trigger another report. When reporting applies, keep each destination’s result separate. A timeout stays unresolved until the original result is checked.</p>
+<p>For issuer cancellation or rectification, use the <ac:link ac:anchor="4-end-to-end-workflow"><ri:page ri:content-title="Invoice Sending Solution Summary" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-022 combined Send / Correct / Cancel overview</ac:link-body></ac:link>. Sending owns cancellation request, response and recovery; <ac:link ac:anchor="proposed-spain-invoice-states"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-029 proposed states</ac:link-body></ac:link> owns the resulting cancelled state and the rectifying invoice's independent lifecycle. Cancelling an earlier business report remains a separate reporting action.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-reuse-direction-and-product-impact</ac:parameter></ac:structured-macro><h2>4 Reuse direction and product impact</h2>
+<table>
+<thead>
+<tr>
+<th>Proposed direction</th>
+<th>Business impact / what must be confirmed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reuse existing invoice-update and history capabilities</td>
+<td>Aim to keep a consistent product interaction. Engineering must confirm that Spain actions, required information and readable results are supported.</td>
+</tr>
+<tr>
+<td>Keep business facts and report results separate</td>
+<td>Customers can see what is true about the invoice and which communications still need attention.</td>
+</tr>
+<tr>
+<td>Apply Spain rules through the shared platform's supported extension model</td>
+<td>Keep a consistent platform while preserving Spain-specific actions, permissions and dates. Other countries retain their own behaviour.</td>
+</tr>
+<tr>
+<td>Support the eight documented public reporting actions</td>
+<td>The proposal covers payment, rejection, collection and non-payment reports and their cancellations. Individual outgoing actions remain subject to enabled scope and engineering verification.</td>
+</tr>
+<tr>
+<td>Assess existing DTS for message generation</td>
+<td>Prefer reuse where suitable. Engineering must demonstrate that the selected build preserves the required Spain information and handles failures safely.</td>
+</tr>
+</tbody>
+</table>
+<p><ac:link ac:anchor="1-reuse-decision-and-product-impact"><ri:page ri:content-title="Invoice Lifecycle Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC030</ac:link-body></ac:link> owns the reuse assessment. <ac:link ac:anchor="2-spain-changes-to-qualify"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC041</ac:link-body></ac:link> owns the proposed API changes and examples.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-new-annex-ii-review</ac:parameter></ac:structured-macro><h2>5 New Annex II review</h2>
+<p>The latest supplied business rules add checks before reports are sent: the invoice must be known to SPFE, the reporting party and service must match, required information and dates must be valid, and reports must not repeat or conflict with earlier reports. A report cancellation also needs the invoice references and qualified evidence that the invoice exists and has not been cancelled. These checks add detail to the existing eight actions. SPFE-S27.</p>
+<p>The product must preserve the customer's valid decision or payment fact when its report is held or fails. It must show an owned next action. Cancelling a report remains separate from cancelling the invoice.</p>
+<p>Three source questions affect when a report can be enabled: which invoice amount the negative-amount check refers to, whether rejection on the invoice issue date is allowed, and how the payment indicators apply. These require clarification; the summary does not select an interpretation. <ac:link ac:anchor="521-annex-ii-business-rules"><ri:page ri:content-title="Invoice Lifecycle Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC029's Annex II rules</ac:link-body></ac:link> owns the exact behaviour. The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#annex-ii-business-rules-reviewed-23-november-2026">evidence review</a> records the source limits.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">6-decisions-that-affect-delivery</ac:parameter></ac:structured-macro><h2>6 Decisions that affect delivery</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Why it matters</th>
+<th>Responsible stakeholders</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which actions and customer groups are enabled in each phase?</td>
+<td>Documented or readable information does not automatically make an outgoing action available.</td>
+<td>Product and Spain business/compliance owners</td>
+</tr>
+<tr>
+<td>How should the disputed amount, rejection-date and payment-indicator rules apply?</td>
+<td>The affected reports need a confirmed rule before release.</td>
+<td>Spain Tax/Compliance and Format, with the AEAT liaison</td>
+</tr>
+<tr>
+<td>Can the selected platform/API and DTS build support the required actions and information?</td>
+<td>Determines implementation work and which scenarios can be released.</td>
+<td>Engineering, API and DTS owners</td>
+</tr>
+<tr>
+<td>Can customers see and recover the exact failed or uncertain report?</td>
+<td>Prevents lost reporting work and duplicate actions.</td>
+<td>Lifecycle, API and Operations</td>
+</tr>
+<tr>
+<td>Are business authority, provider responsibilities and applicable dates confirmed?</td>
+<td>Determines who may report, which party sends it and when reporting applies.</td>
+<td>Identity, Integration, Product and Spain business/compliance owners</td>
+</tr>
+</tbody>
+</table>
+<p><ac:link ac:anchor="4-source-conflicts-and-qualification-gates"><ri:page ri:content-title="Invoice Lifecycle Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC030's detailed decisions</ac:link-body></ac:link> retain the engineering evidence and owners. Business review can agree outcomes and scope; release still requires the relevant source decisions and implementation evidence.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro><h2>REF Source references</h2>
+<table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>Original source and version/date</th>
+<th>Exact location</th>
+<th>Supported claims and limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF-BASE</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a>, updated 20 October 2026</td>
+<td>Parts 1–4; LCS controls and REF</td>
+<td>Existing draft design, full provider assessment and preserved IDs; no runtime proof.</td>
+</tr>
+<tr>
+<td>ARCH-LCS01/02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/architecture/b22496cd-5719-45a2-ae1a-27d91f69f11c.png">Service/connector overview</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/architecture/711539a8-ff4e-4723-9181-b21c71f389af.png">detailed status flow</a>, reviewed 28 October 2026; original design date/version/approval unrecorded</td>
+<td>Shared e-Invoicing Service, provider connectors, status-request and status-update routing</td>
+<td>Architecture supports the country-binding reuse assessment. Pack registry, configuration-only delivery and Spain runtime coverage are not established. SPEC030 §3.5 owns detail.</td>
+</tr>
+<tr>
+<td>REF-PRODUCT</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md">PRD-SEI-224</a>, updated 9 November 2026; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-232-country-lifecycle-status-mapping.md">PRD-SEI-232</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-242-peppol-lifecycle-feedback.md">PRD-SEI-242</a></td>
+<td>Phase table; FR1–23; LS-FR and PEP-FR controls</td>
+<td>Canonical product scope in recorded discovery/draft states; not new approval.</td>
+</tr>
+<tr>
+<td>INT-LCS01–05</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/lifecycle-api-guides-evidence-extract.md">Supplied guide evidence</a>, received 22 October 2026, revision unknown</td>
+<td>Five named sections</td>
+<td>API patterns and supplied transition outcomes; Spain support and build unknown.</td>
+</tr>
+<tr>
+<td>FR-LIF01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/update-e-invoice-status.openapi.json">Supplied status POST OpenAPI</a>, received 28 October 2026; API <code>1.0.0</code></td>
+<td><code>LifecycleChange-Document</code>; request/response schemas and parameters</td>
+<td>POST contract and open attributes; no nested Spain validation or deployed-support proof. Detailed analysis is in SPEC041.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/BOE-A-2026-20587.pdf">Final BOE order</a>, published 5 October 2026</td>
+<td>Articles 7–11; Annex II pp. 36–42</td>
+<td>Legal communication, authority and field baseline; not a complete runnable API.</td>
+</tr>
+<tr>
+<td>SPFE-S22</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Anexo%20II/A2-Proyecto-OM-FE%2021-10-26.pdf">Supplied Annex II</a>, filename dated 21 October 2026, formal revision unknown</td>
+<td>Sections I.1–4 pp. 4–14; II/L1 p. 15</td>
+<td>Technical field snapshot and comparison; does not establish a legal amendment.</td>
+</tr>
+<tr>
+<td>REF-FIELDS</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/field-traceability.json">Original field ledger</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Anexo%20II/annex-ii-review.md">comparison note</a></td>
+<td>AXII rows; per-message page comparison</td>
+<td>Inventory and review evidence. Field bindings and acceptance execution remain unqualified.</td>
+</tr>
+<tr>
+<td>SPFE-S27</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Reglas%20de%20negocio%20ES/ReglasNegocio_AnexoDos.pdf">Annex II business rules</a>; version 0.1, 19 November 2026, <code>Borrador</code>; supplied 23 November</td>
+<td>§1/§2.1 p. 3; §§2.2–2.5 pp. 4–6</td>
+<td>Draft technical checks for report eligibility, fields, dates and cancellation. The final BOE remains legal authority. Amount, rejection-date and indicator questions stay open in SPEC029 and the evidence review.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>

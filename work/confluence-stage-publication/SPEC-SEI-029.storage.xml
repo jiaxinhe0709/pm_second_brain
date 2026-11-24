@@ -1,0 +1,935 @@
+<ac:layout><ac:layout-section ac:type="two_left_sidebar"><ac:layout-cell><ac:structured-macro ac:name="toc"><ac:parameter ac:name="minLevel">2</ac:parameter><ac:parameter ac:name="maxLevel">3</ac:parameter><ac:parameter ac:name="style">none</ac:parameter><ac:parameter ac:name="printable">true</ac:parameter></ac:structured-macro></ac:layout-cell><ac:layout-cell><div class="generated-from-github"><p><strong>Source document:</strong> SPEC-SEI-029<br /><strong>Lifecycle status:</strong> draft<br /><strong>Git revision:</strong> <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/invoice-lifecycle/SPEC-SEI-029-invoice-lifecycle-logical-feature-specification.md">1fdeb6b0a56d24732be7b93be05f657ab948002a</a><br /><strong>Last updated:</strong> 2026-11-23</p></div><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">invoice-lifecycle-logical-feature-specification</ac:parameter></ac:structured-macro><h1>Invoice Lifecycle Logical Feature Specification</h1>
+<p><ac:link><ri:page ri:content-title="Invoice Lifecycle Solution Summary" ri:space-key="DNBU" /><ac:link-body>Solution summary</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="Invoice Lifecycle Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>API reuse assessment</ac:link-body></ac:link> · <ac:link><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>API examples — 041</ac:link-body></ac:link></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">revision-overview</ac:parameter></ac:structured-macro><h2>Revision overview</h2>
+<p>This view preserves <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC009</a> and its LCS/SPFE/AXII meanings. LCS-R14 and LCS-A26/27 cover the supplied transition-outcome rule. Release scope, authority, full/partial payment and historical routes are unchanged. These drafts do not enable customer actions.</p>
+<p><strong>Engineering entry point.</strong> This file owns the required behaviour and functional acceptance. Start with <ac:link ac:anchor="2-scenarios-and-safe-next-actions"><ac:link-body>scenarios</ac:link-body></ac:link>, then <ac:link ac:anchor="4-functional-requirements-and-invariants"><ac:link-body>requirements</ac:link-body></ac:link>, <ac:link ac:anchor="521-annex-ii-business-rules"><ac:link-body>Annex II rules</ac:link-body></ac:link> and <ac:link ac:anchor="6-functional-acceptance"><ac:link-body>acceptance</ac:link-body></ac:link>. Use <ac:link><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC041</ac:link-body></ac:link> for exact documented contracts and proposed Spain fields; use <ac:link ac:anchor="4-source-conflicts-and-qualification-gates"><ri:page ri:content-title="Invoice Lifecycle Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC030's decision register</ac:link-body></ac:link> for reuse, build evidence and unresolved decisions. The <ac:link><ri:page ri:content-title="Invoice Lifecycle Solution Summary" ri:space-key="DNBU" /><ac:link-body>business summary</ac:link-body></ac:link> explains customer outcomes and delivery choices.</p>
+<p><strong>Readiness:</strong> suitable for engineering review and implementation planning. Open source interpretations, API/action bindings and actual build coverage still need the named decisions and evidence. Confirmed source facts, proposed design and unqualified behaviour retain their existing labels; examples and mapping inventories do not prove execution.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">1-purpose-terms-and-authority</ac:parameter></ac:structured-macro><h2>1 Purpose, terms and authority</h2>
+<p>Show the buyer, seller or authorised accountant the invoice facts, action results and outstanding reports. A <strong>transition attempt</strong> requests a status change. Its result is separate from the invoice’s last successful status and every external report. Use the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md">glossary</a>. INT-LCS05; REF-PRODUCT.</p>
+<p>Before a command or report, check the caller, represented business, actor role and invoice action. Reuse onboarding’s dataset/platform binding and credential references where qualified. A token or connection does not grant business authority. SPFE-S02 Article 11; LCS-R04.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">2-scenarios-and-safe-next-actions</ac:parameter></ac:structured-macro><h2>2 Scenarios and safe next actions</h2>
+<blockquote>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — Scope extension: drafts and delivery notes are not e-invoices. Apply invoice lifecycle states only after issuance; preparation progress remains separate. Issued invoice content is immutable. Technical rejection and external admission remain distinct from ERP issuance, as identified in the <ac:link ac:anchor="proposed-cancel-eligibility"><ri:page ri:content-title="Invoice Sending Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-023 proposed eligibility boundary</ac:link-body></ac:link>. SD-CANCEL01 C-4/P-2.</p>
+</blockquote>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">review-and-take-action</ac:parameter></ac:structured-macro></p>
+<p><strong>Review and take action</strong> continues from <strong>Select and open invoice</strong> in the <ac:link ac:anchor="retrieval-detailed-process"><ri:page ri:content-title="Invoice Retrieval Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC026 detailed retrieval process</ac:link-body></ac:link>. Download is a separate choice. The customer or authorised accountant selects a permitted invoice action in the ERP. The ERP submits the action to the Domain Service using the same business and invoice identity, then shows its attempt result and each communication result separately. <ac:link ac:anchor="general-status-comparison"><ac:link-body>§4.1</ac:link-body></ac:link> owns the SPFE state meanings and draft platform mapping; <ac:link ac:anchor="12-documented-status-inputs"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC041 §1.2</ac:link-body></ac:link> owns exact documented command UUIDs and required fields. Apply LCS-R04/12–14 before offering or sending an action. These links do not enable unqualified Spain commands.</p>
+<table>
+<thead>
+<tr>
+<th>Trigger / actor</th>
+<th>Required result / safe alternative</th>
+<th>Existing coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Platform supplies evidence</td>
+<td>Save source meaning; update only supported facts. Hold unknown/unmatched codes for review.</td>
+<td>LCS-01–05; R01–03/09/11; A01/02/11/15</td>
+</tr>
+<tr>
+<td>Buyer records acceptance/rejection</td>
+<td>Save the authorised decision/date and assess required communications. Missing authority/fields holds the command. Presumed acceptance stays derived.</td>
+<td>LCS-02/04/07–09; R04–06/12; A03/05/18</td>
+</tr>
+<tr>
+<td>Customer leaves the decision for later</td>
+<td>Create no decision or transition. Keep the current status and any existing obligations visible; deferral does not remove an applicable duty.</td>
+<td>LCS-R03/06/08/12</td>
+</tr>
+<tr>
+<td>Buyer pays; seller records collection</td>
+<td>Keep actor, dates, amounts and evidence. Assess full payment and each report separately; partial/bank evidence cannot prove public full payment.</td>
+<td>LCS-02–05/07–10; A04/06/20</td>
+</tr>
+<tr>
+<td>Product requests a transition</td>
+<td>Show its attempt result separately. Failure retains the previous successful status and corrective action.</td>
+<td>R14; A26/27</td>
+</tr>
+<tr>
+<td>Several destinations require reporting</td>
+<td>One owner/result per destination. Keep known successes; check the original uncertain attempt before repeating.</td>
+<td>LCS-07–10; R05/06; A08/16/24</td>
+</tr>
+<tr>
+<td>Buyer/seller corrects a report</td>
+<td>Preserve cancellation/replacement history. Uncertain cancellation blocks replacement; it does not withdraw the invoice.</td>
+<td>LCS-03/07–10; SPFE-R03; A12; SPFE-A03</td>
+</tr>
+<tr>
+<td>Product misses an event</td>
+<td>Read saved history. Query the platform separately for evidence Sage has not received.</td>
+<td>R08/11; A10/15/23</td>
+</tr>
+<tr>
+<td>Late/conflicting evidence or provider switch</td>
+<td>Preserve chronology and original route. Hold unsafe changes; a new route does not rebind old reports.</td>
+<td>R07/10; A06/07/09</td>
+</tr>
+<tr>
+<td>Optional/provider-specific action requested</td>
+<td>Check enabled scope, direction, actor and fields. Keep valid incoming evidence even when its outgoing command is disabled.</td>
+<td>R12/13; A19/21/22/25</td>
+</tr>
+</tbody>
+</table>
+<p>Invoice-submission withdrawal (<code>CancelInvoice</code>) belongs to <ac:link ac:anchor="withdrawal-and-correction-boundaries"><ri:page ri:content-title="Invoice Sending Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-023 OUT-SPFE-R02</ac:link-body></ac:link>. Use that rule for the issuer action, its boundary outside Article 10 statuses and its linked-instance safeguards; <ac:link ac:anchor="24-proposed-withdrawal-interaction"><ri:page ri:content-title="Invoice Sending Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-024 §2.4</ac:link-body></ac:link> assesses execution. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#analysis-and-proposed-direction">FP-SEI-002</a> retains the contract and Compliance questions. This lifecycle view owns cancellation of the earlier business report; that action preserves the invoice and business fact.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">3-activity-order-and-process-support</ac:parameter></ac:structured-macro><h2>3 Activity order and process support</h2>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Required result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCS-01 Receive</td>
+<td>Scoped platform evidence or an authorised business fact, with source/query/event identity.</td>
+</tr>
+<tr>
+<td>LCS-02 Verify</td>
+<td>Invoice, business, caller, actor, environment and original route checked.</td>
+</tr>
+<tr>
+<td>LCS-03 Preserve</td>
+<td>Raw evidence and duplicate/correction/conflict relationship saved.</td>
+</tr>
+<tr>
+<td>LCS-04 Interpret</td>
+<td>Effective country/provider rules applied; unknown values held with an owner.</td>
+</tr>
+<tr>
+<td>LCS-05 Derive</td>
+<td>Separate views with rule version, evidence age and next action.</td>
+</tr>
+<tr>
+<td>LCS-06 Publish</td>
+<td>Saved view/history readable; notification follows the saved change.</td>
+</tr>
+<tr>
+<td>LCS-07 Plan obligations</td>
+<td>Required destinations, historical actor/channel and deadlines selected.</td>
+</tr>
+<tr>
+<td>LCS-08 Create obligations</td>
+<td>One saved reporting obligation per event, destination and purpose; stable identity through recovery.</td>
+</tr>
+<tr>
+<td>LCS-09 Deliver</td>
+<td>Each attempt/result recorded; no second sender for provider-owned reporting.</td>
+</tr>
+<tr>
+<td>LCS-10 Reconcile</td>
+<td>Original uncertain result or conflict resolved before an unsafe new action.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="drawio" ac:schema-version="1" ac:macro-id="2865fc08-3a65-56c1-8f57-d8ab8773c4a2"><ac:parameter ac:name="border">true</ac:parameter><ac:parameter ac:name="diagramName">lifecycle-reporting-reconciliation-process</ac:parameter><ac:parameter ac:name="simpleViewer">false</ac:parameter><ac:parameter ac:name="width">auto</ac:parameter><ac:parameter ac:name="tbstyle">top</ac:parameter><ac:parameter ac:name="lbox">true</ac:parameter><ac:parameter ac:name="diagramWidth">3140</ac:parameter><ac:parameter ac:name="height">653</ac:parameter><ac:parameter ac:name="revision">1</ac:parameter></ac:structured-macro>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/lifecycle-reporting-reconciliation-process.drawio">Draw.io</a> · <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/diagrams/lifecycle-reporting-reconciliation-process.png">PNG</a>.</p>
+<p>The business fact remains saved while reports complete independently. A known success stays complete when another destination fails. Check an uncertain cancellation before replacement. The <ac:link ac:anchor="3-end-to-end-flow"><ri:page ri:content-title="Invoice Lifecycle Solution Summary" ri:space-key="DNBU" /><ac:link-body>summary</ac:link-body></ac:link> shows evidence collection; SPEC030 shows proposed calls.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">4-functional-requirements-and-invariants</ac:parameter></ac:structured-macro><h2>4 Functional requirements and invariants</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Required behaviour</th>
+<th>Authority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCS-R01</td>
+<td>Preserve source code/namespace, actor, times, identity and integrity/version evidence before mapping.</td>
+<td>PRD224 FR1–3; PRD232 LS-FR1/14</td>
+</tr>
+<tr>
+<td>LCS-R02</td>
+<td>Apply effective country/provider rules; unknown codes cannot advance status.</td>
+<td>PRD232 LS-FR2/12/16</td>
+</tr>
+<tr>
+<td>LCS-R03</td>
+<td>Keep processing, validation, delivery, commercial, payment and reporting results separately readable; distinguish explicit/derived facts.</td>
+<td>PRD224 FR3–4/18</td>
+</tr>
+<tr>
+<td>LCS-R04</td>
+<td>Before a command/report, verify actor authority, applicability and required data.</td>
+<td>PRD224 FR1/5</td>
+</tr>
+<tr>
+<td>LCS-R05</td>
+<td>Select destinations/deadlines using approved rules and the invoice’s historical context.</td>
+<td>PRD224 FR6–10</td>
+</tr>
+<tr>
+<td>LCS-R06</td>
+<td>Save/deliver each obligation independently; safe repetition cannot add a duplicate effect.</td>
+<td>PRD224 FR8/11–13</td>
+</tr>
+<tr>
+<td>LCS-R07</td>
+<td>Keep duplicate, late, conflicting and superseding evidence; hold unsafe progression.</td>
+<td>PRD224 FR14–17</td>
+</tr>
+<tr>
+<td>LCS-R08</td>
+<td>Let authorised callers read views, history, next actions and report results to recover missed notifications.</td>
+<td>PRD224 FR18–23; PRD242 PEP-FR9</td>
+</tr>
+<tr>
+<td>LCS-R09</td>
+<td>Interpret Peppol transport, MLR, MLS and Invoice Response only in their source namespaces.</td>
+<td>PRD242 PEP-FR2–6</td>
+</tr>
+<tr>
+<td>LCS-R10</td>
+<td>Keep original route, process and mapping context after provider change.</td>
+<td>PRD224 FR9; PRD242 PEP-FR10</td>
+</tr>
+<tr>
+<td>LCS-R11</td>
+<td>Separate platform consultation, supported notifications, saved-history reads, file retrieval and reporting.</td>
+<td>SPFE-S02 Article 10; PRD242</td>
+</tr>
+<tr>
+<td>LCS-R12</td>
+<td>Record mandatory/optional/correction/technical classification and destinations. Separate legal duty, provider support and enabled release.</td>
+<td>ES-RD10; SPFE-S02; proposed control</td>
+</tr>
+<tr>
+<td>LCS-R13</td>
+<td>Qualify provider/version, direction, actor, fields, correction and automatic reports before sending. Keep valid incoming evidence; hold unqualified commands.</td>
+<td>PRD224 FR10; proposed control</td>
+</tr>
+<tr>
+<td>LCS-R14</td>
+<td>Show transition attempts separately. Pending/failed attempts retain the latest successful status; save failure with <code>operationStatus = ERROR</code>. Advance only on qualified success.</td>
+<td>INT-LCS05; proposed Spain control</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#1-identity-dimensions-and-invariants">LCS-I01–09</a> retain immutable sources, independent results, evidence limits, correction history and separate obligations. Apply business/tenant/environment/delegate checks to reads, writes, subscriptions and support. Protect payment evidence and credentials; monitor stale/unknown facts, deadlines, conflicts and uncertain reports. Targets/retention remain open.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">general-status-comparison</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">41-spfe-lifecycle-states-and-draft-platform-mapping</ac:parameter></ac:structured-macro><h3>4.1 SPFE lifecycle states and draft platform mapping</h3>
+<p>This section owns the business meanings and reporting classification. Labels describe the documented meaning; they do not create API statuses. <ac:link ac:anchor="51-destination-and-obligation-rules"><ac:link-body>§5.1</ac:link-body></ac:link> owns destination, timing and exception details. <ac:link ac:anchor="52-public-event-contract"><ac:link-body>§5.2</ac:link-body></ac:link> owns exact external codes and fields. Keep technical codes and UUIDs in the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/lifecycle-api-guides-evidence-extract.md#int-lcs03-status-catalogue-and-blocked-transitions">source catalogue</a> and <ac:link ac:anchor="spfe-action-mapping"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC041 API reference</ac:link-body></ac:link>.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">proposed-spain-invoice-states</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">proposed-solution-design-samu-coco-jiaxin-he-18-nov-2026-spain-invoice-states-and-triggers</ac:parameter></ac:structured-macro><h4>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026): Spain invoice states and triggers</h4>
+<blockquote>
+<p>Ownership extension: Lifecycle owns the resulting cancelled state and the business triggers that change action availability. Sending owns the cancellation request, response and recovery. This proposed product-state table adds no Article 10 report type. <ac:link ac:anchor="proposed-cancel-eligibility"><ri:page ri:content-title="Invoice Sending Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-023 proposed eligibility</ac:link-body></ac:link> owns the combined state and reason conditions. SD-CANCEL01 P-1/P-2.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Proposed state / trigger</th>
+<th>Meaning, action availability and safe next step</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full customer rejection</td>
+<td>Record full commercial rejection. Offer cancellation only when the operation did not take place and the state condition is met. If the operation took place and fiscal content is wrong, use a rectifying invoice. Nestor's "Reject -&gt; Cancel" choice is valid only for a nonexistent operation. Rejection alone does not set cancelled; Sending records the issuer request and evidenced response. SD-CANCEL01 C-1/C-5/P-1/P-2; SPFE-S02 Articles 3.5/5.5.</td>
+</tr>
+<tr>
+<td>Partially rejected</td>
+<td>A valid final commercial state when no agreement is reached. Offer a rectifying invoice without requiring it; do not offer cancellation. Keep the partial decision and history. SD-CANCEL01 C-5/P-2.</td>
+</tr>
+<tr>
+<td>Accepted explicitly or by silence after four days</td>
+<td>Acceptance removes cancellation eligibility. For acceptance by silence, Lifecycle derives and labels that outcome, then notifies the issuer that cancellation is no longer available. Preserve the distinction from an explicit buyer decision and any reporting result. SD-CANCEL01 P-2/P-3.</td>
+</tr>
+<tr>
+<td>Cancelled</td>
+<td>Final, evidenced outcome of issuer cancellation: AEAT retains as cancelled the document SPFE holds for that invoice: the original when the original passed through SPFE (direct submission, or a private platform submitting the original through SPFE), or the faithful copy when the original was exchanged only through private platforms. Keep the fiscal number associated with that invoice, consumed forever. Do not permit another cancellation, rectification or reactivation. Retain history and distinguish the Phase 2 public-copy outcome from any private-original outcome. SD-CANCEL01 C-2/P-1/P-2.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> - Verification pending: "four days" for acceptance by silence is Solution Design input from the 16 November 2026 workshop, Xavier's slides. Verify it against SPFE-S02 Article 7, including the start event and calendar. The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#raw-event-codes-and-outcome-meanings">recorded source review</a> establishes no four-day acceptance timer; do not substitute the separate reporting deadline. Keep the proposed derived outcome and issuer notification pending that verification. SD-CANCEL01 P-2/P-3.</p>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — Independent rectification lifecycle: use the <ac:link ac:anchor="proposed-rectification-modify"><ri:page ri:content-title="Invoice Creation Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC-SEI-015 modify extension</ac:link-body></ac:link> for creation and linkage. The rectifying invoice's decisions and payments are its own; its rejection cannot overwrite the earlier invoice's outcome or reopen a cancelled invoice. SD-CANCEL01 C-1/C-2/P-4.</p>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — Qualification boundary: reuse source history, separate views and action-result recovery patterns. Bind eligibility, finality and acceptance-by-silence rules to Spain; preserve France and other-country behaviour. API status values, private-provider support, notification delivery and actual build coverage remain unqualified; no new external status code is assigned here. SD-CANCEL01 P-1–P-4; LIF-G03/04/07/08.</p>
+</blockquote>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">spfe-lifecycle-states</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">411-spfe-lifecycle-states-and-reporting-actions-documented-baseline</ac:parameter></ac:structured-macro><h4>4.1.1 SPFE lifecycle states and reporting actions — documented baseline</h4>
+<p>The table covers all eight reporting actions in the reviewed Annex II, plus presumed acceptance. A cancellation is an action on an earlier communication, not another payment or commercial state. <strong>Mandatory</strong> applies only when the reporting duty is effective for the business and invoice. <strong>Conditional correction</strong> identifies a correction path for an earlier report, not a routine report for every invoice. SPFE-S02 Articles 7–8 and Annex II; ES-RD10 Article 12; SPFE-S22.</p>
+<table>
+<thead>
+<tr>
+<th>SPFE state or action</th>
+<th>Actor / basis</th>
+<th>Meaning</th>
+<th>Reporting requirement</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Presumed accepted</td>
+<td>Derived view</td>
+<td>Acceptance is presumed in the absence of rejection or a later rectifying invoice, under the applicable rule.</td>
+<td>No separate acceptance report. Preserve the distinction from explicit buyer approval.</td>
+<td>SPFE-S02 Article 7.1</td>
+</tr>
+<tr>
+<td>Paid in full</td>
+<td>Recipient</td>
+<td>Recipient reports full effective payment.</td>
+<td>Mandatory when the recipient reporting duty applies; the qualifying prepaid-invoice exception is in §5.1.</td>
+<td>SPFE-S02 Articles 7.1/7.4; Annex II I.1</td>
+</tr>
+<tr>
+<td>Rejected</td>
+<td>Recipient</td>
+<td>Recipient reports rejection with the required date and reason.</td>
+<td>Mandatory when rejection occurs and the recipient reporting duty applies.</td>
+<td>SPFE-S02 Article 7.1; Annex II I.2</td>
+</tr>
+<tr>
+<td>Collected in full</td>
+<td>Issuer</td>
+<td>Issuer reports full collection.</td>
+<td>Optional. Customer action requires enabled product scope.</td>
+<td>SPFE-S02 Article 7.2; Annex II I.3; LCS-R12/13</td>
+</tr>
+<tr>
+<td>Unpaid</td>
+<td>Issuer</td>
+<td>Issuer reports non-payment.</td>
+<td>Optional. Customer action requires enabled product scope.</td>
+<td>SPFE-S02 Article 7.2; Annex II I.4; LCS-R12/13</td>
+</tr>
+<tr>
+<td>Cancel payment report</td>
+<td>Recipient</td>
+<td>Retract an earlier payment communication.</td>
+<td>Conditional correction action.</td>
+<td>SPFE-S02 Article 8.5; Annex II I.1</td>
+</tr>
+<tr>
+<td>Cancel rejection report</td>
+<td>Recipient</td>
+<td>Retract an earlier rejection communication.</td>
+<td>Conditional correction action.</td>
+<td>SPFE-S02 Article 8.5; Annex II I.2</td>
+</tr>
+<tr>
+<td>Cancel collection report</td>
+<td>Issuer</td>
+<td>Retract an earlier collection communication.</td>
+<td>Conditional correction action.</td>
+<td>SPFE-S02 Article 8.5; Annex II I.3</td>
+</tr>
+<tr>
+<td>Cancel non-payment report</td>
+<td>Issuer</td>
+<td>Retract an earlier non-payment communication.</td>
+<td>Conditional correction action.</td>
+<td>SPFE-S02 Article 8.5; Annex II I.4</td>
+</tr>
+</tbody>
+</table>
+<p>Completeness here concerns the reviewed business-reporting set, not every possible query state, validation error or transport result. Services <strong>07 — CustomerInvoiceEvents</strong> and <strong>08 — SupplierInvoiceEvents</strong> report recipient and issuer actions respectively. Services 03–04 consult invoice information and states; services 05–06 retrieve files; service 09 performs PRE validation. <ac:link ac:anchor="spfe-source-contract-binding"><ri:page ri:content-title="Public Platform Connector Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC011's operation bindings and response matrix</ac:link-body></ac:link> distinguish their results. Invoice withdrawal remains with <ac:link ac:anchor="withdrawal-and-correction-boundaries"><ri:page ri:content-title="Invoice Sending Logical Feature Specification" ri:space-key="DNBU" /><ac:link-body>SPEC023 OUT-SPFE-R02</ac:link-body></ac:link>. SPFE-S03 §§6.4–6.10; SPFE-S02 Articles 3.5/5.5/10.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">draft-lifecycle-mapping</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">412-draft-mapping-to-existing-platform-lifecycle</ac:parameter></ac:structured-macro><h4>4.1.2 Draft mapping to existing platform lifecycle</h4>
+<p><strong>Draft — not an approved API mapping or evidence of Spain implementation.</strong> Existing platform names and actor meanings come from INT-LCS03/04; the Spain relationships below are proposed analysis. Qualified incoming evidence may be retained even when the matching outgoing action is unavailable. LCS-R13.</p>
+<p>Journey use assumes an ordinary seller-issued invoice. Sent and received are relative to the represented business. In self-billing or delegated cases, apply the actual actor role and action authority; invoice direction does not grant authority. Use the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/GLO-SEI-001-e-invoicing-terminology.md#sending-receiving-and-invoice-roles">glossary's sending, receiving and invoice roles</a>. Viewing evidence and performing actions both require qualified support.</p>
+<table>
+<thead>
+<tr>
+<th>Existing platform status</th>
+<th>Who records it</th>
+<th>Meaning</th>
+<th>Related SPFE state or action / draft assessment</th>
+<th>Journey use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New</td>
+<td>Domain Services</td>
+<td>Internal initial status.</td>
+<td>No corresponding public reporting action established.</td>
+<td>Sent: view processing progress.</td>
+</tr>
+<tr>
+<td>File Uploaded</td>
+<td>Domain Services</td>
+<td>Internal file-upload status.</td>
+<td>No corresponding public reporting action established.</td>
+<td>Sent: view upload progress.</td>
+</tr>
+<tr>
+<td>Submitted</td>
+<td>Seller platform</td>
+<td>Invoice submitted to the sending platform.</td>
+<td>Invoice submission belongs to Sending; it is not a lifecycle report.</td>
+<td>Sent: track submission.</td>
+</tr>
+<tr>
+<td>Issued by platform</td>
+<td>Seller platform</td>
+<td>Sending platform has transmitted the invoice.</td>
+<td>Preserve delivery evidence; no corresponding public reporting action established.</td>
+<td>Sent: track transmission.</td>
+</tr>
+<tr>
+<td>Received by platform</td>
+<td>Buyer platform</td>
+<td>Receiving platform has received the invoice.</td>
+<td>Platform receipt does not establish buyer acceptance.</td>
+<td>Both: view platform-receipt evidence.</td>
+</tr>
+<tr>
+<td>Made Available</td>
+<td>Buyer platform</td>
+<td>Invoice made available to the buyer.</td>
+<td>Availability does not establish buyer acceptance.</td>
+<td>Received: access the invoice. Sent: view availability evidence.</td>
+</tr>
+<tr>
+<td>In Hand</td>
+<td>Buyer</td>
+<td>Buyer has taken the invoice for processing.</td>
+<td>No corresponding public reporting action established.</td>
+<td>Received: record processing. Sent: view response.</td>
+</tr>
+<tr>
+<td>Approved</td>
+<td>Buyer</td>
+<td>Buyer explicitly accepts the invoice in full.</td>
+<td>Different from presumed acceptance. No explicit public acceptance action is established.</td>
+<td>Received: record acceptance. Sent: view response.</td>
+</tr>
+<tr>
+<td>Partially Approved</td>
+<td>Buyer</td>
+<td>Buyer accepts part of the invoice.</td>
+<td>A private communication needs its own contract; no corresponding public reporting action established.</td>
+<td>Received: record partial acceptance. Sent: view response.</td>
+</tr>
+<tr>
+<td>Disputed</td>
+<td>Buyer</td>
+<td>Buyer disputes the invoice.</td>
+<td>No corresponding public reporting action established.</td>
+<td>Received: record dispute. Sent: review response.</td>
+</tr>
+<tr>
+<td>Suspended</td>
+<td>Buyer</td>
+<td>Processing waits for missing information.</td>
+<td>No corresponding public reporting action established.</td>
+<td>Received: record suspension. Sent: review the information request.</td>
+</tr>
+<tr>
+<td>Completed</td>
+<td>Actor unresolved: buyer in catalogue; supplier in explanation</td>
+<td>Missing information supplied after suspension.</td>
+<td>No corresponding public reporting action established. It does not mean paid or fully reported. Actor qualification remains LIF-G03.</td>
+<td>Follow the qualified information-recovery flow.</td>
+</tr>
+<tr>
+<td>Refused</td>
+<td>Buyer</td>
+<td>Buyer refuses the invoice for business reasons.</td>
+<td>Conditional reuse candidate for recipient rejection; qualify actor, date, reason and required reports.</td>
+<td>Received: record refusal. Sent: view response.</td>
+</tr>
+<tr>
+<td>Payment Sent</td>
+<td>Buyer</td>
+<td>Payment instruction or transfer flow sent.</td>
+<td>Insufficient by itself for paid in full. Qualify full effective payment and required dates before reporting.</td>
+<td>Received: record payment progress. Sent: view supplied evidence.</td>
+</tr>
+<tr>
+<td>Payment Received</td>
+<td>Seller</td>
+<td>Seller records partial or full collection.</td>
+<td>Conditional reuse only for full collection and enabled optional scope.</td>
+<td>Sent: record collection. Received: view supplied evidence.</td>
+</tr>
+<tr>
+<td>Rejected</td>
+<td>Platform in catalogue; actor conflict remains open</td>
+<td>Platform rejects the invoice on technical grounds.</td>
+<td>Must not generate recipient business rejection.</td>
+<td>Both: inspect the technical issue and recovery action.</td>
+</tr>
+<tr>
+<td>Inadmissible</td>
+<td>Technical source</td>
+<td>Initial flow is technically inadmissible.</td>
+<td>No equivalent public reporting action or published Sage status UUID established.</td>
+<td>Both: inspect qualified technical evidence.</td>
+</tr>
+<tr>
+<td>No documented equivalent</td>
+<td>Issuer</td>
+<td>Non-payment declaration.</td>
+<td>New action binding needs qualification.</td>
+<td>Sent: report non-payment where enabled.</td>
+</tr>
+<tr>
+<td>No documented equivalent</td>
+<td>Recipient</td>
+<td>Cancel an earlier payment report.</td>
+<td>New action binding needs qualification.</td>
+<td>Received: correct the report.</td>
+</tr>
+<tr>
+<td>No documented equivalent</td>
+<td>Recipient</td>
+<td>Cancel an earlier rejection report.</td>
+<td>New action binding needs qualification.</td>
+<td>Received: correct the report.</td>
+</tr>
+<tr>
+<td>No documented equivalent</td>
+<td>Issuer</td>
+<td>Cancel an earlier collection report.</td>
+<td>New action binding needs qualification.</td>
+<td>Sent: correct the report.</td>
+</tr>
+<tr>
+<td>No documented equivalent</td>
+<td>Issuer</td>
+<td>Cancel an earlier non-payment report.</td>
+<td>New action binding needs qualification.</td>
+<td>Sent: correct the report.</td>
+</tr>
+</tbody>
+</table>
+<p><ac:link ac:anchor="spfe-action-mapping"><ri:page ri:content-title="E-Invoice Lifecycle API Reuse and Spain Changes" ri:space-key="DNBU" /><ac:link-body>SPEC041 §2.1</ac:link-body></ac:link> owns the three conditional reuses, five missing action bindings and exact technical identifiers. The numeric catalogue value is not the UUID accepted by POST <code>statusCode</code>.</p>
+<p><code>operationStatus</code> describes a transition attempt: <code>IN_PROGRESS</code> means underway, <code>COMPLETED</code> means successful and <code>ERROR</code> means failed. Under LCS-R14, failure retains the latest successful invoice status. Operational <code>COMPLETED</code> differs from lifecycle Completed and each external report's result. INT-LCS05; LCS-A26/27.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">42-blocked-transitions</ac:parameter></ac:structured-macro><h3>4.2 Blocked transitions</h3>
+<p>SPFE applicability remains unconfirmed. The API owner must resolve transition and actor conflicts under <ac:link ac:anchor="lif-g03"><ri:page ri:content-title="Invoice Lifecycle Sequence and Reuse Assessment" ri:space-key="DNBU" /><ac:link-body>LIF-G03</ac:link-body></ac:link> before applying a transition model.</p>
+<p><ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">spfe-reporting-action-restrictions</ac:parameter></ac:structured-macro></p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">43-spfe-reporting-action-restrictions</ac:parameter></ac:structured-macro><h3>4.3 SPFE reporting-action restrictions</h3>
+<p>External restrictions and proposed shared controls have separate authority below. §5.2 retains exact action codes and fields.</p>
+<table>
+<thead>
+<tr>
+<th>Reporting context</th>
+<th>Restriction / required behaviour</th>
+<th>Authority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Recipient payment — service 07</td>
+<td>Report full effective payment; partial payments cannot generate this report.</td>
+<td>SPFE-S03 §6.8; SPFE-S02 Annex II I.1</td>
+</tr>
+<tr>
+<td>Recipient payment or rejection — service 07</td>
+<td>Payment and rejection cannot be active together for the same invoice.</td>
+<td>SPFE-S03 §6.8</td>
+</tr>
+<tr>
+<td>Correct recipient payment — service 07</td>
+<td>Cancel the earlier payment communication before sending a changed replacement.</td>
+<td>SPFE-S03 §6.8</td>
+</tr>
+<tr>
+<td>Correct recipient rejection — service 07</td>
+<td>Cancel the earlier rejection communication before sending a changed replacement.</td>
+<td>SPFE-S03 §6.8</td>
+</tr>
+<tr>
+<td>Issuer collection — service 08</td>
+<td>Report full collection; partial collection cannot generate this report.</td>
+<td>SPFE-S03 §6.9; SPFE-S02 Annex II I.3</td>
+</tr>
+<tr>
+<td>Issuer collection or non-payment — service 08</td>
+<td>Collection and non-payment cannot be active together for the same invoice.</td>
+<td>SPFE-S03 §6.9</td>
+</tr>
+<tr>
+<td>Correct issuer collection — service 08</td>
+<td>Cancel the earlier collection communication before sending a changed replacement.</td>
+<td>SPFE-S03 §6.9</td>
+</tr>
+<tr>
+<td>Cancel issuer non-payment — service 08</td>
+<td>Use the corresponding cancellation to retract the earlier non-payment communication.</td>
+<td>SPFE-S02 Article 8.5; Annex II I.4</td>
+</tr>
+<tr>
+<td>Recipient and issuer communications</td>
+<td>Do not mix recipient and issuer actions in one <code>ApplicationResponse</code>.</td>
+<td>SPFE-S03 §6.8</td>
+</tr>
+<tr>
+<td>Action availability</td>
+<td>Check actor authority, required information and enabled scope before reporting. Optional customer actions require Product approval.</td>
+<td>Shared controls LCS-R04/12/13</td>
+</tr>
+<tr>
+<td>Uncertain cancellation</td>
+<td>Reconcile the original attempt before sending its replacement.</td>
+<td>Shared controls LCS-R06/07</td>
+</tr>
+<tr>
+<td>Any cancellation</td>
+<td>Preserve invoice facts and reporting history. Cancelling a report does not withdraw the invoice.</td>
+<td>Shared controls LCS-R03/07</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">5-spain-rules-and-annex-ii</ac:parameter></ac:structured-macro><h2>5 Spain rules and Annex II</h2>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">51-destination-and-obligation-rules</ac:parameter></ac:structured-macro><h3>5.1 Destination and obligation rules</h3>
+<p>The <ac:link ac:anchor="spfe-lifecycle-states"><ac:link-body>§4.1.1 baseline</ac:link-body></ac:link> owns mandatory, optional and correction classifications. This section adds destinations, applicability and exceptions. Duties depend on the invoice, actor and effective customer group. LCS-R12/13; ES-RD10 Articles 10/12; SPFE-S02 Article 7.</p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Destination / applicability</th>
+<th>Rule or source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Recipient decision</td>
+<td>Communicate the decision and date to the issuer where the recipient duty applies. Public reporting is assessed separately under §4.1.1.</td>
+<td>ES-RD10 Article 10; SPFE-S02 Article 7</td>
+</tr>
+<tr>
+<td>Recipient full effective payment</td>
+<td>Assess communication to the issuer and the public platform separately, with their applicable dates and exceptions.</td>
+<td>ES-RD10 Articles 10/12; SPFE-S02 Article 7</td>
+</tr>
+<tr>
+<td>Partial decision/payment or assignment</td>
+<td>A permitted optional counterparty communication needs its selected contract and fields. No corresponding public action is established.</td>
+<td>ES-RD10 Article 10; LCS-R12/13</td>
+</tr>
+<tr>
+<td>Issuer full collection/non-payment</td>
+<td>Public reporting uses service 08. A private contract must establish any counterparty communication.</td>
+<td>SPFE-S03 §6.9; LCS-R12/13</td>
+</tr>
+<tr>
+<td>Correction</td>
+<td>The selected private provider's procedure governs its destination. Public corrections follow §4.3.</td>
+<td>LCS-R05/06/10; SPFE-S02 Article 8.5</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#spain-events-mandatory-and-optional-reporting-by-destination">existing destination table</a> retains exact applicability, separate issuer/public calendars and special correction cases. Optional actions remain disabled until Product approves them.</p>
+<p>For the prepaid exception, the invoice or faithful copy must include a payment date before or on the issue date and equal to the operation or tax-point date, as Article 7.4 requires. The exception does not apply when the recipient expressly communicates payment status. Apply the effective customer-group calendar and qualifying public-platform outage procedure retained in the linked destination table. No revised rollout or deadline follows from this reorganisation. SPFE-S02 Articles 7.4/8.4; LCS-SPFE-R04.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">52-public-event-contract</ac:parameter></ac:structured-macro><h3>5.2 Public event contract</h3>
+<p>Every event references the invoice’s series/number, issue date, seller NIF and seller name. The seller is not automatically the caller or represented reporting actor. <code>ResponseCode</code> uses <code>ApplicationResponse/cac:DocumentResponse/cac:Response/cbc:ResponseCode</code>. SPFE-S02 Annex II; SPFE-S22.</p>
+<table>
+<thead>
+<tr>
+<th>Actor / exact code</th>
+<th>Required meaning / fields</th>
+<th>Source locator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Recipient <code>PAYMENT</code></td>
+<td>Full effective payment; <code>EffectiveDate</code> and <code>DueDate</code> required. Shipment/receipt dates and correction/negative indicators are conditional.</td>
+<td>SPFE-S22 pp. 4–6; SPFE-S03 §6.8</td>
+</tr>
+<tr>
+<td>Recipient <code>CANCELPAYMENT</code></td>
+<td>Cancel the earlier payment report; retain the payment fact.</td>
+<td>SPFE-S22 p. 6; SPFE-S03 §6.8</td>
+</tr>
+<tr>
+<td>Recipient <code>REJECTION</code></td>
+<td>Rejection date and L1 reason <code>01</code> commercial / <code>02</code> private consumption required. Apply §4.3's recipient-action restrictions.</td>
+<td>SPFE-S22 p. 7/L1 p. 15; SPFE-S03 §6.8</td>
+</tr>
+<tr>
+<td>Recipient <code>CANCELREJECTION</code></td>
+<td>Cancel earlier rejection; do not manufacture explicit acceptance.</td>
+<td>SPFE-S22 p. 8; SPFE-S03 §6.8</td>
+</tr>
+<tr>
+<td>Issuer <code>SETTLEMENT</code></td>
+<td>Full collection date required; due/financing/shipment/receipt fields conditional.</td>
+<td>SPFE-S22 pp. 9–10; SPFE-S03 §6.9</td>
+</tr>
+<tr>
+<td>Issuer <code>CANCELSETTLEMENT</code></td>
+<td>Cancel the earlier collection report.</td>
+<td>SPFE-S22 p. 11; SPFE-S03 §6.9</td>
+</tr>
+<tr>
+<td>Issuer <code>DEFAULT</code></td>
+<td><code>EffectiveDate</code> means payment due date; shipment/receipt dates conditional. Apply §4.3's issuer-action restrictions.</td>
+<td>SPFE-S22 pp. 12–13; SPFE-S03 §6.9</td>
+</tr>
+<tr>
+<td>Issuer <code>CANCELDEFAULT</code></td>
+<td>Cancel the earlier non-payment report; retain facts/history.</td>
+<td>SPFE-S22 p. 14; SPFE-S03 §6.9</td>
+</tr>
+</tbody>
+</table>
+<p>Cancellation retains the four invoice-reference fields and links to the earlier report. Apply <ac:link ac:anchor="spfe-reporting-action-restrictions"><ac:link-body>§4.3's cancellation and recovery rules</ac:link-body></ac:link>. <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#public-platform-lifecycle-events-and-reporting-requirements">LCS-SPFE-R01–04/A01–04</a> and the <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#annex-ii-event-field-traceability">52-row AXII matrix</a> retain exact paths, cardinalities and positive/negative checks. The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Anexo%20II/annex-ii-review.md">comparison</a> found no material field change; it does not qualify XML generation.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">521-annex-ii-business-rules</ac:parameter></ac:structured-macro><h4>5.2.1 Annex II business rules</h4>
+<p>SPFE-S27 adds <strong>28 numbered rules</strong>: five general, eight payment, five rejection, five collection and five non-payment rules. The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/mappings/spfe-lifecycle-api-mapping.json">rule review within the existing mapping</a> retains every original cell and source locator, its English meaning, related actions/field rows, validation context and acceptance. It also retains the cancellation conditions in §1 p. 3. The PDF is version 0.1, dated 19 November 2026, marked <code>Borrador</code>; the final BOE remains the legal source. This review adds no action, UUID or report amount.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Actor, condition, required behaviour and safe next action</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCS-SPFE-R05 Check common report eligibility</td>
+<td>Before an enabled Annex II message is sent, verify the referenced invoice's qualified SPFE presence, exact identity, authorised reporting party and event/service match. Keep recipient identity separate from the seller NIF in the invoice reference and from the authenticated caller. Check earlier reports for duplicates and incompatible actions. If presence, authority or original outcome is unknown, hold the report for an owned check; do not infer absence, issue a fresh report or fabricate an invoice state.</td>
+<td>S27 §1/§2.1 p. 3, BR-ANEXOII-1–5; S02 Annex II; proposed recovery control LCS-R04/06/07.</td>
+</tr>
+<tr>
+<td>LCS-SPFE-R06 Apply qualified event fields and date conditions</td>
+<td>For the selected report family, evaluate the conditions below against saved invoice facts and actual dispatch context. Preserve the event's business date and the distinct issue/due/receipt dates. A missing required fact returns a correction action; an unresolved source predicate or failed check holds the affected report as undetermined. Keep the authorised payment/decision fact and earlier successful status while reporting is held.</td>
+<td>S27 §§2.2–2.5 pp. 4–6; S02 Annex II; LCS-R03/04/14; SPFE-Q16/Q21.</td>
+</tr>
+<tr>
+<td>LCS-SPFE-R07 Check report cancellation independently</td>
+<td>A cancellation retains all four invoice-reference fields and the correlation to the earlier report. Verify that the invoice exists in SPFE and has not been cancelled, using qualified evidence. A local originalReportId cannot replace invoice references or prove this condition. Reconcile an uncertain cancellation before sending a replacement. Preserve the invoice and original business fact; this action cancels a report, not the invoice.</td>
+<td>S27 §1 p. 3; S02 Annex II; proposed correlation/recovery controls LCS-R03/06/07.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Report</th>
+<th>Conditions under LCS-SPFE-R06</th>
+<th>Exact source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PAYMENT</td>
+<td>Effective payment date and due date are required. Effective date must be on/before SPFE dispatch date. If invoice receipt date is present, it must be on/after issue date. Preserve the four invoice references and the selected group. The two indicator/type checks and the negative-amount eligibility check need the decisions below.</td>
+<td>BR-PAGO-1–8, §2.2 p. 4.</td>
+</tr>
+<tr>
+<td>REJECTION</td>
+<td>Rejection date and final L1 reason are required; retain string reasons 01/02. Date must be on/before dispatch date. The draft's strictly-after issue-date boundary remains disputed. Preserve the referenced group and four invoice facts.</td>
+<td>BR-RECHAZO-1–5, §2.3 p. 5.</td>
+</tr>
+<tr>
+<td>SETTLEMENT</td>
+<td>Collection date is required and must be on/before dispatch date. If invoice receipt date is present, it must be on/after issue date. Preserve the referenced group/facts. The negative-amount operand remains disputed. Payment's mandatory due date does not become mandatory here.</td>
+<td>BR-COBRO-1–5, §2.4 p. 5.</td>
+</tr>
+<tr>
+<td>DEFAULT</td>
+<td>The required date is the payment due date, not an observation or API timestamp. It must be on/before dispatch date. If invoice receipt date is present, it must be on/after issue date. Preserve the referenced group/facts; the negative-amount operand remains disputed.</td>
+<td>BR-IMPAGO-1–5, §2.5 p. 6; S02 Annex II.</td>
+</tr>
+</tbody>
+</table>
+<p>Keep these qualification decisions open under SPFE-Q16/Q21 and LIF-G04/06:</p>
+<ul>
+<li>BR-PAGO-8/COBRO-5/IMPAGO-5 call BT-113 “Total a pagar”. Final Annex I and the BT list distinguish prepaid amount BT-113 from payable amount BT-115. Confirm the intended operand and interaction with the final negative corrective-invoice indicator. Do not invent a public report amount or reject negative invoices globally.</li>
+<li>BR-RECHAZO-3 requires rejection strictly after issue date; S28 ACTION-09 includes same-day wording. Test both boundaries after the governing rule is confirmed; choose neither as a silent default.</li>
+<li>BR-PAGO-5/6 constrain the type when their respective indicator is included. Qualify their relation to CorrectedInvoice and NegativeAmountInvoice, and the XML presence/value representation. A proposed boolean false is not proven to mean absence. Preserve existing input names and the corrected/corrective distinction.</li>
+<li>Qualify the dispatch-date calendar/timezone, invoice-presence evidence and duplicate/compatibility scope. Recheck eligible work before dispatch without changing event dates during recovery. The source supplies no new lookup endpoint, complete transition matrix or replay guarantee.</li>
+</ul>
+<p>S27 §1 excludes fixed-mapping, list, NIF and UBL-schema checks; those layers remain part of the selected profile. <ac:link ac:anchor="business-and-technical-error-mapping"><ri:page ri:content-title="Public Platform Connector Solution Specification" ri:space-key="DNBU" /><ac:link-body>SPEC011 business and technical error mapping</ac:link-body></ac:link> owns response interpretation. A similar rule number cannot assign an error key, HTTP status, retry policy or lifecycle transition. Keep Spain rules separate from France and other countries; existing DTS is the preferred transformation candidate, subject to actual build, contracts, mapping/rules and operations evidence in SPEC030.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">53-source-limits-and-country-isolation</ac:parameter></ac:structured-macro><h3>5.3 Source limits and country isolation</h3>
+<p>Literal UBL-path conflicts and optional indicator semantics remain LIF-G04/SPFE-Q16/17 gates. Do not silently repair source paths or map France reason codes to Spain <code>ConditionCode</code>. SPFE-S08/S22.</p>
+<p><strong>Source freshness gate:</strong> web review on 13 November 2026 identified catalogue 0.1.5 dated 3 November 2026 and formats 0.1.2 dated 20 October 2026. The registered SPFE-S03/S08 originals remain 0.1.0. Public Platform Integration and Lifecycle owners must preserve and register the newer files, compare affected contracts and rules, and update the evidence register before declaring this specification current. The tables use the reviewed business-reporting baseline; WSDL currency and runtime coverage remain separate qualification questions. REF-SPFE-WEB; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/RES-SEI-002-spain-public-platform-technical-evidence.md#how-to-use-this-context">RES-SEI-002 release review</a>.</p>
+<p>Shared behaviour preserves evidence, independent views and safe recovery. Spain rules supply actors, events, fields, duties and calendars. Prefer existing DTS for required ApplicationResponse mapping, subject to build/mapping/operations proof. Another country keeps its own rules; saved history keeps its original versions. LCS-A13/14; LIF-API-A01/04/08.</p>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">6-functional-acceptance</ac:parameter></ac:structured-macro><h2>6 Functional acceptance</h2>
+<blockquote>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> - Extensions to LCS-A03/05/18/26/27: full rejection offers cancellation only if the operation did not take place; if it took place and fiscal content is wrong, offer rectification. Partial rejection can remain final without rectification. Explicit or four-day silent acceptance removes cancellation; notify the issuer of silent acceptance and label it derived. Verify the four-day workshop input, start event and calendar against SPFE-S02 Article 7. SD-CANCEL01 P-1/P-2/P-3.</p>
+<p><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> — Extensions to LCS-A06/07/13/14/24: verify the cancellation response and final original/copy result separately from request acceptance, technical failure, private outcomes and report cancellation. Keep cancelled final under late/repeated events and refuse number reuse, rectification and reactivation. Exercise an independently accepted/rejected/paid rectifying invoice, and ensure Spain proposals do not alter another country's history or action rules. These are proposed checks, not completed tests. SD-CANCEL01 C-2/P-4.</p>
+</blockquote>
+<p>These are required checks, not executed implementation tests. The <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md#part-4-assurance-and-traceability-view">original assurance table</a> retains detailed traceability.</p>
+<table>
+<thead>
+<tr>
+<th>Existing checks</th>
+<th>Required proof</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCS-A01/02/11/22</td>
+<td>Delivery, Peppol codes, unknown/technical/payment-processing states affect only their supported result.</td>
+</tr>
+<tr>
+<td>LCS-A03/04/05/18</td>
+<td>From an opened invoice, permit qualified decisions without requiring download. Deferral creates no transition or acceptance and leaves obligations visible. Check current action authority; preserve numeric catalogue code versus UUID input and business refusal versus technical rejection. Authorised rejection/full payment; bank-evidence limit; explicit versus presumed acceptance; no invented public acceptance code.</td>
+</tr>
+<tr>
+<td>LCS-A06/07/12</td>
+<td>Duplicate, conflicting, late and corrected evidence keeps history and holds unsafe progression.</td>
+</tr>
+<tr>
+<td>LCS-A08/09/24</td>
+<td>Independent reports, timeout recovery, historical routes and provider-owned execution avoid duplicate effects.</td>
+</tr>
+<tr>
+<td>LCS-A10/15/16/17/23</td>
+<td>Separate source consultation/history; no reporting loops or clearing facts omitted from partial events.</td>
+</tr>
+<tr>
+<td>LCS-A13/14</td>
+<td>Actual reused build and country rules pass isolated France/Spain checks.</td>
+</tr>
+<tr>
+<td>LCS-A19/20/21/25</td>
+<td>Optional scope, conditional fields, partial payments, corrected totals, assignment and read/write limits retain owned results.</td>
+</tr>
+<tr>
+<td>LCS-SPFE-A01–04</td>
+<td>Cover all eight reporting actions and the separate presumed-acceptance view in §4.1.1. Check conditional recipient duties, optional issuer reports and correction-only actions without treating cancellations as invoice states. Retain actors, dates/reasons, uncertain cancellations and rollout/prepaid/outage conditions under §§4.3/5.1/5.2. SPFE-S02/S03/S22.</td>
+</tr>
+<tr>
+<td>LCS-AXII-* pairs</td>
+<td>All 52 field/group occurrences retain valid/applicable and invalid-content checks. REF-FIELDS.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Added check</th>
+<th>Required result / link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCS-A26</td>
+<td>Pending then failed transition retains the last successful status; history records <code>operationStatus = ERROR</code>, correlation and next action. Report failure cannot erase a saved business fact. R03/06/08/14; INT-LCS05.</td>
+</tr>
+<tr>
+<td>LCS-A27</td>
+<td>Distinguish lifecycle Completed (<code>209</code>), operational <code>COMPLETED</code>, <code>ERROR</code> and an unknown external result. None alone creates payment, acceptance or public admission. R02/03/07/14; INT-LCS03/05.</td>
+</tr>
+<tr>
+<td>LCS-SPFE-A05</td>
+<td>For all eight actions, test saved seller/buyer identity, represented party, caller authority, SPFE presence and event/service match. Test wrong/missing/unknown evidence and a withdrawn invoice. Preserve authorised facts and hold the report with an owner; no invented lookup operation or inference of invoice absence. R05/R07; S27 §1/§2.1.</td>
+</tr>
+<tr>
+<td>LCS-SPFE-A06</td>
+<td>Exercise all four report families with required/optional fields, exact string reasons, and before/equal/after date boundaries. Distinguish dispatch, issue, event, receipt and due dates. DEFAULT uses due date; PAYMENT's required due date cannot leak to SETTLEMENT. Original event dates survive delayed attempts. R06; S27 §§2.2–2.5.</td>
+</tr>
+<tr>
+<td>LCS-SPFE-A07</td>
+<td>Exercise BT-113/115, zero/positive/negative amounts, standard/384/471 invoice types and absent/present indicators. Keep disputed amount/date/indicator predicates undetermined until qualified; no silent choice, boolean-presence inference or global negative-invoice rejection. R06; SPFE-Q16/Q21.</td>
+</tr>
+<tr>
+<td>LCS-SPFE-A08</td>
+<td>Test repeated, incompatible and outcome-unknown reports; cancellation with complete references versus originalReportId alone; and replacement after an uncertain cancellation. Preserve invoice/fact/history and prior successes. No duplicate-effect or replay guarantee follows from the duplicate-message rule. R05/R07; S27 §1/§2.1; LCS-R06/07.</td>
+</tr>
+<tr>
+<td>LCS-SPFE-A09</td>
+<td>Account for every numbered source rule and all 52 existing field occurrences. Missing packs/evaluation failures cannot produce a successful eligibility result. Bind source/schema/rule versions and prove France/Spain isolation. New draft rules do not enable optional scope, add an API UUID or define a four-day acceptance timer. R05–07; LCS-R12/13; LIF-G04/08.</td>
+</tr>
+</tbody>
+</table>
+<ac:structured-macro ac:name="anchor"><ac:parameter ac:name="">ref-source-references</ac:parameter></ac:structured-macro><h2>REF Source references</h2>
+<table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>Original source and version/date</th>
+<th>Exact locator</th>
+<th>Supported claim and limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PROPOSED (Solution Design: Samu Coco / Jiaxin He, 18 Nov 2026)</strong> - SD-CANCEL01</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/feature-proposals/FP-SEI-002-global-api-submission-withdrawal.md#ref-source-references">FP-SEI-002 Solution Design source record</a>, attribution 18 November 2026</td>
+<td>C-1 to C-5; P-1 to P-4</td>
+<td>Product/design input only; not external legal evidence, a contract extension or implementation proof. Preserve recorded source conflicts and qualify Spain separately.</td>
+</tr>
+<tr>
+<td>REF-BASE / REF-PRODUCT</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/specs/archive/SPEC-SEI-009-invoice-lifecycle-status-solution-specification.md">SPEC-SEI-009</a>, updated 20 October; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-224-lifecycle-rejection-payment-reporting.md">PRD224</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-232-country-lifecycle-status-mapping.md">PRD232</a>, <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/prds/PRD-SEI-242-peppol-lifecycle-feedback.md">PRD242</a>, current repository drafts/discovery</td>
+<td>LCS requirements/invariants/acceptance; PRD FR1–23, LS-FR and PEP-FR</td>
+<td>Existing product/design baseline and preserved IDs; not approved architecture or runtime evidence.</td>
+</tr>
+<tr>
+<td>ES-RD10</td>
+<td><a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-7295">Original RD 238/2026</a>, published 31 March 2026; source identity retained from baseline</td>
+<td>Articles 8.3, 10 and 12</td>
+<td>Recipient/issuer and public duties remain separate; no private API catalogue supplied.</td>
+</tr>
+<tr>
+<td>SPFE-S02</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/BOE-A-2026-20587.pdf">Original final order</a>, published 5 October 2026; <a href="https://www.boe.es/eli/es/o/2026/10/02/hac1028">official publication</a>, checked 22 October</td>
+<td>Articles 7–11; Annex II pp. 36–42</td>
+<td>Legal duties, authority and event fields; not complete wire contract.</td>
+</tr>
+<tr>
+<td>SPFE-S03</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Descripcio%CC%81n%20servicios%20web/Cata%CC%81logo%20de%20servicios/20261013/CatalogoServicios.pdf">Original catalogue</a>, 0.1.0, 9 October 2026</td>
+<td>§§6.4–6.5 pp. 12–14; §§6.8–6.9 pp. 16–19</td>
+<td>Consultation, exclusivity, full payment/collection and cancellation; no tested integration.</td>
+</tr>
+<tr>
+<td>SPFE-S08</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/archive/original-technical-baseline/Descripcio%CC%81n%20servicios%20web/Formatos%20entrada%20y%20salida/20261013/FormatosEntradaSalida.pdf">Original formats</a>, 0.1.0, 9 October, BORRADOR</td>
+<td>Response description p. 14; §§5.8–5.9 pp. 14–15</td>
+<td>Missing complete event formats remain a gate.</td>
+</tr>
+<tr>
+<td>SPFE-S22</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Anexo%20II/A2-Proyecto-OM-FE%2021-10-26.pdf">New supplied Annex II</a>, filename dated 21 October, formal revision unknown</td>
+<td>I.1 pp. 4–6; I.2 pp. 7–8; I.3 pp. 9–11; I.4 pp. 12–14; II/L1 p. 15</td>
+<td>Same reviewed field semantics and codes as baseline; no legal amendment or implementation proof.</td>
+</tr>
+<tr>
+<td>REF-FIELDS</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/assets/regulatory/spain/spfe/field-traceability.json">Original field ledger</a>; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Anexo%20II/annex-ii-review.md">new comparison note</a></td>
+<td>All AXII traces and their source locators</td>
+<td>Row inventory and unchanged source meaning; executable mapping and test results unverified.</td>
+</tr>
+<tr>
+<td>INT-LCS01–05</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/lifecycle-api-guides-evidence-extract.md">User-supplied lifecycle evidence</a>, received 22 October, revision unknown</td>
+<td>Named guide sections; especially INT-LCS05</td>
+<td>France documentation and supplied attempt-result rule. Application to Spain is a proposed control; build coverage is unknown.</td>
+</tr>
+<tr>
+<td>INT-LCS03</td>
+<td><a href="https://internaldeveloper.sage.com/domain-services/docs/v1.0.0/solutions/e-invoicing/status-updates/invoice-statuses">Original Invoice Statuses guide</a>, user-supplied extract received 29 October 2026; URL version <code>v1.0.0</code>, publication date unknown; <a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/FR%20API/Lifecycle/lifecycle-api-guides-evidence-extract.md#int-lcs03-status-catalogue-and-blocked-transitions">retained catalogue evidence</a></td>
+<td>Status catalogue: Code, Status, French, Identifier, Set by and Description columns; Blocked Transitions table</td>
+<td>Existing source names, actors and meanings support the draft analysis in §4.1.2. Numeric codes and UUIDs remain in source/API references. France source rules do not establish Spain support. Transition conflicts remain LIF-G03; linked matrix not reviewed.</td>
+</tr>
+<tr>
+<td>INT-LCS04</td>
+<td><a href="https://internaldeveloper.sage.com/domain-services/docs/v1.0.0/solutions/e-invoicing/status-updates/lifecycle-status-fields">Original Lifecycle Reason Codes guide</a>, user-supplied extract received 29 October 2026; URL version <code>v1.0.0</code>, publication date unknown</td>
+<td>CDAR-only status codes; Rejected; Deposited / Submitted; Inadmissible</td>
+<td>Technical/business distinctions; Inadmissible <code>501</code> has no published Sage UUID. French reasons do not establish Spain codes or enabled actions.</td>
+</tr>
+<tr>
+<td>REF-SPFE-WEB</td>
+<td><a href="https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Facturacion-electronica/CatalogoServicios.pdf">Online AEAT catalogue</a>, 0.1.5, 3 November 2026; <a href="https://www.agenciatributaria.es/static_files/AEAT_Desarrolladores/EEDD/Facturacion-electronica/FormatosEntradaSalida.pdf">online formats</a>, 0.1.2, 20 October 2026; observed 13 November 2026</td>
+<td>Catalogue cover/revisions, §§6.4–6.10; formats cover/revisions</td>
+<td>Newer remote versions identified during the review. Original bytes are not registered or fully compared with SPFE-S03/S08. Records the freshness gate; does not replace the reviewed baseline or qualify runtime behaviour.</td>
+</tr>
+<tr>
+<td>SPFE-S27</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Reglas%20de%20negocio%20ES/ReglasNegocio_AnexoDos.pdf">ReglasNegocio_AnexoDos.pdf</a>; version 0.1, 19 November 2026, <code>Borrador</code>; supplied 23 November; 6 pages.</td>
+<td>§1/§2.1 p. 3: invoice presence, cancellation, duplicates, compatibility and party/service; §2.2 p. 4: BR-PAGO-1–8; §2.3 p. 5: BR-RECHAZO-1–5; §2.4 p. 5: BR-COBRO-1–5; §2.5 p. 6: BR-IMPAGO-1–5.</td>
+<td>Draft technical rule evidence, not a complete transition/replay contract or new API schema. BT-113/115, same-day rejection and indicator interactions remain SPFE-Q16/Q21.</td>
+</tr>
+<tr>
+<td>SPFE-S28</td>
+<td><a href="https://github.com/jiaxinhe0709/pm_second_brain/blob/1fdeb6b0a56d24732be7b93be05f657ab948002a/context/Listados%20c%C3%B3digos%20de%20error/errores_negocio.properties">Business error properties</a>; supplied 23 November 2026, embedded version unknown.</td>
+<td>RULE_SPFE-ACTION-01–09 variants, lines 298–313; ACTION-09 at lines 310/312 permits same-day wording.</td>
+<td>Related message evidence only. Rule/resource numbering does not establish wire codes, operation support or retry safety; SPEC011 owns error interpretation.</td>
+</tr>
+</tbody>
+</table><h2>Confluence page history</h2><ac:structured-macro ac:name="change-history"><ac:parameter ac:name="limit">10</ac:parameter></ac:structured-macro></ac:layout-cell></ac:layout-section></ac:layout>
